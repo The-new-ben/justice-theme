@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 05:01 Asia/Jerusalem
+- DIVORCE TEL AVIV DIRECTORY COVERAGE QA ADDED: verified the live lawyer-directory coverage gate behind `/divorce-lawyer-tel-aviv/` and found a filter-parameter mismatch before any public page decision.
+- CODE ADDED: `tools/build-divorce-tel-aviv-directory-coverage-qa.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/divorce-tel-aviv-directory-coverage-qa-2026-05-27.md`, `.project-control/divorce-tel-aviv-directory-coverage-qa-2026-05-27.csv`, `.project-control/divorce-tel-aviv-directory-coverage-fix-plan-2026-05-27.csv`, `.reports/divorce-tel-aviv-directory-coverage-qa-2026-05-27.json`, `.reports/divorce-tel-aviv-directory-coverage-qa-2026-05-27.csv`.
+- CHECK RESULT: `DIRECTORY_COVERAGE_QA_FOUND_FILTER_ALIAS_GAP_NO_PUBLIC_CHANGE`; `archive-justice_lawyer.php` reads `area`, not `practice`; `/lawyers/?city=tel-aviv&practice=family-law` behaves like the city-only route; canonical coverage evidence should use `/lawyers/?city=tel-aviv&area=family-law`, which returned live 200 with 3 visible cards; all 3 sampled cards were fact-gated.
+- REVIEW RESULT: the divorce Tel Aviv page must not use `practice=family-law` as proof of family-law lawyer coverage. The next safe public-facing fix, if approved, is either accepting `practice` as an alias for `area` or correcting internal evidence URLs to `area`; even then, public page execution remains blocked by wp-admin profile readiness, GSC, legal/editor and owner approval.
+- LINEAR: recorded as `HAD-151`, marked Done under `HAD-150`, related to `HAD-145`, `HAD-144`, `HAD-84` and `HAD-133`.
+- PUBLIC IMPACT: none. This was private read-only QA/reporting only. No public directory code, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin record, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: directory coverage QA 100%; public directory alias fix remains 0%; divorce Tel Aviv publication remains 0% until canonical coverage, profile readiness, GSC, legal/editor review and owner approval are complete.
+
 # LATEST WORK STATUS - 2026-05-27 04:55 Asia/Jerusalem
 - DIVORCE TEL AVIV EVIDENCE-FILL PACKET ADDED: advanced the 404 `/divorce-lawyer-tel-aviv/` city/practice candidate into a private research-first evidence and anti-cannibalization packet before any public page or CMS action.
 - CODE ADDED: `tools/build-divorce-tel-aviv-evidence-fill-packet.mjs`.

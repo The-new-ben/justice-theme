@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Divorce Tel Aviv directory coverage QA
+
+- ADDED: `tools/build-divorce-tel-aviv-directory-coverage-qa.mjs`.
+- GENERATED: `.project-control/divorce-tel-aviv-directory-coverage-qa-2026-05-27.md`, `.project-control/divorce-tel-aviv-directory-coverage-qa-2026-05-27.csv`, `.project-control/divorce-tel-aviv-directory-coverage-fix-plan-2026-05-27.csv`, `.reports/divorce-tel-aviv-directory-coverage-qa-2026-05-27.json`, `.reports/divorce-tel-aviv-directory-coverage-qa-2026-05-27.csv`.
+- PURPOSE: verify the live filtered lawyer-directory coverage gate behind `/divorce-lawyer-tel-aviv/` before any public city/practice page decision.
+- RESULT: `DIRECTORY_COVERAGE_QA_FOUND_FILTER_ALIAS_GAP_NO_PUBLIC_CHANGE`; the archive reads `area`, not `practice`; `practice=family-law` behaves like the city-only route; canonical evidence should use `/lawyers/?city=tel-aviv&area=family-law`; the canonical route returned 3 visible cards and all sampled cards were fact-gated.
+- REVIEW: do not use `practice=family-law` as family-law coverage proof. A future public-facing fix can accept `practice` as an alias or correct planning URLs, but public execution remains blocked by wp-admin profile readiness, GSC, legal/editor review and owner approval.
+- LINEAR: recorded as `HAD-151`, marked Done under `HAD-150`, related to `HAD-145`, `HAD-144`, `HAD-84` and `HAD-133`.
+- SAFETY: private read-only QA/reporting only; no public directory code, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead/lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin record, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Divorce Tel Aviv evidence-fill packet
 
 - ADDED: `tools/build-divorce-tel-aviv-evidence-fill-packet.mjs`.

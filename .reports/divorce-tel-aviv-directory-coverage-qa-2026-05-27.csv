@@ -1,0 +1,5 @@
+id,label,path,status,finalUrl,h1,resultCountTextNumber,lawyerCardCount,factGatedCardCount,paidCardCount,sponsoredCardCount,basicCardCount,activeFilterChipCount,emptyStatePresent,expected
+DIR-01,candidate_practice_param_from_private_packet,/lawyers/?city=tel-aviv&practice=family-law,200,https://jus-tice.co.il/lawyers/?city=tel-aviv&practice=family-law,עורכי דין בתל אביב,3,3,3,0,0,2,1,false,Should represent Tel Aviv family-law coverage if practice is accepted as an alias.
+DIR-02,canonical_area_param_used_by_archive,/lawyers/?city=tel-aviv&area=family-law,200,https://jus-tice.co.il/lawyers/?city=tel-aviv&area=family-law,עורך דין דיני משפחה בתל אביב,3,3,3,0,0,2,2,false,Should represent the actual archive-supported Tel Aviv family-law filter.
+DIR-03,city_only_control,/lawyers/?city=tel-aviv,200,https://jus-tice.co.il/lawyers/?city=tel-aviv,עורכי דין בתל אביב,3,3,3,0,0,2,1,false,Control route for Tel Aviv without practice filter.
+DIR-04,family_area_only_control,/lawyers/?area=family-law,200,https://jus-tice.co.il/lawyers/?area=family-law,עורך דין דיני משפחה,20,20,20,0,0,19,1,false,Control route for family-law without city filter.

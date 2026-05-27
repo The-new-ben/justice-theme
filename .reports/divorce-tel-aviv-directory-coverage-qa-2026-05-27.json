@@ -1,0 +1,175 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "status": "DIRECTORY_COVERAGE_QA_FOUND_FILTER_ALIAS_GAP_NO_PUBLIC_CHANGE",
+    "canonicalCoverageUrl": "https://jus-tice.co.il/lawyers/?city=tel-aviv&area=family-law",
+    "canonicalAreaStatus": 200,
+    "canonicalAreaLawyerCardCount": 3,
+    "canonicalAreaResultCountTextNumber": 3,
+    "routeChecks": 4,
+    "localChecks": 3,
+    "comparisonChecks": 2,
+    "publicChangesApproved": 0,
+    "cmsWrites": 0,
+    "seoChanges": 0,
+    "crmRecordsCreated": 0,
+    "contactsSent": 0,
+    "invoicesOrPayments": 0,
+    "emailsSent": 0,
+    "upressActions": 0
+  },
+  "localRows": [
+    {
+      "id": "LOCAL-01",
+      "gate": "archive_reads_area_param",
+      "status": "PASS",
+      "evidence": "archive-justice_lawyer.php reads `area` as the practice-area filter parameter.",
+      "nextAction": "Use `area=family-law` for coverage evidence unless an alias is approved."
+    },
+    {
+      "id": "LOCAL-02",
+      "gate": "archive_reads_practice_param",
+      "status": "REVIEW_ALIAS_MISSING",
+      "evidence": "The archive does not read `practice`; URLs using `practice=family-law` may not filter by practice.",
+      "nextAction": "Treat private packet directory evidence URL as needing correction or public alias fix review."
+    },
+    {
+      "id": "LOCAL-03",
+      "gate": "private_packet_uses_practice_param",
+      "status": "REVIEW_MISMATCH_FOUND",
+      "evidence": "The latest divorce Tel Aviv evidence packet contains `practice=family-law` in the directory URL.",
+      "nextAction": "Correct the evidence gate to the canonical `area=family-law` route before publication review."
+    }
+  ],
+  "routeRows": [
+    {
+      "id": "DIR-01",
+      "label": "candidate_practice_param_from_private_packet",
+      "path": "/lawyers/?city=tel-aviv&practice=family-law",
+      "expected": "Should represent Tel Aviv family-law coverage if practice is accepted as an alias.",
+      "url": "https://jus-tice.co.il/lawyers/?city=tel-aviv&practice=family-law",
+      "status": 200,
+      "finalUrl": "https://jus-tice.co.il/lawyers/?city=tel-aviv&practice=family-law",
+      "error": "",
+      "title": "עורכי דין בתל אביב | Jus-Tice",
+      "h1": "עורכי דין בתל אביב",
+      "resultCountTextNumber": 3,
+      "lawyerCardCount": 3,
+      "factGatedCardCount": 3,
+      "paidCardCount": 0,
+      "sponsoredCardCount": 0,
+      "basicCardCount": 2,
+      "activeFilterChipCount": 1,
+      "emptyStatePresent": false
+    },
+    {
+      "id": "DIR-02",
+      "label": "canonical_area_param_used_by_archive",
+      "path": "/lawyers/?city=tel-aviv&area=family-law",
+      "expected": "Should represent the actual archive-supported Tel Aviv family-law filter.",
+      "url": "https://jus-tice.co.il/lawyers/?city=tel-aviv&area=family-law",
+      "status": 200,
+      "finalUrl": "https://jus-tice.co.il/lawyers/?city=tel-aviv&area=family-law",
+      "error": "",
+      "title": "עורך דין דיני משפחה בתל אביב | Jus-Tice",
+      "h1": "עורך דין דיני משפחה בתל אביב",
+      "resultCountTextNumber": 3,
+      "lawyerCardCount": 3,
+      "factGatedCardCount": 3,
+      "paidCardCount": 0,
+      "sponsoredCardCount": 0,
+      "basicCardCount": 2,
+      "activeFilterChipCount": 2,
+      "emptyStatePresent": false
+    },
+    {
+      "id": "DIR-03",
+      "label": "city_only_control",
+      "path": "/lawyers/?city=tel-aviv",
+      "expected": "Control route for Tel Aviv without practice filter.",
+      "url": "https://jus-tice.co.il/lawyers/?city=tel-aviv",
+      "status": 200,
+      "finalUrl": "https://jus-tice.co.il/lawyers/?city=tel-aviv",
+      "error": "",
+      "title": "עורכי דין בתל אביב | Jus-Tice",
+      "h1": "עורכי דין בתל אביב",
+      "resultCountTextNumber": 3,
+      "lawyerCardCount": 3,
+      "factGatedCardCount": 3,
+      "paidCardCount": 0,
+      "sponsoredCardCount": 0,
+      "basicCardCount": 2,
+      "activeFilterChipCount": 1,
+      "emptyStatePresent": false
+    },
+    {
+      "id": "DIR-04",
+      "label": "family_area_only_control",
+      "path": "/lawyers/?area=family-law",
+      "expected": "Control route for family-law without city filter.",
+      "url": "https://jus-tice.co.il/lawyers/?area=family-law",
+      "status": 200,
+      "finalUrl": "https://jus-tice.co.il/lawyers/?area=family-law",
+      "error": "",
+      "title": "עורך דין דיני משפחה | מצאו עורך דין מתאים",
+      "h1": "עורך דין דיני משפחה",
+      "resultCountTextNumber": 20,
+      "lawyerCardCount": 20,
+      "factGatedCardCount": 20,
+      "paidCardCount": 0,
+      "sponsoredCardCount": 0,
+      "basicCardCount": 19,
+      "activeFilterChipCount": 1,
+      "emptyStatePresent": false
+    }
+  ],
+  "comparisonRows": [
+    {
+      "id": "CMP-01",
+      "comparison": "practice_param_vs_city_only",
+      "status": "REVIEW_PRACTICE_PARAM_BEHAVES_LIKE_CITY_ONLY",
+      "evidence": "`practice=family-law` has the same H1/card-count/chip-count shape as the city-only control.",
+      "nextAction": "Do not use `practice=family-law` as proof of family-law coverage."
+    },
+    {
+      "id": "CMP-02",
+      "comparison": "practice_param_vs_area_param",
+      "status": "REVIEW_CANONICAL_AREA_DIFFERS",
+      "evidence": "`area=family-law` produces a different page shape from `practice=family-law`.",
+      "nextAction": "Use the canonical `area=family-law` route for the coverage gate."
+    }
+  ],
+  "fixPlanRows": [
+    {
+      "id": "FIX-01",
+      "decision": "parameter_alias_review",
+      "proposedAction": "Accept `practice` as a read-only alias for `area` in the lawyer directory filter, or update all internal/private planning URLs to use `area` only.",
+      "publicImpactIfApproved": "Existing links with `practice=family-law` would apply the intended practice filter instead of city-only results.",
+      "blocker": "Requires owner approval for a public-facing code change and Hebrew public-change email workflow after deployment.",
+      "forbiddenNow": "Do not change archive code, links, redirects, canonicals, noindex, sitemaps, taxonomies or CMS content from this private QA packet."
+    },
+    {
+      "id": "FIX-02",
+      "decision": "coverage_count_review",
+      "proposedAction": "Use only the canonical `area=family-law` filtered route when checking Tel Aviv family-law/divorce lawyer coverage.",
+      "publicImpactIfApproved": "The local divorce page coverage gate will be based on the real filtered directory, not an accidental city-only URL.",
+      "blocker": "Still needs wp-admin profile readiness review; public HTML card counts are not enough to prove routable paid/verified coverage.",
+      "forbiddenNow": "Do not publish `/divorce-lawyer-tel-aviv/` from public card counts alone."
+    },
+    {
+      "id": "FIX-03",
+      "decision": "draft_gate_update",
+      "proposedAction": "Update the divorce Tel Aviv public-draft gate template manually or in the next private packet to use `/lawyers/?city=tel-aviv&area=family-law` as the directory evidence URL.",
+      "publicImpactIfApproved": "None if kept private; it only corrects the evidence checklist.",
+      "blocker": "GSC, legal/editor and owner approval are still missing.",
+      "forbiddenNow": "Do not infer GSC demand or legal suitability from this directory QA."
+    }
+  ],
+  "files": {
+    "projectMd": "C:\\Users\\janana\\jutice-theme\\.project-control\\divorce-tel-aviv-directory-coverage-qa-2026-05-27.md",
+    "projectCsv": "C:\\Users\\janana\\jutice-theme\\.project-control\\divorce-tel-aviv-directory-coverage-qa-2026-05-27.csv",
+    "fixPlanCsv": "C:\\Users\\janana\\jutice-theme\\.project-control\\divorce-tel-aviv-directory-coverage-fix-plan-2026-05-27.csv",
+    "reportJson": "C:\\Users\\janana\\jutice-theme\\.reports\\divorce-tel-aviv-directory-coverage-qa-2026-05-27.json",
+    "reportCsv": "C:\\Users\\janana\\jutice-theme\\.reports\\divorce-tel-aviv-directory-coverage-qa-2026-05-27.csv"
+  }
+}

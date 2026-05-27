@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-DIVORCE-TEL-AVIV-DIRECTORY-COVERAGE-QA-001: Verify lawyer-directory coverage URL before local page approval
+**Status:** FIXED LOCAL / PUBLIC DIRECTORY ALIAS FIX STILL BLOCKED
+**Why:** The divorce Tel Aviv evidence packet used `/lawyers/?city=tel-aviv&practice=family-law`, but the live lawyer archive filters practice areas with `area`, not `practice`.
+**Actions:**
+1. DONE: add `tools/build-divorce-tel-aviv-directory-coverage-qa.mjs`.
+2. DONE: generate `.project-control/divorce-tel-aviv-directory-coverage-qa-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/divorce-tel-aviv-directory-coverage-fix-plan-2026-05-27.csv`.
+4. DONE: generate `.reports/divorce-tel-aviv-directory-coverage-qa-2026-05-27.json` and `.csv`.
+5. DONE: confirm `DIRECTORY_COVERAGE_QA_FOUND_FILTER_ALIAS_GAP_NO_PUBLIC_CHANGE`; `practice=family-law` behaves like city-only; canonical coverage URL is `/lawyers/?city=tel-aviv&area=family-law`; canonical route showed 3 visible cards, all fact-gated.
+6. DONE: record as Linear `HAD-151`, marked Done under `HAD-150`.
+7. NEXT: if a public-facing directory fix is approved, either accept `practice` as a read-only alias for `area` or correct all planning/internal evidence URLs to use `area` only; then deploy through uPress and send the required Hebrew public-change email after checking instruction email availability.
+8. BLOCKED: do not change archive code, public links, CMS content, redirects, canonicals/noindex, sitemaps, taxonomies, CRM records, leads, lawyer/supplier/client contact, invoices, payments, emails, WhatsApp, TalkTo or uPress from this QA packet alone.
+
 ### ACTION-DIVORCE-TEL-AVIV-EVIDENCE-FILL-001: Fill private evidence for first safe local/practice target
 **Status:** FIXED LOCAL / PUBLIC PAGE EXECUTION STILL BLOCKED
 **Why:** `/divorce-lawyer-tel-aviv/` is the first priority city/practice target that is not already public 200, but it still needs GSC, overlap, lawyer coverage and review gates before any publication.

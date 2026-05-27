@@ -108,6 +108,25 @@ $justice_topic_links = array(
 					'fallback_cb'    => 'justice_theme_fallback_menu',
 				) );
 				?>
+				<div class="primary-navigation__mobile-actions" aria-label="<?php esc_attr_e( 'פעולות מהירות מהתפריט', 'justice-theme' ); ?>">
+					<strong><?php esc_html_e( 'צריכים עזרה עכשיו?', 'justice-theme' ); ?></strong>
+					<span><?php esc_html_e( 'אפשר להתחיל מתיאור קצר של המקרה, בלי התחייבות ובלי הבטחה לתוצאה.', 'justice-theme' ); ?></span>
+					<div>
+						<?php if ( $justice_whatsapp_url ) : ?>
+							<a class="primary-navigation__mobile-action primary-navigation__mobile-action--whatsapp" href="<?php echo esc_url( $justice_whatsapp_url ); ?>" target="_blank" rel="noopener" data-whatsapp-surface="mobile_menu" data-lead-utm-source="mobile_menu" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help">
+								<?php esc_html_e( 'פנייה בוואטסאפ', 'justice-theme' ); ?>
+							</a>
+						<?php endif; ?>
+						<?php if ( $justice_phone ) : ?>
+							<a class="primary-navigation__mobile-action" href="<?php echo esc_url( 'tel:' . preg_replace( '/[^0-9+]/', '', $justice_phone ) ); ?>">
+								<?php esc_html_e( 'התקשרו', 'justice-theme' ); ?>
+							</a>
+						<?php endif; ?>
+						<a class="primary-navigation__mobile-action primary-navigation__mobile-action--lawyer" href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>">
+							<?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?>
+						</a>
+					</div>
+				</div>
 			</nav>
 
 			<div class="site-header__lead-actions" aria-label="<?php esc_attr_e( 'פעולות מהירות לקבלת עזרה משפטית', 'justice-theme' ); ?>">

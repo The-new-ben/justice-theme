@@ -3206,10 +3206,72 @@
     padding-right: 1rem;
   }
 
+  .primary-navigation__mobile-actions {
+    display: grid;
+    gap: 0.65rem;
+    max-width: 620px;
+    margin: 1.2rem auto 0;
+    padding: 1rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+  }
+
+  .primary-navigation__mobile-actions strong {
+    font-size: 1.05rem;
+    line-height: 1.35;
+  }
+
+  .primary-navigation__mobile-actions span {
+    color: rgba(255,255,255,0.72);
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .primary-navigation__mobile-actions div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .primary-navigation__mobile-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.7rem;
+    padding: 0.6rem 0.7rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 999px;
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+    font-size: 0.88rem;
+    font-weight: 900;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .primary-navigation__mobile-action--whatsapp {
+    background: #128c7e;
+    border-color: rgba(18,140,126,0.9);
+  }
+
+  .primary-navigation__mobile-action--lawyer {
+    grid-column: 1 / -1;
+    color: rgba(255,255,255,0.86);
+    background: rgba(255,255,255,0.04);
+  }
+
   .site-header__topic-strip-inner {
     min-height: 2.35rem;
     padding-inline: max(1rem, calc((100vw - var(--container)) / 2));
     scroll-padding-inline: 1rem;
+  }
+}
+
+@media (min-width: 1221px) {
+  .primary-navigation__mobile-actions {
+    display: none;
   }
 }
 

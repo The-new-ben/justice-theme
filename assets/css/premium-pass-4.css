@@ -226,6 +226,17 @@
   .hero__first-steps li { min-height: 0; }
 }
 .hero__ctas { margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.hero__ctas .button { min-width: min(100%, 180px); }
+.button--hero-whatsapp {
+  background: #128c7e;
+  color: #fff;
+  box-shadow: 0 12px 26px rgba(18, 140, 126, 0.28);
+}
+.button--hero-whatsapp:hover,
+.button--hero-whatsapp:focus-visible {
+  background: #0f766b;
+  color: #fff;
+}
 .hero__lawyer-access {
   display: inline-flex;
   align-items: center;

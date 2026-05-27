@@ -54,6 +54,9 @@ $israel_cities = array(
 
 // Hero background image
 $hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
+$hero_whatsapp_url = function_exists( 'justice_theme_public_whatsapp_url' )
+	? justice_theme_public_whatsapp_url( __( 'שלום, אני צריך/ה עזרה משפטית דרך Jus-Tice. הגעתי מדף הבית ואשמח לחזרה קצרה.', 'justice-theme' ) )
+	: '';
 
 $hero_market_signals = array(
 	array(
@@ -170,7 +173,12 @@ $hero_first_steps = array(
 				<?php endforeach; ?>
 			</ul>
 
-			<div class="hero__ctas" style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center;">
+			<div class="hero__ctas">
+				<?php if ( $hero_whatsapp_url ) : ?>
+					<a href="<?php echo esc_url( $hero_whatsapp_url ); ?>" class="button button--hero-whatsapp" target="_blank" rel="noopener">
+						<?php esc_html_e( 'פנייה מהירה בוואטסאפ', 'justice-theme' ); ?>
+					</a>
+				<?php endif; ?>
 				<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" class="button button--primary">
 					<?php esc_html_e( 'בדקו מה הצעד הבא', 'justice-theme' ); ?>
 				</a>

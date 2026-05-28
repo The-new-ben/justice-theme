@@ -1,7 +1,7 @@
 # Mobile Menu Stable-In-Place Fix
 
 Date: 2026-05-28
-Status: CODE_READY_NOT_DEPLOYED
+Status: LIVE_DEPLOYED
 
 ## Owner Issue
 
@@ -59,15 +59,24 @@ Local/source verification passed:
 - `php -l inc\enqueue.php`
 - `git diff --check`
 
+Live verification passed after uPress Pull Git:
+
+- uPress Git log shows `378081fe Keep mobile menu toggle in place` as `HEAD -> main`.
+- `.project-control\scripts\check-live-deploy.ps1` returned `liveReady=true`.
+- Live marker present: `2026-05-28-mobile-menu-stable-in-place-v1`.
+- Live theme version present: `1.1.85`.
+- `.project-control\scripts\check-live-mobile-menu-browser-qa.ps1` returned `pass=true`.
+- Live open-menu button before box: `x=221.921875, y=18.09375, width=44, height=44`.
+- Live open-menu button after box: `x=221.921875, y=18.09375, width=44, height=44`.
+- Live menu survived mobile viewport-height resize: `expandedAfterMobileResize=true`, `navVisibleAfterMobileResize=true`.
+- Live evidence screenshot: `output/playwright/live-mobile-menu-open-1779943682.png`.
+
 ## Safety
 
 No CMS/database content, public page body, redirect, canonical, noindex, sitemap, taxonomy, lead, CRM record, WhatsApp message, invoice, payment, or provider setting was changed.
 
-## Remaining Deployment Step
+## Remaining Work
 
-After commit and push:
-
-1. Pull Git in uPress for `wp-content/themes/justice-theme`.
-2. Run `.project-control\scripts\check-live-deploy.ps1`.
-3. Run `.project-control\scripts\check-live-mobile-menu-browser-qa.ps1`.
-4. Confirm the after-open button position remains within 8px of the before-open position.
+- No further deployment action is needed for this specific mobile-menu stability fix.
+- Continue broader homepage premium redesign and content/CMS work under the approved anti-cannibalization process.
+- Real revenue proof remains blocked until a real paid lawyer/payment/invoice proof exists.

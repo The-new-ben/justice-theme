@@ -1,7 +1,7 @@
 # Lawyer Retention Outcome Action
 
 Date: 2026-05-28
-Status: LOCAL_VERIFIED_DEPLOY_REQUIRED
+Status: LIVE_VERIFIED
 
 ## Purpose
 
@@ -39,10 +39,31 @@ Make the paid-lawyer retention loop measurable. Starting a retention review is n
 - Grow/Meshulam KYC/payment status and real settlement proof remain blockers.
 - A real lawyer payment, invoice/receipt evidence, first-value proof, and owner retention outcome are still required before claiming revenue quality.
 
-## Verification To Run
+## Local Verification
 
-- PHP syntax for touched PHP files.
-- Payment-proof operator readiness gate.
-- Mobile-menu source gate.
-- PowerShell checker parse gate.
-- Live deploy verification after commit, push, and uPress Pull Git.
+- `php -l inc/lawyer-onboarding.php`: passed.
+- `php -l functions.php`: passed.
+- `.project-control/scripts/check-payment-proof-operator-readiness.ps1 -Root .`: passed.
+- `.project-control/scripts/check-mobile-menu-stability.ps1 -Root .`: passed.
+- PowerShell checker parse gate: passed.
+- `git diff --check`: passed.
+
+## Deployment Verification
+
+- Code commit: `770e8535 Add paid lawyer retention outcome action`.
+- Pushed to `origin/codex/live-homepage-conversion-release` and `origin/main`.
+- uPress Pull Git completed for `wp-content/themes/justice-theme`.
+- uPress Git log showed `770e8535` as `HEAD -> main`.
+- Live deploy gate passed:
+  - marker: `2026-05-28-lawyer-retention-outcome-action-v1`.
+  - theme version: `1.1.80`.
+  - old marker absent: `2026-05-28-lawyer-retention-review-action-v1`.
+- Live revenue readiness gate passed with readiness `ready_for_owner_payment_admin_test`.
+- Live route matrix and live link hygiene checks passed.
+- Lawyer plan, registration, and dashboard payment-proof route checks passed.
+- Live mobile menu browser QA passed.
+- Visual evidence: `output/playwright/live-mobile-menu-open-1779938960.png`.
+
+## Honesty Statement
+
+This release improves the owner/admin retention quality layer after a paid lawyer reaches first value and starts retention review. It does not prove real revenue, payment settlement, invoice issuance, CRM routing, lawyer handoff, first-value delivery, retention success, renewal, or reduced churn. The next business proof still requires the owner/admin to complete a real payment, save private payment evidence, save first-value proof, start a real retention review, and record a real retained/follow-up/churn-risk outcome.

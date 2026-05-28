@@ -87,6 +87,11 @@ $checks = @(
 		-Arguments @("-Root", (Resolve-Path -LiteralPath (Join-Path $scriptRoot "..\..")).Path) `
 		-BlocksProfit $true),
 	(Invoke-JsonChecker `
+		-Name "first_paid_lawyer_manual_invoice_acceptance" `
+		-ScriptPath (Join-Path $scriptRoot "check-first-paid-lawyer-manual-invoice-packet.ps1") `
+		-Arguments @("-Root", (Resolve-Path -LiteralPath (Join-Path $scriptRoot "..\..")).Path) `
+		-BlocksProfit $true),
+	(Invoke-JsonChecker `
 		-Name "lawyer_money_path" `
 		-ScriptPath (Join-Path $scriptRoot "check-lawyer-money-path.ps1") `
 		-Arguments @("-BaseUrl", $BaseUrl) `

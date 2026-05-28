@@ -4,13 +4,15 @@ Status: LIVE_OK_WITH_LEGACY_URL_RISK
 
 Scope: read-only live route diagnosis for `https://jus-tice.co.il/?page_id=315` and `https://jus-tice.co.il/about/`. No public CMS/database content, redirects, canonicals/noindex, sitemap, taxonomy, forms, leads, payments, or deployment settings were changed.
 
+Latest rerun: 2026-05-28T00:01Z.
+
 ## Commands
 
 ```powershell
 node scripts\check-url.mjs --url "https://jus-tice.co.il/?page_id=315" --expected "https://jus-tice.co.il/about/"
 node scripts\check-url.mjs --url "https://jus-tice.co.il/about/" --expected "https://jus-tice.co.il/about/"
 node scripts\check-url.mjs --url "https://jus-tice.co.il/" --expected "https://jus-tice.co.il/"
-powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\check-live-deploy.ps1 -ExpectedMarker "2026-05-27-mobile-menu-stable-toggle-v1" -ExpectedVersion "1.1.67" -ExpectedComponent "primary-navigation__mobile-actions" -ExpectedWhatsAppSurface "mobile_menu" -OldMarker "2026-05-27-footer-trust-path-v1"
+powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\check-live-deploy.ps1
 ```
 
 ## Findings
@@ -41,14 +43,21 @@ The page is live and content is present. The legacy `?page_id=315` URL does not 
 2. If the owner explicitly wants `?page_id=315` to redirect, add one narrow redirect/alias for that exact URL after approval.
 3. Do not change canonical/noindex/sitemap behavior without explicit approval.
 
+## Current Rerun
+
+- `https://jus-tice.co.il/?page_id=315` returned HTTP 200 with no redirect, title/H1 for About, canonical `https://jus-tice.co.il/about/`, index/follow robots, WhatsApp, phone, lead form, header navigation, and footer.
+- `https://jus-tice.co.il/about/` returned HTTP 200 with canonical `https://jus-tice.co.il/about/`, index/follow robots, WhatsApp, phone, lead form, header navigation, and footer.
+- `https://jus-tice.co.il/` returned HTTP 200 with canonical `https://jus-tice.co.il/`, index/follow robots, WhatsApp, phone, lead form, header navigation, and footer.
+- Classification remains `LEGACY_URL_CANONICAL_OK` for `?page_id=315` and `LIVE_OK` for `/about/`.
+
 ## Mobile Deploy Check
 
-The mobile-menu deployment marker is still not live:
+The latest mobile-menu/link-hygiene deployment marker is still not live:
 
-- Expected marker `2026-05-27-mobile-menu-stable-toggle-v1`: missing.
-- Expected theme version `1.1.67`: missing.
+- Expected marker `2026-05-28-mobile-menu-stability-v1`: missing.
+- Expected theme version `1.1.69`: missing.
 - Old footer marker `2026-05-27-footer-trust-path-v1`: still present.
-- Live component and WhatsApp mobile surface are present, but this does not prove the pushed mobile-menu fix deployed.
+- Live component and WhatsApp mobile surface are present, but this does not prove the pushed mobile-menu/link-hygiene release deployed.
 
 ## Tangible Artifact Added
 

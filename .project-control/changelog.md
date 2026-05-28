@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-28 - BTL first paid-lead proof lock live deployment
+
+- ADDED: owner-only `First paid-lead proof lock` panel in `inc/lead-crm.php`.
+- UPDATED: `tools/check-btl-first-paid-lead-readiness.mjs`, `.project-control/scripts/check-lead-crm-operator-readiness.ps1`, and deployment marker/version `2026-05-28-btl-first-paid-lead-proof-lock-v1` / `1.1.83`.
+- GENERATED: `.project-control/btl-first-paid-lead-readiness-2026-05-28.md`, `.project-control/btl-first-paid-lead-readiness-2026-05-28.csv`, `.project-control/btl-first-paid-lead-proof-lock-2026-05-28.md`, `.reports/btl-first-paid-lead-readiness-2026-05-28.json`, `.reports/btl-first-paid-lead-readiness-2026-05-28.csv`.
+- DEPLOYED: commit `933f33a9` pushed to branch and `main`; uPress Pull Git succeeded; uPress log shows `933f33a9` as `HEAD -> main`.
+- VERIFIED: live deploy checker returned `liveReady=true` with marker `2026-05-28-btl-first-paid-lead-proof-lock-v1` and version `1.1.83`.
+- SAFETY: admin/control/reporting only; no public CMS edit, route, title/H1/meta/body, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/client/supplier contact, invoice, payment, provider setting, GSC data, paid LLM API, email, WhatsApp or TalkTo action changed.
+
 # 2026-05-27 - Homepage competitor human improvement packet
 
 - ADDED: `tools/build-homepage-competitor-human-improvement-packet.mjs`.

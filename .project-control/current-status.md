@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-28 07:12 Asia/Jerusalem
+- BTL FIRST PAID-LEAD PROOF LOCK LIVE: added an owner-only Justice CRM proof-lock panel for the Bituach Leumi first-paid-lead loop and deployed it through uPress.
+- CODE/REPORTS ADDED: `inc/lead-crm.php`, `tools/check-btl-first-paid-lead-readiness.mjs`, `.project-control/scripts/check-lead-crm-operator-readiness.ps1`, `.project-control/btl-first-paid-lead-readiness-2026-05-28.md`, `.project-control/btl-first-paid-lead-proof-lock-2026-05-28.md`, `.reports/btl-first-paid-lead-readiness-2026-05-28.json`.
+- CHECK RESULT: PHP lint passed; BTL readiness returned `PASS_WITH_RUNTIME_BLOCKERS` with 9/9 static gates and 1 runtime blocker; CRM operator-readiness passed including `btl_payment_proof_lock`; live deploy check returned `liveReady=true`.
+- DEPLOYMENT RESULT: commit `933f33a9` pushed to branch and `main`; uPress Pull Git succeeded; uPress log shows `933f33a9` as `HEAD -> main`; live homepage serves marker `2026-05-28-btl-first-paid-lead-proof-lock-v1` and version `1.1.83`.
+- PUBLIC/LIVE IMPACT: theme/admin code deployed only; no public CMS content, URL, title/H1/meta/body, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/client/supplier contact, invoice, payment, provider setting, GSC data, paid LLM API, email, WhatsApp or TalkTo action changed.
+- COMPLETION ASSESSMENT: proof-lock infrastructure 100% deployed; Bituach Leumi paid revenue proof remains runtime-blocked until owner/admin verifies specialists, activates routable profiles, runs one consented controlled lead, saves invoice/reference and saves private payment evidence.
+
 # LATEST WORK STATUS - 2026-05-27 14:25 Asia/Jerusalem
 - HOMEPAGE COMPETITOR HUMAN IMPROVEMENT PACKET ADDED: prepared a private homepage improvement packet based on competitor review and legaltech transfer rules, focused on public legal help first and lawyer monetization as a secondary side path.
 - CODE ADDED: `tools/build-homepage-competitor-human-improvement-packet.mjs`.

@@ -6,8 +6,9 @@ Record the refined deployment blocker after checking GitHub, the uPress-visible 
 
 ## Expected state
 
-- GitHub `main`: `962ca7da0c637166b76964acbfde92d904ce8fc0`
-- GitHub `codex/live-homepage-conversion-release`: `962ca7da0c637166b76964acbfde92d904ce8fc0`
+- GitHub `main`: resolved dynamically by the checker from `git ls-remote --heads origin main`.
+- GitHub `codex/live-homepage-conversion-release`: checked against the same resolved expected head.
+- Last observed shared head before creating this gate: `962ca7da0c637166b76964acbfde92d904ce8fc0`.
 - Mobile menu fix commit: `bc78bf69`
 - Expected live deployment marker: `2026-05-28-mobile-menu-stable-fixed-drawer-v2`
 - Expected live JS token: `lockPageScroll`
@@ -18,8 +19,8 @@ Record the refined deployment blocker after checking GitHub, the uPress-visible 
 - Visible theme path: `/wp-content/themes/justice-theme/`
 - Visible uPress log head: `ce695fc9`
 - Visible uPress log subject: `Record mobile menu stable in place deployment`
-- Local Git confirms `ce695fc9` is an ancestor of the current expected GitHub head `962ca7da`.
-- Local Git confirms `962ca7da` is not an ancestor of `ce695fc9`.
+- Local Git confirms `ce695fc9` is an ancestor of the expected GitHub head.
+- Local Git confirms the expected GitHub head is not an ancestor of `ce695fc9`.
 
 ## Live public theme state
 
@@ -39,7 +40,7 @@ Observed:
 
 `UPRESS_LOG_BEHIND_GITHUB_AND_LIVE_THEME_STALE`
 
-GitHub contains the expected commits. The uPress-visible log is behind that expected head, and the public theme files still expose old code. This is a deployment/path/cache blocker, not a reason to rewrite the fix.
+GitHub contains the expected commits. The uPress-visible log is behind the expected head, and the public theme files still expose old code. This is a deployment/path/cache blocker, not a reason to rewrite the fix.
 
 ## Reusable checker
 
@@ -65,7 +66,7 @@ Latest verified output:
 - Do not force-push or manually upload theme files.
 - Verify the uPress Git remote and branch configured for `/wp-content/themes/justice-theme/`.
 - Verify whether uPress is serving the same document root that its Git panel controls.
-- After uPress shows `962ca7da` or a later commit, rerun:
+- After uPress shows the current expected GitHub head or a later commit, rerun:
   - `.project-control/scripts/check-upress-git-state-mismatch.ps1`
   - `.project-control/scripts/check-live-theme-deployment-marker.ps1`
 - Only claim deployment after the live checker proves the marker and `navigation.js` match the expected fix.

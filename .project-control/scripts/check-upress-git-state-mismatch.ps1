@@ -1,7 +1,7 @@
 param(
 	[string] $ObservedUpressHead = "ce695fc9",
 	[string] $ObservedUpressSubject = "Record mobile menu stable in place deployment",
-	[string] $ExpectedGithubHead = "962ca7da",
+	[string] $ExpectedGithubHead = "",
 	[string] $ExpectedMenuCommit = "bc78bf69",
 	[string] $BaseUrl = "https://jus-tice.co.il"
 )
@@ -23,6 +23,11 @@ function Get-TextOrEmpty {
 
 $remoteMain = (git ls-remote --heads origin main) -join "`n"
 $remoteRelease = (git ls-remote --heads origin codex/live-homepage-conversion-release) -join "`n"
+
+if ([string]::IsNullOrWhiteSpace($ExpectedGithubHead)) {
+	$ExpectedGithubHead = ($remoteMain -split "\s+")[0]
+}
+
 $localContainsObserved = $false
 $localContainsExpected = $false
 

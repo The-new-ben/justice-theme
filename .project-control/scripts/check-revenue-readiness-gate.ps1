@@ -77,6 +77,11 @@ $checks = @(
 		-Arguments @("-BaseUrl", $BaseUrl) `
 		-BlocksProfit $true),
 	(Invoke-JsonChecker `
+		-Name "whatsapp_to_paid_lead_acceptance" `
+		-ScriptPath (Join-Path $scriptRoot "check-whatsapp-to-paid-lead-acceptance.ps1") `
+		-Arguments @("-Root", (Resolve-Path -LiteralPath (Join-Path $scriptRoot "..\..")).Path) `
+		-BlocksProfit $true),
+	(Invoke-JsonChecker `
 		-Name "lead_crm_operator_readiness" `
 		-ScriptPath (Join-Path $scriptRoot "check-lead-crm-operator-readiness.ps1") `
 		-Arguments @("-Root", (Resolve-Path -LiteralPath (Join-Path $scriptRoot "..\..")).Path) `

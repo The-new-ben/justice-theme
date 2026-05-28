@@ -29,7 +29,8 @@ After a lawyer has private payment evidence, the owner should immediately see wh
 
 ## Live Verification
 
-- Git commit deployed by uPress Pull Git: `e06cca49 Add paid lawyer first value queue`.
+- Code commit deployed by uPress Pull Git: `e06cca49 Add paid lawyer first value queue`.
+- uPress Git log was refreshed after the evidence sync and retained the deployed code commit in the main branch history.
 - `.project-control/scripts/check-live-deploy.ps1` passed.
 - `.project-control/scripts/check-revenue-readiness-gate.ps1` passed with readiness `ready_for_owner_payment_admin_test`.
 - `.project-control/scripts/check-live-mobile-menu-browser-qa.ps1 -Root .` passed and saved screenshot `output/playwright/live-mobile-menu-open-1779935153.png`.

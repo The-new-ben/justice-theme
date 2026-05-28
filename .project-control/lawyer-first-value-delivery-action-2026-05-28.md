@@ -1,7 +1,7 @@
 # Lawyer First Value Delivery Action
 
 Date: 2026-05-28
-Status: LOCAL_VERIFIED_DEPLOY_REQUIRED
+Status: LIVE_VERIFIED
 
 ## Scope
 
@@ -25,6 +25,22 @@ The previous release exposed paid lawyers who have private payment evidence but 
 
 - Theme version: `1.1.77`
 - Deployment marker: `2026-05-28-lawyer-first-value-delivery-action-v1`
+
+## Verification
+
+- Local PHP syntax passed for `inc/lawyer-onboarding.php`.
+- Local PHP syntax passed for `functions.php`.
+- `.project-control/scripts/check-payment-proof-operator-readiness.ps1 -Root .` passed and now requires `lawyer_onboarding_first_value_delivery_action`.
+- `.project-control/scripts/check-mobile-menu-stability.ps1 -Root .` passed.
+- PowerShell checker parse validation passed.
+- `git diff --check` passed with CRLF warnings only.
+- uPress Pull Git completed and Git log showed `d0594211 Add paid lawyer first value action` as `HEAD -> main`.
+- `.project-control/scripts/check-live-deploy.ps1` passed against the live site.
+- `.project-control/scripts/check-revenue-readiness-gate.ps1` passed with readiness `ready_for_owner_payment_admin_test`.
+- `.project-control/scripts/check-live-mobile-menu-browser-qa.ps1 -Root .` passed and saved screenshot `output/playwright/live-mobile-menu-open-1779936176.png`.
+- `.project-control/scripts/check-lawyer-dashboard-payment-proof-preview.ps1` passed.
+- `.project-control/scripts/check-lawyer-plans-payment-proof-path.ps1` passed.
+- `.project-control/scripts/check-lawyer-registration-revenue-bridge.ps1` passed.
 
 ## Not Published By This Pass
 

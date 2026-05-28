@@ -167,6 +167,17 @@ Add-Check $checks "lawyer_onboarding_first_value_evidence_guard" (Contains-All -
 	"first-value evidence URL or outcome note is required"
 )) "Lawyer onboarding prevents first-value closure unless an owner-only outcome note or private proof URL exists." $files.lawyerOnboarding
 
+Add-Check $checks "lawyer_onboarding_retention_review_action" (Contains-All -Text $texts.lawyerOnboarding -Tokens @(
+	"justice_theme_lawyer_retention_review_quick_action_url",
+	"justice_mark_lawyer_retention_review_started",
+	"paid_needs_retention_review",
+	"first_value_retention_started_at",
+	"paid_retention_review_admin_action",
+	"Mark retention review started",
+	"Start retention review after first value",
+	"Paid, retention review missing"
+)) "Lawyer onboarding moves paid first-value lawyers into an owner retention/renewal review before scaling acquisition." $files.lawyerOnboarding
+
 Add-Check $checks "lawyer_dashboard_payment_context" (Contains-All -Text $texts.lawyerDashboard -Tokens @(
 	"manual_payment_link_url",
 	"manual_invoice_reference",
@@ -280,6 +291,7 @@ $summary = [ordered]@{
 		firstValue      = "Paid lawyers with payment evidence must be visible as a first-value queue until activation, lead handoff, or service outcome is recorded."
 		firstValueClose = "The paid first-value queue can be closed from admin only when payment_confirmed and private payment evidence are present."
 		firstValueProof = "The first-value close action must also require an owner-only outcome note or private proof URL."
+		retentionReview = "Paid first-value lawyers must get an owner retention/renewal review before repeating paid acquisition spend."
 		leadBilling     = "Qualified CRM leads may move to ready_to_bill or invoice_sent only after consent, accepted lawyer/supplier terms, and owner release."
 		paidProof       = "Paid status requires private payment evidence URL in both CRM lead billing and lawyer onboarding; invoice/reference alone is not revenue proof."
 		providerReality = "One-time Grow link evidence is historical support, not current revenue proof; recurring Grow/Meshulam remains provider-gated until a controlled transaction passes."

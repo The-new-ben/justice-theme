@@ -19,8 +19,8 @@ $requiredTokens = @(
 	'plan_interest=lead_partner',
 	'plan_interest=pro',
 	'invoice_sent',
-	'1.1.78',
-	'2026-05-28-lawyer-first-value-evidence-guard-v1'
+	'1.1.79',
+	'2026-05-28-lawyer-retention-review-action-v1'
 )
 
 try {

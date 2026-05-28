@@ -16,6 +16,10 @@ function justice_theme_register_lawyer_activation_meta(): void {
 		'first_value_evidence_url' => 'string',
 		'first_value_outcome_note' => 'string',
 		'first_value_source'       => 'string',
+		'first_value_retention_due_at' => 'string',
+		'first_value_retention_started_at' => 'string',
+		'first_value_retention_source' => 'string',
+		'first_value_retention_note' => 'string',
 		'activation_owner_note'    => 'string',
 		'payment_path'            => 'string',
 		'payment_followup_status' => 'string',
@@ -94,7 +98,7 @@ function justice_theme_lawyer_response_commitment_options(): array {
 }
 
 function justice_theme_lawyer_activation_meta_sanitizer( string $key ): string {
-	if ( in_array( $key, array( 'activation_owner_note', 'first_value_outcome_note', 'registration_upload_notes', 'profile_ai_draft_sections', 'latest_service_request_message' ), true ) ) {
+	if ( in_array( $key, array( 'activation_owner_note', 'first_value_outcome_note', 'first_value_retention_note', 'registration_upload_notes', 'profile_ai_draft_sections', 'latest_service_request_message' ), true ) ) {
 		return 'sanitize_textarea_field';
 	}
 
@@ -1663,6 +1667,13 @@ function justice_theme_lawyer_first_value_quick_action_url( int $post_id ): stri
 	);
 }
 
+function justice_theme_lawyer_retention_review_quick_action_url( int $post_id ): string {
+	return wp_nonce_url(
+		admin_url( 'admin-post.php?action=justice_mark_lawyer_retention_review_started&lawyer_id=' . $post_id ),
+		'justice_mark_lawyer_retention_review_started_' . $post_id
+	);
+}
+
 function justice_theme_lawyer_manual_payment_link_email_url( int $post_id ): string {
 	return wp_nonce_url(
 		admin_url( 'admin-post.php?action=justice_send_lawyer_manual_payment_link&lawyer_id=' . $post_id ),
@@ -2188,6 +2199,9 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 	$first_value_at = get_post_meta( $post->ID, 'first_value_at', true );
 	$first_value_evidence_url = (string) get_post_meta( $post->ID, 'first_value_evidence_url', true );
 	$first_value_outcome_note = (string) get_post_meta( $post->ID, 'first_value_outcome_note', true );
+	$first_value_retention_due_at = (string) get_post_meta( $post->ID, 'first_value_retention_due_at', true );
+	$first_value_retention_started_at = (string) get_post_meta( $post->ID, 'first_value_retention_started_at', true );
+	$first_value_retention_note = (string) get_post_meta( $post->ID, 'first_value_retention_note', true );
 	$owner_note     = get_post_meta( $post->ID, 'activation_owner_note', true );
 	$payment_path   = (string) get_post_meta( $post->ID, 'payment_path', true );
 	$payment_status = (string) get_post_meta( $post->ID, 'payment_followup_status', true );
@@ -2305,6 +2319,19 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 		<small>Describe the first useful outcome: lead handoff, profile activation, content/service delivery, or another owner-verified value event.</small>
 	</p>
 	<p>
+		<label for="justice-first-value-retention-due-at"><strong>Retention review due</strong></label>
+		<input id="justice-first-value-retention-due-at" type="datetime-local" name="first_value_retention_due_at" value="<?php echo esc_attr( $first_value_retention_due_at ); ?>" style="width:100%;">
+		<small>Schedule the renewal, upsell, satisfaction or churn-prevention follow-up after first value.</small>
+	</p>
+	<?php if ( $first_value_retention_started_at ) : ?>
+		<p><strong>Retention review started:</strong><br><small><?php echo esc_html( $first_value_retention_started_at ); ?></small></p>
+	<?php endif; ?>
+	<p>
+		<label for="justice-first-value-retention-note"><strong>Retention review note</strong></label>
+		<textarea id="justice-first-value-retention-note" name="first_value_retention_note" rows="4" style="width:100%;" placeholder="Example: owner called after first value, confirmed satisfaction, next renewal/upsell step set."><?php echo esc_textarea( $first_value_retention_note ); ?></textarea>
+		<small>Owner-only retention context. Do not use this as public content or revenue proof.</small>
+	</p>
+	<p>
 		<label for="justice-activation-owner-note"><strong>Owner/customer-success note</strong></label>
 		<textarea id="justice-activation-owner-note" name="activation_owner_note" rows="5" style="width:100%;"><?php echo esc_textarea( $owner_note ); ?></textarea>
 	</p>
@@ -2379,6 +2406,8 @@ function justice_theme_save_lawyer_activation( int $post_id ): void {
 	update_post_meta( $post_id, 'first_value_at', isset( $_POST['first_value_at'] ) ? sanitize_text_field( wp_unslash( $_POST['first_value_at'] ) ) : '' );
 	update_post_meta( $post_id, 'first_value_evidence_url', isset( $_POST['first_value_evidence_url'] ) ? esc_url_raw( wp_unslash( $_POST['first_value_evidence_url'] ) ) : '' );
 	update_post_meta( $post_id, 'first_value_outcome_note', isset( $_POST['first_value_outcome_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['first_value_outcome_note'] ) ) : '' );
+	update_post_meta( $post_id, 'first_value_retention_due_at', isset( $_POST['first_value_retention_due_at'] ) ? sanitize_text_field( wp_unslash( $_POST['first_value_retention_due_at'] ) ) : '' );
+	update_post_meta( $post_id, 'first_value_retention_note', isset( $_POST['first_value_retention_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['first_value_retention_note'] ) ) : '' );
 	update_post_meta( $post_id, 'activation_owner_note', isset( $_POST['activation_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['activation_owner_note'] ) ) : '' );
 	$manual_payment_link = isset( $_POST['manual_payment_link_url'] ) ? esc_url_raw( wp_unslash( $_POST['manual_payment_link_url'] ) ) : '';
 	update_post_meta( $post_id, 'manual_payment_link_url', $manual_payment_link );
@@ -2662,6 +2691,10 @@ function justice_theme_mark_lawyer_first_value_delivered(): void {
 		update_post_meta( $post_id, 'first_value_at', current_time( 'mysql' ) );
 	}
 
+	if ( '' === (string) get_post_meta( $post_id, 'first_value_retention_due_at', true ) ) {
+		update_post_meta( $post_id, 'first_value_retention_due_at', wp_date( 'Y-m-d H:i:s', current_time( 'timestamp' ) + 7 * DAY_IN_SECONDS ) );
+	}
+
 	update_post_meta( $post_id, 'first_value_source', 'paid_first_value_admin_action' );
 	justice_theme_append_lawyer_internal_note(
 		$post_id,
@@ -2687,6 +2720,59 @@ function justice_theme_mark_lawyer_first_value_delivered(): void {
 	exit;
 }
 add_action( 'admin_post_justice_mark_lawyer_first_value_delivered', 'justice_theme_mark_lawyer_first_value_delivered' );
+
+function justice_theme_mark_lawyer_retention_review_started(): void {
+	$post_id = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
+
+	if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( esc_html__( 'You do not have permission to mark retention review for this lawyer.', 'justice-theme' ) );
+	}
+
+	check_admin_referer( 'justice_mark_lawyer_retention_review_started_' . $post_id );
+
+	$payment_status    = (string) get_post_meta( $post_id, 'payment_followup_status', true );
+	$activation_status = (string) get_post_meta( $post_id, 'activation_status', true );
+	$first_value_at    = (string) get_post_meta( $post_id, 'first_value_at', true );
+
+	if (
+		'payment_confirmed' !== $payment_status
+		|| ! justice_theme_lawyer_has_manual_payment_evidence( $post_id )
+		|| 'first_value' !== $activation_status
+		|| '' === trim( $first_value_at )
+		|| ! justice_theme_lawyer_has_first_value_evidence( $post_id )
+	) {
+		justice_theme_append_lawyer_internal_note( $post_id, 'Retention review quick action was blocked because paid status, private payment evidence, first-value status, first-value time and first-value proof are required first.' );
+		wp_safe_redirect( add_query_arg(
+			array(
+				'page'             => 'justice-lawyer-onboarding',
+				'activation_queue' => 'paid_needs_retention_review',
+				'retention_review' => 'blocked',
+			),
+			admin_url( 'admin.php' )
+		) );
+		exit;
+	}
+
+	update_post_meta( $post_id, 'activation_status', 'retention_review' );
+	update_post_meta( $post_id, 'first_value_retention_started_at', current_time( 'mysql' ) );
+	update_post_meta( $post_id, 'first_value_retention_source', 'paid_retention_review_admin_action' );
+	justice_theme_append_lawyer_internal_note( $post_id, 'Retention review started from Lawyer Onboarding after paid status, payment proof, first-value proof and first-value timestamp were all present. Owner should confirm satisfaction, renewal/upsell path, churn risk, or next lead/service commitment before repeating acquisition spend.' );
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_retention_review_started', 'Started retention review for paid first-value lawyer: ' . get_the_title( $post_id ) );
+	}
+
+	wp_safe_redirect( add_query_arg(
+		array(
+			'page'             => 'justice-lawyer-onboarding',
+			'activation_queue' => 'paid_needs_retention_review',
+			'retention_review' => 'marked',
+		),
+		admin_url( 'admin.php' )
+	) );
+	exit;
+}
+add_action( 'admin_post_justice_mark_lawyer_retention_review_started', 'justice_theme_mark_lawyer_retention_review_started' );
 
 function justice_theme_send_lawyer_manual_payment_link_from_queue(): void {
 	$post_id = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
@@ -3584,6 +3670,76 @@ function justice_theme_lawyer_onboarding_paid_needs_first_value_meta_query(): ar
 	);
 }
 
+function justice_theme_lawyer_onboarding_paid_needs_retention_review_meta_query(): array {
+	return array(
+		'relation' => 'AND',
+		array(
+			'key'   => 'payment_followup_status',
+			'value' => 'payment_confirmed',
+		),
+		array(
+			'key'     => 'manual_payment_evidence_url',
+			'compare' => 'EXISTS',
+		),
+		array(
+			'key'     => 'manual_payment_evidence_url',
+			'value'   => '',
+			'compare' => '!=',
+		),
+		array(
+			'key'   => 'activation_status',
+			'value' => 'first_value',
+		),
+		array(
+			'key'     => 'first_value_at',
+			'compare' => 'EXISTS',
+		),
+		array(
+			'key'     => 'first_value_at',
+			'value'   => '',
+			'compare' => '!=',
+		),
+		array(
+			'relation' => 'OR',
+			array(
+				'relation' => 'AND',
+				array(
+					'key'     => 'first_value_evidence_url',
+					'compare' => 'EXISTS',
+				),
+				array(
+					'key'     => 'first_value_evidence_url',
+					'value'   => '',
+					'compare' => '!=',
+				),
+			),
+			array(
+				'relation' => 'AND',
+				array(
+					'key'     => 'first_value_outcome_note',
+					'compare' => 'EXISTS',
+				),
+				array(
+					'key'     => 'first_value_outcome_note',
+					'value'   => '',
+					'compare' => '!=',
+				),
+			),
+		),
+		array(
+			'relation' => 'OR',
+			array(
+				'key'     => 'first_value_retention_started_at',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'   => 'first_value_retention_started_at',
+				'value' => '',
+			),
+		),
+	);
+}
+
 function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$payment_confirmed_meta_query = array(
 		array(
@@ -3640,6 +3796,7 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$service_request_count     = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_service_request_meta_query() );
 	$public_card_claim_count   = justice_theme_lawyer_onboarding_count_lawyers( array( justice_theme_lawyer_claim_queue_meta_query() ) );
 	$paid_needs_first_value_count = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_paid_needs_first_value_meta_query() );
+	$paid_needs_retention_review_count = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_paid_needs_retention_review_meta_query() );
 	$invoice_requested_value = justice_theme_lawyer_onboarding_monthly_value( array(
 		array(
 			'key'   => 'payment_followup_status',
@@ -3668,6 +3825,7 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$service_request_value     = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_service_request_meta_query() );
 	$public_card_claim_value   = justice_theme_lawyer_onboarding_monthly_value( array( justice_theme_lawyer_claim_queue_meta_query() ) );
 	$paid_needs_first_value_value = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_paid_needs_first_value_meta_query() );
+	$paid_needs_retention_review_value = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_paid_needs_retention_review_meta_query() );
 	$queue_url               = add_query_arg(
 		array(
 			'page'          => 'justice-lawyer-onboarding',
@@ -3745,6 +3903,13 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 		),
 		admin_url( 'admin.php' )
 	);
+	$paid_needs_retention_review_url = add_query_arg(
+		array(
+			'page'             => 'justice-lawyer-onboarding',
+			'activation_queue' => 'paid_needs_retention_review',
+		),
+		admin_url( 'admin.php' )
+	);
 	$all_url                 = admin_url( 'admin.php?page=justice-lawyer-onboarding' );
 	$invoice_requested_export_url = justice_theme_lawyer_payment_queue_export_url( 'invoice_requested' );
 	$invoice_sent_export_url      = justice_theme_lawyer_payment_queue_export_url( 'invoice_sent' );
@@ -3775,6 +3940,13 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 		$next_money_button = 'Open paid first-value queue';
 		$next_money_value = $paid_needs_first_value_value;
 		$next_money_value_note = 'retention priority';
+	} elseif ( $paid_needs_retention_review_count ) {
+		$next_money_title  = 'Start retention review after first value';
+		$next_money_body   = 'These paid lawyers reached first value with proof, but no retention review was started. Confirm satisfaction, renewal/upsell path, churn risk or the next useful lead/service commitment before scaling acquisition.';
+		$next_money_url    = $paid_needs_retention_review_url;
+		$next_money_button = 'Open retention-review queue';
+		$next_money_value = $paid_needs_retention_review_value;
+		$next_money_value_note = 'renewal priority';
 	} elseif ( $payment_overdue_count ) {
 		$next_money_title  = 'Work overdue payment follow-ups';
 		$next_money_body   = 'These paid prospects already have a payment follow-up due date behind them. Chase, block, cancel or confirm payment before adding new outreach.';
@@ -3949,6 +4121,12 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 				<span>Paid, first value missing</span>
 				<small style="display:block;margin-top:6px;color:#991b1b;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $paid_needs_first_value_value ) ); ?> retention priority</small>
 				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $paid_needs_first_value_url ); ?>">Open first-value queue</a></p>
+			</div>
+			<div style="border:1px solid #c7d2fe;background:#f8faff;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $paid_needs_retention_review_count ) ); ?></strong>
+				<span>Paid, retention review missing</span>
+				<small style="display:block;margin-top:6px;color:#3730a3;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $paid_needs_retention_review_value ) ); ?> renewal priority</small>
+				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $paid_needs_retention_review_url ); ?>">Open retention queue</a></p>
 			</div>
 			<div style="border:1px solid #e0d2ff;background:#fbf8ff;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $manual_invoice_count ) ); ?></strong>
@@ -4229,7 +4407,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		$service_request_status = '';
 	}
 
-	if ( 'paid_needs_first_value' !== $activation_queue ) {
+	if ( ! in_array( $activation_queue, array( 'paid_needs_first_value', 'paid_needs_retention_review' ), true ) ) {
 		$activation_queue = '';
 	}
 
@@ -4310,7 +4488,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		$meta_query = array(
 			'relation' => 'AND',
 			$registration_review_meta_query,
-			justice_theme_lawyer_onboarding_paid_needs_first_value_meta_query(),
+			'paid_needs_retention_review' === $activation_queue
+				? justice_theme_lawyer_onboarding_paid_needs_retention_review_meta_query()
+				: justice_theme_lawyer_onboarding_paid_needs_first_value_meta_query(),
 		);
 	}
 
@@ -4372,6 +4552,11 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php elseif ( isset( $_GET['first_value'] ) && 'proof_missing' === $_GET['first_value'] ) : ?>
 			<div class="notice notice-error is-dismissible"><p>First value was not marked because first-value evidence URL or outcome note is required before closing the queue.</p></div>
 		<?php endif; ?>
+		<?php if ( isset( $_GET['retention_review'] ) && 'marked' === $_GET['retention_review'] ) : ?>
+			<div class="notice notice-success is-dismissible"><p>Retention review started for the paid first-value lawyer. Confirm satisfaction, renewal/upsell path, churn risk or next value commitment before repeating acquisition spend.</p></div>
+		<?php elseif ( isset( $_GET['retention_review'] ) && 'blocked' === $_GET['retention_review'] ) : ?>
+			<div class="notice notice-error is-dismissible"><p>Retention review was not started because paid status, private payment evidence, first-value status, first-value time and first-value proof are required first.</p></div>
+		<?php endif; ?>
 		<?php if ( isset( $_GET['service_request_followup'] ) && 'updated' === $_GET['service_request_followup'] ) : ?>
 			<div class="notice notice-success is-dismissible"><p>Service request status updated. Continue owner review, billing/refund handling or customer-success follow-up from this queue.</p></div>
 		<?php endif; ?>
@@ -4412,7 +4597,11 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 			<div class="notice notice-info inline"><p>Showing only lawyer registrations with open service, billing, refund, cancellation, downgrade, complaint or support requests. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
 		<?php endif; ?>
 		<?php if ( $activation_queue ) : ?>
-			<div class="notice notice-warning inline"><p>Showing only paid lawyers with private payment evidence where first value is still missing. Complete activation, first useful service outcome, or first suitable lead handoff before counting the relationship as retained. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
+			<?php if ( 'paid_needs_retention_review' === $activation_queue ) : ?>
+				<div class="notice notice-info inline"><p>Showing only paid lawyers with first-value proof where retention review is still missing. Confirm satisfaction, renewal/upsell path, churn risk or next value commitment before scaling acquisition. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
+			<?php else : ?>
+				<div class="notice notice-warning inline"><p>Showing only paid lawyers with private payment evidence where first value is still missing. Complete activation, first useful service outcome, or first suitable lead handoff before counting the relationship as retained. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
+			<?php endif; ?>
 		<?php endif; ?>
 		<?php if ( $claim_queue ) : ?>
 			<div class="notice notice-info inline"><p>Showing only lawyer registrations that came from a public-card claim/upgrade path. Verify identity before changing the existing public card. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
@@ -4473,6 +4662,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$first_value_evidence_url = (string) get_post_meta( $post_id, 'first_value_evidence_url', true );
 						$first_value_outcome_note = (string) get_post_meta( $post_id, 'first_value_outcome_note', true );
 						$has_first_value_evidence = justice_theme_lawyer_has_first_value_evidence( $post_id );
+						$first_value_retention_due_at = (string) get_post_meta( $post_id, 'first_value_retention_due_at', true );
+						$first_value_retention_started_at = (string) get_post_meta( $post_id, 'first_value_retention_started_at', true );
+						$first_value_retention_note = (string) get_post_meta( $post_id, 'first_value_retention_note', true );
 						$payment_confirmed_at = (string) get_post_meta( $post_id, 'payment_confirmed_at', true );
 						$payment_blocked_at   = (string) get_post_meta( $post_id, 'payment_blocked_at', true );
 						$payment_cancelled_at = (string) get_post_meta( $post_id, 'payment_cancelled_at', true );
@@ -4591,6 +4783,18 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 										<?php if ( $first_value_outcome_note ) : ?>
 											<br><small>Outcome proof: <?php echo esc_html( wp_trim_words( $first_value_outcome_note, 14, '...' ) ); ?></small>
 										<?php endif; ?>
+									<?php endif; ?>
+									<?php if ( $first_value_retention_due_at ) : ?>
+										<br><small>Retention due: <?php echo esc_html( $first_value_retention_due_at ); ?></small>
+									<?php endif; ?>
+									<?php if ( $first_value_retention_started_at ) : ?>
+										<br><small>Retention review: <?php echo esc_html( $first_value_retention_started_at ); ?></small>
+									<?php elseif ( 'payment_confirmed' === $payment_followup && $payment_evidence_url && 'first_value' === $activation_status && $first_value_at && $has_first_value_evidence ) : ?>
+										<br><small style="color:#3730a3;">Paid first value reached: start retention review before scaling acquisition.</small>
+										<br><a class="button button-small" style="margin-top:6px;" href="<?php echo esc_url( justice_theme_lawyer_retention_review_quick_action_url( $post_id ) ); ?>" onclick="return confirm('<?php echo esc_js( __( 'Start retention review only after paid status, payment proof and first-value proof are all present. Continue?', 'justice-theme' ) ); ?>');">Mark retention review started</a>
+									<?php endif; ?>
+									<?php if ( $first_value_retention_note ) : ?>
+										<br><small>Retention note: <?php echo esc_html( wp_trim_words( $first_value_retention_note, 14, '...' ) ); ?></small>
 									<?php endif; ?>
 									<?php if ( 'payment_confirmed' === $payment_followup && $payment_evidence_url && 'first_value' !== $activation_status ) : ?>
 										<br><small style="color:#991b1b;">Paid: deliver first value before repeating this source.</small>

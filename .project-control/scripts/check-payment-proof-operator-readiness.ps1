@@ -178,6 +178,17 @@ Add-Check $checks "lawyer_onboarding_retention_review_action" (Contains-All -Tex
 	"Paid, retention review missing"
 )) "Lawyer onboarding moves paid first-value lawyers into an owner retention/renewal review before scaling acquisition." $files.lawyerOnboarding
 
+Add-Check $checks "lawyer_onboarding_retention_outcome_action" (Contains-All -Text $texts.lawyerOnboarding -Tokens @(
+	"justice_theme_lawyer_retention_outcome_quick_action_url",
+	"justice_mark_lawyer_retention_outcome",
+	"paid_needs_retention_outcome",
+	"first_value_retention_outcome_status",
+	"paid_retention_outcome_admin_action",
+	"Mark retained",
+	"Record retention outcome",
+	"Paid, retention outcome missing"
+)) "Lawyer onboarding requires an owner-recorded retained/follow-up/churn-risk outcome after retention review starts." $files.lawyerOnboarding
+
 Add-Check $checks "lawyer_dashboard_payment_context" (Contains-All -Text $texts.lawyerDashboard -Tokens @(
 	"manual_payment_link_url",
 	"manual_invoice_reference",
@@ -292,6 +303,7 @@ $summary = [ordered]@{
 		firstValueClose = "The paid first-value queue can be closed from admin only when payment_confirmed and private payment evidence are present."
 		firstValueProof = "The first-value close action must also require an owner-only outcome note or private proof URL."
 		retentionReview = "Paid first-value lawyers must get an owner retention/renewal review before repeating paid acquisition spend."
+		retentionOutcome = "Started retention reviews must get a retained, follow-up, or churn-risk outcome before claiming revenue quality."
 		leadBilling     = "Qualified CRM leads may move to ready_to_bill or invoice_sent only after consent, accepted lawyer/supplier terms, and owner release."
 		paidProof       = "Paid status requires private payment evidence URL in both CRM lead billing and lawyer onboarding; invoice/reference alone is not revenue proof."
 		providerReality = "One-time Grow link evidence is historical support, not current revenue proof; recurring Grow/Meshulam remains provider-gated until a controlled transaction passes."

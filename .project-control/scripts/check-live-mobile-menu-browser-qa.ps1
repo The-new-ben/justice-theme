@@ -1,7 +1,7 @@
 param(
 	[string] $BaseUrl = "https://jus-tice.co.il",
-	[string] $ExpectedDeployMarker = "2026-05-28-lawyer-dashboard-payment-proof-preview-v1",
-	[string] $ExpectedThemeVersion = "1.1.73",
+	[string] $ExpectedDeployMarker = "2026-05-28-lawyer-paid-proof-guard-v1",
+	[string] $ExpectedThemeVersion = "1.1.74",
 	[string] $Root = ".",
 	[string] $OutputDir = "output\playwright"
 )

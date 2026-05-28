@@ -1,10 +1,10 @@
 param(
 	[string] $BaseUrl = "https://jus-tice.co.il",
-	[string] $ExpectedDeployMarker = "2026-05-28-lawyer-dashboard-payment-proof-preview-v1",
-	[string] $ExpectedThemeVersion = "1.1.73",
+	[string] $ExpectedDeployMarker = "2026-05-28-lawyer-paid-proof-guard-v1",
+	[string] $ExpectedThemeVersion = "1.1.74",
 	[string] $ExpectedComponent = "primary-navigation__mobile-actions",
 	[string] $ExpectedWhatsAppSurface = "mobile_menu",
-	[string] $OldMarker = "2026-05-28-lawyer-registration-revenue-bridge-v1",
+	[string] $OldMarker = "2026-05-28-lawyer-dashboard-payment-proof-preview-v1",
 	[switch] $Strict
 )
 

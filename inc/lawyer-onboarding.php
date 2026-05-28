@@ -19,6 +19,7 @@ function justice_theme_register_lawyer_activation_meta(): void {
 		'payment_followup_due_at' => 'string',
 		'manual_payment_link_url' => 'string',
 		'manual_invoice_reference' => 'string',
+		'manual_payment_evidence_url' => 'string',
 		'invoice_sent_at'         => 'string',
 		'payment_confirmed_at'    => 'string',
 		'payment_blocked_at'      => 'string',
@@ -94,7 +95,7 @@ function justice_theme_lawyer_activation_meta_sanitizer( string $key ): string {
 		return 'sanitize_textarea_field';
 	}
 
-	if ( in_array( $key, array( 'google_business_profile_url', 'google_review_request_url', 'registration_landing_url', 'registration_referrer_url', 'manual_payment_link_url' ), true ) ) {
+	if ( in_array( $key, array( 'google_business_profile_url', 'google_review_request_url', 'registration_landing_url', 'registration_referrer_url', 'manual_payment_link_url', 'manual_payment_evidence_url' ), true ) ) {
 		return 'esc_url_raw';
 	}
 
@@ -1433,7 +1434,7 @@ function justice_theme_lawyer_payment_followup_badge( string $payment_path, stri
 	if ( 'payment_confirmed' === $followup_status ) {
 		return array(
 			'label' => 'Payment confirmed',
-			'note'  => 'Move the lawyer toward profile activation and first value.',
+			'note'  => 'Private payment evidence is recorded; move the lawyer toward profile activation and first value.',
 			'style' => 'background:#ecfdf3;color:#166534;',
 		);
 	}
@@ -1533,12 +1534,23 @@ function justice_theme_lawyer_payment_due_status_label( string $due_at ): string
 	return 'scheduled';
 }
 
+function justice_theme_lawyer_has_manual_payment_evidence( int $post_id ): bool {
+	return '' !== trim( (string) get_post_meta( $post_id, 'manual_payment_evidence_url', true ) );
+}
+
 function justice_theme_set_lawyer_payment_followup_status( int $post_id, string $followup_status, string $source_note ): bool {
 	$followup_status = sanitize_key( $followup_status );
 	$options         = justice_theme_lawyer_payment_followup_options();
 
 	if ( ! array_key_exists( $followup_status, $options ) ) {
 		$followup_status = '';
+	}
+
+	if ( 'payment_confirmed' === $followup_status && ! justice_theme_lawyer_has_manual_payment_evidence( $post_id ) ) {
+		$invoice_reference = trim( (string) get_post_meta( $post_id, 'manual_invoice_reference', true ) );
+		$manual_link       = trim( (string) get_post_meta( $post_id, 'manual_payment_link_url', true ) );
+		$followup_status   = ( $invoice_reference || $manual_link ) ? 'invoice_sent' : 'invoice_requested';
+		justice_theme_append_lawyer_internal_note( $post_id, sprintf( 'Payment confirmed was blocked because manual_payment_evidence_url is missing. Kept payment status at %s. Source: %s.', $options[ $followup_status ], $source_note ) );
 	}
 
 	$previous_payment_status = (string) get_post_meta( $post_id, 'payment_followup_status', true );
@@ -1582,7 +1594,7 @@ function justice_theme_set_lawyer_payment_followup_status( int $post_id, string 
 	return true;
 }
 
-function justice_theme_lawyer_payment_followup_quick_actions( string $payment_path, string $followup_status ): array {
+function justice_theme_lawyer_payment_followup_quick_actions( string $payment_path, string $followup_status, bool $has_payment_evidence = false ): array {
 	if ( 'manual_invoice' !== $payment_path && '' === $followup_status ) {
 		return array();
 	}
@@ -1601,11 +1613,16 @@ function justice_theme_lawyer_payment_followup_quick_actions( string $payment_pa
 	}
 
 	if ( 'invoice_sent' === $followup_status ) {
-		return array(
-			'payment_confirmed' => 'Mark paid',
+		$actions = array(
 			'payment_blocked'   => 'Mark blocked',
 			'payment_cancelled' => 'Cancel',
 		);
+
+		if ( $has_payment_evidence ) {
+			$actions = array( 'payment_confirmed' => 'Mark paid' ) + $actions;
+		}
+
+		return $actions;
 	}
 
 	if ( 'payment_blocked' === $followup_status ) {
@@ -1843,6 +1860,7 @@ function justice_theme_export_lawyer_payment_queue(): void {
 		'manual_payment_link_sent_to',
 		'manual_payment_link_email_last_result',
 		'manual_invoice_reference',
+		'manual_payment_evidence_url',
 		'activation_status',
 		'billing_legal_name',
 		'billing_business_id',
@@ -1900,6 +1918,7 @@ function justice_theme_export_lawyer_payment_queue(): void {
 			get_post_meta( $post_id, 'manual_payment_link_sent_to', true ),
 			get_post_meta( $post_id, 'manual_payment_link_email_last_result', true ),
 			get_post_meta( $post_id, 'manual_invoice_reference', true ),
+			get_post_meta( $post_id, 'manual_payment_evidence_url', true ),
 			$activation_status,
 			get_post_meta( $post_id, 'billing_legal_name', true ),
 			get_post_meta( $post_id, 'billing_business_id', true ),
@@ -1980,6 +1999,10 @@ function justice_theme_lawyer_manual_invoice_context( int $post_id ): string {
 	$invoice_reference = (string) get_post_meta( $post_id, 'manual_invoice_reference', true );
 	if ( $invoice_reference ) {
 		$pieces[] = 'Reference: ' . $invoice_reference;
+	}
+
+	if ( justice_theme_lawyer_has_manual_payment_evidence( $post_id ) ) {
+		$pieces[] = 'Payment evidence: recorded privately';
 	}
 
 	return implode( ' | ', $pieces );
@@ -2156,6 +2179,7 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 	$payment_due_badge = justice_theme_lawyer_payment_due_badge( $payment_due_at );
 	$manual_payment_link = (string) get_post_meta( $post->ID, 'manual_payment_link_url', true );
 	$invoice_reference   = (string) get_post_meta( $post->ID, 'manual_invoice_reference', true );
+	$payment_evidence_url = (string) get_post_meta( $post->ID, 'manual_payment_evidence_url', true );
 	$payment_link_sent_at = (string) get_post_meta( $post->ID, 'manual_payment_link_sent_at', true );
 	$payment_link_sent_to = (string) get_post_meta( $post->ID, 'manual_payment_link_sent_to', true );
 	$payment_link_email_result = (string) get_post_meta( $post->ID, 'manual_payment_link_email_last_result', true );
@@ -2222,6 +2246,11 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 		<label for="justice-manual-invoice-reference"><strong>Invoice/payment reference</strong></label>
 		<input id="justice-manual-invoice-reference" type="text" name="manual_invoice_reference" value="<?php echo esc_attr( $invoice_reference ); ?>" placeholder="Invoice number, Grow link name, or internal payment note" style="width:100%;">
 		<small>Owner-only context for matching the payment request to the lawyer record.</small>
+	</p>
+	<p>
+		<label for="justice-manual-payment-evidence-url"><strong>Private payment evidence URL</strong></label>
+		<input id="justice-manual-payment-evidence-url" type="url" name="manual_payment_evidence_url" value="<?php echo esc_attr( $payment_evidence_url ); ?>" placeholder="Private receipt, bank/payment proof, or owner evidence URL" style="width:100%;">
+		<small>Required before Payment confirmed. Keep this private; it is never shown publicly.</small>
 	</p>
 	<?php if ( $invoice_sent_at || $payment_confirmed_at || $payment_blocked_at || $payment_cancelled_at ) : ?>
 		<p>
@@ -2325,6 +2354,7 @@ function justice_theme_save_lawyer_activation( int $post_id ): void {
 	$manual_payment_link = isset( $_POST['manual_payment_link_url'] ) ? esc_url_raw( wp_unslash( $_POST['manual_payment_link_url'] ) ) : '';
 	update_post_meta( $post_id, 'manual_payment_link_url', $manual_payment_link );
 	update_post_meta( $post_id, 'manual_invoice_reference', isset( $_POST['manual_invoice_reference'] ) ? sanitize_text_field( wp_unslash( $_POST['manual_invoice_reference'] ) ) : '' );
+	update_post_meta( $post_id, 'manual_payment_evidence_url', isset( $_POST['manual_payment_evidence_url'] ) ? esc_url_raw( wp_unslash( $_POST['manual_payment_evidence_url'] ) ) : '' );
 
 	$payment_followup_status = isset( $_POST['payment_followup_status'] ) ? sanitize_key( wp_unslash( $_POST['payment_followup_status'] ) ) : '';
 	justice_theme_set_lawyer_payment_followup_status( $post_id, $payment_followup_status, 'lawyer activation box' );
@@ -2541,6 +2571,7 @@ function justice_theme_update_lawyer_payment_followup(): void {
 	check_admin_referer( 'justice_update_lawyer_payment_followup_' . $post_id . '_' . $followup_status );
 
 	justice_theme_set_lawyer_payment_followup_status( $post_id, $followup_status, 'Lawyer Onboarding quick action' );
+	$final_followup_status = (string) get_post_meta( $post_id, 'payment_followup_status', true );
 
 	if ( function_exists( 'uje_log' ) ) {
 		uje_log( 'lawyer_payment_followup_updated', 'Updated lawyer payment follow-up to ' . $followup_status . ': ' . get_the_title( $post_id ) );
@@ -2549,7 +2580,7 @@ function justice_theme_update_lawyer_payment_followup(): void {
 	wp_safe_redirect( add_query_arg(
 		array(
 			'payment_followup' => 'updated',
-			'payment_queue'    => $followup_status,
+			'payment_queue'    => $final_followup_status ?: $followup_status,
 		),
 		admin_url( 'admin.php?page=justice-lawyer-onboarding' )
 	) );
@@ -3415,6 +3446,21 @@ function justice_theme_lawyer_onboarding_payment_due_value( string $mode ): int 
 }
 
 function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
+	$payment_confirmed_meta_query = array(
+		array(
+			'key'   => 'payment_followup_status',
+			'value' => 'payment_confirmed',
+		),
+		array(
+			'key'     => 'manual_payment_evidence_url',
+			'compare' => 'EXISTS',
+		),
+		array(
+			'key'     => 'manual_payment_evidence_url',
+			'value'   => '',
+			'compare' => '!=',
+		),
+	);
 	$invoice_requested_count = justice_theme_lawyer_onboarding_count_lawyers( array(
 		array(
 			'key'   => 'payment_followup_status',
@@ -3427,12 +3473,7 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 			'value' => 'invoice_sent',
 		),
 	) );
-	$payment_confirmed_count = justice_theme_lawyer_onboarding_count_lawyers( array(
-		array(
-			'key'   => 'payment_followup_status',
-			'value' => 'payment_confirmed',
-		),
-	) );
+	$payment_confirmed_count = justice_theme_lawyer_onboarding_count_lawyers( $payment_confirmed_meta_query );
 	$manual_invoice_count    = justice_theme_lawyer_onboarding_count_lawyers( array(
 		array(
 			'key'   => 'payment_path',
@@ -3471,12 +3512,7 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 			'value' => 'invoice_sent',
 		),
 	) );
-	$payment_confirmed_value = justice_theme_lawyer_onboarding_monthly_value( array(
-		array(
-			'key'   => 'payment_followup_status',
-			'value' => 'payment_confirmed',
-		),
-	) );
+	$payment_confirmed_value = justice_theme_lawyer_onboarding_monthly_value( $payment_confirmed_meta_query );
 	$manual_invoice_value    = justice_theme_lawyer_onboarding_monthly_value( array(
 		array(
 			'key'   => 'payment_path',
@@ -4230,10 +4266,11 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$manual_payment_link_sent_to = (string) get_post_meta( $post_id, 'manual_payment_link_sent_to', true );
 						$manual_payment_link_email_result = (string) get_post_meta( $post_id, 'manual_payment_link_email_last_result', true );
 						$invoice_reference    = (string) get_post_meta( $post_id, 'manual_invoice_reference', true );
+						$payment_evidence_url = (string) get_post_meta( $post_id, 'manual_payment_evidence_url', true );
 						$payment_confirmed_at = (string) get_post_meta( $post_id, 'payment_confirmed_at', true );
 						$payment_blocked_at   = (string) get_post_meta( $post_id, 'payment_blocked_at', true );
 						$payment_cancelled_at = (string) get_post_meta( $post_id, 'payment_cancelled_at', true );
-						$payment_quick_actions = justice_theme_lawyer_payment_followup_quick_actions( $payment_path, $payment_followup );
+						$payment_quick_actions = justice_theme_lawyer_payment_followup_quick_actions( $payment_path, $payment_followup, '' !== trim( $payment_evidence_url ) );
 						$payment_handoff_context = justice_theme_lawyer_manual_invoice_context( $post_id );
 						$payment_handoff_message = justice_theme_lawyer_manual_invoice_message( $post_id );
 						$payment_handoff_whatsapp_url = justice_theme_lawyer_payment_link_whatsapp_url( $post_id, $payment_handoff_message );
@@ -4362,6 +4399,13 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 								<?php endif; ?>
 								<?php if ( $invoice_reference ) : ?>
 									<br><small>Ref: <?php echo esc_html( $invoice_reference ); ?></small>
+								<?php endif; ?>
+								<?php if ( $payment_evidence_url ) : ?>
+									<br><a href="<?php echo esc_url( $payment_evidence_url ); ?>" target="_blank" rel="noopener noreferrer">Payment proof recorded</a>
+								<?php elseif ( 'invoice_sent' === $payment_followup ) : ?>
+									<br><small style="color:#991b1b;">Paid action blocked until a private payment evidence URL is saved.</small>
+								<?php elseif ( 'payment_confirmed' === $payment_followup ) : ?>
+									<br><small style="color:#991b1b;">Legacy paid status is not revenue proof until payment evidence URL is saved.</small>
 								<?php endif; ?>
 								<?php if ( $payment_due_at ) : ?>
 									<br><span style="display:inline-block;margin:6px 0 0;padding:2px 7px;border-radius:999px;font-size:12px;<?php echo esc_attr( $payment_due_badge['style'] ); ?>"><?php echo esc_html( $payment_due_badge['label'] ); ?></span>

@@ -103,7 +103,9 @@ Add-Check $checks "lawyer_onboarding_payment_queue" (Contains-All -Text $texts.l
 	"payment_confirmed",
 	"manual_payment_link_url",
 	"manual_invoice_reference",
+	"manual_payment_evidence_url",
 	"payment_followup_due_at",
+	"justice_theme_lawyer_has_manual_payment_evidence",
 	"justice_theme_set_lawyer_payment_followup_status"
 )) "Lawyer onboarding can hold manual invoice/payment-link queues with timestamps and references." $files.lawyerOnboarding
 
@@ -114,8 +116,18 @@ Add-Check $checks "lawyer_onboarding_payment_exports" (Contains-All -Text $texts
 	"payment_queue",
 	"payment_followup_status",
 	"manual_payment_link_url",
-	"manual_invoice_reference"
+	"manual_invoice_reference",
+	"manual_payment_evidence_url"
 )) "Owner/admin has payment queues and exports for invoice-requested and invoice-sent stages." $files.lawyerOnboarding
+
+Add-Check $checks "lawyer_onboarding_paid_evidence_guard" (Contains-All -Text $texts.lawyerOnboarding -Tokens @(
+	"manual_payment_evidence_url",
+	"Payment confirmed was blocked because manual_payment_evidence_url is missing",
+	"Paid action blocked until a private payment evidence URL is saved",
+	"Legacy paid status is not revenue proof until payment evidence URL is saved",
+	"justice_theme_lawyer_has_manual_payment_evidence",
+	"Payment proof recorded"
+)) "Lawyer onboarding prevents paid-status claims and paid quick actions unless private payment evidence exists." $files.lawyerOnboarding
 
 Add-Check $checks "lawyer_dashboard_payment_context" (Contains-All -Text $texts.lawyerDashboard -Tokens @(
 	"manual_payment_link_url",
@@ -227,7 +239,7 @@ $summary = [ordered]@{
 		checkoutFallback = "Paid-lawyer intent must preserve plan, billing, terms, cancellation, privacy, and manual-invoice continuation until provider checkout is verified."
 		lawyerBilling   = "Lawyer onboarding and dashboard must show payment follow-up, manual payment link, invoice reference, and service-request states."
 		leadBilling     = "Qualified CRM leads may move to ready_to_bill or invoice_sent only after consent, accepted lawyer/supplier terms, and owner release."
-		paidProof       = "Paid status requires private payment evidence URL; invoice/reference alone is not revenue proof."
+		paidProof       = "Paid status requires private payment evidence URL in both CRM lead billing and lawyer onboarding; invoice/reference alone is not revenue proof."
 		providerReality = "One-time Grow link evidence is historical support, not current revenue proof; recurring Grow/Meshulam remains provider-gated until a controlled transaction passes."
 	}
 	knownBlockers    = @(

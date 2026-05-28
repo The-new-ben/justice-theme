@@ -19,8 +19,8 @@ $requiredTokens = @(
 	'lawyer-dashboard-login-preview',
 	'/lawyer-registration/',
 	'/lawyer-plans/',
-	'1.1.73',
-	'2026-05-28-lawyer-dashboard-payment-proof-preview-v1'
+	'1.1.74',
+	'2026-05-28-lawyer-paid-proof-guard-v1'
 )
 
 try {

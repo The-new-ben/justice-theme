@@ -108,6 +108,14 @@ $checks = @(
 		) `
 		-BlocksProfit $false),
 	(Invoke-JsonChecker `
+		-Name "live_route_matrix" `
+		-ScriptPath (Join-Path $scriptRoot "check-live-route-matrix.ps1") `
+		-Arguments @(
+			"-BaseUrl", $BaseUrl,
+			"-Root", (Resolve-Path -LiteralPath (Join-Path $scriptRoot "..\..")).Path
+		) `
+		-BlocksProfit $true),
+	(Invoke-JsonChecker `
 		-Name "live_link_hygiene_deploy_check" `
 		-ScriptPath (Join-Path $scriptRoot "check-live-link-hygiene.ps1") `
 		-Arguments @(

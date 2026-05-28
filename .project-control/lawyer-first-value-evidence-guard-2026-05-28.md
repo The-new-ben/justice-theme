@@ -1,7 +1,7 @@
 # Lawyer First Value Evidence Guard
 
 Date: 2026-05-28
-Status: LOCAL_VERIFIED_DEPLOY_REQUIRED
+Status: LIVE_VERIFIED
 
 ## Purpose
 
@@ -43,7 +43,20 @@ Prevent the owner/admin from closing the paid first-value queue with a status-on
 
 ## Deployment Verification Still Required
 
-- Commit and push the code.
-- Pull Git in uPress for `wp-content/themes/justice-theme`.
-- Verify live marker/version.
-- Run revenue readiness and live mobile menu browser QA.
+Completed.
+
+## Live Verification
+
+- GitHub push: commit `9bf9595f` pushed to `codex/live-homepage-conversion-release` and `main`.
+- uPress Pull Git: completed for `wp-content/themes/justice-theme`.
+- uPress Git log: `9bf9595f Require first value evidence for paid lawyers` appears as `HEAD -> main`.
+- Live deploy marker check: passed. The site serves `2026-05-28-lawyer-first-value-evidence-guard-v1` and version `1.1.78`; previous marker `2026-05-28-lawyer-first-value-delivery-action-v1` is absent.
+- `/lawyer-plans/` payment-proof path: passed.
+- `/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice` revenue bridge: passed.
+- `/lawyer-dashboard/` payment-proof preview: passed.
+- Revenue readiness gate: passed with readiness `ready_for_owner_payment_admin_test`.
+- Live mobile menu browser QA: passed; screenshot saved at `output/playwright/live-mobile-menu-open-1779937032.png`.
+
+## Honesty Statement
+
+This deployment improves the owner/admin proof gate. It still does not prove real revenue, real payment settlement, invoice issuance, CRM routing, lawyer handoff, or customer delivery. A real paid-lawyer run still requires owner-verified payment evidence and first-value evidence.

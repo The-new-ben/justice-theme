@@ -1739,6 +1739,34 @@
   line-height: 1.55;
   font-size: 0.92rem;
 }
+.customer-intake-strip__status-path {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.9rem;
+}
+.customer-intake-strip__status-path div {
+  min-width: 0;
+  padding: 0.72rem 0.78rem;
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.74);
+}
+.customer-intake-strip__status-path strong,
+.customer-intake-strip__status-path span {
+  display: block;
+}
+.customer-intake-strip__status-path strong {
+  margin-bottom: 0.25rem;
+  color: var(--jt-heading, #0f172a);
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+.customer-intake-strip__status-path span {
+  color: var(--jt-muted, #6b7280);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
 .customer-intake-strip__handoff-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1762,12 +1790,20 @@
   .customer-intake-strip__handoff {
     grid-template-columns: 1fr;
   }
+  .customer-intake-strip__status-path {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .customer-intake-strip__handoff-actions {
     justify-content: stretch;
   }
   .customer-intake-strip__handoff-actions .button {
     width: 100%;
     justify-content: center;
+  }
+}
+@media (max-width: 560px) {
+  .customer-intake-strip__status-path {
+    grid-template-columns: 1fr;
   }
 }
 

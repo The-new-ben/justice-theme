@@ -1,4 +1,4 @@
-# uPress Deploy Handoff: Mobile Menu Stability + Link Hygiene
+# uPress Deploy Handoff: Homepage Status Path + Mobile Menu Stability
 
 Date: 2026-05-28
 Owner loop status: BLOCKED at live deploy.
@@ -7,11 +7,11 @@ Owner loop status: BLOCKED at live deploy.
 
 - Branch: `codex/live-homepage-conversion-release`
 - Main: `main`
-- Latest pushed commit: `e7a879fe Add live mobile menu browser QA`
+- Latest pushed source now includes the homepage customer status path, mobile menu stability, live route matrix, WhatsApp-to-paid-lead acceptance, and manual invoice acceptance gates.
 - Runtime fix commit: `bb831696 Stabilize mobile menu toggle`
 - Source stability gate commit: `99bcb3a9 Add mobile menu stability gate`
-- Expected theme version after deploy: `1.1.69`
-- Expected deployment marker after deploy: `2026-05-28-mobile-menu-stability-v1`
+- Expected theme version after deploy: `1.1.70`
+- Expected deployment marker after deploy: `2026-05-28-homepage-status-path-v1`
 
 ## What Changed
 
@@ -21,18 +21,20 @@ Owner loop status: BLOCKED at live deploy.
 - The menu closes after a visitor taps a real navigation link.
 - The mobile menu source gate now blocks readiness if dynamic hamburger positioning or missing mobile revenue actions return.
 - Live browser QA was added to open the public homepage at 390x844, tap the menu, verify WhatsApp/lawyer-plan actions, verify link hygiene, and save screenshot evidence.
+- The homepage customer intake section now includes a visible status path for source, consent, first attempt, and lawyer/supplier fit.
+- The homepage revenue-path checker now requires `data-revenue-surface="homepage_customer_status_path"` after deployment.
 
 ## Current Live Verification
 
-Checked at: 2026-05-27T23:52Z
+Checked at: 2026-05-28T00:42Z
 
 Live URL checked through `.project-control/scripts/check-live-deploy.ps1`.
 
 Result:
 
 - HTTP status: `200`
-- Expected marker `2026-05-28-mobile-menu-stability-v1` present: `false`
-- Expected version `1.1.69` present: `false`
+- Expected marker `2026-05-28-homepage-status-path-v1` present: `false`
+- Expected version `1.1.70` present: `false`
 - Mobile menu action component present: `true`
 - `mobile_menu` WhatsApp surface present: `true`
 - Old marker `2026-05-27-footer-trust-path-v1` still present: `true`

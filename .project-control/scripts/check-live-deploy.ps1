@@ -1,7 +1,7 @@
 param(
 	[string] $Url = 'https://jus-tice.co.il/',
-	[string] $ExpectedMarker = '2026-05-28-mobile-menu-stability-v1',
-	[string] $ExpectedVersion = '1.1.69',
+	[string] $ExpectedMarker = '2026-05-28-homepage-status-path-v1',
+	[string] $ExpectedVersion = '1.1.70',
 	[string] $ExpectedComponent = 'primary-navigation__mobile-actions',
 	[string] $ExpectedWhatsAppSurface = 'mobile_menu',
 	[string] $OldMarker = '2026-05-27-footer-trust-path-v1'

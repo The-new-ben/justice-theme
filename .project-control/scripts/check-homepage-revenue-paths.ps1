@@ -56,6 +56,7 @@ $checks = @(
 			"ask-lawyer",
 			"data-whatsapp-surface=""homepage_hero""",
 			"data-whatsapp-surface=""mobile_menu""",
+			"data-revenue-surface=""homepage_customer_status_path""",
 			"/lawyer-registration/",
 			"/lawyer-plans/"
 		)

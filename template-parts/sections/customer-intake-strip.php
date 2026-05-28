@@ -42,6 +42,25 @@ $customer_handoff_steps = array(
 	__( 'בודקים אם נכון להתחיל ממדריך, מחיפוש עורך דין או משיחה קצרה.', 'justice-theme' ),
 	__( 'אם צריך עורך דין, מכינים פנייה מסודרת כדי שהשיחה הראשונה תהיה ממוקדת יותר.', 'justice-theme' ),
 );
+
+$customer_status_path = array(
+	array(
+		'label' => __( 'מקור', 'justice-theme' ),
+		'text'  => __( 'הפנייה נשמרת עם העמוד או הכפתור שממנו התחלתם.', 'justice-theme' ),
+	),
+	array(
+		'label' => __( 'הסכמה', 'justice-theme' ),
+		'text'  => __( 'פרטים מועברים הלאה רק אחרי שיש אישור מתאים להמשך טיפול.', 'justice-theme' ),
+	),
+	array(
+		'label' => __( 'ניסיון ראשון', 'justice-theme' ),
+		'text'  => __( 'המטרה היא לחזור מהר, להבין תחום, עיר ודחיפות, ואז להחליט אם נדרש חיבור מקצועי.', 'justice-theme' ),
+	),
+	array(
+		'label' => __( 'התאמה', 'justice-theme' ),
+		'text'  => __( 'חיבור לעורך דין או ספק נעשה לפי התאמה ויכולת טיפול, לא רק לפי שם ברשימה.', 'justice-theme' ),
+	),
+);
 ?>
 
 <section class="customer-intake-strip" aria-labelledby="customer-intake-title">
@@ -71,6 +90,15 @@ $customer_handoff_steps = array(
 						<li><?php echo esc_html( $handoff_step ); ?></li>
 					<?php endforeach; ?>
 				</ol>
+
+				<div class="customer-intake-strip__status-path" data-revenue-surface="homepage_customer_status_path">
+					<?php foreach ( $customer_status_path as $status_item ) : ?>
+						<div>
+							<strong><?php echo esc_html( $status_item['label'] ); ?></strong>
+							<span><?php echo esc_html( $status_item['text'] ); ?></span>
+						</div>
+					<?php endforeach; ?>
+				</div>
 			</div>
 			<div class="customer-intake-strip__handoff-actions">
 				<a class="button button--primary" href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>" data-lead-source-surface="homepage_customer_handoff" data-lead-utm-source="homepage_customer_handoff" data-lead-utm-medium="handoff_cta" data-lead-utm-campaign="public_legal_help">

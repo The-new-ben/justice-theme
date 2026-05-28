@@ -1,6 +1,6 @@
 # First Paid Lawyer Proof Packet Admin Surface - 2026-05-28
 
-Status: CODE_READY_FOR_LIVE_DEPLOYMENT
+Status: LIVE_DEPLOYED
 
 Scope: admin-side lawyer onboarding improvement. No public CMS/database content, redirects, canonicals/noindex, sitemap, taxonomy, forms, leads, lawyer records, invoices, WooCommerce orders, provider settings, WhatsApp messages, emails, or payments were changed.
 
@@ -26,6 +26,8 @@ Make the first real paid-lawyer run easier to execute without false revenue clai
 php -l functions.php
 php -l inc\lawyer-onboarding.php
 powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\check-payment-proof-operator-readiness.ps1 -Root .
+powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\check-first-paid-lawyer-manual-invoice-packet.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\check-live-deploy.ps1
 git diff --check
 ```
 
@@ -33,6 +35,14 @@ git diff --check
 
 - Version: `1.1.84`
 - Marker: `2026-05-28-first-paid-lawyer-proof-packet-v1`
+
+## Live Deployment Evidence
+
+- GitHub commit: `bfb6e740 Add first paid lawyer proof packet`.
+- uPress Pull Git completed for `wp-content/themes/justice-theme`.
+- uPress Git log showed `bfb6e740` as `HEAD -> main`.
+- Live homepage marker check found `justice-theme-version=1.1.84` and `justice-deployment-marker=2026-05-28-first-paid-lawyer-proof-packet-v1`.
+- Read-only route checks for `/`, `/lawyer-registration/`, and `/lawyer-dashboard/` returned HTTP 200 with indexable page signals.
 
 ## Remaining Blockers
 

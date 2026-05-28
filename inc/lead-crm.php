@@ -2443,6 +2443,7 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 	<?php justice_theme_crm_render_btl_activation_gap_board( $btl_needles, 'national-insurance', $target ); ?>
 	<?php justice_theme_crm_render_btl_first_test_preflight( 'national-insurance', $target ); ?>
 	<?php justice_theme_crm_render_btl_controlled_test_drill( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_btl_leads, $paid_btl_leads ); ?>
+	<?php justice_theme_crm_render_btl_payment_proof_lock( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_btl_leads, $paid_btl_leads ); ?>
 	<?php justice_theme_crm_render_btl_intent_ownership_map(); ?>
 	<?php justice_theme_crm_render_btl_candidate_tracker( $btl_needles ); ?>
 	<?php justice_theme_crm_render_btl_next_source_actions( $source_pack_rows ); ?>
@@ -3019,6 +3020,91 @@ function justice_theme_crm_btl_controlled_test_drill_copy( array $snapshot, int 
 	return implode( "\n", $lines );
 }
 
+function justice_theme_crm_render_btl_payment_proof_lock( array $source_pack_progress, int $verified_prospects, int $active_specialists, int $target, int $billable_leads, int $paid_leads ): void {
+	$snapshot       = justice_theme_crm_btl_readiness_snapshot_from_counts( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_leads, $paid_leads );
+	$supply_ready   = $verified_prospects >= $target && $active_specialists >= $target;
+	$billing_ready  = $billable_leads > 0;
+	$proof_complete = $paid_leads > 0;
+	$copy_id        = 'justice-btl-payment-proof-lock-copy';
+	$crm_url        = admin_url( 'admin.php?page=justice-crm' );
+	$lead_queue_url = admin_url( 'edit.php?post_type=justice_lead' );
+	$lock_copy      = justice_theme_crm_btl_payment_proof_lock_copy( $snapshot, $verified_prospects, $active_specialists, $target, $billable_leads, $paid_leads );
+	$ready_style    = 'background:#f0fff4;border-color:#008a20;';
+	$blocked_style  = 'background:#fff7f7;border-color:#d63638;';
+	$waiting_style  = 'background:#fffaf0;border-color:#dba617;';
+	?>
+	<div id="justice-btl-payment-proof-lock" style="background:#fff;border:2px solid #111827;border-radius:8px;padding:14px;margin:12px 0 20px;">
+		<h3 style="margin-top:0;">First paid-lead proof lock</h3>
+		<p style="margin-top:0;color:#646970;">Owner-only proof gate for the Bituach Leumi revenue claim. This keeps the first paid-lead loop tied to a consented lead, routed lawyer IDs, invoice/reference, private payment evidence and a paid timestamp.</p>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0;">
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;<?php echo esc_attr( $supply_ready ? $ready_style : $blocked_style ); ?>">
+				<strong><?php echo esc_html( $supply_ready ? 'Ready' : 'Blocked' ); ?></strong>
+				<br><span>Specialist supply</span>
+				<br><small><?php echo esc_html( sprintf( '%d/%d verified prospects, %d/%d routable lawyers', $verified_prospects, $target, $active_specialists, $target ) ); ?></small>
+			</div>
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;<?php echo esc_attr( $billing_ready ? $ready_style : ( $supply_ready ? $waiting_style : $blocked_style ) ); ?>">
+				<strong><?php echo esc_html( $billing_ready ? 'Recorded' : 'Missing' ); ?></strong>
+				<br><span>Billable lead record</span>
+				<br><small><?php echo esc_html( sprintf( '%d ready/invoiced/paid Bituach Leumi lead(s)', $billable_leads ) ); ?></small>
+			</div>
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;<?php echo esc_attr( $proof_complete ? $ready_style : $waiting_style ); ?>">
+				<strong><?php echo esc_html( $proof_complete ? 'Locked' : 'Not locked' ); ?></strong>
+				<br><span>Payment evidence</span>
+				<br><small><?php echo esc_html( sprintf( '%d paid lead(s) with private proof', $paid_leads ) ); ?></small>
+			</div>
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;<?php echo esc_attr( $proof_complete ? $ready_style : $blocked_style ); ?>">
+				<strong><?php echo esc_html( $proof_complete ? 'Revenue proof exists' : 'Revenue not proven' ); ?></strong>
+				<br><span>Owner reporting claim</span>
+				<br><small><?php echo esc_html( $proof_complete ? 'Keep proof attached before scaling.' : 'Do not report BTL paid revenue yet.' ); ?></small>
+			</div>
+		</div>
+		<p style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px;">
+			<a class="button button-primary" href="<?php echo esc_url( $crm_url ); ?>">Open CRM billing queue</a>
+			<a class="button" href="<?php echo esc_url( $lead_queue_url ); ?>">Open lead records</a>
+		</p>
+		<?php if ( ! $proof_complete ) : ?>
+			<div class="notice notice-warning inline">
+				<p><strong>Revenue claim remains blocked.</strong> A Bituach Leumi lead can be ready to bill or invoice sent, but paid revenue is counted only when the CRM has a private payment evidence URL.</p>
+			</div>
+		<?php else : ?>
+			<div class="notice notice-success inline">
+				<p><strong>First paid-lead proof is present.</strong> Keep the invoice/reference, payment proof and routed lawyer IDs attached before repeating the funnel.</p>
+			</div>
+		<?php endif; ?>
+		<label for="<?php echo esc_attr( $copy_id ); ?>"><strong>Copyable proof-lock checklist</strong></label>
+		<textarea id="<?php echo esc_attr( $copy_id ); ?>" rows="11" readonly style="width:100%;margin-top:6px;"><?php echo esc_textarea( $lock_copy ); ?></textarea>
+		<p style="margin:6px 0 0;">
+			<button type="button" class="button" data-justice-copy-target="<?php echo esc_attr( $copy_id ); ?>">Copy proof lock</button>
+		</p>
+	</div>
+	<?php
+}
+
+function justice_theme_crm_btl_payment_proof_lock_copy( array $snapshot, int $verified_prospects, int $active_specialists, int $target, int $billable_leads, int $paid_leads ): string {
+	$lines = array(
+		'Bituach Leumi first paid-lead proof lock',
+		sprintf( 'Current readiness: %s (%d%% complete)', (string) ( $snapshot['status'] ?? 'Unknown' ), (int) ( $snapshot['percent'] ?? 0 ) ),
+		sprintf( 'Supply: %d/%d verified prospects, %d/%d active routable specialists', $verified_prospects, $target, $active_specialists, $target ),
+		sprintf( 'Billing queue: %d ready/invoiced/paid lead(s)', $billable_leads ),
+		sprintf( 'Paid with private evidence: %d lead(s)', $paid_leads ),
+		'',
+		'Revenue may be reported only if all proof exists:',
+		'1. The first lead is consented and recorded as Bituach Leumi / national-insurance.',
+		'2. The lead has routed/billable lawyer IDs and accepted lead-fee terms.',
+		'3. The invoice/payment reference is saved before Invoice sent.',
+		'4. The private payment evidence URL is saved before Paid.',
+		'5. qualified_lead_paid_at exists and the payment evidence remains accessible to the owner.',
+		'',
+		'Blocked actions until proof exists:',
+		'- Do not claim Bituach Leumi paid revenue.',
+		'- Do not scale routing or publish case-study copy.',
+		'- Do not expose client PII outside the CRM without permission, terms and owner release.',
+		'- Do not treat invoice/reference alone as paid revenue.',
+	);
+
+	return implode( "\n", $lines );
+}
+
 function justice_theme_crm_render_btl_intent_ownership_map(): void {
 	$rows    = justice_theme_crm_btl_intent_map_rows();
 	$copy_id = 'justice-btl-intent-map-copy';
@@ -3160,7 +3246,7 @@ function justice_theme_crm_btl_readiness_snapshot_from_counts( array $source_pac
 		array(
 			'label' => 'Payment loop proven',
 			'met'   => $paid_leads > 0,
-			'detail' => sprintf( '%d paid Bituach Leumi lead(s)', $paid_leads ),
+			'detail' => sprintf( '%d paid Bituach Leumi lead(s) with private evidence', $paid_leads ),
 		),
 	);
 	$met_count = 0;

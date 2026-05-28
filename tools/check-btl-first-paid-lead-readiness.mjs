@@ -289,12 +289,14 @@ function buildRows(sourceDate) {
         'justice_theme_crm_render_btl_first_test_preflight',
         'justice_theme_crm_render_btl_controlled_test_drill',
         'justice_theme_crm_btl_controlled_test_drill_copy',
+        'justice_theme_crm_render_btl_payment_proof_lock',
+        'justice_theme_crm_btl_payment_proof_lock_copy',
         'btl_first_billable_test',
       ])
         ? 'PASS'
         : 'BLOCKED',
-      'Justice CRM has a first paid-lead preflight and controlled-test drill.',
-      'Run the controlled test only after 3 verified prospects and 3 active routable specialists exist.',
+      'Justice CRM has a first paid-lead preflight, controlled-test drill and payment-proof lock.',
+      'Run the controlled test only after 3 verified prospects and 3 active routable specialists exist; report paid revenue only after private payment evidence exists.',
       'This report cannot prove live database counts; check the admin panel before testing.'
     )
   );

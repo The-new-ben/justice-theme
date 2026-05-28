@@ -1,0 +1,102 @@
+{
+  "summary": {
+    "reportDate": "2026-05-28",
+    "sourceDate": "2026-05-26",
+    "status": "PASS_WITH_RUNTIME_BLOCKERS",
+    "passCount": 9,
+    "staticGateCount": 9,
+    "reviewCount": 0,
+    "blockedCount": 0,
+    "runtimeBlockers": 1,
+    "sourcePackCandidates": 19,
+    "highPriorityCandidates": 12
+  },
+  "rows": [
+    {
+      "id": "BTL-01",
+      "gate": "private_source_pack_loaded",
+      "status": "PASS",
+      "evidence": "19 candidate rows; 12 high-priority rows; columns=candidate|source_url|source_type|apparent_focus|source_evidence_summary|priority|geo_hint|crm_action|verification_status|missing_before_routing|notes",
+      "next_action": "Create the first 3-6 private prospects from `.project-control/btl-specialist-prospect-shortlist-2026-05-26.csv`.",
+      "owner_notice": "No candidate is a recommendation or public listing until manually verified."
+    },
+    {
+      "id": "BTL-02",
+      "gate": "crm_supply_panel_available",
+      "status": "PASS",
+      "evidence": "Justice CRM has source-pack conversion, candidate table and outreach packet functions.",
+      "next_action": "Use wp-admin -> Justice CRM -> Bituach Leumi specialist supply to create private prospects.",
+      "owner_notice": "This screen is owner-only and does not send outreach automatically."
+    },
+    {
+      "id": "BTL-03",
+      "gate": "prospect_verification_fields_available",
+      "status": "PASS",
+      "evidence": "Private prospect records include license, specialty, response, payment path, lead fee, terms and billing-contact gates.",
+      "next_action": "Do not mark a prospect ready until all verification-missing checks return empty.",
+      "owner_notice": "This is the main protection against routing leads to unverified lawyers."
+    },
+    {
+      "id": "BTL-04",
+      "gate": "manual_outreach_and_activation_packet_available",
+      "status": "PASS",
+      "evidence": "Prospect edit screen has manual-send outreach, terms acceptance and routable activation copy.",
+      "next_action": "Use these packets manually; record terms before setting prospect status to won/onboarding.",
+      "owner_notice": "Nothing is sent automatically from the prospect screen."
+    },
+    {
+      "id": "BTL-05",
+      "gate": "routing_consent_and_hold_guard_available",
+      "status": "PASS",
+      "evidence": "Lead router blocks held/manual external leads unless explicit or owner-verified match consent exists.",
+      "next_action": "Keep WhatsApp/TalkTo/legacy leads on hold until consent evidence is recorded.",
+      "owner_notice": "Pressing a WhatsApp button is not enough for lawyer/supplier PII handoff."
+    },
+    {
+      "id": "BTL-06",
+      "gate": "btl_revenue_hint_and_billing_queue_available",
+      "status": "PASS",
+      "evidence": "National-insurance leads can be tagged as qualified appeal leads and moved to manual billing after routing.",
+      "next_action": "After one controlled routed lead, save invoice/reference before invoice_sent and private payment evidence before paid.",
+      "owner_notice": "Revenue remains unproven until a real private payment evidence record exists."
+    },
+    {
+      "id": "BTL-07",
+      "gate": "controlled_test_drill_available",
+      "status": "PASS",
+      "evidence": "Justice CRM has a first paid-lead preflight, controlled-test drill and payment-proof lock.",
+      "next_action": "Run the controlled test only after 3 verified prospects and 3 active routable specialists exist; report paid revenue only after private payment evidence exists.",
+      "owner_notice": "This report cannot prove live database counts; check the admin panel before testing."
+    },
+    {
+      "id": "BTL-08",
+      "gate": "anti_cannibalization_boundary_documented",
+      "status": "PASS",
+      "evidence": "Bituach Leumi attorney route and appeal-guide route have a private intent split packet.",
+      "next_action": "Do not edit public title/H1/body/canonical/redirect/noindex/sitemap/taxonomy until owner/SEO/GSC approval.",
+      "owner_notice": "Public pages must explain legal help to the reader, never Jus-Tice revenue logic."
+    },
+    {
+      "id": "BTL-09",
+      "gate": "private_path_references_clean",
+      "status": "PASS",
+      "evidence": "Source-pack references should point future agents to dot-private `.project-control` artifacts.",
+      "next_action": "Fix any remaining non-dot private report references before telling a remote operator where to work.",
+      "owner_notice": "Private docs should not suggest public theme-root artifact paths."
+    },
+    {
+      "id": "BTL-10",
+      "gate": "runtime_revenue_proof",
+      "status": "RUNTIME_BLOCKED",
+      "evidence": "Repo can verify infrastructure, but cannot prove live WP DB has 3 verified prospects, 3 routable paid lawyers, one consented lead, or payment proof.",
+      "next_action": "Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/reference and private payment evidence.",
+      "owner_notice": "Do not claim first paid Bituach Leumi revenue until the CRM has actual payment evidence."
+    }
+  ],
+  "files": {
+    "projectMd": "C:\\Users\\janana\\jutice-theme\\.project-control\\btl-first-paid-lead-readiness-2026-05-28.md",
+    "projectCsv": "C:\\Users\\janana\\jutice-theme\\.project-control\\btl-first-paid-lead-readiness-2026-05-28.csv",
+    "reportJson": "C:\\Users\\janana\\jutice-theme\\.reports\\btl-first-paid-lead-readiness-2026-05-28.json",
+    "reportCsv": "C:\\Users\\janana\\jutice-theme\\.reports\\btl-first-paid-lead-readiness-2026-05-28.csv"
+  }
+}

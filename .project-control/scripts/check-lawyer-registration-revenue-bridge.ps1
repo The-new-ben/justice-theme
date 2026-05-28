@@ -23,8 +23,8 @@ $requiredTokens = @(
 	'data-manual-billing-fields',
 	'name="billing_invoice_email"',
 	'invoice_sent',
-	'1.1.76',
-	'2026-05-28-lawyer-paid-first-value-queue-v1'
+	'1.1.77',
+	'2026-05-28-lawyer-first-value-delivery-action-v1'
 )
 
 try {

@@ -1,10 +1,10 @@
 param(
 	[string] $BaseUrl = "https://jus-tice.co.il",
-	[string] $ExpectedDeployMarker = "2026-05-28-homepage-status-path-v1",
-	[string] $ExpectedThemeVersion = "1.1.70",
+	[string] $ExpectedDeployMarker = "2026-05-28-lawyer-plans-payment-proof-v1",
+	[string] $ExpectedThemeVersion = "1.1.71",
 	[string] $ExpectedComponent = "primary-navigation__mobile-actions",
 	[string] $ExpectedWhatsAppSurface = "mobile_menu",
-	[string] $OldMarker = "2026-05-27-footer-trust-path-v1",
+	[string] $OldMarker = "2026-05-28-homepage-status-path-v1",
 	[switch] $Strict
 )
 
@@ -99,6 +99,11 @@ $checks = @(
 	(Invoke-JsonChecker `
 		-Name "lawyer_money_path" `
 		-ScriptPath (Join-Path $scriptRoot "check-lawyer-money-path.ps1") `
+		-Arguments @("-BaseUrl", $BaseUrl) `
+		-BlocksProfit $true),
+	(Invoke-JsonChecker `
+		-Name "lawyer_plans_payment_proof_path" `
+		-ScriptPath (Join-Path $scriptRoot "check-lawyer-plans-payment-proof-path.ps1") `
 		-Arguments @("-BaseUrl", $BaseUrl) `
 		-BlocksProfit $true),
 	(Invoke-JsonChecker `

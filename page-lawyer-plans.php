@@ -210,6 +210,40 @@ $plan_checkout_url = static function ( string $plan_key, string $surface = 'pric
 			</ol>
 		</section>
 
+		<section class="lawyer-plans-payment-proof" aria-labelledby="lawyer-plans-payment-proof-title" data-revenue-surface="lawyer_plans_payment_proof_path" data-payment-readiness="manual_invoice_paid_only_with_evidence">
+			<div class="lawyer-plans-payment-proof__intro">
+				<p class="section-header__eyebrow"><?php esc_html_e( 'הפעלה ותשלום בפועל', 'justice-theme' ); ?></p>
+				<h2 id="lawyer-plans-payment-proof-title"><?php esc_html_e( 'מסלול בתשלום נפתח רק כשיש תנאים, חשבונית או קישור תשלום, והוכחת תשלום', 'justice-theme' ); ?></h2>
+				<p><?php esc_html_e( 'כדי להימנע מהבטחות ריקות, Jus-Tice מפרידה בין בקשת מסלול, חשבונית שנשלחה ותשלום שאושר. חשבונית או קישור תשלום אינם נחשבים הכנסה עד שיש אסמכתת תשלום אמיתית.', 'justice-theme' ); ?></p>
+			</div>
+			<div class="lawyer-plans-payment-proof__grid">
+				<article data-payment-state="terms_before_invoice">
+					<strong><?php esc_html_e( '01', 'justice-theme' ); ?></strong>
+					<h3><?php esc_html_e( 'מסלול ותנאים', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'בוחרים מסלול, מחיר ותקופה. לפני דרישת תשלום בודקים רישיון, תחום, אזור שירות וזמינות.', 'justice-theme' ); ?></p>
+				</article>
+				<article data-payment-state="billing_contact">
+					<strong><?php esc_html_e( '02', 'justice-theme' ); ?></strong>
+					<h3><?php esc_html_e( 'פרטי חשבונית', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'אוספים שם לחשבונית, אימייל, טלפון וכתובת. אם חסר פרט, הבקשה נשארת לבדיקת בעלים.', 'justice-theme' ); ?></p>
+				</article>
+				<article data-payment-state="invoice_not_paid">
+					<strong><?php esc_html_e( '03', 'justice-theme' ); ?></strong>
+					<h3><?php esc_html_e( 'חשבונית או קישור תשלום', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'כש-Grow/Morning או חשבונית ידנית נשלחים בפועל, הסטטוס הוא invoice_sent. זה עדיין לא paid.', 'justice-theme' ); ?></p>
+				</article>
+				<article data-payment-state="paid_requires_evidence">
+					<strong><?php esc_html_e( '04', 'justice-theme' ); ?></strong>
+					<h3><?php esc_html_e( 'paid רק עם אסמכתה', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'מסלול נספר כמשלם רק אחרי הוכחת תשלום פרטית, תאריך תשלום וחיבור לאזור האישי או לתור הלידים.', 'justice-theme' ); ?></p>
+				</article>
+			</div>
+			<div class="lawyer-plans-payment-proof__actions">
+				<a class="button button--gold" href="<?php echo esc_url( $manual_activation_url( 'lead_partner', 'payment_proof_primary' ) ); ?>"><?php esc_html_e( 'בדיקת מסלול שותף לידים', 'justice-theme' ); ?></a>
+				<a class="button button--outline" href="<?php echo esc_url( $manual_activation_url( 'pro', 'payment_proof_secondary' ) ); ?>"><?php esc_html_e( 'בקשת חשבונית למסלול מקצועי', 'justice-theme' ); ?></a>
+			</div>
+		</section>
+
 		<div id="lawyer-plans-pricing" class="lawyer-plans__grid">
 			<?php foreach ( $plans as $plan_key => $plan ) : ?>
 				<?php

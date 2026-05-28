@@ -1,10 +1,10 @@
 param(
 	[string] $Url = 'https://jus-tice.co.il/',
-	[string] $ExpectedMarker = '2026-05-28-homepage-status-path-v1',
-	[string] $ExpectedVersion = '1.1.70',
+	[string] $ExpectedMarker = '2026-05-28-lawyer-plans-payment-proof-v1',
+	[string] $ExpectedVersion = '1.1.71',
 	[string] $ExpectedComponent = 'primary-navigation__mobile-actions',
 	[string] $ExpectedWhatsAppSurface = 'mobile_menu',
-	[string] $OldMarker = '2026-05-27-footer-trust-path-v1'
+	[string] $OldMarker = '2026-05-28-homepage-status-path-v1'
 )
 
 $cacheBust = [DateTimeOffset]::UtcNow.ToUnixTimeSeconds()

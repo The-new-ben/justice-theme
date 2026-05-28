@@ -118,11 +118,11 @@ Add-Check $checks "mobile_revenue_actions_present" (Contains-All -Text $texts.he
 )) "Mobile menu must expose WhatsApp, phone, and lawyer-plan revenue actions." $files.header
 
 Add-Check $checks "deploy_marker_current" (Contains-All -Text $texts.functions -Tokens @(
-	"1.1.70",
-	"2026-05-28-homepage-status-path-v1"
-)) "Theme version and deployment marker must point to the current homepage status-path release." $files.functions
+	"1.1.71",
+	"2026-05-28-lawyer-plans-payment-proof-v1"
+)) "Theme version and deployment marker must point to the current lawyer-plans payment-proof release." $files.functions
 
-Add-Check $checks "premium_css_cache_bumped" ($texts.enqueue.Contains("'4.5.6'")) "Premium stylesheet cache version must be bumped for deployment." $files.enqueue
+Add-Check $checks "premium_css_cache_bumped" ($texts.enqueue.Contains("'4.5.7'")) "Premium stylesheet cache version must be bumped for deployment." $files.enqueue
 
 $failed = @($checks | Where-Object { -not $_.pass })
 

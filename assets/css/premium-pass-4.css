@@ -2942,6 +2942,69 @@
   font-size: 0.86rem;
   line-height: 1.55;
 }
+.lawyer-plans-payment-proof {
+  margin: 1rem 0 1.2rem;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  border: 1px solid rgba(178,58,72,0.16);
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,248,248,0.96)),
+    #fff;
+  box-shadow: 0 16px 40px rgba(7,21,47,0.07);
+}
+.lawyer-plans-payment-proof__intro {
+  max-width: 820px;
+}
+.lawyer-plans-payment-proof__intro h2 {
+  margin: 0.2rem 0 0.55rem;
+  color: var(--jt-primary-deep, #07152f);
+  font-size: clamp(1.24rem, 1.9vw, 1.65rem);
+  line-height: 1.35;
+}
+.lawyer-plans-payment-proof__intro p {
+  margin: 0;
+  color: var(--jt-muted, #6b7280);
+  line-height: 1.75;
+}
+.lawyer-plans-payment-proof__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.68rem;
+  margin-top: 0.95rem;
+}
+.lawyer-plans-payment-proof__grid article {
+  display: grid;
+  align-content: start;
+  gap: 0.34rem;
+  min-height: 168px;
+  padding: 0.9rem;
+  border: 1px solid rgba(7,21,47,0.08);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.88);
+}
+.lawyer-plans-payment-proof__grid strong {
+  color: var(--jt-accent-red, #b23a48);
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+.lawyer-plans-payment-proof__grid h3 {
+  margin: 0;
+  color: var(--jt-primary-deep, #07152f);
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+.lawyer-plans-payment-proof__grid p {
+  margin: 0;
+  color: var(--jt-muted, #6b7280);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+.lawyer-plans-payment-proof__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
 @media (max-width: 860px) {
   .lawyer-plans-next-steps,
   .lawyer-plans-next-steps ol {
@@ -2949,6 +3012,20 @@
   }
   .lawyer-plans-next-steps li {
     min-height: 0;
+  }
+  .lawyer-plans-payment-proof__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .lawyer-plans-payment-proof__grid article {
+    min-height: 0;
+  }
+}
+@media (max-width: 560px) {
+  .lawyer-plans-payment-proof__grid {
+    grid-template-columns: 1fr;
+  }
+  .lawyer-plans-payment-proof__actions .button {
+    width: 100%;
   }
 }
 

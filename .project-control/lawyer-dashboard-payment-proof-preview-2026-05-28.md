@@ -1,7 +1,7 @@
 # Lawyer Dashboard Payment-Proof Preview
 
 Date: 2026-05-28
-Status: PUSH_READY_DEPLOY_REQUIRED
+Status: LIVE_VERIFIED
 
 ## Public Surface
 
@@ -43,6 +43,19 @@ The checker is read-only. It does not log in, submit service requests, create in
 - Theme version: `1.1.73`
 - Deployment marker: `2026-05-28-lawyer-dashboard-payment-proof-preview-v1`
 - CSS cache version: `4.5.9`
+
+## Live Verification
+
+Verified after GitHub push, uPress Pull Git, and uPress cache-clear action.
+
+- uPress Git log: commit `3c995442` is `HEAD -> main`.
+- `.project-control/scripts/check-live-deploy.ps1`: pass.
+- `.project-control/scripts/check-lawyer-dashboard-payment-proof-preview.ps1`: pass for `/lawyer-dashboard/`.
+- `.project-control/scripts/check-lawyer-plans-payment-proof-path.ps1`: pass for `/lawyer-plans/`.
+- `.project-control/scripts/check-lawyer-registration-revenue-bridge.ps1`: pass for `/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice`.
+- `.project-control/scripts/check-live-route-matrix.ps1`: pass across 8 routes, including `/lawyer-dashboard/`; the legacy `?page_id=315` About URL remains canonical-ok but not redirected.
+- `.project-control/scripts/check-live-mobile-menu-browser-qa.ps1`: pass; screenshot saved at `output/playwright/live-mobile-menu-open-1779932532.png`.
+- `.project-control/scripts/check-revenue-readiness-gate.ps1`: pass with readiness `ready_for_owner_payment_admin_test`.
 
 ## Honesty Statement
 

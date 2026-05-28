@@ -243,6 +243,32 @@ if ( $registration_claim_profile ) {
 				</section>
 			<?php endif; ?>
 
+			<section class="lawyer-registration-revenue-bridge" aria-labelledby="lawyer-registration-revenue-bridge-title" data-revenue-surface="lawyer_registration_revenue_bridge" data-funnel-step="lawyer_registration_to_invoice_followup">
+				<div class="lawyer-registration-revenue-bridge__intro">
+					<p class="section-header__eyebrow"><?php esc_html_e( 'מועמד למסלול משלם', 'justice-theme' ); ?></p>
+					<h3 id="lawyer-registration-revenue-bridge-title"><?php esc_html_e( 'מה חייב להיות מלא כדי להפוך הרשמה לחשבונית, תשלום והפעלת לידים?', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'ההרשמה לא נספרת כהכנסה. היא הופכת להזדמנות מסחרית רק כשיש התאמת תחום ואזור, זמינות לענות ללקוח, פרטי חשבונית, ואסמכתת תשלום לפני סימון paid.', 'justice-theme' ); ?></p>
+				</div>
+				<ol class="lawyer-registration-revenue-bridge__steps">
+					<li data-registration-state="lead_response_commitment">
+						<strong><?php esc_html_e( 'זמינות למענה', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'שדה זמינות המענה קובע אם אפשר להעביר פנייה חמה או רק לבנות פרופיל ציבורי.', 'justice-theme' ); ?></span>
+					</li>
+					<li data-registration-state="practice_city_match">
+						<strong><?php esc_html_e( 'תחום ואזור שירות', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'התאמה בין תחום, עיר וזמינות היא תנאי לפני שידוך לידים או הצעה למסלול שותף.', 'justice-theme' ); ?></span>
+					</li>
+					<li data-registration-state="billing_details_ready">
+						<strong><?php esc_html_e( 'פרטי חשבונית', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'שם לחיוב, אימייל לחשבונית וטלפון מאפשרים לשלוח דרישת תשלום בלי לרדוף אחרי מידע בסיסי.', 'justice-theme' ); ?></span>
+					</li>
+					<li data-registration-state="paid_requires_evidence">
+						<strong><?php esc_html_e( 'paid רק עם אסמכתה', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'חשבונית או קישור תשלום הם שלב invoice_sent. הפעלה בתשלום נספרת רק אחרי אסמכתת תשלום.', 'justice-theme' ); ?></span>
+					</li>
+				</ol>
+			</section>
+
 			<section class="lawyer-registration-account-path" aria-labelledby="lawyer-registration-account-path-title">
 				<div>
 					<p class="section-header__eyebrow"><?php esc_html_e( 'פתיחת חשבון עסקי', 'justice-theme' ); ?></p>

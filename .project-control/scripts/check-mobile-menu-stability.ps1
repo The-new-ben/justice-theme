@@ -74,13 +74,12 @@ Add-Check $checks "no_dynamic_toggle_positioning_css" ($texts.premiumCss -notmat
 
 Add-Check $checks "stable_mobile_close_target_css" (Contains-All -Text $texts.premiumCss -Tokens @(
 	"body.nav-is-open .menu-toggle",
-	"position: fixed",
-	"top: max(0.75rem, env(safe-area-inset-top))",
-	"inset-inline-end: max(1rem, env(safe-area-inset-right))",
 	"width: 44px",
 	"height: 44px",
 	"content: ""\00d7"""
-)) "Open mobile menu must keep a stable 44px close button with safe-area-aware placement." $files.premiumCss
+)) "Open mobile menu must keep a stable 44px close button without changing its screen position." $files.premiumCss
+
+Add-Check $checks "no_fixed_open_toggle_reposition_css" ($texts.premiumCss -notmatch "body\.nav-is-open\s+\.menu-toggle\s*\{[^}]*position:\s*fixed") "Open-state hamburger styling must not move the button to a fixed viewport edge." $files.premiumCss
 
 Add-Check $checks "base_toggle_touch_target_css" (Contains-All -Text $texts.premiumCss -Tokens @(
 	".menu-toggle",
@@ -95,6 +94,11 @@ Add-Check $checks "responsive_mobile_query_runtime" (Contains-All -Text $texts.n
 	"mobileQuery.matches",
 	"mobileQuery.addEventListener( 'change'"
 )) "Navigation JS must use a responsive media query and update state when viewport mode changes." $files.navigation
+
+Add-Check $checks "mobile_resize_does_not_close_open_menu" (Contains-All -Text $texts.navigation -Tokens @(
+	"window.addEventListener( 'resize'",
+	"document.body.classList.contains( 'nav-is-open' ) && ! mobileQuery.matches"
+)) "Mobile browser toolbar or viewport-height changes must not close the open menu." $files.navigation
 
 Add-Check $checks "no_one_time_inner_width_gate" ($texts.navigation -notmatch "window\.innerWidth\s*<=\s*1220") "Submenu logic must not be bound to a one-time page-load width check." $files.navigation
 
@@ -118,11 +122,11 @@ Add-Check $checks "mobile_revenue_actions_present" (Contains-All -Text $texts.he
 )) "Mobile menu must expose WhatsApp, phone, and lawyer-plan revenue actions." $files.header
 
 Add-Check $checks "deploy_marker_current" (Contains-All -Text $texts.functions -Tokens @(
-	"1.1.82",
-	"2026-05-28-lawyer-retention-followup-completion-v1"
-)) "Theme version and deployment marker must point to the current retention-followup completion release." $files.functions
+	"1.1.85",
+	"2026-05-28-mobile-menu-stable-in-place-v1"
+)) "Theme version and deployment marker must point to the current mobile-menu stability release." $files.functions
 
-Add-Check $checks "premium_css_cache_bumped" ($texts.enqueue.Contains("'4.5.9'")) "Premium stylesheet cache version must be bumped for deployment." $files.enqueue
+Add-Check $checks "premium_css_cache_bumped" ($texts.enqueue.Contains("'4.5.10'")) "Premium stylesheet cache version must be bumped for deployment." $files.enqueue
 
 $failed = @($checks | Where-Object { -not $_.pass })
 
@@ -133,7 +137,7 @@ $summary = [ordered]@{
 	failed    = $failed
 	checks    = $checks
 	standard  = [ordered]@{
-		stableToggle     = "Mobile open/close target must be CSS-stable, 44px minimum, and safe-area-aware."
+		stableToggle     = "Mobile open/close target must stay in the tapped position and remain at least 44px."
 		noDynamicMeasure = "Do not measure hamburger position with getBoundingClientRect or write CSS variables for fixed placement."
 		accessibility    = "aria-hidden may hide the off-canvas mobile panel, but desktop navigation must remain exposed."
 		revenueActions   = "Mobile menu must keep WhatsApp, phone, and lawyer-plan actions reachable."

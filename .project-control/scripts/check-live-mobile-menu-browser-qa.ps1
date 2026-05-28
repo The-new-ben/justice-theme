@@ -1,7 +1,7 @@
 param(
 	[string] $BaseUrl = "https://jus-tice.co.il",
-	[string] $ExpectedDeployMarker = "2026-05-28-lawyer-retention-followup-completion-v1",
-	[string] $ExpectedThemeVersion = "1.1.82",
+	[string] $ExpectedDeployMarker = "2026-05-28-mobile-menu-stable-in-place-v1",
+	[string] $ExpectedThemeVersion = "1.1.85",
 	[string] $Root = ".",
 	[string] $OutputDir = "output\playwright"
 )
@@ -110,6 +110,15 @@ async page => {
 		(afterBox.y + afterBox.height) <= viewport.height
 	);
 	const closeButtonTopStable = Boolean(afterBox && afterBox.y <= 96);
+	const closeButtonHorizontalStable = Boolean(beforeBox && afterBox && Math.abs(afterBox.x - beforeBox.x) <= 8);
+	const closeButtonVerticalStable = Boolean(beforeBox && afterBox && Math.abs(afterBox.y - beforeBox.y) <= 8);
+
+	await page.setViewportSize({ width: 390, height: 760 });
+	await page.waitForTimeout(200);
+
+	const expandedAfterMobileResize = await toggle.getAttribute('aria-expanded');
+	const navVisibleAfterMobileResize = await nav.isVisible();
+	const afterResizeBox = await toggle.boundingBox();
 
 	return {
 		url: page.url(),
@@ -127,9 +136,14 @@ async page => {
 		versionPresent: html.includes(config.expectedThemeVersion),
 		beforeBox,
 		afterBox,
+		afterResizeBox,
 		closeButtonIsTouchSized,
 		closeButtonIsInViewport,
 		closeButtonTopStable,
+		closeButtonHorizontalStable,
+		closeButtonVerticalStable,
+		expandedAfterMobileResize,
+		navVisibleAfterMobileResize,
 		screenshotPath: config.screenshotPath
 	};
 }
@@ -167,6 +181,9 @@ try {
 		Add-Check $checks "close_button_touch_sized" ([bool] $browserResult.closeButtonIsTouchSized) "Close button should remain at least 42px wide and high."
 		Add-Check $checks "close_button_in_viewport" ([bool] $browserResult.closeButtonIsInViewport) "Close button should remain inside the mobile viewport."
 		Add-Check $checks "close_button_top_stable" ([bool] $browserResult.closeButtonTopStable) "Close button should remain near the top after menu opens."
+		Add-Check $checks "close_button_horizontal_stable" ([bool] $browserResult.closeButtonHorizontalStable) "Close button should not move horizontally after the menu opens."
+		Add-Check $checks "close_button_vertical_stable" ([bool] $browserResult.closeButtonVerticalStable) "Close button should not move vertically after the menu opens."
+		Add-Check $checks "menu_survives_mobile_resize" (($browserResult.expandedAfterMobileResize -eq "true") -and [bool] $browserResult.navVisibleAfterMobileResize) "Open mobile menu should survive ordinary mobile viewport-height changes."
 		Add-Check $checks "screenshot_created" (Test-Path -LiteralPath $screenshotPath) "Open mobile menu screenshot should be saved for visual evidence."
 	}
 } finally {

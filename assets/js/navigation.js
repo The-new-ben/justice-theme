@@ -38,7 +38,7 @@
 		} );
 
 		window.addEventListener( 'resize', () => {
-			if ( document.body.classList.contains( 'nav-is-open' ) ) {
+			if ( document.body.classList.contains( 'nav-is-open' ) && ! mobileQuery.matches ) {
 				setMenuOpen( false );
 			}
 		} );

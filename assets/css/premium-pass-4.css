@@ -3376,9 +3376,6 @@
   }
 
   body.nav-is-open .menu-toggle {
-    position: fixed;
-    top: max(0.75rem, env(safe-area-inset-top));
-    inset-inline-end: max(1rem, env(safe-area-inset-right));
     width: 44px;
     height: 44px;
     color: #fff;

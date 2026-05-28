@@ -42,7 +42,7 @@ function justice_theme_enqueue_assets() {
 		'justice-premium-4',
 		JUSTICE_THEME_URI . '/assets/css/premium-pass-4.css',
 		array( 'justice-premium-3' ),
-		'4.5.9'
+		'4.5.10'
 	);
 
 	wp_enqueue_style(

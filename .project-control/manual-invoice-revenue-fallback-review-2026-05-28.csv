@@ -1,0 +1,15 @@
+metric,value
+status,MANUAL_INVOICE_REVENUE_FALLBACK_REVIEW_BLOCKED_WAITING_OWNER_EVIDENCE_NO_LIVE_ACTION
+template_rows,5
+filled_evidence_rows,0
+ready_to_bill_rows,0
+invoice_stage_rows,0
+paid_rows,0
+paid_rows_with_private_payment_evidence,0
+unsafe_paid_rows,0
+invoices_created_by_review,0
+payments_charged_by_review,0
+provider_setting_changes,0
+public_changes,0
+revenue_proof,0
+next_action,Owner/admin fills no-PII evidence rows and reruns .project-control/scripts/review-manual-invoice-revenue-fallback-template.ps1

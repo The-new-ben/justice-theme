@@ -3417,6 +3417,44 @@ function justice_theme_lawyer_onboarding_money_label( int $amount ): string {
 	return number_format_i18n( max( 0, $amount ) ) . ' NIS/mo';
 }
 
+function justice_theme_lawyer_onboarding_first_paid_proof_packet_copy( array $metrics ): string {
+	$lines = array(
+		'First paid lawyer proof packet',
+		'Generated: ' . current_time( 'mysql' ),
+		'Status: ' . ( (int) ( $metrics['payment_confirmed_count'] ?? 0 ) > 0 ? 'Payment proof exists; verify the row before quoting revenue.' : 'No confirmed paid lawyer proof yet.' ),
+		'',
+		'Queue snapshot:',
+		sprintf( '- Invoice requested: %s / %s potential', number_format_i18n( (int) ( $metrics['invoice_requested_count'] ?? 0 ) ), justice_theme_lawyer_onboarding_money_label( (int) ( $metrics['invoice_requested_value'] ?? 0 ) ) ),
+		sprintf( '- Payment links needed: %s / %s ready for link', number_format_i18n( (int) ( $metrics['payment_link_needed_count'] ?? 0 ) ), justice_theme_lawyer_onboarding_money_label( (int) ( $metrics['payment_link_needed_value'] ?? 0 ) ) ),
+		sprintf( '- Invoice sent: %s / %s pending', number_format_i18n( (int) ( $metrics['invoice_sent_count'] ?? 0 ) ), justice_theme_lawyer_onboarding_money_label( (int) ( $metrics['invoice_sent_value'] ?? 0 ) ) ),
+		sprintf( '- Payment confirmed with private evidence: %s / %s confirmed', number_format_i18n( (int) ( $metrics['payment_confirmed_count'] ?? 0 ) ), justice_theme_lawyer_onboarding_money_label( (int) ( $metrics['payment_confirmed_value'] ?? 0 ) ) ),
+		'',
+		'Owner run rules:',
+		'1. Select exactly one owner-approved lawyer record from the manual-invoice path.',
+		'2. Confirm plan, price, billing period, legal billing name, business ID if needed, invoice email and accepted terms.',
+		'3. Create or send the manual invoice/payment link outside WordPress only after those terms are accepted.',
+		'4. Save invoice/payment reference and set invoice_sent only after the owner actually sends it.',
+		'5. Save manual_payment_evidence_url before setting payment_confirmed.',
+		'6. After payment proof exists, record first value: profile activation, first suitable lead handoff, or useful service outcome.',
+		'',
+		'Stop rules:',
+		'- Do not mark payment_confirmed without manual_payment_evidence_url.',
+		'- Do not quote monthly revenue from invoice_requested or invoice_sent.',
+		'- Do not repeat paid acquisition until paid first value and retention review are handled.',
+		'',
+		'Next money action:',
+		(string) ( $metrics['next_money_title'] ?? '' ),
+		(string) ( $metrics['next_money_body'] ?? '' ),
+		'',
+		'Admin links:',
+		'Link-needed queue: ' . (string) ( $metrics['payment_link_needed_url'] ?? '' ),
+		'Invoice queue: ' . (string) ( $metrics['queue_url'] ?? '' ),
+		'Sent invoices / payment-proof-required queue: ' . (string) ( $metrics['sent_url'] ?? '' ),
+	);
+
+	return implode( "\n", $lines );
+}
+
 function justice_theme_lawyer_onboarding_billing_meta_query( string $status ): array {
 	$base = array(
 		'relation' => 'AND',
@@ -4358,6 +4396,23 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 		$next_money_value = $invoice_sent_value;
 		$next_money_value_note = 'pending';
 	}
+
+	$first_paid_proof_packet_id   = 'justice-first-paid-lawyer-proof-packet';
+	$first_paid_proof_packet_copy = justice_theme_lawyer_onboarding_first_paid_proof_packet_copy( array(
+		'invoice_requested_count'   => $invoice_requested_count,
+		'invoice_requested_value'   => $invoice_requested_value,
+		'payment_link_needed_count' => $payment_link_needed_count,
+		'payment_link_needed_value' => $payment_link_needed_value,
+		'invoice_sent_count'        => $invoice_sent_count,
+		'invoice_sent_value'        => $invoice_sent_value,
+		'payment_confirmed_count'   => $payment_confirmed_count,
+		'payment_confirmed_value'   => $payment_confirmed_value,
+		'next_money_title'          => $next_money_title,
+		'next_money_body'           => $next_money_body,
+		'payment_link_needed_url'   => $payment_link_needed_url,
+		'queue_url'                 => $queue_url,
+		'sent_url'                  => $sent_url,
+	) );
 	?>
 	<div style="max-width:1200px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:18px 20px;margin:18px 0;">
 		<h2 style="margin-top:0;">Paid registration command center</h2>
@@ -4397,6 +4452,18 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 				<a class="button" href="<?php echo esc_url( $invoice_sent_export_url ); ?>">Export sent invoices CSV</a>
 			</p>
 			<small style="display:block;margin-top:10px;color:#4b5563;">This drill is admin guidance only. It does not charge, create an invoice, send WhatsApp, send email, or change payment-provider settings.</small>
+		</div>
+		<div data-admin-surface="first_paid_lawyer_proof_packet" style="border:1px solid #111827;background:#f9fafb;border-radius:8px;padding:16px;margin:16px 0;">
+			<p style="margin:0 0 6px;color:#111827;font-weight:700;text-transform:uppercase;letter-spacing:.02em;">First paid lawyer proof packet</p>
+			<h3 style="margin:0 0 8px;font-size:20px;">Copy this before the first real-money run</h3>
+			<p style="margin:0 0 12px;max-width:900px;">Use this packet when the owner/admin chooses one controlled lawyer to move through billing. It keeps invoice stages separate from paid revenue until <code>manual_payment_evidence_url</code> exists.</p>
+			<textarea id="<?php echo esc_attr( $first_paid_proof_packet_id ); ?>" readonly rows="13" style="width:100%;margin-top:6px;font-family:monospace;"><?php echo esc_textarea( $first_paid_proof_packet_copy ); ?></textarea>
+			<p style="margin:10px 0 0;">
+				<button type="button" class="button" data-copy-target="<?php echo esc_attr( $first_paid_proof_packet_id ); ?>" data-copy-label="Copy first paid lawyer proof packet">Copy first paid lawyer proof packet</button>
+				<a class="button" href="<?php echo esc_url( $payment_link_needed_url ); ?>">Open link-needed queue</a>
+				<a class="button" href="<?php echo esc_url( $sent_url ); ?>">Open sent invoices</a>
+			</p>
+			<small style="display:block;margin-top:8px;color:#4b5563;">This packet is owner/admin guidance only. It does not send messages, issue invoices, charge money, publish profiles, or change provider settings.</small>
 		</div>
 		<div style="border:1px solid #f5d58c;background:#fffaf0;border-radius:8px;padding:16px;margin:16px 0;">
 			<p style="margin:0 0 6px;color:#92400e;font-weight:700;text-transform:uppercase;letter-spacing:.02em;">Next money action</p>

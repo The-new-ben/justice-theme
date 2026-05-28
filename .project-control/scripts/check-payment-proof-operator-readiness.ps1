@@ -139,6 +139,17 @@ Add-Check $checks "lawyer_onboarding_owner_payment_test_drill" (Contains-All -Te
 	"This drill is admin guidance only"
 )) "Lawyer onboarding exposes an admin-only owner test drill for the first real paid-lawyer run." $files.lawyerOnboarding
 
+Add-Check $checks "lawyer_onboarding_first_paid_proof_packet" (Contains-All -Text $texts.lawyerOnboarding -Tokens @(
+	"justice_theme_lawyer_onboarding_first_paid_proof_packet_copy",
+	"first_paid_lawyer_proof_packet",
+	"First paid lawyer proof packet",
+	"Copy first paid lawyer proof packet",
+	"manual_payment_evidence_url",
+	"Do not mark payment_confirmed without manual_payment_evidence_url",
+	"Invoice queue",
+	"Sent invoices / payment-proof-required queue"
+)) "Lawyer onboarding exposes a copyable owner/admin proof packet before the first real paid-lawyer run." $files.lawyerOnboarding
+
 Add-Check $checks "lawyer_onboarding_paid_first_value_queue" (Contains-All -Text $texts.lawyerOnboarding -Tokens @(
 	"justice_theme_lawyer_onboarding_paid_needs_first_value_meta_query",
 	"paid_needs_first_value",

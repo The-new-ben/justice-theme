@@ -139,6 +139,12 @@ $routes = @(
 		Url = (New-RouteUrl -Path "/lawyer-plans/")
 		ExpectedUrl = (New-RouteUrl -Path "/lawyer-plans/")
 		RequiredTokens = @()
+	},
+	@{
+		Name = "lawyer_dashboard"
+		Url = (New-RouteUrl -Path "/lawyer-dashboard/")
+		ExpectedUrl = (New-RouteUrl -Path "/lawyer-dashboard/")
+		RequiredTokens = @("lawyer-dashboard-payment-proof-preview")
 	}
 )
 

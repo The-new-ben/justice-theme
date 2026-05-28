@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-28-lawyer-registration-revenue-bridge-v1
-expected-github-main-commit=lawyer-registration-revenue-bridge-v1
-purpose=lawyer-registration-to-invoice-payment-proof-bridge
+justice-theme-deployment-marker=2026-05-28-lawyer-dashboard-payment-proof-preview-v1
+expected-github-main-commit=lawyer-dashboard-payment-proof-preview-v1
+purpose=lawyer-dashboard-payment-proof-preview

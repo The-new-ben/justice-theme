@@ -48,6 +48,31 @@ if ( ! is_user_logged_in() ) :
 				<a class="button button--outline" href="<?php echo esc_url( $dashboard_plans_url ); ?>"><?php esc_html_e( 'בחירת מסלול לעורך דין', 'justice-theme' ); ?></a>
 				<a class="button button--outline" href="<?php echo esc_url( $dashboard_registration_url ); ?>"><?php esc_html_e( 'בקשת הצטרפות מהירה', 'justice-theme' ); ?></a>
 			</div>
+			<div class="lawyer-dashboard-payment-proof-preview" data-revenue-surface="lawyer_dashboard_payment_proof_preview" data-dashboard-step="manual_invoice_to_paid_dashboard" aria-label="<?php esc_attr_e( 'מסלול חשבונית ותשלום לפני הפעלת לידים', 'justice-theme' ); ?>">
+				<div class="lawyer-dashboard-payment-proof-preview__intro">
+					<span><?php esc_html_e( 'מסלול תשלום מבוקר', 'justice-theme' ); ?></span>
+					<h2><?php esc_html_e( 'מה יופיע באזור האישי לפני הפעלת לידים בתשלום', 'justice-theme' ); ?></h2>
+					<p><?php esc_html_e( 'האזור האישי לא מסמן עורך דין כמשלם רק בגלל בקשת הצטרפות. הוא מציג שלבי חשבונית, קישור תשלום, אסמכתא והוכחת תשלום לפני שיוך לידים מסחריים.', 'justice-theme' ); ?></p>
+				</div>
+				<ol class="lawyer-dashboard-payment-proof-preview__steps">
+					<li data-dashboard-state="invoice_requested">
+						<strong><?php esc_html_e( 'בקשת חשבונית', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'המערכת שומרת מסלול, תחום, עיר ופרטי חיוב לפני שליחת דרישת תשלום.', 'justice-theme' ); ?></span>
+					</li>
+					<li data-dashboard-state="invoice_sent">
+						<strong><?php esc_html_e( 'חשבונית או קישור נשלחו', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'האזור האישי מציג את הפעולה הבאה ואת מועד המעקב, בלי להציג את זה כהכנסה.', 'justice-theme' ); ?></span>
+					</li>
+					<li data-dashboard-state="payment_evidence_required">
+						<strong><?php esc_html_e( 'נדרשת הוכחת תשלום', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'סטטוס משלם מופעל רק אחרי אסמכתא פרטית, תאריך תשלום ואישור בעלים.', 'justice-theme' ); ?></span>
+					</li>
+					<li data-dashboard-state="lead_routing_after_paid">
+						<strong><?php esc_html_e( 'שיוך לידים אחרי אישור', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'רק לאחר אישור תשלום ניתן לחבר לידים, דוחות ערך ופעולות שימור לעורך הדין.', 'justice-theme' ); ?></span>
+					</li>
+				</ol>
+			</div>
 			<div class="lawyer-dashboard-login-preview" aria-label="<?php esc_attr_e( 'תצוגה מקדימה של האזור האישי', 'justice-theme' ); ?>">
 				<article class="lawyer-dashboard-login-preview__card">
 					<span><?php esc_html_e( 'פרופיל מקצועי', 'justice-theme' ); ?></span>

@@ -6,19 +6,19 @@ $ErrorActionPreference = "Stop"
 
 $base = $BaseUrl.TrimEnd("/")
 $cacheBust = [DateTimeOffset]::UtcNow.ToUnixTimeSeconds()
-$url = "$base/lawyer-plans/?cachebust=lawyer-plans-payment-proof-$cacheBust"
+$url = "$base/lawyer-dashboard/?cachebust=lawyer-dashboard-payment-proof-preview-$cacheBust"
 
 $requiredTokens = @(
-	'data-revenue-surface="lawyer_plans_payment_proof_path"',
-	'data-payment-readiness="manual_invoice_paid_only_with_evidence"',
-	'data-payment-state="terms_before_invoice"',
-	'data-payment-state="billing_contact"',
-	'data-payment-state="invoice_not_paid"',
-	'data-payment-state="paid_requires_evidence"',
-	'payment_path=manual_invoice',
-	'plan_interest=lead_partner',
-	'plan_interest=pro',
-	'invoice_sent',
+	'lawyer-dashboard-payment-proof-preview',
+	'data-revenue-surface="lawyer_dashboard_payment_proof_preview"',
+	'data-dashboard-step="manual_invoice_to_paid_dashboard"',
+	'data-dashboard-state="invoice_requested"',
+	'data-dashboard-state="invoice_sent"',
+	'data-dashboard-state="payment_evidence_required"',
+	'data-dashboard-state="lead_routing_after_paid"',
+	'lawyer-dashboard-login-preview',
+	'/lawyer-registration/',
+	'/lawyer-plans/',
 	'1.1.73',
 	'2026-05-28-lawyer-dashboard-payment-proof-preview-v1'
 )
@@ -41,7 +41,7 @@ try {
 		pass          = ([int] $response.StatusCode -eq 200 -and $missing.Count -eq 0)
 		missingTokens = $missing
 		bodyLength    = $html.Length
-		note          = "Read-only public lawyer-plans payment-proof checker. It does not create invoices, payments, CRM records, users, orders, or gateway settings."
+		note          = "Read-only public lawyer-dashboard payment-proof preview checker. It does not log in, submit service requests, create invoices, create payments, route leads, update CRM records, or change gateway settings."
 	}
 
 	$result | ConvertTo-Json -Depth 4

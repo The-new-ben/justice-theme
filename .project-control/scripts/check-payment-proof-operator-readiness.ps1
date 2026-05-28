@@ -129,6 +129,16 @@ Add-Check $checks "lawyer_onboarding_paid_evidence_guard" (Contains-All -Text $t
 	"Payment proof recorded"
 )) "Lawyer onboarding prevents paid-status claims and paid quick actions unless private payment evidence exists." $files.lawyerOnboarding
 
+Add-Check $checks "lawyer_onboarding_owner_payment_test_drill" (Contains-All -Text $texts.lawyerOnboarding -Tokens @(
+	"owner_payment_test_drill",
+	"Owner payment test drill",
+	"No payment proof, no paid status",
+	"manual_payment_evidence_url",
+	"Open payment-proof-required queue",
+	"Export sent invoices CSV",
+	"This drill is admin guidance only"
+)) "Lawyer onboarding exposes an admin-only owner test drill for the first real paid-lawyer run." $files.lawyerOnboarding
+
 Add-Check $checks "lawyer_dashboard_payment_context" (Contains-All -Text $texts.lawyerDashboard -Tokens @(
 	"manual_payment_link_url",
 	"manual_invoice_reference",
@@ -238,6 +248,7 @@ $summary = [ordered]@{
 	operatorStandard = [ordered]@{
 		checkoutFallback = "Paid-lawyer intent must preserve plan, billing, terms, cancellation, privacy, and manual-invoice continuation until provider checkout is verified."
 		lawyerBilling   = "Lawyer onboarding and dashboard must show payment follow-up, manual payment link, invoice reference, and service-request states."
+		ownerTestDrill  = "The onboarding admin must show the exact owner-controlled drill for one real paid-lawyer run without creating false revenue."
 		leadBilling     = "Qualified CRM leads may move to ready_to_bill or invoice_sent only after consent, accepted lawyer/supplier terms, and owner release."
 		paidProof       = "Paid status requires private payment evidence URL in both CRM lead billing and lawyer onboarding; invoice/reference alone is not revenue proof."
 		providerReality = "One-time Grow link evidence is historical support, not current revenue proof; recurring Grow/Meshulam remains provider-gated until a controlled transaction passes."

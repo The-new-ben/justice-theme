@@ -3691,6 +3691,25 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 				<p style="margin:10px 0 0;"><a href="<?php echo esc_url( $payment_link_needed_url ); ?>">Open link-needed queue</a></p>
 			</div>
 		</div>
+		<div data-admin-surface="owner_payment_test_drill" style="border:1px solid #c7d2fe;background:#f8faff;border-radius:8px;padding:16px;margin:16px 0;">
+			<p style="margin:0 0 6px;color:#3730a3;font-weight:700;text-transform:uppercase;">Owner payment test drill</p>
+			<h3 style="margin:0 0 8px;font-size:20px;">One real paid-lawyer run, without false revenue claims</h3>
+			<p style="margin:0 0 12px;max-width:900px;">Use this when the owner is ready to run a controlled paid test. No payment proof, no paid status: <code>manual_payment_evidence_url</code> is required before the record counts as paid.</p>
+			<ol style="margin:0 0 12px 20px;max-width:980px;">
+				<li>Select one real lawyer or owner-approved test lawyer from the manual-invoice path.</li>
+				<li>Confirm legal billing name, business ID, invoice email, plan, and commercial approval.</li>
+				<li>Create the Grow, Morning, Meshulam, or manual payment link outside WordPress while provider checkout is blocked.</li>
+				<li>Paste the payment link and invoice reference, then mark invoice sent.</li>
+				<li>After real payment is visible, save a private receipt, payment-provider record, bank proof, or invoice URL in <code>manual_payment_evidence_url</code>.</li>
+				<li>Only after proof exists, mark paid, activate profile work, and route the first value or lead handoff.</li>
+			</ol>
+			<p style="margin:0;">
+				<a class="button button-primary" href="<?php echo esc_url( $payment_link_needed_url ); ?>">Open link-needed queue</a>
+				<a class="button" href="<?php echo esc_url( $sent_url ); ?>">Open payment-proof-required queue</a>
+				<a class="button" href="<?php echo esc_url( $invoice_sent_export_url ); ?>">Export sent invoices CSV</a>
+			</p>
+			<small style="display:block;margin-top:10px;color:#4b5563;">This drill is admin guidance only. It does not charge, create an invoice, send WhatsApp, send email, or change payment-provider settings.</small>
+		</div>
 		<div style="border:1px solid #f5d58c;background:#fffaf0;border-radius:8px;padding:16px;margin:16px 0;">
 			<p style="margin:0 0 6px;color:#92400e;font-weight:700;text-transform:uppercase;letter-spacing:.02em;">Next money action</p>
 			<h3 style="margin:0 0 6px;font-size:20px;"><?php echo esc_html( $next_money_title ); ?></h3>

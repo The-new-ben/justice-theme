@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-28-lawyer-paid-proof-guard-v1
-expected-github-main-commit=lawyer-paid-proof-guard-v1
-purpose=lawyer-paid-proof-guard
+justice-theme-deployment-marker=2026-05-28-lawyer-owner-payment-test-drill-v1
+expected-github-main-commit=lawyer-owner-payment-test-drill-v1
+purpose=lawyer-owner-payment-test-drill

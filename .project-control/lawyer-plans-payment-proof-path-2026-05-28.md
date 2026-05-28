@@ -1,6 +1,6 @@
 # Lawyer Plans Payment Proof Path - 2026-05-28
 
-Status: PUSH_READY_DEPLOY_REQUIRED
+Status: LIVE_VERIFIED
 
 Scope: public theme-code improvement for `/lawyer-plans/` plus a read-only QA gate. No CMS content, database row, WooCommerce product, gateway setting, CRM record, lawyer profile, user, invoice, payment, refund, WhatsApp message, email, redirect, canonical/noindex, sitemap, taxonomy, or uPress setting was created or changed.
 
@@ -41,6 +41,17 @@ Wired this checker into `.project-control/scripts/check-revenue-readiness-gate.p
 - Theme version: `1.1.71`
 - Deployment marker: `2026-05-28-lawyer-plans-payment-proof-v1`
 - CSS cache version: `4.5.7`
+
+## Live Verification
+
+- GitHub commit deployed through uPress Pull Git: `39305553 Add lawyer plans payment proof path`
+- uPress Git Log showed: `(HEAD -> main, origin/main, origin/codex/live-homepage-conversion-release, origin/HEAD) Add lawyer plans payment proof path`
+- uPress cache was cleared after pull.
+- Static marker file returned `justice-theme-deployment-marker=2026-05-28-lawyer-plans-payment-proof-v1`.
+- `.project-control/scripts/check-live-deploy.ps1`: pass.
+- `.project-control/scripts/check-lawyer-plans-payment-proof-path.ps1`: pass for `/lawyer-plans/`.
+- `.project-control/scripts/check-revenue-readiness-gate.ps1`: pass with readiness `ready_for_owner_payment_admin_test`.
+- `.project-control/scripts/check-live-mobile-menu-browser-qa.ps1`: pass; screenshot saved under `output/playwright/live-mobile-menu-open-1779930807.png`.
 
 ## Remaining Blockers
 

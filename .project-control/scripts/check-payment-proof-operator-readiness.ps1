@@ -189,6 +189,16 @@ Add-Check $checks "lawyer_onboarding_retention_outcome_action" (Contains-All -Te
 	"Paid, retention outcome missing"
 )) "Lawyer onboarding requires an owner-recorded retained/follow-up/churn-risk outcome after retention review starts." $files.lawyerOnboarding
 
+Add-Check $checks "lawyer_onboarding_retention_followup_due_queue" (Contains-All -Text $texts.lawyerOnboarding -Tokens @(
+	"justice_theme_lawyer_onboarding_paid_retention_followup_due_meta_query",
+	"paid_retention_followup_due",
+	"first_value_retention_next_step_due_at",
+	"Retention follow-up due",
+	"Work due retention follow-ups",
+	"Open retention follow-ups",
+	"owner action due"
+)) "Lawyer onboarding keeps retained/follow-up/at-risk lawyers visible when the next owner retention action is due." $files.lawyerOnboarding
+
 Add-Check $checks "lawyer_dashboard_payment_context" (Contains-All -Text $texts.lawyerDashboard -Tokens @(
 	"manual_payment_link_url",
 	"manual_invoice_reference",
@@ -304,6 +314,7 @@ $summary = [ordered]@{
 		firstValueProof = "The first-value close action must also require an owner-only outcome note or private proof URL."
 		retentionReview = "Paid first-value lawyers must get an owner retention/renewal review before repeating paid acquisition spend."
 		retentionOutcome = "Started retention reviews must get a retained, follow-up, or churn-risk outcome before claiming revenue quality."
+		retentionFollowup = "Recorded retention outcomes must stay in a due follow-up queue until the next owner action is handled."
 		leadBilling     = "Qualified CRM leads may move to ready_to_bill or invoice_sent only after consent, accepted lawyer/supplier terms, and owner release."
 		paidProof       = "Paid status requires private payment evidence URL in both CRM lead billing and lawyer onboarding; invoice/reference alone is not revenue proof."
 		providerReality = "One-time Grow link evidence is historical support, not current revenue proof; recurring Grow/Meshulam remains provider-gated until a controlled transaction passes."

@@ -118,9 +118,9 @@ Add-Check $checks "mobile_revenue_actions_present" (Contains-All -Text $texts.he
 )) "Mobile menu must expose WhatsApp, phone, and lawyer-plan revenue actions." $files.header
 
 Add-Check $checks "deploy_marker_current" (Contains-All -Text $texts.functions -Tokens @(
-	"1.1.80",
-	"2026-05-28-lawyer-retention-outcome-action-v1"
-)) "Theme version and deployment marker must point to the current retention-outcome action release." $files.functions
+	"1.1.81",
+	"2026-05-28-lawyer-retention-followup-queue-v1"
+)) "Theme version and deployment marker must point to the current retention-followup queue release." $files.functions
 
 Add-Check $checks "premium_css_cache_bumped" ($texts.enqueue.Contains("'4.5.9'")) "Premium stylesheet cache version must be bumped for deployment." $files.enqueue
 

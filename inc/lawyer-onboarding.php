@@ -3917,6 +3917,45 @@ function justice_theme_lawyer_onboarding_paid_needs_retention_outcome_meta_query
 	);
 }
 
+function justice_theme_lawyer_onboarding_paid_retention_followup_due_meta_query(): array {
+	return array(
+		'relation' => 'AND',
+		array(
+			'key'   => 'payment_followup_status',
+			'value' => 'payment_confirmed',
+		),
+		array(
+			'key'     => 'manual_payment_evidence_url',
+			'compare' => 'EXISTS',
+		),
+		array(
+			'key'     => 'manual_payment_evidence_url',
+			'value'   => '',
+			'compare' => '!=',
+		),
+		array(
+			'key'     => 'first_value_retention_outcome_status',
+			'value'   => array( 'retained', 'follow_up', 'at_risk' ),
+			'compare' => 'IN',
+		),
+		array(
+			'key'     => 'first_value_retention_next_step_due_at',
+			'compare' => 'EXISTS',
+		),
+		array(
+			'key'     => 'first_value_retention_next_step_due_at',
+			'value'   => '',
+			'compare' => '!=',
+		),
+		array(
+			'key'     => 'first_value_retention_next_step_due_at',
+			'value'   => current_time( 'mysql' ),
+			'compare' => '<=',
+			'type'    => 'DATETIME',
+		),
+	);
+}
+
 function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$payment_confirmed_meta_query = array(
 		array(
@@ -3975,6 +4014,7 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$paid_needs_first_value_count = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_paid_needs_first_value_meta_query() );
 	$paid_needs_retention_review_count = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_paid_needs_retention_review_meta_query() );
 	$paid_needs_retention_outcome_count = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_paid_needs_retention_outcome_meta_query() );
+	$paid_retention_followup_due_count = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_paid_retention_followup_due_meta_query() );
 	$invoice_requested_value = justice_theme_lawyer_onboarding_monthly_value( array(
 		array(
 			'key'   => 'payment_followup_status',
@@ -4005,6 +4045,7 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$paid_needs_first_value_value = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_paid_needs_first_value_meta_query() );
 	$paid_needs_retention_review_value = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_paid_needs_retention_review_meta_query() );
 	$paid_needs_retention_outcome_value = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_paid_needs_retention_outcome_meta_query() );
+	$paid_retention_followup_due_value = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_paid_retention_followup_due_meta_query() );
 	$queue_url               = add_query_arg(
 		array(
 			'page'          => 'justice-lawyer-onboarding',
@@ -4096,6 +4137,13 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 		),
 		admin_url( 'admin.php' )
 	);
+	$paid_retention_followup_due_url = add_query_arg(
+		array(
+			'page'             => 'justice-lawyer-onboarding',
+			'activation_queue' => 'paid_retention_followup_due',
+		),
+		admin_url( 'admin.php' )
+	);
 	$all_url                 = admin_url( 'admin.php?page=justice-lawyer-onboarding' );
 	$invoice_requested_export_url = justice_theme_lawyer_payment_queue_export_url( 'invoice_requested' );
 	$invoice_sent_export_url      = justice_theme_lawyer_payment_queue_export_url( 'invoice_sent' );
@@ -4140,6 +4188,13 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 		$next_money_button = 'Open retention outcome queue';
 		$next_money_value = $paid_needs_retention_outcome_value;
 		$next_money_value_note = 'revenue quality';
+	} elseif ( $paid_retention_followup_due_count ) {
+		$next_money_title  = 'Work due retention follow-ups';
+		$next_money_body   = 'These paid lawyers already have a retained, follow-up, or churn-risk outcome, and the next owner action is due. Call, save, upsell, renew or schedule the next useful lead/service commitment before calling the account stable.';
+		$next_money_url    = $paid_retention_followup_due_url;
+		$next_money_button = 'Open retention follow-ups';
+		$next_money_value = $paid_retention_followup_due_value;
+		$next_money_value_note = 'due follow-up';
 	} elseif ( $payment_overdue_count ) {
 		$next_money_title  = 'Work overdue payment follow-ups';
 		$next_money_body   = 'These paid prospects already have a payment follow-up due date behind them. Chase, block, cancel or confirm payment before adding new outreach.';
@@ -4326,6 +4381,12 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 				<span>Paid, retention outcome missing</span>
 				<small style="display:block;margin-top:6px;color:#9a3412;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $paid_needs_retention_outcome_value ) ); ?> quality proof</small>
 				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $paid_needs_retention_outcome_url ); ?>">Open outcome queue</a></p>
+			</div>
+			<div style="border:1px solid #f5d0fe;background:#fdf4ff;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $paid_retention_followup_due_count ) ); ?></strong>
+				<span>Retention follow-up due</span>
+				<small style="display:block;margin-top:6px;color:#86198f;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $paid_retention_followup_due_value ) ); ?> owner action due</small>
+				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $paid_retention_followup_due_url ); ?>">Open follow-ups</a></p>
 			</div>
 			<div style="border:1px solid #e0d2ff;background:#fbf8ff;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $manual_invoice_count ) ); ?></strong>
@@ -4606,7 +4667,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		$service_request_status = '';
 	}
 
-	if ( ! in_array( $activation_queue, array( 'paid_needs_first_value', 'paid_needs_retention_review', 'paid_needs_retention_outcome' ), true ) ) {
+	if ( ! in_array( $activation_queue, array( 'paid_needs_first_value', 'paid_needs_retention_review', 'paid_needs_retention_outcome', 'paid_retention_followup_due' ), true ) ) {
 		$activation_queue = '';
 	}
 
@@ -4689,6 +4750,8 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 			$activation_queue_meta_query = justice_theme_lawyer_onboarding_paid_needs_retention_review_meta_query();
 		} elseif ( 'paid_needs_retention_outcome' === $activation_queue ) {
 			$activation_queue_meta_query = justice_theme_lawyer_onboarding_paid_needs_retention_outcome_meta_query();
+		} elseif ( 'paid_retention_followup_due' === $activation_queue ) {
+			$activation_queue_meta_query = justice_theme_lawyer_onboarding_paid_retention_followup_due_meta_query();
 		}
 
 		$meta_query = array(
@@ -4806,7 +4869,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 			<div class="notice notice-info inline"><p>Showing only lawyer registrations with open service, billing, refund, cancellation, downgrade, complaint or support requests. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
 		<?php endif; ?>
 		<?php if ( $activation_queue ) : ?>
-			<?php if ( 'paid_needs_retention_outcome' === $activation_queue ) : ?>
+			<?php if ( 'paid_retention_followup_due' === $activation_queue ) : ?>
+				<div class="notice notice-warning inline"><p>Showing only paid lawyers with a recorded retention outcome where the next owner action is due. Call, save, upsell, renew, or schedule the next lead/service commitment before calling the relationship stable. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
+			<?php elseif ( 'paid_needs_retention_outcome' === $activation_queue ) : ?>
 				<div class="notice notice-warning inline"><p>Showing only paid lawyers whose retention review started but no outcome was recorded. Mark retained, needs follow-up, or churn risk before treating the acquisition source as repeatable. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
 			<?php elseif ( 'paid_needs_retention_review' === $activation_queue ) : ?>
 				<div class="notice notice-info inline"><p>Showing only paid lawyers with first-value proof where retention review is still missing. Confirm satisfaction, renewal/upsell path, churn risk or next value commitment before scaling acquisition. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
@@ -4879,6 +4944,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$first_value_retention_outcome_status = (string) get_post_meta( $post_id, 'first_value_retention_outcome_status', true );
 						$first_value_retention_outcome_at = (string) get_post_meta( $post_id, 'first_value_retention_outcome_at', true );
 						$first_value_retention_next_step_due_at = (string) get_post_meta( $post_id, 'first_value_retention_next_step_due_at', true );
+						$retention_next_step_badge = justice_theme_lawyer_payment_due_badge( $first_value_retention_next_step_due_at );
 						$retention_outcome_options = justice_theme_lawyer_retention_outcome_options();
 						$payment_confirmed_at = (string) get_post_meta( $post_id, 'payment_confirmed_at', true );
 						$payment_blocked_at   = (string) get_post_meta( $post_id, 'payment_blocked_at', true );
@@ -5021,6 +5087,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 									<?php endif; ?>
 									<?php if ( $first_value_retention_next_step_due_at ) : ?>
 										<br><small>Retention next step: <?php echo esc_html( $first_value_retention_next_step_due_at ); ?></small>
+										<br><span style="display:inline-block;margin:6px 0 0;padding:2px 7px;border-radius:999px;font-size:12px;<?php echo esc_attr( $retention_next_step_badge['style'] ); ?>"><?php echo esc_html( $retention_next_step_badge['label'] ); ?></span>
 									<?php endif; ?>
 									<?php if ( 'payment_confirmed' === $payment_followup && $payment_evidence_url && ! in_array( $activation_status, array( 'first_value', 'retention_review', 'retained', 'at_risk' ), true ) ) : ?>
 										<br><small style="color:#991b1b;">Paid: deliver first value before repeating this source.</small>

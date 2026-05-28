@@ -147,6 +147,15 @@ $readiness = if ($profitBlockingFailures.Count -eq 0 -and $deploymentBlockers.Co
 	"blocked_funnel_failure"
 }
 
+$knownBusinessBlockers = @(
+	"Grow/Meshulam KYC/payment and real invoice proof are not verified by this read-only gate.",
+	"This gate does not submit leads, create CRM records, create users, create WooCommerce orders, send invoices, verify payment evidence, or charge money."
+)
+
+if ($deploymentBlockers.Count -gt 0) {
+	$knownBusinessBlockers += "Deployment remains blocked until the failed deployment checks pass after uPress Pull Git/cache clear."
+}
+
 $summary = [ordered]@{
 	checkedAt               = (Get-Date).ToUniversalTime().ToString("o")
 	baseUrl                 = $BaseUrl.TrimEnd("/")
@@ -155,12 +164,7 @@ $summary = [ordered]@{
 	failedChecks            = $failedChecks
 	profitBlockingFailures  = $profitBlockingFailures
 	deploymentBlockers      = $deploymentBlockers
-	knownBusinessBlockers   = @(
-		"Grow/Meshulam KYC/payment and real invoice proof are not verified by this read-only gate.",
-		"Authenticated uPress Pull Git and browser-account tool use remain blocked unless Chrome control is available.",
-		"Live menu/link hygiene remains a deployment blocker while the public menu still renders legacy page_id URLs.",
-		"This gate does not submit leads, create CRM records, create users, create WooCommerce orders, send invoices, verify payment evidence, or charge money."
-	)
+	knownBusinessBlockers   = $knownBusinessBlockers
 	checks                  = $checks
 	honestyStatement        = "This is a read-only production gate. Passing it proves public route and funnel surfaces exist; it does not prove real revenue, payment settlement, invoice issuance, CRM routing, or lawyer handoff."
 }

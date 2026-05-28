@@ -199,6 +199,16 @@ Add-Check $checks "lawyer_onboarding_retention_followup_due_queue" (Contains-All
 	"owner action due"
 )) "Lawyer onboarding keeps retained/follow-up/at-risk lawyers visible when the next owner retention action is due." $files.lawyerOnboarding
 
+Add-Check $checks "lawyer_onboarding_retention_followup_completion_action" (Contains-All -Text $texts.lawyerOnboarding -Tokens @(
+	"justice_theme_lawyer_retention_followup_completed_quick_action_url",
+	"justice_mark_lawyer_retention_followup_completed",
+	"first_value_retention_followup_completed_at",
+	"paid_retention_followup_admin_action",
+	"Mark follow-up handled",
+	"Follow-up completion blocked until a retention review note is saved",
+	"Retention follow-up completed and rescheduled"
+)) "Lawyer onboarding lets the owner complete and reschedule a due retention follow-up only after proof gates and an owner note exist." $files.lawyerOnboarding
+
 Add-Check $checks "lawyer_dashboard_payment_context" (Contains-All -Text $texts.lawyerDashboard -Tokens @(
 	"manual_payment_link_url",
 	"manual_invoice_reference",
@@ -315,6 +325,7 @@ $summary = [ordered]@{
 		retentionReview = "Paid first-value lawyers must get an owner retention/renewal review before repeating paid acquisition spend."
 		retentionOutcome = "Started retention reviews must get a retained, follow-up, or churn-risk outcome before claiming revenue quality."
 		retentionFollowup = "Recorded retention outcomes must stay in a due follow-up queue until the next owner action is handled."
+		retentionFollowupClose = "Due retention follow-ups can be completed and rescheduled only after payment proof, first-value proof, a recorded outcome, a due next step, and a retention note exist."
 		leadBilling     = "Qualified CRM leads may move to ready_to_bill or invoice_sent only after consent, accepted lawyer/supplier terms, and owner release."
 		paidProof       = "Paid status requires private payment evidence URL in both CRM lead billing and lawyer onboarding; invoice/reference alone is not revenue proof."
 		providerReality = "One-time Grow link evidence is historical support, not current revenue proof; recurring Grow/Meshulam remains provider-gated until a controlled transaction passes."

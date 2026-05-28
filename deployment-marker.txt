@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-28-lawyer-retention-followup-queue-v1
-expected-github-main-commit=lawyer-retention-followup-queue-v1
-purpose=lawyer-retention-followup-queue
+justice-theme-deployment-marker=2026-05-28-lawyer-retention-followup-completion-v1
+expected-github-main-commit=lawyer-retention-followup-completion-v1
+purpose=lawyer-retention-followup-completion

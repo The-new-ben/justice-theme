@@ -24,6 +24,8 @@ function justice_theme_register_lawyer_activation_meta(): void {
 		'first_value_retention_outcome_at' => 'string',
 		'first_value_retention_outcome_source' => 'string',
 		'first_value_retention_next_step_due_at' => 'string',
+		'first_value_retention_followup_completed_at' => 'string',
+		'first_value_retention_followup_source' => 'string',
 		'activation_owner_note'    => 'string',
 		'payment_path'            => 'string',
 		'payment_followup_status' => 'string',
@@ -1393,6 +1395,22 @@ function justice_theme_lawyer_retention_outcome_options(): array {
 	);
 }
 
+function justice_theme_lawyer_retention_next_step_seconds( string $outcome ): int {
+	if ( 'retained' === $outcome ) {
+		return 30 * DAY_IN_SECONDS;
+	}
+
+	if ( 'at_risk' === $outcome ) {
+		return 2 * DAY_IN_SECONDS;
+	}
+
+	return 3 * DAY_IN_SECONDS;
+}
+
+function justice_theme_lawyer_retention_next_step_due_for_outcome( string $outcome ): string {
+	return wp_date( 'Y-m-d H:i:s', current_time( 'timestamp' ) + justice_theme_lawyer_retention_next_step_seconds( $outcome ) );
+}
+
 function justice_theme_lawyer_activation_badge( string $status ): array {
 	$labels = justice_theme_lawyer_activation_options();
 	$label  = $labels[ $status ] ?? 'Registered';
@@ -1696,6 +1714,13 @@ function justice_theme_lawyer_retention_outcome_quick_action_url( int $post_id, 
 	return wp_nonce_url(
 		admin_url( 'admin-post.php?action=justice_mark_lawyer_retention_outcome&lawyer_id=' . $post_id . '&retention_outcome=' . rawurlencode( $outcome ) ),
 		'justice_mark_lawyer_retention_outcome_' . $post_id . '_' . $outcome
+	);
+}
+
+function justice_theme_lawyer_retention_followup_completed_quick_action_url( int $post_id ): string {
+	return wp_nonce_url(
+		admin_url( 'admin-post.php?action=justice_mark_lawyer_retention_followup_completed&lawyer_id=' . $post_id ),
+		'justice_mark_lawyer_retention_followup_completed_' . $post_id
 	);
 }
 
@@ -2874,8 +2899,7 @@ function justice_theme_mark_lawyer_retention_outcome(): void {
 	update_post_meta( $post_id, 'first_value_retention_outcome_source', 'paid_retention_outcome_admin_action' );
 
 	if ( '' === (string) get_post_meta( $post_id, 'first_value_retention_next_step_due_at', true ) ) {
-		$next_step_seconds = 'retained' === $outcome ? 30 * DAY_IN_SECONDS : 3 * DAY_IN_SECONDS;
-		update_post_meta( $post_id, 'first_value_retention_next_step_due_at', wp_date( 'Y-m-d H:i:s', current_time( 'timestamp' ) + $next_step_seconds ) );
+		update_post_meta( $post_id, 'first_value_retention_next_step_due_at', justice_theme_lawyer_retention_next_step_due_for_outcome( $outcome ) );
 	}
 
 	if ( 'retained' === $outcome ) {
@@ -2907,6 +2931,95 @@ function justice_theme_mark_lawyer_retention_outcome(): void {
 	exit;
 }
 add_action( 'admin_post_justice_mark_lawyer_retention_outcome', 'justice_theme_mark_lawyer_retention_outcome' );
+
+function justice_theme_mark_lawyer_retention_followup_completed(): void {
+	$post_id = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
+
+	if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( esc_html__( 'You do not have permission to complete retention follow-up for this lawyer.', 'justice-theme' ) );
+	}
+
+	check_admin_referer( 'justice_mark_lawyer_retention_followup_completed_' . $post_id );
+
+	$options              = justice_theme_lawyer_retention_outcome_options();
+	$payment_status       = (string) get_post_meta( $post_id, 'payment_followup_status', true );
+	$retention_started_at = trim( (string) get_post_meta( $post_id, 'first_value_retention_started_at', true ) );
+	$outcome              = (string) get_post_meta( $post_id, 'first_value_retention_outcome_status', true );
+	$next_step_due_at     = trim( (string) get_post_meta( $post_id, 'first_value_retention_next_step_due_at', true ) );
+	$retention_note       = trim( (string) get_post_meta( $post_id, 'first_value_retention_note', true ) );
+	$next_step_timestamp  = $next_step_due_at ? strtotime( $next_step_due_at ) : false;
+	$is_due               = $next_step_timestamp && $next_step_timestamp <= current_time( 'timestamp' );
+
+	if (
+		'payment_confirmed' !== $payment_status
+		|| ! justice_theme_lawyer_has_manual_payment_evidence( $post_id )
+		|| ! justice_theme_lawyer_has_first_value_evidence( $post_id )
+		|| '' === $retention_started_at
+		|| '' === $outcome
+		|| ! array_key_exists( $outcome, $options )
+		|| ! $is_due
+	) {
+		justice_theme_append_lawyer_internal_note( $post_id, 'Retention follow-up completion was blocked because paid status, payment proof, first-value proof, retention review, recorded outcome and a due next-step date are required first.' );
+		wp_safe_redirect( add_query_arg(
+			array(
+				'page'               => 'justice-lawyer-onboarding',
+				'activation_queue'   => 'paid_retention_followup_due',
+				'retention_followup' => 'blocked',
+			),
+			admin_url( 'admin.php' )
+		) );
+		exit;
+	}
+
+	if ( '' === $retention_note ) {
+		justice_theme_append_lawyer_internal_note( $post_id, 'Retention follow-up completion was blocked because first_value_retention_note is required before closing and rescheduling the owner action.' );
+		wp_safe_redirect( add_query_arg(
+			array(
+				'page'               => 'justice-lawyer-onboarding',
+				'activation_queue'   => 'paid_retention_followup_due',
+				'retention_followup' => 'proof_missing',
+			),
+			admin_url( 'admin.php' )
+		) );
+		exit;
+	}
+
+	$next_due_at = justice_theme_lawyer_retention_next_step_due_for_outcome( $outcome );
+	update_post_meta( $post_id, 'first_value_retention_followup_completed_at', current_time( 'mysql' ) );
+	update_post_meta( $post_id, 'first_value_retention_followup_source', 'paid_retention_followup_admin_action' );
+	update_post_meta( $post_id, 'first_value_retention_next_step_due_at', $next_due_at );
+
+	if ( 'retained' === $outcome ) {
+		update_post_meta( $post_id, 'activation_status', 'retained' );
+	} elseif ( 'at_risk' === $outcome ) {
+		update_post_meta( $post_id, 'activation_status', 'at_risk' );
+	}
+
+	justice_theme_append_lawyer_internal_note(
+		$post_id,
+		sprintf(
+			'Retention follow-up completed from Lawyer Onboarding after owner evidence note was present. Outcome: %1$s. Previous due: %2$s. Next due: %3$s. This is customer-success tracking, not payment settlement proof.',
+			$options[ $outcome ],
+			$next_step_due_at,
+			$next_due_at
+		)
+	);
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_retention_followup_completed', 'Completed retention follow-up for paid lawyer: ' . get_the_title( $post_id ) . ' / ' . $outcome );
+	}
+
+	wp_safe_redirect( add_query_arg(
+		array(
+			'page'               => 'justice-lawyer-onboarding',
+			'activation_queue'   => 'paid_retention_followup_due',
+			'retention_followup' => 'completed',
+		),
+		admin_url( 'admin.php' )
+	) );
+	exit;
+}
+add_action( 'admin_post_justice_mark_lawyer_retention_followup_completed', 'justice_theme_mark_lawyer_retention_followup_completed' );
 
 function justice_theme_send_lawyer_manual_payment_link_from_queue(): void {
 	$post_id = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
@@ -4829,6 +4942,13 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php elseif ( isset( $_GET['retention_outcome'] ) && 'blocked' === $_GET['retention_outcome'] ) : ?>
 			<div class="notice notice-error is-dismissible"><p>Retention outcome was not recorded because paid status, private payment evidence, retention-review status, retention-review start time and first-value proof are required first.</p></div>
 		<?php endif; ?>
+		<?php if ( isset( $_GET['retention_followup'] ) && 'completed' === $_GET['retention_followup'] ) : ?>
+			<div class="notice notice-success is-dismissible"><p>Retention follow-up completed and rescheduled. Do not treat it as retained revenue unless payment, invoice, first-value and customer-success evidence are all saved.</p></div>
+		<?php elseif ( isset( $_GET['retention_followup'] ) && 'proof_missing' === $_GET['retention_followup'] ) : ?>
+			<div class="notice notice-error is-dismissible"><p>Retention follow-up was not completed because a retention review note is required before closing and rescheduling the owner action.</p></div>
+		<?php elseif ( isset( $_GET['retention_followup'] ) && 'blocked' === $_GET['retention_followup'] ) : ?>
+			<div class="notice notice-error is-dismissible"><p>Retention follow-up was not completed because paid status, private payment evidence, first-value proof, retention review, recorded outcome and a due next-step date are required first.</p></div>
+		<?php endif; ?>
 		<?php if ( isset( $_GET['service_request_followup'] ) && 'updated' === $_GET['service_request_followup'] ) : ?>
 			<div class="notice notice-success is-dismissible"><p>Service request status updated. Continue owner review, billing/refund handling or customer-success follow-up from this queue.</p></div>
 		<?php endif; ?>
@@ -4945,7 +5065,18 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$first_value_retention_outcome_at = (string) get_post_meta( $post_id, 'first_value_retention_outcome_at', true );
 						$first_value_retention_next_step_due_at = (string) get_post_meta( $post_id, 'first_value_retention_next_step_due_at', true );
 						$retention_next_step_badge = justice_theme_lawyer_payment_due_badge( $first_value_retention_next_step_due_at );
+						$retention_next_step_timestamp = $first_value_retention_next_step_due_at ? strtotime( $first_value_retention_next_step_due_at ) : false;
+						$retention_next_step_due_now = $retention_next_step_timestamp && $retention_next_step_timestamp <= current_time( 'timestamp' );
 						$retention_outcome_options = justice_theme_lawyer_retention_outcome_options();
+						$can_complete_retention_followup = (
+							'payment_confirmed' === $payment_followup
+							&& '' !== trim( $payment_evidence_url )
+							&& $has_first_value_evidence
+							&& '' !== trim( $first_value_retention_started_at )
+							&& '' !== $first_value_retention_outcome_status
+							&& array_key_exists( $first_value_retention_outcome_status, $retention_outcome_options )
+							&& $retention_next_step_due_now
+						);
 						$payment_confirmed_at = (string) get_post_meta( $post_id, 'payment_confirmed_at', true );
 						$payment_blocked_at   = (string) get_post_meta( $post_id, 'payment_blocked_at', true );
 						$payment_cancelled_at = (string) get_post_meta( $post_id, 'payment_cancelled_at', true );
@@ -5088,6 +5219,13 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 									<?php if ( $first_value_retention_next_step_due_at ) : ?>
 										<br><small>Retention next step: <?php echo esc_html( $first_value_retention_next_step_due_at ); ?></small>
 										<br><span style="display:inline-block;margin:6px 0 0;padding:2px 7px;border-radius:999px;font-size:12px;<?php echo esc_attr( $retention_next_step_badge['style'] ); ?>"><?php echo esc_html( $retention_next_step_badge['label'] ); ?></span>
+										<?php if ( $can_complete_retention_followup ) : ?>
+											<?php if ( '' !== trim( $first_value_retention_note ) ) : ?>
+												<br><a class="button button-small" style="margin-top:6px;" href="<?php echo esc_url( justice_theme_lawyer_retention_followup_completed_quick_action_url( $post_id ) ); ?>" onclick="return confirm('<?php echo esc_js( __( 'Complete this follow-up only after the owner handled the call, save plan, renewal, upsell, or next useful service commitment and saved a retention note. Continue?', 'justice-theme' ) ); ?>');">Mark follow-up handled</a>
+											<?php else : ?>
+												<br><small style="color:#991b1b;">Follow-up completion blocked until a retention review note is saved.</small>
+											<?php endif; ?>
+										<?php endif; ?>
 									<?php endif; ?>
 									<?php if ( 'payment_confirmed' === $payment_followup && $payment_evidence_url && ! in_array( $activation_status, array( 'first_value', 'retention_review', 'retained', 'at_risk' ), true ) ) : ?>
 										<br><small style="color:#991b1b;">Paid: deliver first value before repeating this source.</small>

@@ -11,10 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function justice_theme_register_lawyer_activation_meta(): void {
 	$fields = array(
-		'activation_status'     => 'string',
-		'first_value_at'        => 'string',
-		'first_value_source'    => 'string',
-		'activation_owner_note' => 'string',
+		'activation_status'        => 'string',
+		'first_value_at'           => 'string',
+		'first_value_evidence_url' => 'string',
+		'first_value_outcome_note' => 'string',
+		'first_value_source'       => 'string',
+		'activation_owner_note'    => 'string',
 		'payment_path'            => 'string',
 		'payment_followup_status' => 'string',
 		'payment_followup_due_at' => 'string',
@@ -92,11 +94,11 @@ function justice_theme_lawyer_response_commitment_options(): array {
 }
 
 function justice_theme_lawyer_activation_meta_sanitizer( string $key ): string {
-	if ( in_array( $key, array( 'activation_owner_note', 'registration_upload_notes', 'profile_ai_draft_sections', 'latest_service_request_message' ), true ) ) {
+	if ( in_array( $key, array( 'activation_owner_note', 'first_value_outcome_note', 'registration_upload_notes', 'profile_ai_draft_sections', 'latest_service_request_message' ), true ) ) {
 		return 'sanitize_textarea_field';
 	}
 
-	if ( in_array( $key, array( 'google_business_profile_url', 'google_review_request_url', 'registration_landing_url', 'registration_referrer_url', 'manual_payment_link_url', 'manual_payment_evidence_url' ), true ) ) {
+	if ( in_array( $key, array( 'google_business_profile_url', 'google_review_request_url', 'registration_landing_url', 'registration_referrer_url', 'manual_payment_link_url', 'manual_payment_evidence_url', 'first_value_evidence_url' ), true ) ) {
 		return 'esc_url_raw';
 	}
 
@@ -1539,6 +1541,11 @@ function justice_theme_lawyer_has_manual_payment_evidence( int $post_id ): bool 
 	return '' !== trim( (string) get_post_meta( $post_id, 'manual_payment_evidence_url', true ) );
 }
 
+function justice_theme_lawyer_has_first_value_evidence( int $post_id ): bool {
+	return '' !== trim( (string) get_post_meta( $post_id, 'first_value_evidence_url', true ) )
+		|| '' !== trim( (string) get_post_meta( $post_id, 'first_value_outcome_note', true ) );
+}
+
 function justice_theme_set_lawyer_payment_followup_status( int $post_id, string $followup_status, string $source_note ): bool {
 	$followup_status = sanitize_key( $followup_status );
 	$options         = justice_theme_lawyer_payment_followup_options();
@@ -2179,6 +2186,8 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 
 	$status         = get_post_meta( $post->ID, 'activation_status', true ) ?: 'registered';
 	$first_value_at = get_post_meta( $post->ID, 'first_value_at', true );
+	$first_value_evidence_url = (string) get_post_meta( $post->ID, 'first_value_evidence_url', true );
+	$first_value_outcome_note = (string) get_post_meta( $post->ID, 'first_value_outcome_note', true );
 	$owner_note     = get_post_meta( $post->ID, 'activation_owner_note', true );
 	$payment_path   = (string) get_post_meta( $post->ID, 'payment_path', true );
 	$payment_status = (string) get_post_meta( $post->ID, 'payment_followup_status', true );
@@ -2286,6 +2295,16 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 		<input id="justice-first-value-at" type="datetime-local" name="first_value_at" value="<?php echo esc_attr( $first_value_at ); ?>" style="width:100%;">
 	</p>
 	<p>
+		<label for="justice-first-value-evidence-url"><strong>First value evidence URL</strong></label>
+		<input id="justice-first-value-evidence-url" type="url" name="first_value_evidence_url" value="<?php echo esc_attr( $first_value_evidence_url ); ?>" placeholder="Private lead handoff, profile activation, delivery proof, or service outcome URL" style="width:100%;">
+		<small>Owner-only proof. Save either this URL or an outcome note before the quick action can close the paid first-value queue.</small>
+	</p>
+	<p>
+		<label for="justice-first-value-outcome-note"><strong>First value outcome note</strong></label>
+		<textarea id="justice-first-value-outcome-note" name="first_value_outcome_note" rows="4" style="width:100%;" placeholder="Example: profile activated and first relevant lead handed off on WhatsApp; owner verified response."><?php echo esc_textarea( $first_value_outcome_note ); ?></textarea>
+		<small>Describe the first useful outcome: lead handoff, profile activation, content/service delivery, or another owner-verified value event.</small>
+	</p>
+	<p>
 		<label for="justice-activation-owner-note"><strong>Owner/customer-success note</strong></label>
 		<textarea id="justice-activation-owner-note" name="activation_owner_note" rows="5" style="width:100%;"><?php echo esc_textarea( $owner_note ); ?></textarea>
 	</p>
@@ -2358,6 +2377,8 @@ function justice_theme_save_lawyer_activation( int $post_id ): void {
 
 	update_post_meta( $post_id, 'activation_status', $status );
 	update_post_meta( $post_id, 'first_value_at', isset( $_POST['first_value_at'] ) ? sanitize_text_field( wp_unslash( $_POST['first_value_at'] ) ) : '' );
+	update_post_meta( $post_id, 'first_value_evidence_url', isset( $_POST['first_value_evidence_url'] ) ? esc_url_raw( wp_unslash( $_POST['first_value_evidence_url'] ) ) : '' );
+	update_post_meta( $post_id, 'first_value_outcome_note', isset( $_POST['first_value_outcome_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['first_value_outcome_note'] ) ) : '' );
 	update_post_meta( $post_id, 'activation_owner_note', isset( $_POST['activation_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['activation_owner_note'] ) ) : '' );
 	$manual_payment_link = isset( $_POST['manual_payment_link_url'] ) ? esc_url_raw( wp_unslash( $_POST['manual_payment_link_url'] ) ) : '';
 	update_post_meta( $post_id, 'manual_payment_link_url', $manual_payment_link );
@@ -2619,7 +2640,22 @@ function justice_theme_mark_lawyer_first_value_delivered(): void {
 		exit;
 	}
 
-	$previous_status = (string) get_post_meta( $post_id, 'activation_status', true );
+	if ( ! justice_theme_lawyer_has_first_value_evidence( $post_id ) ) {
+		justice_theme_append_lawyer_internal_note( $post_id, 'First value quick action was blocked because first_value_evidence_url or first_value_outcome_note is required before closing the paid first-value queue.' );
+		wp_safe_redirect( add_query_arg(
+			array(
+				'page'             => 'justice-lawyer-onboarding',
+				'activation_queue' => 'paid_needs_first_value',
+				'first_value'      => 'proof_missing',
+			),
+			admin_url( 'admin.php' )
+		) );
+		exit;
+	}
+
+	$previous_status          = (string) get_post_meta( $post_id, 'activation_status', true );
+	$first_value_evidence_url = trim( (string) get_post_meta( $post_id, 'first_value_evidence_url', true ) );
+	$first_value_outcome_note = trim( (string) get_post_meta( $post_id, 'first_value_outcome_note', true ) );
 	update_post_meta( $post_id, 'activation_status', 'first_value' );
 
 	if ( '' === (string) get_post_meta( $post_id, 'first_value_at', true ) ) {
@@ -2630,8 +2666,10 @@ function justice_theme_mark_lawyer_first_value_delivered(): void {
 	justice_theme_append_lawyer_internal_note(
 		$post_id,
 		sprintf(
-			'First value delivered was marked from Lawyer Onboarding after private payment evidence. Previous activation status: %s. Owner should keep the lead handoff, profile activation, or service outcome evidence in notes before repeating this acquisition source.',
-			$previous_status ?: 'registered'
+			'First value delivered was marked from Lawyer Onboarding after private payment evidence and first-value evidence. Previous activation status: %1$s. Evidence URL: %2$s. Outcome note present: %3$s. Owner should keep the lead handoff, profile activation, or service outcome evidence before repeating this acquisition source.',
+			$previous_status ?: 'registered',
+			$first_value_evidence_url ?: 'not saved',
+			$first_value_outcome_note ? 'yes' : 'no'
 		)
 	);
 
@@ -4331,6 +4369,8 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 			<div class="notice notice-success is-dismissible"><p>First value marked for the paid lawyer. Keep proof of the lead handoff, profile activation or useful service outcome in the internal notes.</p></div>
 		<?php elseif ( isset( $_GET['first_value'] ) && 'blocked' === $_GET['first_value'] ) : ?>
 			<div class="notice notice-error is-dismissible"><p>First value was not marked because payment_confirmed and a private payment evidence URL are required first.</p></div>
+		<?php elseif ( isset( $_GET['first_value'] ) && 'proof_missing' === $_GET['first_value'] ) : ?>
+			<div class="notice notice-error is-dismissible"><p>First value was not marked because first-value evidence URL or outcome note is required before closing the queue.</p></div>
 		<?php endif; ?>
 		<?php if ( isset( $_GET['service_request_followup'] ) && 'updated' === $_GET['service_request_followup'] ) : ?>
 			<div class="notice notice-success is-dismissible"><p>Service request status updated. Continue owner review, billing/refund handling or customer-success follow-up from this queue.</p></div>
@@ -4430,6 +4470,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$manual_payment_link_email_result = (string) get_post_meta( $post_id, 'manual_payment_link_email_last_result', true );
 						$invoice_reference    = (string) get_post_meta( $post_id, 'manual_invoice_reference', true );
 						$payment_evidence_url = (string) get_post_meta( $post_id, 'manual_payment_evidence_url', true );
+						$first_value_evidence_url = (string) get_post_meta( $post_id, 'first_value_evidence_url', true );
+						$first_value_outcome_note = (string) get_post_meta( $post_id, 'first_value_outcome_note', true );
+						$has_first_value_evidence = justice_theme_lawyer_has_first_value_evidence( $post_id );
 						$payment_confirmed_at = (string) get_post_meta( $post_id, 'payment_confirmed_at', true );
 						$payment_blocked_at   = (string) get_post_meta( $post_id, 'payment_blocked_at', true );
 						$payment_cancelled_at = (string) get_post_meta( $post_id, 'payment_cancelled_at', true );
@@ -4542,10 +4585,20 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 									</span>
 									<?php if ( $first_value_at ) : ?>
 										<br><small>First value: <?php echo esc_html( $first_value_at ); ?></small>
+										<?php if ( $first_value_evidence_url ) : ?>
+											<br><a href="<?php echo esc_url( $first_value_evidence_url ); ?>" target="_blank" rel="noopener noreferrer">First value proof</a>
+										<?php endif; ?>
+										<?php if ( $first_value_outcome_note ) : ?>
+											<br><small>Outcome proof: <?php echo esc_html( wp_trim_words( $first_value_outcome_note, 14, '...' ) ); ?></small>
+										<?php endif; ?>
 									<?php endif; ?>
 									<?php if ( 'payment_confirmed' === $payment_followup && $payment_evidence_url && 'first_value' !== $activation_status ) : ?>
 										<br><small style="color:#991b1b;">Paid: deliver first value before repeating this source.</small>
-										<br><a class="button button-small" style="margin-top:6px;" href="<?php echo esc_url( justice_theme_lawyer_first_value_quick_action_url( $post_id ) ); ?>" onclick="return confirm('<?php echo esc_js( __( 'Mark first value delivered only after a real lead handoff, profile activation or useful service outcome was completed. Continue?', 'justice-theme' ) ); ?>');">Mark first value delivered</a>
+										<?php if ( $has_first_value_evidence ) : ?>
+											<br><a class="button button-small" style="margin-top:6px;" href="<?php echo esc_url( justice_theme_lawyer_first_value_quick_action_url( $post_id ) ); ?>" onclick="return confirm('<?php echo esc_js( __( 'Mark first value delivered only after a real lead handoff, profile activation or useful service outcome was completed. Continue?', 'justice-theme' ) ); ?>');">Mark first value delivered</a>
+										<?php else : ?>
+											<br><small style="color:#991b1b;">First-value action blocked until an outcome note or private proof URL is saved on the lawyer record.</small>
+										<?php endif; ?>
 									<?php endif; ?>
 								</p>
 							</td>

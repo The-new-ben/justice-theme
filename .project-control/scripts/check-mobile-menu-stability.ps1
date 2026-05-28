@@ -118,9 +118,9 @@ Add-Check $checks "mobile_revenue_actions_present" (Contains-All -Text $texts.he
 )) "Mobile menu must expose WhatsApp, phone, and lawyer-plan revenue actions." $files.header
 
 Add-Check $checks "deploy_marker_current" (Contains-All -Text $texts.functions -Tokens @(
-	"1.1.77",
-	"2026-05-28-lawyer-first-value-delivery-action-v1"
-)) "Theme version and deployment marker must point to the current first-value delivery action release." $files.functions
+	"1.1.78",
+	"2026-05-28-lawyer-first-value-evidence-guard-v1"
+)) "Theme version and deployment marker must point to the current first-value evidence guard release." $files.functions
 
 Add-Check $checks "premium_css_cache_bumped" ($texts.enqueue.Contains("'4.5.9'")) "Premium stylesheet cache version must be bumped for deployment." $files.enqueue
 

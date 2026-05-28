@@ -158,6 +158,15 @@ Add-Check $checks "lawyer_onboarding_first_value_delivery_action" (Contains-All 
 	"lead handoff, profile activation or useful service outcome"
 )) "Lawyer onboarding lets the owner close the paid-first-value queue only after private payment proof exists." $files.lawyerOnboarding
 
+Add-Check $checks "lawyer_onboarding_first_value_evidence_guard" (Contains-All -Text $texts.lawyerOnboarding -Tokens @(
+	"justice_theme_lawyer_has_first_value_evidence",
+	"first_value_evidence_url",
+	"first_value_outcome_note",
+	"proof_missing",
+	"First-value action blocked until an outcome note or private proof URL is saved",
+	"first-value evidence URL or outcome note is required"
+)) "Lawyer onboarding prevents first-value closure unless an owner-only outcome note or private proof URL exists." $files.lawyerOnboarding
+
 Add-Check $checks "lawyer_dashboard_payment_context" (Contains-All -Text $texts.lawyerDashboard -Tokens @(
 	"manual_payment_link_url",
 	"manual_invoice_reference",
@@ -270,6 +279,7 @@ $summary = [ordered]@{
 		ownerTestDrill  = "The onboarding admin must show the exact owner-controlled drill for one real paid-lawyer run without creating false revenue."
 		firstValue      = "Paid lawyers with payment evidence must be visible as a first-value queue until activation, lead handoff, or service outcome is recorded."
 		firstValueClose = "The paid first-value queue can be closed from admin only when payment_confirmed and private payment evidence are present."
+		firstValueProof = "The first-value close action must also require an owner-only outcome note or private proof URL."
 		leadBilling     = "Qualified CRM leads may move to ready_to_bill or invoice_sent only after consent, accepted lawyer/supplier terms, and owner release."
 		paidProof       = "Paid status requires private payment evidence URL in both CRM lead billing and lawyer onboarding; invoice/reference alone is not revenue proof."
 		providerReality = "One-time Grow link evidence is historical support, not current revenue proof; recurring Grow/Meshulam remains provider-gated until a controlled transaction passes."

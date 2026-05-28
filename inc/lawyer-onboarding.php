@@ -3445,6 +3445,45 @@ function justice_theme_lawyer_onboarding_payment_due_value( string $mode ): int 
 	return justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_payment_due_meta_query( $mode ) );
 }
 
+function justice_theme_lawyer_onboarding_paid_needs_first_value_meta_query(): array {
+	return array(
+		'relation' => 'AND',
+		array(
+			'key'   => 'payment_followup_status',
+			'value' => 'payment_confirmed',
+		),
+		array(
+			'key'     => 'manual_payment_evidence_url',
+			'compare' => 'EXISTS',
+		),
+		array(
+			'key'     => 'manual_payment_evidence_url',
+			'value'   => '',
+			'compare' => '!=',
+		),
+		array(
+			'relation' => 'OR',
+			array(
+				'key'     => 'activation_status',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => 'activation_status',
+				'value'   => 'first_value',
+				'compare' => '!=',
+			),
+			array(
+				'key'     => 'first_value_at',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'   => 'first_value_at',
+				'value' => '',
+			),
+		),
+	);
+}
+
 function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$payment_confirmed_meta_query = array(
 		array(
@@ -3500,6 +3539,7 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$payment_link_ready_count  = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_payment_link_meta_query( 'ready' ) );
 	$service_request_count     = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_service_request_meta_query() );
 	$public_card_claim_count   = justice_theme_lawyer_onboarding_count_lawyers( array( justice_theme_lawyer_claim_queue_meta_query() ) );
+	$paid_needs_first_value_count = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_paid_needs_first_value_meta_query() );
 	$invoice_requested_value = justice_theme_lawyer_onboarding_monthly_value( array(
 		array(
 			'key'   => 'payment_followup_status',
@@ -3527,6 +3567,7 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$payment_link_ready_value  = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_payment_link_meta_query( 'ready' ) );
 	$service_request_value     = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_service_request_meta_query() );
 	$public_card_claim_value   = justice_theme_lawyer_onboarding_monthly_value( array( justice_theme_lawyer_claim_queue_meta_query() ) );
+	$paid_needs_first_value_value = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_paid_needs_first_value_meta_query() );
 	$queue_url               = add_query_arg(
 		array(
 			'page'          => 'justice-lawyer-onboarding',
@@ -3597,6 +3638,13 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 		),
 		admin_url( 'admin.php' )
 	);
+	$paid_needs_first_value_url = add_query_arg(
+		array(
+			'page'             => 'justice-lawyer-onboarding',
+			'activation_queue' => 'paid_needs_first_value',
+		),
+		admin_url( 'admin.php' )
+	);
 	$all_url                 = admin_url( 'admin.php?page=justice-lawyer-onboarding' );
 	$invoice_requested_export_url = justice_theme_lawyer_payment_queue_export_url( 'invoice_requested' );
 	$invoice_sent_export_url      = justice_theme_lawyer_payment_queue_export_url( 'invoice_sent' );
@@ -3620,7 +3668,14 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$next_money_value        = 0;
 	$next_money_value_note   = '';
 
-	if ( $payment_overdue_count ) {
+	if ( $paid_needs_first_value_count ) {
+		$next_money_title  = 'Deliver first value to paid lawyers';
+		$next_money_body   = 'These lawyers have private payment evidence but have not reached first value yet. Complete profile activation, route the first suitable lead or record the first useful service outcome before chasing more volume.';
+		$next_money_url    = $paid_needs_first_value_url;
+		$next_money_button = 'Open paid first-value queue';
+		$next_money_value = $paid_needs_first_value_value;
+		$next_money_value_note = 'retention priority';
+	} elseif ( $payment_overdue_count ) {
 		$next_money_title  = 'Work overdue payment follow-ups';
 		$next_money_body   = 'These paid prospects already have a payment follow-up due date behind them. Chase, block, cancel or confirm payment before adding new outreach.';
 		$next_money_url    = $payment_overdue_url;
@@ -3788,6 +3843,12 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $payment_confirmed_count ) ); ?></strong>
 				<span>Payment confirmed</span>
 				<small style="display:block;margin-top:6px;color:#166534;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $payment_confirmed_value ) ); ?> confirmed</small>
+			</div>
+			<div style="border:1px solid #f4b4b4;background:#fff5f5;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $paid_needs_first_value_count ) ); ?></strong>
+				<span>Paid, first value missing</span>
+				<small style="display:block;margin-top:6px;color:#991b1b;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $paid_needs_first_value_value ) ); ?> retention priority</small>
+				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $paid_needs_first_value_url ); ?>">Open first-value queue</a></p>
 			</div>
 			<div style="border:1px solid #e0d2ff;background:#fbf8ff;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $manual_invoice_count ) ); ?></strong>
@@ -4045,6 +4106,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 	$billing_status = isset( $_GET['billing_status'] ) ? sanitize_key( wp_unslash( $_GET['billing_status'] ) ) : '';
 	$payment_link_status = isset( $_GET['payment_link_status'] ) ? sanitize_key( wp_unslash( $_GET['payment_link_status'] ) ) : '';
 	$service_request_status = isset( $_GET['service_request_status'] ) ? sanitize_key( wp_unslash( $_GET['service_request_status'] ) ) : '';
+	$activation_queue = isset( $_GET['activation_queue'] ) ? sanitize_key( wp_unslash( $_GET['activation_queue'] ) ) : '';
 	$claim_queue  = isset( $_GET['claim_queue'] ) ? sanitize_key( wp_unslash( $_GET['claim_queue'] ) ) : '';
 	$source_key    = isset( $_GET['source_key'] ) ? sanitize_key( wp_unslash( $_GET['source_key'] ) ) : '';
 	$source_value  = isset( $_GET['source_value'] ) ? sanitize_text_field( wp_unslash( $_GET['source_value'] ) ) : '';
@@ -4065,6 +4127,10 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 
 	if ( 'pending' !== $service_request_status ) {
 		$service_request_status = '';
+	}
+
+	if ( 'paid_needs_first_value' !== $activation_queue ) {
+		$activation_queue = '';
 	}
 
 	if ( '1' !== $claim_queue ) {
@@ -4137,6 +4203,14 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 			'relation' => 'AND',
 			$meta_query,
 			justice_theme_lawyer_onboarding_service_request_meta_query(),
+		);
+	}
+
+	if ( $activation_queue ) {
+		$meta_query = array(
+			'relation' => 'AND',
+			$registration_review_meta_query,
+			justice_theme_lawyer_onboarding_paid_needs_first_value_meta_query(),
 		);
 	}
 
@@ -4229,6 +4303,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php endif; ?>
 		<?php if ( $service_request_status ) : ?>
 			<div class="notice notice-info inline"><p>Showing only lawyer registrations with open service, billing, refund, cancellation, downgrade, complaint or support requests. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
+		<?php endif; ?>
+		<?php if ( $activation_queue ) : ?>
+			<div class="notice notice-warning inline"><p>Showing only paid lawyers with private payment evidence where first value is still missing. Complete activation, first useful service outcome, or first suitable lead handoff before counting the relationship as retained. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
 		<?php endif; ?>
 		<?php if ( $claim_queue ) : ?>
 			<div class="notice notice-info inline"><p>Showing only lawyer registrations that came from a public-card claim/upgrade path. Verify identity before changing the existing public card. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
@@ -4398,6 +4475,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 									</span>
 									<?php if ( $first_value_at ) : ?>
 										<br><small>First value: <?php echo esc_html( $first_value_at ); ?></small>
+									<?php endif; ?>
+									<?php if ( 'payment_confirmed' === $payment_followup && $payment_evidence_url && 'first_value' !== $activation_status ) : ?>
+										<br><small style="color:#991b1b;">Paid: deliver first value before repeating this source.</small>
 									<?php endif; ?>
 								</p>
 							</td>

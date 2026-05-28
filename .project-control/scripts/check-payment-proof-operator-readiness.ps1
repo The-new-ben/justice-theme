@@ -139,6 +139,16 @@ Add-Check $checks "lawyer_onboarding_owner_payment_test_drill" (Contains-All -Te
 	"This drill is admin guidance only"
 )) "Lawyer onboarding exposes an admin-only owner test drill for the first real paid-lawyer run." $files.lawyerOnboarding
 
+Add-Check $checks "lawyer_onboarding_paid_first_value_queue" (Contains-All -Text $texts.lawyerOnboarding -Tokens @(
+	"justice_theme_lawyer_onboarding_paid_needs_first_value_meta_query",
+	"paid_needs_first_value",
+	"Paid, first value missing",
+	"Open first-value queue",
+	"Deliver first value to paid lawyers",
+	"Paid: deliver first value before repeating this source",
+	"first useful service outcome"
+)) "Lawyer onboarding exposes a paid-but-first-value-missing queue before repeating paid acquisition." $files.lawyerOnboarding
+
 Add-Check $checks "lawyer_dashboard_payment_context" (Contains-All -Text $texts.lawyerDashboard -Tokens @(
 	"manual_payment_link_url",
 	"manual_invoice_reference",
@@ -249,6 +259,7 @@ $summary = [ordered]@{
 		checkoutFallback = "Paid-lawyer intent must preserve plan, billing, terms, cancellation, privacy, and manual-invoice continuation until provider checkout is verified."
 		lawyerBilling   = "Lawyer onboarding and dashboard must show payment follow-up, manual payment link, invoice reference, and service-request states."
 		ownerTestDrill  = "The onboarding admin must show the exact owner-controlled drill for one real paid-lawyer run without creating false revenue."
+		firstValue      = "Paid lawyers with payment evidence must be visible as a first-value queue until activation, lead handoff, or service outcome is recorded."
 		leadBilling     = "Qualified CRM leads may move to ready_to_bill or invoice_sent only after consent, accepted lawyer/supplier terms, and owner release."
 		paidProof       = "Paid status requires private payment evidence URL in both CRM lead billing and lawyer onboarding; invoice/reference alone is not revenue proof."
 		providerReality = "One-time Grow link evidence is historical support, not current revenue proof; recurring Grow/Meshulam remains provider-gated until a controlled transaction passes."

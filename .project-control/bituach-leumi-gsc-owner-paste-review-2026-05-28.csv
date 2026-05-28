@@ -1,0 +1,11 @@
+metric,value
+status,BITUACH_LEUMI_GSC_OWNER_PASTE_REVIEW_BLOCKED_WAITING_OWNER_EXPORT_NO_LIVE_ACTION
+template_rows,16
+required_routes,2
+rows_per_route,8
+filled_query_rows,0
+gsc_api_calls,0
+public_cms_changes,0
+seo_control_changes,0
+revenue_proof,0
+next_action,Owner/admin pastes non-private GSC query rows and reruns .project-control/scripts/review-bituach-leumi-gsc-owner-paste.ps1

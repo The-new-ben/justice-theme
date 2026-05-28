@@ -1,7 +1,7 @@
 # Lawyer Owner Payment Test Drill
 
 Date: 2026-05-28
-Status: PUSH_READY_DEPLOY_REQUIRED
+Status: LIVE_VERIFIED
 
 ## Scope
 
@@ -17,13 +17,22 @@ The goal is to make the first real paid-lawyer test executable without relying o
 - The drill uses `manual_payment_evidence_url` as the required private proof field before a lawyer can count as paid.
 - The payment-proof operator gate now checks that this admin drill exists.
 
-## Verification To Run
+## Verification
+
+Local verification passed:
 
 - `php -l inc/lawyer-onboarding.php`
 - `php -l functions.php`
 - `.project-control/scripts/check-payment-proof-operator-readiness.ps1`
 - `.project-control/scripts/check-mobile-menu-stability.ps1`
-- `.project-control/scripts/check-live-deploy.ps1` after uPress Pull Git.
+
+Live verification passed after GitHub push and uPress Pull Git:
+
+- uPress Git log: commit `982d234c` is `HEAD -> main`.
+- `.project-control/scripts/check-live-deploy.ps1`: pass.
+- `.project-control/scripts/check-payment-proof-operator-readiness.ps1`: pass.
+- `.project-control/scripts/check-live-mobile-menu-browser-qa.ps1`: pass; screenshot saved at `output/playwright/live-mobile-menu-open-1779934315.png`.
+- `.project-control/scripts/check-revenue-readiness-gate.ps1`: pass with readiness `ready_for_owner_payment_admin_test`.
 
 ## Deployment Target
 

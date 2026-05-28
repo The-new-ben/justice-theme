@@ -6,8 +6,45 @@
 	const toggle = document.querySelector( '.menu-toggle' );
 	const nav = document.querySelector( '.primary-navigation' );
 	const mobileQuery = window.matchMedia( '(max-width: 1220px)' );
+	let lockedScrollY = 0;
+	let isScrollLocked = false;
 
 	if ( toggle && nav ) {
+		const closeSubmenus = () => {
+			nav
+				.querySelectorAll( '.menu-item-has-children.is-open' )
+				.forEach( item => {
+					item.classList.remove( 'is-open' );
+
+					const link = item.querySelector( ':scope > a' );
+
+					if ( link ) {
+						link.setAttribute( 'aria-expanded', 'false' );
+					}
+				} );
+		};
+
+		const lockPageScroll = () => {
+			if ( isScrollLocked ) {
+				return;
+			}
+
+			lockedScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+			isScrollLocked = true;
+			document.documentElement.classList.add( 'nav-is-open' );
+		};
+
+		const unlockPageScroll = () => {
+			if ( ! isScrollLocked ) {
+				document.documentElement.classList.remove( 'nav-is-open' );
+				return;
+			}
+
+			document.documentElement.classList.remove( 'nav-is-open' );
+			isScrollLocked = false;
+			window.scrollTo( 0, lockedScrollY );
+		};
+
 		const setMenuOpen = isOpen => {
 			toggle.setAttribute( 'aria-expanded', isOpen ? 'true' : 'false' );
 
@@ -18,6 +55,13 @@
 			}
 
 			document.body.classList.toggle( 'nav-is-open', isOpen );
+
+			if ( isOpen ) {
+				lockPageScroll();
+			} else {
+				closeSubmenus();
+				unlockPageScroll();
+			}
 		};
 
 		setMenuOpen( false );
@@ -46,8 +90,9 @@
 		nav.addEventListener( 'click', e => {
 			const target = e.target instanceof Element ? e.target : null;
 			const link = target ? target.closest( 'a[href]' ) : null;
+			const parentItem = link ? link.closest( '.menu-item-has-children' ) : null;
 
-			if ( link && link.getAttribute( 'href' ) !== '#' ) {
+			if ( link && link.getAttribute( 'href' ) !== '#' && ! parentItem ) {
 				setMenuOpen( false );
 			}
 		} );
@@ -69,20 +114,26 @@
 	document
 		.querySelectorAll( '.primary-navigation .menu-item-has-children > a' )
 		.forEach( link => {
+			link.setAttribute( 'aria-expanded', 'false' );
+
 			link.addEventListener( 'click', e => {
 				if ( ! mobileQuery.matches ) {
 					return;
 				}
 
-				if ( link.getAttribute( 'href' ) === '#' ) {
-					e.preventDefault();
-				}
-
 				const item = link.parentElement;
+				const submenu = item ? item.querySelector( ':scope > .sub-menu' ) : null;
 
-				if ( item ) {
-					item.classList.toggle( 'is-open' );
+				if ( ! item || ! submenu ) {
+					return;
 				}
+
+				e.preventDefault();
+				e.stopPropagation();
+
+				const isOpen = ! item.classList.contains( 'is-open' );
+				item.classList.toggle( 'is-open', isOpen );
+				link.setAttribute( 'aria-expanded', isOpen ? 'true' : 'false' );
 			} );
 		} );
 

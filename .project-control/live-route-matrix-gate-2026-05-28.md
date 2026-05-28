@@ -30,11 +30,11 @@ Command:
 powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\check-live-route-matrix.ps1
 ```
 
-Latest run: `2026-05-28T00:14Z`
+Latest run: `2026-05-28T04:21Z`
 
 Summary:
 
-- Route count: `7`
+- Route count: `8`
 - Failures: `0`
 - Warnings: `1`
 - Overall pass: `true`
@@ -50,6 +50,7 @@ Summary:
 | Lawyers directory | `https://jus-tice.co.il/lawyers/` | 200 | `LIVE_OK` | `https://jus-tice.co.il/lawyers/` | WhatsApp, phone, lead form, header, footer |
 | Lawyer registration | `https://jus-tice.co.il/lawyer-registration/` | 200 | `LIVE_OK` | `https://jus-tice.co.il/lawyer-registration/` | WhatsApp, phone, lead form, header, footer |
 | Lawyer plans | `https://jus-tice.co.il/lawyer-plans/` | 200 | `LIVE_OK` | `https://jus-tice.co.il/lawyer-plans/` | WhatsApp, phone, lead form, header, footer |
+| Lawyer dashboard | `https://jus-tice.co.il/lawyer-dashboard/` | 200 | `LIVE_OK` | `https://jus-tice.co.il/lawyer-dashboard/` | WhatsApp, phone, lead form, header, footer |
 
 ## Warning
 

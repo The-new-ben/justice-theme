@@ -3407,6 +3407,10 @@
     overflow: hidden;
   }
 
+  html.nav-is-open #pojo-a11y-toolbar {
+    z-index: 1 !important;
+  }
+
   .primary-navigation {
     display: none;
     position: fixed;

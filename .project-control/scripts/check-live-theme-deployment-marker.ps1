@@ -1,9 +1,9 @@
 param(
 	[string] $BaseUrl = "https://jus-tice.co.il",
 	[string] $ExpectedCommit = "",
-	[string] $ExpectedMarker = "2026-06-06-mobile-menu-a11y-overlay-clearance-v1",
+	[string] $ExpectedMarker = "2026-06-06-mobile-menu-a11y-overlay-clearance-v2",
 	[string] $ExpectedNavigationToken = "lockPageScroll",
-	[string] $ExpectedCssToken = "html.nav-is-open #pojo-a11y-toolbar"
+	[string] $ExpectedCssToken = "html.nav-is-open body #pojo-a11y-toolbar"
 )
 
 $ErrorActionPreference = "Stop"

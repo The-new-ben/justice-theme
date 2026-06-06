@@ -3407,8 +3407,10 @@
     overflow: hidden;
   }
 
-  html.nav-is-open #pojo-a11y-toolbar {
+  html.nav-is-open body #pojo-a11y-toolbar,
+  html.nav-is-open body #pojo-a11y-toolbar.pojo-a11y-toolbar-right {
     z-index: 1 !important;
+    pointer-events: none;
   }
 
   .primary-navigation {

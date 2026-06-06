@@ -1,7 +1,7 @@
 param(
 	[string] $BaseUrl = "https://jus-tice.co.il",
 	[string] $ExpectedCommit = "",
-	[string] $ExpectedMarker = "2026-06-06-mobile-menu-a11y-overlay-clearance-v2",
+	[string] $ExpectedMarker = "2026-06-06-homepage-legal-router-flow-v1",
 	[string] $ExpectedNavigationToken = "lockPageScroll",
 	[string] $ExpectedCssToken = "html.nav-is-open body #pojo-a11y-toolbar"
 )

@@ -3,7 +3,7 @@ param(
 	[string] $ObservedUpressSubject = "Record mobile menu stable in place deployment",
 	[string] $ExpectedGithubHead = "",
 	[string] $ExpectedMenuCommit = "bc78bf69",
-	[string] $ExpectedRuntimeMarker = "2026-06-06-mobile-menu-a11y-overlay-clearance-v2",
+	[string] $ExpectedRuntimeMarker = "2026-06-06-homepage-legal-router-flow-v1",
 	[string] $ExpectedCssToken = "html.nav-is-open body #pojo-a11y-toolbar",
 	[string] $BaseUrl = "https://jus-tice.co.il"
 )

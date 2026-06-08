@@ -16,6 +16,8 @@ function getRoleLabel(role) {
   return mapping[role] || role;
 }
 
+export const dynamicParams = false;
+
 // Generate static params for all 6 categories
 export async function generateStaticParams() {
   const hubs = getAllLocalHubs();
@@ -31,7 +33,7 @@ export async function generateMetadata({ params }) {
 
   return {
     title: `${hub.title} | פורטל משפטי JUS-TICE`,
-    description: `מחפש ${hub.title}? מידע משפטי מקיף, בדיקת זכויות, פסקי דין ומדריכים שנכתבו ונבדקו על ידי עורכי דין מורשים.`,
+    description: `מחפש ${hub.title}? מידע משפטי מקיף, בדיקת זכויות, מדריכים שעורכי דין מורשים כתבו ובדקו.`,
     alternates: {
       canonical: `https://jus-tice.co.il/practice-areas/${hub.category}`,
     },
@@ -135,7 +137,7 @@ export default async function PracticeAreaHubPage({ params }) {
         <section style={{ marginTop: '48px', background: '#ffffff', padding: '32px', borderRadius: '16px', border: '1px solid rgba(0,0,0,0.04)' }}>
           <h3 style={{ fontSize: '1.4rem', fontWeight: '900', marginBottom: '16px' }}>הוועדה המייעצת של פורטל JUS-TICE</h3>
           <p style={{ fontSize: '0.95rem', color: '#6e6e73', lineHeight: '1.6', marginBottom: '20px' }}>
-            כל המידע המשפטי, מחשבוני הזכויות וסוכני הבינה המלאכותית באתר מבוקרים על ידי עורכי דין מורשים בלשכת עורכי הדין בישראל כדי להבטיח את הדיוק הגבוה ביותר.
+            עורכי דין מורשים בלשכת עורכי הדין בישראל מבקרים את כל המידע המשפטי, מחשבוני הזכויות וסוכני הבינה המלאכותית באתר כדי להבטיח את הדיוק הגבוה ביותר.
           </p>
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
             <div style={{
@@ -176,14 +178,14 @@ export default async function PracticeAreaHubPage({ params }) {
                       <span style={{ fontWeight: '800', fontSize: '0.95rem' }}>{review.reviewer_name}</span>
                       <span style={{
                         fontSize: '0.75rem',
-                        backgroundColor: 'rgba(0, 102, 204, 0.08)',
+                        backgroundColor: 'rgba(0, 0, 0, 0.05)',
                         padding: '2px 8px',
                         borderRadius: '4px',
-                        color: '#0066cc',
+                        color: '#1d1d1f',
                         fontWeight: '600'
                       }}>{getRoleLabel(review.reviewer_role)}</span>
                     </div>
-                    <span style={{ color: '#e0a800' }}>{'★'.repeat(review.rating)}</span>
+                    <span style={{ color: '#3a3a3c' }}>{'★'.repeat(review.rating)}</span>
                   </div>
                   <p style={{ fontSize: '0.9rem', color: '#48484a', margin: 0, lineHeight: '1.6' }}>{review.content}</p>
                 </div>

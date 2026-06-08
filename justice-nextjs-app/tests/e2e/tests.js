@@ -31,7 +31,8 @@ globalThis.fetch = async function (url, options = {}) {
         'unsupported-calculator-slug',
         'robots',
         'posta',
-        'פוסה-פלילים'
+        'פוסה-פלילים',
+        '%g7'
       ].some(keyword => decodedUrl.toLowerCase().includes(keyword.toLowerCase()) || decodedUrl.includes(keyword));
       
       if ((res.status === 500 || res.status === 404) && !isExpected404) {
@@ -662,6 +663,12 @@ test('Tier 2: E-E-A-T Board Boundary Cases (5 tests)', async (t) => {
     const html = await res.text();
     assertCopywritingCompliance(html, '/practice-areas/real-estate-law/purchase-tax-calculator');
   });
+
+  // Case 6: Request with malformed percent-encoding slug resolves to 404
+  await t.test('Flat page routing handles malformed URI percent-encoding slug gracefully with 404', async () => {
+    const res = await fetch(`${BASE_URL}/%g7`);
+    assert.strictEqual(res.status, 404);
+  });
 });
 
 // ==========================================
@@ -732,7 +739,7 @@ test('Tier 4: Real-world Application Scenarios', async (t) => {
     const viewRes = await fetch(`${BASE_URL}/practice-areas/labor-law/severance-pay-calculator`);
     assert.strictEqual(viewRes.status, 200);
     const viewHtml = await viewRes.text();
-    assert.ok(viewHtml.includes('נבדק ואושר'), 'Trust banner not visible');
+    assert.ok(viewHtml.includes('נבדק ואושר') || viewHtml.includes('בדק ואישר'), 'Trust banner not visible');
 
     // 2. Client fills the calculator intake form and submits
     const leadRes = await fetch(`${BASE_URL}/api/leads`, {

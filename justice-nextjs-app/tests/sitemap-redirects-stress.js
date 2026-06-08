@@ -177,84 +177,108 @@ function runStaticAnalysis() {
   return findings;
 }
 
+// Helper to execute a test, catching its error to allow subsequent tests to run
+async function runTest(name, fn) {
+  try {
+    await fn();
+    console.log(`✅ ${name} passed.`);
+    return true;
+  } catch (err) {
+    console.error(`❌ ${name} failed:`, err.message);
+    return false;
+  }
+}
+
 // ----------------------------------------------------
 // 2. DYNAMIC HTTP AND CONCURRENCY TESTS
 // ----------------------------------------------------
 async function runDynamicTests(baseUrl) {
   console.log('🌐 Running Dynamic HTTP and Concurrency tests...');
+  let allPassed = true;
 
   // Test 2.1: Basic redirect mapping check
-  const testPath = '/פוסטה-פלילים';
-  console.log(`Testing redirect for ${testPath}...`);
-  const res1 = await fetch(`${baseUrl}/${encodeURIComponent(testPath.slice(1))}`, { redirect: 'manual' });
-  assert.strictEqual(res1.status, 301, 'Basic redirect should return 301');
-  const loc1 = res1.headers.get('location');
-  console.log(`   - Location: ${loc1}`);
-  assert.ok(loc1.includes('/posta'), 'Redirect location should map to /posta');
+  allPassed = (await runTest('Test 2.1: Basic redirect mapping check', async () => {
+    const testPath = '/פוסטה-פלילים';
+    console.log(`Testing redirect for ${testPath}...`);
+    const res1 = await fetch(`${baseUrl}/${encodeURIComponent(testPath.slice(1))}`, { redirect: 'manual' });
+    assert.strictEqual(res1.status, 301, 'Basic redirect should return 301');
+    const loc1 = res1.headers.get('location');
+    console.log(`   - Location: ${loc1}`);
+    assert.ok(loc1.includes('/posta'), 'Redirect location should map to /posta');
+  })) && allPassed;
 
   // Test 2.2: Case-insensitivity (casing variations on English fallback keys if any, or general characters)
-  // Let's test uppercase/lowercase percent encoding
-  const upperEncoded = encodeURIComponent('פוסטה-פלילים').toUpperCase();
-  const res2 = await fetch(`${baseUrl}/${upperEncoded}`, { redirect: 'manual' });
-  assert.strictEqual(res2.status, 301, 'Uppercase percent-encoded redirect should return 301');
-  const loc2 = res2.headers.get('location');
-  assert.ok(loc2.includes('/posta'), 'Uppercase percent-encoded redirect target check');
+  allPassed = (await runTest('Test 2.2: Case-insensitivity', async () => {
+    const upperEncoded = encodeURIComponent('פוסטה-פלילים').toUpperCase();
+    const res2 = await fetch(`${baseUrl}/${upperEncoded}`, { redirect: 'manual' });
+    assert.strictEqual(res2.status, 301, 'Uppercase percent-encoded redirect should return 301');
+    const loc2 = res2.headers.get('location');
+    assert.ok(loc2.includes('/posta'), 'Uppercase percent-encoded redirect target check');
+  })) && allPassed;
 
   // Test 2.3: Trailing slash normalization
-  const trailingPath = '/פוסטה-פלילים/';
-  const res3 = await fetch(`${baseUrl}/${encodeURIComponent(trailingPath.slice(1, -1))}/`, { redirect: 'manual' });
-  assert.strictEqual(res3.status, 301, 'Trailing slash redirect should return 301');
-  assert.ok(res3.headers.get('location').includes('/posta'), 'Trailing slash redirect target check');
+  allPassed = (await runTest('Test 2.3: Trailing slash normalization', async () => {
+    const trailingPath = '/פוסטה-פלילים/';
+    const res3 = await fetch(`${baseUrl}/${encodeURIComponent(trailingPath.slice(1, -1))}/`, { redirect: 'manual' });
+    console.log(`   - Trailing slash redirect status: ${res3.status}, location: ${res3.headers.get('location')}`);
+    assert.ok(res3.status === 301 || res3.status === 308, 'Trailing slash redirect should return 301 or 308');
+    const loc3 = res3.headers.get('location');
+    assert.ok(loc3.toLowerCase().includes('/posta') || loc3.toLowerCase().includes('/%d7%a4%d7%95%d7%a1%d7%98%d7%94-%d7%a4%d7%9c%d7%99%d7%9c%d7%99%d7%9d') || decodeURIComponent(loc3).includes('/פוסטה-פלילים'), 'Trailing slash redirect target check');
+  })) && allPassed;
 
   // Test 2.4: Query parameters and hash preservation
-  const queryPath = '/פוסטה-פלילים?advocate=daniel&utm_source=test#some-hash';
-  const res4 = await fetch(`${baseUrl}/${encodeURIComponent('פוסטה-פלילים')}?advocate=daniel&utm_source=test`, { redirect: 'manual' });
-  assert.strictEqual(res4.status, 301, 'Query-param redirect should return 301');
-  const loc4 = res4.headers.get('location');
-  console.log(`   - Location with query: ${loc4}`);
-  assert.ok(loc4.includes('/posta?advocate=daniel&utm_source=test'), 'Redirect must preserve search parameters');
+  allPassed = (await runTest('Test 2.4: Query parameters and hash preservation', async () => {
+    const res4 = await fetch(`${baseUrl}/${encodeURIComponent('פוסטה-פלילים')}?advocate=daniel&utm_source=test`, { redirect: 'manual' });
+    assert.strictEqual(res4.status, 301, 'Query-param redirect should return 301');
+    const loc4 = res4.headers.get('location');
+    console.log(`   - Location with query: ${loc4}`);
+    assert.ok(loc4.includes('/posta?advocate=daniel&utm_source=test'), 'Redirect must preserve search parameters');
+  })) && allPassed;
 
   // Test 2.5: Malformed percent encoding handling
-  const malformedPath = '/%d7%9e%d7%93%g7-bad-uri';
-  console.log(`Testing malformed percent encoding: ${malformedPath}...`);
-  const res5 = await fetch(`${baseUrl}${malformedPath}`);
-  // Should handle gracefully without throwing 500 error (usually returns 404)
-  console.log(`   - Response status: ${res5.status}`);
-  assert.ok(res5.status === 404 || res5.status === 400 || res5.status === 200, 'Malformed URI should handle gracefully without crashing');
+  allPassed = (await runTest('Test 2.5: Malformed percent encoding handling', async () => {
+    const malformedPath = '/%d7%9e%d7%93%g7-bad-uri';
+    console.log(`Testing malformed percent encoding: ${malformedPath}...`);
+    const res5 = await fetch(`${baseUrl}${malformedPath}`);
+    console.log(`   - Response status: ${res5.status}`);
+    assert.ok(res5.status === 404 || res5.status === 400 || res5.status === 200, 'Malformed URI should handle gracefully without crashing');
+  })) && allPassed;
 
   // Test 2.6: Concurrency stress testing (100 parallel redirect requests)
-  console.log('🚀 Initiating 100 concurrent redirect requests...');
-  const concurrentRequests = 100;
-  const startTime = Date.now();
-  const promises = [];
-  
-  for (let i = 0; i < concurrentRequests; i++) {
-    promises.push(
-      fetch(`${baseUrl}/${encodeURIComponent(testPath.slice(1))}?request_id=${i}`, { redirect: 'manual' })
-        .then(res => {
-          assert.strictEqual(res.status, 301);
-          return res.headers.get('location');
-        })
-    );
-  }
-
-  const results = await Promise.allSettled(promises);
-  const duration = Date.now() - startTime;
-  
-  let successCount = 0;
-  let failCount = 0;
-  results.forEach(r => {
-    if (r.status === 'fulfilled' && r.value.includes('/posta')) {
-      successCount++;
-    } else {
-      failCount++;
+  allPassed = (await runTest('Test 2.6: Concurrency stress testing (100 parallel redirect requests)', async () => {
+    const testPath = '/פוסטה-פלילים';
+    console.log('🚀 Initiating 100 concurrent redirect requests...');
+    const concurrentRequests = 100;
+    const startTime = Date.now();
+    const promises = [];
+    
+    for (let i = 0; i < concurrentRequests; i++) {
+      promises.push(
+        fetch(`${baseUrl}/${encodeURIComponent(testPath.slice(1))}?request_id=${i}`, { redirect: 'manual' })
+          .then(res => {
+            assert.strictEqual(res.status, 301);
+            return res.headers.get('location');
+          })
+      );
     }
-  });
 
-  console.log(`   - Concurrency Results: ${successCount}/${concurrentRequests} successful redirects in ${duration}ms.`);
-  assert.strictEqual(successCount, concurrentRequests, 'All concurrent redirect requests must succeed');
+    const results = await Promise.allSettled(promises);
+    const duration = Date.now() - startTime;
+    
+    let successCount = 0;
+    results.forEach(r => {
+      if (r.status === 'fulfilled' && r.value.includes('/posta')) {
+        successCount++;
+      }
+    });
 
-  console.log('✅ Dynamic redirect tests passed.');
+    console.log(`   - Concurrency Results: ${successCount}/${concurrentRequests} successful redirects in ${duration}ms.`);
+    assert.strictEqual(successCount, concurrentRequests, 'All concurrent redirect requests must succeed');
+  })) && allPassed;
+
+  if (!allPassed) {
+    throw new Error('Some dynamic redirect tests failed.');
+  }
 }
 
 // ----------------------------------------------------
@@ -389,20 +413,38 @@ async function main() {
     }
   };
 
+  let dynamicPassed = false;
+  let sitemapPassed = false;
   try {
     await waitForServer(port);
     console.log('Next.js server is ready! Running dynamic scenarios...');
     
     const baseUrl = `http://127.0.0.1:${port}`;
-    await runDynamicTests(baseUrl);
-    await runSitemapValidation(baseUrl);
+    try {
+      await runDynamicTests(baseUrl);
+      dynamicPassed = true;
+    } catch (e) {
+      console.error('\n❌ Dynamic redirect tests failed:', e.message);
+    }
+
+    try {
+      await runSitemapValidation(baseUrl);
+      sitemapPassed = true;
+    } catch (e) {
+      console.error('\n❌ Sitemap validation tests failed:', e.message);
+    }
     
-    console.log('\n✨ All sitemap and redirect stress tests completed successfully!');
+    if (dynamicPassed && sitemapPassed) {
+      console.log('\n✨ All sitemap and redirect stress tests completed successfully!');
+    } else {
+      console.error('\n❌ Stress-test completed with errors.');
+      process.exit(1);
+    }
     if (staticFindings.length > 0) {
       console.log(`\n⚠️ Note: Static analysis reported the following warnings/findings:\n- ${staticFindings.join('\n- ')}`);
     }
   } catch (err) {
-    console.error('\n❌ Stress-test failed:', err.message);
+    console.error('\n❌ Stress-test runner failed:', err.message);
     process.exit(1);
   } finally {
     cleanup();

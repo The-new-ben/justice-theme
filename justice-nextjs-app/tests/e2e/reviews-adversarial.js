@@ -56,7 +56,11 @@ function waitForServer(port, timeoutMs = 45000) {
         return;
       }
       const req = http.get(`http://127.0.0.1:${port}/`, (res) => {
-        resolve();
+        if (res.statusCode === 200) {
+          setTimeout(resolve, 3000);
+        } else {
+          setTimeout(check, 1000);
+        }
       });
       req.on('error', () => {
         setTimeout(check, 1000);
@@ -439,7 +443,7 @@ async function main() {
   }
 
   console.log(`Spawning Next.js server on port ${port}...`);
-  const serverProcess = spawn('npx', ['next', 'dev', '-p', port.toString()], {
+  const serverProcess = spawn('npx', ['next', 'start', '-p', port.toString()], {
     cwd: path.resolve(__dirname, '../../'),
     shell: true,
     env: { ...process.env, PORT: port.toString() }

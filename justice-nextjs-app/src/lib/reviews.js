@@ -116,17 +116,29 @@ function releaseLock() {
  */
 function readLocalCache() {
   try {
-    if (!fs.existsSync(CACHE_FILE_PATH)) {
-      // Initialize with seed data
-      fs.writeFileSync(TMP_FILE_PATH, JSON.stringify(MOCK_SEED_REVIEWS, null, 2), 'utf-8');
-      fs.renameSync(TMP_FILE_PATH, CACHE_FILE_PATH);
-      return MOCK_SEED_REVIEWS;
-    }
     const fileContent = fs.readFileSync(CACHE_FILE_PATH, 'utf-8');
     return JSON.parse(fileContent);
   } catch (error) {
-    console.error('Failed to read reviews local cache, using memory fallback:', error);
-    return MOCK_SEED_REVIEWS;
+    if (error.code === 'ENOENT') {
+      const tmpPath = `${CACHE_FILE_PATH}.${process.pid}.${Date.now()}.tmp`;
+      try {
+        const dir = path.dirname(CACHE_FILE_PATH);
+        if (!fs.existsSync(dir)) {
+          fs.mkdirSync(dir, { recursive: true });
+        }
+        fs.writeFileSync(tmpPath, JSON.stringify(MOCK_SEED_REVIEWS, null, 2), 'utf-8');
+        fs.renameSync(tmpPath, CACHE_FILE_PATH);
+      } catch (writeError) {
+        try {
+          if (fs.existsSync(tmpPath)) {
+            fs.unlinkSync(tmpPath);
+          }
+        } catch (_) {}
+        throw writeError;
+      }
+      return MOCK_SEED_REVIEWS;
+    }
+    throw error;
   }
 }
 
@@ -134,19 +146,20 @@ function readLocalCache() {
  * Writes reviews array to the local JSON cache.
  */
 function writeLocalCache(reviews) {
+  const tmpPath = `${CACHE_FILE_PATH}.${process.pid}.${Date.now()}.tmp`;
   try {
     const dir = path.dirname(CACHE_FILE_PATH);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
-    fs.writeFileSync(TMP_FILE_PATH, JSON.stringify(reviews, null, 2), 'utf-8');
-    fs.renameSync(TMP_FILE_PATH, CACHE_FILE_PATH);
+    fs.writeFileSync(tmpPath, JSON.stringify(reviews, null, 2), 'utf-8');
+    fs.renameSync(tmpPath, CACHE_FILE_PATH);
     return true;
   } catch (error) {
     console.error('Failed to write reviews to local cache:', error);
     try {
-      if (fs.existsSync(TMP_FILE_PATH)) {
-        fs.unlinkSync(TMP_FILE_PATH);
+      if (fs.existsSync(tmpPath)) {
+        fs.unlinkSync(tmpPath);
       }
     } catch (_) {}
     return false;
@@ -301,27 +314,60 @@ export async function submitReview({ reviewer_name, reviewer_role, rating, conte
   }
 
   // 2. Fallback to Local Filesystem Cache
-  await acquireLock();
-  try {
-    const localReviews = readLocalCache();
-    
-    // Create review with auto-generated id
-    const cacheReview = {
-      id: `rev_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
-      ...newReviewPayload
-    };
+  const maxRetries = 100;
+  const baseDelay = 50;
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    let lockAcquired = false;
+    try {
+      const fd = fs.openSync(LOCK_FILE_PATH, 'wx');
+      fs.closeSync(fd);
+      lockAcquired = true;
 
-    localReviews.push(cacheReview);
-    writeLocalCache(localReviews);
+      const localReviews = readLocalCache();
+      
+      const cacheReview = {
+        id: `rev_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+        ...newReviewPayload
+      };
 
-    return {
-      success: true,
-      review: cacheReview,
-      source: 'cache'
-    };
-  } finally {
-    releaseLock();
+      localReviews.push(cacheReview);
+      
+      const writeSuccess = writeLocalCache(localReviews);
+      if (!writeSuccess) {
+        throw new Error('Write failed');
+      }
+
+      return {
+        success: true,
+        review: cacheReview,
+        source: 'cache'
+      };
+    } catch (err) {
+      if (lockAcquired) {
+        releaseLock();
+        lockAcquired = false;
+      }
+      
+      const isTransient = err.code === 'EEXIST' ||
+                          err.code === 'EACCES' ||
+                          err.code === 'EPERM' ||
+                          err.code === 'EBUSY' ||
+                          err.code === 'EAGAIN';
+      
+      if (isTransient && attempt < maxRetries - 1) {
+        const jitter = Math.random() * 30;
+        const delay = baseDelay + jitter;
+        await sleep(delay);
+      } else {
+        throw err;
+      }
+    } finally {
+      if (lockAcquired) {
+        releaseLock();
+      }
+    }
   }
+  throw new Error('Could not complete review submission: max retries reached');
 }
 
 /**
@@ -361,24 +407,58 @@ export async function approveReview(id) {
   }
 
   // 2. Fallback to Local Filesystem Cache
-  await acquireLock();
-  try {
-    const localReviews = readLocalCache();
-    const reviewIndex = localReviews.findIndex(r => String(r.id) === String(id));
+  const maxRetries = 100;
+  const baseDelay = 50;
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    let lockAcquired = false;
+    try {
+      const fd = fs.openSync(LOCK_FILE_PATH, 'wx');
+      fs.closeSync(fd);
+      lockAcquired = true;
 
-    if (reviewIndex === -1) {
-      throw new Error(`חוות דעת עם מזהה ${id} לא נמצאה`);
+      const localReviews = readLocalCache();
+      const reviewIndex = localReviews.findIndex(r => String(r.id) === String(id));
+
+      if (reviewIndex === -1) {
+        throw new Error(`חוות דעת עם מזהה ${id} לא נמצאה`);
+      }
+
+      localReviews[reviewIndex].approval_status = true;
+      
+      const writeSuccess = writeLocalCache(localReviews);
+      if (!writeSuccess) {
+        throw new Error('Write failed');
+      }
+
+      return {
+        success: true,
+        approved: true,
+        source: 'cache'
+      };
+    } catch (err) {
+      if (lockAcquired) {
+        releaseLock();
+        lockAcquired = false;
+      }
+      
+      const isTransient = err.code === 'EEXIST' ||
+                          err.code === 'EACCES' ||
+                          err.code === 'EPERM' ||
+                          err.code === 'EBUSY' ||
+                          err.code === 'EAGAIN';
+      
+      if (isTransient && attempt < maxRetries - 1) {
+        const jitter = Math.random() * 30;
+        const delay = baseDelay + jitter;
+        await sleep(delay);
+      } else {
+        throw err;
+      }
+    } finally {
+      if (lockAcquired) {
+        releaseLock();
+      }
     }
-
-    localReviews[reviewIndex].approval_status = true;
-    writeLocalCache(localReviews);
-
-    return {
-      success: true,
-      approved: true,
-      source: 'cache'
-    };
-  } finally {
-    releaseLock();
   }
+  throw new Error('Could not complete review approval: max retries reached');
 }

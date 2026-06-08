@@ -4,6 +4,8 @@ import Header from '@/app/components/Header';
 import Breadcrumbs from '@/app/components/Breadcrumbs';
 import Link from 'next/link';
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const lawyers = await getAllLawyers();
   return lawyers.map((lawyer) => ({

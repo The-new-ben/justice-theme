@@ -17,14 +17,12 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const gtmId = process.env.NEXT_PUBLIC_GTM_ID || '';
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-TEST1234';
   
   return (
     <html lang="he" dir="rtl" className={`${rubik.variable}`}>
       {gtmId && (
-        <Script
-          id="gtm-base"
-          strategy="afterInteractive"
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

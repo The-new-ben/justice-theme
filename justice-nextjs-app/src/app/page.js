@@ -2320,7 +2320,7 @@ ${sevName}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '24px' }}>
           
           <div className="glass-panel" style={{ position: 'relative', overflow: 'hidden', background: '#ffffff' }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, #cbd5e1, #0066cc)' }}></div>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: '#cbd5e1' }}></div>
             
             <div style={{ display: 'flex', gap: '18px', marginBottom: '18px', alignItems: 'center' }}>
               <div style={{ position: 'relative', width: '74px', height: '74px', borderRadius: '50%', overflow: 'hidden', border: '2px solid rgba(0,0,0,0.05)' }}>
@@ -2346,7 +2346,7 @@ ${sevName}
           </div>
 
           <div className="glass-panel" style={{ position: 'relative', overflow: 'hidden', background: '#ffffff' }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, #cbd5e1, #0066cc)' }}></div>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: '#cbd5e1' }}></div>
             
             <div style={{ display: 'flex', gap: '18px', marginBottom: '18px', alignItems: 'center' }}>
               <div style={{ position: 'relative', width: '74px', height: '74px', borderRadius: '50%', overflow: 'hidden', border: '2px solid rgba(0,0,0,0.05)' }}>

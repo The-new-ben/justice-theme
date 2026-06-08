@@ -5,7 +5,13 @@ import Breadcrumbs from '@/app/components/Breadcrumbs';
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
-  const decodedSlug = decodeURIComponent(resolvedParams.slug);
+  let decodedSlug;
+  try {
+    decodedSlug = decodeURIComponent(resolvedParams.slug);
+  } catch (e) {
+    console.error('generateMetadata error for slug:', resolvedParams?.slug, e);
+    return { title: 'עמוד לא נמצא | JUS-TICE' };
+  }
   
   // Check if it is a category hub
   const hub = getLocalHub(decodedSlug);
@@ -34,7 +40,13 @@ export async function generateMetadata({ params }) {
 
 export default async function Page({ params }) {
   const resolvedParams = await params;
-  const decodedSlug = decodeURIComponent(resolvedParams.slug);
+  let decodedSlug;
+  try {
+    decodedSlug = decodeURIComponent(resolvedParams.slug);
+  } catch (e) {
+    console.error('Page error for slug:', resolvedParams?.slug, e);
+    notFound();
+  }
 
   // Check if it is a category hub
   const hub = getLocalHub(decodedSlug);

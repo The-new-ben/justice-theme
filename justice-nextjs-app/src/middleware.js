@@ -9,7 +9,8 @@ export function middleware(request) {
   try {
     lookupPath = decodeURIComponent(pathname);
   } catch (e) {
-    // Fallback if URI decoding fails
+    // If the path is malformed, return 404 response immediately
+    return new NextResponse(null, { status: 404 });
   }
 
   // 2. Normalize: lowercase and trim

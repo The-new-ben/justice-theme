@@ -82,7 +82,7 @@ export default function ReviewingExpert({ expert }) {
         <div style={{ flex: '1', minWidth: '200px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
             <h4 style={{ margin: 0, fontWeight: '800', fontSize: '1.15rem', color: '#1d1d1f' }}>
-              נבדק ואושר משפטית על ידי {expert.name}
+              עורך הדין {expert.name} בדק ואישר משפטית את התוכן
             </h4>
             <span style={{
               fontSize: '0.75rem',
@@ -104,7 +104,7 @@ export default function ReviewingExpert({ expert }) {
 
       <div style={{ 
         height: '1px', 
-        background: 'linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.06) 50%, rgba(0,0,0,0) 100%)' 
+        background: 'rgba(0, 0, 0, 0.06)' 
       }} />
 
       <div style={{ 

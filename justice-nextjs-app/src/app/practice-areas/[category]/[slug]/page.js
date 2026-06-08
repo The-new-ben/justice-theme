@@ -16,6 +16,8 @@ function getRoleLabel(role) {
   return mapping[role] || role;
 }
 
+export const dynamicParams = false;
+
 // Generate static params for all 13 spokes
 export async function generateStaticParams() {
   const spokes = getAllLocalSpokes();
@@ -168,6 +170,9 @@ export default async function PracticeAreaSpokePage({ params }) {
         {/* E-E-A-T Advisory Board Information */}
         <section style={{ marginTop: '48px', background: '#ffffff', padding: '32px', borderRadius: '16px', border: '1px solid rgba(0,0,0,0.04)' }}>
           <h3 style={{ fontSize: '1.4rem', fontWeight: '900', marginBottom: '16px' }}>הוועדה המייעצת של פורטל JUS-TICE</h3>
+          <p style={{ fontSize: '0.95rem', color: '#6e6e73', lineHeight: '1.6', marginBottom: '20px' }}>
+            עורכי דין מורשים בלשכת עורכי הדין בישראל מבקרים את כל המידע המשפטי, מחשבוני הזכויות וסוכני הבינה המלאכותית באתר כדי להבטיח את הדיוק הגבוה ביותר.
+          </p>
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
             <div style={{
               width: '64px',
@@ -206,14 +211,14 @@ export default async function PracticeAreaSpokePage({ params }) {
                       <span style={{ fontWeight: '800', fontSize: '0.95rem' }}>{review.reviewer_name}</span>
                       <span style={{
                         fontSize: '0.75rem',
-                        backgroundColor: 'rgba(0, 102, 204, 0.08)',
+                        backgroundColor: 'rgba(0, 0, 0, 0.05)',
                         padding: '2px 8px',
                         borderRadius: '4px',
-                        color: '#0066cc',
+                        color: '#1d1d1f',
                         fontWeight: '600'
                       }}>{getRoleLabel(review.reviewer_role)}</span>
                     </div>
-                    <span style={{ color: '#e0a800' }}>{'★'.repeat(review.rating)}</span>
+                    <span style={{ color: '#3a3a3c' }}>{'★'.repeat(review.rating)}</span>
                   </div>
                   <p style={{ fontSize: '0.9rem', color: '#48484a', margin: 0, lineHeight: '1.6' }}>{review.content}</p>
                 </div>

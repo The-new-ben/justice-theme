@@ -71,7 +71,12 @@ export async function POST(request) {
   } catch (error) {
     console.error('POST /api/reviews error:', error);
     // Categorize validation errors vs server errors
-    const isValidationError = error.message.includes('חובה') || error.message.includes('תקין') || error.message.includes('דירוג');
+    const isValidationError =
+      error.message.includes('חובה') ||
+      error.message.includes('תקין') ||
+      error.message.includes('דירוג') ||
+      error.message.includes('ארוך מדי') ||
+      error.message.includes('מקסימום');
     return NextResponse.json(
       { success: false, error: error.message || 'Internal Server Error' },
       { status: isValidationError ? 400 : 500 }

@@ -2,14 +2,12 @@ import { NextResponse } from 'next/server';
 import redirectMap from './lib/redirect-map.json';
 
 export function middleware(request) {
-  const { pathname, search } = request.nextUrl;
-  
-  // 1. Decode URI characters (crucial for Hebrew slugs like %D7%90... to match decoded keys)
-  let lookupPath = pathname;
+  let pathname, search;
+  let lookupPath;
   try {
+    ({ pathname, search } = request.nextUrl);
     lookupPath = decodeURIComponent(pathname);
   } catch (e) {
-    // If the path is malformed, return 404 response immediately
     return new NextResponse(null, { status: 404 });
   }
 

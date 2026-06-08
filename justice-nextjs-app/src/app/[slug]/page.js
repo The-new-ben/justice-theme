@@ -165,7 +165,12 @@ export default async function Page({ params }) {
       {/* Structured Data injection */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(eeatSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(eeatSchema)
+            .replace(/</g, '\\u003c')
+            .replace(/>/g, '\\u003e')
+            .replace(/&/g, '\\u0026')
+        }}
       />
     </div>
   );

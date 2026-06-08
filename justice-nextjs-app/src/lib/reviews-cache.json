@@ -1,0 +1,695 @@
+[
+  {
+    "id": "rev_1",
+    "reviewer_name": "מיכל כהן",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מקצועי ביותר, יחס אישי וליווי צמוד לכל אורך הדרך. ממליצה בחום על שירותי המשרד!",
+    "approval_status": true,
+    "created_at": "2026-06-01T10:00:00.000Z"
+  },
+  {
+    "id": "rev_2",
+    "reviewer_name": "דוד לוי",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "עורכי דין מצוינים, עזרו לי לפתור בעיה משפטית מורכבת בתחום הנדל\"ן במהירות וביעילות.",
+    "approval_status": true,
+    "created_at": "2026-06-03T14:30:00.000Z"
+  },
+  {
+    "id": "rev_3",
+    "reviewer_name": "עו״ד אילן רפאל",
+    "reviewer_role": "Colleague",
+    "rating": 5,
+    "content": "קולגה מוערך מאוד, מקצוען אמיתי וישר דרך. תמיד שמח לשתף פעולה בתיקים מורכבים.",
+    "approval_status": true,
+    "created_at": "2026-06-05T09:15:00.000Z"
+  },
+  {
+    "id": "rev_4",
+    "reviewer_name": "שרה ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "הייצוג המשפטי הטוב ביותר שקיבלתי. תודה רבה לצוות על המסירות וההקשבה.",
+    "approval_status": true,
+    "created_at": "2026-06-07T16:00:00.000Z"
+  },
+  {
+    "id": "rev_5",
+    "reviewer_name": "אלון מזרחי",
+    "reviewer_role": "Client",
+    "rating": 3,
+    "content": "השירות היה סביר, אך לעיתים לקח זמן לקבל מענה טלפוני לעדכונים בתיק.",
+    "approval_status": false,
+    "created_at": "2026-06-08T11:00:00.000Z"
+  },
+  {
+    "id": "rev_6",
+    "reviewer_name": "אורן גולן",
+    "reviewer_role": "Google",
+    "rating": 5,
+    "content": "Professional and responsive legal service. Guided us through our labor dispute successfully.",
+    "approval_status": true,
+    "created_at": "2026-06-08T12:00:00.000Z"
+  },
+  {
+    "id": "rev_7",
+    "reviewer_name": "רונית אשכנזי",
+    "reviewer_role": "Colleague",
+    "rating": 4,
+    "content": "משרד מקצועי עם הבנה מעמיקה בליטיגציה מסחרית. מומלץ מאוד.",
+    "approval_status": false,
+    "created_at": "2026-06-08T15:30:00.000Z"
+  },
+  {
+    "id": "rev_1780952074713_2sujj",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T20:54:34.712Z"
+  },
+  {
+    "id": "rev_1780952097225_h6d9q",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T20:54:57.224Z"
+  },
+  {
+    "id": "rev_1780952123148_zq1y0",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T20:55:23.091Z"
+  },
+  {
+    "id": "rev_1780952145995_6xoyc",
+    "reviewer_name": "בודק מטעם מערכת-1780952145916",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "חוות דעת לבדיקת אינטגרציית מטמון קבצים",
+    "approval_status": false,
+    "created_at": "2026-06-08T20:55:45.994Z"
+  },
+  {
+    "id": "rev_1780952217952_qvbu9",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T20:56:57.948Z"
+  },
+  {
+    "id": "rev_1780952227390_kssec",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T20:57:07.388Z"
+  },
+  {
+    "id": "rev_1780952321251_kqzyc",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T20:58:41.244Z"
+  },
+  {
+    "id": "rev_1780952355337_m3vrv",
+    "reviewer_name": "בודק מטעם מערכת-1780952355304",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "חוות דעת לבדיקת אינטגרציית מטמון קבצים",
+    "approval_status": false,
+    "created_at": "2026-06-08T20:59:15.336Z"
+  },
+  {
+    "id": "rev_1780952484934_blgt5",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:01:24.932Z"
+  },
+  {
+    "id": "rev_1780952488756_0iz9y",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:01:28.755Z"
+  },
+  {
+    "id": "rev_1780952491357_rtpoc",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:01:31.355Z"
+  },
+  {
+    "id": "rev_1780953300776_cx0q7",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:15:00.775Z"
+  },
+  {
+    "id": "rev_1780953304949_88sn2",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:15:04.947Z"
+  },
+  {
+    "id": "rev_1780953305071_48l39",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:15:05.068Z"
+  },
+  {
+    "id": "rev_1780953325152_8y06y",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:15:25.151Z"
+  },
+  {
+    "id": "rev_1780953345131_o79qz",
+    "reviewer_name": "בודק מטעם מערכת-1780953345112",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "חוות דעת לבדיקת אינטגרציית מטמון קבצים",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:15:45.130Z"
+  },
+  {
+    "id": "rev_1780953357130_qq4hz",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:15:57.128Z"
+  },
+  {
+    "id": "rev_1780953493647_krg8j",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:18:13.645Z"
+  },
+  {
+    "id": "rev_1780953501111_ds64z",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:18:21.109Z"
+  },
+  {
+    "id": "rev_1780953609034_07342",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:20:09.032Z"
+  },
+  {
+    "id": "rev_1780953686462_exoi4",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:21:26.458Z"
+  },
+  {
+    "id": "rev_1780953689135_vh649",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:21:29.134Z"
+  },
+  {
+    "id": "rev_1780953716532_kbfvd",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:21:56.531Z"
+  },
+  {
+    "id": "rev_1780953736255_0yltu",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:22:16.254Z"
+  },
+  {
+    "id": "rev_1780953736395_wpwc8",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:22:16.393Z"
+  },
+  {
+    "id": "rev_1780953736727_zgsbj",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:22:16.726Z"
+  },
+  {
+    "id": "rev_1780953754198_x99ll",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:22:34.196Z"
+  },
+  {
+    "id": "rev_1780953754439_0ti7k",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:22:34.438Z"
+  },
+  {
+    "id": "rev_1780953754790_s6ui2",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:22:34.789Z"
+  },
+  {
+    "id": "rev_1780953776609_uian1",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:22:56.607Z"
+  },
+  {
+    "id": "rev_1780953776681_jaw6i",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:22:56.680Z"
+  },
+  {
+    "id": "rev_1780953777020_6pv3u",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:22:57.019Z"
+  },
+  {
+    "id": "rev_1780953792073_p0nu5",
+    "reviewer_name": "בודק מטעם מערכת-1780953792023",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "חוות דעת לבדיקת אינטגרציית מטמון קבצים",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:23:12.071Z"
+  },
+  {
+    "id": "rev_1780953796904_jbg0h",
+    "reviewer_name": "בודק מטעם מערכת-1780953796897",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "חוות דעת לבדיקת אינטגרציית מטמון קבצים",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:23:16.902Z"
+  },
+  {
+    "id": "rev_1780953809959_e1z32",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:23:29.957Z"
+  },
+  {
+    "id": "rev_1780953810034_8u030",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:23:30.032Z"
+  },
+  {
+    "id": "rev_1780953810369_3r67n",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:23:30.368Z"
+  },
+  {
+    "id": "rev_1780953811163_6fq8x",
+    "reviewer_name": "בודק מטעם מערכת-1780953811158",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "חוות דעת לבדיקת אינטגרציית מטמון קבצים",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:23:31.162Z"
+  },
+  {
+    "id": "rev_1780953818826_5jm26",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:23:38.824Z"
+  },
+  {
+    "id": "rev_1780953819048_m51o5",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:23:39.047Z"
+  },
+  {
+    "id": "rev_1780953819414_voq7b",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:23:39.413Z"
+  },
+  {
+    "id": "rev_1780953820392_81g15",
+    "reviewer_name": "בודק מטעם מערכת-1780953820386",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "חוות דעת לבדיקת אינטגרציית מטמון קבצים",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:23:40.391Z"
+  },
+  {
+    "id": "rev_1780953901282_6qsa4",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:25:01.280Z"
+  },
+  {
+    "id": "rev_1780953901434_67wmf",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:25:01.433Z"
+  },
+  {
+    "id": "rev_1780953901793_53ne9",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:25:01.791Z"
+  },
+  {
+    "id": "rev_1780953902743_b86pg",
+    "reviewer_name": "בודק מטעם מערכת-1780953902738",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "חוות דעת לבדיקת אינטגרציית מטמון קבצים",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:25:02.742Z"
+  },
+  {
+    "id": "rev_1780953964932_4tiaw",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:26:04.929Z"
+  },
+  {
+    "id": "rev_1780953965026_4v6h0",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:26:05.025Z"
+  },
+  {
+    "id": "rev_1780953965371_xld5c",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:26:05.370Z"
+  },
+  {
+    "id": "rev_1780953966146_5c5k9",
+    "reviewer_name": "בודק מטעם מערכת-1780953966140",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "חוות דעת לבדיקת אינטגרציית מטמון קבצים",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:26:06.145Z"
+  },
+  {
+    "id": "rev_1780953970153_fenlf",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:26:10.152Z"
+  },
+  {
+    "id": "rev_1780953970304_76gih",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:26:10.303Z"
+  },
+  {
+    "id": "rev_1780953970619_gy1bx",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:26:10.618Z"
+  },
+  {
+    "id": "rev_1780953971509_zgyda",
+    "reviewer_name": "בודק מטעם מערכת-1780953971504",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "חוות דעת לבדיקת אינטגרציית מטמון קבצים",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:26:11.508Z"
+  },
+  {
+    "id": "rev_1780954178592_7x3be",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:29:38.591Z"
+  },
+  {
+    "id": "rev_1780954178771_3zshw",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:29:38.769Z"
+  },
+  {
+    "id": "rev_1780954179698_sdcxx",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:29:39.696Z"
+  },
+  {
+    "id": "rev_1780954180523_klecd",
+    "reviewer_name": "בודק מטעם מערכת-1780954180517",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "חוות דעת לבדיקת אינטגרציית מטמון קבצים",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:29:40.521Z"
+  },
+  {
+    "id": "rev_1780954189376_ozjrs",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:29:49.374Z"
+  },
+  {
+    "id": "rev_1780954246870_d7435",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:30:46.868Z"
+  },
+  {
+    "id": "rev_1780954247224_kuone",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:30:47.222Z"
+  },
+  {
+    "id": "rev_1780954248323_jtpdp",
+    "reviewer_name": "בודק מטעם מערכת-1780954248317",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "חוות דעת לבדיקת אינטגרציית מטמון קבצים",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:30:48.322Z"
+  },
+  {
+    "id": "rev_1780954316889_j9q68",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:31:56.885Z"
+  },
+  {
+    "id": "rev_1780954317009_tqplv",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:31:57.007Z"
+  },
+  {
+    "id": "rev_1780954317370_gt5vm",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:31:57.366Z"
+  },
+  {
+    "id": "rev_1780954318401_cwdbk",
+    "reviewer_name": "בודק מטעם מערכת-1780954318394",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "חוות דעת לבדיקת אינטגרציית מטמון קבצים",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:31:58.399Z"
+  },
+  {
+    "id": "rev_1780954320154_5voko",
+    "reviewer_name": "ישראל ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מעולה, מומלץ מאוד!",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:32:00.152Z"
+  },
+  {
+    "id": "rev_1780954320267_mwqks",
+    "reviewer_name": "יוסי כהן",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "מצוין, שירות אדיב",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:32:00.266Z"
+  },
+  {
+    "id": "rev_1780954320613_smsol",
+    "reviewer_name": "Cohen' OR 1=1 --",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "מצוין",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:32:00.611Z"
+  },
+  {
+    "id": "rev_1780954321646_vx5p9",
+    "reviewer_name": "בודק מטעם מערכת-1780954321637",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "חוות דעת לבדיקת אינטגרציית מטמון קבצים",
+    "approval_status": false,
+    "created_at": "2026-06-08T21:32:01.645Z"
+  }
+]

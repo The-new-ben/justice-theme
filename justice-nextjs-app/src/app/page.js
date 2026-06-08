@@ -1,16 +1,94 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import Header from '@/app/components/Header';
+import { 
+  BriefcaseIcon, 
+  MedicalIcon, 
+  BalanceIcon, 
+  HomeIcon, 
+  UserIcon, 
+  ChartIcon, 
+  SearchIcon, 
+  BookIcon, 
+  BoltIcon, 
+  GearIcon, 
+  CourtIcon, 
+  ClockIcon, 
+  LockIcon, 
+  StarIcon, 
+  CheckIcon, 
+  ArrowLeftIcon, 
+  PhoneIcon, 
+  MailIcon 
+} from './icons';
+
+const mockLeads = [
+  {
+    id: 'lead_1',
+    title: 'תאונת דרכים קשה בצומת גלילות',
+    type: 'personal-injury-law',
+    typeLabel: '🏥 נזקי גוף',
+    urgency: 'גבוהה',
+    value: '₪150,000 - ₪220,000',
+    description: 'רכב צד ג׳ נכנס באור אדום בצומת וגרם לפגיעת צד (T-bone). פגיעות מרובות בגב התחתון וצליפת שוט קשה.',
+    date: 'לפני 4 דקות',
+    bidPrice: 150,
+    clientName: 'אלון מזרחי',
+    clientPhone: '054-762-9843',
+    clientEmail: 'a.mizrachi@gmail.com'
+  },
+  {
+    id: 'lead_2',
+    title: 'פיטורין בהריון ללא שימוע',
+    type: 'labor-law',
+    typeLabel: '💼 דיני עבודה',
+    urgency: 'קריטית',
+    value: '₪45,000 - ₪80,000',
+    description: 'העסקתי בחברת הייטק מעל שנתיים. פוטרתי במייל בהיותי בחודש חמישי להריון ללא עריכת שימוע וללא היתר ממשרד העבודה.',
+    date: 'לפני 18 דקות',
+    bidPrice: 90,
+    clientName: 'שירה חדד',
+    clientPhone: '052-881-2294',
+    clientEmail: 'shira.h@gmail.com'
+  },
+  {
+    id: 'lead_3',
+    title: 'אי-מסירת דירה בזמן מקבלן',
+    type: 'real-estate-law',
+    typeLabel: '🏡 נדל״ן ומקרקעין',
+    urgency: 'בינונית',
+    value: '₪120,000 (פיצוי סטטוטורי)',
+    description: 'איחור במסירת מפתח של 10 חודשים מעבר למועד החוזי בפרויקט מחיר למשתכן. הקבלן מסרס לשלם שכר דירה חלופי.',
+    date: 'לפני שעה',
+    bidPrice: 180,
+    clientName: 'רמי ורד',
+    clientPhone: '050-449-3381',
+    clientEmail: 'rami.v@gmail.com'
+  }
+];
 
 export default function Home() {
+  const getTabLabel = (tab) => {
+    switch (tab) {
+      case 'evaluator': return 'מעריך סיכויים AI';
+      case 'national_insurance': return 'ביטוח לאומי - בדיקת ערעור';
+      case 'severance': return 'מחשבון פיצויי פיטורין ומיסוי';
+      case 'auditor': return 'בקרת חוזים וחשיפות';
+      case 'precedent': return 'מנוע חיפוש תקדימים';
+      case 'legal_tech_hub': return 'כלים משפטיים דיגיטליים';
+      default: return '';
+    }
+  };
+
   // Global Workspace Configuration
   const [userMode, setUserMode] = useState('client'); // 'client' or 'lawyer'
   const [activeTab, setActiveTab] = useState('evaluator'); // 'evaluator', 'national_insurance', 'severance', 'auditor', 'precedent', 'legal_tech_hub'
 
   // Tab 1: AI Evaluator States
   const [activeStep, setActiveStep] = useState(1);
-  const [caseType, setCaseType] = useState('labor'); // 'labor', 'injury', 'divorce', 'real_estate'
+  const [caseType, setCaseType] = useState('labor-law'); // 'labor-law', 'personal-injury-law', 'family-law', 'real-estate-law', 'criminal-law', 'medical-malpractice-law'
   const [selectedCollision, setSelectedCollision] = useState(null); // 'front', 'rear', 'left', 'right'
   const [details, setDetails] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -18,10 +96,10 @@ export default function Home() {
   const [evalProgress, setEvalProgress] = useState([]);
 
   // Tab 2: Bituach Leumi appeal calculator state
-  const [blCategory, setBlCategory] = useState('general_invalidity'); // general_invalidity, work_injury, child, mobility
+  const [blCategory, setBlCategory] = useState('general_invalidity'); 
   const [blIncome, setBlIncome] = useState(6000);
   const [blAge, setBlAge] = useState(30);
-  const [blConditions, setBlConditions] = useState([]); // Array of checked conditions
+  const [blConditions, setBlConditions] = useState([]); 
   const [blResult, setBlResult] = useState(null);
   const [blLoading, setBlLoading] = useState(false);
   const [blName, setBlName] = useState('');
@@ -33,8 +111,8 @@ export default function Home() {
   const [sevStartDate, setSevStartDate] = useState('2023-01-01');
   const [sevEndDate, setSevEndDate] = useState('2026-01-01');
   const [sevSalary, setSevSalary] = useState(10000);
-  const [sevReason, setSevReason] = useState('dismissal'); // dismissal, resignation_health, resignation_childbirth, resignation_worse
-  const [sevPensionRate, setSevPensionRate] = useState(6); // 6% or 8.33% (under section 14)
+  const [sevReason, setSevReason] = useState('dismissal'); 
+  const [sevPensionRate, setSevPensionRate] = useState(6); 
   const [sevSection14, setSevSection14] = useState(true);
   const [sevResult, setSevResult] = useState(null);
   const [sevLoading, setSevLoading] = useState(false);
@@ -54,7 +132,7 @@ export default function Home() {
   const [searchResult, setSearchResult] = useState(null);
 
   // Tab 6: Legal Tech Embed Showcase & Hub state
-  const [activeEmbedTool, setActiveEmbedTool] = useState('court_tracker'); // court_tracker, notary_signer, small_claims, tabu_registry
+  const [activeEmbedTool, setActiveEmbedTool] = useState('court_tracker'); 
   // 1. Net HaMishpat tracker
   const [caseSearchNum, setCaseSearchNum] = useState('');
   const [caseSearchLoading, setCaseSearchLoading] = useState(false);
@@ -72,7 +150,7 @@ export default function Home() {
   const [scClaimant, setScClaimant] = useState('');
   const [scDefendant, setScDefendant] = useState('');
   const [scAmount, setScAmount] = useState(10000);
-  const [scSubject, setScSubject] = useState('goods_service'); // goods_service, apartment_rental, vehicle_damage, other
+  const [scSubject, setScSubject] = useState('goods_service'); 
   const [scDetails, setScDetails] = useState('');
   const [scResultDoc, setScResultDoc] = useState(null);
   const [scLoading, setScLoading] = useState(false);
@@ -92,50 +170,8 @@ export default function Home() {
   const swipeHandleRef = useRef(null);
   const startX = useRef(0);
 
-  const mockLeads = [
-    {
-      id: 'lead_1',
-      title: 'תאונת דרכים קשה בצומת גלילות',
-      type: 'injury',
-      typeLabel: '🏥 נזקי גוף',
-      urgency: 'גבוהה',
-      value: '₪150,000 - ₪220,000',
-      description: 'רכב צד ג׳ נכנס באור אדום בצומת וגרם לפגיעת צד (T-bone). פגיעות מרובות בגב התחתון וצליפת שוט קשה.',
-      date: 'לפני 4 דקות',
-      bidPrice: 150,
-      clientName: 'אלון מזרחי',
-      clientPhone: '054-762-9843',
-      clientEmail: 'a.mizrachi@gmail.com'
-    },
-    {
-      id: 'lead_2',
-      title: 'פיטורין בהריון ללא שימוע',
-      type: 'labor',
-      typeLabel: '💼 דיני עבודה',
-      urgency: 'קריטית',
-      value: '₪45,000 - ₪80,000',
-      description: 'העסקתי בחברת הייטק מעל שנתיים. פוטרתי במייל בהיותי בחודש חמישי להריון ללא עריכת שימוע וללא היתר ממשרד העבודה.',
-      date: 'לפני 18 דקות',
-      bidPrice: 90,
-      clientName: 'שירה חדד',
-      clientPhone: '052-881-2294',
-      clientEmail: 'shira.h@gmail.com'
-    },
-    {
-      id: 'lead_3',
-      title: 'אי-מסירת דירה בזמן מקבלן',
-      type: 'real_estate',
-      typeLabel: '🏡 נדל״ן ומקרקעין',
-      urgency: 'בינונית',
-      value: '₪120,000 (פיצוי סטטוטורי)',
-      description: 'איחור במסירת מפתח של 10 חודשים מעבר למועד החוזי בפרויקט מחיר למשתכן. הקבלן מסרב לשלם שכר דירה חלופי.',
-      date: 'לפני שעה',
-      bidPrice: 180,
-      clientName: 'רמי ורד',
-      clientPhone: '050-449-3381',
-      clientEmail: 'rami.v@gmail.com'
-    }
-  ];
+  // Checkout alerts
+  const [checkoutNotice, setCheckoutNotice] = useState(null);
 
   // Persistent Lead Database
   const [leads, setLeads] = useState([]);
@@ -144,15 +180,55 @@ export default function Home() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('justice_leads');
-      if (stored) {
-        try {
-          setLeads(JSON.parse(stored));
-        } catch (e) {
+      setTimeout(() => {
+        if (stored) {
+          try {
+            setLeads(JSON.parse(stored));
+          } catch (e) {
+            setLeads(mockLeads);
+          }
+        } else {
           setLeads(mockLeads);
+          localStorage.setItem('justice_leads', JSON.stringify(mockLeads));
         }
-      } else {
-        setLeads(mockLeads);
-        localStorage.setItem('justice_leads', JSON.stringify(mockLeads));
+      }, 0);
+    }
+  }, []);
+
+
+  // Check for successful Stripe redirect session parameters
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get('session_id');
+      const mockAmount = params.get('mock_amount');
+      const mockType = params.get('mock_type');
+
+      if (sessionId) {
+        // Trigger simulated database update
+        if (mockAmount) {
+          const added = Number(mockAmount);
+          setTimeout(() => {
+            if (mockType === 'credits') {
+              setCredits(prev => prev + added);
+              setCheckoutNotice({
+                type: 'success',
+                title: 'הטעינה הושלמה בהצלחה',
+                message: `₪${added} נוספו ליתרת הקרדיטים של חשבון עורך הדין שלך. (מזהה: ${sessionId.slice(0, 15)})`
+              });
+            } else if (mockType === 'document_review') {
+              setCheckoutNotice({
+                type: 'success',
+                title: 'התשלום התקבל בהצלחה',
+                message: 'מכתב הדרישה נשלח לסקירת עורך דין מוסמך. תקבל עדכון במייל בתוך 24 שעות.'
+              });
+            }
+          }, 0);
+        }
+        
+        // Clean URL params to prevent repeated triggers
+        const cleanUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
       }
     }
   }, []);
@@ -164,24 +240,89 @@ export default function Home() {
     }
   };
 
-  const handleLeadSubmit = (leadData) => {
-    const newLead = {
-      id: `lead_${Date.now()}`,
-      title: leadData.title,
-      type: leadData.type,
-      typeLabel: leadData.typeLabel,
-      urgency: leadData.urgency || 'בינונית',
-      value: leadData.value,
-      description: leadData.description,
-      date: 'הרגע',
-      bidPrice: leadData.bidPrice || 100,
-      clientName: leadData.clientName,
-      clientPhone: leadData.clientPhone,
-      clientEmail: leadData.clientEmail
-    };
-    const updated = [newLead, ...leads];
-    saveLeadsToStorage(updated);
+  const handleLeadSubmit = async (leadData) => {
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadData)
+      });
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        const updated = [data.lead, ...leads];
+        saveLeadsToStorage(updated);
+      } else {
+        // Fallback local persistence if API error
+        const localLead = {
+          id: `lead_${Date.now()}`,
+          ...leadData,
+          date: 'הרגע',
+          payment_status: 'pending',
+          lead_status: 'new'
+        };
+        const updated = [localLead, ...leads];
+        saveLeadsToStorage(updated);
+      }
+    } catch (e) {
+      console.warn('Leads API offline, falling back to storage:', e);
+      const localLead = {
+        id: `lead_${Date.now()}`,
+        ...leadData,
+        date: 'הרגע',
+        payment_status: 'pending',
+        lead_status: 'new'
+      };
+      const updated = [localLead, ...leads];
+      saveLeadsToStorage(updated);
+    }
   };
+
+  // Payment checkout trigger
+  const triggerPayment = async (amount, name, type, meta = {}) => {
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount,
+          name,
+          successUrl: window.location.origin + window.location.pathname,
+          cancelUrl: window.location.href,
+          metadata: {
+            ...meta,
+            type,
+            amount
+          }
+        })
+      });
+      const data = await response.json();
+      
+      if (response.ok && data.url) {
+        // Redirect to checkout (real Stripe or local sandbox success path)
+        window.location.href = data.url;
+      } else {
+        alert('שגיאה ביצירת תהליך תשלום.');
+      }
+    } catch (e) {
+      alert('חיבור השרת לתשלומים נכשל.');
+    }
+  };
+
+  const triggerClaimLead = useCallback(() => {
+    if (!selectedLead) return;
+    if (unlockedLeads[selectedLead.id]) return;
+
+    if (credits < selectedLead.bidPrice) {
+      alert('אין מספיק קרדיטים בחשבון. אנא טען קרדיטים נוספים.');
+      setSwipeOffset(0);
+      return;
+    }
+
+    setCredits((prev) => prev - selectedLead.bidPrice);
+    setUnlockedLeads((prev) => ({ ...prev, [selectedLead.id]: true }));
+    setSwipeOffset(180);
+  }, [selectedLead, unlockedLeads, credits]);
 
   // Drag logic for Swipe to Claim Lead
   useEffect(() => {
@@ -222,26 +363,11 @@ export default function Home() {
       window.removeEventListener('touchmove', handleGlobalMouseMove);
       window.removeEventListener('touchend', handleGlobalMouseUp);
     };
-  }, [isDragging, swipeOffset, selectedLead]);
+  }, [isDragging, swipeOffset, selectedLead, triggerClaimLead]);
 
   const startDrag = (e) => {
     setIsDragging(true);
     startX.current = e.touches ? e.touches[0].clientX : e.clientX;
-  };
-
-  const triggerClaimLead = () => {
-    if (!selectedLead) return;
-    if (unlockedLeads[selectedLead.id]) return;
-
-    if (credits < selectedLead.bidPrice) {
-      alert('אין מספיק קרדיטים בחשבון. אנא טען קרדיטים נוספים.');
-      setSwipeOffset(0);
-      return;
-    }
-
-    setCredits((prev) => prev - selectedLead.bidPrice);
-    setUnlockedLeads((prev) => ({ ...prev, [selectedLead.id]: true }));
-    setSwipeOffset(180);
   };
 
   // Pre-fill accident details from interactive vehicle hotspots
@@ -298,22 +424,30 @@ export default function Home() {
       let estValue = '₪45,000 - ₪75,000';
       let analysisText = 'נמצאה עילת תביעה מוצקה בגין פיטורים שלא כדין והפרת חובת השימוע (סעיף 3 לחוק הודעה מוקדמת). המעסיק לא סיפק התרעה מספקת ולא קיים תיעוד שימוע תקין.';
       let lawyers = [
-        { name: 'עו״ד דניאל כהן', role: 'שותף בכיר, דיני עבודה', img: '/lawyer_male.png', exp: '14 שנות ניסיון', rating: '4.9', activeLeads: '98%' },
-        { name: 'עו״ד מיטל לוי', role: 'מומחית ליטיגציה וזכויות עובדים', img: '/lawyer_female.png', exp: '9 שנות ניסיון', rating: '4.8', activeLeads: '95%' }
+        { name: 'עו״ד דניאל כהן', role: 'שותף בכיר, דיני עבודה', img: '/lawyer_male_premium.png', exp: '14 שנות ניסיון', rating: '4.9', activeLeads: '98%' },
+        { name: 'עו״ד מיטל לוי', role: 'מומחית ליטיגציה וזכויות עובדים', img: '/lawyer_female_premium.png', exp: '9 שנות ניסיון', rating: '4.8', activeLeads: '95%' }
       ];
 
-      if (caseType === 'injury') {
+      if (caseType === 'personal-injury-law') {
         score = 88;
         estValue = '₪120,000 - ₪250,000';
         analysisText = `ניתוח הנתונים מצביע על רשלנות מסתברת במהלך תאונת הדרכים. זוהתה עילה מוצקה לתביעה בגין כאב וסבל, אובדן כושר עבודה זמני וטיפולים אורתופדיים רלוונטיים. (${selectedCollision === 'rear' ? 'פגיעה ישירה מאחור' : 'פגיעת הדף קשה'})`;
-      } else if (caseType === 'divorce') {
+      } else if (caseType === 'family-law') {
         score = 72;
         estValue = 'בהתאם לחלוקת הרכוש המשפחתי';
         analysisText = 'עילת גירושין מוצגת. מומלץ ליזום תביעה למזונות וחלוקת רכוש בבית המשפט למשפחה כדי למנוע את מרוץ הסמכויות מול בית הדין הרבני.';
-      } else if (caseType === 'real_estate') {
+      } else if (caseType === 'real-estate-law') {
         score = 91;
         estValue = 'פיצוי מוסכם של 10% משווי העסקה';
         analysisText = 'זוהתה הפרה יסודית של חוזה המכר מצד המוכר עקב אי-עמידה בלוחות זמני המסירה. עילה מלאה להפעלת סעיף הפיצוי המוסכם ללא הוכחת נזק.';
+      } else if (caseType === 'criminal-law') {
+        score = 95;
+        estValue = 'ייעוץ וייצוג פלילי מיידי';
+        analysisText = 'זוהה חשד לעבירה פלילית או זימון לחקירה באזהרה. מומלץ לפנות מיידית לעורך דין פלילי מומחה טרם מסירת גרסה ראשונית במשטרה. זכות השתיקה מחייבת התייעצות.';
+      } else if (caseType === 'medical-malpractice-law') {
+        score = 85;
+        estValue = '₪350,000 - ₪800,000 (בכפוף לחוות דעת רופא)';
+        analysisText = 'נמצאה עילה לכאורה לרשלנות רפואית עקב חריגה מסטנדרט הטיפול הסביר. יש להזמין חוות דעת מרופא מומחה להוכחת הקשר הסיבתי והנזק.';
       }
 
       setEvalResult({
@@ -324,11 +458,19 @@ export default function Home() {
       });
       setActiveStep(3);
 
+      // Map dynamic label
+      let label = '💼 דיני עבודה';
+      if (caseType === 'personal-injury-law') label = '🏥 נזקי גוף';
+      else if (caseType === 'family-law') label = '⚖️ דיני משפחה';
+      else if (caseType === 'real-estate-law') label = '🏡 נדל״ן';
+      else if (caseType === 'criminal-law') label = '🛡️ פלילי';
+      else if (caseType === 'medical-malpractice-law') label = '🩺 רשלנות רפואית';
+
       // Create new lead in queue
       handleLeadSubmit({
-        title: `הערכת AI - ${caseType === 'labor' ? 'דיני עבודה' : caseType === 'injury' ? 'נזקי גוף' : caseType === 'divorce' ? 'דיני משפחה' : 'נדל״ן'}`,
+        title: `הערכת AI - ${label.split(' ')[1]}`,
         type: caseType,
-        typeLabel: caseType === 'labor' ? '💼 דיני עבודה' : caseType === 'injury' ? '🏥 נזקי גוף' : caseType === 'divorce' ? '⚖️ דיני משפחה' : '🏡 נדל״ן',
+        typeLabel: label,
         urgency: score > 80 ? 'גבוהה' : 'בינונית',
         value: estValue,
         description: `נסיבות המקרה: ${details}. ניתוח AI מראה הסתברות הצלחה של ${score}%. הופק דוח מלא.`,
@@ -576,8 +718,8 @@ ${sevName}
   const handleCaseSearch = (e) => {
     e.preventDefault();
     if (!caseSearchNum.trim()) return;
-    setCaseSearchLoading(true);
-    setCaseSearchResult(null);
+    caseSearchLoading(true);
+    caseSearchNum(null);
 
     setTimeout(() => {
       setCaseSearchLoading(false);
@@ -737,15 +879,6 @@ ${sevName}
     }, 1800);
   };
 
-  const getTabLabel = (id) => {
-    if (id === 'evaluator') return 'מעריך תביעות AI';
-    if (id === 'national_insurance') return 'מחשבון ביטוח לאומי';
-    if (id === 'severance') return 'מחשבון פיצויים ומכתבים';
-    if (id === 'auditor') return 'סורק ומנתח חוזים';
-    if (id === 'precedent') return 'מאגר תקדימים וציטוטים';
-    return 'שער אינטגרציות LegalTech';
-  };
-
   return (
     <div style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-color)', minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
       
@@ -754,81 +887,30 @@ ${sevName}
       <div className="light-leak-red" style={{ top: '20%', right: '-5%' }}></div>
       <div className="light-leak-blue" style={{ bottom: '10%', left: '15%' }}></div>
 
-      {/* 1. App Navigation Bar (Apple Frosty Glass) */}
-      <nav style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 1000,
-        background: 'rgba(255, 255, 255, 0.75)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
-        borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
-        padding: '16px 0',
-        boxShadow: '0 1px 0 rgba(255,255,255,0.95)'
-      }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontSize: '1.7rem', fontWeight: '900', letterSpacing: '0.5px', color: '#1d1d1f', display: 'inline-flex', alignItems: 'center' }}>
-              Jus<span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#d93838', margin: '0 2px', display: 'inline-block', transform: 'translateY(2px)' }}></span>Tice
-            </span>
-            <span className="frosty-glass" style={{ fontSize: '0.75rem', padding: '3px 10px', borderRadius: '8px', border: '1px solid rgba(0, 0, 0, 0.06)', color: '#0066cc', fontWeight: '800', marginRight: '6px' }}>
-              פורטל משפטי חכם
-            </span>
-          </div>
-          
-          <div style={{ display: 'flex', gap: '28px', alignItems: 'center' }}>
-            <a href="#workspace" style={{ color: '#1d1d1f', fontSize: '0.95rem', fontWeight: '700', textDecoration: 'none' }}>סביבת עבודה</a>
-            <a href="#features" style={{ color: '#6e6e73', fontSize: '0.95rem', textDecoration: 'none' }}>תחומי התמחות</a>
-            <a href="#lawyers-directory" style={{ color: '#6e6e73', fontSize: '0.95rem', textDecoration: 'none' }}>עורכי דין מורשים</a>
-            
-            <div className="tab-pill-container" style={{ padding: '3px', borderRadius: '10px' }}>
-              <button 
-                onClick={() => setUserMode('client')} 
-                style={{ 
-                  padding: '6px 12px', 
-                  fontSize: '0.8rem', 
-                  borderRadius: '7px', 
-                  border: 'none', 
-                  cursor: 'pointer',
-                  background: userMode === 'client' ? '#ffffff' : 'transparent',
-                  color: userMode === 'client' ? '#1d1d1f' : '#6e6e73',
-                  boxShadow: userMode === 'client' ? '0 2px 5px rgba(0,0,0,0.04)' : 'none',
-                  fontWeight: '800',
-                  transition: '0.3s'
-                }}
-              >
-                👤 אזרח
-              </button>
-              <button 
-                onClick={() => setUserMode('lawyer')} 
-                style={{ 
-                  padding: '6px 12px', 
-                  fontSize: '0.8rem', 
-                  borderRadius: '7px', 
-                  border: 'none', 
-                  cursor: 'pointer',
-                  background: userMode === 'lawyer' ? '#ffffff' : 'transparent',
-                  color: userMode === 'lawyer' ? '#1d1d1f' : '#6e6e73',
-                  boxShadow: userMode === 'lawyer' ? '0 2px 5px rgba(0,0,0,0.04)' : 'none',
-                  fontWeight: '800',
-                  transition: '0.3s'
-                }}
-              >
-                💼 עו״ד מורשה
-              </button>
+      {/* Checkout simulated alert */}
+      {checkoutNotice && (
+        <div className="container animate-fade-in" style={{ padding: '20px 24px 0 24px', position: 'relative', zIndex: 1000 }}>
+          <div className="glass-panel" style={{ background: '#ffffff', borderColor: '#10b981', display: 'flex', gap: '16px', alignItems: 'center', padding: '16px 24px' }}>
+            <span style={{ fontSize: '1.6rem', color: '#10b981' }}><CheckIcon /></span>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontWeight: '900', color: '#1d1d1f' }}>{checkoutNotice.title}</div>
+              <div style={{ fontSize: '0.85rem', color: '#6e6e73', marginTop: '2px' }}>{checkoutNotice.message}</div>
             </div>
+            <button onClick={() => setCheckoutNotice(null)} className="btn btn-outline" style={{ padding: '6px 12px', fontSize: '0.8rem' }}>סגור</button>
           </div>
         </div>
-      </nav>
+      )}
+
+      {/* 1. App Navigation Bar */}
+      <Header />
 
       {/* 2. Hero Header */}
       <header className="container animate-fade-in" style={{ padding: '90px 24px 50px 24px', textAlign: 'center', position: 'relative', zIndex: 10 }}>
-        <h1 style={{ marginBottom: '24px', fontSize: '3.4rem', fontWeight: '900' }}>
-          הערכה משפטית דיגיטלית.<br />בסטנדרט האפליקציות של Apple.
+        <h1 style={{ marginBottom: '24px', fontSize: '3.8rem', fontWeight: '900', letterSpacing: '-1.8px' }}>
+          הכוח המשפטי שלך.<br />מהיר, שקוף ומדויק.
         </h1>
-        <p style={{ color: '#6e6e73', fontSize: '1.25rem', maxWidth: '780px', margin: '0 auto 40px auto', lineHeight: '1.7' }}>
-          סורק תביעות, מחשבוני פיצויים, מכתבי התראה וכלים מתקדמים מבוססי סוכני בינה מלאכותית המקשרים בינך לבין עורכי הדין המובילים בישראל.
+        <p style={{ color: '#6e6e73', fontSize: '1.25rem', maxWidth: '840px', margin: '0 auto 40px auto', lineHeight: '1.75', fontWeight: '500' }}>
+          טכנולוגיית AI מהפכנית להערכת סיכויי תביעה, ניתוח חוזים ואימות מסמכים. ללא סימני שאלה. ללא עיכובים. חיבור ישיר לנבחרת עורכי הדין המובילה בישראל.
         </p>
         <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
           <a href="#workspace" className="btn btn-primary" style={{ boxShadow: '0 4px 12px rgba(0, 102, 204, 0.15)' }}>
@@ -841,7 +923,62 @@ ${sevName}
         </div>
       </header>
 
-      {/* 3. Core AI Workspace Frame */}
+      {/* 2.5 Customer Intake Strip (Original WordPress Vibe) */}
+      <section className="container animate-fade-in" style={{ padding: '20px 24px 40px 24px', position: 'relative', zIndex: 10 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+          
+          <div className="glass-panel" style={{ padding: '24px', background: '#ffffff', borderRadius: '18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                <span style={{ fontSize: '1.8rem', fontWeight: '900', color: '#0066cc', opacity: 0.15 }}>01</span>
+                <span style={{ padding: '4px 10px', borderRadius: '8px', background: 'rgba(0,102,204,0.05)', color: '#0066cc', fontSize: '0.72rem', fontWeight: '800' }}>אפיון AI מהיר</span>
+              </div>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: '800', marginBottom: '8px', color: '#1d1d1f' }}>אני צריך עורך דין עכשיו</h3>
+              <p style={{ fontSize: '0.85rem', color: '#6e6e73', lineHeight: '1.6', marginBottom: '20px', fontWeight: '500' }}>
+                השאירו פרטים ותיאור מקרה. המערכת תבצע אבחון AI ראשוני ותכוון את פנייתכם בצורה מסודרת לעורך הדין המתאים ביותר.
+              </p>
+            </div>
+            <button onClick={() => { document.getElementById('workspace')?.scrollIntoView({ behavior: 'smooth' }); setActiveTab('evaluator'); setUserMode('client'); }} className="btn btn-outline" style={{ alignSelf: 'flex-start', padding: '8px 16px', fontSize: '0.8rem', borderRadius: '8px', width: '100%' }}>
+              שליחת פנייה משפטית ←
+            </button>
+          </div>
+
+          <div className="glass-panel" style={{ padding: '24px', background: '#ffffff', borderRadius: '18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                <span style={{ fontSize: '1.8rem', fontWeight: '900', color: '#0066cc', opacity: 0.15 }}>02</span>
+                <span style={{ padding: '4px 10px', borderRadius: '8px', background: 'rgba(0,102,204,0.05)', color: '#0066cc', fontSize: '0.72rem', fontWeight: '800' }}>מדריכים ותקדימים</span>
+              </div>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: '800', marginBottom: '8px', color: '#1d1d1f' }}>אני רוצה להבין את התחום</h3>
+              <p style={{ fontSize: '0.85rem', color: '#6e6e73', lineHeight: '1.6', marginBottom: '20px', fontWeight: '500' }}>
+                עברו למאגר המידע המקצועי ותקדימי בתי המשפט לפני פנייה לעו״ד: זכויות עובדים, ביטוח לאומי, נזיקין, משפחה ונדל״ן.
+              </p>
+            </div>
+            <button onClick={() => { document.getElementById('workspace')?.scrollIntoView({ behavior: 'smooth' }); setActiveTab('precedent'); setUserMode('client'); }} className="btn btn-outline" style={{ alignSelf: 'flex-start', padding: '8px 16px', fontSize: '0.8rem', borderRadius: '8px', width: '100%' }}>
+              קריאת מדריכים ותקדימים ←
+            </button>
+          </div>
+
+          <div className="glass-panel" style={{ padding: '24px', background: '#ffffff', borderRadius: '18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                <span style={{ fontSize: '1.8rem', fontWeight: '900', color: '#0066cc', opacity: 0.15 }}>03</span>
+                <span style={{ padding: '4px 10px', borderRadius: '8px', background: 'rgba(0,102,204,0.05)', color: '#0066cc', fontSize: '0.72rem', fontWeight: '800' }}>השוואת מומחים</span>
+              </div>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: '800', marginBottom: '8px', color: '#1d1d1f' }}>אני רוצה להשוות עורכי דין</h3>
+              <p style={{ fontSize: '0.85rem', color: '#6e6e73', lineHeight: '1.6', marginBottom: '20px', fontWeight: '500' }}>
+                חפשו במאגר הפרופילים, בדקו תחומי התמחות, ניסיון מקצועי ודירוג של עורכי דין מורשים, ופנו ישירות למי שמתאים לכם.
+              </p>
+            </div>
+            <a href="#lawyers-directory" className="btn btn-outline" style={{ alignSelf: 'flex-start', padding: '8px 16px', fontSize: '0.8rem', borderRadius: '8px', width: '100%', textDecoration: 'none', textAlign: 'center' }}>
+              חיפוש עורכי דין ←
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 3. Core Workspace Shell */}
       <section id="workspace" className="container animate-fade-in" style={{ padding: '10px 0 100px 0', position: 'relative', zIndex: 10 }}>
         
         <div className="app-frame">
@@ -855,13 +992,13 @@ ${sevName}
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <span style={{ fontSize: '0.85rem', fontWeight: '800', color: '#1d1d1f', letterSpacing: '0.5px' }}>
-                {userMode === 'client' ? `JUS-TICE CLIENT APP - ${getTabLabel(activeTab)}` : 'JUS-TICE ADVOCATE WORKSPACE - Lead Center'}
+                {userMode === 'client' ? `JUS-TICE FrontDesk - ${getTabLabel(activeTab)}` : 'JUS-TICE Advocate Terminal - Lead Ingestion'}
               </span>
             </div>
 
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
               <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }}></div>
-              <span style={{ fontSize: '0.75rem', color: '#6e6e73', fontWeight: '600' }}>חיבור מאובטח SSL</span>
+              <span style={{ fontSize: '0.75rem', color: '#6e6e73', fontWeight: '600' }}>SSL SECURED CONNECTION</span>
             </div>
           </div>
 
@@ -873,30 +1010,39 @@ ${sevName}
                 {userMode === 'client' ? (
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                      <span style={{ fontSize: '1.4rem' }}>👤</span>
+                      <UserIcon style={{ color: '#0066cc', width: '22px', height: '22px' }} />
                       <div>
-                        <div style={{ fontSize: '0.85rem', fontWeight: '800' }}>פרופיל מיוצג</div>
-                        <div style={{ fontSize: '0.7rem', color: '#6e6e73', fontWeight: '600' }}>אורח זמני חסוי</div>
+                        <div style={{ fontSize: '0.85rem', fontWeight: '800' }}>פרופיל אזרח</div>
+                        <div style={{ fontSize: '0.7rem', color: '#6e6e73', fontWeight: '600' }}>זמני חסוי</div>
                       </div>
                     </div>
                     <div style={{ fontSize: '0.75rem', color: '#6e6e73', borderTop: '1px solid rgba(0, 0, 0, 0.05)', paddingTop: '8px', marginTop: '8px' }}>
-                      הנתונים מוצפנים מקצה לקצה.
+                      מידע מוגן AES-256.
                     </div>
                   </div>
                 ) : (
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
                       <div style={{ position: 'relative', width: '38px', height: '38px', borderRadius: '50%', overflow: 'hidden', border: '1px solid rgba(0,0,0,0.08)' }}>
-                        <Image src="/lawyer_male.png" alt="עו״ד כהן" fill style={{ objectFit: 'cover' }} />
+                        <Image src="/lawyer_male_premium.png" alt="עו״ד כהן" fill style={{ objectFit: 'cover' }} />
                       </div>
                       <div>
                         <div style={{ fontSize: '0.85rem', fontWeight: '800' }}>עו״ד דניאל כהן</div>
-                        <div style={{ fontSize: '0.7rem', color: '#10b981', fontWeight: 'bold' }}>משתמש פעיל מורשה</div>
+                        <div style={{ fontSize: '0.7rem', color: '#10b981', fontWeight: 'bold' }}>חיבור מורשה לשכת עו״ד</div>
                       </div>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#1d1d1f', borderTop: '1px solid rgba(0, 0, 0, 0.05)', paddingTop: '8px', marginTop: '8px' }}>
-                      <span>יתרת קרדיטים:</span>
-                      <strong style={{ color: '#0066cc', marginRight: 'auto' }}>₪{credits}</strong>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', borderTop: '1px solid rgba(0, 0, 0, 0.05)', paddingTop: '8px', marginTop: '8px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#1d1d1f' }}>
+                        <span>יתרת קרדיטים:</span>
+                        <strong style={{ color: '#0066cc' }}>₪{credits}</strong>
+                      </div>
+                      <button 
+                        onClick={() => triggerPayment(150, 'טעינת 100 קרדיטים - פורטל Jus-Tice', 'credits', { lawyerId: 'lawyer_daniel' })}
+                        className="btn btn-primary" 
+                        style={{ padding: '6px 0', fontSize: '0.75rem', height: '28px', borderRadius: '6px', width: '100%', marginTop: '4px' }}
+                      >
+                        טען קרדיטים
+                      </button>
                     </div>
                   </div>
                 )}
@@ -904,27 +1050,27 @@ ${sevName}
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <span style={{ fontSize: '0.75rem', fontWeight: '800', color: '#6e6e73', textTransform: 'uppercase', paddingRight: '8px', marginBottom: '4px' }}>
-                  תפריט ניווט
+                  כלים זמינים
                 </span>
 
                 {userMode === 'client' ? (
                   <>
                     {[
-                      { id: 'evaluator', label: '📊 מעריך תביעות AI', desc: 'Case Evaluator' },
-                      { id: 'national_insurance', label: '🏛️ מחשבון ביטוח לאומי', desc: 'National Insurance Appeal' },
-                      { id: 'severance', label: '💼 פיצויים ומכתבי התראה', desc: 'Severance & Demand Letters' },
-                      { id: 'auditor', label: '🔍 מנתח חוזים AI', desc: 'Contract Auditor' },
-                      { id: 'precedent', label: '📖 מאגר תקדימים', desc: 'Precedent Search' },
-                      { id: 'legal_tech_hub', label: '⚡ שער LegalTech', desc: 'Integration Hub' }
+                      { id: 'evaluator', label: 'מעריך תביעות AI', desc: 'Case Evaluation', icon: <ChartIcon /> },
+                      { id: 'national_insurance', label: 'מחשבון ביטוח לאומי', desc: 'Disability Appeals', icon: <CourtIcon /> },
+                      { id: 'severance', label: 'פיצויים ומכתבי התראה', desc: 'Labor Severance', icon: <BriefcaseIcon /> },
+                      { id: 'auditor', label: 'סורק ומנתח חוזים', desc: 'Contract Audit', icon: <SearchIcon /> },
+                      { id: 'precedent', label: 'מאגר תקדימים', desc: 'Citations Search', icon: <BookIcon /> },
+                      { id: 'legal_tech_hub', label: 'שער LegalTech', desc: 'Government API Gateway', icon: <BoltIcon /> }
                     ].map((item) => (
                       <button
                         key={item.id}
                         onClick={() => { setActiveTab(item.id); }}
                         style={{
                           display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'flex-start',
-                          padding: '12px 16px',
+                          alignItems: 'center',
+                          gap: '12px',
+                          padding: '12px 14px',
                           borderRadius: '12px',
                           border: '1px solid rgba(0,0,0,0.02)',
                           cursor: 'pointer',
@@ -936,8 +1082,11 @@ ${sevName}
                           transition: 'var(--transition-smooth)'
                         }}
                       >
-                        <span style={{ fontSize: '0.85rem', fontWeight: '800' }}>{item.label}</span>
-                        <span style={{ fontSize: '0.7rem', opacity: 0.8, fontWeight: '500' }}>{item.desc}</span>
+                        <span style={{ color: activeTab === item.id ? '#0066cc' : '#86868b' }}>{item.icon}</span>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                          <span style={{ fontSize: '0.85rem', fontWeight: '800' }}>{item.label}</span>
+                          <span style={{ fontSize: '0.68rem', opacity: 0.8, fontWeight: '500' }}>{item.desc}</span>
+                        </div>
                       </button>
                     ))}
                   </>
@@ -948,8 +1097,8 @@ ${sevName}
                       style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '10px',
-                        padding: '12px 16px',
+                        gap: '12px',
+                        padding: '12px 14px',
                         borderRadius: '12px',
                         border: '1px solid rgba(0,0,0,0.02)',
                         cursor: 'pointer',
@@ -961,10 +1110,10 @@ ${sevName}
                         transition: 'var(--transition-smooth)'
                       }}
                     >
-                      <span style={{ fontSize: '1.1rem' }}>📥</span>
+                      <BoltIcon style={{ color: !selectedLead ? '#0066cc' : '#86868b' }} />
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         <span style={{ fontSize: '0.85rem', fontWeight: '800' }}>לוח פניות חמות</span>
-                        <span style={{ fontSize: '0.7rem', opacity: 0.8, fontWeight: '500' }}>{leads.length} פניות ממתינות</span>
+                        <span style={{ fontSize: '0.68rem', opacity: 0.8, fontWeight: '500' }}>{leads.length} פניות ממתינות</span>
                       </div>
                     </button>
 
@@ -972,11 +1121,11 @@ ${sevName}
 
                     <div style={{ padding: '0 8px' }}>
                       <span style={{ fontSize: '0.7rem', color: '#6e6e73', display: 'block', marginBottom: '8px', fontWeight: '800' }}>
-                        סטטיסטיקת עורך דין
+                        סטטיסטיקות עורכי דין
                       </span>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                         <div className="frosty-glass" style={{ padding: '8px 12px', borderRadius: '10px', fontSize: '0.75rem', border: '1px solid rgba(0,0,0,0.05)', background: '#ffffff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.95)' }}>
-                          <div style={{ color: '#6e6e73', fontWeight: '600' }}>המרת לידים</div>
+                          <div style={{ color: '#6e6e73', fontWeight: '600' }}>המרת פניות</div>
                           <div style={{ fontSize: '1rem', fontWeight: '800', color: '#10b981' }}>84.2%</div>
                         </div>
                         <div className="frosty-glass" style={{ padding: '8px 12px', borderRadius: '10px', fontSize: '0.75rem', border: '1px solid rgba(0,0,0,0.05)', background: '#ffffff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.95)' }}>
@@ -1040,10 +1189,12 @@ ${sevName}
                           
                           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '16px', marginBottom: '32px' }}>
                             {[
-                              { id: 'labor', title: '💼 דיני עבודה', desc: 'פיטורין, זכויות שכר, שימוע' },
-                              { id: 'injury', title: '🏥 נזקי גוף ותאונות', desc: 'תאונות דרכים, רשלנות' },
-                              { id: 'divorce', title: '⚖️ דיני משפחה', desc: 'גירושין, רכוש, הסכמים' },
-                              { id: 'real_estate', title: '🏡 מקרקעין ונדל״ן', desc: 'רכישה, איחורים, קבלן' }
+                              { id: 'labor-law', title: 'דיני עבודה', desc: 'פיטורין, זכויות שכר, שימוע', icon: <BriefcaseIcon /> },
+                              { id: 'personal-injury-law', title: 'נזקי גוף ותאונות', desc: 'תאונות דרכים, רשלנות', icon: <MedicalIcon /> },
+                              { id: 'family-law', title: 'דיני משפחה', desc: 'גירושין, רכוש, הסכמים', icon: <BalanceIcon /> },
+                              { id: 'real-estate-law', title: 'מקרקעין ונדל״ן', desc: 'רכישה, איחורים, קבלן', icon: <HomeIcon /> },
+                              { id: 'criminal-law', title: 'דין פלילי', desc: 'חקירות, מעצרים, רישום פלילי', icon: <LockIcon /> },
+                              { id: 'medical-malpractice-law', title: 'רשלנות רפואית', desc: 'אבחון, ניתוחים, לידה', icon: <CourtIcon /> }
                             ].map((item) => (
                               <button
                                 key={item.id}
@@ -1060,13 +1211,14 @@ ${sevName}
                                   textAlign: 'center'
                                 }}
                               >
+                                <span style={{ color: caseType === item.id ? '#0066cc' : '#86868b', marginBottom: '8px', display: 'block' }}>{item.icon}</span>
                                 <div style={{ fontWeight: '800', fontSize: '0.95rem', marginBottom: '4px' }}>{item.title}</div>
                                 <div style={{ fontSize: '0.75rem', color: '#6e6e73', fontWeight: '500' }}>{item.desc}</div>
                               </button>
                             ))}
                           </div>
 
-                          {caseType === 'injury' && (
+                          {caseType === 'personal-injury-law' && (
                             <div className="glass-panel" style={{ padding: '24px', borderRadius: '18px', marginBottom: '32px', background: 'rgba(255,255,255,0.5)' }}>
                               <h4 style={{ textAlign: 'center', color: '#1d1d1f', marginBottom: '4px', fontSize: '1.05rem', fontWeight: '800' }}>🚗 סימולטור תאונת דרכים אינטראקטיבי</h4>
                               <p style={{ textAlign: 'center', color: '#6e6e73', fontSize: '0.8rem', marginBottom: '20px' }}>לחץ על מוקד פגיעת הרכב כדי לטעון את זווית התאונה</p>
@@ -1168,7 +1320,7 @@ ${sevName}
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', flexWrap: 'wrap', gap: '16px' }}>
                             <div>
                               <h3 style={{ color: '#1d1d1f', margin: 0, fontSize: '1.35rem', fontWeight: '800' }}>📊 דוח הערכה דיאגנוסטי מבוסס AI</h3>
-                              <span style={{ fontSize: '0.8rem', color: '#6e6e73', fontWeight: '600' }}>נבדק ומבוסס על דיני מדינת ישראל והחלטות בתי המשפט</span>
+                              <span style={{ fontSize: '0.8rem', color: '#6e6e73', fontWeight: '600' }}>נבדק ומבוסס על דיני ישראל והחלטות בתי המשפט</span>
                             </div>
                             
                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -1235,14 +1387,13 @@ ${sevName}
                   {/* Tab 2: Bituach Leumi appeal calculator */}
                   {activeTab === 'national_insurance' && (
                     <div style={{ animation: 'fadeSlideIn 0.5s ease' }}>
-                      <h3 style={{ color: '#1d1d1f', marginBottom: '8px', fontSize: '1.4rem', textAlign: 'center', fontWeight: '900' }}>🏛️ מחשבון הערכת זכאות וערעור - ביטוח לאומי</h3>
+                      <h3 style={{ color: '#1d1d1f', marginBottom: '8px', fontSize: '1.4rem', textAlign: 'center', fontWeight: '900' }}>מחשבון ביטוח לאומי. דע כמה מגיע לך.</h3>
                       <p style={{ color: '#6e6e73', fontSize: '0.9rem', textAlign: 'center', marginBottom: '32px' }}>
                         בדוק את אחוזי הנכות הרפואית המשוערים ואת גובה הקצבה החודשית המגיעה לך, כולל הגבלת שכר הטרחה החוקי של עורכי דין.
                       </p>
 
                       <div style={{ display: 'grid', gridTemplateColumns: blResult ? '1.1fr 0.9fr' : '1fr', gap: '32px', alignItems: 'start' }}>
                         
-                        {/* Calculator input form */}
                         <form onSubmit={calculateBituachLeumi} className="glass-panel" style={{ background: '#ffffff', padding: '30px' }}>
                           <h4 style={{ color: '#1d1d1f', marginBottom: '20px', fontWeight: '800', borderBottom: '1px solid rgba(0,0,0,0.05)', paddingBottom: '10px' }}>פרטי הגשת התביעה</h4>
                           
@@ -1271,13 +1422,13 @@ ${sevName}
                             <label className="form-label">בחר את הליקויים הרפואיים הקיימים (לפי תיעוד רפואי):</label>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', background: 'rgba(244,245,248,0.5)', padding: '16px', borderRadius: '12px', border: '1px solid rgba(0,0,0,0.03)' }}>
                               {[
-                                { id: 'orthopedic', label: '🦴 בעיות אורתופדיות (גב, מפרקים)', weight: '20%' },
-                                { id: 'neurological', label: '🧠 בעיות נוירולוגיות (נשירת עצב)', weight: '30%' },
-                                { id: 'cardiac', label: '❤️ מחלות לב וכלי דם', weight: '25%' },
-                                { id: 'respiratory', label: '🫁 בעיות נשימה / אסתמה', weight: '20%' },
-                                { id: 'mental', label: '🧠 נפשי, חרדה ופוסט טראומה', weight: '20%' },
-                                { id: 'diabetes', label: '🩸 סוכרת (עם או בלי סיבוכים)', weight: '10%' },
-                                { id: 'sensory', label: '👁️ לקויי שמיעה / ראייה', weight: '15%' }
+                                { id: 'orthopedic', label: 'בעיות אורתופדיות (גב, מפרקים)', weight: '20%' },
+                                { id: 'neurological', label: 'בעיות נוירולוגיות (נשירת עצב)', weight: '30%' },
+                                { id: 'cardiac', label: 'מחלות לב וכלי דם', weight: '25%' },
+                                { id: 'respiratory', label: 'בעיות נשימה / אסתמה', weight: '20%' },
+                                { id: 'mental', label: 'נפשי, חרדה ופוסט טראומה', weight: '20%' },
+                                { id: 'diabetes', label: 'סוכרת (עם או בלי סיבוכים)', weight: '10%' },
+                                { id: 'sensory', label: 'לקויי שמיעה / ראייה', weight: '15%' }
                               ].map(item => (
                                 <label key={item.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '0.82rem', fontWeight: '700' }}>
                                   <input type="checkbox" checked={blConditions.includes(item.id)} onChange={() => handleConditionsChange(item.id)} style={{ width: '16px', height: '16px', accentColor: '#0066cc' }} />
@@ -1312,7 +1463,7 @@ ${sevName}
                         {blResult && (
                           <div className="glass-panel animate-fade-in" style={{ background: '#ffffff', padding: '30px', border: '1px solid rgba(16,185,129,0.2)' }}>
                             <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-                              <span style={{ fontSize: '3rem' }}>📜</span>
+                              <CourtIcon style={{ width: '48px', height: '48px', color: '#0066cc' }} />
                               <h4 style={{ color: '#1d1d1f', fontSize: '1.25rem', fontWeight: '900', marginTop: '10px' }}>דוח זכאות משוער - ביטוח לאומי</h4>
                               <span style={{ fontSize: '0.8rem', color: '#6e6e73', fontWeight: '700' }}>תאריך: {new Date().toLocaleDateString('he-IL')}</span>
                             </div>
@@ -1370,7 +1521,7 @@ ${sevName}
                   {/* Tab 3: Severance Pay & Demand Letter */}
                   {activeTab === 'severance' && (
                     <div style={{ animation: 'fadeSlideIn 0.5s ease' }}>
-                      <h3 style={{ color: '#1d1d1f', marginBottom: '8px', fontSize: '1.4rem', textAlign: 'center', fontWeight: '900' }}>💼 מחשבון פיצויי פיטורין ומחולל מכתבי התראה</h3>
+                      <h3 style={{ color: '#1d1d1f', marginBottom: '8px', fontSize: '1.4rem', textAlign: 'center', fontWeight: '900' }}>זכויות עבודה. בקרת פיצויים ומכתבי התראה.</h3>
                       <p style={{ color: '#6e6e73', fontSize: '0.9rem', textAlign: 'center', marginBottom: '32px' }}>
                         חשב את גובה הפיצויים המגיעים לך, פנסיה משוקללת לפי סעיף 14, פטור ממס הכנסה, והפק מכתב התראה רשמי למעסיק להורדה והדפסה.
                       </p>
@@ -1482,7 +1633,6 @@ ${sevName}
                               </div>
                             </div>
 
-                            {/* Hebrew Demand Letter preview container */}
                             <div className="document-preview-container animate-fade-in" id="printable-demand-letter">
                               <div className="document-header">
                                 <h3 style={{ margin: '0 0 6px 0', fontSize: '1.25rem', color: '#000000' }}>מכתב דרישה והתראה לפני נקיטת הליכים משפטיים</h3>
@@ -1503,8 +1653,13 @@ ${sevName}
                               <button onClick={() => window.print()} className="btn btn-secondary" style={{ flex: 1, height: '44px', fontSize: '0.85rem' }}>
                                 🖨️ הדפס מכתב התראה
                               </button>
-                              <button onClick={() => { navigator.clipboard.writeText(sevResult.letterText); alert('המכתב הועתק ללוח!'); }} className="btn btn-outline" style={{ flex: 1, height: '44px', fontSize: '0.85rem' }}>
-                                📋 העתק טקסט
+                              <button 
+                                type="button"
+                                onClick={() => triggerPayment(399, 'סקירת מכתב התראה על ידי עורך דין', 'document_review', { leadId: `lead_sev_${Date.now()}` })}
+                                className="btn btn-primary" 
+                                style={{ flex: 1, height: '44px', fontSize: '0.85rem' }}
+                              >
+                                ⚖️ סקירת עורך דין (₪399)
                               </button>
                             </div>
                           </div>
@@ -1519,7 +1674,7 @@ ${sevName}
                       <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '32px' }}>
                         
                         <div style={{ animation: 'fadeSlideIn 0.4s ease-out' }}>
-                          <h3 style={{ color: '#1d1d1f', marginBottom: '8px', fontSize: '1.25rem', fontWeight: '800' }}>סורק ומנתח חוזים משפטיים</h3>
+                          <h3 style={{ color: '#1d1d1f', marginBottom: '8px', fontSize: '1.25rem', fontWeight: '800' }}>סורק חוזים AI. הגנה מובנית מפני סעיפים מקפחים.</h3>
                           <p style={{ color: '#6e6e73', fontSize: '0.85rem', marginBottom: '20px' }}>
                             הדבק סעיפים מתוך חוזה שכירות, הסכם העסקה או הסכם ספק. סוכני ה-AI שלנו יסרקו את הניסוח ויזהו סעיפים מקפחים, תניות שיפוט בעייתיות וחשיפות משפטיות.
                           </p>
@@ -1601,7 +1756,7 @@ ${sevName}
                   {/* Tab 5: Precedent & Citation Finder */}
                   {activeTab === 'precedent' && (
                     <div style={{ animation: 'fadeSlideIn 0.5s ease' }}>
-                      <h3 style={{ color: '#1d1d1f', marginBottom: '10px', fontSize: '1.25rem', textAlign: 'center', fontWeight: '800' }}>מאגר תקדימים וביסוס עובדות (Grounded Citations)</h3>
+                      <h3 style={{ color: '#1d1d1f', marginBottom: '10px', fontSize: '1.25rem', textAlign: 'center', fontWeight: '800' }}>מאגר תקדימים. ביסוס חוקי מוחלט.</h3>
                       <p style={{ color: '#6e6e73', fontSize: '0.85rem', textAlign: 'center', marginBottom: '28px' }}>
                         חפש תקדימים מבית המשפט העליון וסעיפי חקיקה ישראלית לביסוס תביעות משפטיות.
                       </p>
@@ -1657,18 +1812,17 @@ ${sevName}
                   {/* Tab 6: Legal Tech Embed Showcase & Hub */}
                   {activeTab === 'legal_tech_hub' && (
                     <div style={{ animation: 'fadeSlideIn 0.5s ease' }}>
-                      <h3 style={{ color: '#1d1d1f', marginBottom: '8px', fontSize: '1.4rem', textAlign: 'center', fontWeight: '900' }}>⚡ שער האינטגרציות המשפטיות - Israel LegalTech</h3>
+                      <h3 style={{ color: '#1d1d1f', marginBottom: '8px', fontSize: '1.4rem', textAlign: 'center', fontWeight: '900' }}>שער האינטגרציות. שירותי הממשל המשפטיים, במקום אחד.</h3>
                       <p style={{ color: '#6e6e73', fontSize: '0.9rem', textAlign: 'center', marginBottom: '32px' }}>
                         פורטל ריכוז ושימוש בכל פרויקטי ה-LegalTech בישראל. בצע פניות לתיקים בנט המשפט, חתום דיגיטלית מול נוטריון, והפק כתבי תביעה.
                       </p>
 
-                      {/* Tool selector bar */}
                       <div className="tab-pill-container" style={{ maxWidth: '720px', margin: '0 auto 30px auto' }}>
                         {[
-                          { id: 'court_tracker', label: '🔍 נט המשפט' },
-                          { id: 'notary_signer', label: '✍️ חתימת נוטריון דיגיטלית' },
-                          { id: 'small_claims', label: '⚖️ תביעות קטנות' },
-                          { id: 'tabu_registry', label: '🏡 נסח טאבו' }
+                          { id: 'court_tracker', label: 'נט המשפט' },
+                          { id: 'notary_signer', label: 'חתימת נוטריון דיגיטלית' },
+                          { id: 'small_claims', label: 'תביעות קטנות' },
+                          { id: 'tabu_registry', label: 'נסח טאבו' }
                         ].map(tool => (
                           <button 
                             key={tool.id} 
@@ -1758,7 +1912,7 @@ ${sevName}
 
                           {notarySigned && (
                             <div style={{ background: 'rgba(16,185,129,0.03)', padding: '20px', borderRadius: '12px', border: '1px solid #10b981', textAlign: 'center' }}>
-                              <span style={{ fontSize: '2rem' }}>🔏</span>
+                              <LockIcon style={{ width: '32px', height: '32px', color: '#10b981', margin: '0 auto 10px auto', display: 'block' }} />
                               <div style={{ fontWeight: '800', fontSize: '1rem', color: '#10b981', margin: '6px 0' }}>מסמך נחתם ואומת נוטריונית בהצלחה</div>
                               <div style={{ fontSize: '0.8rem', color: '#6e6e73', fontFamily: 'monospace' }}>מזהה אימות: {notaryDocId}</div>
                               <div style={{ fontSize: '0.72rem', color: '#6e6e73', marginTop: '6px' }}>
@@ -1979,9 +2133,11 @@ ${sevName}
                             
                             <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
                               <a href={`tel:${selectedLead.clientPhone}`} className="btn btn-primary" style={{ flex: 1, height: '42px', padding: '0 20px', fontSize: '0.85rem' }}>
+                                <PhoneIcon style={{ width: '14px', height: '14px', marginLeft: '6px' }} />
                                 חייג עכשיו
                               </a>
                               <a href={`mailto:${selectedLead.clientEmail}`} className="btn btn-outline" style={{ flex: 1, height: '42px', padding: '0 20px', fontSize: '0.85rem' }}>
+                                <MailIcon style={{ width: '14px', height: '14px', marginLeft: '6px' }} />
                                 שלח אימייל
                               </a>
                             </div>
@@ -2025,47 +2181,130 @@ ${sevName}
 
       </section>
 
-      {/* 4. Bento Grid Practice Areas */}
-      <section id="features" className="container" style={{ padding: '40px 24px 80px 24px', position: 'relative', zIndex: 10 }}>
+      {/* 4. Bento Grid Practice Areas (Intent Pyramid) */}
+      <section id="features" className="container" style={{ padding: '60px 24px 100px 24px', position: 'relative', zIndex: 10 }}>
         <div style={{ textAlign: 'center', marginBottom: '60px' }}>
           <span style={{ color: '#0066cc', fontWeight: 'bold', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
-            מצוינות משפטית
+            חיפוש משפטי לפי כוונה
           </span>
-          <h2 style={{ fontSize: '2.4rem', color: '#1d1d1f', marginTop: '6px', fontWeight: '900' }}>תחומי התמחות מובילים בפורטל</h2>
+          <h2 style={{ fontSize: '2.5rem', color: '#1d1d1f', marginTop: '6px', fontWeight: '900' }}>התחילו מהבעיה המשפטית, ועברו למסלול פעולה</h2>
+          <p style={{ color: '#6e6e73', maxWidth: '680px', margin: '12px auto 0 auto', fontSize: '1rem', fontWeight: '500' }}>
+            העמוד הראשי מחבר בין מונחי החיפוש המשפטיים לבין פתרונות AI ומאגר עורכי הדין המורשים. לחצו על אחד התחומים להפעלה מהירה בסביבת העבודה.
+          </p>
         </div>
 
         <div className="bento-grid">
-          <div className="glass-panel bento-card-large">
-            <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '16px' }}>💼</span>
-            <h3 style={{ color: '#1d1d1f', fontSize: '1.45rem', marginBottom: '12px', fontWeight: '800' }}>דיני עבודה וזכויות סוציאליות</h3>
-            <p style={{ fontSize: '0.95rem', color: '#6e6e73', lineHeight: '1.7', margin: 0, fontWeight: '500' }}>
-              הגנה וייצוג עובדים ומעסיקים: פיטורים שלא כדין, הפרת חובת עריכת שימוע, זכויות סוציאליות, שעות נוספות, והגנה על זכויות נשים ואימהות בעבודה. מלווה בפירוק סעדים וניתוח סיכויים משפטיים.
-            </p>
-          </div>
+          
+          {[
+            {
+              id: 'labor-law',
+              slug: 'labor-law',
+              title: 'דיני עבודה וזכויות עובדים',
+              desc: 'פיטורים שלא כדין, שימוע לפני פיטורין, הלנת שכר, ימי חופשה, פנסיה והסכמי העסקה.',
+              icon: <BriefcaseIcon style={{ width: '28px', height: '28px' }} />,
+              tab: 'severance',
+              badge: 'פיצויים וסעדים',
+              topics: ['פיצויי פיטורין', 'שימוע בהריון', 'הפרשה לפנסיה', 'הרעת תנאים']
+            },
+            {
+              id: 'personal-injury-law',
+              slug: 'personal-injury-law',
+              title: 'נזקי גוף, תאונות וביטוחים',
+              desc: 'תאונות דרכים קשות, נפילות במרחב הציבורי, תאונות עבודה, פוליסות ביטוח ופיצויים סטטוטוריים.',
+              icon: <MedicalIcon style={{ width: '28px', height: '28px' }} />,
+              tab: 'evaluator',
+              badge: 'נזקי גוף',
+              topics: ['תאונות דרכים', 'תאונות עבודה', 'פוליסות תאונות אישיות']
+            },
+            {
+              id: 'family-law',
+              slug: 'family-law',
+              title: 'דיני משפחה, גירושין וירושות',
+              desc: 'הסכמי גירושין, משמורת ילדים, מזונות ילדים, חלוקת רכוש משפחתי, צוואות והסכמי ממון.',
+              icon: <BalanceIcon style={{ width: '28px', height: '28px' }} />,
+              tab: 'evaluator',
+              badge: 'דיני משפחה',
+              topics: ['מחשבון מזונות', 'הסכם ממון', 'צוואות וירושות']
+            },
+            {
+              id: 'real-estate-law',
+              slug: 'real-estate-law',
+              title: 'מקרקעין, נדל״ן וחוזים',
+              desc: 'ליווי חוזה קניית/מכירת דירה, איחורים במסירת מפתח מקבלן, רישום בטאבו וליקויי בנייה.',
+              icon: <HomeIcon style={{ width: '28px', height: '28px' }} />,
+              tab: 'auditor',
+              badge: 'נדל״ן ומקרקעין',
+              topics: ['חוזה מכר דירה', 'רישום בטאבו', 'ליקויי בנייה']
+            },
+            {
+              id: 'criminal-law',
+              slug: 'criminal-law',
+              title: 'דין פלילי, חקירות ומעצרים',
+              desc: 'חקירה משטרתית באזהרה, ייצוג במעצרים, הגשת כתב אישום, שימוע פלילי ומחיקת רישום פלילי.',
+              icon: <LockIcon style={{ width: '28px', height: '28px' }} />,
+              tab: 'evaluator',
+              badge: 'פלילי ומעצרים',
+              topics: ['חקירה באזהרה', 'מחיקת רישום', 'ייצוג במעצרים']
+            },
+            {
+              id: 'medical-malpractice-law',
+              slug: 'medical-malpractice-law',
+              title: 'רשלנות רפואית ונזקים',
+              desc: 'רשלנות במעקב הריון ולידה, אבחון שגוי או מאוחר של מחלות, רשלנות בניתוחים וטיפול לא זהיר.',
+              icon: <CourtIcon style={{ width: '28px', height: '28px' }} />,
+              tab: 'evaluator',
+              badge: 'רשלנות רפואית',
+              topics: ['רשלנות בלידה', 'אבחון שגוי', 'רשלנות בניתוח']
+            }
+          ].map((item) => (
+            <a
+              key={item.id}
+              href={`/${item.slug}`}
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('workspace')?.scrollIntoView({ behavior: 'smooth' });
+                setActiveTab(item.tab);
+                setCaseType(item.slug);
+                setUserMode('client');
+              }}
+              className="glass-panel"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                textDecoration: 'none',
+                textAlign: 'right',
+                background: '#ffffff',
+                padding: '28px'
+              }}
+            >
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                  <div style={{ background: 'rgba(0,102,204,0.04)', padding: '10px', borderRadius: '10px', color: '#0066cc' }}>
+                    {item.icon}
+                  </div>
+                  <span style={{ fontSize: '0.72rem', color: '#6e6e73', fontWeight: '800', backgroundColor: '#f5f5f7', padding: '3px 8px', borderRadius: '6px' }}>
+                    {item.badge}
+                  </span>
+                </div>
+                
+                <h3 style={{ fontSize: '1.2rem', fontWeight: '800', marginBottom: '8px', color: '#1d1d1f' }}>{item.title}</h3>
+                <p style={{ fontSize: '0.8rem', color: '#6e6e73', lineHeight: '1.6', marginBottom: '16px', fontWeight: '500' }}>{item.desc}</p>
+              </div>
 
-          <div className="glass-panel">
-            <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '16px' }}>🏡</span>
-            <h3 style={{ color: '#1d1d1f', fontSize: '1.25rem', marginBottom: '12px', fontWeight: '800' }}>נדל״ן ומקרקעין</h3>
-            <p style={{ fontSize: '0.85rem', color: '#6e6e73', lineHeight: '1.6', margin: 0, fontWeight: '500' }}>
-              ליווי עסקאות מכר וקנייה מקבלן או יד שנייה, פרויקטים של התחדשות עירונית (תמ״א 38 ופינוי בינוי) ופתרון סכסוכי ליקויי בנייה ואיחורי מסירה.
-            </p>
-          </div>
+              <div style={{ borderTop: '1px solid rgba(0, 0, 0, 0.04)', paddingTop: '12px', marginTop: '12px' }}>
+                <span style={{ fontSize: '0.7rem', color: '#6e6e73', display: 'block', marginBottom: '6px', fontWeight: '800' }}>נושאים חמים:</span>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {item.topics.map((topic, index) => (
+                    <span key={index} style={{ fontSize: '0.68rem', padding: '2px 8px', borderRadius: '4px', background: '#f5f5f7', color: '#1d1d1f', fontWeight: '700' }}>
+                      {topic}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </a>
+          ))}
 
-          <div className="glass-panel">
-            <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '16px' }}>🏥</span>
-            <h3 style={{ color: '#1d1d1f', fontSize: '1.25rem', marginBottom: '12px', fontWeight: '800' }}>נזקי גוף ותאונות</h3>
-            <p style={{ fontSize: '0.85rem', color: '#6e6e73', lineHeight: '1.6', margin: 0, fontWeight: '500' }}>
-              ייצוג בתביעות פיצויים בגין תאונות דרכים קשות, תאונות עבודה ורשלנות רפואית. שיתוף פעולה עם רופאים מומחים לקביעת אחוזי נכות וגובה הנזק.
-            </p>
-          </div>
-
-          <div className="glass-panel bento-card-large">
-            <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '16px' }}>⚖️</span>
-            <h3 style={{ color: '#1d1d1f', fontSize: '1.45rem', marginBottom: '12px', fontWeight: '800' }}>דיני משפחה וגירושין</h3>
-            <p style={{ fontSize: '0.95rem', color: '#6e6e73', lineHeight: '1.7', margin: 0, fontWeight: '500' }}>
-              ניהול הליכי גירושין ומשמורת ילדים, הסדרת מזונות, ניסוח הסכמי ממון וחלוקת רכוש בבתי משפט לענייני משפחה ובתי דין רבניים באסטרטגיה חדה.
-            </p>
-          </div>
         </div>
       </section>
 
@@ -2085,7 +2324,7 @@ ${sevName}
             
             <div style={{ display: 'flex', gap: '18px', marginBottom: '18px', alignItems: 'center' }}>
               <div style={{ position: 'relative', width: '74px', height: '74px', borderRadius: '50%', overflow: 'hidden', border: '2px solid rgba(0,0,0,0.05)' }}>
-                <Image src="/lawyer_male.png" alt="עו״ד דניאל כהן" fill style={{ objectFit: 'cover' }} />
+                <Image src="/lawyer_male_premium.png" alt="עו״ד דניאל כהן" fill style={{ objectFit: 'cover' }} />
               </div>
               <div>
                 <h3 style={{ color: '#1d1d1f', fontSize: '1.2rem', marginBottom: '3px', fontWeight: '800' }}>עו״ד דניאל כהן</h3>
@@ -2111,7 +2350,7 @@ ${sevName}
             
             <div style={{ display: 'flex', gap: '18px', marginBottom: '18px', alignItems: 'center' }}>
               <div style={{ position: 'relative', width: '74px', height: '74px', borderRadius: '50%', overflow: 'hidden', border: '2px solid rgba(0,0,0,0.05)' }}>
-                <Image src="/lawyer_female.png" alt="עו״ד מיטל לוי" fill style={{ objectFit: 'cover' }} />
+                <Image src="/lawyer_female_premium.png" alt="עו״ד מיטל לוי" fill style={{ objectFit: 'cover' }} />
               </div>
               <div>
                 <h3 style={{ color: '#1d1d1f', fontSize: '1.2rem', marginBottom: '3px', fontWeight: '800' }}>עו״ד מיטל לוי</h3>
@@ -2137,17 +2376,19 @@ ${sevName}
 
       {/* 6. Ethics & Security Section */}
       <section id="ethics" className="container" style={{ padding: '60px 24px', position: 'relative', zIndex: 10 }}>
-        <div className="glass-panel" style={{ textAlign: 'center', maxWidth: '840px', margin: '0 auto', background: '#ffffff' }}>
-          <h2 style={{ color: '#1d1d1f', marginBottom: '20px', fontSize: '1.8rem', fontWeight: '900' }}>תקנות אתיקה ואבטחה מחמירות</h2>
+        <div className="glass-panel" style={{ textAlign: 'center', maxWidth: '840px', margin: '0 auto', background: '#ffffff', border: '1px solid rgba(0,0,0,0.05)' }}>
+          <h2 style={{ color: '#1d1d1f', marginBottom: '20px', fontSize: '1.8rem', fontWeight: '900' }}>אבטחה והצפנה בסטנדרט בנקאי</h2>
           <p style={{ color: '#6e6e73', fontSize: '1rem', lineHeight: '1.7', marginBottom: '32px', fontWeight: '500' }}>
-            JUS-TICE פועל תחת כללי חיסיון עורך-דין לקוח מחמירים. כל הנתונים והחוזים המועלים למערכת מוצפנים מקצה לקצה ואינם משמשים לאימון ממודלים ציבוריים. כל המידע נבדק ומבוסס על סעיפי החוק הישראלי ותקדימי בית המשפט העליון.
+            JUS-TICE פועל תחת כללי חיסיון עורך-דין לקוח מחמירים. כל הנתונים והחוזים המועלים למערכת מוצפנים מקצה לקצה ואינם משמשים לאימון מודלים ציבוריים. כל המידע נבדק ומבוסס על סעיפי החוק הישראלי ותקדימי בית המשפט העליון.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
-            <div className="frosty-glass" style={{ padding: '14px 22px', borderRadius: '12px', fontWeight: '700', fontSize: '0.85rem', border: '1px solid rgba(0,0,0,0.05)', background: '#ffffff', boxShadow: 'inset 0 1px 0 #ffffff' }}>
-              🔒 הצפנת AES-256 מקצה לקצה
+            <div className="frosty-glass" style={{ padding: '14px 22px', borderRadius: '12px', fontWeight: '700', fontSize: '0.85rem', border: '1px solid rgba(0,0,0,0.05)', background: '#ffffff', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <LockIcon style={{ width: '16px', height: '16px', color: '#0066cc' }} />
+              הצפנת AES-256 מקצה לקצה
             </div>
-            <div className="frosty-glass" style={{ padding: '14px 22px', borderRadius: '12px', fontWeight: '700', fontSize: '0.85rem', border: '1px solid rgba(0,0,0,0.05)', background: '#ffffff', boxShadow: 'inset 0 1px 0 #ffffff' }}>
-              🇮🇱 מותאם לתקנות לשכת עו״ד בישראל
+            <div className="frosty-glass" style={{ padding: '14px 22px', borderRadius: '12px', fontWeight: '700', fontSize: '0.85rem', border: '1px solid rgba(0,0,0,0.05)', background: '#ffffff', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <CheckIcon style={{ width: '16px', height: '16px', color: '#0066cc' }} />
+              מותאם לתקנות לשכת עו״ד בישראל
             </div>
           </div>
         </div>
@@ -2156,27 +2397,27 @@ ${sevName}
       {/* 7. Floating Interactive macOS Navigation Dock */}
       <div className="floating-dock">
         <div className="dock-item" title="סביבת עבודה AI" onClick={() => { document.getElementById('workspace')?.scrollIntoView({ behavior: 'smooth' }); setActiveTab('evaluator'); }}>
-          📊
+          <ChartIcon />
         </div>
         <div className="dock-item" title="מחשבון ביטוח לאומי" onClick={() => { document.getElementById('workspace')?.scrollIntoView({ behavior: 'smooth' }); setActiveTab('national_insurance'); }}>
-          🏛️
+          <CourtIcon />
         </div>
         <div className="dock-item" title="פיצויים ומכתבים" onClick={() => { document.getElementById('workspace')?.scrollIntoView({ behavior: 'smooth' }); setActiveTab('severance'); }}>
-          💼
+          <BriefcaseIcon />
         </div>
         <div className="dock-item" title="סורק חוזים" onClick={() => { document.getElementById('workspace')?.scrollIntoView({ behavior: 'smooth' }); setActiveTab('auditor'); }}>
-          🔍
+          <SearchIcon />
         </div>
         <div className="dock-divider"></div>
         <div className="dock-item" title="תקדימים משפטיים" onClick={() => { document.getElementById('workspace')?.scrollIntoView({ behavior: 'smooth' }); setActiveTab('precedent'); }}>
-          📖
+          <BookIcon />
         </div>
         <div className="dock-item" title="שער LegalTech" onClick={() => { document.getElementById('workspace')?.scrollIntoView({ behavior: 'smooth' }); setActiveTab('legal_tech_hub'); }}>
-          ⚡
+          <BoltIcon />
         </div>
         <div className="dock-divider"></div>
         <div className="dock-item" title="מעבר מצב משתמש" onClick={() => setUserMode(userMode === 'client' ? 'lawyer' : 'client')}>
-          ⚙️
+          <GearIcon />
         </div>
       </div>
 

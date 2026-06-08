@@ -1,10 +1,25 @@
-import { getPostBySlug, getPageBySlug } from '@/lib/wordpress';
-import { notFound } from 'next/navigation';
+import { getPostBySlug, getPageBySlug, getLocalHub, getAllLocalSpokes } from '@/lib/wordpress';
+import { notFound, permanentRedirect } from 'next/navigation';
+import Header from '@/app/components/Header';
+import Breadcrumbs from '@/app/components/Breadcrumbs';
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const decodedSlug = decodeURIComponent(resolvedParams.slug);
   
+  // Check if it is a category hub
+  const hub = getLocalHub(decodedSlug);
+  if (hub) {
+    permanentRedirect(`/practice-areas/${decodedSlug}`);
+  }
+
+  // Check if it is a spoke
+  const spokes = getAllLocalSpokes();
+  const spoke = spokes.find(s => s.slug === decodedSlug);
+  if (spoke) {
+    permanentRedirect(`/practice-areas/${spoke.category}/${decodedSlug}`);
+  }
+
   const content = await getPostBySlug(decodedSlug) || await getPageBySlug(decodedSlug);
   if (!content) return { title: 'עמוד לא נמצא | JUS-TICE' };
 
@@ -12,7 +27,7 @@ export async function generateMetadata({ params }) {
     title: `${content.title} | פורטל משפטי JUS-TICE`,
     description: content.excerpt || `${content.title} - מידע משפטי עדכני, פסקי דין ומדריכים שנכתבו ונבדקו על ידי עורכי דין מומחים.`,
     alternates: {
-      canonical: `/${decodedSlug}`,
+      canonical: `https://jus-tice.co.il/${decodedSlug}`,
     },
   };
 }
@@ -21,12 +36,31 @@ export default async function Page({ params }) {
   const resolvedParams = await params;
   const decodedSlug = decodeURIComponent(resolvedParams.slug);
 
-  // Fetch from WordPress GraphQL
+  // Check if it is a category hub
+  const hub = getLocalHub(decodedSlug);
+  if (hub) {
+    permanentRedirect(`/practice-areas/${decodedSlug}`);
+  }
+
+  // Check if it is a spoke
+  const spokes = getAllLocalSpokes();
+  const spoke = spokes.find(s => s.slug === decodedSlug);
+  if (spoke) {
+    permanentRedirect(`/practice-areas/${spoke.category}/${decodedSlug}`);
+  }
+
+  // Fetch from WordPress GraphQL or local fallback
   const data = await getPostBySlug(decodedSlug) || await getPageBySlug(decodedSlug);
 
   if (!data) {
     notFound();
   }
+
+  // Define breadcrumb items for flat static page
+  const breadcrumbItems = [
+    { name: 'בית', href: '/' },
+    { name: data.title, href: `/${decodedSlug}` }
+  ];
 
   // Structuring the E-E-A-T schema JSON-LD
   const eeatSchema = {
@@ -54,34 +88,18 @@ export default async function Page({ params }) {
   };
 
   return (
-    <div style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-color)', minHeight: '100vh', position: 'relative' }}>
+    <div style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-color)', minHeight: '100vh', position: 'relative', direction: 'rtl' }}>
       
-      {/* 1. App Navigation Bar (Milky Glass style) */}
-      <nav style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 1000,
-        background: 'rgba(255, 255, 255, 0.75)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
-        borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
-        padding: '16px 0'
-      }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ fontSize: '1.7rem', fontWeight: '900', letterSpacing: '0.5px', color: '#1d1d1f', display: 'inline-flex', alignItems: 'center' }}>
-              Jus<span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#d93838', margin: '0 2px', display: 'inline-block', transform: 'translateY(2px)' }}></span>Tice
-            </span>
-          </div>
-          <a href="/" className="btn btn-outline" style={{ padding: '8px 16px', fontSize: '0.9rem', textDecoration: 'none' }}>
-            חזרה לדף הבית
-          </a>
-        </div>
-      </nav>
+      {/* Dynamic Header */}
+      <Header />
 
       {/* Main Content Area */}
-      <main className="container" style={{ padding: '60px 24px', maxWidth: '800px', position: 'relative', zIndex: 10 }}>
-        <article className="glass-panel" style={{ padding: '40px', background: 'rgba(255, 255, 255, 0.55)', border: '1px solid rgba(255, 255, 255, 0.9)' }}>
+      <main className="container" style={{ padding: '40px 24px', maxWidth: '800px', position: 'relative', zIndex: 10 }}>
+        
+        {/* Dynamic Breadcrumbs */}
+        <Breadcrumbs items={breadcrumbItems} />
+
+        <article className="glass-panel" style={{ padding: '40px', background: 'rgba(255, 255, 255, 0.55)', border: '1px solid rgba(255, 255, 255, 0.9)', marginTop: '20px' }}>
           <h1 style={{ marginBottom: '24px', fontSize: '2.4rem', fontWeight: '900' }}>{data.title}</h1>
 
           {/* E-E-A-T Legal Trust Banner */}

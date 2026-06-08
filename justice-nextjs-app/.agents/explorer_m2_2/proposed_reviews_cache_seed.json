@@ -1,0 +1,47 @@
+[
+  {
+    "id": "rev_1",
+    "reviewer_name": "שרה לוי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "קיבלתי שירות מעולה ומקצועי. עורך הדין שיוותה לי המערכת היה קשוב ומנוסה מאוד.",
+    "approval_status": true,
+    "created_at": "2026-06-01T10:00:00.000Z"
+  },
+  {
+    "id": "rev_2",
+    "reviewer_name": "עו\"ד דוד כהן",
+    "reviewer_role": "Colleague",
+    "rating": 5,
+    "content": "מערכת מצוינת המאפשרת שיתוף פעולה יעיל ונוח בין עורכי דין ללקוחות.",
+    "approval_status": true,
+    "created_at": "2026-06-02T12:30:00.000Z"
+  },
+  {
+    "id": "rev_3",
+    "reviewer_name": "משה מזרחי",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "חוויה מעולה, מצאתי עורך דין מתאים תוך דקות ספורות. ממליץ בחום!",
+    "approval_status": true,
+    "created_at": "2026-06-03T15:45:00.000Z"
+  },
+  {
+    "id": "rev_4",
+    "reviewer_name": "רוני אהרוני",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "הטיפול בתיק היה מהיר ומקצועי ביותר. תודה לצוות הפורטל.",
+    "approval_status": true,
+    "created_at": "2026-06-04T09:15:00.000Z"
+  },
+  {
+    "id": "rev_5",
+    "reviewer_name": "אורן גולן",
+    "reviewer_role": "Client",
+    "rating": 3,
+    "content": "חוות דעת ראשונית מעורפלת, אך בהמשך קיבלתי מענה טוב.",
+    "approval_status": false,
+    "created_at": "2026-06-05T14:00:00.000Z"
+  }
+]

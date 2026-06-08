@@ -1,0 +1,65 @@
+[
+  {
+    "id": "rev_1",
+    "reviewer_name": "מיכל כהן",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "שירות מקצועי ביותר, יחס אישי וליווי צמוד לכל אורך הדרך. ממליצה בחום על שירותי המשרד!",
+    "approval_status": true,
+    "created_at": "2026-06-01T10:00:00.000Z"
+  },
+  {
+    "id": "rev_2",
+    "reviewer_name": "דוד לוי",
+    "reviewer_role": "Google",
+    "rating": 4,
+    "content": "עורכי דין מצוינים, עזרו לי לפתור בעיה משפטית מורכבת בתחום הנדל\"ן במהירות וביעילות.",
+    "approval_status": true,
+    "created_at": "2026-06-03T14:30:00.000Z"
+  },
+  {
+    "id": "rev_3",
+    "reviewer_name": "עו״ד אילן רפאל",
+    "reviewer_role": "Colleague",
+    "rating": 5,
+    "content": "קולגה מוערך מאוד, מקצוען אמיתי וישר דרך. תמיד שמח לשתף פעולה בתיקים מורכבים.",
+    "approval_status": true,
+    "created_at": "2026-06-05T09:15:00.000Z"
+  },
+  {
+    "id": "rev_4",
+    "reviewer_name": "שרה ישראלי",
+    "reviewer_role": "Client",
+    "rating": 5,
+    "content": "הייצוג המשפטי הטוב ביותר שקיבלתי. תודה רבה לצוות על המסירות וההקשבה.",
+    "approval_status": true,
+    "created_at": "2026-06-07T16:00:00.000Z"
+  },
+  {
+    "id": "rev_5",
+    "reviewer_name": "אלון מזרחי",
+    "reviewer_role": "Client",
+    "rating": 3,
+    "content": "השירות היה סביר, אך לעיתים לקח זמן לקבל מענה טלפוני לעדכונים בתיק.",
+    "approval_status": false,
+    "created_at": "2026-06-08T11:00:00.000Z"
+  },
+  {
+    "id": "rev_6",
+    "reviewer_name": "אורן גולן",
+    "reviewer_role": "Google",
+    "rating": 5,
+    "content": "Professional and responsive legal service. Guided us through our labor dispute successfully.",
+    "approval_status": true,
+    "created_at": "2026-06-08T12:00:00.000Z"
+  },
+  {
+    "id": "rev_7",
+    "reviewer_name": "רונית אשכנזי",
+    "reviewer_role": "Colleague",
+    "rating": 4,
+    "content": "משרד מקצועי עם הבנה מעמיקה בליטיגציה מסחרית. מומלץ מאוד.",
+    "approval_status": false,
+    "created_at": "2026-06-08T15:30:00.000Z"
+  }
+]

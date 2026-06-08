@@ -1,0 +1,59 @@
+skill:
+  name: Next.js + Netlify SEO Pre-Rendering & Indexing
+  version: 1.0.0
+  description: >
+    Technical guidelines for ensuring maximum SEO indexability, pre-rendering,
+    crawling budget optimization, dynamic sitemap/robots.txt generation,
+    and Netlify edge redirect safety.
+  author: Jus-Tice Engineering
+  updated: 2026-06-08
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 1 — PRE-RENDERING & SERVER COMPONENTS FOR CRAWLERS
+# ═══════════════════════════════════════════════════════════════════════════════
+pre_rendering:
+  rules:
+    - Never use client-side data fetching (CSR via useEffect) on indexable landing pages or dynamic CMS routes.
+    - Serve fully-formed HTML in the initial request by fetching data directly inside React Server Components.
+    - Use static site generation (SSG) or incremental static regeneration (ISR) for articles. Set a revalidate value (e.g. 3600 seconds) to cache pages on Netlify's CDN.
+    - Dynamic route params (like Hebrew slugs) must be decoded via `decodeURIComponent` on the server before querying endpoints.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 2 — DYNAMIC SITEMAP & ROBOTS.TXT
+# ═══════════════════════════════════════════════════════════════════════════════
+metadata_files:
+  sitemap:
+    path: "src/app/sitemap.js"
+    purpose: >
+      Dynamically generates sitemap.xml by querying the WordPress GraphQL API
+      for pages, posts, and lawyers to ensure Googlebot is aware of all active URLs.
+    rules:
+      - Always specify absolute URLs using the production domain.
+      - Match the exact trailing slash convention configured in Next.js/Netlify.
+      - Return correct lastModified headers matching the CMS update timestamp.
+
+  robots:
+    path: "src/app/robots.js"
+    purpose: "Dynamically outputs robots.txt containing crawl directions."
+    rules:
+      - Explicitly direct robots to the sitemap XML URL.
+      - Block access to private directories (like user login or dashboard) but allow general crawling.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 3 — NETLIFY EDGE REDIRECT INDEXABILITY
+# ═══════════════════════════════════════════════════════════════════════════════
+edge_redirects:
+  principles:
+    - Avoid redirect loops: verify that your middleware redirect targets do not match another redirect rule.
+    - Single-hop transitions: ensure that redirects point to the final canonical URL directly.
+    - Decoded matches: decode pathname variables at the edge to catch Hebrew characters.
+    - Config compatibility: align next.config.js redirects and middleware logic with Netlify's trailing slash rules.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 4 — CANONICAL LINK SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+canonical_tags:
+  guideline: >
+    Every page must output a canonical URL tag matching the primary version.
+    Do not output multiple canonical tags. Avoid differences in protocol (http vs https),
+    subdomain (www vs non-www), or trailing slashes between sitemap, canonical tag, and final redirect URL.

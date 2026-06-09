@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'JUSTICE_THEME_VERSION', '1.1.89' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-06-09-gsc-cluster-hierarchy-v1' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-06-09-serp-titles-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -60,6 +60,7 @@ $justice_theme_files = array(
 	'inc/accessibility.php',
 	'inc/related-content.php',
 	'inc/content-clusters.php',
+	'inc/cluster-pillar-titles.php',
 	'inc/article-archive-controls.php',
 	'inc/practice-landing.php',
 	'inc/lead-spam-guard.php',

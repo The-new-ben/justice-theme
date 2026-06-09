@@ -387,8 +387,8 @@ function justice_theme_cluster_nav_meta(): array {
 		'employment'               => array( 'label' => 'דיני עבודה', 'area' => 'labor-law' ),
 		'inheritance'              => array( 'label' => 'ירושה וצוואות', 'area' => 'inheritance-law' ),
 		'immigration'              => array( 'label' => 'הגירה ואזרחות', 'area' => 'immigration-law' ),
-		'international-real-estate' => array( 'label' => 'נדל״ן בחו״ל', 'area' => '' ),
-		'tax'                      => array( 'label' => 'מיסוי', 'area' => '' ),
+		'international-real-estate' => array( 'label' => 'נדל״ן בחו״ל', 'area' => 'real-estate-law' ),
+		'tax'                      => array( 'label' => 'מיסוי', 'area' => 'tax-law' ),
 	);
 }
 

@@ -1,0 +1,6 @@
+{
+  "generated_at": "2026-06-09",
+  "source": "reports/gsc/query-page-combined.csv (16-month GSC mirror)",
+  "pillars": {},
+  "rule_summary": "Winner per query: max clicks → min avg position → max impressions. Pillar: clean root slug winning ≥3 queries with ≥100 total impressions."
+}

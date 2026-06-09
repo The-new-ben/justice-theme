@@ -178,13 +178,23 @@ function justice_theme_get_breadcrumb_items() {
 			'url'  => justice_theme_public_url( (string) get_post_type_archive_link( 'articles' ) ),
 		);
 
-		$terms = get_the_terms( get_the_ID(), 'practice-areas' );
-		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-			$term    = array_shift( $terms );
-			$items[] = array(
-				'name' => $term->name,
-				'url'  => justice_theme_public_term_link( $term ),
-			);
+		// Prefer the explicit GSC-derived cluster pillar over the practice-area term,
+		// so the breadcrumb hierarchy matches the data-driven topology.
+		$explicit = function_exists( 'justice_theme_cluster_pillar_crumb' )
+			? justice_theme_cluster_pillar_crumb( (int) get_the_ID() )
+			: null;
+
+		if ( $explicit ) {
+			$items[] = $explicit;
+		} else {
+			$terms = get_the_terms( get_the_ID(), 'practice-areas' );
+			if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+				$term    = array_shift( $terms );
+				$items[] = array(
+					'name' => $term->name,
+					'url'  => justice_theme_public_term_link( $term ),
+				);
+			}
 		}
 
 		$items[] = array(
@@ -280,12 +290,24 @@ function justice_theme_get_breadcrumb_items() {
 		}
 
 		$page_slug = get_post_field( 'post_name', $post_id );
-		$pillar    = justice_theme_resolve_pillar_for_slug( (string) $page_slug );
-		if ( $pillar ) {
-			$items[] = array(
-				'name' => $pillar['name'],
-				'url'  => justice_theme_public_url( home_url( $pillar['url'] ) ),
-			);
+
+		// 1) Try the GSC-derived explicit cluster map first (cannibalization-aware,
+		//    overrides the regex for the 3 documented anti-cannibalization cases).
+		$explicit = function_exists( 'justice_theme_cluster_pillar_crumb' )
+			? justice_theme_cluster_pillar_crumb( (int) $post_id )
+			: null;
+
+		if ( $explicit ) {
+			$items[] = $explicit;
+		} else {
+			// 2) Fall back to the regex/pattern resolver for slugs not in the explicit map.
+			$pillar = justice_theme_resolve_pillar_for_slug( (string) $page_slug );
+			if ( $pillar ) {
+				$items[] = array(
+					'name' => $pillar['name'],
+					'url'  => justice_theme_public_url( home_url( $pillar['url'] ) ),
+				);
+			}
 		}
 
 		$items[] = array(

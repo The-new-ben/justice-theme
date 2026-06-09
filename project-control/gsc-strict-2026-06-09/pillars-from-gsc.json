@@ -1,0 +1,373 @@
+{
+  "generated_at": "2026-06-09",
+  "window": "2025-02-09 → 2026-06-09",
+  "site": "https://jus-tice.co.il/",
+  "rule": "Cannibalized query = ≥2 URLs each ≥10 imp in window. Winner: max clicks → min pos → max imp. Pillar: clean root slug winning ≥3 queries with ≥100 total imp.",
+  "pillars": {
+    "family-law": "free-divorce-agreement-template",
+    "criminal-law": "criminal-defense-attorney",
+    "real-estate": "real-estate-attorney",
+    "medical-malpractice": "medical-institute-for-road-safety",
+    "personal-injury": "personal-injury-law",
+    "traffic-law": "japan-attorneys",
+    "employment": "immigration-lawyer",
+    "inheritance": "what-is-a-probate-order",
+    "immigration": "german-passport",
+    "international": "cyprus-lawyer",
+    "tax": "returning-resident-rights-determining-tax-rate",
+    "business": "types-of-lawyers-small-business"
+  },
+  "cluster_pillar_candidates": {
+    "general": [
+      {
+        "url": "digital-signature",
+        "wins": 46,
+        "imp": 25539
+      },
+      {
+        "url": "cyber-lawyer",
+        "wins": 37,
+        "imp": 17876
+      },
+      {
+        "url": "what-is-bitcoin-and-how-does-it-work",
+        "wins": 70,
+        "imp": 17613
+      },
+      {
+        "url": "usa-lawyers",
+        "wins": 38,
+        "imp": 16417
+      },
+      {
+        "url": "what-is-bitcoin-and-how-does-it-work",
+        "wins": 71,
+        "imp": 16220
+      }
+    ],
+    "family-law": [
+      {
+        "url": "free-divorce-agreement-template",
+        "wins": 88,
+        "imp": 66626
+      },
+      {
+        "url": "divorce-costs-2025",
+        "wins": 47,
+        "imp": 26464
+      },
+      {
+        "url": "lawyer-divorce",
+        "wins": 12,
+        "imp": 19620
+      },
+      {
+        "url": "joint-custody-shared-parenting",
+        "wins": 40,
+        "imp": 18681
+      },
+      {
+        "url": "mutual-divorce-agreement-2025",
+        "wins": 32,
+        "imp": 16955
+      }
+    ],
+    "criminal-law": [
+      {
+        "url": "criminal-defense-attorney",
+        "wins": 149,
+        "imp": 71554
+      },
+      {
+        "url": "police-records-data-deletion",
+        "wins": 60,
+        "imp": 53731
+      },
+      {
+        "url": "drug-related-crime",
+        "wins": 35,
+        "imp": 41346
+      },
+      {
+        "url": "sex-crime-lawyer",
+        "wins": 52,
+        "imp": 31331
+      },
+      {
+        "url": "how-much-will-a-criminal-defense-lawyer-cost",
+        "wins": 51,
+        "imp": 23678
+      }
+    ],
+    "employment": [
+      {
+        "url": "immigration-lawyer",
+        "wins": 111,
+        "imp": 38279
+      },
+      {
+        "url": "lawyer-fee-outlook",
+        "wins": 46,
+        "imp": 13139
+      },
+      {
+        "url": "labor-lawyer",
+        "wins": 27,
+        "imp": 9829
+      },
+      {
+        "url": "uk-lawyer",
+        "wins": 10,
+        "imp": 3513
+      },
+      {
+        "url": "employment-contract",
+        "wins": 8,
+        "imp": 3407
+      }
+    ],
+    "immigration": [
+      {
+        "url": "german-passport",
+        "wins": 33,
+        "imp": 20880
+      },
+      {
+        "url": "golden-visa",
+        "wins": 47,
+        "imp": 13497
+      },
+      {
+        "url": "portugal-relocation",
+        "wins": 21,
+        "imp": 9071
+      },
+      {
+        "url": "romanian-passport",
+        "wins": 20,
+        "imp": 8880
+      },
+      {
+        "url": "germany-lawyers",
+        "wins": 10,
+        "imp": 7136
+      }
+    ],
+    "real-estate": [
+      {
+        "url": "real-estate-attorney",
+        "wins": 162,
+        "imp": 115258
+      },
+      {
+        "url": "lawyer-for-buying-or-selling-a-house",
+        "wins": 76,
+        "imp": 53738
+      },
+      {
+        "url": "buying-property-in-portugal",
+        "wins": 50,
+        "imp": 36218
+      },
+      {
+        "url": "buying-property-in-greece",
+        "wins": 54,
+        "imp": 27606
+      },
+      {
+        "url": "greece-price-list",
+        "wins": 76,
+        "imp": 24740
+      }
+    ],
+    "business": [
+      {
+        "url": "types-of-lawyers-small-business",
+        "wins": 25,
+        "imp": 19324
+      },
+      {
+        "url": "china-business-legal-guide",
+        "wins": 28,
+        "imp": 8001
+      },
+      {
+        "url": "startup-company",
+        "wins": 12,
+        "imp": 2179
+      },
+      {
+        "url": "infidelity-statistics-reasons-suspicions",
+        "wins": 9,
+        "imp": 1780
+      },
+      {
+        "url": "what-is-a-contract",
+        "wins": 9,
+        "imp": 1671
+      }
+    ],
+    "international": [
+      {
+        "url": "cyprus-lawyer",
+        "wins": 12,
+        "imp": 9874
+      },
+      {
+        "url": "portugal-lawyers",
+        "wins": 18,
+        "imp": 8436
+      },
+      {
+        "url": "israel-notary-public",
+        "wins": 20,
+        "imp": 6626
+      },
+      {
+        "url": "italy-lawyers",
+        "wins": 8,
+        "imp": 4587
+      },
+      {
+        "url": "adoption-usa",
+        "wins": 16,
+        "imp": 3266
+      }
+    ],
+    "medical-malpractice": [
+      {
+        "url": "medical-institute-for-road-safety",
+        "wins": 52,
+        "imp": 42422
+      },
+      {
+        "url": "medical-malpractice-in-the-united-states",
+        "wins": 35,
+        "imp": 28723
+      },
+      {
+        "url": "medical-fitness-tests-for-driving-marvad-info",
+        "wins": 41,
+        "imp": 20331
+      },
+      {
+        "url": "medical-malpractice-lawyer",
+        "wins": 50,
+        "imp": 18448
+      },
+      {
+        "url": "medical-malpractice-lawyer-birth-recommended",
+        "wins": 2,
+        "imp": 10382
+      }
+    ],
+    "personal-injury": [
+      {
+        "url": "personal-injury-law",
+        "wins": 24,
+        "imp": 16412
+      },
+      {
+        "url": "punishment-for-offenses-of-causing-death-in-road-accidents",
+        "wins": 15,
+        "imp": 8323
+      },
+      {
+        "url": "israel-road-accident-compensation-law",
+        "wins": 16,
+        "imp": 6036
+      },
+      {
+        "url": "tort-lawyer",
+        "wins": 11,
+        "imp": 4285
+      },
+      {
+        "url": "how-much-does-a-lawyer-cost",
+        "wins": 14,
+        "imp": 3613
+      }
+    ],
+    "traffic-law": [
+      {
+        "url": "japan-attorneys",
+        "wins": 11,
+        "imp": 5881
+      },
+      {
+        "url": "speeding",
+        "wins": 5,
+        "imp": 4245
+      },
+      {
+        "url": "business-license",
+        "wins": 5,
+        "imp": 2764
+      },
+      {
+        "url": "traffic-lawyer",
+        "wins": 8,
+        "imp": 2555
+      },
+      {
+        "url": "us-lawyer-license-requirements",
+        "wins": 15,
+        "imp": 2108
+      }
+    ],
+    "inheritance": [
+      {
+        "url": "what-is-a-probate-order",
+        "wins": 29,
+        "imp": 7756
+      },
+      {
+        "url": "international-inheritance-wills-lawyer",
+        "wins": 24,
+        "imp": 7020
+      },
+      {
+        "url": "will-probate-objection",
+        "wins": 19,
+        "imp": 6302
+      },
+      {
+        "url": "75054-07-19",
+        "wins": 12,
+        "imp": 5903
+      },
+      {
+        "url": "14434-07-22",
+        "wins": 7,
+        "imp": 2040
+      }
+    ],
+    "tax": [
+      {
+        "url": "returning-resident-rights-determining-tax-rate",
+        "wins": 9,
+        "imp": 3010
+      },
+      {
+        "url": "top-global-tax-cpa-firms",
+        "wins": 10,
+        "imp": 1406
+      },
+      {
+        "url": "top-international-tax-law-firms",
+        "wins": 1,
+        "imp": 642
+      },
+      {
+        "url": "israel-tax-authority",
+        "wins": 5,
+        "imp": 348
+      },
+      {
+        "url": "legal-tax-saving-guide",
+        "wins": 2,
+        "imp": 162
+      }
+    ]
+  }
+}

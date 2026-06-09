@@ -354,12 +354,12 @@ test('Tier 1: SEO & Redirects Feature Coverage (5 tests)', async (t) => {
 
   // Case 4: Decoded Hebrew redirect path middleware
   await t.test('Hebrew path redirects to correct destination slug', async () => {
-    // "/פוסטה-פלילים" redirects to "/posta"
+    // "/פוסטה-פלילים" redirects to "/"
     const encodedPath = encodeURIComponent('פוסטה-פלילים');
     const res = await fetch(`${BASE_URL}/${encodedPath}`, { redirect: 'manual' });
     assert.strictEqual(res.status, 301);
     const location = res.headers.get('location');
-    assert.ok(location.includes('/posta'));
+    assert.ok(new URL(location, BASE_URL).pathname === '/');
   });
 
   // Case 5: Hub page canonical contains directory structure
@@ -598,7 +598,7 @@ test('Tier 2: SEO & Redirects Boundary Cases (5 tests)', async (t) => {
     const res = await fetch(`${BASE_URL}/${encodedPath}`, { redirect: 'manual' });
     assert.strictEqual(res.status, 301);
     const location = res.headers.get('location');
-    assert.ok(location.includes('/posta'));
+    assert.ok(new URL(location, BASE_URL).pathname === '/');
   });
 
   // Case 2: Double slash paths

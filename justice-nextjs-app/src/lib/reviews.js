@@ -115,30 +115,42 @@ function releaseLock() {
  * If the file does not exist, it initializes it with seed data.
  */
 function readLocalCache() {
-  try {
-    const fileContent = fs.readFileSync(CACHE_FILE_PATH, 'utf-8');
-    return JSON.parse(fileContent);
-  } catch (error) {
-    if (error.code === 'ENOENT') {
-      const tmpPath = `${CACHE_FILE_PATH}.${process.pid}.${Date.now()}.tmp`;
-      try {
-        const dir = path.dirname(CACHE_FILE_PATH);
-        if (!fs.existsSync(dir)) {
-          fs.mkdirSync(dir, { recursive: true });
-        }
-        fs.writeFileSync(tmpPath, JSON.stringify(MOCK_SEED_REVIEWS, null, 2), 'utf-8');
-        fs.renameSync(tmpPath, CACHE_FILE_PATH);
-      } catch (writeError) {
-        try {
-          if (fs.existsSync(tmpPath)) {
-            fs.unlinkSync(tmpPath);
+  const maxRetries = 5;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const fileContent = fs.readFileSync(CACHE_FILE_PATH, 'utf-8');
+      return JSON.parse(fileContent);
+    } catch (error) {
+      if (error.code === 'ENOENT') {
+        if (attempt < maxRetries) {
+          // Retry reading the cache file with jittered delay (20ms to 50ms)
+          const delay = 20 + Math.random() * 30;
+          const start = Date.now();
+          while (Date.now() - start < delay) {
+            // synchronous delay
           }
-        } catch (_) {}
-        throw writeError;
+          continue;
+        }
+        const tmpPath = `${CACHE_FILE_PATH}.${process.pid}.${Date.now()}.tmp`;
+        try {
+          const dir = path.dirname(CACHE_FILE_PATH);
+          if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+          }
+          fs.writeFileSync(tmpPath, JSON.stringify(MOCK_SEED_REVIEWS, null, 2), 'utf-8');
+          fs.renameSync(tmpPath, CACHE_FILE_PATH);
+        } catch (writeError) {
+          try {
+            if (fs.existsSync(tmpPath)) {
+              fs.unlinkSync(tmpPath);
+            }
+          } catch (_) {}
+          throw writeError;
+        }
+        return MOCK_SEED_REVIEWS;
       }
-      return MOCK_SEED_REVIEWS;
+      throw error;
     }
-    throw error;
   }
 }
 
@@ -269,11 +281,22 @@ export async function submitReview({ reviewer_name, reviewer_role, rating, conte
   if (!reviewer_role || !['Client', 'Colleague', 'Google'].includes(reviewer_role)) {
     throw new Error('תפקיד הממליץ אינו תקין (חייב להיות Client, Colleague או Google)');
   }
-  if (Array.isArray(rating) || (typeof rating !== 'string' && typeof rating !== 'number')) {
+  let ratingInt;
+  if (typeof rating === 'number') {
+    if (!Number.isInteger(rating)) {
+      throw new Error('דירוג חייב להיות מספר שלם בין 1 ל-5');
+    }
+    ratingInt = rating;
+  } else if (typeof rating === 'string') {
+    if (!/^\d+$/.test(rating)) {
+      throw new Error('דירוג חייב להיות מספר שלם בין 1 ל-5');
+    }
+    ratingInt = parseInt(rating, 10);
+  } else {
     throw new Error('דירוג חייב להיות מספר שלם בין 1 ל-5');
   }
-  const ratingInt = parseInt(rating, 10);
-  if (isNaN(ratingInt) || ratingInt < 1 || ratingInt > 5) {
+
+  if (ratingInt < 1 || ratingInt > 5) {
     throw new Error('דירוג חייב להיות מספר שלם בין 1 ל-5');
   }
   if (!content || typeof content !== 'string' || content.trim().length === 0) {

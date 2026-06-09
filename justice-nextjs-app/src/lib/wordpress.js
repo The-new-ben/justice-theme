@@ -1,8 +1,7 @@
 /**
  * Headless WordPress Client with robust offline fallback
  */
-import fs from 'fs';
-import path from 'path';
+
 
 const API_URL = process.env.WORDPRESS_API_URL || 'https://jus-tice.co.il/graphql';
 

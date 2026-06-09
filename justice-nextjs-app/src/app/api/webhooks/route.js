@@ -70,20 +70,16 @@ export async function POST(request) {
       // Perform database operations if Supabase is connected
       if (supabase) {
         if (metadata.type === 'credits' && metadata.lawyerId) {
-          // Add credits to lawyer's account in Supabase
-          const { data, error } = await supabase
-            .from('profiles')
-            .select('credits')
-            .eq('id', metadata.lawyerId)
-            .single();
-
-          if (!error && data) {
-            const newCredits = (data.credits || 0) + Number(metadata.amount || amount);
-            await supabase
-              .from('profiles')
-              .update({ credits: newCredits })
-              .eq('id', metadata.lawyerId);
-            console.log(`Updated credits for lawyer ${metadata.lawyerId} to ${newCredits}`);
+          // Add credits to lawyer's account in Supabase atomically
+          try {
+            const { error } = await supabase.rpc('increment_credits', {
+              lawyer_id: metadata.lawyerId,
+              amount: Number(metadata.amount || amount)
+            });
+            if (error) throw error;
+            console.log(`Atomically incremented credits for lawyer ${metadata.lawyerId}`);
+          } catch (rpcErr) {
+            console.error(`RPC increment_credits failed for lawyer ${metadata.lawyerId}:`, rpcErr.message);
           }
         } else if (metadata.type === 'document_review' && metadata.leadId) {
           // Mark lead as paid and ready for routing

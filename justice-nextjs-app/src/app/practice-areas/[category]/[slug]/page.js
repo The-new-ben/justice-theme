@@ -108,10 +108,12 @@ export default async function PracticeAreaSpokePage({ params }) {
     },
     'reviewedBy': {
       '@type': 'Person',
-      'name': expert.name,
+      'name': expert.name || 'עורך דין מורשה',
       'jobTitle': 'עורך דין מוסמך',
-      'sameAs': expert.sameAs,
-      'description': `${expert.credentials} - מספר רישיון לשכה ${expert.barId}`
+      'sameAs': expert.sameAs || [],
+      'description': expert.barId 
+        ? `${expert.credentials || 'עורך דין מורשה'} - מספר רישיון לשכה ${expert.barId}`
+        : (expert.credentials || 'מומחה מקצועי')
     },
     'publisher': publisher
   };
@@ -247,7 +249,12 @@ export default async function PracticeAreaSpokePage({ params }) {
       {/* JSON-LD Schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(eeatSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(eeatSchema)
+            .replace(/</g, '\\u003c')
+            .replace(/>/g, '\\u003e')
+            .replace(/&/g, '\\u0026')
+        }}
       />
     </div>
   );

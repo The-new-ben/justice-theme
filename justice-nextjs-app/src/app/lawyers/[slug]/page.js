@@ -129,7 +129,12 @@ export default async function LawyerProfilePage({ params }) {
       {/* JSON-LD Schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(lawyerSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(lawyerSchema)
+            .replace(/</g, '\\u003c')
+            .replace(/>/g, '\\u003e')
+            .replace(/&/g, '\\u0026')
+        }}
       />
     </div>
   );

@@ -234,3 +234,12 @@ export const experts = [
     category: ['programmatic-indexing']
   }
 ];
+
+// Validate Bar ID format for all experts that have it (must be numeric 5-7 digits)
+for (const expert of experts) {
+  if (expert.barId !== undefined) {
+    if (typeof expert.barId !== 'string' || !/^\d{5,7}$/.test(expert.barId)) {
+      throw new Error(`Invalid Bar ID format: "${expert.barId}" for expert ${expert.name || expert.id}. Must be numeric 5-7 digits.`);
+    }
+  }
+}

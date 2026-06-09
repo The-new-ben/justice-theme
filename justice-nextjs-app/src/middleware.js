@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import redirectMap from './lib/redirect-map.json';
 
+import { getLocalHub, getAllLocalSpokes } from './lib/wordpress';
+
 export function middleware(request) {
   let pathname, search;
   let lookupPath;
@@ -28,7 +30,20 @@ export function middleware(request) {
 
   if (destinationSlug) {
     // If destination slug is a full URL path (e.g. starts with '/'), redirect there
-    const targetPath = destinationSlug.startsWith('/') ? destinationSlug : `/${destinationSlug}`;
+    let targetPath = destinationSlug.startsWith('/') ? destinationSlug : `/${destinationSlug}`;
+    
+    // Resolve if the target path is a category hub or spoke page to avoid double redirects
+    const cleanSlug = targetPath.replace(/^\/+|\/+$/g, '');
+    const hub = getLocalHub(cleanSlug);
+    if (hub) {
+      targetPath = `/practice-areas/${hub.slug}`;
+    } else {
+      const spokes = getAllLocalSpokes();
+      const spoke = spokes.find(s => s.slug === cleanSlug);
+      if (spoke) {
+        targetPath = `/practice-areas/${spoke.category}/${spoke.slug}`;
+      }
+    }
     
     // Construct the destination URL preserving query search parameters
     const targetUrl = new URL(targetPath + search, request.url);

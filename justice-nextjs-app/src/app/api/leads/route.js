@@ -2,6 +2,17 @@ import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { sendSMS, sendEmail } from '@/lib/notifications';
 
+function htmlEncode(str) {
+  if (typeof str !== 'string') return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/\//g, '&#x2F;');
+}
+
 export async function GET(request) {
   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 }
@@ -23,15 +34,23 @@ export async function POST(request) {
     let { title, type, typeLabel, urgency, value, bidPrice } = leadData;
 
     // Dynamically map request payload fields (with robust fallback handling)
-    const clientName = (leadData.clientName && leadData.clientName.trim() !== '') ? leadData.clientName : (leadData.name || '');
-    const clientPhone = (leadData.clientPhone && leadData.clientPhone.trim() !== '') ? leadData.clientPhone : (leadData.phone || '');
-    const clientEmail = (leadData.clientEmail && leadData.clientEmail.trim() !== '') ? leadData.clientEmail : (leadData.email || '');
+    let clientName = (leadData.clientName && leadData.clientName.trim() !== '') ? leadData.clientName : (leadData.name || '');
+    let clientPhone = (leadData.clientPhone && leadData.clientPhone.trim() !== '') ? leadData.clientPhone : (leadData.phone || '');
+    let clientEmail = (leadData.clientEmail && leadData.clientEmail.trim() !== '') ? leadData.clientEmail : (leadData.email || '');
     
     // Extracted raw description/details
     const rawDescription = (leadData.description && leadData.description.trim() !== '') ? leadData.description : (leadData.details || '');
     
-    // Apply SQL sanitization to description
+    // Apply SQL sanitization to all input string fields
     const description = sanitizeSQL(rawDescription);
+    clientName = sanitizeSQL(clientName);
+    clientPhone = sanitizeSQL(clientPhone);
+    clientEmail = sanitizeSQL(clientEmail);
+    if (typeof title === 'string') title = sanitizeSQL(title);
+    if (typeof type === 'string') type = sanitizeSQL(type);
+    if (typeof typeLabel === 'string') typeLabel = sanitizeSQL(typeLabel);
+    if (typeof urgency === 'string') urgency = sanitizeSQL(urgency);
+    if (typeof value === 'string') value = sanitizeSQL(value);
 
     // Apply defaults and fallbacks
     if (!title || typeof title !== 'string' || title.trim().length === 0) {
@@ -49,7 +68,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Phone number must be numeric and at least 7 digits' }, { status: 400 });
     }
 
-    if (clientEmail && (typeof clientEmail !== 'string' || !clientEmail.includes('@'))) {
+    if (clientEmail && (typeof clientEmail !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clientEmail))) {
       return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
     }
 
@@ -116,7 +135,7 @@ export async function POST(request) {
     
     // Simulate/send notifications
     if (newLead.clientEmail) {
-      const emailHtml = `שלום ${clientName}, פנייתך התקבלה.`;
+      const emailHtml = `שלום ${htmlEncode(clientName)}, פנייתך התקבלה.`;
       await sendEmail(newLead.clientEmail, `פנייתך בנושא ${title} התקבלה ב-JUS-TICE`, emailHtml);
     }
     await sendSMS(clientPhone, smsMessage);

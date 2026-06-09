@@ -93,13 +93,23 @@ function justice_theme_get_breadcrumb_items() {
 			'url'  => justice_theme_public_url( (string) get_post_type_archive_link( 'articles' ) ),
 		);
 
-		$terms = get_the_terms( get_the_ID(), 'practice-areas' );
-		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-			$term    = array_shift( $terms );
-			$items[] = array(
-				'name' => $term->name,
-				'url'  => justice_theme_public_term_link( $term ),
-			);
+		// If this article is a mapped spoke, route the crumb through its pillar hub
+		// instead of the practice-area term, so the hierarchy matches the content map.
+		$pillar_crumb = function_exists( 'justice_theme_cluster_pillar_crumb' )
+			? justice_theme_cluster_pillar_crumb( (int) get_the_ID() )
+			: null;
+
+		if ( $pillar_crumb ) {
+			$items[] = $pillar_crumb;
+		} else {
+			$terms = get_the_terms( get_the_ID(), 'practice-areas' );
+			if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+				$term    = array_shift( $terms );
+				$items[] = array(
+					'name' => $term->name,
+					'url'  => justice_theme_public_term_link( $term ),
+				);
+			}
 		}
 
 		$items[] = array(
@@ -188,6 +198,16 @@ function justice_theme_get_breadcrumb_items() {
 	}
 
 	if ( is_page() || is_single() ) {
+		// Mapped spoke pages (e.g. /real-estate-lawyer-guide/) route through their
+		// pillar hub: Home -> Pillar -> Spoke. Pillars and unmapped pages stay flat.
+		$pillar_crumb = function_exists( 'justice_theme_cluster_pillar_crumb' )
+			? justice_theme_cluster_pillar_crumb( (int) get_the_ID() )
+			: null;
+
+		if ( $pillar_crumb ) {
+			$items[] = $pillar_crumb;
+		}
+
 		$title = trim( wp_strip_all_tags( get_the_title() ) );
 		if ( '' === $title ) {
 			$title = justice_theme_get_fallback_breadcrumb_name();

@@ -534,3 +534,30 @@
 }
 .lawyer-card__actions { display: flex; gap: 0.5rem; }
 .lawyer-card__actions .button { flex: 1; text-align: center; font-size: 0.85rem; padding: 0.6rem 0.8rem; }
+
+/* === Content-cluster spoke backlink (hub-and-spoke internal linking) === */
+.cluster-backlink {
+  margin: 2.5rem 0 0;
+  padding: 1.1rem 1.25rem;
+  background: var(--color-cream, #f7f5ef);
+  border: 1px solid var(--color-hairline, #e6e1d5);
+  border-inline-start: 3px solid var(--color-navy, #16427a);
+  border-radius: 4px;
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+.cluster-backlink p { margin: 0; }
+.cluster-backlink__parent + .cluster-backlink__siblings { margin-top: 0.5rem; }
+.cluster-backlink strong {
+  color: var(--color-text, #2d3748);
+  font-weight: 600;
+  margin-inline-end: 0.35rem;
+}
+.cluster-backlink a {
+  color: var(--color-navy, #16427a);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.18s ease;
+}
+.cluster-backlink a:hover { border-bottom-color: var(--color-navy, #16427a); }
+.cluster-backlink__siblings { color: var(--color-muted, #6e6a63); }

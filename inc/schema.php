@@ -82,9 +82,11 @@ function justice_theme_article_schema() {
 			'name'  => get_bloginfo( 'name' ) ?: 'Jus-Tice',
 			'url'   => $home_url,
 		);
-	$reviewer = function_exists( 'justice_theme_authority_article_reviewer_schema' )
-		? justice_theme_authority_article_reviewer_schema( get_the_ID() )
-		: null;
+	$reviewer = function_exists( 'justice_theme_article_reviewer_with_fallback' )
+		? justice_theme_article_reviewer_with_fallback( get_the_ID() )
+		: ( function_exists( 'justice_theme_authority_article_reviewer_schema' )
+			? justice_theme_authority_article_reviewer_schema( get_the_ID() )
+			: null );
 
 	$schema = array(
 		'@context'         => 'https://schema.org',

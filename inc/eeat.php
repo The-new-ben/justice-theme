@@ -60,32 +60,28 @@ function justice_eeat_author_registry() {
 			'experience'   => '20+',
 			// sameAs: machine-readable identity cross-verification
 			'same_as'      => array(
-				'https://www.linkedin.com/in/maya-rotenberg-attorney',
-				'https://din.co.il/lawyer/maya-rotenberg',
+				// Invented profile URLs removed 2026-06-09; add only verified links.
 				'https://www.israelbar.org.il',
 			),
 			'areas'        => array( 'family-law', 'divorce', 'child-support', 'child-custody', 'divorce-agreement', 'divorce-mediation', 'consensual-divorce' ),
 		),
+		// REMOVED 2026-06-09: a fabricated named attorney ("עו״ד שרון נהרי") with external
+		// law-firm sameAs links and an unverified bar profile used to live here. No such
+		// person was authorized to author content. Criminal-law E-E-A-T now defers to the
+		// site legal reviewer (the owner, a licensed advocate) via inc/authority.php.
+		// Do NOT reintroduce a named attorney unless they are real, licensed, and consenting.
 		'criminal-law'          => array(
-			'@id'          => $home . '#person-sharon-nahari',
-			'name'         => 'עו"ד שרון נהרי',
-			'slug'         => 'sharon-nahari',
-			'wp_post_id'   => 19309,
-			// jobTitle must reflect licensed role for YMYL
-			'title'        => 'עורך דין פלילי | משפט פלילי, טקסים וצווארון לבן',
-			'bar_member'   => 'לשכת עורכי הדין בישראל מחוז תל אביב',
-			// IBA card: admitted 30/11/1997. Bar number in IBA URL pending extraction.
-			// Update: go to israelbar.org.il, search Sharon Nahari, copy the LawyerID from URL
-			'bar_number'   => '', // TODO: extract from israelbar.org.il URL (page shown in screenshot)
-			'law_school'   => 'הפקולטה למשפטים',
-			'experience'   => '28+',
-			// IBA practice areas: מיסים, משפט פלילי, צווארון לבן
-			'same_as'      => array(
-				'https://nahari-law.co.il',
-				'https://naharilawfirm.com',
-				'https://www.israelbar.org.il',
-			),
-			'areas'        => array( 'criminal-law', 'criminal-defense', 'police-records', 'white-collar', 'tax-law', 'extradition' ),
+			'@id'          => $home . '#person-editorial-team',
+			'name'         => 'מערכת Jus-Tice',
+			'slug'         => '',
+			'wp_post_id'   => 0,
+			'title'        => 'מערכת תוכן משפטי',
+			'bar_member'   => '',
+			'bar_number'   => '',
+			'law_school'   => '',
+			'experience'   => '',
+			'same_as'      => array(),
+			'areas'        => array( 'criminal-law', 'criminal-defense', 'police-records', 'white-collar' ),
 		),
 		// Medical malpractice: authored by Jus-Tice team, reviewed by Maya Rotenberg
 		// Reviewer must have credentials matching topic — attorneys review all YMYL content
@@ -100,8 +96,7 @@ function justice_eeat_author_registry() {
 			'law_school'   => 'הפקולטה למשפטים',
 			'experience'   => '10+',
 			'same_as'      => array(
-				'https://www.linkedin.com/in/maya-rotenberg-attorney',
-				'https://din.co.il/lawyer/maya-rotenberg',
+				// Invented profile URLs removed 2026-06-09; add only verified links.
 				'https://www.israelbar.org.il',
 			),
 			'areas'        => array( 'medical-malpractice', 'birth-injury', 'malpractice-compensation' ),

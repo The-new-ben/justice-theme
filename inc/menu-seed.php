@@ -337,23 +337,36 @@ add_filter( 'wp_nav_menu_items', 'justice_theme_append_customer_primary_menu_ite
  * @return string
  */
 function justice_theme_primary_practice_menu_html(): string {
-	$areas = array(
-		'משפחה וגירושין'  => '/lawyers/?area=family-law',
-		'פלילי'           => '/lawyers/?area=criminal-law',
-		'תעבורה'          => '/lawyers/?area=traffic-law',
-		'מקרקעין'         => '/lawyers/?area=real-estate-law',
-		'נזיקין'          => '/lawyers/?area=personal-injury-law',
-		'עבודה'           => '/lawyers/?area=labor-law',
-		'ירושה וצוואות'   => '/lawyers/?area=inheritance-law',
-		'רשלנות רפואית'  => '/lawyers/?area=medical-malpractice-law',
-		'מיסים'           => '/lawyers/?area=tax-law',
-		'סייבר ופרטיות'  => '/lawyers/?area=privacy-cyber-law',
-	);
+	// Single source of truth: the GSC-derived cluster map (inc/content-clusters.php).
+	// Editing that map updates this menu, the footer, breadcrumbs and spoke links together.
+	$items = function_exists( 'justice_theme_cluster_nav_items' )
+		? justice_theme_cluster_nav_items()
+		: array();
+
+	// Fallback to a legacy directory list only if the cluster map is unavailable.
+	if ( empty( $items ) ) {
+		$legacy = array(
+			'משפחה וגירושין' => 'family-law',
+			'משפט פלילי'      => 'criminal-law',
+			'מקרקעין'         => 'real-estate-law',
+			'נזיקין'          => 'personal-injury-law',
+			'תעבורה'          => 'traffic-law',
+			'דיני עבודה'      => 'labor-law',
+			'ירושה וצוואות'   => 'inheritance-law',
+			'רשלנות רפואית'  => 'medical-malpractice-law',
+		);
+		foreach ( $legacy as $label => $area ) {
+			$items[] = array( 'label' => $label, 'url' => home_url( '/lawyers/?area=' . $area ) );
+		}
+	}
 
 	$html = '<li class="menu-item menu-item-has-children practice-areas-menu"><a href="' . esc_url( home_url( '/lawyers/' ) ) . '">תחומי משפט</a><ul class="sub-menu">';
-	foreach ( $areas as $label => $path ) {
-		$html .= '<li class="menu-item"><a href="' . esc_url( home_url( $path ) ) . '">' . esc_html( $label ) . '</a></li>';
+	foreach ( $items as $item ) {
+		$html .= '<li class="menu-item"><a href="' . esc_url( $item['url'] ) . '">' . esc_html( $item['label'] ) . '</a></li>';
 	}
+	// Keep the "how to choose a lawyer" guide reachable from the menu — it supports the
+	// core "עורך דין" ranking. Anchors to the homepage guide section.
+	$html .= '<li class="menu-item"><a href="' . esc_url( home_url( '/#find-lawyer-guide' ) ) . '">איך בוחרים עורך דין</a></li>';
 	$html .= '</ul></li>';
 
 	return $html;

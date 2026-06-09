@@ -362,3 +362,75 @@ function justice_theme_append_cluster_backlink( string $content ): string {
 	return $content . $block;
 }
 add_filter( 'the_content', 'justice_theme_append_cluster_backlink', 20 );
+
+/* ----------------------------------------------------------------------- *
+ *   Navigation + footer items — ONE source so menu, footer, breadcrumbs   *
+ *   and spoke links all reflect the same cluster map automatically.       *
+ * ----------------------------------------------------------------------- */
+
+/**
+ * Short Hebrew label + directory-area fallback per cluster.
+ * The area slug is used to build a /lawyers/?area=… URL that always exists,
+ * so a cluster whose pillar page is not live still links somewhere real
+ * (never a 404 / "evil URL").
+ *
+ * @return array<string,array{label:string,area:string}>
+ */
+function justice_theme_cluster_nav_meta(): array {
+	return array(
+		'family-law'               => array( 'label' => 'דיני משפחה וגירושין', 'area' => 'family-law' ),
+		'criminal-law'             => array( 'label' => 'משפט פלילי', 'area' => 'criminal-law' ),
+		'real-estate'              => array( 'label' => 'מקרקעין ונדל״ן', 'area' => 'real-estate-law' ),
+		'medical-malpractice'      => array( 'label' => 'רשלנות רפואית', 'area' => 'medical-malpractice-law' ),
+		'personal-injury'          => array( 'label' => 'נזיקין ותאונות', 'area' => 'personal-injury-law' ),
+		'traffic-law'              => array( 'label' => 'דיני תעבורה', 'area' => 'traffic-law' ),
+		'employment'               => array( 'label' => 'דיני עבודה', 'area' => 'labor-law' ),
+		'inheritance'              => array( 'label' => 'ירושה וצוואות', 'area' => 'inheritance-law' ),
+		'immigration'              => array( 'label' => 'הגירה ואזרחות', 'area' => 'immigration-law' ),
+		'international-real-estate' => array( 'label' => 'נדל״ן בחו״ל', 'area' => '' ),
+		'tax'                      => array( 'label' => 'מיסוי', 'area' => '' ),
+	);
+}
+
+/**
+ * Resolved, deduplicated nav items for every cluster pillar.
+ * URL priority: live pillar permalink → /lawyers/?area=… fallback → skip (no 404).
+ *
+ * @return array<int,array{key:string,label:string,url:string,is_pillar:bool}>
+ */
+function justice_theme_cluster_nav_items(): array {
+	$meta  = justice_theme_cluster_nav_meta();
+	$items = array();
+
+	foreach ( justice_theme_content_clusters() as $key => $c ) {
+		$label = isset( $meta[ $key ]['label'] ) ? $meta[ $key ]['label'] : $c['label'];
+		$area  = isset( $meta[ $key ]['area'] ) ? $meta[ $key ]['area'] : '';
+
+		$resolved = justice_theme_cluster_resolve_target( $c['pillar'] );
+
+		if ( $resolved ) {
+			$url       = $resolved['url'];
+			$is_pillar = true;
+		} elseif ( '' !== $area ) {
+			$base = (string) get_post_type_archive_link( 'justice_lawyer' );
+			if ( ! $base ) {
+				$base = home_url( '/lawyers/' );
+			}
+			$url       = function_exists( 'justice_theme_public_url' )
+				? justice_theme_public_url( add_query_arg( 'area', $area, $base ) )
+				: add_query_arg( 'area', $area, $base );
+			$is_pillar = false;
+		} else {
+			continue; // No live pillar and no directory fallback: do not emit a broken link.
+		}
+
+		$items[] = array(
+			'key'       => $key,
+			'label'     => $label,
+			'url'       => $url,
+			'is_pillar' => $is_pillar,
+		);
+	}
+
+	return $items;
+}

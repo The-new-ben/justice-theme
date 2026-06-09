@@ -93,14 +93,24 @@ $justice_footer_whatsapp_url = function_exists( 'justice_theme_public_whatsapp_u
 				<span style="position: absolute; bottom: 0; right: 0; width: 40px; height: 3px; background: var(--jt-accent); border-radius: 2px;"></span>
 			</h3>
 			<ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.8rem;">
-				<li><a href="<?php echo esc_url( home_url( '/family-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני משפחה וגירושין</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/criminal-defense-attorney/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">משפט פלילי</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/practice-areas/real-estate-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">מקרקעין ונדל"ן</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/tort-lawyer/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">נזיקין ותאונות</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/medical-malpractice-lawyer/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">רשלנות רפואית</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/practice-areas/labor-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני עבודה</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/traffic-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">תעבורה</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/tax-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני מיסים</a></li>
+				<?php
+				// Driven by the same GSC-derived cluster map as the primary nav and breadcrumbs,
+				// so footer practice links stay coherent and auto-reflect map changes. Each URL
+				// is a resolved live pillar or a /lawyers/?area= fallback — never a 404.
+				$justice_footer_practice = function_exists( 'justice_theme_cluster_nav_items' )
+					? justice_theme_cluster_nav_items()
+					: array();
+
+				if ( ! empty( $justice_footer_practice ) ) :
+					foreach ( $justice_footer_practice as $justice_footer_item ) : ?>
+						<li><a href="<?php echo esc_url( $justice_footer_item['url'] ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;"><?php echo esc_html( $justice_footer_item['label'] ); ?></a></li>
+					<?php endforeach;
+				else : ?>
+					<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=family-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">דיני משפחה וגירושין</a></li>
+					<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=criminal-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">משפט פלילי</a></li>
+					<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=real-estate-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">מקרקעין ונדל״ן</a></li>
+				<?php endif; ?>
+				<li><a href="<?php echo esc_url( home_url( '/#find-lawyer-guide' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">איך בוחרים עורך דין</a></li>
 			</ul>
 		</section>
 

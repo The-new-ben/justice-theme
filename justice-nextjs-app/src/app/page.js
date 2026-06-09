@@ -69,6 +69,28 @@ const mockLeads = [
   }
 ];
 
+const homepageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  'name': 'Jus-Tice Legal Portal',
+  'url': 'https://jus-tice.co.il/',
+  'logo': 'https://jus-tice.co.il/legal_tech_hero.png',
+  'description': 'פורטל המשפט המוביל בישראל המשלב כלי בינה מלאכותית מתקדמים ועורכי דין מורשים לשם הגנה משפטית איכותית.',
+  'telephone': '03-750-2020',
+  'address': {
+    '@type': 'PostalAddress',
+    'streetAddress': 'דרך מנחם בגין',
+    'addressLocality': 'תל אביב',
+    'addressCountry': 'IL'
+  },
+  'sameAs': [
+    'https://www.globes.co.il',
+    'https://www.calcalist.co.il',
+    'https://www.ynet.co.il',
+    'https://www.walla.co.il'
+  ]
+};
+
 export default function Home() {
   const getTabLabel = (tab) => {
     switch (tab) {
@@ -881,6 +903,7 @@ ${sevName}
 
   return (
     <div style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-color)', minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
+      <link rel="canonical" href="https://jus-tice.co.il/" />
       
       {/* Dynamic light leak underlays */}
       <div className="light-leak-blue" style={{ top: '-10%', left: '5%' }}></div>
@@ -922,6 +945,33 @@ ${sevName}
           </button>
         </div>
       </header>
+
+      {/* 2.2 Featured In Media Strip (E-E-A-T trust markers) */}
+      <section className="container animate-fade-in" style={{ padding: '0 24px 30px 24px', textAlign: 'center', position: 'relative', zIndex: 10 }}>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '12px',
+          padding: '16px',
+          borderRadius: '16px',
+          background: 'rgba(255, 255, 255, 0.4)',
+          border: '1px solid rgba(255, 255, 255, 0.6)',
+          backdropFilter: 'blur(20px)',
+          maxWidth: '840px',
+          margin: '0 auto'
+        }}>
+          <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#86868b', textTransform: 'uppercase', letterSpacing: '1px' }}>
+            אוזכר וסוקר בכלי התקשורת המובילים
+          </div>
+          <div style={{ display: 'flex', gap: '40px', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
+            <a href="https://www.globes.co.il" target="_blank" rel="noopener noreferrer" style={{ fontSize: '1.1rem', fontWeight: '900', color: '#1d1d1f', opacity: 0.65, textDecoration: 'none', transition: 'opacity 0.2s' }} onMouseEnter={(e) => e.target.style.opacity = 1} onMouseLeave={(e) => e.target.style.opacity = 0.65}>גלובס</a>
+            <a href="https://www.calcalist.co.il" target="_blank" rel="noopener noreferrer" style={{ fontSize: '1.1rem', fontWeight: '900', color: '#1d1d1f', opacity: 0.65, textDecoration: 'none', transition: 'opacity 0.2s' }} onMouseEnter={(e) => e.target.style.opacity = 1} onMouseLeave={(e) => e.target.style.opacity = 0.65}>כלכליסט</a>
+            <a href="https://www.ynet.co.il" target="_blank" rel="noopener noreferrer" style={{ fontSize: '1.1rem', fontWeight: '900', color: '#1d1d1f', opacity: 0.65, textDecoration: 'none', transition: 'opacity 0.2s' }} onMouseEnter={(e) => e.target.style.opacity = 1} onMouseLeave={(e) => e.target.style.opacity = 0.65}>Ynet</a>
+            <a href="https://www.walla.co.il" target="_blank" rel="noopener noreferrer" style={{ fontSize: '1.1rem', fontWeight: '900', color: '#1d1d1f', opacity: 0.65, textDecoration: 'none', transition: 'opacity 0.2s' }} onMouseEnter={(e) => e.target.style.opacity = 1} onMouseLeave={(e) => e.target.style.opacity = 0.65}>וואלה!</a>
+          </div>
+        </div>
+      </section>
 
       {/* 2.5 Customer Intake Strip (Original WordPress Vibe) */}
       <section className="container animate-fade-in" style={{ padding: '20px 24px 40px 24px', position: 'relative', zIndex: 10 }}>
@@ -2462,6 +2512,17 @@ ${sevName}
           </div>
         </div>
       </footer>
+
+      {/* JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homepageSchema)
+            .replace(/</g, '\\u003c')
+            .replace(/>/g, '\\u003e')
+            .replace(/&/g, '\\u0026')
+        }}
+      />
 
     </div>
   );

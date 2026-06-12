@@ -382,3 +382,49 @@ function justice_theme_seed_legal_editor_page(): void {
 	update_option( 'justice_legal_editor_page_seeded_v1', 1, false );
 }
 add_action( 'admin_init', 'justice_theme_seed_legal_editor_page' );
+
+/**
+ * Always-on filter so the bio page seeder runs without a manual mu-plugin gate.
+ * The seeder itself is idempotent (skips when the page already exists).
+ */
+add_filter( 'justice_theme_enable_legal_editor_page_seed', '__return_true' );
+
+/**
+ * Populate the legal-editor page body once (idempotent) from the canned bio
+ * in content-drafts/legal-editor-bio-body.html so it ships preloaded with the
+ * full bio paragraphs and not as an empty page.
+ */
+function justice_theme_populate_legal_editor_bio_body(): void {
+	if ( ! is_admin() || get_option( 'justice_legal_editor_bio_body_v1' ) ) {
+		return;
+	}
+	$page = get_page_by_path( 'adv-ben-betesh', OBJECT, 'page' );
+	if ( ! $page ) {
+		return;
+	}
+	$path = ( function_exists( 'justice_theme_private_path' ) ? justice_theme_private_path( 'content-drafts/legal-editor-bio-body.html' ) : JUSTICE_THEME_DIR . '/content-drafts/legal-editor-bio-body.html' );
+	if ( ! file_exists( $path ) ) {
+		return;
+	}
+	$body = (string) file_get_contents( $path );
+	$body = trim( $body );
+	if ( '' === $body ) {
+		return;
+	}
+	// Convert blank-line-separated paragraphs to <p> tags, leaving any inline tags intact.
+	$paragraphs = preg_split( "/\n{2,}/", $body );
+	$html       = '';
+	foreach ( (array) $paragraphs as $p ) {
+		$p = trim( (string) $p );
+		if ( '' === $p ) {
+			continue;
+		}
+		$html .= '<p>' . $p . "</p>\n";
+	}
+	wp_update_post( array(
+		'ID'           => $page->ID,
+		'post_content' => $html,
+	) );
+	update_option( 'justice_legal_editor_bio_body_v1', 1, false );
+}
+add_action( 'admin_init', 'justice_theme_populate_legal_editor_bio_body', 20 );

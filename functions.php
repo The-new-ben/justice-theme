@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'JUSTICE_THEME_VERSION', '1.1.89' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-06-12-eeat-live-pilot-article-v1' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-06-12-bio-pillars-publisher-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -72,6 +72,7 @@ $justice_theme_files = array(
 	'inc/pillar-pages.php',
 	'inc/pillar-article-seed.php',
 	'inc/content-draft-importer.php',
+	'inc/cluster-pillar-content-publisher.php',
 	'inc/live-content-publication.php',
 	'inc/publication-safety.php',
 	'inc/lawyer-recommendations.php',

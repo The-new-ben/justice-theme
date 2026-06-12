@@ -1,0 +1,94 @@
+priority,slug,cluster,role,status,impressions,words,h2,internal_links,severity,issues
+16670,real-estate-attorney,real-estate,pillar,200,151449,6839,2,1,10,em/en-dash x55 | few H2 (2) | few internal links (1)
+15419,criminal-defense-attorney,criminal-law,pillar,200,96270,137,1,10,15,em/en-dash x7 | THIN (137 heb words) | few H2 (1)
+7979,immigration-lawyer,immigration,pillar,200,72438,20915,2,1,10,em/en-dash x40 | few H2 (2) | few internal links (1)
+5089,medical-malpractice-lawyer,medical-malpractice,pillar,200,39047,222,4,12,12,em/en-dash x5 | THIN (222 heb words)
+5077,buying-property-in-greece,international-real-estate,spoke,200,56307,28896,3,10,8,em/en-dash x58 | emoji in body: ⚠️ | cliches: יתרה מזאת x2
+4484,apply-for-police-criminal-information-certificates,criminal-law,spoke,200,74625,1089,3,7,5,em/en-dash x4 | emoji in body: 📌
+4331,german-passport,immigration,spoke,200,72076,13872,11,7,5,em/en-dash x19
+4056,sex-crime-lawyer,criminal-law,spoke,200,36772,23516,24,5,10,"em/en-dash x262 | cliches: חשוב לציין x3, בעידן המודרני x3"
+4016,lawyer-for-buying-or-selling-a-house,real-estate,spoke,200,66834,2280,2,5,5,em/en-dash x8
+3355,how-much-will-a-criminal-defense-lawyer-cost,criminal-law,spoke,200,41841,2392,3,6,7,em/en-dash x19 | cliches: חשוב לציין x2
+3074,personal-injury-law,personal-injury,pillar,200,27848,7765,2,0,10,em/en-dash x25 | few H2 (2) | few internal links (0)
+2958,labor-lawyer,employment,pillar,200,49196,757,2,1,5,few H2 (2) | few internal links (1)
+2394,police-records-data-deletion,criminal-law,spoke,200,59761,652,3,6,3,em/en-dash x2 | emoji in body: 📌
+2273,romanian-passport,immigration,spoke,200,37779,4421,11,10,5,em/en-dash x10
+2063,lawyer-fee-outlook,employment,spoke,200,34284,7804,2,4,5,em/en-dash x203
+1932,real-estate-appraiser,real-estate,spoke,200,15999,8939,2,5,11,em/en-dash x29 | EN scaffold: lorem
+1879,traffic-lawyer,traffic-law,pillar,200,37486,1463,3,6,4,em/en-dash x1 | few H2 (3)
+1768,how-much-does-a-lawyer-cost,personal-injury,spoke,404,17581,0,,,9,PAGE NOT 200
+1704,real-estate-lawyer-guide,real-estate,spoke,200,33977,200,3,9,4,THIN (200 heb words)
+1691,tax-investigation-guide,criminal-law,spoke,200,28081,15836,18,6,5,em/en-dash x210
+1648,avoiding-mistakes-when-buying-property-in-cyprus,international-real-estate,spoke,200,27359,3738,21,6,5,em/en-dash x114
+1616,driving-under-the-influence,traffic-law,spoke,200,26830,596,2,5,5,em/en-dash x2 | cliches: חשוב לדעת x3
+1606,divorce-costs-2025,family-law,spoke,200,13283,12732,8,5,11,em/en-dash x6 | emoji in body: 💡⭐💰 | cliches: חשוב לדעת x3
+1605,golden-visa,immigration,spoke,200,26652,5321,2,7,5,em/en-dash x13
+1497,what-is-money-laundering,criminal-law,spoke,200,21281,8666,2,9,6,em/en-dash x14 | emoji in body: 📌
+1479,famous-criminal-defense-lawyer,criminal-law,spoke,200,18390,16806,4,5,7,em/en-dash x266 | cliches: בעידן המודרני x2
+1432,trusted-divorce-attorney-guide,family-law,spoke,200,23764,4237,2,6,5,em/en-dash x11
+1371,inheritance-order,inheritance,spoke,200,22750,2187,2,7,5,em/en-dash x6
+1248,portugal-relocation,immigration,spoke,200,11249,30271,34,5,10,"em/en-dash x1332 | cliches: חשוב לציין x3, חשוב לדעת x2"
+1193,drug-related-crime,criminal-law,spoke,200,39663,650,2,6,2,em/en-dash x1 | emoji in body: 📌
+1178,lawyer-near-me-criminal-law,criminal-law,spoke,200,16730,2080,2,6,6,em/en-dash x10 | emoji in body: 📌
+1160,returning-resident-rights-determining-tax-rate,tax,spoke,200,19230,14829,2,4,5,em/en-dash x122
+1092,what-is-child-custody,family-law,spoke,404,10815,0,,,9,PAGE NOT 200
+1083,economic-crimes-white-collar-lawyer,criminal-law,spoke,200,13439,27588,18,5,7,em/en-dash x465 | cliches: חשוב לציין x2
+1070,leading-criminal-law-firm,criminal-law,spoke,404,10597,0,,,9,PAGE NOT 200
+1057,sexual-offenses,criminal-law,spoke,200,17509,1098,2,6,5,em/en-dash x4 | emoji in body: 📌
+982,international-inheritance-wills-lawyer,inheritance,spoke,200,16263,13082,12,5,5,em/en-dash x283
+936,israel-tax-authority,tax,spoke,200,9265,14035,8,5,9,"em/en-dash x57 | cliches: חשוב לציין x2, חשוב לדעת x2"
+842,greece-price-list,international-real-estate,spoke,200,13925,10998,14,5,5,em/en-dash x11
+824,cerebral-palsy,medical-malpractice,spoke,200,13640,8177,2,4,5,em/en-dash x22
+795,joint-custody-shared-parenting,family-law,spoke,200,26394,1214,2,7,2,cliches: חשוב לציין x2
+771,top-global-tax-cpa-firms,tax,spoke,200,12754,7904,7,5,5,em/en-dash x156
+755,spouse-property-registration-guide,real-estate,spoke,200,12480,3650,2,5,5,em/en-dash x26
+754,speeding,traffic-law,spoke,200,37580,606,2,5,1,em/en-dash x1
+736,real-estate-lawyer-cost-2025,real-estate,spoke,200,12165,10600,9,5,5,em/en-dash x277
+725,germany-lawyers,immigration,spoke,200,11979,10471,55,5,5,em/en-dash x124
+681,punishment-for-offenses-of-causing-death-in-road-accidents,personal-injury,spoke,200,8417,2688,1,1,7,em/en-dash x15 | few internal links (1)
+652,land-appreciation-tax,real-estate,spoke,200,16205,2674,3,5,3,em/en-dash x3
+639,free-divorce-agreement-template,family-law,spoke,200,63799,1364,3,8,0,clean
+622,portugal-lawyers,international-real-estate,spoke,200,10274,15780,42,5,5,em/en-dash x160
+619,cyprus-lawyer,international-real-estate,spoke,200,10222,8428,2,9,5,em/en-dash x35
+606,mutual-divorce-agreement-2025,family-law,spoke,200,10004,2741,2,5,5,em/en-dash x35
+583,buying-property-in-portugal,international-real-estate,spoke,200,29040,2447,2,5,1,em/en-dash x1
+562,will-probate-objection,inheritance,spoke,200,28015,716,2,5,1,em/en-dash x1
+551,divorce-mediation-basics,family-law,spoke,200,13673,1155,2,5,3,em/en-dash x1 | cliches: חשוב לציין x2
+538,car-accident-auto-injury-lawyer,personal-injury,spoke,200,13349,695,2,5,3,em/en-dash x3
+522,uk-lawyer,employment,spoke,200,8600,18774,2,5,5,em/en-dash x29
+501,strategic-divorce-cost-planning,family-law,spoke,200,8253,2795,2,5,5,em/en-dash x47
+483,anesthesia-medical-malpractice,medical-malpractice,spoke,200,4732,301,3,5,9,em/en-dash x5 | THIN (301 heb words)
+468,medical-malpractice-in-the-united-states,medical-malpractice,spoke,200,23319,5769,2,6,1,em/en-dash x1
+450,employer-worker-relationship,employment,spoke,200,7401,3831,2,5,5,em/en-dash x8
+438,revocation-of-a-will-and-reviving-previous-will,inheritance,spoke,200,5377,11338,2,5,7,em/en-dash x17 | markdown **bold** x1
+386,medical-malpractice-common-errors-doctors-hospitals,medical-malpractice,spoke,200,6334,793,2,6,5,em/en-dash x5
+359,italy-lawyers,international-real-estate,spoke,200,5886,13154,2,8,5,em/en-dash x45
+334,israel-notary-public,international-real-estate,spoke,200,16589,977,2,7,1,em/en-dash x1
+303,employment-contract,employment,spoke,200,9986,1180,2,4,2,em/en-dash x2
+287,drug-trafficking,criminal-law,spoke,200,14239,561,9,11,1,em/en-dash x1
+265,driving-under-the-influence-of-drugs,traffic-law,spoke,200,13150,587,2,5,1,em/en-dash x1
+256,child-custody-modification,family-law,spoke,200,25542,1327,3,9,0,clean
+251,inheritance,inheritance,spoke,200,24967,805,2,5,0,clean
+251,marital-property-agreement,real-estate,spoke,200,12449,1177,2,5,1,em/en-dash x1
+250,registration-of-real-estate-israel,real-estate,spoke,200,24928,595,2,5,0,clean
+236,what-is-medical-malpractice-definition-examples,medical-malpractice,spoke,200,7773,1517,2,5,2,em/en-dash x2
+230,what-is-a-probate-order,inheritance,spoke,200,22944,675,2,5,0,clean
+227,israeli-labor-law,employment,spoke,200,3136,28,1,0,6,THIN (28 heb words) | few internal links (0)
+208,living-apart-together-legal-rights,family-law,spoke,200,20726,622,2,5,0,clean
+208,dui-refusal-blood-breath-urine-test,traffic-law,spoke,200,10296,591,2,5,1,em/en-dash x1
+202,israel-road-accident-compensation-law,personal-injury,spoke,200,20067,630,2,6,0,clean
+168,request-for-family-dispute-settlements,family-law,spoke,200,16679,886,2,5,0,clean
+151,legal-tax-saving-guide,tax,spoke,404,1408,0,,,9,PAGE NOT 200
+148,cohabitation-property-rights-for-unmarried-couples,family-law,spoke,200,14743,651,2,10,0,clean
+120,how-much-does-a-divorce-agreement-cost,family-law,spoke,200,11863,651,3,7,0,clean
+105,malpractice-cerebral-palsy,medical-malpractice,spoke,200,10441,954,2,5,0,clean
+78,tort-lawyer,personal-injury,spoke,200,3803,611,2,4,1,em/en-dash x1
+42,driver-with-36-valid-points-or-more-will-be-disqualified-from-holding-a-drivers-license,traffic-law,spoke,200,604,166,2,5,5,em/en-dash x1 | THIN (166 heb words)
+26,will-and-testament,inheritance,spoke,200,2488,775,2,7,0,clean
+20,lawyer-divorce,family-law,spoke,200,299,991,2,5,4,em/en-dash x4
+19,top-international-tax-law-firms,tax,spoke,200,138,8995,7,5,7,em/en-dash x144 | markdown **bold** x1
+11,inheritance-lawyer,inheritance,pillar,200,0,211,3,12,10,THIN (211 heb words) | few H2 (3)
+10,maximize-an-inheritance,inheritance,spoke,200,376,1689,2,5,1,em/en-dash x1
+9,divorce-lawyer,family-law,pillar,200,0,3352,23,22,8,markdown **bold** x5
+4,buying-property-abroad-guide,international-real-estate,pillar,404,0,0,,,3,PAGE NOT 200
+4,real-estate-tax-advisor,tax,pillar,404,0,0,,,3,PAGE NOT 200

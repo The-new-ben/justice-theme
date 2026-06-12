@@ -287,13 +287,18 @@ function justice_theme_cluster_pillar_crumb( int $post_id ): ?array {
 	if ( ! $c || 'spoke' !== $c['role'] ) {
 		return null;
 	}
+
+	// Only emit a crumb when the pillar resolves to a LIVE published page.
+	// A slug-built fallback URL would 404 when the pillar page does not exist
+	// (e.g. planned-but-unbuilt hubs) — never link to a dead URL.
 	$p = justice_theme_cluster_resolve_target( $c['pillar'] );
+	if ( ! $p ) {
+		return null;
+	}
+
 	return array(
-		'name' => $p['title'] ?? $c['label'],
-		'url'  => $p['url']
-			?? ( function_exists( 'justice_theme_public_url' )
-				? justice_theme_public_url( home_url( '/' . $c['pillar'] . '/' ) )
-				: home_url( '/' . $c['pillar'] . '/' ) ),
+		'name' => $p['title'],
+		'url'  => $p['url'],
 	);
 }
 
@@ -315,15 +320,10 @@ function justice_theme_render_cluster_backlink( int $post_id ): string {
 		return '';
 	}
 
+	// Resolve the pillar to a LIVE page only; a slug-built URL could 404 when the
+	// hub page has not been created yet. With no live pillar we still show resolving
+	// siblings, but never a dead parent link.
 	$p = justice_theme_cluster_resolve_target( $c['pillar'] );
-	if ( ! $p ) {
-		$p = array(
-			'url'   => function_exists( 'justice_theme_public_url' )
-				? justice_theme_public_url( home_url( '/' . $c['pillar'] . '/' ) )
-				: home_url( '/' . $c['pillar'] . '/' ),
-			'title' => $c['label'],
-		);
-	}
 
 	$sib_links = array();
 	foreach ( justice_theme_cluster_siblings( $slug, 3 ) as $s ) {
@@ -333,13 +333,20 @@ function justice_theme_render_cluster_backlink( int $post_id ): string {
 		}
 	}
 
+	// Nothing resolvable at all: emit nothing rather than an empty frame.
+	if ( ! $p && empty( $sib_links ) ) {
+		return '';
+	}
+
 	ob_start();
 	?>
 	<aside class="cluster-backlink" data-cluster="<?php echo esc_attr( $c['key'] ); ?>" aria-label="<?php esc_attr_e( 'ניווט באשכול התוכן', 'justice-theme' ); ?>">
-		<p class="cluster-backlink__parent">
-			<strong><?php esc_html_e( 'חלק מהמדריך:', 'justice-theme' ); ?></strong>
-			<a href="<?php echo esc_url( $p['url'] ); ?>"><?php echo esc_html( $p['title'] ); ?></a>
-		</p>
+		<?php if ( $p ) : ?>
+			<p class="cluster-backlink__parent">
+				<strong><?php esc_html_e( 'חלק מהמדריך:', 'justice-theme' ); ?></strong>
+				<a href="<?php echo esc_url( $p['url'] ); ?>"><?php echo esc_html( $p['title'] ); ?></a>
+			</p>
+		<?php endif; ?>
 		<?php if ( ! empty( $sib_links ) ) : ?>
 			<p class="cluster-backlink__siblings">
 				<strong><?php esc_html_e( 'ראו גם באותו נושא:', 'justice-theme' ); ?></strong>

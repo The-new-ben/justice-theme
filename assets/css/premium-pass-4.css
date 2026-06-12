@@ -561,3 +561,35 @@
 }
 .cluster-backlink a:hover { border-bottom-color: var(--color-navy, #16427a); }
 .cluster-backlink__siblings { color: var(--color-muted, #6e6a63); }
+
+/* === Bottom-of-article legal reviewer box === */
+.reviewer-box {
+  margin: 1.75rem 0 0;
+  padding: 1rem 1.25rem;
+  background: var(--jt-bg, #f7f8fa);
+  border: 1px solid var(--color-hairline, #e6e1d5);
+  border-radius: 4px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.reviewer-box p { margin: 0; }
+.reviewer-box__line strong { margin-inline-end: 0.35rem; }
+.reviewer-box__line a {
+  color: var(--color-navy, #16427a);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+.reviewer-box__cred { color: var(--color-muted, #6e6a63); margin-inline-start: 0.4rem; }
+.reviewer-box__note { color: var(--color-muted, #6e6a63); font-size: 0.85rem; margin-top: 0.4rem; }
+
+/* === Legal editor bio page === */
+.legal-editor-bio__role { color: var(--color-muted, #6e6a63); font-size: 1.05rem; margin-top: 0.4rem; }
+.legal-editor-bio__facts {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  background: var(--jt-bg, #f7f8fa);
+  border-inline-start: 3px solid var(--color-navy, #16427a);
+  border-radius: 4px;
+}
+.legal-editor-bio__facts p { margin: 0.25rem 0; }
+.legal-editor-bio__body h2 { margin-top: 2rem; }

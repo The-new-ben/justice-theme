@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'JUSTICE_THEME_VERSION', '1.1.89' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-06-09-eeat-site-reviewer-v1' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-06-12-eeat-live-pilot-article-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 

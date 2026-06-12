@@ -508,11 +508,12 @@ function justice_theme_markdown_draft_to_html( string $raw ): string {
 		}
 
 		if ( preg_match( '/^#\s+(.+)$/', $line, $matches ) ) {
+			// The "# " line is the post title (extracted separately); skip it in the
+			// body so rendered articles do not carry a duplicate in-content <h1>.
 			if ( $list ) {
 				$html .= "</ul>\n";
 				$list  = false;
 			}
-			$html .= '<h1>' . esc_html( $matches[1] ) . "</h1>\n";
 			continue;
 		}
 

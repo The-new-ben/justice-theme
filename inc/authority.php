@@ -34,25 +34,34 @@ function justice_theme_authority_organization_schema(): array {
  */
 function justice_theme_site_legal_reviewer(): array {
 	return array(
-		'name'        => '', // e.g. 'עו״ד ישראל ישראלי' — exactly as in ספר עורכי הדין
-		'slug'        => 'legal-editor',
-		'bar_number'  => '', // real license number from israelbar.org.il
-		'jobTitle'    => 'עורך דין, עורך ומבקר תוכן משפטי',
-		'admitted'    => '', // year admitted, e.g. '2009'
-		'law_school'  => '', // e.g. 'אוניברסיטת תל אביב, הפקולטה למשפטים'
-		'profile_url' => '', // author bio page, e.g. home_url('/legal-editor/')
-		'same_as'     => array(), // REAL urls only: israelbar.org.il profile + real LinkedIn
-		'knowsAbout'  => array( 'Israeli Law', 'Legal Information', 'Civil Procedure' ),
+		// Real data from the Israel Bar Association lawyer card (owner-supplied 2026-06-12).
+		// Card: https://www.israelbar.biz/lawyer-fd/?lawyer=Cqcs/1T4N0I
+		'name'             => 'עו"ד בן בטש',
+		'name_en'          => 'Ben Betesh, Adv.',
+		'slug'             => 'adv-ben-betesh',
+		'bar_number'       => '', // not displayed on the IBA card; registry URL is the verifiable credential
+		'bar_registry_url' => 'https://www.israelbar.biz/lawyer-fd/?lawyer=Cqcs/1T4N0I',
+		'jobTitle'         => 'עורך דין, עורך אחראי ומבקר התוכן המשפטי של Jus-Tice',
+		'admitted'         => '2000-11-30', // תאריך הסמכה per the IBA card
+		'district'         => 'תל אביב',
+		'law_school'       => '',
+		'profile_url'      => justice_theme_public_url( home_url( '/adv-ben-betesh/' ) ),
+		'same_as'          => array(
+			'https://www.israelbar.biz/lawyer-fd/?lawyer=Cqcs/1T4N0I',
+		),
+		'knowsAbout'       => array( 'Israeli Law', 'Civil Law', 'Legal Information', 'Legal Procedure' ),
 	);
 }
 
 /**
- * Whether the site legal reviewer has the minimum real data to be emitted.
- * Requires both a name and a bar number — anything less stays silent (no fabrication).
+ * Whether the site legal reviewer has the minimum REAL data to be emitted.
+ * Requires a name plus a verifiable credential: a bar number or a bar-registry
+ * profile URL. Anything less stays silent (no fabrication).
  */
 function justice_theme_site_legal_reviewer_is_configured(): bool {
 	$r = justice_theme_site_legal_reviewer();
-	return '' !== trim( (string) $r['name'] ) && '' !== trim( (string) $r['bar_number'] );
+	$has_credential = '' !== trim( (string) $r['bar_number'] ) || '' !== trim( (string) ( $r['bar_registry_url'] ?? '' ) );
+	return '' !== trim( (string) $r['name'] ) && $has_credential;
 }
 
 /**
@@ -70,6 +79,25 @@ function justice_theme_site_legal_reviewer_schema(): ?array {
 		? (string) $r['profile_url']
 		: justice_theme_public_url( home_url( '/' ) );
 
+	$credential = array(
+		'@type'              => 'EducationalOccupationalCredential',
+		'credentialCategory' => 'Bar admission',
+		'recognizedBy'       => array(
+			'@type' => 'Organization',
+			'name'  => 'לשכת עורכי הדין בישראל',
+			'url'   => 'https://www.israelbar.org.il',
+		),
+	);
+	if ( '' !== trim( (string) $r['bar_number'] ) ) {
+		$credential['identifier'] = (string) $r['bar_number'];
+	}
+	if ( '' !== trim( (string) ( $r['bar_registry_url'] ?? '' ) ) ) {
+		$credential['url'] = (string) $r['bar_registry_url'];
+	}
+	if ( '' !== trim( (string) ( $r['admitted'] ?? '' ) ) ) {
+		$credential['dateCreated'] = (string) $r['admitted'];
+	}
+
 	$person = array(
 		'@type'         => 'Person',
 		'@id'           => justice_theme_public_url( home_url( '/#person-legal-editor' ) ),
@@ -78,17 +106,11 @@ function justice_theme_site_legal_reviewer_schema(): ?array {
 		'jobTitle'      => (string) $r['jobTitle'],
 		'worksFor'      => justice_theme_authority_organization_schema(),
 		'knowsAbout'    => array_values( (array) $r['knowsAbout'] ),
-		'hasCredential' => array(
-			'@type'              => 'EducationalOccupationalCredential',
-			'credentialCategory' => 'Bar admission',
-			'identifier'         => (string) $r['bar_number'],
-			'recognizedBy'       => array(
-				'@type' => 'Organization',
-				'name'  => 'לשכת עורכי הדין בישראל',
-				'url'   => 'https://www.israelbar.org.il',
-			),
-		),
+		'hasCredential' => $credential,
 	);
+	if ( '' !== trim( (string) ( $r['name_en'] ?? '' ) ) ) {
+		$person['alternateName'] = (string) $r['name_en'];
+	}
 
 	$same_as = array_values( array_filter( array_map( 'strval', (array) $r['same_as'] ) ) );
 	if ( ! empty( $same_as ) ) {
@@ -223,7 +245,7 @@ function justice_theme_authority_article_reviewer_schema( int $post_id ): ?array
  * @return array<string,mixed>|null
  */
 function justice_theme_article_reviewer_with_fallback( int $post_id ): ?array {
-	$expert = justice_theme_authority_article_reviewer_schema( $post_id );
+	$expert = justice_theme_article_reviewer_expert_only( $post_id );
 	if ( $expert ) {
 		return $expert;
 	}
@@ -231,11 +253,46 @@ function justice_theme_article_reviewer_with_fallback( int $post_id ): ?array {
 	return justice_theme_site_legal_reviewer_schema();
 }
 
+/**
+ * Topic-expert reviewer only (no owner fallback). Used for the TOP byline so the
+ * owner appears only in the bottom reviewer box, per owner instruction.
+ *
+ * Order: expert explicitly connected to the article → cluster default expert
+ * (family-law articles default to Maya Rotenberg, the verified family-law
+ * authority, even without an explicit connection) → null.
+ *
+ * @param int $post_id Article ID.
+ * @return array<string,mixed>|null
+ */
+function justice_theme_article_reviewer_expert_only( int $post_id ): ?array {
+	$expert = justice_theme_authority_article_reviewer_schema( $post_id );
+	if ( $expert ) {
+		return $expert;
+	}
+
+	$cluster = justice_theme_authority_article_cluster( $post_id );
+	if ( '' === $cluster ) {
+		return null;
+	}
+
+	foreach ( justice_theme_authority_verified_people() as $slug => $person ) {
+		$clusters = array_map( 'sanitize_key', (array) $person['practice_clusters'] );
+		if ( in_array( $cluster, $clusters, true ) ) {
+			return justice_theme_authority_get_verified_person_schema( $slug );
+		}
+	}
+
+	return null;
+}
+
 function justice_theme_article_visible_attribution( int $post_id ): array {
-	$reviewer = justice_theme_article_reviewer_with_fallback( $post_id );
+	// TOP byline: topic expert only (Maya on family law). The site legal reviewer
+	// (the owner) is deliberately NOT shown here; he appears in the bottom
+	// reviewer box rendered by justice_theme_append_reviewer_box().
+	$reviewer = justice_theme_article_reviewer_expert_only( $post_id );
 	if ( $reviewer ) {
 		return array(
-			'label' => 'נבדק משפטית על ידי',
+			'label' => 'נבדק מקצועית על ידי',
 			'name'  => (string) $reviewer['name'],
 			'url'   => (string) $reviewer['url'],
 		);
@@ -249,3 +306,79 @@ function justice_theme_article_visible_attribution( int $post_id ): array {
 		'url'   => (string) $organization['url'],
 	);
 }
+
+/**
+ * Bottom-of-article reviewer box. This is where the site legal reviewer (the
+ * owner) is shown: end of the article, not the top, per owner instruction.
+ *
+ * Renders for singular articles/posts and mapped cluster pages, main query only.
+ * Shows whoever the full reviewer chain resolves (family-law → Maya; everything
+ * else → the owner once configured; nothing when nobody real resolves).
+ *
+ * @param string $content Post content.
+ * @return string
+ */
+function justice_theme_append_reviewer_box( string $content ): string {
+	if ( is_admin() || ! is_singular() || ! in_the_loop() || ! is_main_query() ) {
+		return $content;
+	}
+
+	$post_id  = (int) get_the_ID();
+	$reviewer = justice_theme_article_reviewer_with_fallback( $post_id );
+	if ( ! $reviewer ) {
+		return $content;
+	}
+
+	$r        = justice_theme_site_legal_reviewer();
+	$is_owner = isset( $reviewer['@id'] ) && false !== strpos( (string) $reviewer['@id'], '#person-legal-editor' );
+
+	$line = $is_owner && '' !== trim( (string) ( $r['admitted'] ?? '' ) )
+		? sprintf( 'חבר לשכת עורכי הדין בישראל משנת %s.', substr( (string) $r['admitted'], 0, 4 ) )
+		: '';
+
+	ob_start();
+	?>
+	<aside class="reviewer-box" aria-label="<?php esc_attr_e( 'ביקורת משפטית', 'justice-theme' ); ?>">
+		<p class="reviewer-box__line">
+			<strong><?php esc_html_e( 'נבדק משפטית על ידי', 'justice-theme' ); ?></strong>
+			<a href="<?php echo esc_url( (string) $reviewer['url'] ); ?>"><?php echo esc_html( (string) $reviewer['name'] ); ?></a>
+			<?php if ( '' !== $line ) : ?>
+				<span class="reviewer-box__cred"><?php echo esc_html( $line ); ?></span>
+			<?php endif; ?>
+		</p>
+		<p class="reviewer-box__note"><?php esc_html_e( 'המידע באתר הוא מידע כללי ואינו מהווה ייעוץ משפטי. לפני פעולה משפטית יש להתייעץ עם עורך דין.', 'justice-theme' ); ?></p>
+	</aside>
+	<?php
+	return $content . (string) ob_get_clean();
+}
+add_filter( 'the_content', 'justice_theme_append_reviewer_box', 24 );
+
+/**
+ * Seed the legal-editor bio page into the CMS (real WordPress page, not a
+ * virtual route), following the theme's gated seeding pattern. Runs once when
+ * an admin enables the filter; safe to leave enabled (idempotent).
+ */
+function justice_theme_seed_legal_editor_page(): void {
+	if ( ! justice_theme_admin_cms_write_enabled( 'justice_theme_enable_legal_editor_page_seed' ) || get_option( 'justice_legal_editor_page_seeded_v1' ) ) {
+		return;
+	}
+
+	if ( get_page_by_path( 'adv-ben-betesh', OBJECT, 'page' ) ) {
+		update_option( 'justice_legal_editor_page_seeded_v1', 1, false );
+		return;
+	}
+
+	wp_insert_post( array(
+		'post_type'    => 'page',
+		'post_status'  => 'publish',
+		'post_name'    => 'adv-ben-betesh',
+		'post_title'   => 'עו"ד בן בטש',
+		'post_content' => '',
+		'meta_input'   => array(
+			'_wp_page_template' => 'page-legal-editor.php',
+		),
+	) );
+
+	update_option( 'justice_legal_editor_page_seeded_v1', 1, false );
+}
+add_action( 'admin_init', 'justice_theme_seed_legal_editor_page' );

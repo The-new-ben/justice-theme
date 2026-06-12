@@ -65,6 +65,10 @@ function justice_theme_content_clusters(): array {
 				'trusted-divorce-attorney-guide',
 				'strategic-divorce-cost-planning',
 				'request-for-family-dispute-settlements',
+				// Added 2026-06-12 from live GSC per-query cannibalization check.
+				'lawyer-divorce-israel',
+				'lawyer-divorce-guide-proceedings-costs-rights',
+				'the-recommended-family-lawyers',
 			),
 		),
 
@@ -87,6 +91,12 @@ function justice_theme_content_clusters(): array {
 				'famous-criminal-defense-lawyer',
 				'leading-criminal-law-firm',
 				'lawyer-near-me-criminal-law',
+				// Added 2026-06-12 from live GSC per-query cannibalization check: these
+				// pages compete with the pillar for the head terms; as mapped spokes they
+				// now link INTO the hub instead of fighting it.
+				'best-criminal-defence-lawyers-worldwide',
+				'top-criminal-lawyer-tel-aviv',
+				'criminal-defenses',
 			),
 		),
 

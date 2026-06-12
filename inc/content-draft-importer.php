@@ -567,7 +567,19 @@ function justice_theme_markdown_inline_to_html( string $text ): string {
 			continue;
 		}
 
-		$html .= esc_html( $part );
+		// Allow a safe inline subset of HTML written directly in drafts
+		// (<strong>, <em>, <a href> including external authority links).
+		// Everything else is stripped; the final pass below is wp_kses_post.
+		$html .= wp_kses(
+			$part,
+			array(
+				'a'      => array( 'href' => true, 'title' => true, 'rel' => true, 'target' => true ),
+				'strong' => array(),
+				'em'     => array(),
+				'b'      => array(),
+				'i'      => array(),
+			)
+		);
 	}
 
 	return wp_kses_post( $html );

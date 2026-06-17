@@ -324,6 +324,11 @@ function justice_theme_append_reviewer_box( string $content ): string {
 	}
 
 	$post_id  = (int) get_the_ID();
+	$slug     = (string) get_post_field( 'post_name', $post_id );
+	if ( 'legal-tools' === $slug ) {
+		return $content;
+	}
+
 	$reviewer = justice_theme_article_reviewer_with_fallback( $post_id );
 	if ( ! $reviewer ) {
 		return $content;

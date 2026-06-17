@@ -60,12 +60,14 @@ while ( have_posts() ) :
 				<?php the_content(); ?>
 			</div>
 			
+			<?php if ( 'legal-tools' !== get_post_field( 'post_name', get_the_ID() ) ) : ?>
 			<div class="single-article__eeat-box">
 				<div class="eeat-box__content">
 					<h4><?php esc_html_e( 'מדיניות עריכה וגילוי נאות', 'justice-theme' ); ?></h4>
 					<p><?php esc_html_e( 'המידע במאמר זה הוא מידע כללי בלבד ואינו מהווה ייעוץ משפטי. אנו עושים מאמצים רבים להביא מידע מדויק ועדכני ככל הניתן, אך מומלץ תמיד להתייעץ עם עורך דין מוסמך בטרם נקיטת פעולה משפטית.', 'justice-theme' ); ?></p>
 				</div>
 			</div>
+			<?php endif; ?>
 
 			<div class="single-article__lead-cta">
 				<h3><?php echo esc_html( $article_contextual_cta['title'] ); ?></h3>

@@ -163,10 +163,10 @@ add_action( 'rest_api_init', function () {
 					'Authorization' => 'Bearer ' . $key,
 				),
 				'body' => wp_json_encode( array(
-					'model'       => apply_filters( 'justice_ai_model', JUSTICE_AI_MODEL ),
-					'temperature' => 0.25,
-					'max_tokens'  => JUSTICE_AI_MAX_OUTPUT_TOKENS,
-					'messages'    => array(
+					'model'                 => apply_filters( 'justice_ai_model', JUSTICE_AI_MODEL ),
+					'temperature'           => 0.25,
+					'max_completion_tokens' => JUSTICE_AI_MAX_OUTPUT_TOKENS,
+					'messages'              => array(
 						array( 'role' => 'system', 'content' => $sys ),
 						array( 'role' => 'user',   'content' => $user ),
 					),
@@ -176,8 +176,21 @@ add_action( 'rest_api_init', function () {
 			if ( is_wp_error( $r ) ) {
 				return new WP_REST_Response( array( 'error' => 'upstream' ), 200 );
 			}
-			$d = json_decode( wp_remote_retrieve_body( $r ), true );
+			$code = (int) wp_remote_retrieve_response_code( $r );
+			$raw  = wp_remote_retrieve_body( $r );
+			$d    = json_decode( $raw, true );
+			if ( $code < 200 || $code >= 300 || ! is_array( $d ) || isset( $d['error'] ) ) {
+				$message = isset( $d['error']['message'] ) ? substr( sanitize_text_field( $d['error']['message'] ), 0, 220 ) : 'OpenAI request failed';
+				return new WP_REST_Response( array(
+					'error'  => 'upstream',
+					'status' => $code,
+					'detail' => $message,
+				), 200 );
+			}
 			$text = isset( $d['choices'][0]['message']['content'] ) ? trim( (string) $d['choices'][0]['message']['content'] ) : '';
+			if ( '' === $text ) {
+				return new WP_REST_Response( array( 'error' => 'upstream_empty' ), 200 );
+			}
 			$prompt_tokens = isset( $d['usage']['prompt_tokens'] ) ? (int) $d['usage']['prompt_tokens'] : (int) ceil( $input_chars / 4 );
 			$completion_tokens = isset( $d['usage']['completion_tokens'] ) ? (int) $d['usage']['completion_tokens'] : JUSTICE_AI_MAX_OUTPUT_TOKENS;
 			$cost = justice_ai_guard_record_usage( $input_chars, $prompt_tokens, $completion_tokens );

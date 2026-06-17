@@ -688,6 +688,11 @@ function justice_eeat_inject_content_signals( $content ) {
 	}
 
 	$post_id = get_the_ID();
+	$slug    = get_post_field( 'post_name', $post_id );
+
+	if ( 'legal-tools' === $slug ) {
+		return $content;
+	}
 
 	// Only fire on pages/articles with substantial content (legal pillar/cluster pages)
 	$is_legal_page = is_singular( array( 'post', 'articles', 'page' ) ) && strlen( $content ) > 2000;
@@ -698,7 +703,6 @@ function justice_eeat_inject_content_signals( $content ) {
 	}
 
 	$author   = justice_eeat_resolve_author( $post_id );
-	$slug     = get_post_field( 'post_name', $post_id );
 	$area     = get_post_meta( $post_id, 'author_practice_area', true );
 	if ( ! $area ) {
 		// Guess from slug

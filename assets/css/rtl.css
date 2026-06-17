@@ -69,6 +69,11 @@ body {
   border-left: 0;
 }
 
+body.postid-20589 .reviewer-box,
+body.postid-20589 .single-article__eeat-box {
+  display: none !important;
+}
+
 /* Cluster arrow indicator — flip for RTL */
 .cluster-links li::before {
   content: '\2192';

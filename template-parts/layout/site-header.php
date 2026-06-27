@@ -114,7 +114,7 @@ $justice_topic_links = array(
 					<div>
 						<?php if ( $justice_whatsapp_url ) : ?>
 							<a class="primary-navigation__mobile-action primary-navigation__mobile-action--whatsapp" href="<?php echo esc_url( $justice_whatsapp_url ); ?>" target="_blank" rel="noopener" data-whatsapp-surface="mobile_menu" data-lead-utm-source="mobile_menu" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help">
-								<?php esc_html_e( 'פנייה בוואטסאפ', 'justice-theme' ); ?>
+								<?php esc_html_e( 'פנייה ישירה לעורך דין', 'justice-theme' ); ?>
 							</a>
 						<?php endif; ?>
 						<?php if ( $justice_phone ) : ?>

@@ -4781,21 +4781,36 @@
   }
 
   .whatsapp-float {
-    width: 48px !important;
-    height: 48px !important;
-    left: max(14px, env(safe-area-inset-left, 0px)) !important;
-    bottom: calc(126px + env(safe-area-inset-bottom, 0px)) !important;
-    z-index: 850 !important;
-    box-shadow: 0 10px 24px rgba(7, 21, 47, 0.18) !important;
+    width: calc(100vw - 28px) !important;
+    max-width: 460px !important;
+    min-width: 0 !important;
+    height: 54px !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+    border-radius: 999px !important;
+    padding: 0 20px !important;
+    gap: 10px !important;
+    font-weight: 700 !important;
+    font-size: 1.02rem !important;
+    line-height: 1.1 !important;
+    z-index: 950 !important;
+    box-shadow: 0 10px 26px rgba(7, 21, 47, 0.22) !important;
   }
 
   .whatsapp-float svg {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
+    flex: 0 0 auto;
+  }
+
+  .whatsapp-float__label {
+    display: inline !important;
   }
 
   body:not(.home) .whatsapp-float {
-    display: none !important;
+    display: flex !important;
   }
 
   html body.rtl a.whatsapp-button {
@@ -4867,4 +4882,12 @@
     width: 100%;
     margin-inline-end: 0;
   }
+}
+
+/* WhatsApp floating CTA: icon-only circle on desktop, wide labeled pill on mobile (label shown via the mobile media query above). */
+.whatsapp-float__label {
+  display: none;
+  white-space: nowrap;
+  font-weight: 700;
+  letter-spacing: -0.2px;
 }

@@ -286,15 +286,18 @@
 		var urgency;
 		var message;
 
-		if (!link.closest('#ask-lawyer')) {
-			return;
-		}
-
 		if (lowerHref.indexOf('wa.me/') === -1 && lowerHref.indexOf('api.whatsapp.com') === -1) {
 			return;
 		}
 
-		form = document.querySelector('#ask-lawyer form');
+		// A WhatsApp link inside the intake form captures that form. Sitewide WhatsApp
+		// buttons (floating CTA, mobile menu, header) capture an intake form when the
+		// page has one and the visitor filled it; otherwise they keep the default prefill.
+		if (link.closest('#ask-lawyer')) {
+			form = document.querySelector('#ask-lawyer form');
+		} else {
+			form = document.querySelector('#ask-lawyer form, #lawyer-inquiry form');
+		}
 
 		if (!form) {
 			return;

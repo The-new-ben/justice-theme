@@ -18,7 +18,7 @@ $justice_phone = function_exists( 'justice_theme_option' )
 	<div class="container">
 		<div class="cta-section__inner">
 			<span class="section-header__eyebrow" style="color: rgba(255,255,255,0.7);"><?php esc_html_e( 'מוכנים להתחיל?', 'justice-theme' ); ?></span>
-			<h2 style="color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); margin: 0.5rem 0 1rem;"><?php esc_html_e( 'מצאו את עורך הדין המתאים לכם — עכשיו', 'justice-theme' ); ?></h2>
+			<h2 style="color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); margin: 0.5rem 0 1rem;"><?php esc_html_e( 'מצאו את עורך הדין המתאים לכם עכשיו', 'justice-theme' ); ?></h2>
 			<p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem; line-height: 1.7;"><?php esc_html_e( 'חיפוש חינם לפי תחום ומיקום, ייעוץ ראשוני, ומדריכים מקצועיים שיעזרו לכם לקבל החלטה מושכלת.', 'justice-theme' ); ?></p>
 
 			<div class="cta-section__actions" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">

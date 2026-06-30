@@ -165,6 +165,25 @@ function justice_theme_handle_legal_tools_lead( WP_REST_Request $request ) {
 }
 
 /**
+ * True when the current request resolved to the page whose slug is
+ * "legal-tools", checked directly against the queried post object instead
+ * of is_page(). The justice_legal_tool CPT also registers a rewrite slug
+ * of "legal-tools" (its archive base), which leaves this site's main query
+ * with is_page=false / is_single=true for that page even though the right
+ * page object (post_type "page", post_name "legal-tools") is what's
+ * actually loaded - so is_page('legal-tools') is not reliable here.
+ *
+ * @return bool
+ */
+function justice_theme_is_legal_tools_page(): bool {
+	$queried = get_queried_object();
+
+	return $queried instanceof WP_Post
+		&& 'page' === $queried->post_type
+		&& 'legal-tools' === $queried->post_name;
+}
+
+/**
  * Force page-legal-tools.php for the /legal-tools/ page.
  *
  * WP's automatic page-{slug}.php template hierarchy should already pick this
@@ -182,7 +201,7 @@ function justice_theme_force_legal_tools_template( $template ) {
 		return $template;
 	}
 
-	if ( ! is_page( 'legal-tools' ) ) {
+	if ( ! justice_theme_is_legal_tools_page() ) {
 		return $template;
 	}
 

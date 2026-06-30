@@ -143,7 +143,7 @@ function justice_theme_enqueue_assets() {
 		);
 	}
 
-	if ( is_page_template( 'page-legal-tools.php' ) || is_page( 'legal-tools' ) ) {
+	if ( is_page_template( 'page-legal-tools.php' ) || ( function_exists( 'justice_theme_is_legal_tools_page' ) && justice_theme_is_legal_tools_page() ) ) {
 		wp_enqueue_style(
 			'justice-legal-tools-app',
 			JUSTICE_THEME_URI . '/assets/css/legal-tools-app.css',

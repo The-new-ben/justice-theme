@@ -178,9 +178,17 @@ function justice_theme_handle_legal_tools_lead( WP_REST_Request $request ) {
 function justice_theme_is_legal_tools_page(): bool {
 	$queried = get_queried_object();
 
-	return $queried instanceof WP_Post
-		&& 'page' === $queried->post_type
-		&& 'legal-tools' === $queried->post_name;
+	if ( $queried instanceof WP_Post && 'page' === $queried->post_type && 'legal-tools' === $queried->post_name ) {
+		return true;
+	}
+
+	// Fallback for hooks that fire before the main query settles on this
+	// page (e.g. wp_enqueue_scripts can run before get_queried_object() is
+	// reliable here, the same collision noted above). Matches the bare
+	// /legal-tools/ request path directly, independent of query state.
+	$request_path = isset( $_SERVER['REQUEST_URI'] ) ? wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ) : '';
+
+	return 'legal-tools' === trim( (string) $request_path, '/' );
 }
 
 /**

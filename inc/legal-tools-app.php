@@ -165,6 +165,29 @@ function justice_theme_handle_legal_tools_lead( WP_REST_Request $request ) {
 }
 
 /**
- * Auto-load page-legal-tools.php for the /legal-tools/ page via WP's
- * standard page-{slug}.php template hierarchy - no admin action needed.
+ * Force page-legal-tools.php for the /legal-tools/ page.
+ *
+ * WP's automatic page-{slug}.php template hierarchy should already pick this
+ * up, but the live page for this slug was previously rendering through the
+ * generic page template (with an <iframe> to a manually-uploaded copy of the
+ * app baked into its post_content) and not the new template - this explicit
+ * template_include override guarantees the gated app renders regardless of
+ * how that page's content or template assignment is set in the database.
+ *
+ * @param string $template Resolved template path.
+ * @return string
  */
+function justice_theme_force_legal_tools_template( $template ) {
+	if ( is_admin() ) {
+		return $template;
+	}
+
+	if ( ! is_page( 'legal-tools' ) ) {
+		return $template;
+	}
+
+	$forced = JUSTICE_THEME_DIR . '/page-legal-tools.php';
+
+	return file_exists( $forced ) ? $forced : $template;
+}
+add_filter( 'template_include', 'justice_theme_force_legal_tools_template', 99 );

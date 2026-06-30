@@ -14,6 +14,10 @@ get_header();
 
 <?php get_template_part( 'template-parts/sections/customer-intake-strip' ); ?>
 
+<?php get_template_part( 'template-parts/sections/legaltech-tools' ); ?>
+
+<?php get_template_part( 'template-parts/sections/money-keywords-seo' ); ?>
+
 <?php get_template_part( 'template-parts/sections/homepage-legal-service-flow' ); ?>
 
 <?php get_template_part( 'template-parts/sections/homepage-legal-help-router' ); ?>
@@ -29,8 +33,6 @@ get_header();
 <?php get_template_part( 'template-parts/sections/featured-lawyers' ); ?>
 
 <?php get_template_part( 'template-parts/sections/legal-service-providers' ); ?>
-
-<?php get_template_part( 'template-parts/sections/legaltech-tools' ); ?>
 
 <?php get_template_part( 'template-parts/sections/latest-articles' ); ?>
 

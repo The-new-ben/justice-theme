@@ -122,23 +122,23 @@ if ( ! $has_btl_appeal_tool ) {
 	<div class="container">
 		<div class="section-header section-header--split">
 			<div>
-				<p class="section-header__eyebrow">כלים משפטיים</p>
-				<h2>מכינים טיוטה מסודרת לפני בדיקת עורך דין</h2>
-				<p>בחרו נושא, מלאו שאלון קצר וקבלו טיוטה ראשונית בעברית או באנגלית. מתאים להכנה, בדיקה וסידור מסמכים לפני החלטה משפטית.</p>
+				<p class="section-header__eyebrow">כלי AI משפטיים, בינה מלאכותית שעובדת בשבילכם</p>
+				<h2>מנסים בחינם, בלי הרשמה. ממשיכים לטיוטה מלאה כשרוצים.</h2>
+				<p>בוחרים נושא, ממלאים שאלון קצר ומקבלים טיוטה ראשונית מיד, בעברית או באנגלית, ללא תשלום וללא הרשמה. שדרוג עם AI, הדפסה והורדה פתוחים אחרי פרטי קשר קצרים.</p>
 			</div>
-			<a class="button button--primary" href="<?php echo esc_url( $legaltech_all_tools_url ); ?>" data-lead-source-keyword="כלים משפטיים" data-lead-utm-source="homepage" data-lead-utm-medium="legaltech_gateway" data-lead-utm-campaign="legaltech_tools">כל הכלים</a>
+			<a class="button button--primary" href="<?php echo esc_url( $legaltech_all_tools_url ); ?>" data-lead-source-keyword="כלים משפטיים" data-lead-utm-source="homepage" data-lead-utm-medium="legaltech_gateway" data-lead-utm-campaign="legaltech_tools">לכל 50 הכלים</a>
 		</div>
 
 		<div class="legaltech-tools__grid">
 			<div class="legaltech-tools__console">
-				<span class="legaltech-tools__label">50 כלים מוכנים</span>
+				<span class="legaltech-tools__label">50 כלים מוכנים, ללא תשלום לניסיון</span>
 				<h3>מתחילים מהעובדות, מקבלים מסמך שאפשר לבדוק.</h3>
 				<div class="legaltech-chat">
 					<p><strong>בחירה:</strong> הסכם גירושין, חוזה דירה, מכתב התראה או תביעה קטנה.</p>
 					<p><strong>שאלון:</strong> הצדדים, העובדות, הסכומים, מועדים ומסמכים חסרים.</p>
-					<p><strong>תוצאה:</strong> טיוטה מסודרת להעתקה, הדפסה או בדיקה מקצועית.</p>
+					<p><strong>תוצאה:</strong> טיוטה מסודרת, ואפשר גם לצרף מסמך קיים לבדיקת עורך דין.</p>
 				</div>
-				<a class="button button--gold" href="<?php echo esc_url( $legaltech_all_tools_url ); ?>" data-lead-area="general" data-lead-message="אני רוצה להכין טיוטה משפטית. הנושא הוא: " data-lead-source-keyword="כלים להכנת מסמכים משפטיים" data-lead-utm-source="homepage" data-lead-utm-medium="legaltech_gateway" data-lead-utm-campaign="legaltech_tools">פתיחת הכלים</a>
+				<a class="button button--gold" href="<?php echo esc_url( $legaltech_all_tools_url ); ?>" data-lead-area="general" data-lead-message="אני רוצה להכין טיוטה משפטית. הנושא הוא: " data-lead-source-keyword="כלים להכנת מסמכים משפטיים" data-lead-utm-source="homepage" data-lead-utm-medium="legaltech_gateway" data-lead-utm-campaign="legaltech_tools">פתיחת הכלים בחינם</a>
 			</div>
 
 			<div class="legaltech-tools__cards">

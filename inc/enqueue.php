@@ -142,6 +142,30 @@ function justice_theme_enqueue_assets() {
 			true
 		);
 	}
+
+	if ( is_page_template( 'page-legal-tools.php' ) || is_page( 'legal-tools' ) ) {
+		wp_enqueue_style(
+			'justice-legal-tools-app',
+			JUSTICE_THEME_URI . '/assets/css/legal-tools-app.css',
+			array(),
+			'1.0.0'
+		);
+		wp_enqueue_script(
+			'justice-legal-tools-app',
+			JUSTICE_THEME_URI . '/assets/js/legal-tools-app.js',
+			array(),
+			'1.0.0',
+			true
+		);
+		wp_localize_script(
+			'justice-legal-tools-app',
+			'JusticeAIApp',
+			array(
+				'leadEndpoint'     => esc_url_raw( rest_url( 'justice/v1/legal-tools/lead' ) ),
+				'generateEndpoint' => esc_url_raw( rest_url( 'justice/v1/generate' ) ),
+			)
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'justice_theme_enqueue_assets' );
 

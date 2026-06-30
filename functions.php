@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_VERSION', '1.1.90' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-06-27-mobile-whatsapp-wide-cta-v1' );
+define( 'JUSTICE_THEME_VERSION', '1.2.0' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-06-28-ai-legal-tools-gated-launch-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -96,6 +96,7 @@ $justice_theme_files = array(
 	'inc/payment-compliance-routes.php',
 	'inc/url-redirects.php',
 	'inc/admin-dashboard.php',
+	'inc/legal-tools-app.php',
 );
 
 

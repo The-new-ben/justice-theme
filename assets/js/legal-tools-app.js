@@ -3118,6 +3118,26 @@ try{
   if(area&&AREA_TO_CAT[area]&&CATS.some(c=>c.id===AREA_TO_CAT[area])){CURF=AREA_TO_CAT[area];renderCats();renderGrid();}
   const tool=(u.searchParams.get("tool")||location.hash.replace(/^#/,"")||"").trim();
   if(tool&&TOOLS.some(x=>x.id===tool&&x.live)){openTool(tool);}
+  /* Cross-surface handoff: a launcher elsewhere on the site (homepage AI
+     center) stores the visitor's description so they never retype it. */
+  try{
+    const raw=localStorage.getItem("justice_ai_prefill");
+    if(raw){
+      const pre=JSON.parse(raw);
+      localStorage.removeItem("justice_ai_prefill");
+      if(pre&&pre.tool&&TOOLS.some(x=>x.id===pre.tool&&x.live)&&(Date.now()-(pre.ts||0))<600000){
+        if(!CUR||CUR.id!==pre.tool)openTool(pre.tool);
+        const form=$("#form");
+        if(form&&pre.fields){
+          Object.keys(pre.fields).forEach(k=>{
+            const inp=form.querySelector('[name="'+k+'"]');
+            if(inp&&pre.fields[k]){inp.value=pre.fields[k];DATA[k]=pre.fields[k];}
+          });
+          refreshPreview();
+        }
+      }
+    }
+  }catch(e){}
 }catch(e){}
 
 /* ============================================================

@@ -75,9 +75,48 @@ $justice_ai_tools = array(
 
 <section class="jt2-section jt2-section--navy jt2-ai" id="ai-tools">
 	<div class="jt2-section__inner">
-		<span class="jt2-eyebrow"><?php esc_html_e( 'כלי AI משפטיים', 'justice-theme' ); ?></span>
-		<h2 class="jt2-h2"><?php esc_html_e( 'מתחילים מהעובדות, מקבלים טיוטה תוך דקות', 'justice-theme' ); ?></h2>
-		<p class="jt2-sub"><?php esc_html_e( 'הטיוטה הבסיסית נוצרת מיד, ללא תשלום וללא הרשמה. שדרוג עם AI, הדפסה והורדה נפתחים אחרי פרטי קשר קצרים. כל כלי מציע גם קישור ישיר לעורכי דין בתחום הרלוונטי.', 'justice-theme' ); ?></p>
+		<span class="jt2-eyebrow"><?php esc_html_e( 'מרכז ה-AI המשפטי', 'justice-theme' ); ?></span>
+		<h2 class="jt2-h2"><?php esc_html_e( 'מתארים פעם אחת, וכל הכלים ממשיכים מאותה נקודה', 'justice-theme' ); ?></h2>
+		<p class="jt2-sub"><?php esc_html_e( 'סימולציית בית משפט שאפשר גם לדבר איתה, טיוטות מסמכים, הערכת עלות ועורכי דין מתאימים: הכל מחובר. מה שתכתבו כאן ממשיך איתכם לכלי, בלי לחזור על עצמכם. חינם לניסיון, בלי הרשמה.', 'justice-theme' ); ?></p>
+
+		<div class="jt2-ai__launcher" id="ai-launcher">
+			<div class="jt2-ai__launcher-fields">
+				<label class="screen-reader-text" for="ai-launcher-area"><?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?></label>
+				<select id="ai-launcher-area">
+					<option value=""><?php esc_html_e( 'בחרו תחום', 'justice-theme' ); ?></option>
+					<option value="family-law"><?php esc_html_e( 'משפחה וגירושין', 'justice-theme' ); ?></option>
+					<option value="criminal-law"><?php esc_html_e( 'פלילי ותעבורה', 'justice-theme' ); ?></option>
+					<option value="real-estate-law"><?php esc_html_e( 'מקרקעין ונדל"ן', 'justice-theme' ); ?></option>
+					<option value="labor-law"><?php esc_html_e( 'עבודה', 'justice-theme' ); ?></option>
+					<option value="torts"><?php esc_html_e( 'נזיקין וביטוח לאומי', 'justice-theme' ); ?></option>
+					<option value="debt-collection"><?php esc_html_e( 'חוזים וכספים', 'justice-theme' ); ?></option>
+				</select>
+				<label class="screen-reader-text" for="ai-launcher-facts"><?php esc_html_e( 'תיאור המקרה', 'justice-theme' ); ?></label>
+				<textarea id="ai-launcher-facts" rows="2" placeholder="<?php esc_attr_e( 'תארו בכמה משפטים מה קרה, והסימולציה תתחיל מזה…', 'justice-theme' ); ?>"></textarea>
+			</div>
+			<button type="button" id="ai-launcher-go" data-lead-utm-source="homepage" data-lead-utm-medium="ai_center" data-lead-utm-campaign="court_arena"><?php esc_html_e( 'התחלת סימולציית בית משפט ←', 'justice-theme' ); ?></button>
+			<span class="jt2-ai__launcher-note"><?php esc_html_e( 'תוכלו גם להשיב לשופט בקול, ולקבל את המשך הדיון. תרגול בלבד, לא ייעוץ משפטי.', 'justice-theme' ); ?></span>
+		</div>
+		<script>
+		( function () {
+			var btn = document.getElementById( 'ai-launcher-go' );
+			if ( ! btn ) { return; }
+			var heByArea = { 'family-law': 'משפחה וגירושין', 'criminal-law': 'פלילי ותעבורה', 'real-estate-law': 'מקרקעין ונדל"ן', 'labor-law': 'עבודה', 'torts': 'נזיקין וביטוח לאומי', 'debt-collection': 'חוזים וכספים' };
+			btn.addEventListener( 'click', function () {
+				var area = document.getElementById( 'ai-launcher-area' ).value;
+				var facts = document.getElementById( 'ai-launcher-facts' ).value.trim();
+				try {
+					localStorage.setItem( 'justice_ai_prefill', JSON.stringify( {
+						tool: 'court-arena',
+						ts: Date.now(),
+						fields: { arenaArea: heByArea[ area ] || '', arenaFacts: facts }
+					} ) );
+				} catch ( e ) {}
+				var url = <?php echo wp_json_encode( esc_url( home_url( '/legal-tools/' ) ) ); ?> + '?tool=court-arena' + ( area ? '&area=' + encodeURIComponent( area ) : '' );
+				window.location.href = url;
+			} );
+		}() );
+		</script>
 
 		<div class="jt2-ai__grid">
 			<?php foreach ( $justice_ai_tools as $justice_ai_tool ) : ?>

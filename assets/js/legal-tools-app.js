@@ -2825,6 +2825,78 @@ End each scenario with "Recommended contract fix:" and a short protective clause
 Finish with the five clauses that must exist in this contract type before signing.
 
 This simulation is for risk-spotting and preparation only. It is not legal advice and not a substitute for attorney review before signing.`;}},
+{id:"witness-prep",cat:"court",icon:"users",accent:"g",live:true,
+ title:{he:"הכנת עדות וחקירה נגדית",en:"Witness Preparation & Cross-Examination"},
+ blurb:{he:"מתאמנים על העדות: שאלות חקירה ראשית ונגדית, תשובות מודל ומלכודות נפוצות.",en:"Practice your testimony: direct and cross questions, model answers, common traps."},
+ fields:[
+   SEL("witnessRole","מי אתם בעדות","Your role",["עד/ת מטעם התביעה","עד/ת מטעם ההגנה","בעל/ת דין שמעיד/ה","עד/ת מומחה"],["Prosecution/plaintiff witness","Defense witness","Party testifying","Expert witness"],{req:true}),
+   F("witnessEvent","textarea","מה ראיתם או יודעים? תארו את האירוע","What did you see or know? Describe the event",{req:true}),
+   F("witnessWeak","textarea","נקודות רגישות בעדות שלכם","Sensitive points in your testimony",{req:true,ph:{he:"פערי זמן, זיכרון חלקי, קשר לצדדים…",en:"Time gaps, partial memory, ties to a party…"}}),
+   F("witnessRelation","text","הקשר שלכם לצדדים","Your relation to the parties",{half:true}),
+   F("witnessDocs","text","מסמכים שקשורים לעדות","Documents tied to the testimony",{half:true}),
+ ],
+ gen(d){return LANG==="he"?
+`תוכנית הכנה לעדות
+הוכן ביום ${today()} · תפקיד: ${g(d,"witnessRole")}
+
+א. גרסת העדות שלכם
+${g(d,"witnessEvent")}
+
+ב. נקודות רגישות שזוהו
+${g(d,"witnessWeak")}
+
+ג. כללי יסוד לעד
+- עונים רק על מה שנשאל. לא מתנדבים מידע.
+- מותר ואף רצוי לומר "איני זוכר/ת" כשזו האמת.
+- לא מנחשים. אם לא בטוחים, אומרים שלא בטוחים.
+- מקשיבים לשאלה עד סופה, נושמים, ואז עונים.
+- אמת אחת: גרסה שסותרת מסמך תישבר בחקירה.
+
+ד. חקירה ראשית (שאלות פתוחות, לפי הפרוטוקול)
+- ספרו לבית המשפט מה ראיתם ביום האירוע.
+- תארו את מיקומכם ומה אפשר היה לראות משם.
+- מה קרה מיד לפני ומיד אחרי?
+
+ה. חקירה נגדית (שאלות מובילות, תשובות כן/לא)
+- נכון שהיכרתם את ${g(d,"witnessRelation")} עוד קודם?
+- נכון שלא ראיתם את הרגע המדויק?
+- נכון שבפעם הראשונה סיפרתם גרסה שונה?
+
+ו. הנחיות להשלמת התרגול
+יש להשלים מסמך זה לתסריט אימון מלא בעברית: 8 שאלות חקירה ראשית פתוחות עם תשובת מודל קצרה לכל אחת לפי הגרסה שלמעלה, ואז 8 שאלות חקירה נגדית מובילות שתוקפות בדיוק את הנקודות הרגישות שצוינו, עם הדרך הנכונה לענות על כל אחת ומלכודת נפוצה להיזהר ממנה. לסיום: שלוש הערות אימון אישיות.
+
+התרגול נועד להכנה בלבד. אין בו הדרכה לשנות עדות: העדות בבית המשפט חייבת להיות אמת. הכנה עם עורך דין מוסמך היא הדרך הנכונה לקראת עדות אמיתית.`
+:
+`Witness preparation plan
+Prepared on ${today()} · Role: ${g(d,"witnessRole")}
+
+A. Your testimony version
+${g(d,"witnessEvent")}
+
+B. Sensitive points identified
+${g(d,"witnessWeak")}
+
+C. Ground rules
+- Answer only what was asked. Never volunteer.
+- "I don't remember" is a proper answer when true.
+- Never guess. If unsure, say so.
+- Hear the full question, breathe, then answer.
+- One truth: a version that contradicts a document breaks on cross.
+
+D. Direct examination (open questions, per protocol)
+- Tell the court what you saw that day.
+- Describe where you stood and what was visible.
+- What happened right before and right after?
+
+E. Cross-examination (leading yes/no questions)
+- You knew ${g(d,"witnessRelation")} beforehand, correct?
+- You did not see the exact moment, correct?
+- Your first account was different, correct?
+
+F. Completion instructions
+Complete this into a full practice script: 8 open direct-examination questions with a short model answer each based on the version above, then 8 leading cross-examination questions attacking exactly the sensitive points listed, with the right way to answer each and a common trap to avoid. End with three personal coaching notes.
+
+Practice only. This is never guidance to change testimony: court testimony must be truthful. Preparing with a licensed attorney is the right path before a real testimony.`;}},
 ];
 
 /* ============================================================
@@ -2975,7 +3047,7 @@ async function _rawDoEnhance(){
   setStep(2);
   btn.disabled=false;
   setTimeout(()=>{stepBox&&stepBox.remove();},2600);
-  if(out && out.text){p.textContent=out.text;LAST_DOC=out.text;toast(ui("aiDone"));}
+  if(out && out.text){p.textContent=out.text;LAST_DOC=out.text;toast(ui("aiDone"));if(CUR&&CUR.cat==="court")renderCourtTurn();}
   else if(out && ["daily_site_limit","daily_ip_limit","daily_spend_limit","input_too_large"].includes(out.error)){toast(ui("aiLimit"));}
   else toast(ui("aiOff"));
 }
@@ -3110,6 +3182,17 @@ function ensureLeadGateModal() {
 }
 function openLeadGate() {
   ensureLeadGateModal();
+  try {
+    const saved = JSON.parse(localStorage.getItem("justice_gate_profile") || "null");
+    if (saved) {
+      const f = $("#leadGateForm");
+      if (f) {
+        if (f.lead_name && !f.lead_name.value) f.lead_name.value = saved.name || "";
+        if (f.lead_phone && !f.lead_phone.value) f.lead_phone.value = saved.phone || "";
+        if (f.lead_email && !f.lead_email.value) f.lead_email.value = saved.email || "";
+      }
+    }
+  } catch (e) {}
   $("#leadGateScrim").classList.add("on");
   $("#leadGateModal").classList.add("on");
 }
@@ -3153,6 +3236,7 @@ async function onLeadGateSubmit(ev) {
     if (!r.ok || !d.ok) throw new Error("failed");
     LEAD_UNLOCKED = true;
     try { sessionStorage.setItem("justice_ai_lead_unlocked", "1"); } catch (e) {}
+    try { localStorage.setItem("justice_gate_profile", JSON.stringify({ name: data.get("lead_name") || "", phone: data.get("lead_phone") || "", email: data.get("lead_email") || "" })); } catch (e) {}
     closeLeadGate();
     if (PENDING_GATE_ACTION) { const cb = PENDING_GATE_ACTION; PENDING_GATE_ACTION = null; cb(); }
   } catch (e) {
@@ -3231,13 +3315,15 @@ async function renderLawyerRail() {
         (l.skills && l.skills.length ? '<div class="lawyer-rail__skills" aria-label="' + esc(railT("skills")) + '">' + l.skills.map(function (s) { return "<span>" + esc(s) + "</span>"; }).join("") + "</div>" : "") +
         "</a>";
     }).join("") +
-    '<a class="lawyer-rail__all" href="' + esc(data.directory_url || "/lawyers/") + '">' + esc(railT("all")) + "</a>";
+    '<a class="lawyer-rail__all" href="' + esc(data.directory_url || "/lawyers/") + '">' + esc(railT("all")) + "</a>" +
+    '<div class="lawyer-rail__join">' + esc(LANG === "he" ? "עורכי דין: מקומות החשיפה בתחום הזה מוגבלים." : "Lawyers: featured slots in this area are limited.") + ' <a href="/lawyer-plans/?plan_interest=featured&utm_source=tools_rail&utm_medium=b2b&utm_campaign=featured_scarcity">' + esc(LANG === "he" ? "הצטרפות ←" : "Join ←") + "</a></div>";
 }
 
 /* Refresh the rail when a tool opens and when an area-bearing field changes. */
 (function () {
   const origOpenTool = openTool;
   openTool = function (id) {
+    COURT_TURN_USED = false;
     origOpenTool(id);
     setTimeout(renderLawyerRail, 60);
     const form = $("#form");
@@ -3253,3 +3339,91 @@ async function renderLawyerRail() {
      wrapper installs; render the rail for an already-open sheet. */
   if (CUR) setTimeout(renderLawyerRail, 60);
 }());
+
+
+/* ============================================================
+   Speak to the court: after an AI simulation transcript exists,
+   the participant answers the court in their own words (typed or
+   dictated via the browser's speech recognition) and receives the
+   court's response: one extra generation, clearly limited by the
+   same daily AI budget. Voice output uses the browser's built-in
+   speech synthesis. Everything runs client-side; no new services.
+   ============================================================ */
+let COURT_TURN_USED = false;
+
+function renderCourtTurn() {
+  const sheet = $("#sheet");
+  if (!sheet || $("#courtTurn", sheet)) return;
+  const prevCol = $(".prev-col", sheet);
+  if (!prevCol) return;
+  const he = LANG === "he";
+  const box = el("div", { id: "courtTurn", class: "court-turn" });
+  box.innerHTML =
+    '<strong>' + esc(he ? "התור שלכם: דברו אל בית המשפט" : "Your turn: address the court") + "</strong>" +
+    '<p>' + esc(he ? "כתבו או הקליטו את תגובתכם לשאלת בית המשפט, וקבלו את המשך הדיון." : "Type or dictate your reply to the court's question and get the hearing's continuation.") + "</p>" +
+    '<textarea id="courtTurnText" rows="3" placeholder="' + esc(he ? "כבודו, לגבי השאלה ששאל בית המשפט…" : "Your honor, regarding the court's question…") + '"></textarea>' +
+    '<div class="court-turn__row">' +
+    '<button type="button" class="btn" id="courtMicBtn">' + esc(he ? "הקלטה" : "Dictate") + "</button>" +
+    '<button type="button" class="btn primary" id="courtRespondBtn">' + esc(he ? "השיבו לבית המשפט" : "Reply to the court") + "</button>" +
+    '<button type="button" class="btn" id="courtSpeakBtn">' + esc(he ? "הקראת הדיון" : "Read aloud") + "</button>" +
+    "</div>" +
+    '<span class="court-turn__note">' + esc(he ? "תור המשך אחד לכל סימולציה, במסגרת מכסת ה-AI היומית." : "One follow-up turn per simulation, within the daily AI budget.") + "</span>";
+  prevCol.append(box);
+
+  const micBtn = $("#courtMicBtn", box);
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { micBtn.style.display = "none"; }
+  else {
+    let rec = null, live = false;
+    micBtn.onclick = () => {
+      if (live && rec) { rec.stop(); return; }
+      rec = new SR();
+      rec.lang = he ? "he-IL" : "en-US";
+      rec.interimResults = false;
+      rec.onresult = (e) => {
+        const t = Array.from(e.results).map((r) => r[0].transcript).join(" ");
+        const ta = $("#courtTurnText", box);
+        ta.value = (ta.value ? ta.value + " " : "") + t;
+      };
+      rec.onend = () => { live = false; micBtn.textContent = he ? "הקלטה" : "Dictate"; };
+      live = true; micBtn.textContent = he ? "עצירה" : "Stop"; rec.start();
+    };
+  }
+
+  $("#courtSpeakBtn", box).onclick = () => {
+    if (!("speechSynthesis" in window) || !LAST_DOC) return;
+    if (window.speechSynthesis.speaking) { window.speechSynthesis.cancel(); return; }
+    const utter = new SpeechSynthesisUtterance(LAST_DOC.slice(0, 2400));
+    utter.lang = he ? "he-IL" : "en-US";
+    window.speechSynthesis.speak(utter);
+  };
+
+  $("#courtRespondBtn", box).onclick = async () => {
+    const ta = $("#courtTurnText", box);
+    const said = (ta.value || "").trim();
+    if (!said) { toast(he ? "כתבו או הקליטו תגובה קודם." : "Type or dictate a reply first."); return; }
+    if (COURT_TURN_USED) { toast(he ? "תור ההמשך נוצל בסימולציה זו." : "The follow-up turn was already used."); return; }
+    const btn = $("#courtRespondBtn", box);
+    btn.disabled = true; toast(ui("aiWorking"));
+    const tail = (LAST_DOC || "").slice(-1400);
+    const draft = he
+      ? "קטע אחרון מפרוטוקול הסימולציה:\n" + tail + "\n\nדברי המשתתף (" + t(CUR.title) + "):\n\"" + said + "\"\n\nיש להמשיך את התמליל בעברית בלבד: תגובת השופט/ת לדברי המשתתף (2 עד 4 משפטים), תגובת בא כוח הצד שכנגד (2 עד 4 משפטים), שאלה אחת נוספת של בית המשפט אל המשתתף, והערת אימון קצרה למשתתף על איכות תשובתו. פורמט תמליל עם שמות דוברים."
+      : "Latest transcript segment:\n" + tail + "\n\nParticipant statement:\n\"" + said + "\"\n\nContinue the transcript: the judge's response (2-4 sentences), opposing counsel's response (2-4 sentences), one further question from the bench to the participant, and a short coaching note on the participant's answer. Transcript format with speaker names.";
+    const out = await aiEnhance({ tool: CUR ? CUR.id : "court-arena", lang: LANG, fields: DATA, draft: draft });
+    btn.disabled = false;
+    if (out && out.text) {
+      COURT_TURN_USED = true;
+      const sep = he ? "\n\n=== המשך הדיון: תגובת בית המשפט ===\n" : "\n\n=== The hearing continues ===\n";
+      LAST_DOC = LAST_DOC + sep + out.text;
+      const p = $("#paper");
+      if (p) { p.textContent = LAST_DOC; p.scrollTop = p.scrollHeight; }
+      ta.value = "";
+      btn.textContent = he ? "התור נוצל" : "Turn used";
+      toast(ui("aiDone"));
+    } else if (out && ["daily_site_limit", "daily_ip_limit", "daily_spend_limit"].includes(out.error)) {
+      toast(ui("aiLimit"));
+    } else {
+      toast(ui("aiOff"));
+    }
+  };
+}

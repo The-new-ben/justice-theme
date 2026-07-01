@@ -244,6 +244,7 @@ add_filter( 'template_include', 'justice_theme_force_legal_tools_template', 99 )
  */
 function justice_theme_area_matched_tool( string $area_slug ): array {
 	$map = array(
+		'criminal-law'        => array( 'witness-prep', 'הכנת עדות וחקירה נגדית' ),
 		'family-law'          => array( 'divorce-settlement', 'טיוטת הסכם גירושין' ),
 		'inheritance-law'     => array( 'simple-will', 'טיוטת צוואה פשוטה' ),
 		'real-estate-law'     => array( 'residential-lease', 'בדיקת חוזה שכירות' ),

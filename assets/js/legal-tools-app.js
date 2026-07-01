@@ -2677,6 +2677,89 @@ How to use this estimate:
 - Compare 2 to 3 proposals before deciding.
 
 These ranges are general information based on data published on this site. They are not a quote, a commitment or legal advice. The actual fee is set only with the attorney.`;}},
+{id:"court-arena",cat:"court",icon:"scales",accent:"r",live:true,
+ title:{he:"סימולציית בית משפט: CourtAI Arena",en:"Courtroom Simulation: CourtAI Arena"},
+ blurb:{he:"דיון מדומה מלא: פתיחות, חקירות, מוצגים, סיכומים והכרעה מנומקת לפי הראיות.",en:"Full simulated hearing: openings, examinations, exhibits, closings and a reasoned ruling."},
+ fields:[
+   SEL("arenaArea","תחום התיק","Case area",["משפחה וגירושין","פלילי ותעבורה","מקרקעין ונדל\"ן","עבודה","נזיקין וביטוח לאומי","חוזים וכספים","אחר"],["Family & divorce","Criminal & traffic","Real estate","Labor","Torts & national insurance","Contracts & money","Other"],{req:true}),
+   SEL("arenaSide","באיזה צד אתם","Which side are you on",["התובע/ת","הנתבע/ת","הנאשם/ת (פלילי)","המבקש/ת"],["Plaintiff","Defendant","Accused (criminal)","Applicant"],{req:true}),
+   F("arenaFacts","textarea","תיאור המקרה והרקע","Case facts and background",{req:true,ph:{he:"מה קרה, מתי, מי מעורב, מה המחלוקת…",en:"What happened, when, who is involved, what is disputed…"}}),
+   F("arenaPoints","textarea","שלוש הנקודות החזקות שלכם","Your three strongest points",{req:true}),
+   F("arenaEvidence","textarea","ראיות ומוצגים (אחד בכל שורה)","Evidence and exhibits (one per line)",{req:true,ph:{he:"חוזה חתום, תכתובת וואטסאפ, חוות דעת…",en:"Signed contract, WhatsApp thread, expert opinion…"}}),
+   F("arenaOpposing","textarea","מה הצד השני צפוי לטעון","What the other side will likely argue"),
+ ],
+ gen(d){
+   const evLines=(d.arenaEvidence||"").split("\n").map(s=>s.trim()).filter(Boolean);
+   const exhibitsHe=evLines.length?evLines.map((e,i)=>`מוצג ת/${i+1}: ${e} (סטטוס: ממתין לקבילות)`).join("\n"):"מוצג ת/1: __________ (סטטוס: ממתין לקבילות)";
+   const exhibitsEn=evLines.length?evLines.map((e,i)=>`Exhibit P-${i+1}: ${e} (status: pending admission)`).join("\n"):"Exhibit P-1: __________ (status: pending admission)";
+   return LANG==="he"?
+`פרוטוקול סימולציה: תיק ${g(d,"arenaArea")}
+הוכן ביום ${today()} · תפקידכם בסימולציה: ${g(d,"arenaSide")}
+
+א. תיק הדיון (Case Docket)
+${g(d,"arenaFacts")}
+
+ב. עץ המטרות (מה נחשב הצלחה לכל צד)
+- הצד שלכם: ${g(d,"arenaPoints")}
+- הצד שכנגד (משוער): ${g(d,"arenaOpposing")}
+
+ג. רשימת מוצגים
+${exhibitsHe}
+
+ד. סדר הדיון (פרוטוקול הסימולציה)
+1. פתיחת הדיון על ידי בית המשפט
+2. דבר פתיחה: בא כוח התובע
+3. דבר פתיחה: בא כוח הנתבע
+4. פרשת התביעה: הצגת מוצגים וחקירה ראשית (שאלות פתוחות)
+5. חקירה נגדית (שאלות מובילות, תשובות כן/לא)
+6. פרשת ההגנה
+7. סיכומים: שני הצדדים
+8. הכרעה מנומקת של בית המשפט על בסיס הראיות בלבד
+
+ה. הנחיות לתמליל הסימולציה (להשלמה מלאה)
+יש להשלים מסמך זה לתמליל דיון מלא בעברית לפי סדר הדיון שלמעלה, בפורמט תמליל:
+"השופט/ת:", "ב"כ התובע:", "ב"כ הנתבע:", "העד/ה:".
+כל דובר מדבר 2 עד 4 משפטים בכל תור, כמו בדיון חי.
+יש להפנות למוצגים לפי המספור שלהם (ת/1, ת/2) בעת הצגתם.
+בחקירה ראשית: שאלות פתוחות. בחקירה נגדית: שאלות מובילות.
+בסיום: הכרעה מנומקת של השופט/ת המבוססת אך ורק על הראיות שהוצגו, ואחריה
+ניתוח קצר: נקודות החוזק של כל צד, סתירות שהתגלו בגרסאות, ונקודות שכדאי לחזק לפני דיון אמיתי.
+
+סימולציה זו היא תרגול והמחשה בלבד: לא ייעוץ משפטי, לא חיזוי תוצאה ולא תחליף להכנה עם עורך דין מוסמך. התוצאה בתיק אמיתי תלויה בנסיבות, בראיות ובערכאה.`
+:
+`Simulation protocol: ${g(d,"arenaArea")} case
+Prepared on ${today()} · Your role: ${g(d,"arenaSide")}
+
+A. Case docket
+${g(d,"arenaFacts")}
+
+B. Goal tree (what counts as success per side)
+- Your side: ${g(d,"arenaPoints")}
+- Opposing side (estimated): ${g(d,"arenaOpposing")}
+
+C. Exhibit list
+${exhibitsEn}
+
+D. Order of proceedings (simulation protocol)
+1. Court opens the session
+2. Opening statement: plaintiff counsel
+3. Opening statement: defense counsel
+4. Plaintiff case: exhibits and direct examination (open-ended questions)
+5. Cross-examination (leading yes/no questions)
+6. Defense case
+7. Closing arguments: both sides
+8. Reasoned ruling based strictly on the evidence
+
+E. Transcript instructions (for full completion)
+Complete this document into a full hearing transcript following the order above, in transcript format:
+"Judge:", "Plaintiff counsel:", "Defense counsel:", "Witness:".
+Each speaker takes 2 to 4 sentences per turn, as in a live courtroom.
+Reference exhibits by label (P-1, P-2) when introduced.
+Direct examination: open-ended questions. Cross-examination: leading questions.
+End with the judge's reasoned ruling based strictly on the evidence presented, followed by
+a short analysis: each side's strong points, contradictions detected between versions, and points to strengthen before a real hearing.
+
+This simulation is practice and illustration only: not legal advice, not an outcome prediction, and not a substitute for preparing with a licensed attorney.`;}},
 ];
 
 /* ============================================================

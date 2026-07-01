@@ -269,7 +269,7 @@ function justice_theme_article_tools_mesh( string $content ): string {
 	$simulation_url = add_query_arg(
 		array_filter(
 			array(
-				'tool' => 'hearing-simulation',
+				'tool' => 'court-arena',
 				'area' => $area_slug,
 			)
 		),
@@ -295,7 +295,7 @@ function justice_theme_article_tools_mesh( string $content ): string {
 	$block .= '<div><strong>' . esc_html__( 'להתכונן לפני שפונים: כלי AI לפי הנושא של המדריך', 'justice-theme' ) . '</strong>';
 	$block .= '<span>' . esc_html__( 'טיוטה בסיסית חינם ובלי הרשמה. המסמך אינו ייעוץ משפטי.', 'justice-theme' ) . '</span></div>';
 	$block .= '<div style="display:flex;gap:10px;flex-wrap:wrap">';
-	$block .= '<a href="' . esc_url( $simulation_url ) . '" data-lead-utm-source="article_mesh" data-lead-utm-medium="legaltech_gateway" data-lead-utm-campaign="hearing_simulation">' . esc_html__( 'סימולציית דיון משפטי', 'justice-theme' ) . '</a>';
+	$block .= '<a href="' . esc_url( $simulation_url ) . '" data-lead-utm-source="article_mesh" data-lead-utm-medium="legaltech_gateway" data-lead-utm-campaign="court_arena">' . esc_html__( 'סימולציית בית משפט על המקרה שלכם', 'justice-theme' ) . '</a>';
 	$block .= '<a href="' . esc_url( $matched_tool_url ) . '" data-lead-utm-source="article_mesh" data-lead-utm-medium="legaltech_gateway" data-lead-utm-campaign="area_tool">' . esc_html( $matched[1] ) . '</a>';
 	$block .= '<a href="' . esc_url( $lawyers_url ) . '" data-lead-utm-source="article_mesh" data-lead-utm-medium="directory" data-lead-utm-campaign="area_lawyers">' . esc_html__( 'עורכי דין בתחום', 'justice-theme' ) . '</a>';
 	$block .= '</div></div>';

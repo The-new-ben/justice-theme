@@ -218,3 +218,88 @@ function justice_theme_force_legal_tools_template( $template ) {
 	return file_exists( $forced ) ? $forced : $template;
 }
 add_filter( 'template_include', 'justice_theme_force_legal_tools_template', 99 );
+
+/**
+ * Map a practice-areas term slug to the most relevant drafting tool in
+ * the AI tools app (real tool IDs from the catalog).
+ *
+ * @param string $area_slug Practice-area term slug.
+ * @return array{0:string,1:string} Tool id and Hebrew label.
+ */
+function justice_theme_area_matched_tool( string $area_slug ): array {
+	$map = array(
+		'family-law'          => array( 'divorce-settlement', 'טיוטת הסכם גירושין' ),
+		'inheritance-law'     => array( 'simple-will', 'טיוטת צוואה פשוטה' ),
+		'real-estate-law'     => array( 'residential-lease', 'בדיקת חוזה שכירות' ),
+		'labor-law'           => array( 'hearing-request', 'בקשה לשימוע לפני פיטורים' ),
+		'traffic-law'         => array( 'ticket-appeal', 'ערעור על דוח תנועה' ),
+		'torts'               => array( 'accident-demand', 'מכתב דרישה אחרי תאונה' ),
+		'medical-malpractice' => array( 'accident-demand', 'מכתב דרישה בנזקי גוף' ),
+		'debt-collection'     => array( 'debt-settlement', 'הסדר חוב' ),
+		'tax-law'             => array( 'demand-letter', 'מכתב התראה' ),
+	);
+
+	return isset( $map[ $area_slug ] ) ? $map[ $area_slug ] : array( 'demand-letter', 'מכתב התראה' );
+}
+
+/**
+ * Content ↔ tool ↔ lawyer mesh: append a practice-area-matched AI tool
+ * CTA (hearing simulation + the area's drafting tool) to every article,
+ * carrying the area as a deep-link the app understands (?area=).
+ *
+ * @param string $content Post content.
+ * @return string
+ */
+function justice_theme_article_tools_mesh( string $content ): string {
+	if ( ! is_singular( 'articles' ) || ! in_the_loop() || ! is_main_query() ) {
+		return $content;
+	}
+
+	if ( ! function_exists( 'justice_theme_public_path_is_published' ) || ! justice_theme_public_path_is_published( '/legal-tools/' ) ) {
+		return $content;
+	}
+
+	$area_slug = '';
+	$terms     = get_the_terms( get_the_ID(), 'practice-areas' );
+	if ( is_array( $terms ) && ! empty( $terms ) ) {
+		$area_slug = (string) $terms[0]->slug;
+	}
+
+	$tools_hub      = home_url( '/legal-tools/' );
+	$simulation_url = add_query_arg(
+		array_filter(
+			array(
+				'tool' => 'hearing-simulation',
+				'area' => $area_slug,
+			)
+		),
+		$tools_hub
+	);
+
+	$matched          = justice_theme_area_matched_tool( $area_slug );
+	$matched_tool_url = add_query_arg(
+		array_filter(
+			array(
+				'tool' => $matched[0],
+				'area' => $area_slug,
+			)
+		),
+		$tools_hub
+	);
+
+	$lawyers_url = $area_slug
+		? home_url( '/lawyers/?area=' . rawurlencode( $area_slug ) )
+		: home_url( '/lawyers/' );
+
+	$block  = '<div class="jt2-lawyer-cta" data-jt2-mesh="article_tools">';
+	$block .= '<div><strong>' . esc_html__( 'להתכונן לפני שפונים: כלי AI לפי הנושא של המדריך', 'justice-theme' ) . '</strong>';
+	$block .= '<span>' . esc_html__( 'טיוטה בסיסית חינם ובלי הרשמה. המסמך אינו ייעוץ משפטי.', 'justice-theme' ) . '</span></div>';
+	$block .= '<div style="display:flex;gap:10px;flex-wrap:wrap">';
+	$block .= '<a href="' . esc_url( $simulation_url ) . '" data-lead-utm-source="article_mesh" data-lead-utm-medium="legaltech_gateway" data-lead-utm-campaign="hearing_simulation">' . esc_html__( 'סימולציית דיון משפטי', 'justice-theme' ) . '</a>';
+	$block .= '<a href="' . esc_url( $matched_tool_url ) . '" data-lead-utm-source="article_mesh" data-lead-utm-medium="legaltech_gateway" data-lead-utm-campaign="area_tool">' . esc_html( $matched[1] ) . '</a>';
+	$block .= '<a href="' . esc_url( $lawyers_url ) . '" data-lead-utm-source="article_mesh" data-lead-utm-medium="directory" data-lead-utm-campaign="area_lawyers">' . esc_html__( 'עורכי דין בתחום', 'justice-theme' ) . '</a>';
+	$block .= '</div></div>';
+
+	return $content . $block;
+}
+add_filter( 'the_content', 'justice_theme_article_tools_mesh', 26 );

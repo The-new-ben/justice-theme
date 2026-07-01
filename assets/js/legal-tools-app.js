@@ -116,6 +116,7 @@ const CATS=[
   {id:"family",  label:{he:"משפחה ואישי",en:"Family & Personal"}},
   {id:"vehicle", label:{he:"רכב ורכוש",en:"Vehicles & Property"}},
   {id:"business",label:{he:"עסקים וקניין רוחני",en:"Business & IP"}},
+  {id:"court",   label:{he:"בית משפט והליכים",en:"Court & Proceedings"}},
 ];
 
 /* ---------- template helpers ---------- */
@@ -2536,6 +2537,146 @@ Operator: ${g(d,"operatorName")}
 8. The operator may update these terms from time to time.
 
 This is a draft and must be tailored to the specific site, audience and applicable legal requirements.`;}},
+{id:"hearing-simulation",cat:"court",icon:"gavel",accent:"r",live:true,
+ title:{he:"סימולציית דיון משפטי",en:"Court Hearing Simulation"},
+ blurb:{he:"תרגול לקראת דיון: שאלות צפויות, טיעוני הצד השני ונקודות לחיזוק.",en:"Hearing prep: expected questions, opposing arguments, points to strengthen."},
+ fields:[
+   SEL("caseArea","תחום התיק","Case area",["משפחה וגירושין","פלילי ותעבורה","מקרקעין ונדל\"ן","עבודה","נזיקין וביטוח לאומי","חוזים וכספים","אחר"],["Family & divorce","Criminal & traffic","Real estate","Labor","Torts & national insurance","Contracts & money","Other"],{req:true}),
+   SEL("myRole","התפקיד שלכם בדיון","Your role in the hearing",
+     ["תובע/ת","נתבע/ת","חשוד/ה או נאשם/ת","עד/ה","מבקש/ת בהליך אזרחי"],
+     ["Plaintiff","Defendant","Suspect / accused","Witness","Applicant in a civil proceeding"],{req:true}),
+   F("caseFacts","textarea","מה קרה? תארו את המקרה בקצרה","What happened? Describe the case briefly",{req:true,ph:{he:"האירועים המרכזיים, תאריכים, מי מעורב…",en:"Key events, dates, who is involved…"}}),
+   F("myGoal","text","מה הייתם רוצים להשיג בדיון","What outcome do you want",{req:true,half:true}),
+   F("hearingDate","date","מועד הדיון (אם ידוע)","Hearing date (if known)",{half:true}),
+   F("evidence","textarea","ראיות ומסמכים שיש בידיכם","Evidence and documents you have",{ph:{he:"חוזה, הודעות, תמונות, חוות דעת…",en:"Contract, messages, photos, expert opinions…"}}),
+ ],
+ gen(d){return LANG==="he"?
+`סימולציית הכנה לדיון משפטי
+הוכן ביום ${today()}${d.hearingDate?" · מועד הדיון: "+fdate(d.hearingDate):""}
+
+תחום: ${g(d,"caseArea")} · תפקיד: ${g(d,"myRole")}
+
+1. תמצית המקרה
+${g(d,"caseFacts")}
+
+2. המטרה שלכם בדיון
+${g(d,"myGoal")}
+
+3. שאלות שסביר שתישאלו
+- תארו במילים שלכם, לפי סדר זמנים, מה בדיוק קרה.
+- אילו מסמכים או ראיות תומכים בגרסה שלכם?
+- האם פניתם לצד השני לפני ההליך? מה הוצע ומה נענה?
+- מה הנזק או הפגיעה שנגרמו לכם בפועל?
+
+4. טיעונים שהצד השני עשוי להעלות
+- גרסה עובדתית שונה לאירועים המרכזיים.
+- טענות לגבי חסר במסמכים, במועדים או בראיות.
+- הצעת פשרה או הקטנת אחריות.
+
+5. ראיות ומסמכים שבידיכם
+${g(d,"evidence")}
+
+6. רשימת הכנה לפני הדיון
+- סדרו את המסמכים לפי סדר כרונולוגי ותייקו עותקים.
+- הכינו תשובה של עד דקה לשאלה "מה קרה" בלי להתפזר.
+- כתבו מראש את שלוש הנקודות החשובות ביותר מבחינתכם.
+- דייקו בעובדות: אמירה לא מדויקת אחת פוגעת באמינות כולה.
+
+סימולציה זו היא כלי תרגול והכנה בלבד. היא אינה ייעוץ משפטי, אינה חיזוי תוצאה ואינה תחליף להכנה עם עורך דין מוסמך.`
+:
+`Court hearing preparation simulation
+Prepared on ${today()}${d.hearingDate?" · Hearing date: "+fdate(d.hearingDate):""}
+
+Area: ${g(d,"caseArea")} · Role: ${g(d,"myRole")}
+
+1. Case summary
+${g(d,"caseFacts")}
+
+2. Your goal in the hearing
+${g(d,"myGoal")}
+
+3. Questions you are likely to be asked
+- Describe in your own words, in order, exactly what happened.
+- Which documents or evidence support your version?
+- Did you approach the other side before proceedings? What was offered and answered?
+- What actual harm or loss did you suffer?
+
+4. Arguments the other side may raise
+- A different factual version of the key events.
+- Claims about missing documents, deadlines or evidence.
+- A settlement offer or reduced liability.
+
+5. Evidence and documents you hold
+${g(d,"evidence")}
+
+6. Preparation checklist
+- Organize documents chronologically and bring copies.
+- Prepare a one-minute answer to "what happened" without drifting.
+- Write down your three most important points in advance.
+- Be precise: one inaccurate statement damages overall credibility.
+
+This simulation is a practice and preparation tool only. It is not legal advice, not an outcome prediction, and not a substitute for preparing with a licensed attorney.`;}},
+{id:"cost-estimator",cat:"court",icon:"coins",accent:"g",live:true,
+ title:{he:"הערכת עלות עורך דין",en:"Lawyer Cost Estimator"},
+ blurb:{he:"טווחי שכר טרחה מקובלים לפי תחום וסוג הליך, לפי הנתונים שמפורסמים באתר.",en:"Common fee ranges by area and proceeding type, based on data published on the site."},
+ fields:[
+   SEL("costArea","תחום משפטי","Legal area",["משפחה וגירושין","פלילי ותעבורה","מקרקעין ונדל\"ן","עבודה","נזיקין וביטוח לאומי","חוזים וכספים","אחר"],["Family & divorce","Criminal & traffic","Real estate","Labor","Torts & national insurance","Contracts & money","Other"],{req:true}),
+   SEL("engagement","סוג השירות","Service type",
+     ["ייעוץ ראשוני חד-פעמי","ליווי מלא בהליך","הכנת מסמך או חוזה","ייצוג בתיק נזיקין (אחוזים)"],
+     ["One-time initial consult","Full representation","Document or contract drafting","Injury case (contingency)"],{req:true}),
+   SEL("complexity","מורכבות משוערת","Estimated complexity",
+     ["פשוט: עניין ממוקד אחד","בינוני: כמה סוגיות או צדדים","מורכב: מחלוקת רחבה או סכומים גבוהים"],
+     ["Simple: one focused issue","Medium: several issues or parties","Complex: broad dispute or high amounts"],{req:true}),
+   F("costNotes","textarea","פרטים נוספים על המקרה (רשות)","More details (optional)"),
+ ],
+ gen(d){return LANG==="he"?
+`הערכת טווחי עלות לשירות משפטי
+הוכן ביום ${today()}
+
+תחום: ${g(d,"costArea")}
+סוג שירות: ${g(d,"engagement")}
+מורכבות: ${g(d,"complexity")}
+
+טווחים מקובלים בישראל (כפי שמפורסם במדריכי Jus-Tice):
+- ייעוץ ראשוני חד-פעמי: 200 עד 800 שקלים.
+- שכר טרחה שעתי: 350 עד 1,500 שקלים לשעה, לפי ניסיון ותחום.
+- תיקי נזיקין ותאונות: שכר באחוזים, בדרך כלל 8 עד 25 אחוזים מהפיצוי, ללא תשלום מראש.
+- גירושין בהסכמה: לרוב שכר קבוע מוסכם מראש בטווח של 5,000 עד 15,000 שקלים.
+- גירושין במחלוקת: לרוב 15,000 עד 30,000 שקלים ומעלה, לפי משך ומורכבות.
+
+הערות למקרה שתיארתם:
+${g(d,"costNotes")}
+
+איך להשתמש בהערכה:
+- בקשו הצעת שכר טרחה מפורטת בכתב לפני תחילת עבודה. לפי כללי לשכת עורכי הדין, הסכם שכר טרחה חייב להיות בכתב.
+- שאלו מה כלול במחיר ומה נחשב תוספת: דיונים, ערעורים, נסיעות, אגרות.
+- השוו בין 2 עד 3 הצעות לפני החלטה.
+
+הטווחים הם מידע כללי שמבוסס על הנתונים המתפרסמים באתר ואינם הצעת מחיר, התחייבות או ייעוץ משפטי. המחיר בפועל נקבע מול עורך הדין בלבד.`
+:
+`Legal fee range estimate
+Prepared on ${today()}
+
+Area: ${g(d,"costArea")}
+Service type: ${g(d,"engagement")}
+Complexity: ${g(d,"complexity")}
+
+Common ranges in Israel (as published in Jus-Tice guides):
+- One-time initial consult: 200 to 800 ILS.
+- Hourly fees: 350 to 1,500 ILS per hour, by experience and field.
+- Injury cases: contingency fees, usually 8 to 25 percent of compensation, no upfront payment.
+- Uncontested divorce: usually a fixed fee agreed in advance, 5,000 to 15,000 ILS.
+- Contested divorce: usually 15,000 to 30,000 ILS and up, by length and complexity.
+
+Notes on your case:
+${g(d,"costNotes")}
+
+How to use this estimate:
+- Request a detailed written fee proposal before work begins. Bar rules require fee agreements in writing.
+- Ask what the price includes and what counts as extra: hearings, appeals, travel, court fees.
+- Compare 2 to 3 proposals before deciding.
+
+These ranges are general information based on data published on this site. They are not a quote, a commitment or legal advice. The actual fee is set only with the attorney.`;}},
 ];
 
 /* ============================================================
@@ -2669,9 +2810,19 @@ async function _rawDoEnhance(){
   if(!CUR)return; if(!validate())return;
   const base=CUR.gen(DATA); LAST_DOC=base;
   const p=$("#paper"); p.classList.remove("empty"); p.dir=LANG==="he"?"rtl":"ltr"; p.textContent=base;
-  const btn=$("#aiBtn"); btn.disabled=true; toast(ui("aiWorking"));
+  const btn=$("#aiBtn"); btn.disabled=true;
+  const steps=LANG==="he"
+    ?["1/3 אוספים את הפרטים מהשאלון","2/3 ה-AI מנסח ומחדד את המסמך","3/3 בודקים מבנה ומציגים"]
+    :["1/3 Collecting your answers","2/3 AI is drafting and sharpening","3/3 Checking structure and rendering"];
+  let stepBox=$("#aiSteps");
+  if(!stepBox){stepBox=el("div",{id:"aiSteps",class:"ai-note"});$(".prev-col")?.insertBefore(stepBox,$("#paper"));}
+  const setStep=(i)=>{stepBox.innerHTML=steps.map((s,j)=>`<div style="opacity:${j<=i?1:.38};font-weight:${j===i?700:400}">${j<i?"✓":j===i?"●":"○"} ${esc(s)}</div>`).join("");};
+  setStep(0);
+  setStep(1);
   const out=await aiEnhance({tool:CUR.id,lang:LANG,fields:DATA,draft:base});
+  setStep(2);
   btn.disabled=false;
+  setTimeout(()=>{stepBox&&stepBox.remove();},2600);
   if(out && out.text){p.textContent=out.text;LAST_DOC=out.text;toast(ui("aiDone"));}
   else if(out && ["daily_site_limit","daily_ip_limit","daily_spend_limit","input_too_large"].includes(out.error)){toast(ui("aiLimit"));}
   else toast(ui("aiOff"));
@@ -2737,6 +2888,9 @@ try{
   const u=new URL(location.href);
   const cat=u.searchParams.get("cat");
   if(cat&&CATS.some(c=>c.id===cat)){CURF=cat;renderCats();renderGrid();}
+  const AREA_TO_CAT={"family-law":"family","inheritance-law":"family","real-estate-law":"housing","labor-law":"work","traffic-law":"vehicle","tax-law":"money","debt-collection":"money","criminal-law":"court","torts":"court","medical-malpractice":"court"};
+  const area=(u.searchParams.get("area")||"").trim();
+  if(area&&AREA_TO_CAT[area]&&CATS.some(c=>c.id===AREA_TO_CAT[area])){CURF=AREA_TO_CAT[area];renderCats();renderGrid();}
   const tool=(u.searchParams.get("tool")||location.hash.replace(/^#/,"")||"").trim();
   if(tool&&TOOLS.some(x=>x.id===tool&&x.live)){openTool(tool);}
 }catch(e){}

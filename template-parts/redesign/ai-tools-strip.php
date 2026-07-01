@@ -17,13 +17,22 @@ $justice_tools_hub = justice_theme_safe_public_link( '/legal-tools/', '/#ask-law
 
 $justice_ai_tools = array(
 	array(
-		'type'        => __( 'בדיקה ראשונית', 'justice-theme' ),
-		'badge'       => 'free',
-		'title'       => __( 'מחשבון ערעור ביטוח לאומי', 'justice-theme' ),
-		'desc'        => __( 'בדיקת פער כספי ודחיפות לפני פנייה לעורך דין.', 'justice-theme' ),
-		'url'         => justice_theme_safe_public_link( '/bituach-leumi-appeal-guide/', '/legal-tools/' ),
-		'cross_url'   => home_url( '/lawyers/?area=torts' ),
-		'cross_label' => __( 'עורכי דין בתחום ביטוח לאומי ונזיקין', 'justice-theme' ),
+		'type'        => __( 'חדש · AI', 'justice-theme' ),
+		'badge'       => 'ai',
+		'title'       => __( 'סימולציית דיון משפטי', 'justice-theme' ),
+		'desc'        => __( 'שאלות צפויות מהשופט, טיעוני הצד השני ונקודות לחיזוק, לפי המקרה שלכם.', 'justice-theme' ),
+		'url'         => add_query_arg( 'tool', 'hearing-simulation', $justice_tools_hub ),
+		'cross_url'   => home_url( '/lawyers/' ),
+		'cross_label' => __( 'עורכי דין לפי תחום ועיר', 'justice-theme' ),
+	),
+	array(
+		'type'        => __( 'חדש · AI', 'justice-theme' ),
+		'badge'       => 'ai',
+		'title'       => __( 'הערכת עלות עורך דין', 'justice-theme' ),
+		'desc'        => __( 'טווחי שכר טרחה צפויים לפי תחום ומורכבות, לפי הנתונים שמפורסמים באתר.', 'justice-theme' ),
+		'url'         => add_query_arg( 'tool', 'cost-estimator', $justice_tools_hub ),
+		'cross_url'   => home_url( '/lawyers/' ),
+		'cross_label' => __( 'להשוואת הצעות בתחום', 'justice-theme' ),
 	),
 	array(
 		'type'        => __( 'טיוטה חינם', 'justice-theme' ),
@@ -60,15 +69,6 @@ $justice_ai_tools = array(
 		'url'         => justice_theme_safe_public_link( '/legal-tools/ai-intake/', '/legal-tools/' ),
 		'cross_url'   => home_url( '/lawyers/' ),
 		'cross_label' => __( 'איך ההתאמה עובדת', 'justice-theme' ),
-	),
-	array(
-		'type'        => __( 'ערעור ודוחות', 'justice-theme' ),
-		'badge'       => 'ai',
-		'title'       => __( 'ערעור על דוח תנועה או חניה', 'justice-theme' ),
-		'desc'        => __( 'בקשה מנומקת לביטול דוח, מוכנה להדפסה ולשליחה.', 'justice-theme' ),
-		'url'         => add_query_arg( 'tool', 'ticket-appeal', $justice_tools_hub ),
-		'cross_url'   => home_url( '/lawyers/?area=traffic-law' ),
-		'cross_label' => __( 'עורכי דין תעבורה', 'justice-theme' ),
 	),
 );
 ?>

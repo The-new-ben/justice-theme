@@ -18,7 +18,9 @@
   --jt2-line: #ece3d2;
   --jt2-text: #16223a;
   --jt2-muted: #5b6472;
-  --jt2-faint: #9a957f;
+  --jt2-faint: #6f6a58;
+  --jt2-coral-text: #b8391f;      /* coral for text on light backgrounds (AA) */
+  --jt2-coral-text-dark: #f0937f; /* coral for text on navy backgrounds (AA) */
   --jt2-sage: #7c9473;
   --jt2-whatsapp: #25d366;
   --jt2-warn: #a8462c;
@@ -63,7 +65,7 @@ p {
 }
 
 .section-header__eyebrow {
-  color: var(--jt2-coral) !important;
+  color: var(--jt2-coral-text) !important;
   font-weight: 700;
   letter-spacing: 0.5px;
   font-size: 12px;
@@ -146,7 +148,7 @@ input[type="submit"].button {
 
 .jt2-badge--verified { background: var(--jt2-coral); color: #fff; }
 .jt2-badge--basic { background: var(--jt2-tint); color: var(--jt2-muted); }
-.jt2-badge--sponsored { background: var(--jt2-ivory); border: 1px solid var(--jt2-line); color: #7a8294; }
+.jt2-badge--sponsored { background: var(--jt2-ivory); border: 1px solid var(--jt2-line); color: #5b6472; }
 .jt2-badge--urgent { background: var(--jt2-warn-bg); color: var(--jt2-warn); }
 .jt2-badge--free { background: rgba(124, 148, 115, 0.16); color: #55704c; }
 .jt2-badge--ai { background: rgba(232, 98, 79, 0.14); color: var(--jt2-coral); }
@@ -320,7 +322,7 @@ input[type="submit"].button {
   padding: 8px 0;
 }
 
-.jt2-header__topics a:hover { color: var(--jt2-coral); }
+.jt2-header__topics a:hover { color: var(--jt2-coral-text-dark); }
 
 @media (max-width: 920px) {
   .jt2-header__main { padding: 10px 16px; }
@@ -369,7 +371,7 @@ input[type="submit"].button {
   display: block;
   font-size: 12px;
   font-weight: 700;
-  color: var(--jt2-coral);
+  color: var(--jt2-coral-text);
   letter-spacing: 0.5px;
   margin-bottom: 10px;
 }
@@ -484,7 +486,7 @@ input[type="submit"].button {
 .jt2-hero__micro {
   margin-top: 14px;
   font-size: 12.5px;
-  color: #7a8294;
+  color: #5b6472;
 }
 
 .jt2-hero__triage {
@@ -548,7 +550,7 @@ input[type="submit"].button {
   display: block;
   font-size: 11px;
   font-weight: 700;
-  color: var(--jt2-coral);
+  color: var(--jt2-coral-text-dark);
   margin-bottom: 4px;
 }
 
@@ -589,7 +591,7 @@ input[type="submit"].button {
   height: 46px;
   border-radius: 50%;
   background: var(--jt2-tint);
-  color: var(--jt2-coral);
+  color: var(--jt2-coral-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -618,7 +620,7 @@ input[type="submit"].button {
 }
 
 .jt2-situation__links a:first-child { color: var(--jt2-navy); }
-.jt2-situation__links a:last-child { color: var(--jt2-coral); }
+.jt2-situation__links a:last-child { color: var(--jt2-coral-text); }
 
 .jt2-situation__related { border-top: 1px solid var(--jt2-tint); padding-top: 12px; }
 
@@ -633,12 +635,12 @@ input[type="submit"].button {
 .jt2-situation__related a {
   display: block;
   font-size: 12px;
-  color: #7a8294;
+  color: #5b6472;
   text-decoration: none;
   line-height: 1.7;
 }
 
-.jt2-situation__related a:hover { color: var(--jt2-coral); }
+.jt2-situation__related a:hover { color: var(--jt2-coral-text); }
 
 @media (max-width: 980px) { .jt2-situations { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) { .jt2-situations { grid-template-columns: 1fr; } }
@@ -686,8 +688,8 @@ input[type="submit"].button {
 .jt2-ai__all {
   display: inline-block;
   margin-top: 26px;
-  border: 1.5px solid var(--jt2-coral);
-  color: var(--jt2-coral);
+  border: 1.5px solid var(--jt2-coral-text-dark);
+  color: var(--jt2-coral-text-dark);
   font-size: 13.5px;
   font-weight: 700;
   text-decoration: none;
@@ -796,9 +798,9 @@ input[type="submit"].button {
 
 .jt2-plan strong { font-size: 13.5px; color: var(--jt2-text); }
 
-.jt2-plan span { font-size: 13px; color: #7a8294; font-weight: 700; }
+.jt2-plan span { font-size: 13px; color: #5b6472; font-weight: 700; }
 
-.jt2-plan--highlight span { color: var(--jt2-coral); }
+.jt2-plan--highlight span { color: var(--jt2-coral-text); }
 
 .jt2-plans__scarcity {
   background: var(--jt2-warn-bg);
@@ -837,7 +839,7 @@ input[type="submit"].button {
   height: 42px;
   border-radius: 12px;
   background: var(--jt2-tint);
-  color: var(--jt2-coral);
+  color: var(--jt2-coral-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -960,7 +962,7 @@ input[type="submit"].button {
   color: var(--jt2-navy);
 }
 
-.jt2-stats span { font-size: 12px; color: #7a8294; }
+.jt2-stats span { font-size: 12px; color: #5b6472; }
 
 .jt2-trust-divider { height: 1px; background: #e2d9c4; margin: 26px 0; }
 
@@ -1004,7 +1006,7 @@ input[type="submit"].button {
 .jt2-faq summary::after {
   content: "+";
   font-size: 18px;
-  color: var(--jt2-coral);
+  color: var(--jt2-coral-text);
   flex: none;
   margin-right: 12px;
 }
@@ -1076,7 +1078,7 @@ input[type="submit"].button {
 .jt2-footer__address {
   font-size: 12.5px;
   line-height: 1.7;
-  color: rgba(248, 243, 234, 0.45);
+  color: rgba(248, 243, 234, 0.62);
   max-width: 380px;
   margin: 0;
 }
@@ -1114,7 +1116,7 @@ input[type="submit"].button {
 
 .jt2-footer__col a:hover { color: var(--jt2-ivory); }
 
-.jt2-footer__col a.jt2-footer__join { color: var(--jt2-coral); font-weight: 700; }
+.jt2-footer__col a.jt2-footer__join { color: var(--jt2-coral-text-dark); font-weight: 700; }
 
 .jt2-footer__quick p { font-size: 13.5px; line-height: 1.7; margin: 0 0 16px; }
 
@@ -1158,7 +1160,7 @@ input[type="submit"].button {
 .jt2-footer__card-eyebrow {
   display: block;
   font-size: 11.5px;
-  color: var(--jt2-coral);
+  color: var(--jt2-coral-text-dark);
   font-weight: 700;
   margin-bottom: 8px;
 }
@@ -1214,10 +1216,10 @@ input[type="submit"].button {
 
 .jt2-footer__legal-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
 
-.jt2-footer__legal-links a { color: rgba(248, 243, 234, 0.45); font-size: 12.5px; text-decoration: none; }
+.jt2-footer__legal-links a { color: rgba(248, 243, 234, 0.62); font-size: 12.5px; text-decoration: none; }
 
 .jt2-footer__disclaimer {
-  color: rgba(248, 243, 234, 0.35);
+  color: rgba(248, 243, 234, 0.55);
   font-size: 12px;
   max-width: 760px;
   line-height: 1.7;
@@ -1261,7 +1263,7 @@ input[type="submit"].button {
 .jt2-tldr strong {
   display: block;
   font-size: 13px;
-  color: var(--jt2-coral);
+  color: var(--jt2-coral-text);
   margin-bottom: 8px;
 }
 
@@ -1376,4 +1378,23 @@ input[type="submit"].button {
   margin-top: 10px;
   font-size: 12px;
   color: rgba(248, 243, 234, 0.55);
+}
+
+
+/* ---------- Contrast pass (WCAG AA): dark-background variants ---------- */
+.jt2-section--navy .jt2-eyebrow,
+.jt2-footer .section-header__eyebrow,
+.jt2-footer__card-eyebrow,
+.jt2-hero__caption span {
+  color: var(--jt2-coral-text-dark) !important;
+}
+
+.jt2-badge--ai { color: var(--jt2-coral-text); }
+.jt2-ai .jt2-badge--ai { color: var(--jt2-coral-text-dark); }
+
+/* WhatsApp buttons keep the brand green but switch to dark text (9.1:1). */
+.button--whatsapp-inline,
+.button--hero-whatsapp,
+.jt2-footer__quick-ctas .is-whatsapp {
+  color: var(--jt2-navy-deep) !important;
 }

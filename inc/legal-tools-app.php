@@ -121,6 +121,15 @@ function justice_theme_handle_legal_tools_lead( WP_REST_Request $request ) {
 		update_post_meta( $request_id, 'practice_area_slug', $area_slug );
 	}
 
+	$contact_channel = sanitize_text_field( (string) $request->get_param( 'lead_channel' ) );
+	if ( '' !== $contact_channel ) {
+		update_post_meta( $request_id, 'contact_channel', $contact_channel );
+	}
+
+	if ( '1' === (string) $request->get_param( 'review_request' ) ) {
+		update_post_meta( $request_id, 'human_review_requested', '1' );
+	}
+
 	$files = $request->get_file_params();
 	if ( ! empty( $files['lead_document'] ) && empty( $files['lead_document']['error'] ) ) {
 		if ( ! function_exists( 'wp_handle_upload' ) ) {
@@ -355,6 +364,8 @@ function justice_theme_tools_lead_marketplace_bridge( $request_id ) {
 		return;
 	}
 
+	$channel        = (string) get_post_meta( $request_id, 'contact_channel', true );
+	$review         = '1' === (string) get_post_meta( $request_id, 'human_review_requested', true );
 	$surface        = 'legal_tools_gate';
 	$source_channel = function_exists( 'justice_theme_public_lead_source_channel' )
 		? justice_theme_public_lead_source_channel( $surface )
@@ -377,8 +388,13 @@ function justice_theme_tools_lead_marketplace_bridge( $request_id ) {
 		'visitor_phone'                 => $phone,
 		'visitor_email'                 => $email,
 		'legal_area'                    => $area,
-		'message'                       => trim( 'כלי AI: ' . $tool_id . "\n\n" . $excerpt ),
-		'urgency'                       => 'normal',
+		'message'                       => trim(
+			'כלי AI: ' . $tool_id
+			. ( $channel ? "\nערוץ חזרה מועדף: " . $channel : '' )
+			. ( $review ? "\nהמבקש ביקש בדיקת עורך דין למסמך." : '' )
+			. "\n\n" . $excerpt
+		),
+		'urgency'                       => $review ? 'high' : 'normal',
 		'lead_status'                   => 'new',
 		'follow_up_status'              => 'not_started',
 		'coverage_status'               => 'coverage_review',
@@ -395,6 +411,8 @@ function justice_theme_tools_lead_marketplace_bridge( $request_id ) {
 		'lead_revenue_notes'            => 'Lead captured by the AI tools gate (simulation/drafting). Qualify need, consent, coverage and lawyer commercial terms before billing.',
 		'owner_revenue_next_step'       => 'AI tools lead: review the attached draft context, confirm area and consent, then route or assign to a paid lawyer path.',
 		'linked_legal_request_id'       => $request_id,
+		'contact_channel'               => $channel,
+		'human_review_requested'        => $review ? '1' : '0',
 	);
 
 	foreach ( $meta as $key => $value ) {
@@ -480,13 +498,24 @@ function justice_theme_matched_lawyers_callback( WP_REST_Request $request ) {
 		$city_terms = get_the_terms( $lawyer_id, 'city' );
 		$city       = ( is_array( $city_terms ) && ! empty( $city_terms ) ) ? $city_terms[0]->name : '';
 
+		$professional_type = (string) get_post_meta( $lawyer_id, 'professional_type', true );
+		$years             = absint( get_post_meta( $lawyer_id, 'years_experience', true ) );
+
 		$rows[] = array(
 			'id'       => $lawyer_id,
 			'name'     => get_the_title( $lawyer_id ),
 			'url'      => function_exists( 'justice_theme_public_permalink' ) ? justice_theme_public_permalink( $lawyer_id ) : get_permalink( $lawyer_id ),
 			'city'     => $city,
 			'skills'   => $skills,
+			'type'     => $professional_type ?: 'עורך דין',
+			'years'    => $years,
 			'verified' => 'verified' === strtolower( (string) get_post_meta( $lawyer_id, 'verification_status', true ) ),
+			// courtai professional.json aliases for cross-platform agents.
+			'fullName'           => get_the_title( $lawyer_id ),
+			'role'               => $professional_type ?: 'lawyer',
+			'specializations'    => $skills,
+			'experienceYears'    => $years,
+			'verificationStatus' => 'verified' === strtolower( (string) get_post_meta( $lawyer_id, 'verification_status', true ) ) ? 'verified' : 'pending',
 		);
 	}
 

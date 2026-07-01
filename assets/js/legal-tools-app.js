@@ -2723,7 +2723,7 @@ ${exhibitsHe}
 יש להפנות למוצגים לפי המספור שלהם (ת/1, ת/2) בעת הצגתם.
 בחקירה ראשית: שאלות פתוחות. בחקירה נגדית: שאלות מובילות.
 בסיום: הכרעה מנומקת של השופט/ת המבוססת אך ורק על הראיות שהוצגו, ואחריה
-ניתוח קצר: נקודות החוזק של כל צד, סתירות שהתגלו בגרסאות, ונקודות שכדאי לחזק לפני דיון אמיתי.
+ניתוח קצר: ציון עוצמה לכל צד בסולם 0 עד 100 עם נימוק, לאיזה כיוון נטה הדיון, סתירות שהתגלו בגרסאות, ונקודות שכדאי לחזק לפני דיון אמיתי.
 
 סימולציה זו היא תרגול והמחשה בלבד: לא ייעוץ משפטי, לא חיזוי תוצאה ולא תחליף להכנה עם עורך דין מוסמך. התוצאה בתיק אמיתי תלויה בנסיבות, בראיות ובערכאה.`
 :
@@ -2757,9 +2757,74 @@ Each speaker takes 2 to 4 sentences per turn, as in a live courtroom.
 Reference exhibits by label (P-1, P-2) when introduced.
 Direct examination: open-ended questions. Cross-examination: leading questions.
 End with the judge's reasoned ruling based strictly on the evidence presented, followed by
-a short analysis: each side's strong points, contradictions detected between versions, and points to strengthen before a real hearing.
+a short analysis: a strength score for each side on a 0 to 100 scale with reasoning, which way the hearing leaned, contradictions detected between versions, and points to strengthen before a real hearing.
 
 This simulation is practice and illustration only: not legal advice, not an outcome prediction, and not a substitute for preparing with a licensed attorney.`;}},
+{id:"contract-arena",cat:"court",icon:"scroll",accent:"b",live:true,
+ title:{he:"סימולציית חוזה: מכר, שכירות ושירותים",en:"Contract Simulation: Sale, Lease & Services"},
+ blurb:{he:"בוחנים חוזה בלחץ של דיון: אילו סעיפים יחזיקו, אילו יישברו ומה לתקן לפני חתימה.",en:"Stress-test a contract in a simulated dispute: which clauses hold, which break, what to fix."},
+ fields:[
+   SEL("contractType","סוג החוזה","Contract type",["מכר דירה או מגרש","שכירות למגורים","שכירות מסחרית","הסכם שירותים","הסכם קבלנות ושיפוצים","אחר"],["Apartment or land sale","Residential lease","Commercial lease","Services agreement","Construction / renovation","Other"],{req:true}),
+   SEL("contractSide","הצד שלכם בחוזה","Your side",["הקונה / השוכר / המזמין","המוכר / המשכיר / נותן השירות"],["Buyer / tenant / client","Seller / landlord / provider"],{req:true}),
+   F("contractParties","text","הצדדים לחוזה","Parties",{req:true,half:true}),
+   F("contractAsset","text","הנכס או השירות","Asset or service",{req:true,half:true,ph:{he:"דירת 4 חדרים ברחובות, מגרש 500 מ\"ר…",en:"4-room flat, 500 sqm plot…"}}),
+   F("contractTerms","textarea","הסעיפים המרכזיים כפי שסוכמו","Key agreed terms",{req:true,ph:{he:"מחיר ולוח תשלומים, מועד מסירה, בדק, ערבויות, פיצוי מוסכם…",en:"Price and schedule, delivery date, warranties, agreed damages…"}}),
+   F("contractWorries","textarea","מה מדאיג אתכם בעסקה","What worries you",{req:true}),
+ ],
+ gen(d){return LANG==="he"?
+`סימולציית עמידות חוזה
+הוכן ביום ${today()}
+
+סוג: ${g(d,"contractType")} · הצד שלכם: ${g(d,"contractSide")}
+צדדים: ${g(d,"contractParties")}
+נכס או שירות: ${g(d,"contractAsset")}
+
+א. הסעיפים המרכזיים כפי שסוכמו
+${g(d,"contractTerms")}
+
+ב. נקודות שמדאיגות אתכם
+${g(d,"contractWorries")}
+
+ג. תרחיש הלחץ (פרוטוקול הסימולציה)
+1. הצד השני מפר את החוזה בנקודה הרגישה ביותר עבורכם.
+2. כל צד מציג את פרשנותו לסעיפים שסוכמו.
+3. נבחנת השאלה: מה כתוב בפועל לעומת מה שהתכוונתם.
+4. נבדקים סעדים: אכיפה, ביטול, פיצוי מוסכם, קיזוז.
+
+ד. הנחיות להשלמת הסימולציה
+יש להשלים מסמך זה לניתוח עמידות מלא בעברית במבנה הבא:
+"תרחיש ההפרה:", "טענת הצד שלכם:", "טענת הצד שכנגד:", "הכרעה מנומקת:" עבור שלושת התרחישים המסוכנים ביותר לחוזה כזה.
+לכל תרחיש לסיים בשורת "תיקון מומלץ לחוזה:" עם ניסוח סעיף מגן קצר.
+בסוף: רשימת חמשת הסעיפים שחובה לוודא שקיימים בחוזה כזה לפני חתימה.
+
+הסימולציה נועדה לזיהוי סיכונים והכנה בלבד. היא אינה ייעוץ משפטי ואינה תחליף לבדיקת החוזה על ידי עורך דין מוסמך לפני חתימה.`
+:
+`Contract stress-test simulation
+Prepared on ${today()}
+
+Type: ${g(d,"contractType")} · Your side: ${g(d,"contractSide")}
+Parties: ${g(d,"contractParties")}
+Asset or service: ${g(d,"contractAsset")}
+
+A. Key agreed terms
+${g(d,"contractTerms")}
+
+B. Your concerns
+${g(d,"contractWorries")}
+
+C. Stress scenario (simulation protocol)
+1. The other side breaches at your most sensitive point.
+2. Each side presents its reading of the agreed terms.
+3. The gap between what is written and what was intended is examined.
+4. Remedies are tested: enforcement, rescission, agreed damages, set-off.
+
+D. Completion instructions
+Complete this document into a full resilience analysis structured as:
+"Breach scenario:", "Your side's claim:", "Opposing claim:", "Reasoned ruling:" for the three riskiest scenarios for this contract type.
+End each scenario with "Recommended contract fix:" and a short protective clause.
+Finish with the five clauses that must exist in this contract type before signing.
+
+This simulation is for risk-spotting and preparation only. It is not legal advice and not a substitute for attorney review before signing.`;}},
 ];
 
 /* ============================================================
@@ -2845,6 +2910,8 @@ function openTool(id){
           <button class="btn primary" id="genBtn">${ICONS.pen}${ui("generate")}</button>
           <button class="btn ai" id="aiBtn">${ICONS.spark}${ui("enhance")}</button>
           <button class="btn ghost" id="resetBtn">${ui("reset")}</button>
+          <button class="btn" id="reviewBtn">${LANG==="he"?"בדיקת עורך דין למסמך":"Request attorney review"}</button>
+          <button class="btn" id="docBtn">${LANG==="he"?"צירוף מסמך לבדיקה":"Attach a document"}</button>
         </div>
         <div class="ai-note">${ui("aiNote")}</div>
         <div class="disclaimer">${ui("disc")}</div>
@@ -2869,6 +2936,8 @@ function openTool(id){
   $("#genBtn",sheet).onclick=()=>{if(validate())refreshPreview(true);};
   $("#aiBtn",sheet).onclick=()=>requireLeadGate("enhance",_rawDoEnhance);
   $("#resetBtn",sheet).onclick=()=>{DATA={};LAST_DOC="";form.reset();$("#paper",sheet).className="paper empty";$("#paper",sheet).textContent=ui("previewEmpty");};
+  $("#reviewBtn",sheet).onclick=()=>requireLeadGate("review",()=>toast(LANG==="he"?"הבקשה נקלטה. עורך דין רלוונטי יקבל את המסמך לבדיקה.":"Request received. A relevant attorney will get the document for review."));
+  $("#docBtn",sheet).onclick=()=>requireLeadGate("doc",()=>toast(LANG==="he"?"המסמך התקבל ויועבר לבדיקה.":"Document received for review."));
   $("#copyBtn",sheet).onclick=()=>requireLeadGate("copy",_rawCopyDoc);
   $("#printBtn",sheet).onclick=()=>requireLeadGate("print",_rawPrintDoc);
   $("#dlBtn",sheet).onclick=()=>requireLeadGate("download",_rawDownloadDoc);
@@ -2995,6 +3064,8 @@ const GATE_I18N = {
     name: "שם מלא", phone: "טלפון", email: "אימייל",
     consent: "אני מסכים/ה שיצרו איתי קשר בנוגע לפנייה הזו.",
     upload: "צירוף מסמך קיים לבדיקת עורך דין (רשות)",
+    channel: "איך נוח לכם שנחזור אליכם?",
+    channelOpts: ["וואטסאפ","שיחת טלפון","פגישת וידאו","אימייל"],
     submit: "המשך לתוצאה המלאה", sending: "שולח…",
     error: "לא הצלחנו לשלוח, נסו שוב.", needFields: "נא למלא שם, טלפון ואישור."
   },
@@ -3004,6 +3075,8 @@ const GATE_I18N = {
     name: "Full name", phone: "Phone", email: "Email",
     consent: "I agree to be contacted about this request.",
     upload: "Attach an existing document for lawyer review (optional)",
+    channel: "How should we get back to you?",
+    channelOpts: ["WhatsApp","Phone call","Video meeting","Email"],
     submit: "Continue to the full result", sending: "Sending…",
     error: "Could not send, please try again.", needFields: "Please fill in name, phone and consent."
   }
@@ -3024,6 +3097,7 @@ function ensureLeadGateModal() {
       <label class="field"><span>${gt("phone")} *</span><input type="tel" name="lead_phone" required></label>
       <label class="field"><span>${gt("email")}</span><input type="email" name="lead_email"></label>
       <label class="field"><span>${gt("upload")}</span><input type="file" name="lead_document" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"></label>
+      <label class="field"><span>${gt("channel")}</span><select name="lead_channel">${gt("channelOpts").map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join("")}</select></label>
       <label class="field lead-gate-consent"><input type="checkbox" name="lead_consent" required><span>${gt("consent")}</span></label>
       <input type="text" name="lead_hp" class="lead-gate-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button type="submit" class="btn primary" id="leadGateSubmit">${gt("submit")}</button>
@@ -3045,8 +3119,10 @@ function closeLeadGate() {
   if (m) m.classList.remove("on");
 }
 let PENDING_GATE_ACTION = null;
+let GATE_CONTEXT = "";
 function requireLeadGate(actionName, callback) {
-  if (LEAD_UNLOCKED) { callback(); return; }
+  GATE_CONTEXT = actionName || "";
+  if (LEAD_UNLOCKED && "review" !== actionName && "doc" !== actionName) { callback(); return; }
   PENDING_GATE_ACTION = callback;
   openLeadGate();
 }
@@ -3067,6 +3143,7 @@ async function onLeadGateSubmit(ev) {
   data.append("draft_excerpt", (LAST_DOC || "").slice(0, 600));
   const gateArea = resolveToolArea();
   if (gateArea) data.append("area", gateArea);
+  if ("review" === GATE_CONTEXT || "doc" === GATE_CONTEXT) data.append("review_request", "1");
   const endpoint = (window.JusticeAIApp && window.JusticeAIApp.leadEndpoint) || "";
   if (!endpoint) { toast(gt("error")); return; }
   btn.disabled = true; btn.textContent = gt("sending");
@@ -3150,7 +3227,7 @@ async function renderLawyerRail() {
         '<div class="lawyer-rail__head"><strong>' + esc(l.name) + "</strong>" +
         (l.verified ? '<span class="lawyer-rail__badge">' + esc(railT("verified")) + "</span>" : "") +
         "</div>" +
-        (l.city ? '<span class="lawyer-rail__city">' + esc(l.city) + "</span>" : "") +
+        '<span class="lawyer-rail__city">' + esc([l.type, l.city, l.years ? (LANG === "he" ? l.years + " שנות ניסיון" : l.years + " yrs experience") : ""].filter(Boolean).join(" · ")) + "</span>" +
         (l.skills && l.skills.length ? '<div class="lawyer-rail__skills" aria-label="' + esc(railT("skills")) + '">' + l.skills.map(function (s) { return "<span>" + esc(s) + "</span>"; }).join("") + "</div>" : "") +
         "</a>";
     }).join("") +

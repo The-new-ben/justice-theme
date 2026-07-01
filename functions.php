@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_VERSION', '2.3.0' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-07-02-marketplace-simulation-wire-v1' );
+define( 'JUSTICE_THEME_VERSION', '2.4.0' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-07-02-knowledge-hitl-comms-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -97,6 +97,7 @@ $justice_theme_files = array(
 	'inc/url-redirects.php',
 	'inc/admin-dashboard.php',
 	'inc/legal-tools-app.php',
+	'inc/knowledge-api.php',
 );
 
 

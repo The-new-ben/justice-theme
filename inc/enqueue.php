@@ -171,8 +171,9 @@ function justice_theme_enqueue_assets() {
 			'justice-legal-tools-app',
 			'JusticeAIApp',
 			array(
-				'leadEndpoint'     => esc_url_raw( rest_url( 'justice/v1/legal-tools/lead' ) ),
-				'generateEndpoint' => esc_url_raw( rest_url( 'justice/v1/generate' ) ),
+				'leadEndpoint'            => esc_url_raw( rest_url( 'justice/v1/legal-tools/lead' ) ),
+				'generateEndpoint'        => esc_url_raw( rest_url( 'justice/v1/generate' ) ),
+				'matchedLawyersEndpoint'  => esc_url_raw( rest_url( 'justice/v1/legal-tools/matched-lawyers' ) ),
 			)
 		);
 	}

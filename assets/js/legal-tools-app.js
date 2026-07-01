@@ -2973,6 +2973,7 @@ try{
   if(cat&&CATS.some(c=>c.id===cat)){CURF=cat;renderCats();renderGrid();}
   const AREA_TO_CAT={"family-law":"family","inheritance-law":"family","real-estate-law":"housing","labor-law":"work","traffic-law":"vehicle","tax-law":"money","debt-collection":"money","criminal-law":"court","torts":"court","medical-malpractice":"court"};
   const area=(u.searchParams.get("area")||"").trim();
+  if(area)window.JUSTICE_AREA_PARAM=area;
   if(area&&AREA_TO_CAT[area]&&CATS.some(c=>c.id===AREA_TO_CAT[area])){CURF=AREA_TO_CAT[area];renderCats();renderGrid();}
   const tool=(u.searchParams.get("tool")||location.hash.replace(/^#/,"")||"").trim();
   if(tool&&TOOLS.some(x=>x.id===tool&&x.live)){openTool(tool);}
@@ -3064,6 +3065,8 @@ async function onLeadGateSubmit(ev) {
   data.append("lang", LANG);
   data.append("fields", JSON.stringify(DATA || {}));
   data.append("draft_excerpt", (LAST_DOC || "").slice(0, 600));
+  const gateArea = resolveToolArea();
+  if (gateArea) data.append("area", gateArea);
   const endpoint = (window.JusticeAIApp && window.JusticeAIApp.leadEndpoint) || "";
   if (!endpoint) { toast(gt("error")); return; }
   btn.disabled = true; btn.textContent = gt("sending");
@@ -3081,3 +3084,95 @@ async function onLeadGateSubmit(ev) {
     btn.disabled = false; btn.textContent = gt("submit");
   }
 }
+
+
+/* ============================================================
+   Marketplace correlation: matched professionals rail.
+   Resolves the active tool to a real practice-areas slug (URL
+   ?area= wins, then the tool's category/field mapping), fetches
+   publicly approved lawyers from the directory REST endpoint and
+   renders them with their skills inside the tool sheet. The same
+   resolved area is attached to the lead-gate submission so the
+   existing classifier + routing engine can route the lead to
+   paying lawyers in that area.
+   ============================================================ */
+const TOOL_CAT_TO_AREA = { family: "family-law", housing: "real-estate-law", work: "labor-law", vehicle: "traffic-law", money: "debt-collection" };
+const ARENA_AREA_HE_TO_SLUG = {
+  "משפחה וגירושין": "family-law",
+  "פלילי ותעבורה": "criminal-law",
+  'מקרקעין ונדל"ן': "real-estate-law",
+  "עבודה": "labor-law",
+  "נזיקין וביטוח לאומי": "torts",
+  "חוזים וכספים": "debt-collection"
+};
+
+function resolveToolArea() {
+  if (window.JUSTICE_AREA_PARAM) return window.JUSTICE_AREA_PARAM;
+  if (!CUR) return "";
+  const fieldVal = DATA && (DATA.caseArea || DATA.costArea || DATA.arenaArea);
+  if (fieldVal && ARENA_AREA_HE_TO_SLUG[fieldVal]) return ARENA_AREA_HE_TO_SLUG[fieldVal];
+  return TOOL_CAT_TO_AREA[CUR.cat] || "";
+}
+
+const RAIL_I18N = {
+  he: { title: "אנשי מקצוע מתאימים מהאינדקס", verified: "מאומת", all: "לכל עורכי הדין בתחום ←", skills: "תחומי עיסוק" },
+  en: { title: "Matching professionals from the directory", verified: "Verified", all: "All lawyers in this area ←", skills: "Practice areas" }
+};
+const railT = (k) => (RAIL_I18N[LANG] || RAIL_I18N.he)[k] || k;
+
+async function renderLawyerRail() {
+  const sheet = $("#sheet");
+  if (!sheet || !CUR) return;
+  const areaSlug = resolveToolArea();
+  if (!areaSlug) return;
+  const base = (window.JusticeAIApp && window.JusticeAIApp.matchedLawyersEndpoint) || "";
+  if (!base) return;
+  let data;
+  try {
+    const r = await fetch(base + (base.indexOf("?") > -1 ? "&" : "?") + "area=" + encodeURIComponent(areaSlug));
+    data = await r.json();
+  } catch (e) { return; }
+  if (!data || !Array.isArray(data.lawyers) || !data.lawyers.length) return;
+  if (!CUR) return; /* sheet closed while fetching */
+
+  let rail = $("#lawyerRail", sheet);
+  if (!rail) {
+    rail = el("div", { id: "lawyerRail", class: "lawyer-rail" });
+    const formCol = $(".form-col", sheet);
+    if (!formCol) return;
+    formCol.append(rail);
+  }
+
+  rail.innerHTML =
+    '<div class="lawyer-rail__title">' + esc(railT("title")) + "</div>" +
+    data.lawyers.map(function (l) {
+      return '<a class="lawyer-rail__card" href="' + esc(l.url) + '" target="_blank" rel="noopener">' +
+        '<div class="lawyer-rail__head"><strong>' + esc(l.name) + "</strong>" +
+        (l.verified ? '<span class="lawyer-rail__badge">' + esc(railT("verified")) + "</span>" : "") +
+        "</div>" +
+        (l.city ? '<span class="lawyer-rail__city">' + esc(l.city) + "</span>" : "") +
+        (l.skills && l.skills.length ? '<div class="lawyer-rail__skills" aria-label="' + esc(railT("skills")) + '">' + l.skills.map(function (s) { return "<span>" + esc(s) + "</span>"; }).join("") + "</div>" : "") +
+        "</a>";
+    }).join("") +
+    '<a class="lawyer-rail__all" href="' + esc(data.directory_url || "/lawyers/") + '">' + esc(railT("all")) + "</a>";
+}
+
+/* Refresh the rail when a tool opens and when an area-bearing field changes. */
+(function () {
+  const origOpenTool = openTool;
+  openTool = function (id) {
+    origOpenTool(id);
+    setTimeout(renderLawyerRail, 60);
+    const form = $("#form");
+    if (form) {
+      form.addEventListener("change", function (e) {
+        if (e.target && ["caseArea", "costArea", "arenaArea"].indexOf(e.target.name) > -1) {
+          renderLawyerRail();
+        }
+      });
+    }
+  };
+  /* Deep-linked tools (?tool= from the article mesh) open before this
+     wrapper installs; render the rail for an already-open sheet. */
+  if (CUR) setTimeout(renderLawyerRail, 60);
+}());

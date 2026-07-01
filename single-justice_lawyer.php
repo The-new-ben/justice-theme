@@ -644,6 +644,27 @@ if ( $show_profile_photo ) {
 					</section>
 				<?php endif; ?>
 
+				<?php
+				// Marketplace <-> simulation reverse wire: prepare for the meeting
+				// with this professional by running the arena on the same area.
+				$justice_profile_area_terms = get_the_terms( get_the_ID(), 'practice-areas' );
+				$justice_profile_area_slug  = ( is_array( $justice_profile_area_terms ) && ! empty( $justice_profile_area_terms ) ) ? $justice_profile_area_terms[0]->slug : '';
+				$justice_profile_arena_url  = add_query_arg(
+					array_filter(
+						array(
+							'tool' => 'court-arena',
+							'area' => $justice_profile_area_slug,
+						)
+					),
+					home_url( '/legal-tools/' )
+				);
+				?>
+				<section class="lawyer-mini-panel jt2-lawyer-cta" style="display:block">
+					<strong><?php esc_html_e( 'לפני הפגישה: הריצו סימולציית בית משפט על המקרה שלכם', 'justice-theme' ); ?></strong>
+					<span><?php esc_html_e( 'טיוטת הכנה חינם, בלי הרשמה. תגיעו לשיחה עם עובדות מסודרות, מוצגים ושאלות.', 'justice-theme' ); ?></span>
+					<p style="margin:14px 0 0"><a href="<?php echo esc_url( $justice_profile_arena_url ); ?>" data-lead-utm-source="lawyer_profile" data-lead-utm-medium="legaltech_gateway" data-lead-utm-campaign="court_arena"><?php esc_html_e( 'פתיחת הסימולציה ←', 'justice-theme' ); ?></a></p>
+				</section>
+
 				<?php if ( $show_freeform_profile_facts && ( $cta_title || $cta_text ) ) : ?>
 					<section class="lawyer-mini-panel lawyer-mini-final-cta">
 						<h2><?php echo esc_html( $cta_title ?: 'רוצים לבדוק את הצעד הבא?' ); ?></h2>

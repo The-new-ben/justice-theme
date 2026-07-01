@@ -114,6 +114,13 @@ function justice_theme_handle_legal_tools_lead( WP_REST_Request $request ) {
 	update_post_meta( $request_id, 'intake_summary', $fields_summary );
 	update_post_meta( $request_id, 'ai_draft', $draft_excerpt );
 
+	$area_slug = function_exists( 'justice_theme_tools_valid_area' )
+		? justice_theme_tools_valid_area( (string) $request->get_param( 'area' ) )
+		: '';
+	if ( '' !== $area_slug ) {
+		update_post_meta( $request_id, 'practice_area_slug', $area_slug );
+	}
+
 	$files = $request->get_file_params();
 	if ( ! empty( $files['lead_document'] ) && empty( $files['lead_document']['error'] ) ) {
 		if ( ! function_exists( 'wp_handle_upload' ) ) {
@@ -303,3 +310,199 @@ function justice_theme_article_tools_mesh( string $content ): string {
 	return $content . $block;
 }
 add_filter( 'the_content', 'justice_theme_article_tools_mesh', 26 );
+
+/**
+ * Resolve and validate a practice-areas slug sent by the tools app.
+ *
+ * @param string $raw Raw area value from the request.
+ * @return string Valid term slug or empty string.
+ */
+function justice_theme_tools_valid_area( string $raw ): string {
+	$slug = sanitize_key( $raw );
+
+	if ( '' === $slug || ! taxonomy_exists( 'practice-areas' ) ) {
+		return '';
+	}
+
+	$term = get_term_by( 'slug', $slug, 'practice-areas' );
+
+	return $term instanceof WP_Term ? $term->slug : '';
+}
+
+/**
+ * Marketplace wire: when the tools lead gate captures a visitor, also
+ * create a real justice_lead with the exact meta contract the existing
+ * classifier (priority 20) and lawyer routing engine (priority 30)
+ * act on, so simulation and tool users flow into the same paid-lawyer
+ * routing and billing pipeline as every other public lead.
+ *
+ * @param int $request_id justice_legal_request post ID.
+ */
+function justice_theme_tools_lead_marketplace_bridge( $request_id ) {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return;
+	}
+
+	$request_id = (int) $request_id;
+	$name       = (string) get_post_meta( $request_id, 'visitor_name', true );
+	$phone      = (string) get_post_meta( $request_id, 'visitor_phone', true );
+	$email      = (string) get_post_meta( $request_id, 'visitor_email', true );
+	$area       = (string) get_post_meta( $request_id, 'practice_area_slug', true );
+	$tool_id    = (string) get_post_meta( $request_id, 'legal_area', true );
+	$excerpt    = (string) get_post_field( 'post_content', $request_id );
+
+	if ( '' === $name || '' === $phone ) {
+		return;
+	}
+
+	$surface        = 'legal_tools_gate';
+	$source_channel = function_exists( 'justice_theme_public_lead_source_channel' )
+		? justice_theme_public_lead_source_channel( $surface )
+		: 'public_site_form';
+
+	$lead_id = wp_insert_post(
+		array(
+			'post_type'   => 'justice_lead',
+			'post_title'  => sprintf( '%s - %s', $name, $area ?: ( $tool_id ?: 'legal-tools' ) ),
+			'post_status' => 'publish',
+		)
+	);
+
+	if ( ! $lead_id || is_wp_error( $lead_id ) ) {
+		return;
+	}
+
+	$meta = array(
+		'visitor_name'                  => $name,
+		'visitor_phone'                 => $phone,
+		'visitor_email'                 => $email,
+		'legal_area'                    => $area,
+		'message'                       => trim( 'כלי AI: ' . $tool_id . "\n\n" . $excerpt ),
+		'urgency'                       => 'normal',
+		'lead_status'                   => 'new',
+		'follow_up_status'              => 'not_started',
+		'coverage_status'               => 'coverage_review',
+		'consent'                       => '1',
+		'consent_status'                => 'explicit_site_form_consent',
+		'source_url'                    => home_url( '/legal-tools/' ),
+		'source_page_url'               => home_url( '/legal-tools/' ),
+		'source_keyword'                => $tool_id,
+		'source_channel'                => $source_channel,
+		'source_system'                 => 'justice_public_site',
+		'lead_source_surface'           => $surface,
+		'lead_revenue_model'            => 'public_intake_review',
+		'qualified_lead_billing_status' => 'not_ready',
+		'lead_revenue_notes'            => 'Lead captured by the AI tools gate (simulation/drafting). Qualify need, consent, coverage and lawyer commercial terms before billing.',
+		'owner_revenue_next_step'       => 'AI tools lead: review the attached draft context, confirm area and consent, then route or assign to a paid lawyer path.',
+		'linked_legal_request_id'       => $request_id,
+	);
+
+	foreach ( $meta as $key => $value ) {
+		update_post_meta( $lead_id, $key, $value );
+	}
+
+	update_post_meta( $request_id, 'linked_lead_id', $lead_id );
+}
+add_action( 'justice_theme_legal_tools_lead_captured', 'justice_theme_tools_lead_marketplace_bridge', 10, 1 );
+
+/**
+ * Matched professionals for the tools app rail: same practice-areas
+ * matcher the routing engine uses, restricted to publicly approved
+ * profiles, verified-first. Public directory data only.
+ */
+function justice_theme_register_matched_lawyers_route() {
+	register_rest_route(
+		'justice/v1',
+		'/legal-tools/matched-lawyers',
+		array(
+			'methods'             => 'GET',
+			'permission_callback' => '__return_true',
+			'args'                => array(
+				'area' => array(
+					'type'              => 'string',
+					'required'          => true,
+					'sanitize_callback' => 'sanitize_key',
+				),
+			),
+			'callback'            => 'justice_theme_matched_lawyers_callback',
+		)
+	);
+}
+add_action( 'rest_api_init', 'justice_theme_register_matched_lawyers_route' );
+
+/**
+ * @param WP_REST_Request $request Request.
+ * @return WP_REST_Response
+ */
+function justice_theme_matched_lawyers_callback( WP_REST_Request $request ) {
+	$area = justice_theme_tools_valid_area( (string) $request->get_param( 'area' ) );
+
+	if ( '' === $area || ! post_type_exists( 'justice_lawyer' ) ) {
+		return new WP_REST_Response( array( 'lawyers' => array(), 'area' => $area ), 200 );
+	}
+
+	$candidate_ids = get_posts(
+		array(
+			'post_type'      => 'justice_lawyer',
+			'post_status'    => 'publish',
+			'posts_per_page' => 12,
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
+			'orderby'        => 'modified',
+			'order'          => 'DESC',
+			'tax_query'      => array(
+				array(
+					'taxonomy' => 'practice-areas',
+					'field'    => 'slug',
+					'terms'    => $area,
+				),
+			),
+		)
+	);
+
+	$rows = array();
+
+	foreach ( $candidate_ids as $lawyer_id ) {
+		$lawyer_id = (int) $lawyer_id;
+
+		if ( function_exists( 'justice_theme_lawyer_profile_is_public_approved' ) && ! justice_theme_lawyer_profile_is_public_approved( $lawyer_id ) ) {
+			continue;
+		}
+
+		$skills = array();
+		$terms  = get_the_terms( $lawyer_id, 'practice-areas' );
+		if ( is_array( $terms ) ) {
+			foreach ( array_slice( $terms, 0, 4 ) as $term ) {
+				$skills[] = $term->name;
+			}
+		}
+
+		$city_terms = get_the_terms( $lawyer_id, 'city' );
+		$city       = ( is_array( $city_terms ) && ! empty( $city_terms ) ) ? $city_terms[0]->name : '';
+
+		$rows[] = array(
+			'id'       => $lawyer_id,
+			'name'     => get_the_title( $lawyer_id ),
+			'url'      => function_exists( 'justice_theme_public_permalink' ) ? justice_theme_public_permalink( $lawyer_id ) : get_permalink( $lawyer_id ),
+			'city'     => $city,
+			'skills'   => $skills,
+			'verified' => 'verified' === strtolower( (string) get_post_meta( $lawyer_id, 'verification_status', true ) ),
+		);
+	}
+
+	usort(
+		$rows,
+		static function ( $a, $b ) {
+			return (int) $b['verified'] <=> (int) $a['verified'];
+		}
+	);
+
+	return new WP_REST_Response(
+		array(
+			'area'          => $area,
+			'directory_url' => home_url( '/lawyers/?area=' . rawurlencode( $area ) ),
+			'lawyers'       => array_slice( $rows, 0, 3 ),
+		),
+		200
+	);
+}

@@ -1398,3 +1398,52 @@ input[type="submit"].button {
 .jt2-footer__quick-ctas .is-whatsapp {
   color: var(--jt2-navy-deep) !important;
 }
+
+/* Inline simulation stage inside the homepage AI center. */
+.jt2-ai__sim { margin-top: 18px; }
+
+.jt2-ai__sim-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.jt2-ai__sim-head strong { color: var(--jt2-ivory); font-size: 14px; }
+
+.jt2-ai__sim-paper {
+  background: #fff;
+  color: #10172a;
+  border-radius: 14px;
+  padding: 20px 22px;
+  font-family: var(--jt2-font-ui);
+  font-size: 13.5px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 320px;
+  overflow: auto;
+  margin: 0;
+}
+
+.jt2-ai__sim-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+
+.jt2-ai__sim-actions a {
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.jt2-ai__sim-actions a:first-child {
+  background: var(--jt2-coral);
+  color: #fff;
+  border-radius: var(--jt2-r-pill);
+  padding: 0 22px;
+}
+
+.jt2-ai__sim-actions a:first-child:hover { background: var(--jt2-coral-deep); }
+
+.jt2-ai__sim-actions a:last-child { color: var(--jt2-ivory); text-decoration: underline; }

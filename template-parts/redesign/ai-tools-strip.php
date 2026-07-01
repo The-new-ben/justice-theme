@@ -94,17 +94,66 @@ $justice_ai_tools = array(
 				<label class="screen-reader-text" for="ai-launcher-facts"><?php esc_html_e( 'תיאור המקרה', 'justice-theme' ); ?></label>
 				<textarea id="ai-launcher-facts" rows="2" placeholder="<?php esc_attr_e( 'תארו בכמה משפטים מה קרה, והסימולציה תתחיל מזה…', 'justice-theme' ); ?>"></textarea>
 			</div>
-			<button type="button" id="ai-launcher-go" data-lead-utm-source="homepage" data-lead-utm-medium="ai_center" data-lead-utm-campaign="court_arena"><?php esc_html_e( 'התחלת סימולציית בית משפט ←', 'justice-theme' ); ?></button>
-			<span class="jt2-ai__launcher-note"><?php esc_html_e( 'תוכלו גם להשיב לשופט בקול, ולקבל את המשך הדיון. תרגול בלבד, לא ייעוץ משפטי.', 'justice-theme' ); ?></span>
+			<button type="button" id="ai-launcher-go" data-lead-utm-source="homepage" data-lead-utm-medium="ai_center" data-lead-utm-campaign="court_arena"><?php esc_html_e( 'הפעלת הסימולציה כאן ←', 'justice-theme' ); ?></button>
+			<span class="jt2-ai__launcher-note"><?php esc_html_e( 'הפרוטוקול נבנה כאן בעמוד. בהמשך תוכלו גם להשיב לשופט בקול ולקבל את המשך הדיון. תרגול בלבד, לא ייעוץ משפטי.', 'justice-theme' ); ?></span>
+
+			<div id="ai-sim-stage" class="jt2-ai__sim" hidden>
+				<div class="jt2-ai__sim-head">
+					<strong><?php esc_html_e( 'פרוטוקול הסימולציה שלכם', 'justice-theme' ); ?></strong>
+					<span class="jt2-badge jt2-badge--ai"><?php esc_html_e( 'תצוגה חיה', 'justice-theme' ); ?></span>
+				</div>
+				<pre id="ai-sim-paper" class="jt2-ai__sim-paper" dir="rtl"></pre>
+				<div class="jt2-ai__sim-actions">
+					<a href="#" id="ai-sim-continue" data-lead-utm-source="homepage" data-lead-utm-medium="ai_center" data-lead-utm-campaign="court_arena_continue"><?php esc_html_e( 'המשך: תמליל AI מלא ותשובה לשופט ←', 'justice-theme' ); ?></a>
+					<a href="#" id="ai-sim-lawyers"><?php esc_html_e( 'עורכי דין בתחום הזה', 'justice-theme' ); ?></a>
+				</div>
+			</div>
 		</div>
 		<script>
 		( function () {
 			var btn = document.getElementById( 'ai-launcher-go' );
 			if ( ! btn ) { return; }
 			var heByArea = { 'family-law': 'משפחה וגירושין', 'criminal-law': 'פלילי ותעבורה', 'real-estate-law': 'מקרקעין ונדל"ן', 'labor-law': 'עבודה', 'torts': 'נזיקין וביטוח לאומי', 'debt-collection': 'חוזים וכספים' };
+			var toolsUrl = <?php echo wp_json_encode( esc_url( home_url( '/legal-tools/' ) ) ); ?>;
+			var lawyersUrl = <?php echo wp_json_encode( esc_url( home_url( '/lawyers/' ) ) ); ?>;
+
+			function docket( areaHe, facts ) {
+				var today = new Date().toLocaleDateString( 'he-IL', { year: 'numeric', month: 'long', day: 'numeric' } );
+				return 'פרוטוקול סימולציה: תיק ' + ( areaHe || '__________' ) + '\n' +
+					'הוכן ביום ' + today + '\n\n' +
+					'א. תיק הדיון\n' + ( facts || '__________' ) + '\n\n' +
+					'ב. סדר הדיון\n' +
+					'1. פתיחת הדיון על ידי בית המשפט\n' +
+					'2. דבר פתיחה: בא כוח התובע\n' +
+					'3. דבר פתיחה: בא כוח הנתבע\n' +
+					'4. פרשת התביעה: מוצגים וחקירה ראשית\n' +
+					'5. חקירה נגדית\n' +
+					'6. פרשת ההגנה\n' +
+					'7. סיכומים והכרעה מנומקת לפי הראיות\n\n' +
+					'בשלב המלא: תמליל דיון שלם, ציוני עוצמה לכל צד, סתירות שהתגלו, ותור אישי מול השופט.\n' +
+					'תרגול בלבד. לא ייעוץ משפטי ולא חיזוי תוצאה.';
+			}
+
 			btn.addEventListener( 'click', function () {
 				var area = document.getElementById( 'ai-launcher-area' ).value;
 				var facts = document.getElementById( 'ai-launcher-facts' ).value.trim();
+				var stage = document.getElementById( 'ai-sim-stage' );
+				var paper = document.getElementById( 'ai-sim-paper' );
+
+				paper.textContent = '';
+				stage.hidden = false;
+
+				// Typewriter render of the real docket, then wire the continue links.
+				var full = docket( heByArea[ area ] || '', facts );
+				var i = 0;
+				var timer = setInterval( function () {
+					i += 6;
+					paper.textContent = full.slice( 0, i );
+					if ( i >= full.length ) {
+						clearInterval( timer );
+					}
+				}, 12 );
+
 				try {
 					localStorage.setItem( 'justice_ai_prefill', JSON.stringify( {
 						tool: 'court-arena',
@@ -112,8 +161,11 @@ $justice_ai_tools = array(
 						fields: { arenaArea: heByArea[ area ] || '', arenaFacts: facts }
 					} ) );
 				} catch ( e ) {}
-				var url = <?php echo wp_json_encode( esc_url( home_url( '/legal-tools/' ) ) ); ?> + '?tool=court-arena' + ( area ? '&area=' + encodeURIComponent( area ) : '' );
-				window.location.href = url;
+
+				var continueUrl = toolsUrl + '?tool=court-arena' + ( area ? '&area=' + encodeURIComponent( area ) : '' );
+				document.getElementById( 'ai-sim-continue' ).setAttribute( 'href', continueUrl );
+				document.getElementById( 'ai-sim-lawyers' ).setAttribute( 'href', area ? lawyersUrl + '?area=' + encodeURIComponent( area ) : lawyersUrl );
+				stage.scrollIntoView( { behavior: 'smooth', block: 'nearest' } );
 			} );
 		}() );
 		</script>

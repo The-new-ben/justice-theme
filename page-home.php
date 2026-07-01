@@ -2,7 +2,9 @@
 /**
  * Template Name: Home
  *
- * Explicit homepage template used by the live page assignment.
+ * Redesign homepage (Homepage.dc.html): 13 consolidated sections, all
+ * wired to real CMS data. The old 20-section lineup is retired per the
+ * redesign strategy doc ("same content, less redundancy").
  *
  * @package JusticeTheme
  */
@@ -10,47 +12,33 @@
 get_header();
 ?>
 
-<?php get_template_part( 'template-parts/sections/hero' ); ?>
+<?php get_template_part( 'template-parts/redesign/hero' ); ?>
 
-<?php get_template_part( 'template-parts/sections/customer-intake-strip' ); ?>
+<?php get_template_part( 'template-parts/redesign/situational-router' ); ?>
 
-<?php get_template_part( 'template-parts/sections/legaltech-tools' ); ?>
+<?php get_template_part( 'template-parts/redesign/ai-tools-strip' ); ?>
 
-<?php get_template_part( 'template-parts/sections/money-keywords-seo' ); ?>
+<?php get_template_part( 'template-parts/redesign/how-it-works' ); ?>
 
-<?php get_template_part( 'template-parts/sections/homepage-legal-service-flow' ); ?>
+<?php get_template_part( 'template-parts/redesign/lawyer-revenue' ); ?>
 
-<?php get_template_part( 'template-parts/sections/homepage-legal-help-router' ); ?>
-
-<?php get_template_part( 'template-parts/sections/homepage-intent-pyramid' ); ?>
+<?php get_template_part( 'template-parts/redesign/practice-areas' ); ?>
 
 <?php get_template_part( 'template-parts/sections/home-page-content' ); ?>
 
-<?php get_template_part( 'template-parts/sections/practice-areas-grid' ); ?>
-
-<?php get_template_part( 'template-parts/sections/cities-grid' ); ?>
-
 <?php get_template_part( 'template-parts/sections/featured-lawyers' ); ?>
 
-<?php get_template_part( 'template-parts/sections/legal-service-providers' ); ?>
-
-<?php get_template_part( 'template-parts/sections/latest-articles' ); ?>
-
-<?php get_template_part( 'template-parts/sections/featured-pillars' ); ?>
-
-<?php get_template_part( 'template-parts/sections/topic-clusters' ); ?>
+<?php get_template_part( 'template-parts/redesign/content-tabs' ); ?>
 
 <?php get_template_part( 'template-parts/sections/ask-lawyer' ); ?>
 
-<?php get_template_part( 'template-parts/sections/trust-section' ); ?>
+<?php get_template_part( 'template-parts/sections/find-lawyer-guide' ); ?>
 
-<?php get_template_part( 'template-parts/sections/homepage-lawyer-revenue-strip' ); ?>
+<?php get_template_part( 'template-parts/redesign/stats-trust' ); ?>
 
-<?php get_template_part( 'template-parts/sections/lawyer-cta' ); ?>
+<?php get_template_part( 'template-parts/redesign/faq' ); ?>
 
-<?php get_template_part( 'template-parts/sections/newsletter' ); ?>
-
-<?php get_template_part( 'template-parts/sections/cta-section' ); ?>
+<?php get_template_part( 'template-parts/redesign/final-cta' ); ?>
 
 <?php
 get_footer();

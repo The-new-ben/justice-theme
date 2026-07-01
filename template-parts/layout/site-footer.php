@@ -1,6 +1,9 @@
 <?php
 /**
- * Site footer partial.
+ * Site footer partial - redesign (SiteFooter.dc.html).
+ *
+ * Deep-navy footer: about + contact, practice areas, quick nav, quick
+ * contact CTAs, four trust-path cards, legal bar, floating WhatsApp.
  *
  * @package JusticeTheme
  */
@@ -9,211 +12,152 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$justice_phone    = justice_theme_option( 'justice_phone', '0525101555' );
-$justice_email    = justice_theme_option( 'justice_email', 'info@jus-tice.co.il' );
-$justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
-$justice_address  = function_exists( 'justice_theme_business_address' ) ? justice_theme_business_address() : justice_theme_option( 'justice_business_address', 'רחוב ראול ולנברג 18, מתחם CU, מגדל C, קומה 2, תל אביב-יפו' );
+$justice_phone      = justice_theme_option( 'justice_phone', '0525101555' );
+$justice_phone_href = 'tel:' . preg_replace( '/[^0-9+]/', '', $justice_phone );
+$justice_email      = justice_theme_option( 'justice_email', 'info@jus-tice.co.il' );
+$justice_address    = function_exists( 'justice_theme_business_address' )
+	? justice_theme_business_address()
+	: justice_theme_option( 'justice_business_address', 'רחוב ראול ולנברג 18, מתחם CU, מגדל C, קומה 2, תל אביב-יפו' );
+
 $justice_lawyers_archive = get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' );
-$justice_footer_cities   = array(
-	array(
-		'label' => __( 'תל אביב', 'justice-theme' ),
-		'url'   => add_query_arg( 'city', 'תל אביב', $justice_lawyers_archive ),
-	),
-	array(
-		'label' => __( 'ירושלים', 'justice-theme' ),
-		'url'   => add_query_arg( 'city', 'ירושלים', $justice_lawyers_archive ),
-	),
-	array(
-		'label' => __( 'חיפה', 'justice-theme' ),
-		'url'   => add_query_arg( 'city', 'חיפה', $justice_lawyers_archive ),
-	),
-	array(
-		'label' => __( 'באר שבע', 'justice-theme' ),
-		'url'   => add_query_arg( 'city', 'באר שבע', $justice_lawyers_archive ),
-	),
-	array(
-		'label' => __( 'ראשון לציון', 'justice-theme' ),
-		'url'   => add_query_arg( 'city', 'ראשון לציון', $justice_lawyers_archive ),
-	),
-);
+
 $justice_footer_whatsapp_url = function_exists( 'justice_theme_public_whatsapp_url' )
 	? justice_theme_public_whatsapp_url( __( 'שלום, אני צריך/ה עזרה משפטית דרך Jus-Tice. הגעתי מהאתר ואשמח לחזרה.', 'justice-theme' ) )
 	: '';
+
+$justice_footer_areas = array(
+	array( __( 'דיני משפחה וגירושין', 'justice-theme' ), home_url( '/family-law/' ) ),
+	array( __( 'משפט פלילי', 'justice-theme' ), home_url( '/criminal-defense-attorney/' ) ),
+	array( __( 'מקרקעין ונדל"ן', 'justice-theme' ), home_url( '/practice-areas/real-estate-law/' ) ),
+	array( __( 'רשלנות רפואית', 'justice-theme' ), home_url( '/medical-malpractice-lawyer/' ) ),
+	array( __( 'נזיקין ותאונות', 'justice-theme' ), home_url( '/tort-lawyer/' ) ),
+	array( __( 'דיני עבודה', 'justice-theme' ), home_url( '/practice-areas/labor-law/' ) ),
+);
+
+$justice_footer_nav = array(
+	array( __( 'מאגר מאמרים', 'justice-theme' ), home_url( '/articles/' ) ),
+	array( __( 'אינדקס עורכי דין', 'justice-theme' ), $justice_lawyers_archive ),
+	array( __( 'כלי AI משפטיים', 'justice-theme' ), home_url( '/legal-tools/' ) ),
+	array( __( 'התייעצות משפטית', 'justice-theme' ), home_url( '/#ask-lawyer' ) ),
+	array( __( 'אודות Jus-Tice', 'justice-theme' ), home_url( '/about/' ) ),
+	array( __( 'מדיניות עריכה', 'justice-theme' ), home_url( '/editorial-policy/' ) ),
+	array( __( 'מפת אתר', 'justice-theme' ), home_url( '/site-map/' ) ),
+);
+
+$justice_footer_cities = array(
+	array( __( 'תל אביב', 'justice-theme' ), add_query_arg( 'city', 'תל אביב', $justice_lawyers_archive ) ),
+	array( __( 'ירושלים', 'justice-theme' ), add_query_arg( 'city', 'ירושלים', $justice_lawyers_archive ) ),
+	array( __( 'חיפה', 'justice-theme' ), add_query_arg( 'city', 'חיפה', $justice_lawyers_archive ) ),
+	array( __( 'באר שבע', 'justice-theme' ), add_query_arg( 'city', 'באר שבע', $justice_lawyers_archive ) ),
+	array( __( 'ראשון לציון', 'justice-theme' ), add_query_arg( 'city', 'ראשון לציון', $justice_lawyers_archive ) ),
+);
+
+$justice_footer_legal = array(
+	array( __( 'תנאי שימוש', 'justice-theme' ), home_url( '/sample-terms-and-conditions-template/' ) ),
+	array( __( 'מדיניות פרטיות', 'justice-theme' ), home_url( '/privacy/' ) ),
+	array( __( 'ביטול ואספקה', 'justice-theme' ), home_url( '/cancellation/' ) ),
+	array( __( 'מדיניות עריכה', 'justice-theme' ), home_url( '/editorial-policy/' ) ),
+	array( __( 'הצהרת נגישות', 'justice-theme' ), home_url( '/accessibility/' ) ),
+	array( __( 'יצירת קשר', 'justice-theme' ), home_url( '/contact/' ) ),
+);
 ?>
 
-<footer class="site-footer" role="contentinfo" style="background: var(--jt-primary-deep); color: #fff; padding-top: 5rem; padding-bottom: 2rem; border-top: 4px solid var(--jt-accent);">
-	<div class="container site-footer__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 4rem; margin-bottom: 4rem;">
-		
-		<section class="site-footer__section site-footer__about" style="grid-column: span 2;">
-			<div class="footer-logo" style="margin-bottom: 1.5rem;">
-				<?php if ( has_custom_logo() ) : ?>
-					<?php echo wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'style' => 'max-width: 180px; height: auto; filter: brightness(10);' ) ); ?>
-				<?php else : ?>
-					<a class="brand-lockup brand-lockup--justice brand-lockup--footer" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Jus-Tice" style="color: #fff;">
-						<span class="brand-lockup__icon" aria-hidden="true" style="color: #fff;">
-							<img src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/favicon-512.png' ); ?>" alt="" width="38" height="38" loading="lazy" decoding="async">
-						</span>
-						<span class="brand-lockup__wordmark" aria-hidden="true">
-							<span>Jus</span><span class="brand-lockup__red-dot"></span><span>Tice</span>
-						</span>
-						<span class="brand-lockup__text">
-							<span class="brand-lockup__name" style="color: #fff;">Jus-Tice</span>
-							<span class="brand-lockup__tagline" style="color: rgba(255,255,255,0.6);">פורטל משפטי חכם</span>
-						</span>
-					</a>
-				<?php endif; ?>
+<footer class="site-footer jt2-footer" role="contentinfo">
+	<div class="jt2-footer__grid">
+		<section>
+			<div class="jt2-footer__brand">
+				<img src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/favicon-512.png' ); ?>" alt="" width="34" height="34" loading="lazy" decoding="async">
+				<span dir="ltr">
+					<span class="jt2-footer__brand-name">Jus</span><span class="jt2-header__brand-dot"></span><span class="jt2-footer__brand-name">Tice</span>
+				</span>
 			</div>
-			<p style="color: rgba(255,255,255,0.65); line-height: 1.7; font-size: 1.05rem; max-width: 400px; margin-bottom: 2rem;">
-				<?php esc_html_e( 'פורטל משפטי מתקדם המציע מידע מקצועי, פסקי דין, וחיבור ישיר לעורכי הדין המובילים בישראל, הכל בממשק אחד.', 'justice-theme' ); ?>
-			</p>
-			
-			<div class="footer-contact" style="display: flex; gap: 1.5rem; font-weight: 600;">
+			<p class="jt2-footer__about"><?php esc_html_e( 'פורטל משפטי מתקדם המציע מידע מקצועי, מדריכים, וחיבור ישיר לעורכי דין מתאימים בישראל, הכל בממשק אחד.', 'justice-theme' ); ?></p>
+			<div class="jt2-footer__contact">
 				<?php if ( $justice_phone ) : ?>
-					<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $justice_phone ) ); ?>" style="display: flex; align-items: center; gap: 8px; color: #fff; background: rgba(255,255,255,0.05); padding: 0.6rem 1.2rem; border-radius: 50px; transition: all 0.3s ease;">
-						<span style="color: var(--jt-accent); font-size: 1.2rem;">✆</span> <span style="direction: ltr;"><?php echo esc_html( $justice_phone ); ?></span>
-					</a>
+					<a href="<?php echo esc_url( $justice_phone_href ); ?>">&#9742; <span dir="ltr"><?php echo esc_html( $justice_phone ); ?></span></a>
 				<?php endif; ?>
 				<?php if ( $justice_email ) : ?>
-					<a href="mailto:<?php echo esc_attr( $justice_email ); ?>" style="display: flex; align-items: center; gap: 8px; color: #fff; background: rgba(255,255,255,0.05); padding: 0.6rem 1.2rem; border-radius: 50px; transition: all 0.3s ease;">
-						<span style="color: var(--jt-accent); font-size: 1.2rem;">✉</span> <?php echo esc_html( $justice_email ); ?>
-					</a>
+					<a href="mailto:<?php echo esc_attr( $justice_email ); ?>">&#9993; <?php echo esc_html( $justice_email ); ?></a>
 				<?php endif; ?>
 			</div>
 			<?php if ( $justice_address ) : ?>
-				<p class="footer-business-address" style="margin: 1rem 0 0; color: rgba(255,255,255,0.7); line-height: 1.7; font-size: 0.95rem;">
-					<strong style="color: #fff;"><?php esc_html_e( 'כתובת בית עסק:', 'justice-theme' ); ?></strong>
-					<?php echo esc_html( $justice_address ); ?>
-				</p>
+				<p class="jt2-footer__address"><strong><?php esc_html_e( 'כתובת בית עסק:', 'justice-theme' ); ?></strong> <?php echo esc_html( $justice_address ); ?></p>
 			<?php endif; ?>
 		</section>
 
-		<section class="site-footer__section">
-			<h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 1.5rem; font-weight: 700; position: relative; padding-bottom: 0.8rem;">
-				<?php esc_html_e( 'תחומי התמחות', 'justice-theme' ); ?>
-				<span style="position: absolute; bottom: 0; right: 0; width: 40px; height: 3px; background: var(--jt-accent); border-radius: 2px;"></span>
-			</h3>
-			<ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.8rem;">
-				<?php
-				// Driven by the same GSC-derived cluster map as the primary nav and breadcrumbs,
-				// so footer practice links stay coherent and auto-reflect map changes. Each URL
-				// is a resolved live pillar or a /lawyers/?area= fallback — never a 404.
-				$justice_footer_practice = function_exists( 'justice_theme_cluster_nav_items' )
-					? justice_theme_cluster_nav_items()
-					: array();
-
-				if ( ! empty( $justice_footer_practice ) ) :
-					foreach ( $justice_footer_practice as $justice_footer_item ) : ?>
-						<li><a href="<?php echo esc_url( $justice_footer_item['url'] ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;"><?php echo esc_html( $justice_footer_item['label'] ); ?></a></li>
-					<?php endforeach;
-				else : ?>
-					<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=family-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">דיני משפחה וגירושין</a></li>
-					<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=criminal-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">משפט פלילי</a></li>
-					<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=real-estate-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">מקרקעין ונדל״ן</a></li>
-				<?php endif; ?>
-				<li><a href="<?php echo esc_url( home_url( '/#find-lawyer-guide' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">איך בוחרים עורך דין</a></li>
-			</ul>
+		<section>
+			<h3><?php esc_html_e( 'תחומי התמחות', 'justice-theme' ); ?></h3>
+			<div class="jt2-footer__col">
+				<?php foreach ( $justice_footer_areas as $justice_footer_area ) : ?>
+					<a href="<?php echo esc_url( $justice_footer_area[1] ); ?>"><?php echo esc_html( $justice_footer_area[0] ); ?></a>
+				<?php endforeach; ?>
+			</div>
 		</section>
 
-		<section class="site-footer__section">
-			<h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 1.5rem; font-weight: 700; position: relative; padding-bottom: 0.8rem;">
-				<?php esc_html_e( 'ניווט מהיר', 'justice-theme' ); ?>
-				<span style="position: absolute; bottom: 0; right: 0; width: 40px; height: 3px; background: var(--jt-accent); border-radius: 2px;"></span>
-			</h3>
-			<ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.8rem;">
-				<li><a href="<?php echo esc_url( home_url( '/articles/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">מאגר מאמרים</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">אינדקס עורכי דין</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">התייעצות משפטית</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">יצירת קשר</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">אודות Jus-Tice</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/editorial-policy/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">מדיניות עריכה</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" style="color: var(--jt-accent); font-weight: 700; text-decoration: none;">הצטרפות עורכי דין &larr;</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">מסלולים לעורכי דין</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyer-dashboard/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">אזור אישי לעורכי דין</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/site-map/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">מפת אתר</a></li>
-			</ul>
+		<section>
+			<h3><?php esc_html_e( 'ניווט מהיר', 'justice-theme' ); ?></h3>
+			<div class="jt2-footer__col">
+				<?php foreach ( $justice_footer_nav as $justice_footer_link ) : ?>
+					<a href="<?php echo esc_url( $justice_footer_link[1] ); ?>"><?php echo esc_html( $justice_footer_link[0] ); ?></a>
+				<?php endforeach; ?>
+				<a class="jt2-footer__join" href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>"><?php esc_html_e( 'הצטרפות עורכי דין ←', 'justice-theme' ); ?></a>
+			</div>
 		</section>
 
-		<section class="site-footer__section site-footer__quick-action">
-			<h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 1.5rem; font-weight: 700; position: relative; padding-bottom: 0.8rem;">
-				<?php esc_html_e( 'פנייה מהירה', 'justice-theme' ); ?>
-				<span style="position: absolute; bottom: 0; right: 0; width: 40px; height: 3px; background: var(--jt-accent); border-radius: 2px;"></span>
-			</h3>
-			<p style="color: rgba(255,255,255,0.72); line-height: 1.7; margin: 0 0 1rem;">
-				<?php esc_html_e( 'התחילו מתיאור קצר של הבעיה. נבדוק תחום, אזור ודחיפות ונעזור להגיע למסלול מתאים, בלי להציג זאת כייעוץ משפטי או כהבטחה לתוצאה.', 'justice-theme' ); ?>
-			</p>
-			<div class="site-footer__quick-actions">
+		<section class="jt2-footer__quick">
+			<h3><?php esc_html_e( 'פנייה מהירה', 'justice-theme' ); ?></h3>
+			<p><?php esc_html_e( 'התחילו מתיאור קצר. נבדוק תחום, עיר ודחיפות, בלי הבטחה לתוצאה.', 'justice-theme' ); ?></p>
+			<div class="jt2-footer__quick-ctas">
 				<?php if ( $justice_footer_whatsapp_url ) : ?>
-					<a class="button button--whatsapp-inline" href="<?php echo esc_url( $justice_footer_whatsapp_url ); ?>" target="_blank" rel="noopener" data-whatsapp-surface="site_footer" data-lead-utm-source="site_footer" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help">
-						<?php esc_html_e( 'שליחת וואטסאפ', 'justice-theme' ); ?>
-					</a>
+					<a class="is-whatsapp" href="<?php echo esc_url( $justice_footer_whatsapp_url ); ?>" target="_blank" rel="noopener" data-whatsapp-surface="site_footer" data-lead-utm-source="site_footer" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help"><?php esc_html_e( 'שליחת וואטסאפ', 'justice-theme' ); ?></a>
 				<?php endif; ?>
-				<a class="button button--gold" href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>">
-					<?php esc_html_e( 'טופס פנייה', 'justice-theme' ); ?>
-				</a>
-				<a class="button button--ghost" href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>">
-					<?php esc_html_e( 'מסלולים לעורכי דין', 'justice-theme' ); ?>
-				</a>
+				<a class="is-form" href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>"><?php esc_html_e( 'טופס פנייה', 'justice-theme' ); ?></a>
+				<a class="is-plans" href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>"><?php esc_html_e( 'מסלולים לעורכי דין', 'justice-theme' ); ?></a>
 			</div>
 		</section>
 	</div>
 
-	<section class="container site-footer__trust-path" aria-label="<?php esc_attr_e( 'איך Jus-Tice מטפל בפנייה משפטית', 'justice-theme' ); ?>">
-		<div class="site-footer__trust-card site-footer__trust-card--lead">
-			<span><?php esc_html_e( 'אחרי שהשארתם פנייה', 'justice-theme' ); ?></span>
-			<strong><?php esc_html_e( 'בודקים תחום, עיר ודחיפות לפני שממשיכים לשיחה או לחיפוש עורך דין מתאים.', 'justice-theme' ); ?></strong>
-			<p><?php esc_html_e( 'המטרה היא לעזור להבין את הצעד הבא בלי להציג מידע כללי כייעוץ משפטי אישי או כהבטחה לתוצאה.', 'justice-theme' ); ?></p>
+	<div class="jt2-footer__cards">
+		<div class="jt2-footer__card">
+			<span class="jt2-footer__card-eyebrow"><?php esc_html_e( 'אחרי שהשארתם פנייה', 'justice-theme' ); ?></span>
+			<strong><?php esc_html_e( 'בודקים תחום, עיר ודחיפות לפני שממשיכים', 'justice-theme' ); ?></strong>
+			<p><?php esc_html_e( 'בלי להציג מידע כללי כייעוץ אישי או הבטחה לתוצאה.', 'justice-theme' ); ?></p>
 		</div>
-
-		<div class="site-footer__trust-card">
-			<span><?php esc_html_e( 'חיפוש לפי עיר', 'justice-theme' ); ?></span>
-			<strong><?php esc_html_e( 'מתחילים קרוב למקום שבו צריך את השירות.', 'justice-theme' ); ?></strong>
-			<nav class="site-footer__city-links" aria-label="<?php esc_attr_e( 'חיפוש עורכי דין לפי עיר', 'justice-theme' ); ?>">
+		<div class="jt2-footer__card">
+			<span class="jt2-footer__card-eyebrow"><?php esc_html_e( 'חיפוש לפי עיר', 'justice-theme' ); ?></span>
+			<strong><?php esc_html_e( 'מתחילים קרוב למקום שצריך', 'justice-theme' ); ?></strong>
+			<div class="jt2-footer__cities">
 				<?php foreach ( $justice_footer_cities as $justice_footer_city ) : ?>
-					<a href="<?php echo esc_url( $justice_footer_city['url'] ); ?>"><?php echo esc_html( $justice_footer_city['label'] ); ?></a>
+					<a href="<?php echo esc_url( $justice_footer_city[1] ); ?>"><?php echo esc_html( $justice_footer_city[0] ); ?></a>
 				<?php endforeach; ?>
-			</nav>
+			</div>
 		</div>
-
-		<div class="site-footer__trust-card">
-			<span><?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?></span>
-			<strong><?php esc_html_e( 'פרופיל, מסלולים ואזור אישי צריכים לעבוד יחד עם הפניות מהאתר.', 'justice-theme' ); ?></strong>
-			<div class="site-footer__lawyer-links">
+		<div class="jt2-footer__card">
+			<span class="jt2-footer__card-eyebrow"><?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?></span>
+			<strong><?php esc_html_e( 'פרופיל, מסלולים ואזור אישי', 'justice-theme' ); ?></strong>
+			<div class="jt2-footer__card-links">
 				<a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>"><?php esc_html_e( 'פתיחת פרופיל', 'justice-theme' ); ?></a>
 				<a href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>"><?php esc_html_e( 'מסלולי הצטרפות', 'justice-theme' ); ?></a>
 				<a href="<?php echo esc_url( home_url( '/lawyer-dashboard/' ) ); ?>"><?php esc_html_e( 'אזור אישי', 'justice-theme' ); ?></a>
 			</div>
 		</div>
-
-		<div class="site-footer__trust-card site-footer__trust-card--action">
-			<span><?php esc_html_e( 'פנייה מהירה', 'justice-theme' ); ?></span>
-			<strong><?php esc_html_e( 'אם יש מועד קרוב, מכתב רשמי או שיחה דחופה, עדיף להתחיל עכשיו.', 'justice-theme' ); ?></strong>
-			<div class="site-footer__trust-actions">
-				<?php if ( $justice_footer_whatsapp_url ) : ?>
-					<a class="button button--whatsapp-inline" href="<?php echo esc_url( $justice_footer_whatsapp_url ); ?>" target="_blank" rel="noopener" data-whatsapp-surface="footer_trust_path" data-lead-utm-source="footer_trust_path" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help">
-						<?php esc_html_e( 'וואטסאפ', 'justice-theme' ); ?>
-					</a>
-				<?php endif; ?>
-				<a class="button button--gold" href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>">
-					<?php esc_html_e( 'טופס פנייה', 'justice-theme' ); ?>
-				</a>
-			</div>
+		<div class="jt2-footer__card jt2-footer__card--hot">
+			<span class="jt2-footer__card-eyebrow"><?php esc_html_e( 'פנייה מהירה', 'justice-theme' ); ?></span>
+			<strong><?php esc_html_e( 'מועד קרוב? עדיף להתחיל עכשיו', 'justice-theme' ); ?></strong>
+			<?php if ( $justice_footer_whatsapp_url ) : ?>
+				<a class="jt2-footer__card-cta" href="<?php echo esc_url( $justice_footer_whatsapp_url ); ?>" target="_blank" rel="noopener" data-whatsapp-surface="site_footer" data-lead-utm-source="site_footer_urgent" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help"><?php esc_html_e( 'וואטסאפ ←', 'justice-theme' ); ?></a>
+			<?php endif; ?>
 		</div>
-	</section>
+	</div>
 
-	<div class="container" style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem;">
-		<div style="display: flex; gap: 1.5rem; margin-bottom: 1rem;">
-			<a href="<?php echo esc_url( home_url( '/sample-terms-and-conditions-template/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">תנאי שימוש</a>
-			<a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">מדיניות פרטיות</a>
-			<a href="<?php echo esc_url( home_url( '/cancellation/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">ביטול ואספקה</a>
-			<a href="<?php echo esc_url( home_url( '/editorial-policy/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">מדיניות עריכה</a>
-			<a href="<?php echo esc_url( home_url( '/accessibility/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">הצהרת נגישות</a>
+	<div class="jt2-footer__legal">
+		<div class="jt2-footer__legal-links">
+			<?php foreach ( $justice_footer_legal as $justice_footer_legal_link ) : ?>
+				<a href="<?php echo esc_url( $justice_footer_legal_link[1] ); ?>"><?php echo esc_html( $justice_footer_legal_link[0] ); ?></a>
+			<?php endforeach; ?>
 		</div>
-		<p style="color: rgba(255,255,255,0.4); font-size: 0.85rem; max-width: 800px; line-height: 1.6; margin: 0;">
-			<?php esc_html_e( 'המידע המופיע באתר Jus-Tice הינו מידע כללי בלבד ואינו מהווה ייעוץ משפטי מכל סוג שהוא. קבלת החלטות על סמך המידע באתר היא באחריות המשתמש בלבד. בכל מקרה של סוגיה משפטית, יש להתייעץ עם עורך דין מוסמך.', 'justice-theme' ); ?>
-		</p>
-		<p style="color: rgba(255,255,255,0.3); font-size: 0.85rem; margin-top: 1rem;">
-			&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?>. <?php esc_html_e( 'כל הזכויות שמורות.', 'justice-theme' ); ?>
-		</p>
+		<p class="jt2-footer__disclaimer"><?php esc_html_e( 'המידע המופיע באתר Jus-Tice הינו מידע כללי בלבד ואינו מהווה ייעוץ משפטי מכל סוג שהוא. קבלת החלטות על סמך המידע באתר היא באחריות המשתמש בלבד. בכל מקרה של סוגיה משפטית יש להתייעץ עם עורך דין מוסמך.', 'justice-theme' ); ?></p>
+		<p class="jt2-footer__disclaimer">&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?>. <?php esc_html_e( 'כל הזכויות שמורות.', 'justice-theme' ); ?></p>
 	</div>
 </footer>
 
@@ -225,7 +169,6 @@ if ( $justice_wa_url ) :
 ?>
 <a class="whatsapp-float" href="<?php echo esc_url( $justice_wa_url ); ?>" target="_blank" rel="noopener" aria-label="<?php esc_attr_e( 'פנייה ישירה לעורך דין בוואטסאפ', 'justice-theme' ); ?>" data-whatsapp-surface="floating_whatsapp" data-lead-utm-source="floating_whatsapp" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help" style="position: fixed; bottom: 20px; left: 20px; background: #25D366; color: white; border-radius: 50px; min-width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); z-index: 1000;">
 	<svg width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.11.546 4.093 1.504 5.818L0 24l6.335-1.452A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82c-1.907 0-3.722-.514-5.317-1.49l-.381-.226-3.96.908.984-3.813-.253-.4A9.783 9.783 0 012.18 12c0-5.422 4.398-9.82 9.82-9.82 5.422 0 9.82 4.398 9.82 9.82 0 5.422-4.398 9.82-9.82 9.82z"/></svg>
-		<span class="whatsapp-float__label"><?php esc_html_e( 'פנייה ישירה לעורך דין', 'justice-theme' ); ?></span>
+	<span class="whatsapp-float__label"><?php esc_html_e( 'פנייה ישירה לעורך דין', 'justice-theme' ); ?></span>
 </a>
 <?php endif; ?>
-

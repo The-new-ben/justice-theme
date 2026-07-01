@@ -5,7 +5,7 @@
 ( () => {
 	const toggle = document.querySelector( '.menu-toggle' );
 	const nav = document.querySelector( '.primary-navigation' );
-	const mobileQuery = window.matchMedia( '(max-width: 1220px)' );
+	const mobileQuery = window.matchMedia( '(max-width: 920px)' );
 	let lockedScrollY = 0;
 	let isScrollLocked = false;
 

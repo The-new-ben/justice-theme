@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Jus-Tice">
-  <rect width="512" height="512" rx="112" fill="#123f66"/>
-  <circle cx="418" cy="402" r="34" fill="#e43325"/>
-  <circle cx="418" cy="402" r="54" fill="#e43325" opacity=".18"/>
+  <rect width="512" height="512" rx="112" fill="#123f66"></rect>
+  <circle cx="418" cy="402" r="34" fill="#e43325"></circle>
+  <circle cx="418" cy="402" r="54" fill="#e43325" opacity=".18"></circle>
   <g fill="#fff">
-    <rect x="237" y="118" width="38" height="268" rx="14"/>
-    <rect x="156" y="162" width="200" height="34" rx="13"/>
-    <rect x="189" y="367" width="134" height="34" rx="13"/>
-    <path d="M169 189 103 337h132L169 189Zm-40 122 40-90 40 90h-80Z"/>
-    <path d="M343 189 277 337h132L343 189Zm-40 122 40-90 40 90h-80Z"/>
-    <circle cx="256" cy="168" r="17"/>
+    <rect x="237" y="118" width="38" height="268" rx="14"></rect>
+    <rect x="156" y="162" width="200" height="34" rx="13"></rect>
+    <rect x="189" y="367" width="134" height="34" rx="13"></rect>
+    <path d="M169 189 103 337h132L169 189Zm-40 122 40-90 40 90h-80Z"></path>
+    <path d="M343 189 277 337h132L343 189Zm-40 122 40-90 40 90h-80Z"></path>
+    <circle cx="256" cy="168" r="17"></circle>
   </g>
 </svg>

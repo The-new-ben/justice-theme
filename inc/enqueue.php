@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function justice_theme_enqueue_assets() {
 	wp_enqueue_style(
 		'justice-fonts',
-		'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap',
+		'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@300;400;500;600;700;800&display=swap',
 		array(),
 		null
 	);
@@ -88,6 +88,16 @@ function justice_theme_enqueue_assets() {
 			'1.0.0'
 		);
 	}
+
+	// Redesign token layer (2026-07): ivory canvas, navy + coral brand,
+	// Frank Ruhl Libre / Assistant type, header, footer and homepage
+	// sections. Deliberately enqueued last so it re-skins legacy CSS.
+	wp_enqueue_style(
+		'justice-redesign',
+		JUSTICE_THEME_URI . '/assets/css/redesign.css',
+		array( 'justice-premium-4', 'justice-components', 'justice-accessibility' ),
+		JUSTICE_THEME_VERSION
+	);
 
 	wp_enqueue_script(
 		'justice-navigation',

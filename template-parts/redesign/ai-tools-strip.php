@@ -113,10 +113,43 @@ $justice_ai_tools = array(
 					<a href="#" id="ai-sim-continue" data-lead-utm-source="homepage" data-lead-utm-medium="ai_center" data-lead-utm-campaign="court_arena_continue"><?php esc_html_e( 'המשך: תמליל AI מלא ותשובה לשופט ←', 'justice-theme' ); ?></a>
 					<a href="#" id="ai-sim-lawyers"><?php esc_html_e( 'עורכי דין בתחום הזה', 'justice-theme' ); ?></a>
 				</div>
+
+				<?php
+				// The courtai visual courtroom (owner-supplied embed, 2026-07-03).
+				// Click-to-load facade: the external SPA never loads on first
+				// paint, so homepage performance and CWV stay untouched.
+				$justice_visual_sim_url = (string) apply_filters(
+					'justice_theme_visual_simulation_embed_url',
+					'https://jus-tice.com/#/hadmaia?channel=862a54c6-aaa1-453a-b2d3-991dd6751c4e'
+				);
+				?>
+				<?php if ( '' !== $justice_visual_sim_url ) : ?>
+				<div class="jt2-courtroom-visual" id="ai-visual-sim" data-embed-url="<?php echo esc_url( $justice_visual_sim_url ); ?>">
+					<button type="button" id="ai-visual-sim-load" class="jt2-courtroom-visual__load">
+						<span aria-hidden="true">&#9654;</span>
+						<?php esc_html_e( 'צפייה בהדמיה החזותית של אולם הדיונים', 'justice-theme' ); ?>
+					</button>
+					<span class="jt2-courtroom-visual__note"><?php esc_html_e( 'ההדמיה נטענת רק בלחיצה. תרגול והמחשה בלבד, לא ייעוץ משפטי.', 'justice-theme' ); ?></span>
+				</div>
+				<?php endif; ?>
 			</div>
 		</div>
 		<script>
 		( function () {
+			var visualWrap = document.getElementById( 'ai-visual-sim' );
+			var visualBtn  = document.getElementById( 'ai-visual-sim-load' );
+			if ( visualWrap && visualBtn ) {
+				visualBtn.addEventListener( 'click', function () {
+					var frame = document.createElement( 'iframe' );
+					frame.src = visualWrap.getAttribute( 'data-embed-url' );
+					frame.className = 'jt2-courtroom-visual__frame';
+					frame.setAttribute( 'title', 'הדמיה חזותית של אולם בית המשפט' );
+					frame.setAttribute( 'allow', 'camera; microphone; fullscreen; autoplay; display-capture' );
+					frame.setAttribute( 'allowfullscreen', '' );
+					visualWrap.replaceChildren( frame );
+				} );
+			}
+
 			var btn = document.getElementById( 'ai-launcher-go' );
 			if ( ! btn ) { return; }
 			var heByArea = { 'family-law': 'משפחה וגירושין', 'criminal-law': 'פלילי ותעבורה', 'real-estate-law': 'מקרקעין ונדל"ן', 'labor-law': 'עבודה', 'torts': 'נזיקין וביטוח לאומי', 'debt-collection': 'חוזים וכספים' };

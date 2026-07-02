@@ -609,6 +609,56 @@ function justice_theme_money_query_seo_map(): array {
 			'description' => 'מדריך לבחירת עורך דין תעבורה בישראל: שלילת רישיון, נקודות, נהיגה בשכרות, תאונת דרכים, דוח תנועה וזימון לבית משפט.',
 			'intro'       => '<p style="text-align: justify;"><strong>עורך דין תעבורה</strong> יכול להשפיע על התוצאה כאשר יש שלילת רישיון, נקודות, נהיגה בשכרות, תאונת דרכים, דוח תנועה או זימון לבית משפט. במדריך הזה תמצאו סדר פעולות ברור: מה לבדוק מיד, מתי לפנות לייעוץ, ואיך להתכונן לפני דיון או חקירה.</p>',
 		),
+
+		// Strike-zone additions (GSC live pull 2026-06-09): pages that already
+		// earn impressions at positions 6-40 for exact query families the current
+		// titles do not use. Title and description only; the page body stays as
+		// published (no intro override).
+		'free-divorce-agreement-template' => array(
+			'title'       => 'הסכם גירושין בהסכמה: דוגמא מלאה ומה חייב להופיע בהסכם',
+			'seo_title'   => 'הסכם גירושין בהסכמה: דוגמא להורדה ומה חייב להופיע | Jus-Tice',
+			'description' => 'דוגמא מלאה להסכם גירושין בהסכמה: רכוש, משמורת, מזונות ואישור בית המשפט. טיוטה בסיסית חינם, מיועדת לבדיקה והשלמה על ידי עורך דין.',
+		),
+		'police-records-data-deletion' => array(
+			'title'       => 'ביטול רישום פלילי ומשטרתי: מי זכאי ואיך מגישים בקשה',
+			'seo_title'   => 'ביטול רישום פלילי ומשטרתי: זכאות, מחיקה וזמנים | Jus-Tice',
+			'description' => 'מדריך לביטול רישום פלילי ורישום משטרתי: תקופות התיישנות ומחיקה, מי זכאי, איך מגישים בקשה ומתי כדאי ליווי של עורך דין פלילי.',
+		),
+		'apply-for-police-criminal-information-certificates' => array(
+			'title'       => 'תעודת יושר (מידע פלילי): הגשת בקשה אונליין, זכאות וזמנים',
+			'seo_title'   => 'תעודת יושר: בקשה לתעודת מידע פלילי אונליין | Jus-Tice',
+			'description' => 'איך מגישים בקשה לתעודת מידע פלילי (תעודת יושר): הגשה אונליין למשטרה, מי רשאי לבקש, כמה זמן לוקח ומה עושים כשקיים רישום.',
+		),
+		'drug-related-crime' => array(
+			'title'       => 'עורך דין סמים: החזקה, שימוש עצמי וסחר בסמים',
+			'seo_title'   => 'עורך דין סמים: החזקה, שימוש עצמי וסחר בסמים | Jus-Tice',
+			'description' => 'עבירות סמים בישראל: החזקה, שימוש עצמי, גידול וסחר בסמים. הענישה בחוק, השלכות הרישום הפלילי ומתי חשוב עורך דין פלילי מהחקירה הראשונה.',
+		),
+		'how-much-will-a-criminal-defense-lawyer-cost' => array(
+			'title'       => 'כמה עולה עורך דין פלילי: שכר טרחה לפי שלב ההליך',
+			'seo_title'   => 'כמה עולה עורך דין פלילי: מחירון שכר טרחה לפי הליך | Jus-Tice',
+			'description' => 'כמה עולה עורך דין פלילי בישראל: טווחי שכר טרחה לחקירה, מעצר, שימוע וכתב אישום, מה משפיע על המחיר ואילו שאלות לשאול לפני שסוגרים.',
+		),
+		'lawyer-for-buying-or-selling-a-house' => array(
+			'title'       => 'עורך דין לקניית דירה ומכירת דירה: ליווי, בדיקות ומחיר',
+			'seo_title'   => 'עורך דין קניית דירה ומכירת דירה: ליווי ומחיר | Jus-Tice',
+			'description' => 'עורך דין לקניית דירה או מכירת דירה: אילו בדיקות חובה לפני חתימה, שלבי העסקה, רישום בטאבו וכמה עולה ליווי משפטי לעסקת מגורים.',
+		),
+		'buying-property-in-greece' => array(
+			'title'       => 'קניית דירה ביוון: מחירים, מיסים והליך הרכישה לישראלים',
+			'seo_title'   => 'קניית דירה ביוון: מחירים, מיסים והליך רכישה | Jus-Tice',
+			'description' => 'קניית דירה או בית ביוון: כמה עולה דירה ביוון, מס רכישה והוצאות נלוות, שלבי העסקה, בדיקות משפטיות וליווי עורך דין מקומי לישראלים.',
+		),
+		'avoiding-mistakes-when-buying-property-in-cyprus' => array(
+			'title'       => 'קניית דירה בקפריסין: טעויות נפוצות ובדיקות חובה',
+			'seo_title'   => 'קניית דירה בקפריסין: טעויות נפוצות ובדיקות חובה | Jus-Tice',
+			'description' => 'קניית דירה או נכס בקפריסין: הטעויות הנפוצות של רוכשים ישראלים, בדיקות חובה לפני חתימה, מיסוי מקומי ומתי נדרש עורך דין בקפריסין.',
+		),
+		'cyprus-lawyer' => array(
+			'title'       => 'עורך דין קפריסין: ליווי ישראלים ברכישת נכס ובעסקאות',
+			'seo_title'   => 'עורך דין קפריסין: ליווי ישראלים בנדל"ן ובעסקאות | Jus-Tice',
+			'description' => 'עורך דין בקפריסין לישראלים: רכישת דירה או נכס, בדיקות בעלות ורישום, מיסוי מקומי, פתיחת חברה ומה לבדוק לפני בחירת משרד מקומי.',
+		),
 	);
 }
 
@@ -663,7 +713,7 @@ add_filter( 'the_title', 'justice_theme_money_query_public_title', 20, 2 );
  */
 function justice_theme_money_query_intro( $content ) {
 	$override = justice_theme_current_money_query_seo();
-	if ( ! $override || ! is_main_query() || ! in_the_loop() ) {
+	if ( ! $override || empty( $override['intro'] ) || ! is_main_query() || ! in_the_loop() ) {
 		return $content;
 	}
 
@@ -695,6 +745,32 @@ function justice_theme_practice_area_seo_override( string $term_slug ): array {
 		'labor-law'       => array(
 			'title'       => 'עורך דין דיני עבודה | זכויות עובדים, פיטורים ושימוע',
 			'description' => 'מידע לעובדים ולמעסיקים בנושא פיטורים, שימוע, זכויות עובדים, שכר, חוזה עבודה ופנסיה, עם מדריכים ופנייה לעורך דין דיני עבודה.',
+		),
+		// Strike-zone taxonomy hubs (GSC 2026-06-09): titles carry the exact
+		// query vocabulary of the area's highest-impression questions.
+		'criminal-law'    => array(
+			'title'       => 'עורך דין פלילי | חקירה, מעצר, רישום פלילי ומדריכים',
+			'description' => 'מידע על חקירה במשטרה, מעצר, כתב אישום, ביטול רישום פלילי ותעודת יושר, עם מדריכים מקצועיים ופנייה מסודרת לעורך דין פלילי.',
+		),
+		'family-law'      => array(
+			'title'       => 'עורך דין גירושין ומשפחה | הסכם גירושין, מזונות ומשמורת',
+			'description' => 'מידע על הסכם גירושין בהסכמה, מזונות, משמורת ילדים והסכמי ממון, עם מדריכים מקצועיים ופנייה מסודרת לעורך דין גירושין ומשפחה.',
+		),
+		'medical-malpractice' => array(
+			'title'       => 'עורך דין רשלנות רפואית | מתי תובעים, הוכחה ופיצויים',
+			'description' => 'מידע על תביעות רשלנות רפואית: אבחון מאוחר, רשלנות בלידה ובניתוחים, חוות דעת רפואית ופיצויים, עם מדריכים ופנייה לעורך דין.',
+		),
+		'traffic-law'     => array(
+			'title'       => 'עורך דין תעבורה | שלילת רישיון, נקודות ונהיגה בשכרות',
+			'description' => 'מידע על שלילת רישיון, נקודות, נהיגה בשכרות וסירוב לבדיקה, דוחות תנועה וזימון לבית משפט, עם מדריכים ופנייה לעורך דין תעבורה.',
+		),
+		'inheritance-law' => array(
+			'title'       => 'עורך דין ירושה וצוואות | צו ירושה, צוואה והתנגדות',
+			'description' => 'מידע על צו ירושה, צו קיום צוואה, עריכת צוואה והתנגדות לצוואה, חלוקת עיזבון וסכסוכי ירושה, עם מדריכים ופנייה לעורך דין ירושה.',
+		),
+		'torts'           => array(
+			'title'       => 'עורך דין נזיקין ותאונות | פיצויים על נזקי גוף',
+			'description' => 'מידע על תביעות נזיקין: תאונות דרכים, תאונות עבודה ונזקי גוף, אחוזי נכות ופיצויים, עם מדריכים ופנייה מסודרת לעורך דין נזיקין.',
 		),
 	);
 
@@ -753,7 +829,10 @@ function justice_theme_contextual_seo_title(): string {
 			return 'עורך דין ' . ( $area_t ? $area_t->name : '' ) . ' | מצאו עורך דין מתאים';
 		}
 
-		return 'מדריך עורכי דין בישראל | Jus-Tice';
+		// GSC 2026-06-09: the directory head terms are "חיפוש עורך דין לפי שם"
+		// and "עורכי דין מומלצים"; the title carries both instead of the
+		// generic "מדריך" phrasing.
+		return 'עורכי דין מומלצים בישראל | חיפוש עורך דין לפי שם ותחום';
 	}
 
 	if ( is_tax( 'practice-areas' ) ) {
@@ -842,7 +921,7 @@ function justice_theme_document_title( $title_parts ) {
 			$area_t = justice_theme_lawyer_directory_area_term( $area_slug );
 			$title_parts['title'] = 'עורך דין ' . ( $area_t ? $area_t->name : '' ) . ' | מצאו עורך דין מומחה';
 		} else {
-			$title_parts['title'] = 'מדריך עורכי דין בישראל | Jus-Tice';
+			$title_parts['title'] = 'עורכי דין מומלצים בישראל | חיפוש עורך דין לפי שם ותחום';
 		}
 		$title_parts['tagline'] = '';
 	}
@@ -915,6 +994,10 @@ function justice_theme_filter_plugin_seo_description( $description ) {
 				return wp_strip_all_tags( $practice_area_seo['description'] );
 			}
 		}
+	}
+
+	if ( ( is_post_type_archive( 'justice_lawyer' ) || is_page( 'lawyers' ) ) && ! justice_theme_is_lawyer_directory_filter_state() ) {
+		return 'מאגר עורכי דין בישראל: חיפוש עורך דין לפי שם, תחום התמחות ועיר. פרופילים עם תחומי עיסוק, ניסיון ודרכי קשר ופנייה מסודרת בלי עלות.';
 	}
 
 	return $description;

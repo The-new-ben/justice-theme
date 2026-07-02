@@ -616,3 +616,49 @@
   padding: 0.15rem 0.65rem;
   white-space: nowrap;
 }
+
+/* === Content-cluster pillar hub block (down-links to every live spoke) === */
+.cluster-hub {
+  margin: 2.5rem 0 0;
+  padding: 1.4rem 1.5rem;
+  background: var(--color-cream, #f7f5ef);
+  border: 1px solid var(--color-hairline, #e6e1d5);
+  border-inline-start: 3px solid var(--color-navy, #16427a);
+  border-radius: 4px;
+  line-height: 1.7;
+}
+.cluster-hub__title {
+  font-size: 1.25rem;
+  margin: 0 0 0.4rem;
+  color: var(--color-navy, #16427a);
+}
+.cluster-hub__desc {
+  margin: 0 0 0.8rem;
+  color: var(--color-muted, #6e6a63);
+  font-size: 0.95rem;
+}
+.cluster-hub__list {
+  margin: 0;
+  padding: 0 1.2rem 0 0;
+  columns: 2;
+  column-gap: 2rem;
+}
+.cluster-hub__list li { margin-bottom: 0.45rem; break-inside: avoid; }
+.cluster-hub__list a,
+.cluster-hub__more a {
+  color: var(--color-navy, #16427a);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.18s ease;
+}
+.cluster-hub__list a:hover,
+.cluster-hub__more a:hover { border-bottom-color: currentColor; }
+.cluster-hub__more {
+  margin: 1rem 0 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--color-hairline, #e6e1d5);
+  font-weight: 600;
+}
+@media (max-width: 640px) {
+  .cluster-hub__list { columns: 1; }
+}

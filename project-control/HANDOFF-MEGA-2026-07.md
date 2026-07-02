@@ -152,6 +152,27 @@ pending:
   hero now uses ask-lawyer-visual.jpg, homepage guide section is
   text-only until the mission 2 photography set is approved.
 
+SEO hierarchy + internal-linking pass 2026-07-03 (owner-ordered,
+advances mission 4, render-layer only, grounded in the GSC 2026-06-09
+strike zone: positions 4-25 with real impressions):
+- Pillar hub block (inc/content-clusters.php,
+  justice_theme_render_cluster_hub_links, the_content prio 21): every
+  pillar now links DOWN to all live spokes plus the area directory and
+  the practice-areas taxonomy hub. Completes the hub-and-spoke both
+  ways (spokes already linked up at prio 20).
+- Money-query map (inc/seo.php) extended with 9 strike-zone pages,
+  title+meta only (intro override is now optional): hesekem gerushin
+  behaskama / bitul rishum plili / teudat yosher / drugs / criminal
+  cost / buy-sell apartment / Greece / Cyprus / Cyprus lawyer.
+- Practice-areas taxonomy overrides added for criminal-law,
+  family-law, medical-malpractice, traffic-law, inheritance-law,
+  torts (titles carry the exact strike-query vocabulary).
+- Directory head terms: /lawyers/ default title now targets
+  "עורכי דין מומלצים" + "חיפוש עורך דין לפי שם" (8.7k monthly
+  impressions combined) with a matching meta description.
+- All titles sized 50-60 chars (Zyppy low-rewrite band), no dashes,
+  no AI tellers, no outcome promises.
+
 REVIEWS system map (inc/lawyer-reviews.php + extended
 inc/lawyer-recommendations.php):
 - Case-linked tokens: justice_reco_token gains

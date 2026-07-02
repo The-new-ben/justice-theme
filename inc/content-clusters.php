@@ -380,6 +380,107 @@ function justice_theme_append_cluster_backlink( string $content ): string {
 }
 add_filter( 'the_content', 'justice_theme_append_cluster_backlink', 20 );
 
+/**
+ * Pillar hub block: the DOWN half of the hub-and-spoke hierarchy.
+ *
+ * Spokes already link up to their pillar (cluster-backlink). This renders
+ * the reverse direction on the pillar page itself: every live spoke as a
+ * descriptive anchor, plus the matching lawyer-directory area and the
+ * practice-areas taxonomy hub. Anchor text is each target's real live
+ * title, so the anchors carry the same query vocabulary as the pages.
+ *
+ * @param int $post_id Pillar post ID.
+ * @return string
+ */
+function justice_theme_render_cluster_hub_links( int $post_id ): string {
+	$slug = justice_theme_cluster_post_slug( $post_id );
+	$c    = justice_theme_cluster_for_slug( $slug );
+
+	if ( ! $c || 'pillar' !== $c['role'] ) {
+		return '';
+	}
+
+	$spoke_links = array();
+
+	foreach ( $c['spokes'] as $spoke_slug ) {
+		$r = justice_theme_cluster_resolve_target( $spoke_slug );
+		if ( $r ) {
+			$spoke_links[] = sprintf(
+				'<li><a href="%s">%s</a></li>',
+				esc_url( $r['url'] ),
+				esc_html( $r['title'] )
+			);
+		}
+	}
+
+	if ( empty( $spoke_links ) ) {
+		return '';
+	}
+
+	$nav_meta   = justice_theme_cluster_nav_meta();
+	$area_slug  = isset( $nav_meta[ $c['key'] ]['area'] ) ? (string) $nav_meta[ $c['key'] ]['area'] : '';
+	$area_label = isset( $nav_meta[ $c['key'] ]['label'] ) ? (string) $nav_meta[ $c['key'] ]['label'] : $c['label'];
+	$extra_links = array();
+
+	if ( '' !== $area_slug ) {
+		$directory_base = (string) get_post_type_archive_link( 'justice_lawyer' );
+		if ( ! $directory_base ) {
+			$directory_base = home_url( '/lawyers/' );
+		}
+		$directory_url = add_query_arg( 'area', $area_slug, $directory_base );
+		$extra_links[] = sprintf(
+			'<a href="%s">%s</a>',
+			esc_url( function_exists( 'justice_theme_public_url' ) ? justice_theme_public_url( $directory_url ) : $directory_url ),
+			esc_html( sprintf( __( 'עורכי דין בתחום %s', 'justice-theme' ), $area_label ) )
+		);
+
+		// The taxonomy hub carries the area's article archive: link it when the
+		// term really exists so the pillar, the archive and the directory form
+		// one connected topical unit.
+		$taxonomy_slug = function_exists( 'justice_theme_lawyer_directory_area_taxonomy_slug' )
+			? justice_theme_lawyer_directory_area_taxonomy_slug( $area_slug )
+			: $area_slug;
+		$term = get_term_by( 'slug', $taxonomy_slug, 'practice-areas' );
+		if ( $term instanceof WP_Term && (int) $term->count > 0 ) {
+			$term_link = get_term_link( $term );
+			if ( ! is_wp_error( $term_link ) ) {
+				$extra_links[] = sprintf(
+					'<a href="%s">%s</a>',
+					esc_url( function_exists( 'justice_theme_public_url' ) ? justice_theme_public_url( (string) $term_link ) : (string) $term_link ),
+					esc_html( sprintf( __( 'כל המאמרים בנושא %s', 'justice-theme' ), $term->name ) )
+				);
+			}
+		}
+	}
+
+	ob_start();
+	?>
+	<aside class="cluster-hub" data-cluster="<?php echo esc_attr( $c['key'] ); ?>" aria-label="<?php esc_attr_e( 'מדריכים מקושרים לנושא הזה', 'justice-theme' ); ?>">
+		<h2 class="cluster-hub__title"><?php esc_html_e( 'מדריכים מקצועיים בנושא הזה', 'justice-theme' ); ?></h2>
+		<p class="cluster-hub__desc"><?php esc_html_e( 'המדריך הזה הוא עמוד האב של הנושא. כאן כל מדריכי ההמשך, לפי השאלות שאנשים באמת שואלים:', 'justice-theme' ); ?></p>
+		<ul class="cluster-hub__list">
+			<?php echo wp_kses_post( implode( "\n", $spoke_links ) ); ?>
+		</ul>
+		<?php if ( ! empty( $extra_links ) ) : ?>
+			<p class="cluster-hub__more"><?php echo wp_kses_post( implode( ' · ', $extra_links ) ); ?></p>
+		<?php endif; ?>
+	</aside>
+	<?php
+	return (string) ob_get_clean();
+}
+
+function justice_theme_append_cluster_hub_links( string $content ): string {
+	if ( is_admin() || ! is_singular() || ! in_the_loop() || ! is_main_query() ) {
+		return $content;
+	}
+	$block = justice_theme_render_cluster_hub_links( get_the_ID() );
+	if ( '' === $block ) {
+		return $content;
+	}
+	return $content . $block;
+}
+add_filter( 'the_content', 'justice_theme_append_cluster_hub_links', 21 );
+
 /* ----------------------------------------------------------------------- *
  *   Navigation + footer items — ONE source so menu, footer, breadcrumbs   *
  *   and spoke links all reflect the same cluster map automatically.       *

@@ -14,9 +14,18 @@ about results.
   commit, push, then OWNER pulls in uPress. Verify live with:
   curl -s https://jus-tice.co.il/ | grep -o 'justice-deployment-marker[^>]*'
 - Full runbook: project-control/DEPLOYMENT-HANDOFF-for-cobra.md
-- Two channels: A=theme code via git; B=database content via REST or
-  gated admin routines (pattern: option flag + justice_theme_admin_cms_
-  write_enabled filter, run once on wp-admin visit).
+- Channels: A=theme code via git+owner pull (trending toward static
+  chrome only); B=database content via REST or gated init routines;
+  C=justice-ops PLUGIN, live since 2026-07-02, THE channel for new live
+  behavior per owner order. Source justice-ops/, artifacts plugin-dist/
+  (manifest justice-ops.json + versioned zips), builder
+  scripts/deploy/build-ops-zip.py, healthcheck
+  /wp-json/justice-ops/v1/healthcheck. Core-native Update URI protocol:
+  push a version bump to main and WP cron auto-installs (justice-ops is
+  in auto_update_plugins); instant path = temp-route pipeline
+  (.claude/skills/wp-deploy). Proven live 1.0.0 -> 1.0.1 on 2026-07-02
+  via WordPress's own updater. Owner veto stands: NO Theme_Upgrader
+  zips, never touch the server .git.
 
 ## 2. Credentials and keys (locations only, never commit secrets)
 - OpenAI key: lives ONLY on the server in wp-content/mu-plugins/
@@ -28,8 +37,10 @@ about results.
   the exporters (run-*.ps1) if fresh data needed. Last full pull:
   tools/gsc/reports/gsc-live-2026-06-09/ (pages.csv 2561 rows,
   queries.csv 39144 rows).
-- WP admin/app passwords: NOT held by agents; ask the owner. GitHub
-  push works through the session's git proxy.
+- WP REST credentials: WP_BASE_URL, WP_USER, WP_APP_PASSWORD are SET in
+  the session Environment (verified 2026-07-02, administrator role).
+  Never commit, never print values. GitHub push works through the
+  session's git proxy.
 - courtai repo (github.com/The-new-ben/courtai): public; sandbox blocks
   code download, page-level WebFetch reads work.
 

@@ -8,14 +8,41 @@ description: Agent-driven WordPress deploys and one-shot live-site operations fo
 Full handbook: project-control/agent-deploy-pipeline-handbook.md.
 Tooling: scripts/deploy/ (zip builder, snippet template, deploy.sh).
 
-## The two channels (never confuse them)
+## The channels (never confuse them)
 
-- THEME code deploys via git push to main + owner pull in uPress. The
-  pipeline below is NOT for the theme.
-- PLUGIN code (justice-core) and one-shot privileged operations can
-  deploy agent-side via the temp-route pipeline, when the env vars
-  WP_BASE_URL, WP_USER, WP_APP_PASSWORD exist (Environment settings,
-  never committed, never printed).
+- justice-ops PLUGIN (live since 2026-07-02, the owner's chosen
+  architecture, mirrors his nad-lan.co.il site): all NEW live site
+  behavior ships as hooks inside justice-ops/, delivered by the
+  core-native Update URI protocol. Bump version + constant, run
+  python3 scripts/deploy/build-ops-zip.py <ver> (asserts version sync
+  with plugin-dist/justice-ops.json), push to main. WordPress cron
+  auto-installs it (justice-ops is in auto_update_plugins) within ~12h;
+  for instant delivery use the temp-route pipeline below to call
+  wp_update_plugins() + Plugin_Upgrader->upgrade(). Verify:
+  GET /wp-json/justice-ops/v1/healthcheck returns the new version.
+  Proven live end to end 2026-07-02 (1.0.0 -> 1.0.1 via core updater).
+- THEME code deploys via git push to main + owner pull in uPress. Owner
+  direction: theme trends toward static chrome; ongoing changes migrate
+  into justice-ops hooks. NEVER Theme_Upgrader zips (owner veto: it
+  kills the server .git and the uPress Pull button).
+- One-shot privileged operations deploy agent-side via the temp-route
+  pipeline, when the env vars WP_BASE_URL, WP_USER, WP_APP_PASSWORD
+  exist (Environment settings, never committed, never printed). These
+  are SET in the session environment as of 2026-07-02.
+
+## justice-ops gotchas
+
+- GitHub raw propagation: after push, the manifest URL can serve the
+  OLD version for a few minutes. Poll with a fresh query param until
+  it flips before triggering an update check.
+- Do not curl the plugin's own bucket URL (?nlcb=time()/900) while
+  testing: you prime GitHub's CDN with the stale response at exactly
+  the URL the plugin will fetch. Use a different param, or seed the
+  justice_ops_manifest_v1 transient inside the trigger route.
+- NEVER call wp_maybe_auto_update() in a trigger route: the site has
+  ~50 plugins in auto_update_plugins and it updates ALL of them.
+  Upgrade only justice-ops/justice-ops.php explicitly.
+- /wp-json/wp/v2/users/me only exposes roles with ?context=edit.
 
 ## Deploy loop (plugin)
 

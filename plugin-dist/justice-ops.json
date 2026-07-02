@@ -1,13 +1,13 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-1.0.0.zip",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-1.0.1.zip",
   "last_updated": "2026-07-02",
-  "sections": { "changelog": "<h4>1.0.0</h4><ul><li>Channel established: healthcheck, core-native self-update, cache purge on upgrade.</li></ul>" }
+  "sections": { "changelog": "<h4>1.0.1</h4><ul><li>Self-update channel proof: healthcheck marker added.</li></ul><h4>1.0.0</h4><ul><li>Channel established: healthcheck, core-native self-update, cache purge on upgrade.</li></ul>" }
 }

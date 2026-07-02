@@ -28,6 +28,8 @@ get_header();
 
 <?php get_template_part( 'template-parts/redesign/practice-areas' ); ?>
 
+<?php get_template_part( 'template-parts/sections/home-page-content' ); ?>
+
 <?php get_template_part( 'template-parts/sections/featured-lawyers' ); ?>
 
 <?php get_template_part( 'template-parts/redesign/content-tabs' ); ?>

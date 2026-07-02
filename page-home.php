@@ -32,6 +32,8 @@ get_header();
 
 <?php get_template_part( 'template-parts/redesign/content-tabs' ); ?>
 
+<?php get_template_part( 'template-parts/redesign/legal-news' ); ?>
+
 <?php get_template_part( 'template-parts/sections/ask-lawyer' ); ?>
 
 <?php get_template_part( 'template-parts/redesign/stats-trust' ); ?>

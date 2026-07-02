@@ -593,3 +593,26 @@
 }
 .legal-editor-bio__facts p { margin: 0.25rem 0; }
 .legal-editor-bio__body h2 { margin-top: 2rem; }
+
+/* === Verified client reviews (case-linked ratings) === */
+.lawyer-card__rating { color: var(--jt2-coral-text, #b8391f); font-weight: 700; white-space: nowrap; }
+.lawyer-mini-review-stars {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.5rem;
+  color: var(--jt2-coral-text, #b8391f);
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+}
+.lawyer-mini-review-verified {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: #0b7e58;
+  background: #e7f7f0;
+  border: 1px solid #cbeedf;
+  border-radius: 999px;
+  padding: 0.15rem 0.65rem;
+  white-space: nowrap;
+}

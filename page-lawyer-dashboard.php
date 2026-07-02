@@ -1103,6 +1103,37 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 					</section>
 
 					<h2><?php esc_html_e( 'Recent leads', 'justice-theme' ); ?></h2>
+					<?php
+					$dashboard_fresh_review_link = function_exists( 'justice_theme_lawyer_dashboard_fresh_review_link' )
+						? justice_theme_lawyer_dashboard_fresh_review_link()
+						: null;
+					?>
+					<?php if ( isset( $_GET['case_review_link'] ) && 'failed' === sanitize_key( wp_unslash( $_GET['case_review_link'] ) ) ) : ?>
+						<div class="lawyer-registration__error"><?php esc_html_e( 'קישור הביקורת לא נוצר. ודאו שהליד משויך לפרופיל שלכם ונסו שוב.', 'justice-theme' ); ?></div>
+					<?php endif; ?>
+					<?php if ( $dashboard_fresh_review_link ) : ?>
+						<?php
+						$fresh_review_lead_phone = (string) ( get_post_meta( $dashboard_fresh_review_link['lead_id'], 'visitor_phone', true ) ?: get_post_meta( $dashboard_fresh_review_link['lead_id'], 'lead_phone', true ) );
+						$fresh_review_whatsapp   = $fresh_review_lead_phone && function_exists( 'justice_theme_lawyer_public_whatsapp_link' )
+							? justice_theme_lawyer_public_whatsapp_link( $fresh_review_lead_phone )
+							: '';
+						if ( $fresh_review_whatsapp ) {
+							$fresh_review_whatsapp = add_query_arg(
+								'text',
+								'שלום, תודה על הפנייה דרך Jus-Tice. נשמח אם תשאירו ביקורת קצרה על הליווי המשפטי בקישור המאובטח הזה: ' . $dashboard_fresh_review_link['url'],
+								$fresh_review_whatsapp
+							);
+						}
+						?>
+						<div class="legaltool-request__notice" id="dashboard-review-link">
+							<strong><?php esc_html_e( 'קישור ביקורת ללקוח מאומת נוצר. הקישור מוצג פעם אחת, שלחו אותו ללקוח עכשיו:', 'justice-theme' ); ?></strong>
+							<input type="text" readonly onclick="this.select()" style="width:100%;margin-top:8px" value="<?php echo esc_attr( $dashboard_fresh_review_link['url'] ); ?>">
+							<?php if ( $fresh_review_whatsapp ) : ?>
+								<p style="margin:10px 0 0"><a class="button button--gold" href="<?php echo esc_url( $fresh_review_whatsapp ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'שליחה ללקוח ב-WhatsApp', 'justice-theme' ); ?></a></p>
+							<?php endif; ?>
+							<p class="lawyer-dashboard__muted" style="margin-top:8px"><?php esc_html_e( 'הביקורת מקושרת לפנייה אמיתית, עוברת בקרה ואישור לפני פרסום, ואינה ניתנת לעריכה על ידכם.', 'justice-theme' ); ?></p>
+						</div>
+					<?php endif; ?>
 					<?php if ( $leads && $leads->have_posts() ) : ?>
 						<div class="lawyer-dashboard-leads">
 							<?php while ( $leads->have_posts() ) : $leads->the_post(); ?>
@@ -1193,6 +1224,15 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 										<textarea id="lead-follow-up-note-<?php echo esc_attr( $lead_id ); ?>" name="lead_follow_up_note" rows="2" placeholder="<?php esc_attr_e( 'מה קרה בשיחה? לדוגמה: נקבעה שיחת ייעוץ למחר / לא מתאים / צריך מעקב.', 'justice-theme' ); ?>"></textarea>
 										<button type="submit" class="button"><?php esc_html_e( 'Update', 'justice-theme' ); ?></button>
 									</form>
+									<?php if ( function_exists( 'justice_theme_lawyer_dashboard_fresh_review_link' ) && in_array( $current_lead_stage, array( 'first_attempt', 'contacted', 'consult_scheduled', 'won' ), true ) ) : ?>
+										<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="lawyer-dashboard-leads__review-form">
+											<input type="hidden" name="action" value="justice_lawyer_case_review_link">
+											<input type="hidden" name="lead_id" value="<?php echo esc_attr( $lead_id ); ?>">
+											<?php wp_nonce_field( 'justice_lawyer_case_review', 'justice_lawyer_case_review_nonce' ); ?>
+											<button type="submit" class="button"><?php esc_html_e( 'קישור ביקורת ללקוח מאומת', 'justice-theme' ); ?></button>
+											<small class="lawyer-dashboard__muted"><?php esc_html_e( 'קישור חד פעמי לביקורת מקושרת לפנייה הזו. הביקורת עוברת בקרה לפני פרסום.', 'justice-theme' ); ?></small>
+										</form>
+									<?php endif; ?>
 									<?php if ( $latest_lead_note || $latest_lead_update ) : ?>
 										<p class="lawyer-dashboard-leads__last-note">
 											<?php if ( $latest_lead_note ) : ?>

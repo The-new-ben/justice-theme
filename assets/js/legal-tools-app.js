@@ -3354,6 +3354,7 @@ async function renderLawyerRail() {
       return '<a class="lawyer-rail__card" href="' + esc(l.url) + '" target="_blank" rel="noopener">' +
         '<div class="lawyer-rail__head"><strong>' + esc(l.name) + "</strong>" +
         (l.verified ? '<span class="lawyer-rail__badge">' + esc(railT("verified")) + "</span>" : "") +
+        (l.rating && l.reviewCount ? '<span class="lawyer-rail__rating">★ ' + esc(String(l.rating)) + " (" + esc(String(l.reviewCount)) + ")</span>" : "") +
         "</div>" +
         '<span class="lawyer-rail__city">' + esc([l.type, l.city, l.years ? (LANG === "he" ? l.years + " שנות ניסיון" : l.years + " yrs experience") : ""].filter(Boolean).join(" · ")) + "</span>" +
         (l.skills && l.skills.length ? '<div class="lawyer-rail__skills" aria-label="' + esc(railT("skills")) + '">' + l.skills.map(function (s) { return "<span>" + esc(s) + "</span>"; }).join("") + "</div>" : "") +

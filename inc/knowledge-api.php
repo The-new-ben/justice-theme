@@ -232,17 +232,22 @@ function justice_theme_knowledge_professionals( WP_REST_Request $request ) {
 			}
 		}
 
-		$city_terms = get_the_terms( $lawyer_id, 'city' );
+		$city_terms   = get_the_terms( $lawyer_id, 'city' );
+		$review_state = function_exists( 'justice_theme_lawyer_reviews_public_state' )
+			? justice_theme_lawyer_reviews_public_state( $lawyer_id )
+			: array( 'show' => false, 'count' => 0, 'average' => 0.0 );
 
 		$rows[] = array(
-			'id'       => $lawyer_id,
-			'name'     => get_the_title( $lawyer_id ),
-			'url'      => function_exists( 'justice_theme_public_permalink' ) ? justice_theme_public_permalink( $lawyer_id ) : get_permalink( $lawyer_id ),
-			'city'     => ( is_array( $city_terms ) && ! empty( $city_terms ) ) ? $city_terms[0]->name : '',
-			'skills'   => $skills,
-			'type'     => (string) get_post_meta( $lawyer_id, 'professional_type', true ) ?: 'עורך דין',
-			'years'    => absint( get_post_meta( $lawyer_id, 'years_experience', true ) ),
-			'verified' => 'verified' === strtolower( (string) get_post_meta( $lawyer_id, 'verification_status', true ) ),
+			'id'          => $lawyer_id,
+			'name'        => get_the_title( $lawyer_id ),
+			'url'         => function_exists( 'justice_theme_public_permalink' ) ? justice_theme_public_permalink( $lawyer_id ) : get_permalink( $lawyer_id ),
+			'city'        => ( is_array( $city_terms ) && ! empty( $city_terms ) ) ? $city_terms[0]->name : '',
+			'skills'      => $skills,
+			'type'        => (string) get_post_meta( $lawyer_id, 'professional_type', true ) ?: 'עורך דין',
+			'years'       => absint( get_post_meta( $lawyer_id, 'years_experience', true ) ),
+			'verified'    => 'verified' === strtolower( (string) get_post_meta( $lawyer_id, 'verification_status', true ) ),
+			'rating'      => $review_state['show'] ? (float) $review_state['average'] : 0,
+			'reviewCount' => $review_state['show'] ? (int) $review_state['count'] : 0,
 		);
 	}
 

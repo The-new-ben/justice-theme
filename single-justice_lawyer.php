@@ -598,12 +598,32 @@ if ( $show_profile_photo ) {
 					<?php if ( $show_approved_recommendations ) : ?>
 						<div class="lawyer-mini-testimonials">
 							<?php foreach ( $approved_recommendations as $recommendation ) : ?>
+								<?php
+								$recommendation_rating    = (int) ( $recommendation['rating'] ?? 0 );
+								$recommendation_verified  = ! empty( $recommendation['verified'] );
+								$recommendation_area_name = ( ! empty( $recommendation['case_area'] ) && function_exists( 'justice_theme_review_case_area_label' ) )
+									? justice_theme_review_case_area_label( (string) $recommendation['case_area'] )
+									: '';
+								?>
 								<figure>
+									<?php if ( $recommendation_rating >= 1 && $recommendation_rating <= 5 ) : ?>
+										<p class="lawyer-mini-review-stars" aria-label="<?php echo esc_attr( sprintf( __( 'דירוג %d מתוך 5', 'justice-theme' ), $recommendation_rating ) ); ?>">
+											<span aria-hidden="true"><?php echo esc_html( str_repeat( '★', $recommendation_rating ) . str_repeat( '☆', 5 - $recommendation_rating ) ); ?></span>
+											<?php if ( $recommendation_verified ) : ?>
+												<span class="lawyer-mini-review-verified"><?php esc_html_e( 'לקוח מאומת', 'justice-theme' ); ?></span>
+											<?php endif; ?>
+										</p>
+									<?php elseif ( $recommendation_verified ) : ?>
+										<p class="lawyer-mini-review-stars"><span class="lawyer-mini-review-verified"><?php esc_html_e( 'לקוח מאומת', 'justice-theme' ); ?></span></p>
+									<?php endif; ?>
 									<blockquote><?php echo esc_html( $recommendation['quote'] ); ?></blockquote>
 									<figcaption>
 										<?php echo esc_html( $recommendation['client_name'] ?: __( 'Client recommendation', 'justice-theme' ) ); ?>
 										<?php if ( ! empty( $recommendation['relationship'] ) ) : ?>
 											<span> - <?php echo esc_html( $recommendation['relationship'] ); ?></span>
+										<?php endif; ?>
+										<?php if ( $recommendation_area_name ) : ?>
+											<span> - <?php echo esc_html( $recommendation_area_name ); ?></span>
 										<?php endif; ?>
 										<?php if ( ! empty( $recommendation['received_at'] ) ) : ?>
 											<span> - <?php echo esc_html( mysql2date( get_option( 'date_format' ), $recommendation['received_at'] ) ); ?></span>

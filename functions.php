@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_VERSION', '2.8.1' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-07-03-hygiene-sweep-admin-hotfix-v1' );
+define( 'JUSTICE_THEME_VERSION', '2.9.0' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-07-03-verified-case-reviews-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -76,6 +76,7 @@ $justice_theme_files = array(
 	'inc/live-content-publication.php',
 	'inc/publication-safety.php',
 	'inc/lawyer-recommendations.php',
+	'inc/lawyer-reviews.php',
 	'inc/lawyer-suppliers.php',
 	'inc/lawyer-prospects.php',
 	'inc/lawyer-onboarding.php',

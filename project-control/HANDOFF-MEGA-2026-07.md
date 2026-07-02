@@ -116,16 +116,47 @@ about results.
 - WCAG AA: verify any new text/bg pair >= 4.5:1 (formula pass done).
 
 ## 6. State now
-Everything above is LIVE (marker 2026-07-03-courtroom-panel-owner-pass
--v1 verified) incl. full funnel smoke test: registration+free listing,
-login, lead gate, AI generation, homepage courtroom. Owner is pulling
-promptly. Owner still owed: wp-admin visit to trigger the DB hygiene
-sweep; decision on 6 slug/content mismatches.
+Marker 2026-07-03-verified-case-reviews-v1 (v2.9.0) shipped: hygiene
+sweep wp-admin hotfix (the sweep no longer wp_dies on marker-flagged
+posts; it skips them and records them under flagged_for_review in the
+justice_copy_hygiene_done_v1 option) + the full verified per-case
+REVIEWS system (mission 1 DONE). Previous marker
+2026-07-03-courtroom-panel-owner-pass-v1 was verified live incl. full
+funnel smoke test. Owner still owed: wp-admin visit (triggers the
+hygiene sweep, now safe); decision on 6 slug/content mismatches;
+review of any flagged_for_review post IDs after the sweep runs.
+
+REVIEWS system map (inc/lawyer-reviews.php + extended
+inc/lawyer-recommendations.php):
+- Case-linked tokens: justice_reco_token gains
+  recommendation_token_lead_id; justice_theme_create_case_review_token
+  only mints for a lawyer actually on the lead (assigned_lawyer_id or
+  routed_to_lawyer_ids), revokes older active tokens per lead+lawyer.
+- Intake (same one-time token URL): case-linked submissions REQUIRE a
+  1-5 score, store reviewed_lead_id + reviewed_case_area, and get
+  source type verified_client (courtai ratings schema).
+- Moderation unchanged (justice_recommendation queue): owner sets
+  approved_public + permission confirmed; the sync hook then promotes
+  the post to publish and recomputes the lawyer's review_count +
+  average_rating from approved rated reviews only; first approved
+  review auto-sets review_display_enabled=approved (filter
+  justice_theme_reviews_auto_enable_display).
+- Display: card shows star+avg+count; profile reviews panel shows
+  per-review stars, verified-client badge, case area; matched-lawyers
+  REST + knowledge professionals expose rating/reviewCount (courtai
+  professional.json names) and the tools rail renders them.
+- Schema: Attorney JSON-LD gains aggregateRating + review nodes via
+  justice_theme_lawyer_review_schema_fields, same gates as display.
+- Invite surfaces: metabox on the justice_lead edit screen (owner) +
+  lawyer dashboard per-lead button (stages first_attempt/contacted/
+  consult_scheduled/won) with one-time link + WhatsApp share.
+- Shared gate helper: justice_theme_lawyer_reviews_public_state
+  (seed/fact-gate/Maya aware). Use it for any new rating surface.
 
 ## 7. NEXT MISSIONS (execute in order, one per session, ship live)
-1. REVIEWS: verified per-case client reviews (courtai ratings schema:
-   case-linked score 1-5 + feedback), display on cards/profiles/rail,
-   Review schema markup. Biggest trust+conversion unlock.
+1. DONE 2026-07-03: REVIEWS (see section 6). Follow-ups if needed:
+   review-request email automation and per-area review snippets on
+   city x area pages once mission 3 exists.
 2. CARDS V2 + PHOTOS: rich premium lawyer cards (response-time badge,
    case-focus chips, video slot, availability, editorial quote,
    full-bleed photo header) monetized into Featured tier; replace

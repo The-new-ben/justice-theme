@@ -97,15 +97,16 @@ function justice_theme_recommendation_moderation_options(): array {
 
 function justice_theme_recommendation_source_type_options(): array {
 	return array(
-		'first_party'   => __( 'First-party Jus-Tice recommendation', 'justice-theme' ),
-		'google_link'   => __( 'Google link/reference only', 'justice-theme' ),
-		'manual_import' => __( 'Manual import / not public by default', 'justice-theme' ),
-		'other'         => __( 'Other / review before display', 'justice-theme' ),
+		'first_party'     => __( 'First-party Jus-Tice recommendation', 'justice-theme' ),
+		'verified_client' => __( 'Verified client (case-linked review token)', 'justice-theme' ),
+		'google_link'     => __( 'Google link/reference only', 'justice-theme' ),
+		'manual_import'   => __( 'Manual import / not public by default', 'justice-theme' ),
+		'other'           => __( 'Other / review before display', 'justice-theme' ),
 	);
 }
 
 function justice_theme_public_recommendation_source_types(): array {
-	$allowed = apply_filters( 'justice_theme_public_recommendation_source_types', array( 'first_party' ) );
+	$allowed = apply_filters( 'justice_theme_public_recommendation_source_types', array( 'first_party', 'verified_client' ) );
 	$allowed = array_values( array_unique( array_map( 'sanitize_key', (array) $allowed ) ) );
 	$allowed = array_values( array_intersect( $allowed, array_keys( justice_theme_recommendation_source_type_options() ) ) );
 
@@ -318,6 +319,7 @@ function justice_theme_recommendation_token_from_request( string $raw_token ): a
 	return array(
 		'token_id'   => $token_id,
 		'lawyer_id'  => $lawyer_id,
+		'lead_id'    => (int) get_post_meta( $token_id, 'recommendation_token_lead_id', true ),
 		'status'     => (string) get_post_meta( $token_id, 'recommendation_token_status', true ),
 		'expires_at' => (string) get_post_meta( $token_id, 'recommendation_token_expires_at', true ),
 	);
@@ -397,6 +399,8 @@ function justice_theme_process_lawyer_recommendation_intake_submission( array $r
 	$body         = isset( $_POST['recommendation_body'] ) ? sanitize_textarea_field( wp_unslash( $_POST['recommendation_body'] ) ) : '';
 	$rating       = isset( $_POST['recommendation_rating'] ) ? absint( wp_unslash( $_POST['recommendation_rating'] ) ) : 0;
 	$permission   = ! empty( $_POST['recommendation_permission_confirmed'] );
+	$lead_id      = (int) ( $record['lead_id'] ?? 0 );
+	$is_case_link = $lead_id > 0 && 'justice_lead' === get_post_type( $lead_id );
 
 	if ( $rating > 5 ) {
 		$rating = 5;
@@ -406,6 +410,10 @@ function justice_theme_process_lawyer_recommendation_intake_submission( array $r
 
 	if ( '' === $client_name ) {
 		$errors[] = __( 'Please add a display name or initials.', 'justice-theme' );
+	}
+
+	if ( $is_case_link && ( $rating < 1 || $rating > 5 ) ) {
+		$errors[] = __( 'נא לבחור דירוג בין 1 ל-5. בביקורת מקושרת לתיק הדירוג הוא חלק מהביקורת.', 'justice-theme' );
 	}
 
 	if ( $body_length < 20 ) {
@@ -441,11 +449,24 @@ function justice_theme_process_lawyer_recommendation_intake_submission( array $r
 	update_post_meta( $recommendation_id, 'client_display_name', $client_name );
 	update_post_meta( $recommendation_id, 'client_relationship', $relationship );
 	update_post_meta( $recommendation_id, 'recommendation_rating', $rating );
-	update_post_meta( $recommendation_id, 'recommendation_source_type', 'first_party' );
+	update_post_meta( $recommendation_id, 'recommendation_source_type', $is_case_link ? 'verified_client' : 'first_party' );
 	update_post_meta( $recommendation_id, 'recommendation_received_at', current_time( 'Y-m-d' ) );
 	update_post_meta( $recommendation_id, 'recommendation_permission', 'confirmed' );
 	update_post_meta( $recommendation_id, 'recommendation_moderation', 'draft_review' );
-	update_post_meta( $recommendation_id, 'recommendation_owner_note', 'Submitted via one-time first-party recommendation token #' . $token_id . '. Owner approval is required before any public display.' );
+
+	if ( $is_case_link ) {
+		update_post_meta( $recommendation_id, 'reviewed_lead_id', $lead_id );
+		update_post_meta( $recommendation_id, 'review_verified_client', '1' );
+
+		$case_area = (string) ( get_post_meta( $lead_id, 'ai_detected_area', true ) ?: get_post_meta( $lead_id, 'legal_area', true ) );
+		if ( '' !== $case_area && 'general' !== $case_area ) {
+			update_post_meta( $recommendation_id, 'reviewed_case_area', sanitize_key( $case_area ) );
+		}
+
+		update_post_meta( $recommendation_id, 'recommendation_owner_note', 'Submitted via case-linked verified-client review token #' . $token_id . ' for lead #' . $lead_id . '. The token was issued only for a real routed/assigned lead. Owner approval is required before any public display.' );
+	} else {
+		update_post_meta( $recommendation_id, 'recommendation_owner_note', 'Submitted via one-time first-party recommendation token #' . $token_id . '. Owner approval is required before any public display.' );
+	}
 
 	update_post_meta( $token_id, 'recommendation_token_status', 'used' );
 	update_post_meta( $token_id, 'recommendation_token_used_at', current_time( 'mysql' ) );
@@ -480,7 +501,9 @@ function justice_theme_notify_lawyer_recommendation_submission( int $recommendat
 function justice_theme_render_lawyer_recommendation_intake_page( array $record, string $raw_token, array $errors = array(), bool $submitted = false, string $state = 'active' ): void {
 	$lawyer_id    = (int) ( $record['lawyer_id'] ?? 0 );
 	$lawyer_title = $lawyer_id ? get_the_title( $lawyer_id ) : '';
-	$page_title   = $submitted ? 'ההמלצה התקבלה' : 'שליחת המלצה לעורך דין';
+	$lead_id      = (int) ( $record['lead_id'] ?? 0 );
+	$is_case_link = $lead_id > 0 && 'justice_lead' === get_post_type( $lead_id );
+	$page_title   = $submitted ? 'ההמלצה התקבלה' : ( $is_case_link ? 'ביקורת לקוח מאומתת' : 'שליחת המלצה לעורך דין' );
 
 	status_header( 'invalid' === $state ? 404 : 200 );
 	nocache_headers();
@@ -531,8 +554,11 @@ function justice_theme_render_lawyer_recommendation_intake_page( array $record, 
 						<a class="button button--muted" href="<?php echo esc_url( home_url( '/' ) ); ?>">חזרה לאתר</a>
 					</div>
 				<?php else : ?>
-					<h1 id="recommendation-intake-title">שליחת המלצה עבור <?php echo esc_html( $lawyer_title ); ?></h1>
-					<p>המלצה זו נשלחת ישירות ל-Jus-Tice לבדיקה. אל תכללו פרטים חסויים, מספרי תיקים, מידע רפואי, שמות צדדים אחרים או כל פרט שאינו מיועד לפרסום.</p>
+					<h1 id="recommendation-intake-title"><?php echo $is_case_link ? 'ביקורת על הליווי המשפטי של ' . esc_html( $lawyer_title ) : 'שליחת המלצה עבור ' . esc_html( $lawyer_title ); ?></h1>
+					<?php if ( $is_case_link ) : ?>
+						<p>קישור זה נשלח אליכם כי הפנייה שלכם טופלה דרך Jus-Tice. הביקורת מקושרת לפנייה אמיתית ולכן תסומן באתר כביקורת לקוח מאומתת לאחר בדיקה ואישור.</p>
+					<?php endif; ?>
+					<p>הביקורת נשלחת ישירות ל-Jus-Tice לבדיקה. אל תכללו פרטים חסויים, מספרי תיקים, מידע רפואי, שמות צדדים אחרים או כל פרט שאינו מיועד לפרסום.</p>
 					<?php if ( ! empty( $errors ) ) : ?>
 						<div class="recommendation-intake__errors">
 							<?php foreach ( $errors as $error ) : ?>
@@ -551,15 +577,27 @@ function justice_theme_render_lawyer_recommendation_intake_page( array $record, 
 						<label for="client-relationship">הקשר לשירות המשפטי</label>
 						<input id="client-relationship" type="text" name="client_relationship" maxlength="120" placeholder="לדוגמה: לקוח/ה לשעבר, ייעוץ נקודתי, ליווי בהליך">
 
-						<label for="recommendation-rating">דירוג אופציונלי</label>
-						<select id="recommendation-rating" name="recommendation_rating">
-							<option value="0">ללא דירוג</option>
-							<option value="5">5</option>
-							<option value="4">4</option>
-							<option value="3">3</option>
-							<option value="2">2</option>
-							<option value="1">1</option>
-						</select>
+						<?php if ( $is_case_link ) : ?>
+							<label for="recommendation-rating">דירוג כולל מ-1 עד 5 (חובה)</label>
+							<select id="recommendation-rating" name="recommendation_rating" required>
+								<option value="">בחירת דירוג</option>
+								<option value="5">5 - מצוין</option>
+								<option value="4">4 - טוב מאוד</option>
+								<option value="3">3 - סביר</option>
+								<option value="2">2 - טעון שיפור</option>
+								<option value="1">1 - לא מרוצה</option>
+							</select>
+						<?php else : ?>
+							<label for="recommendation-rating">דירוג אופציונלי</label>
+							<select id="recommendation-rating" name="recommendation_rating">
+								<option value="0">ללא דירוג</option>
+								<option value="5">5</option>
+								<option value="4">4</option>
+								<option value="3">3</option>
+								<option value="2">2</option>
+								<option value="1">1</option>
+							</select>
+						<?php endif; ?>
 
 						<label for="recommendation-body">ההמלצה</label>
 						<textarea id="recommendation-body" name="recommendation_body" rows="7" maxlength="2000" required></textarea>
@@ -800,6 +838,8 @@ function justice_theme_lawyer_public_recommendations( int $lawyer_id, int $limit
 			continue;
 		}
 
+		$source_type = (string) get_post_meta( $recommendation->ID, 'recommendation_source_type', true );
+
 		$items[] = array(
 			'id'            => (int) $recommendation->ID,
 			'quote'         => $quote,
@@ -807,7 +847,9 @@ function justice_theme_lawyer_public_recommendations( int $lawyer_id, int $limit
 			'relationship'  => (string) get_post_meta( $recommendation->ID, 'client_relationship', true ),
 			'rating'        => (int) get_post_meta( $recommendation->ID, 'recommendation_rating', true ),
 			'received_at'   => (string) get_post_meta( $recommendation->ID, 'recommendation_received_at', true ),
-			'source_type'   => (string) get_post_meta( $recommendation->ID, 'recommendation_source_type', true ),
+			'source_type'   => $source_type,
+			'verified'      => 'verified_client' === $source_type || '1' === (string) get_post_meta( $recommendation->ID, 'review_verified_client', true ),
+			'case_area'     => (string) get_post_meta( $recommendation->ID, 'reviewed_case_area', true ),
 		);
 	}
 

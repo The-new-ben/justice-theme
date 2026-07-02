@@ -249,7 +249,7 @@ $inquiry_url     = add_query_arg( 'lawyer_id', $lawyer_id, home_url( '/contact/'
 				<span><?php echo esc_html( $languages ); ?></span>
 			<?php endif; ?>
 			<?php if ( $show_rating ) : ?>
-				<span><?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?> / 5</span>
+				<span class="lawyer-card__rating"><span aria-hidden="true">★</span> <?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?>/5 · <?php echo esc_html( sprintf( __( '%s ביקורות מאושרות', 'justice-theme' ), number_format_i18n( $review_count ) ) ); ?></span>
 			<?php endif; ?>
 			<?php if ( $requires_fact_gate && ! $profile_is_fact_checked ) : ?>
 				<span><?php esc_html_e( 'תחום ואזור מוצגים', 'justice-theme' ); ?></span>

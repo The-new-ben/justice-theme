@@ -524,6 +524,12 @@ function justice_theme_lawyer_schema() {
 		}
 	}
 
+	// Verified client reviews: aggregateRating + review nodes, computed only
+	// from owner-approved reviews behind the same gates as on-page display.
+	if ( function_exists( 'justice_theme_lawyer_review_schema_fields' ) ) {
+		$schema = array_merge( $schema, justice_theme_lawyer_review_schema_fields( $post_id ) );
+	}
+
 	justice_theme_print_schema( $schema );
 }
 add_action( 'wp_head', 'justice_theme_lawyer_schema', 20 );

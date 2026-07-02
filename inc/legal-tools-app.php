@@ -501,6 +501,9 @@ function justice_theme_matched_lawyers_callback( WP_REST_Request $request ) {
 
 		$professional_type = (string) get_post_meta( $lawyer_id, 'professional_type', true );
 		$years             = absint( get_post_meta( $lawyer_id, 'years_experience', true ) );
+		$review_state      = function_exists( 'justice_theme_lawyer_reviews_public_state' )
+			? justice_theme_lawyer_reviews_public_state( $lawyer_id )
+			: array( 'show' => false, 'count' => 0, 'average' => 0.0 );
 
 		$rows[] = array(
 			'id'       => $lawyer_id,
@@ -517,13 +520,22 @@ function justice_theme_matched_lawyers_callback( WP_REST_Request $request ) {
 			'specializations'    => $skills,
 			'experienceYears'    => $years,
 			'verificationStatus' => 'verified' === strtolower( (string) get_post_meta( $lawyer_id, 'verification_status', true ) ) ? 'verified' : 'pending',
+			// courtai professional.json rating fields: real moderated reviews only.
+			'rating'             => $review_state['show'] ? (float) $review_state['average'] : 0,
+			'reviewCount'        => $review_state['show'] ? (int) $review_state['count'] : 0,
 		);
 	}
 
 	usort(
 		$rows,
 		static function ( $a, $b ) {
-			return (int) $b['verified'] <=> (int) $a['verified'];
+			$verified_order = (int) $b['verified'] <=> (int) $a['verified'];
+
+			if ( 0 !== $verified_order ) {
+				return $verified_order;
+			}
+
+			return $b['rating'] <=> $a['rating'];
 		}
 	);
 

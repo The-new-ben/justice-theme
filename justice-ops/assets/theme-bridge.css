@@ -175,3 +175,93 @@
 .jt2-hero__figure,
 .ask-lawyer__visual,
 .verified-lawyer-showcase__visual { display: none !important; }
+
+/* ---------- LawyerScout premium flag markers ---------- */
+.lmap-flag {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: drop-shadow(0 10px 18px rgba(14, 46, 79, 0.28));
+}
+
+.lmap-flag__card {
+  background: #fff;
+  border: 1.5px solid var(--jt2-navy, #14477D);
+  border-radius: 12px;
+  padding: 9px 12px 10px;
+  min-width: 150px;
+  max-width: 190px;
+  text-align: right;
+  font-family: 'Assistant', 'Heebo', sans-serif;
+}
+
+.lmap-flag__name {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--jt2-navy-deep, #0E2E4F);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lmap-flag__area {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--jt2-muted, #5B6B7C);
+  margin-top: 1px;
+}
+
+.lmap-flag__stars {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #b8860b;
+  margin-top: 2px;
+}
+
+.lmap-flag__cta {
+  display: flex;
+  gap: 6px;
+  margin-top: 7px;
+}
+
+.lmap-flag__btn {
+  flex: 1;
+  display: inline-block;
+  text-align: center;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 5px 8px;
+  background: var(--jt2-navy, #14477D);
+  color: #fff;
+  white-space: nowrap;
+}
+
+.lmap-flag__btn--call {
+  background: #1E7E4B;
+}
+
+.lmap-flag__btn:hover { opacity: 0.92; color: #fff; }
+
+.lmap-flag__pole {
+  width: 2.5px;
+  height: 16px;
+  background: var(--jt2-navy, #14477D);
+  display: block;
+}
+
+.lmap-flag__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--jt2-coral, #CC4720);
+  border: 2.5px solid #fff;
+  display: block;
+  margin-top: -2px;
+}

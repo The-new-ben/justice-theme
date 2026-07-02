@@ -202,6 +202,10 @@ function justice_theme_map_offices_geojson() {
 
 			$city_terms = get_the_terms( $lawyer_id, 'city' );
 
+			// Paid plans get the premium flag marker on the map.
+			$plan_type = strtolower( (string) get_post_meta( $lawyer_id, 'plan_type', true ) );
+			$is_paid   = in_array( $plan_type, array( 'featured', 'premium', 'partner', 'pro' ), true );
+
 			$features[] = array(
 				'type'       => 'Feature',
 				'geometry'   => array(
@@ -211,7 +215,8 @@ function justice_theme_map_offices_geojson() {
 				'properties' => array(
 					'kind'     => 'lawyer',
 					'id'       => $lawyer_id,
-					'name'     => get_the_title( $lawyer_id ),
+					'paid'     => $is_paid,
+					'name'     => wp_specialchars_decode( get_the_title( $lawyer_id ), ENT_QUOTES ),
 					'url'      => function_exists( 'justice_theme_public_permalink' ) ? justice_theme_public_permalink( $lawyer_id ) : get_permalink( $lawyer_id ),
 					'city'     => ( is_array( $city_terms ) && $city_terms ) ? $city_terms[0]->name : '',
 					'areas'    => $areas,
@@ -259,7 +264,7 @@ function justice_theme_map_offices_geojson() {
 			'properties' => array(
 				'kind'       => 'place',
 				'id'         => $place_id,
-				'name'       => get_the_title( $place_id ),
+				'name'       => wp_specialchars_decode( get_the_title( $place_id ), ENT_QUOTES ),
 				'place_type' => $type,
 				'type_label' => $type_labels[ $type ] ?? 'מוסד משפטי',
 				'city'       => (string) get_post_meta( $place_id, 'place_city', true ),

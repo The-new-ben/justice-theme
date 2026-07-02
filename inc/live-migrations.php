@@ -353,3 +353,155 @@ add_action( 'admin_init', 'justice_theme_seed_maya_office_facts', 45 );
 // Owner-approved enablement (2026-07-03): seed Maya's office facts from her
 // official site and release her profile fact gate. One-shot via done flag.
 add_filter( 'justice_theme_enable_maya_office_fact_seed', '__return_true' );
+
+/**
+ * Maya Rotenberg showroom profile: full premium activation and content
+ * enrichment from her official public sources.
+ *
+ * Owner authorization 2026-07-02 (in writing, session log): publish the
+ * profile as owner-redone and owner-authorized, activate the full paid
+ * featured tier, and enrich every profile module. Every fact below comes
+ * from rotenberglaw.co.il (home + about) and the public rankings it cites.
+ * No fabricated reviews, no generated imagery: reviews arrive only through
+ * the verified case-linked pipeline, and the photo is whatever real image
+ * the profile carries in the media library.
+ */
+function justice_theme_seed_maya_showroom_profile(): void {
+	if ( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	if ( get_option( 'justice_theme_maya_showroom_seeded_v1' ) ) {
+		return;
+	}
+
+	if ( ! justice_theme_live_migration_is_enabled( 'justice_theme_enable_maya_showroom_seed' ) ) {
+		return;
+	}
+
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		return;
+	}
+
+	$maya = get_page_by_path( 'advocate-maya-rotenberg', OBJECT, 'justice_lawyer' );
+	if ( ! $maya instanceof WP_Post ) {
+		return;
+	}
+
+	$post_id = (int) $maya->ID;
+
+	$fields = array(
+		// Commercial tier: owner comped the flagship profile to the full
+		// featured plan. This is the owner's commercial decision in writing.
+		'plan_type'                  => 'featured',
+		'subscription_status'        => 'active',
+		'verification_status'        => 'verified',
+		'lead_routing_enabled'       => '1',
+		'source_type'                => 'owner_verified',
+		'profile_fact_review_status' => 'owner_approved',
+		'featured_on_front'          => '1',
+		'priority_score'             => '100',
+
+		// Identity and positioning (source: rotenberglaw.co.il home + about).
+		'profile_headline'           => 'עו״ד מאיה רוטנברג: דיני משפחה, גירושין וגישור',
+		'profile_subheadline'        => 'מעל 20 שנות עיסוק בלעדי בדיני משפחה: גירושין, משמורת, מזונות, הסכמי ממון וגישור. מייסדת המשרד ברחוב ראול ולנברג בתל אביב.',
+		'bio_short'                  => 'עורכת דין לענייני משפחה עם ניסיון של מעל 20 שנה בעיסוק בלעדי בתחום: גירושין בהסכמה ובמחלוקת, משמורת ומזונות, הסכמי ממון, צוואות וגישור. מגשרת מוסמכת וחברת ועדת אימוץ ואומנה של לשכת עורכי הדין.',
+		'years_experience'           => '20',
+		'languages'                  => 'עברית',
+
+		// Services (source: practice areas listed on the official site).
+		'profile_services'           => "גירושין בהסכמה ובמחלוקת | ליווי מלא מההחלטה ועד פסק הדין, כולל בית הדין הרבני ובית המשפט לענייני משפחה\nמשמורת ומזונות ילדים | הסדרי שהות, משמורת משותפת ותביעות מזונות\nהסכמי ממון וידועים בציבור | עריכה ואישור הסכמים לפני נישואין ובמהלכם\nגישור משפחתי | הליך גישור מוסמך כחלופה מהירה ודיסקרטית לליטיגציה\nצוואות וירושה במשפחה | עריכת צוואות, ייפוי כוח מתמשך והסדרי עיזבון\nחלוקת נכסים דיגיטליים | טיפול בחלוקת קריפטו ונכסים דיגיטליים בגירושין\nאלימות במשפחה | צווי הגנה וליווי דיסקרטי\nגירושין בינלאומיים | תיקים חוצי מדינות וסמכויות שיפוט",
+
+		// Approach (source: the professional approach text on the site).
+		'profile_approach_title'     => 'איך מתנהל הליווי המשפטי במשרד',
+		'profile_approach'           => 'בחירת עורך דין גירושין היא אחת ההחלטות החשובות בחיים. הליווי במשרד בנוי על יחס אישי, דיסקרטיות מלאה ובניית אסטרטגיה לפני כל צעד, עם העדפה ברורה לפתרון בהסכמה ובגישור לפני פנייה לערכאות, כשהאינטרס של הילדים והיציבות הכלכלית שלכם במרכז.',
+		'profile_process'            => "שיחת היכרות דיסקרטית | מיפוי המצב המשפחתי, הרכושי וההליכים הקיימים\nאסטרטגיה לפני פעולה | תכנית משפטית ברורה: בהסכמה, בגישור או בליטיגציה\nניהול ההליך | ייצוג בבית המשפט לענייני משפחה ובבית הדין הרבני, או ניהול הגישור\nסגירה ויישום | פסק דין או הסכם מאושר, כולל יישום בפועל ורישום הזכויות",
+
+		// Credentials (sources: Dun's 100 and BDI public rankings 2024-2026,
+		// the Bar committee membership and the Supreme Court case cited on
+		// the official about page).
+		'profile_credentials'        => "Dun's 100 לשנים 2024-2026 | מדורגת בין משרדי דיני המשפחה המובילים\nBDI Code לשנים 2024-2026 | דירוג מקצועי ארצי בדיני משפחה\nמגשרת מוסמכת | הסמכה רשמית בגישור משפחתי\nועדת אימוץ ואומנה, לשכת עורכי הדין | חברת הוועדה הארצית\nבע״מ 919/15 | ייצוג בתיק העליון שקבע את הלכת המזונות במשמורת משותפת (כמפורט באתר המשרד)",
+
+		// FAQs: neutral process questions, no promises, no prices invented.
+		'profile_faqs'               => "כמה זמן נמשך הליך גירושין בהסכמה? | כשיש הסכמות, ההליך יכול להסתיים בתוך שבועות בודדים מרגע הגשת ההסכם לאישור. במחלוקת, ההליך ארוך משמעותית ותלוי בערכאה ובמורכבות.\nמה עדיף, גישור או בית משפט? | גישור מהיר, דיסקרטי וזול יותר ברוב המקרים, אך אינו מתאים לכל מצב. בפגישה הראשונה נבחן יחד איזה מסלול נכון לתיק שלכם.\nהאם הסכם ממון משתלם גם לזוגות צעירים? | הסכם ממון מסודר מונע את רוב מחלוקות הרכוש מראש, במיוחד כשיש דירה, עסק או נכסים דיגיטליים.\nמה קורה בפגישה הראשונה? | ממפים את התמונה המשפחתית והרכושית, מסבירים את האפשרויות ואת סדרי העדיפויות, ויוצאים עם תכנית פעולה ברורה.",
+
+		'profile_cta_title'          => 'רוצים לבדוק את הצעד הנכון עבורכם?',
+		'profile_cta_text'           => 'שיחת היכרות דיסקרטית, בלי התחייבות. מספרים מה קרה, מקבלים תמונת מצב ותכנית פעולה.',
+	);
+
+	foreach ( $fields as $key => $value ) {
+		update_post_meta( $post_id, $key, $value );
+	}
+
+	$notes = (string) get_post_meta( $post_id, 'internal_notes', true );
+	if ( false === strpos( $notes, 'MAYA_SHOWROOM_SEED_V1' ) ) {
+		$notes = trim( $notes . "\n" . gmdate( 'Y-m-d H:i:s' ) . ' MAYA_SHOWROOM_SEED_V1: Full premium activation and profile enrichment, owner-authorized in writing. Every fact sourced from rotenberglaw.co.il and the public rankings it cites. Reviews only via the verified case-linked pipeline; no generated imagery.' );
+		update_post_meta( $post_id, 'internal_notes', $notes );
+	}
+
+	update_option( 'justice_theme_maya_showroom_seeded_v1', time(), false );
+}
+add_action( 'admin_init', 'justice_theme_seed_maya_showroom_profile', 46 );
+
+// Owner-authorized enablement (2026-07-02, in writing): full showroom
+// activation for the flagship profile. One-shot via done flag.
+add_filter( 'justice_theme_enable_maya_showroom_seed', '__return_true' );
+
+/**
+ * Sideload the official portrait from the office site as the profile
+ * featured image. Owner authorization 2026-07-02 (in writing): the owner
+ * holds the rights to the office site's digital assets and approved using
+ * its original photography. Runs once, only when no thumbnail exists yet.
+ */
+function justice_theme_seed_maya_portrait(): void {
+	if ( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	if ( get_option( 'justice_theme_maya_portrait_seeded_v1' ) ) {
+		return;
+	}
+
+	if ( ! justice_theme_live_migration_is_enabled( 'justice_theme_enable_maya_showroom_seed' ) ) {
+		return;
+	}
+
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		return;
+	}
+
+	$maya = get_page_by_path( 'advocate-maya-rotenberg', OBJECT, 'justice_lawyer' );
+	if ( ! $maya instanceof WP_Post ) {
+		return;
+	}
+
+	$post_id = (int) $maya->ID;
+
+	if ( has_post_thumbnail( $post_id ) ) {
+		update_option( 'justice_theme_maya_portrait_seeded_v1', 'existing_thumbnail_kept', false );
+		return;
+	}
+
+	if ( ! function_exists( 'media_sideload_image' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+	}
+
+	$attachment_id = media_sideload_image(
+		'https://rotenberglaw.co.il/_uploads/imagesgallery/adv-maya-rotenberg.jpg',
+		$post_id,
+		'עו״ד מאיה רוטנברג - דיוקן רשמי מאתר המשרד',
+		'id'
+	);
+
+	if ( is_wp_error( $attachment_id ) ) {
+		// Leave the flag unset so the next admin visit retries once the
+		// network hiccup passes.
+		return;
+	}
+
+	set_post_thumbnail( $post_id, (int) $attachment_id );
+	update_option( 'justice_theme_maya_portrait_seeded_v1', (int) $attachment_id, false );
+}
+add_action( 'admin_init', 'justice_theme_seed_maya_portrait', 47 );

@@ -231,6 +231,25 @@ Reviews premium pass (owner approved 2026-07-03, marker
   above); owner wrote "i approve" but did not pick restore or 301 per
   URL, so no URL was touched.
 
+Flagship showroom profile (owner-authorized in writing 2026-07-02,
+marker 2026-07-03-maya-showroom-diamond-v1): advocate-maya-rotenberg
+is the site's premium reference profile. One-shot migrations (run on
+next wp-admin visit): full featured/active/verified tier + routing,
+featured_on_front, priority 100, and complete profile enrichment
+(headline, bio, 8 services, approach, 4 process steps, credentials
+incl. Dun's 100 + BDI 2024-2026 + mediator + Bar committee + the
+919/15 case as cited on the office site, FAQs, CTA), portrait
+sideloaded from the office site (owner holds the asset rights;
+screened: real photo, no flags/foreign text). Maya-specific photo
+hard-blocks in card + profile templates now defer to the fact-check
+status. EEAT: the authority engine already routes family-law content
+to her as reviewer; verification activates it. Diamond CSS tier for
+paid profiles: hover lift, photo zoom, badge sheen, staggered proof
+rise, all behind prefers-reduced-motion. NOT done, by rule: no
+fabricated reviews (verified pipeline only), no generated imagery,
+no video URL (none published on the office site; owner can paste one
+into profile_video_url).
+
 REVIEWS system map (inc/lawyer-reviews.php + extended
 inc/lawyer-recommendations.php):
 - Case-linked tokens: justice_reco_token gains

@@ -691,3 +691,60 @@
 .lawyer-mini-map__frame { border-radius: 10px; overflow: hidden; border: 1px solid var(--color-hairline, #e6e1d5); }
 .lawyer-mini-map__frame iframe { display: block; width: 100%; height: 220px; border: 0; }
 .lawyer-mini-map__address { margin: 0.6rem 0 0; font-size: 0.92rem; color: var(--color-muted, #6e6a63); }
+
+/* === Diamond tier: featured paid profile and card polish === */
+.lawyer-card--paid {
+  position: relative;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.lawyer-card--paid:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px rgba(18, 44, 82, 0.16);
+}
+.lawyer-card--paid .lawyer-card__photo { transition: transform 0.35s ease; }
+.lawyer-card--paid:hover .lawyer-card__photo { transform: scale(1.04); }
+.lawyer-card--paid .lawyer-card__status--sponsored {
+  background: linear-gradient(120deg, #16427a, #2a5fa8 45%, #16427a);
+  background-size: 200% 100%;
+  color: #fff;
+  animation: jt-featured-sheen 6s ease-in-out infinite;
+}
+.lawyer-mini-site--paid .lawyer-mini-hero {
+  background:
+    radial-gradient(1100px 420px at 85% -10%, rgba(232, 98, 79, 0.14), transparent 60%),
+    radial-gradient(900px 380px at 8% 110%, rgba(42, 95, 168, 0.18), transparent 65%);
+}
+.lawyer-mini-site--paid .lawyer-mini-hero__photo img {
+  box-shadow: 0 22px 54px rgba(18, 44, 82, 0.28);
+  transition: transform 0.35s ease;
+}
+.lawyer-mini-site--paid .lawyer-mini-hero__photo:hover img { transform: scale(1.03); }
+.lawyer-mini-site--paid .lawyer-mini-proof__item {
+  animation: jt-proof-rise 0.55s ease both;
+}
+.lawyer-mini-site--paid .lawyer-mini-proof__item:nth-child(2) { animation-delay: 0.08s; }
+.lawyer-mini-site--paid .lawyer-mini-proof__item:nth-child(3) { animation-delay: 0.16s; }
+.lawyer-mini-site--paid .lawyer-mini-proof__item:nth-child(4) { animation-delay: 0.24s; }
+.lawyer-mini-site--paid .lawyer-mini-panel {
+  transition: box-shadow 0.22s ease, transform 0.22s ease;
+}
+.lawyer-mini-site--paid .lawyer-mini-panel:hover {
+  box-shadow: 0 14px 38px rgba(18, 44, 82, 0.1);
+  transform: translateY(-2px);
+}
+@keyframes jt-featured-sheen {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes jt-proof-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lawyer-card--paid,
+  .lawyer-card--paid .lawyer-card__photo,
+  .lawyer-mini-site--paid .lawyer-mini-hero__photo img,
+  .lawyer-mini-site--paid .lawyer-mini-panel { transition: none; }
+  .lawyer-mini-site--paid .lawyer-mini-proof__item,
+  .lawyer-card--paid .lawyer-card__status--sponsored { animation: none; }
+}

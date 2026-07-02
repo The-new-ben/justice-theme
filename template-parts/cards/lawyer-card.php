@@ -120,7 +120,7 @@ if ( ! $show_direct_contact ) {
 
 $show_thumbnail  = $has_thumbnail
 	&& ! $is_seed_data
-	&& ! $is_maya_profile
+	&& ( ! $is_maya_profile || $profile_is_fact_checked )
 	&& (
 		$is_paid
 		|| 'verified' === strtolower( (string) $verified )

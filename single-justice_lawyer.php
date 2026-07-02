@@ -259,7 +259,7 @@ $show_articles_panel  = $has_related_articles || ! $requires_fact_gate;
 $show_reviews_panel   = $show_rating || $show_approved_recommendations || $show_testimonials || ! $requires_fact_gate;
 $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 	&& ! $is_seed_data
-	&& ! $is_maya_profile
+	&& ( ! $is_maya_profile || $profile_is_fact_checked )
 	&& (
 		$is_paid
 		|| $is_verified

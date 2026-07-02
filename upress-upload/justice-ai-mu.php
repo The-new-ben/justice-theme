@@ -204,3 +204,15 @@ add_action( 'rest_api_init', function () {
 		},
 	) );
 } );
+
+/*
+ * Google Places API key for the profile Google-reviews panel (theme
+ * feature justice_theme_render_lawyer_google_reviews). Same pattern as
+ * the OpenAI key: EITHER add to wp-config.php:
+ *   define( 'JUSTICE_GOOGLE_PLACES_KEY', 'AIza-REPLACE-WITH-YOUR-KEY' );
+ * OR uncomment the filter below and paste the key on the server copy of
+ * this file only. Never commit a real key to the repo.
+ */
+// add_filter( 'justice_theme_google_places_api_key', function () {
+// 	return 'AIza-REPLACE-WITH-YOUR-KEY';
+// } );

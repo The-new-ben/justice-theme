@@ -231,6 +231,23 @@ Reviews premium pass (owner approved 2026-07-03, marker
   above); owner wrote "i approve" but did not pick restore or 301 per
   URL, so no URL was touched.
 
+Google Business reviews embed (owner-ordered, marker
+2026-07-03-google-reviews-embed-v1): inc/google-reviews.php pulls the
+office's REAL Google rating, count and up to 4 newest reviews via the
+official Places API (server-held key: JUSTICE_GOOGLE_PLACES_KEY in
+wp-config or the mu-plugin filter justice_theme_google_places_api_key,
+placeholder added to upress-upload/justice-ai-mu.php). Place ID
+auto-resolves once from firm name + office address and persists to
+google_place_id. 12h transient cache per profile, 1 resolve attempt
+per day. Rendered on approved profiles as an attributed Google panel
+(brand mark, stars, per-review cards, "מתוך Google" attribution,
+link to all reviews). Deliberately EXCLUDED from Review/
+AggregateRating schema: first-party reviews only in structured data,
+per Google policy. Feature is sellable to every lawyer: key once,
+then any profile with an address gets its live Google reviews.
+OWNER SETUP REQUIRED: create a Google Cloud key with Places API
+enabled, restrict it, add the define to wp-config.php.
+
 Flagship showroom profile (owner-authorized in writing 2026-07-02,
 marker 2026-07-03-maya-showroom-diamond-v1): advocate-maya-rotenberg
 is the site's premium reference profile. One-shot migrations (run on

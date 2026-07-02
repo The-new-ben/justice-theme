@@ -748,3 +748,56 @@
   .lawyer-mini-site--paid .lawyer-mini-proof__item,
   .lawyer-card--paid .lawyer-card__status--sponsored { animation: none; }
 }
+
+/* === Google Business reviews panel (official Places API, attributed) === */
+.lawyer-google-reviews {
+  margin: 1.4rem 0;
+  padding: 1.2rem 1.3rem;
+  background: #fff;
+  border: 1px solid var(--color-hairline, #e6e1d5);
+  border-radius: 12px;
+  box-shadow: 0 8px 26px rgba(18, 44, 82, 0.06);
+}
+.lawyer-google-reviews__head {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+.lawyer-google-reviews__brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: #fff;
+  background: conic-gradient(from -45deg, #4285f4 0 25%, #34a853 0 50%, #fbbc05 0 75%, #ea4335 0 100%);
+}
+.lawyer-google-reviews__head strong { display: block; }
+.lawyer-google-reviews__score { color: var(--color-muted, #6e6a63); font-size: 0.9rem; }
+.lawyer-google-reviews__score span[aria-hidden] { color: #e8a13d; letter-spacing: 0.1em; }
+.lawyer-google-reviews__all { margin-inline-start: auto; font-weight: 700; color: var(--color-navy, #16427a); text-decoration: none; }
+.lawyer-google-reviews__all:hover { text-decoration: underline; }
+.lawyer-google-reviews__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+.lawyer-google-reviews__card {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  background: var(--color-cream, #f7f5ef);
+  border: 1px solid var(--color-hairline, #e6e1d5);
+  border-radius: 10px;
+}
+.lawyer-google-reviews__card-head { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
+.lawyer-google-reviews__card-head img { border-radius: 50%; }
+.lawyer-google-reviews__card-head strong { display: block; font-size: 0.92rem; }
+.lawyer-google-reviews__card-head span { font-size: 0.8rem; color: var(--color-muted, #6e6a63); }
+.lawyer-google-reviews__card-head span[aria-hidden] { color: #e8a13d; }
+.lawyer-google-reviews__card blockquote { margin: 0; font-size: 0.92rem; line-height: 1.6; }
+.lawyer-google-reviews__attribution { margin: 0.9rem 0 0; font-size: 0.8rem; color: var(--color-muted, #6e6a63); }

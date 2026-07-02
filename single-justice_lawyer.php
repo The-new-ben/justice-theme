@@ -623,6 +623,9 @@ if ( $show_profile_photo ) {
 					<?php elseif ( ! $show_approved_recommendations && ! $show_testimonials ) : ?>
 						<p class="lawyer-mini-muted">ביקורות לקוחות יוצגו רק לאחר אימות, בקרה ואישור פרסום.</p>
 					<?php endif; ?>
+					<?php if ( $show_freeform_profile_facts && function_exists( 'justice_theme_render_lawyer_google_reviews' ) ) : ?>
+						<?php justice_theme_render_lawyer_google_reviews( $lawyer_id ); ?>
+					<?php endif; ?>
 					<?php if ( $google_profile_url ) : ?>
 						<p class="lawyer-review-google-link"><a href="<?php echo esc_url( $google_profile_url ); ?>" target="_blank" rel="noopener nofollow"><?php esc_html_e( 'צפייה בפרופיל ובביקורות בגוגל ←', 'justice-theme' ); ?></a></p>
 					<?php endif; ?>

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '1.0.2' );
+	define( 'JUSTICE_OPS_VERSION', '1.0.3' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -94,6 +94,30 @@ add_filter( 'justice_theme_mapbox_public_token', function ( $token ) {
 
 	return (string) get_option( 'justice_ops_mapbox_public_token', '' );
 } );
+
+/**
+ * Theme bridge: instant fixes delivered ahead of the owner's next theme
+ * pull, self-retiring once the theme reaches the version that carries the
+ * same code natively. Covers the 2026-07-02 owner orders: no stock people
+ * photos, fixed homepage lawyer cards, auto-loading RTL-correct light map.
+ */
+function justice_ops_theme_needs_bridge(): bool {
+	return ! defined( 'JUSTICE_THEME_VERSION' ) || version_compare( JUSTICE_THEME_VERSION, '2.20.0', '<' );
+}
+
+add_filter( 'script_loader_src', function ( $src, $handle ) {
+	if ( 'justice-legal-map' === $handle && justice_ops_theme_needs_bridge() ) {
+		return plugins_url( 'assets/legal-map.js', __FILE__ ) . '?ver=' . JUSTICE_OPS_VERSION;
+	}
+
+	return $src;
+}, 10, 2 );
+
+add_action( 'wp_enqueue_scripts', function () {
+	if ( justice_ops_theme_needs_bridge() ) {
+		wp_enqueue_style( 'justice-ops-bridge', plugins_url( 'assets/theme-bridge.css', __FILE__ ), array(), JUSTICE_OPS_VERSION );
+	}
+}, 60 );
 
 /**
  * Purge every cache layer this site runs, after our own upgrade completes.

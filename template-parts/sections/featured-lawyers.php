@@ -203,11 +203,6 @@ $registration_url = add_query_arg(
 			</div>
 		<?php else : ?>
 			<div class="verified-lawyer-showcase verified-lawyer-showcase--empty">
-				<div class="verified-lawyer-showcase__visual">
-					<img src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/lawyer-cta-visual.png' ); ?>"
-						alt="<?php esc_attr_e( 'פרופיל עורך דין מקצועי ב-Jus-Tice', 'justice-theme' ); ?>"
-						width="520" height="340" loading="lazy" decoding="async">
-				</div>
 				<div class="verified-lawyer-showcase__text">
 					<h3><?php esc_html_e( 'בנו נוכחות משפטית שאפשר למדוד', 'justice-theme' ); ?></h3>
 					<p><?php esc_html_e( 'פרופיל Jus-Tice מחבר בין תחומי מומחיות, אזור שירות, מאמרים מקצועיים ופניות לקוח במקום אחד.', 'justice-theme' ); ?></p>

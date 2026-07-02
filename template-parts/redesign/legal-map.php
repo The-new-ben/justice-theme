@@ -50,14 +50,14 @@ wp_add_inline_script(
 		<div class="legal-map-shell" id="legal-map">
 			<button type="button" id="legal-map-load" class="legal-map-load">
 				<span aria-hidden="true">&#128506;</span>
-				<?php esc_html_e( 'פתיחת המפה התלת ממדית', 'justice-theme' ); ?>
+				<?php esc_html_e( 'טוען את המפה…', 'justice-theme' ); ?>
 			</button>
 			<div id="legal-map-canvas" class="legal-map-canvas"></div>
 		</div>
 		<p class="legal-map-legend">
 			<span><i class="legal-map-dot legal-map-dot--lawyer"></i> <?php esc_html_e( 'עורכי דין מאומתים', 'justice-theme' ); ?></span>
-			<span><i class="legal-map-dot legal-map-dot--place"></i> <?php esc_html_e( 'בתי משפט ושירותים משפטיים', 'justice-theme' ); ?></span>
-			<span><?php esc_html_e( 'המפה נטענת רק בלחיצה. הנתונים מהמאגר המאומת בלבד.', 'justice-theme' ); ?></span>
+			<span><i class="legal-map-dot legal-map-dot--place"></i> <?php esc_html_e( 'בתי משפט, מוסדות ומשרדים מובילים', 'justice-theme' ); ?></span>
+			<span><?php esc_html_e( 'הנתונים מהמאגר המאומת בלבד.', 'justice-theme' ); ?></span>
 		</p>
 	</div>
 </section>

@@ -52,9 +52,6 @@ $israel_cities = array(
 	'רמלה',
 );
 
-// Hero visual: realistic legal-help scene, reused as the soft background layer.
-$hero_visual = JUSTICE_THEME_URI . '/assets/images/homepage-legal-help-hero.jpg';
-$hero_bg     = $hero_visual;
 $hero_whatsapp_url = function_exists( 'justice_theme_public_whatsapp_url' )
 	? justice_theme_public_whatsapp_url( __( 'שלום, אני צריך/ה עזרה משפטית דרך Jus-Tice. הגעתי מדף הבית ואשמח לחזרה קצרה.', 'justice-theme' ) )
 	: '';
@@ -94,7 +91,7 @@ $hero_first_steps = array(
 );
 ?>
 
-<section class="hero hero--has-bg" id="hero" style="--hero-bg-image: url('<?php echo esc_url( $hero_bg ); ?>');">
+<section class="hero" id="hero">
 	<div class="container hero__grid">
 		<div class="hero__content">
 			<h1 class="hero__title">
@@ -105,16 +102,7 @@ $hero_first_steps = array(
 				<?php esc_html_e( 'מכתב מהביטוח הלאומי, זימון לחקירה, סכסוך משפחתי, תאונה, פיטורים או חוזה שלא ברור לכם יכולים להרגיש כמו רגע שבו חייבים להחליט מהר. Jus-Tice נועד לעזור לכם לעצור רגע, להבין מה סוג הבעיה, אילו מסמכים כדאי להכין, מה דחוף ומה אפשר לבדוק בשקט. אפשר להתחיל בחיפוש לפי תחום ועיר, לקרוא מדריך בשפה ברורה, ורק אם צריך לעבור לפרופילים או לפנייה מסודרת לעורך דין. המידע באתר כללי ואינו ייעוץ משפטי אישי או הבטחה לתוצאה.', 'justice-theme' ); ?>
 			</p>
 
-			<figure class="hero__visual hero__visual--mobile" aria-label="<?php esc_attr_e( 'תמונת המחשה לפנייה משפטית מסודרת', 'justice-theme' ); ?>">
-				<img
-					src="<?php echo esc_url( $hero_visual ); ?>"
-					width="1280"
-					height="720"
-					alt="<?php esc_attr_e( 'אדם מסדר מסמכים לפני פנייה לעורך דין דרך Jus-Tice', 'justice-theme' ); ?>"
-					loading="eager"
-					fetchpriority="high"
-					decoding="async"
-				>
+			<figure class="hero__visual hero__visual--mobile" aria-label="<?php esc_attr_e( 'מסלול מסודר לפני פנייה משפטית', 'justice-theme' ); ?>">
 				<figcaption class="hero__visual-card">
 					<span><?php esc_html_e( 'מסלול מסודר לפני פנייה', 'justice-theme' ); ?></span>
 					<strong><?php esc_html_e( 'תארו מה קרה, בחרו תחום ועיר, והתקדמו רק כשברור מה הצעד הבא.', 'justice-theme' ); ?></strong>
@@ -238,16 +226,7 @@ $hero_first_steps = array(
 			</div>
 		</div>
 
-		<figure class="hero__visual" aria-label="<?php esc_attr_e( 'תמונת המחשה לפנייה משפטית מסודרת', 'justice-theme' ); ?>">
-			<img
-				src="<?php echo esc_url( $hero_visual ); ?>"
-				width="1280"
-				height="720"
-				alt="<?php esc_attr_e( 'אדם מסדר מסמכים לפני פנייה לעורך דין דרך Jus-Tice', 'justice-theme' ); ?>"
-				loading="eager"
-				fetchpriority="high"
-				decoding="async"
-			>
+		<figure class="hero__visual" aria-label="<?php esc_attr_e( 'מסלול מסודר לפני פנייה משפטית', 'justice-theme' ); ?>">
 			<figcaption class="hero__visual-card">
 				<span><?php esc_html_e( 'מסלול מסודר לפני פנייה', 'justice-theme' ); ?></span>
 				<strong><?php esc_html_e( 'תארו מה קרה, בחרו תחום ועיר, והתקדמו רק כשברור מה הצעד הבא.', 'justice-theme' ); ?></strong>

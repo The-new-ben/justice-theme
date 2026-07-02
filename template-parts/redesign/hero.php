@@ -82,11 +82,15 @@ $justice_triage_url = justice_theme_safe_public_link( '/legal-tools/ai-intake/',
 		</div>
 	</div>
 
-	<figure class="jt2-hero__figure">
-		<img src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/homepage-legal-help-hero.jpg' ); ?>" width="1280" height="720" alt="<?php esc_attr_e( 'פגישת היכרות בין לקוחות לעורך דין', 'justice-theme' ); ?>" loading="eager" fetchpriority="high" decoding="async">
-		<figcaption class="jt2-hero__caption">
-			<span><?php esc_html_e( 'מסלול מסודר לפני פנייה', 'justice-theme' ); ?></span>
-			<strong><?php esc_html_e( 'תארו מה קרה, בחרו תחום ועיר, והתקדמו רק כשברור מה הצעד הבא.', 'justice-theme' ); ?></strong>
-		</figcaption>
-	</figure>
+	<div class="jt2-hero__panel" aria-hidden="true">
+		<div class="jt2-hero__panel-inner">
+			<span class="jt2-hero__panel-eyebrow"><?php esc_html_e( 'מסלול מסודר לפני פנייה', 'justice-theme' ); ?></span>
+			<strong class="jt2-hero__panel-title"><?php esc_html_e( 'תארו מה קרה, בחרו תחום ועיר, והתקדמו רק כשברור מה הצעד הבא.', 'justice-theme' ); ?></strong>
+			<ol class="jt2-hero__panel-steps">
+				<li><?php esc_html_e( 'מתארים את המצב במילים שלכם', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'מקבלים כיוון: תחום, דחיפות וזכויות', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'בוחרים עורך דין מאומת רק אם צריך', 'justice-theme' ); ?></li>
+			</ol>
+		</div>
+	</div>
 </section>

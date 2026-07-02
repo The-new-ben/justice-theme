@@ -30,10 +30,10 @@ get_header();
 				<div class="trust"><span><b><?php esc_html_e( 'שאלון לפי נושא', 'justice-theme' ); ?></b><span><?php esc_html_e( 'רק הפרטים הנדרשים למסמך הספציפי', 'justice-theme' ); ?></span></span></div>
 			</div>
 		</div>
-		<figure class="hero-media">
-			<img src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/ask-lawyer-visual.jpg' ); ?>" alt="<?php esc_attr_e( 'הכנת מסמך משפטי במחשב לפני בדיקת עורך דין', 'justice-theme' ); ?>" loading="eager" width="430" height="330">
-			<figcaption><b><?php esc_html_e( 'מתחילים מהעובדות והמסמכים', 'justice-theme' ); ?></b><span><?php esc_html_e( 'הטיוטה עוזרת להגיע מסודרים לשיחה או לבדיקה משפטית.', 'justice-theme' ); ?></span></figcaption>
-		</figure>
+		<aside class="hero-media hero-media--text">
+			<b><?php esc_html_e( 'מתחילים מהעובדות והמסמכים', 'justice-theme' ); ?></b>
+			<span><?php esc_html_e( 'הטיוטה עוזרת להגיע מסודרים לשיחה או לבדיקה משפטית.', 'justice-theme' ); ?></span>
+		</aside>
 	</section>
 
 	<div class="toolbar">

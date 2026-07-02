@@ -41,11 +41,6 @@ $lead_notice_message  = isset( $lead_notice_messages[ $lead_notice ] ) ? $lead_n
 			<p class="section-header__eyebrow"><?php esc_html_e( 'פנייה משפטית מסודרת', 'justice-theme' ); ?></p>
 			<h2><?php esc_html_e( 'השאירו פנייה עכשיו ונבין לאיזה מסלול משפטי היא שייכת', 'justice-theme' ); ?></h2>
 			<p><?php esc_html_e( 'כתבו מה קרה, באיזו עיר מדובר, מה הדחיפות ומה כבר קיבלתם בכתב. המטרה היא להפוך לחץ לפנייה ברורה שאפשר לבדוק, לסווג ולהעביר לעורך דין מתאים רק אם יש התאמה והסכמה.', 'justice-theme' ); ?></p>
-			<div class="ask-lawyer__visual">
-				<img src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/ask-lawyer-visual.jpg' ); ?>"
-					alt="<?php esc_attr_e( 'ייעוץ משפטי מקוון: שיחת וידאו עם עורך דין', 'justice-theme' ); ?>"
-					width="520" height="340" loading="lazy" decoding="async">
-			</div>
 		</div>
 
 		<form class="ask-lawyer__form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">

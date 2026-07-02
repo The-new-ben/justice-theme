@@ -107,6 +107,7 @@
 		el.dir = 'rtl';
 		var areas = parseAreas(p.areas);
 		var html = '<div class="lmap-flag__card">';
+		if (p.logo) { html += '<img class="lmap-flag__logo" src="' + esc(p.logo) + '" alt="" loading="lazy" decoding="async">'; }
 		html += '<strong class="lmap-flag__name">' + esc(decode(p.name)) + '</strong>';
 		if (areas.length) { html += '<span class="lmap-flag__area">' + esc(decode(areas[0])) + '</span>'; }
 		if (p.rating > 0 && p.reviews > 0) {

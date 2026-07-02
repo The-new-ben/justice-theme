@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '1.0.4' );
+	define( 'JUSTICE_OPS_VERSION', '1.0.5' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -102,8 +102,49 @@ add_filter( 'justice_theme_mapbox_public_token', function ( $token ) {
  * photos, fixed homepage lawyer cards, auto-loading RTL-correct light map.
  */
 function justice_ops_theme_needs_bridge(): bool {
-	return ! defined( 'JUSTICE_THEME_VERSION' ) || version_compare( JUSTICE_THEME_VERSION, '2.20.0', '<' );
+	return ! defined( 'JUSTICE_THEME_VERSION' ) || version_compare( JUSTICE_THEME_VERSION, '2.21.0', '<' );
 }
+
+/**
+ * Until the theme carries the office logo natively (2.21.0), enrich the
+ * map GeoJSON response with each lawyer's office_logo_id so the premium
+ * flag cards can render logos today. The theme's transient stays
+ * untouched; enrichment happens per response.
+ */
+add_filter( 'rest_request_after_callbacks', function ( $response, $handler, $request ) {
+	if ( ! justice_ops_theme_needs_bridge() || ! ( $response instanceof WP_REST_Response ) ) {
+		return $response;
+	}
+
+	if ( '/justice/v1/map/offices' !== $request->get_route() ) {
+		return $response;
+	}
+
+	$data = $response->get_data();
+
+	if ( ! is_array( $data ) || empty( $data['features'] ) || ! is_array( $data['features'] ) ) {
+		return $response;
+	}
+
+	foreach ( $data['features'] as &$feature ) {
+		if ( ! isset( $feature['properties']['kind'] ) || 'lawyer' !== $feature['properties']['kind'] ) {
+			continue;
+		}
+
+		if ( ! empty( $feature['properties']['logo'] ) ) {
+			continue;
+		}
+
+		$logo_id = (int) get_post_meta( (int) ( $feature['properties']['id'] ?? 0 ), 'office_logo_id', true );
+
+		$feature['properties']['logo'] = $logo_id ? (string) wp_get_attachment_image_url( $logo_id, 'medium' ) : '';
+	}
+	unset( $feature );
+
+	$response->set_data( $data );
+
+	return $response;
+}, 10, 3 );
 
 add_filter( 'script_loader_src', function ( $src, $handle ) {
 	if ( 'justice-legal-map' === $handle && justice_ops_theme_needs_bridge() ) {

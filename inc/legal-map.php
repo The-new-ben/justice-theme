@@ -84,6 +84,123 @@ function justice_theme_register_legal_place_cpt(): void {
 add_action( 'init', 'justice_theme_register_legal_place_cpt' );
 
 /**
+ * Office logo on the lawyer profile: attachment ID meta, an admin media
+ * picker metabox, and exposure on the map (premium flag cards render it).
+ */
+function justice_theme_register_office_logo_meta(): void {
+	register_post_meta(
+		'justice_lawyer',
+		'office_logo_id',
+		array(
+			'single'            => true,
+			'type'              => 'integer',
+			'sanitize_callback' => 'absint',
+			'show_in_rest'      => false,
+		)
+	);
+}
+add_action( 'init', 'justice_theme_register_office_logo_meta' );
+
+function justice_theme_office_logo_metabox(): void {
+	add_meta_box(
+		'justice_office_logo',
+		'לוגו המשרד (מפה וכרטיס פרימיום)',
+		'justice_theme_office_logo_metabox_html',
+		'justice_lawyer',
+		'side',
+		'default'
+	);
+}
+add_action( 'add_meta_boxes', 'justice_theme_office_logo_metabox' );
+
+/**
+ * @param WP_Post $post Lawyer post.
+ */
+function justice_theme_office_logo_metabox_html( $post ): void {
+	wp_nonce_field( 'justice_office_logo_save', 'justice_office_logo_nonce' );
+	$logo_id  = (int) get_post_meta( $post->ID, 'office_logo_id', true );
+	$logo_url = $logo_id ? wp_get_attachment_image_url( $logo_id, 'medium' ) : '';
+	?>
+	<div id="justice-office-logo-box">
+		<input type="hidden" name="justice_office_logo_id" id="justice-office-logo-id" value="<?php echo esc_attr( $logo_id ? (string) $logo_id : '' ); ?>">
+		<p id="justice-office-logo-preview" style="text-align:center;<?php echo $logo_url ? '' : 'display:none;'; ?>">
+			<img src="<?php echo esc_url( (string) $logo_url ); ?>" alt="" style="max-width:100%;max-height:90px;">
+		</p>
+		<p>
+			<button type="button" class="button" id="justice-office-logo-pick">בחירת לוגו</button>
+			<button type="button" class="button" id="justice-office-logo-clear" <?php echo $logo_id ? '' : 'style="display:none;"'; ?>>הסרה</button>
+		</p>
+		<p class="description">מוצג בכרטיס הדגל על המפה ובשטחי פרימיום. רקע בהיר או שקוף עובד הכי טוב.</p>
+	</div>
+	<script>
+	jQuery(function ($) {
+		var frame;
+		$('#justice-office-logo-pick').on('click', function (e) {
+			e.preventDefault();
+			if (!frame) {
+				frame = wp.media({ title: 'לוגו המשרד', multiple: false, library: { type: 'image' } });
+				frame.on('select', function () {
+					var att = frame.state().get('selection').first().toJSON();
+					$('#justice-office-logo-id').val(att.id);
+					$('#justice-office-logo-preview').show().find('img').attr('src', (att.sizes && att.sizes.medium ? att.sizes.medium.url : att.url));
+					$('#justice-office-logo-clear').show();
+				});
+			}
+			frame.open();
+		});
+		$('#justice-office-logo-clear').on('click', function (e) {
+			e.preventDefault();
+			$('#justice-office-logo-id').val('');
+			$('#justice-office-logo-preview').hide();
+			$(this).hide();
+		});
+	});
+	</script>
+	<?php
+}
+
+function justice_theme_office_logo_admin_assets( string $hook ): void {
+	if ( 'post.php' !== $hook && 'post-new.php' !== $hook ) {
+		return;
+	}
+
+	$screen = get_current_screen();
+
+	if ( $screen && 'justice_lawyer' === $screen->post_type ) {
+		wp_enqueue_media();
+	}
+}
+add_action( 'admin_enqueue_scripts', 'justice_theme_office_logo_admin_assets' );
+
+/**
+ * @param int $post_id Lawyer post ID.
+ */
+function justice_theme_office_logo_save( int $post_id ): void {
+	if ( ! isset( $_POST['justice_office_logo_nonce'] ) || ! wp_verify_nonce( sanitize_key( (string) wp_unslash( $_POST['justice_office_logo_nonce'] ) ), 'justice_office_logo_save' ) ) {
+		return;
+	}
+
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	$logo_id = isset( $_POST['justice_office_logo_id'] ) ? absint( wp_unslash( $_POST['justice_office_logo_id'] ) ) : 0;
+
+	if ( $logo_id && 'attachment' === get_post_type( $logo_id ) ) {
+		update_post_meta( $post_id, 'office_logo_id', $logo_id );
+	} else {
+		delete_post_meta( $post_id, 'office_logo_id' );
+	}
+
+	delete_transient( 'justice_map_geojson_v1' );
+}
+add_action( 'save_post_justice_lawyer', 'justice_theme_office_logo_save' );
+
+/**
  * Allowed place types for imports and the map legend.
  *
  * @return array<string,string> type => Hebrew label.
@@ -206,6 +323,9 @@ function justice_theme_map_offices_geojson() {
 			$plan_type = strtolower( (string) get_post_meta( $lawyer_id, 'plan_type', true ) );
 			$is_paid   = in_array( $plan_type, array( 'featured', 'premium', 'partner', 'pro' ), true );
 
+			$logo_id  = (int) get_post_meta( $lawyer_id, 'office_logo_id', true );
+			$logo_url = $logo_id ? (string) wp_get_attachment_image_url( $logo_id, 'medium' ) : '';
+
 			$features[] = array(
 				'type'       => 'Feature',
 				'geometry'   => array(
@@ -216,6 +336,7 @@ function justice_theme_map_offices_geojson() {
 					'kind'     => 'lawyer',
 					'id'       => $lawyer_id,
 					'paid'     => $is_paid,
+					'logo'     => $logo_url,
 					'name'     => wp_specialchars_decode( get_the_title( $lawyer_id ), ENT_QUOTES ),
 					'url'      => function_exists( 'justice_theme_public_permalink' ) ? justice_theme_public_permalink( $lawyer_id ) : get_permalink( $lawyer_id ),
 					'city'     => ( is_array( $city_terms ) && $city_terms ) ? $city_terms[0]->name : '',

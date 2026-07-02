@@ -265,3 +265,12 @@
   display: block;
   margin-top: -2px;
 }
+
+/* Premium flag: office logo */
+.lmap-flag__logo {
+  display: block;
+  max-width: 120px;
+  max-height: 34px;
+  object-fit: contain;
+  margin: 0 auto 6px;
+}

@@ -41,6 +41,14 @@ about results.
   the session Environment (verified 2026-07-02, administrator role).
   Never commit, never print values. GitHub push works through the
   session's git proxy.
+- Mapbox public token (pk): stored ONLY in the live DB option
+  justice_ops_mapbox_public_token; justice-ops filters it into
+  justice_theme_mapbox_public_token(). NOT in the repo: GitHub push
+  protection hard-blocks Mapbox tokens (learned 2026-07-02). LawyerScout
+  map verified live with it. Owner still owes the token a URL
+  restriction to https://jus-tice.co.il in the Mapbox dashboard. The
+  Mapbox SECRET sk token is NOT needed by anything we run; owner was
+  advised to delete it.
 - courtai repo (github.com/The-new-ben/courtai): public; sandbox blocks
   code download, page-level WebFetch reads work.
 

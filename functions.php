@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_VERSION', '2.14.0' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-07-03-google-reviews-embed-v1' );
+define( 'JUSTICE_THEME_VERSION', '2.15.0' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-07-03-pipeline-maya-autofire-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -43,6 +43,7 @@ function justice_theme_private_path( string $relative_path ): string {
 $justice_theme_files = array(
 	'inc/setup.php',
 	'inc/deployment-marker.php',
+	'inc/healthcheck.php',
 	'inc/enqueue.php',
 	'inc/menu-seed.php',
 	'inc/template-tags.php',

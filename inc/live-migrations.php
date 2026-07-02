@@ -302,10 +302,8 @@ add_action( 'init', 'justice_theme_bootstrap_maya_rotenberg_public_sources', 36 
  * empty; the address powers the profile map embed. One-shot via option flag.
  */
 function justice_theme_seed_maya_office_facts(): void {
-	if ( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
-		return;
-	}
-
+	// Owner ordered immediate activation (2026-07-02): plain init, one-shot
+	// via the option flag, fixed owner-approved payload.
 	if ( get_option( 'justice_theme_maya_office_facts_seeded_v1' ) ) {
 		return;
 	}
@@ -348,7 +346,7 @@ function justice_theme_seed_maya_office_facts(): void {
 
 	update_option( 'justice_theme_maya_office_facts_seeded_v1', time(), false );
 }
-add_action( 'admin_init', 'justice_theme_seed_maya_office_facts', 45 );
+add_action( 'init', 'justice_theme_seed_maya_office_facts', 45 );
 
 // Owner-approved enablement (2026-07-03): seed Maya's office facts from her
 // official site and release her profile fact gate. One-shot via done flag.
@@ -367,10 +365,10 @@ add_filter( 'justice_theme_enable_maya_office_fact_seed', '__return_true' );
  * the profile carries in the media library.
  */
 function justice_theme_seed_maya_showroom_profile(): void {
-	if ( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
-		return;
-	}
-
+	// Owner ordered immediate activation (2026-07-02): runs on plain init
+	// like the slug migration above, no wp-admin visit needed. Safe without
+	// a capability check: the payload is fixed owner-approved content and
+	// the option flag makes it one-shot.
 	if ( get_option( 'justice_theme_maya_showroom_seeded_v1' ) ) {
 		return;
 	}
@@ -441,7 +439,7 @@ function justice_theme_seed_maya_showroom_profile(): void {
 
 	update_option( 'justice_theme_maya_showroom_seeded_v1', time(), false );
 }
-add_action( 'admin_init', 'justice_theme_seed_maya_showroom_profile', 46 );
+add_action( 'init', 'justice_theme_seed_maya_showroom_profile', 46 );
 
 // Owner-authorized enablement (2026-07-02, in writing): full showroom
 // activation for the flagship profile. One-shot via done flag.
@@ -454,13 +452,17 @@ add_filter( 'justice_theme_enable_maya_showroom_seed', '__return_true' );
  * its original photography. Runs once, only when no thumbnail exists yet.
  */
 function justice_theme_seed_maya_portrait(): void {
-	if ( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
-		return;
-	}
-
+	// Owner ordered immediate activation (2026-07-02): plain init, one-shot.
+	// The retry lock keeps a failing remote fetch from slowing public
+	// requests to at most one attempt per hour.
 	if ( get_option( 'justice_theme_maya_portrait_seeded_v1' ) ) {
 		return;
 	}
+
+	if ( get_transient( 'justice_theme_maya_portrait_retry_lock' ) ) {
+		return;
+	}
+	set_transient( 'justice_theme_maya_portrait_retry_lock', 1, HOUR_IN_SECONDS );
 
 	if ( ! justice_theme_live_migration_is_enabled( 'justice_theme_enable_maya_showroom_seed' ) ) {
 		return;
@@ -504,4 +506,4 @@ function justice_theme_seed_maya_portrait(): void {
 	set_post_thumbnail( $post_id, (int) $attachment_id );
 	update_option( 'justice_theme_maya_portrait_seeded_v1', (int) $attachment_id, false );
 }
-add_action( 'admin_init', 'justice_theme_seed_maya_portrait', 47 );
+add_action( 'init', 'justice_theme_seed_maya_portrait', 47 );

@@ -1578,3 +1578,70 @@ input[type="submit"].button {
 @media (max-width: 640px) {
   .jt2-courtroom-visual__frame { height: 460px; }
 }
+
+/* LawyerScout: the 3D legal map band */
+.legal-map-band { background: #fff; }
+.legal-map-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 18px; }
+.legal-map-head h2 { margin: 0 0 6px; }
+.legal-map-head p { margin: 0; color: var(--jt2-muted, #5b6b7c); max-width: 62ch; }
+.legal-map-nearest {
+  border: 1.5px solid var(--jt2-navy, #122c52);
+  background: #fff;
+  color: var(--jt2-navy, #122c52);
+  font: inherit;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 11px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.legal-map-nearest:hover { background: var(--jt2-navy, #122c52); color: #fff; }
+.legal-map-shell {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #d9e3ec;
+  background:
+    radial-gradient(600px 300px at 70% 20%, rgba(24,102,180,0.12), transparent 60%),
+    radial-gradient(500px 260px at 20% 80%, rgba(228,87,46,0.08), transparent 60%),
+    #eef4f9;
+  min-height: 320px;
+}
+.legal-map-canvas { width: 100%; height: 0; }
+.legal-map-shell.is-live .legal-map-canvas { height: 560px; }
+.legal-map-load {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--jt2-navy, #122c52);
+  cursor: pointer;
+}
+.legal-map-load span { font-size: 2.6rem; }
+.legal-map-load:hover { background: rgba(255,255,255,0.45); }
+.legal-map-legend { display: flex; gap: 22px; flex-wrap: wrap; margin: 12px 0 0; font-size: 0.85rem; color: var(--jt2-muted, #5b6b7c); }
+.legal-map-dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px #c9d5e0; vertical-align: -1px; }
+.legal-map-dot--lawyer { background: #E4572E; }
+.legal-map-dot--place { background: #1866B4; }
+.lmap-pop { display: flex; flex-direction: column; gap: 5px; font-family: inherit; min-width: 200px; }
+.lmap-pop__name { font-size: 1rem; color: #14477D; }
+.lmap-pop__badge { align-self: flex-start; background: #EAF2FA; color: #1866B4; font-size: 11px; font-weight: 700; border-radius: 999px; padding: 2px 10px; }
+.lmap-pop__badge--place { background: #F2F7FB; color: #14477D; }
+.lmap-pop__stars { color: #E4572E; font-weight: 700; font-size: 0.85rem; }
+.lmap-pop__meta { color: #5b6b7c; font-size: 0.82rem; }
+.lmap-pop__cta { display: flex; gap: 8px; margin-top: 6px; }
+.lmap-pop__btn { flex: 1; text-align: center; background: #E4572E; color: #fff !important; font-weight: 700; font-size: 0.82rem; border-radius: 6px; padding: 8px 10px; text-decoration: none; }
+.lmap-pop__btn--wa { background: #fff; color: #128C4A !important; border: 1.5px solid #25D366; }
+@media (max-width: 640px) {
+  .legal-map-shell.is-live .legal-map-canvas { height: 420px; }
+  .legal-map-nearest { width: 100%; }
+}

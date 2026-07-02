@@ -216,3 +216,14 @@ add_action( 'rest_api_init', function () {
 // add_filter( 'justice_theme_google_places_api_key', function () {
 // 	return 'AIza-REPLACE-WITH-YOUR-KEY';
 // } );
+
+/*
+ * Mapbox public token (pk...) for the LawyerScout 3D map. Restrict the
+ * token to jus-tice.co.il in the Mapbox dashboard. EITHER add to
+ * wp-config.php:
+ *   define( 'JUSTICE_MAPBOX_PUBLIC_TOKEN', 'pk.REPLACE-WITH-YOUR-TOKEN' );
+ * OR uncomment the filter below on the server copy only.
+ */
+// add_filter( 'justice_theme_mapbox_public_token', function () {
+// 	return 'pk.REPLACE-WITH-YOUR-TOKEN';
+// } );

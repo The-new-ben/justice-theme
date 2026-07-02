@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_VERSION', '2.16.0' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-07-03-homepage-tighten-v1' );
+define( 'JUSTICE_THEME_VERSION', '2.17.0' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-07-03-lawyerscout-map-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -79,6 +79,7 @@ $justice_theme_files = array(
 	'inc/lawyer-recommendations.php',
 	'inc/lawyer-reviews.php',
 	'inc/google-reviews.php',
+	'inc/legal-map.php',
 	'inc/lawyer-suppliers.php',
 	'inc/lawyer-prospects.php',
 	'inc/lawyer-onboarding.php',

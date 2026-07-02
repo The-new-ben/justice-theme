@@ -318,6 +318,32 @@ plugins (bloat list captured 2026-07-02; includes duplicates like two
 schema plugins inactive, AMP, Jetpack, Pods+CPT-UI+ACF together);
 plugin cleanup remains an owner-approved future session.
 
+
+LAWYERSCOUT MAP + JUSTIA/DIN REDESIGN (owner approved 2026-07-02):
+- Design authorized: Justia look (white, blue #14477D/#1866B4, orange
+  red #E4572E CTAs, mega menu, sans-first Assistant) + din.co.il card
+  functionality. Mock at the session artifact justia-din-homepage-v1.
+  Build order: header+mega menu, hero v2 (din-style with the 3D map
+  teaser as the hero visual, no stock photo), cards v2, bands. SEO is
+  a first-class requirement of the redesign: hierarchy, breadcrumbs,
+  practice-area silo isolation, EEAT, plus a competitor gap-mapping
+  and content plan (din/psakdin/lawguide) = next big session.
+- Map foundation SHIPPED (inc/legal-map.php, assets/js/legal-map.js,
+  template-parts/redesign/legal-map.php, homepage center): Mapbox GL
+  v3 (owner already holds a key; chosen over Google for 3D + styling
+  + cost), justice_place CPT for imported POIs, GET
+  /justice/v1/map/offices GeoJSON (approved lawyers with office_lat/
+  office_lng + published places, 1h cache), admin POST
+  /map/import-places (batch, dedupe, Israel bbox gate), admin POST
+  /map/geocode-missing (Mapbox geocoder, 20 per call). Click-to-load,
+  clustered, 3D pitch, rich RTL popups, nearest-to-me geolocation.
+- OWNER SETUP: add define('JUSTICE_MAPBOX_PUBLIC_TOKEN','pk...') in
+  wp-config (restrict token to the domain in Mapbox dashboard). Until
+  then the map section renders nothing. Then run geocode-missing via
+  the pipeline until remaining=0, and feed the collection agent's
+  batches (prompt: project-control/map-data-agent-prompt-2026-07.md)
+  into /map/import-places.
+
 ## 7. NEXT MISSIONS (execute in order, one per session, ship live)
 1. DONE 2026-07-03: REVIEWS (see section 6). Follow-ups if needed:
    review-request email automation and per-area review snippets on

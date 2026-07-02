@@ -16,6 +16,8 @@ get_header();
 
 <?php get_template_part( 'template-parts/redesign/ai-tools-strip' ); ?>
 
+<?php get_template_part( 'template-parts/redesign/legal-map' ); ?>
+
 <?php get_template_part( 'template-parts/redesign/how-it-works' ); ?>
 
 <?php get_template_part( 'template-parts/redesign/practice-areas' ); ?>

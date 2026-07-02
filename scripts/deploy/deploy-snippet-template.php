@@ -35,10 +35,22 @@ add_action( 'rest_api_init', function () {
 				activate_plugin( $plugin_file );
 			}
 
-			do_action( 'litespeed_purge_all' );
-			if ( function_exists( 'wp_cache_flush' ) ) {
-				wp_cache_flush();
+			// Purge every cache layer this site runs, in one strike. Without
+			// this the deploy lands but visitors keep seeing the old site.
+			if ( class_exists( 'autoptimizeCache' ) ) { autoptimizeCache::clearall(); }
+			if ( function_exists( 'sg_cachepress_purge_cache' ) ) { sg_cachepress_purge_cache(); }
+			if ( class_exists( 'SiteGround_Optimizer\\Supercacher\\Supercacher' ) ) {
+				SiteGround_Optimizer\Supercacher\Supercacher::purge_cache();
 			}
+			if ( function_exists( 'WP_Optimize' ) ) {
+				$wpo = WP_Optimize();
+				if ( is_object( $wpo ) && method_exists( $wpo, 'get_page_cache' ) ) {
+					$pc = $wpo->get_page_cache();
+					if ( $pc && method_exists( $pc, 'purge' ) ) { $pc->purge(); }
+				}
+			}
+			do_action( 'litespeed_purge_all' );
+			wp_cache_flush();
 
 			return array(
 				'result'   => is_wp_error( $ok ) ? ( 'ERR:' . $ok->get_error_message() ) : var_export( $ok, true ),

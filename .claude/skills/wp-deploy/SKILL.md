@@ -76,3 +76,20 @@ print credentials to logs or chat.
   ultra-justice-engine or migrate it first, owner-approved.
 - Credentials: WP_USER/WP_APP_PASSWORD from environment or owner chat;
   never committed, never echoed.
+
+## Cache discipline (learned 2026-07-02, cost an owner panic)
+
+The live site runs FIVE cache layers: SiteGround sg-cachepress,
+Autoptimize (aggregated CSS/JS with its own store), WP-Optimize page
+cache, Asset CleanUp, and the object cache. A deploy that lands on
+disk is INVISIBLE until they are purged. Every deploy and every purge
+need runs the full purge block (see deploy-snippet-template.php), then
+verify with a cache-busted request. The owner's browser also caches:
+tell them Ctrl+Shift+R.
+
+## Server facts verified 2026-07-02
+
+- shell_exec and exec are DISABLED on uPress: agent-side git pull on
+  the server is impossible. Theme autonomy requires the
+  Theme_Upgrader zip route (owner decision pending: it removes the
+  server's .git so the uPress Pull button dies permanently).

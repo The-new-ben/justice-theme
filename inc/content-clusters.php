@@ -108,6 +108,7 @@ function justice_theme_content_clusters(): array {
 				'criminal-lawyer-jerusalem',
 				'military-lawyer-israel-court-martial-defense',
 				'military-criminal-defense',
+				'criminal-offenses-lawyer-criminal-sentencing-process-arrest',
 			),
 		),
 
@@ -148,6 +149,7 @@ function justice_theme_content_clusters(): array {
 				'cerebral-palsy',
 				'malpractice-cerebral-palsy',
 				'what-is-medical-malpractice-definition-examples',
+				'medical-malpractice-attorney',
 			),
 		),
 

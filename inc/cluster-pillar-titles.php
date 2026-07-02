@@ -50,7 +50,7 @@ function justice_theme_cluster_pillar_titles(): array {
 		'family-law'                  => 'דיני משפחה וגירושין - זכויות, הסכמים ומשמורת | Jus-Tice',
 		'medical-malpractice-lawyer'  => 'עורך דין רשלנות רפואית - מתי תובעים ואיך | מדריך | Jus-Tice',
 		'traffic-lawyer'              => 'עורך דין תעבורה - שלילה, דוחות ושכרות | מדריך | Jus-Tice',
-		'labor-lawyer'                => 'עורך דין דיני עבודה - זכויות עובדים ופיטורים | Jus-Tice',
+		'labor-lawyer'                => 'עורך דין דיני עבודה - זכויות עובדים וייעוץ ראשוני | Jus-Tice',
 		'inheritance-lawyer'          => 'עורך דין ירושה וצוואות - צו ירושה והתנגדות | Jus-Tice',
 		'personal-injury-law'         => 'עורך דין נזיקין ותאונות - פיצויים ותביעות | Jus-Tice',
 		'immigration-lawyer'          => 'עורך דין הגירה ואזרחות - ויזות ודרכונים | Jus-Tice',

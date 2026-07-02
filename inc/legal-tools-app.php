@@ -578,6 +578,7 @@ function justice_theme_copy_hygiene_sweep() {
 	);
 
 	$touched = array();
+	$flagged = array();
 
 	foreach ( $post_ids as $post_id ) {
 		$post = get_post( (int) $post_id );
@@ -598,6 +599,22 @@ function justice_theme_copy_hygiene_sweep() {
 		}
 
 		if ( $new_title !== $title || $new_content !== $content ) {
+			// The publication safety gate hard-blocks (wp_die) any re-save of a
+			// published post that still carries internal editorial markers. Those
+			// posts are already live with the markers and need owner review, not a
+			// dash sweep, so skip them here and record them for review. Without
+			// this skip a single flagged post aborts every wp-admin page load.
+			if ( function_exists( 'justice_theme_detect_publication_safety_markers' ) ) {
+				$safety_markers = justice_theme_detect_publication_safety_markers(
+					$new_title . "\n\n" . (string) $post->post_excerpt . "\n\n" . $new_content
+				);
+
+				if ( ! empty( $safety_markers ) ) {
+					$flagged[ (int) $post_id ] = array_slice( $safety_markers, 0, 5 );
+					continue;
+				}
+			}
+
 			wp_update_post(
 				array(
 					'ID'           => (int) $post_id,
@@ -609,7 +626,17 @@ function justice_theme_copy_hygiene_sweep() {
 		}
 	}
 
-	update_option( 'justice_copy_hygiene_done_v1', wp_json_encode( array( 'at' => current_time( 'mysql' ), 'touched' => $touched ) ), false );
+	update_option(
+		'justice_copy_hygiene_done_v1',
+		wp_json_encode(
+			array(
+				'at'                 => current_time( 'mysql' ),
+				'touched'            => $touched,
+				'flagged_for_review' => $flagged,
+			)
+		),
+		false
+	);
 }
 add_action( 'admin_init', 'justice_theme_copy_hygiene_sweep', 50 );
 

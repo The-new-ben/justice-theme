@@ -294,6 +294,30 @@ inc/lawyer-recommendations.php):
 - Shared gate helper: justice_theme_lawyer_reviews_public_state
   (seed/fact-gate/Maya aware). Use it for any new rating surface.
 
+
+PIPELINE ARMED AND SMOKE-PASSED ON LIVE (2026-07-02): the agent-driven
+REST pipeline is operational end to end. Owner supplied an admin
+application password (held in session chat / to be added to the repo
+Environment settings as WP_USER + WP_APP_PASSWORD + WP_BASE_URL; NEVER
+committed). Verified live: administrator role with install/update
+capabilities; Code Snippets 3.9.6 installed and activated VIA REST
+(POST wp/v2/plugins); full temp-route loop smoke: create snippet ->
+authed call OK -> unauthed 401 -> delete 204 -> route 404 -> homepage
+200 and healthcheck intact. Agents can now run one-shot privileged
+operations and plugin installs without owner clicks. Theme code still
+reaches live only via uPress git pull.
+
+CRITICAL STACK CORRECTION discovered via live plugin inventory: the
+active companion plugin on live is ultra-justice-engine 1.0.0 (the
+folder previously documented as legacy), NOT justice-core. justice-core
+is NOT installed on live. NEVER install/activate the justice-core zip
+while ultra-justice-engine is active: near-identical function names
+mean a probable fatal redeclaration. Any plugin deploy must target
+ultra-justice-engine or first migrate it. Live also runs 64 active
+plugins (bloat list captured 2026-07-02; includes duplicates like two
+schema plugins inactive, AMP, Jetpack, Pods+CPT-UI+ACF together);
+plugin cleanup remains an owner-approved future session.
+
 ## 7. NEXT MISSIONS (execute in order, one per session, ship live)
 1. DONE 2026-07-03: REVIEWS (see section 6). Follow-ups if needed:
    review-request email automation and per-area review snippets on

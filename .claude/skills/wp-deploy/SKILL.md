@@ -63,3 +63,16 @@ to remove it.
 php -l before build; bump JUSTICE_DEPLOY_MARKER for theme releases;
 verify live after every deploy; no em/en dashes in anything; never
 print credentials to logs or chat.
+
+## Live-verified state (2026-07-02)
+
+- Pipeline smoke PASSED end to end on production: snippet create ->
+  authed call -> unauthed 401 -> delete 204 -> 404 -> site healthy.
+- Code Snippets 3.9.6 active (installed via POST wp/v2/plugins).
+- WARNING: live runs ultra-justice-engine 1.0.0 as the active companion
+  plugin; justice-core is NOT installed. Do not install the
+  justice-core zip while ultra-justice-engine is active (duplicate
+  function names, probable fatal). Plugin deploys must target
+  ultra-justice-engine or migrate it first, owner-approved.
+- Credentials: WP_USER/WP_APP_PASSWORD from environment or owner chat;
+  never committed, never echoed.

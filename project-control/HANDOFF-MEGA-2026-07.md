@@ -126,6 +126,32 @@ funnel smoke test. Owner still owed: wp-admin visit (triggers the
 hygiene sweep, now safe); decision on 6 slug/content mismatches;
 review of any flagged_for_review post IDs after the sweep runs.
 
+Full system check 2026-07-02 (owner reported "CMS is not right"):
+site is healthy. Funnel URLs all 200, all justice/v1 routes
+registered, schema and sitemaps fine. Real findings, owner decisions
+pending:
+- /jus-tice-2/ is an OLD DUPLICATE of the homepage page (the real
+  front page is page ID 38). It renders identical homepage content at
+  its own URL (HTTP 200). Mitigations already in place: canonical
+  points to /, not in the sitemap. Recommended (needs per-URL owner
+  approval): 301 /jus-tice-2/ to / and unpublish the duplicate page.
+  Add to the slug-mismatch queue.
+- The "components of the homepage" picture-repeater metabox seen on
+  page edit screens is NOT from this repo (theme or bundled plugins).
+  It is a legacy live-only field group (ACF era). Nothing in the
+  current theme reads those fields, so editing those pictures changes
+  nothing on the site. All live imagery is theme-controlled via git
+  (assets/images + templates). Candidate for cleanup in wp-admin.
+- The empty main editor on the homepage pages is expected: the
+  redesign homepage is template-driven (template-parts/redesign).
+- Live plugin list is heavily bloated (Elementor, Jetpack, WooCommerce
+  in store-coming-soon mode, AMP, Hostinger Migrator, multiple
+  optimizer/cache plugins). Perf + security surface. Worth a dedicated
+  owner-driven cleanup session with a keep/remove list.
+- guide-hero.jpg retired 2026-07-03 (owner request): /legal-tools/
+  hero now uses ask-lawyer-visual.jpg, homepage guide section is
+  text-only until the mission 2 photography set is approved.
+
 REVIEWS system map (inc/lawyer-reviews.php + extended
 inc/lawyer-recommendations.php):
 - Case-linked tokens: justice_reco_token gains

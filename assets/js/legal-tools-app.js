@@ -2996,6 +2996,7 @@ function openTool(id){
             <button class="btn" id="printBtn">${ui("print")}</button>
             <button class="btn" id="dlBtn">${ui("download")}</button>
             <button class="btn" id="lawyerBtn">${ui("lawyer")}</button>
+            <button class="btn ai" id="simBtn">${LANG==="he"?"לסמלץ בבית משפט":"Simulate in court"}</button>
           </div>
         </div>
         <div class="paper empty" id="paper">${esc(ui("previewEmpty"))}</div>
@@ -3014,6 +3015,26 @@ function openTool(id){
   $("#printBtn",sheet).onclick=()=>requireLeadGate("print",_rawPrintDoc);
   $("#dlBtn",sheet).onclick=()=>requireLeadGate("download",_rawDownloadDoc);
   $("#lawyerBtn",sheet).onclick=()=>window.open("https://jus-tice.co.il/#ask-lawyer","_blank");
+  $("#simBtn",sheet).onclick=()=>{
+    if(CUR&&CUR.id==="court-arena"){toast(LANG==="he"?"אתם כבר באולם.":"You are already in the arena.");return;}
+    const doc=(LAST_DOC||"").slice(0,1500);
+    const facts=(LANG==="he"?"המסמך שנוצר בכלי \""+t(CUR.title)+"\":\n":"Document generated in \""+t(CUR.title)+"\":\n")+(doc||JSON.stringify(DATA));
+    const areaHe=DATA.caseArea||DATA.costArea||DATA.arenaArea||"";
+    try{localStorage.setItem("justice_ai_prefill",JSON.stringify({tool:"court-arena",ts:Date.now(),fields:{arenaFacts:facts,arenaArea:areaHe}}));}catch(e){}
+    closeSheet();
+    openTool("court-arena");
+    setTimeout(()=>{
+      const form=$("#form");
+      if(form){
+        const fa=form.querySelector('[name="arenaFacts"]');
+        if(fa){fa.value=facts;DATA.arenaFacts=facts;}
+        const ar=form.querySelector('[name="arenaArea"]');
+        if(ar&&areaHe){ar.value=areaHe;DATA.arenaArea=areaHe;}
+        refreshPreview();
+        toast(LANG==="he"?"המסמך הועבר לאולם. השלימו את הפרטים והפעילו.":"Document carried into the arena.");
+      }
+    },80);
+  };
   $("#scrim").classList.add("on"); sheet.classList.add("on");
   document.body.style.overflow="hidden";
 }
@@ -3043,7 +3064,10 @@ async function _rawDoEnhance(){
   const setStep=(i)=>{stepBox.innerHTML=steps.map((s,j)=>`<div style="opacity:${j<=i?1:.38};font-weight:${j===i?700:400}">${j<i?"✓":j===i?"●":"○"} ${esc(s)}</div>`).join("");};
   setStep(0);
   setStep(1);
-  const out=await aiEnhance({tool:CUR.id,lang:LANG,fields:DATA,draft:base});
+  const directives=LANG==="he"
+    ?"\n\n[הנחיות איכות למסמך הסופי: רמה של משרד עורכי דין מוביל. היכן שרלוונטי, לציין בשמם חוקים ישראליים וסעיפים מרכזיים (למשל חוק החוזים, חוק הגנת הצרכן, חוק יחסי ממון) בלי להמציא פסיקה. מבנה ממוספר וכותרות ברורות. שפה משפטית מדויקת אך מובנת. לכלול סכומים, תאריכים ומועדי תגובה במקום שנמסרו. לסיים בפסקת צעדים מומלצים. לא לכלול הבטחת תוצאה.]"
+    :"\n\n[Quality directives: top-tier law firm level. Name relevant Israeli statutes and key sections where applicable, never invent case law. Numbered structure, clear headings, precise but readable legal language. Include amounts, dates and response deadlines where provided. End with recommended next steps. No outcome promises.]";
+  const out=await aiEnhance({tool:CUR.id,lang:LANG,fields:DATA,draft:base+directives});
   setStep(2);
   btn.disabled=false;
   setTimeout(()=>{stepBox&&stepBox.remove();},2600);

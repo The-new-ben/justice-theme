@@ -536,3 +536,83 @@ function justice_theme_matched_lawyers_callback( WP_REST_Request $request ) {
 		200
 	);
 }
+
+/**
+ * One-shot sitewide copy hygiene sweep (owner-ordered 2026-07-03):
+ * removes em/en-dashes from published articles and pages, replacing
+ * "X — Y" in titles with "X: Y" and in body text with a comma, plus
+ * the most common Hebrew AI-teller phrases. Runs once per flag version
+ * on an admin visit, gated behind the standard CMS-write switch, and
+ * records every touched post ID for audit.
+ */
+function justice_theme_copy_hygiene_sweep() {
+	if ( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	if ( get_option( 'justice_copy_hygiene_done_v1' ) ) {
+		return;
+	}
+
+	if ( ! function_exists( 'justice_theme_admin_cms_write_enabled' ) || ! justice_theme_admin_cms_write_enabled( 'justice_copy_hygiene_sweep_enabled' ) ) {
+		return;
+	}
+
+	$post_ids = get_posts(
+		array(
+			'post_type'      => array( 'articles', 'page', 'post' ),
+			'post_status'    => 'publish',
+			'posts_per_page' => 400,
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
+		)
+	);
+
+	$tellers = array(
+		'חשוב לציין כי '   => '',
+		'חשוב לציין ש'      => '',
+		'ראוי לציין כי '    => '',
+		'בעידן המודרני, '  => '',
+		'בעידן המודרני '   => '',
+		'לסיכומו של דבר, ' => 'לסיכום, ',
+	);
+
+	$touched = array();
+
+	foreach ( $post_ids as $post_id ) {
+		$post = get_post( (int) $post_id );
+		if ( ! $post instanceof WP_Post ) {
+			continue;
+		}
+
+		$title   = $post->post_title;
+		$content = $post->post_content;
+
+		$new_title   = preg_replace( '/\s+[—–]\s+/u', ': ', $title );
+		$new_title   = str_replace( array( '—', '–' ), '-', $new_title );
+		$new_content = preg_replace( '/\s+[—–]\s+/u', ', ', $content );
+		$new_content = str_replace( array( '—', '–' ), '-', $new_content );
+
+		foreach ( $tellers as $from => $to ) {
+			$new_content = str_replace( $from, $to, $new_content );
+		}
+
+		if ( $new_title !== $title || $new_content !== $content ) {
+			wp_update_post(
+				array(
+					'ID'           => (int) $post_id,
+					'post_title'   => $new_title,
+					'post_content' => $new_content,
+				)
+			);
+			$touched[] = (int) $post_id;
+		}
+	}
+
+	update_option( 'justice_copy_hygiene_done_v1', wp_json_encode( array( 'at' => current_time( 'mysql' ), 'touched' => $touched ) ), false );
+}
+add_action( 'admin_init', 'justice_theme_copy_hygiene_sweep', 50 );
+
+// Owner-ordered enablement (2026-07-03): "remove all AI tellers and
+// em-dashes from the website completely." One-shot via the done flag.
+add_filter( 'justice_copy_hygiene_sweep_enabled', '__return_true' );

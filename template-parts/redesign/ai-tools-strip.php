@@ -97,12 +97,18 @@ $justice_ai_tools = array(
 			<button type="button" id="ai-launcher-go" data-lead-utm-source="homepage" data-lead-utm-medium="ai_center" data-lead-utm-campaign="court_arena"><?php esc_html_e( 'הפעלת הסימולציה כאן ←', 'justice-theme' ); ?></button>
 			<span class="jt2-ai__launcher-note"><?php esc_html_e( 'הפרוטוקול נבנה כאן בעמוד. בהמשך תוכלו גם להשיב לשופט בקול ולקבל את המשך הדיון. תרגול בלבד, לא ייעוץ משפטי.', 'justice-theme' ); ?></span>
 
-			<div id="ai-sim-stage" class="jt2-ai__sim" hidden>
+			<div id="ai-sim-stage" class="jt2-ai__sim">
 				<div class="jt2-ai__sim-head">
-					<strong><?php esc_html_e( 'פרוטוקול הסימולציה שלכם', 'justice-theme' ); ?></strong>
-					<span class="jt2-badge jt2-badge--ai"><?php esc_html_e( 'תצוגה חיה', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'אולם בית המשפט הווירטואלי', 'justice-theme' ); ?></strong>
+					<span class="jt2-badge jt2-badge--ai"><?php esc_html_e( 'סימולציה חיה', 'justice-theme' ); ?></span>
 				</div>
-				<pre id="ai-sim-paper" class="jt2-ai__sim-paper" dir="rtl"></pre>
+				<div class="jt2-courtroom" aria-label="<?php esc_attr_e( 'משתתפי הדיון', 'justice-theme' ); ?>">
+					<div class="jt2-courtroom__seat is-judge"><span class="jt2-courtroom__avatar">&#9878;</span><strong><?php esc_html_e( 'השופט/ת', 'justice-theme' ); ?></strong><em id="ai-sim-status-judge"><?php esc_html_e( 'ממתין/ה לתיק', 'justice-theme' ); ?></em></div>
+					<div class="jt2-courtroom__seat"><span class="jt2-courtroom__avatar">&#128100;</span><strong><?php esc_html_e( 'ב"כ התובע', 'justice-theme' ); ?></strong><em><?php esc_html_e( 'מוכן לטעון', 'justice-theme' ); ?></em></div>
+					<div class="jt2-courtroom__seat"><span class="jt2-courtroom__avatar">&#128100;</span><strong><?php esc_html_e( 'ב"כ הנתבע', 'justice-theme' ); ?></strong><em><?php esc_html_e( 'מוכן להגיב', 'justice-theme' ); ?></em></div>
+					<div class="jt2-courtroom__seat is-you"><span class="jt2-courtroom__avatar">&#11088;</span><strong><?php esc_html_e( 'אתם', 'justice-theme' ); ?></strong><em><?php esc_html_e( 'ספרו מה קרה למעלה', 'justice-theme' ); ?></em></div>
+				</div>
+				<pre id="ai-sim-paper" class="jt2-ai__sim-paper" dir="rtl" hidden></pre>
 				<div class="jt2-ai__sim-actions">
 					<a href="#" id="ai-sim-continue" data-lead-utm-source="homepage" data-lead-utm-medium="ai_center" data-lead-utm-campaign="court_arena_continue"><?php esc_html_e( 'המשך: תמליל AI מלא ותשובה לשופט ←', 'justice-theme' ); ?></a>
 					<a href="#" id="ai-sim-lawyers"><?php esc_html_e( 'עורכי דין בתחום הזה', 'justice-theme' ); ?></a>
@@ -139,9 +145,11 @@ $justice_ai_tools = array(
 				var facts = document.getElementById( 'ai-launcher-facts' ).value.trim();
 				var stage = document.getElementById( 'ai-sim-stage' );
 				var paper = document.getElementById( 'ai-sim-paper' );
+				var judge = document.getElementById( 'ai-sim-status-judge' );
 
 				paper.textContent = '';
-				stage.hidden = false;
+				paper.hidden = false;
+				if ( judge ) { judge.textContent = 'מקריא/ה את התיק...'; }
 
 				// Typewriter render of the real docket, then wire the continue links.
 				var full = docket( heByArea[ area ] || '', facts );
@@ -151,6 +159,7 @@ $justice_ai_tools = array(
 					paper.textContent = full.slice( 0, i );
 					if ( i >= full.length ) {
 						clearInterval( timer );
+						if ( judge ) { judge.textContent = 'הדיון מוכן. המשיכו לתמליל המלא'; }
 					}
 				}, 12 );
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Lawyer archive — directory listing page.
+ * Lawyer archive - directory listing page.
  *
  * Template: archive-justice_lawyer.php
  * URL: /lawyers/ (rewrite slug)
@@ -200,13 +200,13 @@ if ( $filter_area ) {
 
 if ( ! empty( $city_term ) && ! empty( $area_term ) ) {
 	$page_title = sprintf( 'עורך דין %s ב%s', $area_term->name, $city_term->name );
-	$page_desc  = sprintf( 'מצאו עורך דין %s ב%s — פרופילים מקצועיים, תחומי עיסוק, פרטי קשר ופנייה מסודרת.', $area_term->name, $city_term->name );
+	$page_desc  = sprintf( 'מצאו עורך דין %s ב%s: פרופילים מקצועיים, תחומי עיסוק, פרטי קשר ופנייה מסודרת.', $area_term->name, $city_term->name );
 } elseif ( ! empty( $city_term ) ) {
 	$page_title = sprintf( 'עורכי דין ב%s', $city_term->name );
-	$page_desc  = sprintf( 'כל עורכי הדין ב%s — חיפוש לפי תחום התמחות, פנייה ישירה ופרופילים מקצועיים.', $city_term->name );
+	$page_desc  = sprintf( 'כל עורכי הדין ב%s: חיפוש לפי תחום התמחות, פנייה ישירה ופרופילים מקצועיים.', $city_term->name );
 } elseif ( ! empty( $area_term ) ) {
 	$page_title = sprintf( 'עורך דין %s', $area_term->name );
-	$page_desc  = sprintf( 'מצאו עורך דין %s — התחילו מהתחום, קראו את פרטי הפרופיל והשאירו פנייה רק אחרי שהנתונים מתאימים לצורך שלכם.', $area_term->name );
+	$page_desc  = sprintf( 'מצאו עורך דין %s: התחילו מהתחום, קראו את פרטי הפרופיל והשאירו פנייה רק אחרי שהנתונים מתאימים לצורך שלכם.', $area_term->name );
 }
 
 // Get all cities and practice areas for filters
@@ -418,15 +418,68 @@ $approved_count = (int) $lawyers->found_posts;
 				?>
 
 			<?php else : ?>
+				<?php
+				$justice_empty_area_slug  = ! empty( $area_term->slug ) ? $area_term->slug : '';
+				$justice_empty_area_name  = ! empty( $area_term->name ) ? $area_term->name : '';
+				$justice_empty_arena_url  = add_query_arg(
+					array_filter( array( 'tool' => 'court-arena', 'area' => $justice_empty_area_slug ) ),
+					home_url( '/legal-tools/' )
+				);
+				$justice_empty_whatsapp   = function_exists( 'justice_theme_public_whatsapp_url' )
+					? justice_theme_public_whatsapp_url( sprintf( 'שלום, אני מחפש/ת עורך דין בתחום %s ואשמח להתאמה.', $justice_empty_area_name ?: 'משפטי' ) )
+					: '';
+				?>
 				<div class="directory-empty">
-					<div class="directory-empty__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40"><circle cx="24" cy="16" r="8"/><path d="M8 42c0-8.8 7.2-16 16-16s16 7.2 16 16"/></svg></div>
-					<h2>מדריך עורכי הדין בבנייה</h2>
-					<p>אנו בונים את מדריך עורכי הדין המקיף ביותר בישראל. בקרוב כאן יופיעו פרופילים של עורכי דין מומחים לפי תחום ומיקום.</p>
+					<h2><?php echo esc_html( $justice_empty_area_name ? sprintf( 'הפרופילים בתחום %s נמצאים בבדיקת אימות', $justice_empty_area_name ) : 'הפרופילים בתחום הזה נמצאים בבדיקת אימות' ); ?></h2>
+					<p><?php esc_html_e( 'אנחנו מציגים רק פרופילים שעברו בדיקה. עד שהם עולים, אפשר להתקדם כבר עכשיו:', 'justice-theme' ); ?></p>
 					<div class="directory-empty__cta">
-						<a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" class="button button--gold">עורכי דין — הרשמו למדריך</a>
-						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="button button--outline">חזרה לעמוד הראשי</a>
+						<?php if ( $justice_empty_whatsapp ) : ?>
+							<a href="<?php echo esc_url( $justice_empty_whatsapp ); ?>" class="button button--whatsapp-inline" target="_blank" rel="noopener" data-whatsapp-surface="directory_empty" data-lead-utm-source="directory_empty" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help"><?php esc_html_e( 'התאמה אישית בוואטסאפ', 'justice-theme' ); ?></a>
+						<?php endif; ?>
+						<a href="<?php echo esc_url( $justice_empty_arena_url ); ?>" class="button button--primary"><?php esc_html_e( 'לסמלץ את המקרה בבית משפט', 'justice-theme' ); ?></a>
+						<?php if ( function_exists( 'justice_theme_cluster_pillar_crumb' ) && $justice_empty_area_slug ) : ?>
+							<a href="<?php echo esc_url( home_url( '/practice-areas/' . $justice_empty_area_slug . '/' ) ); ?>" class="button button--outline"><?php esc_html_e( 'המדריכים בתחום', 'justice-theme' ); ?></a>
+						<?php endif; ?>
 					</div>
 				</div>
+
+				<?php
+				// Cross-area fallback: show real approved professionals instead of a wall.
+				$justice_fallback_ids = get_posts( array(
+					'post_type'      => 'justice_lawyer',
+					'post_status'    => 'publish',
+					'posts_per_page' => 12,
+					'fields'         => 'ids',
+					'no_found_rows'  => true,
+					'orderby'        => 'modified',
+					'order'          => 'DESC',
+				) );
+				$justice_fallback_shown = 0;
+				?>
+				<?php if ( ! empty( $justice_fallback_ids ) ) : ?>
+					<h3 class="directory-empty__more"><?php esc_html_e( 'בינתיים, אנשי מקצוע מאומתים מתחומים נוספים', 'justice-theme' ); ?></h3>
+					<div class="lawyers-grid">
+						<?php
+						foreach ( $justice_fallback_ids as $justice_fb_id ) {
+							if ( $justice_fallback_shown >= 3 ) {
+								break;
+							}
+							if ( function_exists( 'justice_theme_lawyer_profile_is_public_approved' ) && ! justice_theme_lawyer_profile_is_public_approved( (int) $justice_fb_id ) ) {
+								continue;
+							}
+							$justice_fb_post = get_post( (int) $justice_fb_id );
+							if ( ! $justice_fb_post instanceof WP_Post ) {
+								continue;
+							}
+							$GLOBALS['post'] = $justice_fb_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+							setup_postdata( $justice_fb_post );
+							get_template_part( 'template-parts/cards/lawyer-card' );
+							++$justice_fallback_shown;
+						}
+						wp_reset_postdata();
+						?>
+					</div>
+				<?php endif; ?>
 			<?php endif; ?>
 
 			<aside class="directory-help-cta" aria-label="פנייה כללית להתאמת עורך דין">

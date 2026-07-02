@@ -1447,3 +1447,102 @@ input[type="submit"].button {
 .jt2-ai__sim-actions a:first-child:hover { background: var(--jt2-coral-deep); }
 
 .jt2-ai__sim-actions a:last-child { color: var(--jt2-ivory); text-decoration: underline; }
+
+/* Virtual courtroom participants panel + Apple-frost softening. */
+.jt2-courtroom {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.jt2-courtroom__seat {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(248, 243, 234, 0.18);
+  border-radius: 20px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.jt2-courtroom__seat.is-judge { border-color: rgba(240, 147, 127, 0.5); }
+.jt2-courtroom__seat.is-you { border-color: rgba(255, 255, 255, 0.45); }
+
+.jt2-courtroom__avatar {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.jt2-courtroom__seat strong { display: block; font-size: 13px; color: var(--jt2-ivory); }
+
+.jt2-courtroom__seat em {
+  display: block;
+  font-style: normal;
+  font-size: 11px;
+  color: rgba(248, 243, 234, 0.62);
+  margin-top: 3px;
+}
+
+@media (max-width: 640px) { .jt2-courtroom { grid-template-columns: repeat(2, 1fr); } }
+
+/* Softer, frostier surfaces sitewide (Apple/Tesla direction). */
+:root {
+  --jt2-r-sm: 14px;
+  --jt2-r: 22px;
+  --jt2-r-lg: 26px;
+}
+
+.jt2-situation,
+.jt2-step,
+.jt2-area,
+.jt2-plan,
+.jt2-content-card,
+.jt2-ai__card,
+.jt2-revenue,
+.lawyer-card,
+.jt2-faq details {
+  border-radius: var(--jt2-r-lg) !important;
+}
+
+.jt2-hero__search,
+.jt2-ai__launcher,
+.jt2-revenue {
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+}
+
+.jt2-situation:hover,
+.jt2-area:hover,
+.jt2-content-card:hover {
+  box-shadow: 0 22px 48px rgba(18, 44, 82, 0.13);
+}
+
+/* Lawyer card fixes: image must never overflow the text column. */
+.lawyer-card { overflow: hidden; }
+
+.lawyer-card img,
+.lawyer-card .lawyer-card__photo img,
+.lawyer-card__avatar img {
+  width: 64px !important;
+  height: 64px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  flex: 0 0 64px;
+}
+
+.lawyer-card * { min-width: 0; }
+
+.lawyer-card h3,
+.lawyer-card h2,
+.lawyer-card p {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}

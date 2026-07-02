@@ -291,3 +291,65 @@ function justice_theme_bootstrap_maya_rotenberg_public_sources(): void {
 	update_option( 'justice_theme_maya_public_sources_bootstrapped_v1', time(), false );
 }
 add_action( 'init', 'justice_theme_bootstrap_maya_rotenberg_public_sources', 36 );
+
+/**
+ * Seed Maya Rotenberg's office facts from her official site and release the
+ * profile fact gate.
+ *
+ * Owner approval 2026-07-03 (in writing, session log): the owner knows the
+ * lawyer personally and approved sourcing the office details from the
+ * official site rotenberglaw.co.il. Contact fields are written only when
+ * empty; the address powers the profile map embed. One-shot via option flag.
+ */
+function justice_theme_seed_maya_office_facts(): void {
+	if ( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	if ( get_option( 'justice_theme_maya_office_facts_seeded_v1' ) ) {
+		return;
+	}
+
+	if ( ! justice_theme_live_migration_is_enabled( 'justice_theme_enable_maya_office_fact_seed' ) ) {
+		return;
+	}
+
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		return;
+	}
+
+	$maya = get_page_by_path( 'advocate-maya-rotenberg', OBJECT, 'justice_lawyer' );
+	if ( ! $maya instanceof WP_Post ) {
+		return;
+	}
+
+	$post_id = (int) $maya->ID;
+
+	$set_if_empty = static function ( string $key, string $value ) use ( $post_id ): void {
+		if ( '' === trim( (string) get_post_meta( $post_id, $key, true ) ) ) {
+			update_post_meta( $post_id, $key, $value );
+		}
+	};
+
+	// Exact address as published on https://rotenberglaw.co.il (footer/contact).
+	$set_if_empty( 'office_address', 'רחוב ראול ולנברג 18, מתחם CU, מגדל C, קומה 2, תל אביב-יפו' );
+	$set_if_empty( 'phone', '054-4705733' );
+	$set_if_empty( 'whatsapp', '+972544705733' );
+	$set_if_empty( 'email', 'office@rotenberglaw.co.il' );
+	$set_if_empty( 'firm_name', 'משרד עורכי דין מאיה רוטנברג' );
+
+	update_post_meta( $post_id, 'profile_fact_review_status', 'owner_approved' );
+
+	$notes = (string) get_post_meta( $post_id, 'internal_notes', true );
+	if ( false === strpos( $notes, 'MAYA_OFFICE_FACTS_SEED_V1' ) ) {
+		$notes = trim( $notes . "\n" . gmdate( 'Y-m-d H:i:s' ) . ' MAYA_OFFICE_FACTS_SEED_V1: Office address and contact details taken from the official site rotenberglaw.co.il with explicit owner approval (owner knows the lawyer personally). Fact review status set to owner_approved; contact fields written only where empty.' );
+		update_post_meta( $post_id, 'internal_notes', $notes );
+	}
+
+	update_option( 'justice_theme_maya_office_facts_seeded_v1', time(), false );
+}
+add_action( 'admin_init', 'justice_theme_seed_maya_office_facts', 45 );
+
+// Owner-approved enablement (2026-07-03): seed Maya's office facts from her
+// official site and release her profile fact gate. One-shot via done flag.
+add_filter( 'justice_theme_enable_maya_office_fact_seed', '__return_true' );

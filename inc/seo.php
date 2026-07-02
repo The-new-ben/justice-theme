@@ -578,7 +578,7 @@ add_action( 'pre_get_posts', 'justice_theme_include_articles_in_practice_area_ar
  * @return array<string,array<string,string>>
  */
 function justice_theme_money_query_seo_map(): array {
-	return array(
+	$map = array(
 		'real-estate-attorney'     => array(
 			'title'       => 'עורך דין מקרקעין: קנייה, מכירה, חוזים ומיסוי',
 			'seo_title'   => 'עורך דין מקרקעין בישראל: קנייה, מכירה, חוזים ומיסוי | Jus-Tice',
@@ -636,7 +636,7 @@ function justice_theme_money_query_seo_map(): array {
 		),
 		'how-much-will-a-criminal-defense-lawyer-cost' => array(
 			'title'       => 'כמה עולה עורך דין פלילי: שכר טרחה לפי שלב ההליך',
-			'seo_title'   => 'כמה עולה עורך דין פלילי: מחירון שכר טרחה לפי הליך | Jus-Tice',
+			'seo_title'   => 'כמה עולה עורך דין פלילי: שכר טרחה לפי שלב ההליך | Jus-Tice',
 			'description' => 'כמה עולה עורך דין פלילי בישראל: טווחי שכר טרחה לחקירה, מעצר, שימוע וכתב אישום, מה משפיע על המחיר ואילו שאלות לשאול לפני שסוגרים.',
 		),
 		'lawyer-for-buying-or-selling-a-house' => array(
@@ -658,6 +658,97 @@ function justice_theme_money_query_seo_map(): array {
 			'title'       => 'עורך דין קפריסין: ליווי ישראלים ברכישת נכס ובעסקאות',
 			'seo_title'   => 'עורך דין קפריסין: ליווי ישראלים בנדל"ן ובעסקאות | Jus-Tice',
 			'description' => 'עורך דין בקפריסין לישראלים: רכישת דירה או נכס, בדיקות בעלות ורישום, מיסוי מקומי, פתיחת חברה ומה לבדוק לפני בחירת משרד מקומי.',
+		),
+
+		// Batch 2 (GSC strike zone + live page mapping 2026-07-03): existing
+		// pages whose stuffed or bare titles lose the exact query families
+		// they already rank for.
+		'criminal-indictment-cancellation-withdrawal-israel' => array(
+			'title'       => 'חזרה מכתב אישום וביטולו: עילות והגשת בקשה',
+			'seo_title'   => 'חזרה מכתב אישום וביטולו: עילות והגשת בקשה | Jus-Tice',
+			'description' => 'חזרה מכתב אישום, ביטול כתב אישום ומחיקתו: העילות בחוק, איך מגישים בקשה לפרקליטות, מה קורה לרישום ומתי נדרש עורך דין פלילי.',
+		),
+		'dui-refusal-blood-breath-urine-test' => array(
+			'title'       => 'סירוב לבדיקת שכרות: העונש, השלילה ומה עושים',
+			'seo_title'   => 'סירוב לבדיקת שכרות: העונש, השלילה ומה עושים | Jus-Tice',
+			'description' => 'סירוב לבדיקת שכרות או בדיקת אלכוהול נחשב כהודאה בנהיגה בשכרות: העונש בחוק, שלילת רישיון, ומה חשוב לעשות מיד אחרי אירוע כזה.',
+		),
+		'what-is-money-laundering' => array(
+			'title'       => 'הלבנת הון: העבירה בחוק, העונש ושלב החקירה',
+			'seo_title'   => 'הלבנת הון: העבירה בחוק, העונש ושלב החקירה | Jus-Tice',
+			'description' => 'מה זו הלבנת הון והלבנת כספים: העבירות בחוק איסור הלבנת הון, הענישה, חילוט כספים ומתי חשוב עורך דין פלילי כבר בשלב החקירה.',
+		),
+		'will-probate-objection' => array(
+			'title'       => 'התנגדות לצוואה וביטול צו קיום צוואה: ההליך המלא',
+			'seo_title'   => 'התנגדות לצוואה וביטול צו קיום צוואה: ההליך | Jus-Tice',
+			'description' => 'התנגדות לצוואה וביטול צו קיום צוואה: עילות מוכרות, מועדים להגשה, ראיות נדרשות ואיך מתנהל ההליך ברשם לענייני ירושה ובבית המשפט.',
+		),
+		'punishment-criminal-offenses' => array(
+			'title'       => 'תקיפת בת זוג: העונש בחוק, מעצר וצו הרחקה',
+			'seo_title'   => 'תקיפת בת זוג: העונש בחוק, מעצר וצו הרחקה | Jus-Tice',
+			'description' => 'עבירת תקיפת בת זוג ואיומים: הענישה בחוק העונשין, מעצר ימים, צו הרחקה, סגירת תיק ומתי נדרש עורך דין פלילי משלב החקירה.',
+		),
+		'military-lawyer-israel-court-martial-defense' => array(
+			'title'       => 'עורך דין צבאי: מחיר, בית דין צבאי ומתי פונים',
+			'seo_title'   => 'עורך דין צבאי: מחיר, בית דין צבאי ומתי פונים | Jus-Tice',
+			'description' => 'עורך דין צבאי: ייצוג בבית דין צבאי, נפקדות ועריקות, חקירת מצ"ח, טווחי מחיר ושכר טרחה, ומתי חובה ייצוג משלב הזימון הראשון.',
+		),
+		'registration-of-real-estate-israel' => array(
+			'title'       => 'לשכת רישום המקרקעין (טאבו): רישום מכר מקוון',
+			'seo_title'   => 'לשכת רישום המקרקעין (טאבו): רישום מכר מקוון | Jus-Tice',
+			'description' => 'לשכת רישום המקרקעין (טאבו): איך מגישים בקשה לרישום מכר מקוון, אילו מסמכים נדרשים, אגרות, זמני טיפול ומתי כדאי עורך דין מקרקעין.',
+		),
+		'israel-notary-public' => array(
+			'title'       => 'נוטריון: מה זה, מה הוא מאשר וכמה זה עולה',
+			'seo_title'   => 'נוטריון: מה זה, מה הוא מאשר וכמה זה עולה | Jus-Tice',
+			'description' => 'נוטריון בישראל: מה ההבדל בין נוטריון לעורך דין, אילו אישורים נוטריוניים קיימים, תעריף קבוע בחוק ומתי צריך אישור נוטריוני לחו"ל.',
+		),
+		'criminal-law-price-list-lawyer-recommended-review-costs' => array(
+			'title'       => 'מחירון עורך דין פלילי: טבלת שכר טרחה והשוואה',
+			'seo_title'   => 'מחירון עורך דין פלילי: טבלת שכר טרחה והשוואה | Jus-Tice',
+			'description' => 'מחירון עורך דין פלילי: טבלת שכר טרחה לפי סוג ההליך, ייעוץ לפני חקירה, מעצר, שימוע וניהול תיק, והשוואת עלויות לפני בחירת ייצוג.',
+		),
+		'criminal-law-tel-aviv-lawyer-criminal-recommended' => array(
+			'title'       => 'עורך דין פלילי בתל אביב: ייצוג בבתי המשפט ומחירים',
+			'seo_title'   => 'עורך דין פלילי בתל אביב: ייצוג ומחירים | Jus-Tice',
+			'description' => 'עורך דין פלילי בתל אביב: ייצוג בבית משפט השלום והמחוזי בתל אביב, ליווי בחקירות ומעצרים, טווחי מחיר ואיך בוחרים ייצוג מתאים.',
+		),
+	);
+
+	return array_merge( $map, justice_theme_year_fresh_seo_map() );
+}
+
+/**
+ * Year-freshness title overrides for money pages whose slugs carry a stale
+ * year. The slug never changes (owner URL rule); only the rendered title and
+ * description show the current year, computed at render time so it never
+ * goes stale again.
+ *
+ * @return array<string,array<string,string>>
+ */
+function justice_theme_year_fresh_seo_map(): array {
+	$year = wp_date( 'Y' );
+
+	return array(
+		'divorce-costs-2025' => array(
+			'title'       => 'כמה עולה גירושין: עלויות ושכר טרחה מעודכן ' . $year,
+			'seo_title'   => 'כמה עולה גירושין: עלויות ושכר טרחה מעודכן ' . $year . ' | Jus-Tice',
+			'description' => 'כמה עולים גירושין בישראל נכון ל-' . $year . ': שכר טרחת עורך דין גירושין, אגרות, גישור והוצאות נלוות, ומה משפיע על העלות הכוללת.',
+		),
+		'mutual-divorce-agreement-2025' => array(
+			'title'       => 'גירושין בהסכמה: ההליך, ההסכם והעלויות ' . $year,
+			'seo_title'   => 'גירושין בהסכמה: ההליך, ההסכם והעלויות ' . $year . ' | Jus-Tice',
+			'description' => 'גירושין בהסכמה נכון ל-' . $year . ': איך נראה ההליך, מה כולל הסכם הגירושין, אישור בבית המשפט או בבית הדין, עלויות וזמנים.',
+		),
+		'real-estate-lawyer-cost-2025' => array(
+			'title'       => 'כמה עולה עורך דין מקרקעין: שכר טרחה ' . $year,
+			'seo_title'   => 'כמה עולה עורך דין מקרקעין: שכר טרחה ' . $year . ' | Jus-Tice',
+			'description' => 'שכר טרחת עורך דין מקרקעין נכון ל-' . $year . ': אחוזים מקובלים בעסקת דירה, מינימום מקובל, מה כלול בליווי ומתי המחיר משתנה.',
+		),
+		'online-rent-agreement' => array(
+			'title'       => 'חוזה שכירות סטנדרטי להורדה: נוסח מעודכן ' . $year,
+			'seo_title'   => 'חוזה שכירות סטנדרטי להורדה: נוסח מעודכן ' . $year . ' | Jus-Tice',
+			'description' => 'חוזה שכירות סטנדרטי לדירה בנוסח מעודכן ' . $year . ': הסעיפים החשובים, ערבויות ובטחונות, טיוטה אונליין לבדיקה והשלמה של עורך דין.',
 		),
 	);
 }

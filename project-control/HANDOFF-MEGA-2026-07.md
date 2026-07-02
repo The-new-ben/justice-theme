@@ -173,6 +173,38 @@ strike zone: positions 4-25 with real impressions):
 - All titles sized 50-60 chars (Zyppy low-rewrite band), no dashes,
   no AI tellers, no outcome promises.
 
+SEO batch 2 same day (marker 2026-07-03-seo-strike-batch2-v1):
+- 10 more money-map overrides after mapping strike queries to their
+  live ranking pages via the WP search API: indictment withdrawal,
+  DUI test refusal, money laundering, probate objection, spouse
+  assault, military lawyer, land registry (tabu), notary, criminal
+  price list, criminal lawyer Tel Aviv. Plus year-freshness overrides
+  (justice_theme_year_fresh_seo_map, wp_date based, never stale) for
+  divorce-costs-2025, mutual-divorce-agreement-2025,
+  real-estate-lawyer-cost-2025, online-rent-agreement.
+- Cluster mesh: 8 orphaned criminal pages (incl. military + city
+  pages), 3 landlord/tenant pages (rental-agreement-guide,
+  online-rent-agreement, commercial-lease-israel) and the
+  driving-under-influence slug variant joined as spokes, so the hub
+  block and backlinks now cover those families.
+
+OWNER DECISION QUEUE from this audit (blocked on no-evil-URLs rule):
+1. Five dead URLs with big GSC history, all 404 now: restore or 301:
+   /how-much-does-a-lawyer-cost/ (17.5k impr),
+   /what-is-child-custody/ (10.8k), /leading-criminal-law-firm/
+   (10.6k), /buying-property-abroad-guide/ (PILLAR of the 100k-impr
+   abroad cluster), /real-estate-tax-advisor/ (tax pillar).
+2. Mis-slugged money pages (url-content-mismatch audit): child
+   support slug serves the police-stations article; landlord/tenant
+   slug serves a COVID health post. Re-slug needs owner approval.
+3. Competitor gap (LawReviews wins "עורך דין פלילי מומלץ" 13.2k impr
+   family with a review-count trust token in the title): once the
+   verified reviews system accumulates approved reviews, render
+   computed "לפי N ביקורות" tokens in directory/taxonomy titles.
+   Zero mock numbers; wire only when N is real.
+4. Documented competitor research for din.co.il/psakdin/mishpati does
+   not exist yet; only LawReviews is analyzed (TITLE-BLUEPRINT doc).
+
 REVIEWS system map (inc/lawyer-reviews.php + extended
 inc/lawyer-recommendations.php):
 - Case-linked tokens: justice_reco_token gains

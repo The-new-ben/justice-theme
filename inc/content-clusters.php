@@ -97,6 +97,17 @@ function justice_theme_content_clusters(): array {
 				'best-criminal-defence-lawyers-worldwide',
 				'top-criminal-lawyer-tel-aviv',
 				'criminal-defenses',
+				// Added 2026-07-03 from the GSC strike zone + live page mapping:
+				// existing pages that already rank for criminal money families
+				// but were orphaned from the cluster mesh.
+				'criminal-indictment-cancellation-withdrawal-israel',
+				'money-laundering-defense',
+				'punishment-criminal-offenses',
+				'criminal-law-price-list-lawyer-recommended-review-costs',
+				'criminal-law-tel-aviv-lawyer-criminal-recommended',
+				'criminal-lawyer-jerusalem',
+				'military-lawyer-israel-court-martial-defense',
+				'military-criminal-defense',
 			),
 		),
 
@@ -115,6 +126,11 @@ function justice_theme_content_clusters(): array {
 				'real-estate-appraiser',
 				'marital-property-agreement',
 				'spouse-property-registration-guide',
+				// Added 2026-07-03: the landlord/tenant family (owner money
+				// keyword) was completely outside the cluster mesh.
+				'rental-agreement-guide',
+				'online-rent-agreement',
+				'commercial-lease-israel',
 			),
 		),
 
@@ -158,6 +174,7 @@ function justice_theme_content_clusters(): array {
 			'spokes' => array(
 				'speeding',
 				'driving-under-the-influence',
+				'driving-under-influence',
 				'dui-refusal-blood-breath-urine-test',
 				'driving-under-the-influence-of-drugs',
 				'driver-with-36-valid-points-or-more-will-be-disqualified-from-holding-a-drivers-license',

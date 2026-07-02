@@ -252,6 +252,8 @@ function justice_theme_lawyer_recalculate_review_aggregates( int $lawyer_id ): v
 	if ( $count > 0 && '' === $display_enabled && apply_filters( 'justice_theme_reviews_auto_enable_display', true, $lawyer_id ) ) {
 		update_post_meta( $lawyer_id, 'review_display_enabled', 'approved' );
 	}
+
+	delete_transient( 'justice_total_review_stats_v1' );
 }
 
 /**
@@ -390,6 +392,116 @@ function justice_theme_lawyer_reviews_public_state( int $lawyer_id ): array {
 		'count'   => $count,
 		'average' => round( $average, 1 ),
 	);
+}
+
+/**
+ * Sitewide approved-review totals across publicly approved lawyer profiles.
+ * Powers the computed "לפי N ביקורות" trust token in directory titles, the
+ * same pattern the ranking legal directories use. Cached for 12 hours and
+ * invalidated whenever aggregates recompute, so the number is always real.
+ *
+ * @return array{count:int,lawyers:int}
+ */
+function justice_theme_total_approved_review_stats(): array {
+	$cached = get_transient( 'justice_total_review_stats_v1' );
+
+	if ( is_array( $cached ) && isset( $cached['count'], $cached['lawyers'] ) ) {
+		return $cached;
+	}
+
+	$stats = array(
+		'count'   => 0,
+		'lawyers' => 0,
+	);
+
+	if ( post_type_exists( 'justice_lawyer' ) ) {
+		$lawyer_ids = get_posts(
+			array(
+				'post_type'      => 'justice_lawyer',
+				'post_status'    => 'publish',
+				'posts_per_page' => 500,
+				'fields'         => 'ids',
+				'no_found_rows'  => true,
+				'meta_query'     => array(
+					array(
+						'key'     => 'review_count',
+						'value'   => 0,
+						'compare' => '>',
+						'type'    => 'NUMERIC',
+					),
+				),
+			)
+		);
+
+		foreach ( $lawyer_ids as $lawyer_id ) {
+			$state = justice_theme_lawyer_reviews_public_state( (int) $lawyer_id );
+			if ( $state['show'] ) {
+				$stats['count']   += $state['count'];
+				$stats['lawyers'] += 1;
+			}
+		}
+	}
+
+	set_transient( 'justice_total_review_stats_v1', $stats, 12 * HOUR_IN_SECONDS );
+
+	return $stats;
+}
+
+/**
+ * Per-star counts of approved public reviews for one lawyer, for the
+ * profile rating-summary breakdown bars.
+ *
+ * @param int $lawyer_id Lawyer post ID.
+ * @return array<int,int> Star (1-5) to count.
+ */
+function justice_theme_lawyer_review_breakdown( int $lawyer_id ): array {
+	$breakdown = array( 5 => 0, 4 => 0, 3 => 0, 2 => 0, 1 => 0 );
+
+	if ( ! $lawyer_id || ! post_type_exists( 'justice_recommendation' ) ) {
+		return $breakdown;
+	}
+
+	$query = new WP_Query(
+		array(
+			'post_type'      => 'justice_recommendation',
+			'post_status'    => 'publish',
+			'posts_per_page' => 200,
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
+			'meta_query'     => justice_theme_lawyer_rated_review_meta_query( $lawyer_id ),
+		)
+	);
+
+	foreach ( $query->posts ?: array() as $recommendation_id ) {
+		$rating = (int) get_post_meta( (int) $recommendation_id, 'recommendation_rating', true );
+		if ( isset( $breakdown[ $rating ] ) ) {
+			$breakdown[ $rating ]++;
+		}
+	}
+
+	return $breakdown;
+}
+
+/**
+ * Keyless Google Maps embed URL for a lawyer office, place ID preferred.
+ * Only returns a URL for profiles allowed to show contact facts.
+ *
+ * @param int $lawyer_id Lawyer post ID.
+ * @return string Embed URL or empty string.
+ */
+function justice_theme_lawyer_map_embed_url( int $lawyer_id ): string {
+	$place_id = trim( (string) get_post_meta( $lawyer_id, 'google_place_id', true ) );
+	$address  = trim( (string) get_post_meta( $lawyer_id, 'office_address', true ) );
+
+	if ( '' !== $place_id ) {
+		return 'https://www.google.com/maps?q=place_id:' . rawurlencode( $place_id ) . '&output=embed&hl=he';
+	}
+
+	if ( '' !== $address ) {
+		return 'https://www.google.com/maps?q=' . rawurlencode( $address ) . '&output=embed&hl=he';
+	}
+
+	return '';
 }
 
 /**

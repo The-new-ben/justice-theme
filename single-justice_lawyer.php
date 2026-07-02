@@ -590,10 +590,41 @@ if ( $show_profile_photo ) {
 				<?php if ( $show_reviews_panel ) : ?>
 				<section class="lawyer-mini-panel">
 					<h2>ביקורות והמלצות</h2>
+					<?php
+					$google_profile_url = $show_freeform_profile_facts ? (string) $meta( 'google_business_profile_url' ) : '';
+					$review_breakdown   = ( $show_rating && function_exists( 'justice_theme_lawyer_review_breakdown' ) )
+						? justice_theme_lawyer_review_breakdown( $lawyer_id )
+						: array();
+					$breakdown_total    = array_sum( $review_breakdown );
+					?>
 					<?php if ( $show_rating ) : ?>
-						<p class="lawyer-mini-rating"><?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?> מתוך 5 על בסיס <?php echo esc_html( number_format_i18n( $review_count ) ); ?> ביקורות מאושרות.</p>
+						<div class="lawyer-review-summary">
+							<div class="lawyer-review-summary__score">
+								<strong><?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?></strong>
+								<span class="lawyer-review-summary__stars" aria-hidden="true"><?php echo esc_html( str_repeat( '★', (int) round( $average_rating ) ) . str_repeat( '☆', 5 - (int) round( $average_rating ) ) ); ?></span>
+								<span class="lawyer-review-summary__count"><?php echo esc_html( sprintf( 'על בסיס %s ביקורות לקוחות מאומתות ומאושרות', number_format_i18n( $review_count ) ) ); ?></span>
+							</div>
+							<?php if ( $breakdown_total > 0 ) : ?>
+								<div class="lawyer-review-summary__bars" aria-label="התפלגות דירוגים">
+									<?php foreach ( array( 5, 4, 3, 2, 1 ) as $star_level ) : ?>
+										<?php
+										$star_count = (int) ( $review_breakdown[ $star_level ] ?? 0 );
+										$star_pct   = (int) round( ( $star_count / $breakdown_total ) * 100 );
+										?>
+										<div class="lawyer-review-summary__bar-row">
+											<span><?php echo esc_html( $star_level ); ?> ★</span>
+											<div class="lawyer-review-summary__bar"><i style="width:<?php echo esc_attr( $star_pct ); ?>%"></i></div>
+											<span><?php echo esc_html( number_format_i18n( $star_count ) ); ?></span>
+										</div>
+									<?php endforeach; ?>
+								</div>
+							<?php endif; ?>
+						</div>
 					<?php elseif ( ! $show_approved_recommendations && ! $show_testimonials ) : ?>
 						<p class="lawyer-mini-muted">ביקורות לקוחות יוצגו רק לאחר אימות, בקרה ואישור פרסום.</p>
+					<?php endif; ?>
+					<?php if ( $google_profile_url ) : ?>
+						<p class="lawyer-review-google-link"><a href="<?php echo esc_url( $google_profile_url ); ?>" target="_blank" rel="noopener nofollow"><?php esc_html_e( 'צפייה בפרופיל ובביקורות בגוגל ←', 'justice-theme' ); ?></a></p>
 					<?php endif; ?>
 					<?php if ( $show_approved_recommendations ) : ?>
 						<div class="lawyer-mini-testimonials">
@@ -731,6 +762,23 @@ if ( $show_profile_photo ) {
 						<p class="lawyer-mini-muted">ניתוב לידים עדיין לא הופעל לפרופיל זה.</p>
 					<?php endif; ?>
 				</section>
+
+				<?php
+				$map_embed_url = ( $show_freeform_profile_facts && function_exists( 'justice_theme_lawyer_map_embed_url' ) )
+					? justice_theme_lawyer_map_embed_url( $lawyer_id )
+					: '';
+				?>
+				<?php if ( $map_embed_url ) : ?>
+				<section class="lawyer-mini-sidebox lawyer-mini-map">
+					<h2>מיקום המשרד</h2>
+					<div class="lawyer-mini-map__frame">
+						<iframe src="<?php echo esc_url( $map_embed_url ); ?>" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="<?php echo esc_attr( sprintf( 'מפת המשרד של %s', get_the_title( $lawyer_id ) ) ); ?>" allowfullscreen></iframe>
+					</div>
+					<?php if ( $address ) : ?>
+						<p class="lawyer-mini-map__address"><?php echo esc_html( $address ); ?></p>
+					<?php endif; ?>
+				</section>
+				<?php endif; ?>
 
 				<?php if ( $address || $license || $email ) : ?>
 				<section class="lawyer-mini-sidebox">

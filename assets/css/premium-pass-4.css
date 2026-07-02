@@ -662,3 +662,32 @@
 @media (max-width: 640px) {
   .cluster-hub__list { columns: 1; }
 }
+
+/* === Profile rating summary (verified reviews) === */
+.lawyer-review-summary {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 0 1.2rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--color-cream, #f7f5ef);
+  border: 1px solid var(--color-hairline, #e6e1d5);
+  border-radius: 10px;
+}
+.lawyer-review-summary__score { display: flex; flex-direction: column; gap: 0.15rem; min-width: 130px; }
+.lawyer-review-summary__score > strong { font-size: 2.6rem; line-height: 1; color: var(--color-navy, #16427a); }
+.lawyer-review-summary__stars { color: #e8a13d; font-size: 1.15rem; letter-spacing: 0.15em; }
+.lawyer-review-summary__count { color: var(--color-muted, #6e6a63); font-size: 0.88rem; }
+.lawyer-review-summary__bars { flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 0.3rem; }
+.lawyer-review-summary__bar-row { display: grid; grid-template-columns: 2.6rem 1fr 2rem; align-items: center; gap: 0.6rem; font-size: 0.85rem; color: var(--color-muted, #6e6a63); }
+.lawyer-review-summary__bar { height: 8px; background: #e9e4d8; border-radius: 999px; overflow: hidden; }
+.lawyer-review-summary__bar i { display: block; height: 100%; background: #e8a13d; border-radius: 999px; }
+.lawyer-review-google-link { margin: 0.4rem 0 1rem; font-weight: 600; }
+.lawyer-review-google-link a { color: var(--color-navy, #16427a); text-decoration: none; }
+.lawyer-review-google-link a:hover { text-decoration: underline; }
+
+/* === Profile office map embed === */
+.lawyer-mini-map__frame { border-radius: 10px; overflow: hidden; border: 1px solid var(--color-hairline, #e6e1d5); }
+.lawyer-mini-map__frame iframe { display: block; width: 100%; height: 220px; border: 0; }
+.lawyer-mini-map__address { margin: 0.6rem 0 0; font-size: 0.92rem; color: var(--color-muted, #6e6a63); }

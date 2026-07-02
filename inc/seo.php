@@ -869,6 +869,33 @@ function justice_theme_practice_area_seo_override( string $term_slug ): array {
 }
 
 /**
+ * Default title for the unfiltered lawyer directory.
+ *
+ * When enough real approved client reviews exist sitewide, the title carries
+ * a computed review-count trust token, the pattern the page-1 legal
+ * directories use for the "מומלץ" query family. The number comes straight
+ * from the moderated reviews system; below the threshold the plain
+ * head-term title renders instead. Never a mock number.
+ *
+ * @return string
+ */
+function justice_theme_lawyer_directory_default_title(): string {
+	if ( function_exists( 'justice_theme_total_approved_review_stats' ) ) {
+		$stats     = justice_theme_total_approved_review_stats();
+		$threshold = (int) apply_filters( 'justice_theme_directory_review_token_threshold', 10 );
+
+		if ( $stats['count'] >= max( 1, $threshold ) ) {
+			return sprintf(
+				'עורכי דין מומלצים לפי %s ביקורות מאומתות | חיפוש לפי שם ותחום',
+				number_format_i18n( $stats['count'] )
+			);
+		}
+	}
+
+	return 'עורכי דין מומלצים בישראל | חיפוש עורך דין לפי שם ותחום';
+}
+
+/**
  * Build the public-facing SEO title for the current request.
  *
  * Shared by WordPress core title parts and common SEO plugin filters so archive
@@ -923,7 +950,7 @@ function justice_theme_contextual_seo_title(): string {
 		// GSC 2026-06-09: the directory head terms are "חיפוש עורך דין לפי שם"
 		// and "עורכי דין מומלצים"; the title carries both instead of the
 		// generic "מדריך" phrasing.
-		return 'עורכי דין מומלצים בישראל | חיפוש עורך דין לפי שם ותחום';
+		return justice_theme_lawyer_directory_default_title();
 	}
 
 	if ( is_tax( 'practice-areas' ) ) {
@@ -949,10 +976,37 @@ function justice_theme_contextual_seo_title(): string {
 			$suffix .= ' ב' . $cities[0]->name;
 		}
 
+		$suffix .= justice_theme_lawyer_profile_title_review_token( (int) get_the_ID() );
+
 		return get_the_title() . $suffix;
 	}
 
 	return '';
+}
+
+/**
+ * Computed rating token for a lawyer profile title, only when the same
+ * public gates that control on-page rating display pass.
+ *
+ * @param int $lawyer_id Lawyer post ID.
+ * @return string Empty string or a " | דירוג ..." suffix.
+ */
+function justice_theme_lawyer_profile_title_review_token( int $lawyer_id ): string {
+	if ( ! function_exists( 'justice_theme_lawyer_reviews_public_state' ) ) {
+		return '';
+	}
+
+	$state = justice_theme_lawyer_reviews_public_state( $lawyer_id );
+
+	if ( ! $state['show'] ) {
+		return '';
+	}
+
+	return sprintf(
+		' | דירוג %s מתוך 5 (%s ביקורות)',
+		number_format_i18n( $state['average'], 1 ),
+		number_format_i18n( $state['count'] )
+	);
 }
 
 /**
@@ -1012,7 +1066,7 @@ function justice_theme_document_title( $title_parts ) {
 			$area_t = justice_theme_lawyer_directory_area_term( $area_slug );
 			$title_parts['title'] = 'עורך דין ' . ( $area_t ? $area_t->name : '' ) . ' | מצאו עורך דין מומחה';
 		} else {
-			$title_parts['title'] = 'עורכי דין מומלצים בישראל | חיפוש עורך דין לפי שם ותחום';
+			$title_parts['title'] = justice_theme_lawyer_directory_default_title();
 		}
 		$title_parts['tagline'] = '';
 	}
@@ -1027,6 +1081,7 @@ function justice_theme_document_title( $title_parts ) {
 		if ( ! empty( $cities ) && ! is_wp_error( $cities ) ) {
 			$suffix .= ' ב' . $cities[0]->name;
 		}
+		$suffix .= justice_theme_lawyer_profile_title_review_token( (int) get_the_ID() );
 		$title_parts['title'] = get_the_title() . $suffix;
 	}
 

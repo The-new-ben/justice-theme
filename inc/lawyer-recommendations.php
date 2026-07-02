@@ -534,6 +534,16 @@ function justice_theme_render_lawyer_recommendation_intake_page( array $record, 
 			.recommendation-intake__errors{background:#fff3f4;border:1px solid #efb7c0;color:#7d1026;border-radius:8px;padding:12px 16px;margin:0 0 16px}
 			.recommendation-intake__fineprint{color:#66758a;font-size:.92rem}
 			.recommendation-intake__hidden{position:absolute;right:-9999px;opacity:0}
+			.recommendation-intake__stars{display:inline-flex;direction:ltr;gap:6px;margin:4px 0 2px}
+			.recommendation-intake__stars input{position:absolute;opacity:0;width:1px;height:1px}
+			.recommendation-intake__stars label{font-size:2.4rem;line-height:1;color:#cdd7e4;cursor:pointer;transition:color .12s ease,transform .12s ease;user-select:none}
+			.recommendation-intake__stars label:hover{transform:scale(1.12)}
+			.recommendation-intake__stars label:hover,.recommendation-intake__stars label:hover ~ label{color:#e8a13d}
+			.recommendation-intake__stars input:checked ~ label{color:#e8a13d}
+			.recommendation-intake__stars input:focus-visible + label{outline:2px solid #9f1d35;outline-offset:3px;border-radius:6px}
+			.recommendation-intake__star-hint{color:#66758a;font-size:.92rem;margin:0 0 4px}
+			.recommendation-intake__google{margin-top:18px;padding:14px 16px;background:#f2f7f2;border:1px solid #cfe3d2;border-radius:10px}
+			.recommendation-intake__google p{margin:0 0 10px}
 		</style>
 	</head>
 	<body>
@@ -541,8 +551,17 @@ function justice_theme_render_lawyer_recommendation_intake_page( array $record, 
 			<section class="recommendation-intake__card" aria-labelledby="recommendation-intake-title">
 				<p class="recommendation-intake__brand">Jus-Tice</p>
 				<?php if ( $submitted ) : ?>
-					<h1 id="recommendation-intake-title">תודה, ההמלצה התקבלה לבדיקה</h1>
-					<p>ההמלצה נשמרה כממתינה לבדיקה. היא לא תוצג באתר לפני בדיקת בעל האתר ואישור התאמה לפרסום.</p>
+					<h1 id="recommendation-intake-title">תודה, הביקורת התקבלה לבדיקה</h1>
+					<p>הביקורת נשמרה כממתינה לבדיקה. היא לא תוצג באתר לפני בדיקת בעל האתר ואישור התאמה לפרסום.</p>
+					<?php
+					$google_review_request_url = $lawyer_id ? (string) get_post_meta( $lawyer_id, 'google_review_request_url', true ) : '';
+					?>
+					<?php if ( $google_review_request_url ) : ?>
+						<div class="recommendation-intake__google">
+							<p><strong>רוצים לעזור עוד?</strong> אפשר לשתף את החוויה שלכם גם בפרופיל הגוגל של המשרד. זה לוקח דקה ועוזר לאנשים אחרים למצוא ליווי משפטי מתאים.</p>
+							<a class="button" href="<?php echo esc_url( $google_review_request_url ); ?>" target="_blank" rel="noopener nofollow">כתיבת ביקורת בגוגל</a>
+						</div>
+					<?php endif; ?>
 					<p class="recommendation-intake__fineprint">אם כללתם בטעות מידע אישי, פרטי תיק חסויים או פרט שאינו מיועד לפרסום, פנו אלינו כדי להסיר או לערוך אותו לפני פרסום.</p>
 					<div class="recommendation-intake__actions">
 						<a class="button button--muted" href="<?php echo esc_url( home_url( '/' ) ); ?>">חזרה לאתר</a>
@@ -578,15 +597,15 @@ function justice_theme_render_lawyer_recommendation_intake_page( array $record, 
 						<input id="client-relationship" type="text" name="client_relationship" maxlength="120" placeholder="לדוגמה: לקוח/ה לשעבר, ייעוץ נקודתי, ליווי בהליך">
 
 						<?php if ( $is_case_link ) : ?>
-							<label for="recommendation-rating">דירוג כולל מ-1 עד 5 (חובה)</label>
-							<select id="recommendation-rating" name="recommendation_rating" required>
-								<option value="">בחירת דירוג</option>
-								<option value="5">5 - מצוין</option>
-								<option value="4">4 - טוב מאוד</option>
-								<option value="3">3 - סביר</option>
-								<option value="2">2 - טעון שיפור</option>
-								<option value="1">1 - לא מרוצה</option>
-							</select>
+							<label id="recommendation-rating-label">דירוג כולל מ-1 עד 5 (חובה)</label>
+							<p class="recommendation-intake__star-hint">לוחצים על כוכב אחד ומסיימים. 5 = מצוין, 1 = לא מרוצה.</p>
+							<div class="recommendation-intake__stars" role="radiogroup" aria-labelledby="recommendation-rating-label">
+								<input type="radio" id="rating-star-5" name="recommendation_rating" value="5" required><label for="rating-star-5" title="5 - מצוין" aria-label="5 מתוך 5">★</label>
+								<input type="radio" id="rating-star-4" name="recommendation_rating" value="4"><label for="rating-star-4" title="4 - טוב מאוד" aria-label="4 מתוך 5">★</label>
+								<input type="radio" id="rating-star-3" name="recommendation_rating" value="3"><label for="rating-star-3" title="3 - סביר" aria-label="3 מתוך 5">★</label>
+								<input type="radio" id="rating-star-2" name="recommendation_rating" value="2"><label for="rating-star-2" title="2 - טעון שיפור" aria-label="2 מתוך 5">★</label>
+								<input type="radio" id="rating-star-1" name="recommendation_rating" value="1"><label for="rating-star-1" title="1 - לא מרוצה" aria-label="1 מתוך 5">★</label>
+							</div>
 						<?php else : ?>
 							<label for="recommendation-rating">דירוג אופציונלי</label>
 							<select id="recommendation-rating" name="recommendation_rating">

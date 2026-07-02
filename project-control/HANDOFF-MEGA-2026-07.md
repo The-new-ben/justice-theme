@@ -205,6 +205,32 @@ OWNER DECISION QUEUE from this audit (blocked on no-evil-URLs rule):
 4. Documented competitor research for din.co.il/psakdin/mishpati does
    not exist yet; only LawReviews is analyzed (TITLE-BLUEPRINT doc).
 
+Reviews premium pass (owner approved 2026-07-03, marker
+2026-07-03-reviews-premium-maps-v1):
+- Directory title trust token: /lawyers/ title renders "עורכי דין
+  מומלצים לפי N ביקורות מאומתות" once sitewide approved review count
+  reaches 10 (filter justice_theme_directory_review_token_threshold);
+  N computed by justice_theme_total_approved_review_stats (12h
+  transient, invalidated on every aggregate recompute). Below the
+  threshold the plain head-term title renders. Never a mock number.
+- Lawyer profile titles append a computed "דירוג X מתוך 5 (N
+  ביקורות)" token behind the same public gates as on-page display.
+- Profile reviews panel upgraded to directory-leader standard: big
+  average + stars + count + per-star breakdown bars
+  (justice_theme_lawyer_review_breakdown) + outbound "ביקורות בגוגל"
+  link when google_business_profile_url is set (nofollow).
+- Google Maps embed on profiles (justice_theme_lawyer_map_embed_url,
+  keyless maps?q= iframe, place_id preferred over address), only for
+  fact-checked/approved profiles, lazy loaded, in a sidebar box.
+- Intake page: case-linked reviews now use one-tap star rating (pure
+  CSS radio stars, keyboard accessible) instead of a select; after
+  submit, everyone (no rating gating, Google policy) sees a "כתיבת
+  ביקורת בגוגל" cross-ask when the lawyer has
+  google_review_request_url set.
+- Still owner-blocked: restore-vs-301 choice per dead URL (list
+  above); owner wrote "i approve" but did not pick restore or 301 per
+  URL, so no URL was touched.
+
 REVIEWS system map (inc/lawyer-reviews.php + extended
 inc/lawyer-recommendations.php):
 - Case-linked tokens: justice_reco_token gains

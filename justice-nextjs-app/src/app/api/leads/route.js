@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
 import { sendSMS, sendEmail } from '@/lib/notifications';
 
 function htmlEncode(str) {
@@ -204,41 +203,38 @@ export async function POST(request) {
       }
     };
 
-    // Supabase persistence
+    // WordPress REST API persistence
     let dbSaved = false;
     let createdRecord = newLead;
 
-    if (supabase) {
-      const { data, error } = await supabase
-        .from('leads')
-        .insert([
-          {
+    try {
+      const wpResponse = await fetch('https://jus-tice.co.il/wp-json/justice-core/v1/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
             title: newLead.title,
-            legal_type: newLead.type,
-            type_label: newLead.typeLabel,
+            type: newLead.type,
             urgency: newLead.urgency,
-            estimated_value: newLead.value,
+            value: newLead.value,
             description: newLead.description,
-            client_name: newLead.clientName,
-            client_phone: newLead.clientPhone,
-            client_email: newLead.clientEmail,
-            bid_price: newLead.bidPrice,
-            payment_status: newLead.payment_status,
-            lead_status: newLead.lead_status
-          }
-        ])
-        .select()
-        .single();
+            clientName: newLead.clientName,
+            clientPhone: newLead.clientPhone,
+            clientEmail: newLead.clientEmail
+        })
+      });
 
-      if (!error && data) {
+      if (wpResponse.ok) {
+        const wpData = await wpResponse.json();
         dbSaved = true;
         createdRecord = {
           ...newLead,
-          id: data.id.toString(),
+          id: wpData.id ? wpData.id.toString() : newLead.id,
         };
       } else {
-        console.error('Supabase insert failed, falling back to local simulation:', error);
+        console.error('WP REST API failed, falling back to local simulation:', await wpResponse.text());
       }
+    } catch (wpError) {
+      console.error('WP REST API fetch error:', wpError);
     }
 
     // Prepare notifications output

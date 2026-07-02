@@ -418,7 +418,7 @@ export default function Home() {
   };
 
   // Executing dynamic step-by-step evaluator simulation
-  const handleEvaluate = (e) => {
+  const handleEvaluate = async (e) => {
     e.preventDefault();
     if (!details.trim()) return;
 
@@ -440,68 +440,52 @@ export default function Home() {
       }, (idx + 1) * 800);
     });
 
-    setTimeout(() => {
-      setIsLoading(false);
-      let score = 94;
-      let estValue = '₪45,000 - ₪75,000';
-      let analysisText = 'נמצאה עילת תביעה מוצקה בגין פיטורים שלא כדין והפרת חובת השימוע (סעיף 3 לחוק הודעה מוקדמת). המעסיק לא סיפק התרעה מספקת ולא קיים תיעוד שימוע תקין.';
-      let lawyers = [
-        { name: 'עו״ד דניאל כהן', role: 'שותף בכיר, דיני עבודה', img: '/lawyer_male_premium.png', exp: '14 שנות ניסיון', rating: '4.9', activeLeads: '98%' },
-        { name: 'עו״ד מיטל לוי', role: 'מומחית ליטיגציה וזכויות עובדים', img: '/lawyer_female_premium.png', exp: '9 שנות ניסיון', rating: '4.8', activeLeads: '95%' }
-      ];
+    try {
+      const res = await fetch('/api/ai/evaluate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ details, caseType })
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        let label = '💼 דיני עבודה';
+        if (caseType === 'personal-injury-law') label = '🏥 נזקי גוף';
+        else if (caseType === 'family-law') label = '⚖️ דיני משפחה';
+        else if (caseType === 'real-estate-law') label = '🏡 נדל״ן';
+        else if (caseType === 'criminal-law') label = '🛡️ פלילי';
+        else if (caseType === 'medical-malpractice-law') label = '🩺 רשלנות רפואית';
 
-      if (caseType === 'personal-injury-law') {
-        score = 88;
-        estValue = '₪120,000 - ₪250,000';
-        analysisText = `ניתוח הנתונים מצביע על רשלנות מסתברת במהלך תאונת הדרכים. זוהתה עילה מוצקה לתביעה בגין כאב וסבל, אובדן כושר עבודה זמני וטיפולים אורתופדיים רלוונטיים. (${selectedCollision === 'rear' ? 'פגיעה ישירה מאחור' : 'פגיעת הדף קשה'})`;
-      } else if (caseType === 'family-law') {
-        score = 72;
-        estValue = 'בהתאם לחלוקת הרכוש המשפחתי';
-        analysisText = 'עילת גירושין מוצגת. מומלץ ליזום תביעה למזונות וחלוקת רכוש בבית המשפט למשפחה כדי למנוע את מרוץ הסמכויות מול בית הדין הרבני.';
-      } else if (caseType === 'real-estate-law') {
-        score = 91;
-        estValue = 'פיצוי מוסכם של 10% משווי העסקה';
-        analysisText = 'זוהתה הפרה יסודית של חוזה המכר מצד המוכר עקב אי-עמידה בלוחות זמני המסירה. עילה מלאה להפעלת סעיף הפיצוי המוסכם ללא הוכחת נזק.';
-      } else if (caseType === 'criminal-law') {
-        score = 95;
-        estValue = 'ייעוץ וייצוג פלילי מיידי';
-        analysisText = 'זוהה חשד לעבירה פלילית או זימון לחקירה באזהרה. מומלץ לפנות מיידית לעורך דין פלילי מומחה טרם מסירת גרסה ראשונית במשטרה. זכות השתיקה מחייבת התייעצות.';
-      } else if (caseType === 'medical-malpractice-law') {
-        score = 85;
-        estValue = '₪350,000 - ₪800,000 (בכפוף לחוות דעת רופא)';
-        analysisText = 'נמצאה עילה לכאורה לרשלנות רפואית עקב חריגה מסטנדרט הטיפול הסביר. יש להזמין חוות דעת מרופא מומחה להוכחת הקשר הסיבתי והנזק.';
+        setEvalResult({
+          score: data.data.score,
+          estValue: data.data.estValue,
+          analysisText: data.data.analysisText,
+          matchedLawyers: [] // Fake avatars removed as part of audit fix
+        });
+        setActiveStep(3);
+
+        handleLeadSubmit({
+          title: `הערכת AI - ${label.split(' ')[1]}`,
+          type: caseType,
+          typeLabel: label,
+          urgency: data.data.score > 80 ? 'גבוהה' : 'בינונית',
+          value: data.data.estValue,
+          description: `נסיבות המקרה: ${details}. ניתוח AI מראה הסתברות הצלחה של ${data.data.score}%. הופק דוח מלא.`,
+          clientName: 'משתמש אנונימי',
+          clientPhone: '054-000-0000',
+          clientEmail: 'client-ai@justice.co.il',
+          bidPrice: data.data.score > 90 ? 120 : 80
+        });
+      } else {
+        alert('שגיאה בניתוח: ' + data.error);
+        setActiveStep(1);
       }
-
-      setEvalResult({
-        score,
-        estValue,
-        analysisText,
-        matchedLawyers: lawyers
-      });
-      setActiveStep(3);
-
-      // Map dynamic label
-      let label = '💼 דיני עבודה';
-      if (caseType === 'personal-injury-law') label = '🏥 נזקי גוף';
-      else if (caseType === 'family-law') label = '⚖️ דיני משפחה';
-      else if (caseType === 'real-estate-law') label = '🏡 נדל״ן';
-      else if (caseType === 'criminal-law') label = '🛡️ פלילי';
-      else if (caseType === 'medical-malpractice-law') label = '🩺 רשלנות רפואית';
-
-      // Create new lead in queue
-      handleLeadSubmit({
-        title: `הערכת AI - ${label.split(' ')[1]}`,
-        type: caseType,
-        typeLabel: label,
-        urgency: score > 80 ? 'גבוהה' : 'בינונית',
-        value: estValue,
-        description: `נסיבות המקרה: ${details}. ניתוח AI מראה הסתברות הצלחה של ${score}%. הופק דוח מלא.`,
-        clientName: 'משתמש אנונימי',
-        clientPhone: '054-000-0000',
-        clientEmail: 'client-ai@justice.co.il',
-        bidPrice: score > 90 ? 120 : 80
-      });
-    }, 4000);
+    } catch (err) {
+      alert('שגיאת תקשורת עם שרת ה-AI');
+      setActiveStep(1);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Executing contract audit simulation
@@ -736,12 +720,11 @@ ${sevName}
     }, 2000);
   };
 
-  // Case search Net HaMishpat simulator
   const handleCaseSearch = (e) => {
     e.preventDefault();
     if (!caseSearchNum.trim()) return;
-    caseSearchLoading(true);
-    caseSearchNum(null);
+    setCaseSearchLoading(true);
+    setCaseSearchNum('');
 
     setTimeout(() => {
       setCaseSearchLoading(false);

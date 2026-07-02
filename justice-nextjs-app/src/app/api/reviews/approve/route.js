@@ -22,7 +22,14 @@ export async function PUT(request) {
     const adminApiKeyHeader = request.headers.get('x-admin-api-key');
     
     // Retrieve secret from env, or default to a standard development token
-    const expectedSecret = process.env.ADMIN_APPROVE_SECRET || 'justice-admin-secret-key-2026';
+    const expectedSecret = process.env.ADMIN_APPROVE_SECRET;
+
+    if (!expectedSecret) {
+      return NextResponse.json(
+        { success: false, error: 'Server configuration error' },
+        { status: 500 }
+      );
+    }
 
     let isAuthorized = false;
 

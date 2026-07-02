@@ -571,3 +571,67 @@ function justice_theme_cluster_nav_items(): array {
 
 	return $items;
 }
+
+/* ----------------------------------------------------------------------- *
+ *   Mega menu (Justia pattern): every cluster with its live spokes,       *
+ *   built from the same map and cached so header render stays cheap.      *
+ * ----------------------------------------------------------------------- */
+
+/**
+ * Prebuilt mega-menu HTML: one column per cluster with a resolved pillar
+ * link and up to four live spokes. Cached 12 hours; only published pages
+ * ever emit a link (dead slugs are skipped by the resolver).
+ *
+ * @return string
+ */
+function justice_theme_mega_menu_html(): string {
+	$cached = get_transient( 'justice_mega_menu_html_v2' );
+
+	if ( is_string( $cached ) && '' !== $cached ) {
+		return $cached;
+	}
+
+	$meta = justice_theme_cluster_nav_meta();
+	$cols = '';
+
+	foreach ( justice_theme_content_clusters() as $key => $cluster ) {
+		$label  = isset( $meta[ $key ]['label'] ) ? $meta[ $key ]['label'] : $cluster['label'];
+		$pillar = justice_theme_cluster_resolve_target( $cluster['pillar'] );
+		$links  = '';
+		$count  = 0;
+
+		foreach ( $cluster['spokes'] as $spoke_slug ) {
+			if ( $count >= 4 ) {
+				break;
+			}
+			$spoke = justice_theme_cluster_resolve_target( $spoke_slug );
+			if ( $spoke ) {
+				$links .= '<a href="' . esc_url( $spoke['url'] ) . '">' . esc_html( wp_trim_words( $spoke['title'], 6, '' ) ) . '</a>';
+				$count++;
+			}
+		}
+
+		if ( ! $pillar && '' === $links ) {
+			continue;
+		}
+
+		$head = $pillar
+			? '<a class="jt2-mega__head" href="' . esc_url( $pillar['url'] ) . '">' . esc_html( $label ) . '</a>'
+			: '<span class="jt2-mega__head">' . esc_html( $label ) . '</span>';
+
+		$cols .= '<div class="jt2-mega__col">' . $head . $links . '</div>';
+	}
+
+	if ( '' === $cols ) {
+		return '';
+	}
+
+	$html = '<div class="jt2-mega" id="jt2-mega" role="region" aria-label="' . esc_attr__( 'כל תחומי המשפט', 'justice-theme' ) . '">'
+		. $cols
+		. '<div class="jt2-mega__foot"><a href="' . esc_url( home_url( '/lawyers/' ) ) . '">' . esc_html__( 'חיפוש עורך דין לפי תחום ועיר ←', 'justice-theme' ) . '</a></div>'
+		. '</div>';
+
+	set_transient( 'justice_mega_menu_html_v2', $html, 12 * HOUR_IN_SECONDS );
+
+	return $html;
+}

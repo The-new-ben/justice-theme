@@ -129,6 +129,10 @@ $justice_topic_links = array(
 
 	<div class="jt2-header__topics" aria-label="<?php esc_attr_e( 'תחומי חיפוש מרכזיים', 'justice-theme' ); ?>">
 		<span class="jt2-header__topics-label"><?php esc_html_e( 'תחומי חיפוש מרכזיים', 'justice-theme' ); ?></span>
+		<div class="jt2-mega-wrap">
+			<button type="button" class="jt2-mega-trigger" aria-haspopup="true" aria-controls="jt2-mega"><?php esc_html_e( 'כל תחומי המשפט', 'justice-theme' ); ?> <span aria-hidden="true">&#9662;</span></button>
+			<?php echo wp_kses_post( function_exists( 'justice_theme_mega_menu_html' ) ? justice_theme_mega_menu_html() : '' ); ?>
+		</div>
 		<?php foreach ( $justice_topic_links as $justice_topic_link ) : ?>
 			<a href="<?php echo esc_url( $justice_topic_link['url'] ); ?>"><?php echo esc_html( $justice_topic_link['label'] ); ?></a>
 		<?php endforeach; ?>

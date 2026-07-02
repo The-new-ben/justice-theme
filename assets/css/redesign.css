@@ -7,31 +7,35 @@
  */
 
 :root {
-  --jt2-navy-deep: #07152f;
-  --jt2-navy: #122c52;
-  --jt2-navy-light: #1c3f6e;
-  --jt2-coral: #e8624f;
-  --jt2-coral-deep: #c43c29;
-  --jt2-ivory: #f8f3ea;
-  --jt2-ivory-2: #fdf6ee;
-  --jt2-tint: #f0ece3;
-  --jt2-line: #ece3d2;
-  --jt2-text: #16223a;
-  --jt2-muted: #5b6472;
-  --jt2-faint: #6f6a58;
-  --jt2-coral-text: #b8391f;      /* coral for text on light backgrounds (AA) */
-  --jt2-coral-text-dark: #f0937f; /* coral for text on navy backgrounds (AA) */
-  --jt2-sage: #7c9473;
+  /* Justia x din identity (owner approved 2026-07-02): white canvas,
+     institutional blues, orange-red CTAs, sharper corners, sans-first.
+     The old ivory/navy/coral values are fully retired through these
+     tokens; every component inherits the new brand from here. */
+  --jt2-navy-deep: #0E2E4F;
+  --jt2-navy: #14477D;
+  --jt2-navy-light: #1866B4;
+  --jt2-coral: #CC4720;
+  --jt2-coral-deep: #B03A17;
+  --jt2-ivory: #FFFFFF;
+  --jt2-ivory-2: #F7FAFC;
+  --jt2-tint: #F2F7FB;
+  --jt2-line: #D9E3EC;
+  --jt2-text: #1E2A36;
+  --jt2-muted: #5B6B7C;
+  --jt2-faint: #6B7886;
+  --jt2-coral-text: #B5431E;      /* orange for text on light backgrounds (AA) */
+  --jt2-coral-text-dark: #F7AC8C; /* orange for text on blue backgrounds (AA) */
+  --jt2-sage: #1E7E4B;
   --jt2-whatsapp: #25d366;
   --jt2-warn: #a8462c;
   --jt2-warn-bg: #fdeeec;
-  --jt2-r-sm: 10px;
-  --jt2-r: 18px;
-  --jt2-r-lg: 22px;
+  --jt2-r-sm: 6px;
+  --jt2-r: 8px;
+  --jt2-r-lg: 12px;
   --jt2-r-pill: 999px;
-  --jt2-shadow: 0 8px 26px rgba(18, 44, 82, 0.07);
-  --jt2-shadow-lg: 0 18px 40px rgba(18, 44, 82, 0.12);
-  --jt2-font-display: 'Frank Ruhl Libre', 'Heebo', serif;
+  --jt2-shadow: 0 8px 26px rgba(20, 71, 125, 0.08);
+  --jt2-shadow-lg: 0 18px 40px rgba(20, 71, 125, 0.14);
+  --jt2-font-display: 'Assistant', 'Heebo', sans-serif;
   --jt2-font-ui: 'Assistant', 'Heebo', sans-serif;
 
   /* Remap legacy theme variables so older components inherit the brand. */
@@ -1644,4 +1648,75 @@ input[type="submit"].button {
 @media (max-width: 640px) {
   .legal-map-shell.is-live .legal-map-canvas { height: 420px; }
   .legal-map-nearest { width: 100%; }
+}
+
+/* Justia x din phase 1 additions */
+/* Long-form guide bodies keep the Hebrew serif for reading gravitas. */
+.entry-content h1, .entry-content h2, .entry-content h3,
+.single-article__content h1, .single-article__content h2, .single-article__content h3,
+.single-article__title {
+  font-family: 'Frank Ruhl Libre', 'Heebo', serif;
+}
+
+/* Mega menu (Justia pattern), desktop hover/focus, hidden in mobile drawer */
+.jt2-mega-wrap { position: relative; display: inline-flex; }
+.jt2-mega-trigger {
+  border: none;
+  background: var(--jt2-navy-light);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: var(--jt2-r-sm);
+  padding: 6px 14px;
+  cursor: pointer;
+}
+.jt2-mega {
+  position: absolute;
+  top: calc(100% + 8px);
+  inset-inline-start: 0;
+  z-index: 60;
+  width: min(920px, 92vw);
+  background: #fff;
+  border: 1px solid var(--jt2-line);
+  border-top: 3px solid var(--jt2-coral);
+  border-radius: var(--jt2-r);
+  box-shadow: var(--jt2-shadow-lg);
+  display: none;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  padding: 6px 0 0;
+}
+.jt2-mega-wrap:hover .jt2-mega,
+.jt2-mega-wrap:focus-within .jt2-mega { display: grid; }
+.jt2-mega__col { padding: 14px 18px 16px; border-inline-start: 1px solid var(--jt2-line); min-width: 0; }
+.jt2-mega__col:nth-child(4n+1) { border-inline-start: none; }
+.jt2-mega__head {
+  display: block;
+  font-weight: 800;
+  font-size: 13.5px;
+  color: var(--jt2-navy) !important;
+  border-bottom: 2px solid var(--jt2-tint);
+  padding-bottom: 7px;
+  margin-bottom: 7px;
+}
+.jt2-mega__col a:not(.jt2-mega__head) {
+  display: block;
+  font-size: 13px;
+  color: var(--jt2-navy-light) !important;
+  padding: 3.5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.jt2-mega__col a:hover { text-decoration: underline; }
+.jt2-mega__foot {
+  grid-column: 1 / -1;
+  background: var(--jt2-tint);
+  padding: 10px 18px;
+  border-radius: 0 0 var(--jt2-r) var(--jt2-r);
+}
+.jt2-mega__foot a { font-weight: 800; font-size: 13.5px; color: var(--jt2-coral-text) !important; }
+@media (max-width: 920px) {
+  .jt2-mega-wrap { display: none; }
 }

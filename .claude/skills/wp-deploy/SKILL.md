@@ -104,15 +104,20 @@ print credentials to logs or chat.
 - Credentials: WP_USER/WP_APP_PASSWORD from environment or owner chat;
   never committed, never echoed.
 
-## Cache discipline (learned 2026-07-02, cost an owner panic)
+## Cache discipline (learned 2026-07-02, cost an owner panic, twice)
 
-The live site runs FIVE cache layers: SiteGround sg-cachepress,
+The live site runs SIX cache layers plus the owner's browser: uPress
+SeoEdge edge cache (nginx level, x-cached-engine-header: SeoEdge,
+OUTSIDE WordPress; purge it with an HTTP PURGE request per URL:
+curl -X PURGE https://jus-tice.co.il/), SiteGround sg-cachepress,
 Autoptimize (aggregated CSS/JS with its own store), WP-Optimize page
 cache, Asset CleanUp, and the object cache. A deploy that lands on
-disk is INVISIBLE until they are purged. Every deploy and every purge
-need runs the full purge block (see deploy-snippet-template.php), then
-verify with a cache-busted request. The owner's browser also caches:
-tell them Ctrl+Shift+R.
+disk is INVISIBLE until they are purged. Every deploy runs the full
+purge block (see deploy-snippet-template.php) AND the SeoEdge PURGE,
+then verifies with the live-verify skill (MANDATORY, owner law): fetch
+the rendered page, assert the new probe present and the old artifact
+absent, grep inside the autoptimize bundles for CSS/JS probes. The
+owner's browser also caches: tell them Ctrl+Shift+R.
 
 ## Server facts verified 2026-07-02
 

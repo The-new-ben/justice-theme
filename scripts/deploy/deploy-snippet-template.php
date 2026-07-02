@@ -51,6 +51,10 @@ add_action( 'rest_api_init', function () {
 			}
 			do_action( 'litespeed_purge_all' );
 			wp_cache_flush();
+			// uPress SeoEdge edge cache sits in nginx ABOVE WordPress: the
+			// purges above never reach it. PURGE the homepage explicitly;
+			// add more URLs when the deploy changes other pages.
+			wp_remote_request( home_url( '/' ), array( 'method' => 'PURGE', 'timeout' => 8 ) );
 
 			return array(
 				'result'   => is_wp_error( $ok ) ? ( 'ERR:' . $ok->get_error_message() ) : var_export( $ok, true ),

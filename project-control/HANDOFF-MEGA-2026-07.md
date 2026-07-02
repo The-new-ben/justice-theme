@@ -122,6 +122,16 @@ about results.
   StrategyDoc/9 page comps) - ask owner to re-upload if needed.
 
 ## 5. Standing rules (owner law - never violate)
+- MANDATORY after every change: the live-verify skill
+  (.claude/skills/live-verify). Never report done without proving it on
+  the rendered live page, positive AND negative probes. Owner ordered
+  this 2026-07-02 after a retired stock photo was still rendering.
+- NO stock photos of people anywhere, ever (2026-07-02). The three
+  stock visuals were deleted from repo AND server. Real, consenting
+  people only (EEAT rule); no AI-generated people.
+- Cache truth: SEVEN layers (uPress SeoEdge nginx edge cache purged
+  only by HTTP PURGE per URL, sg-cachepress, Autoptimize, WP-Optimize,
+  Asset CleanUp, object cache, owner browser).
 - No em-dashes or en-dashes anywhere (code comments included). No
   Hebrew AI-teller phrases (חשוב לציין, בעידן המודרני...).
 - No new public slugs / redirects / URL changes without per-URL owner

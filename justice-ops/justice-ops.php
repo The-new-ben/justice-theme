@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '1.0.1' );
+	define( 'JUSTICE_OPS_VERSION', '1.0.2' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -78,6 +78,22 @@ add_filter( 'update_plugins_raw.githubusercontent.com', function ( $update, $plu
 		'package' => (string) $manifest['download_url'] . '?nlcb=' . time(),
 	);
 }, 10, 3 );
+
+/**
+ * LawyerScout map: serve the public Mapbox token (pk scope, meant for
+ * the browser; access control happens via URL restriction in the Mapbox
+ * dashboard) from the justice_ops_mapbox_public_token option. The token
+ * value lives only in the live database, never in this repo. The
+ * theme's justice_theme_mapbox_public_token() consumes this filter; an
+ * empty token keeps the whole map feature dark.
+ */
+add_filter( 'justice_theme_mapbox_public_token', function ( $token ) {
+	if ( '' !== (string) $token ) {
+		return $token;
+	}
+
+	return (string) get_option( 'justice_ops_mapbox_public_token', '' );
+} );
 
 /**
  * Purge every cache layer this site runs, after our own upgrade completes.

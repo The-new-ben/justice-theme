@@ -505,7 +505,7 @@ function justice_theme_archive_title( $title ) {
 	}
 
 	if ( is_post_type_archive( 'justice_lawyer' ) ) {
-		$title = __( 'מדריך עורכי דין בישראל', 'justice-theme' );
+		$title = __( 'חיפוש עורך דין לפי שם, תחום ועיר', 'justice-theme' );
 	}
 
 	return $title;
@@ -614,6 +614,14 @@ function justice_theme_money_query_seo_map(): array {
 		// earn impressions at positions 6-40 for exact query families the current
 		// titles do not use. Title and description only; the page body stays as
 		// published (no intro override).
+		// De-cannibalization (2026-07-02): this guide led with "איתור עורך דין",
+		// the directory family head term, splitting the query with /lawyers/.
+		// The guide owns the how-to sub-intent; the directory owns the tool.
+		'how-to-find-qualified-lawyer-israel-guide' => array(
+			'title'       => 'איך לבחור עורך דין: בדיקות חובה לפני שסוגרים ייצוג',
+			'seo_title'   => 'איך לבחור עורך דין: בדיקות חובה לפני שסוגרים | Jus-Tice',
+			'description' => 'מדריך לבחירת עורך דין: בדיקת רישיון בלשכת עורכי הדין, ניסיון בתחום, שכר טרחה והתאמה אישית, ומה לשאול בשיחה הראשונה לפני חתימה על ייצוג, בלי התחייבות.',
+		),
 		'free-divorce-agreement-template' => array(
 			'title'       => 'הסכם גירושין בהסכמה: דוגמא מלאה ומה חייב להופיע בהסכם',
 			'seo_title'   => 'הסכם גירושין בהסכמה: דוגמא להורדה ומה חייב להופיע | Jus-Tice',
@@ -903,13 +911,16 @@ function justice_theme_lawyer_directory_default_title(): string {
 
 		if ( $stats['count'] >= max( 1, $threshold ) ) {
 			return sprintf(
-				'עורכי דין מומלצים לפי %s ביקורות מאומתות | חיפוש לפי שם ותחום',
+				'חיפוש עורך דין לפי שם, תחום ועיר | %s ביקורות מאומתות',
 				number_format_i18n( $stats['count'] )
 			);
 		}
 	}
 
-	return 'עורכי דין מומלצים בישראל | חיפוש עורך דין לפי שם ותחום';
+	// GSC 2026-06-09: the family is a search-tool intent (22k impr across
+	// "חיפוש לפי שם", "איתור", "אינדקס", "מאגר", "לפי מספר רישיון") stuck at
+	// pos 7-12 with sub-1% CTR. Head query first, registry vocabulary next.
+	return 'חיפוש עורך דין לפי שם, תחום ועיר | אינדקס Jus-Tice';
 }
 
 /**
@@ -1160,7 +1171,7 @@ function justice_theme_filter_plugin_seo_description( $description ) {
 	}
 
 	if ( ( is_post_type_archive( 'justice_lawyer' ) || is_page( 'lawyers' ) ) && ! justice_theme_is_lawyer_directory_filter_state() ) {
-		return 'מאגר עורכי דין בישראל: חיפוש עורך דין לפי שם, תחום התמחות ועיר. פרופילים עם תחומי עיסוק, ניסיון ודרכי קשר ופנייה מסודרת בלי עלות.';
+		return 'מאגר עורכי דין בישראל בחינם: חיפוש לפי שם, תחום התמחות, עיר או מספר רישיון. פרופילים מאומתים עם ניסיון, תחומי עיסוק ודרכי קשר, ללא עלות וללא הרשמה.';
 	}
 
 	return $description;

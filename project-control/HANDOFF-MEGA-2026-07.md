@@ -145,6 +145,21 @@ about results.
 - WCAG AA: verify any new text/bg pair >= 4.5:1 (formula pass done).
 
 ## 6. State now
+- SERP strike shipped 2026-07-02 (theme 2.21.1, marker
+  serp-directory-family-v1, lands on owner pull): the lawyer DIRECTORY
+  family (22.4k impr/mo across "חיפוש עורך דין לפי שם", "איתור",
+  "אינדקס", "מאגר", "לפי מספר רישיון", pos 7-12, CTR under 0.7%).
+  Directory title now head-first ("חיפוש עורך דין לפי שם, תחום ועיר |
+  אינדקס Jus-Tice"), H1 matches, desc weaves בחינם + מספר רישיון + bar
+  registry verification line on page. De-cannibalized:
+  how-to-find-qualified-lawyer-israel-guide retitled to the how-to
+  sub-intent ("איך לבחור עורך דין: בדיקות חובה"), it no longer opens
+  with the directory head term. Measure in next GSC pull (2-4 weeks):
+  watch the family CTR and the guide's איך-לבחור rankings. Do not
+  retitle these again within the cycle. Follow-up found: the seeded
+  Yoast homepage metadesc option still contains an em dash (seed
+  metadesc-home-wpseo, seo.php line ~185); fix needs a one-shot DB
+  update via justice-ops, seed flag already consumed.
 Marker 2026-07-03-verified-case-reviews-v1 (v2.9.0) shipped: hygiene
 sweep wp-admin hotfix (the sweep no longer wp_dies on marker-flagged
 posts; it skips them and records them under flagged_for_review in the

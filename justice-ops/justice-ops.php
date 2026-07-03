@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 1.0.5
+ * Version: 1.0.6
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '1.0.5' );
+	define( 'JUSTICE_OPS_VERSION', '1.0.6' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -159,6 +159,143 @@ add_action( 'wp_enqueue_scripts', function () {
 		wp_enqueue_style( 'justice-ops-bridge', plugins_url( 'assets/theme-bridge.css', __FILE__ ), array(), JUSTICE_OPS_VERSION );
 	}
 }, 60 );
+
+/**
+ * SEO bridge: the 2026-07-02 SERP strikes (directory family + divorce
+ * head term), live ahead of the theme pull that carries them natively
+ * in inc/seo.php. Self-retires at theme 2.21.2. The directory H1 is a
+ * template variable and cannot be bridged; title, meta description,
+ * singular H1 and intro paragraphs can.
+ */
+function justice_ops_seo_bridge_active(): bool {
+	return ! defined( 'JUSTICE_THEME_VERSION' ) || version_compare( JUSTICE_THEME_VERSION, '2.21.2', '<' );
+}
+
+function justice_ops_seo_overrides(): array {
+	return array(
+		'divorce-lawyer' => array(
+			'seo_title'   => 'עורך דין גירושין: ליווי בהסכמה, בסכסוך ובגישור | Jus-Tice',
+			'title'       => 'עורך דין גירושין: ליווי בהסכמה ובסכסוך, משמורת, מזונות ורכוש',
+			'description' => 'עורך דין גירושין: מתי צריך ליווי משפטי, איך מתנהל הליך בהסכמה מול סכסוך, משמורת, מזונות ורכוש, ומה בודקים לפני בחירת ייצוג. פנייה מסודרת בלי עלות.',
+			'intro'       => '<p style="text-align: justify;"><strong>עורך דין גירושין</strong> מלווה אתכם ברגע שבו החוק, הרגש והכסף נפגשים: גירושין בהסכמה או בסכסוך, משמורת ילדים, מזונות, חלוקת רכוש והסכם גירושין, בבתי המשפט לענייני משפחה ובבתי הדין הרבניים. בעמוד הזה תמצאו את המסלול המלא צעד אחר צעד: מה בודקים לפני בחירת ייצוג, ממה מורכבת העלות, ואיך פונים לעורך דין דיני משפחה מאומת בלי עלות ובלי התחייבות.</p>',
+		),
+		'trusted-divorce-attorney-guide' => array(
+			'seo_title'   => 'עורך דין גירושין מומלץ: בדיקת מוניטין וניסיון | Jus-Tice',
+			'title'       => 'עורך דין גירושין מומלץ: בדיקת מוניטין, ניסיון והמלצות',
+			'description' => 'איך מזהים עורך דין גירושין מומלץ באמת: בדיקת ניסיון בתיקי משפחה, מוניטין שאפשר לאמת, המלצות של לקוחות ושאלות שחושפות התאמה לפני שסוגרים ייצוג.',
+			'intro'       => '<p style="text-align: justify;"><strong>עורך דין גירושין מומלץ</strong> לא מזהים לפי סיסמאות אלא לפי עובדות: ניסיון אמיתי בתיקי משפחה וגירושין, מוניטין שאפשר לאמת, המלצות של לקוחות אמיתיים ותשובות ברורות בשיחה הראשונה. במדריך שלפניכם עוברים על הבדיקות האלה שלב אחרי שלב, עד לבחירה בטוחה.</p>',
+		),
+		'lawyer-divorce-guide-proceedings-costs-rights' => array(
+			'seo_title'   => 'זכויות בהליך גירושין וייצוג משפטי: המדריך המלא | Jus-Tice',
+			'title'       => 'זכויות בהליך גירושין וייצוג משפטי: המדריך המלא',
+			'description' => 'המדריך לזכויות בהליך גירושין: מזונות, משמורת, חלוקת רכוש וכתובה, איך מתנהל ההליך בבית המשפט לענייני משפחה ובבית הדין הרבני, ומתי נדרש ייצוג.',
+		),
+		'how-to-find-qualified-lawyer-israel-guide' => array(
+			'seo_title'   => 'איך לבחור עורך דין: בדיקות חובה לפני שסוגרים | Jus-Tice',
+			'title'       => 'איך לבחור עורך דין: בדיקות חובה לפני שסוגרים ייצוג',
+			'description' => 'מדריך לבחירת עורך דין: בדיקת רישיון בלשכת עורכי הדין, ניסיון בתחום, שכר טרחה והתאמה אישית, ומה לשאול בשיחה הראשונה לפני חתימה על ייצוג, בלי התחייבות.',
+		),
+	);
+}
+
+function justice_ops_current_seo_override(): array {
+	if ( ! is_singular() ) {
+		return array();
+	}
+
+	$post = get_post();
+
+	if ( ! $post ) {
+		return array();
+	}
+
+	$map = justice_ops_seo_overrides();
+
+	return $map[ $post->post_name ] ?? array();
+}
+
+function justice_ops_is_plain_lawyer_directory(): bool {
+	return ( is_post_type_archive( 'justice_lawyer' ) || is_page( 'lawyers' ) )
+		&& empty( $_GET['city'] ) && empty( $_GET['area'] );
+}
+
+add_filter( 'pre_get_document_title', function ( $title ) {
+	if ( ! justice_ops_seo_bridge_active() ) {
+		return $title;
+	}
+
+	$override = justice_ops_current_seo_override();
+
+	if ( ! empty( $override['seo_title'] ) ) {
+		return $override['seo_title'];
+	}
+
+	if ( justice_ops_is_plain_lawyer_directory() ) {
+		return 'חיפוש עורך דין לפי שם, תחום ועיר | אינדקס Jus-Tice';
+	}
+
+	return $title;
+}, 99 );
+
+add_filter( 'wpseo_title', function ( $title ) {
+	if ( ! justice_ops_seo_bridge_active() ) {
+		return $title;
+	}
+
+	$override = justice_ops_current_seo_override();
+
+	if ( ! empty( $override['seo_title'] ) ) {
+		return $override['seo_title'];
+	}
+
+	if ( justice_ops_is_plain_lawyer_directory() ) {
+		return 'חיפוש עורך דין לפי שם, תחום ועיר | אינדקס Jus-Tice';
+	}
+
+	return $title;
+}, 99 );
+
+add_filter( 'wpseo_metadesc', function ( $desc ) {
+	if ( ! justice_ops_seo_bridge_active() ) {
+		return $desc;
+	}
+
+	$override = justice_ops_current_seo_override();
+
+	if ( ! empty( $override['description'] ) ) {
+		return $override['description'];
+	}
+
+	if ( justice_ops_is_plain_lawyer_directory() ) {
+		return 'מאגר עורכי דין בישראל בחינם: חיפוש לפי שם, תחום התמחות, עיר או מספר רישיון. פרופילים מאומתים עם ניסיון, תחומי עיסוק ודרכי קשר, ללא עלות וללא הרשמה.';
+	}
+
+	return $desc;
+}, 99 );
+
+add_filter( 'the_title', function ( $title, $post_id = 0 ) {
+	if ( ! justice_ops_seo_bridge_active() || ! in_the_loop() || ! is_singular() || get_queried_object_id() !== (int) $post_id ) {
+		return $title;
+	}
+
+	$override = justice_ops_current_seo_override();
+
+	return ! empty( $override['title'] ) ? $override['title'] : $title;
+}, 99, 2 );
+
+add_filter( 'the_content', function ( $content ) {
+	if ( ! justice_ops_seo_bridge_active() || ! is_singular() || ! in_the_loop() || ! is_main_query() ) {
+		return $content;
+	}
+
+	$override = justice_ops_current_seo_override();
+
+	if ( empty( $override['intro'] ) || false !== strpos( $content, 'justice-ops-intro' ) ) {
+		return $content;
+	}
+
+	return '<div class="justice-ops-intro">' . $override['intro'] . '</div>' . $content;
+}, 6 );
 
 /**
  * Purge every cache layer this site runs, after our own upgrade completes.

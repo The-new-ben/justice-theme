@@ -145,6 +145,20 @@ about results.
 - WCAG AA: verify any new text/bg pair >= 4.5:1 (formula pass done).
 
 ## 6. State now
+- HEAD-TERM STRIKE shipped 2026-07-02 (theme 2.21.2, marker
+  head-term-divorce-strike-v1, lands on owner pull): one page now owns
+  the bare head term עורך דין גירושין (8.5k impr, family 81k): the
+  family pillar /divorce-lawyer/ (exact-phrase title, H1, intent-mirror
+  intro naming both court systems; Maya reviewer box already renders
+  there). De-cannibalized: trusted-divorce-attorney-guide (23.7k impr,
+  pos 72) now owns the מומלץ reputation sub-family and loses its
+  stuffed title plus AI-teller opener;
+  lawyer-divorce-guide-proceedings-costs-rights stops opening with the
+  bare head phrase, owns זכויות וייצוג. Anatomy and rationale:
+  project-control/serp-anatomy-divorce-lawyer-2026-07.md. OWNER
+  DECISION QUEUE addition: /review-of-divorce-by-divorce-lawyer-israel/
+  is a live 404 with 11,280 impr/mo (restore vs 301, per-URL approval
+  required). Measure family at next GSC pull; one retitle per cycle.
 - SERP strike shipped 2026-07-02 (theme 2.21.1, marker
   serp-directory-family-v1, lands on owner pull): the lawyer DIRECTORY
   family (22.4k impr/mo across "חיפוש עורך דין לפי שם", "איתור",

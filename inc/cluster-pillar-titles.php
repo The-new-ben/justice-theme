@@ -46,7 +46,7 @@ function justice_theme_cluster_pillar_titles(): array {
 	return array(
 		'criminal-defense-attorney'   => 'עורך דין פלילי - ייעוץ וליווי משפטי | מדריך | Jus-Tice',
 		'real-estate-attorney'        => 'עורך דין מקרקעין ונדל"ן - מדריך לעסקה בטוחה | Jus-Tice',
-		'divorce-lawyer'              => 'עורך דין גירושין ודיני משפחה - המדריך המלא | Jus-Tice',
+		'divorce-lawyer'              => 'עורך דין גירושין: ליווי בהסכמה, בסכסוך ובגישור | Jus-Tice',
 		'family-law'                  => 'דיני משפחה וגירושין - זכויות, הסכמים ומשמורת | Jus-Tice',
 		'medical-malpractice-lawyer'  => 'עורך דין רשלנות רפואית - מתי תובעים ואיך | מדריך | Jus-Tice',
 		'traffic-lawyer'              => 'עורך דין תעבורה - שלילה, דוחות ושכרות | מדריך | Jus-Tice',

@@ -614,6 +614,32 @@ function justice_theme_money_query_seo_map(): array {
 		// earn impressions at positions 6-40 for exact query families the current
 		// titles do not use. Title and description only; the page body stays as
 		// published (no intro override).
+		// HEAD-TERM STRIKE (2026-07-02): עורך דין גירושין, 8.5k impr at pos 84,
+		// family total 81k impr. One page owns the bare head term: the family
+		// cluster pillar /divorce-lawyer/. SERP evidence (serp-anatomy doc):
+		// winners lead with the exact phrase, mirror it in the first
+		// paragraph, and name the two court systems. No superlatives.
+		'divorce-lawyer' => array(
+			'title'       => 'עורך דין גירושין: ליווי בהסכמה ובסכסוך, משמורת, מזונות ורכוש',
+			'seo_title'   => 'עורך דין גירושין: ליווי בהסכמה, בסכסוך ובגישור | Jus-Tice',
+			'description' => 'עורך דין גירושין: מתי צריך ליווי משפטי, איך מתנהל הליך בהסכמה מול סכסוך, משמורת, מזונות ורכוש, ומה בודקים לפני בחירת ייצוג. פנייה מסודרת בלי עלות.',
+			'intro'       => '<p style="text-align: justify;"><strong>עורך דין גירושין</strong> מלווה אתכם ברגע שבו החוק, הרגש והכסף נפגשים: גירושין בהסכמה או בסכסוך, משמורת ילדים, מזונות, חלוקת רכוש והסכם גירושין, בבתי המשפט לענייני משפחה ובבתי הדין הרבניים. בעמוד הזה תמצאו את המסלול המלא צעד אחר צעד: מה בודקים לפני בחירת ייצוג, ממה מורכבת העלות, ואיך פונים לעורך דין דיני משפחה מאומת בלי עלות ובלי התחייבות.</p>',
+		),
+		// De-cannibalization for the head term: the 23.7k impr guide owns the
+		// reputation sub-family (מומלץ, המלצות, מוניטין) and loses its
+		// keyword-stuffed title; the rights guide owns זכויות וייצוג and
+		// stops opening with the bare head phrase.
+		'trusted-divorce-attorney-guide' => array(
+			'title'       => 'עורך דין גירושין מומלץ: בדיקת מוניטין, ניסיון והמלצות',
+			'seo_title'   => 'עורך דין גירושין מומלץ: בדיקת מוניטין וניסיון | Jus-Tice',
+			'description' => 'איך מזהים עורך דין גירושין מומלץ באמת: בדיקת ניסיון בתיקי משפחה, מוניטין שאפשר לאמת, המלצות של לקוחות ושאלות שחושפות התאמה לפני שסוגרים ייצוג.',
+			'intro'       => '<p style="text-align: justify;"><strong>עורך דין גירושין מומלץ</strong> לא מזהים לפי סיסמאות אלא לפי עובדות: ניסיון אמיתי בתיקי משפחה וגירושין, מוניטין שאפשר לאמת, המלצות של לקוחות אמיתיים ותשובות ברורות בשיחה הראשונה. במדריך שלפניכם עוברים על הבדיקות האלה שלב אחרי שלב, עד לבחירה בטוחה.</p>',
+		),
+		'lawyer-divorce-guide-proceedings-costs-rights' => array(
+			'title'       => 'זכויות בהליך גירושין וייצוג משפטי: המדריך המלא',
+			'seo_title'   => 'זכויות בהליך גירושין וייצוג משפטי: המדריך המלא | Jus-Tice',
+			'description' => 'המדריך לזכויות בהליך גירושין: מזונות, משמורת, חלוקת רכוש וכתובה, איך מתנהל ההליך בבית המשפט לענייני משפחה ובבית הדין הרבני, ומתי נדרש ייצוג.',
+		),
 		// De-cannibalization (2026-07-02): this guide led with "איתור עורך דין",
 		// the directory family head term, splitting the query with /lawyers/.
 		// The guide owns the how-to sub-intent; the directory owns the tool.

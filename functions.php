@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_VERSION', '2.21.1' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-07-03-serp-directory-family-v1' );
+define( 'JUSTICE_THEME_VERSION', '2.21.2' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-07-03-head-term-divorce-strike-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 

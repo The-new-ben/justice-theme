@@ -145,6 +145,19 @@ about results.
 - WCAG AA: verify any new text/bg pair >= 4.5:1 (formula pass done).
 
 ## 6. State now
+- SEO strikes are LIVE agent-side (2026-07-03, justice-ops 1.0.9 SEO
+  bridge, self-retires at theme 2.21.2): directory family + divorce
+  head-term titles, descriptions, H1s and intros verified rendering.
+  DB one-shots executed with owner authority ("you pull, we fixed the
+  pipeline"): post 20212 and its SAME-SLUG twin post 11813
+  (lawyer-divorce-guide-proceedings-costs-rights, duplicate slug, the
+  twin renders as a second embedded article header) retitled dash-free
+  and de-cannibalized (20212 = rights guide, 11813 = process steps).
+  OWNER DECISION QUEUE: merge or unpublish one of the twins; the
+  duplicated article header markup is a theme bug to fix at next theme
+  release. Directory H1 still says the old text until theme pull
+  (template variable, unbridgeable). Related-card titles of OTHER posts
+  still carry DB dashes sitewide: extend the copy-hygiene sweep next.
 - HEAD-TERM STRIKE shipped 2026-07-02 (theme 2.21.2, marker
   head-term-divorce-strike-v1, lands on owner pull): one page now owns
   the bare head term עורך דין גירושין (8.5k impr, family 81k): the

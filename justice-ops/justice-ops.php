@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 1.0.6
+ * Version: 1.0.7
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '1.0.6' );
+	define( 'JUSTICE_OPS_VERSION', '1.0.7' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -296,6 +296,28 @@ add_filter( 'the_content', function ( $content ) {
 
 	return '<div class="justice-ops-intro">' . $override['intro'] . '</div>' . $content;
 }, 6 );
+
+/**
+ * Render hygiene on singular content: body copy must never carry its own
+ * H1 (the template owns the single H1), and the strike pages must not
+ * render en or em dashes (owner law). DB cleanup follows separately;
+ * this keeps the rendered page correct today.
+ */
+add_filter( 'the_content', function ( $content ) {
+	if ( ! is_singular() || ! in_the_loop() || ! is_main_query() ) {
+		return $content;
+	}
+
+	$content = preg_replace( '/<h1(\s[^>]*)?>/i', '<h2$1>', $content );
+	$content = str_ireplace( '</h1>', '</h2>', $content );
+
+	if ( justice_ops_seo_bridge_active() && justice_ops_current_seo_override() ) {
+		$content = str_replace( array( " \xE2\x80\x93 ", " \xE2\x80\x94 " ), ', ', $content );
+		$content = str_replace( array( "\xE2\x80\x93", "\xE2\x80\x94" ), ',', $content );
+	}
+
+	return $content;
+}, 7 );
 
 /**
  * Purge every cache layer this site runs, after our own upgrade completes.

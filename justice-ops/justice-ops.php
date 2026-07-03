@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 1.0.8
+ * Version: 1.0.9
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '1.0.8' );
+	define( 'JUSTICE_OPS_VERSION', '1.0.9' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -274,7 +274,7 @@ add_filter( 'wpseo_metadesc', function ( $desc ) {
 }, 99 );
 
 add_filter( 'the_title', function ( $title, $post_id = 0 ) {
-	if ( ! justice_ops_seo_bridge_active() || ! in_the_loop() || ! is_singular() || get_queried_object_id() !== (int) $post_id ) {
+	if ( ! justice_ops_seo_bridge_active() || ! is_singular() || get_queried_object_id() !== (int) $post_id ) {
 		return $title;
 	}
 

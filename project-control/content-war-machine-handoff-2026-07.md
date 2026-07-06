@@ -1,4 +1,4 @@
-# CONTENT WAR MACHINE — full handoff for the article-writing agent
+# CONTENT WAR MACHINE, full handoff for the article-writing agent
 
 You are a Claude Code session on the jus-tice.co.il repo running a LONG
 content expedition: fill every money-keyword gap with deep, competitor-
@@ -58,7 +58,7 @@ published fast and thin. We do the OPPOSITE and it is non-negotiable:
     (section 4) and pastes drafts back, OR you draft in-session. Do NOT
     burn the server endpoint for 3000-word drafts.
 
-## 2. Iron rules (owner law — violating any = revert)
+## 2. Iron rules (owner law, violating any = revert)
 
 No em/en dashes anywhere. No Hebrew AI-teller phrases (חשוב לציין,
 בעידן המודרני, מעבר לכך, לסיכום, ראוי לציין, יש לזכור). No new URL slugs
@@ -80,7 +80,7 @@ before reporting anything done.
    the head term:
    curl "$WP_BASE_URL/wp-json/wp/v2/search?search=<term>&per_page=5"
    and check inc/content-clusters.php. If a page already targets this
-   query, you STRENGTHEN that page (add sections, schema, depth) — you
+   query, you STRENGTHEN that page (add sections, schema, depth), you
    do NOT create a competitor to ourselves. New article only when no
    existing page owns the intent. Log the decision.
 3. BRIEF: write the H2/H3 skeleton that covers every entity and PAA the
@@ -111,7 +111,7 @@ before reporting anything done.
     target query, competitor beaten, word count, schema, mesh links,
     live-verify result, GSC baseline position for later measurement.
 
-## 4. Drafting method (ChatGPT, or in-session) — the per-article prompt
+## 4. Drafting method (ChatGPT, or in-session), the per-article prompt
 
 Best model for 3,000-word Hebrew legal depth: GPT-4.1 / o-series high
 reasoning (the "high" setting the owner mentioned). Temperature moderate.
@@ -129,7 +129,7 @@ Feed it the recon output as context. Use THIS structure every time:
   states a concrete fact or number. H2s = [brief skeleton]. Include a
   5-8 item FAQ using real "People Also Ask" questions from the SERP.
   HARD BANS: no em/en dashes; no phrases חשוב לציין/בעידן/לסיכום/יש לזכור;
-  no superlatives; no outcome promises; no invented statistics — mark any
+  no superlatives; no outcome promises; no invented statistics, mark any
   number that needs a real source as [VERIFY].
   END WITH: a general-information disclaimer (not legal advice).
   Return clean HTML: <p>, <h2>, <h3>, <ul>, no inline styles except
@@ -145,7 +145,7 @@ For each: STRENGTHEN the pillar first, then add the missing spokes. Do
 NOT create pages that cannibalize the pillar. Slugs marked NEW need owner
 approval before creating.
 
-### TIER 1 — biggest money, most competitive
+### TIER 1, biggest money, most competitive
 1. CRIMINAL (320k impr/mo). Pillar /criminal-defense-attorney/ (96k, pos
    ~58). Rating page /criminal-lawyers-rating/ live (needs real lawyers).
    Gap spokes to WRITE (each 3000w, meshed to pillar): עורך דין מעצרים;
@@ -154,7 +154,7 @@ approval before creating.
    סייבר; המשפט הצבאי (מצ"ח, עריקות, נפקדות). Strengthen existing
    /drug-related-crime/ + /drug-trafficking/ to full depth.
 2. REAL ESTATE IL (309k + 63k buy-sell). Pillar /real-estate-attorney/
-   (pos ~64 — big opportunity). Spokes: ליווי משפטי בקניית דירה מקבלן;
+   (pos ~64, big opportunity). Spokes: ליווי משפטי בקניית דירה מקבלן;
    מכירת דירה שלבים ומיסוי; חוזה מכר מה חובה שיופיע; מיסוי מקרקעין מס
    רכישה ומס שבח; בדק בית וטאבו; פינוי בינוי ותמ"א 38 לדיירים. Add price
    TABLES (the winning format on cost queries).
@@ -164,9 +164,9 @@ approval before creating.
    בניתוח; רשלנות באבחון; רשלנות רפואית בשיניים. Each: how you prove
    negligence + causation, the medical-opinion requirement, fee-by-%.
 
-### TIER 2 — high-value, high-intent leads
+### TIER 2, high-value, high-intent leads
 4. FAMILY/DIVORCE (81k). Pillar /divorce-lawyer/ struck. Deepen the
-   הסכם גירושין cluster (הסכם גירושין at pos 8 with 1,297 impr, 2 clicks —
+   הסכם גירושין cluster (הסכם גירושין at pos 8 with 1,297 impr, 2 clicks ,
    snippet + depth win). Spokes: משמורת משותפת; מזונות ילדים חישוב 2026;
    ידועים בציבור זכויות רכוש; חלוקת רכוש ואיזון משאבים; גישור גירושין.
 5. INHERITANCE (est. tens of k). Pillar /inheritance-lawyer/. Spokes:
@@ -176,7 +176,7 @@ approval before creating.
    לפני פיטורים זכויות; פיצויי פיטורים חישוב; הטרדה מינית בעבודה; שעות
    נוספות וזכויות שכר.
 
-### TIER 3 — money abroad (rich clients, less competition, guides win)
+### TIER 3, money abroad (rich clients, less competition, guides win)
 7. REAL ESTATE ABROAD (Cyprus 48k, Greece 52k, abroad 56k). Deepen
    existing guides with price TABLES + FAQ schema per country. Add:
    רילוקיישן לפורטוגל (pos 18, real gap); אזרחות פורטוגלית; קניית נכס
@@ -184,7 +184,7 @@ approval before creating.
 8. LAWYERS/IMMIGRATION USA (37k). Deepen /usa-lawyers/, /choose-usa-
    attorney/. Add: ויזת השקעה לארה"ב (EB-5); גרין קארד מסלולים;
    רילוקיישן לארה"ב היבטים משפטיים.
-9. BUSINESS (38k, page-1 CTR failure — fastest). Deepen /types-of-
+9. BUSINESS (38k, page-1 CTR failure, fastest). Deepen /types-of-
    lawyers-small-business/. Add: הקמת חברה שלבים; הסכם מייסדים; קניין
    רוחני לעסק; חוזים מסחריים בדיקה.
 
@@ -192,7 +192,7 @@ Run TIER 1 first, one family at a time, pillar-then-spokes, verifying
 each. Expect 40-60 articles across all tiers. This is a marathon; do it
 right, log each, never spray.
 
-## 6. GSC token recipe (copy exactly — the broken-container workaround)
+## 6. GSC token recipe (copy exactly, the broken-container workaround)
 
   # 1. write the SA json (from env) to a 600-perm file
   # 2. build the JWT header+claims (base64url), then:

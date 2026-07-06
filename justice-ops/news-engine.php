@@ -410,7 +410,7 @@ function justice_news_write_brief( array $item ): int {
 // ---------------------------------------------------------------------------
 
 add_action( 'init', function () {
-	add_rewrite_rule( '^news-sitemap\.xml$', 'index.php?justice_news_sitemap=1', 'top' );
+	add_rewrite_rule( '^sitemap-news\.xml$', 'index.php?justice_news_sitemap=1', 'top' );
 }, 6 );
 
 add_filter( 'query_vars', function ( $vars ) {
@@ -571,7 +571,7 @@ function justice_news_admin_page(): void {
 			<?php wp_nonce_field( 'justice_news_run' ); ?>
 			<input type="hidden" name="action" value="justice_news_run" />
 			<button class="button">הרצה ידנית עכשיו</button>
-			<a class="button" href="<?php echo esc_url( home_url( '/news-sitemap.xml' ) ); ?>" target="_blank">news-sitemap.xml</a>
+			<a class="button" href="<?php echo esc_url( home_url( '/sitemap-news.xml' ) ); ?>" target="_blank">news-sitemap.xml</a>
 			<a class="button" href="<?php echo esc_url( home_url( '/wp-json/justice-ops/v1/news-status' ) ); ?>" target="_blank">סטטוס JSON</a>
 		</form>
 

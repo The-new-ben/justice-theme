@@ -168,3 +168,26 @@ unattended and wrote entries on its own. Drip queue verified at
 50-minute intervals inside the 09:00-19:00 window, 12/day. At 15
 generated/day the 148-entry queue writes itself in ~10 days for $1-3
 total. Supervision: GET /wp-json/justice-ops/v1/enc-writer-status.
+
+## 2026-07-06 (late night): batch 2 + autolinker LIVE (justice-ops 1.2.1), routing root cause fixed
+
+- Batch 2 ingested: 75 entries (real estate planning and taxation, tax,
+  immigration and citizenship, enforcement and insolvency, corporate,
+  consumer), 1 collision refused. Queue: 218 skeletons.
+- Autolinker live and PROVEN: /criminal-negligence/ renders a
+  justice-enc-link on אשם תורם into /encyclopedia/contributory-negligence/.
+  Capped 4/page, boundary-safe, cache invalidates on publish.
+- ROOT CAUSE FOUND AND FIXED: inc/routing-guards.php
+  justice_theme_modify_request_for_articles force-retyped EVERY named
+  request to page/post/articles. It 404d encyclopedia singles AND was
+  the engine of the same-slug double-body renders (the criminal pillar
+  disease). Theme fix: bail when the request already resolved to a post
+  type (needs pull). Ops bridge 1.2.1 restores justice_term requests
+  live NOW. Intake assigns Latin slugs from name_en going forward.
+- First entry LIVE and verified: /encyclopedia/contributory-negligence/
+  (אשם תורם): HTTP 200, one H1, EN chip, disclaimer, DefinedTerm schema,
+  definition-first opening citing פקודת הנזיקין.
+- Writer day total: 8 generated, 0 failed. Scheduled drip tomorrow
+  09:00-14:00 at 50-minute slots: מעשה בית דין, תקנת השוק, חוק העונשין
+  (790w), תקדים מחייב (824w), חזקת החפות (704w), כתב אישום (633w),
+  נטל ההוכחה (670w).

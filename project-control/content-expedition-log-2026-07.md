@@ -370,3 +370,49 @@ LIVE VERIFIED:
 
 SELLING A NEW PLACEMENT = tag lawyer with the family's practice-areas
 term + set priority_score + pass the approval gate. No code.
+
+## 2026-07-06 night (owner QA): CARDS REDESIGNED to marketplace grade + real portrait (ops 1.7.0)
+
+Owner rejected the first card: photo overflowing, not professional.
+ROOT CAUSES FOUND, not guessed:
+- Maya's only media asset is a 1920x616 press-collage banner; its
+  square crops show newspaper clippings, not a face. medium = 300x96.
+- Pages cached in the 12 minutes between 1.6.0 and 1.6.2 linked a CSS
+  aggregate that autoptimizeCache::clearall() had DELETED on upgrade,
+  so the card rendered with no styles at all. The upgrade hook no
+  longer wipes aggregates (old files stay valid; new ones generate on
+  demand).
+
+FIXES SHIPPED (1.7.0):
+- Avatar geometry rides INLINE on the img (width, height, aspect-ratio
+  1, object-fit cover, object-position center 30%): no theme CSS and
+  no stale stylesheet can ever distort it again.
+- Real profile picture: her official portrait from rotenberglaw.co.il
+  (the owner-approved source of this profile) uploaded as media 21313
+  with Hebrew alt, wired via the new card_photo_id override meta on
+  profile 19130. Fresh renders serve
+  adv-maya-rotenberg-portrait-150x150.jpg with a 300x300 2x srcset,
+  face-centered crop verified by eye.
+- Design rebuilt on marketplace card patterns (2026 card UI research:
+  gradient borders + layered elevation, avatar ring, aspect-ratio
+  locked media, strict CTA hierarchy, functional micro-interactions):
+  navy ribbon with gold flag label + "מקודם" pill, conic-gradient
+  avatar ring, practice-area chips + gold city chip with pin, trust
+  row (verified license only with a license number, years of
+  experience, gated rating), 48px WhatsApp gradient button with glyph
+  + ghost profile button with RTL arrow, hover lift on pointer
+  devices, prefers-reduced-motion honored, mobile stacks CTAs at 74px
+  avatar.
+- Placement logic: second card requires a SECOND distinct lawyer AND
+  the FAQ anchor at least min_gap_chars (2500) beyond the first card:
+  cards never stack.
+- CUSTOMIZABLE: Settings > Justice Cards panel (enable, max, gap,
+  brand color, accent color, all four labels) + justice_cards_settings
+  filter + card_photo_id per-lawyer photo override.
+
+LIVE VERIFIED (fresh renders): petah-tikva-divorce-lawyer shows the
+full new card after the 2nd h2 with the real portrait; the new
+aggregate carries every rule block including the mobile media query;
+criminal article, nezikin encyclopedia entry and news brief stay
+card-free and byte-identical; healthcheck 1.7.0. Design preview
+artifact published for the owner with desktop + mobile frames.

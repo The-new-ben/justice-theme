@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 1.5.1
+ * Version: 1.6.0
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '1.5.1' );
+	define( 'JUSTICE_OPS_VERSION', '1.6.0' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -27,6 +27,9 @@ require_once __DIR__ . '/news-engine.php';
 
 // Practice-area polish + sitewide WhatsApp lead button with page context.
 require_once __DIR__ . '/practice-polish.php';
+
+// Professional cards: sponsored lawyer cards inside content by practice family.
+require_once __DIR__ . '/professional-cards.php';
 
 /**
  * Public healthcheck: what version of the ops plugin is live.

@@ -331,3 +331,42 @@ add_action( 'template_redirect', function () {
 		return is_string( $replaced ) ? $replaced : $html;
 	} );
 }, -1000000 );
+
+/**
+ * Lead timing guard fix: the theme guard rejects submissions whose
+ * justice_lead_started_at is older than a day, but that timestamp is baked
+ * into edge-cached pages, so any page cached longer than a day silently
+ * blocks every lead it produces (parked tabs too). Bots submit fast, not
+ * slow: keep the 3 second floor, drop the stale upper bound. Runs at init
+ * (after the theme registered its guard) and swaps in the corrected check.
+ */
+add_action( 'init', function () {
+	if ( ! function_exists( 'justice_theme_guard_lead_submission_spam' ) ) {
+		return;
+	}
+
+	foreach ( array( 'admin_post_justice_submit_lead', 'admin_post_nopriv_justice_submit_lead' ) as $hook ) {
+		remove_action( $hook, 'justice_theme_guard_lead_submission_spam', 0 );
+		add_action( $hook, 'justice_ops_guard_lead_submission_spam', 0 );
+	}
+}, 20 );
+
+function justice_ops_guard_lead_submission_spam(): void {
+	$honeypot = isset( $_POST['justice_lead_company'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['justice_lead_company'] ) ) ) : '';
+
+	if ( '' !== $honeypot && function_exists( 'justice_theme_redirect_blocked_lead_submission' ) ) {
+		justice_theme_redirect_blocked_lead_submission( 'honeypot' );
+	}
+
+	$started_at = isset( $_POST['justice_lead_started_at'] ) ? absint( $_POST['justice_lead_started_at'] ) : 0;
+
+	if ( 0 === $started_at ) {
+		return;
+	}
+
+	$age = time() - $started_at;
+
+	if ( $age >= 0 && $age < 3 && function_exists( 'justice_theme_redirect_blocked_lead_submission' ) ) {
+		justice_theme_redirect_blocked_lead_submission( 'timing' );
+	}
+}

@@ -274,3 +274,42 @@
   object-fit: contain;
   margin: 0 auto 6px;
 }
+
+/* ---------- Money hubs band (homepage exact-anchor mesh) ---------- */
+.money-hubs { padding-top: 34px; padding-bottom: 34px; }
+
+.money-hubs__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.money-hubs__card {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--jt2-line);
+  border-radius: 10px;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.money-hubs__card:hover {
+  border-color: var(--jt2-navy-light);
+  box-shadow: 0 10px 24px rgba(18, 44, 82, 0.1);
+  transform: translateY(-2px);
+}
+
+.money-hubs__card strong {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--jt2-navy-deep);
+  margin-bottom: 3px;
+}
+
+.money-hubs__card span {
+  font-size: 12px;
+  color: var(--jt2-muted);
+}

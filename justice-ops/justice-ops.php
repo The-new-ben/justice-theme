@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 1.0.10
+ * Version: 1.0.11
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '1.0.10' );
+	define( 'JUSTICE_OPS_VERSION', '1.0.11' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -155,7 +155,7 @@ add_filter( 'script_loader_src', function ( $src, $handle ) {
 }, 10, 2 );
 
 add_action( 'wp_enqueue_scripts', function () {
-	if ( justice_ops_theme_needs_bridge() ) {
+	if ( justice_ops_seo_bridge_active() ) {
 		wp_enqueue_style( 'justice-ops-bridge', plugins_url( 'assets/theme-bridge.css', __FILE__ ), array(), JUSTICE_OPS_VERSION );
 	}
 }, 60 );
@@ -388,6 +388,77 @@ add_filter( 'the_content', function ( $content ) {
 
 	return $content;
 }, 99 );
+
+/**
+ * Surface bridge: the theme 2.22.0 homepage money-hubs band and the
+ * directory H1, injected into the rendered output until the theme pull
+ * lands them natively. Pure string operations on two known views only.
+ */
+function justice_ops_money_hubs_html(): string {
+	$hubs = array(
+		array( 'עורך דין גירושין', 'הסכמה, סכסוך, משמורת ורכוש', 'divorce-lawyer' ),
+		array( 'עורך דין פלילי', 'חקירה, מעצר וכתב אישום', 'criminal-defense-attorney' ),
+		array( 'עורך דין מקרקעין', 'קנייה, מכירה ומיסוי דירה', 'real-estate-attorney' ),
+		array( 'עורך דין רשלנות רפואית', 'בדיקת תיק והוכחת התרשלות', 'medical-malpractice-lawyer' ),
+		array( 'עורך דין תעבורה', 'שלילה, נקודות ושכרות', 'traffic-lawyer' ),
+		array( 'עורך דין דיני עבודה', 'פיטורים, שימוע וזכויות', 'labor-lawyer' ),
+		array( 'עורך דין ירושה וצוואות', 'צו ירושה והתנגדויות', 'inheritance-lawyer' ),
+		array( 'עורך דין עסקי לעסקים קטנים', 'הקמה, חוזים ושותפויות', 'types-of-lawyers-small-business' ),
+		array( 'עורך דין עבירות סמים', 'החזקה, שימוש וסחר', 'drug-related-crime' ),
+		array( 'עורך דין בארצות הברית', 'ייצוג ישראלים בארה"ב', 'usa-lawyers' ),
+		array( 'קניית דירה בקפריסין', 'מחירים, מיסים וליווי משפטי', 'buy-real-estate-cyprus' ),
+		array( 'השקעות נדל"ן ביוון', 'תשואות, אזורים וסיכונים', 'investing-in-greece-real-estate' ),
+	);
+
+	$cards = '';
+
+	foreach ( $hubs as $hub ) {
+		$post = get_page_by_path( $hub[2], OBJECT, array( 'page', 'post', 'articles' ) );
+
+		if ( ! $post || 'publish' !== $post->post_status ) {
+			continue;
+		}
+
+		$url = function_exists( 'justice_theme_public_permalink' ) ? justice_theme_public_permalink( $post->ID ) : get_permalink( $post );
+		$cards .= '<a class="money-hubs__card" href="' . esc_url( $url ) . '"><strong>' . esc_html( $hub[0] ) . '</strong><span>' . esc_html( $hub[1] ) . '</span></a>';
+	}
+
+	if ( '' === $cards ) {
+		return '';
+	}
+
+	return '<section class="jt2-section money-hubs" aria-label="תחומי המשפט המבוקשים ביותר"><div class="container">'
+		. '<div class="section-header"><p class="section-header__eyebrow">המדריכים המבוקשים עכשיו</p>'
+		. '<h2>תחומי המשפט שהכי מחפשים בישראל</h2></div>'
+		. '<div class="money-hubs__grid">' . $cards . '</div></div></section>';
+}
+
+add_action( 'template_redirect', function () {
+	if ( ! justice_ops_seo_bridge_active() ) {
+		return;
+	}
+
+	if ( is_front_page() ) {
+		ob_start( function ( $html ) {
+			if ( false !== strpos( $html, 'money-hubs__grid' ) ) {
+				return $html;
+			}
+
+			$marker = '<section class="featured-lawyers section"';
+			$pos    = strpos( $html, $marker );
+
+			return false === $pos ? $html : substr_replace( $html, justice_ops_money_hubs_html(), $pos, 0 );
+		} );
+
+		return;
+	}
+
+	if ( is_post_type_archive( 'justice_lawyer' ) || is_page( 'lawyers' ) ) {
+		ob_start( function ( $html ) {
+			return str_replace( '>מדריך עורכי דין בישראל</h1>', '>חיפוש עורך דין לפי שם, תחום ועיר</h1>', $html );
+		} );
+	}
+} );
 
 /**
  * Purge every cache layer this site runs, after our own upgrade completes.

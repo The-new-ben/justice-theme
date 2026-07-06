@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-1.0.10.zip",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-1.0.11.zip",
   "last_updated": "2026-07-02",
   "sections": {
-    "changelog": "<h4>1.0.10</h4><ul><li>Money sweep batch 4: 14 more page titles, descriptions and H1s across criminal, drugs, real estate, malpractice, USA, Cyprus, Greece and business families.</li></ul><h4>1.0.9</h4><ul><li>Title override reaches the article header rendered outside the main loop.</li></ul><h4>1.0.8</h4><ul><li>Render hygiene runs after shortcodes so builder-generated H1s are demoted too.</li></ul><h4>1.0.7</h4><ul><li>Render hygiene: body H1s demoted to H2 on singular pages; dash cleanup on strike pages.</li></ul><h4>1.0.6</h4><ul><li>SEO bridge: directory family and divorce head-term strikes live ahead of the theme pull.</li></ul><h4>1.0.5</h4><ul><li>Office logo field on lawyer profiles, rendered in the premium flag cards; GeoJSON bridge enrichment.</li></ul><h4>1.0.4</h4><ul><li>Map: premium flag markers for paid profiles, entity-decoded Hebrew names, localStorage data cache, lighter viewport.</li></ul><h4>1.0.3</h4><ul><li>Theme bridge: auto-loading RTL-correct light map, fixed lawyer cards, stock photos hidden.</li></ul><h4>1.0.2</h4><ul><li>LawyerScout: serve the public Mapbox token to the theme map.</li></ul><h4>1.0.1</h4><ul><li>Self-update channel proof: healthcheck marker added.</li></ul><h4>1.0.0</h4><ul><li>Channel established: healthcheck, core-native self-update, cache purge on upgrade.</li></ul>"
+    "changelog": "<h4>1.0.11</h4><ul><li>Homepage money-hubs band and directory H1 injected live ahead of the theme pull.</li></ul><h4>1.0.10</h4><ul><li>Money sweep batch 4: 14 more page titles, descriptions and H1s across criminal, drugs, real estate, malpractice, USA, Cyprus, Greece and business families.</li></ul><h4>1.0.9</h4><ul><li>Title override reaches the article header rendered outside the main loop.</li></ul><h4>1.0.8</h4><ul><li>Render hygiene runs after shortcodes so builder-generated H1s are demoted too.</li></ul><h4>1.0.7</h4><ul><li>Render hygiene: body H1s demoted to H2 on singular pages; dash cleanup on strike pages.</li></ul><h4>1.0.6</h4><ul><li>SEO bridge: directory family and divorce head-term strikes live ahead of the theme pull.</li></ul><h4>1.0.5</h4><ul><li>Office logo field on lawyer profiles, rendered in the premium flag cards; GeoJSON bridge enrichment.</li></ul><h4>1.0.4</h4><ul><li>Map: premium flag markers for paid profiles, entity-decoded Hebrew names, localStorage data cache, lighter viewport.</li></ul><h4>1.0.3</h4><ul><li>Theme bridge: auto-loading RTL-correct light map, fixed lawyer cards, stock photos hidden.</li></ul><h4>1.0.2</h4><ul><li>LawyerScout: serve the public Mapbox token to the theme map.</li></ul><h4>1.0.1</h4><ul><li>Self-update channel proof: healthcheck marker added.</li></ul><h4>1.0.0</h4><ul><li>Channel established: healthcheck, core-native self-update, cache purge on upgrade.</li></ul>"
   }
 }

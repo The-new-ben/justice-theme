@@ -138,7 +138,16 @@ Feed it the recon output as context. Use THIS structure every time:
 Then YOU verify every [VERIFY] against a real source before publishing,
 and replace or cut it. Never publish an unverified number.
 
-## 5. THE TARGET LIST (priority order, by addressable impressions)
+## 5. THE TARGET LIST
+
+THE ORDER OF BATTLE IS A SEPARATE FILE: read
+project-control/content-war-article-list-2026-07.md. It contains all 75
+articles (33 strengthen + 42 new) with head keyword, impressions,
+secondary keywords, pillar, unique angle and cannibalization notes.
+Execute it top to bottom inside each family. The family overview below
+is context only.
+
+## 5b. Family overview (context, superseded by the list file)
 
 Money families and their scale (GSC 2026-06 full-month + 2026-07 fresh).
 For each: STRENGTHEN the pillar first, then add the missing spokes. Do

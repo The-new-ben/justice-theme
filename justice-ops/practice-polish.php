@@ -124,8 +124,8 @@ function justice_ops_whatsapp_href(): string {
 	$url = ( is_ssl() ? 'https://' : 'http://' ) . ( $_SERVER['HTTP_HOST'] ?? 'jus-tice.co.il' ) . strtok( (string) ( $_SERVER['REQUEST_URI'] ?? '/' ), '?' );
 
 	$message = 'שלום, אני פונה מהעמוד: ' . mb_substr( wp_strip_all_tags( (string) $title ), 0, 80 )
-		. "\n" . $url
-		. "\n" . 'אשמח לשוחח עם עורך דין בנושא.';
+		. ' | ' . $url
+		. ' | ' . 'אשמח לשוחח עם עורך דין בנושא.';
 
 	if ( function_exists( 'justice_theme_public_whatsapp_url' ) ) {
 		return justice_theme_public_whatsapp_url( $message );

@@ -38,9 +38,23 @@ $justice_triage_url = justice_theme_safe_public_link( '/legal-tools/ai-intake/',
 
 <section class="jt2-hero" id="hero">
 	<div>
-		<span class="jt2-hero__badge"><?php esc_html_e( 'מאגר מידע משפטי + התאמת עורכי דין · ללא תשלום', 'justice-theme' ); ?></span>
-		<h1><?php esc_html_e( 'צריכים עזרה משפטית? התחילו ממה שקרה לכם עכשיו', 'justice-theme' ); ?></h1>
-		<p class="jt2-hero__lead"><?php esc_html_e( 'מכתב מהביטוח הלאומי, זימון לחקירה, סכסוך משפחתי, תאונה, פיטורים או חוזה שלא ברור לכם יכולים להרגיש כמו רגע שצריך להחליט מהר. Jus-Tice עוזר לעצור רגע, להבין את הבעיה ולדעת מה הצעד הבא. המידע באתר כללי ואינו ייעוץ משפטי אישי או הבטחה לתוצאה.', 'justice-theme' ); ?></p>
+		<span class="jt2-hero__badge"><?php esc_html_e( 'הפורטל המשפטי של ישראל · מדריכים והתאמת עורכי דין ללא תשלום', 'justice-theme' ); ?></span>
+		<h1><?php esc_html_e( 'עורכי דין ומידע משפטי בישראל: מציאת עורך דין לפי תחום ועיר', 'justice-theme' ); ?></h1>
+		<p class="jt2-hero__lead"><?php esc_html_e( 'מחפשים עורך דין גירושין ומשפחה, עורך דין פלילי, עורך דין רשלנות רפואית, עורך דין נזיקין, עורך דין מקרקעין ונדל"ן, עורך דין ירושה או עורך דין דיני עבודה? כאן תמצאו מדריכים משפטיים מעודכנים בעברית פשוטה, השוואת עורכי דין לפי תחום ועיר וכלים שעוזרים להבין את המצב לפני הפנייה. המידע באתר כללי ואינו ייעוץ משפטי אישי או הבטחה לתוצאה.', 'justice-theme' ); ?></p>
+
+		<nav class="jt2-hero__links jt2-hero__links--areas" style="gap:12px 18px;margin-top:18px" aria-label="<?php esc_attr_e( 'עורכי דין לפי תחום משפטי', 'justice-theme' ); ?>">
+			<a href="<?php echo esc_url( home_url( '/divorce-lawyer/' ) ); ?>"><?php esc_html_e( 'עורך דין גירושין ומשפחה', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/criminal-defense-attorney/' ) ); ?>"><?php esc_html_e( 'עורך דין פלילי', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/drug-related-crime/' ) ); ?>"><?php esc_html_e( 'עורך דין סמים', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/medical-malpractice-lawyer/' ) ); ?>"><?php esc_html_e( 'עורך דין רשלנות רפואית', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/personal-injury-law/' ) ); ?>"><?php esc_html_e( 'עורך דין נזיקין ותאונות', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/real-estate-attorney/' ) ); ?>"><?php esc_html_e( 'עורך דין מקרקעין ונדל"ן', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/inheritance-lawyer/' ) ); ?>"><?php esc_html_e( 'עורך דין ירושה וצוואות', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/labor-lawyer/' ) ); ?>"><?php esc_html_e( 'עורך דין דיני עבודה', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/traffic-lawyer/' ) ); ?>"><?php esc_html_e( 'עורך דין תעבורה', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/low-value-invest-abroad/' ) ); ?>"><?php esc_html_e( 'השקעות נדל"ן בחו"ל', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' ) ); ?>"><?php esc_html_e( 'כל עורכי הדין בישראל', 'justice-theme' ); ?></a>
+		</nav>
 
 		<form class="jt2-hero__search" role="search" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' ) ); ?>" id="hero-search-form">
 			<div class="jt2-hero__search-row">

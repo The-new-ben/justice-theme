@@ -33,7 +33,7 @@ $justice_area_icon = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none
 <section class="jt2-section" id="practice-areas">
 	<div class="jt2-section__inner">
 		<span class="jt2-eyebrow"><?php esc_html_e( 'חיפוש לפי תחום משפטי', 'justice-theme' ); ?></span>
-		<h2 class="jt2-h2" style="margin-bottom:28px"><?php esc_html_e( 'תחומי משפט מובילים', 'justice-theme' ); ?></h2>
+		<h2 class="jt2-h2" style="margin-bottom:28px"><?php esc_html_e( 'עורכי דין לפי תחום משפטי', 'justice-theme' ); ?></h2>
 
 		<div class="jt2-areas">
 			<?php

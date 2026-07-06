@@ -1044,7 +1044,7 @@ function justice_theme_contextual_seo_title(): string {
 	}
 
 	if ( is_front_page() ) {
-		return 'עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ';
+		return 'עורכי דין בישראל | עורך דין בכל תחום, מדריכים ומידע משפטי';
 	}
 
 	if ( is_post_type_archive( 'articles' ) || is_page( 'articles' ) ) {
@@ -1173,7 +1173,7 @@ function justice_theme_document_title( $title_parts ) {
 	}
 
 	if ( is_front_page() ) {
-		$title_parts['title'] = 'עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ';
+		$title_parts['title'] = 'עורכי דין בישראל | עורך דין בכל תחום, מדריכים ומידע משפטי';
 		$title_parts['tagline'] = '';
 	}
 

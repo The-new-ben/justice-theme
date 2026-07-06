@@ -101,7 +101,7 @@ function justice_enc_word_count( string $html ): int {
 function justice_enc_teller_hits( string $html ): array {
 	$hits = array();
 
-	foreach ( array( 'חשוב לציין', 'בעידן', 'מעבר לכך', 'לסיכום', 'ראוי לציין', 'יש לזכור' ) as $phrase ) {
+	foreach ( array( 'חשוב לציין', 'בעידן', 'מעבר לכך', 'לסיכום', 'ראוי לציין', 'יש לזכור', 'חשוב להבין', 'חשוב לדעת', 'בשורה התחתונה', 'אין ספק', 'יתרה מכך', 'יתרה מזאת', 'זאת ועוד' ) as $phrase ) {
 		if ( false !== mb_strpos( $html, $phrase ) ) {
 			$hits[] = $phrase;
 		}
@@ -462,8 +462,33 @@ function justice_enc_call_openai( array $messages ): string {
 function justice_enc_clean( string $html, string $title ): string {
 	$html = preg_replace( '/^```(html)?\s*/i', '', trim( $html ) );
 	$html = preg_replace( '/\s*```$/', '', $html );
+
+	// Markdown that models leak despite instructions, converted deterministically.
+	$html = preg_replace( '/\*\*([^*]+)\*\*/u', '<strong>$1</strong>', $html );
+	$html = str_replace( array( '**', '__' ), '', $html );
+	$html = preg_replace( '/^####\s*(.+)$/mu', '<h3>$1</h3>', $html );
+	$html = preg_replace( '/^###\s*(.+)$/mu', '<h3>$1</h3>', $html );
+	$html = preg_replace( '/^##\s*(.+)$/mu', '<h2>$1</h2>', $html );
+
+	// Markdown bullet lines (hyphen, en dash or bullet) become real lists.
+	$html = preg_replace_callback( '/(?:^[ \t]*[-\x{2013}\x{2022}][ \t]+.+(?:\R|$))+/mu', function ( $m ) {
+		$items = preg_split( '/\R/u', trim( $m[0] ) );
+		$out   = '<ul>';
+		foreach ( $items as $line ) {
+			$line = preg_replace( '/^[ \t]*[-\x{2013}\x{2022}][ \t]+/u', '', $line );
+			if ( '' !== trim( $line ) ) {
+				$out .= '<li>' . trim( $line ) . '</li>';
+			}
+		}
+		return $out . '</ul>';
+	}, $html );
+
 	$html = str_replace( array( "\xE2\x80\x93", "\xE2\x80\x94" ), '-', $html );
+	// A spaced hyphen mid-sentence gets re-texturized into an en dash on render.
+	$html = str_replace( ' - ', ', ', $html );
 	$html = preg_replace( '/^\s*<h[23][^>]*>\s*' . preg_quote( $title, '/' ) . '\s*<\/h[23]>/u', '', $html );
+	// FAQ questions that arrive as bold paragraphs become h3.
+	$html = preg_replace( '/<p>\s*<strong>([^<]*\?)\s*<\/strong>\s*<\/p>/u', '<h3>$1</h3>', $html );
 
 	return wp_kses_post( $html );
 }
@@ -807,7 +832,13 @@ add_action( 'rest_api_init', function () {
 		'permission_callback' => function () {
 			return current_user_can( 'manage_options' );
 		},
-		'callback'            => function () {
+		'callback'            => function ( WP_REST_Request $request ) {
+			$pid = (int) $request->get_param( 'pid' );
+
+			if ( $pid ) {
+				return rest_ensure_response( array( 'pid' => $pid, 'ok' => justice_art_write_one( $pid, true ) ) );
+			}
+
 			return rest_ensure_response( justice_art_writer_tick( true ) );
 		},
 	) );
@@ -909,7 +940,7 @@ function justice_art_system_prompt(): string {
 	return 'אתה כותב תוכן משפטי בכיר של jus-tice.co.il, כותב מאמר עומק מקצועי בעברית לקהל של לקוחות פוטנציאליים. חוקים קשיחים: אפס עובדות מומצאות, נתון לא ודאי מושמט לחלוטין, לעולם אל תכתוב סימון כמו VERIFY; חוקים מצוטטים בשמם הרשמי ובשנתם בלבד; אין להמציא פסקי דין או מספרי תיקים; אין קו מפריד ארוך מכל סוג, רק מקף רגיל; אין להשתמש בביטויים: חשוב לציין, בעידן, מעבר לכך, לסיכום, ראוי לציין, יש לזכור; אין סופרלטיבים ואין הבטחות תוצאה; אין פנייה בגוף שני רבים מוגזמת ואין שיווק ריק; HTML נקי בלבד: p, h2, h3, ul, li, table, tr, th, td, וקישורי a אך ורק לכתובות שסופקו לך; בלי h1 ובלי חזרה על הכותרת. פתח בפסקה שעונה ישירות לשאלת החיפוש ומכילה את מילת המפתח במשפט הראשון. עקוב אחרי שלד הכותרות שסופק ונסח אותן טבעי. שלב את הקישורים שסופקו בתוך הטקסט במקומות רלוונטיים, עם טקסט העוגן שניתן. כלול טבלה אחת לפחות היכן שמתאים ושאלות נפוצות של 4 עד 6 שאלות אמיתיות עם תשובות קצרות לקראת הסוף בכותרות h3. סיים במשפט ענייני, לא בסיכום שיווקי ולא בפסקת הסתייגות. אורך חובה: 1500 עד 2200 מילים.';
 }
 
-function justice_art_write_one( int $pid ): bool {
+function justice_art_write_one( int $pid, bool $preserve_status = false ): bool {
 	$brief = json_decode( (string) get_post_meta( $pid, 'spoke_brief', true ), true );
 
 	if ( ! is_array( $brief ) ) {
@@ -955,7 +986,7 @@ function justice_art_write_one( int $pid ): bool {
 		}
 
 		$wants_table = (bool) preg_match( '/עלו|מדרג|טבל|השווא|כמה|שלב/u', $section );
-		$ask = 'כתוב אך ורק את גוף הסעיף שכותרתו: "' . $section . '". 160 עד 260 מילים, פסקאות p ורשימות ul בלבד, בלי לכתוב את הכותרת עצמה ובלי h2.';
+		$ask = 'כתוב אך ורק את גוף הסעיף שכותרתו: "' . $section . '". 160 עד 260 מילים. פורמט מחייב: אך ורק תגיות HTML של p, ul, li, strong. אסור Markdown מכל סוג: בלי כוכביות, בלי מקפים בתחילת שורה, בלי סולמיות. בלי לכתוב את הכותרת עצמה ובלי h2.';
 		if ( $wants_table ) {
 			$ask .= ' אם מתאים, כלול טבלת HTML קצרה (table, tr, th, td).';
 		}
@@ -970,7 +1001,7 @@ function justice_art_write_one( int $pid ): bool {
 	$faq = justice_enc_clean( justice_art_call_openai( array(
 		$system,
 		$umsg,
-		array( 'role' => 'user', 'content' => 'כתוב אך ורק את בלוק השאלות הנפוצות: 5 שאלות אמיתיות שאנשים שואלים על הנושא, כל שאלה בכותרת h3 ותשובה של 40 עד 70 מילים בפסקת p, ובסוף משפט סיום ענייני אחד. בלי כותרת ראשית לבלוק.' ),
+		array( 'role' => 'user', 'content' => 'כתוב אך ורק את בלוק השאלות הנפוצות: 5 שאלות אמיתיות שאנשים שואלים על הנושא. פורמט מחייב לכל שאלה: <h3>השאלה</h3> ואז <p>תשובה של 40 עד 70 מילים</p>. אסור Markdown, אסור כוכביות, אסור מקפים בתחילת שורה. בסוף משפט סיום ענייני אחד בפסקת p.' ),
 	) ), get_the_title( $pid ) );
 
 	if ( '' !== trim( wp_strip_all_tags( $faq ) ) ) {
@@ -1014,6 +1045,10 @@ function justice_art_write_one( int $pid ): bool {
 		return justice_enc_fail( $pid, 'style:' . implode( ',', $tellers ), $words, 1300 );
 	}
 
+	if ( false !== strpos( $draft, '**' ) || preg_match( '/^[ \t]*-[ \t]/mu', $draft ) ) {
+		return justice_enc_fail( $pid, 'markdown-residue', $words, 1300 );
+	}
+
 	$missing = '';
 	if ( ! empty( $brief['pillar_url'] ) && false === strpos( $draft, $brief['pillar_url'] ) ) {
 		$missing .= '<li><a href="' . esc_url( $brief['pillar_url'] ) . '">' . esc_html( $brief['pillar_anchor'] ) . '</a></li>';
@@ -1027,15 +1062,22 @@ function justice_art_write_one( int $pid ): bool {
 		$draft .= '<h2>מדריכים קשורים</h2><ul>' . $missing . '</ul>';
 	}
 
-	$slot    = justice_art_next_slot();
-	$updated = wp_update_post( array(
-		'ID'            => $pid,
-		'post_content'  => $draft,
-		'post_status'   => 'future',
-		'post_date'     => wp_date( 'Y-m-d H:i:s', $slot ),
-		'post_date_gmt' => gmdate( 'Y-m-d H:i:s', $slot ),
-		'edit_date'     => true,
-	), true );
+	if ( $preserve_status ) {
+		$updated = wp_update_post( array(
+			'ID'           => $pid,
+			'post_content' => $draft,
+		), true );
+	} else {
+		$slot    = justice_art_next_slot();
+		$updated = wp_update_post( array(
+			'ID'            => $pid,
+			'post_content'  => $draft,
+			'post_status'   => 'future',
+			'post_date'     => wp_date( 'Y-m-d H:i:s', $slot ),
+			'post_date_gmt' => gmdate( 'Y-m-d H:i:s', $slot ),
+			'edit_date'     => true,
+		), true );
+	}
 
 	if ( is_wp_error( $updated ) ) {
 		return justice_enc_fail( $pid, 'wp:' . $updated->get_error_code(), $words, 1300 );

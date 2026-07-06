@@ -284,13 +284,25 @@ add_action( 'init', function () {
  * run on exit.
  */
 add_action( 'template_redirect', function () {
-	if ( ! is_page() || ! function_exists( 'justice_theme_is_practice_landing_page' ) ) {
+	if ( is_admin() || ! function_exists( 'justice_theme_get_practice_landing_config' ) ) {
 		return;
 	}
 
-	$page = get_post();
+	// Key off the URL path, not query state: on controlled practice routes
+	// the main query is force-retyped and the global post is not the page.
+	$slug = strtolower( trim( (string) wp_parse_url( (string) ( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH ), '/' ) );
 
-	if ( ! $page instanceof WP_Post || ! justice_theme_is_practice_landing_page( $page ) ) {
+	if ( '' === $slug || false !== strpos( $slug, '/' ) ) {
+		return;
+	}
+
+	if ( null === justice_theme_get_practice_landing_config( $slug ) ) {
+		return;
+	}
+
+	$page = get_page_by_path( $slug, OBJECT, 'page' );
+
+	if ( ! $page instanceof WP_Post || 'publish' !== $page->post_status ) {
 		return;
 	}
 

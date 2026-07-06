@@ -416,3 +416,28 @@ aggregate carries every rule block including the mobile media query;
 criminal article, nezikin encyclopedia entry and news brief stay
 card-free and byte-identical; healthcheck 1.7.0. Design preview
 artifact published for the owner with desktop + mobile frames.
+
+## 2026-07-06 late night: MINI-SITE POLISH + legacy repair (ops 1.7.1-1.7.2)
+
+The card funnel's landing page brought to advertiser grade:
+- Profile hero: the wide 840x270 banner strip replaced by the real
+  portrait (card_photo_id) via post_thumbnail_html, scoped to the
+  queried profile only; listing cards and portrait-less profiles
+  (initials block) untouched, verified on public-basic-hila-weintraub.
+- Social share image: og:image and twitter:image for lawyer profiles
+  were the SITE LOGO; now the portrait via the Yoast filters. A
+  WhatsApp share of a paid mini-site shows the person.
+- Floating WhatsApp bar on profiles now names the lawyer: "שלום, אני
+  פונה מהפרופיל של עו"ד מאיה רוטנברג | URL | אשמח לשוחח עם...".
+- /contact-us/ 404 fixed: 301 to the live /contact/ page. Lesson: the
+  redirect could NOT hang on is_404() at template_redirect (the theme
+  routing guard rewrites the 404 state first); raw REQUEST_URI match
+  at init works. Verified 301 with and without cache bypass.
+
+Machines checked mid-run: encyclopedia 6 generated today (205
+skeletons queued, one floor-fail retrying), news sources scanned 01:04
+(calcalist simplepie-error known), brief published 22:50.
+
+Ops lesson recorded: $RANDOM cache busters collide (healthcheck served
+a stale edge copy while runtime was already current); use date +%s%N.
+Runtime-vs-disk version probes settle what the healthcheck cannot.

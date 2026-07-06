@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 1.0.9
+ * Version: 1.0.10
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '1.0.9' );
+	define( 'JUSTICE_OPS_VERSION', '1.0.10' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -168,7 +168,7 @@ add_action( 'wp_enqueue_scripts', function () {
  * singular H1 and intro paragraphs can.
  */
 function justice_ops_seo_bridge_active(): bool {
-	return ! defined( 'JUSTICE_THEME_VERSION' ) || version_compare( JUSTICE_THEME_VERSION, '2.21.2', '<' );
+	return ! defined( 'JUSTICE_THEME_VERSION' ) || version_compare( JUSTICE_THEME_VERSION, '2.22.0', '<' );
 }
 
 function justice_ops_seo_overrides(): array {
@@ -189,6 +189,76 @@ function justice_ops_seo_overrides(): array {
 			'seo_title'   => 'זכויות בהליך גירושין וייצוג משפטי: המדריך המלא | Jus-Tice',
 			'title'       => 'זכויות בהליך גירושין וייצוג משפטי: המדריך המלא',
 			'description' => 'המדריך לזכויות בהליך גירושין: מזונות, משמורת, חלוקת רכוש וכתובה, איך מתנהל ההליך בבית המשפט לענייני משפחה ובבית הדין הרבני, ומתי נדרש ייצוג.',
+		),
+		'types-of-lawyers-small-business' => array(
+			'title'       => 'עורך דין עסקי לעסקים קטנים: מתי צריך ומה בודקים',
+			'seo_title'   => 'עורך דין עסקי ולעסקים קטנים: מתי צריך ומה בודקים | Jus-Tice',
+			'description' => 'עורך דין עסקי לעסק קטן: הקמה, חוזים עסקיים, שותפויות, עובדים וגבייה. מתי חובה ליווי משפטי, מה בודקים לפני בחירה וכמה זה עולה בפועל.',
+		),
+		'usa-lawyers' => array(
+			'title'       => 'עורך דין בארצות הברית לישראלים: איתור וייצוג',
+			'seo_title'   => 'עורך דין בארצות הברית לישראלים: איתור וייצוג | Jus-Tice',
+			'description' => 'עורך דין בארצות הברית: איתור ייצוג לישראלים לפי מדינה ותחום, נדל"ן, הגירה, עסקים וירושה בארה"ב, ומה בודקים לפני שסוגרים ייצוג מעבר לים.',
+		),
+		'choose-usa-attorney' => array(
+			'title'       => 'איך בוחרים עורך דין בארה"ב: רישוי, שכר טרחה ובדיקות',
+			'seo_title'   => 'איך בוחרים עורך דין בארה"ב: רישוי ושכר טרחה | Jus-Tice',
+			'description' => 'בחירת עורך דין בארה"ב: בדיקת רישוי לפי מדינה, שכר טרחה מקובל, ניסיון בתחום הנדרש ושאלות חובה לפני חתימה, מדריך מעשי לישראלים.',
+		),
+		'buy-real-estate-cyprus' => array(
+			'title'       => 'קניית דירה בקפריסין: מחירים, מיסים וליווי משפטי',
+			'seo_title'   => 'קניית דירה בקפריסין: מחירים, מיסים וליווי משפטי | Jus-Tice',
+			'description' => 'קניית דירה בקפריסין לישראלים: מחירים לפי אזור, מס רכישה, בדיקות בעלות, שלבי העסקה ומתי חובה עורך דין מקומי. מדריך מעשי לפני השקעה.',
+		),
+		'about-cyprus' => array(
+			'title'       => 'עורך דין בקפריסין לישראלים: נדל"ן, חברות ומיסוי',
+			'seo_title'   => 'עורך דין קפריסין: ליווי ישראלים בנדל"ן ומיסוי | Jus-Tice',
+			'description' => 'עורך דין בקפריסין לישראלים: ליווי בקניית נכס, פתיחת חברה, מיסוי והליכים מקומיים. מה ההבדל בין עורך דין ישראלי למקומי ומתי צריך את שניהם.',
+		),
+		'greece-price-list' => array(
+			'title'       => 'מחירי נדל"ן ביוון לפי אזורים: טבלת מחירים מעודכנת',
+			'seo_title'   => 'מחירי נדל"ן ביוון לפי אזורים: טבלה מעודכנת | Jus-Tice',
+			'description' => 'מחירי נדל"ן ביוון: טבלת מחירים לפי אזור, אתונה, סלוניקי והאיים, עלויות נלוות, מיסים ושכר טרחה משפטי. נתונים מעודכנים לישראלים לפני קנייה.',
+		),
+		'investing-in-greece-real-estate' => array(
+			'title'       => 'השקעות נדל"ן ביוון: תשואות, אזורים וסיכונים',
+			'seo_title'   => 'השקעות נדל"ן ביוון: תשואות, אזורים וסיכונים | Jus-Tice',
+			'description' => 'השקעות נדל"ן ביוון לישראלים: תשואות לפי אזור, מס רכישה ומס שבח מקומי, מלכודות נפוצות בעסקאות, ומה בודק עורך דין לפני חתימה על נכס ביוון.',
+		),
+		'drug-trafficking' => array(
+			'title'       => 'עורך דין סחר בסמים: עונשים, הגנות וייצוג בהליך',
+			'seo_title'   => 'עורך דין סחר בסמים: עונשים, הגנות וייצוג | Jus-Tice',
+			'description' => 'עורך דין סחר בסמים: מתח הענישה בחוק, ההבדל בין החזקה לסחר, הגנות אפשריות, שחרור ממעצר ומה קריטי לעשות מיד אחרי חקירה או מעצר.',
+		),
+		'famous-criminal-defense-lawyer' => array(
+			'title'       => 'עורכי דין פליליים מפורסמים בישראל: התיקים הגדולים',
+			'seo_title'   => 'עורכי דין פליליים מפורסמים בישראל: התיקים | Jus-Tice',
+			'description' => 'עורכי הדין הפליליים המפורסמים בישראל והתיקים שעשו להם שם: פרשות מרכזיות, דרכי הגנה שנכנסו לפסיקה ומה אפשר ללמוד מהם על בחירת ייצוג.',
+		),
+		'medical-malpractice-lawyer' => array(
+			'title'       => 'עורך דין רשלנות רפואית: בדיקת תיק, הוכחות ופיצויים',
+			'seo_title'   => 'עורך דין רשלנות רפואית: בדיקת תיק ופיצויים | Jus-Tice',
+			'description' => 'עורך דין רשלנות רפואית: מתי יש עילה לתביעה, איך מוכיחים התרשלות וקשר סיבתי, לידה, ניתוח והרדמה, שכר טרחה באחוזים ומה עושים קודם.',
+		),
+		'anesthesia-medical-malpractice' => array(
+			'title'       => 'רשלנות רפואית בהרדמה: מקרים, אחריות ופיצויים',
+			'seo_title'   => 'רשלנות רפואית בהרדמה: מקרים, אחריות ופיצויים | Jus-Tice',
+			'description' => 'רשלנות רפואית בהרדמה: מקרים מוכרים בפסיקה, חובות הרופא המרדים, איך מוכיחים התרשלות ומה גובה הפיצויים, ומתי כדאי לבדוק תיק עם עורך דין.',
+		),
+		'low-value-invest-abroad' => array(
+			'title'       => 'דירות להשקעה בחו"ל: איפה כדאי לקנות ובאיזה תקציב',
+			'seo_title'   => 'דירות להשקעה בחו"ל: איפה כדאי ובאיזה תקציב | Jus-Tice',
+			'description' => 'דירות להשקעה בחו"ל בתקציב נמוך: יוון, קפריסין ומזרח אירופה, תשואות, מיסים, סיכונים משפטיים ומה חובה לבדוק עם עורך דין לפני העברת כסף.',
+		),
+		'real-estate-lawyer-guide' => array(
+			'title'       => 'ליווי משפטי בעסקת נדל"ן: שלבים, רישום ומיסוי',
+			'seo_title'   => 'ליווי משפטי בעסקת נדל"ן: שלבים, רישום ומיסוי | Jus-Tice',
+			'description' => 'ליווי משפטי בעסקת נדל"ן משלב ההצעה עד רישום הזכויות: בדיקות מקדימות, חוזה מכר, מיסוי מקרקעין, טאבו ומה עורך הדין בודק בכל שלב.',
+		),
+		'about-usa' => array(
+			'title'       => 'ארצות הברית: מדינות, אוכלוסייה, אשרות ומשפט לישראלים',
+			'seo_title'   => 'ארצות הברית: מדינות, אשרות ומשפט לישראלים | Jus-Tice',
+			'description' => 'מדריך ארצות הברית לישראלים: כמה מדינות ותושבים, אשרות כניסה ועבודה, מערכת המשפט האמריקאית ומתי צריך עורך דין מקומי לפי מדינה.',
 		),
 		'how-to-find-qualified-lawyer-israel-guide' => array(
 			'seo_title'   => 'איך לבחור עורך דין: בדיקות חובה לפני שסוגרים | Jus-Tice',

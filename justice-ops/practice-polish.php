@@ -270,3 +270,48 @@ add_action( 'init', function () {
 		exit;
 	}
 } );
+
+/**
+ * Bridge until the next theme pull: the repo's practice-landing template
+ * renders the page's own post_content inside the pillar body
+ * (practice-landing__pillar-content); the live theme predates that slot, so
+ * practice landing pages with a written body rendered none of it. Inject the
+ * body as the last child of the content column. Self-retires the moment the
+ * theme output carries the slot natively.
+ */
+add_action( 'template_redirect', function () {
+	if ( ! is_page() || ! function_exists( 'justice_theme_is_practice_landing_page' ) ) {
+		return;
+	}
+
+	$page = get_post();
+
+	if ( ! $page instanceof WP_Post || ! justice_theme_is_practice_landing_page( $page ) ) {
+		return;
+	}
+
+	if ( '' === trim( wp_strip_all_tags( (string) $page->post_content ) ) ) {
+		return;
+	}
+
+	$body = apply_filters( 'the_content', $page->post_content );
+
+	ob_start( function ( $html ) use ( $body ) {
+		if ( false !== strpos( $html, 'practice-landing__pillar-content' ) ) {
+			return $html;
+		}
+
+		if ( false === strpos( $html, 'legal-pillar-content' ) ) {
+			return $html;
+		}
+
+		$replaced = preg_replace(
+			'/(<\/div>\s*<aside class="legal-pillar-sidebar)/u',
+			'<div class="practice-landing__pillar-content">' . $body . '</div>$1',
+			$html,
+			1
+		);
+
+		return is_string( $replaced ) ? $replaced : $html;
+	} );
+}, 4 );

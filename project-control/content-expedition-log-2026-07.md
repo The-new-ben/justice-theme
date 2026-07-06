@@ -220,3 +220,31 @@ violence defense, assault, buying from contractor, threats,
 inheritance disputes, company formation) writing at 1/day, publishing
 10:07 daily. Cost: ~$0.10-0.15/article with gpt-4o, ~$6/month total
 both lanes. Polish item: FAQ renders as paragraphs, force h3 next rev.
+
+## 2026-07-07 (owner QA round): article quality hardened (justice-ops 1.3.5-1.3.6)
+
+Owner spotted on the live arrest article: literal **asterisks**, markdown
+bullets re-texturized into en dashes, weak design, and suspected
+detention cannibalization. All confirmed and fixed:
+- Cleaner now converts markdown to HTML deterministically (bold, lists,
+  headers), strips wptexturize dash-bait, upgrades bold FAQ questions
+  to h3; markdown residue is a validation FAILURE.
+- AI-teller list widened (+7 phrases) AND connector tellers scrubbed
+  deterministically before validation (the gate had rejected a good
+  1,766-word draft over one מעבר לכך).
+- Articles model upgraded to gpt-4.1 (tested live, better instruction
+  following).
+- CANNIBALIZATION (owner was right): /detention-days/ owns מעצר ימים,
+  /detention-before-charge-or-trial/ owns מעצר עד תום ההליכים,
+  /arrest-rights/ owns the rights guide. The arrest article's mesh was
+  rewired to LINK all three as siblings instead of competing. Two queued
+  briefs KILLED as intent collisions with existing 2026 guides:
+  pre-indictment-hearing-lawyer (vs /pre-indictment-hearing/) and
+  domestic-violence-defense-lawyer (vs /domestic-violence/). Remaining
+  five briefs verified clear.
+- Article 21296 REGENERATED IN PLACE and live-verified: 1,922 words,
+  0 asterisks, 0 markdown bullets, 0 dashes in body, 7 ul lists, 2
+  tables, 12 H2, 5 FAQ h3, 0 AI-tellers, links to pillar + all three
+  detention siblings.
+- Bonus: published superlative title fixed on
+  /experienced-family-law-attorney/ (תותח removed).

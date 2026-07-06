@@ -32,7 +32,18 @@ about results.
   justice-ai-mu.php (repo copy: upress-upload/justice-ai-mu.php has a
   placeholder). Endpoint /wp-json/justice/v1/generate is LIVE and
   verified working. Guards: 30 req/day site, 3/day per IP, $1.50/day.
-- GSC OAuth: tools/gsc/ scripts; gsc-oauth-client.json + gsc-token.json
+- GSC LIVE AGENT-SIDE since 2026-07-06: service account
+  gsc-reader@jus-tice-theme.iam.gserviceaccount.com added as user on
+  the https://jus-tice.co.il/ property. Env (new sessions):
+  GSC_SERVICE_ACCOUNT_JSON + GSC_SITE_URL + preflight script write
+  /tmp/gsc-service-account.json. Token minting WITHOUT gcloud or
+  python-cryptography (both broken here): sign the JWT with raw
+  openssl dgst -sha256 -sign (see session 2026-07-06). The OAuth
+  refresh token is DEAD (400 invalid_grant), use the SA only. Fresh
+  export: reports/gsc-live-2026-07-06/ (daily.csv 180 days,
+  queries/pages 28d, strike-baseline.csv for measuring the July
+  strikes). ALWAYS git add -f reports/ (gitignored).
+- Legacy GSC OAuth: tools/gsc/ scripts; gsc-oauth-client.json + gsc-token.json
   are gitignored, exist only on the owner's machine; ask owner to run
   the exporters (run-*.ps1) if fresh data needed. Last full pull:
   tools/gsc/reports/gsc-live-2026-06-09/ (pages.csv 2561 rows,

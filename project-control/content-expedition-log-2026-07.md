@@ -89,3 +89,26 @@ inc/url-redirects.php updated to match.
 - Verified clean: zero exact duplicate titles (1,486 objects), sitemap
   hygiene, 404-blanket plugin inactive, /articles/ prefix layer
   self-healing via correct 301s+canonicals.
+
+## 2026-07-06 (evening): Phase 1 title de-cannibalization EXECUTED (repo session)
+
+Cowork hit a browser wall on the heavy editors; routed to REST per its
+own recommendation. Two temp-route one-shots (created, fired, deleted,
+404-confirmed): #1 set _yoast_wpseo_title + _yoast_wpseo_focuskw on all
+12 targets; #2 set the theme's own seo_title meta on the 4 page-type
+targets after discovering the render chain. All 12 LIVE-VERIFIED:
+
+- Spec titles now rendering: lawyer-near-me-criminal-law,
+  best-criminal-defence-lawyers-worldwide (superlative REMOVED),
+  consensual-divorce, divorce-lawyer-cost, lawyer-fees-guide,
+  women-lawyer-vs-men-divorce-lawyer, immigration-to-portugal,
+  birth-injury (double collision resolved), posta.
+- Kept as intent-correct theme-map titles (already aligned):
+  real-estate-lawyer-cost-2025, online-rent-agreement,
+  types-of-lawyers-small-business.
+- Old values captured in one-shot responses for revert.
+
+TITLE RENDER CHAIN (for future sessions): pages read the theme meta
+seo_title first; articles read the theme money/year maps first, then
+Yoast meta; Yoast indexables cache needs a touch-save after direct
+meta writes. Yoast meta alone does NOT move page-type titles here.

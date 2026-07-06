@@ -150,3 +150,21 @@ shipped through the plugin self-update channel, no theme pull needed.
   250 floor, 0 dashes, 0 AI-tellers, 0 h1/fences, 5 H2 sections, opens
   with a definition, scheduled future on the drip, provenance stamped.
 - Caps: 15 generated/day, 12 published/day across 09:00-19:00.
+
+## 2026-07-06 (night): encyclopedia ontology batch 1 INGESTED, machine autonomous
+
+Research-driven ontology (competitor lexicon superset + own GSC
+definitional gaps): 151 entries authored across criminal (largest),
+family, civil procedure and evidence, torts, property and inheritance,
+labor, contracts, roles and legal system. 20 cornerstones (800-1300w),
+109 standard, 22 niche. Every entry statute-anchored in enc_sources;
+money-page head intents deliberately excluded.
+
+Live results: 148 skeletons created, 3 REFUSED by the site-wide
+anti-cannibalization guard (working as designed). Writer proven across
+tiers: p3 entries at 272-300 words, p1 cornerstones חוק העונשין (790w)
+and תקדים מחייב (824w), zero failures. The hourly cron already ran
+unattended and wrote entries on its own. Drip queue verified at
+50-minute intervals inside the 09:00-19:00 window, 12/day. At 15
+generated/day the 148-entry queue writes itself in ~10 days for $1-3
+total. Supervision: GET /wp-json/justice-ops/v1/enc-writer-status.

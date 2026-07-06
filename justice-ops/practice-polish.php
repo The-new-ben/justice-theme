@@ -254,10 +254,12 @@ add_filter( 'wpseo_twitter_image', 'justice_ops_lawyer_social_image' );
 // ---------------------------------------------------------------------------
 
 /**
- * /contact-us/ 404s while the real page lives at /contact/.
+ * /contact-us/ 404s while the real page lives at /contact/. Raw path match
+ * at init: the theme routing guard rewrites 404 query state before
+ * template_redirect, so the fix cannot depend on is_404().
  */
-add_action( 'template_redirect', function () {
-	if ( ! is_404() ) {
+add_action( 'init', function () {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
 		return;
 	}
 
@@ -267,4 +269,4 @@ add_action( 'template_redirect', function () {
 		wp_safe_redirect( home_url( '/contact/' ), 301 );
 		exit;
 	}
-}, 1 );
+} );

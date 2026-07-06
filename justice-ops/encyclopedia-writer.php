@@ -932,10 +932,27 @@ function justice_art_write_one( int $pid ): bool {
 		. ' | כיווני מקורות: ' . ( $brief['sources'] ?? '' )
 		. ' | אורך חובה: לפחות 1500 מילים.';
 
-	$system = array( 'role' => 'system', 'content' => justice_art_system_prompt() );
-	$umsg   = array( 'role' => 'user', 'content' => $user );
+	$system  = array( 'role' => 'system', 'content' => justice_art_system_prompt() );
+	$umsg    = array( 'role' => 'user', 'content' => $user );
+	$outline = (array) ( $brief['outline'] ?? array() );
+	$half    = (int) ceil( count( $outline ) / 2 );
+	$part_a  = array_slice( $outline, 0, $half );
+	$part_b  = array_slice( $outline, $half );
 
-	$draft = justice_enc_clean( justice_art_call_openai( array( $system, $umsg ) ), get_the_title( $pid ) );
+	$draft_a = justice_enc_clean( justice_art_call_openai( array(
+		$system,
+		$umsg,
+		array( 'role' => 'user', 'content' => 'כתוב כעת את חלק 1 של המאמר בלבד: פסקת פתיחה שעונה ישירות לשאלה ומכילה את מילת המפתח במשפט הראשון, ואחריה סעיפי ה-H2 הבאים במלואם: ' . implode( ' ; ', $part_a ) . '. היקף חלק זה: 800 עד 1100 מילים. אל תכתוב שאלות נפוצות עדיין ואל תסכם.' ),
+	) ), get_the_title( $pid ) );
+
+	$draft_b = justice_enc_clean( justice_art_call_openai( array(
+		$system,
+		$umsg,
+		array( 'role' => 'assistant', 'content' => $draft_a ),
+		array( 'role' => 'user', 'content' => 'כתוב כעת את חלק 2, ההמשך הישיר של חלק 1 שכתבת: סעיפי ה-H2 הנותרים במלואם: ' . implode( ' ; ', $part_b ) . ', ואז שאלות נפוצות של 4 עד 6 שאלות אמיתיות בכותרות h3 עם תשובות קצרות, ומשפט סיום ענייני. אל תחזור על תוכן מחלק 1. היקף חלק זה: 700 עד 1000 מילים. החזר רק את ההמשך.' ),
+	) ), get_the_title( $pid ) );
+
+	$draft = $draft_a . "\n" . $draft_b;
 	$words = justice_enc_word_count( $draft );
 
 	if ( 0 === $words ) {

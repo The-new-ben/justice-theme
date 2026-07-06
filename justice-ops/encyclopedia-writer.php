@@ -483,6 +483,11 @@ function justice_enc_clean( string $html, string $title ): string {
 		return $out . '</ul>';
 	}, $html );
 
+	// Connector-type AI tellers scrub cleanly at sentence start; validation
+	// still backstops anything left.
+	$html = preg_replace( '/(חשוב לציין|ראוי לציין|יש לזכור|חשוב להבין|חשוב לדעת|אין ספק)\s*(כי|ש)?\s*[,:]?\s*/u', '', $html );
+	$html = preg_replace( '/(מעבר לכך|יתרה מכך|יתרה מזאת|זאת ועוד|בשורה התחתונה|לסיכום)\s*[,:]?\s*/u', '', $html );
+
 	$html = str_replace( array( "\xE2\x80\x93", "\xE2\x80\x94" ), '-', $html );
 	// A spaced hyphen mid-sentence gets re-texturized into an en dash on render.
 	$html = str_replace( ' - ', ', ', $html );

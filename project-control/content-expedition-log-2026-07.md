@@ -130,3 +130,23 @@ reversibly as draft {slug}-merged-src-2026):
   had zero GSC impressions); 301 rule 1600. Replaces entry 51.
 
 Cowork is now on Phase 3 only: gap articles per the round-2 order.
+
+## 2026-07-06 (night): self-writing legal encyclopedia LIVE (justice-ops 1.1.0)
+
+Owner supplied the production-proven nad-lan spec; ported to legal and
+shipped through the plugin self-update channel, no theme pull needed.
+- justice_term CPT at /encyclopedia/ (archive 200), taxonomy, tier
+  meta. Intake endpoint with site-wide exact-title anti-cannibalization.
+- Hourly writer: gpt-4o-mini via the existing JUSTICE_OPENAI_KEY
+  mu-plugin constant, tier floors in code, expand pass, 10% tolerance,
+  AI-teller phrases and em/en dashes are validation FAILURES, citation
+  law in the system prompt (case refs only from input), fail parking
+  at 5, drip scheduler with edit_date, telemetry.
+- Endpoints: glossary-intake, enc-writer-status (public), enc-writer-run
+  (admin), keys (fallback; constant wins). Decorations: EN chip,
+  disclaimer footer, DefinedTerm/Legislation JSON-LD.
+- ACCEPTANCE PASSED live: 3-entry smoke batch ingested (3 drafted, 0
+  collisions); forced run wrote entry 21070 (אשם תורם): 272 words vs
+  250 floor, 0 dashes, 0 AI-tellers, 0 h1/fences, 5 H2 sections, opens
+  with a definition, scheduled future on the drip, provenance stamped.
+- Caps: 15 generated/day, 12 published/day across 09:00-19:00.

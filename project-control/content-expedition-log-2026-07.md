@@ -112,3 +112,21 @@ TITLE RENDER CHAIN (for future sessions): pages read the theme meta
 seo_title first; articles read the theme money/year maps first, then
 Yoast meta; Yoast indexables cache needs a touch-save after direct
 meta writes. Yoast meta alone does NOT move page-type titles here.
+
+## 2026-07-06 (evening): Phase 2 merges EXECUTED (repo session, owner approved)
+
+All three intent merges done via REST, live-verified (keeper renders
+one H1 + absorbed section; loser 301s to keeper; old content hidden
+reversibly as draft {slug}-merged-src-2026):
+- most-recommended-family-lawyer (13152) merged INTO
+  the-recommended-family-lawyers (12897); 301 rule 1598. The מומלץ
+  family intent has ONE page now.
+- medical-malpractice-lawyer-birth-representation (11952) merged INTO
+  medical-malpractice-lawyer-birth-recommended (11834); 301 rule 1599;
+  inbound rule 912 retargeted to the keeper (no chain). Replaces
+  expedition entry 29.
+- employment-sexual-harassment (20462, 2.8K) merged INTO
+  sexual-harassment-work (20293, 7.3K, keeper by content weight; both
+  had zero GSC impressions); 301 rule 1600. Replaces entry 51.
+
+Cowork is now on Phase 3 only: gap articles per the round-2 order.

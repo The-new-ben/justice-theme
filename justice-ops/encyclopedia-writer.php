@@ -766,6 +766,16 @@ add_action( 'rest_api_init', function () {
 				) );
 
 				if ( $exists ) {
+					$existing_post = get_post( (int) $exists );
+
+					if ( $existing_post && 'articles' === $existing_post->post_type && 'draft' === $existing_post->post_status
+						&& justice_enc_word_count( $existing_post->post_content ) < 300 ) {
+						update_post_meta( $existing_post->ID, 'spoke_brief', wp_slash( wp_json_encode( $entry, JSON_UNESCAPED_UNICODE ) ) );
+						update_post_meta( $existing_post->ID, 'enc_fail_count', '0' );
+						$out['repaired'] = ( $out['repaired'] ?? 0 ) + 1;
+						continue;
+					}
+
 					$out['collision']++;
 					continue;
 				}
@@ -783,7 +793,7 @@ add_action( 'rest_api_init', function () {
 					continue;
 				}
 
-				update_post_meta( $pid, 'spoke_brief', wp_json_encode( $entry, JSON_UNESCAPED_UNICODE ) );
+				update_post_meta( $pid, 'spoke_brief', wp_slash( wp_json_encode( $entry, JSON_UNESCAPED_UNICODE ) ) );
 				update_post_meta( $pid, 'enc_fail_count', '0' );
 				$out['created']++;
 			}

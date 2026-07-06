@@ -191,3 +191,32 @@ total. Supervision: GET /wp-json/justice-ops/v1/enc-writer-status.
   09:00-14:00 at 50-minute slots: מעשה בית דין, תקנת השוק, חוק העונשין
   (790w), תקדים מחייב (824w), חזקת החפות (704w), כתב אישום (633w),
   נטל ההוכחה (670w).
+
+## 2026-07-06 (midnight): SPOKE ARTICLES LANE LIVE (justice-ops 1.3.4), first article published
+
+Research (owner request): competitive terms need 1,500-2,500 words,
+top-10 average 1,400+. Lane spec: target 1,500-2,200, floor 1,300 in
+code, ONE per day (cost control), English slugs only, site-wide
+collision check at intake, briefs pre-approved from the expedition list.
+
+Iterations that got it there (all telemetry-driven): 1.3.1 brief
+storage survives meta unslashing (gershayim in statute years broke
+JSON); 1.3.2 dedicated articles model option (gpt-4o) + second expand;
+1.3.3 two-part generation (still undershot); 1.3.4 FULL per-section
+generation (opening + one call per H2 with deterministic headings +
+FAQ) = 2,146 words on first pass.
+
+PROOF PUBLISHED (owner request):
+- Article: https://jus-tice.co.il/arrest-detention-lawyer-israel/
+  (עורך דין מעצרים) 2,146 rendered words, English slug, Yoast title
+  live, keyword-first H1 and opening, table, pillar links in body,
+  0 dashes in body, 0 AI-tellers, מדריכים קשורים mesh block.
+- Encyclopedia entry: https://jus-tice.co.il/encyclopedia/contributory-negligence/
+  (אשם תורם) live with EN chip, disclaimer, DefinedTerm schema, and
+  autolinked FROM /criminal-negligence/.
+
+Queue: 7 more approved briefs (pre-indictment hearing, domestic
+violence defense, assault, buying from contractor, threats,
+inheritance disputes, company formation) writing at 1/day, publishing
+10:07 daily. Cost: ~$0.10-0.15/article with gpt-4o, ~$6/month total
+both lanes. Polish item: FAQ renders as paragraphs, force h3 next rev.

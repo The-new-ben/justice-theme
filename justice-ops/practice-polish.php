@@ -123,9 +123,17 @@ function justice_ops_whatsapp_href(): string {
 
 	$url = ( is_ssl() ? 'https://' : 'http://' ) . ( $_SERVER['HTTP_HOST'] ?? 'jus-tice.co.il' ) . strtok( (string) ( $_SERVER['REQUEST_URI'] ?? '/' ), '?' );
 
-	$message = 'שלום, אני פונה מהעמוד: ' . mb_substr( wp_strip_all_tags( (string) $title ), 0, 80 )
-		. ' | ' . $url
-		. ' | ' . 'אשמח לשוחח עם עורך דין בנושא.';
+	// On a lawyer profile the lead is about THAT professional: name them.
+	if ( is_singular( 'justice_lawyer' ) ) {
+		$name    = mb_substr( wp_strip_all_tags( (string) $title ), 0, 60 );
+		$message = 'שלום, אני פונה מהפרופיל של ' . $name
+			. ' | ' . $url
+			. ' | אשמח לשוחח עם ' . $name . '.';
+	} else {
+		$message = 'שלום, אני פונה מהעמוד: ' . mb_substr( wp_strip_all_tags( (string) $title ), 0, 80 )
+			. ' | ' . $url
+			. ' | ' . 'אשמח לשוחח עם עורך דין בנושא.';
+	}
 
 	if ( function_exists( 'justice_theme_public_whatsapp_url' ) ) {
 		return justice_theme_public_whatsapp_url( $message );
@@ -159,3 +167,104 @@ add_action( 'wp_footer', function () {
 	</style>
 	<?php
 }, 60 );
+
+// ---------------------------------------------------------------------------
+// 4. Lawyer profile mini-site polish
+// ---------------------------------------------------------------------------
+
+/**
+ * The card-facing portrait for a lawyer: the card_photo_id override when the
+ * profile carries one, otherwise its featured image. Returns attachment id.
+ */
+function justice_ops_lawyer_portrait_id( int $lawyer_id ): int {
+	$attachment = (int) get_post_meta( $lawyer_id, 'card_photo_id', true );
+
+	if ( ! $attachment ) {
+		$attachment = (int) get_post_thumbnail_id( $lawyer_id );
+	}
+
+	return $attachment;
+}
+
+/**
+ * Profile hero: when a dedicated portrait exists, the hero photo panel shows
+ * it instead of the wide featured banner. Scoped to the queried profile only
+ * so listing cards elsewhere on the page keep their own images.
+ */
+add_filter( 'post_thumbnail_html', function ( $html, $post_id, $thumbnail_id, $size, $attr ) {
+	if ( ! is_singular( 'justice_lawyer' ) || (int) $post_id !== (int) get_queried_object_id() ) {
+		return $html;
+	}
+
+	$portrait = (int) get_post_meta( $post_id, 'card_photo_id', true );
+
+	if ( ! $portrait || $portrait === (int) $thumbnail_id ) {
+		return $html;
+	}
+
+	$src = wp_get_attachment_image_src( $portrait, 'medium_large' );
+
+	if ( ! $src ) {
+		$src = wp_get_attachment_image_src( $portrait, 'full' );
+	}
+
+	if ( ! $src ) {
+		return $html;
+	}
+
+	$alt = (string) get_post_meta( $portrait, '_wp_attachment_image_alt', true );
+
+	if ( '' === $alt ) {
+		$alt = get_the_title( $post_id );
+	}
+
+	return '<img src="' . esc_url( $src[0] ) . '" alt="' . esc_attr( $alt ) . '" width="' . (int) $src[1] . '" height="' . (int) $src[2] . '"'
+		. ' loading="eager" decoding="async" itemprop="image"'
+		. ' style="width:100%;height:auto;max-height:440px;object-fit:cover;object-position:center 22%;border-radius:20px;display:block" />';
+}, 10, 5 );
+
+/**
+ * Social sharing image for lawyer profiles: the portrait, not the site logo.
+ * A WhatsApp or Facebook share of a paid mini-site must show the person.
+ */
+function justice_ops_lawyer_social_image( $image ) {
+	if ( ! is_singular( 'justice_lawyer' ) ) {
+		return $image;
+	}
+
+	$attachment = justice_ops_lawyer_portrait_id( (int) get_queried_object_id() );
+
+	if ( ! $attachment ) {
+		return $image;
+	}
+
+	$src = wp_get_attachment_image_src( $attachment, 'large' );
+
+	if ( ! $src ) {
+		$src = wp_get_attachment_image_src( $attachment, 'full' );
+	}
+
+	return $src ? $src[0] : $image;
+}
+add_filter( 'wpseo_opengraph_image', 'justice_ops_lawyer_social_image' );
+add_filter( 'wpseo_twitter_image', 'justice_ops_lawyer_social_image' );
+
+// ---------------------------------------------------------------------------
+// 5. Legacy URL repairs
+// ---------------------------------------------------------------------------
+
+/**
+ * /contact-us/ 404s while the real page lives at /contact/.
+ */
+add_action( 'template_redirect', function () {
+	if ( ! is_404() ) {
+		return;
+	}
+
+	$path = strtolower( trim( (string) wp_parse_url( (string) ( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH ), '/' ) );
+
+	if ( 'contact-us' === $path ) {
+		wp_safe_redirect( home_url( '/contact/' ), 301 );
+		exit;
+	}
+}, 1 );

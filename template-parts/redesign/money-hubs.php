@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $justice_money_hubs = array(
 	array( 'anchor' => 'עורך דין גירושין', 'desc' => 'הסכמה, סכסוך, משמורת ורכוש', 'slug' => 'divorce-lawyer' ),
 	array( 'anchor' => 'עורך דין פלילי', 'desc' => 'חקירה, מעצר וכתב אישום', 'slug' => 'criminal-defense-attorney' ),
+	array( 'anchor' => 'דירוג עורכי דין פליליים', 'desc' => 'קריטריונים שקופים והשוואה', 'slug' => 'criminal-lawyers-rating' ),
 	array( 'anchor' => 'עורך דין מקרקעין', 'desc' => 'קנייה, מכירה ומיסוי דירה', 'slug' => 'real-estate-attorney' ),
 	array( 'anchor' => 'עורך דין רשלנות רפואית', 'desc' => 'בדיקת תיק והוכחת התרשלות', 'slug' => 'medical-malpractice-lawyer' ),
 	array( 'anchor' => 'עורך דין תעבורה', 'desc' => 'שלילה, נקודות ושכרות', 'slug' => 'traffic-lawyer' ),

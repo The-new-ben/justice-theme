@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 1.0.11
+ * Version: 1.0.12
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '1.0.11' );
+	define( 'JUSTICE_OPS_VERSION', '1.0.12' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -189,6 +189,11 @@ function justice_ops_seo_overrides(): array {
 			'seo_title'   => 'זכויות בהליך גירושין וייצוג משפטי: המדריך המלא | Jus-Tice',
 			'title'       => 'זכויות בהליך גירושין וייצוג משפטי: המדריך המלא',
 			'description' => 'המדריך לזכויות בהליך גירושין: מזונות, משמורת, חלוקת רכוש וכתובה, איך מתנהל ההליך בבית המשפט לענייני משפחה ובבית הדין הרבני, ומתי נדרש ייצוג.',
+		),
+		'criminal-lawyers-rating' => array(
+			'title'       => 'דירוג עורכי דין פליליים בישראל: קריטריונים, השוואה ובחירה',
+			'seo_title'   => 'דירוג עורכי דין פליליים בישראל: קריטריונים והשוואה | Jus-Tice',
+			'description' => 'דירוג עורכי דין פליליים לפי קריטריונים שקופים: אימות רישיון, ביקורות מאומתות, זמינות ושכר טרחה. איך בוחרים ייצוג פלילי נכון ומה בודקים לפני שסוגרים.',
 		),
 		'types-of-lawyers-small-business' => array(
 			'title'       => 'עורך דין עסקי לעסקים קטנים: מתי צריך ומה בודקים',
@@ -398,6 +403,7 @@ function justice_ops_money_hubs_html(): string {
 	$hubs = array(
 		array( 'עורך דין גירושין', 'הסכמה, סכסוך, משמורת ורכוש', 'divorce-lawyer' ),
 		array( 'עורך דין פלילי', 'חקירה, מעצר וכתב אישום', 'criminal-defense-attorney' ),
+		array( 'דירוג עורכי דין פליליים', 'קריטריונים שקופים והשוואה', 'criminal-lawyers-rating' ),
 		array( 'עורך דין מקרקעין', 'קנייה, מכירה ומיסוי דירה', 'real-estate-attorney' ),
 		array( 'עורך דין רשלנות רפואית', 'בדיקת תיק והוכחת התרשלות', 'medical-malpractice-lawyer' ),
 		array( 'עורך דין תעבורה', 'שלילה, נקודות ושכרות', 'traffic-lawyer' ),

@@ -618,6 +618,11 @@ function justice_theme_money_query_seo_map(): array {
 		// named money families total about 1.1M impr/mo with under 600
 		// clicks. Every entry leads with the family head query the page already
 		// earns impressions for. Sub-intent per page, no collisions.
+		'criminal-lawyers-rating' => array(
+			'title'       => 'דירוג עורכי דין פליליים בישראל: קריטריונים, השוואה ובחירה',
+			'seo_title'   => 'דירוג עורכי דין פליליים בישראל: קריטריונים והשוואה | Jus-Tice',
+			'description' => 'דירוג עורכי דין פליליים לפי קריטריונים שקופים: אימות רישיון, ביקורות מאומתות, זמינות ושכר טרחה. איך בוחרים ייצוג פלילי נכון ומה בודקים לפני שסוגרים.',
+		),
 		'types-of-lawyers-small-business' => array(
 			'title'       => 'עורך דין עסקי לעסקים קטנים: מתי צריך ומה בודקים',
 			'seo_title'   => 'עורך דין עסקי ולעסקים קטנים: מתי צריך ומה בודקים | Jus-Tice',

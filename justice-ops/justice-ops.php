@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 1.6.2
+ * Version: 1.7.0
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '1.6.2' );
+	define( 'JUSTICE_OPS_VERSION', '1.7.0' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -486,7 +486,9 @@ add_action( 'upgrader_process_complete', function ( $upgrader, $options ) {
 		return;
 	}
 
-	if ( class_exists( 'autoptimizeCache' ) ) { autoptimizeCache::clearall(); }
+	// Deliberately NOT autoptimizeCache::clearall(): wiping aggregates
+	// breaks edge-cached HTML that still links the old files. Autoptimize
+	// generates a new aggregate on demand; old ones stay valid on disk.
 	if ( function_exists( 'sg_cachepress_purge_cache' ) ) { sg_cachepress_purge_cache(); }
 	if ( class_exists( 'SiteGround_Optimizer\\Supercacher\\Supercacher' ) ) {
 		SiteGround_Optimizer\Supercacher\Supercacher::purge_cache();

@@ -942,12 +942,14 @@ function justice_art_write_one( int $pid ): bool {
 		return justice_enc_fail( $pid, 'empty', 0, 1300 );
 	}
 
-	if ( $words < 1300 ) {
+	$expand_pass = 0;
+	while ( $words < 1300 && $expand_pass < 2 ) {
+		$expand_pass++;
 		$expanded = justice_enc_clean( justice_art_call_openai( array(
 			$system,
 			$umsg,
 			array( 'role' => 'assistant', 'content' => $draft ),
-			array( 'role' => 'user', 'content' => 'המאמר מכיל כרגע רק ' . $words . ' מילים והיעד הוא 1500 עד 2200. הרחב והעמק: פרט הליכים, הוסף טבלה רלוונטית, הרחב את השאלות הנפוצות והוסף סעיפים חסרים מהשלד, ללא מילוי סרק וללא עובדות מומצאות. החזר את המאמר המלא בלבד, אותם כללים.' ),
+			array( 'role' => 'user', 'content' => 'המאמר מכיל כרגע רק ' . $words . ' מילים והיעד הוא 1500 עד 2200. הרחב והעמק: פרט הליכים שלב אחר שלב, הוסף טבלה רלוונטית, הרחב את השאלות הנפוצות והוסף את הסעיפים החסרים מהשלד, ללא מילוי סרק וללא עובדות מומצאות. החזר את המאמר המלא בלבד, אותם כללים.' ),
 		) ), get_the_title( $pid ) );
 
 		if ( justice_enc_word_count( $expanded ) > $words ) {
@@ -1027,7 +1029,7 @@ function justice_art_call_openai( array $messages ): string {
 			'Content-Type'  => 'application/json',
 		),
 		'body'    => wp_json_encode( array(
-			'model'       => (string) get_option( 'justice_enc_writer_model', 'gpt-4o-mini' ),
+			'model'       => (string) get_option( 'justice_art_model', 'gpt-4o' ),
 			'temperature' => 0.4,
 			'max_tokens'  => 10000,
 			'messages'    => $messages,

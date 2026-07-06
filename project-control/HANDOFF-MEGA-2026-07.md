@@ -156,6 +156,18 @@ about results.
 - WCAG AA: verify any new text/bg pair >= 4.5:1 (formula pass done).
 
 ## 6. State now
+- DNA TRANSPLANT SERIES STARTED 2026-07-06: /criminal-lawyers-rating/
+  LIVE (page 21054, created via REST, ops 1.0.12 carries head + band
+  slot, theme 2.22.1 parity). Format cloned from the criteria-ranking
+  DNA that holds page 1 on the criminal SERP; methodology transparent,
+  real data only, ranked list activates as verified criminal lawyers
+  join (currently ZERO real criminal lawyers approved; the area filter
+  returns rabbinical pleaders: FIX THE MISCATEGORIZATION). Registration
+  funnel wired (?source=criminal_rating_page). Playbook and per-family
+  blueprints: project-control/serp-dna-expedition-2026-07.md. Next in
+  series per blueprint: criminal pillar sub-service mesh block, then
+  divorce ranking page when reviews exist, real estate guide cloning,
+  malpractice spoke network, abroad price tables.
 - TRAFFIC EMERGENCY SWEEP 2026-07-06 (theme 2.22.0 pushed, ops 1.0.10
   LIVE): index health verified clean first (no noindex, canonicals OK,
   sitemap 200; drop is not a technical self-wound; fresh GSC export

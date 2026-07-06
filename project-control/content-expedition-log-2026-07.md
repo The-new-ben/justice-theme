@@ -284,3 +284,33 @@ Owner mandate: full product run, layer by layer. Shipped:
 - Full sweep: ops 1.4.2, theme 2.23.0, all 10 key surfaces HTTP 200,
   encyclopedia 14 generated today / 212 queued / 13 scheduled, news
   1/1 success, zero stuck.
+
+## 2026-07-07 (owner QA round 2): practice-area blanks KILLED + WhatsApp lead button (ops 1.5.0-1.5.1)
+
+ROOT CAUSES MEASURED (not guessed): full multi-thousand-word guides
+live in the practice-areas TERM DESCRIPTIONS (family-law 35K chars /
+4,909 words; divorce 47K; lawyer-directory 23K; personal-injury 17K)
+and render inside the narrow hero column = the giant blank walls. Plus
+the taxonomy archive had no pagination cap: family-law page was 968KB
+with hundreds of cards.
+
+FIXES (render-layer, instant, zero content loss):
+- Hero shows the first two paragraphs + anchor; the FULL description
+  moves into a readable full-width section (max-width 820px, 1.85
+  line-height) injected before the guides grid. Same URL, same text.
+- Taxonomy main query capped at 24 cards; theme pagination renders.
+- VERIFIED live on family-law, divorce, personal-injury, real-estate,
+  israeli-labor-law, traffic-law: 968KB -> 200KB (family), all pages
+  100-220KB, exactly 24 cards, trim + full-guide present on all.
+
+WHATSAPP LEAD BUTTON (sitewide, ops): floating button, big labeled bar
+on mobile ("שליחת הודעה לעורך דין עכשיו"), prefill carries page title
++ clean URL + intent line with pipe separators (newlines get stripped
+by esc_url). Verified live prefill: "שלום, אני פונה מהעמוד: דיני
+משפחה | {URL} | אשמח לשוחח עם עורך דין בנושא." Uses the existing
+justice_theme_public_whatsapp_url configured number;
+data-whatsapp-surface=floating_button for analytics. Present on
+homepage, articles, practice areas, encyclopedia, news.
+
+Container browser cannot pass the egress proxy (CONNECT reset), so
+pixel-level screenshot confirmation routes to cowork's browser.

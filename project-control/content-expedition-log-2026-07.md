@@ -441,3 +441,55 @@ skeletons queued, one floor-fail retrying), news sources scanned 01:04
 Ops lesson recorded: $RANDOM cache busters collide (healthcheck served
 a stale edge copy while runtime was already current); use date +%s%N.
 Runtime-vs-disk version probes settle what the healthcheck cannot.
+
+## 2026-07-07 early: SEQUENTIAL ROADMAP RUN (ops 1.7.3-1.7.6)
+
+1) /buying-property-abroad-guide/ PILLAR BUILT (was 404; every spoke's
+   cluster block linked a dead hub across ~110K monthly impressions).
+   Written via the article machine from a full brief: 1,667 words, the
+   6 briefed H2s, 5 FAQ h3s, zero tellers, zero dashes, zero markdown,
+   links to ALL 8 spokes + /real-estate/ hub + verified רשות המסים
+   link (patched in post-publish; the writer's link repair covers
+   pillar+siblings only). practice-areas real-estate-law tagged.
+   Spoke cluster blocks now resolve 200 to the pillar. Also fixed two
+   owner-law violations found in the cluster: buying-property-in-
+   portugal title carried a superlative + asterisked stale year;
+   greece-price-list H1 carried an en-dash. Both retitled, live.
+
+2) /family-law/ HUB BODY LIVE. The page body was a REAL 175-word stub
+   masked by template chrome; post_title was mojibake; pillar_keyword
+   meta was mojibake (both fixed). Wrote a 405-word intent-router body
+   (7 spoke links: divorce-lawyer, child-custody, child-support,
+   prenuptial-agreement, divorce-agreement, domestic-violence,
+   inheritance-lawyer). Three root causes to make it RENDER:
+   a. The live theme predates the repo template's pillar-content slot
+      (awaits owner pull) -> plugin bridge injects the body into the
+      content column, self-retiring on the slot's arrival.
+   b. The theme renders /family-law/ via a CONTROLLED ROUTE that
+      renders and exits at template_redirect -999999 -> bridge buffer
+      opens at -1000000.
+   c. On controlled routes the main query is force-retyped: is_page()
+      is FALSE and the global post is not the page -> bridge resolves
+      the page by URL path (get_page_by_path).
+   VERIFIED live: 4 new h2s, all 7 spoke links, pillar-content div.
+
+3) LEAD FORM E2E PROVEN + REVENUE BUG FIXED. Test lead submitted
+   through the public form path (nonce from live page, honeypot empty,
+   admin-post.php): 302 lead=success, justice_lead record stored with
+   full attribution (name, phone, area, city, urgency, source_url =
+   the submitting page, source_channel public_site_form, lead_status
+   new), then hard-deleted. admin_email got the notification mails
+   (subject contains TEST). THE BUG: the theme timing guard rejected
+   any submission whose started_at stamp (baked into cached HTML) was
+   older than a day, so pages cached >24h silently blocked every lead.
+   1.7.6 keeps the 3s bot floor + honeypot, drops the stale upper
+   bound. Verified: 3-day-old stamp -> lead=success; honeypot filled
+   -> lead=blocked&lead_reason=honeypot.
+
+Infra lessons: uPress edge = SeoEdge (x-cached-engine-header), caches
+pages regardless of query params some of the time; verification needs
+either virgin params + size deltas, response headers, or origin-side
+probes (header-stamping temp snippet at template_redirect -1000001).
+7310 stays draft: it is a single-ruling analysis (Judge Ofra Guy,
+property claims), wrong intent for the family hub; candidate for a
+future property-division spoke after fact review.

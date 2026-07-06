@@ -477,6 +477,14 @@ function justice_theme_modify_request_for_articles( $query_vars ) {
 		return $query_vars;
 	}
 
+	// A request that already resolved to a registered post type (any CPT
+	// rewrite match sets post_type) must keep it: retyping it to
+	// page/post/articles 404s CPT singles (encyclopedia, 2026-07-06) and
+	// once stacked same-slug objects into one render.
+	if ( isset( $query_vars['post_type'] ) ) {
+		return $query_vars;
+	}
+
 	// If a root-level slug is requested, WP usually assigns it to 'pagename'
 	if ( isset( $query_vars['pagename'] ) || isset( $query_vars['name'] ) ) {
 		$slug = isset( $query_vars['pagename'] ) ? $query_vars['pagename'] : $query_vars['name'];

@@ -279,8 +279,11 @@ function justice_enc_intake( WP_REST_Request $request ) {
 			$entity = 'term';
 		}
 
+		$latin_slug = sanitize_title( (string) ( $entry['name_en'] ?? '' ) );
+
 		$postarr = array(
 			'post_type'    => 'justice_term',
+			'post_name'    => $latin_slug ? $latin_slug : '',
 			'post_title'   => $title,
 			'post_excerpt' => sanitize_text_field( (string) ( $entry['def'] ?? '' ) ),
 			'post_content' => $content,
@@ -712,3 +715,18 @@ add_filter( 'the_content', function ( $content ) {
 
 	return $links ? implode( '', $parts ) : $content;
 }, 14 );
+
+// ---------------------------------------------------------------------------
+// Routing bridge: the theme's justice_theme_modify_request_for_articles
+// (inc/routing-guards.php, priority 10) force-retypes any named request to
+// page/post/articles, which 404s encyclopedia singles. Until the theme fix
+// is pulled, restore the post type for justice_term requests right after it.
+// ---------------------------------------------------------------------------
+
+add_filter( 'request', function ( $query_vars ) {
+	if ( isset( $query_vars['justice_term'] ) ) {
+		$query_vars['post_type'] = 'justice_term';
+	}
+
+	return $query_vars;
+}, 11 );

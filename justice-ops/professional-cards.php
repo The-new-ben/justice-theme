@@ -69,6 +69,23 @@ function justice_cards_current_terms(): array {
 		return array();
 	}
 
+	// Articles carry the same practice-areas taxonomy the lawyers do; the
+	// page's own terms are the most precise signal. A term that belongs to a
+	// family expands to the whole family so the lawyer pool stays wide.
+	$own = get_the_terms( get_the_ID(), 'practice-areas' );
+
+	if ( $own && ! is_wp_error( $own ) ) {
+		$slugs = wp_list_pluck( $own, 'slug' );
+
+		foreach ( $map as $family_slugs ) {
+			if ( array_intersect( $slugs, $family_slugs ) ) {
+				return $family_slugs;
+			}
+		}
+
+		return $slugs;
+	}
+
 	$cats = wp_get_post_categories( get_the_ID(), array( 'fields' => 'slugs' ) );
 
 	$cat_to_family = array(
@@ -100,12 +117,13 @@ function justice_cards_lawyers( array $term_slugs, int $limit ): array {
 		return array();
 	}
 
-	$lawyers = get_posts( array(
+	// No meta_key in the query: that inner join would drop profiles missing
+	// the meta. Ranking happens in PHP after the public-approval gate.
+	$candidates = get_posts( array(
 		'post_type'      => 'justice_lawyer',
 		'post_status'    => 'publish',
-		'posts_per_page' => max( 4, $limit * 3 ),
-		'orderby'        => 'meta_value_num',
-		'meta_key'       => 'priority_score',
+		'posts_per_page' => 24,
+		'orderby'        => 'date',
 		'order'          => 'DESC',
 		'tax_query'      => array(
 			array(
@@ -115,6 +133,31 @@ function justice_cards_lawyers( array $term_slugs, int $limit ): array {
 			),
 		),
 	) );
+
+	// Sponsored placement is stricter than directory listing: only profiles
+	// the theme approves for public output may float inside content, and only
+	// with a positive priority_score. Score zero means directory-only; the
+	// score is the placement dial that sells this surface.
+	$lawyers = array();
+
+	foreach ( $candidates as $candidate ) {
+		if ( (int) get_post_meta( $candidate->ID, 'priority_score', true ) < 1 ) {
+			continue;
+		}
+
+		if ( function_exists( 'justice_theme_lawyer_profile_is_public_approved' ) ) {
+			if ( ! justice_theme_lawyer_profile_is_public_approved( $candidate->ID ) ) {
+				continue;
+			}
+		} else {
+			$status = strtolower( (string) get_post_meta( $candidate->ID, 'profile_status', true ) );
+			if ( ! in_array( $status, array( 'approved', 'public', 'published', 'active', 'verified' ), true ) ) {
+				continue;
+			}
+		}
+
+		$lawyers[] = $candidate;
+	}
 
 	if ( ! $lawyers ) {
 		return array();

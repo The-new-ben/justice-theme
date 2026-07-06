@@ -730,3 +730,305 @@ add_filter( 'request', function ( $query_vars ) {
 
 	return $query_vars;
 }, 11 );
+
+// ---------------------------------------------------------------------------
+// SPOKE ARTICLES LANE: long-form money articles (1,500-2,200 words, floor
+// 1,300 in code) written into the existing articles CPT from pre-approved
+// briefs, one per day, meshed to their pillar with in-body links. English
+// slugs only; collision-checked at intake.
+// ---------------------------------------------------------------------------
+
+add_action( 'rest_api_init', function () {
+	register_rest_route( 'justice-ops/v1', '/article-intake', array(
+		'methods'             => 'POST',
+		'permission_callback' => function () {
+			return current_user_can( 'update_plugins' );
+		},
+		'callback'            => function ( WP_REST_Request $request ) {
+			global $wpdb;
+			$body    = $request->get_json_params();
+			$entries = isset( $body['entries'] ) && is_array( $body['entries'] ) ? $body['entries'] : array();
+			$out     = array( 'created' => 0, 'skipped' => 0, 'collision' => 0 );
+
+			foreach ( $entries as $entry ) {
+				$title = sanitize_text_field( (string) ( $entry['title'] ?? '' ) );
+				$slug  = sanitize_title( (string) ( $entry['slug'] ?? '' ) );
+
+				if ( '' === $title || '' === $slug || preg_match( '/[^a-z0-9\-]/', $slug ) ) {
+					$out['skipped']++;
+					continue;
+				}
+
+				$exists = $wpdb->get_var( $wpdb->prepare(
+					"SELECT ID FROM {$wpdb->posts} WHERE ( post_name = %s OR post_title = %s ) AND post_type IN ('post','page','articles') AND post_status NOT IN ('trash','auto-draft') LIMIT 1",
+					$slug,
+					$title
+				) );
+
+				if ( $exists ) {
+					$out['collision']++;
+					continue;
+				}
+
+				$pid = wp_insert_post( array(
+					'post_type'    => 'articles',
+					'post_title'   => $title,
+					'post_name'    => $slug,
+					'post_status'  => 'draft',
+					'post_excerpt' => sanitize_text_field( (string) ( $entry['description'] ?? '' ) ),
+				) );
+
+				if ( ! $pid || is_wp_error( $pid ) ) {
+					$out['skipped']++;
+					continue;
+				}
+
+				update_post_meta( $pid, 'spoke_brief', wp_json_encode( $entry, JSON_UNESCAPED_UNICODE ) );
+				update_post_meta( $pid, 'enc_fail_count', '0' );
+				$out['created']++;
+			}
+
+			return rest_ensure_response( $out );
+		},
+	) );
+
+	register_rest_route( 'justice-ops/v1', '/article-writer-run', array(
+		'methods'             => 'POST',
+		'permission_callback' => function () {
+			return current_user_can( 'manage_options' );
+		},
+		'callback'            => function () {
+			return rest_ensure_response( justice_art_writer_tick( true ) );
+		},
+	) );
+} );
+
+function justice_art_stat(): array {
+	$stat  = get_option( 'justice_art_writer_stat', array() );
+	$today = wp_date( 'Y-m-d' );
+
+	if ( ! is_array( $stat ) || ( $stat['date'] ?? '' ) !== $today ) {
+		$stat = array( 'date' => $today, 'generated' => 0, 'failed' => 0 );
+	}
+
+	return $stat;
+}
+
+function justice_art_next_slot(): int {
+	$tz     = wp_timezone();
+	$latest = get_posts( array(
+		'post_type'      => 'articles',
+		'post_status'    => 'future',
+		'posts_per_page' => 1,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'fields'         => 'ids',
+		'meta_query'     => array( array( 'key' => 'spoke_brief', 'compare' => 'EXISTS' ) ),
+	) );
+
+	if ( $latest ) {
+		$last = new DateTimeImmutable( get_post( $latest[0] )->post_date, $tz );
+		$next = $last->modify( '+1 day' )->setTime( 10, 7 )->getTimestamp();
+	} else {
+		$next = ( new DateTimeImmutable( 'now', $tz ) )->modify( '+1 day' )->setTime( 10, 7 )->getTimestamp();
+	}
+
+	if ( $next <= time() ) {
+		$next = time() + 10 * MINUTE_IN_SECONDS;
+	}
+
+	return $next;
+}
+
+add_action( 'justice_enc_writer_tick', function () {
+	justice_art_writer_tick( false );
+}, 20 );
+
+function justice_art_writer_tick( bool $forced ): array {
+	$summary = array( 'written' => array(), 'failed' => array() );
+
+	if ( '' === justice_enc_openai_key() ) {
+		return $summary;
+	}
+
+	$stat  = justice_art_stat();
+	$daily = max( 1, (int) get_option( 'justice_art_daily', 1 ) );
+
+	if ( ! $forced && $stat['generated'] >= $daily ) {
+		return $summary;
+	}
+
+	$candidates = get_posts( array(
+		'post_type'      => 'articles',
+		'post_status'    => 'draft',
+		'posts_per_page' => 3,
+		'orderby'        => 'date',
+		'order'          => 'ASC',
+		'meta_query'     => array( array( 'key' => 'spoke_brief', 'compare' => 'EXISTS' ) ),
+		'fields'         => 'ids',
+	) );
+
+	foreach ( $candidates as $pid ) {
+		if ( (int) get_post_meta( $pid, 'enc_fail_count', true ) >= 5 ) {
+			continue;
+		}
+
+		if ( justice_enc_word_count( get_post( $pid )->post_content ) >= 300 ) {
+			continue;
+		}
+
+		$ok   = justice_art_write_one( $pid );
+		$stat = justice_art_stat();
+
+		if ( $ok ) {
+			$stat['generated']++;
+			$summary['written'][] = $pid;
+		} else {
+			$stat['failed']++;
+			$summary['failed'][] = $pid;
+		}
+
+		update_option( 'justice_art_writer_stat', $stat, false );
+		break;
+	}
+
+	return $summary;
+}
+
+function justice_art_system_prompt(): string {
+	return 'אתה כותב תוכן משפטי בכיר של jus-tice.co.il, כותב מאמר עומק מקצועי בעברית לקהל של לקוחות פוטנציאליים. חוקים קשיחים: אפס עובדות מומצאות, נתון לא ודאי מושמט לחלוטין, לעולם אל תכתוב סימון כמו VERIFY; חוקים מצוטטים בשמם הרשמי ובשנתם בלבד; אין להמציא פסקי דין או מספרי תיקים; אין קו מפריד ארוך מכל סוג, רק מקף רגיל; אין להשתמש בביטויים: חשוב לציין, בעידן, מעבר לכך, לסיכום, ראוי לציין, יש לזכור; אין סופרלטיבים ואין הבטחות תוצאה; אין פנייה בגוף שני רבים מוגזמת ואין שיווק ריק; HTML נקי בלבד: p, h2, h3, ul, li, table, tr, th, td, וקישורי a אך ורק לכתובות שסופקו לך; בלי h1 ובלי חזרה על הכותרת. פתח בפסקה שעונה ישירות לשאלת החיפוש ומכילה את מילת המפתח במשפט הראשון. עקוב אחרי שלד הכותרות שסופק ונסח אותן טבעי. שלב את הקישורים שסופקו בתוך הטקסט במקומות רלוונטיים, עם טקסט העוגן שניתן. כלול טבלה אחת לפחות היכן שמתאים ושאלות נפוצות של 4 עד 6 שאלות אמיתיות עם תשובות קצרות לקראת הסוף בכותרות h3. סיים במשפט ענייני, לא בסיכום שיווקי ולא בפסקת הסתייגות. אורך חובה: 1500 עד 2200 מילים.';
+}
+
+function justice_art_write_one( int $pid ): bool {
+	$brief = json_decode( (string) get_post_meta( $pid, 'spoke_brief', true ), true );
+
+	if ( ! is_array( $brief ) ) {
+		return justice_enc_fail( $pid, 'no-brief', 0, 1300 );
+	}
+
+	$links = array();
+	if ( ! empty( $brief['pillar_url'] ) ) {
+		$links[] = $brief['pillar_anchor'] . ' => ' . $brief['pillar_url'];
+	}
+	foreach ( (array) ( $brief['siblings'] ?? array() ) as $sib ) {
+		$links[] = $sib['anchor'] . ' => ' . $sib['url'];
+	}
+
+	$user = 'כתוב את המאמר המלא: "' . get_the_title( $pid ) . '"'
+		. ' | מילת מפתח ראשית: ' . ( $brief['keyword'] ?? '' )
+		. ' | ביטויים משניים לשילוב: ' . ( $brief['secondary'] ?? '' )
+		. ' | שלד כותרות H2 (עקוב אחריו): ' . implode( ' ; ', (array) ( $brief['outline'] ?? array() ) )
+		. ' | קישורים לשילוב בגוף הטקסט (עוגן => כתובת): ' . implode( ' | ', $links )
+		. ' | כיווני מקורות: ' . ( $brief['sources'] ?? '' )
+		. ' | אורך חובה: לפחות 1500 מילים.';
+
+	$system = array( 'role' => 'system', 'content' => justice_art_system_prompt() );
+	$umsg   = array( 'role' => 'user', 'content' => $user );
+
+	$draft = justice_enc_clean( justice_art_call_openai( array( $system, $umsg ) ), get_the_title( $pid ) );
+	$words = justice_enc_word_count( $draft );
+
+	if ( 0 === $words ) {
+		return justice_enc_fail( $pid, 'empty', 0, 1300 );
+	}
+
+	if ( $words < 1300 ) {
+		$expanded = justice_enc_clean( justice_art_call_openai( array(
+			$system,
+			$umsg,
+			array( 'role' => 'assistant', 'content' => $draft ),
+			array( 'role' => 'user', 'content' => 'המאמר מכיל כרגע רק ' . $words . ' מילים והיעד הוא 1500 עד 2200. הרחב והעמק: פרט הליכים, הוסף טבלה רלוונטית, הרחב את השאלות הנפוצות והוסף סעיפים חסרים מהשלד, ללא מילוי סרק וללא עובדות מומצאות. החזר את המאמר המלא בלבד, אותם כללים.' ),
+		) ), get_the_title( $pid ) );
+
+		if ( justice_enc_word_count( $expanded ) > $words ) {
+			$draft = $expanded;
+			$words = justice_enc_word_count( $expanded );
+		}
+	}
+
+	if ( $words < 1170 ) {
+		return justice_enc_fail( $pid, 'floor', $words, 1300 );
+	}
+
+	if ( false !== stripos( $draft, 'VERIFY' ) ) {
+		return justice_enc_fail( $pid, 'verify-left', $words, 1300 );
+	}
+
+	$tellers = justice_enc_teller_hits( $draft );
+
+	if ( $tellers ) {
+		return justice_enc_fail( $pid, 'style:' . implode( ',', $tellers ), $words, 1300 );
+	}
+
+	$missing = '';
+	if ( ! empty( $brief['pillar_url'] ) && false === strpos( $draft, $brief['pillar_url'] ) ) {
+		$missing .= '<li><a href="' . esc_url( $brief['pillar_url'] ) . '">' . esc_html( $brief['pillar_anchor'] ) . '</a></li>';
+	}
+	foreach ( (array) ( $brief['siblings'] ?? array() ) as $sib ) {
+		if ( false === strpos( $draft, $sib['url'] ) ) {
+			$missing .= '<li><a href="' . esc_url( $sib['url'] ) . '">' . esc_html( $sib['anchor'] ) . '</a></li>';
+		}
+	}
+	if ( '' !== $missing ) {
+		$draft .= '<h2>מדריכים קשורים</h2><ul>' . $missing . '</ul>';
+	}
+
+	$slot    = justice_art_next_slot();
+	$updated = wp_update_post( array(
+		'ID'            => $pid,
+		'post_content'  => $draft,
+		'post_status'   => 'future',
+		'post_date'     => wp_date( 'Y-m-d H:i:s', $slot ),
+		'post_date_gmt' => gmdate( 'Y-m-d H:i:s', $slot ),
+		'edit_date'     => true,
+	), true );
+
+	if ( is_wp_error( $updated ) ) {
+		return justice_enc_fail( $pid, 'wp:' . $updated->get_error_code(), $words, 1300 );
+	}
+
+	if ( ! empty( $brief['seo_title'] ) ) {
+		update_post_meta( $pid, '_yoast_wpseo_title', sanitize_text_field( $brief['seo_title'] ) );
+	}
+	if ( ! empty( $brief['description'] ) ) {
+		update_post_meta( $pid, '_yoast_wpseo_metadesc', sanitize_text_field( $brief['description'] ) );
+	}
+	if ( ! empty( $brief['keyword'] ) ) {
+		update_post_meta( $pid, '_yoast_wpseo_focuskw', sanitize_text_field( $brief['keyword'] ) );
+	}
+	if ( ! empty( $brief['category'] ) ) {
+		$term = get_term_by( 'slug', sanitize_title( $brief['category'] ), 'category' );
+		if ( $term ) {
+			wp_set_object_terms( $pid, (int) $term->term_id, 'category' );
+		}
+	}
+
+	update_post_meta( $pid, 'enc_written_by', 'site-writer:' . get_option( 'justice_enc_writer_model', 'gpt-4o-mini' ) );
+	update_post_meta( $pid, 'enc_written_words', (string) $words );
+
+	return true;
+}
+
+function justice_art_call_openai( array $messages ): string {
+	$response = wp_remote_post( 'https://api.openai.com/v1/chat/completions', array(
+		'timeout' => 180,
+		'headers' => array(
+			'Authorization' => 'Bearer ' . justice_enc_openai_key(),
+			'Content-Type'  => 'application/json',
+		),
+		'body'    => wp_json_encode( array(
+			'model'       => (string) get_option( 'justice_enc_writer_model', 'gpt-4o-mini' ),
+			'temperature' => 0.4,
+			'max_tokens'  => 10000,
+			'messages'    => $messages,
+		) ),
+	) );
+
+	if ( is_wp_error( $response ) ) {
+		return '';
+	}
+
+	$data = json_decode( (string) wp_remote_retrieve_body( $response ), true );
+
+	return trim( (string) ( $data['choices'][0]['message']['content'] ?? '' ) );
+}

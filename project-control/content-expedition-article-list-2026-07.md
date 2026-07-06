@@ -1,6 +1,6 @@
-# THE ARTICLE LIST: content war expedition, full order of battle
+# THE ARTICLE LIST: content expedition, full execution order
 
-Companion to content-war-machine-handoff-2026-07.md (the HOW). This is
+Companion to content-expedition-handoff-2026-07.md (the HOW). This is
 the WHAT: every article, its exact target, its place in the hierarchy.
 Grounded in inc/content-clusters.php (11 pillars, 102 existing spokes)
 and GSC exports (2026-06-09 full month + 2026-07-06 fresh). Rules:
@@ -246,5 +246,5 @@ pillars /buying-property-abroad-guide/ + /immigration-lawyer/
 - Real lawyers onboarding per family remains the conversion multiplier.
 
 75 entries: 33 STRENGTHEN + 42 NEW. Execute top to bottom inside each
-family, families by tier order in the war-machine handoff. Log every
-one in content-war-log-2026-07.md with its GSC baseline.
+family, families by tier order in the expedition handoff. Log every
+one in content-expedition-log-2026-07.md with its GSC baseline.

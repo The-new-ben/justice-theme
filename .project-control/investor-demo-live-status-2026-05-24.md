@@ -1,4 +1,4 @@
-# Investor Demo War Room Live Status - 2026-05-24
+# Investor Demo Live Status - 2026-05-24
 
 ## Honesty Statement
 

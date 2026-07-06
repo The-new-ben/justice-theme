@@ -7,4 +7,4 @@ attempt_create_link,BLOCKED,"Clicked recurring setup link flow and Grow returned
 provider_message,BLOCKED,"Exact message: לקוח אינו מורשה להוראת קבע","Do not claim recurring billing works"
 recurring_link_created,NO,"No recurring setup link created","Retry only after Grow authorization is fixed"
 money_moved,NO,"No charge occurred","Pay existing one-time ₪1 link instead for money proof"
-investor_demo_wording,READY,"One-time links work; recurring debit tested and blocked by provider authorization","Use honest wording in war-room"
+investor_demo_wording,READY,"One-time links work; recurring debit tested and blocked by provider authorization","Use honest wording in status doc"

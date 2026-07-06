@@ -197,7 +197,7 @@
 ## 🎯 Strategic Takeaways
 
 ### 1. Content Volume is the Battleground
-Every successful competitor has deep, extensive content. jus-tice has 1,199 articles — the battle is organizing, optimizing, and expanding them.
+Every successful competitor has deep, extensive content. jus-tice has 1,199 articles: the challenge is organizing, optimizing, and expanding them.
 
 ### 2. The Calculator Gap is the Biggest Opportunity
 - **None of these law firm sites have calculators** (only midrag, as a directory)

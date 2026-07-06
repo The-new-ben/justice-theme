@@ -1,10 +1,10 @@
-# CONTENT WAR MACHINE, full handoff for the article-writing agent
+# CONTENT EXPEDITION, full handoff for the article-writing agent
 
 You are a Claude Code session on the jus-tice.co.il repo running a LONG
 content expedition: fill every money-keyword gap with deep, competitor-
 grade Hebrew articles that strengthen PILLARS, then publish them live,
-schema and mesh included, verifying every one. This is head-to-head
-war with the incumbents, not generic blogging. Read this whole file
+schema and mesh included, verifying every one. This is a sophisticated
+head-to-head contest with the incumbents, not generic blogging. Read this whole file
 before writing a single word. Everything you need is named here: skills,
 credentials, targets, quality bar. Do not go looking; it is all below.
 
@@ -107,7 +107,7 @@ before reporting anything done.
 9. LIVE-VERIFY: purge caches (justice-ops route + SeoEdge PURGE per URL),
    fetch the rendered page, assert title/H1/first-para/schema present,
    assert no dashes, confirm the sitemap lists it and robots is index.
-10. LOG in project-control/content-war-log-2026-07.md: slug, family,
+10. LOG in project-control/content-expedition-log-2026-07.md: slug, family,
     target query, competitor beaten, word count, schema, mesh links,
     live-verify result, GSC baseline position for later measurement.
 
@@ -140,8 +140,8 @@ and replace or cut it. Never publish an unverified number.
 
 ## 5. THE TARGET LIST
 
-THE ORDER OF BATTLE IS A SEPARATE FILE: read
-project-control/content-war-article-list-2026-07.md. It contains all 75
+THE EXECUTION ORDER IS A SEPARATE FILE: read
+project-control/content-expedition-article-list-2026-07.md. It contains all 75
 articles (33 strengthen + 42 new) with head keyword, impressions,
 secondary keywords, pillar, unique angle and cannibalization notes.
 Execute it top to bottom inside each family. The family overview below

@@ -1755,7 +1755,7 @@
 - RESULT: Grow blocked creation with exact provider message `לקוח אינו מורשה להוראת קבע`.
 - CREATED: `project-control/grow-recurring-debit-live-attempt-2026-05-24.md`.
 - CREATED: `project-control/grow-recurring-debit-live-attempt-2026-05-24.csv`.
-- UPDATED: `project-control/investor-demo-war-room-live-status-2026-05-24.md`.
+- UPDATED: `project-control/investor-demo-live-status-2026-05-24.md`.
 - BLOCKED: recurring debit/subscription setup is not currently authorized in Grow for this flow; do not claim recurring billing works in the investor demo.
 - SAFETY: no recurring agreement, charge, invoice, refund, CMS database content, product, gateway setting, lawyer record, lead, CRM, GSC or GA4 setting was created/changed.
 
@@ -1766,14 +1766,14 @@
 - EMAIL SENT: full link sent to `info@jus-tice.co.il` and `benbetesh@gmail.com` with subject `REAL Grow payment link ready: Jus-Tice investor demo 1 NIS smoke test`.
 - CREATED: `project-control/grow-real-payment-link-smoke-test-2026-05-24.md`.
 - CREATED: `project-control/grow-real-payment-link-smoke-test-2026-05-24.csv`.
-- UPDATED: `project-control/investor-demo-war-room-live-status-2026-05-24.md` and `.csv`.
+- UPDATED: `project-control/investor-demo-live-status-2026-05-24.md` and `.csv`.
 - BLOCKED: the `₪1` link still needs to be paid and verified in Grow transactions/receipts; the link has not yet been pasted into a lawyer profile or sent through the WordPress admin checkbox.
 - SAFETY: real provider link creation and owner email only under emergency owner approval; no CMS database content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting changed.
 
-# 2026-05-24 - Investor demo war room live status
+# 2026-05-24 - Investor demo live status
 
-- CREATED: `project-control/investor-demo-war-room-live-status-2026-05-24.md`.
-- CREATED: `project-control/investor-demo-war-room-live-status-2026-05-24.csv`.
+- CREATED: `project-control/investor-demo-live-status-2026-05-24.md`.
+- CREATED: `project-control/investor-demo-live-status-2026-05-24.csv`.
 - VERIFIED: uPress pull is now live for `2026-05-24-lawyer-account-invite-v1`, fresh post-pull lawyer registration returned `registration=sent`, lawyer funnel passed `10/10`, Grow compliance passed `8/8`, and owner email summary was sent.
 - BLOCKED: account invite email still needs inbox confirmation; real Grow/Morning payment link and one controlled paid smoke test remain the final investor-demo money proof.
 

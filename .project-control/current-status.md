@@ -1916,7 +1916,7 @@
 - RESULT: Grow blocked creation with the exact provider message `לקוח אינו מורשה להוראת קבע`.
 - CREATED: `project-control/grow-recurring-debit-live-attempt-2026-05-24.md`.
 - CREATED: `project-control/grow-recurring-debit-live-attempt-2026-05-24.csv`.
-- UPDATED: `project-control/investor-demo-war-room-live-status-2026-05-24.md`.
+- UPDATED: `project-control/investor-demo-live-status-2026-05-24.md`.
 - INVESTOR-SAFE TRUTH: real one-time payment link creation works; recurring debit/subscription setup is not yet enabled/authorized in Grow for this flow and must not be claimed as working.
 - COMPLETION: one-time money collection proof remains about 75% until the `₪1` link is paid; recurring subscription lifecycle remains about 45% and now has a concrete Grow-side blocker instead of a vague unknown.
 - SAFETY: no recurring agreement, charge, invoice, refund, WordPress CMS/database change, product, gateway setting, lawyer record, lead, CRM, GSC or GA4 setting was created/changed by this failed recurring attempt.
@@ -1928,15 +1928,15 @@
 - VERIFIED LIVE PROVIDER PAGE: the `pay.grow.link` URL opens a real branded `Jus-Tice Israel` payment page showing `₪1` and a secure payment button.
 - CREATED: `project-control/grow-real-payment-link-smoke-test-2026-05-24.md`.
 - CREATED: `project-control/grow-real-payment-link-smoke-test-2026-05-24.csv`.
-- UPDATED: `project-control/investor-demo-war-room-live-status-2026-05-24.md` and `.csv`.
+- UPDATED: `project-control/investor-demo-live-status-2026-05-24.md` and `.csv`.
 - STILL BLOCKED: no actual payment has been completed yet; the link has not yet been pasted into a lawyer profile and sent through the WordPress admin checkbox; automatic recurring subscription, upgrade/downgrade payment changes and refund execution remain gateway/product-lifecycle work.
 - COMPLETION: full money collection proof moved from about 65% to about 75%; after the owner pays the `₪1` link and Grow shows the transaction/receipt, it should move to about 82%-85%.
 - SAFETY: this cycle created one real provider payment link and sent the link by email under the owner's emergency approval; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting was changed.
 
 # LATEST WORK STATUS - 2026-05-24 21:11 Asia/Jerusalem
-- INVESTOR DEMO WAR ROOM LIVE STATUS: consolidated the current live truth after the owner's uPress pull so tomorrow's investor demo has one reliable control sheet instead of stale blocker notes.
-- CREATED: `project-control/investor-demo-war-room-live-status-2026-05-24.md`.
-- CREATED: `project-control/investor-demo-war-room-live-status-2026-05-24.csv`.
+- INVESTOR DEMO LIVE STATUS: consolidated the current live truth after the owner's uPress pull so tomorrow's investor demo has one reliable control sheet instead of stale blocker notes.
+- CREATED: `project-control/investor-demo-live-status-2026-05-24.md`.
+- CREATED: `project-control/investor-demo-live-status-2026-05-24.csv`.
 - VERIFIED LIVE READ-ONLY / LIVE FORM WRITE: deployment marker passed `2/2`; lawyer revenue funnel passed `10/10`; Grow compliance passed `8/8`; fresh lawyer registration after uPress pull returned `registration=sent`.
 - REAL DEMO DATA CREATED WITH OWNER EMERGENCY APPROVAL: draft lawyer registration `INVESTOR DEMO Account Invite Lawyer 20260524180553` and earlier medical-malpractice demo lead `INVESTOR DEMO - Medical Malpractice Lead` were submitted through public live forms and clearly marked as demo.
 - EMAIL SENT: sent owner-facing summary to `info@jus-tice.co.il` with the subject `Significant advance: live lawyer registration now tests account invite path`.

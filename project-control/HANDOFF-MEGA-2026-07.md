@@ -145,6 +145,19 @@ about results.
 - WCAG AA: verify any new text/bg pair >= 4.5:1 (formula pass done).
 
 ## 6. State now
+- TRAFFIC EMERGENCY SWEEP 2026-07-06 (theme 2.22.0 pushed, ops 1.0.10
+  LIVE): index health verified clean first (no noindex, canonicals OK,
+  sitemap 200; drop is not a technical self-wound; fresh GSC export
+  still owed by owner). Batch 4 shipped: 14 receiving pages retargeted
+  head-first across criminal, drugs, real estate, buy-sell home,
+  malpractice, USA, Cyprus, Greece, abroad-invest, business families
+  (about 1.1M impr/mo, under 600 clicks). 13 of 14 verified rendering
+  live via the ops SEO bridge; /medical-malpractice-lawyer/ resolves
+  to the practice-areas TERM page (not singular) so the bridge skips
+  it, native on pull. Homepage money-hubs band (exact-match anchors to
+  12 hubs, dead slugs skipped) is in theme 2.22.0, renders after owner
+  pull; live theme still 2.19.1. NEXT: owner pull retires all bridges;
+  fresh GSC export to diagnose the drop date and confirm lifts.
 - SEO strikes are LIVE agent-side (2026-07-03, justice-ops 1.0.9 SEO
   bridge, self-retires at theme 2.21.2): directory family + divorce
   head-term titles, descriptions, H1s and intros verified rendering.

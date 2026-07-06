@@ -935,24 +935,49 @@ function justice_art_write_one( int $pid ): bool {
 	$system  = array( 'role' => 'system', 'content' => justice_art_system_prompt() );
 	$umsg    = array( 'role' => 'user', 'content' => $user );
 	$outline = (array) ( $brief['outline'] ?? array() );
-	$half    = (int) ceil( count( $outline ) / 2 );
-	$part_a  = array_slice( $outline, 0, $half );
-	$part_b  = array_slice( $outline, $half );
+	$parts   = array();
 
-	$draft_a = justice_enc_clean( justice_art_call_openai( array(
+	$opening = justice_enc_clean( justice_art_call_openai( array(
 		$system,
 		$umsg,
-		array( 'role' => 'user', 'content' => 'כתוב כעת את חלק 1 של המאמר בלבד: פסקת פתיחה שעונה ישירות לשאלה ומכילה את מילת המפתח במשפט הראשון, ואחריה סעיפי ה-H2 הבאים במלואם: ' . implode( ' ; ', $part_a ) . '. היקף חלק זה: 800 עד 1100 מילים. אל תכתוב שאלות נפוצות עדיין ואל תסכם.' ),
+		array( 'role' => 'user', 'content' => 'כתוב אך ורק את פסקת הפתיחה של המאמר: 120 עד 180 מילים שעונות ישירות לשאלת החיפוש, מילת המפתח במשפט הראשון, ושילוב קישור אחד בתוך הטקסט: <a href="' . ( $brief['pillar_url'] ?? '' ) . '">' . ( $brief['pillar_anchor'] ?? '' ) . '</a>. בלי כותרת, בלי h2, רק פסקאות p.' ),
 	) ), get_the_title( $pid ) );
 
-	$draft_b = justice_enc_clean( justice_art_call_openai( array(
+	if ( '' === trim( wp_strip_all_tags( $opening ) ) ) {
+		return justice_enc_fail( $pid, 'empty-opening', 0, 1300 );
+	}
+
+	$parts[] = $opening;
+
+	foreach ( $outline as $section ) {
+		if ( false !== mb_stripos( $section, 'שאלות נפוצות' ) ) {
+			continue;
+		}
+
+		$wants_table = (bool) preg_match( '/עלו|מדרג|טבל|השווא|כמה|שלב/u', $section );
+		$ask = 'כתוב אך ורק את גוף הסעיף שכותרתו: "' . $section . '". 160 עד 260 מילים, פסקאות p ורשימות ul בלבד, בלי לכתוב את הכותרת עצמה ובלי h2.';
+		if ( $wants_table ) {
+			$ask .= ' אם מתאים, כלול טבלת HTML קצרה (table, tr, th, td).';
+		}
+
+		$body = justice_enc_clean( justice_art_call_openai( array( $system, $umsg, array( 'role' => 'user', 'content' => $ask ) ) ), get_the_title( $pid ) );
+
+		if ( '' !== trim( wp_strip_all_tags( $body ) ) ) {
+			$parts[] = '<h2>' . esc_html( $section ) . '</h2>' . $body;
+		}
+	}
+
+	$faq = justice_enc_clean( justice_art_call_openai( array(
 		$system,
 		$umsg,
-		array( 'role' => 'assistant', 'content' => $draft_a ),
-		array( 'role' => 'user', 'content' => 'כתוב כעת את חלק 2, ההמשך הישיר של חלק 1 שכתבת: סעיפי ה-H2 הנותרים במלואם: ' . implode( ' ; ', $part_b ) . ', ואז שאלות נפוצות של 4 עד 6 שאלות אמיתיות בכותרות h3 עם תשובות קצרות, ומשפט סיום ענייני. אל תחזור על תוכן מחלק 1. היקף חלק זה: 700 עד 1000 מילים. החזר רק את ההמשך.' ),
+		array( 'role' => 'user', 'content' => 'כתוב אך ורק את בלוק השאלות הנפוצות: 5 שאלות אמיתיות שאנשים שואלים על הנושא, כל שאלה בכותרת h3 ותשובה של 40 עד 70 מילים בפסקת p, ובסוף משפט סיום ענייני אחד. בלי כותרת ראשית לבלוק.' ),
 	) ), get_the_title( $pid ) );
 
-	$draft = $draft_a . "\n" . $draft_b;
+	if ( '' !== trim( wp_strip_all_tags( $faq ) ) ) {
+		$parts[] = '<h2>שאלות נפוצות</h2>' . $faq;
+	}
+
+	$draft = implode( "\n", $parts );
 	$words = justice_enc_word_count( $draft );
 
 	if ( 0 === $words ) {

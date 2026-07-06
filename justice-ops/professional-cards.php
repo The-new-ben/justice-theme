@@ -248,6 +248,10 @@ function justice_cards_render( WP_Post $lawyer ): string {
 		. '</aside>';
 }
 
+/**
+ * Card styles print from wp_head: style tags inside post content get
+ * stripped by content sanitization, so the CSS cannot ride the filter.
+ */
 function justice_cards_css(): string {
 	return '<style id="jt-procard-css">'
 		. '.jt-procard{border:1px solid #e3e6ee;border-radius:16px;box-shadow:0 8px 28px rgba(15,25,60,.08);margin:26px 0;overflow:hidden;background:#fff;font-size:15px}'
@@ -270,6 +274,18 @@ function justice_cards_css(): string {
 		. '@media(max-width:600px){.jt-procard__main{align-items:flex-start}.jt-procard__actions{flex-direction:column}}'
 		. '</style>';
 }
+
+add_action( 'wp_head', function () {
+	if ( ! is_singular( array( 'articles', 'post', 'justice_term' ) ) ) {
+		return;
+	}
+
+	if ( ! (int) get_option( 'justice_cards_enabled', 1 ) ) {
+		return;
+	}
+
+	echo justice_cards_css(); // phpcs:ignore WordPress.Security.EscapeOutput
+}, 99 );
 
 add_filter( 'the_content', function ( $content ) {
 	if ( ! is_singular( array( 'articles', 'post', 'justice_term' ) ) || ! in_the_loop() || ! is_main_query() ) {
@@ -298,11 +314,9 @@ add_filter( 'the_content', function ( $content ) {
 		$cards[] = justice_cards_render( $lawyer );
 	}
 
-	$out = justice_cards_css();
-
 	// Short content (news briefs, small entries): one card at the end.
 	if ( justice_enc_word_count( $content ) < 500 || substr_count( $content, '</h2>' ) < 2 ) {
-		return $out . $content . $cards[0];
+		return $content . $cards[0];
 	}
 
 	// Long content: first card right after the second section, second card
@@ -332,5 +346,5 @@ add_filter( 'the_content', function ( $content ) {
 		}
 	}
 
-	return $out . $first . $cards[0] . $rest . $second;
+	return $first . $cards[0] . $rest . $second;
 }, 17 );

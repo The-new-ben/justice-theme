@@ -526,7 +526,7 @@ function justice_theme_get_slug_redirects(): array {
 		'רשלנות-רפואית-ותפקידם-של-עדים-מומחים-כ' => 'medical-malpractice-witnesses-experts-testimony',
 		'העלויות-הנסתרות-של-רשלנות-רפואית-כיצד' => 'medical-malpractice-costs',
 		'עורך-דין-פלילי-שכר-כמה-מרוויח-עוד-פליל' => 'criminal-law-lawyer-criminal-israel',
-		'עורך-דין-פלילי-מפורסם-עוד-פלילי-מפורס' => 'criminal-law-counsel-criminal-israel',
+		'עורך-דין-פלילי-מפורסם-עוד-פלילי-מפורס' => 'criminal-defense-attorney',
 		'עורך-דין-רשלנות-בניתוח-פלסטי-המלצות-עו' => 'lawyer-surgery-recommendations',
 		'רשלנות-רפואית-אבחון-שגוי' => 'medical-malpractice-8271',
 		'סוגי-רשלנות-רפואית' => 'medical-malpractice-8269',

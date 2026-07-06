@@ -619,3 +619,96 @@ add_action( 'wp_head', function () {
 
 	echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE ) . '</script>' . "\n";
 } );
+
+// ---------------------------------------------------------------------------
+// Autolinker: first plain-text occurrence of published encyclopedia terms in
+// site content links into the encyclopedia. Capped, boundary-safe, never
+// inside anchors, headings or tags. Terms cache invalidates on publish.
+// ---------------------------------------------------------------------------
+
+function justice_enc_link_map(): array {
+	$map = get_transient( 'justice_enc_link_map_v1' );
+
+	if ( is_array( $map ) ) {
+		return $map;
+	}
+
+	$map   = array();
+	$terms = get_posts( array(
+		'post_type'      => 'justice_term',
+		'post_status'    => 'publish',
+		'posts_per_page' => 500,
+		'fields'         => 'ids',
+	) );
+
+	foreach ( $terms as $tid ) {
+		$title = get_the_title( $tid );
+
+		if ( mb_strlen( $title ) >= 4 ) {
+			$map[ $title ] = get_permalink( $tid );
+		}
+	}
+
+	uksort( $map, function ( $a, $b ) {
+		return mb_strlen( $b ) <=> mb_strlen( $a );
+	} );
+
+	set_transient( 'justice_enc_link_map_v1', $map, 6 * HOUR_IN_SECONDS );
+
+	return $map;
+}
+
+add_action( 'transition_post_status', function ( $new_status, $old_status, $post ) {
+	if ( 'justice_term' === $post->post_type && ( 'publish' === $new_status || 'publish' === $old_status ) ) {
+		delete_transient( 'justice_enc_link_map_v1' );
+	}
+}, 10, 3 );
+
+add_filter( 'the_content', function ( $content ) {
+	if ( ! is_singular( array( 'articles', 'post', 'page', 'justice_term' ) ) || ! in_the_loop() || ! is_main_query() ) {
+		return $content;
+	}
+
+	$map = justice_enc_link_map();
+
+	if ( ! $map ) {
+		return $content;
+	}
+
+	$current_title = get_the_title();
+	$parts         = preg_split( '/(<a\b[^>]*>.*?<\/a>|<h[1-6][^>]*>.*?<\/h[1-6]>|<[^>]+>)/isu', $content, -1, PREG_SPLIT_DELIM_CAPTURE );
+
+	if ( ! is_array( $parts ) ) {
+		return $content;
+	}
+
+	$links = 0;
+
+	foreach ( $map as $term => $url ) {
+		if ( $links >= 4 ) {
+			break;
+		}
+
+		if ( $term === $current_title || false !== strpos( $content, esc_url( $url ) ) ) {
+			continue;
+		}
+
+		$pattern = '/(?<![\p{L}\p{N}"\x{05F3}\x{05F4}])' . preg_quote( $term, '/' ) . '(?![\p{L}\p{N}"\x{05F3}\x{05F4}])/u';
+
+		foreach ( $parts as $i => $part ) {
+			if ( $i % 2 === 1 || '' === trim( $part ) ) {
+				continue;
+			}
+
+			$replaced = preg_replace( $pattern, '<a class="justice-enc-link" href="' . esc_url( $url ) . '">' . $term . '</a>', $part, 1, $hits );
+
+			if ( $hits ) {
+				$parts[ $i ] = $replaced;
+				$links++;
+				break;
+			}
+		}
+	}
+
+	return $links ? implode( '', $parts ) : $content;
+}, 14 );

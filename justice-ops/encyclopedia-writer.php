@@ -960,6 +960,10 @@ function justice_art_write_one( int $pid, bool $preserve_status = false ): bool 
 		$links[] = $sib['anchor'] . ' => ' . $sib['url'];
 	}
 
+	foreach ( (array) ( $brief['gov_links'] ?? array() ) as $gov ) {
+		$links[] = $gov[0] . ' => ' . $gov[1];
+	}
+
 	$user = 'כתוב את המאמר המלא: "' . get_the_title( $pid ) . '"'
 		. ' | מילת מפתח ראשית: ' . ( $brief['keyword'] ?? '' )
 		. ' | ביטויים משניים לשילוב: ' . ( $brief['secondary'] ?? '' )

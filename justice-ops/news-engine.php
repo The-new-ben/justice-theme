@@ -382,6 +382,7 @@ function justice_news_write_brief( array $item ): int {
 		'post_type'     => 'post',
 		'post_status'   => 'publish',
 		'post_title'    => $headline,
+		'post_name'     => sanitize_title( $item['family'] . '-legal-news-' . wp_date( 'Y-m-d' ) . '-' . substr( md5( $item['link'] ), 0, 6 ) ),
 		'post_content'  => $body . $source_line,
 		'post_excerpt'  => mb_substr( wp_strip_all_tags( $item['desc'] ?: $item['title'] ), 0, 155 ),
 		'post_category' => $cat_id ? array( $cat_id ) : array(),

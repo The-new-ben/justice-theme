@@ -71,3 +71,21 @@ inc/url-redirects.php updated to match.
   merge source for a proper body.
 - Homepage meta description lives in the SEO plugin settings (DB), can
   be rewritten to the keyword pattern on request.
+
+## 2026-07-06 (afternoon): deep structural scan + fixes
+
+- Homepage keyword upper fold LIVE-VERIFIED after owner pull (theme
+  2.23.0): new title, new H1, practice link row, old H1 absent.
+- GSC query+page pull (28d, 10,670 rows): 115 cannibalized queries
+  mapped. Full doctrine: intent-architecture-map-2026-07.md.
+- 45 two-hop redirect chains flattened via Redirection API (751 rules
+  audited, zero loops).
+- Draft slug shadow on /real-estate-lawyer-guide/ (33K impr page)
+  re-slugged before it could collide (article 19197).
+- Duplicate-intent pair found: employment-sexual-harassment vs
+  sexual-harassment-work (entry 51 corrected to consolidate).
+- Prevention shipped: inc/slug-collision-guard.php (cross-type slug
+  uniqueness). Needs owner pull to activate.
+- Verified clean: zero exact duplicate titles (1,486 objects), sitemap
+  hygiene, 404-blanket plugin inactive, /articles/ prefix layer
+  self-healing via correct 301s+canonicals.

@@ -278,6 +278,10 @@ add_action( 'init', function () {
  * practice landing pages with a written body rendered none of it. Inject the
  * body as the last child of the content column. Self-retires the moment the
  * theme output carries the slot natively.
+ *
+ * Priority -1000000: the theme's controlled practice routes render and exit
+ * at -999999, so the buffer must open before them; ob_start callbacks still
+ * run on exit.
  */
 add_action( 'template_redirect', function () {
 	if ( ! is_page() || ! function_exists( 'justice_theme_is_practice_landing_page' ) ) {
@@ -314,4 +318,4 @@ add_action( 'template_redirect', function () {
 
 		return is_string( $replaced ) ? $replaced : $html;
 	} );
-}, 4 );
+}, -1000000 );

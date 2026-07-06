@@ -248,3 +248,39 @@ detention cannibalization. All confirmed and fixed:
   detention siblings.
 - Bonus: published superlative title fixed on
   /experienced-family-law-attorney/ (תותח removed).
+
+## 2026-07-07 (full product run): NEWS ENGINE LIVE (justice-ops 1.4.0-1.4.2)
+
+Owner mandate: full product run, layer by layer. Shipped:
+- NEWS ENGINE: hourly watcher over Israeli feeds (law.co.il verified,
+  ynet, globes, calcalist with runtime health), family keyword router
+  (criminal/family/real-estate/labor/tax-business/courts), gpt-4.1
+  writer producing sourced value-add briefs (attribution first
+  sentence, legal context, practical meaning, curated GOV LINKS ONLY
+  from verified registry, pillar + related article links), sub-judice
+  rule (לכאורה), all style gates, 2h gap + 3/day cap, English slugs
+  ({family}-legal-news-{date}-{hash}).
+- FIRST BRIEF PUBLISHED ON FIRST RUN and live-verified:
+  /criminal-legal-news-2026-07-06-adana/ (403w, attribution, 2 gov
+  links, 3 internal links, NewsArticle schema, clean) and already
+  rendering on the homepage news band.
+- GOOGLE NEWS SITEMAP live at /sitemap-news.xml (48h window; moved
+  outside the Yoast *-sitemap.xml intercept pattern).
+- OWNER CONTROL PANEL: wp-admin -> Justice News (pause switch, daily
+  cap, model, per-source toggles + health, per-family toggles, log,
+  spend estimate, manual run, links to sitemap + status JSON). Public
+  status: /wp-json/justice-ops/v1/news-status.
+- Articles lane: gov_links wired into briefs (4 repaired); the cron
+  AUTONOMOUSLY wrote inheritance-disputes-lawyer (1,217w clean, 1
+  table, 13 FAQ h3) scheduled 10:07.
+- FAQPage schema confirmed already covering machine articles (theme
+  extractor matches our exact FAQ format).
+- Monetization wiring verified: /lawyer-registration/ /lawyer-plans/
+  /lawyers/ /legal-tools/ all 200; homepage lead form posts to
+  admin-post handler. Gap: /contact-us/ 404 (find real contact slug);
+  full lead e2e submit not tested tonight.
+- Screenshots blocked by container proxy (browser CONNECT resets):
+  visual QA routed to cowork's browser.
+- Full sweep: ops 1.4.2, theme 2.23.0, all 10 key surfaces HTTP 200,
+  encyclopedia 14 generated today / 212 queued / 13 scheduled, news
+  1/1 success, zero stuck.

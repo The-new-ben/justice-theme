@@ -314,3 +314,59 @@ homepage, articles, practice areas, encyclopedia, news.
 
 Container browser cannot pass the egress proxy (CONNECT reset), so
 pixel-level screenshot confirmation routes to cowork's browser.
+
+## 2026-07-06 evening: PROFESSIONAL CARDS, the monetization surface (ops 1.6.0-1.6.2)
+
+THE BUSINESS LAYER the owner ordered: rich sponsored lawyer cards
+inside every content piece by practice family, sold via priority.
+
+HOW IT WORKS (justice-ops/professional-cards.php):
+- Family resolver per page: encyclopedia entries via enc_domain, news
+  briefs via news_family, articles via their OWN practice-areas terms
+  first (the same taxonomy the lawyers carry; term found in a family
+  expands to the whole family pool), category slugs as fallback.
+- Candidate pool: publish + practice-areas tax query, NO meta join
+  (a meta_key orderby would silently drop profiles missing the meta).
+- Eligibility, strictly: passes the theme public-approval gate
+  (justice_theme_lawyer_profile_is_public_approved, the same gate that
+  keeps hidden and seed profiles off public surfaces; Sharon Nahari
+  stays impossible to float) AND priority_score >= 1. Score zero =
+  directory only. THE SCORE IS THE PLACEMENT DIAL WE SELL: set a
+  score, the lawyer floats; higher score, earlier slot; equal scores
+  rotate daily (seed wp_date zY) so paying peers share fairly.
+- Card: photo or initial avatar, name, up to 3 practice areas, city,
+  license badge only with license_number, rating only when the
+  verified reviews pipeline shows, "מקודם" compliance chip, WhatsApp
+  CTA prefilled "שלום, אני פונה מהעמוד: {title} | {URL} | אשמח לשוחח
+  עם {lawyer}." plus profile link with utm_source=jt-card.
+- Placement mobile-first: long content card 1 after the 2nd h2,
+  card 2 before the FAQ heading; short content one card at the end.
+  Options: justice_cards_enabled (1), justice_cards_max (2, cap 3).
+- 1.6.2 lesson: style tags inside the_content get stripped by
+  sanitization; card CSS prints from wp_head and Autoptimize
+  aggregates it (rules verified inside the live aggregate file).
+
+DEPLOY LESSON: raw.githubusercontent served the SERVER a stale
+response for a fresh zip; the package URL now always carries ?nlcb=
+cache buster. Disk mtime, not the ok flag, proves an install landed.
+
+LIVE VERIFIED:
+- petah-tikva-divorce-lawyer: Maya card after exactly the 2nd h2,
+  styled, WhatsApp prefill carries page title + URL + her name,
+  profile link /lawyers/advocate-maya-rotenberg/?utm_source=jt-card.
+- experienced-family-law-attorney, divorce-mediation-cons-pros,
+  lawyer-infidelity-divorce: single end card (short or h2-poor).
+- arrest-detention-lawyer-israel, encyclopedia/contributory-negligence,
+  criminal news brief: NO card, page intact (no scored lawyer in those
+  families yet) = graceful absence, inventory ready to sell.
+- Maya 19130 already fully activated on live: visibility show,
+  priority_score 100, subscription active, plan featured, verified
+  owner sources; family pool = Maya + 19 score-zero public imports
+  that correctly stay directory-only.
+- Her profile mini-site (the card destination) audited: 13 sections,
+  ~3,095 words, LegalService schema, 5 WhatsApp CTAs, FAQ, video,
+  office map. The funnel article -> card -> mini-site -> WhatsApp
+  carries page context end to end.
+
+SELLING A NEW PLACEMENT = tag lawyer with the family's practice-areas
+term + set priority_score + pass the approval gate. No code.

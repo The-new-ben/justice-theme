@@ -229,9 +229,15 @@
 							map.once('moveend', function () {
 								orbit(map, 10, function () {
 									if (userTookOver || !features.length) { return; }
+									// Rest the camera on the lawyers, not the whole
+									// national court spread, so the overview lands
+									// where the paying offices are. Courts stay on
+									// the map as labeled chips within the view.
+									var lawyers = features.filter(function (f) { return f.properties && f.properties.kind === 'lawyer'; });
+									var overview = lawyers.length ? lawyers : (premium.length ? premium : features);
 									var bounds = new mapboxgl.LngLatBounds();
-									features.forEach(function (f) { bounds.extend(f.geometry.coordinates); });
-									map.fitBounds(bounds, { padding: 70, pitch: 40, maxZoom: 13 });
+									overview.forEach(function (f) { bounds.extend(f.geometry.coordinates); });
+									map.fitBounds(bounds, { padding: 140, pitch: 40, maxZoom: 13.4 });
 								});
 							});
 						});

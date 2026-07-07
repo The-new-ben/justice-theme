@@ -603,3 +603,31 @@ get_queried_object(). Both schemas verified emitting live.
 FINAL STATE: monitor ALL GREEN across 10 journey checks + healthcheck.
 Funnel mesh now: content -> cards/calculators/generators/triage ->
 router -> ack telemetry -> badges -> reviews -> schema, one system.
+
+## 2026-07-07 afternoon: Q&A ENGINE (ops 1.9.4-1.9.6)
+
+שאל עורך דין live at /ask-a-lawyer/: guarded public form (honeypot +
+bot floor + nonce), questions land PENDING with a machine-drafted
+general answer (iron-rule prompt, SKIP on doubt); nothing publishes
+without one-click owner approval (YMYL discipline, same as reviews).
+Published questions: /q/ English slugs, question box + disclaimer,
+QAPage JSON-LD, practice-areas terms so the SPONSORED CARDS MESH
+injects the family advertiser automatically (cards singular-type list
+became filterable), and askers who left a phone become ROUTED LEADS
+with the full billing trail on publish.
+
+E2E proven on live: ask -> pending with draft + family-law term ->
+publish -> page 200 with question box, QAPage schema, Maya card,
+disclaimer; lead auto-created, routed to 19130 at 180 ILS. Fixtures
+deleted.
+
+THREE DEFECTS CAUGHT AND FIXED BY THE QA PASS (1.9.5-1.9.6):
+- A companion wp_insert_post_data filter strips post_name on pending
+  inserts: slugs are now forced post-insert.
+- added_post_meta does not fire reliably inside a publish transition:
+  the QA lead now routes by direct call.
+- The theme request guard 404ed /q/ singles exactly as it once 404ed
+  the encyclopedia: same request-filter bridge applied.
+FALSE ALARM LESSON: str_word_count counts zero for Hebrew; the machine
+drafts were never broken, the measurement was. Count Hebrew with a
+unicode-range regex.

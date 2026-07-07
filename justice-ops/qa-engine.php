@@ -141,6 +141,11 @@ function justice_qa_handle_ask(): void {
 		exit;
 	}
 
+	// A companion insert filter strips post_name on pending inserts; force it.
+	if ( '' === get_post_field( 'post_name', $qid ) ) {
+		wp_update_post( array( 'ID' => $qid, 'post_name' => 'q-' . ( $family ?: 'general' ) . '-' . $qid ) );
+	}
+
 	update_post_meta( $qid, 'qa_question', $question );
 	update_post_meta( $qid, 'qa_area', $area );
 
@@ -199,13 +204,21 @@ function justice_qa_draft_answer( string $question, string $area ): string {
 	) );
 
 	if ( is_wp_error( $response ) ) {
+		update_option( 'jt_qa_last_err', 'wp_error: ' . $response->get_error_message(), false );
 		return '';
 	}
 
+	$code = (int) wp_remote_retrieve_response_code( $response );
 	$data = json_decode( (string) wp_remote_retrieve_body( $response ), true );
 	$text = trim( (string) ( $data['choices'][0]['message']['content'] ?? '' ) );
 
-	if ( '' === $text || false !== strpos( $text, 'SKIP' ) ) {
+	if ( 200 !== $code || '' === $text ) {
+		update_option( 'jt_qa_last_err', 'http ' . $code . ': ' . mb_substr( (string) wp_remote_retrieve_body( $response ), 0, 220 ), false );
+		return '';
+	}
+
+	if ( false !== strpos( $text, 'SKIP' ) ) {
+		update_option( 'jt_qa_last_err', 'model skipped', false );
 		return '';
 	}
 
@@ -294,5 +307,11 @@ add_action( 'transition_post_status', function ( $new, $old, $post ) {
 		update_post_meta( $lead, 'lead_source_surface', 'qa_engine' );
 		update_post_meta( $lead, 'lead_status', 'new' );
 		update_post_meta( $post->ID, 'qa_lead_created', (string) $lead );
+
+		// The meta-hook side effect does not fire reliably inside a
+		// transition context; route explicitly.
+		if ( function_exists( 'justice_router_route_lead' ) ) {
+			justice_router_route_lead( $lead );
+		}
 	}
 }, 10, 3 );

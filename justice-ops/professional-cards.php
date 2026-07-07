@@ -332,7 +332,7 @@ function justice_cards_render( WP_Post $lawyer ): string {
 	}
 	$trust .= $rating_html;
 
-	return '<aside class="jt-procard" role="complementary" aria-label="' . esc_attr( $s['flag_label'] ) . '" data-card-surface="incontent">'
+	return '<aside class="jt-procard" role="complementary" aria-label="' . esc_attr( $s['flag_label'] ) . '" data-card-surface="incontent" data-l="' . (int) $pid . '">'
 		. '<div class="jt-procard__ribbon">'
 		. '<span class="jt-procard__flag"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M12 3l1.8 3.8 4.2.6-3 2.9.7 4.2L12 12.6l-3.7 1.9.7-4.2-3-2.9 4.2-.6L12 3z"/></svg>' . esc_html( $s['flag_label'] ) . '</span>'
 		. '<em class="jt-procard__sponsored">' . esc_html( $s['sponsored_label'] ) . '</em>'
@@ -444,6 +444,9 @@ add_filter( 'the_content', function ( $content ) {
 	foreach ( $lawyers as $lawyer ) {
 		$cards[] = justice_cards_render( $lawyer );
 	}
+
+	// Tells the analytics footer beacon that this response carries cards.
+	$GLOBALS['justice_cards_rendered'] = true;
 
 	// Short content (news briefs, small entries): one card at the end.
 	if ( justice_enc_word_count( $content ) < 500 || substr_count( $content, '</h2>' ) < 2 ) {

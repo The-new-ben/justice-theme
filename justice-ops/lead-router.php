@@ -122,8 +122,15 @@ function justice_router_route_lead( int $lead_id ): array {
 		return array( 'ok' => false, 'why' => 'no family for area ' . $area );
 	}
 
-	// Same eligibility engine as the sponsored cards, widened pool.
+	// Same eligibility engine as the sponsored cards, widened pool, then
+	// performance-weighted within equal paid tiers (market design: paid
+	// placement dominates, real responsiveness reorders equals).
 	$candidates = justice_cards_lawyers( $map[ $family ], 6 );
+
+	if ( function_exists( 'justice_market_rank' ) ) {
+		$candidates = justice_market_rank( $candidates );
+	}
+
 	$chosen     = null;
 
 	foreach ( $candidates as $candidate ) {

@@ -95,6 +95,7 @@ add_shortcode( 'justice_qa', function () {
 
 	return ( 'sent' === $sent ? '<div class="jt-adv__ok" style="border:1.5px solid #0a7d2f;background:#f0faf3;color:#0a5c25;border-radius:14px;padding:16px 18px;margin:18px 0;font-weight:600">השאלה התקבלה. תשובה כללית תפורסם אחרי בדיקה, ואם השארתם טלפון נחבר אתכם לעורך דין מתאים.</div>' : '' )
 		. '<p>שואלים בקצרה, בלי פרטים מזהים. התשובות כלליות ואינן ייעוץ משפטי, ומתפרסמות אחרי בדיקה כדי לעזור גם לשואלים הבאים.</p>'
+		. ( function_exists( 'justice_market_trust_strip' ) ? justice_market_trust_strip() : '' )
 		. '<div class="jt-calc"><form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '">'
 		. '<input type="hidden" name="action" value="justice_qa_ask">'
 		. wp_nonce_field( 'justice_qa_ask', 'jt_qa_nonce', true, false )

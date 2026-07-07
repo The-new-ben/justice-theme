@@ -99,6 +99,15 @@ add_action( 'admin_menu', function () {
 				כותרות שנבחרו: <strong><?php echo (int) ( $d['brain']['titles'] ?? 0 ); ?></strong>
 			</p>
 
+			<h2>שוק הלידים (30 יום)</h2>
+			<?php $ms = function_exists( 'justice_market_stats' ) ? justice_market_stats() : array(); ?>
+			<p>
+				פניות בשבוע האחרון: <strong><?php echo (int) ( $ms['leads_7d'] ?? 0 ); ?></strong> |
+				זמן מענה חציוני: <strong><?php echo (int) ( $ms['median_resp_min'] ?? 0 ); ?> דקות</strong>
+				(מדגם <?php echo (int) ( $ms['resp_sample'] ?? 0 ); ?>) |
+				שאלות שפורסמו: <strong><?php echo (int) ( $ms['questions_pub'] ?? 0 ); ?></strong>
+			</p>
+
 			<h2>ביצועי כרטיסים, 7 ימים</h2>
 			<table class="widefat striped" style="max-width:760px">
 				<thead><tr><th>עורך דין</th><th>חשיפות</th><th>וואטסאפ</th><th>פרופיל</th></tr></thead>

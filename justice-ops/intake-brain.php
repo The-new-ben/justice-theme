@@ -70,7 +70,9 @@ add_shortcode( 'justice_brain', function () {
 
 	$json = wp_json_encode( $tree, JSON_UNESCAPED_UNICODE );
 
-	return '<p>שלוש שאלות קצרות, בלי פרטים אישיים, ובסוף: פנייה מסודרת בוואטסאפ או בטופס, כבר עם כל ההקשר.</p>'
+	$trust = function_exists( 'justice_market_trust_strip' ) ? justice_market_trust_strip() : '';
+
+	return '<p>שלוש שאלות קצרות, בלי פרטים אישיים, ובסוף: פנייה מסודרת בוואטסאפ או בטופס, כבר עם כל ההקשר.</p>' . $trust
 		. '<div class="jt-brain" id="jt-brain">'
 		. '<div class="jt-brain__step" id="jtb-1"><h2>מה התחום?</h2><div class="jt-brain__opts">' . $areas . '</div></div>'
 		. '<div class="jt-brain__step" id="jtb-2" hidden><h2>מה המצב?</h2><div class="jt-brain__opts" id="jtb-sits"></div></div>'

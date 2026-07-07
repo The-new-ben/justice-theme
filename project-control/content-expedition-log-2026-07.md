@@ -493,3 +493,69 @@ probes (header-stamping temp snippet at template_redirect -1000001).
 7310 stays draft: it is a single-ruling analysis (Judge Ofra Guy,
 property claims), wrong intent for the family hub; candidate for a
 future property-division spoke after fact review.
+
+## 2026-07-07 morning: SEVEN-CYCLE AUTONOMOUS MARATHON (ops 1.8.0-1.8.7)
+
+Owner order: all proposed enhancements, sequential, deep, a moat every
+cycle. All deployed and live-verified; container browser cannot pass
+the egress proxy so QA ran on rendered HTML plus server-side probes.
+
+1) JOURNEY MONITOR (1.8.0): hourly walk of 8 money paths against the
+   CACHED public surface, transition-only alert mail, ring log,
+   monitor-status/monitor-run. First run and closing run: ALL GREEN.
+2) CARD ANALYTICS (1.8.0): viewable impressions (IntersectionObserver
+   at half card) + WhatsApp/profile clicks per lawyer/surface/day,
+   beaconed so cached views count, per-IP caps, card-stats, monthly
+   advertiser proof mail. E2E: events counted, bogus lawyer 400.
+3) ADVERTISER FUNNEL (1.8.1): /advertise/ plans + guarded application
+   form -> draft profile + owner mail + WhatsApp reply; one-click
+   activation sets plan/score/renewal (verified: publish, score 50,
+   renews +30d, PASSES the public gate); daily lapse watchdog zeroes
+   expired scores. Manual payment mode until a processor is chosen.
+4) LEAD ROUTER (1.8.2): area->family->top eligible advertiser (cards
+   eligibility engine + monthly_lead_limit), price stamped as billing
+   evidence, lawyer mail with acknowledge, owner mail with WhatsApp
+   forward. E2E in isolated traffic family: routed with price 120,
+   labor lead correctly unrouted_no_capacity. QA FOUND: mail scanners
+   prefetch GET links and false-acknowledged a lead -> acknowledge is
+   now a confirm-button POST (proven: GET leaves meta empty, POST
+   sets it).
+5) VERIFIED REVIEWS (1.8.3-1.8.5): tokenized links minted only from
+   real CRM leads, one per lead, moderated, approval recomputes lawyer
+   aggregates and unlocks the gated stars (verified end to end:
+   public_state show true, 5.0). FOUNDATIONAL BUG UNEARTHED: the
+   historical justice_recommendation type name is 22 chars, over the
+   WP 20-char post type limit and the wp_posts column width, so the
+   native reviews pipeline could never store anything; reviews now
+   live in justice_review with self-computed aggregates.
+6) SERP TITLE MACHINE (1.8.6-1.8.7): weekly GSC strike-zone scan
+   (positions 4-15, 300+ impressions; service account JWT signed
+   server-side, key in a non-autoloaded option, never in repo),
+   iron-rule titles to both title channels, experiment records,
+   3-week measure with auto-revert, owner mail per change, pause
+   option. Live scan returned 4 real candidates (incl. הסכם גירושין
+   pos 7.4 / 1,360 impressions / 0.15% CTR). Weekly cron armed.
+7) CITY x PRACTICE ENGINE + COCKPIT (1.8.7): local pages generate
+   ONLY where a scored gate-approved advertiser carries the city term
+   (doorway defense = the inventory gate); machine opening under the
+   iron rules, advertiser cards, family guides, hub link; weekly
+   generation rides the serp tick so new advertisers unlock local
+   pages automatically. First page live:
+   /family-lawyer-tel-aviv/ (title, H1, Maya card, hub link, zero
+   tellers after anchor fix). Justice Cockpit admin screen + 
+   cockpit-json: monitor, 7d card stats, advertiser roster, machine
+   counters, SERP tallies.
+
+Also fixed on sight: three nav menu labels carried dashes (1512,
+1522, 6292) -> retitled clean in DB; one cached nav fragment rotates
+out with the page cache. Known: lead post titles from the companion
+handler carry mojibake dash bytes (admin display only; companion
+plugin is outside the delivery channel). Cockpit advertiser count
+reads score>0 without the public gate (roster shows names; refine
+next pass).
+
+MOATS THIS RUN: self-checking money paths; unbackfillable proof
+data; a sales funnel with self-enforcing lapses; routed-lead billing
+evidence; structurally unfakeable reviews; a compounding title loop
+with auto-revert; local pages that mint themselves as advertisers
+join; one-screen business truth.

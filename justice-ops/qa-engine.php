@@ -170,7 +170,14 @@ function justice_qa_handle_ask(): void {
 	}
 
 	// Machine draft, saved as the post body but kept pending for approval.
-	$draft = justice_qa_draft_answer( $question, $area );
+	// The brain pipeline (grounding, verification, judge) when available.
+	if ( function_exists( 'justice_brain_answer' ) ) {
+		$brain = justice_brain_answer( $question, $area );
+		$draft = $brain['text'];
+		update_post_meta( $qid, 'qa_brain_trace', wp_slash( wp_json_encode( $brain['trace'], JSON_UNESCAPED_UNICODE ) ) );
+	} else {
+		$draft = justice_qa_draft_answer( $question, $area );
+	}
 
 	if ( $draft ) {
 		wp_update_post( array( 'ID' => $qid, 'post_content' => $draft ) );

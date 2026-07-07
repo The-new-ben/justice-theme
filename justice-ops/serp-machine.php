@@ -227,7 +227,13 @@ function justice_serp_apply_one(): array {
 			$current = get_the_title( $pid );
 		}
 
-		$title = justice_serp_new_title( $current, $candidate['query'] );
+		$title = function_exists( 'justice_brain_best_title' )
+			? justice_brain_best_title( $current, $candidate['query'] )
+			: '';
+
+		if ( '' === $title ) {
+			$title = justice_serp_new_title( $current, $candidate['query'] );
+		}
 
 		if ( '' === $title || $title === $current ) {
 			continue;

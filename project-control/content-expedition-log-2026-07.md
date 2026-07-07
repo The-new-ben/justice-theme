@@ -680,3 +680,33 @@ word counts now use the unicode-aware counter everywhere in the brain.
   progress bar. LIVE VERIFIED on the abroad pillar: 7 anchored
   sections, TOC items, progress div, rules inside the new Autoptimize
   aggregate. Monitor ALL GREEN after deploy.
+
+## 2026-07-07 late: MARKETPLACE SCIENCE LAYER (ops 2.1.0-2.1.1)
+
+Research searched, cited and OPERATIONALIZED:
+- MIT/InsideSales Lead Response Management (Oldroyd): contact odds
+  drop 100x between minutes 5 and 30 -> SLA ESCALATION ENGINE on a 15
+  minute cron: tier1 reminder at 30 unacked minutes (lawyer re-notify
+  + owner nudge), tier2 at 90 reassigns to the next performance-ranked
+  eligible lawyer, sla_events evidence trail on every lead, sla-run
+  endpoint. Options: justice_sla_tier1_minutes / tier2.
+- Market design (Gale-Shapley/Roth, Nobel 2012: stability, thickness,
+  speed) -> PERFORMANCE-WEIGHTED MATCHING: within equal paid tiers the
+  router prefers real responsiveness (median first-response <= 60m:
+  +8; ack rate >= 80%: +7; 2+ recent escalations: -10; minimum sample
+  3). Paid tier ALWAYS dominates: performance reorders equals only.
+- Goldstein/Cialdini descriptive norms (2008 hotel field experiment,
+  +9pp with truthful proof) -> TRUST STRIP on intake and Q&A surfaces
+  rendering only REAL figures above a floor (verified live: shows
+  1,213 published guides; hides the 2-leads and 0-questions figures
+  instead of inflating). Endpoint market-stats.
+- Post-submit EXPECTATION PANEL on lead=success: what happens next
+  timeline + WhatsApp accelerator (uncertainty reduction).
+- Cockpit gained the lead-market panel (7d leads, median response,
+  sample, published questions).
+
+QA HARNESS CAUGHT A REAL BUG BEFORE ANY REAL LEAD: SLA ages compared a
+site-timezone stamp against time() via strtotime (reads UTC), delaying
+every escalation by the site offset. 2.1.1 parses with wp_timezone.
+Harness rerun: 100-minute lead -> tier2 fired -> no-alternative owner
+path -> events stamped. Fixtures deleted. Monitor ALL GREEN.

@@ -710,3 +710,59 @@ site-timezone stamp against time() via strtotime (reads UTC), delaying
 every escalation by the site offset. 2.1.1 parses with wp_timezone.
 Harness rerun: 100-minute lead -> tier2 fired -> no-alternative owner
 path -> events stamped. Fixtures deleted. Monitor ALL GREEN.
+
+## 2026-07-07 evening: CINEMATIC MAP + FINDER, THE DIN.CO.IL ANSWER (ops 2.2.0-2.2.2)
+
+COMPETITOR SCAN (din.co.il, the market leader): they lead with a
+lawyer finder, forums, video and live chat; they ship ZERO JSON-LD
+schema and no calculators or generators (both are ours already).
+Their finder was their strongest asset -> CLOSED this cycle: a
+server-rendered finder strip (area select from the family hubs, city
+select from live inventory-gated city pages, real internal links so
+SEO reads them without JS) sits on every map surface.
+
+THE MAP (owner order: "like a drone", gold flag for payers, no dots,
+courts labeled, light so Google does not punish, AFTER content):
+- Mapbox GL v3 Standard style: real 3D buildings and NATIVE Hebrew
+  POI labels: courthouses and government buildings are labeled by the
+  basemap itself, zero invented coordinates (iron-rule safe by
+  construction).
+- Drone choreography in cinema-map.js: high approach (IP-approximate
+  region via ipapi.co, 1.4s timeout, IL only, no permission prompt),
+  dive onto the TOP PAYING office (Maya Rotenberg), slow orbit around
+  the building, pull back to overview. "Aerial tour" button replays
+  across every premium office in a chained flyTo+orbit loop. Motion
+  stops on first user touch; prefers-reduced-motion gets a static map.
+- Premium renders as a GOLD FLAG marker with portrait, name pill and
+  a promoted tag; every other firm is a quiet logo chip; courts and
+  institutions are dark place chips + basemap labels. Popups: premium
+  gets WhatsApp + profile buttons, others profile only.
+- WEIGHT: IntersectionObserver boots the whole engine only 500px from
+  the viewport; GL js+css injected on demand; LCP never pays. Embed
+  appended at the_content priority 32, ALWAYS AFTER the article body
+  so the first paragraphs keep their SEO weight. Surfaces: articles,
+  Q&A singles, city-practice pages, legal-help / ask-a-lawyer /
+  calculators / documents / family-law.
+
+LIVE QA FOUND AND FIXED THREE REAL BUGS:
+- 2.2.0 rendered NOTHING: the premium enrichment lived inside the
+  theme-bridge filter that self-retires at theme 2.21.0 (live theme
+  is 2.23.0), and the token resolver read the empty plugin option
+  while the real token lives in theme storage. 2.2.1: always-on
+  enrichment filter + token through the theme resolver first.
+- A pre-existing `continue` for logo-carrying lawyers skipped the
+  premium block for exactly the lawyers who have logos (Maya).
+- 2.2.2: the WhatsApp prefill URL-encoded an entity-escaped title
+  (gershayim arrived as a literal quot entity inside the message);
+  now decoded before encoding. Enrichment single-sourced (bridge copy
+  deleted). MONITOR NOW WATCHES THE MAP: money article must carry the
+  embed, offices feed must serve a premium office with a portrait.
+
+LIVE VERIFIED (cache purged, probed inside aggregates):
+- /petah-tikva-divorce-lawyer/: map + finder + tour render, order is
+  content -> sponsored card -> FAQ -> map, tel-aviv city option live.
+- /legal-calculators/: embed + finder + tour live; map CSS inside
+  Autoptimize aggregate 0822a987, engine flyTour x3 inside JS
+  aggregate a4e09676, JT_CINEMA config inside the base64 data URI.
+- Offices feed: premium=1 (Maya) with portrait + clean WhatsApp text.
+- Monitor 10/10 GREEN before the 2.2.2 deploy.

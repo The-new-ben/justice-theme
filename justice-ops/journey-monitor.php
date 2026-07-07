@@ -30,13 +30,14 @@ function justice_monitor_checks(): array {
 	return apply_filters( 'justice_monitor_checks', array(
 		'home'        => array( 'url' => '/', 'must' => array( 'עורך דין' ), 'label' => 'דף הבית' ),
 		'family_hub'  => array( 'url' => '/family-law/', 'must' => array( 'practice-landing__pillar-content', 'justice_lead_nonce' ), 'label' => 'האב דיני משפחה + טופס לידים' ),
-		'money_card'  => array( 'url' => '/petah-tikva-divorce-lawyer/', 'must' => array( 'jt-procard' ), 'label' => 'מאמר כסף + כרטיס ממומן' ),
+		'money_card'  => array( 'url' => '/petah-tikva-divorce-lawyer/', 'must' => array( 'jt-procard', 'jt-cinema-map' ), 'label' => 'מאמר כסף + כרטיס ממומן + מפה' ),
 		'profile'     => array( 'url' => '/lawyers/advocate-maya-rotenberg/', 'must' => array( 'adv-maya-rotenberg-portrait' ), 'label' => 'פרופיל הדגל + פורטרט' ),
 		'pillar'      => array( 'url' => '/buying-property-abroad-guide/', 'must' => array( 'קניית נכס' ), 'label' => 'עמוד עוגן נכסים בחול' ),
 		'encyclopedia'=> array( 'url' => '/encyclopedia/contributory-negligence/', 'must' => array( 'אשם תורם' ), 'label' => 'ערך אנציקלופדיה' ),
 		'news_sitemap'=> array( 'url' => '/sitemap-news.xml', 'must' => array( '<urlset' ), 'label' => 'מפת חדשות' ),
 		'calculators' => array( 'url' => '/legal-calculators/', 'must' => array( 'jt-calc-tile' ), 'label' => 'מחשבונים' ),
 		'intake'      => array( 'url' => '/legal-help/', 'must' => array( 'jt-brain__opt' ), 'label' => 'אבחון מהיר' ),
+		'map_offices' => array( 'url' => '/wp-json/justice/v1/map/offices', 'must' => array( '"premium":true', '"photo":"https:' ), 'label' => 'פיד מפה + משרד מקודם' ),
 	) );
 }
 

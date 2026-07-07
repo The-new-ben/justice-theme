@@ -52,6 +52,15 @@ function justice_cards_settings(): array {
 	return apply_filters( 'justice_cards_settings', $settings );
 }
 
+
+/**
+ * Singular types that carry the cards mesh; extendable by other modules
+ * (the Q&A engine adds justice_question).
+ */
+function justice_cards_singular_types(): array {
+	return apply_filters( 'justice_cards_singular_types', array( 'articles', 'post', 'justice_term' ) );
+}
+
 // ---------------------------------------------------------------------------
 // Family resolution
 // ---------------------------------------------------------------------------
@@ -99,7 +108,7 @@ function justice_cards_current_terms(): array {
 		}
 	}
 
-	if ( ! is_singular( array( 'articles', 'post' ) ) ) {
+	if ( ! is_singular( array_diff( justice_cards_singular_types(), array( 'justice_term' ) ) ) ) {
 		return array();
 	}
 
@@ -449,7 +458,7 @@ function justice_cards_css(): string {
 }
 
 add_action( 'wp_head', function () {
-	if ( ! is_singular( array( 'articles', 'post', 'justice_term' ) ) ) {
+	if ( ! is_singular( justice_cards_singular_types() ) ) {
 		return;
 	}
 
@@ -467,7 +476,7 @@ add_action( 'wp_head', function () {
 // ---------------------------------------------------------------------------
 
 add_filter( 'the_content', function ( $content ) {
-	if ( ! is_singular( array( 'articles', 'post', 'justice_term' ) ) || ! in_the_loop() || ! is_main_query() ) {
+	if ( ! is_singular( justice_cards_singular_types() ) || ! in_the_loop() || ! is_main_query() ) {
 		return $content;
 	}
 

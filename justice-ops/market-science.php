@@ -32,6 +32,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+
+/**
+ * Parse a site-timezone "Y-m-d H:i" stamp to a unix ts. strtotime alone
+ * reads it as UTC and shifts every age calculation by the site offset
+ * (caught live by the SLA harness).
+ */
+function justice_market_ts( string $stamp ): int {
+	if ( '' === $stamp ) {
+		return 0;
+	}
+
+	$dt = date_create_immutable( $stamp, wp_timezone() );
+
+	return $dt ? $dt->getTimestamp() : 0;
+}
+
 // ---------------------------------------------------------------------------
 // Performance metrics per lawyer (cached)
 // ---------------------------------------------------------------------------
@@ -159,7 +175,7 @@ function justice_sla_run(): array {
 	$acted = array();
 
 	foreach ( $open as $lead_id ) {
-		$routed_at = strtotime( (string) get_post_meta( $lead_id, 'lead_routed_at', true ) );
+		$routed_at = justice_market_ts( (string) get_post_meta( $lead_id, 'lead_routed_at', true ) );
 
 		if ( ! $routed_at ) {
 			continue;

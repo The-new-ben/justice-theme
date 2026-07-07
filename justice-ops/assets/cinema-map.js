@@ -77,12 +77,27 @@
 		return el;
 	}
 
+	function placeGlyph(t) {
+		if (t === 'court' || t === 'rabbinical') { return '⚖'; }        // scales of justice
+		if (t === 'institution' || t === 'bar') { return '🏛'; }  // classical building
+		if (t === 'legal_aid') { return '🛟'; }                   // ring buoy
+		if (t === 'enforcement') { return '📎'; }                 // paperclip
+		return '';
+	}
+
 	function chipMarker(p) {
 		var el = document.createElement('div');
-		el.className = 'jtcm-chip' + (p.kind === 'place' ? ' jtcm-chip--place' : '');
-		el.innerHTML = (p.logo ? '<img src="' + esc(p.logo) + '" alt="" loading="lazy">' : '')
+		var glyph = (p.kind === 'place') ? placeGlyph(p.place_type) : '';
+		el.className = 'jtcm-chip' + (p.kind === 'place' ? ' jtcm-chip--place' : '') + (glyph ? ' jtcm-chip--glyph' : '');
+		el.innerHTML = (glyph ? '<b class="jtcm-chip__g" aria-hidden="true">' + glyph + '</b>' : '')
+			+ (p.logo ? '<img src="' + esc(p.logo) + '" alt="" loading="lazy">' : '')
 			+ '<span>' + esc(p.name) + '</span>';
 		return el;
+	}
+
+	function navUrl(p) {
+		var q = [p.name, p.address, p.city].filter(Boolean).join(' ');
+		return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
 	}
 
 	function popupHtml(p) {
@@ -94,6 +109,9 @@
 			h += '</div>';
 		} else if (p.url && p.kind === 'lawyer') {
 			h += '<div class="jtcm-pop__acts"><a class="jtcm-pop__go" href="' + esc(p.url) + '">לפרופיל</a></div>';
+		} else if (p.kind === 'place') {
+			if (p.type_label) { h += '<div class="jtcm-pop__meta">' + esc(p.type_label) + (p.address ? ' · ' + esc(p.address) : '') + '</div>'; }
+			h += '<div class="jtcm-pop__acts"><a class="jtcm-pop__go" href="' + esc(navUrl(p)) + '" target="_blank" rel="noopener nofollow">ניווט</a></div>';
 		}
 		return h + '</div>';
 	}

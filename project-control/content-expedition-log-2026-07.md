@@ -766,3 +766,54 @@ LIVE VERIFIED (cache purged, probed inside aggregates):
   aggregate a4e09676, JT_CINEMA config inside the base64 data URI.
 - Offices feed: premium=1 (Maya) with portrait + clean WhatsApp text.
 - Monitor 10/10 GREEN before the 2.2.2 deploy.
+
+## 2026-07-07 night: THE NATIONAL COURT LAYER (ops 2.2.2-2.3.1)
+
+The owner's map order had one line not yet fully honored: "every court,
+every government office, everything has to be labeled." The basemap
+labels courthouses natively, but only at close zoom. So the map now
+carries the authoritative set, seeded from the Judicial Authority
+directory (gov.il courts-data).
+
+WEB-RESEARCHED, then GEOCODED, never invented:
+- Sources: gov.il/he/departments/dynamiccollectors/courts-data (the
+  official directory), cross-read against odonline.co.il and
+  insolvency-law.org.il for the full magistrate branch list with
+  street addresses.
+- Every court carries its OFFICIAL PUBLISHED ADDRESS. Coordinates come
+  from geocoding that address on the server through Mapbox (the same
+  token and endpoint the theme already uses for lawyer offices), never
+  a hand-typed latitude. Iron-rule safe: no invented facts, and every
+  seeded point passed the Israel bounding-box gate (0 out of range).
+- Idempotent seed (justice-ops/map-places.php, admin seed-courts
+  route): skips a court whose exact title exists and skips any court
+  that geocodes within ~150m of an existing place. That proximity
+  guard is why the shared Hall of Justice buildings never double-pin:
+  district + magistrate + labor under one roof in Beer Sheva, Nazareth
+  and Haifa collapsed to a single chip (9 near-existing skips, all
+  correct).
+
+LIVE RESULT: 30 courts now labeled on the map. The Supreme Court, all
+six district courts, every magistrate branch from Eilat to Nof HaGalil,
+the national and regional labor courts, plus the main government
+complexes. Courts render as gold scales chips, government as classical
+building chips, each popup carrying a one-tap navigate link to maps.
+
+TWO REFINEMENTS FROM SELF-QA:
+- map-places used get_page_by_title (deprecated in WP 6.2+); switched
+  to a WP_Query title lookup before it could log a notice.
+- With 43 features now spanning the whole country, the drone's closing
+  overview was fitting Eilat-to-Galilee into frame and showing empty
+  desert. 2.3.1 rests the overview on the lawyer offices (fallback
+  premium, then all); courts stay as labeled chips within the view.
+
+VERIFIED LIVE: healthcheck 2.3.1; feed serves 30 court + 3 institution
+places with place_type, address and type_label; the money article
+still renders map + finder + tour; the new JS aggregate carries
+placeGlyph, the maps navigate link and the lawyer-anchored overview;
+monitor 11/11 GREEN.
+
+DIN.CO.IL POSTURE: their finder was their edge and it is matched; their
+core court archive is answered on the map side (labeled national court
+coverage) with the court-decision digest lane still queued for the
+content side. Remaining honest gaps: video and forum-scale community.

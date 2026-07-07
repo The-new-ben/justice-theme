@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.2.0
+ * Version: 2.2.1
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.2.0' );
+	define( 'JUSTICE_OPS_VERSION', '2.2.1' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -227,6 +227,54 @@ add_filter( 'rest_request_after_callbacks', function ( $response, $handler, $req
 
 	return $response;
 }, 10, 3 );
+
+
+/**
+ * Cinematic map enrichment, ALWAYS on (the logo bridge above self-retires
+ * with the theme, this must not): premium flag from the same rules as the
+ * cards, profile url, portrait, WhatsApp for premium.
+ */
+add_filter( 'rest_request_after_callbacks', function ( $response, $handler, $request ) {
+	if ( ! ( $response instanceof WP_REST_Response ) || '/justice/v1/map/offices' !== $request->get_route() ) {
+		return $response;
+	}
+
+	$data = $response->get_data();
+
+	if ( ! is_array( $data ) || empty( $data['features'] ) || ! is_array( $data['features'] ) ) {
+		return $response;
+	}
+
+	foreach ( $data['features'] as &$feature ) {
+		if ( ! isset( $feature['properties']['kind'] ) || 'lawyer' !== $feature['properties']['kind'] ) {
+			continue;
+		}
+
+		$lawyer_id = (int) ( $feature['properties']['id'] ?? 0 );
+		$score     = (int) get_post_meta( $lawyer_id, 'priority_score', true );
+		$approved  = function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+			? justice_theme_lawyer_profile_is_public_approved( $lawyer_id )
+			: false;
+
+		$feature['properties']['premium'] = ( $score > 0 && $approved );
+		$feature['properties']['url']     = get_permalink( $lawyer_id );
+
+		if ( $feature['properties']['premium'] ) {
+			$portrait = function_exists( 'justice_cards_avatar_src' ) ? justice_cards_avatar_src( $lawyer_id ) : null;
+
+			if ( $portrait ) {
+				$feature['properties']['photo'] = $portrait['src'];
+			}
+
+			$feature['properties']['wa'] = 'https://wa.me/972525101555?text=' . rawurlencode( 'שלום, ראיתי את ' . get_the_title( $lawyer_id ) . ' במפת עורכי הדין ואשמח לשוחח.' );
+		}
+	}
+	unset( $feature );
+
+	$response->set_data( $data );
+
+	return $response;
+}, 11, 3 );
 
 add_filter( 'script_loader_src', function ( $src, $handle ) {
 	if ( 'justice-legal-map' === $handle && justice_ops_theme_needs_bridge() ) {

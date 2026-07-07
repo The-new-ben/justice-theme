@@ -19,6 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function justice_cinema_token(): string {
+	if ( function_exists( 'justice_theme_mapbox_public_token' ) ) {
+		$token = (string) justice_theme_mapbox_public_token();
+
+		if ( '' !== $token ) {
+			return $token;
+		}
+	}
+
 	$token = (string) get_option( 'justice_ops_mapbox_public_token', '' );
 
 	return (string) apply_filters( 'justice_theme_mapbox_public_token', $token );

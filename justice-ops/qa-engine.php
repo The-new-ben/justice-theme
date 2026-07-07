@@ -38,6 +38,16 @@ add_action( 'init', function () {
 	) );
 }, 2 );
 
+// Routing bridge: the theme request guard force-retypes named requests and
+// 404s question singles, exactly as it did encyclopedia entries.
+add_filter( 'request', function ( $query_vars ) {
+	if ( isset( $query_vars['justice_question'] ) ) {
+		$query_vars['post_type'] = 'justice_question';
+	}
+
+	return $query_vars;
+}, 11 );
+
 // The cards mesh treats questions like any content in the family.
 add_filter( 'justice_cards_singular_types', function ( $types ) {
 	$types[] = 'justice_question';

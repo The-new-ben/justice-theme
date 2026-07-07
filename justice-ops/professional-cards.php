@@ -262,6 +262,58 @@ function justice_cards_avatar_src( int $lawyer_id ): ?array {
 	return array( 'src' => $small[0], 'srcset' => $srcset );
 }
 
+
+/**
+ * Median first-response minutes over the last 90 days of acknowledged
+ * routed leads. Badge appears only with 3+ real samples: unfakeable,
+ * computed from our own routing telemetry.
+ */
+function justice_cards_response_badge( int $lawyer_id ): string {
+	$cached = get_transient( 'jt_resp_' . $lawyer_id );
+
+	if ( false === $cached ) {
+		$leads = get_posts( array(
+			'post_type'      => 'justice_lead',
+			'post_status'    => 'any',
+			'posts_per_page' => 40,
+			'fields'         => 'ids',
+			'date_query'     => array( array( 'after' => '90 days ago' ) ),
+			'meta_query'     => array(
+				array( 'key' => 'assigned_lawyer_id', 'value' => (string) $lawyer_id ),
+				array( 'key' => 'lead_ack_at', 'compare' => 'EXISTS' ),
+			),
+		) );
+
+		$mins = array();
+
+		foreach ( $leads as $lead_id ) {
+			$routed = strtotime( (string) get_post_meta( $lead_id, 'lead_routed_at', true ) );
+			$acked  = strtotime( (string) get_post_meta( $lead_id, 'lead_ack_at', true ) );
+
+			if ( $routed && $acked && $acked >= $routed ) {
+				$mins[] = ( $acked - $routed ) / 60;
+			}
+		}
+
+		$cached = '';
+
+		if ( count( $mins ) >= 3 ) {
+			sort( $mins );
+			$median = $mins[ (int) floor( count( $mins ) / 2 ) ];
+
+			if ( $median <= 60 ) {
+				$cached = 'מגיב בדרך כלל בתוך שעה';
+			} elseif ( $median <= 240 ) {
+				$cached = 'מגיב בדרך כלל בתוך ' . ceil( $median / 60 ) . ' שעות';
+			}
+		}
+
+		set_transient( 'jt_resp_' . $lawyer_id, $cached, 12 * HOUR_IN_SECONDS );
+	}
+
+	return $cached ? '<span class="jt-procard__trustitem jt-procard__resp">' . esc_html( $cached ) . '</span>' : '';
+}
+
 /**
  * Render one professional card.
  */
@@ -330,6 +382,7 @@ function justice_cards_render( WP_Post $lawyer ): string {
 	if ( $years >= 3 ) {
 		$trust .= '<span class="jt-procard__trustitem">' . esc_html( number_format_i18n( $years ) ) . ' שנות ניסיון</span>';
 	}
+	$trust .= justice_cards_response_badge( $pid );
 	$trust .= $rating_html;
 
 	return '<aside class="jt-procard" role="complementary" aria-label="' . esc_attr( $s['flag_label'] ) . '" data-card-surface="incontent" data-l="' . (int) $pid . '">'
@@ -382,6 +435,7 @@ function justice_cards_css(): string {
 		. '.jt-procard__trustitem{display:inline-flex;align-items:center;gap:4px;font-weight:600}'
 		. '.jt-procard__verified{color:#0a7d2f}'
 		. '.jt-procard__rating{color:#8a6d1d;font-weight:700}'
+		. '.jt-procard__resp{color:#1465b0;font-weight:700}'
 		. '.jt-procard__actions{display:flex;gap:10px;padding:14px 18px 18px;position:relative;z-index:1}'
 		. '.jt-procard__wa,.jt-procard__profile{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:13px;padding:11px 12px;font-weight:800;font-size:15px;text-decoration:none;line-height:1.2;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}'
 		. '.jt-procard__wa{background:linear-gradient(180deg,#2ade70,#1fb355);color:#fff;box-shadow:0 10px 22px -10px rgba(31,179,85,.65)}'

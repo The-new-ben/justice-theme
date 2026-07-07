@@ -35,6 +35,8 @@ function justice_monitor_checks(): array {
 		'pillar'      => array( 'url' => '/buying-property-abroad-guide/', 'must' => array( 'קניית נכס' ), 'label' => 'עמוד עוגן נכסים בחול' ),
 		'encyclopedia'=> array( 'url' => '/encyclopedia/contributory-negligence/', 'must' => array( 'אשם תורם' ), 'label' => 'ערך אנציקלופדיה' ),
 		'news_sitemap'=> array( 'url' => '/sitemap-news.xml', 'must' => array( '<urlset' ), 'label' => 'מפת חדשות' ),
+		'calculators' => array( 'url' => '/legal-calculators/', 'must' => array( 'jt-calc-tile' ), 'label' => 'מחשבונים' ),
+		'intake'      => array( 'url' => '/legal-help/', 'must' => array( 'jt-brain__opt' ), 'label' => 'אבחון מהיר' ),
 	) );
 }
 

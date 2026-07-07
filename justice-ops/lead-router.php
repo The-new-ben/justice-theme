@@ -71,6 +71,40 @@ function justice_router_month_count( int $lawyer_id ): int {
 	return (int) $q->found_posts;
 }
 
+
+/**
+ * Short suggested first reply for the lawyer's mail: generic, factual,
+ * scrubbed; empty string on any failure so routing never depends on it.
+ */
+function justice_router_reply_suggestion( string $family, string $situation ): string {
+	if ( ! defined( 'JUSTICE_OPENAI_KEY' ) ) {
+		return '';
+	}
+
+	$response = wp_remote_post( 'https://api.openai.com/v1/chat/completions', array(
+		'timeout' => 20,
+		'headers' => array( 'Authorization' => 'Bearer ' . JUSTICE_OPENAI_KEY, 'Content-Type' => 'application/json' ),
+		'body'    => wp_json_encode( array(
+			'model'    => 'gpt-4.1-mini',
+			'messages' => array(
+				array( 'role' => 'system', 'content' => 'נסח לעורך דין הודעת וואטסאפ ראשונה קצרה ללקוח פוטנציאלי: 2 עד 3 משפטים, חמה ועניינית, בלי הבטחות תוצאה, בלי סופרלטיבים, בלי קו מפריד ארוך, בלי ייעוץ משפטי קונקרטי. סיים בהצעה לשיחה קצרה היום.' ),
+				array( 'role' => 'user', 'content' => 'תחום: ' . $family . '. ההודעה שהשאיר הפונה: ' . mb_substr( $situation, 0, 200 ) ),
+			),
+			'temperature' => 0.4,
+			'max_tokens'  => 160,
+		) ),
+	) );
+
+	if ( is_wp_error( $response ) ) {
+		return '';
+	}
+
+	$data = json_decode( (string) wp_remote_retrieve_body( $response ), true );
+	$text = trim( (string) ( $data['choices'][0]['message']['content'] ?? '' ) );
+
+	return str_replace( array( chr(226).chr(128).chr(148), chr(226).chr(128).chr(147) ), ',', $text );
+}
+
 /**
  * Route one lead. Idempotent: a routed lead never routes twice.
  */
@@ -129,6 +163,8 @@ function justice_router_route_lead( int $lead_id ): array {
 	$lawyer_email = sanitize_email( (string) get_post_meta( $chosen->ID, 'email', true ) );
 
 	if ( $lawyer_email ) {
+		$suggestion = justice_router_reply_suggestion( $family, $message ?: $urgency );
+
 		wp_mail(
 			$lawyer_email,
 			'[Jus-Tice] פנייה חדשה בתחום שלך: ' . $name,
@@ -139,6 +175,7 @@ function justice_router_route_lead( int $lead_id ): array {
 			. 'דחיפות: ' . $urgency . "\n"
 			. ( $message ? "הודעה:\n" . $message . "\n" : '' )
 			. "\nאישור קבלת הפנייה (לחיצה אחת):\n" . $ack_url
+			. ( $suggestion ? "\n\nהצעה להודעת פתיחה ללקוח (אפשר להעתיק ולהתאים):\n" . $suggestion : '' )
 			. "\n\nמומלץ לחזור לפונה בתוך שעה. פניות שנענות מהר נסגרות פי כמה."
 		);
 	}

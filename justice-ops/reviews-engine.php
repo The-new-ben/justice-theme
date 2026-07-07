@@ -5,9 +5,8 @@
  * Reviews enter ONLY through tokenized links minted from real leads in the
  * CRM: the owner (or a closed-lead automation) requests a review, the
  * client gets a one-time link bound to that lead and lawyer, the review
- * lands in a moderation queue, and approval creates a native
- * justice_recommendation record so the theme recalculates its aggregates
- * and the gated stars on cards and profiles unlock by themselves. A review
+ * lands in a moderation queue, and approval recomputes the lawyer
+ * aggregates so the gated stars on cards and profiles unlock by themselves. A review
  * without a real lead behind it is structurally impossible.
  *
  * @package JusticeOps
@@ -18,16 +17,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * The recommendation CPT the theme aggregates expect is not registered by
- * the live companion plugin, and an insert-hardening filter rejects posts
- * of unregistered types. Register it here until the theme carries it.
+ * Reviews live in their OWN CPT with a valid name: the theme's historical
+ * justice_recommendation is 22 characters, over the WordPress 20 character
+ * post type limit (and the wp_posts.post_type column width), so that type
+ * can never register and inserts of it fail. Aggregates are computed here
+ * and written to the lawyer meta the public star gate reads.
  */
 add_action( 'init', function () {
-	if ( post_type_exists( 'justice_recommendation' ) ) {
+	if ( post_type_exists( 'justice_review' ) ) {
 		return;
 	}
 
-	register_post_type( 'justice_recommendation', array(
+	register_post_type( 'justice_review', array(
 		'label'               => 'חוות דעת',
 		'public'              => false,
 		'show_ui'             => true,
@@ -157,7 +158,7 @@ add_action( 'init', function () {
 	}
 
 	$review_id = wp_insert_post( array(
-		'post_type'    => 'justice_recommendation',
+		'post_type'    => 'justice_review',
 		'post_status'  => 'pending',
 		'post_title'   => 'חוות דעת: ' . $name . ' על ' . get_the_title( $lawyer ),
 		'post_content' => $text,
@@ -177,7 +178,7 @@ add_action( 'init', function () {
 	wp_mail(
 		get_option( 'admin_email' ),
 		'[Jus-Tice] חוות דעת חדשה ממתינה לאימות: ' . get_the_title( $lawyer ),
-		'דירוג: ' . $rating . " מתוך 5\nשם: " . $name . "\n\n" . $text . "\n\nאימות ופרסום: " . admin_url( 'edit.php?post_type=justice_recommendation&post_status=pending' )
+		'דירוג: ' . $rating . " מתוך 5\nשם: " . $name . "\n\n" . $text . "\n\nאימות ופרסום: " . admin_url( 'edit.php?post_type=justice_review&post_status=pending' )
 	);
 } , 5 );
 
@@ -186,26 +187,49 @@ add_action( 'init', function () {
 // aggregates and switches the display flag on the first approved review.
 // ---------------------------------------------------------------------------
 
+function justice_reviews_recalculate( int $lawyer ): array {
+	$reviews = get_posts( array(
+		'post_type'      => 'justice_review',
+		'post_status'    => 'publish',
+		'posts_per_page' => 200,
+		'fields'         => 'ids',
+		'meta_query'     => array(
+			array( 'key' => 'recommended_lawyer_id', 'value' => (string) $lawyer ),
+			array( 'key' => 'verified_case_link', 'value' => '1' ),
+		),
+	) );
+
+	$count = count( $reviews );
+	$sum   = 0;
+
+	foreach ( $reviews as $review_id ) {
+		$sum += max( 1, min( 5, (int) get_post_meta( $review_id, 'rating', true ) ) );
+	}
+
+	$average = $count ? round( $sum / $count, 2 ) : 0;
+
+	update_post_meta( $lawyer, 'review_count', (string) $count );
+	update_post_meta( $lawyer, 'average_rating', (string) $average );
+
+	if ( $count > 0 && ! get_post_meta( $lawyer, 'review_display_enabled', true ) ) {
+		update_post_meta( $lawyer, 'review_display_enabled', '1' );
+	}
+
+	return array( 'count' => $count, 'average' => $average );
+}
+
 add_action( 'transition_post_status', function ( $new, $old, $post ) {
-	if ( 'publish' !== $new || 'publish' === $old || ! $post instanceof WP_Post || 'justice_recommendation' !== $post->post_type ) {
+	if ( ! $post instanceof WP_Post || 'justice_review' !== $post->post_type ) {
 		return;
 	}
 
-	if ( '1' !== (string) get_post_meta( $post->ID, 'verified_case_link', true ) ) {
+	if ( 'publish' !== $new && 'publish' !== $old ) {
 		return;
 	}
 
 	$lawyer = (int) get_post_meta( $post->ID, 'recommended_lawyer_id', true );
 
-	if ( ! $lawyer ) {
-		return;
-	}
-
-	if ( function_exists( 'justice_theme_lawyer_recalculate_review_aggregates' ) ) {
-		justice_theme_lawyer_recalculate_review_aggregates( $lawyer );
-	}
-
-	if ( ! get_post_meta( $lawyer, 'review_display_enabled', true ) ) {
-		update_post_meta( $lawyer, 'review_display_enabled', '1' );
+	if ( $lawyer ) {
+		justice_reviews_recalculate( $lawyer );
 	}
 }, 10, 3 );

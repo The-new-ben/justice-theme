@@ -665,3 +665,18 @@ wills. Grounded 2 site sources, draft 142 words, CoVe revised, judge
 4/4/5/5 PASSED, final 147 words with 1 internal link, legally accurate
 framing (notarial will as a form of will before an authority). Hebrew
 word counts now use the unicode-aware counter everywhere in the brain.
+
+## 2026-07-07 night: BRAIN EVERYWHERE + READER UX (ops 2.0.1)
+
+- Article machine outputs now pass the brain rubric judge before
+  shipping; judge failures re-enter the existing retry path with
+  reason 'judge'. The daily 10:07 article is now grounded floors +
+  per-section generation + deterministic scrub + rubric gate.
+- Cockpit gained the brain quality panel: passes, refined-and-passed,
+  rejected, responsible skips, titles picked, per day.
+- Reader UX shipped render-layer: automatic anchored TOC on long-form
+  content with 4+ sections (details/summary, collapsed on mobile, open
+  on desktop, smooth anchors honoring reduced motion) + gold reading
+  progress bar. LIVE VERIFIED on the abroad pillar: 7 anchored
+  sections, TOC items, progress div, rules inside the new Autoptimize
+  aggregate. Monitor ALL GREEN after deploy.

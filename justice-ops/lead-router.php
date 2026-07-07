@@ -180,8 +180,11 @@ add_action( 'added_post_meta', function ( $meta_id, $post_id, $meta_key, $meta_v
 // ---------------------------------------------------------------------------
 
 add_action( 'rest_api_init', function () {
+	// GET shows a confirm button; only the button's POST marks the lead.
+	// Mail security scanners prefetch GET links, so a bare GET side effect
+	// would false-acknowledge every routed lead (caught live in QA).
 	register_rest_route( 'justice-ops/v1', '/lead-ack', array(
-		'methods'             => 'GET',
+		'methods'             => array( 'GET', 'POST' ),
 		'permission_callback' => '__return_true',
 		'callback'            => function ( WP_REST_Request $request ) {
 			$lead  = (int) $request->get_param( 'lead' );
@@ -191,12 +194,20 @@ add_action( 'rest_api_init', function () {
 				return new WP_REST_Response( array( 'ok' => false ), 403 );
 			}
 
-			if ( ! get_post_meta( $lead, 'lead_ack_at', true ) ) {
-				update_post_meta( $lead, 'lead_ack_at', wp_date( 'Y-m-d H:i' ) );
-				update_post_meta( $lead, 'follow_up_status', 'accepted_by_lawyer' );
+			$style = 'font-family:sans-serif;direction:rtl;text-align:center;padding:60px 20px';
+
+			if ( 'POST' === $request->get_method() ) {
+				if ( ! get_post_meta( $lead, 'lead_ack_at', true ) ) {
+					update_post_meta( $lead, 'lead_ack_at', wp_date( 'Y-m-d H:i' ) );
+					update_post_meta( $lead, 'follow_up_status', 'accepted_by_lawyer' );
+				}
+
+				return new WP_REST_Response( '<!doctype html><meta charset="utf-8"><body style="' . $style . '"><h1 style="color:#14213d">הפנייה אושרה</h1><p>תודה. סימנו שקיבלת את הפנייה. מומלץ לחזור לפונה בהקדם.</p></body>', 200, array( 'Content-Type' => 'text/html; charset=utf-8' ) );
 			}
 
-			return new WP_REST_Response( '<!doctype html><meta charset="utf-8"><body style="font-family:sans-serif;direction:rtl;text-align:center;padding:60px 20px"><h1 style="color:#14213d">הפנייה אושרה</h1><p>תודה. סימנו שקיבלת את הפנייה. מומלץ לחזור לפונה בהקדם.</p></body>', 200, array( 'Content-Type' => 'text/html; charset=utf-8' ) );
+			$action = esc_url( rest_url( 'justice-ops/v1/lead-ack' ) . '?lead=' . $lead . '&t=' . rawurlencode( $token ) );
+
+			return new WP_REST_Response( '<!doctype html><meta charset="utf-8"><body style="' . $style . '"><h1 style="color:#14213d">אישור קבלת פנייה</h1><p>לחיצה על הכפתור מאשרת שקיבלת את פרטי הפונה.</p><form method="post" action="' . $action . '"><button type="submit" style="background:#1fb355;color:#fff;border:0;border-radius:12px;padding:14px 34px;font-size:17px;font-weight:700;cursor:pointer">אישור קבלה</button></form></body>', 200, array( 'Content-Type' => 'text/html; charset=utf-8' ) );
 		},
 	) );
 

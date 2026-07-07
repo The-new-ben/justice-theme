@@ -83,7 +83,7 @@ function justice_gsc_query( array $body ): array {
 	}
 
 	$response = wp_remote_post(
-		'https://searchconsole.googleapis.com/webmasters/v3/sites/' . rawurlencode( 'sc-domain:jus-tice.co.il' ) . '/searchAnalytics/query',
+		'https://searchconsole.googleapis.com/webmasters/v3/sites/' . rawurlencode( (string) get_option( 'justice_gsc_property', 'https://jus-tice.co.il/' ) ) . '/searchAnalytics/query',
 		array(
 			'timeout' => 25,
 			'headers' => array( 'Authorization' => 'Bearer ' . $token, 'Content-Type' => 'application/json' ),

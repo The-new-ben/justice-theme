@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 1.8.6
+ * Version: 1.8.7
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '1.8.6' );
+	define( 'JUSTICE_OPS_VERSION', '1.8.7' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -48,6 +48,12 @@ require_once __DIR__ . '/reviews-engine.php';
 
 // SERP title machine: weekly strike-zone titles with measure and auto-revert.
 require_once __DIR__ . '/serp-machine.php';
+
+// City x practice pages: inventory-gated local landing engine.
+require_once __DIR__ . '/city-practice.php';
+
+// Owner cockpit: business state on one screen plus cockpit-json.
+require_once __DIR__ . '/cockpit.php';
 
 /**
  * Public healthcheck: what version of the ops plugin is live.

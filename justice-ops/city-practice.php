@@ -155,7 +155,7 @@ function justice_city_generate( int $cap = 3 ): array {
 				. $cards
 				. '<h2>מדריכים שיעזרו לכם להתכונן</h2>'
 				. ( $guide_html ? '<ul>' . $guide_html . '</ul>' : '' )
-				. '<p>למדריך המלא בתחום: <a href="' . esc_url( home_url( $labels[ $family ]['hub'] ) ) . '">כל מה שחשוב לדעת על ' . esc_html( $family_he ) . '</a>. אפשר גם לשלוח הודעת וואטסאפ מהכפתור הצף ולקבל התאמה אישית.</p>';
+				. '<p>למדריך המלא בתחום: <a href="' . esc_url( home_url( $labels[ $family ]['hub'] ) ) . '">המדריך המלא בנושא ' . esc_html( $family_he ) . '</a>. אפשר גם לשלוח הודעת וואטסאפ מהכפתור הצף ולקבל התאמה אישית.</p>';
 
 			$title = 'עורך דין ' . $family_he . ' ב' . $city_name . ': ליווי מקומי ובחירה נכונה';
 

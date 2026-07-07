@@ -631,3 +631,37 @@ THREE DEFECTS CAUGHT AND FIXED BY THE QA PASS (1.9.5-1.9.6):
 FALSE ALARM LESSON: str_word_count counts zero for Hebrew; the machine
 drafts were never broken, the measurement was. Count Hebrew with a
 unicode-range regex.
+
+## 2026-07-07 evening: THE AI BRAIN (ops 2.0.0)
+
+Research-backed generation pipeline shared by every machine, built
+from the papers (searched and cited):
+- Retrieval grounding in OUR OWN published pages (factuality survey
+  arXiv:2310.07521): drafts may lean only on well-known general
+  knowledge plus retrieved site sources, whose links get woven in as
+  internal links.
+- Chain-of-Verification, factored variant (Dhuliawala et al., Meta AI,
+  arXiv:2309.11495): verification questions answered independently,
+  final rewritten with uncertain claims removed.
+- LLM-as-Judge rubric gate (Zheng et al., arXiv:2306.05685): JSON
+  scores for accuracy framing, iron rules, clarity, helpfulness;
+  minimum 4 of 5 on every axis or the output does not ship.
+- Self-Refine (Madaan et al., arXiv:2303.17651): one refine pass
+  driven by the judge's own feedback, then re-judged.
+- Self-consistency selection (Wang et al., arXiv:2203.11171): three
+  title candidates in one call, judge picks the winner; wired into the
+  SERP machine.
+Deterministic iron-rule scrub stays the last gate. Every output
+carries a full trace (sources, draft words, cove verdict, judge
+scores) persisted per question; daily counters (passes, refines,
+fails, skips, scrub kills) at brain-status; test bench at brain-test.
+
+CONSUMERS WIRED: Q&A drafts ride justice_brain_answer (trace saved to
+qa_brain_trace meta); SERP titles ride justice_brain_best_title with
+legacy single-shot fallback.
+
+LIVE BENCH PROOF (production run): question on regular vs notarial
+wills. Grounded 2 site sources, draft 142 words, CoVe revised, judge
+4/4/5/5 PASSED, final 147 words with 1 internal link, legally accurate
+framing (notarial will as a form of will before an authority). Hebrew
+word counts now use the unicode-aware counter everywhere in the brain.

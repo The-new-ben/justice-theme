@@ -1044,6 +1044,16 @@ function justice_art_write_one( int $pid, bool $preserve_status = false ): bool 
 		return justice_enc_fail( $pid, 'floor', $words, 1300 );
 	}
 
+	// Brain judge gate (arXiv 2306.05685): the rubric must pass before an
+	// article ships; a failing draft goes back through the retry path.
+	if ( function_exists( 'justice_brain_judge' ) ) {
+		$verdict = justice_brain_judge( mb_substr( wp_strip_all_tags( $draft ), 0, 2400 ), 'מאמר משפטי ארוך בנושא: ' . get_the_title( $pid ) );
+
+		if ( empty( $verdict['pass'] ) ) {
+			return justice_enc_fail( $pid, 'judge', $words, 1300 );
+		}
+	}
+
 	if ( false !== stripos( $draft, 'VERIFY' ) ) {
 		return justice_enc_fail( $pid, 'verify-left', $words, 1300 );
 	}

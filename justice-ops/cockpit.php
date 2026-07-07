@@ -36,6 +36,8 @@ function justice_cockpit_data(): array {
 	$art  = get_option( 'justice_art_writer_stat', array() );
 	$news = get_option( 'justice_news_stat', array() );
 
+	$brain = get_option( 'jt_brain_stats', array() );
+
 	$serp_active = 0;
 	$serp_won    = 0;
 	foreach ( (array) get_option( 'justice_serp_experiments', array() ) as $exp ) {
@@ -49,6 +51,7 @@ function justice_cockpit_data(): array {
 		'advertisers' => $advertisers,
 		'machines'    => array( 'encyclopedia_today' => $enc, 'articles_today' => $art, 'news_today' => $news ),
 		'serp'        => array( 'active' => $serp_active, 'won' => $serp_won ),
+		'brain'       => $brain,
 	);
 }
 
@@ -86,6 +89,15 @@ add_action( 'admin_menu', function () {
 					<small><?php echo (int) $d['serp']['won']; ?> ניצחונות עד כה</small>
 				</div>
 			</div>
+
+			<h2>המוח: בקרת איכות תוצרים (היום)</h2>
+			<p>
+				עברו את השופט: <strong><?php echo (int) ( $d['brain']['passes'] ?? 0 ); ?></strong> |
+				תוקנו ועברו: <strong><?php echo (int) ( $d['brain']['refines'] ?? 0 ); ?></strong> |
+				נפסלו: <strong><?php echo (int) ( $d['brain']['fails'] ?? 0 ); ?></strong> |
+				דילוגים באחריות: <strong><?php echo (int) ( $d['brain']['skips'] ?? 0 ); ?></strong> |
+				כותרות שנבחרו: <strong><?php echo (int) ( $d['brain']['titles'] ?? 0 ); ?></strong>
+			</p>
 
 			<h2>ביצועי כרטיסים, 7 ימים</h2>
 			<table class="widefat striped" style="max-width:760px">

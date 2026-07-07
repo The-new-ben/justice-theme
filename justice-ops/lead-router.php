@@ -194,7 +194,10 @@ add_action( 'rest_api_init', function () {
 				return new WP_REST_Response( array( 'ok' => false ), 403 );
 			}
 
+			// Direct HTML output: a REST return value gets JSON-encoded, and
+			// the lawyer needs a human page, not a JSON blob.
 			$style = 'font-family:sans-serif;direction:rtl;text-align:center;padding:60px 20px';
+			header( 'Content-Type: text/html; charset=utf-8' );
 
 			if ( 'POST' === $request->get_method() ) {
 				if ( ! get_post_meta( $lead, 'lead_ack_at', true ) ) {
@@ -202,12 +205,14 @@ add_action( 'rest_api_init', function () {
 					update_post_meta( $lead, 'follow_up_status', 'accepted_by_lawyer' );
 				}
 
-				return new WP_REST_Response( '<!doctype html><meta charset="utf-8"><body style="' . $style . '"><h1 style="color:#14213d">הפנייה אושרה</h1><p>תודה. סימנו שקיבלת את הפנייה. מומלץ לחזור לפונה בהקדם.</p></body>', 200, array( 'Content-Type' => 'text/html; charset=utf-8' ) );
+				echo '<!doctype html><meta charset="utf-8"><body style="' . $style . '"><h1 style="color:#14213d">הפנייה אושרה</h1><p>תודה. סימנו שקיבלת את הפנייה. מומלץ לחזור לפונה בהקדם.</p></body>';
+				exit;
 			}
 
 			$action = esc_url( rest_url( 'justice-ops/v1/lead-ack' ) . '?lead=' . $lead . '&t=' . rawurlencode( $token ) );
 
-			return new WP_REST_Response( '<!doctype html><meta charset="utf-8"><body style="' . $style . '"><h1 style="color:#14213d">אישור קבלת פנייה</h1><p>לחיצה על הכפתור מאשרת שקיבלת את פרטי הפונה.</p><form method="post" action="' . $action . '"><button type="submit" style="background:#1fb355;color:#fff;border:0;border-radius:12px;padding:14px 34px;font-size:17px;font-weight:700;cursor:pointer">אישור קבלה</button></form></body>', 200, array( 'Content-Type' => 'text/html; charset=utf-8' ) );
+			echo '<!doctype html><meta charset="utf-8"><body style="' . $style . '"><h1 style="color:#14213d">אישור קבלת פנייה</h1><p>לחיצה על הכפתור מאשרת שקיבלת את פרטי הפונה.</p><form method="post" action="' . $action . '"><button type="submit" style="background:#1fb355;color:#fff;border:0;border-radius:12px;padding:14px 34px;font-size:17px;font-weight:700;cursor:pointer">אישור קבלה</button></form></body>';
+			exit;
 		},
 	) );
 

@@ -17,6 +17,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * The recommendation CPT the theme aggregates expect is not registered by
+ * the live companion plugin, and an insert-hardening filter rejects posts
+ * of unregistered types. Register it here until the theme carries it.
+ */
+add_action( 'init', function () {
+	if ( post_type_exists( 'justice_recommendation' ) ) {
+		return;
+	}
+
+	register_post_type( 'justice_recommendation', array(
+		'label'               => 'חוות דעת',
+		'public'              => false,
+		'show_ui'             => true,
+		'show_in_menu'        => 'edit.php?post_type=justice_lawyer',
+		'supports'            => array( 'title', 'editor' ),
+		'capability_type'     => 'post',
+		'map_meta_cap'        => true,
+		'exclude_from_search' => true,
+	) );
+}, 1 );
+
 function justice_reviews_token( int $lead_id ): string {
 	return substr( wp_hash( 'jt-review-' . $lead_id . '-' . (string) get_post_meta( $lead_id, 'visitor_phone', true ) ), 0, 20 );
 }

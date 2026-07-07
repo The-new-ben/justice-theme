@@ -559,3 +559,47 @@ data; a sales funnel with self-enforcing lapses; routed-lead billing
 evidence; structurally unfakeable reviews; a compounding title loop
 with auto-revert; local pages that mint themselves as advertisers
 join; one-screen business truth.
+
+## 2026-07-07 midday: GROWTH MARATHON (ops 1.9.0-1.9.3)
+
+Owner grant: full ownership, continuous marathon, fix everything seen.
+
+CALCULATORS SUITE (1.9.0): severance, recuperation pay, annual leave,
+small claims fee. Stable statutory formulas only; yearly-changing
+rates in DATED options (never silently stale); FAQ blocks; WhatsApp
+CTA carries the computed result so leads arrive prequalified. Pages
+auto-created with English slugs + /legal-calculators/ index. All four
+verified live (builder + FAQ render).
+
+INTAKE BRAIN (1.9.0): /legal-help/ three-step deterministic triage
+(area, situation, urgency), zero model in the loop. Ends in WhatsApp
+handoff carrying the full path AND a prefilled standard lead form
+(surface intake_brain) that routes, prices and bills through the
+existing engine. E2E proven: triage-shaped lead 302 lead=success,
+fixture deleted.
+
+WIRING: header nav gained מחשבונים משפטיים + אבחון מהיר (menu 243);
+family-law hub body links both; monitor extended to both surfaces.
+
+DOCUMENT GENERATORS (1.9.1): demand letter + parking ticket appeal.
+Hand-written neutral skeletons assembled in the browser, copy and
+lawyer-review WhatsApp paths, /legal-documents/ index cross-linking
+the calculators. Verified live.
+
+RESPONSE-TIME BADGE (1.9.1): cards show median first-response time
+computed from OUR routing telemetry (routed_at to ack_at, 3+ samples,
+12h cache). Appears only with real data: a trust signal competitors
+cannot fake or backfill. AI first-reply suggestion (gpt-4.1-mini,
+scrubbed, optional) now rides the routed-lead mail to the lawyer.
+
+AI ANSWER SURFACES (1.9.2-1.9.3): FAQPage JSON-LD on calculator and
+generator pages from their hand-written Q&A; Attorney JSON-LD with
+gated aggregateRating on city practice pages; llms.txt covered by
+Yoast's own generator (ours stays as fallback if Yoast's vanishes).
+LESSON REPEATED AND GENERALIZED: is_page() lies on this theme (the
+routing guard force-retypes page queries); every guard now trusts
+get_queried_object(). Both schemas verified emitting live.
+
+FINAL STATE: monitor ALL GREEN across 10 journey checks + healthcheck.
+Funnel mesh now: content -> cards/calculators/generators/triage ->
+router -> ack telemetry -> badges -> reviews -> schema, one system.

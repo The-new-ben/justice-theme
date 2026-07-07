@@ -91,11 +91,15 @@ add_action( 'init', function () {
 // ---------------------------------------------------------------------------
 
 add_action( 'wp_head', function () {
-	if ( ! is_page() ) {
+	// The theme routing guard force-retypes page queries, so is_page() lies;
+	// trust the queried object itself.
+	$qo = get_queried_object();
+
+	if ( ! $qo instanceof WP_Post || 'page' !== $qo->post_type ) {
 		return;
 	}
 
-	$slug = get_post_field( 'post_name', get_queried_object_id() );
+	$slug = $qo->post_name;
 	$faq  = array();
 
 	if ( function_exists( 'justice_calc_registry' ) ) {
@@ -138,11 +142,13 @@ add_action( 'wp_head', function () {
 // ---------------------------------------------------------------------------
 
 add_action( 'wp_head', function () {
-	if ( ! is_page() ) {
+	$qo = get_queried_object();
+
+	if ( ! $qo instanceof WP_Post || 'page' !== $qo->post_type ) {
 		return;
 	}
 
-	$combo = (string) get_post_meta( get_queried_object_id(), 'jt_city_practice', true );
+	$combo = (string) get_post_meta( $qo->ID, 'jt_city_practice', true );
 
 	if ( '' === $combo || false === strpos( $combo, '|' ) ) {
 		return;

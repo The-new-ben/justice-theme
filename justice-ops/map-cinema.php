@@ -82,7 +82,7 @@ function justice_cinema_finder(): string {
 		. '<select id="jtcm-area" aria-label="בחירת תחום">' . $areas . '</select>'
 		. ( $cities ? '<select id="jtcm-city" aria-label="בחירה לפי עיר"><option value="">לפי עיר (אופציונלי)</option>' . $cities . '</select>' : '' )
 		. '<a class="jtcm-finder__go" href="' . esc_url( home_url( '/family-law/' ) ) . '" onclick="var c=document.getElementById(\'jtcm-city\');var a=document.getElementById(\'jtcm-area\');this.href=(c&&c.value)?c.value:a.value;">מעבר</a>'
-		. '<a class="jtcm-finder__alt" href="' . esc_url( home_url( '/legal-help/' ) ) . '">לא בטוחים? אבחון מהיר</a>'
+		. '<a class="jtcm-finder__alt" href="' . esc_url( home_url( '/legal-ai-desk/' ) ) . '">לא בטוחים? קבלו כיוון משפטי מיידי</a>'
 		. '</div>';
 }
 

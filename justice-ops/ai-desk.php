@@ -463,6 +463,29 @@ add_action( 'wp_head', function () {
 }, 8 );
 
 /**
+ * Lead with the desk on the existing help page: the AI Desk renders above
+ * the older step wizard, so the simplest path (one box, or an upload) is
+ * the first thing people meet. The wizard stays below as a fallback.
+ */
+add_filter( 'the_content', function ( $content ) {
+	if ( ! in_the_loop() || ! is_main_query() ) {
+		return $content;
+	}
+
+	$qo = get_queried_object();
+
+	if ( ! ( $qo instanceof WP_Post ) || 'legal-help' !== $qo->post_name ) {
+		return $content;
+	}
+
+	if ( false !== strpos( $content, 'jt-ai-desk' ) ) {
+		return $content;
+	}
+
+	return do_shortcode( '[justice_ai_desk]' ) . $content;
+}, 6 );
+
+/**
  * Auto-create the flagship desk page.
  */
 add_action( 'init', function () {

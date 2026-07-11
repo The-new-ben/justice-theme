@@ -38,6 +38,7 @@ function justice_monitor_checks(): array {
 		'calculators' => array( 'url' => '/legal-calculators/', 'must' => array( 'jt-calc-tile' ), 'label' => 'מחשבונים' ),
 		'intake'      => array( 'url' => '/legal-help/', 'must' => array( 'jt-brain__opt' ), 'label' => 'אבחון מהיר' ),
 		'map_offices' => array( 'url' => '/wp-json/justice/v1/map/offices', 'must' => array( '"premium":true', '"photo":"https:' ), 'label' => 'פיד מפה + משרד מקודם' ),
+		'ai_desk'     => array( 'url' => '/legal-ai-desk/', 'must' => array( 'jt-ai-desk', 'jtad__mode' ), 'label' => 'שולחן AI: תיאור והעלאת מסמך' ),
 	) );
 }
 

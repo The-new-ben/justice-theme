@@ -817,3 +817,78 @@ DIN.CO.IL POSTURE: their finder was their edge and it is matched; their
 core court archive is answered on the map side (labeled national court
 coverage) with the court-decision digest lane still queued for the
 content side. Remaining honest gaps: video and forum-scale community.
+
+## 2026-07-11: GOD-MODE REVIEW + THE AI LEGAL DESK (ops 2.4.0-2.4.1)
+
+Owner order: deep review, dramatic design, fix low traffic from GSC,
+close competitor gaps side by side, simplify the process to one click
+and document upload, improve accessibility, prove the research.
+
+GROUNDING (real data + three parallel research agents, all sourced):
+- GSC (28d): 213,285 impressions but only 1,242 clicks (0.58% CTR),
+  avg position 26.9. Diagnosis: not a visibility problem, a BURIED +
+  JUNK problem. /posta/ pulls 12,483 impressions for a crime-news
+  brand term (irrelevant). Real money pages are on page 3-6:
+  /the-recommended-family-lawyers/ at pos 64, /child-support/ at 61,
+  the divorce-agreement template at 17. Strike-zone gold that maps to
+  our own tools: "הסכם גירושין" (1,590 imp, pos 7.9), "חוזה שכירות
+  אונליין" (pos 6.3), "חיפוש עורך דין" (pos 7.5).
+- Competitor agent: din.co.il leads on SCALE (5,574 lawyers, 341K Q&A)
+  but has NO AI intake, NO document upload, NO price transparency, NO
+  modern wizard. The pattern to steal is Rocket Lawyer's upload -> AI
+  read -> one-tap free human. Avvo embeds hiring-intent + timeline
+  qualifiers for warmer leads. Guardrail: the FTC order against
+  DoNotPay means we frame AI as guidance that ends at a human, never a
+  lawyer substitute (which our iron rules already require).
+- Design agent: the 2026 formula is "looks like a SaaS product, feels
+  like a 100-year institution": one aesthetic, high contrast, one
+  accent, doubled whitespace, real product in the hero, one obvious
+  action. #1 move: make the hero one open box; #2: upload a document
+  for instant plain-Hebrew value, no signup.
+- QA agent (live HTML audit): NO document upload existed anywhere on
+  the site; missing meta descriptions on the tool pages; detached
+  form labels; broken focus outlines; money articles missing
+  Article/FAQPage schema; off-topic news diluting topical focus (the
+  same signal as the /posta/ junk impressions).
+
+SHIPPED - THE AI LEGAL DESK (the one-action front door):
+- Describe what happened OR upload a document (a phone photo of a
+  contract, ticket, letter). The image is downscaled in the browser,
+  analyzed in memory, and never stored. Within seconds: doc type, a
+  plain-Hebrew summary, the points that matter, things to check, your
+  rights, the next steps, and a one-tap lawyer handoff that routes
+  through the existing lead engine carrying the summary + hiring
+  intent (the Avvo qualifier).
+- Built on the graded brain with vision (gpt-4.1). Iron-rule framed:
+  general guidance, recommends a lawyer, no promises, always ends at a
+  human. Bot-guarded + rate limited. Premium accessible UI (one accent,
+  glass card, aria-live result, keyboard operable, RTL logical props).
+- Flagship page /legal-ai-desk/, leads /legal-help/ above the old
+  wizard, money-page finder points to it, monitor guards it.
+
+LIVE PROOF (verified after deploy):
+- Describe: "fired after 6 years with no hearing, no severance" ->
+  area_key labor, correct summary, 4 points / 3 rights / 4 steps / 3
+  questions for the lawyer, WhatsApp handoff with context.
+- Vision: uploaded an English lease image -> "חוזה שכירות למגורים",
+  area real-estate, and the watch list caught exactly the planted
+  predatory clauses (14-day landlord termination, no early exit,
+  tenant liable for ALL structural repairs "not customary, check it",
+  high deposit + penalty) - all framed as flags, not rulings.
+- Desk CSS in the Autoptimize CSS aggregate; JT_DESK endpoint config +
+  desk JS in the JS aggregate; monitor 12/12 GREEN incl the ai_desk
+  check.
+
+DEPLOY NOTE: raw.githubusercontent.com went fully 404 for the repo
+mid-cycle (private-repo/token issue on GitHub's side; even main/style.css
+404'd while codeload + the API worked). Bypassed it with an
+authenticated upload-install route (base64 zip -> WP writes a local temp
+file -> Plugin_Upgrader installs from disk). Deploys 2.4.0 and 2.4.1
+both landed this way; disk_version verified each time.
+
+STILL QUEUED (GSC-prioritized, next cycles): recover the buried money
+pages (recommended-family-lawyers pos 64, child-support pos 61) with
+titles + internal-link hierarchy; win the strike-zone tool terms; add
+Article + FAQPage schema to money articles; add the 4 missing meta
+descriptions; associate form labels + restore focus outlines; address
+the topical dilution from the /posta/ + off-topic news content.

@@ -892,3 +892,40 @@ titles + internal-link hierarchy; win the strike-zone tool terms; add
 Article + FAQPage schema to money articles; add the 4 missing meta
 descriptions; associate form labels + restore focus outlines; address
 the topical dilution from the /posta/ + off-topic news content.
+
+## 2026-07-12: CONTENT HIERARCHY + INTERNAL AUTHORITY (ops 2.5.0)
+
+Continuing the god-mode marathon on the GSC read. The money pages were
+buried on page 3-6 with almost no internal links pointing at them:
+/the-recommended-family-lawyers/ sat at position 64 as a literal orphan
+(diagnosed: zero links from the family hub OR the homepage). Search
+engines pass relevance and authority along internal links; an orphan
+gets neither.
+
+SHIPPED (justice-ops/seo-hierarchy.php):
+- A curated, capped, self-link-safe related-pages mesh. Every family
+  article now carries a "מדריכים וכלים בדיני משפחה" block linking to the
+  recommended-lawyers page, the child-support calculator, the family
+  hub and the AI desk. The orphan went from zero inbound internal
+  links to one per family article. Verified live on
+  /petah-tikva-divorce-lawyer/: the full nav block renders with all
+  four links.
+- The four missing tool-page meta descriptions (legal-help,
+  calculators, documents, ask-a-lawyer) that the theme and Yoast left
+  blank are now emitted from curated, GSC-relevant copy. Verified live:
+  exactly one description tag on each, no duplicates.
+
+KNOWN LIMIT: the family hub itself (/family-law/) is a controlled
+practice route that renders and exits at template_redirect -999999, so
+a the_content append lands only its wp_head CSS, not the nav block.
+Injecting into the hub body needs the practice-landing buffer bridge
+(open at -1000000); the article-level links already give the orphan
+real inbound authority, so the hub link is deferred, not required.
+
+STILL QUEUED: Article + FAQPage schema on money articles; H1 pipe-junk
+cleanup (child-support H1 carries "| Jus-Tice"); form-label association
++ focus-outline restoration (a11y); the topical dilution from /posta/
+and off-topic news.
+
+DEPLOY: raw.githubusercontent.com still 404 for the repo, so 2.5.0
+shipped via the authenticated upload-install route. Monitor 12/12 GREEN.

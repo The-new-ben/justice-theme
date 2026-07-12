@@ -119,6 +119,13 @@ add_filter( 'the_content', function ( $content ) {
 
 add_action( 'wp_head', function () {
 	echo '<style id="jt-tools-css">'
+		// The theme footer ships a second WhatsApp float (green bubble,
+		// inline-end corner) on top of the ops pill: two identical CTAs,
+		// and on small screens the two bars overlap outright. One action
+		// per corner: WhatsApp keeps inline-start, the assistant takes
+		// inline-end. Element+class specificity outranks the theme's
+		// class-only display rule regardless of aggregate order.
+		. 'a.whatsapp-float{display:none !important}'
 		. '.jt-nav-ai a{color:#e7c765 !important;font-weight:800}'
 		. '.jt-nav-ai a:before{content:"✦";margin-inline-end:6px;font-size:.85em}'
 		. '.jt-ai-fab{position:fixed;bottom:18px;inset-inline-end:18px;z-index:99989;display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#14213d,#24406e);color:#e7c765;border:1px solid rgba(231,199,101,.55);border-radius:999px;padding:13px;box-shadow:0 8px 26px rgba(10,18,38,.35);text-decoration:none;transition:transform .15s ease}'

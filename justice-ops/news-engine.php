@@ -158,6 +158,26 @@ function justice_news_collect_candidates(): array {
 			$desc = wp_strip_all_tags( (string) $item->get_description() );
 			$text = $title . ' ' . $desc;
 
+			// Topical focus gate: a legal keyword alone let world-crime items
+			// through (a German case, a Venezuela item) and they ranked for
+			// irrelevant terms, diluting the site's legal-Israel focus. Items
+			// must now also carry an Israel anchor.
+			if ( get_option( 'justice_news_require_il', 1 ) ) {
+				$il = false;
+
+				foreach ( array( 'ישראל', 'הישראלי', 'בית המשפט', 'בית הדין', 'בג"ץ', 'המשטרה', 'משטרת', 'פרקליטות', 'הכנסת', 'ח"כ', 'תל אביב', 'ירושלים', 'חיפה', 'באר שבע', 'הרבני' ) as $anchor ) {
+					if ( false !== mb_strpos( $text, $anchor ) ) {
+						$il = true;
+						break;
+					}
+				}
+
+				if ( ! $il ) {
+					$seen[ $hash ] = time();
+					continue;
+				}
+			}
+
 			$best_family = '';
 			$best_score  = 0;
 

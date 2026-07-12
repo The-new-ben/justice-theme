@@ -40,6 +40,20 @@
 		});
 	});
 
+	// ---- homepage one-box handoff: ?q= prefills the description, #doc
+	// opens the upload tab (no auto-analyze: the visitor stays in charge) ----
+	try {
+		var q = new URLSearchParams(window.location.search).get('q');
+		if (q) {
+			$('#jtad-text').value = q.slice(0, 300);
+			$('#jtad-text').focus();
+		}
+		if (window.location.hash === '#doc') {
+			var docTab = root.querySelector('.jtad__mode[data-mode="document"]');
+			if (docTab) { docTab.click(); }
+		}
+	} catch (e) {}
+
 	// ---- example chips fill the box ----
 	root.querySelectorAll('.jtad__chip').forEach(function (c) {
 		c.addEventListener('click', function () {

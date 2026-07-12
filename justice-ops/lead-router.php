@@ -31,6 +31,14 @@ function justice_router_area_to_family( string $area ): string {
 		'traffic-law'         => 'traffic',
 		'labor-law'           => 'labor',
 		'inheritance-law'     => 'inheritance',
+		// Family-key aliases: a surface that already speaks the family
+		// vocabulary (the AI desk, the cards mesh) can never miss the map.
+		'family'              => 'family',
+		'real-estate'         => 'real-estate',
+		'nezikin'             => 'nezikin',
+		'labor'               => 'labor',
+		'traffic'             => 'traffic',
+		'inheritance'         => 'inheritance',
 	);
 
 	return $map[ $area ] ?? '';

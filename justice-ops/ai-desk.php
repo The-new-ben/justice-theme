@@ -33,15 +33,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array<string,array{label:string,hub:string}>
  */
 function justice_desk_areas(): array {
+	// 'lead' is the value posted into lead_area on handoff: it MUST be a key
+	// justice_router_area_to_family() recognizes, otherwise the lead lands
+	// unrouted_no_family and never reaches a lawyer (live QA 2026-07-12).
 	return array(
-		'family'       => array( 'label' => 'דיני משפחה וגירושין', 'hub' => '/family-law/' ),
-		'criminal-law' => array( 'label' => 'פלילי', 'hub' => '/criminal-law/' ),
-		'real-estate'  => array( 'label' => 'מקרקעין ונדל"ן', 'hub' => '/real-estate/' ),
-		'labor'        => array( 'label' => 'דיני עבודה', 'hub' => '/israeli-labor-law/' ),
-		'nezikin'      => array( 'label' => 'נזיקין ותאונות', 'hub' => '/personal-injury/' ),
-		'traffic'      => array( 'label' => 'תעבורה', 'hub' => '/traffic-law/' ),
-		'inheritance'  => array( 'label' => 'ירושה וצוואות', 'hub' => '/inheritance-lawyer/' ),
-		'general'      => array( 'label' => 'ייעוץ משפטי כללי', 'hub' => '/legal-help/' ),
+		'family'       => array( 'label' => 'דיני משפחה וגירושין', 'hub' => '/family-law/', 'lead' => 'family-law' ),
+		'criminal-law' => array( 'label' => 'פלילי', 'hub' => '/criminal-law/', 'lead' => 'criminal-law' ),
+		'real-estate'  => array( 'label' => 'מקרקעין ונדל"ן', 'hub' => '/real-estate/', 'lead' => 'real-estate-law' ),
+		'labor'        => array( 'label' => 'דיני עבודה', 'hub' => '/israeli-labor-law/', 'lead' => 'labor-law' ),
+		'nezikin'      => array( 'label' => 'נזיקין ותאונות', 'hub' => '/personal-injury/', 'lead' => 'personal-injury-law' ),
+		'traffic'      => array( 'label' => 'תעבורה', 'hub' => '/traffic-law/', 'lead' => 'traffic-law' ),
+		'inheritance'  => array( 'label' => 'ירושה וצוואות', 'hub' => '/inheritance-lawyer/', 'lead' => 'inheritance-law' ),
+		'general'      => array( 'label' => 'ייעוץ משפטי כללי', 'hub' => '/legal-help/', 'lead' => 'general' ),
 	);
 }
 
@@ -250,6 +253,7 @@ function justice_desk_analyze( WP_REST_Request $request ) {
 	) );
 
 	$out['area_key']   = $area_key;
+	$out['lead_area']  = $areas[ $area_key ]['lead'];
 	$out['area_label'] = $area_label;
 	$out['hub']        = home_url( $hub );
 	$out['wa']         = justice_desk_wa( $area_label, (string) $out['summary'] );

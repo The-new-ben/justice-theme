@@ -154,9 +154,10 @@
 		result.hidden = false;
 		result.innerHTML = h;
 
-		// wire the handoff form with this result's context
+		// wire the handoff form with this result's context; lead_area is the
+		// router-vocabulary key so the lead actually routes to a lawyer
 		var lead = $('#jtad-lead');
-		$('#jtad-lead-area').value = d.area_key || 'general';
+		$('#jtad-lead-area').value = d.lead_area || d.area_key || 'general';
 		$('#jtad-lead-msg').value = (d.area_label ? ('נושא: ' + d.area_label + '. ') : '') + (d.summary || '').slice(0, 400);
 
 		$('#jtad-open-lead').addEventListener('click', function () {

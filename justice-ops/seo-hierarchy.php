@@ -202,8 +202,69 @@ function justice_seo_tool_descriptions(): array {
 		'legal-calculators'  => 'מחשבונים משפטיים חינמיים ומעודכנים: פיצויי פיטורים, דמי הבראה, ימי חופשה ואגרת תביעה קטנה, לפי הנוסחאות והסכומים הקבועים בחוק.',
 		'legal-documents'    => 'מחוללי מסמכים משפטיים חינמיים: מכתב התראה לפני תביעה וערעור על דוח חניה, נבנים בדפדפן עם אפשרות להעברה לעורך דין לבדיקה.',
 		'ask-a-lawyer'       => 'שאלה משפטית קצרה מקבלת תשובה כללית מסודרת תחת כללי גילוי נאות, ואם תשאירו טלפון נחבר אתכם לעורך דין מתאים לתחום.',
+		'legal-tools'        => 'הכלים המשפטיים של Jus-Tice במקום אחד: עוזר AI לתיאור מצב או העלאת מסמך, מחשבונים, מחוללי מסמכים ואבחון מהיר, עם חיבור לעורך דין מתאים.',
 	);
 }
+
+/**
+ * Index bloat control: WooCommerce and account utility pages plus the
+ * default WP category were indexable and sitemap-listed, diluting the
+ * site-quality signal Google evaluates only on indexed pages. None of them
+ * is a search landing page. Two separate levers because Yoast treats them
+ * separately: the robots filter changes the meta tag, and the sitemap
+ * exclusion filters drop the URLs from the XML (a runtime robots filter
+ * does NOT touch the sitemap, which is exactly how /checkout/ ended up
+ * noindexed yet sitemap-listed). Money and content pages are untouched.
+ *
+ * @return array<int,string> post slugs to keep out of the index.
+ */
+function justice_seo_noindex_slugs(): array {
+	return apply_filters( 'justice_seo_noindex_slugs', array(
+		'cart', 'checkout', 'my-account', 'shop', 'lawyer-dashboard',
+	) );
+}
+
+add_filter( 'wpseo_robots_array', function ( $robots ) {
+	$qo = get_queried_object();
+
+	if ( $qo instanceof WP_Post && in_array( $qo->post_name, justice_seo_noindex_slugs(), true ) ) {
+		$robots['index'] = 'noindex';
+	}
+
+	if ( $qo instanceof WP_Term && 'uncategorized' === $qo->slug ) {
+		$robots['index'] = 'noindex';
+	}
+
+	return $robots;
+} );
+
+add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', function ( $ids ) {
+	static $resolved = null;
+
+	if ( null === $resolved ) {
+		$resolved = array();
+
+		foreach ( justice_seo_noindex_slugs() as $slug ) {
+			$page = get_page_by_path( $slug, OBJECT, 'page' );
+
+			if ( $page instanceof WP_Post ) {
+				$resolved[] = (int) $page->ID;
+			}
+		}
+	}
+
+	return array_merge( (array) $ids, $resolved );
+} );
+
+add_filter( 'wpseo_exclude_from_sitemap_by_term_ids', function ( $ids ) {
+	$term = get_term_by( 'slug', 'uncategorized', 'category' );
+
+	if ( $term instanceof WP_Term ) {
+		$ids[] = (int) $term->term_id;
+	}
+
+	return $ids;
+} );
 
 /**
  * Cannibalization consolidation: when several of our own pages fight over
@@ -246,13 +307,15 @@ add_action( 'wp_head', function () {
 	}
 
 	$content = (string) $qo->post_content;
-	$pos     = mb_strpos( $content, 'שאלות נפוצות' );
 
-	if ( false === $pos ) {
+	// Anchor on the FAQ section HEADING, not the first loose mention: an
+	// intro sentence naming the section would otherwise shift the start
+	// forward and turn ordinary sections into fake "questions".
+	if ( ! preg_match( '/<h[2-4][^>]*>.{0,160}?שאלות נפוצות/us', $content, $anchor, PREG_OFFSET_CAPTURE ) ) {
 		return;
 	}
 
-	$faq = mb_substr( $content, $pos );
+	$faq = substr( $content, (int) $anchor[0][1] );
 
 	// If the theme's strict pattern matches, it already emitted FAQPage.
 	if ( preg_match( '/<h3[^>]*>(.+?)<\/h3>\s*<p>(.+?)<\/p>/us', $faq ) ) {
@@ -291,42 +354,98 @@ add_action( 'wp_head', function () {
 	), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
 }, 22 );
 
-add_filter( 'wpseo_canonical', function ( $canonical ) {
+/**
+ * Term-archive consolidation: taxonomy archives that duplicate a stronger
+ * page (the raw practice-areas archive vs the controlled hub, the generic
+ * news category vs legal-news). taxonomy:slug => canonical path.
+ *
+ * @return array<string,string>
+ */
+function justice_seo_term_canonicals(): array {
+	return apply_filters( 'justice_seo_term_canonicals', array(
+		'category:news'                => '/legal-news/',
+		'practice-areas:child-support' => '/child-support/',
+		'practice-areas:family-law'    => '/family-law/',
+	) );
+}
+
+/**
+ * Resolve the consolidated canonical for the current view, or '' when the
+ * view keeps its own. Shared by the canonical and og:url filters so the
+ * two signals can never disagree.
+ */
+function justice_seo_consolidated_url(): string {
 	$qo = get_queried_object();
 
-	if ( ! ( $qo instanceof WP_Post ) ) {
-		return $canonical;
+	if ( $qo instanceof WP_Post ) {
+		$path = trim( (string) wp_parse_url( (string) get_permalink( $qo->ID ), PHP_URL_PATH ), '/' );
+		$map  = justice_seo_consolidate_map();
+
+		return isset( $map[ $path ] ) ? home_url( '/' . $map[ $path ] . '/' ) : '';
 	}
 
-	$path = trim( (string) wp_parse_url( (string) get_permalink( $qo->ID ), PHP_URL_PATH ), '/' );
-	$map  = justice_seo_consolidate_map();
+	if ( $qo instanceof WP_Term ) {
+		$map = justice_seo_term_canonicals();
+		$key = $qo->taxonomy . ':' . $qo->slug;
 
-	if ( isset( $map[ $path ] ) ) {
-		return home_url( '/' . $map[ $path ] . '/' );
+		return isset( $map[ $key ] ) ? home_url( $map[ $key ] ) : '';
 	}
 
-	return $canonical;
+	return '';
+}
+
+add_filter( 'wpseo_canonical', function ( $canonical ) {
+	$target = justice_seo_consolidated_url();
+
+	return '' !== $target ? $target : $canonical;
+} );
+
+add_filter( 'wpseo_opengraph_url', function ( $url ) {
+	$target = justice_seo_consolidated_url();
+
+	return '' !== $target ? $target : $url;
 } );
 
 add_action( 'wp_head', function () {
 	$qo = get_queried_object();
 
-	if ( ! ( $qo instanceof WP_Post ) || 'page' !== $qo->post_type ) {
+	if ( ! ( $qo instanceof WP_Post ) ) {
 		return;
 	}
 
-	$map = justice_seo_tool_descriptions();
-
-	if ( ! isset( $map[ $qo->post_name ] ) ) {
+	// When Yoast has its own description for this post it will print one;
+	// emitting ours too would duplicate the tag.
+	if ( '' !== (string) get_post_meta( $qo->ID, '_yoast_wpseo_metadesc', true ) ) {
 		return;
 	}
 
-	// Prefer an editor-set description; fall back to the curated copy.
 	$desc = (string) get_post_meta( $qo->ID, 'seo_description', true );
 
-	if ( '' === $desc ) {
-		$desc = $map[ $qo->post_name ];
+	// Tool pages: curated copy the theme and Yoast left blank.
+	if ( 'page' === $qo->post_type ) {
+		$map = justice_seo_tool_descriptions();
+
+		if ( ! isset( $map[ $qo->post_name ] ) ) {
+			return;
+		}
+
+		if ( '' === $desc ) {
+			$desc = $map[ $qo->post_name ];
+		}
+	} elseif ( 'justice_term' === $qo->post_type ) {
+		// Encyclopedia terms shipped with no meta description at all.
+		if ( '' === $desc ) {
+			$desc = has_excerpt( $qo->ID )
+				? (string) get_the_excerpt( $qo->ID )
+				: wp_trim_words( wp_strip_all_tags( (string) $qo->post_content ), 28, '' );
+		}
+
+		if ( '' === $desc ) {
+			return;
+		}
+	} else {
+		return;
 	}
 
-	echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
+	echo '<meta name="description" content="' . esc_attr( mb_substr( trim( $desc ), 0, 158 ) ) . '">' . "\n";
 }, 1 );

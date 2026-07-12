@@ -154,7 +154,9 @@ add_action( 'template_redirect', function () {
 
 		return $html;
 	} );
-}, 5 );
+	// -1000000: the theme's controlled front-page route renders and exits
+	// at template_redirect -999999, so the buffer must open before it.
+}, -1000000 );
 
 add_action( 'wp_head', function () {
 	if ( ! is_front_page() ) {

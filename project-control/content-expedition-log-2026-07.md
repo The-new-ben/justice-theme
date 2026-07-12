@@ -1246,3 +1246,62 @@ Open on owner: OpenAI billing (engine down since 11:13 UTC, desk
 degrades to WhatsApp path politely), optional JUSTICE_ANTHROPIC_KEY,
 attorney byline (name + bar number) for the money pages, target
 confirmation (divorce agreement vs child support).
+
+## 2026-07-12 (evening): ops 2.11.0-2.11.1, the full money-stack cycle
+
+Orders executed: proceed (serp-strike), more money pages + prompts, the
+courtai simulation embedded for real, divorce research ingested, every
+money page becomes an SEO page with an application inside, monetized.
+
+SERP strike (GSC query+page pull, live SERP vocabulary):
+- הסכם גירושין sat on PAGE 1 (pos 7.7, 1,527 imp) with 2 clicks; new
+  intent-first year-stamped title + desc + H1 live. עורך דין פלילי שכר
+  page at pos 3.7 with 0 clicks behind a 71-char double-pipe title:
+  rewritten to the salary intent its content actually serves. Rent
+  agreement gains אונליין+חינם; cert page gains the year. All verified
+  rendered. Theme map (inc/seo.php) updated to the same texts so the
+  next owner pull aligns; ops layer self-retires on text equality.
+- Criminal-fee cannibal pair consolidated (Hebrew-slug cost page ->
+  price-list page canonical, encoded+decoded keys, verified live).
+- Homepage snippet now opens with the searchers' words (חיפוש עורך דין
+  לפי שם). /posta/ left untouched: navigational queries, deindex
+  decision stays with the owner.
+
+Deep-research ingestion (owner ran the divorce prompt in ChatGPT Pro):
+- Output passed iron-rule scans AFTER cleanup (citeturn markers stripped,
+  byline placeholder removed pending the real attorney name, FAQ heading
+  normalized to שאלות נפוצות so the schema bridge fires, 5 bracket
+  anchors wired to live URLs, sources appendix rebuilt with verified
+  links only). Honest count: body ~3,800 words, not the self-reported
+  7,000; still 2-3x the strongest competitor. Published to
+  /free-divorce-agreement-template/ (post 3130) via a reusable gated
+  artup snippet; verified rendered: 4,880 Hebrew words, FAQPage schema
+  live, docx download kept, generator embedded.
+
+Divorce generator v1 (the "page is an application" rule, zero AI
+dependency so the OpenAI outage cannot touch it): seven defaulted
+questions -> personalized agreement skeleton preview + named locked
+sections + paid full-document order (jt_divorce_gen_price, default 149)
+on the existing guarded lead rail, manual settlement like the advertiser
+funnel. Copy makes the payment flow explicit.
+
+Simulation embedded for real: /legal-simulation/ hosts HADMAIA from
+jus-tice.com chrome-less (deep repo read done by agent; embed mode,
+frame-safety and baked key verified live). Homepage band links it. Old
+"embed" was just a link to one recording in the tools strip.
+
+Prompt factory shipped: project-control/prompt-factory-2026-07.md with
+the pipeline tracker (never buried; updated every cycle) + 5 new
+self-contained mega prompts (criminal, malpractice, property+RSU split,
+AI-tools-for-lawyers with GEO focus, lawyer-rankings index with strict
+public-data/ethics guardrails and the AI-adoption parameter). Each
+demands an embedded-app spec + competitor app benchmarks + data tables.
+
+courtai plan committed: project-control/courtai-integration-plan.md
+(phases, verified embed facts, owner risk flags: client-side Groq key
+extractable, .com sitemap 404, HashRouter invisible to crawlers).
+
+Open on owner: OpenAI billing / fallback key (engine still down);
+attorney byline name + bar number (blocks the top YMYL lever and the
+article byline); divorce-gen price confirm (149 default); rankings
+prompt ethics framing acknowledged; .com key rotation recommendation.

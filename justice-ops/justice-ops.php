@@ -124,6 +124,10 @@ require_once __DIR__ . '/criminal-map.php';
 // bookings, and the criminal emergency strip.
 require_once __DIR__ . '/scheduler.php';
 
+// Medical-malpractice claim checker: six-question deterministic engine,
+// conservative limitation estimate and four-element map.
+require_once __DIR__ . '/malpractice-checker.php';
+
 /**
  * Public healthcheck: what version of the ops plugin is live.
  */

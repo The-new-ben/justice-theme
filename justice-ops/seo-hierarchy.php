@@ -205,6 +205,47 @@ function justice_seo_tool_descriptions(): array {
 	);
 }
 
+/**
+ * Cannibalization consolidation: when several of our own pages fight over
+ * one query, Google splits the signal and buries all of them. GSC
+ * (2026-07) surfaced clear cases: two near-identical divorce-mediation
+ * pages, a duplicate divorce-agreement template, and overlapping Portugal
+ * relocation guides. We point the weaker page's canonical at the stronger
+ * one, so the equity and relevance concentrate on a single URL. This uses
+ * a rel=canonical hint (through Yoast, which owns canonicals here), not a
+ * redirect: it is fully reversible and the weaker page still serves users.
+ *
+ * Each target was verified live (HTTP 200) and is never itself a key, so
+ * no canonical loop is possible. Filterable so the map can grow as more
+ * cannibalization is confirmed.
+ *
+ * @return array<string,string> weaker path => canonical path (no slashes).
+ */
+function justice_seo_consolidate_map(): array {
+	return apply_filters( 'justice_seo_consolidate_map', array(
+		'mediation-divorce'             => 'divorce-mediation',
+		'mutual-divorce-agreement-2025' => 'free-divorce-agreement-template',
+		'immigration-to-portugal'       => 'portugal-relocation',
+	) );
+}
+
+add_filter( 'wpseo_canonical', function ( $canonical ) {
+	$qo = get_queried_object();
+
+	if ( ! ( $qo instanceof WP_Post ) ) {
+		return $canonical;
+	}
+
+	$path = trim( (string) wp_parse_url( (string) get_permalink( $qo->ID ), PHP_URL_PATH ), '/' );
+	$map  = justice_seo_consolidate_map();
+
+	if ( isset( $map[ $path ] ) ) {
+		return home_url( '/' . $map[ $path ] . '/' );
+	}
+
+	return $canonical;
+} );
+
 add_action( 'wp_head', function () {
 	$qo = get_queried_object();
 

@@ -1155,3 +1155,52 @@ engine auto-recovers and mails "back to primary". (2) Optionally add
 ONE line to wp-config for the backup: define('JUSTICE_ANTHROPIC_KEY',
 'sk-ant-...'); the failover activates by itself and announces itself.
 Monitor stays honestly RED on ai_engine until either happens.
+
+## 2026-07-12: THE PROFESSIONAL HOMEPAGE (ops 2.9.0-2.9.2)
+
+Owner order: deep SEO QA, research how to surface content on the
+homepage, AI-content SEO guides, side-by-side with din.co.il, fill the
+gap, a professional homepage.
+
+RESEARCH (cited): homepage is the highest-equity page; contextual
+descriptive-anchor links from it are the strongest internal-link lever;
+keep total links under ~150 (clickrank, singlegrain, shopify,
+link-assistant 2026 guides). Google's own gen-AI content doc: quality
+over method, named human review, original value; scaled-content abuse
+is about intent, not tools (developers.google.com using-gen-ai-content).
+
+SIDE-BY-SIDE (live fetch, both homepages):
+- din: H1 5 words, 146 disciplined links, trust wall (17,490 guides /
+  14,347 recommendations / per-area counts), 3 forms, no AI anywhere.
+- us BEFORE: 239 links (bloat), ZERO links to our own money pages,
+  ZERO mention of the AI desk (our differentiator), 37 emoji inside
+  headings, 270-char auto meta description.
+
+SHIPPED:
+- 2.9.0 homepage-pro.php: one premium band injected right after the
+  hero: a one-box "ספרו מה קרה" that lands in the AI desk prefilled
+  (?q= wiring added to the desk JS, #doc opens the upload tab), a
+  TRUTHFUL trust wall (floors, never inflated), and six curated
+  descriptive-anchor money links. Hand-written homepage meta
+  description via wpseo_metadesc. News engine gained an Israel-anchor
+  topical gate (world-crime items no longer publish; the German and
+  Venezuela class of dilution ends at the source).
+- 2.9.1: the 37 heading emoji turned out to live in THEME templates,
+  not page content (front-page post_content scanned clean); the
+  front-page buffer now strips emoji from headings at render time.
+- 2.9.2: live QA caught the band missing while the meta description
+  was live: the theme front page is a CONTROLLED ROUTE that renders
+  and exits at template_redirect -999999; the buffer now opens at
+  -1000000 (the documented bridge pattern strikes again).
+
+VERIFIED LIVE (purged, fresh fetch, proper Unicode parsing):
+- Band renders hero -> band -> featured (byte order verified); one-box
+  form action = /legal-ai-desk/; #doc deep link present.
+- Trust wall: 4 truthful stats live (1,229 guides, 67 encyclopedia
+  terms, 6 tools, 30 courts on the map).
+- All six money links now flow from the homepage (every one was 0).
+- Meta description: hand-written copy, exactly one tag.
+- Emoji in headings: 0 of 82 (was 37); a first bash count of 65 was a
+  multibyte byte-class false positive, settled with python Unicode.
+- Desk ?q prefill live in the JS aggregate. Monitor 12/13 with only
+  the known ai_engine red (quota, owner action pending).

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.4.1
+ * Version: 2.5.0
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.4.1' );
+	define( 'JUSTICE_OPS_VERSION', '2.5.0' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -89,6 +89,10 @@ require_once __DIR__ . '/map-places.php';
 // AI Legal Desk: one-action front door. Describe or upload a document,
 // get an instant plain-Hebrew read, then a one-tap lawyer handoff.
 require_once __DIR__ . '/ai-desk.php';
+
+// Content hierarchy: internal-authority mesh into buried money pages,
+// plus the missing tool-page meta descriptions.
+require_once __DIR__ . '/seo-hierarchy.php';
 
 /**
  * Public healthcheck: what version of the ops plugin is live.

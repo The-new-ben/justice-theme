@@ -158,30 +158,17 @@ function justice_serp_scan( int $limit = 5 ): array {
 // ---------------------------------------------------------------------------
 
 function justice_serp_new_title( string $current, string $query ): string {
-	if ( ! defined( 'JUSTICE_OPENAI_KEY' ) || '' === JUSTICE_OPENAI_KEY ) {
-		return '';
-	}
-
-	$response = wp_remote_post( 'https://api.openai.com/v1/chat/completions', array(
-		'timeout' => 40,
-		'headers' => array( 'Authorization' => 'Bearer ' . JUSTICE_OPENAI_KEY, 'Content-Type' => 'application/json' ),
-		'body'    => wp_json_encode( array(
-			'model'    => get_option( 'justice_art_model', 'gpt-4.1' ),
-			'messages' => array(
-				array( 'role' => 'system', 'content' => 'אתה כותב כותרות SEO בעברית לאתר משפטי. כללי ברזל: בלי קו מפריד ארוך, בלי סופרלטיבים, בלי הבטחות תוצאה, בלי סימני קריאה. מבנה: הביטוי המרכזי בתחילת הכותרת, אחריו נקודתיים והרחבה עניינית קצרה. אורך 45 עד 60 תווים לפני הסיומת. סיים תמיד בסיומת " | Jus-Tice". החזר את הכותרת בלבד.' ),
-				array( 'role' => 'user', 'content' => 'ביטוי מרכזי: ' . $query . "\nכותרת נוכחית: " . $current . "\nכתוב כותרת חדשה וחזקה יותר." ),
-			),
-			'temperature' => 0.4,
-			'max_tokens'  => 80,
-		) ),
+	$title = justice_ai_chat( array(
+		array( 'role' => 'system', 'content' => 'אתה כותב כותרות SEO בעברית לאתר משפטי. כללי ברזל: בלי קו מפריד ארוך, בלי סופרלטיבים, בלי הבטחות תוצאה, בלי סימני קריאה. מבנה: הביטוי המרכזי בתחילת הכותרת, אחריו נקודתיים והרחבה עניינית קצרה. אורך 45 עד 60 תווים לפני הסיומת. סיים תמיד בסיומת " | Jus-Tice". החזר את הכותרת בלבד.' ),
+		array( 'role' => 'user', 'content' => 'ביטוי מרכזי: ' . $query . "\nכותרת נוכחית: " . $current . "\nכתוב כותרת חדשה וחזקה יותר." ),
+	), array(
+		'model'       => get_option( 'justice_art_model', 'gpt-4.1' ),
+		'temperature' => 0.4,
+		'max_tokens'  => 80,
+		'timeout'     => 40,
+		'source'      => 'serp',
 	) );
-
-	if ( is_wp_error( $response ) ) {
-		return '';
-	}
-
-	$data  = json_decode( (string) wp_remote_retrieve_body( $response ), true );
-	$title = trim( (string) ( $data['choices'][0]['message']['content'] ?? '' ), " \"'\n" );
+	$title = trim( $title, " \"'\n" );
 
 	// Deterministic scrub: dashes out, whitespace collapsed.
 	$title = str_replace( array( '—', '–', ' - ' ), array( ': ', ': ', ': ' ), $title );

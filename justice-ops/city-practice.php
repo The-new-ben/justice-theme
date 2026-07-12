@@ -64,30 +64,17 @@ function justice_city_inventory(): array {
  * the shared scrubber downstream in render).
  */
 function justice_city_opening( string $family_he, string $city_name ): string {
-	if ( ! defined( 'JUSTICE_OPENAI_KEY' ) ) {
-		return '';
-	}
-
-	$response = wp_remote_post( 'https://api.openai.com/v1/chat/completions', array(
-		'timeout' => 45,
-		'headers' => array( 'Authorization' => 'Bearer ' . JUSTICE_OPENAI_KEY, 'Content-Type' => 'application/json' ),
-		'body'    => wp_json_encode( array(
-			'model'    => get_option( 'justice_art_model', 'gpt-4.1' ),
-			'messages' => array(
-				array( 'role' => 'system', 'content' => 'כתוב עברית משפטית עניינית. אסור: קו מפריד ארוך, סופרלטיבים, הבטחות תוצאה, הביטויים חשוב לציין, בעידן, מעבר לכך, לסיכום, ראוי לציין, יש לזכור, חשוב להבין, חשוב לדעת, בשורה התחתונה, אין ספק, יתרה מכך, זאת ועוד. בלי המצאת עובדות, בלי שמות בתי משפט ספציפיים אלא אם ידועים בוודאות. פסקאות p בלבד.' ),
-				array( 'role' => 'user', 'content' => 'כתוב פתיח של 140 עד 180 מילים לעמוד "עורך דין ' . $family_he . ' ב' . $city_name . '". מילת המפתח במשפט הראשון. הסבר מה מיוחד בליווי מקומי, אילו שאלות לשאול בפגישה ראשונה, ואיך העמוד עוזר לבחור. שתי פסקאות p.' ),
-			),
-			'temperature' => 0.5,
-			'max_tokens'  => 500,
-		) ),
+	$text = justice_ai_chat( array(
+		array( 'role' => 'system', 'content' => 'כתוב עברית משפטית עניינית. אסור: קו מפריד ארוך, סופרלטיבים, הבטחות תוצאה, הביטויים חשוב לציין, בעידן, מעבר לכך, לסיכום, ראוי לציין, יש לזכור, חשוב להבין, חשוב לדעת, בשורה התחתונה, אין ספק, יתרה מכך, זאת ועוד. בלי המצאת עובדות, בלי שמות בתי משפט ספציפיים אלא אם ידועים בוודאות. פסקאות p בלבד.' ),
+		array( 'role' => 'user', 'content' => 'כתוב פתיח של 140 עד 180 מילים לעמוד "עורך דין ' . $family_he . ' ב' . $city_name . '". מילת המפתח במשפט הראשון. הסבר מה מיוחד בליווי מקומי, אילו שאלות לשאול בפגישה ראשונה, ואיך העמוד עוזר לבחור. שתי פסקאות p.' ),
+	), array(
+		'model'       => get_option( 'justice_art_model', 'gpt-4.1' ),
+		'temperature' => 0.5,
+		'max_tokens'  => 500,
+		'timeout'     => 45,
+		'source'      => 'city',
 	) );
 
-	if ( is_wp_error( $response ) ) {
-		return '';
-	}
-
-	$data = json_decode( (string) wp_remote_retrieve_body( $response ), true );
-	$text = trim( (string) ( $data['choices'][0]['message']['content'] ?? '' ) );
 	$text = str_replace( array( '—', '–' ), ',', $text );
 
 	if ( function_exists( 'justice_enc_teller_hits' ) && justice_enc_teller_hits( $text ) ) {

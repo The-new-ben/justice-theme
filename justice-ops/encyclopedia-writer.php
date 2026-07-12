@@ -436,27 +436,13 @@ function justice_enc_user_prompt( int $pid, int $lo ): string {
 }
 
 function justice_enc_call_openai( array $messages ): string {
-	$response = wp_remote_post( 'https://api.openai.com/v1/chat/completions', array(
-		'timeout' => 120,
-		'headers' => array(
-			'Authorization' => 'Bearer ' . justice_enc_openai_key(),
-			'Content-Type'  => 'application/json',
-		),
-		'body'    => wp_json_encode( array(
-			'model'       => (string) get_option( 'justice_enc_writer_model', 'gpt-4o-mini' ),
-			'temperature' => 0.4,
-			'max_tokens'  => 6000,
-			'messages'    => $messages,
-		) ),
+	return justice_ai_chat( $messages, array(
+		'model'       => (string) get_option( 'justice_enc_writer_model', 'gpt-4o-mini' ),
+		'temperature' => 0.4,
+		'max_tokens'  => 6000,
+		'timeout'     => 120,
+		'source'      => 'encyclopedia',
 	) );
-
-	if ( is_wp_error( $response ) ) {
-		return '';
-	}
-
-	$data = json_decode( (string) wp_remote_retrieve_body( $response ), true );
-
-	return trim( (string) ( $data['choices'][0]['message']['content'] ?? '' ) );
 }
 
 function justice_enc_clean( string $html, string $title ): string {
@@ -1125,25 +1111,11 @@ function justice_art_write_one( int $pid, bool $preserve_status = false ): bool 
 }
 
 function justice_art_call_openai( array $messages ): string {
-	$response = wp_remote_post( 'https://api.openai.com/v1/chat/completions', array(
-		'timeout' => 180,
-		'headers' => array(
-			'Authorization' => 'Bearer ' . justice_enc_openai_key(),
-			'Content-Type'  => 'application/json',
-		),
-		'body'    => wp_json_encode( array(
-			'model'       => (string) get_option( 'justice_art_model', 'gpt-4o' ),
-			'temperature' => 0.4,
-			'max_tokens'  => 10000,
-			'messages'    => $messages,
-		) ),
+	return justice_ai_chat( $messages, array(
+		'model'       => (string) get_option( 'justice_art_model', 'gpt-4o' ),
+		'temperature' => 0.4,
+		'max_tokens'  => 10000,
+		'timeout'     => 180,
+		'source'      => 'articles',
 	) );
-
-	if ( is_wp_error( $response ) ) {
-		return '';
-	}
-
-	$data = json_decode( (string) wp_remote_retrieve_body( $response ), true );
-
-	return trim( (string) ( $data['choices'][0]['message']['content'] ?? '' ) );
 }

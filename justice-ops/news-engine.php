@@ -284,27 +284,13 @@ function justice_news_run( bool $forced ): array {
 // ---------------------------------------------------------------------------
 
 function justice_news_call_openai( array $messages ): string {
-	$response = wp_remote_post( 'https://api.openai.com/v1/chat/completions', array(
-		'timeout' => 150,
-		'headers' => array(
-			'Authorization' => 'Bearer ' . justice_enc_openai_key(),
-			'Content-Type'  => 'application/json',
-		),
-		'body'    => wp_json_encode( array(
-			'model'       => (string) get_option( 'justice_news_model', 'gpt-4.1' ),
-			'temperature' => 0.35,
-			'max_tokens'  => 4000,
-			'messages'    => $messages,
-		) ),
+	return justice_ai_chat( $messages, array(
+		'model'       => (string) get_option( 'justice_news_model', 'gpt-4.1' ),
+		'temperature' => 0.35,
+		'max_tokens'  => 4000,
+		'timeout'     => 150,
+		'source'      => 'news',
 	) );
-
-	if ( is_wp_error( $response ) ) {
-		return '';
-	}
-
-	$data = json_decode( (string) wp_remote_retrieve_body( $response ), true );
-
-	return trim( (string) ( $data['choices'][0]['message']['content'] ?? '' ) );
 }
 
 function justice_news_fail( string $reason, string $title ): int {

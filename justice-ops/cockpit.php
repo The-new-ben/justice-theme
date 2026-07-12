@@ -90,6 +90,20 @@ add_action( 'admin_menu', function () {
 				</div>
 			</div>
 
+			<?php $ai = function_exists( 'justice_ai_health' ) ? justice_ai_health() : array(); ?>
+			<h2>מנוע ה-AI: ספקים ומצב חי</h2>
+			<p style="padding:10px 14px;border-radius:10px;background:<?php echo ! empty( $ai['ok'] ) ? '#e8f7ee' : '#fdecec'; ?>">
+				מצב: <strong><?php echo esc_html( (string) ( $ai['state'] ?? '?' ) ); ?></strong>
+				(ספק: <?php echo esc_html( (string) ( $ai['provider'] ?? '?' ) ); ?>)
+				<?php if ( ! empty( $ai['reason'] ) ) : ?> | סיבה: <?php echo esc_html( (string) $ai['reason'] ); ?><?php endif; ?>
+				| גיבוי מוגדר: <strong><?php echo ! empty( $ai['fallback_configured'] ) ? esc_html( (string) $ai['fallback_provider'] ) : 'לא'; ?></strong>
+				| קריאות היום:
+				<?php foreach ( (array) ( $ai['today']['providers'] ?? array() ) as $pname => $pc ) : ?>
+					<?php echo esc_html( $pname ); ?> <?php echo (int) ( $pc['ok'] ?? 0 ); ?>/<?php echo (int) ( ( $pc['ok'] ?? 0 ) + ( $pc['fail'] ?? 0 ) ); ?>
+				<?php endforeach; ?>
+				| תקרה יומית: <?php echo (int) ( $ai['daily_cap'] ?? 0 ); ?>
+			</p>
+
 			<h2>המוח: בקרת איכות תוצרים (היום)</h2>
 			<p>
 				עברו את השופט: <strong><?php echo (int) ( $d['brain']['passes'] ?? 0 ); ?></strong> |

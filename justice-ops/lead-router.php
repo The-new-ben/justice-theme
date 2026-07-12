@@ -85,30 +85,16 @@ function justice_router_month_count( int $lawyer_id ): int {
  * scrubbed; empty string on any failure so routing never depends on it.
  */
 function justice_router_reply_suggestion( string $family, string $situation ): string {
-	if ( ! defined( 'JUSTICE_OPENAI_KEY' ) ) {
-		return '';
-	}
-
-	$response = wp_remote_post( 'https://api.openai.com/v1/chat/completions', array(
-		'timeout' => 20,
-		'headers' => array( 'Authorization' => 'Bearer ' . JUSTICE_OPENAI_KEY, 'Content-Type' => 'application/json' ),
-		'body'    => wp_json_encode( array(
-			'model'    => 'gpt-4.1-mini',
-			'messages' => array(
-				array( 'role' => 'system', 'content' => 'נסח לעורך דין הודעת וואטסאפ ראשונה קצרה ללקוח פוטנציאלי: 2 עד 3 משפטים, חמה ועניינית, בלי הבטחות תוצאה, בלי סופרלטיבים, בלי קו מפריד ארוך, בלי ייעוץ משפטי קונקרטי. סיים בהצעה לשיחה קצרה היום.' ),
-				array( 'role' => 'user', 'content' => 'תחום: ' . $family . '. ההודעה שהשאיר הפונה: ' . mb_substr( $situation, 0, 200 ) ),
-			),
-			'temperature' => 0.4,
-			'max_tokens'  => 160,
-		) ),
+	$text = justice_ai_chat( array(
+		array( 'role' => 'system', 'content' => 'נסח לעורך דין הודעת וואטסאפ ראשונה קצרה ללקוח פוטנציאלי: 2 עד 3 משפטים, חמה ועניינית, בלי הבטחות תוצאה, בלי סופרלטיבים, בלי קו מפריד ארוך, בלי ייעוץ משפטי קונקרטי. סיים בהצעה לשיחה קצרה היום.' ),
+		array( 'role' => 'user', 'content' => 'תחום: ' . $family . '. ההודעה שהשאיר הפונה: ' . mb_substr( $situation, 0, 200 ) ),
+	), array(
+		'model'       => 'gpt-4.1-mini',
+		'temperature' => 0.4,
+		'max_tokens'  => 160,
+		'timeout'     => 20,
+		'source'      => 'lead_reply',
 	) );
-
-	if ( is_wp_error( $response ) ) {
-		return '';
-	}
-
-	$data = json_decode( (string) wp_remote_retrieve_body( $response ), true );
-	$text = trim( (string) ( $data['choices'][0]['message']['content'] ?? '' ) );
 
 	return str_replace( array( chr(226).chr(128).chr(148), chr(226).chr(128).chr(147) ), ',', $text );
 }

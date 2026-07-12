@@ -33,49 +33,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Central model caller: retries once, JSON mode support, failure logging.
+ * Central model caller for the brain consumers. The engine owns providers,
+ * failover, counters and circuit breakers; the brain keeps its public
+ * signature so every consumer stays as-is.
  */
 function justice_brain_chat( array $messages, array $opts = array() ) {
-	if ( ! defined( 'JUSTICE_OPENAI_KEY' ) || '' === JUSTICE_OPENAI_KEY ) {
-		return '';
-	}
-
-	$body = array(
+	return justice_ai_chat( $messages, array(
 		'model'       => $opts['model'] ?? get_option( 'justice_art_model', 'gpt-4.1' ),
-		'messages'    => $messages,
 		'temperature' => $opts['temperature'] ?? 0.4,
 		'max_tokens'  => $opts['max_tokens'] ?? 900,
-	);
-
-	if ( ! empty( $opts['json'] ) ) {
-		$body['response_format'] = array( 'type' => 'json_object' );
-	}
-
-	for ( $try = 0; $try < 2; $try++ ) {
-		$response = wp_remote_post( 'https://api.openai.com/v1/chat/completions', array(
-			'timeout' => $opts['timeout'] ?? 60,
-			'headers' => array( 'Authorization' => 'Bearer ' . JUSTICE_OPENAI_KEY, 'Content-Type' => 'application/json' ),
-			'body'    => wp_json_encode( $body ),
-		) );
-
-		if ( is_wp_error( $response ) ) {
-			continue;
-		}
-
-		if ( 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
-			update_option( 'jt_brain_last_err', mb_substr( (string) wp_remote_retrieve_body( $response ), 0, 200 ), false );
-			continue;
-		}
-
-		$data = json_decode( (string) wp_remote_retrieve_body( $response ), true );
-		$text = trim( (string) ( $data['choices'][0]['message']['content'] ?? '' ) );
-
-		if ( '' !== $text ) {
-			return $text;
-		}
-	}
-
-	return '';
+		'timeout'     => $opts['timeout'] ?? 60,
+		'json'        => ! empty( $opts['json'] ),
+		'source'      => $opts['source'] ?? 'brain',
+	) );
 }
 
 /**

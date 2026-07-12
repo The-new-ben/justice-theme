@@ -223,7 +223,7 @@ function justice_desk_analyze( WP_REST_Request $request ) {
 		);
 	}
 
-	$raw = justice_brain_chat( $messages, array( 'json' => true, 'temperature' => 0.3, 'max_tokens' => 900, 'timeout' => 60 ) );
+	$raw = justice_brain_chat( $messages, array( 'json' => true, 'temperature' => 0.3, 'max_tokens' => 900, 'timeout' => 60, 'source' => 'ai_desk' ) );
 
 	if ( '' === $raw ) {
 		return new WP_REST_Response( array( 'error' => 'brain', 'message' => 'לא הצלחנו לנתח כרגע. נסו שוב, או פנו ישירות לעורך דין.' ), 200 );

@@ -203,35 +203,19 @@ add_action( 'admin_post_nopriv_justice_qa_ask', 'justice_qa_handle_ask' );
  * General-information draft under the iron rules; empty on any doubt.
  */
 function justice_qa_draft_answer( string $question, string $area ): string {
-	if ( ! defined( 'JUSTICE_OPENAI_KEY' ) ) {
-		return '';
-	}
-
-	$response = wp_remote_post( 'https://api.openai.com/v1/chat/completions', array(
-		'timeout' => 45,
-		'headers' => array( 'Authorization' => 'Bearer ' . JUSTICE_OPENAI_KEY, 'Content-Type' => 'application/json' ),
-		'body'    => wp_json_encode( array(
-			'model'    => get_option( 'justice_art_model', 'gpt-4.1' ),
-			'messages' => array(
-				array( 'role' => 'system', 'content' => 'אתה עונה תשובות מידע כללי לשאלות משפטיות בעברית, לפרסום באתר. חובה: מסגור כללי בלבד, בלי ייעוץ קונקרטי, בלי אחוזים וסכומים מדויקים אלא אם קבועים בחוק ומוכרים היטב, בלי שמות פסקי דין אלא אם מפורסמים מאוד, בלי הבטחות. אסור: קו מפריד ארוך, סופרלטיבים, חשוב לציין, בעידן, מעבר לכך, לסיכום, ראוי לציין, יש לזכור, חשוב להבין, חשוב לדעת, בשורה התחתונה, אין ספק, יתרה מכך, זאת ועוד. מבנה: 2 עד 3 פסקאות p של 60 עד 90 מילים, ואז פסקה אחרונה שממליצה בעדינות על בדיקה עם עורך דין בתחום. אם השאלה לא משפטית או לא ניתנת למענה אחראי, החזר בדיוק: SKIP' ),
-				array( 'role' => 'user', 'content' => 'תחום: ' . $area . "\nהשאלה: " . $question ),
-			),
-			'temperature' => 0.4,
-			'max_tokens'  => 700,
-		) ),
+	$text = justice_ai_chat( array(
+		array( 'role' => 'system', 'content' => 'אתה עונה תשובות מידע כללי לשאלות משפטיות בעברית, לפרסום באתר. חובה: מסגור כללי בלבד, בלי ייעוץ קונקרטי, בלי אחוזים וסכומים מדויקים אלא אם קבועים בחוק ומוכרים היטב, בלי שמות פסקי דין אלא אם מפורסמים מאוד, בלי הבטחות. אסור: קו מפריד ארוך, סופרלטיבים, חשוב לציין, בעידן, מעבר לכך, לסיכום, ראוי לציין, יש לזכור, חשוב להבין, חשוב לדעת, בשורה התחתונה, אין ספק, יתרה מכך, זאת ועוד. מבנה: 2 עד 3 פסקאות p של 60 עד 90 מילים, ואז פסקה אחרונה שממליצה בעדינות על בדיקה עם עורך דין בתחום. אם השאלה לא משפטית או לא ניתנת למענה אחראי, החזר בדיוק: SKIP' ),
+		array( 'role' => 'user', 'content' => 'תחום: ' . $area . "\nהשאלה: " . $question ),
+	), array(
+		'model'       => get_option( 'justice_art_model', 'gpt-4.1' ),
+		'temperature' => 0.4,
+		'max_tokens'  => 700,
+		'timeout'     => 45,
+		'source'      => 'qa',
 	) );
 
-	if ( is_wp_error( $response ) ) {
-		update_option( 'jt_qa_last_err', 'wp_error: ' . $response->get_error_message(), false );
-		return '';
-	}
-
-	$code = (int) wp_remote_retrieve_response_code( $response );
-	$data = json_decode( (string) wp_remote_retrieve_body( $response ), true );
-	$text = trim( (string) ( $data['choices'][0]['message']['content'] ?? '' ) );
-
-	if ( 200 !== $code || '' === $text ) {
-		update_option( 'jt_qa_last_err', 'http ' . $code . ': ' . mb_substr( (string) wp_remote_retrieve_body( $response ), 0, 220 ), false );
+	if ( '' === $text ) {
+		update_option( 'jt_qa_last_err', 'engine empty (ai-health has the state)', false );
 		return '';
 	}
 

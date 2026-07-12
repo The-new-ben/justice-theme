@@ -99,7 +99,7 @@ add_filter( 'the_content', function ( $content ) {
 		. '<h2>מפת עורכי הדין, המשרדים ובתי המשפט</h2>'
 		. '<p class="jtcm-sub">משרדים מקודמים מסומנים בדגל זהב. בתי משפט ומוסדות מסומנים על המפה עצמה. אפשר סיור אווירי בין המשרדים המובילים.</p>'
 		. justice_cinema_finder()
-		. '<div id="jt-cinema-map" aria-label="מפה תלת ממדית של עורכי דין ובתי משפט"></div>'
+		. '<div id="jt-cinema-map" role="img" aria-label="מפה תלת ממדית של עורכי דין, משרדים ובתי משפט. לניווט נגיש השתמשו בבורר התחום והעיר שמעל המפה."></div>'
 		. '<button type="button" id="jt-cinema-tour" class="jtcm-tour">סיור אווירי מעל המשרדים המובילים</button>'
 		. '</section>';
 

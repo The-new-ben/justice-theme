@@ -33,6 +33,7 @@ function justice_strike_map(): array {
 		'free-divorce-agreement-template' => array(
 			'title' => 'הסכם גירושין: דוגמה מלאה להורדה חינם, נוסח %Y%',
 			'desc'  => 'דוגמה מלאה של הסכם גירושין להורדה, סעיף אחרי סעיף: רכוש, משמורת, מזונות ותהליך האישור בבית המשפט או בבית הדין הרבני. נוסח מעודכן %Y%.',
+			'h1'    => 'הסכם גירושין %Y%: דוגמה מלאה להורדה ומה חייב להופיע',
 		),
 		'online-rent-agreement'           => array(
 			'title' => 'חוזה שכירות אונליין להורדה חינם: נוסח מעודכן %Y%',
@@ -73,7 +74,9 @@ function justice_strike_current_slug(): string {
 }
 
 /**
- * The theme's own money-query map wins the moment it carries the slug.
+ * This layer retires per slug the moment the THEME map carries the same
+ * text (the repo edit landed via the owner's pull). Until then ops wins:
+ * the strike data is newer than the theme's last deploy.
  */
 function justice_strike_entry(): array {
 	$slug = justice_strike_current_slug();
@@ -88,15 +91,18 @@ function justice_strike_entry(): array {
 		return array();
 	}
 
+	$entry = $map[ $slug ];
+
 	if ( function_exists( 'justice_theme_money_query_seo_map' ) ) {
 		$theme_map = justice_theme_money_query_seo_map();
+		$ours      = str_replace( '%Y%', wp_date( 'Y' ), $entry['title'] ) . ' | Jus-Tice';
 
-		if ( is_array( $theme_map ) && isset( $theme_map[ $slug ] ) ) {
+		if ( is_array( $theme_map ) && isset( $theme_map[ $slug ]['seo_title'] ) && $theme_map[ $slug ]['seo_title'] === $ours ) {
 			return array();
 		}
 	}
 
-	return $map[ $slug ];
+	return $entry;
 }
 
 add_filter( 'wpseo_title', function ( $title ) {
@@ -118,3 +124,26 @@ add_filter( 'wpseo_metadesc', function ( $desc ) {
 
 	return str_replace( '%Y%', wp_date( 'Y' ), $entry['desc'] );
 }, 20 );
+
+// The rendered H1: the theme overrides the_title for mapped articles at
+// priority 20, so the strike H1 rides at 30 with the same equality
+// retire as the head tags.
+add_filter( 'the_title', function ( $title, $post_id = 0 ) {
+	if ( is_admin() || ! in_the_loop() || ! is_main_query() ) {
+		return $title;
+	}
+
+	$post = get_post( $post_id );
+
+	if ( ! $post instanceof WP_Post || (int) get_queried_object_id() !== (int) $post_id ) {
+		return $title;
+	}
+
+	$map = justice_strike_map();
+
+	if ( empty( $map[ $post->post_name ]['h1'] ) ) {
+		return $title;
+	}
+
+	return str_replace( '%Y%', wp_date( 'Y' ), $map[ $post->post_name ]['h1'] );
+}, 30, 2 );

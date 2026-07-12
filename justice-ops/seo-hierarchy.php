@@ -32,16 +32,61 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array<string,array<string,mixed>>
  */
 function justice_seo_mesh(): array {
+	$map  = function_exists( 'justice_cards_family_map' ) ? justice_cards_family_map() : array();
+	$desk = array( 'path' => '/legal-ai-desk/', 'text' => 'עזרה משפטית מיידית: תיאור מצב או העלאת מסמך' );
+
 	return array(
 		'family' => array(
 			'hub'   => 'family-law',
-			'terms' => array( 'family-law', 'family', 'divorce', 'gerushin', 'mishpacha' ),
+			'terms' => $map['family'] ?? array( 'family-law', 'divorce', 'child-support' ),
 			'label' => 'מדריכים וכלים בדיני משפחה',
 			'links' => array(
 				array( 'path' => '/the-recommended-family-lawyers/', 'text' => 'עורכי דין מומלצים לדיני משפחה וגירושין' ),
 				array( 'path' => '/child-support/', 'text' => 'מחשבון מזונות ילדים והלכת 919/15' ),
-				array( 'path' => '/family-law/', 'text' => 'מדריך דיני משפחה וגירושין המלא' ),
-				array( 'path' => '/legal-ai-desk/', 'text' => 'עזרה משפטית מיידית: תיאור מצב או העלאת מסמך' ),
+				array( 'path' => '/divorce-lawyer/', 'text' => 'מדריך גירושין ועורך דין גירושין' ),
+				$desk,
+			),
+		),
+		'criminal-law' => array(
+			'hub'   => '',
+			'terms' => $map['criminal-law'] ?? array( 'criminal-law', 'criminal' ),
+			'label' => 'מדריכים וכלים בפלילי',
+			'links' => array(
+				array( 'path' => '/apply-for-police-criminal-information-certificates/', 'text' => 'בקשה לתעודת יושר ומחיקת מידע פלילי' ),
+				array( 'path' => '/lahav-433/', 'text' => 'להב 433: היחידה ללחימה בפשיעה חמורה' ),
+				array( 'path' => '/criminal-defense-attorney/', 'text' => 'עורך דין פלילי: המדריך המלא' ),
+				$desk,
+			),
+		),
+		'real-estate' => array(
+			'hub'   => '',
+			'terms' => $map['real-estate'] ?? array( 'real-estate-law', 'real-estate' ),
+			'label' => 'מדריכים וכלים במקרקעין ונדל"ן',
+			'links' => array(
+				array( 'path' => '/israel-real-estate-price-forecast/', 'text' => 'תחזית מחירי הנדל"ן בישראל' ),
+				array( 'path' => '/guide-israeli-apartment-2025/', 'text' => 'מדריך קניית דירה בישראל' ),
+				array( 'path' => '/real-estate-attorney/', 'text' => 'עורך דין מקרקעין: המדריך המלא' ),
+				$desk,
+			),
+		),
+		'labor' => array(
+			'hub'   => '',
+			'terms' => $map['labor'] ?? array( 'israeli-labor-law', 'labor-law' ),
+			'label' => 'מדריכים וכלים בדיני עבודה',
+			'links' => array(
+				array( 'path' => '/labor-lawyer/', 'text' => 'עורך דין דיני עבודה: המדריך המלא' ),
+				array( 'path' => '/legal-calculators/', 'text' => 'מחשבוני פיצויי פיטורים, הבראה וחופשה' ),
+				$desk,
+			),
+		),
+		'nezikin' => array(
+			'hub'   => '',
+			'terms' => $map['nezikin'] ?? array( 'personal-injury', 'tort-law' ),
+			'label' => 'מדריכים וכלים בנזיקין ותאונות',
+			'links' => array(
+				array( 'path' => '/medical-malpractice-lawsuits-law-account/', 'text' => 'רשלנות רפואית: תביעות ופיצויים' ),
+				array( 'path' => '/tort-lawyer/', 'text' => 'עורך דין נזיקין: המדריך המלא' ),
+				$desk,
 			),
 		),
 	);

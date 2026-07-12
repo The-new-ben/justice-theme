@@ -1387,3 +1387,26 @@ mail. Screenshots delivered.
 
 Verified rendered page: title with year, emergency strip 1, scheduler
 1, map 1, tables 6, FAQ schema 1, 5,348 Hebrew words, all links live.
+
+## 2026-07-12 (night, cont.): ops 2.15.0, scheduler everywhere + design pass
+
+Owner order: scheduler on all money pages, designed. Shipped a 30-slug
+placement map (family, criminal, real-estate, labor, injury, traffic,
+inheritance, general) appending the booking card via the_content at 34
+with the right routing area per page; hand-placed instances win (the
+criminal hub keeps its own); feeds/REST clean; assets load only on
+mapped pages (URI check covers controlled routes).
+
+Design pass inside the existing brand system (design-skill fundamentals:
+honor the system, tokens, tabular numerals, honest structure, focus
+states, reduced motion): navy header band with calendar glyph and
+per-area Hebrew copy (7 area variants), two honest step chips, date
+rail with scroll snap and stacked day/date pills, auto-fill tabular
+time grid, gold-edged details panel, focus-visible rings, hover lifts
+suppressed under prefers-reduced-motion.
+
+Live verification across page types (fresh-cache): divorce article,
+malpractice article, lahav-433, labor hub, child-support CONTROLLED
+pillar, divorce-lawyer pillar, criminal hub: exactly 1 widget each,
+correct area each, v2 markup everywhere. 20 money URLs purged.
+Screenshots delivered (desktop + mobile).

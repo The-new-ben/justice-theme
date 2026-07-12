@@ -1410,3 +1410,46 @@ malpractice article, lahav-433, labor hub, child-support CONTROLLED
 pillar, divorce-lawyer pillar, criminal hub: exactly 1 widget each,
 correct area each, v2 markup everywhere. 20 money URLs purged.
 Screenshots delivered (desktop + mobile).
+
+## 2026-07-12 (deep night): ops 2.16.0, malpractice FLAGSHIP + desk outage fix
+
+Owner orders: make malpractice the flagship (app + checker + scheduler +
+heavy smart internal linking + lots of data/numbers, SEO/GEO first); the
+AI advisor is not working, fix it.
+
+AI desk outage fix: the desk hard-errored during the OpenAI outage (bare
+"לא הצלחנו לנתח"). Added justice_desk_fallback: deterministic Hebrew
+keyword triage -> practice area -> static per-area orientation (points,
+rights, steps, ask_lawyer) + real hub + lead_area + WhatsApp, marked
+degraded, never claims to have read the specific text. Verified live:
+the malpractice test query now returns נזיקין/personal-injury-law with
+real guidance and no error. The advisor works during the outage.
+
+Fact verification (Workflow, 6 agents, 358k tokens, adversarial): 29
+legal claims checked against primary sources (he.wikisource, nevo,
+supremedecisions, kolzchut). 28 CONFIRMED including every risky figure
+even under a dedicated skeptic pass: deika 15,000 (29.8.1999); 2124/12
+30.10.2014 total 8,368,424 before NII, 500,000/parent, 350,000 housing,
+2,929,777 future help, 30,000 clothing; 2509/98 one-third; s.15א tolling
+7.10.2023-6.4.2024; statutes 5/8/10/89, s.35/36 nezikin, zchuyot-hacholeh
+13/17/18/21, lishkat 84/85. 1 correction: fee band was 15-25%, verified
+common band is 20-30%+VAT (25% typical) -> widened in article + table.
+
+Malpractice checker (malpractice-checker.php): 6-question deterministic
+app, conservative limitation engine (event+7; minor->birth+25; late
+discovery vs 10yr long-stop, earlier as warning; abroad + s.15א flagged
+not computed), four-element map with text+icon+tag (not color alone),
+docs-by-event, no PII before result. Live test: 03/2021 diagnosis ->
+03/2028 (correct +7), map + docs render.
+
+Flagship article (id 6715, direct-write path: safety gate false-positived
+on "בדיקה משפטית"): ~5,371 words, 7 jt-tbl tables incl the verified
+compensation-examples table, checker + scheduler embedded, meshed into
+birth-injury-lawyer, brain-damage-at-birth, medical-malpractice-lawyer-
+birth-recommended, anesthesia-medical-malpractice, personal-injury-law,
+legal-calculators, medical-malpractice-lawyer, legal-ai-desk. Strike
+title live: רשלנות רפואית 2026: בדיקת עילה, התיישנות ופיצויים. FAQPage
+schema fires. 0 tellers, 0 body dashes.
+
+PR #27 open for the branch (created from UI). Reusable artupid snippet
+(update by ID) saved: get_page_by_path failed for this articles-CPT slug.

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.10.1
+ * Version: 2.11.0
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.10.1' );
+	define( 'JUSTICE_OPS_VERSION', '2.11.0' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -104,6 +104,17 @@ require_once __DIR__ . '/homepage-pro.php';
 // AI tools discoverability: primary-menu entry, floating assistant
 // button, in-guide one-box teaser. The desk stops being a hidden page.
 require_once __DIR__ . '/tools-discovery.php';
+
+// SERP strike titles: render-layer CTR fixes on seen-but-unclicked pages.
+require_once __DIR__ . '/strike-titles.php';
+
+// The courtroom simulation (HADMAIA on jus-tice.com) embedded for real
+// at /legal-simulation/, chrome-less, with honest framing copy.
+require_once __DIR__ . '/simulation-embed.php';
+
+// Divorce agreement generator: free preview, paid full document on the
+// existing lead rail. The "every money page is an application" rule.
+require_once __DIR__ . '/divorce-gen.php';
 
 /**
  * Public healthcheck: what version of the ops plugin is live.

@@ -287,6 +287,13 @@ function justice_seo_consolidate_map(): array {
 		'mediation-divorce'             => 'divorce-mediation',
 		'mutual-divorce-agreement-2025' => 'free-divorce-agreement-template',
 		'immigration-to-portugal'       => 'portugal-relocation',
+		// The criminal-fee cannibal pair: GSC 2026-07-12 shows the Hebrew-slug
+		// cost page (pos 52.6) and the price-list page (pos 34.6) splitting one
+		// intent; the pair concentrates on the stronger English slug. Both the
+		// encoded and the decoded key are present because the permalink path
+		// arrives percent-encoded for Hebrew slugs.
+		'%d7%a2%d7%9c%d7%95%d7%aa-%d7%a2%d7%95%d7%a8%d7%9a-%d7%93%d7%99%d7%9f-%d7%a4%d7%9c%d7%99%d7%9c%d7%99-%d7%9e%d7%97%d7%99%d7%a8%d7%99%d7%9d-%d7%a9%d7%9b%d7%a8-%d7%98%d7%a8%d7%97%d7%94-%d7%95%d7%9e' => 'criminal-law-price-list-lawyer-recommended-review-costs',
+		'עלות-עורך-דין-פלילי-מחירים-שכר-טרחה-ומ' => 'criminal-law-price-list-lawyer-recommended-review-costs',
 	) );
 }
 

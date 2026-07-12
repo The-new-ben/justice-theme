@@ -99,6 +99,7 @@ function justice_home_pro_band(): string {
 		array( '/child-support/', 'מחשבון מזונות ילדים לפי הלכת 919/15' ),
 		array( '/the-recommended-family-lawyers/', 'עורכי דין מומלצים לדיני משפחה' ),
 		array( '/apply-for-police-criminal-information-certificates/', 'תעודת יושר ומידע פלילי: המדריך המלא' ),
+		array( '/legal-simulation/', 'הדמיה משפטית: סימולציית בית משפט חיה עם AI' ),
 	);
 
 	$links_html = '';
@@ -193,7 +194,7 @@ add_action( 'wp_head', function () {
  */
 add_filter( 'wpseo_metadesc', function ( $desc ) {
 	if ( is_front_page() ) {
-		return 'איתור עורך דין לפי תחום ועיר, מדריכים משפטיים מעודכנים, מחשבונים, מסמכים להורדה ועוזר AI שמכוון אתכם לצעד הבא. מידע כללי ואיתור אנשי מקצוע, ללא עלות.';
+		return 'חיפוש עורך דין לפי שם, תחום ועיר, מדריכים משפטיים מעודכנים, מחשבונים, מסמכים להורדה ועוזר AI שמכוון אתכם לצעד הבא. מידע כללי ואיתור אנשי מקצוע, ללא עלות.';
 	}
 
 	return $desc;

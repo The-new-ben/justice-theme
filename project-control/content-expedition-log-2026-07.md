@@ -975,3 +975,62 @@ Worked the queue in order:
    nezikin money pages each render their cluster mesh. Every buried
    money page now sits in an internal-link neighborhood instead of
    alone. Monitor 12/12 GREEN.
+
+## 2026-07-12: DEEP SEO QA + FORUM RESEARCH + IMPLEMENT (ops 2.6.0-2.6.1)
+
+Owner order: deep SEO QA, web-search sources from forums, upgrade SEO and
+content, implement, complex and smart.
+
+RESEARCH (three parallel agents, forum-heavy, all sourced):
+- FORUM INTEL (BlackHatWorld, WebmasterWorld, Hacker News, Search Engine
+  Roundtable which quotes Reddit/X/WMW). Strongest consensus tactics:
+  (1) re-point internal links FROM aged/authority pages INTO buried pages
+  (fastest cheap lever); (2) tight topical clusters not flat meshes;
+  (3) refresh pages that used to rank; (4) PRUNE/noindex off-topic
+  zero-value pages, quality is judged only on indexed pages (case studies:
+  pruning doubled traffic); (5) off-topic pages ranking for irrelevant
+  terms are a documented site-quality DRAG (Mueller); (6) removal
+  mechanics: 410 purge / noindex keep-out / 301+canonical consolidate,
+  and cut internal links to removed pages; (7) named + bar-numbered
+  attorney authorship is the defining YMYL lever (Dec-2025 core update hit
+  legal hard); (13-14) title/meta-only rewrites (51-55 chars, intent
+  first, year stamp) move rankings and clicks with zero new content.
+  STOP list: JSON-LD is NOT an AI-citation lever (Ahrefs study), author
+  bio alone is not a ranking factor, rewriting-AI-to-human does not
+  recover, programmatic pages need proprietary data or read as doorways.
+- CONTENT/SERP GAP: /free-divorce-agreement-template/ (#17) is the best
+  near-term win, gap is a missing FAQ + FAQPage schema + freshness.
+  /child-support/ (#61) buried DESPITE strong content: 12 FAQ unmarked,
+  no year in title, and probable BRAND CANNIBALIZATION with rotenberglaw
+  (same Maya Rotenberg author-home). Medical-malpractice (#16) and
+  apartment (#29) target the WRONG intent (a 2002 gov report; an OVERSEAS
+  property guide) and need new consumer-intent pages. Winning pattern:
+  intent-matched, tool/template-first, year in title, named+bar-numbered
+  author, FAQPage schema.
+
+OWN GSC QA: pulled page+query pairs. CANNIBALIZATION is the #1 structural
+problem: "cost of divorce lawyer" has 4 competing pages, "cost of traffic
+lawyer" has 7, divorce-mediation exists at two near-identical slugs, the
+divorce-agreement variants split across pages. Plus catastrophic CTR
+(0 clicks at positions 9-16 on many impression-rich pages).
+
+IMPLEMENTED:
+- 2.6.0 CANNIBALIZATION CONSOLIDATION: weaker duplicates canonical to the
+  stronger page through Yoast (reversible, loop-safe): mediation-divorce
+  onto divorce-mediation, mutual-divorce-agreement-2025 onto the hero
+  template, immigration-to-portugal onto portugal-relocation. Verified the
+  canonicals changed live. Extensible map.
+- 2.6.1 FAQPAGE SCHEMA BRIDGE: root-caused why child-support shipped no
+  FAQPage despite 12 Q&A: the theme extracts with a strict h3+p regex, but
+  Gutenberg wraps answers in block comments so the strict pattern finds
+  nothing. A comment-tolerant bridge emits FAQPage only when the strict
+  pattern found nothing (never duplicates). Verified: 9 real questions now
+  marked up on child-support, monitor 12/12 GREEN.
+
+NEXT (forum-validated, prioritized): title/meta CTR rewrites on the
+impression-rich page-3 set (fastest lever); noindex the off-topic
+news/brand-jack pages (Mueller-backed site-quality move, reversible);
+named + bar-numbered attorney authorship (YMYL); route mesh links FROM the
+tools INTO buried pages; new intent-matched pages for malpractice +
+domestic apartment. Technical-audit agent still running; its findings feed
+the next cycle.

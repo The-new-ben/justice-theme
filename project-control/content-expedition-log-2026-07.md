@@ -1034,3 +1034,64 @@ named + bar-numbered attorney authorship (YMYL); route mesh links FROM the
 tools INTO buried pages; new intent-matched pages for malpractice +
 domestic apartment. Technical-audit agent still running; its findings feed
 the next cycle.
+
+## 2026-07-12 night: FULL RE-AUDIT OF THE OPUS-ERA WORK (ops 2.7.0 + 257-page H1 repair)
+
+Owner order: the prior model's work is not trusted; re-research, deep QA
+everything, repair deeply, take responsibility. Model facts: the entire
+session ran on claude-opus-4-8 until this order; claude-fable-5 from here.
+
+FIVE CODE DEFECTS FOUND AND FIXED (ops 2.7.0), from a hostile re-read of
+every module shipped in the recent cycles:
+1. CRITICAL: the AI desk posted family-vocabulary lead areas (nezikin,
+   labor, real-estate, family) that justice_router_area_to_family did not
+   recognize, so a desk handoff lead would land unrouted_no_family and
+   never reach a lawyer. Desk now posts router-native keys per area, and
+   the router gained family-key aliases. No real leads were harmed (leads
+   summary: zero desk leads to date). VERIFIED server-side: every desk
+   area now resolves to a family (deskmap probe, all 8 OK).
+2. The index-bloat noindex filter claimed Yoast would also drop pages
+   from the sitemap; runtime robots filters never touch the sitemap
+   (exactly how checkout stayed listed while noindexed). Added
+   wpseo_exclude_from_sitemap_by_post_ids + term exclusion. VERIFIED:
+   cart/checkout/my-account/shop/lawyer-dashboard gone from
+   page-sitemap.xml AND noindexed (core emits robots with single quotes;
+   the first verification grep was quote-naive and false-failed).
+3. The FAQ schema bridge anchored on the first loose mention of the FAQ
+   marker; an intro sentence naming the section would have turned
+   ordinary sections into fake questions. Now anchors on the section
+   heading. VERIFIED: child-support still emits 9 real questions.
+4. Consolidated pages kept a self og:url contradicting the 2.6.0
+   canonical. og:url now follows the same shared resolver; term archives
+   consolidate too (category news -> legal-news, raw practice-areas
+   archives -> the controlled hubs). VERIFIED live on all three.
+5. The meta-description emitter could double-emit against Yoast; now
+   skips any post where Yoast prints its own. Encyclopedia terms +
+   legal-tools now carry exactly one description each. VERIFIED.
+
+THE 257-PAGE H1 REPAIR: the tech audit found the H1 = full SEO title
+(pipes + brand) systemically. A dry-run measured the true scale: 257
+published pages. Fixed sitewide with a time-boxed batched route:
+post_title cleaned (brand tail stripped, pipes to colons), every page's
+existing <title> preserved byte-for-byte by copying the old title into
+_yoast_wpseo_title when absent, old values backed up in jt_h1_backup
+(fully reversible). The run tripped the theme's own publication safety
+gate; root-caused: pages whose CONTENT contains internal markers die in
+wp_update_post. Pre-screened with the theme's own detector; exactly ONE
+page flagged (startup-equity-israel, marker "מסלול הכנסה") and it is a
+FALSE POSITIVE (Section 102 income-tax track, legitimate tax content) so
+there are ZERO real internal-note leaks sitewide. Final server-side
+count: 0 piped titles remain. VERIFIED on child-support, divorce-lawyer,
+criminal-lawyer-eilat, medical-malpractice-lawyer: H1 clean, title
+preserved. 166 URLs purged.
+
+CRITICAL OPERATIONAL FINDING: the OpenAI account behind
+JUSTICE_OPENAI_KEY is OUT OF QUOTA ("You exceeded your current quota")
+and brain stats show nothing logged since 2026-07-07. The entire AI
+layer is silently down: desk analysis, Q&A drafts, article judging,
+SERP titles. OWNER ACTION REQUIRED: top up OpenAI billing. The desk
+mapping fix is verified server-side; end-to-end desk analysis resumes
+the moment quota returns.
+
+Monitor 12/12 GREEN. Gate-pattern tightening (the מסלול הכנסה false
+positive) queued for the theme pull.

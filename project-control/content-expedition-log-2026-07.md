@@ -1204,3 +1204,45 @@ VERIFIED LIVE (purged, fresh fetch, proper Unicode parsing):
   multibyte byte-class false positive, settled with python Unicode.
 - Desk ?q prefill live in the JS aggregate. Monitor 12/13 with only
   the known ai_engine red (quota, owner action pending).
+
+## 2026-07-12 (later): ops 2.10.0-2.10.1, discoverability + the .com discovery
+
+Order: continue developing AI tools, make them upfront and discoverable;
+plus deliver the ChatGPT Pro deep-research mega prompt.
+
+Shipped and live-verified (2.10.1 on healthcheck):
+- Primary menu: gold "עוזר AI מיידי" prepended site-wide (needle-checked
+  so a future CMS menu entry wins). Screenshot-proofed first in the nav.
+- Floating assistant button, navy/gold, inline-end corner, hover-expand
+  label, hidden on the desk page and the front page, lifted above the
+  WhatsApp bar on mobile (bottom:76px under 768px).
+- In-guide one-box teaser before a mid-article h2 on singular post and
+  articles content over 2200 chars, GET handoff to /legal-ai-desk/?q=,
+  doc deep-link to #doc. Feed/REST guarded, never doubles.
+- Screenshot QA caught a pre-existing defect: the THEME footer ships its
+  own green .whatsapp-float bubble on top of the ops pill (two identical
+  WhatsApp CTAs, overlapping bars on mobile). Hidden via a.whatsapp-float
+  display:none (element+class outranks the theme rule in any aggregate
+  order). One action per corner now: WhatsApp inline-start, AI inline-end.
+- Verification matrix (virgin params): home nav=1 fab=0 band=1; article
+  nav=1 fab=1 teaser=1; desk fab=0; pillar fab=1 teaser=0. CSS confirmed
+  inside the rotated Autoptimize aggregate. Proof PNGs in scratchpad.
+
+Discovery: jus-tice.com (the .com, GoDaddy DNS) serves the owner's React
+demo "Jus-tice Global Legal Platform" via an SPA host (185.158.133.1,
+Cloudflare-fronted, GTS cert chain, fresh cert 2026-07-07), catch-all
+shell on every path, canonical to root, robots allows crawling, sitemap
+404. NOT our production (.co.il untouched); flagged to owner for brand
+SERP and indexing decisions on his side.
+
+Strategy deliverable: project-control/deep-research-prompt-divorce-
+agreement-2026-07.md, the paste-ready ChatGPT Pro deep-research mega
+prompt targeting /free-divorce-agreement-template/ (positions 14-20,
+biggest near-win), iron rules embedded verbatim, three-part output
+contract, self-check line, child-support swap block, ingestion path
+back through our gates. Decision record inside the file.
+
+Open on owner: OpenAI billing (engine down since 11:13 UTC, desk
+degrades to WhatsApp path politely), optional JUSTICE_ANTHROPIC_KEY,
+attorney byline (name + bar number) for the money pages, target
+confirmation (divorce agreement vs child support).

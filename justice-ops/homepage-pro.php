@@ -129,6 +129,15 @@ add_action( 'template_redirect', function () {
 	}
 
 	ob_start( function ( $html ) {
+		// The theme templates carry emoji inside headings (37 on the live
+		// audit); screen readers announce them and they read low-authority
+		// for a legal brand. Strip them from headings at render time.
+		$html = preg_replace_callback( '/<h([1-6])([^>]*)>(.*?)<\/h\1>/su', function ( $m ) {
+			$inner = preg_replace( '/[\x{1F000}-\x{1FAFF}\x{2600}-\x{27BF}\x{2B00}-\x{2BFF}\x{FE0F}\x{200D}]/u', '', $m[3] );
+
+			return '<h' . $m[1] . $m[2] . '>' . trim( (string) $inner ) . '</h' . $m[1] . '>';
+		}, $html );
+
 		if ( false !== strpos( $html, 'jt-hp__box' ) ) {
 			return $html;
 		}

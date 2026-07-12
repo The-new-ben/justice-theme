@@ -929,3 +929,14 @@ and off-topic news.
 
 DEPLOY: raw.githubusercontent.com still 404 for the repo, so 2.5.0
 shipped via the authenticated upload-install route. Monitor 12/12 GREEN.
+
+## 2026-07-12: ACCESSIBILITY BATCH (ops 2.5.1)
+
+From the live audit, two plugin-reachable WCAG fixes: the intake wizard
+form labels are now programmatically associated (for/id + autocomplete),
+fixing a 1.3.1/4.1.2 failure and enabling browser autofill; the
+cinematic map div carries role=img so its label is announced and points
+screen-reader users to the accessible area/city finder above it. Verified
+live (for="jtb-name/phone/city" present, map role=img present), monitor
+12/12 GREEN. Remaining a11y (theme-level focus outlines, contrast tokens,
+duplicate dir=rtl) ships with the next theme pull.

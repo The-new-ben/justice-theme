@@ -1095,3 +1095,63 @@ the moment quota returns.
 
 Monitor 12/12 GREEN. Gate-pattern tightening (the מסלול הכנסה false
 positive) queued for the theme pull.
+
+## 2026-07-12: THE AI ENGINE, LOUD FAILOVER + CIRCUIT BREAKERS (ops 2.8.0)
+
+Owner order: a quality backup AI engine that never switches silently,
+research how the quota drained (exploited?), circuit breakers, which
+model is best for us, check the repo for existing connections.
+
+FORENSICS (answer to "how did we over-quota"):
+- NO EXPLOIT. The drain was our own machines: a 122-term encyclopedia
+  burst on 07-06, then the steady cadence (~15 encyclopedia drafts/day
+  on gpt-4o-mini at 6K tokens, 1-2 articles/day on gpt-4.1 at 10K,
+  news briefs at 4K, judge passes). TIMELINE CORRECTION from the
+  earlier report: the writer still succeeded on the morning of 07-12,
+  so the quota died TODAY, hours before it was caught, not on 07-07
+  (the brain counter was stale because nothing calls the brain daily).
+- Repo scan: NINE raw OpenAI call sites across 8 files, no existing
+  Anthropic/OpenRouter wiring. Public attack surface is guarded (desk
+  10/hr/IP + honeypot + dwell; QA form honeypot + timing) but nothing
+  capped GLOBAL daily spend until now.
+
+SHIPPED (justice-ops/ai-engine.php + all call sites rerouted):
+- justice_ai_chat: the ONE door. All nine call sites (encyclopedia,
+  articles, news, brain, desk, QA drafts, SERP titles, city openings,
+  lead replies) now route through it; verified zero raw api.openai.com
+  callers remain outside the engine.
+- LOUD failover: primary OpenAI; fallback Anthropic
+  (JUSTICE_ANTHROPIC_KEY, default model claude-opus-4-8, option
+  jt_ai_fallback_model; vision converted from OpenAI image_url to
+  Anthropic base64 blocks so the document desk keeps working during
+  failover; sampling params omitted per current Claude API) or
+  OpenRouter (JUSTICE_OPENROUTER_KEY, OpenAI-compatible passthrough).
+  EVERY state transition mails the owner exactly once (failover / down
+  / capped / paused / recovered), shows on the cockpit, flips the
+  public ai-health endpoint, and trips the hourly monitor. Nothing
+  switches silently, per the order.
+- Circuit breakers: daily call cap jt_ai_daily_cap (default 400) with
+  a capped-state mail; kill switch jt_ai_paused; deterministic no-retry
+  on quota/auth failures; per-provider and per-source daily counters
+  (jt_ai_usage) so every consumer is attributable forever.
+
+PROVEN LIVE with the real outage:
+- Fresh ai-health: state normal. One desk call: primary failed,
+  classified "quota: היתרה בחשבון OpenAI נגמרה", state flipped to
+  down, counters openai fail=1 / source ai_desk=1, transition mail
+  fired. Monitor: 12/13 green with exactly ai_engine RED, and the
+  green-to-red transition fired the monitor alert mail. Both loud
+  channels verified with a genuine failure.
+
+MODEL RESEARCH (claude-api skill + web): fallback default
+claude-opus-4-8 ($5/$25 per MTok, vision, 1M context); cost-efficient
+alternative claude-sonnet-5 ($2/$10 intro through 2026-08-31) via
+option jt_ai_fallback_model. OpenRouter (openrouter.ai) confirmed as
+the one-key aggregator alternative (OpenAI-compatible, +5.5% fee,
+its own model fallbacks).
+
+OWNER ACTIONS: (1) top up OpenAI billing to restore the primary; the
+engine auto-recovers and mails "back to primary". (2) Optionally add
+ONE line to wp-config for the backup: define('JUSTICE_ANTHROPIC_KEY',
+'sk-ant-...'); the failover activates by itself and announces itself.
+Monitor stays honestly RED on ai_engine until either happens.

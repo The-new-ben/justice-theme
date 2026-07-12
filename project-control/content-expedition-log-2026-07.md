@@ -940,3 +940,38 @@ screen-reader users to the accessible area/city finder above it. Verified
 live (for="jtb-name/phone/city" present, map role=img present), monitor
 12/12 GREEN. Remaining a11y (theme-level focus outlines, contrast tokens,
 duplicate dir=rtl) ships with the next theme pull.
+
+## 2026-07-12: SEQUENTIAL QUEUE PASS (schema, H1, dilution, mesh) — ops 2.5.2
+
+Worked the queue in order:
+
+1. ARTICLE + FAQPAGE SCHEMA ON MONEY ARTICLES: verified already
+   resolved. The live money article (/petah-tikva-divorce-lawyer/)
+   carries Article + LegalService + Person + ImageObject schema; the
+   earlier "missing" audit read a stale/cached copy. No FAQ section on
+   that page, so no FAQPage to add. Building a bridge would only have
+   created duplicate Article schema, so it was correctly skipped after
+   verification.
+
+2. MONEY-PAGE H1 CLEANUP: /child-support/ carries "| Jus-Tice" in its
+   H1, but it is a controlled pillar page (inc/pillar-pages.php) whose
+   H1 and title are one config string, so cleaning only the H1 needs an
+   output-buffer bridge on the controlled route. Deferred to the theme
+   pull as a low-risk template fix rather than buffering a live route.
+
+3. TOPICAL DILUTION (/posta/, 12,483 junk impressions): diagnosed as a
+   deliberate brand-jack article targeting the din-adjacent "posta"
+   crime-news brand (0.3% CTR because those searchers want the news
+   site). noindexing it is a destructive, outward-facing traffic
+   trade-off (removes ~35 real clicks/month, hard to reverse), so it was
+   flagged for an owner decision rather than done unilaterally.
+
+4. EXTEND THE AUTHORITY MESH (ops 2.5.2): DONE. The internal-authority
+   mesh now covers five clusters (family, criminal, real estate, labor,
+   nezikin), reusing justice_cards_family_map so it matches the same
+   articles the sponsored cards do. Verified live: the criminal money
+   pages cross-link (apply-for-police-... links Lahav 433 + the criminal
+   pillar + the AI desk, self-link dropped); real-estate, labor and
+   nezikin money pages each render their cluster mesh. Every buried
+   money page now sits in an internal-link neighborhood instead of
+   alone. Monitor 12/12 GREEN.

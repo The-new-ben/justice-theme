@@ -1329,3 +1329,23 @@ Route verified live (401 anon). Owner sent exact billing URLs.
 
 Owner queue: bar license number; OpenAI top-up or paste a fallback key
 in chat; criminal deep-research output expected.
+
+## 2026-07-12 (later night): ops 2.13.0, criminal map + engine watch
+
+OpenAI auto-recharge reported ON by owner; live brain-test still returns
+quota-down (recharge not landed or project budget limit). Self-recheck
+scheduled +30min via trigger; engine flips + mails on first success.
+
+Intent-fix verdicts from GSC page-query pulls (both are content plays,
+not title strikes): the malpractice money page ranks page-1 only for
+case-law doctrine quotes (פאתח, מלול, נזק ראייתי, 0 clicks) with
+consumer queries at pos 70+, folded into factory prompt 3 as a
+requirement; the apartment guide collects IT/PT/EN investor impressions
+(pos 46-90, 0 clicks) a Hebrew page cannot win, EN pillar queued as
+factory #10.
+
+Criminal process map shipped ahead of its article (2.13.0, verified):
+stage picker (זימון, חקירה, מעצר, שימוע, כתב אישום, ערעור) with rights,
+expensive mistakes and statutory clocks only (24h/30d/45d), WhatsApp
+urgent path + desk, standalone home /criminal-process-map/, same
+shortcode will embed in the criminal mega article on ingestion.

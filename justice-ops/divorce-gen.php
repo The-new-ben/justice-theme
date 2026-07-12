@@ -28,8 +28,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Two tiers, priced from the 2026-07-12 market read: full lawyer-drafted
+ * agreements run 5,000 to 15,000 ILS, review-only sits well under
+ * drafting, and generic paid templates sell for 99 to 399. The
+ * self-serve personalized document sits at the top of the template
+ * band; the attorney-review tier undercuts drafting by an order of
+ * magnitude while being a real reviewed deliverable.
+ */
 function justice_divorce_gen_price(): string {
-	return (string) get_option( 'jt_divorce_gen_price', '149' );
+	return (string) get_option( 'jt_divorce_gen_price', '249' );
+}
+
+function justice_divorce_gen_review_price(): string {
+	return (string) get_option( 'jt_divorce_gen_review_price', '1490' );
 }
 
 add_shortcode( 'justice_divorce_gen', function () {
@@ -103,8 +115,20 @@ add_shortcode( 'justice_divorce_gen', function () {
 				<ul id="jt-dg-locked-list"></ul>
 			</div>
 			<div class="jt-dg__pay">
-				<p class="jt-dg__price"><strong>המסמך המלא לעריכה חופשית: <?php echo esc_html( $price ); ?> ₪</strong></p>
-				<p class="jt-dg__pay-sub">כולל את כל הסעיפים מותאמים לתשובות שלכם, קובץ פתוח לעריכה, ובדיקת התאמה בסיסית של נציג. התשלום מוסדר מול נציג בוואטסאפ אחרי השליחה, ורק אז נשלח המסמך.</p>
+				<div class="jt-dg__tiers">
+					<button type="button" class="jt-dg__tier" data-tier="doc" data-price="<?php echo esc_attr( $price ); ?>">
+						<span class="jt-dg__tier-h">המסמך המלא לעריכה</span>
+						<span class="jt-dg__tier-p"><?php echo esc_html( number_format( (float) $price ) ); ?> ₪</span>
+						<span class="jt-dg__tier-s">כל הסעיפים מותאמים לתשובות שלכם, קובץ פתוח לעריכה, ובדיקת התאמה בסיסית של נציג.</span>
+					</button>
+					<button type="button" class="jt-dg__tier jt-dg__tier--pro" data-tier="review" data-price="<?php echo esc_attr( justice_divorce_gen_review_price() ); ?>">
+						<span class="jt-dg__tier-badge">המסלול המומלץ</span>
+						<span class="jt-dg__tier-h">המסמך + בדיקת עורכת דין</span>
+						<span class="jt-dg__tier-p"><?php echo esc_html( number_format( (float) justice_divorce_gen_review_price() ) ); ?> ₪</span>
+						<span class="jt-dg__tier-s">עורכת דין לדיני משפחה עוברת על ההסכם המותאם שלכם, מתקנת, ומחזירה אותו מוכן להגשה לאישור, עם שיחת הבהרות קצרה. לשם השוואה, עריכת הסכם מלאה אצל עורך דין נעה בשוק סביב 5,000 עד 15,000 ש"ח.</span>
+					</button>
+				</div>
+				<p class="jt-dg__pay-sub">התשלום מוסדר מול נציג בוואטסאפ אחרי השליחה, ורק אז נשלח המסמך.</p>
 				<form class="jt-dg__lead" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 					<input type="hidden" name="action" value="justice_submit_lead">
 					<input type="hidden" name="lead_source_surface" value="divorce_gen">
@@ -114,12 +138,12 @@ add_shortcode( 'justice_divorce_gen', function () {
 					<input type="hidden" name="lead_area" value="family-law">
 					<input type="hidden" name="lead_urgency" value="normal">
 					<input type="hidden" name="lead_message" id="jt-dg-lead-msg" value="">
-					<div class="jt-dg__lead-grid">
+					<div class="jt-dg__lead-grid" id="jt-dg-lead-grid" hidden>
 						<label class="screen-reader-text" for="jt-dg-name">שם מלא</label>
 						<input type="text" id="jt-dg-name" name="lead_name" placeholder="שם מלא" required maxlength="60">
 						<label class="screen-reader-text" for="jt-dg-phone">טלפון</label>
 						<input type="tel" id="jt-dg-phone" name="lead_phone" placeholder="טלפון" required maxlength="20">
-						<button type="submit">קבלת המסמך המלא</button>
+						<button type="submit" id="jt-dg-submit">שליחת ההזמנה</button>
 					</div>
 				</form>
 			</div>
@@ -150,6 +174,15 @@ add_action( 'wp_head', function () {
 		. '.jt-dg__locked li{list-style:none;position:relative;padding-inline-start:18px}'
 		. '.jt-dg__locked li:before{content:"•";position:absolute;inset-inline-start:0;color:#b8933f;font-weight:800}'
 		. '.jt-dg__pay{margin:16px 0 0;text-align:center}'
+		. '.jt-dg__tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:0 0 12px;text-align:start}'
+		. '.jt-dg__tier{background:#fff;border:1.5px solid #cbd6e8;border-radius:14px;padding:16px 18px;cursor:pointer;font:inherit;display:block;position:relative;transition:border-color .15s ease,box-shadow .15s ease}'
+		. '.jt-dg__tier:hover{border-color:#8fa3c8}'
+		. '.jt-dg__tier.is-on{border-color:#b8933f;box-shadow:0 0 0 3px rgba(231,199,101,.35)}'
+		. '.jt-dg__tier--pro{border-color:#b8933f;background:linear-gradient(180deg,#fffdf5,#fff)}'
+		. '.jt-dg__tier-badge{position:absolute;top:-10px;inset-inline-start:14px;background:linear-gradient(90deg,#e7c765,#d9b654);color:#14213d;font-size:11.5px;font-weight:800;border-radius:999px;padding:3px 10px}'
+		. '.jt-dg__tier-h{display:block;font-weight:800;color:#14213d;font-size:15.5px;margin:0 0 2px}'
+		. '.jt-dg__tier-p{display:block;font-weight:800;color:#b8933f;font-size:22px;margin:0 0 6px}'
+		. '.jt-dg__tier-s{display:block;font-size:13px;color:#44506b;line-height:1.5}'
 		. '.jt-dg__price{font-size:18px;color:#14213d;margin:0 0 6px}'
 		. '.jt-dg__pay-sub{font-size:13.5px;color:#44506b;margin:0 auto 12px;max-width:60ch;line-height:1.55}'
 		. '.jt-dg__lead-grid{display:flex;gap:8px;max-width:560px;margin:0 auto;flex-wrap:wrap}'
@@ -207,11 +240,26 @@ add_action( 'wp_footer', function () {
 			ul.innerHTML = '';
 			locked.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
 
-			document.getElementById('jt-dg-lead-msg').value = 'הזמנת מסמך מלא ממחולל הסכם הגירושין. פרטים: ילדים=' + kids + ', דירה=' + home + ', פנסיה=' + pension + ', הוצאות=' + split + '%, ערכאה=' + court + '. מחיר שהוצג: <?php echo esc_js( justice_divorce_gen_price() ); ?> ש"ח, גבייה מול נציג.';
+			root.dataset.baseMsg = 'הזמנה ממחולל הסכם הגירושין. פרטים: ילדים=' + kids + ', דירה=' + home + ', פנסיה=' + pension + ', הוצאות=' + split + '%, ערכאה=' + court + '.';
 
 			var res = document.getElementById('jt-dg-result');
 			res.hidden = false;
 			res.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		});
+
+		// tier selection composes the order line and reveals the form
+		var tiers = root.querySelectorAll('.jt-dg__tier');
+		tiers.forEach(function (t) {
+			t.addEventListener('click', function () {
+				tiers.forEach(function (x) { x.classList.remove('is-on'); });
+				t.classList.add('is-on');
+				var label = t.dataset.tier === 'review' ? 'המסמך המלא + בדיקת עורכת דין' : 'המסמך המלא לעריכה';
+				document.getElementById('jt-dg-lead-msg').value = (root.dataset.baseMsg || 'הזמנה ממחולל הסכם הגירושין.')
+					+ ' מסלול: ' + label + '. מחיר שהוצג: ' + t.dataset.price + ' ש"ח, גבייה מול נציג.';
+				var grid = document.getElementById('jt-dg-lead-grid');
+				grid.hidden = false;
+				document.getElementById('jt-dg-name').focus();
+			});
 		});
 	})();
 	</script>

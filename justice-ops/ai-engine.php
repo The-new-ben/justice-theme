@@ -32,19 +32,76 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Fallback key resolution: the wp-config constant wins, else the option
+ * installed through the ai-key route. The option path exists so the owner
+ * can hand the agent a key in chat and never touch a file: the agent
+ * installs it over the authenticated REST route and the failover arms
+ * itself on the next call.
+ */
+function justice_ai_key( string $provider ): string {
+	if ( 'anthropic' === $provider ) {
+		if ( defined( 'JUSTICE_ANTHROPIC_KEY' ) && '' !== JUSTICE_ANTHROPIC_KEY ) {
+			return (string) JUSTICE_ANTHROPIC_KEY;
+		}
+
+		return (string) get_option( 'jt_ai_key_anthropic', '' );
+	}
+
+	if ( 'openrouter' === $provider ) {
+		if ( defined( 'JUSTICE_OPENROUTER_KEY' ) && '' !== JUSTICE_OPENROUTER_KEY ) {
+			return (string) JUSTICE_OPENROUTER_KEY;
+		}
+
+		return (string) get_option( 'jt_ai_key_openrouter', '' );
+	}
+
+	return '';
+}
+
+/**
  * Which fallback provider is configured, if any.
  */
 function justice_ai_fallback_provider(): string {
-	if ( defined( 'JUSTICE_ANTHROPIC_KEY' ) && '' !== JUSTICE_ANTHROPIC_KEY ) {
+	if ( '' !== justice_ai_key( 'anthropic' ) ) {
 		return 'anthropic';
 	}
 
-	if ( defined( 'JUSTICE_OPENROUTER_KEY' ) && '' !== JUSTICE_OPENROUTER_KEY ) {
+	if ( '' !== justice_ai_key( 'openrouter' ) ) {
 		return 'openrouter';
 	}
 
 	return '';
 }
+
+/**
+ * Key installation without touching wp-config: POST {provider, key},
+ * admin capability required, key stored unautoloaded and never echoed.
+ */
+add_action( 'rest_api_init', function () {
+	register_rest_route( 'justice-ops/v1', '/ai-key', array(
+		'methods'             => 'POST',
+		'permission_callback' => function () {
+			return current_user_can( 'manage_options' );
+		},
+		'callback'            => function ( $req ) {
+			$provider = sanitize_key( (string) $req->get_param( 'provider' ) );
+			$key      = trim( (string) $req->get_param( 'key' ) );
+
+			if ( ! in_array( $provider, array( 'anthropic', 'openrouter' ), true ) || '' === $key ) {
+				return new WP_Error( 'bad_request', 'provider (anthropic|openrouter) and key are required', array( 'status' => 400 ) );
+			}
+
+			update_option( 'jt_ai_key_' . $provider, $key, false );
+
+			return array(
+				'ok'       => true,
+				'provider' => $provider,
+				'fallback' => justice_ai_fallback_provider(),
+				'state'    => justice_ai_state(),
+			);
+		},
+	) );
+} );
 
 /**
  * Today's usage ledger: calls and failures per provider, calls per source.
@@ -289,7 +346,7 @@ function justice_ai_try_anthropic( array $messages, array $opts ): array {
 	$response = wp_remote_post( 'https://api.anthropic.com/v1/messages', array(
 		'timeout' => max( 60, (int) $opts['timeout'] ),
 		'headers' => array(
-			'x-api-key'         => JUSTICE_ANTHROPIC_KEY,
+			'x-api-key'         => justice_ai_key( 'anthropic' ),
 			'anthropic-version' => '2023-06-01',
 			'Content-Type'      => 'application/json',
 		),
@@ -351,7 +408,7 @@ function justice_ai_try_openrouter( array $messages, array $opts ): array {
 	$response = wp_remote_post( 'https://openrouter.ai/api/v1/chat/completions', array(
 		'timeout' => max( 60, (int) $opts['timeout'] ),
 		'headers' => array(
-			'Authorization' => 'Bearer ' . JUSTICE_OPENROUTER_KEY,
+			'Authorization' => 'Bearer ' . justice_ai_key( 'openrouter' ),
 			'Content-Type'  => 'application/json',
 			'HTTP-Referer'  => home_url( '/' ),
 			'X-Title'       => 'Jus-Tice',

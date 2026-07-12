@@ -1305,3 +1305,27 @@ Open on owner: OpenAI billing / fallback key (engine still down);
 attorney byline name + bar number (blocks the top YMYL lever and the
 article byline); divorce-gen price confirm (149 default); rankings
 prompt ethics framing acknowledged; .com key rotation recommendation.
+
+## 2026-07-12 (night): ops 2.12.0, byline verify + pricing + hands-off keys
+
+Maya Rotenberg byline: VERIFIED ALREADY LIVE on the divorce page via the
+theme authority layer (top byline "נבדק מקצועית על ידי", reviewedBy
+Person schema to /lawyers/advocate-maya-rotenberg/, portrait card, named
+WhatsApp CTA, bottom review box). Fired automatically from the
+family-law cluster. Bar license number NOT published anywhere public
+(her site, Dun's, psakdin checked); requested from owner, never guessed.
+
+Pricing (market read: lawdin/sayag/twizer/rozilamir 2026 pages: full
+drafting 5,000-15,000, review-only far lower, paid templates 99-399):
+generator now sells self-serve personalized document at 249 and
+document + family-attorney review at 1,490 (both options), tier choice
+composed into the routed order, market anchor shown honestly in the
+tier card. Verified rendered.
+
+AI keys hands-off: justice_ai_key() resolves constant then option;
+authenticated POST /justice-ops/v1/ai-key installs a pasted key
+(unautoloaded, never echoed) and arms failover with zero file edits.
+Route verified live (401 anon). Owner sent exact billing URLs.
+
+Owner queue: bar license number; OpenAI top-up or paste a fallback key
+in chat; criminal deep-research output expected.

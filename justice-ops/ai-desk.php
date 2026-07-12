@@ -132,6 +132,120 @@ function justice_desk_wa( string $area_label, string $summary ): string {
 }
 
 /**
+ * Deterministic keyword triage for when the AI engine is unavailable. It
+ * classifies the described situation into a practice area from a Hebrew
+ * keyword map, then returns the same shape the model would, filled from
+ * static per-area guidance. The result is honest general information plus
+ * a real handoff (hub, lawyer, WhatsApp), so the desk never dies on an
+ * outage. It never claims to have read the specific text, and it points
+ * the visitor to the matching guide for depth.
+ *
+ * @param string $mode describe|document.
+ * @param string $text The visitor's text.
+ * @return array<string,mixed>
+ */
+function justice_desk_fallback( string $mode, string $text ): array {
+	$map = array(
+		'family'       => array( 'גירוש', 'מזונות', 'משמורת', 'הסכם ממון', 'אבהות', 'כתובה', 'גישור', 'ידועים בציבור', 'זמני שהות', 'הורות' ),
+		'criminal-law' => array( 'חקיר', 'מעצר', 'כתב אישום', 'משטרה', 'פליל', 'שימוע', 'חשוד', 'נאשם', 'להב', 'תלונה במשטרה', 'עציר' ),
+		'real-estate'  => array( 'דירה', 'שכיר', 'חוזה שכיר', 'מקרקעין', 'קבלן', 'טאבו', 'נדל', 'משכנת', 'מכר', 'ליקויי בני' ),
+		'labor'        => array( 'פיטור', 'שכר', 'מעביד', 'מעסיק', 'עבודה', 'פיצויי פיטור', 'הטרד', 'שעות נוספות', 'התפטר', 'זכויות עובד' ),
+		'nezikin'      => array( 'רשלנות', 'תאונ', 'נזק', 'פיצוי', 'רשלנות רפוא', 'נזקי גוף', 'ביטוח לאומי', 'נכות', 'רופא', 'ניתוח', 'לידה' ),
+		'traffic'      => array( 'דוח', 'תעבור', 'נהיג', 'פסיל', 'רישיון נהיג', 'תאונת דרכ', 'מהירות', 'שכרות' ),
+		'inheritance'  => array( 'צווא', 'ירוש', 'עיזבון', 'יורש', 'התנגדות לצווא', 'צו קיום' ),
+	);
+
+	$best  = 'general';
+	$score = 0;
+
+	foreach ( $map as $area => $words ) {
+		$hits = 0;
+
+		foreach ( $words as $w ) {
+			if ( false !== mb_strpos( $text, $w ) ) {
+				$hits++;
+			}
+		}
+
+		if ( $hits > $score ) {
+			$score = $hits;
+			$best  = $area;
+		}
+	}
+
+	$areas      = justice_desk_areas();
+	$area_label = $areas[ $best ]['label'];
+
+	// Per-area general orientation. These are static, iron-rule-clean, and
+	// never pretend to analyze the specific matter.
+	$guide = array(
+		'family'       => array(
+			'points' => array( 'בענייני משפחה מפרידים בין רכוש, ילדים ומזונות. לכל רכיב דין ומועדים משלו.', 'הסכם שמסדיר את הכל מקבל תוקף רק לאחר אישור בית המשפט לענייני משפחה או בית הדין הרבני.' ),
+			'rights' => array( 'זכות להסדיר גירושין בהסכמה בלי הליך ארוך, כשיש הסכמה מלאה.', 'זכות לגישור לפני הליך משפטי.' ),
+			'steps'  => array( 'ריכזו את התמונה הכלכלית: נכסים, חובות, הכנסות ופרטי הילדים.', 'עברו על מדריך הסכם הגירושין והמחשבונים באתר לפני פנייה.' ),
+		),
+		'criminal-law' => array(
+			'points' => array( 'בהליך פלילי המועדים קריטיים, במיוחד סביב חקירה, מעצר ושימוע.', 'זכות ההיוועצות עם עורך דין קיימת עוד לפני מסירת גרסה.' ),
+			'rights' => array( 'זכות שתיקה וזכות להיוועץ בעורך דין לפני חקירה.', 'בשימוע לפי סעיף 60א יש חלון של 30 יום לפנייה בכתב.' ),
+			'steps'  => array( 'אל תמסרו גרסה לפני ייעוץ. שמרו כל מסמך והודעה שקיבלתם.', 'עברו על מפת ההליך הפלילי באתר כדי לזהות את השלב שלכם.' ),
+		),
+		'real-estate'  => array(
+			'points' => array( 'בעסקת מקרקעין הבדיקות לפני חתימה מונעות את רוב הסכסוכים.', 'חוזה שכירות ומכר טעונים סעיפי ביטחונות, מועדים ומנגנוני יציאה ברורים.' ),
+			'rights' => array( 'זכות לבדוק את הנכס, הרישום והחיובים לפני התחייבות.', 'זכות לדרוש ערבויות וביטחונות בחוזה.' ),
+			'steps'  => array( 'אספו נסח טאבו, היתרים והסכם קודם אם יש.', 'עברו על מדריכי המקרקעין וחוזה השכירות באתר.' ),
+		),
+		'labor'        => array(
+			'points' => array( 'לפני פיטורים חובה בדרך כלל שימוע, והוותק משפיע על הזכויות.', 'פיצויי פיטורים, הבראה וחופשה מחושבים לפי נתונים ברי בדיקה.' ),
+			'rights' => array( 'זכות לשימוע לפני פיטורים ולנימוקים בכתב.', 'זכות לפיצויי פיטורים ולזכויות סוציאליות לפי הדין.' ),
+			'steps'  => array( 'שמרו תלושי שכר, הסכם עבודה, מכתבים והתכתבויות.', 'הריצו את מחשבוני פיצויי הפיטורים וההבראה באתר.' ),
+		),
+		'nezikin'      => array(
+			'points' => array( 'בתביעת נזק צריך להוכיח חובה, הפרה, נזק וקשר סיבתי, ולא רק תוצאה קשה.', 'ברשלנות רפואית ובנזקי גוף המועד להגשה מוגבל, ולעיתים נדרשת חוות דעת מומחה.' ),
+			'rights' => array( 'זכות לקבל את הרשומה הרפואית המלאה, לרבות העתק.', 'זכות לבדוק עילה ומועד התיישנות לפני פנייה.' ),
+			'steps'  => array( 'רשמו ציר זמן ואספו את כל המסמכים הרפואיים.', 'הריצו את בודק העילה לרשלנות רפואית באתר.' ),
+		),
+		'traffic'      => array(
+			'points' => array( 'לדוח תנועה ולזימון לבית משפט לתעבורה יש מועדים לתגובה ולערעור.', 'פסילת רישיון עלולה להיות מנהלית או שיפוטית, לפי סוג העבירה.' ),
+			'rights' => array( 'זכות לבקש להישפט ולהציג את גרסתכם.', 'זכות לייצוג בהליך התעבורה.' ),
+			'steps'  => array( 'שמרו את הדוח, הזימון וכל תיעוד רלוונטי.', 'בדקו את המועד לתגובה לפני שהוא חולף.' ),
+		),
+		'inheritance'  => array(
+			'points' => array( 'צוואה, ירושה והתנגדות לצוואה מתנהלות מול הרשם לענייני ירושה או בית המשפט.', 'צו ירושה או צו קיום צוואה נדרש כדי לממש זכויות בעיזבון.' ),
+			'rights' => array( 'זכות להגיש בקשה לצו ירושה או צו קיום צוואה.', 'זכות להתנגד לצוואה בעילות שבדין.' ),
+			'steps'  => array( 'אתרו את הצוואה, תעודת הפטירה ופרטי היורשים והנכסים.', 'בדקו מול מי מגישים לפי סוג העניין.' ),
+		),
+		'general'      => array(
+			'points' => array( 'הצעד הראשון הוא לזהות את התחום המשפטי ואת המועדים שרצים.', 'ריכוז מסודר של המסמכים חוסך זמן ומשפר את השיחה הראשונה.' ),
+			'rights' => array( 'זכות לקבל מידע והכוונה ראשונית לפני התחייבות.', 'זכות לבחור עורך דין שמתאים לסוג העניין.' ),
+			'steps'  => array( 'כתבו בקצרה מה קרה, מתי, ומה התוצאה שאתם רוצים.', 'עברו על המדריכים והכלים באתר בתחום הרלוונטי.' ),
+		),
+	);
+
+	$g = $guide[ $best ];
+
+	$out = justice_desk_scrub( array(
+		'mode'       => $mode,
+		'degraded'   => true,
+		'doc_type'   => '',
+		'headline'   => 'כיוון ראשוני בנושא ' . $area_label,
+		'summary'    => 'העוזר החכם עמוס כרגע, אבל הנה כיוון ראשוני לפי הנושא שזיהינו, ' . $area_label . ', יחד עם המדריך המתאים ואפשרות לחבר אתכם לעורך דין. לניתוח אישי של המקרה אפשר לנסות שוב בעוד רגע או לפנות ישירות.',
+		'points'     => $g['points'],
+		'watch'      => array(),
+		'rights'     => $g['rights'],
+		'steps'      => $g['steps'],
+		'ask_lawyer' => array( 'מה הצעד הראשון בתיק כמו שלי ומהם המועדים שרצים.', 'מה העלות הצפויה ומה היא כוללת.' ),
+	) );
+
+	$out['area_key']   = $best;
+	$out['lead_area']  = $areas[ $best ]['lead'];
+	$out['area_label'] = $area_label;
+	$out['hub']        = home_url( $areas[ $best ]['hub'] );
+	$out['wa']         = justice_desk_wa( $area_label, (string) $out['summary'] );
+
+	return $out;
+}
+
+/**
  * REST: analyze a described situation or an uploaded document.
  *
  * @param WP_REST_Request $request Request.
@@ -226,13 +340,16 @@ function justice_desk_analyze( WP_REST_Request $request ) {
 	$raw = justice_brain_chat( $messages, array( 'json' => true, 'temperature' => 0.3, 'max_tokens' => 900, 'timeout' => 60, 'source' => 'ai_desk' ) );
 
 	if ( '' === $raw ) {
-		return new WP_REST_Response( array( 'error' => 'brain', 'message' => 'לא הצלחנו לנתח כרגע. נסו שוב, או פנו ישירות לעורך דין.' ), 200 );
+		// The engine is down (quota, outage). The desk must never dead-end:
+		// deterministic keyword triage still routes the visitor to the right
+		// area, guide and human, so the funnel keeps working during outages.
+		return new WP_REST_Response( justice_desk_fallback( $mode, $text ), 200 );
 	}
 
 	$data = json_decode( $raw, true );
 
 	if ( ! is_array( $data ) ) {
-		return new WP_REST_Response( array( 'error' => 'parse', 'message' => 'לא הצלחנו לנתח כרגע. נסו שוב.' ), 200 );
+		return new WP_REST_Response( justice_desk_fallback( $mode, $text ), 200 );
 	}
 
 	$area_key   = justice_desk_norm_area( (string) ( $data['area_key'] ?? 'general' ) );

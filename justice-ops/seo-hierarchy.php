@@ -229,6 +229,68 @@ function justice_seo_consolidate_map(): array {
 	) );
 }
 
+/**
+ * FAQPage schema the theme misses. The theme extracts FAQ with a strict
+ * <h3>...</h3><p>...</p> regex, but Gutenberg wraps the answer in block
+ * comments (<!-- wp:paragraph -->), so on block-built pages the strict
+ * pattern finds nothing and no FAQPage ships (child-support has 12 real
+ * Q&A sitting unmarked for exactly this reason). This bridge runs only
+ * when the strict pattern found nothing, then extracts with a comment and
+ * wrapper tolerant pattern, so it can never duplicate the theme's output.
+ */
+add_action( 'wp_head', function () {
+	$qo = get_queried_object();
+
+	if ( ! ( $qo instanceof WP_Post ) || ! in_array( $qo->post_type, array( 'post', 'articles', 'page' ), true ) ) {
+		return;
+	}
+
+	$content = (string) $qo->post_content;
+	$pos     = mb_strpos( $content, 'שאלות נפוצות' );
+
+	if ( false === $pos ) {
+		return;
+	}
+
+	$faq = mb_substr( $content, $pos );
+
+	// If the theme's strict pattern matches, it already emitted FAQPage.
+	if ( preg_match( '/<h3[^>]*>(.+?)<\/h3>\s*<p>(.+?)<\/p>/us', $faq ) ) {
+		return;
+	}
+
+	// Comment and wrapper tolerant: heading, then any tags/comments, then
+	// the first paragraph.
+	if ( ! preg_match_all( '/<h[2-4][^>]*>(.+?)<\/h[2-4]>\s*(?:<[^>]+>\s*)*<p[^>]*>(.+?)<\/p>/us', $faq, $matches, PREG_SET_ORDER ) ) {
+		return;
+	}
+
+	$questions = array();
+
+	foreach ( $matches as $m ) {
+		$q = trim( wp_strip_all_tags( $m[1] ) );
+		$a = trim( wp_strip_all_tags( $m[2] ) );
+
+		if ( mb_strlen( $q ) > 5 && mb_strlen( $a ) > 15 ) {
+			$questions[] = array(
+				'@type'          => 'Question',
+				'name'           => $q,
+				'acceptedAnswer' => array( '@type' => 'Answer', 'text' => $a ),
+			);
+		}
+	}
+
+	if ( count( $questions ) < 2 ) {
+		return;
+	}
+
+	echo '<script type="application/ld+json">' . wp_json_encode( array(
+		'@context'   => 'https://schema.org',
+		'@type'      => 'FAQPage',
+		'mainEntity' => array_slice( $questions, 0, 15 ),
+	), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
+}, 22 );
+
 add_filter( 'wpseo_canonical', function ( $canonical ) {
 	$qo = get_queried_object();
 

@@ -14,7 +14,7 @@ gets updated EVERY cycle.
 | # | Vertical | Target page | Prompt status | Research status | Published |
 |---|----------|-------------|---------------|-----------------|-----------|
 | 1 | הסכם גירושין (divorce agreement) | /free-divorce-agreement-template/ | delivered 2026-07-12 | OUTPUT RECEIVED | LIVE 2026-07-12: article ~3,800 words + generator v1 + FAQ schema. Note: research self-reported 7,000 words, real body was ~3,800; still 2-3x the strongest competitor. Deepening pass queued. |
-| 2 | פלילי (criminal defense) | /criminal-defense-attorney/ | READY BELOW | awaiting owner run | |
+| 2 | פלילי (criminal defense) | /criminal-defense-attorney/ | delivered 2026-07-12 | OUTPUT RECEIVED | LIVE 2026-07-12: article ~3,950 words + 6 sourced tables + emergency strip + scheduler + process map. Research self-reported 5,900 words, real body ~3,950; competitor-beating regardless. |
 | 3 | רשלנות רפואית (medical malpractice) | /medical-malpractice-lawsuits-law-account/ | READY BELOW | awaiting owner run | GSC note 2026-07-12: page ranks page-1 ONLY for case-law doctrine quotes (פאתח, מלול, נזק ראייתי) with zero clicks; consumer queries sit at pos 70+. The article must keep a doctrine section AND capture consumer intent. |
 | 4 | פירוק שיתוף ורכוש בגירושין + מניות ואופציות | new pillar (slug: property-division-divorce) | READY BELOW | awaiting owner run | |
 | 5 | כלי AI לעורכי דין (the flagship bridge to jus-tice.com) | new pillar (slug: ai-tools-for-lawyers) | READY BELOW | awaiting owner run | |

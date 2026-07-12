@@ -1349,3 +1349,41 @@ stage picker (זימון, חקירה, מעצר, שימוע, כתב אישום, �
 expensive mistakes and statutory clocks only (24h/30d/45d), WhatsApp
 urgent path + desk, standalone home /criminal-process-map/, same
 shortcode will embed in the criminal mega article on ingestion.
+
+## 2026-07-12 (late night): ops 2.14.0, the criminal money stack + real scheduling
+
+Owner orders executed: criminal deep-research ingested; real appointment
+scheduling with calendar artifact ("mandatory, we forgot it"); criminal
+emergency button FIRST on the page; end-to-end test with owner number.
+
+Scheduler (scheduler.php): 7-day Israel-week slot grid (Sun-Thu 9-19,
+Fri 9-13, 30-min slots, 3h min lead), availability from REST with
+no-store so edge-cached pages never lie, booking guarded (honeypot,
+form age, phone, 3/IP/day, server slot validation, double-book), ICS
+calendar file token-guarded (VCALENDAR, works in Google/Apple/Outlook,
+no OAuth), booking creates a justice_lead on the canonical rail (same
+meta as uje_handle_lead) + justice_router_route_lead + owner mail.
+Emergency strip [justice_emergency_criminal]: pulse, call, WhatsApp
+urgent, book anchor.
+
+Criminal article live on /criminal-defense-attorney/ (post 20211):
+cleaned (citeturn stripped, wrong family-law byline line removed, H1
+line removed to avoid pillar duplicate), 5 anchors wired verified 200,
+FAQ heading already שאלות נפוצות so schema fires (verified), 6 md
+tables converted with overflow-x wrappers, emergency strip first, then
+stage table, process map, scheduler. Honest count ~3,950 words (self
+report said 5,900). Competitor links NOT added (no links to rivals;
+price data attributed textually). Strike title with year live:
+עורך דין פלילי 2026: מה עושים בחקירה, מעצר ושימוע. Theme map updated
+for the pull; ops equality-retire carries it live meanwhile.
+
+END-TO-END TEST (owner number 0525101555, marked TEST): slots endpoint
+5 days; booked 2026-07-13 09:00 -> ok; ICS valid (UID jt-appt-21649);
+same-slot rebook -> 409; appointment record private + booked; lead
+21650 created (area criminal-law, surface scheduler, phone correct);
+routing returned unrouted_no_capacity which is TRUE business state (no
+active paying criminal advertiser), lead falls to owner manual queue +
+mail. Screenshots delivered.
+
+Verified rendered page: title with year, emergency strip 1, scheduler
+1, map 1, tables 6, FAQ schema 1, 5,348 Hebrew words, all links live.

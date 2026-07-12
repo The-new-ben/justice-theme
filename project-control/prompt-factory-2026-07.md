@@ -15,13 +15,14 @@ gets updated EVERY cycle.
 |---|----------|-------------|---------------|-----------------|-----------|
 | 1 | הסכם גירושין (divorce agreement) | /free-divorce-agreement-template/ | delivered 2026-07-12 | OUTPUT RECEIVED | LIVE 2026-07-12: article ~3,800 words + generator v1 + FAQ schema. Note: research self-reported 7,000 words, real body was ~3,800; still 2-3x the strongest competitor. Deepening pass queued. |
 | 2 | פלילי (criminal defense) | /criminal-defense-attorney/ | READY BELOW | awaiting owner run | |
-| 3 | רשלנות רפואית (medical malpractice) | /medical-malpractice-lawsuits-law-account/ | READY BELOW | awaiting owner run | |
+| 3 | רשלנות רפואית (medical malpractice) | /medical-malpractice-lawsuits-law-account/ | READY BELOW | awaiting owner run | GSC note 2026-07-12: page ranks page-1 ONLY for case-law doctrine quotes (פאתח, מלול, נזק ראייתי) with zero clicks; consumer queries sit at pos 70+. The article must keep a doctrine section AND capture consumer intent. |
 | 4 | פירוק שיתוף ורכוש בגירושין + מניות ואופציות | new pillar (slug: property-division-divorce) | READY BELOW | awaiting owner run | |
 | 5 | כלי AI לעורכי דין (the flagship bridge to jus-tice.com) | new pillar (slug: ai-tools-for-lawyers) | READY BELOW | awaiting owner run | |
 | 6 | מדד עורכי הדין (lawyer rankings by field) | new pillar (slug: israel-lawyers-index) | READY BELOW | awaiting owner run | |
 | 7 | white collar (צווארון לבן) | TBD | queued next cycle | | |
 | 8 | נזיקין (torts / personal injury) | TBD | queued next cycle | | |
 | 9 | פטנטים (patents / IP) | TBD | queued next cycle | | |
+| 10 | Buying property in Israel for foreign investors (ENGLISH page) | new EN pillar | queued next cycle | | GSC 2026-07-12: /guide-israeli-apartment-2025/ collects Italian/Portuguese/English investor impressions (pos 46-90, 0 clicks) a Hebrew page cannot win; needs a dedicated EN page. |
 
 How to run: paste ONE fenced block below into ChatGPT Pro Deep Research as one
 message. Paste the full output back to Claude Code. Claude verifies facts

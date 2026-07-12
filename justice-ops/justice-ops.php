@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.12.0
+ * Version: 2.13.0
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.12.0' );
+	define( 'JUSTICE_OPS_VERSION', '2.13.0' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -115,6 +115,10 @@ require_once __DIR__ . '/simulation-embed.php';
 // Divorce agreement generator: free preview, paid full document on the
 // existing lead rail. The "every money page is an application" rule.
 require_once __DIR__ . '/divorce-gen.php';
+
+// Criminal process map: stage-picker of rights, mistakes and statutory
+// clocks, built ahead of the criminal mega article.
+require_once __DIR__ . '/criminal-map.php';
 
 /**
  * Public healthcheck: what version of the ops plugin is live.

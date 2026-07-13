@@ -16,13 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function justice_legacy_redirect_map(): array {
 	return array(
-		'/#chapter1/' => '/articles/',
-		'/#chapter2/' => '/articles/',
-		'/#chapter3/' => '/articles/',
-		'/#chapter4/' => '/articles/',
-		'/#chapter5/' => '/articles/',
-		'/#chapter6/' => '/articles/',
-		'/#chapter7/' => '/articles/',
+		'//' => '/articles/',
 		'/?sfid=335&sf_action=get_data&sf_data=form/' => '/articles/',
 		'/attorneys-how-to-manage-your-stress-and-stop-procrastinating/' => '/lawyers/',
 		'/avvo/' => '/articles/',
@@ -38,9 +32,7 @@ function justice_legacy_redirect_map(): array {
 		'/international-contract-lawyer/' => '/lawyers/',
 		'/israeli-lawyer-explains-real-estate/' => '/real-estate-attorney/',
 		'/join-justice-lawyers-group/' => '/lawyers/',
-		'/lahav-433/#sec-2/' => '/articles/',
-		'/lahav-433/#sec-8/' => '/articles/',
-		'/lahav-433/#sec-9/' => '/articles/',
+		'/lahav-433/' => '/articles/',
 		'/lawyers/firm_name_he/' => '/lawyers/',
 		'/lawyers/א-ב-עורך-דין-בהקמה/' => '/lawyers/',
 		'/lawyers/עורך-דין/' => '/lawyers/',
@@ -48,10 +40,7 @@ function justice_legacy_redirect_map(): array {
 		'/legal-tax-saving-guide/' => '/articles/',
 		'/medical-malpractice-lawyer-1130/' => '/medical-malpractice-lawyer/',
 		'/notice-of-termination/' => '/labor-lawyer/',
-		'/petition-approval-debt-arrangement-creditors/#sec-1/' => '/articles/',
-		'/petition-approval-debt-arrangement-creditors/#sec-2/' => '/articles/',
-		'/petition-approval-debt-arrangement-creditors/#sec-3/' => '/articles/',
-		'/petition-approval-debt-arrangement-creditors/#sec-4/' => '/articles/',
+		'/petition-approval-debt-arrangement-creditors/' => '/articles/',
 		'/practice-areas/איכות-סביבה/' => '/articles/',
 		'/practice-areas/ביטוח/' => '/articles/',
 		'/practice-areas/בלוקציין-ומטבעות-קריפטוגרפים/' => '/articles/',
@@ -166,4 +155,4 @@ add_action( 'template_redirect', function () {
 		wp_redirect( home_url( $map[ $path ] ), 301 );
 		exit;
 	}
-}, 1 );
+}, -9000 );

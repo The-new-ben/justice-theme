@@ -7,6 +7,7 @@
 /decision50014-01-19/
 /decision55016-06-17a/
 /klumpke-paralysis/
+/legal-simulation/
 /malpractice-cerebral-palsy/
 /medical-malpractice-attorney/
 /medical-malpractice-common-errors-doctors-hospitals/

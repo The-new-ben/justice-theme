@@ -31,3 +31,6 @@ tools/autonomous-heartbeat/node_modules/
 
 # Large raw GSC join (regenerate from token via tools/gsc); keep analysis + smaller pulls
 reports/gsc-live-2026-06-09/query-page.csv
+
+# Local secrets (WP app password, SERP API key) - never commit
+/.env

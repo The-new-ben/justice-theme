@@ -1,0 +1,44 @@
+﻿source_id,title,url,source_type,year,status,used_for
+O01,Google Search Status Dashboard: ranking history,https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history,official,2026,used,Update dates and rollout durations
+O02,Spam policies for Google web search,https://developers.google.com/search/docs/essentials/spam-policies,official,2026,used,"Scaled content, doorway abuse and policy risk"
+O03,"Creating helpful, reliable, people-first content",https://developers.google.com/search/docs/fundamentals/creating-helpful-content,official,2026,used,People-first and YMYL trust criteria
+O04,Guidance about AI-generated content,https://developers.google.com/search/docs/fundamentals/using-gen-ai-content,official,2026,used,Generative-AI quality and automation risk
+O05,A guide to Google Search ranking systems,https://developers.google.com/search/docs/appearance/ranking-systems-guide,official,2026,used,System-level diagnosis framing
+O06,Influencing title links in Google Search,https://developers.google.com/search/docs/appearance/title-link,official,2026,used,Title governance and rewrite causes
+O07,Redirects and Google Search,https://developers.google.com/search/docs/crawling-indexing/301-redirects,official,2026,used,Permanent redirect implementation
+O08,Robots meta tag specifications,https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag,official,2026,used,Noindex implementation
+O09,Debug drops in Google Search traffic,https://developers.google.com/search/docs/monitor-debug/debugging-search-traffic-drops,official,2026,used,Traffic-drop diagnostic method
+O10,Google Search Essentials,https://developers.google.com/search/docs/essentials,official,2026,used,Technical eligibility baseline
+O11,March 2024 core update and new spam policies,https://developers.google.com/search/blog/2024/03/core-update-spam-policies,official,2024,used,Scaled-content policy history
+O12,Q&A on Google Search updates,https://developers.google.com/search/blog/2023/11/q-and-a-on-search-updates,official,2023,used,Recovery and update interpretation
+O13,Search Quality Evaluator Guidelines,https://guidelines.raterhub.com/searchqualityevaluatorguidelines.pdf,official,2025,used,"YMYL, trust and page-quality framework"
+P01,August 2025 spam update analysis — Marie Haynes,https://www.mariehaynes.com/august-2025-spam-update/,practitioner,2025,used,Spam-update observations
+P02,June 2025 core update analysis — GSQi,https://www.gsqi.com/marketing-blog/june-2025-google-core-update/,practitioner,2025,used,Volatility and quality-system observations
+P03,June 2025 core update winners and losers — Amsive,https://www.amsive.com/insights/seo/june-2025-core-update-winners-losers-trends/,practitioner,2025,used,Cross-site trend comparison
+P04,IndexWatch 2025 UK losers — SISTRIX,https://www.sistrix.com/blog/indexwatch-2025-uk-losers/,practitioner,2025,used,Visibility-loss patterns
+P05,December 2025 core update findings — GSQi,https://www.gsqi.com/marketing-blog/google-december-2025-broad-core-update-analysis-findings/,practitioner,2026,used,Later reevaluation patterns
+P06,December 2025 core update winners and losers — Amsive,https://www.amsive.com/insights/seo/googles-december-2025-core-update-winners-losers-analysis/,practitioner,2026,used,Later-update comparison
+P07,IndexWatch UK Q3 2025 — SISTRIX,https://www.sistrix.com/blog/indexwatch-uk-q3-2025/,practitioner,2025,used,Domain-level visibility patterns
+P08,December 2024 spam update case studies — GSQi,https://www.gsqi.com/marketing-blog/google-december-2024-spam-update-case-studies/,practitioner,2025,used,Spam-hit case comparison
+P09,December 2025 core update observations — Marie Haynes,https://www.mariehaynes.com/the-december-2025-core-update-observations-on-4-sites-that-did-well/,practitioner,2026,used,Recovery examples
+P10,Content pruning: the complete guide — Ahrefs,https://ahrefs.com/blog/content-pruning/,practitioner,2024,used,Pruning decision criteria
+P11,Content pruning case study — Inflow,https://www.goinflow.com/blog/content-pruning-case-study/,practitioner,2023,used,Phased consolidation evidence
+P12,Content pruning reversed traffic loss — Seer,https://www.seerinteractive.com/work/case-studies/content-pruning-efforts-help-reverse-traffic-loss,practitioner,2024,used,Pruning case evidence
+P13,NerdWallet SEO case study — Ahrefs,https://ahrefs.com/blog/nerdwallet-seo-case-study/,practitioner,2024,used,YMYL content and authority patterns
+P14,Analyze a sudden traffic drop — Ahrefs,https://ahrefs.com/blog/analyze-sudden-traffic-drop/,practitioner,2024,used,Diagnostic cross-check
+P15,Search traffic study — Ahrefs,https://ahrefs.com/blog/search-traffic-study/,practitioner,2024,used,Long-tail traffic context
+P16,Retail SEO testing pack — SearchPilot,https://www.searchpilot.com/hubfs/SearchPilot%20Retail%20SEO%20Testing%20Pack%202025.pdf,practitioner,2025,used,Title testing and rollout discipline
+P17,Adding 'best' to title tags — SearchPilot,https://www.searchpilot.com/resources/case-studies/adding-best-to-title-tags,practitioner,2024,used,Title modifier testing
+P18,Google title rewrite study — Zyppy,https://zyppy.com/seo/google-title-rewrite-study/,practitioner,2022,used,Title rewrite risk
+P19,Title tag length study — Zyppy,https://zyppy.com/title-tags/meta-title-tag-length/,practitioner,2023,used,Length governance
+P20,Title tag case study — Ethan Lazuk,https://ethanlazuk.com/blog/title-tag-case-study/,practitioner,2024,used,Title-change measurement
+P21,E-E-A-T resources — Marie Haynes,https://www.mariehaynes.com/resources/eat/,practitioner,2025,used,Trust signals for YMYL
+P22,"E-E-A-T, YMYL and AI search — iPullRank",https://ipullrank.com/eeat-ymyl-ai-search,practitioner,2025,used,Legal/medical trust and AI risk
+P23,Why E-A-T and core updates change content — iPullRank,https://ipullrank.com/why-e-a-t-core-updates-will-change-your-content-approach,practitioner,2023,used,Editorial process design
+P24,August 2024 core update recovery plan — Search Engine Land,https://searchengineland.com/case-study-august-2024-google-core-update-recovery-plan-447142,practitioner,2024,used,Recovery planning
+P25,March 2024 HCU transition analysis — GSQi,https://www.gsqi.com/marketing-blog/google-march-2024-core-update-helpful-content-system/,practitioner,2024,used,Site-wide classifier context
+C01,Reddit: August 2025 AI-content hit discussion,https://www.reddit.com/r/SEO/comments/1n3yy41/anyone_hit_by_aug_2025_spam_update_for_using_gen/,community,2025,checked-not-relied,Anecdotal comparison only
+C02,Reddit: 70% traffic-loss recovery discussion,https://www.reddit.com/r/bigseo/comments/1ihrlhw/looking_for_tips_on_recovering_traffic_after/,community,2025,checked-not-relied,Anecdotal recovery timing
+C03,Reddit: recovered blog case,https://www.reddit.com/r/Blogging/comments/1mc84lb/successfully_recovered_another_blog_hit_by_the/,community,2025,checked-not-relied,Self-reported case
+C04,Reddit: reevaluation timing discussion,https://www.reddit.com/r/bigseo/comments/1mv7xve/how_long_does_it_take_g_to_reevaluate_a_site_when/,community,2025,checked-not-relied,Anecdotal timing
+C05,Removing valid FAQ schema — SearchPilot,https://www.searchpilot.com/resources/case-studies/removing-valid-faq-schema,practitioner,2024,checked-not-relied,Not material to core decision

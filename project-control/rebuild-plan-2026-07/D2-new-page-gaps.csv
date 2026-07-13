@@ -1,0 +1,25 @@
+﻿query,clicks_16mo_observed,impressions_16mo_observed,intent,cluster_id,proposed_slug,proposed_title,priority,evidence
+רשלנות רפואית התיישנות,0,0,informational-guide,medical-malpractice,/התיישנות-רשלנות-רפואית/,"רשלנות רפואית התיישנות: מועדים, חריגים וקטינים",1,Required live-SERP cluster; no dedicated non-case inventory owner
+פיצויים ברשלנות רפואית,0,0,informational-guide,medical-malpractice,/פיצויים-רשלנות-רפואית/,פיצויים ברשלנות רפואית: ראשי נזק וסכומים,2,Required live-SERP cluster; no dedicated non-case inventory owner
+אחוזי נכות ופיצויים רשלנות רפואית,0,0,informational-guide,medical-malpractice,/אחוזי-נכות-פיצויים-רשלנות-רפואית/,אחוזי נכות ופיצויים ברשלנות רפואית,3,Required live-SERP cluster; no dedicated non-case inventory owner
+רשלנות רפואית שיניים,0,0,informational-guide,medical-malpractice,/רשלנות-רפואית-שיניים/,"רשלנות רפואית שיניים: הוכחה, מומחה ופיצויים",4,Required live-SERP cluster; no dedicated non-case inventory owner
+חיפוש עורך דין לפי שם,30,6013,hire-lawyer,miscellaneous,/חיפוש-עורך-דין-לפי-שם/,חיפוש עורך דין לפי שם: מדריך משפטי מעשי,5,GSC query-family demand; no inventory title similarity ≥0.48
+עורך דין לעסקים קטנים,9,2024,hire-lawyer,commercial-civil,/עורך-דין-לעסקים-קטנים/,עורך דין לעסקים קטנים: מדריך משפטי מעשי,6,GSC query-family demand; no inventory title similarity ≥0.48
+העברת משמורת מאם לאב,0,1946,informational-guide,family-divorce,/העברת-משמורת-מאם-לאב/,העברת משמורת מאם לאב: מדריך משפטי מעשי,7,GSC query-family demand; no inventory title similarity ≥0.48
+איך להתכונן לגירושין,0,1368,informational-guide,family-divorce,/איך-להתכונן-לגירושין/,איך להתכונן לגירושין: מדריך משפטי מעשי,8,GSC query-family demand; no inventory title similarity ≥0.48
+העלמת מס חוק העונשין,0,1176,informational-guide,tax,/העלמת-מס-חוק-העונשין/,העלמת מס חוק העונשין: מדריך משפטי מעשי,9,GSC query-family demand; no inventory title similarity ≥0.48
+הסכם ירושה בין אחים,0,1060,informational-guide,inheritance-wills,/הסכם-ירושה-בין-אחים/,הסכם ירושה בין אחים: מדריך משפטי מעשי,10,GSC query-family demand; no inventory title similarity ≥0.48
+הפחתת מזונות לאחר נישואין חדשים,0,880,informational-guide,family-divorce,/הפחתת-מזונות-לאחר-נישואין-חדשים/,הפחתת מזונות לאחר נישואין חדשים: מדריך משפטי מעשי,11,GSC query-family demand; no inventory title similarity ≥0.48
+גרימת מוות ברשלנות חוק העונשין,0,864,informational-guide,criminal,/גרימת-מוות-ברשלנות-חוק-העונשין/,גרימת מוות ברשלנות חוק העונשין: מדריך משפטי מעשי,12,GSC query-family demand; no inventory title similarity ≥0.48
+גירושין לעצמאים ובעלי עסקים,0,796,informational-guide,family-divorce,/גירושין-לעצמאים-ובעלי-עסקים/,גירושין לעצמאים ובעלי עסקים: מדריך משפטי מעשי,13,GSC query-family demand; no inventory title similarity ≥0.48
+הפחתת מזונות עקב שינוי נסיבות,0,762,informational-guide,family-divorce,/הפחתת-מזונות-עקב-שינוי-נסיבות/,הפחתת מזונות עקב שינוי נסיבות: מדריך משפטי מעשי,14,GSC query-family demand; no inventory title similarity ≥0.48
+דוגמא לבקשה לביטול פסק דין תעבורה,0,756,informational-guide,traffic,/דוגמא-לבקשה-לביטול-פסק-דין-תעבורה/,דוגמא לבקשה לביטול פסק דין תעבורה: מדריך משפטי מעשי,15,GSC query-family demand; no inventory title similarity ≥0.48
+גירושים אזרחיים בארץ,0,731,informational-guide,family-divorce,/גירושים-אזרחיים-בארץ/,גירושים אזרחיים בארץ: מדריך משפטי מעשי,16,GSC query-family demand; no inventory title similarity ≥0.48
+ביטול אפוטרופסות,0,721,informational-guide,family-divorce,/ביטול-אפוטרופסות/,ביטול אפוטרופסות: מדריך משפטי מעשי,17,GSC query-family demand; no inventory title similarity ≥0.48
+גירושין מי עוזב את הבית,0,697,informational-guide,family-divorce,/גירושין-מי-עוזב-את-הבית/,גירושין מי עוזב את הבית: מדריך משפטי מעשי,18,GSC query-family demand; no inventory title similarity ≥0.48
+דוגמא לבקשה לביטול פסק דין בהעדר התייצבות,0,693,informational-guide,miscellaneous,/דוגמא-לבקשה-לביטול-פסק-דין-בהעדר-התייצבות/,דוגמא לבקשה לביטול פסק דין בהעדר התייצבות: מדריך משפטי מעשי,19,GSC query-family demand; no inventory title similarity ≥0.48
+הארכות מעצר,0,656,informational-guide,criminal,/הארכות-מעצר/,הארכות מעצר: מדריך משפטי מעשי,20,GSC query-family demand; no inventory title similarity ≥0.48
+האם ניתן לחתום על חוזה מרחוק,0,648,informational-guide,commercial-civil,/האם-ניתן-לחתום-על-חוזה-מרחוק/,האם ניתן לחתום על חוזה מרחוק: מדריך משפטי מעשי,21,GSC query-family demand; no inventory title similarity ≥0.48
+הסכם מכר בין אחים,0,637,informational-guide,commercial-civil,/הסכם-מכר-בין-אחים/,הסכם מכר בין אחים: מדריך משפטי מעשי,22,GSC query-family demand; no inventory title similarity ≥0.48
+ביטול צו מעצר בינלאומי,0,629,informational-guide,criminal,/ביטול-צו-מעצר-בינלאומי/,ביטול צו מעצר בינלאומי: מדריך משפטי מעשי,23,GSC query-family demand; no inventory title similarity ≥0.48
+הסכם פשרה רשלנות רפואית,0,622,informational-guide,medical-malpractice,/הסכם-פשרה-רשלנות-רפואית/,הסכם פשרה רשלנות רפואית: מדריך משפטי מעשי,24,GSC query-family demand; no inventory title similarity ≥0.48

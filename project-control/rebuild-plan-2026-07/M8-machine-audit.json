@@ -1,0 +1,24 @@
+{
+  "inventory_rows": 1522,
+  "action_sum": 1522,
+  "action_counts": {
+    "REBUILD": 740,
+    "NOINDEX": 601,
+    "KEEP-IMPROVE": 144,
+    "MERGE": 37
+  },
+  "c2_violations": 0,
+  "merge_target_non_survivor_violations": 0,
+  "redirect_chains": 0,
+  "duplicate_survivor_primary_queries": 0,
+  "duplicate_survivor_titles": 0,
+  "titles_over_60": 0,
+  "metas_over_155": 0,
+  "blank_survivor_titles": 0,
+  "blank_survivor_metas": 0,
+  "rationales_over_15_words": 0,
+  "waves_over_60": 0,
+  "prune_410_count": 0,
+  "backlink_target_mapping_available": false,
+  "backlink_note": "Attached files list anchor text/linking pages, not target URLs; 410 blocked."
+}

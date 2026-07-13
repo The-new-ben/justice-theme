@@ -1,0 +1,68 @@
+{
+  "rows": {
+    "inventory": 1522,
+    "query_page": 23337,
+    "page": 2799,
+    "daily": 478
+  },
+  "date_range": [
+    "2025-03-20",
+    "2026-07-10"
+  ],
+  "inventory_type_counts": {
+    "articles": 1211,
+    "page": 293,
+    "post": 18
+  },
+  "tier_counts": {
+    "4-negligible": 483,
+    "3-seen-not-clicked": 416,
+    "2-low-traffic": 346,
+    "5-invisible (0 impressions/90d)": 174,
+    "1-real-traffic": 103
+  },
+  "inventory_without_page16_row": 142,
+  "page_file_duplicate_normalized_paths": 16,
+  "blank_practice_area": 504,
+  "blank_meta_description": 1453,
+  "yoast_override_present": 315,
+  "word_count_stats": {
+    "count": 1522.0,
+    "mean": 9999.34,
+    "std": 20620.96,
+    "min": 0.0,
+    "25%": 814.0,
+    "50%": 3417.0,
+    "75%": 11842.0,
+    "max": 476949.0
+  },
+  "cluster_counts": {
+    "family-divorce": 328,
+    "criminal": 271,
+    "miscellaneous": 256,
+    "real-estate": 158,
+    "torts-insurance": 89,
+    "legal-system-public": 68,
+    "inheritance-wills": 58,
+    "labor-employment": 56,
+    "medical-malpractice": 49,
+    "portugal": 44,
+    "commercial-civil": 40,
+    "international-desks": 25,
+    "cyber-privacy": 22,
+    "traffic": 19,
+    "debt-insolvency": 15,
+    "tax": 13,
+    "immigration-citizenship": 11
+  },
+  "action_counts": {
+    "REBUILD": 740,
+    "NOINDEX": 601,
+    "KEEP-IMPROVE": 144,
+    "MERGE": 37
+  },
+  "cannibalization_family_count": 3860,
+  "high_severity_family_count": 186,
+  "survivor_count": 884,
+  "wave_count": 34
+}

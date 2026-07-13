@@ -1,0 +1,14 @@
+{
+  "data_start": "2025-03-20",
+  "data_end": "2026-07-10",
+  "rollout_onset": "2025-08-26",
+  "best_structural_break": "2025-09-11",
+  "single_break_pre_geomean_impressions": 31368.9,
+  "single_break_post_geomean_impressions": 4705.7,
+  "baseline_21d_daily_impressions": 36653.0,
+  "post_21d_daily_impressions": 4357.8,
+  "impression_loss_pct": 88.1,
+  "baseline_21d_daily_clicks": 147.3,
+  "post_21d_daily_clicks": 32.1,
+  "click_loss_pct": 78.2
+}

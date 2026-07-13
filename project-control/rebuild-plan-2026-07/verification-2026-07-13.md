@@ -34,3 +34,38 @@ Execution gates (owner):
    report restore previously frozen by owner instruction.
 3. Supply: GSC Links "Top linked pages" export (target URLs), Maya's bar
    license number.
+
+
+---
+
+## v1.1 addendum (2026-07-13, after owner supplied GSC Top-target-pages export)
+
+Backlink data (70 target URLs with external links) joined against the plan:
+
+- 39 backlinked URLs → REBUILD, 19 → KEEP-IMPROVE: already protected. ✓
+- 0 of the 37 merge losers carry known external links → all 37 redirects
+  CONFIRMED deployable (backlink-check condition satisfied).
+- **8 corrections applied** (D1-full-url-disposition-1522-v1.1.csv): seven
+  NOINDEX pages with 54-56 external links each upgraded to survivors
+  (penal-code guide → REBUILD; six court-ruling/case pages → KEEP-IMPROVE),
+  plus /attorney-compensation-13590-07-17/ — the 301 landing of the site's
+  strongest-linked URL (/psakdin/..., 65 links) — upgraded from NOINDEX.
+- v1.1 histogram: 151 KEEP-IMPROVE / 741 REBUILD / 37 MERGE / 593 NOINDEX.
+  892 survivors; uniqueness re-verified: 0 duplicate primary queries,
+  0 duplicate titles.
+
+## New wave-0 findings (outside the 1,522 inventory)
+
+1. ~10 additional registered content post types exist (supreme_court, tort,
+   labor_law, small_claims, corona_virus, goverment-gazette, yada_wiki,
+   justice_term [84 published], justice_lawyer [20 published], product…).
+   Legacy URL families in GSC: /psakdin/ (88 URLs, 1,602 clicks/16mo),
+   /articles/ (452), /corona_virus/ (23), /practice-areas/ archives (43),
+   Hebrew category archives, /city/, /lawyers/.
+2. Sampled redirect integrity: /psakdin/… 301→ root article ✓;
+   /practice-areas/criminal-law/ live 200 (54 external links — should become
+   or feed the criminal cluster hub); /corona_virus/… **404 — equity leak**.
+3. Wave 0 must therefore include: full status sweep of all ~1,400
+   GSC-known non-inventory URLs → 301-map fixes for 404 families;
+   disposition pass for justice_term (84) + justice_lawyer (20);
+   confirm every legacy CPT family redirects into the surviving structure.

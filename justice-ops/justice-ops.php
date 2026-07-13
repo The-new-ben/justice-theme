@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.16.0
+ * Version: 2.17.0
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.16.0' );
+	define( 'JUSTICE_OPS_VERSION', '2.17.0' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -105,8 +105,12 @@ require_once __DIR__ . '/homepage-pro.php';
 // button, in-guide one-box teaser. The desk stops being a hidden page.
 require_once __DIR__ . '/tools-discovery.php';
 
-// SERP strike titles: render-layer CTR fixes on seen-but-unclicked pages.
-require_once __DIR__ . '/strike-titles.php';
+// Title authority: DB (Yoast fields + post_title) is the single source of
+// truth for titles; legacy per-post override filters are retired (wave 0).
+require_once __DIR__ . '/title-authority.php';
+
+// Legacy URL rescue: 301s for dead historical URLs still carrying equity.
+require_once __DIR__ . '/legacy-redirects.php';
 
 // The courtroom simulation (HADMAIA on jus-tice.com) embedded for real
 // at /legal-simulation/, chrome-less, with honest framing copy.
@@ -325,7 +329,9 @@ add_action( 'wp_enqueue_scripts', function () {
  * singular H1 and intro paragraphs can.
  */
 function justice_ops_seo_bridge_active(): bool {
-	return ! defined( 'JUSTICE_THEME_VERSION' ) || version_compare( JUSTICE_THEME_VERSION, '2.22.0', '<' );
+	// Wave 0 (2026-07-13): permanently off. The theme passed 2.22.0 long ago
+	// and the DB is now the single source of truth for titles and meta.
+	return false;
 }
 
 function justice_ops_seo_overrides(): array {

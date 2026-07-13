@@ -926,7 +926,10 @@ function justice_theme_money_query_public_title( $title, $post_id = 0 ) {
 
 	return $map[ $post->post_name ]['title'] ?? $title;
 }
-add_filter( 'the_title', 'justice_theme_money_query_public_title', 20, 2 );
+// Wave 0 (2026-07-13): retired. H1s were mirrored into post_title; the DB
+// is the single source of truth (ops title-authority keeps a 5-slug shim for
+// pages whose bodies trip the publication-safety gate).
+// add_filter( 'the_title', 'justice_theme_money_query_public_title', 20, 2 );
 
 /**
  * Replace the first paragraph on selected money pages with a search-intent intro.
@@ -1231,6 +1234,15 @@ add_filter( 'document_title_parts', 'justice_theme_document_title' );
  * @return string
  */
 function justice_theme_filter_plugin_seo_title( $title ) {
+	// Wave 0 (2026-07-13): an explicit Yoast title is the single source of
+	// truth; computed overrides apply only where no editor-set value exists.
+	if ( is_singular() ) {
+		$authority_id = (int) get_queried_object_id();
+		if ( $authority_id > 0 && '' !== trim( (string) get_post_meta( $authority_id, '_yoast_wpseo_title', true ) ) ) {
+			return $title;
+		}
+	}
+
 	if ( is_singular() ) {
 		$custom_title = get_post_meta( get_the_ID(), 'seo_title', true );
 		if ( $custom_title ) {
@@ -1255,6 +1267,14 @@ add_filter( 'aioseo_title', 'justice_theme_filter_plugin_seo_title' );
  * @return string
  */
 function justice_theme_filter_plugin_seo_description( $description ) {
+	// Wave 0 (2026-07-13): explicit Yoast meta description wins, same as titles.
+	if ( is_singular() ) {
+		$authority_id = (int) get_queried_object_id();
+		if ( $authority_id > 0 && '' !== trim( (string) get_post_meta( $authority_id, '_yoast_wpseo_metadesc', true ) ) ) {
+			return $description;
+		}
+	}
+
 	$money_query_override = justice_theme_current_money_query_seo();
 	if ( $money_query_override ) {
 		return wp_strip_all_tags( $money_query_override['description'] );

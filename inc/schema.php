@@ -110,7 +110,7 @@ function justice_theme_article_schema() {
 		),
 	);
 
-	if ( $reviewer ) {
+	if ( $reviewer && apply_filters( 'justice_reviewer_claims_enabled', false ) ) {
 		$schema['reviewedBy'] = $reviewer;
 	}
 

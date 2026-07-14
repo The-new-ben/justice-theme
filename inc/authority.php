@@ -356,7 +356,10 @@ function justice_theme_append_reviewer_box( string $content ): string {
 	<?php
 	return $content . (string) ob_get_clean();
 }
-add_filter( 'the_content', 'justice_theme_append_reviewer_box', 24 );
+// Review-claims kill switch (owner order 2026-07-14): the reviewer box is
+// disabled until a real per-page attorney review process exists. Ops
+// enforces the same at runtime (review-claims-off.php).
+// add_filter( 'the_content', 'justice_theme_append_reviewer_box', 24 );
 
 /**
  * Seed the legal-editor bio page into the CMS (real WordPress page, not a

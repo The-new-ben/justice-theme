@@ -286,7 +286,6 @@ function justice_eeat_article_schema( $post_id, $author ) {
 		'mainEntityOfPage' => $page_url,
 		'wordCount'        => $word_count,
 		'author'           => $author_entity,
-		'reviewedBy'       => $author_entity, // Same attorney both authors and reviews
 		'publisher'        => array(
 			'@type' => 'LegalService',
 			'@id'   => $home_url . '#organization',

@@ -15,7 +15,9 @@ BASE = Path(__file__).resolve().parent.parent / 'project-control' / 'rebuild-pla
 FACTORY = BASE / 'wave1-factory'
 ALLOWED_TAGS = {'h2','h3','p','ul','ol','li','table','thead','tbody','tr','th','td',
                 'blockquote','a','strong','em','div','br','span'}
-FORBIDDEN = ['בעולם של היום','בעולם המודרני','אין ספק ש','כידוע לכולם','למותר לציין']
+FORBIDDEN = ['בעולם של היום','בעולם המודרני','אין ספק ש','כידוע לכולם','למותר לציין',
+             'חשוב להבין','חשוב לדעת','יש לציין','בשורה התחתונה','כפי שראינו',
+             '—','–']  # em/en dashes: owner law, AI tells (2026-07-14)
 REVIEWERS = ('עו"ד בן בטש', 'צוות Jus-Tice')  # wave 1 = malpractice: Maya is family-law ONLY (CLAUDE.md rules)
 
 def norm(s):

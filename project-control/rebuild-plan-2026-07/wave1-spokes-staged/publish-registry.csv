@@ -1,0 +1,31 @@
+﻿unit_id,state,post_id,live_url,words,todo_left,notes
+U01,PUBLISHED,9644,https://jus-tice.co.il/medical-malpractice-in-the-united-states/,950,0,fact-pass done; live-verified
+U02,PUBLISHED,11489,https://jus-tice.co.il/malpractice-cerebral-palsy/,1055,0,fact-pass done; live-verified
+U03,PUBLISHED,9648,https://jus-tice.co.il/what-is-medical-malpractice-definition-examples/,956,0,fact-pass done; live-verified
+U04,PUBLISHED,7616,https://jus-tice.co.il/medical-malpractice-common-errors-doctors-hospitals/,677,0,fact-pass done; live-verified
+U05,PUBLISHED,20227,https://jus-tice.co.il/anesthesia-medical-malpractice/,712,0,fact-pass done; live-verified
+U06,HELD-DRAFT,,/decision50014-01-19/,503,13,case scaffold - needs the real decision text (run-card batch 6); raw draft raw-wave1-u06 in WP
+U07,PUBLISHED,20297,https://jus-tice.co.il/medical-malpractice-surgery/,764,0,fact-pass done; live-verified
+U08,HELD-DRAFT,,/decision55016-06-17a/,398,12,case scaffold - needs the real decision text (run-card batch 6); raw draft raw-wave1-u08 in WP
+U09,PUBLISHED,11834,https://jus-tice.co.il/medical-malpractice-lawyer-birth-recommended/,715,0,fact-pass done; live-verified
+U10,PUBLISHED,12096,https://jus-tice.co.il/medical-malpractice-lawyers-law-medical-israel/,813,0,fact-pass done; live-verified
+U11,HELD-DRAFT,,/decision39696-06-16/,391,11,case scaffold - needs the real decision text (run-card batch 6); raw draft raw-wave1-u11 in WP
+U12,PUBLISHED,20239,https://jus-tice.co.il/%d7%a8%d7%a9%d7%9c%d7%a0%d7%95%d7%aa-%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa-%d7%91%d7%90%d7%91%d7%97%d7%95%d7%9f-%d7%90%d7%91%d7%97%d7%a0%d7%94-%d7%a9%d7%92%d7%95%d7%99%d7%94-%d7%95%d7%9e%d7%90%d7%95/,698,0,fact-pass done; live-verified
+U13,PUBLISHED,7618,https://jus-tice.co.il/klumpke-paralysis/,670,0,fact-pass done; live-verified
+U14,PUBLISHED,20225,https://jus-tice.co.il/birth-injury/,689,0,fact-pass done; live-verified
+U15,PUBLISHED,11491,https://jus-tice.co.il/birth-injury-lawyer/,637,0,fact-pass done; live-verified
+U16,PUBLISHED,8400,https://jus-tice.co.il/medical-malpractice-pregnancy-birth/,725,0,fact-pass done; live-verified
+U17,PUBLISHED,8346,https://jus-tice.co.il/medical-malpractice-israel-medical/,620,0,fact-pass done; live-verified
+U18,PUBLISHED,11553,https://jus-tice.co.il/medical-malpractice-lawyer-lawsuit-surgery-medical/,795,0,fact-pass done; live-verified
+U19,HELD-DRAFT,,/10918-10-19/,334,10,case scaffold - needs the real decision text (run-card batch 6); raw draft raw-wave1-u19 in WP
+U20,HELD-DRAFT,,/medical-malpractice-lawsuit-pregnancy-20346-03-17/,368,10,case scaffold - needs the real decision text (run-card batch 6); raw draft raw-wave1-u20 in WP
+U21,PUBLISHED,6861,https://jus-tice.co.il/medical-malpractice-attorney/,686,0,fact-pass done; live-verified
+U22,PUBLISHED,8349,https://jus-tice.co.il/medical-malpractice-law/,695,0,fact-pass done; live-verified
+U23,PUBLISHED,11506,https://jus-tice.co.il/brain-damage-at-birth/,665,0,fact-pass done; live-verified
+U24,HELD-DRAFT,,/medical-malpractice-judge-decision-lawsuit-4392-03-23/,393,9,case scaffold - needs the real decision text (run-card batch 6); raw draft raw-wave1-u24 in WP
+U25,PUBLISHED,20414,https://jus-tice.co.il/medical-malpractice-statistics/,601,0,fact-pass done; live-verified
+U26,PUBLISHED,21757,https://jus-tice.co.il/%d7%94%d7%aa%d7%99%d7%99%d7%a9%d7%a0%d7%95%d7%aa-%d7%a8%d7%a9%d7%9c%d7%a0%d7%95%d7%aa-%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa/,926,0,fact-pass done; live-verified
+U27,PUBLISHED,21758,https://jus-tice.co.il/%d7%a4%d7%99%d7%a6%d7%95%d7%99%d7%99%d7%9d-%d7%a8%d7%a9%d7%9c%d7%a0%d7%95%d7%aa-%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa/,829,0,fact-pass done; live-verified
+U28,PUBLISHED,21759,https://jus-tice.co.il/%d7%90%d7%97%d7%95%d7%96%d7%99-%d7%a0%d7%9b%d7%95%d7%aa-%d7%a4%d7%99%d7%a6%d7%95%d7%99%d7%99%d7%9d-%d7%a8%d7%a9%d7%9c%d7%a0%d7%95%d7%aa-%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa/,836,0,fact-pass done; live-verified
+U29,PUBLISHED,21760,https://jus-tice.co.il/%d7%a8%d7%a9%d7%9c%d7%a0%d7%95%d7%aa-%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa-%d7%a9%d7%99%d7%a0%d7%99%d7%99%d7%9d/,825,0,fact-pass done; live-verified
+U30,PUBLISHED,21761,https://jus-tice.co.il/%d7%94%d7%a1%d7%9b%d7%9d-%d7%a4%d7%a9%d7%a8%d7%94-%d7%a8%d7%a9%d7%9c%d7%a0%d7%95%d7%aa-%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa/,814,0,fact-pass done; live-verified

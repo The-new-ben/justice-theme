@@ -101,6 +101,55 @@ function justice_title_authority_h1_shim_queried(): array {
 	);
 }
 
+/**
+ * DB authority on the controlled practice routes (wave 1, 2026-07-14).
+ *
+ * inc/practice-landing.php renders four English practice URLs at
+ * template_redirect -999999 and, right before get_header(), re-registers
+ * hard-coded title/description filters at PHP_INT_MAX. Those beat every
+ * filter added at plugin load, so the wave-0 rule (explicit Yoast field
+ * wins) silently lost on exactly those four pages - invisible until a DB
+ * title actually changed, because wave 0 mirrored the engine output into
+ * the DB. Registering from the get_header action (fires after the route
+ * registered its filters, before wp_head renders) puts the DB back on
+ * top: same hook, same priority, later registration runs last and wins.
+ * Scoped strictly to the controlled routes; every other page keeps its
+ * existing filter chain, and routes whose Yoast fields still equal the
+ * engine strings render byte-identical.
+ */
+add_action( 'get_header', function () {
+	if ( ! is_singular() || ! function_exists( 'justice_theme_get_controlled_practice_route_template' ) ) {
+		return;
+	}
+
+	if ( '' === justice_theme_get_controlled_practice_route_template() ) {
+		return;
+	}
+
+	$post_id = (int) get_queried_object_id();
+
+	if ( $post_id <= 0 ) {
+		return;
+	}
+
+	$db_title = trim( (string) get_post_meta( $post_id, '_yoast_wpseo_title', true ) );
+	$db_desc  = trim( (string) get_post_meta( $post_id, '_yoast_wpseo_metadesc', true ) );
+
+	if ( '' !== $db_title ) {
+		$win_title = static function () use ( $db_title ): string {
+			return $db_title;
+		};
+		add_filter( 'pre_get_document_title', $win_title, PHP_INT_MAX );
+		add_filter( 'wpseo_title', $win_title, PHP_INT_MAX );
+	}
+
+	if ( '' !== $db_desc ) {
+		add_filter( 'wpseo_metadesc', static function () use ( $db_desc ): string {
+			return $db_desc;
+		}, PHP_INT_MAX );
+	}
+} );
+
 add_filter( 'the_title', function ( $title, $post_id = 0 ) {
 	if ( is_admin() ) {
 		return $title;

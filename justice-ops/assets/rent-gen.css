@@ -1,0 +1,77 @@
+/* Rent builder v2 - mobile-first, site design language (navy #14213d / gold #e7c765). */
+#jt-rent-app{margin:18px 0}
+.jtr{border:1.5px solid transparent;border-radius:20px;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,#e7c765,#14213d 75%) border-box;box-shadow:0 18px 44px -24px rgba(13,23,54,.38);overflow:hidden}
+.jtr-head{padding:18px 18px 12px;background:linear-gradient(180deg,#f7f9ff,#fff)}
+.jtr-head__t{font-size:20px;font-weight:900;color:#14213d}
+.jtr-head__s{font-size:13.5px;color:#6a7285;margin-top:2px}
+.jtr-prog{height:7px;background:#e9edf6;border-radius:99px;margin:12px 0 10px;overflow:hidden}
+.jtr-prog__bar{display:block;height:100%;width:0;background:linear-gradient(90deg,#e7c765,#14213d);border-radius:99px;transition:width .35s}
+.jtr-crumbs{display:flex;gap:6px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+.jtr-crumbs__i{font-size:12px;font-weight:700;color:#8a92a6;background:#f1f4fa;border-radius:99px;padding:4px 10px}
+.jtr-crumbs__i.is-cur{color:#fff;background:#14213d}
+.jtr-crumbs__i.is-done{color:#14213d;background:#e7c765;cursor:pointer}
+.jtr-body{display:grid;grid-template-columns:1fr;gap:0}
+.jtr-form{padding:16px 18px 8px;min-height:280px}
+.jtr-step-title{margin:0 0 12px;color:#14213d;font-size:17px}
+.jtr-field{margin:0 0 12px}
+.jtr-field label{display:block;font-weight:700;color:#26324e;font-size:14.5px;margin-bottom:5px}
+.jtr-field label em{color:#8a92a6;font-style:normal;font-weight:500;font-size:12px}
+.jtr-field input{width:100%;border:1.5px solid #ccd3e2;border-radius:12px;padding:13px 12px;font-size:16px;background:#fbfcff;transition:border-color .15s}
+.jtr-field input:focus{outline:none;border-color:#14213d}
+.jtr-field small{color:#8a92a6;font-size:12px}
+.jtr-field--half{display:inline-block;width:calc(50% - 6px)}
+.jtr-field--half + .jtr-field--half{margin-inline-start:12px}
+.jtr-toggle{margin:0 0 12px;border:1.5px solid #e2e7f2;border-radius:14px;padding:12px}
+.jtr-toggle__l{display:flex;align-items:center;gap:10px;font-weight:700;color:#26324e;cursor:pointer}
+.jtr-toggle__l input{position:absolute;opacity:0}
+.jtr-toggle__pill{flex:0 0 44px;height:26px;border-radius:99px;background:#d7dcea;position:relative;transition:background .2s}
+.jtr-toggle__pill:after{content:"";position:absolute;inset-inline-start:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.25);transition:transform .2s}
+.jtr-toggle__l input:checked + .jtr-toggle__pill{background:#14a05a}
+.jtr-toggle__l input:checked + .jtr-toggle__pill:after{transform:translateX(-18px)}
+.jtr-toggle__more{margin-top:10px}
+.jtr-eqed{border-top:1px dashed #e2e7f2;padding-top:12px;margin-top:6px}
+.jtr-eqed__row{display:grid;grid-template-columns:1fr 76px 34px;gap:8px;margin-bottom:8px}
+.jtr-eqed__row input{border:1.5px solid #ccd3e2;border-radius:10px;padding:10px;font-size:15px}
+.jtr-eqed__row button{border:0;border-radius:10px;background:#f4d7d7;color:#8c2f2f;font-size:18px;cursor:pointer}
+.jtr-nav{display:flex;justify-content:space-between;gap:10px;padding:12px 18px;border-top:1px solid #eef1f8;background:#fff;position:sticky;bottom:0;z-index:5}
+.jtr-btn{border:1.5px solid #14213d;border-radius:12px;background:#fff;color:#14213d;font-weight:800;font-size:15px;padding:12px 20px;cursor:pointer;text-decoration:none;text-align:center}
+.jtr-btn--main{background:#14213d;color:#fff;flex:1;max-width:260px}
+.jtr-btn--ghost{border-color:#ccd3e2;color:#6a7285}
+.jtr-btn--wa{background:linear-gradient(180deg,#2ade70,#1fb355);border-color:transparent;color:#fff}
+.jtr-preview{border-top:1px solid #eef1f8;background:#f4f6fc;padding:14px}
+.jtr-preview__label{font-size:12px;font-weight:800;color:#8a92a6;letter-spacing:.4px;margin-bottom:8px}
+.jtr-preview__paper{background:#fff;border:1px solid #e2e7f2;border-radius:12px;max-height:420px;overflow:auto;padding:18px;box-shadow:inset 0 2px 8px rgba(13,23,54,.05)}
+.jtr-doc{font-size:13.5px;line-height:1.7;color:#222}
+.jtr-doc h1{font-size:17px;text-align:center}
+.jtr-doc h2{font-size:14.5px;color:#14213d;margin:16px 0 6px}
+.jtr-doc table{width:100%;border-collapse:collapse;font-size:12.5px}
+.jtr-doc td,.jtr-doc th{border:1px solid #d7dcea;padding:5px}
+.jtr-f{background:#fff3cf;border-bottom:2px dashed #d9a92c;border-radius:4px;padding:0 5px;white-space:nowrap}
+.jtr-f--set{background:#e8f6ee;border-bottom-color:#1fa055;font-weight:700;white-space:normal}
+.jtr-f[contenteditable="true"]{cursor:text;min-width:44px;display:inline-block}
+.jtr-peek{display:none}
+.jtr-resume{background:#fff8e6;border:1.5px solid #e7c765;border-radius:14px;padding:12px 14px;margin-bottom:12px;font-size:14px;color:#5d5330}
+.jtr-resume button{border:0;background:#14213d;color:#fff;border-radius:9px;padding:7px 12px;font-weight:700;margin-inline-start:6px;cursor:pointer}
+.jtr-review-head h3{margin:0 0 6px;color:#14213d}
+.jtr-review-head p{color:#4d576e;font-size:14.5px}
+.jtr-acts{display:flex;flex-direction:column;gap:10px;margin:14px 0}
+.jtr-premium{border-top:1px dashed #e2e7f2;margin-top:10px;padding-top:10px}
+.jtr-premium__t{font-weight:800;color:#8a92a6;font-size:12.5px;margin-bottom:8px}
+.jt-rent-src{margin:22px 0;border:1px solid #e2e7f2;border-radius:14px;padding:14px 16px;background:#fbfcff}
+.jt-rent-src summary{font-weight:800;color:#14213d;cursor:pointer}
+@media (min-width:900px){
+  .jtr-body{grid-template-columns:minmax(340px,44%) 1fr}
+  .jtr-preview{border-top:0;border-inline-start:1px solid #eef1f8}
+  .jtr-preview__paper{max-height:560px}
+  .jtr-acts{flex-direction:row;flex-wrap:wrap}
+}
+@media (max-width:899px){
+  .jtr-preview{display:none}
+  .jtr.is-peek .jtr-preview{display:block}
+  .jtr.is-review .jtr-preview{display:block}
+  .jtr-peek{display:block;position:sticky;bottom:64px;margin:0 18px 10px auto;border:1.5px solid #14213d;background:#fff;color:#14213d;border-radius:99px;padding:9px 16px;font-weight:800;font-size:13.5px;box-shadow:0 8px 20px -10px rgba(13,23,54,.4);cursor:pointer;z-index:6}
+}
+@media print{
+  body *{visibility:hidden}
+  .jtr-doc,.jtr-doc *{visibility:visible}
+}

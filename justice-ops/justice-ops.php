@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.17.1
+ * Version: 2.18.0
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.17.1' );
+	define( 'JUSTICE_OPS_VERSION', '2.18.0' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -111,6 +111,9 @@ require_once __DIR__ . '/title-authority.php';
 
 // Legacy URL rescue: 301s for dead historical URLs still carrying equity.
 require_once __DIR__ . '/legacy-redirects.php';
+
+// Rent agreement builder v2: the six-step wizard app on /online-rent-agreement/.
+require_once __DIR__ . '/rent-gen.php';
 
 // The courtroom simulation (HADMAIA on jus-tice.com) embedded for real
 // at /legal-simulation/, chrome-less, with honest framing copy.

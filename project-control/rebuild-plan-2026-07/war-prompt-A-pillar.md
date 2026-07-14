@@ -19,6 +19,50 @@
 
 כלל שיוך (קבוע): מאיה רוטנברג משויכת אך ורק למאמרי דיני משפחה; בכל שאר התחומים (כולל רשלנות רפואית, גל 1 כולו) המבקר הוא עו"ד בן בטש; כלים אוטומטיים מקבלים "צוות Jus-Tice" או ללא שיוך. שורת המבקר תמיד בתחתית העמוד, לעולם לא בראשו.
 
+
+## שכבת האותות לגוגל (חובה - כך גוגל סורק את העמוד)
+- כל H2 מנוסח כשאלה/ביטוי חיפוש אמיתי מהקורפוס וה-PAA המצורפים, ומיד אחריו פסקת תשובה ישירה של 2-3 משפטים (passage ranking + AI Overviews) - ואז ההרחבה.
+- לפני הכתיבה: בנה "מפת כיסוי" מהקבצים המצורפים - כל תת-נושא, ישות (חוק, סעיף, מוסד, מונח רפואי), ושאלת PAA שמופיעים אצל מתחרה כלשהו. העמוד חייב לכסות 100% מהמפה ולהוסיף לפחות 5 יסודות שאין לאף מתחרה. צרף את המפה בתחילת התשובה הראשונה שלך.
+- מונחים נרדפים נטמעים בכותרות ובפתיחים (רשלנות רפואית / תביעת רשלנות / התרשלות רפואית) בלי חזרתיות מלאכותית.
+- קישורים פנימיים: אך ורק מהרשימה הסגורה הבאה, עם עוגן עברי תיאורי. כל קישור אחר = פסילה:
+/10918-10-19/
+/anesthesia-medical-malpractice/
+/birth-injury-lawyer/
+/birth-injury/
+/brain-damage-at-birth/
+/decision39696-06-16/
+/decision50014-01-19/
+/decision55016-06-17a/
+/klumpke-paralysis/
+/legal-simulation/
+/malpractice-cerebral-palsy/
+/medical-malpractice-attorney/
+/medical-malpractice-common-errors-doctors-hospitals/
+/medical-malpractice-in-the-united-states/
+/medical-malpractice-israel-medical/
+/medical-malpractice-judge-decision-lawsuit-4392-03-23/
+/medical-malpractice-law/
+/medical-malpractice-lawsuit-pregnancy-20346-03-17/
+/medical-malpractice-lawsuits-law-account/
+/medical-malpractice-lawyer-birth-recommended/
+/medical-malpractice-lawyer-lawsuit-surgery-medical/
+/medical-malpractice-lawyer/
+/medical-malpractice-lawyers-law-medical-israel/
+/medical-malpractice-pregnancy-birth/
+/medical-malpractice-statistics/
+/medical-malpractice-surgery/
+/what-is-medical-malpractice-definition-examples/
+/רשלנות-רפואית-באבחון-אבחנה-שגויה-ומאו/
+
+## חוק פלט נקי (הפרה = פסילה מיידית)
+- המסמך הסופי חייב להיות HTML נקי להדבקה: אסור שיופיעו בו סימוני ציטוט פנימיים של המערכת (citeturn, 【†】, oai_citation וכדומה), הערות עורך, או טקסט באנגלית.
+- מקורות מופיעים אך ורק ברשימת המקורות בתחתית, כקישורים אמיתיים שנבדקו.
+- אם המערכת שלך מוסיפה סימוני ציטוט אוטומטית בגוף הטקסט - הפק את הגרסה הסופית כבלוק קוד HTML, שם הסימונים לא נוצרים.
+
+## פרוטוקול אורך (כדי להגיע באמת ל-10,000+ מילים)
+- עבוד בשני שלבים באותה שיחה: הודעה ראשונה = מחקר + מפת הכיסוי + שלד H2/H3 מלא. אחרי אישור "המשך", כתוב את המאמר המלא סעיף-סעיף.
+- אם נגמר לך המקום - עצור באמצע משפט וכתוב [המשך]; בהודעת "המשך" הבאה המשך בדיוק מאותה נקודה. אל תסכם, אל תקצר, אל תדלג על סעיפים מהשלד.
+
 ## חוקי ברזל (זהים לכל ריצה — הפרה = פסילת העמוד)
 1. **אסור להמציא עובדה משפטית.** סעיף, מועד, סכום, אחוז נכות, מספר תיק — רק אם אימתת מול מקור ראשוני ישראלי בזמן הריצה (nevo.co.il, he.wikisource.org, gov.il, court.gov.il, kolzchut.org.il) או שהוא מופיע בקבצים המצורפים (דוח הכנסת ו-gov.il המצורפים הם מכרה זהב — השתמש בהם עם ציטוט). כל ספק → `[TODO-VERIFY: הטענה המדויקת]` — מסלול האימות ההנדסי ממלא. ציטוט מומצא גרוע פי אלף מחור מסומן.
 2. **שאילתה אחת = עמוד אחד.** כל עמוד הוא הבעלים של ה-primary query שלו בלבד. עמוד העוגן לא בולע נושאי בנים — הוא מסכם בפסקה ומקשר. אל תכתוב על שאילתה של עמוד אחר.

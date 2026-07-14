@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.18.2
+ * Version: 2.19.0
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.18.2' );
+	define( 'JUSTICE_OPS_VERSION', '2.19.0' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -326,6 +326,13 @@ add_action( 'wp_enqueue_scripts', function () {
 	if ( justice_ops_seo_bridge_active() ) {
 		wp_enqueue_style( 'justice-ops-bridge', plugins_url( 'assets/theme-bridge.css', __FILE__ ), array(), JUSTICE_OPS_VERSION );
 	}
+
+	// Rendered-relevancy layer (google-god-mode, 2026-07-14): restores the
+	// dark hero/CTA backgrounds the redesign's `.section{background:transparent}`
+	// killed, fixes the checker heading contrast, gives mobile tables scroll.
+	// Loads after every theme sheet; identical rules live at the end of the
+	// theme's redesign.css awaiting the owner pull.
+	wp_enqueue_style( 'justice-ops-relevance', plugins_url( 'assets/relevance-fixes.css', __FILE__ ), array(), JUSTICE_OPS_VERSION );
 }, 60 );
 
 /**

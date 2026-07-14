@@ -2074,3 +2074,24 @@ input[type="submit"].button {
   font-size: 12px;
   color: var(--jt2-muted);
 }
+
+/* ---------- Section-background casualties of `.section{background:transparent}` ----------
+ * That reset (line ~78) outranks any EARLIER single-class background at
+ * equal specificity, which turned the dark practice-route bands into
+ * white-on-white voids (google-god-mode audit, 2026-07-14). Two classes
+ * beat one: these restorations win on specificity, not order. */
+.legal-pillar-hero.section {
+  background:
+    linear-gradient(135deg, rgba(7, 21, 47, 0.98), rgba(39, 46, 70, 0.94)),
+    radial-gradient(circle at 18% 20%, rgba(197, 164, 92, 0.24), transparent 34%);
+}
+
+.practice-hub-hero.section {
+  background:
+    linear-gradient(135deg, rgba(7, 21, 47, 0.96), rgba(39, 46, 70, 0.92)),
+    radial-gradient(circle at 16% 18%, rgba(197, 164, 92, 0.22), transparent 34%);
+}
+
+.practice-hub-cta.section {
+  background: linear-gradient(135deg, #07152f, #10264a);
+}

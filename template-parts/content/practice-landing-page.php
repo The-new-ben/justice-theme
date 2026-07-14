@@ -135,6 +135,21 @@ if ( post_type_exists( 'articles' ) ) {
 	<section class="legal-pillar-body section">
 		<div class="container legal-pillar-body__grid">
 			<div class="legal-pillar-content entry-content">
+				<?php
+				// Render full Gutenberg pillar content as the primary body,
+				// FIRST inside the content column: the user and Googlebot must
+				// land on the article's answer, not on link chrome. The
+				// supporting-guides box moved below the article (2026-07-14,
+				// google-god-mode audit: first relevant paragraph sat three
+				// viewports down).
+				$page_raw_content = $page_id > 0 ? get_post_field( 'post_content', $page_id ) : '';
+				if ( trim( wp_strip_all_tags( $page_raw_content ) ) ) :
+					?>
+					<div class="practice-landing__pillar-content">
+						<?php echo apply_filters( 'the_content', $page_raw_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					</div>
+				<?php endif; ?>
+
 				<?php if ( ! empty( $supporting ) ) : ?>
 					<div class="legal-pillar-topic-box practice-landing__topics">
 						<h2><?php esc_html_e( 'מדריכים קשורים לפי כוונת חיפוש', 'justice-theme' ); ?></h2>
@@ -146,19 +161,6 @@ if ( post_type_exists( 'articles' ) ) {
 								<a href="<?php echo esc_url( home_url( $item['url'] ?? '#' ) ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
 							<?php endforeach; ?>
 						</div>
-					</div>
-				<?php endif; ?>
-
-				<?php
-				// Render full Gutenberg pillar content as the primary body.
-				// This is the main SEO content — keyword-rich, 5,000+ words.
-				// The 'תוכן נוסף' heading is removed (it sent a low-quality signal
-				// to Googlebot and broke the content hierarchy).
-				$page_raw_content = $page_id > 0 ? get_post_field( 'post_content', $page_id ) : '';
-				if ( trim( wp_strip_all_tags( $page_raw_content ) ) ) :
-					?>
-					<div class="practice-landing__pillar-content">
-						<?php echo apply_filters( 'the_content', $page_raw_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</div>
 				<?php endif; ?>
 			</div>

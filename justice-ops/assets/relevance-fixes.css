@@ -1,0 +1,60 @@
+/*
+ * Rendered-relevancy fixes (google-god-mode pass, 2026-07-14).
+ *
+ * Root cause: the jt2 redesign stylesheet loads LAST and sets
+ * `.section { background: transparent }`. Every dark band that declared
+ * its background at single-class specificity in an earlier file lost its
+ * background while keeping its white text - so the practice-route heroes
+ * rendered as white-on-white voids. The theme carries the root fix (same
+ * rules, end of redesign.css); this ops layer makes production correct
+ * NOW without waiting for a theme pull, and is harmless once the theme
+ * catches up (identical values).
+ */
+
+.legal-pillar-hero.section {
+  background:
+    linear-gradient(135deg, rgba(7, 21, 47, 0.98), rgba(39, 46, 70, 0.94)),
+    radial-gradient(circle at 18% 20%, rgba(197, 164, 92, 0.24), transparent 34%) !important;
+}
+
+.practice-hub-hero.section {
+  background:
+    linear-gradient(135deg, rgba(7, 21, 47, 0.96), rgba(39, 46, 70, 0.92)),
+    radial-gradient(circle at 16% 18%, rgba(197, 164, 92, 0.22), transparent 34%) !important;
+}
+
+.practice-hub-cta.section {
+  background: linear-gradient(135deg, #07152f, #10264a) !important;
+}
+
+/* Checker heading: theme `.entry-content h3` (0-1-1) beats `.jt-mp__h`
+ * (0-1-0), painting navy-on-navy inside the checker's dark header band. */
+.entry-content .jt-mp__head .jt-mp__h,
+.jt-mp__head .jt-mp__h {
+  color: #fff !important;
+}
+
+.entry-content .jt-mp__head .jt-mp__sub,
+.jt-mp__head .jt-mp__sub {
+  color: #c6d0e4 !important;
+}
+
+/* Mobile: article tables must scroll inside their own box instead of
+ * crushing columns into single-word lines. */
+@media (max-width: 768px) {
+  .practice-landing__pillar-content table,
+  .legal-pillar-content table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  .practice-landing__pillar-content table td,
+  .practice-landing__pillar-content table th,
+  .legal-pillar-content table td,
+  .legal-pillar-content table th {
+    white-space: normal;
+    min-width: 9rem;
+  }
+}

@@ -16,7 +16,7 @@ FACTORY = BASE / 'wave1-factory'
 ALLOWED_TAGS = {'h2','h3','p','ul','ol','li','table','thead','tbody','tr','th','td',
                 'blockquote','a','strong','em','div','br','span'}
 FORBIDDEN = ['בעולם של היום','בעולם המודרני','אין ספק ש','כידוע לכולם','למותר לציין']
-LICENSE = 'מ.ר. 32125'
+REVIEWERS = ('עו"ד בן בטש', 'צוות Jus-Tice')  # wave 1 = malpractice: Maya is family-law ONLY (CLAUDE.md rules)
 
 def norm(s):
     s = unicodedata.normalize('NFKC', (s or '').strip().lower())
@@ -73,7 +73,8 @@ def main(outdir):
             if bad_links: probs.append(f'links outside allowlist: {bad_links[:4]}')
             if '/medical-malpractice-lawyer/' not in internal and w['url'] != '/medical-malpractice-lawyer/':
                 probs.append('no pillar link')
-            if LICENSE not in body: probs.append('E-E-A-T block / license missing')
+            if not any(r in body for r in REVIEWERS): probs.append('reviewer block missing/wrong person (rules: CLAUDE.md)')
+            if 'רוטנברג' in body: probs.append('Maya attributed on non-family content - FORBIDDEN')
             if body.count('<li><a ') + body.count('<li> <a') < 2 and 'מקורות' in body:
                 probs.append('fewer than 2 linked sources')
             if 'מקורות' not in body: probs.append('sources section missing')

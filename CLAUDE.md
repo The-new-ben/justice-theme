@@ -37,7 +37,10 @@ against primary sources, no-AI-teller pass, benchmark against the attached
 competitor corpus (must contain everything competitors/SERP cover, never
 below their level), correct E-E-A-T block per the table above, then hold
 for owner approval before publishing. Publication is wave-atomic per the
-rebuild plan (project-control/rebuild-plan-2026-07/).
+rebuild plan (project-control/rebuild-plan-2026-07/). EVERY article prompt
+must pass the google-god-mode mandatory pass first (IL SERP + US signals +
+competitor suck-down + dictated skeleton + entity map + anti-cannibalization
+boundaries) - owner order 2026-07-15, see .claude/skills/google-god-mode.
 
 ## Other standing laws (see project-control/ for full records)
 

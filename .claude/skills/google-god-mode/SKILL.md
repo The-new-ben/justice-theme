@@ -85,6 +85,39 @@ For the target query, answer in writing:
   (screenshots/computed styles/probe strings), what remains blocked and
   on whom.
 
+## MANDATORY for every article (owner order, 2026-07-15)
+
+No article gets written, prompted, or published on this site without this
+pass. Not by Claude, not by ChatGPT, not by anyone. A run card or content
+prompt that skips any item below is invalid:
+
+1. **Real Israeli SERP pulled** (SerpApi, google.co.il, gl=il hl=he) for
+   the primary query: who ranks 1-10, page types, PAA questions.
+2. **US SERP signals pulled** (gl=us) for the translated query: PAA there
+   predicts Israeli demand; adapt, verify for Israeli law, never copy.
+3. **Competitor suck-down**: crawl the ranking pages themselves. Extract
+   full heading outlines, word counts, first paragraphs. The prompt embeds
+   this teardown, per competitor, with what wins and what's missing. Never
+   tell the writer "go research" - hand it the battlefield.
+4. **Skeleton dictated in the prompt**: the full H2/H3 map is DESIGNED from
+   the SERP+corpus evidence and written into the prompt with per-section
+   orders (what to cover, target length, tables, links). The writer fills
+   a designed structure; it does not invent one.
+5. **First-paragraph engineering**: exact spec in the prompt - the query
+   phrase early, a direct answer to the dominant intent in 2-4 sentences,
+   a concrete value promise, zero superlatives.
+6. **Entity/synonym map in the prompt**: the terms Google expects on a
+   relevant page (synonyms, related entities, statute names, institution
+   names), to be used naturally.
+7. **Anti-cannibalization boundaries in the prompt**: the queries owned by
+   OTHER pages on this site, each marked "one paragraph + link only, never
+   a full section here". One query = one page, forever.
+8. **Style law embedded**: no em/en dashes, no AI-teller phrases,
+   TODO-VERIFY for every unverified fact, answer-first blocks, allowed-tag
+   whitelist, closed internal-link allowlist.
+9. **Output contract**: exact deliverable format + manifest, so QA is
+   mechanical.
+
 ## Standing laws that bind every pass
 - Never bypass the publication-safety gate; drafts for anything unproven.
 - Truth gate: verified facts or nothing; unverifiable claims get removed,

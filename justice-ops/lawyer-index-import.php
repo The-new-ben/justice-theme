@@ -1,0 +1,351 @@
+<?php
+/**
+ * Lawyer index import: the ranking-guides ingestion machine (owner order
+ * 2026-07-16, collaboration mapping project).
+ *
+ * Admin-only REST route that swallows rows collected from public ranking
+ * guides and turns each into a BASIC PUBLIC CARD (same honest pattern as
+ * the existing public-index cards: unverified, free plan, claim-and-verify
+ * later). Ranking data is stored in INTERNAL meta only - it is never
+ * rendered on any public surface and no guide brand is ever named
+ * publicly (deal presentation pending, owner order). The map feed reads
+ * only what it always read: publish + approved + geocoded.
+ *
+ * Flow: POST rows (dry_run first) -> execute -> POST
+ * /justice/v1/map/geocode-missing until drained -> feed transient clears
+ * -> cards appear as quiet chips on the map.
+ *
+ * @package JusticeOps
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Canonical city spellings for common variants seen in ranking guides.
+ */
+function justice_lii_canon_city( string $city ): string {
+	$city = trim( preg_replace( '/\s+/u', ' ', $city ) );
+
+	$map = array(
+		'ת"א'            => 'תל אביב',
+		'ת״א'            => 'תל אביב',
+		'תל-אביב'        => 'תל אביב',
+		'תל אביב-יפו'    => 'תל אביב',
+		'תל אביב יפו'    => 'תל אביב',
+		'פ"ת'            => 'פתח תקווה',
+		'פתח-תקווה'      => 'פתח תקווה',
+		'פתח תקוה'       => 'פתח תקווה',
+		'ראשל"צ'         => 'ראשון לציון',
+		'ראשון-לציון'    => 'ראשון לציון',
+		'ב"ב'            => 'בני ברק',
+		'בני-ברק'        => 'בני ברק',
+		'ב"ש'            => 'באר שבע',
+		'באר-שבע'        => 'באר שבע',
+		'י-ם'            => 'ירושלים',
+		'ירושלים המערבית' => 'ירושלים',
+		'רמת-גן'         => 'רמת גן',
+		'כפר-סבא'        => 'כפר סבא',
+		'הרצלייה'        => 'הרצליה',
+		'הרצליה פיתוח'   => 'הרצליה',
+	);
+
+	return $map[ $city ] ?? $city;
+}
+
+/**
+ * Map a guide's practice label onto our practice-areas taxonomy term name.
+ * Exact alias table first, then a contains-match against existing terms.
+ * Unmapped labels flag the row but never invent a taxonomy term.
+ */
+function justice_lii_map_area( string $label, array $existing_terms ): string {
+	$label = trim( $label );
+
+	$aliases = array(
+		'פלילי'                => 'משפט פלילי',
+		'דין פלילי'            => 'משפט פלילי',
+		'צווארון לבן'          => 'משפט פלילי',
+		'משפחה'                => 'דיני משפחה',
+		'דיני משפחה וירושה'    => 'דיני משפחה',
+		'גירושין'              => 'דיני משפחה',
+		'נדל"ן'                => 'מקרקעין ונדל"ן',
+		'מקרקעין'              => 'מקרקעין ונדל"ן',
+		'נדל"ן ותשתיות'        => 'מקרקעין ונדל"ן',
+		'תכנון ובנייה'         => 'מקרקעין ונדל"ן',
+		'נזיקין'               => 'דיני נזיקין',
+		'ביטוח ונזיקין'        => 'דיני נזיקין',
+		'רשלנות רפואית'        => 'רשלנות רפואית',
+		'עבודה'                => 'דיני עבודה',
+		'דיני עבודה'           => 'דיני עבודה',
+		'ירושה'                => 'ירושה וצוואות',
+		'צוואות וירושות'       => 'ירושה וצוואות',
+		'עיזבונות'             => 'ירושה וצוואות',
+		'תעבורה'               => 'תעבורה',
+		'מיסים'                => 'מיסוי',
+		'מסים'                 => 'מיסוי',
+		'הוצאה לפועל'          => 'הוצאה לפועל וחדלות פירעון',
+		'חדלות פירעון'         => 'הוצאה לפועל וחדלות פירעון',
+	);
+
+	$target = $aliases[ $label ] ?? $label;
+
+	foreach ( $existing_terms as $term_name ) {
+		if ( $term_name === $target ) {
+			return $term_name;
+		}
+	}
+
+	foreach ( $existing_terms as $term_name ) {
+		if ( false !== mb_strpos( $term_name, $target ) || false !== mb_strpos( $target, $term_name ) ) {
+			return $term_name;
+		}
+	}
+
+	return '';
+}
+
+/**
+ * Normalized name for dedupe: quotes, honorifics and spacing collapse so
+ * "עו\"ד דנה כהן" and "עורכת דין דנה כהן ושות'" meet at the same key.
+ */
+function justice_lii_name_key( string $name ): string {
+	$name = wp_specialchars_decode( $name, ENT_QUOTES );
+	$name = str_replace( array( '"', '״', "'", '׳', '`' ), '', $name );
+	$name = preg_replace( '/\b(עוד|עורך דין|עורכת דין|עו״ד|טוען רבני|טוענת רבנית|משרד|ושות|נוטריון|מגשר|מגשרת)\b/u', '', $name );
+	$name = preg_replace( '/\s+/u', ' ', trim( (string) $name ) );
+
+	return mb_strtolower( (string) $name );
+}
+
+/**
+ * Existing lawyers indexed by name key, built once per request.
+ */
+function justice_lii_existing_index(): array {
+	$index = array();
+
+	$ids = get_posts( array(
+		'post_type'      => 'justice_lawyer',
+		'post_status'    => array( 'publish', 'draft', 'pending' ),
+		'posts_per_page' => 2000,
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+	) );
+
+	foreach ( $ids as $id ) {
+		$key = justice_lii_name_key( get_the_title( (int) $id ) );
+
+		if ( '' !== $key && ! isset( $index[ $key ] ) ) {
+			$index[ $key ] = (int) $id;
+		}
+	}
+
+	return $index;
+}
+
+add_action( 'rest_api_init', function () {
+	register_rest_route( 'justice-ops/v1', '/lawyer-index-import', array(
+		'methods'             => 'POST',
+		'permission_callback' => function () {
+			return current_user_can( 'manage_options' );
+		},
+		'callback'            => 'justice_lii_import',
+	) );
+} );
+
+/**
+ * The importer. Body: {dry_run: bool, rows: [...]}. Row fields:
+ * full_name*, entity_type (firm|person), practice_areas* (array or ';'
+ * string of guide labels), office_address*, city*, phone, website,
+ * guide_code* (G1|G2|G3 - internal codes, never brand names in public
+ * output), guide_practice_label, rank_tier (1-4), rank_label_raw,
+ * rank_year*, source_url*, notes.
+ *
+ * @param WP_REST_Request $request Request.
+ * @return WP_REST_Response
+ */
+function justice_lii_import( WP_REST_Request $request ) {
+	$body    = $request->get_json_params();
+	$rows    = is_array( $body['rows'] ?? null ) ? $body['rows'] : array();
+	$dry_run = ! empty( $body['dry_run'] );
+
+	if ( ! $rows ) {
+		return new WP_REST_Response( array( 'error' => 'no_rows' ), 400 );
+	}
+
+	if ( count( $rows ) > 200 ) {
+		return new WP_REST_Response( array( 'error' => 'max_200_rows_per_call' ), 400 );
+	}
+
+	$term_objs = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => false ) );
+	$terms     = array();
+
+	if ( is_array( $term_objs ) ) {
+		foreach ( $term_objs as $t ) {
+			$terms[] = $t->name;
+		}
+	}
+
+	$existing = justice_lii_existing_index();
+	$guides   = array( 'G1', 'G2', 'G3' );
+	$report   = array();
+	$created  = 0;
+	$updated  = 0;
+	$skipped  = 0;
+
+	foreach ( $rows as $i => $row ) {
+		$r = array(
+			'row'    => $i,
+			'name'   => trim( (string) ( $row['full_name'] ?? '' ) ),
+			'action' => '',
+			'flags'  => array(),
+		);
+
+		$name    = $r['name'];
+		$city    = justice_lii_canon_city( (string) ( $row['city'] ?? '' ) );
+		$address = trim( preg_replace( '/\s+/u', ' ', (string) ( $row['office_address'] ?? '' ) ) );
+		$guide   = strtoupper( trim( (string) ( $row['guide_code'] ?? '' ) ) );
+		$year    = (int) ( $row['rank_year'] ?? 0 );
+		$source  = esc_url_raw( (string) ( $row['source_url'] ?? '' ) );
+		$tier    = (int) ( $row['rank_tier'] ?? 0 );
+
+		$areas_in = $row['practice_areas'] ?? array();
+
+		if ( is_string( $areas_in ) ) {
+			$areas_in = array_filter( array_map( 'trim', explode( ';', $areas_in ) ) );
+		}
+
+		// Validation gate: facts only, all of them present.
+		if ( '' === $name ) { $r['flags'][] = 'missing_name'; }
+		if ( '' === $city ) { $r['flags'][] = 'missing_city'; }
+		if ( '' === $address ) { $r['flags'][] = 'missing_address'; }
+		if ( ! $areas_in ) { $r['flags'][] = 'missing_areas'; }
+		if ( ! in_array( $guide, $guides, true ) ) { $r['flags'][] = 'bad_guide_code'; }
+		if ( $year < 2020 || $year > 2030 ) { $r['flags'][] = 'bad_year'; }
+		if ( '' === $source ) { $r['flags'][] = 'missing_source_url'; }
+		if ( false !== stripos( implode( ' ', (array) $row ), 'TODO-VERIFY' ) ) { $r['flags'][] = 'has_todo_verify'; }
+
+		if ( $r['flags'] ) {
+			$r['action'] = 'skip';
+			$skipped++;
+			$report[] = $r;
+			continue;
+		}
+
+		$mapped = array();
+		foreach ( $areas_in as $label ) {
+			$m = justice_lii_map_area( (string) $label, $terms );
+			if ( '' !== $m ) {
+				$mapped[ $m ] = true;
+			} else {
+				$r['flags'][] = 'area_unmapped:' . $label;
+			}
+		}
+		$mapped = array_keys( $mapped );
+
+		$key         = justice_lii_name_key( $name );
+		$existing_id = $existing[ $key ] ?? 0;
+		$r['action'] = $existing_id ? 'update' : 'create';
+
+		if ( $dry_run ) {
+			$r['matched_id'] = $existing_id;
+			$r['areas']      = $mapped;
+			$r['city']       = $city;
+			$report[]        = $r;
+			$existing_id ? $updated++ : $created++;
+			continue;
+		}
+
+		$area_line = $mapped ? implode( ', ', array_slice( $mapped, 0, 2 ) ) : 'משפט';
+		$bio       = 'כרטיס מקצועי בסיסי ציבורי לא מאומת בתחום ' . $area_line
+			. '. המידע הוכן ממקור פומבי לצורך תביעת הכרטיס והמשך אימות מול בעל המקצוע.';
+
+		if ( $existing_id ) {
+			$post_id = $existing_id;
+
+			// Fill only what is missing - never overwrite a claimed or
+			// richer profile, never touch plan/verification state.
+			if ( '' === (string) get_post_meta( $post_id, 'office_address', true ) ) {
+				update_post_meta( $post_id, 'office_address', $address );
+				delete_post_meta( $post_id, 'office_lat' );
+				delete_post_meta( $post_id, 'office_lng' );
+			}
+			$updated++;
+		} else {
+			$post_id = wp_insert_post( array(
+				'post_type'    => 'justice_lawyer',
+				'post_status'  => 'publish',
+				'post_title'   => $name,
+				'post_content' => $bio,
+			), true );
+
+			if ( is_wp_error( $post_id ) ) {
+				$r['action']  = 'error';
+				$r['flags'][] = $post_id->get_error_message();
+				$skipped++;
+				$report[] = $r;
+				continue;
+			}
+
+			update_post_meta( $post_id, 'lawyer_full_name', $name );
+			update_post_meta( $post_id, 'firm_name', $name );
+			update_post_meta( $post_id, 'bio_short', $bio );
+			update_post_meta( $post_id, 'office_address', $address );
+			update_post_meta( $post_id, 'phone', sanitize_text_field( (string) ( $row['phone'] ?? '' ) ) );
+			update_post_meta( $post_id, 'website', esc_url_raw( (string) ( $row['website'] ?? '' ) ) );
+			update_post_meta( $post_id, 'entity_type', 'firm' === ( $row['entity_type'] ?? '' ) ? 'firm' : 'person' );
+			update_post_meta( $post_id, 'license_status', 'unknown' );
+			update_post_meta( $post_id, 'plan_type', 'free' );
+			update_post_meta( $post_id, 'profile_status', 'public' );
+			update_post_meta( $post_id, 'subscription_status', 'inactive' );
+			update_post_meta( $post_id, 'verification_status', 'unverified' );
+			update_post_meta( $post_id, 'source_type', 'public_ranking_index' );
+			update_post_meta( $post_id, 'source_url', $source );
+			update_post_meta( $post_id, 'internal_notes', 'PUBLIC_BASIC_CARD | source=ranking_guide:' . $guide . ' | rank internal only, never public | do_not_copy_reviews_or_photos | claim_and_verify_flow' );
+			update_post_meta( $post_id, 'priority_score', (string) max( 5, 40 - 10 * max( 1, min( 4, $tier ?: 4 ) ) ) );
+
+			$existing[ $key ] = (int) $post_id;
+			$created++;
+		}
+
+		// Taxonomies: append, never replace (a claimed profile's own terms win).
+		if ( $mapped ) {
+			wp_set_object_terms( $post_id, $mapped, 'practice-areas', true );
+		}
+		if ( '' !== $city ) {
+			wp_set_object_terms( $post_id, array( $city ), 'city', true );
+		}
+
+		// Ranking record: INTERNAL meta only. Multiple guides/areas/years
+		// stack as separate entries; nothing renders them publicly.
+		$entry = array(
+			'guide' => $guide,
+			'tier'  => $tier,
+			'label' => sanitize_text_field( (string) ( $row['rank_label_raw'] ?? '' ) ),
+			'area'  => sanitize_text_field( (string) ( $row['guide_practice_label'] ?? '' ) ),
+			'year'  => $year,
+		);
+		$already = array_filter( (array) get_post_meta( $post_id, 'jt_rank_entry' ), function ( $e ) use ( $entry ) {
+			return is_array( $e ) && $e['guide'] === $entry['guide'] && $e['area'] === $entry['area'] && (int) $e['year'] === (int) $entry['year'];
+		} );
+
+		if ( ! $already ) {
+			add_post_meta( $post_id, 'jt_rank_entry', $entry );
+		}
+
+		$r['post_id'] = (int) $post_id;
+		$report[]     = $r;
+	}
+
+	if ( ! $dry_run ) {
+		delete_transient( 'justice_map_geojson_v1' );
+	}
+
+	return new WP_REST_Response( array(
+		'dry_run' => $dry_run,
+		'created' => $created,
+		'updated' => $updated,
+		'skipped' => $skipped,
+		'rows'    => $report,
+	), 200 );
+}

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.19.0
+ * Version: 2.20.0
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.19.0' );
+	define( 'JUSTICE_OPS_VERSION', '2.20.0' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -138,6 +138,10 @@ require_once __DIR__ . '/scheduler.php';
 // Medical-malpractice claim checker: the malpractice vertical's embedded
 // application (conservative limitation engine, four-element map).
 require_once __DIR__ . '/malpractice-checker.php';
+
+// Publish notifications: the owner gets an email for every piece of
+// content that goes live, from any engine or human (owner order).
+require_once __DIR__ . '/publish-notify.php';
 
 /**
  * Public healthcheck: what version of the ops plugin is live.
@@ -334,6 +338,18 @@ add_action( 'wp_enqueue_scripts', function () {
 	// theme's redesign.css awaiting the owner pull.
 	wp_enqueue_style( 'justice-ops-relevance', plugins_url( 'assets/relevance-fixes.css', __FILE__ ), array(), JUSTICE_OPS_VERSION );
 }, 60 );
+
+// CC BY 2.0 attribution for the homepage hero photograph (E. Huybrechts,
+// Golden Lady Justice, Bruges, via Wikimedia Commons). License requires
+// visible credit; rendered small inside the hero on the homepage only.
+add_action( 'wp_footer', function () {
+	if ( ! is_front_page() ) {
+		return;
+	}
+
+	echo '<style>.jt2-hero{position:relative}</style>';
+	echo '<script>(function(){var h=document.querySelector(".jt2-hero");if(!h)return;var c=document.createElement("span");c.className="jt2-hero__credit";c.textContent="צילום: E. Huybrechts · CC BY 2.0";h.appendChild(c);})();</script>';
+} );
 
 /**
  * SEO bridge: the 2026-07-02 SERP strikes (directory family + divorce

@@ -178,19 +178,41 @@ function justice_news_collect_candidates(): array {
 				}
 			}
 
+			// Legal-core gate (2026-07-16, owner order): an Israel anchor is not
+			// enough - a Venezuela diplomacy item with the word "Israel" sailed
+			// through and landed in the real-estate category. The item must be
+			// LEGAL news: at least one legal-core term in title or description.
+			$legal_core = array( 'בית המשפט', 'בית הדין', 'בג"ץ', 'עתירה', 'פסק דין', 'כתב אישום', 'מעצר', 'הרשעה', 'זיכוי', 'חקירה', 'פרקליטות', 'עורך דין', 'עורכי דין', 'תביעה', 'תובענה', 'חוק ', 'הצעת חוק', 'חקיקה', 'רגולצי', 'משפטי', 'משפט', 'עבירה', 'ערעור', 'צו ', 'היועץ המשפטי' );
+			$is_legal   = false;
+
+			foreach ( $legal_core as $lk ) {
+				if ( false !== mb_strpos( $text, $lk ) ) {
+					$is_legal = true;
+					break;
+				}
+			}
+
+			if ( ! $is_legal ) {
+				$seen[ $hash ] = time();
+				continue;
+			}
+
 			$best_family = '';
 			$best_score  = 0;
+			$best_title  = false;
 
 			foreach ( $families as $fkey => $family ) {
 				if ( isset( $fam_toggle[ $fkey ] ) && ! $fam_toggle[ $fkey ] ) {
 					continue;
 				}
 
-				$score = 0;
+				$score     = 0;
+				$title_hit = false;
 
 				foreach ( $family['keywords'] as $kw ) {
 					if ( false !== mb_strpos( $title, $kw ) ) {
-						$score += 3;
+						$score    += 3;
+						$title_hit = true;
 					} elseif ( false !== mb_strpos( $desc, $kw ) ) {
 						$score += 1;
 					}
@@ -199,12 +221,37 @@ function justice_news_collect_candidates(): array {
 				if ( $score > $best_score ) {
 					$best_score  = $score;
 					$best_family = $fkey;
+					$best_title  = $title_hit;
 				}
 			}
 
 			$seen[ $hash ] = time();
 
-			if ( $best_score >= 3 ) {
+			// A family match must come from the HEADLINE, not a stray word in
+			// the teaser, and clear a higher bar than before (was 3).
+			if ( ! $best_title || $best_score < 4 ) {
+				continue;
+			}
+
+			// Real-estate demands a hard property keyword in the headline -
+			// this family mislabeled a diplomacy story and buried it in the
+			// property category, which is exactly the SEO damage we ban.
+			if ( 'real-estate' === $best_family ) {
+				$hard_re = false;
+
+				foreach ( array( 'נדל"ן', 'מקרקעין', 'דירה', 'דירות', 'מס רכישה', 'מס שבח', 'שכירות', 'התחדשות עירונית', 'קבלן', 'תכנון ובנייה', 'משכנתא' ) as $rk ) {
+					if ( false !== mb_strpos( $title, $rk ) ) {
+						$hard_re = true;
+						break;
+					}
+				}
+
+				if ( ! $hard_re ) {
+					continue;
+				}
+			}
+
+			if ( true ) {
 				$candidates[] = array(
 					'title'  => $title,
 					'desc'   => mb_substr( $desc, 0, 600 ),
@@ -377,8 +424,39 @@ function justice_news_write_brief( array $item ): int {
 		return justice_news_fail( 'markdown', $item['title'] );
 	}
 
-	// Headline: source-anchored, trimmed for Top Stories (110 char cap).
+	// Duplicate guard (2026-07-16): the same wire item must never publish
+	// twice - identical briefs went out three times on July 2. Check both
+	// the source URL meta and an identical title in the last 14 days.
+	$dupe = get_posts( array(
+		'post_type'      => 'post',
+		'post_status'    => array( 'publish', 'draft' ),
+		'posts_per_page' => 1,
+		'meta_key'       => 'news_source_url',
+		'meta_value'     => esc_url_raw( $item['link'] ),
+		'fields'         => 'ids',
+	) );
+
+	if ( ! $dupe ) {
+		$dupe = get_posts( array(
+			'post_type'      => 'post',
+			'post_status'    => array( 'publish', 'draft' ),
+			'posts_per_page' => 1,
+			'title'          => mb_substr( $item['title'], 0, 108 ),
+			'date_query'     => array( array( 'after' => '14 days ago' ) ),
+			'fields'         => 'ids',
+		) );
+	}
+
+	if ( $dupe ) {
+		return justice_news_fail( 'duplicate', $item['title'] );
+	}
+
+	// Headline: source-anchored, trimmed for Top Stories (110 char cap),
+	// dash hygiene applied (source headlines carry em/en dashes).
 	$headline = mb_substr( $item['title'], 0, 108 );
+	$headline = preg_replace( '/(?<=[\w"\x{0590}-\x{05FF}])[\x{2013}\x{2014}](?=[\w\x{0590}-\x{05FF}])/u', '-', $headline );
+	$headline = str_replace( array( ' — ', ' – ' ), ': ', $headline );
+	$headline = preg_replace( '/\s*[\x{2013}\x{2014}]\s*/u', ': ', $headline );
 
 	$source_line = '<p class="legal-news-source">מקור הדיווח: <a href="' . esc_url( $item['link'] ) . '" target="_blank" rel="noopener nofollow">' . esc_html( $item['outlet'] ) . '</a>. הסיכום כאן הוא תמצית חדשותית בתוספת הקשר משפטי ואינו ייעוץ משפטי.</p>';
 
@@ -404,8 +482,12 @@ function justice_news_write_brief( array $item ): int {
 	update_post_meta( $pid, '_yoast_wpseo_title', $headline . ' | Jus-Tice' );
 	update_post_meta( $pid, '_yoast_wpseo_metadesc', mb_substr( wp_strip_all_tags( $item['desc'] ?: $headline ), 0, 155 ) );
 
-	if ( class_exists( 'autoptimizeCache' ) ) {
-		autoptimizeCache::clearall();
+	// 2026-07-16: the old full autoptimizeCache::clearall() here wiped every
+	// compiled CSS aggregate on EVERY news publish, so visitors in that
+	// window got raw unstyled pages (the "exposed code" the owner caught).
+	// Targeted purge instead: only the new post and the homepage.
+	foreach ( array( get_permalink( $pid ), home_url( '/' ) ) as $purge_url ) {
+		wp_remote_request( $purge_url, array( 'method' => 'PURGE', 'timeout' => 5, 'blocking' => false ) );
 	}
 
 	return (int) $pid;

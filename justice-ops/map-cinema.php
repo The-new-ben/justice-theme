@@ -106,15 +106,14 @@ add_filter( 'the_content', function ( $content ) {
 	return $content . $block;
 }, 32 );
 
-// Front page (owner order 2026-07-16): the theme's LawyerScout map band
-// renders 11th of 16 sections - the owner wants the map reachable right
-// after the opening blocks, desktop and mobile. The front page is a
-// controlled route (renders and exits at template_redirect -999999) that
-// never runs the loop, so a the_content filter can't touch it; the move
-// happens in an output buffer opened BEFORE homepage-pro's (-1000000),
-// whose callback therefore runs LAST, on the final HTML with the jt-hp
-// band already spliced in. Fourth slot: hero, practice areas, AI band,
-// then the map.
+// Front page (owner orders 2026-07-16 #1 + #2): the theme's LawyerScout
+// map band renders 11th of 16 sections - the owner wants the map right
+// next to the hero, "so when people load, they see the map". The front
+// page is a controlled route (renders and exits at template_redirect
+// -999999) that never runs the loop, so a the_content filter can't touch
+// it; the move happens in an output buffer opened BEFORE homepage-pro's
+// (-1000000), whose callback therefore runs LAST on the final HTML.
+// Second slot: hero, then the map, then everything else.
 add_action( 'template_redirect', function () {
 	if ( ! is_front_page() ) {
 		return;
@@ -138,7 +137,7 @@ add_action( 'template_redirect', function () {
 		$band = substr( $html, $start, $end - $start );
 		$html = substr_replace( $html, '', $start, $end - $start );
 
-		foreach ( array( '<section class="jt2-section money-hubs', '<section class="find-guide' ) as $marker ) {
+		foreach ( array( '<section class="jt2-section" id="practice-areas"', '<section class="jt2-section money-hubs', '<section class="find-guide' ) as $marker ) {
 			$pos = strpos( $html, $marker );
 
 			if ( false !== $pos ) {

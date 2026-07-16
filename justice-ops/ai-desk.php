@@ -481,6 +481,14 @@ add_shortcode( 'justice_ai_desk', function ( $atts ) {
 			<p><label for="jtad-city">עיר (לא חובה)</label><input type="text" id="jtad-city" name="lead_city"></p>
 			<button type="submit" class="jtad__send">שליחת הפנייה</button>
 		</form>
+
+		<nav class="jtad__tools" aria-label="כלי AI נוספים באתר">
+			<span class="jtad__tools-h">עוד כלים חכמים באתר:</span>
+			<a href="<?php echo esc_url( home_url( '/legal-simulation/' ) ); ?>">הדמיה משפטית: בית משפט חי עם AI</a>
+			<a href="<?php echo esc_url( home_url( '/legal-calculators/' ) ); ?>">מחשבונים משפטיים</a>
+			<a href="<?php echo esc_url( home_url( '/legal-documents/' ) ); ?>">מחוללי מסמכים</a>
+			<a class="jtad__tools-pro" href="<?php echo esc_url( home_url( '/advertise/' ) ); ?>">עורכי דין: הצטרפות למערכת וקבלת פניות</a>
+		</nav>
 	</section>
 	<?php
 	return (string) ob_get_clean();
@@ -545,6 +553,11 @@ add_action( 'wp_head', function () {
 		. '.jtad__go.is-busy{opacity:.7;cursor:progress}'
 		. '.jtad__go:focus-visible{outline:3px solid var(--gold);outline-offset:2px}'
 		. '.jtad__legal{font-size:12.5px;color:#8a93a6;margin:12px 2px 0;line-height:1.5}'
+		. '.jtad__tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:18px;padding:12px 16px;background:#f7f9fd;border:1px solid #dbe3f0;border-radius:12px}'
+		. '.jtad__tools-h{font-weight:800;color:#14213d;font-size:13.5px}'
+		. '.jtad__tools a{color:#1b2f55;font-weight:700;font-size:13.5px;text-decoration:none;border-bottom:1px solid rgba(27,47,85,.3)}'
+		. '.jtad__tools a:hover{color:#0d1d3f;border-bottom-color:#0d1d3f}'
+		. '.jtad__tools a.jtad__tools-pro{color:#7c6519;border-bottom-color:rgba(124,101,25,.35)}'
 		. '.jtad__result{margin-top:18px}'
 		. '.jtad__rcard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 24px 50px -30px rgba(13,23,54,.4);animation:jtadIn .3s ease}'
 		. '@keyframes jtadIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}'

@@ -103,16 +103,53 @@ add_filter( 'the_content', function ( $content ) {
 		. '<button type="button" id="jt-cinema-tour" class="jtcm-tour">סיור אווירי מעל המשרדים המובילים</button>'
 		. '</section>';
 
-	// Front page (owner order 2026-07-16): the map opens the content area so
-	// it is visible right after the top bands on load, desktop and mobile,
-	// instead of drowning at the bottom of the page. Everywhere else it
-	// stays after the article, where it supports rather than interrupts.
-	if ( is_front_page() ) {
-		return $block . $content;
-	}
-
 	return $content . $block;
 }, 32 );
+
+// Front page (owner order 2026-07-16): the theme's LawyerScout map band
+// renders 11th of 16 sections - the owner wants the map reachable right
+// after the opening blocks, desktop and mobile. The front page is a
+// controlled route (renders and exits at template_redirect -999999) that
+// never runs the loop, so a the_content filter can't touch it; the move
+// happens in an output buffer opened BEFORE homepage-pro's (-1000000),
+// whose callback therefore runs LAST, on the final HTML with the jt-hp
+// band already spliced in. Fourth slot: hero, practice areas, AI band,
+// then the map.
+add_action( 'template_redirect', function () {
+	if ( ! is_front_page() ) {
+		return;
+	}
+
+	ob_start( function ( $html ) {
+		$html  = (string) $html;
+		$start = strpos( $html, '<section class="jt2-section legal-map-band"' );
+
+		if ( false === $start ) {
+			return $html;
+		}
+
+		$end = strpos( $html, '</section>', $start );
+
+		if ( false === $end ) {
+			return $html;
+		}
+
+		$end += strlen( '</section>' );
+		$band = substr( $html, $start, $end - $start );
+		$html = substr_replace( $html, '', $start, $end - $start );
+
+		foreach ( array( '<section class="jt2-section money-hubs', '<section class="find-guide' ) as $marker ) {
+			$pos = strpos( $html, $marker );
+
+			if ( false !== $pos ) {
+				return substr_replace( $html, $band, $pos, 0 );
+			}
+		}
+
+		// No anchor found: put the band back where it was, untouched page.
+		return substr_replace( $html, $band, $start, 0 );
+	} );
+}, -1000005 );
 
 add_action( 'wp_enqueue_scripts', function () {
 	if ( ! justice_cinema_wanted() || '' === justice_cinema_token() ) {

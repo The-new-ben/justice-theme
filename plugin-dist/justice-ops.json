@@ -10,6 +10,6 @@
   "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.21.3.zip",
   "last_updated": "2026-07-14",
   "sections": {
-    "changelog": "2.21.3: hero photo credit corrected to the displayed daylight image (Ted Eytan, CC BY-SA 2.0). 2.21.2: Daylight Tel Aviv aerial hero, no gradient; frosted light panel behind the hero text per NN/g text-over-image research; 151KB mobile image variant."
+    "changelog": "2.21.3: homepage LawyerScout map band moved to the fourth slot (right after the AI band) per owner order - map reachable on load; hero photo credit corrected to the displayed daylight image (Ted Eytan, CC BY-SA 2.0). 2.21.2: daylight Tel Aviv aerial hero, no gradient; frosted light panel behind the hero text per NN/g research."
   }
 }

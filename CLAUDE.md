@@ -42,6 +42,20 @@ must pass the google-god-mode mandatory pass first (IL SERP + US signals +
 competitor suck-down + dictated skeleton + entity map + anti-cannibalization
 boundaries) - owner order 2026-07-15, see .claude/skills/google-god-mode.
 
+## Design + skills laws (owner order 2026-07-16)
+
+- The central private skills repo is github.com/The-new-ben/agent-skills
+  (access per session via add_repo; stays private). After ANY change to
+  .claude/skills/* here, run its tools/sync-from-repo.sh
+  /home/user/justice-theme justice-theme and push - knowledge accumulates
+  there for every future chat/agent.
+- Design work runs under the owner's cross-project laws: god-mode
+  (benchmark/QA/evidence/wide-spectrum) and aesthetic-ownership from
+  nad-lan (ONE of everything, no stacked floating elements, judge every
+  screenshot, a beautiful lie is a defect). Floating/fixed UI changes must
+  pass .claude/skills/floating-elements-discipline; any text-over-photo
+  hero must pass .claude/skills/hero-text-readability.
+
 ## Other standing laws (see project-control/ for full records)
 
 - Never bypass the publication-safety gate or any safety mechanism.

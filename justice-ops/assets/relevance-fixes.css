@@ -59,32 +59,47 @@
   }
 }
 
-/* Homepage hero: mirrored Tel Aviv night skyline (owner order 2026-07-16:
- * impressive city, luxury depth). RTL-correct contrast this time: the
- * gradient runs to-left, so the DARK side sits at the inline-start (right)
- * where the Hebrew headline lives, and the towers glow on the far side.
- * Text is forced light with a soft shadow - dark-on-dark is banned. */
+/* Homepage hero: DAYLIGHT aerial of Tel Aviv (owner order 2026-07-16 #2:
+ * daytime, similar view, NO gradient). Readability per NN/g and Smashing
+ * Magazine research: the text block sits on a frosted light panel (the
+ * "solid rectangle behind text" technique NN/g calls dead simple and very
+ * reliable) - the photo stays bright and unfiltered, the words stay navy
+ * on near-white at AAA contrast on any screen. */
 .home .jt2-hero,
 body.home section.jt2-hero {
-  background:
-    linear-gradient(to left, rgba(6, 17, 38, 0.96) 30%, rgba(7, 21, 47, 0.78) 55%, rgba(9, 24, 50, 0.42) 100%),
-    url('https://jus-tice.co.il/wp-content/uploads/2026/07/hero-tlv-skyline.jpg') center 38% / cover no-repeat !important;
+  background: url('https://jus-tice.co.il/wp-content/uploads/2026/07/hero-tlv-day-optimized.jpg') center 34% / cover no-repeat !important;
 }
 
-.home .jt2-hero h1,
+.home .jt2-hero > div:first-child {
+  background: rgba(255, 255, 255, 0.88);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 22px;
+  padding: 30px 32px;
+  box-shadow: 0 18px 50px -22px rgba(10, 22, 48, 0.45);
+}
+
+.home .jt2-hero h1 {
+  color: #14213d !important;
+  text-shadow: none !important;
+}
+
 .home .jt2-hero .jt2-hero__lead,
-.home .jt2-hero p,
-.home .jt2-hero__badge {
-  color: #f5f8ff !important;
-  text-shadow: 0 1px 14px rgba(4, 10, 24, 0.55);
+.home .jt2-hero > div:first-child p {
+  color: #26324e !important;
+  text-shadow: none !important;
 }
 
 @media (max-width: 768px) {
   .home .jt2-hero,
   body.home section.jt2-hero {
-    background:
-      linear-gradient(180deg, rgba(6, 17, 38, 0.94), rgba(7, 21, 47, 0.86)),
-      url('https://jus-tice.co.il/wp-content/uploads/2026/07/hero-tlv-skyline.jpg') 30% top / cover no-repeat !important;
+    background: url('https://jus-tice.co.il/wp-content/uploads/2026/07/hero-tlv-day-mobile.jpg') center 30% / cover no-repeat !important;
+  }
+
+  .home .jt2-hero > div:first-child {
+    padding: 20px 18px;
+    border-radius: 18px;
   }
 }
 
@@ -93,7 +108,7 @@ body.home section.jt2-hero {
   bottom: 6px;
   inset-inline-start: 10px;
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(20, 33, 61, 0.55);
   z-index: 2;
 }
 

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.21.1
+ * Version: 2.21.3
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.21.1' );
+	define( 'JUSTICE_OPS_VERSION', '2.21.3' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -339,16 +339,17 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_style( 'justice-ops-relevance', plugins_url( 'assets/relevance-fixes.css', __FILE__ ), array(), JUSTICE_OPS_VERSION );
 }, 60 );
 
-// CC BY 2.0 attribution for the homepage hero photograph (E. Huybrechts,
-// Golden Lady Justice, Bruges, via Wikimedia Commons). License requires
+// CC BY-SA 2.0 attribution for the homepage hero photograph (Ted Eytan,
+// "Tel Aviv from the Air", via Wikimedia Commons). License requires
 // visible credit; rendered small inside the hero on the homepage only.
+// The credit MUST match the image relevance-fixes.css actually displays.
 add_action( 'wp_footer', function () {
 	if ( ! is_front_page() ) {
 		return;
 	}
 
 	echo '<style>.jt2-hero{position:relative}</style>';
-	echo '<script>(function(){var h=document.querySelector(".jt2-hero");if(!h)return;var c=document.createElement("span");c.className="jt2-hero__credit";c.textContent="צילום: E. Huybrechts · CC BY 2.0";h.appendChild(c);})();</script>';
+	echo '<script>(function(){var h=document.querySelector(".jt2-hero");if(!h)return;var c=document.createElement("span");c.className="jt2-hero__credit";c.textContent="צילום: Ted Eytan · CC BY-SA 2.0";h.appendChild(c);})();</script>';
 } );
 
 /**

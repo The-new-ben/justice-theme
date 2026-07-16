@@ -59,23 +59,32 @@
   }
 }
 
-/* Homepage hero: cinematic Lady Justice photograph behind the navy wash
- * (owner order 2026-07-16: depth and a world of legal, not only squares).
- * The gradient keeps headline contrast per hero best practice; mobile gets
- * a tighter crop and a heavier wash for readability. */
+/* Homepage hero: mirrored Tel Aviv night skyline (owner order 2026-07-16:
+ * impressive city, luxury depth). RTL-correct contrast this time: the
+ * gradient runs to-left, so the DARK side sits at the inline-start (right)
+ * where the Hebrew headline lives, and the towers glow on the far side.
+ * Text is forced light with a soft shadow - dark-on-dark is banned. */
 .home .jt2-hero,
 body.home section.jt2-hero {
   background:
-    linear-gradient(105deg, rgba(7, 21, 47, 0.93) 34%, rgba(7, 21, 47, 0.62) 68%, rgba(13, 32, 66, 0.45)),
-    url('https://jus-tice.co.il/wp-content/uploads/2026/07/hero-lady-justice.jpg') left 22% / cover no-repeat !important;
+    linear-gradient(to left, rgba(6, 17, 38, 0.96) 30%, rgba(7, 21, 47, 0.78) 55%, rgba(9, 24, 50, 0.42) 100%),
+    url('https://jus-tice.co.il/wp-content/uploads/2026/07/hero-tlv-skyline.jpg') center 38% / cover no-repeat !important;
+}
+
+.home .jt2-hero h1,
+.home .jt2-hero .jt2-hero__lead,
+.home .jt2-hero p,
+.home .jt2-hero__badge {
+  color: #f5f8ff !important;
+  text-shadow: 0 1px 14px rgba(4, 10, 24, 0.55);
 }
 
 @media (max-width: 768px) {
   .home .jt2-hero,
   body.home section.jt2-hero {
     background:
-      linear-gradient(180deg, rgba(7, 21, 47, 0.9), rgba(7, 21, 47, 0.78)),
-      url('https://jus-tice.co.il/wp-content/uploads/2026/07/hero-lady-justice.jpg') 28% top / cover no-repeat !important;
+      linear-gradient(180deg, rgba(6, 17, 38, 0.94), rgba(7, 21, 47, 0.86)),
+      url('https://jus-tice.co.il/wp-content/uploads/2026/07/hero-tlv-skyline.jpg') 30% top / cover no-repeat !important;
   }
 }
 
@@ -87,3 +96,77 @@ body.home section.jt2-hero {
   color: rgba(255, 255, 255, 0.4);
   z-index: 2;
 }
+
+
+/* ---------- Floating action stack (owner order + thumb-zone research) ----------
+ * RTL: inline-start = right (thumb side), inline-end = left.
+ * WhatsApp: compact pill, right corner, never a full-width bar.
+ * AI assistant: always-visible animated label pill, left corner.
+ * tawk chat bubble: lifted above the WhatsApp pill so nothing overlaps. */
+@media (max-width: 768px) {
+  .justice-wa-float {
+    inset-inline: auto 12px !important;
+    inset-inline-start: 12px !important;
+    inset-inline-end: auto !important;
+    bottom: 14px !important;
+    width: auto !important;
+    justify-content: flex-start !important;
+    border-radius: 999px !important;
+    padding: 12px 16px !important;
+    font-size: 14.5px !important;
+  }
+}
+
+.jt-ai-fab__label {
+  max-width: none !important;
+}
+
+.jt-ai-fab {
+  padding: 12px 18px !important;
+  animation: jtPulse 2.6s ease-out infinite;
+}
+
+@keyframes jtPulse {
+  0%   { box-shadow: 0 8px 26px rgba(10, 18, 38, 0.35), 0 0 0 0 rgba(231, 199, 101, 0.55); }
+  70%  { box-shadow: 0 8px 26px rgba(10, 18, 38, 0.35), 0 0 0 14px rgba(231, 199, 101, 0); }
+  100% { box-shadow: 0 8px 26px rgba(10, 18, 38, 0.35), 0 0 0 0 rgba(231, 199, 101, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jt-ai-fab { animation: none; }
+}
+
+/* one column on the thumb side (right in RTL): WhatsApp lowest, the AI
+ * pill above it, the tawk bubble above both - zero overlaps at any width */
+.justice-wa-float {
+  max-width: min(64vw, 320px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body iframe[title="chat widget"],
+body [id^="tawkchat"] {
+  bottom: 92px !important;
+}
+
+@media (max-width: 768px) {
+  .jt-ai-fab {
+    bottom: 72px !important;
+    inset-inline-end: auto !important;
+    inset-inline-start: 12px !important;
+    padding: 11px 14px !important;
+  }
+
+  .jt-ai-fab__label { font-size: 13.5px !important; }
+
+  body iframe[title="chat widget"],
+  body [id^="tawkchat"] {
+    bottom: 132px !important;
+  }
+}
+
+/* homepage map: prominent, roomy, filters visible */
+.home .jtcm-wrap { margin-top: 10px; }
+.home #jt-cinema-map { height: 520px; }
+@media (max-width: 640px) { .home #jt-cinema-map { height: 420px; } }

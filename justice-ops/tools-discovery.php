@@ -57,13 +57,16 @@ add_filter( 'wp_nav_menu_items', function ( $items, $args ) {
  * lifted above the WhatsApp bar on small screens.
  */
 add_action( 'wp_footer', function () {
-	if ( is_admin() || justice_tools_is_desk_request() || is_front_page() ) {
+	// 2026-07-16 (owner order): the assistant pill renders EVERYWHERE
+	// including the homepage, always labeled - an unlabeled bubble that
+	// appears only on articles was understood by no one.
+	if ( is_admin() || justice_tools_is_desk_request() ) {
 		return;
 	}
 	?>
 	<a class="jt-ai-fab" href="<?php echo esc_url( home_url( '/legal-ai-desk/' ) ); ?>" aria-label="עוזר משפטי AI: תיאור מצב או העלאת מסמך וקבלת כיוון מיידי">
 		<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3c4.97 0 9 3.34 9 7.46 0 4.13-4.03 7.46-9 7.46-.98 0-1.93-.13-2.81-.37L5 19.5l.7-3.02C4.03 15.13 3 12.9 3 10.46 3 6.34 7.03 3 12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 7.2l.82 2.06 2.06.82-2.06.82L12 13l-.82-2.1-2.06-.82 2.06-.82L12 7.2Z" fill="currentColor"/></svg>
-		<span class="jt-ai-fab__label">עוזר AI מיידי</span>
+		<span class="jt-ai-fab__label">צרו פתרון עם AI</span>
 	</a>
 	<?php
 }, 22 );

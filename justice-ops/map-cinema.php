@@ -103,6 +103,14 @@ add_filter( 'the_content', function ( $content ) {
 		. '<button type="button" id="jt-cinema-tour" class="jtcm-tour">סיור אווירי מעל המשרדים המובילים</button>'
 		. '</section>';
 
+	// Front page (owner order 2026-07-16): the map opens the content area so
+	// it is visible right after the top bands on load, desktop and mobile,
+	// instead of drowning at the bottom of the page. Everywhere else it
+	// stays after the article, where it supports rather than interrupts.
+	if ( is_front_page() ) {
+		return $block . $content;
+	}
+
 	return $content . $block;
 }, 32 );
 

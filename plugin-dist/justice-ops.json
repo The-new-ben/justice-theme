@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.22.2",
+  "version": "2.24.0",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.22.2.zip",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.24.0.zip",
   "last_updated": "2026-07-14",
   "sections": {
-    "changelog": "2.22.2: narrow phones - AI pill one slot above the strip line (9px kiss measured at 390px). 2.22.1: strip un-hidden on the mobile homepage (theme body.home.rtl display:none countered). 2.22.0: one WhatsApp control (the broad strip with logos + page-context message restored; ops duplicate pill retired); AI pill + tawk in one clean left column; homepage map to slot 2 right after the hero; AI-tools row on the desk. 2.21.3: map slot 4 + hero credit truth-gate. 2.21.2: daylight hero + frosted panel."
+    "changelog": "2.24.0: map cards v2 - professional SVG markers replace every emoji glyph; rich lawyer popup cards (portrait/honorific-based default avatars, areas, city, honest verification badge); data-driven practice-area chips; practice-areas band talks to the map (\"on the map\" pins filter + glide); ?map_area= deep links. 2.23.0: rich map v2 - ONE 3D map sitewide (theme static band replaced by the cinema map on the homepage, slot 2, LawyerScout name kept); layer filter chips, geolocate nearest, fullscreen control, live legend counts, national-zoom declutter. 2.22.2: narrow phones - AI pill one slot above the strip li"
   }
 }

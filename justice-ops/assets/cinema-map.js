@@ -77,12 +77,56 @@
 		return el;
 	}
 
+	// Professional inline SVG glyphs (owner order 2026-07-16: no emoji
+	// icons anywhere on the map - they read like a 1985 terminal, not a
+	// top-tier legal platform). Single-color, inherit currentColor.
+	var SVG = {
+		scales: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M8 21h8M12 5l-5.5 2M12 5l5.5 2"/><path d="M6.5 7l-2.8 6a3 3 0 005.6 0L6.5 7zM17.5 7l-2.8 6a3 3 0 005.6 0L17.5 7z"/></svg>',
+		building: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 21h18M4 21V10m16 11V10M2 10h20L12 3 2 10zM7 21v-7m5 7v-7m5 7v-7"/></svg>',
+		shield: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 7.8-8 9-4.6-1.2-8-4.5-8-9V6l8-3z"/></svg>',
+		clip: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 12l6-6a3 3 0 114 4l-8 8a5 5 0 11-7-7l8-8"/></svg>'
+	};
+
 	function placeGlyph(t) {
-		if (t === 'court' || t === 'rabbinical') { return '⚖'; }        // scales of justice
-		if (t === 'institution' || t === 'bar') { return '🏛'; }  // classical building
-		if (t === 'legal_aid') { return '🛟'; }                   // ring buoy
-		if (t === 'enforcement') { return '📎'; }                 // paperclip
+		if (t === 'court' || t === 'rabbinical') { return SVG.scales; }
+		if (t === 'institution' || t === 'bar') { return SVG.building; }
+		if (t === 'legal_aid') { return SVG.shield; }
+		if (t === 'enforcement') { return SVG.clip; }
 		return '';
+	}
+
+	// Default portrait avatars for lawyer cards without a photo: clean
+	// professional silhouettes, gender picked ONLY from the person's own
+	// honorific in their public name (עורכת דין = female form), firm
+	// avatar for offices. Never a guess beyond their own words.
+	function avatarSvg(name) {
+		var n = String(name || '');
+		var isFirm = n.indexOf('משרד') === 0 || n.indexOf('ושות') !== -1;
+		var isFemale = n.indexOf('עורכת') !== -1 || n.indexOf('טוענת') !== -1;
+		var head = '<svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true"><rect width="48" height="48" rx="12" fill="#eef2fa"/>';
+		if (isFirm) {
+			return head + '<path d="M10 36V20l14-8 14 8v16" fill="none" stroke="#33507e" stroke-width="2.4" stroke-linejoin="round"/><path d="M17 36v-9m7 9v-9m7 9v-9" stroke="#33507e" stroke-width="2.4" stroke-linecap="round"/><path d="M8 36h32" stroke="#33507e" stroke-width="2.4" stroke-linecap="round"/></svg>';
+		}
+		if (isFemale) {
+			return head + '<circle cx="24" cy="18" r="7" fill="#7d90b5"/><path d="M13 40c0-8 5-12 11-12s11 4 11 12" fill="#7d90b5"/><path d="M15 22c-1-7 3-12 9-12s10 5 9 12l-2 1c.5-6-2.5-10-7-10s-7.5 4-7 10l-2-1z" fill="#33507e"/></svg>';
+		}
+		return head + '<circle cx="24" cy="18" r="7" fill="#7d90b5"/><path d="M13 40c0-8 5-12 11-12s11 4 11 12" fill="#7d90b5"/></svg>';
+	}
+
+	// Layer key per feature: 'lawyer' | 'court' | 'institution'.
+	function layerKey(p) {
+		if (p.kind === 'lawyer') { return 'lawyer'; }
+		var t = p.place_type;
+		if (t === 'court' || t === 'rabbinical') { return 'court'; }
+		return 'institution';
+	}
+
+	function haversineKm(a, b) {
+		var R = 6371, dLat = (b[1] - a[1]) * Math.PI / 180, dLng = (b[0] - a[0]) * Math.PI / 180;
+		var s = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+			+ Math.cos(a[1] * Math.PI / 180) * Math.cos(b[1] * Math.PI / 180)
+			* Math.sin(dLng / 2) * Math.sin(dLng / 2);
+		return 2 * R * Math.asin(Math.sqrt(s));
 	}
 
 	function chipMarker(p) {
@@ -90,6 +134,7 @@
 		var glyph = (p.kind === 'place') ? placeGlyph(p.place_type) : '';
 		el.className = 'jtcm-chip' + (p.kind === 'place' ? ' jtcm-chip--place' : '') + (glyph ? ' jtcm-chip--glyph' : '');
 		el.innerHTML = (glyph ? '<b class="jtcm-chip__g" aria-hidden="true">' + glyph + '</b>' : '')
+			+ (p.kind === 'lawyer' && !p.logo && !p.photo ? '<b class="jtcm-chip__av" aria-hidden="true">' + avatarSvg(p.name) + '</b>' : '')
 			+ (p.logo ? '<img src="' + esc(p.logo) + '" alt="" loading="lazy">' : '')
 			+ '<span>' + esc(p.name) + '</span>';
 		return el;
@@ -101,18 +146,32 @@
 	}
 
 	function popupHtml(p) {
-		var h = '<div class="jtcm-pop"><strong>' + esc(p.name) + '</strong>';
-		if (p.premium) {
+		// The rich card (owner order 2026-07-16): portrait, name, areas,
+		// city, honest verification state, real actions. No emoji.
+		var h = '<div class="jtcm-pop">';
+
+		if (p.kind === 'lawyer') {
+			h += '<div class="jtcm-pop__card">'
+				+ '<span class="jtcm-pop__ava">' + (p.photo ? '<img src="' + esc(p.photo) + '" alt="">' : avatarSvg(p.name)) + '</span>'
+				+ '<span class="jtcm-pop__id"><strong>' + esc(p.name) + '</strong>';
+			var meta = [];
+			if (p.areas && p.areas.length) { meta.push(esc([].concat(p.areas).join(', '))); }
+			if (p.city) { meta.push(esc(p.city)); }
+			if (meta.length) { h += '<span class="jtcm-pop__meta">' + meta.join(' · ') + '</span>'; }
+			h += p.verified
+				? '<span class="jtcm-pop__badge jtcm-pop__badge--v">מאומת</span>'
+				: '<span class="jtcm-pop__badge">כרטיס ציבורי, טרם אומת</span>';
+			h += '</span></div>';
 			h += '<div class="jtcm-pop__acts">';
 			if (p.wa) { h += '<a class="jtcm-pop__wa" href="' + esc(p.wa) + '" target="_blank" rel="noopener nofollow">וואטסאפ</a>'; }
-			if (p.url) { h += '<a class="jtcm-pop__go" href="' + esc(p.url) + '">לפרופיל</a>'; }
+			if (p.url) { h += '<a class="jtcm-pop__go" href="' + esc(p.url) + '">לפרופיל המלא</a>'; }
 			h += '</div>';
-		} else if (p.url && p.kind === 'lawyer') {
-			h += '<div class="jtcm-pop__acts"><a class="jtcm-pop__go" href="' + esc(p.url) + '">לפרופיל</a></div>';
-		} else if (p.kind === 'place') {
+		} else {
+			h += '<strong>' + esc(p.name) + '</strong>';
 			if (p.type_label) { h += '<div class="jtcm-pop__meta">' + esc(p.type_label) + (p.address ? ' · ' + esc(p.address) : '') + '</div>'; }
 			h += '<div class="jtcm-pop__acts"><a class="jtcm-pop__go" href="' + esc(navUrl(p)) + '" target="_blank" rel="noopener nofollow">ניווט</a></div>';
 		}
+
 		return h + '</div>';
 	}
 
@@ -181,6 +240,7 @@
 				});
 
 				map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), 'top-left');
+				map.addControl(new mapboxgl.FullscreenControl(), 'top-left');
 
 				['pointerdown', 'wheel', 'touchstart'].forEach(function (evt) {
 					map.getCanvas().addEventListener(evt, function () {
@@ -188,6 +248,129 @@
 						if (orbitFrame) { cancelAnimationFrame(orbitFrame); }
 					}, { passive: true });
 				});
+
+				// Live filter state: every marker registers with its layer and
+				// practice areas, so the chips, the practice-area cards and the
+				// legend stay truthful to what is actually on screen.
+				var registry = [];
+				var activeLayer = 'all';
+				var activeArea = '';
+				var legendEl = document.getElementById('jt-cinema-legend');
+
+				function areaMatches(r) {
+					if (!activeArea) { return true; }
+					if (r.layer !== 'lawyer') { return false; }
+					var areas = [].concat((r.feature.properties || {}).areas || []).join(' ');
+					return areas.indexOf(activeArea) !== -1 || activeArea.indexOf(areas) !== -1 && areas !== '';
+				}
+
+				function applyFilters() {
+					var counts = { lawyer: 0, court: 0, institution: 0 };
+					registry.forEach(function (r) {
+						var show = (activeLayer === 'all' || r.layer === activeLayer) && (activeArea === '' || areaMatches(r));
+						r.el.style.display = show ? '' : 'none';
+						if (show) { counts[r.layer]++; }
+					});
+					if (legendEl) {
+						if (activeArea && !counts.lawyer) {
+							legendEl.textContent = 'אין עדיין משרדים מסומנים בתחום ' + activeArea + ' - המאגר גדל כל הזמן';
+						} else {
+							var parts = [];
+							if (counts.lawyer) { parts.push(counts.lawyer + ' משרדים'); }
+							if (counts.court) { parts.push(counts.court + ' בתי משפט'); }
+							if (counts.institution) { parts.push(counts.institution + ' מוסדות'); }
+							legendEl.textContent = parts.join(' · ');
+						}
+					}
+				}
+
+				function selectChip(btn) {
+					document.querySelectorAll('.jtcm-chipbtn').forEach(function (b) { b.classList.remove('is-on'); });
+					if (btn) { btn.classList.add('is-on'); }
+				}
+
+				document.querySelectorAll('.jtcm-chipbtn').forEach(function (btn) {
+					btn.addEventListener('click', function () {
+						selectChip(btn);
+						activeLayer = btn.getAttribute('data-layer') || 'all';
+						activeArea = btn.getAttribute('data-area') || '';
+						applyFilters();
+					});
+				});
+
+				// Practice-area chips, built from the DATA (only areas that a
+				// real registered office carries - never an empty menu of
+				// promises), appended after the layer chips.
+				function buildAreaChips() {
+					var host = document.querySelector('.jtcm-chips');
+					if (!host) { return; }
+					var seen = {};
+					features.forEach(function (f) {
+						var p = f.properties || {};
+						if (p.kind !== 'lawyer') { return; }
+						[].concat(p.areas || []).forEach(function (a) {
+							if (a && !seen[a]) { seen[a] = true; }
+						});
+					});
+					Object.keys(seen).forEach(function (a) {
+						var b = document.createElement('button');
+						b.type = 'button';
+						b.className = 'jtcm-chipbtn jtcm-chipbtn--area';
+						b.setAttribute('data-layer', 'lawyer');
+						b.setAttribute('data-area', a);
+						b.textContent = a;
+						b.addEventListener('click', function () {
+							selectChip(b);
+							activeLayer = 'lawyer';
+							activeArea = a;
+							applyFilters();
+						});
+						host.appendChild(b);
+					});
+				}
+
+				// The practice-areas band (homepage) talks to the map: a quiet
+				// "on the map" affordance appears on each practice card; a tap
+				// filters the map to that area and glides to it. The card's
+				// own link keeps working untouched - SEO paths stay real.
+				function wirePracticeBand() {
+					var band = document.getElementById('practice-areas');
+					var wrap = document.querySelector('.jtcm-wrap');
+					if (!band || !wrap) { return; }
+					band.querySelectorAll('a').forEach(function (card) {
+						var label = (card.textContent || '').trim();
+						if (!label || label.length > 60) { return; }
+						var short = label.split('\n')[0].replace(/^עורך דין |^עורכי דין /, '').trim();
+						if (!short) { return; }
+						var pin = document.createElement('button');
+						pin.type = 'button';
+						pin.className = 'jtcm-cardpin';
+						pin.setAttribute('aria-label', 'הצגת ' + short + ' על המפה');
+						pin.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 21s-7-5.3-7-11a7 7 0 0114 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> על המפה';
+						pin.addEventListener('click', function (ev) {
+							ev.preventDefault();
+							ev.stopPropagation();
+							activeLayer = 'lawyer';
+							activeArea = short;
+							selectChip(document.querySelector('.jtcm-chipbtn[data-area="' + short.replace(/"/g, '\\"') + '"]'));
+							applyFilters();
+							wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+						});
+						if (card.parentElement) { card.parentElement.appendChild(pin); }
+					});
+				}
+
+				// Deep link: /?map_area=דיני משפחה pre-filters the map.
+				function applyUrlArea() {
+					try {
+						var q = new URLSearchParams(window.location.search).get('map_area');
+						if (q) {
+							activeLayer = 'lawyer';
+							activeArea = q;
+							applyFilters();
+						}
+					} catch (e) {}
+				}
 
 				map.on('load', function () {
 					try { map.setConfigProperty('basemap', 'lightPreset', 'day'); } catch (e) {}
@@ -200,6 +383,22 @@
 							.setPopup(new mapboxgl.Popup({ offset: 18, maxWidth: '280px' }).setHTML(popupHtml(p)))
 							.addTo(map);
 						if (p.premium) { el.style.zIndex = 5; }
+						registry.push({ el: el, layer: layerKey(p), marker: marker, premium: !!p.premium, feature: f });
+					});
+
+					buildAreaChips();
+					wirePracticeBand();
+					applyUrlArea();
+					applyFilters();
+
+					// Declutter on national zoom: far out, non-premium chips fade
+					// so the eye reads the country, not 40 fighting labels
+					// (map-UX research: fade less critical data by zoom).
+					map.on('zoom', function () {
+						var far = map.getZoom() < 8.2;
+						registry.forEach(function (r) {
+							if (!r.premium) { r.el.style.opacity = far ? '0.35' : '1'; }
+						});
 					});
 
 					var target = premium[0] || features[0];
@@ -250,6 +449,41 @@
 					tourBtn.addEventListener('click', function () {
 						userTookOver = false;
 						flyTour(map, premium.length ? premium : features, 0);
+					});
+				}
+
+				// "מצאו את הקרובים אליי": real browser geolocation; flies to
+				// the visitor, opens the nearest visible office/court popup.
+				// Honest failure: no location permission = quiet flight to the
+				// national overview, never an invented position.
+				var nearBtn = document.getElementById('jt-cinema-near');
+
+				if (nearBtn) {
+					nearBtn.addEventListener('click', function () {
+						if (!navigator.geolocation) { return; }
+						nearBtn.disabled = true;
+						nearBtn.textContent = 'מאתר...';
+						navigator.geolocation.getCurrentPosition(function (pos) {
+							userTookOver = true;
+							if (orbitFrame) { cancelAnimationFrame(orbitFrame); }
+							var here = [pos.coords.longitude, pos.coords.latitude];
+							map.flyTo({ center: here, zoom: 12.2, pitch: 45, speed: 1.1, essential: true });
+							var best = null, bestKm = Infinity;
+							registry.forEach(function (r) {
+								if (r.el.style.display === 'none') { return; }
+								var km = haversineKm(here, r.feature.geometry.coordinates);
+								if (km < bestKm) { bestKm = km; best = r; }
+							});
+							if (best) {
+								map.once('moveend', function () { best.marker.togglePopup(); });
+							}
+							nearBtn.disabled = false;
+							nearBtn.textContent = 'מצאו את הקרובים אליי';
+						}, function () {
+							nearBtn.disabled = false;
+							nearBtn.textContent = 'מצאו את הקרובים אליי';
+							map.flyTo({ center: [34.86, 31.95], zoom: 7.2, essential: true });
+						}, { timeout: 8000, maximumAge: 120000 });
 					});
 				}
 			});

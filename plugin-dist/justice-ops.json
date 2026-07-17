@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.25.0",
+  "version": "2.26.0",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.25.0.zip",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.26.0.zip",
   "last_updated": "2026-07-14",
   "sections": {
-    "changelog": "2.25.0: live map bug fix - the gold-flag/portrait marker read properties (premium/photo) the REST feed never emits; now reads the real paid/logo fields. Added missing tax-business family to justice_city_family_labels() (professional-cards.php already had it; city landing pages were silently unreachable for tax/corporate lawyers). Prerequisite fixes for the law-firm index expansion. 2.24.0: map cards v2 - professional SVG markers replace every emoji glyph; rich lawyer popup cards (portrait/honorific-based default avatars, areas, city, honest verification badge); data-driven practice-area chips; practice-areas band talks to the map (\"on the map\" pins filter + glide); ?map_area= "
+    "changelog": "2.26.0: lawyer-index-import.php wired in (was dead code) - v2 importer for the 13-column full-index schema (POST justice-ops/v1/lawyer-index-import-v2, dry_run contract, publish/draft threshold, priority_score always 0, rank data internal-only). Phase 1 of the law-firm index expansion. 2.25.0: live map bug fix - the gold-flag/portrait marker read properties (premium/photo) the REST feed never emits; now reads the real paid/logo fields. Added missing tax-business family to justice_city_family_labels() (professional-cards.php already had it; city landing pages were silently unreacha"
   }
 }

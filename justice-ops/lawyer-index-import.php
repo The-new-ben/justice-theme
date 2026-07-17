@@ -151,6 +151,14 @@ add_action( 'rest_api_init', function () {
 		},
 		'callback'            => 'justice_lii_import',
 	) );
+
+	register_rest_route( 'justice-ops/v1', '/lawyer-index-import-v2', array(
+		'methods'             => 'POST',
+		'permission_callback' => function () {
+			return current_user_can( 'manage_options' );
+		},
+		'callback'            => 'justice_lii_import_v2',
+	) );
 } );
 
 /**
@@ -344,6 +352,281 @@ function justice_lii_import( WP_REST_Request $request ) {
 	return new WP_REST_Response( array(
 		'dry_run' => $dry_run,
 		'created' => $created,
+		'updated' => $updated,
+		'skipped' => $skipped,
+		'rows'    => $report,
+	), 200 );
+}
+
+/**
+ * v2 importer: the 13-column full-index schema (owner order 2026-07-17,
+ * law-firm index expansion, Phase 1). Unlike v1 (guide-row-per-category,
+ * one row per firm x category x guide), this schema is one row per FIRM
+ * with a rank_entries[] array already rejoined offline against
+ * rankings-latest.csv (see project-control/lawyer-index/ - that file
+ * never touches this server; the rejoin happens locally and rank_entries
+ * arrives pre-stripped to internal-only fields). Reuses every helper from
+ * the v1 importer above (city canon, area alias map, name-key dedupe) -
+ * only the row shape and publish policy differ.
+ *
+ * Row fields: full_name* (verbatim join key, never mutated), entity_type
+ * (defaults 'firm'), office_address, city, phone, website, email,
+ * practice_areas (array OR '|'-delimited string - NOT ';', the guide
+ * export's real delimiter), firm_size_lawyers, founded_year, branches,
+ * short_description, address_source_url, notes,
+ * rank_entries[] ({guide, tier, label, area, year}).
+ *
+ * @param WP_REST_Request $request Request.
+ * @return WP_REST_Response
+ */
+function justice_lii_import_v2( WP_REST_Request $request ) {
+	$body    = $request->get_json_params();
+	$rows    = is_array( $body['rows'] ?? null ) ? $body['rows'] : array();
+	$dry_run = ! empty( $body['dry_run'] );
+
+	if ( ! $rows ) {
+		return new WP_REST_Response( array( 'error' => 'no_rows' ), 400 );
+	}
+
+	if ( count( $rows ) > 200 ) {
+		return new WP_REST_Response( array( 'error' => 'max_200_rows_per_call' ), 400 );
+	}
+
+	$term_objs = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => false ) );
+	$terms     = array();
+
+	if ( is_array( $term_objs ) ) {
+		foreach ( $term_objs as $t ) {
+			$terms[] = $t->name;
+		}
+	}
+
+	$existing = justice_lii_existing_index();
+	$report   = array();
+	$created  = 0;
+	$updated  = 0;
+	$skipped  = 0;
+	$drafted  = 0;
+
+	foreach ( $rows as $i => $row ) {
+		$r = array(
+			'row'    => $i,
+			'name'   => trim( (string) ( $row['full_name'] ?? '' ) ),
+			'action' => '',
+			'flags'  => array(),
+		);
+
+		$name = $r['name'];
+
+		if ( '' === $name ) {
+			$r['flags'][] = 'missing_name';
+			$r['action']  = 'skip';
+			$skipped++;
+			$report[] = $r;
+			continue;
+		}
+
+		if ( false !== stripos( implode( ' ', array_map( 'strval', array_filter( $row, 'is_scalar' ) ) ), 'TODO-VERIFY' ) ) {
+			$r['flags'][] = 'has_todo_verify';
+			$r['action']  = 'skip';
+			$skipped++;
+			$report[] = $r;
+			continue;
+		}
+
+		$city    = justice_lii_canon_city( (string) ( $row['city'] ?? '' ) );
+		$address = trim( preg_replace( '/\s+/u', ' ', (string) ( $row['office_address'] ?? '' ) ) );
+		$phone   = sanitize_text_field( (string) ( $row['phone'] ?? '' ) );
+		$website = esc_url_raw( (string) ( $row['website'] ?? '' ) );
+		$email   = sanitize_email( (string) ( $row['email'] ?? '' ) );
+		$size    = (int) ( $row['firm_size_lawyers'] ?? 0 );
+		$founded = (int) ( $row['founded_year'] ?? 0 );
+		$branches = trim( (string) ( $row['branches'] ?? '' ) );
+		$desc    = trim( wp_strip_all_tags( (string) ( $row['short_description'] ?? '' ) ) );
+		$addr_src = esc_url_raw( (string) ( $row['address_source_url'] ?? '' ) );
+		$notes   = sanitize_text_field( (string) ( $row['notes'] ?? '' ) );
+
+		$areas_in = $row['practice_areas'] ?? array();
+
+		if ( is_string( $areas_in ) ) {
+			$areas_in = array_filter( array_map( 'trim', explode( '|', $areas_in ) ) );
+		} else {
+			$areas_in = array_filter( array_map( 'trim', array_map( 'strval', (array) $areas_in ) ) );
+		}
+
+		$mapped = array();
+		foreach ( $areas_in as $label ) {
+			$m = justice_lii_map_area( (string) $label, $terms );
+			if ( '' !== $m ) {
+				$mapped[ $m ] = true;
+			} else {
+				$r['flags'][] = 'area_unmapped:' . $label;
+			}
+		}
+		$mapped = array_keys( $mapped );
+
+		// Publish/draft threshold: a name alone (the 141 pure "not found"
+		// placeholder rows) is not a public record. Any one real field
+		// beyond the name earns a real, publishable directory card. Checked
+		// against the RAW practice_areas presence (areas_in), not just
+		// successfully-mapped taxonomy terms - an unmapped-but-present
+		// practice area still proves real research happened on this row.
+		$has_real_field = '' !== $address || '' !== $phone || '' !== $website
+			|| '' !== $email || ! empty( $areas_in ) || '' !== $desc;
+
+		$key         = justice_lii_name_key( $name );
+		$existing_id = $existing[ $key ] ?? 0;
+		$r['action'] = $existing_id ? 'update' : ( $has_real_field ? 'create_publish' : 'create_draft' );
+		$r['city']   = $city;
+		$r['areas']  = $mapped;
+
+		if ( $dry_run ) {
+			$r['matched_id'] = $existing_id;
+			$report[]        = $r;
+			if ( $existing_id ) {
+				$updated++;
+			} elseif ( $has_real_field ) {
+				$created++;
+			} else {
+				$drafted++;
+			}
+			continue;
+		}
+
+		$rank_entries = is_array( $row['rank_entries'] ?? null ) ? $row['rank_entries'] : array();
+
+		if ( $existing_id ) {
+			$post_id = $existing_id;
+
+			// Enrichment only: never overwrite a field that already has a
+			// value - a claimed or richer profile's own data always wins.
+			$fill = array(
+				'office_address'     => $address,
+				'phone'              => $phone,
+				'website'            => $website,
+				'email'              => $email,
+				'firm_size_lawyers'  => $size ?: '',
+				'founded_year'       => $founded ?: '',
+				'branches'           => $branches,
+				'address_source_url' => $addr_src,
+			);
+
+			foreach ( $fill as $meta_key => $value ) {
+				if ( '' === (string) $value ) {
+					continue;
+				}
+				if ( '' === (string) get_post_meta( $post_id, $meta_key, true ) ) {
+					update_post_meta( $post_id, $meta_key, $value );
+					if ( 'office_address' === $meta_key ) {
+						delete_post_meta( $post_id, 'office_lat' );
+						delete_post_meta( $post_id, 'office_lng' );
+					}
+				}
+			}
+
+			if ( '' === (string) get_post_meta( $post_id, 'bio_short', true ) && '' !== $desc ) {
+				update_post_meta( $post_id, 'bio_short', $desc );
+			}
+
+			$updated++;
+		} else {
+			$area_line = $mapped ? implode( ', ', array_slice( $mapped, 0, 2 ) ) : 'משפט';
+			$bio       = '' !== $desc
+				? $desc
+				: 'כרטיס מקצועי בסיסי ציבורי לא מאומת בתחום ' . $area_line
+					. '. המידע הוכן ממקור פומבי לצורך תביעת הכרטיס והמשך אימות מול בעל המקצוע.';
+
+			$post_id = wp_insert_post( array(
+				'post_type'    => 'justice_lawyer',
+				'post_status'  => $has_real_field ? 'publish' : 'draft',
+				'post_title'   => $name,
+				'post_content' => $bio,
+			), true );
+
+			if ( is_wp_error( $post_id ) ) {
+				$r['action']  = 'error';
+				$r['flags'][] = $post_id->get_error_message();
+				$skipped++;
+				$report[] = $r;
+				continue;
+			}
+
+			update_post_meta( $post_id, 'lawyer_full_name', $name );
+			update_post_meta( $post_id, 'firm_name', $name );
+			update_post_meta( $post_id, 'bio_short', $bio );
+			update_post_meta( $post_id, 'office_address', $address );
+			update_post_meta( $post_id, 'phone', $phone );
+			update_post_meta( $post_id, 'website', $website );
+			update_post_meta( $post_id, 'email', $email );
+			update_post_meta( $post_id, 'entity_type', 'firm' );
+			update_post_meta( $post_id, 'firm_size_lawyers', $size );
+			update_post_meta( $post_id, 'founded_year', $founded );
+			update_post_meta( $post_id, 'branches', $branches );
+			update_post_meta( $post_id, 'address_source_url', $addr_src );
+			update_post_meta( $post_id, 'source_notes', $notes );
+			update_post_meta( $post_id, 'license_status', 'unknown' );
+			update_post_meta( $post_id, 'plan_type', 'free' );
+			update_post_meta( $post_id, 'profile_status', $has_real_field ? 'public' : 'pending' );
+			update_post_meta( $post_id, 'subscription_status', 'inactive' );
+			update_post_meta( $post_id, 'verification_status', 'unverified' );
+			update_post_meta( $post_id, 'source_type', 'public_ranking_index' );
+			// source_url mirrors address_source_url (the existing admin
+			// meta box and approval-gate scaffolding read this exact key)
+			// but the two can legitimately differ - a firm's general
+			// "how we found this record" source vs. the citation for its
+			// specific address - so both are kept.
+			update_post_meta( $post_id, 'source_url', $addr_src );
+			update_post_meta( $post_id, 'internal_notes', 'PUBLIC_BASIC_CARD | source=law_firm_full_index_2026_07 | rank internal only, never public | do_not_copy_reviews_or_photos | claim_and_verify_flow' );
+			// Hard rule (owner order): internal ranking data must never
+			// produce ANY nonzero public ordering advantage, even
+			// invisibly. Only a paid-plan activation may move this.
+			update_post_meta( $post_id, 'priority_score', 0 );
+
+			$existing[ $key ] = (int) $post_id;
+			$has_real_field ? $created++ : $drafted++;
+		}
+
+		if ( $mapped ) {
+			wp_set_object_terms( $post_id, $mapped, 'practice-areas', true );
+		}
+		if ( '' !== $city ) {
+			wp_set_object_terms( $post_id, array( $city ), 'city', true );
+		}
+
+		foreach ( $rank_entries as $entry ) {
+			if ( ! is_array( $entry ) || empty( $entry['guide'] ) ) {
+				continue;
+			}
+
+			$clean = array(
+				'guide' => sanitize_text_field( (string) $entry['guide'] ),
+				'tier'  => (int) ( $entry['tier'] ?? 0 ),
+				'label' => sanitize_text_field( (string) ( $entry['label'] ?? '' ) ),
+				'area'  => sanitize_text_field( (string) ( $entry['area'] ?? '' ) ),
+				'year'  => (int) ( $entry['year'] ?? 0 ),
+			);
+
+			$already = array_filter( (array) get_post_meta( $post_id, 'jt_rank_entry' ), function ( $e ) use ( $clean ) {
+				return is_array( $e ) && ( $e['guide'] ?? '' ) === $clean['guide'] && ( $e['area'] ?? '' ) === $clean['area'] && (int) ( $e['year'] ?? 0 ) === $clean['year'];
+			} );
+
+			if ( ! $already ) {
+				add_post_meta( $post_id, 'jt_rank_entry', $clean );
+			}
+		}
+
+		$r['post_id'] = (int) $post_id;
+		$report[]     = $r;
+	}
+
+	if ( ! $dry_run ) {
+		delete_transient( 'justice_map_geojson_v1' );
+	}
+
+	return new WP_REST_Response( array(
+		'dry_run' => $dry_run,
+		'created' => $created,
+		'drafted' => $drafted,
 		'updated' => $updated,
 		'skipped' => $skipped,
 		'rows'    => $report,

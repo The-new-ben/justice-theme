@@ -25,36 +25,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Check if a lawyer profile is publicly visible.
- * Reads admin_profile_visibility meta (overrides profile_status if set).
+ *
+ * NEUTRALIZED (2026-07-17 codebase audit): this function had zero callers
+ * anywhere in the codebase, but its friendly name and its own doc-blocked
+ * "Usage" example (which claims a profile_status value set the real gate
+ * never checks) made it one grep-and-guess away from a future developer
+ * wiring it in instead of the real, live-wired gate. It now delegates
+ * unconditionally so the name stays callable with zero behavioral drift
+ * risk. The real gate - and the only one any new code should call - is
+ * justice_theme_lawyer_profile_is_public_approved() in inc/template-tags.php
+ * (14 call sites: REST, the map feed, professional-cards.php, the
+ * lawyer-index importer, and now this delegate).
  *
  * @param int $post_id Lawyer post ID.
  * @return bool True = show publicly, false = admin only.
  */
 function justice_theme_lawyer_is_visible( int $post_id ): bool {
-	// Admin and editors always see everything
 	if ( current_user_can( 'edit_posts' ) ) {
 		return true;
 	}
 
-	$post_id = $post_id ?: (int) get_the_ID();
-	if ( ! $post_id || 'justice_lawyer' !== get_post_type( $post_id ) ) {
-		return false;
-	}
-
-	// Check the quick admin toggle first
-	$admin_toggle = get_post_meta( $post_id, 'admin_profile_visibility', true );
-	if ( 'hide' === $admin_toggle || 'hidden' === $admin_toggle ) {
-		return false;
-	}
-	if ( 'show' === $admin_toggle || 'visible' === $admin_toggle ) {
-		// Explicit show — bypass other checks
-		return 'publish' === get_post_status( $post_id );
-	}
-
-	// Fall through to existing approval gate
 	return function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
 		? justice_theme_lawyer_profile_is_public_approved( $post_id )
-		: ( 'publish' === get_post_status( $post_id ) );
+		: false;
 }
 
 /**

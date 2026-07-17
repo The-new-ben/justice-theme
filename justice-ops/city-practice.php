@@ -25,6 +25,14 @@ function justice_city_family_labels(): array {
 		'nezikin'      => array( 'he' => 'נזיקין ותאונות', 'slug' => 'injury-lawyer', 'hub' => '/personal-injury/' ),
 		'traffic'      => array( 'he' => 'תעבורה', 'slug' => 'traffic-lawyer', 'hub' => '/traffic-law/' ),
 		'inheritance'  => array( 'he' => 'ירושה וצוואות', 'slug' => 'inheritance-lawyer-city', 'hub' => '/inheritance-lawyer/' ),
+		// Added 2026-07-17: justice_cards_family_map() has carried this
+		// family since it was written (sponsored cards eligible), but it
+		// was missing here - tax/corporate lawyers could get a sponsored
+		// card but never a city landing page. No dedicated pillar page
+		// exists yet for this vertical (verified: /tax-lawyer/,
+		// /corporate-lawyer/ etc. all 404), so the hub points at the real,
+		// live taxonomy archive instead of an invented URL.
+		'tax-business' => array( 'he' => 'מיסוי ודיני חברות', 'slug' => 'tax-business-lawyer', 'hub' => '/practice-areas/tax-law/' ),
 	);
 }
 

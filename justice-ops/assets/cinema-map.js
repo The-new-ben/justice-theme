@@ -71,7 +71,7 @@
 		var el = document.createElement('div');
 		el.className = 'jtcm-flag';
 		el.innerHTML = '<span class="jtcm-flag__pin"></span>'
-			+ (p.photo ? '<img class="jtcm-flag__photo" src="' + esc(p.photo) + '" alt="" loading="lazy">' : '')
+			+ (p.logo ? '<img class="jtcm-flag__photo" src="' + esc(p.logo) + '" alt="" loading="lazy">' : '')
 			+ '<span class="jtcm-flag__name">' + esc(p.name) + '</span>'
 			+ '<span class="jtcm-flag__tag">מקודם</span>';
 		return el;
@@ -134,7 +134,7 @@
 		var glyph = (p.kind === 'place') ? placeGlyph(p.place_type) : '';
 		el.className = 'jtcm-chip' + (p.kind === 'place' ? ' jtcm-chip--place' : '') + (glyph ? ' jtcm-chip--glyph' : '');
 		el.innerHTML = (glyph ? '<b class="jtcm-chip__g" aria-hidden="true">' + glyph + '</b>' : '')
-			+ (p.kind === 'lawyer' && !p.logo && !p.photo ? '<b class="jtcm-chip__av" aria-hidden="true">' + avatarSvg(p.name) + '</b>' : '')
+			+ (p.kind === 'lawyer' && !p.logo ? '<b class="jtcm-chip__av" aria-hidden="true">' + avatarSvg(p.name) + '</b>' : '')
 			+ (p.logo ? '<img src="' + esc(p.logo) + '" alt="" loading="lazy">' : '')
 			+ '<span>' + esc(p.name) + '</span>';
 		return el;
@@ -152,7 +152,7 @@
 
 		if (p.kind === 'lawyer') {
 			h += '<div class="jtcm-pop__card">'
-				+ '<span class="jtcm-pop__ava">' + (p.photo ? '<img src="' + esc(p.photo) + '" alt="">' : avatarSvg(p.name)) + '</span>'
+				+ '<span class="jtcm-pop__ava">' + (p.logo ? '<img src="' + esc(p.logo) + '" alt="">' : avatarSvg(p.name)) + '</span>'
 				+ '<span class="jtcm-pop__id"><strong>' + esc(p.name) + '</strong>';
 			var meta = [];
 			if (p.areas && p.areas.length) { meta.push(esc([].concat(p.areas).join(', '))); }
@@ -225,7 +225,7 @@
 				var features = (geo.features || []).filter(function (f) {
 					return f && f.geometry && Array.isArray(f.geometry.coordinates);
 				});
-				var premium = features.filter(function (f) { return f.properties && f.properties.premium; });
+				var premium = features.filter(function (f) { return f.properties && f.properties.paid; });
 
 				var map = new mapboxgl.Map({
 					container: 'jt-cinema-map',
@@ -377,13 +377,13 @@
 
 					features.forEach(function (f) {
 						var p = f.properties || {};
-						var el = p.premium ? flagMarker(p) : chipMarker(p);
-						var marker = new mapboxgl.Marker({ element: el, anchor: p.premium ? 'bottom' : 'center' })
+						var el = p.paid ? flagMarker(p) : chipMarker(p);
+						var marker = new mapboxgl.Marker({ element: el, anchor: p.paid ? 'bottom' : 'center' })
 							.setLngLat(f.geometry.coordinates)
 							.setPopup(new mapboxgl.Popup({ offset: 18, maxWidth: '280px' }).setHTML(popupHtml(p)))
 							.addTo(map);
-						if (p.premium) { el.style.zIndex = 5; }
-						registry.push({ el: el, layer: layerKey(p), marker: marker, premium: !!p.premium, feature: f });
+						if (p.paid) { el.style.zIndex = 5; }
+						registry.push({ el: el, layer: layerKey(p), marker: marker, premium: !!p.paid, feature: f });
 					});
 
 					buildAreaChips();

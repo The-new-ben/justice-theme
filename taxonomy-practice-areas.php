@@ -30,12 +30,18 @@ $practice_area_seo_overrides = array(
 
 $practice_area_seo = $practice_area_seo_overrides[ $term_slug ] ?? array();
 
+// Secondary WP_Query, so the site's pre_get_posts visibility filter
+// (justice_lawyer_filter_hidden_from_archive, main-query only) never runs
+// here - this widget was silently showing every publish-status lawyer
+// regardless of approval state. Over-fetch, filter through the real public-
+// approval gate, then slice to 3, matching the pattern already correct in
+// archive-justice_lawyer.php and professional-cards.php::justice_cards_lawyers().
 $lawyers = null;
 if ( post_type_exists( 'justice_lawyer' ) && $term_slug ) {
-	$lawyers = new WP_Query( array(
+	$lawyer_candidates = new WP_Query( array(
 		'post_type'      => 'justice_lawyer',
 		'post_status'    => 'publish',
-		'posts_per_page' => 3,
+		'posts_per_page' => 9,
 		'orderby'        => 'meta_value_num',
 		'meta_key'       => 'priority_score',
 		'order'          => 'DESC',
@@ -47,6 +53,26 @@ if ( post_type_exists( 'justice_lawyer' ) && $term_slug ) {
 			),
 		),
 	) );
+
+	$approved_posts = array();
+
+	if ( function_exists( 'justice_theme_lawyer_profile_is_public_approved' ) ) {
+		foreach ( $lawyer_candidates->posts as $candidate ) {
+			if ( justice_theme_lawyer_profile_is_public_approved( $candidate->ID ) ) {
+				$approved_posts[] = $candidate;
+
+				if ( count( $approved_posts ) >= 3 ) {
+					break;
+				}
+			}
+		}
+	} else {
+		$approved_posts = array_slice( $lawyer_candidates->posts, 0, 3 );
+	}
+
+	$lawyers = $lawyer_candidates;
+	$lawyers->posts = $approved_posts;
+	$lawyers->post_count = count( $approved_posts );
 }
 
 $tools = null;

@@ -3,7 +3,7 @@
  * Plugin Name: Ultra Justice Engine
  * Plugin URI: https://jus-tice.co.il
  * Description: Core engine for the Jus-Tice legal portal — lawyer directory, lead CRM, articles CPT, practice areas & city taxonomies, REST inspection tools, and premium seeder.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Jus-Tice
  * Author URI: https://jus-tice.co.il
  * Text Domain: ultra-justice-engine
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // ─── Constants ──────────────────────────────────────────────────────────────
-define( 'UJE_VERSION', '1.0.0' );
+define( 'UJE_VERSION', '1.0.1' );
 define( 'UJE_DIR',     plugin_dir_path( __FILE__ ) );
 define( 'UJE_URL',     plugin_dir_url( __FILE__ ) );
 

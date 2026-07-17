@@ -115,6 +115,13 @@ function uje_register_lawyer_meta() {
 		'claimed_by_user_id'     => 'integer',
 		'profile_status'         => 'string',
 		'internal_notes'         => 'string',
+
+		// Index import (2026-07, law-firm ranking-guide expansion)
+		'firm_size_lawyers'      => 'integer',
+		'founded_year'           => 'integer',
+		'branches'               => 'string',
+		'address_source_url'     => 'string',
+		'source_notes'           => 'string',
 	);
 
 	foreach ( $fields as $key => $type ) {

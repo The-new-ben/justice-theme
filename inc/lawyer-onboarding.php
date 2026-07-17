@@ -5504,3 +5504,75 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 	</div>
 	<?php
 }
+
+/**
+ * Listing opt-out: the no-login "not accurate / take it down" path (owner
+ * order 2026-07-17, law-firm index expansion, Phase 3). Every existing
+ * request type in this file assumes an already-registered, logged-in
+ * owner via claimed_by_user_id; this is deliberately the opposite - an
+ * anonymous visitor flagging a listing they don't own or want removed.
+ * Same anti-spam doctrine as justice_adv_handle_apply() in
+ * justice-ops/advertise.php (honeypot + timing floor). Writes staging
+ * meta and emails the owner - it NEVER unpublishes or edits the listing
+ * automatically, exactly the same "human looks before anything public
+ * changes" rule as every other request desk in this file. An
+ * unauthenticated removal request that executed itself would be a
+ * trivial way to knock a rival's card offline.
+ */
+function justice_theme_handle_lawyer_listing_optout(): void {
+	$back = wp_get_referer() ?: home_url( '/lawyers/' );
+
+	if ( empty( $_POST['justice_lawyer_optout_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['justice_lawyer_optout_nonce'] ) ), 'justice_lawyer_listing_optout' ) ) {
+		wp_safe_redirect( add_query_arg( 'optout', 'error', $back ) );
+		exit;
+	}
+
+	$honeypot = isset( $_POST['justice_lawyer_optout_company'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['justice_lawyer_optout_company'] ) ) ) : '';
+	$started  = isset( $_POST['justice_lawyer_optout_started_at'] ) ? absint( $_POST['justice_lawyer_optout_started_at'] ) : 0;
+
+	if ( '' !== $honeypot || ( $started && time() - $started >= 0 && time() - $started < 3 ) ) {
+		wp_safe_redirect( add_query_arg( 'optout', 'blocked', $back ) );
+		exit;
+	}
+
+	$lawyer_id = isset( $_POST['lawyer_id'] ) ? absint( $_POST['lawyer_id'] ) : 0;
+
+	if ( ! $lawyer_id || 'justice_lawyer' !== get_post_type( $lawyer_id ) ) {
+		wp_safe_redirect( add_query_arg( 'optout', 'error', $back ) );
+		exit;
+	}
+
+	$reason_options = array( 'not_me', 'wrong_info', 'remove' );
+	$reason         = isset( $_POST['reason'] ) ? sanitize_key( wp_unslash( $_POST['reason'] ) ) : 'remove';
+	$reason         = in_array( $reason, $reason_options, true ) ? $reason : 'remove';
+	$contact        = isset( $_POST['contact'] ) ? sanitize_text_field( wp_unslash( $_POST['contact'] ) ) : '';
+	$stamp          = wp_date( 'Y-m-d H:i' );
+
+	update_post_meta( $lawyer_id, 'pending_listing_optout_reason', $reason );
+	update_post_meta( $lawyer_id, 'pending_listing_optout_contact', $contact );
+	update_post_meta( $lawyer_id, 'pending_listing_optout_requested_at', $stamp );
+
+	$reason_labels = array(
+		'not_me'     => 'זה לא אני / לא המשרד שלי',
+		'wrong_info' => 'המידע שגוי',
+		'remove'     => 'בקשה להסרת הכרטיס',
+	);
+
+	wp_mail(
+		get_option( 'admin_email' ),
+		'[Jus-Tice] בקשת הסרה/תיקון כרטיס: ' . wp_strip_all_tags( get_the_title( $lawyer_id ) ),
+		"בקשה חדשה מכרטיס עורך דין (לא מחובר, ללא אימות זהות):\n\n"
+		. 'כרטיס: ' . wp_strip_all_tags( get_the_title( $lawyer_id ) ) . "\n"
+		. 'קישור: ' . get_permalink( $lawyer_id ) . "\n"
+		. 'סיבה: ' . ( $reason_labels[ $reason ] ?? $reason ) . "\n"
+		. 'דרך יצירת קשר: ' . ( $contact ?: '(לא סופקה)' ) . "\n"
+		. 'זמן: ' . $stamp . "\n\n"
+		. "הבקשה לא בוצעה אוטומטית - יש לבדוק ולפעול ידנית.\n"
+		. 'עריכה: ' . admin_url( 'post.php?post=' . $lawyer_id . '&action=edit' ) . "\n"
+	);
+
+	wp_safe_redirect( add_query_arg( 'optout', 'sent', $back ) );
+	exit;
+}
+add_action( 'admin_post_justice_lawyer_listing_optout', 'justice_theme_handle_lawyer_listing_optout' );
+add_action( 'admin_post_nopriv_justice_lawyer_listing_optout', 'justice_theme_handle_lawyer_listing_optout' );

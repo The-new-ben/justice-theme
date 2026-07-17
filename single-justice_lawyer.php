@@ -401,6 +401,38 @@ if ( $show_profile_photo ) {
 						</div>
 						<a href="<?php echo esc_url( $claim_url ); ?>"><?php esc_html_e( 'עדכון פרופיל', 'justice-theme' ); ?></a>
 					</div>
+
+					<details class="lawyer-mini-optout">
+						<summary><?php esc_html_e( 'לא הפרופיל שלכם, או רוצים להסיר אותו?', 'justice-theme' ); ?></summary>
+						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="lawyer-mini-optout__form">
+							<input type="hidden" name="action" value="justice_lawyer_listing_optout">
+							<input type="hidden" name="lawyer_id" value="<?php echo esc_attr( (string) $lawyer_id ); ?>">
+							<?php echo wp_nonce_field( 'justice_lawyer_listing_optout', 'justice_lawyer_optout_nonce', true, false ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+							<div class="lawyer-mini-optout__guard" aria-hidden="true" style="position:absolute;inset-inline-start:-9999px"><label>Company<input type="text" name="justice_lawyer_optout_company" tabindex="-1" autocomplete="off"></label></div>
+							<input type="hidden" name="justice_lawyer_optout_started_at" value="<?php echo esc_attr( (string) time() ); ?>">
+							<label for="lawyer-optout-reason"><?php esc_html_e( 'סיבה', 'justice-theme' ); ?></label>
+							<select id="lawyer-optout-reason" name="reason">
+								<option value="not_me"><?php esc_html_e( 'זה לא אני / לא המשרד שלי', 'justice-theme' ); ?></option>
+								<option value="wrong_info"><?php esc_html_e( 'המידע שגוי', 'justice-theme' ); ?></option>
+								<option value="remove"><?php esc_html_e( 'בקשה להסרת הכרטיס', 'justice-theme' ); ?></option>
+							</select>
+							<label for="lawyer-optout-contact"><?php esc_html_e( 'דרך יצירת קשר (לא חובה)', 'justice-theme' ); ?></label>
+							<input type="text" id="lawyer-optout-contact" name="contact" maxlength="200" placeholder="<?php esc_attr_e( 'טלפון או אימייל', 'justice-theme' ); ?>">
+							<button type="submit"><?php esc_html_e( 'שליחת בקשה', 'justice-theme' ); ?></button>
+							<p class="lawyer-mini-optout__note"><?php esc_html_e( 'הבקשה נבדקת ידנית לפני שהכרטיס משתנה או יורד.', 'justice-theme' ); ?></p>
+						</form>
+					</details>
+					<style>
+					.lawyer-mini-optout{margin-top:10px;font-size:13.5px}
+					.lawyer-mini-optout summary{cursor:pointer;color:#5a6579;font-weight:600}
+					.lawyer-mini-optout summary:hover{color:#14213d}
+					.lawyer-mini-optout__form{display:flex;flex-direction:column;gap:8px;margin-top:10px;padding:14px;background:#f7f9fd;border:1px solid #dbe3f0;border-radius:12px;max-width:360px}
+					.lawyer-mini-optout__form label{font-weight:700;color:#14213d;font-size:12.5px}
+					.lawyer-mini-optout__form select,.lawyer-mini-optout__form input[type="text"]{border:1px solid #ccd6e6;border-radius:8px;padding:8px 10px;font:inherit;font-size:13.5px}
+					.lawyer-mini-optout__form button{background:#14213d;color:#fff;border:0;border-radius:8px;padding:9px 16px;font-weight:700;cursor:pointer;align-self:flex-start}
+					.lawyer-mini-optout__form button:hover{opacity:.9}
+					.lawyer-mini-optout__note{margin:0;color:#8a93a6;font-size:11.5px}
+					</style>
 				<?php endif; ?>
 			</div>
 

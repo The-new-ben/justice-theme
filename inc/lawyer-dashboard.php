@@ -285,6 +285,40 @@ function justice_theme_handle_lawyer_supplier_request(): void {
 }
 add_action( 'admin_post_justice_lawyer_supplier_request', 'justice_theme_handle_lawyer_supplier_request' );
 
+/**
+ * Simulation representation interest checkbox (owner order 2026-07-17,
+ * Phase 3 of the law-firm index expansion). Records ONLY a boolean signal
+ * on the lawyer's own claimed profile - no integration exists yet, this
+ * exists to measure real demand before the cross-product HADMAIA
+ * integration work is scoped.
+ */
+function justice_theme_handle_lawyer_sim_interest(): void {
+	if ( ! is_user_logged_in() || ! isset( $_POST['justice_lawyer_sim_interest_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['justice_lawyer_sim_interest_nonce'] ) ), 'justice_lawyer_sim_interest' ) ) {
+		wp_safe_redirect( add_query_arg( 'sim_interest', 'failed', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$user_id    = get_current_user_id();
+	$lawyer_id  = isset( $_POST['lawyer_profile_id'] ) ? absint( $_POST['lawyer_profile_id'] ) : 0;
+	$profile_ok = $lawyer_id && (string) $user_id === (string) get_post_meta( $lawyer_id, 'claimed_by_user_id', true );
+
+	if ( ! $profile_ok ) {
+		wp_safe_redirect( add_query_arg( 'sim_interest', 'missing', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$interested = ! empty( $_POST['sim_interest'] ) ? '1' : '0';
+	update_post_meta( $lawyer_id, 'sim_representation_interest', $interested );
+
+	if ( '1' === $interested && function_exists( 'justice_theme_append_lawyer_internal_note' ) ) {
+		justice_theme_append_lawyer_internal_note( $lawyer_id, 'Lawyer recorded interest in AI courtroom simulation representation.' );
+	}
+
+	wp_safe_redirect( add_query_arg( 'sim_interest', 'sent', home_url( '/lawyer-dashboard/' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_lawyer_sim_interest', 'justice_theme_handle_lawyer_sim_interest' );
+
 function justice_theme_lawyer_service_request_options(): array {
 	return array(
 		'billing_question'    => __( 'Billing / payment question', 'justice-theme' ),

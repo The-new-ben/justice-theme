@@ -953,6 +953,26 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 						</form>
 					</section>
 
+					<section class="lawyer-dashboard-content-request" id="simulation-interest">
+						<h2><?php esc_html_e( 'AI courtroom simulation (coming soon)', 'justice-theme' ); ?></h2>
+						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'Jus-Tice is exploring letting a claimed, verified firm appear as the representing party inside the AI courtroom simulation. Nothing is live yet - this only records interest so real integration work is scoped around actual demand. No content, opinion or simulated outcome is ever attributed to your firm.', 'justice-theme' ); ?></p>
+						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">
+							<input type="hidden" name="action" value="justice_lawyer_sim_interest">
+							<?php wp_nonce_field( 'justice_lawyer_sim_interest', 'justice_lawyer_sim_interest_nonce' ); ?>
+
+							<label for="sim-interest-profile"><?php esc_html_e( 'Linked profile', 'justice-theme' ); ?></label>
+							<select id="sim-interest-profile" name="lawyer_profile_id" required>
+								<?php foreach ( $profile_ids as $profile_id ) : ?>
+									<option value="<?php echo esc_attr( $profile_id ); ?>" <?php selected( (string) get_post_meta( $profile_id, 'sim_representation_interest', true ), '1' ); ?>><?php echo esc_html( get_the_title( $profile_id ) ); ?><?php echo '1' === (string) get_post_meta( $profile_id, 'sim_representation_interest', true ) ? esc_html__( ' (interest recorded)', 'justice-theme' ) : ''; ?></option>
+								<?php endforeach; ?>
+							</select>
+
+							<label><input type="checkbox" name="sim_interest" value="1"> <?php esc_html_e( 'Yes, record interest for this profile', 'justice-theme' ); ?></label>
+
+							<button type="submit" class="button button--outline"><?php esc_html_e( 'Save', 'justice-theme' ); ?></button>
+						</form>
+					</section>
+
 					<section class="lawyer-dashboard-service-request" id="service-request">
 						<div class="lawyer-dashboard-service-request__header">
 							<div>

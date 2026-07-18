@@ -169,9 +169,19 @@ function justice_lii_map_area( string $label, array $existing_terms ): string {
  * "עו\"ד דנה כהן" and "עורכת דין דנה כהן ושות'" meet at the same key.
  */
 function justice_lii_name_key( string $name ): string {
+	// Corrected 2026-07-18: found live, mid-import, on real data - the
+	// source dataset itself carries near-duplicate rows for the same firm
+	// ("X ושות'" vs "X ושות' משרד עורכי דין"; "X - עורכי דין" vs
+	// "X- משרד עורכי דין"). The honorific strip only matched SINGULAR
+	// "עורך דין"/"עורכת דין", never the plural "עורכי דין" that appears
+	// in these real rows, and dash characters (hyphen/en-dash/em-dash)
+	// were left in as literal characters - both differences alone were
+	// enough to defeat the dedupe and create two live posts for one real
+	// firm (confirmed: GBK, אביב לזר, identical address/phone/email/
+	// website on both copies before this fix).
 	$name = wp_specialchars_decode( $name, ENT_QUOTES );
-	$name = str_replace( array( '"', '״', "'", '׳', '`' ), '', $name );
-	$name = preg_replace( '/\b(עוד|עורך דין|עורכת דין|עו״ד|טוען רבני|טוענת רבנית|משרד|ושות|נוטריון|מגשר|מגשרת)\b/u', '', $name );
+	$name = str_replace( array( '"', '״', "'", '׳', '`', '-', '–', '—' ), ' ', $name );
+	$name = preg_replace( '/\b(עוד|עורך דין|עורכת דין|עורכי דין|עו״ד|טוען רבני|טוענת רבנית|משרד|ושות|נוטריון|מגשר|מגשרת)\b/u', '', $name );
 	$name = preg_replace( '/\s+/u', ' ', trim( (string) $name ) );
 
 	return mb_strtolower( (string) $name );

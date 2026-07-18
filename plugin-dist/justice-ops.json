@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.28.0",
+  "version": "2.29.0",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.28.0.zip",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.29.0.zip",
   "last_updated": "2026-07-14",
   "sections": {
-    "changelog": "2.28.0: Phase 2 - 8 new practice-area taxonomy terms created live from the dry-run worklist (urban renewal, mediation/arbitration, hi-tech, banking/finance, notary, civil litigation, privacy, energy/infrastructure), wired into the importer alias table. 2.27.0: corrected justice_lii_map_area() alias table against the REAL live taxonomy term names (verified via REST) - the real-estate term is the compound \"מקרקעין | נדל\\\"ן\" not \"מקרקעין ונדל\\\"ן\"; the tax term is \"מיסים\" not \"מיסוי\" (old table had the"
+    "changelog": "2.29.0: CRITICAL dedupe fix found live mid-import - justice_lii_name_key() missed plural \"עורכי דין\" and dash-character variants, letting the source dataset's own near-duplicate rows (same firm, two name spellings) create two live posts. Confirmed and fixed on real data (GBK, אביב לזר). 2.28.0: Phase 2 - 8 new practice-area taxonomy terms created live from the dry-run worklist (urban renewal, mediation/arbitration, hi-tech, banking/finance, notary, civil litigation, privacy, energy/i"
   }
 }

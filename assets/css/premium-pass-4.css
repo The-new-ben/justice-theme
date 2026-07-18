@@ -491,15 +491,37 @@
 .trust-section__grid { position: relative; z-index: 1; }
 
 /* ── 22. LAWYER CARD AVATAR FALLBACK ─────────────────────── */
+/* Corrected 2026-07-18 (owner screenshot, archive/hub cards): this block's
+ * own .lawyer-card__avatar child is dead - no template outputs that class,
+ * template-parts/cards/lawyer-card.php renders .lawyer-card__initials. But
+ * the .lawyer-card__media base rule below still matched every card (that
+ * class IS real), and its fixed 200px height clobbered the correct square
+ * sizing from main.css's 140px grid column + premium-pass-2.css's
+ * aspect-ratio:1 - so every photo-less card showed an oversized flat-gray
+ * box. Restored the square sizing and added real styling for the fallback
+ * that's actually rendered, matching the homepage carousel's own already-
+ * correct .featured-lawyers__grid .lawyer-card__initials treatment
+ * (theme-bridge.css). justice-ops/assets/relevance-fixes.css carries the
+ * identical fix live already; this is the theme catching up to it.
+ */
 .lawyer-card__media {
-  display: block; height: 200px; overflow: hidden;
-  background: #f0f2f5; position: relative;
+  display: block; height: auto; aspect-ratio: 1; overflow: hidden;
+  background: linear-gradient(135deg, rgba(16,38,74,0.10), rgba(95,126,168,0.18));
+  position: relative;
 }
 .lawyer-card__avatar {
   width: 100%; height: 100%; object-fit: cover;
   filter: grayscale(100%); opacity: 0.85;
   transition: filter 300ms, opacity 300ms;
 }
+.lawyer-card__initials {
+  display: grid; place-items: center; width: 100%; height: 100%;
+  font-size: clamp(22px, 8vw, 34px); font-weight: 800; color: #14477D;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.9), transparent 40%),
+    linear-gradient(135deg, rgba(20, 71, 125, 0.08), rgba(24, 102, 180, 0.2));
+}
+.lawyer-card__media--initials { text-decoration: none; }
 .lawyer-card:hover .lawyer-card__avatar {
   filter: grayscale(40%); opacity: 1;
 }

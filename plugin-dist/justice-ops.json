@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.32.0",
+  "version": "2.33.0",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.32.0.zip",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.33.0.zip",
   "last_updated": "2026-07-18",
   "sections": {
-    "changelog": "2.32.0: final post-import reconciliation scan (all 7 batches, 232 zero-practice-area posts cross-checked against raw source labels) found 11 more compound labels that map cleanly to an existing term. Added aliases; genuinely homeless niches (sports/aviation/military law, online gaming) left unmapped on purpose. 2.31.0: URGENT - bulk law-firm import published hundreds of records in one day, and publish-notify.php's owner-ordered per-publish email hook fired once per record (~637 emails), triggering a uPress account-wide mail rate-limit. Added a pause/resume toggle (POST justice-ops/v1/publish-notify-pause). 2.30.0: 4 compound practice-area labels didn't substring-match their obvious existing term. Added exact aliases."
+    "changelog": "2.33.0: URGENT design fix from owner screenshot - (1) WhatsApp float and the AI pill were stacked in the same bottom-left corner on every non-home page; premium-pass-4.css's body:not(.home) rule outranked the existing hide rule's specificity. Boosted the hide rule's specificity to win unconditionally. (2) Every lawyer card without a photo showed an oversized flat-gray box: premium-pass-4.css's dead avatar-fallback block (targets a class no template outputs) still clobbered the correct square sizing. Added a scoped ops-layer override matching the homepage carousel's own correct styling. 2.32.0: final post-import reconciliation scan found 11 more compound practice-area labels that map cleanly to an existing term."
   }
 }

@@ -126,9 +126,20 @@ add_action( 'wp_head', function () {
 		// inline-end corner) on top of the ops pill: two identical CTAs,
 		// and on small screens the two bars overlap outright. One action
 		// per corner: WhatsApp keeps inline-start, the assistant takes
-		// inline-end. Element+class specificity outranks the theme's
-		// class-only display rule regardless of aggregate order.
-		. 'a.whatsapp-float{display:none !important}'
+		// inline-end.
+		//
+		// Corrected 2026-07-18: this rule was believed to win on
+		// "element+class specificity" but assets/css/premium-pass-3.css
+		// carries `body:not(.home) .whatsapp-float{display:flex!important}`
+		// (2 classes) which OUTRANKS `a.whatsapp-float` (1 class) regardless
+		// of source order - so the float rendered, unhidden, on every page
+		// except the homepage the whole time (only body.home had its own
+		// separate hide rule in that same file). Found live via the owner's
+		// screenshot of the AI pill and the WhatsApp float stacked on a
+		// lawyer-cards listing page. Repeating the class three times is the
+		// standard no-fake-selector way to out-specificity a 2-class rule
+		// without guessing at cascade order across Autoptimize's aggregate.
+		. 'a.whatsapp-float.whatsapp-float.whatsapp-float{display:none !important}'
 		. '.jt-nav-ai a{color:#e7c765 !important;font-weight:800}'
 		. '.jt-nav-ai a:before{content:"✦";margin-inline-end:6px;font-size:.85em}'
 		. '.jt-ai-fab{position:fixed;bottom:18px;inset-inline-end:18px;z-index:99989;display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#14213d,#24406e);color:#e7c765;border:1px solid rgba(231,199,101,.55);border-radius:999px;padding:13px;box-shadow:0 8px 26px rgba(10,18,38,.35);text-decoration:none;transition:transform .15s ease}'

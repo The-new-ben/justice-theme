@@ -256,3 +256,53 @@ body [id^="tawkchat"] {
 .home .jtcm-wrap { margin-top: 10px; }
 .home #jt-cinema-map { height: 520px; }
 @media (max-width: 640px) { .home #jt-cinema-map { height: 420px; } }
+
+/*
+ * Lawyer card avatar-fallback box, found live 2026-07-18 (owner screenshot,
+ * archive/hub cards after the law-firm bulk import made photo-less cards
+ * common at volume for the first time).
+ *
+ * Root cause: premium-pass-4.css carries a "LAWYER CARD AVATAR FALLBACK"
+ * block titled for a `.lawyer-card__avatar` child that no current template
+ * outputs (template-parts/cards/lawyer-card.php renders `.lawyer-card__initials`
+ * instead - the class was renamed at some point and this block was never
+ * updated). Its base `.lawyer-card__media{height:200px;background:#f0f2f5}`
+ * rule still matches, though, and clobbers the correct square sizing from
+ * main.css's 140px grid column + premium-pass-2.css's aspect-ratio:1 - so
+ * every card without a photo shows an oversized, flat gray box. The ONE
+ * place this is already right is the homepage carousel
+ * (.featured-lawyers__grid .lawyer-card__initials in theme-bridge.css) -
+ * this block ports that same visual treatment to every other context that
+ * uses this component (archive, taxonomy hub, city-practice, legal-pillar,
+ * practice-landing). The theme carries the identical fix at the same
+ * selectors; this ops layer makes production correct NOW without waiting
+ * for a theme pull, and is harmless once the theme catches up.
+ *
+ * Scoped to body:not(.home): the homepage carousel is the one place this
+ * is already right (.featured-lawyers__grid .lawyer-card__initials in
+ * theme-bridge.css, a fixed 96px avatar with its own !important rules) and
+ * that section only ever renders on page-home.php/front-page.php - :not(.home)
+ * keeps this block from ever competing with it, rather than winning a
+ * specificity fight that would have to be re-verified every time either
+ * file changes.
+ */
+body:not(.home) .lawyer-card__media {
+  height: auto !important;
+  aspect-ratio: 1 !important;
+  background: linear-gradient(135deg, rgba(16,38,74,0.10), rgba(95,126,168,0.18)) !important;
+}
+
+body:not(.home) .lawyer-card__initials {
+  display: grid !important;
+  place-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  font-size: clamp(22px, 8vw, 34px) !important;
+  font-weight: 800 !important;
+  color: #14477D !important;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.9), transparent 40%),
+    linear-gradient(135deg, rgba(20, 71, 125, 0.08), rgba(24, 102, 180, 0.2)) !important;
+}
+
+body:not(.home) .lawyer-card__media--initials { text-decoration: none !important; }

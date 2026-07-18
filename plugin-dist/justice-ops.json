@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.30.0",
+  "version": "2.31.0",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.30.0.zip",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.31.0.zip",
   "last_updated": "2026-07-18",
   "sections": {
-    "changelog": "2.30.0: found live in batch-02 real-import output - 4 compound practice-area labels (business-commercial, business/company counsel, full-scope real-estate, litigation+white-collar) didn't substring-match their obvious existing term, leaving those firms with zero practice-area terms. Added exact aliases. 2.29.0: CRITICAL dedupe fix found live mid-import - justice_lii_name_key() missed plural \"עורכי דין\" and dash-character variants, letting the source dataset's own near-duplicate rows (same firm, two name spellings) create two live posts. Confirmed and fixed on real data (GBK, אביב לזר)."
+    "changelog": "2.31.0: URGENT - bulk law-firm import published hundreds of records in one day, and publish-notify.php's owner-ordered per-publish email hook fired once per record (~637 emails), triggering a uPress account-wide mail rate-limit (~300/day cap hit, host blocked further sending). Added a pause/resume toggle (POST justice-ops/v1/publish-notify-pause) so bulk jobs can suppress the notification without touching normal editorial publish behavior; defaults to NOT paused. 2.30.0: found live in batch-02 real-import output - 4 compound practice-area labels didn't substring-match their obvious existing term, leaving those firms with zero practice-area terms. Added exact aliases."
   }
 }

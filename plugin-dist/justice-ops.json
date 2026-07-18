@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.29.0",
+  "version": "2.30.0",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.29.0.zip",
-  "last_updated": "2026-07-14",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.30.0.zip",
+  "last_updated": "2026-07-18",
   "sections": {
-    "changelog": "2.29.0: CRITICAL dedupe fix found live mid-import - justice_lii_name_key() missed plural \"עורכי דין\" and dash-character variants, letting the source dataset's own near-duplicate rows (same firm, two name spellings) create two live posts. Confirmed and fixed on real data (GBK, אביב לזר). 2.28.0: Phase 2 - 8 new practice-area taxonomy terms created live from the dry-run worklist (urban renewal, mediation/arbitration, hi-tech, banking/finance, notary, civil litigation, privacy, energy/i"
+    "changelog": "2.30.0: found live in batch-02 real-import output - 4 compound practice-area labels (business-commercial, business/company counsel, full-scope real-estate, litigation+white-collar) didn't substring-match their obvious existing term, leaving those firms with zero practice-area terms. Added exact aliases. 2.29.0: CRITICAL dedupe fix found live mid-import - justice_lii_name_key() missed plural \"עורכי דין\" and dash-character variants, letting the source dataset's own near-duplicate rows (same firm, two name spellings) create two live posts. Confirmed and fixed on real data (GBK, אביב לזר)."
   }
 }

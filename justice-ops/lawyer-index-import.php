@@ -145,6 +145,18 @@ function justice_lii_map_area( string $label, array $existing_terms ): string {
 		'תשתיות'                   => 'אנרגיה ותשתיות',
 		'אנרגיה ותשתיות'           => 'אנרגיה ותשתיות',
 		'אנרגיה'                   => 'אנרגיה ותשתיות',
+
+		// Found live in batch-02 real-import output 2026-07-18: these exact
+		// compound labels from the source CSV don't substring-match their
+		// obvious existing term (the matcher compares whole label vs whole
+		// term name, not word-by-word), so firms carrying ONLY this phrasing
+		// landed with zero practice-area terms at all. Mapped to the closest
+		// existing term; genuinely homeless niches (e.g. "דיני זכיינות")
+		// are left unmapped on purpose, per the no-invented-terms rule.
+		'משפט עסקי - מסחרי'        => 'משפט מסחרי',
+		'ליווי חברות ועסקים'       => 'משפט מסחרי',
+		'נדל"ן על כל היבטיו'       => 'מקרקעין | נדל"ן',
+		'ליטיגציה וצווארון לבן'    => 'משפט פלילי',
 	);
 
 	$target = $aliases[ $label ] ?? $label;

@@ -157,6 +157,25 @@ function justice_lii_map_area( string $label, array $existing_terms ): string {
 		'ליווי חברות ועסקים'       => 'משפט מסחרי',
 		'נדל"ן על כל היבטיו'       => 'מקרקעין | נדל"ן',
 		'ליטיגציה וצווארון לבן'    => 'משפט פלילי',
+
+		// Found live in the final post-import reconciliation scan 2026-07-18
+		// (all 7 batches, 232 zero-area posts cross-checked against their raw
+		// source label) - same substring-matching gap as the 2.30.0 batch,
+		// mapped only where an existing term is a genuinely close fit. Left
+		// unmapped on purpose: one-off niches with no real home (sports law,
+		// aviation law, military law, online gaming), and vague/typo labels
+		// where any target would be a guess, not a fit.
+		'עריכת דין בתחום המשפט המנהלי-מוניציפאלי והאזרחי' => 'משפט מנהלי',
+		'משפט מוניציפאלי ומשפט אזרחי מסחרי' => 'משפט מנהלי',
+		'רגולציה וציות'            => 'משפט מנהלי',
+		'שירותים פיננסיים'         => 'בנקאות ומימון',
+		'דיני בנקאות'              => 'בנקאות ומימון',
+		'דיני סביבה'               => 'איכות סביבה',
+		'מיסוי מוניציפלי'          => 'מיסים',
+		'ייעוץ וייצוג בתחום המשפט והפלילי' => 'משפט פלילי',
+		'גישור וניהול סכסוכים'     => 'גישור ובוררות',
+		'גישור מסחרי וגישור בענייני משפחה' => 'גישור ובוררות',
+		'בינה מלאכותית וטכנולוגיה' => 'הייטק',
 	);
 
 	$target = $aliases[ $label ] ?? $label;

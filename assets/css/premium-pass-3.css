@@ -4972,8 +4972,11 @@ a.money-keywords__card:hover {
 /* Floating-elements discipline (owner order 2026-07-19): left corner stacks
    chat bubble (bottom slot) + AI fab ONE measured slot above it; WhatsApp
    stays the wide pill on the right. 92px clears the 60px chat launcher plus
-   its 20px bottom gap with 12px of air at both breakpoints. a.jt-ai-fab
-   (0-1-1) outweighs the ops inline .jt-ai-fab (0-1-0) without !important. */
+   its 20px bottom gap with 12px of air at both breakpoints. A legacy CSS
+   layer (customizer-era) carries .jt-ai-fab{bottom:68px !important} inside
+   the Autoptimize bundle, so this counter needs !important too — a.jt-ai-fab
+   (0-1-1) beats .jt-ai-fab (0-1-0) among important rules regardless of
+   order. Retire the legacy layer at ops v2.36 and drop the flag. */
 a.jt-ai-fab {
-  bottom: 92px;
+  bottom: 92px !important;
 }

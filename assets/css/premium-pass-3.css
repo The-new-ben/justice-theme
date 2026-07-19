@@ -4968,3 +4968,12 @@ a.money-keywords__card:hover {
 .money-keywords__intl-links a:hover {
   border-color: var(--jt-accent, #c5a45c);
 }
+
+/* Floating-elements discipline (owner order 2026-07-19): left corner stacks
+   chat bubble (bottom slot) + AI fab ONE measured slot above it; WhatsApp
+   stays the wide pill on the right. 92px clears the 60px chat launcher plus
+   its 20px bottom gap with 12px of air at both breakpoints. a.jt-ai-fab
+   (0-1-1) outweighs the ops inline .jt-ai-fab (0-1-0) without !important. */
+a.jt-ai-fab {
+  bottom: 92px;
+}

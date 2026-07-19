@@ -255,8 +255,13 @@ if ( ! $related_articles->have_posts() && $primary_area && $can_show_profile_art
 
 $has_related_articles = $related_articles instanceof WP_Query && $related_articles->have_posts();
 $has_media_module     = $show_freeform_profile_facts && ( $video_url || ! empty( $media_items ) );
-$show_articles_panel  = $has_related_articles || ! $requires_fact_gate;
-$show_reviews_panel   = $show_rating || $show_approved_recommendations || $show_testimonials || ! $requires_fact_gate;
+// Corrected 2026-07-18 (owner "no data" report): these panels used to render
+// for every non-fact-gated profile even with zero content, so the 1,200+
+// imported firm profiles each showed two permanent empty-placeholder
+// sections ("כאן יוצגו מאמרים...", "ביקורות יוצגו רק לאחר אימות"). A panel
+// earns its place only when it has something real to show.
+$show_articles_panel  = $has_related_articles;
+$show_reviews_panel   = $show_rating || $show_approved_recommendations || $show_testimonials;
 $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 	&& ! $is_seed_data
 	&& ( ! $is_maya_profile || $profile_is_fact_checked )
@@ -515,6 +520,40 @@ if ( $show_profile_photo ) {
 					<div class="entry-content" itemprop="description">
 						<?php if ( $show_freeform_profile_facts ) : ?>
 							<?php the_content(); ?>
+							<?php
+							// Imported index records carry a one-line bio; when the
+							// structured fields hold real additional facts (founded
+							// year, size, branches, city, areas), compose them into a
+							// visible sentence so the profile reads as substance, not
+							// an empty shell (owner "no data" report 2026-07-18).
+							// Facts only - nothing invented.
+							$fact_bits = array();
+							if ( $primary_city ) {
+								$fact_bits[] = sprintf( 'המשרד פועל ב%s', $primary_city->name );
+							}
+							$founded_about = (int) $meta( 'founded_year' );
+							if ( $founded_about > 1900 ) {
+								$fact_bits[] = sprintf( 'נוסד בשנת %d', $founded_about );
+							}
+							$size_about = (int) $meta( 'firm_size_lawyers' );
+							if ( $size_about > 0 ) {
+								$fact_bits[] = sprintf( 'מונה כ-%d עורכי דין', $size_about );
+							}
+							$branches_about = trim( (string) $meta( 'branches' ) );
+							if ( '' !== $branches_about ) {
+								$fact_bits[] = sprintf( 'מחזיק סניפים נוספים ב%s', $branches_about );
+							}
+							$area_names_about = ( ! empty( $areas ) && ! is_wp_error( $areas ) )
+								? array_slice( wp_list_pluck( $areas, 'name' ), 0, 3 )
+								: array();
+							if ( ! empty( $area_names_about ) ) {
+								$fact_bits[] = 'תחומי הפעילות המרכזיים: ' . implode( ', ', $area_names_about );
+							}
+							$is_index_import_profile = false !== strpos( (string) $meta( 'internal_notes' ), 'law_firm_full_index_2026_07' );
+							if ( $is_index_import_profile && count( $fact_bits ) >= 2 ) :
+								?>
+								<p class="lawyer-mini-composed-facts"><?php echo esc_html( implode( '. ', $fact_bits ) . '.' ); ?></p>
+							<?php endif; ?>
 						<?php else : ?>
 							<div class="lawyer-mini-profile-gate">
 								<strong><?php esc_html_e( 'פרטי הרקע המלאים בבדיקת מקורות', 'justice-theme' ); ?></strong>
@@ -815,7 +854,17 @@ if ( $show_profile_photo ) {
 				</section>
 				<?php endif; ?>
 
-				<?php if ( $address || $license || $email ) : ?>
+				<?php
+				// 'unknown' is a seeder/import default, not a fact - printing it
+				// rendered a raw English "unknown" on 1,200+ imported profiles
+				// (owner report 2026-07-18). Only a real, known status earns a row.
+				$license_display = ( $license && 'unknown' !== strtolower( trim( (string) $license ) ) ) ? $license : '';
+				$firm_size_row   = (int) $meta( 'firm_size_lawyers' );
+				$founded_row     = (int) $meta( 'founded_year' );
+				$branches_row    = trim( (string) $meta( 'branches' ) );
+				$has_details_box = $address || $license_display || $email || $firm_size_row > 0 || $founded_row > 1900 || '' !== $branches_row;
+				?>
+				<?php if ( $has_details_box ) : ?>
 				<section class="lawyer-mini-sidebox">
 					<h2>פרטים מקצועיים</h2>
 					<dl>
@@ -823,9 +872,21 @@ if ( $show_profile_photo ) {
 							<dt>כתובת משרד</dt>
 							<dd itemprop="address"><?php echo esc_html( $address ); ?></dd>
 						<?php endif; ?>
-						<?php if ( $license ) : ?>
+						<?php if ( $founded_row > 1900 ) : ?>
+							<dt>שנת ייסוד</dt>
+							<dd><?php echo esc_html( (string) $founded_row ); ?></dd>
+						<?php endif; ?>
+						<?php if ( $firm_size_row > 0 ) : ?>
+							<dt>גודל המשרד</dt>
+							<dd><?php echo esc_html( sprintf( 'כ-%d עורכי דין', $firm_size_row ) ); ?></dd>
+						<?php endif; ?>
+						<?php if ( '' !== $branches_row ) : ?>
+							<dt>סניפים נוספים</dt>
+							<dd><?php echo esc_html( $branches_row ); ?></dd>
+						<?php endif; ?>
+						<?php if ( $license_display ) : ?>
 							<dt>סטטוס רישיון</dt>
-							<dd><?php echo esc_html( $license ); ?></dd>
+							<dd><?php echo esc_html( $license_display ); ?></dd>
 						<?php endif; ?>
 						<?php if ( $email ) : ?>
 							<dt>אימייל</dt>

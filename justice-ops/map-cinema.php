@@ -47,6 +47,14 @@ function justice_cinema_wanted(): bool {
 		return true;
 	}
 
+	// The lawyers archive is the index's own front door - the map opens it
+	// (owner order 2026-07-18: upper fold; block injected via the
+	// template_include buffer in map-feed-v3.php, which also sets this
+	// flag - is_post_type_archive() is false on the live /lawyers/ route).
+	if ( ! empty( $GLOBALS['jt_lawyer_archive_view'] ) || is_post_type_archive( 'justice_lawyer' ) ) {
+		return true;
+	}
+
 	$qo = get_queried_object();
 
 	if ( $qo instanceof WP_Post && 'page' === $qo->post_type ) {
@@ -244,5 +252,20 @@ add_action( 'wp_head', function () {
 		. '.jtcm-pop__acts{display:flex;gap:8px;margin-top:8px}'
 		. '.jtcm-pop__wa{background:#1fb355;color:#fff;border-radius:9px;padding:7px 14px;font-weight:800;font-size:12.5px;text-decoration:none}'
 		. '.jtcm-pop__go{background:#14213d;color:#fff;border-radius:9px;padding:7px 14px;font-weight:800;font-size:12.5px;text-decoration:none}'
+		// Map v3 (owner order 2026-07-18): free offices are mute dots; the
+		// always-visible label is what a plan buys. Dot hit area stays a
+		// thumb-friendly 22px via the ::after halo while the visible dot is 11px.
+		. '.jtcm-dot{position:relative;width:11px;height:11px;border-radius:50%;background:#33507e;border:2px solid #fff;box-shadow:0 2px 7px rgba(13,23,54,.4);cursor:pointer;transition:transform .15s ease,background .15s ease}'
+		. '.jtcm-dot::after{content:"";position:absolute;inset:-6px;border-radius:50%}'
+		. '.jtcm-dot:hover{transform:scale(1.5);background:#14213d}'
+		. '.jtcm-flag.is-hot{animation:jtcmHot 1.8s ease-out 1}'
+		. '@keyframes jtcmHot{0%{transform:scale(1)}18%{transform:scale(1.18)}36%{transform:scale(1.04)}52%{transform:scale(1.14)}100%{transform:scale(1)}}'
+		. '.jtcm-pop__near{display:flex;flex-direction:column;gap:1px;margin-top:9px;background:#fdf8ea;border:1px solid rgba(231,199,101,.6);border-radius:10px;padding:8px 11px;text-decoration:none}'
+		. '.jtcm-pop__near-tag{color:#8a6d1f;font-size:10px;font-weight:800}'
+		. '.jtcm-pop__near strong{font-size:12.5px}'
+		. '.jtcm-pop__near-km{color:#5a6579;font-size:11px}'
+		. '.jtcm-pop__claim{display:block;margin-top:9px;color:#1b2f55;font-size:11.5px;font-weight:700;text-decoration:none;border-top:1px dashed #dbe3f0;padding-top:8px}'
+		. '.jtcm-pop__claim:hover{color:#14213d;text-decoration:underline}'
+		. '.jtcm-archive-slot{margin-top:18px}'
 		. '</style>';
 }, 42 );

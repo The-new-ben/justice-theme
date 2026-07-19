@@ -140,6 +140,18 @@
 		return el;
 	}
 
+	// Non-paying offices are anonymous dots (owner order 2026-07-18): present
+	// on the map - the index looks complete - but mute until clicked. A paid
+	// plan is what buys an always-visible label. One tiny div per dot keeps
+	// ~1,000 markers cheap.
+	function dotMarker(p) {
+		var el = document.createElement('div');
+		el.className = 'jtcm-dot';
+		el.setAttribute('role', 'button');
+		el.setAttribute('aria-label', p.name || 'משרד עורכי דין');
+		return el;
+	}
+
 	function navUrl(p) {
 		var q = [p.name, p.address, p.city].filter(Boolean).join(' ');
 		return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
@@ -163,9 +175,26 @@
 				: '<span class="jtcm-pop__badge">כרטיס ציבורי, טרם אומת</span>';
 			h += '</span></div>';
 			h += '<div class="jtcm-pop__acts">';
-			if (p.wa) { h += '<a class="jtcm-pop__wa" href="' + esc(p.wa) + '" target="_blank" rel="noopener nofollow">וואטסאפ</a>'; }
+			var wa = p.wa || p.whatsapp;
+			if (wa) { h += '<a class="jtcm-pop__wa" href="' + esc(wa) + '" target="_blank" rel="noopener nofollow">וואטסאפ</a>'; }
 			if (p.url) { h += '<a class="jtcm-pop__go" href="' + esc(p.url) + '">לפרופיל המלא</a>'; }
 			h += '</div>';
+			// Demand interception (owner order 2026-07-18): a free dot's popup
+			// quietly routes attention to the nearest PAYING office when one
+			// exists in the radius - the visible value a plan buys.
+			if (!p.paid && p.nearPaid) {
+				h += '<a class="jtcm-pop__near" href="' + esc(p.nearPaid.url || '#') + '">'
+					+ '<span class="jtcm-pop__near-tag">מקודם באזור</span>'
+					+ '<strong>' + esc(p.nearPaid.name) + '</strong>'
+					+ (p.nearPaid.km < 9 ? '<span class="jtcm-pop__near-km">' + (p.nearPaid.km < 1 ? Math.round(p.nearPaid.km * 1000) + ' מ׳' : p.nearPaid.km.toFixed(1) + ' ק"מ') + ' מכאן</span>' : '')
+					+ '</a>';
+			}
+			// The FOMO door: an unclaimed office sees exactly what it is - a
+			// mute dot next to labeled competitors - and gets the one-click way in.
+			if (p.claim) {
+				h += '<a class="jtcm-pop__claim" href="' + esc(p.claim) + '" data-lead-utm-source="map_dot_claim" data-lead-utm-medium="map" data-lead-utm-campaign="firm_index">'
+					+ 'זה המשרד שלכם? קבלו שליטה על הכרטיס ותווית בולטת במפה ←</a>';
+			}
 		} else {
 			h += '<strong>' + esc(p.name) + '</strong>';
 			if (p.type_label) { h += '<div class="jtcm-pop__meta">' + esc(p.type_label) + (p.address ? ' · ' + esc(p.address) : '') + '</div>'; }
@@ -375,14 +404,57 @@
 				map.on('load', function () {
 					try { map.setConfigProperty('basemap', 'lightPreset', 'day'); } catch (e) {}
 
+					// Precompute each free office's nearest PAYING office within
+					// the interception radius. Paid count is tiny, so this is
+					// features×paid, effectively linear.
+					var NEAR_KM = 3;
+					var paidRegistry = [];
+					premium.forEach(function (f) {
+						paidRegistry.push({ feature: f, el: null });
+					});
+
+					function nearestPaid(coords) {
+						var best = null, bestKm = Infinity;
+						paidRegistry.forEach(function (r) {
+							var km = haversineKm(coords, r.feature.geometry.coordinates);
+							if (km < bestKm) { bestKm = km; best = r; }
+						});
+						return (best && bestKm <= NEAR_KM) ? { reg: best, km: bestKm } : null;
+					}
+
 					features.forEach(function (f) {
 						var p = f.properties || {};
-						var el = p.paid ? flagMarker(p) : chipMarker(p);
+						var isLawyer = p.kind === 'lawyer';
+						var near = (isLawyer && !p.paid) ? nearestPaid(f.geometry.coordinates) : null;
+						if (near) {
+							p.nearPaid = {
+								name: near.reg.feature.properties.name,
+								url: near.reg.feature.properties.url,
+								km: near.km
+							};
+						}
+						var el = p.paid ? flagMarker(p) : (isLawyer ? dotMarker(p) : chipMarker(p));
 						var marker = new mapboxgl.Marker({ element: el, anchor: p.paid ? 'bottom' : 'center' })
 							.setLngLat(f.geometry.coordinates)
 							.setPopup(new mapboxgl.Popup({ offset: 18, maxWidth: '280px' }).setHTML(popupHtml(p)))
 							.addTo(map);
-						if (p.paid) { el.style.zIndex = 5; }
+						if (p.paid) {
+							el.style.zIndex = 5;
+							paidRegistry.forEach(function (r) {
+								if (r.feature === f) { r.el = el; }
+							});
+						}
+						// Hovering a mute dot wakes its nearest paying neighbor:
+						// the paid label pulses for a beat, so paid offices
+						// intercept attention even around free dots.
+						if (near) {
+							el.addEventListener('mouseenter', function () {
+								var hot = near.reg.el;
+								if (!hot) { return; }
+								hot.classList.add('is-hot');
+								setTimeout(function () { hot.classList.remove('is-hot'); }, 1800);
+							});
+						}
 						registry.push({ el: el, layer: layerKey(p), marker: marker, premium: !!p.paid, feature: f });
 					});
 

@@ -279,7 +279,10 @@ function justice_theme_map_offices_geojson() {
 			array(
 				'post_type'      => 'justice_lawyer',
 				'post_status'    => 'publish',
-				'posts_per_page' => 500,
+				// 500 silently hid half the map once the 2026-07 index import
+				// pushed the geocoded pool to ~970. justice-ops/map-feed-v3.php
+				// overrides this route live; this is the theme catching up.
+				'posts_per_page' => -1,
 				'fields'         => 'ids',
 				'no_found_rows'  => true,
 				'meta_query'     => array(

@@ -402,7 +402,9 @@ function justice_lii_import( WP_REST_Request $request ) {
 			update_post_meta( $post_id, 'phone', sanitize_text_field( (string) ( $row['phone'] ?? '' ) ) );
 			update_post_meta( $post_id, 'website', esc_url_raw( (string) ( $row['website'] ?? '' ) ) );
 			update_post_meta( $post_id, 'entity_type', 'firm' === ( $row['entity_type'] ?? '' ) ? 'firm' : 'person' );
-			update_post_meta( $post_id, 'license_status', 'unknown' );
+			// license_status intentionally NOT written: 'unknown' is not a fact,
+			// and the profile template prints whatever lands here (owner report
+			// 2026-07-18: raw "unknown" rendered on every imported profile).
 			update_post_meta( $post_id, 'plan_type', 'free' );
 			update_post_meta( $post_id, 'profile_status', 'public' );
 			update_post_meta( $post_id, 'subscription_status', 'inactive' );
@@ -664,7 +666,9 @@ function justice_lii_import_v2( WP_REST_Request $request ) {
 			update_post_meta( $post_id, 'branches', $branches );
 			update_post_meta( $post_id, 'address_source_url', $addr_src );
 			update_post_meta( $post_id, 'source_notes', $notes );
-			update_post_meta( $post_id, 'license_status', 'unknown' );
+			// license_status intentionally NOT written: 'unknown' is not a fact,
+			// and the profile template prints whatever lands here (owner report
+			// 2026-07-18: raw "unknown" rendered on every imported profile).
 			update_post_meta( $post_id, 'plan_type', 'free' );
 			update_post_meta( $post_id, 'profile_status', $has_real_field ? 'public' : 'pending' );
 			update_post_meta( $post_id, 'subscription_status', 'inactive' );

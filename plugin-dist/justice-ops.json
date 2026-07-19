@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.33.0",
+  "version": "2.34.5",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.33.0.zip",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.34.5.zip",
   "last_updated": "2026-07-18",
   "sections": {
-    "changelog": "2.33.0: URGENT design fix from owner screenshot - (1) WhatsApp float and the AI pill were stacked in the same bottom-left corner on every non-home page; premium-pass-4.css's body:not(.home) rule outranked the existing hide rule's specificity. Boosted the hide rule's specificity to win unconditionally. (2) Every lawyer card without a photo showed an oversized flat-gray box: premium-pass-4.css's dead avatar-fallback block (targets a class no template outputs) still clobbered the correct square sizing. Added a scoped ops-layer override matching the homepage carousel's own correct styling. 2.32.0: final post-import reconciliation scan found 11 more compound practice-area labels that map cleanly to an existing term."
+    "changelog": "2.34.5: archive map buffer opens at template_redirect -1000010 - /lawyers/ is a render-and-exit controlled route. 2.34.4: archive map slot detection by request URI (query shape AND template basename both miss on the live /lawyers/ route). 2.34.3: archive map detection by template_include basename (is_post_type_archive false on the live /lawyers/ route). 2.34.2: archive map slot - loop_start never fires on the custom-query archive template; switched to the front-page ob_start pattern inserting under the archive H1. 2.34.1: map feed override actually overrides - register_rest_route needs $override=true or WP keeps dispatching the theme handler (observed live). 2.34.0: index distribution + map v3 (owner order). (1) firm-match-strip.php: matched-firms strip on every article, before the first H2 - 3 gated ca"
   }
 }

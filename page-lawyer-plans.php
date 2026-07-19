@@ -99,7 +99,7 @@ $plan_checkout_url = static function ( string $plan_key, string $surface = 'pric
 			<div>
 				<p class="section-header__eyebrow"><?php esc_html_e( 'מסלול שותפי השקה', 'justice-theme' ); ?></p>
 				<h2 id="lawyer-plans-founder-title"><?php esc_html_e( 'רוצים להיות מכוסים בתחום שלכם לפני שהמתחרים נכנסים?', 'justice-theme' ); ?></h2>
-				<p><?php esc_html_e( 'המסלול מתאים לעורכי דין שיכולים לענות מהר לפניות, להשלים פרופיל מקצועי ולעבוד עם דוח ערך חודשי. ההפעלה עוברת בדיקת התאמה, רישיון וגילוי נאות לפני כל פרסום ממומן או ניתוב פניות.', 'justice-theme' ); ?></p>
+				<p><?php esc_html_e( 'המסלול מתאים לעורכי דין שיכולים לענות מהר לפניות, להשלים פרופיל מקצועי ולעבוד עם דוח ערך חודשי. ההפעלה עוברת בדיקת התאמה, רישיון וגילוי נאות לפני כל פרסום או ניתוב פניות.', 'justice-theme' ); ?></p>
 			</div>
 			<ol>
 				<li><?php esc_html_e( 'שולחים פרטים ומסלול רצוי.', 'justice-theme' ); ?></li>

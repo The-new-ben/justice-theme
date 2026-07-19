@@ -40,7 +40,7 @@ function justice_theme_lawyer_plans(): array {
 			'description' => 'אפשרות להצגה בולטת באזורים רלוונטיים, רק לאחר כללי גילוי נאות ואישור.',
 			'features'    => array(
 				'מיקום בולט באזורים רלוונטיים',
-				'גילוי נאות לפרסום ממומן',
+				'גילוי נאות מלא כנדרש בכללי הלשכה',
 				'מדידת חשיפה ופניות',
 			),
 		),
@@ -82,7 +82,7 @@ function justice_theme_lawyer_plan_public_overrides( string $plan_key ): array {
 			'price'           => '₪749 לחודש כולל מע"מ',
 			'features_append' => array(
 				'עד 15 פניות תואמות בחודש',
-				'מיקום מועדף עם גילוי "פרופיל ממומן"',
+				'מיקום מועדף עם סטטוס "כרטיס רשום" גלוי',
 			),
 		),
 		'lead_partner' => array(

@@ -374,7 +374,7 @@ if ( $show_profile_photo ) {
 						<strong>פרופיל מאומת</strong>
 					<?php endif; ?>
 					<?php if ( $is_paid ) : ?>
-						<strong>פרופיל ממומן</strong>
+						<strong>כרטיס רשום</strong>
 					<?php endif; ?>
 				</div>
 

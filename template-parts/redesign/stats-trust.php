@@ -48,7 +48,7 @@ if ( $justice_lawyer_total > 0 ) {
 		<div class="jt2-trust-chips">
 			<span><?php esc_html_e( '✓ פרופילים נבדקים לפני הצגה', 'justice-theme' ); ?></span>
 			<span><?php esc_html_e( '✓ ללא הבטחת תוצאה או דירוג', 'justice-theme' ); ?></span>
-			<span><?php esc_html_e( '✓ גילוי נאות לתוכן ממומן', 'justice-theme' ); ?></span>
+			<span><?php esc_html_e( '✓ שקיפות מלאה לגבי שיתופי פעולה ומסלולים בתשלום', 'justice-theme' ); ?></span>
 		</div>
 	</div>
 </section>

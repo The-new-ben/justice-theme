@@ -318,7 +318,7 @@ $approved_count = (int) $lawyers->found_posts;
 					</article>
 					<article>
 						<strong><?php esc_html_e( 'מסלול שדרוג ברור', 'justice-theme' ); ?></strong>
-						<span><?php esc_html_e( 'פרופיל בסיסי יכול להפוך לפרופיל מורחב עם תמונה, מאמרים, ביקורות מאומתות, קישורי מדיה ומיקום ממומן, הכל מנוהל מה-CMS ולא מקוד קשיח.', 'justice-theme' ); ?></span>
+						<span><?php esc_html_e( 'פרופיל בסיסי יכול להפוך לכרטיס רשום: תמונה, מאמרים, ביקורות מאומתות, קישורי מדיה ובולטות גבוהה יותר במפה ובמדריכים — והפרטים מתעדכנים עבורכם באופן שוטף.', 'justice-theme' ); ?></span>
 					</article>
 				</div>
 				<div class="directory-comparison-playbook__actions">

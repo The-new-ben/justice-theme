@@ -213,15 +213,15 @@ $inquiry_url     = add_query_arg( 'lawyer_id', $lawyer_id, home_url( '/contact/'
 				<a href="<?php echo esc_url( $lawyer_url ); ?>"><?php the_title(); ?></a>
 			</h3>
 			<?php if ( $has_public_sponsor && $show_profile_claims ) : ?>
-				<span class="lawyer-card__status lawyer-card__status--sponsored"><?php esc_html_e( 'ממומן', 'justice-theme' ); ?></span>
+				<span class="lawyer-card__status lawyer-card__status--sponsored"><?php esc_html_e( 'כרטיס רשום', 'justice-theme' ); ?></span>
 			<?php elseif ( $has_reserved_sponsor && $show_profile_claims ) : ?>
-				<span class="lawyer-card__status lawyer-card__status--sponsored"><?php esc_html_e( 'מקודם', 'justice-theme' ); ?></span>
+				<span class="lawyer-card__status lawyer-card__status--sponsored"><?php esc_html_e( 'כרטיס רשום', 'justice-theme' ); ?></span>
 			<?php elseif ( 'verified' === $verified && $show_profile_claims ) : ?>
 				<span class="lawyer-card__status">מאומת</span>
 			<?php elseif ( $is_basic_public ) : ?>
 				<span class="lawyer-card__status lawyer-card__status--basic"><?php esc_html_e( 'כרטיס ציבורי', 'justice-theme' ); ?></span>
 			<?php elseif ( $is_paid && ! $has_public_sponsor && ! $has_reserved_sponsor ) : ?>
-				<span class="lawyer-card__status lawyer-card__status--sponsored">ממומן</span>
+				<span class="lawyer-card__status lawyer-card__status--sponsored"><?php esc_html_e( 'כרטיס רשום', 'justice-theme' ); ?></span>
 			<?php endif; ?>
 		</div>
 

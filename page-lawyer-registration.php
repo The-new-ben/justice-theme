@@ -308,7 +308,7 @@ if ( $registration_claim_profile ) {
 				}
 				?>
 				<?php wp_nonce_field( 'justice_lawyer_registration', 'justice_lawyer_registration_nonce' ); ?>
-				<p class="lawyer-registration-form__trap">
+				<p class="lawyer-registration-form__trap" aria-hidden="true" style="position:absolute !important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);opacity:0;">
 					<label>Website <input type="text" name="website_url_confirm" tabindex="-1" autocomplete="off"></label>
 				</p>
 

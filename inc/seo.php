@@ -55,6 +55,40 @@ function justice_theme_yoast_homepage_force_index( $robots ) {
 }
 add_filter( 'wpseo_robots_array', 'justice_theme_yoast_homepage_force_index', 99999 );
 
+/**
+ * Keep the lawyer registration/claim funnel out of the index.
+ *
+ * The registration page is a conversion surface (also reached from map-dot
+ * claim links); it must not compete in search or expose funnel copy to SERPs.
+ *
+ * @param array $robots Robots directives.
+ * @return array
+ */
+function justice_theme_registration_noindex( $robots ) {
+	if ( is_page( 'lawyer-registration' ) ) {
+		$robots['noindex'] = true;
+		$robots['follow']  = true;
+		unset( $robots['index'], $robots['nofollow'] );
+	}
+	return $robots;
+}
+add_filter( 'wp_robots', 'justice_theme_registration_noindex', 99998 );
+
+/**
+ * Yoast-specific mirror of the registration noindex.
+ *
+ * @param array $robots Yoast robots array.
+ * @return array
+ */
+function justice_theme_yoast_registration_noindex( $robots ) {
+	if ( is_page( 'lawyer-registration' ) ) {
+		$robots['index']  = 'noindex';
+		$robots['follow'] = 'follow';
+	}
+	return $robots;
+}
+add_filter( 'wpseo_robots_array', 'justice_theme_yoast_registration_noindex', 99998 );
+
 
 /**
  * Fix category_base collision with practice-areas taxonomy.

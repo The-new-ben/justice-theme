@@ -110,7 +110,7 @@ function justice_cinema_block( bool $front = false ): string {
 
 	return '<section class="jtcm-wrap">'
 		. '<h2>' . esc_html( $title ) . '</h2>'
-		. '<p class="jtcm-sub">מפה תלת ממדית חיה: משרדים מקודמים בדגל זהב, בתי משפט ומוסדות מסומנים, סיור אווירי בין המשרדים המובילים. הנתונים מהמאגר המאומת בלבד.</p>'
+		. '<p class="jtcm-sub">מפה תלת ממדית חיה: משרדים רשומים בדגל זהב, בתי משפט ומוסדות מסומנים, סיור אווירי בין המשרדים המובילים. הנתונים מהמאגר המאומת בלבד.</p>'
 		. justice_cinema_finder()
 		. '<div class="jtcm-chips" role="group" aria-label="סינון שכבות המפה">'
 		. '<button type="button" class="jtcm-chipbtn is-on" data-layer="all">הכל</button>'

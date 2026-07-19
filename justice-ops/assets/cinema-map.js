@@ -73,7 +73,7 @@
 		el.innerHTML = '<span class="jtcm-flag__pin"></span>'
 			+ (p.logo ? '<img class="jtcm-flag__photo" src="' + esc(p.logo) + '" alt="" loading="lazy">' : '')
 			+ '<span class="jtcm-flag__name">' + esc(p.name) + '</span>'
-			+ '<span class="jtcm-flag__tag">מקודם</span>';
+			+ '<span class="jtcm-flag__tag">כרטיס רשום</span>';
 		return el;
 	}
 
@@ -184,7 +184,7 @@
 			// exists in the radius - the visible value a plan buys.
 			if (!p.paid && p.nearPaid) {
 				h += '<a class="jtcm-pop__near" href="' + esc(p.nearPaid.url || '#') + '">'
-					+ '<span class="jtcm-pop__near-tag">מקודם באזור</span>'
+					+ '<span class="jtcm-pop__near-tag">כרטיס רשום באזור</span>'
 					+ '<strong>' + esc(p.nearPaid.name) + '</strong>'
 					+ (p.nearPaid.km < 9 ? '<span class="jtcm-pop__near-km">' + (p.nearPaid.km < 1 ? Math.round(p.nearPaid.km * 1000) + ' מ׳' : p.nearPaid.km.toFixed(1) + ' ק"מ') + ' מכאן</span>' : '')
 					+ '</a>';
@@ -193,7 +193,7 @@
 			// mute dot next to labeled competitors - and gets the one-click way in.
 			if (p.claim) {
 				h += '<a class="jtcm-pop__claim" href="' + esc(p.claim) + '" data-lead-utm-source="map_dot_claim" data-lead-utm-medium="map" data-lead-utm-campaign="firm_index">'
-					+ 'זה המשרד שלכם? קבלו שליטה על הכרטיס ותווית בולטת במפה ←</a>';
+					+ 'זה המשרד שלכם? הירשמו וקבלו כרטיס רשום עם תווית בולטת במפה ←</a>';
 			}
 		} else {
 			h += '<strong>' + esc(p.name) + '</strong>';

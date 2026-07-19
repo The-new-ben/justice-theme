@@ -192,10 +192,10 @@ if ( $registration_claim_profile ) {
 					<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
 						<p><?php esc_html_e( 'לא בוצע חיוב אוטומטי. לאחר בדיקת רישיון, תחום וזמינות נשלח חשבונית או הוראות תשלום ידניות, ואז נחבר את הפרופיל לאזור האישי.', 'justice-theme' ); ?></p>
 					<?php endif; ?>
-					<p><?php esc_html_e( 'Account setup link is sent to the email from the form, so the lawyer can set a password and enter the personal dashboard for profile material, leads and service requests.', 'justice-theme' ); ?></p>
+					<p><?php esc_html_e( 'קישור להגדרת חשבון נשלח לכתובת האימייל שבטופס, ומשם נכנסים לאזור האישי: חומרי פרופיל, פניות ובקשות שירות במקום אחד.', 'justice-theme' ); ?></p>
 					<ol>
 						<li><?php esc_html_e( 'בודקים רישיון, פרטי משרד, תחומי עיסוק וכללי פרסום.', 'justice-theme' ); ?></li>
-						<li><?php esc_html_e( 'מסכמים מסלול, חשבונית ותשלום ידני אם מדובר במסלול בתשלום.', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'מסכמים יחד את המסלול המתאים - ללא חיוב אוטומטי.', 'justice-theme' ); ?></li>
 						<li><?php esc_html_e( 'מחברים את הפרופיל לאזור האישי, ללידים, לתוכן ולבקשות עדכון.', 'justice-theme' ); ?></li>
 					</ol>
 					<div class="lawyer-registration-success__actions">
@@ -220,7 +220,7 @@ if ( $registration_claim_profile ) {
 						<span><?php esc_html_e( 'תביעת כרטיס קיים', 'justice-theme' ); ?></span>
 						<strong><?php echo esc_html( get_the_title( $registration_claim_profile ) ); ?></strong>
 					</div>
-					<p><?php esc_html_e( 'זיהינו שהגעת מכרטיס ציבורי קיים. שליחת הטופס לא משנה את הכרטיס אוטומטית: היא פותחת בדיקת בעלות, אימות פרטים ומסלול שדרוג לחשיפה ממומנת.', 'justice-theme' ); ?></p>
+					<p><?php esc_html_e( 'זיהינו שהגעת מכרטיס ציבורי קיים. שליחת הטופס לא משנה את הכרטיס אוטומטית: היא פותחת בדיקת בעלות ואימות פרטים, ובסיומם הכרטיס הופך לכרטיס רשום עם חשיפה מורחבת.', 'justice-theme' ); ?></p>
 					<a href="<?php echo esc_url( get_permalink( $registration_claim_profile ) ); ?>"><?php esc_html_e( 'צפייה בכרטיס הנוכחי', 'justice-theme' ); ?></a>
 				</section>
 			<?php endif; ?>
@@ -245,26 +245,26 @@ if ( $registration_claim_profile ) {
 
 			<section class="lawyer-registration-revenue-bridge" aria-labelledby="lawyer-registration-revenue-bridge-title" data-revenue-surface="lawyer_registration_revenue_bridge" data-funnel-step="lawyer_registration_to_invoice_followup">
 				<div class="lawyer-registration-revenue-bridge__intro">
-					<p class="section-header__eyebrow"><?php esc_html_e( 'מועמד למסלול משלם', 'justice-theme' ); ?></p>
-					<h3 id="lawyer-registration-revenue-bridge-title"><?php esc_html_e( 'מה חייב להיות מלא כדי להפוך הרשמה לחשבונית, תשלום והפעלת לידים?', 'justice-theme' ); ?></h3>
-					<p><?php esc_html_e( 'ההרשמה לא נספרת כהכנסה. היא הופכת להזדמנות מסחרית רק כשיש התאמת תחום ואזור, זמינות לענות ללקוח, פרטי חשבונית, ואסמכתת תשלום לפני סימון paid.', 'justice-theme' ); ?></p>
+					<p class="section-header__eyebrow"><?php esc_html_e( 'איך זה עובד', 'justice-theme' ); ?></p>
+					<h3 id="lawyer-registration-revenue-bridge-title"><?php esc_html_e( 'מה חשוב להשלים כדי שהכרטיס שלכם יתחיל לעבוד בשבילכם?', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'כמה פרטים מדויקים מראש חוסכים התכתבויות מיותרות ומאפשרים לנו לחבר אתכם לפניות רלוונטיות מהר יותר.', 'justice-theme' ); ?></p>
 				</div>
 				<ol class="lawyer-registration-revenue-bridge__steps">
 					<li data-registration-state="lead_response_commitment">
 						<strong><?php esc_html_e( 'זמינות למענה', 'justice-theme' ); ?></strong>
-						<span><?php esc_html_e( 'שדה זמינות המענה קובע אם אפשר להעביר פנייה חמה או רק לבנות פרופיל ציבורי.', 'justice-theme' ); ?></span>
+						<span><?php esc_html_e( 'כשאתם מציינים מתי נוח לחזור לפונים, אפשר להפנות אליכם פניות מתאימות בזמן אמת.', 'justice-theme' ); ?></span>
 					</li>
 					<li data-registration-state="practice_city_match">
 						<strong><?php esc_html_e( 'תחום ואזור שירות', 'justice-theme' ); ?></strong>
-						<span><?php esc_html_e( 'התאמה בין תחום, עיר וזמינות היא תנאי לפני שידוך לידים או הצעה למסלול שותף.', 'justice-theme' ); ?></span>
+						<span><?php esc_html_e( 'תחום מדויק ועיר שירות מחברים את הכרטיס שלכם לעמודים ולחיפושים הנכונים באתר.', 'justice-theme' ); ?></span>
 					</li>
 					<li data-registration-state="billing_details_ready">
 						<strong><?php esc_html_e( 'פרטי חשבונית', 'justice-theme' ); ?></strong>
-						<span><?php esc_html_e( 'שם לחיוב, אימייל לחשבונית וטלפון מאפשרים לשלוח דרישת תשלום בלי לרדוף אחרי מידע בסיסי.', 'justice-theme' ); ?></span>
+						<span><?php esc_html_e( 'למסלולים בתשלום - פרטי החיוב נאספים פעם אחת, בלי ניירת מיותרת בהמשך.', 'justice-theme' ); ?></span>
 					</li>
 					<li data-registration-state="paid_requires_evidence">
-						<strong><?php esc_html_e( 'paid רק עם אסמכתה', 'justice-theme' ); ?></strong>
-						<span><?php esc_html_e( 'חשבונית או קישור תשלום הם שלב invoice_sent. הפעלה בתשלום נספרת רק אחרי אסמכתת תשלום.', 'justice-theme' ); ?></span>
+						<strong><?php esc_html_e( 'שקיפות מלאה', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'שום חיוב לא מתבצע אוטומטית מהטופס. מסלול בתשלום מופעל רק אחרי אישור מסודר מכם.', 'justice-theme' ); ?></span>
 					</li>
 				</ol>
 			</section>
@@ -273,7 +273,7 @@ if ( $registration_claim_profile ) {
 				<div>
 					<p class="section-header__eyebrow"><?php esc_html_e( 'פתיחת חשבון עסקי', 'justice-theme' ); ?></p>
 					<h3 id="lawyer-registration-account-path-title"><?php esc_html_e( 'מה נפתח לעורך הדין אחרי שליחת הפרטים?', 'justice-theme' ); ?></h3>
-					<p><?php esc_html_e( 'הטופס הוא תחילת חשבון מנוהל: פרופיל לבדיקה, משתמש לאזור האישי, מסלול תשלום, חומרי אמון, ותשתית לפניות שאפשר למדוד ולנהל.', 'justice-theme' ); ?></p>
+					<p><?php esc_html_e( 'הטופס פותח לכם חשבון מקצועי: פרופיל בבדיקה, אזור אישי משלכם, וכלים לנהל פניות, תוכן ובקשות עדכון במקום אחד.', 'justice-theme' ); ?></p>
 				</div>
 				<ol>
 					<li>
@@ -282,16 +282,16 @@ if ( $registration_claim_profile ) {
 					</li>
 					<li>
 						<strong><?php esc_html_e( 'בדיקת התאמה ותשלום', 'justice-theme' ); ?></strong>
-						<span><?php esc_html_e( 'מסלול בתשלום מופעל רק אחרי בדיקת רישיון, תחום, זמינות וקישור תשלום או חשבונית אמיתיים.', 'justice-theme' ); ?></span>
+						<span><?php esc_html_e( 'אנחנו מאמתים רישיון ופרטי משרד לפני הפעלה - כך כרטיס רשום שומר על אמינות מול לקוחות.', 'justice-theme' ); ?></span>
 					</li>
 					<li>
 						<strong><?php esc_html_e( 'פניות, שירות ודוח ערך', 'justice-theme' ); ?></strong>
-						<span><?php esc_html_e( 'באזור האישי מנהלים פניות, סטטוס טיפול, בקשות שירות, שדרוג, ביטול, החזר וחשבוניות.', 'justice-theme' ); ?></span>
+						<span><?php esc_html_e( 'באזור האישי מנהלים פניות מלקוחות, עדכוני פרופיל ובקשות שירות - הכל שקוף ומרוכז.', 'justice-theme' ); ?></span>
 					</li>
 				</ol>
 				<div class="lawyer-registration-account-path__fields">
 					<strong><?php esc_html_e( 'מה חשוב להשלים כבר עכשיו?', 'justice-theme' ); ?></strong>
-					<p><?php esc_html_e( 'שם משרד, אימייל שמקבל פניות, טלפון נייד לאימות, תחומי התמחות, עיר/אזור שירות ופרטי חשבונית. אלה השדות שמאפשרים להפוך הרשמה לחשבון שניתן להפעיל, למדוד ולחייב בצורה מסודרת.', 'justice-theme' ); ?></p>
+					<p><?php esc_html_e( 'שם משרד, אימייל שמקבל פניות, טלפון נייד לאימות, תחומי התמחות ועיר שירות. אלה הפרטים שהופכים את הכרטיס שלכם לכרטיס רשום, מדויק ופעיל.', 'justice-theme' ); ?></p>
 				</div>
 			</section>
 

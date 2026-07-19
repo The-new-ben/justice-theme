@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-07-19",
+  "files": 15,
+  "rows_total": 606,
+  "counts": {
+    "01_real_estate_appraisers.csv": 50,
+    "02_vehicle_property_appraisers.csv": 50,
+    "03_medical_experts.csv": 46,
+    "04_polygraph_institutes.csv": 40,
+    "05_licensed_private_investigators.csv": 50,
+    "06_forensic_graphologists.csv": 17,
+    "07_court_transcription.csv": 29,
+    "08_notarial_translators.csv": 50,
+    "09_notaries.csv": 50,
+    "10_building_engineers_expert_opinions.csv": 50,
+    "11_safety_experts.csv": 50,
+    "12_actuaries_resource_balancing.csv": 21,
+    "13_forensic_accountants.csv": 17,
+    "14_certified_mediators.csv": 50,
+    "15_arbitrators.csv": 36
+  },
+  "validation": "passed"
+}

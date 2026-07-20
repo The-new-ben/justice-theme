@@ -247,7 +247,18 @@ if ( post_type_exists( 'articles' ) ) {
 		$justice_band_out  = array();
 		foreach ( $area_lawyer_posts as $justice_band_post ) {
 			$justice_band_key = mb_substr( preg_replace( '/[^א-תa-z0-9]/iu', '', mb_strtolower( $justice_band_post->post_title ) ), 0, 18 );
-			if ( isset( $justice_band_seen[ $justice_band_key ] ) ) {
+			$justice_band_dup = isset( $justice_band_seen[ $justice_band_key ] );
+			if ( ! $justice_band_dup ) {
+				// Typo twins can differ inside the prefix window (ונוטריון/ונטוריון),
+				// so near-identical keys count as the same firm too.
+				foreach ( array_keys( $justice_band_seen ) as $justice_band_seen_key ) {
+					if ( levenshtein( $justice_band_key, (string) $justice_band_seen_key ) <= 4 ) {
+						$justice_band_dup = true;
+						break;
+					}
+				}
+			}
+			if ( $justice_band_dup ) {
 				continue;
 			}
 			$justice_band_seen[ $justice_band_key ] = true;

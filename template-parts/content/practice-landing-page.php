@@ -235,12 +235,23 @@ if ( post_type_exists( 'articles' ) ) {
 			$area_lawyer_posts = array_slice( $area_lawyer_posts, 0, 6 );
 		}
 	}
-	echo '<span hidden data-jtband="' . esc_attr( wp_json_encode( array(
-		'term'   => $term instanceof WP_Term ? $term->term_id : 'null',
-		'wpq'    => $area_lawyers instanceof WP_Query ? $area_lawyers->post_count : 'nq',
-		'objids' => isset( $object_ids ) && is_array( $object_ids ) ? count( $object_ids ) : 'na',
-		'final'  => count( $area_lawyer_posts ),
-	) ) ) . '"></span>';
+	?>
+
+	<?php
+	// Dedupe typo-twin firm names (e.g. two 'א. טירר' variants in the data).
+	if ( ! empty( $area_lawyer_posts ) ) {
+		$justice_band_seen = array();
+		$justice_band_out  = array();
+		foreach ( $area_lawyer_posts as $justice_band_post ) {
+			$justice_band_key = mb_substr( preg_replace( '/[^א-תa-z0-9]/iu', '', mb_strtolower( $justice_band_post->post_title ) ), 0, 18 );
+			if ( isset( $justice_band_seen[ $justice_band_key ] ) ) {
+				continue;
+			}
+			$justice_band_seen[ $justice_band_key ] = true;
+			$justice_band_out[]                     = $justice_band_post;
+		}
+		$area_lawyer_posts = array_slice( $justice_band_out, 0, 6 );
+	}
 	?>
 
 	<?php if ( ! empty( $area_lawyer_posts ) ) : ?>

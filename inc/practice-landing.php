@@ -560,3 +560,25 @@ function justice_theme_use_family_law_practice_template( string $template ): str
 	return $template;
 }
 add_filter( 'template_include', 'justice_theme_use_family_law_practice_template', -3500 );
+
+
+/**
+ * Flag-proof template routing for practice-landing pages.
+ *
+ * An early ops-side query clobbers the main query flags on some money URLs
+ * (measured live: queried object = page 7274 while is_page=false and
+ * is_single=true), so the core loader skips page.php and serves single.php.
+ * Route by the QUERIED OBJECT, never by the corrupted flags.
+ */
+function justice_theme_force_practice_landing_template( $template ) {
+	$q = get_queried_object();
+	if ( ! $q instanceof WP_Post || 'page' !== $q->post_type ) {
+		return $template;
+	}
+	if ( null === justice_theme_get_practice_landing_config( $q->post_name ) ) {
+		return $template;
+	}
+	$page_template = locate_template( 'page.php' );
+	return $page_template ?: $template;
+}
+add_filter( 'template_include', 'justice_theme_force_practice_landing_template', 9999999 );

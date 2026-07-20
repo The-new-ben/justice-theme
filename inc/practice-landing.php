@@ -78,7 +78,7 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 			'supporting' => array(),
 		),
 		'inheritance'         => array(
-			'term_slug'  => 'inheritance',
+			'term_slug'  => 'inheritance-law',
 			'title'      => 'ירושה וצוואות',
 			'keyword'    => 'עורך דין ירושה',
 			'summary'    => 'מידע על צוואות, ירושות, התנגדות לצוואה, ניהול עיזבון וסכסוכים משפחתיים סביב רכוש.',

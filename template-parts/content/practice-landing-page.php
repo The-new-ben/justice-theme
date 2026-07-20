@@ -173,13 +173,60 @@ if ( post_type_exists( 'articles' ) ) {
 		</div>
 	</section>
 
-	<?php if ( $featured_lawyer instanceof WP_Post ) : ?>
+	<?php
+	// Area-scoped firms band: the indexed lawyers ARE the product — the
+	// pillar must surface them (owner law 2026-07-20). Falls back to the
+	// single featured profile only when no area match exists.
+	$area_lawyers = null;
+	if ( $term_slug && post_type_exists( 'justice_lawyer' ) && taxonomy_exists( 'practice-areas' ) ) {
+		$area_lawyers = new WP_Query(
+			array(
+				'post_type'      => 'justice_lawyer',
+				'post_status'    => 'publish',
+				'posts_per_page' => 6,
+				'no_found_rows'  => true,
+				'meta_key'       => 'priority_score',
+				'orderby'        => array( 'meta_value_num' => 'DESC', 'title' => 'ASC' ),
+				'tax_query'      => array(
+					array(
+						'taxonomy' => 'practice-areas',
+						'field'    => 'slug',
+						'terms'    => $term_slug,
+					),
+				),
+			)
+		);
+	}
+	?>
+
+	<?php if ( $area_lawyers instanceof WP_Query && $area_lawyers->have_posts() ) : ?>
+		<section class="legal-pillar-lawyers section">
+			<div class="container">
+				<div class="section-header section-header--split">
+					<div>
+						<p class="section-header__eyebrow"><?php esc_html_e( 'מהאינדקס המאומת', 'justice-theme' ); ?></p>
+						<h2><?php echo esc_html( sprintf( 'משרדי עורכי דין מובילים בתחום %s', $title ) ); ?></h2>
+					</div>
+					<a class="button button--primary" href="<?php echo esc_url( $lawyer_url ); ?>"><?php esc_html_e( 'לכל המשרדים במפה', 'justice-theme' ); ?></a>
+				</div>
+				<div class="lawyers-grid">
+					<?php
+					while ( $area_lawyers->have_posts() ) :
+						$area_lawyers->the_post();
+						get_template_part( 'template-parts/cards/lawyer-card' );
+					endwhile;
+					wp_reset_postdata();
+					?>
+				</div>
+			</div>
+		</section>
+	<?php elseif ( $featured_lawyer instanceof WP_Post ) : ?>
 		<section class="legal-pillar-lawyers section">
 			<div class="container">
 				<div class="section-header section-header--split">
 					<div>
 						<p class="section-header__eyebrow"><?php esc_html_e( 'פרופיל מקצועי מחובר', 'justice-theme' ); ?></p>
-						<h2><?php esc_html_e( 'פרופיל מקצועי בתחום המשפחה', 'justice-theme' ); ?></h2>
+						<h2><?php echo esc_html( sprintf( 'פרופיל מקצועי בתחום %s', $title ) ); ?></h2>
 					</div>
 					<a class="button button--primary" href="<?php echo esc_url( justice_theme_public_permalink( $featured_lawyer->ID ) ); ?>"><?php esc_html_e( 'כניסה לפרופיל', 'justice-theme' ); ?></a>
 				</div>
@@ -193,6 +240,8 @@ if ( post_type_exists( 'articles' ) ) {
 				</div>
 			</div>
 		</section>
+	<?php else : ?>
+		<!-- justice-monitor: pillar-lawyers-band EMPTY for term '<?php echo esc_html( $term_slug ); ?>' — loud-failure marker, journey-monitor asserts this never ships silently -->
 	<?php endif; ?>
 
 	<?php if ( $articles && $articles->have_posts() ) : ?>

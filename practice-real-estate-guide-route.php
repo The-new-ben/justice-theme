@@ -14,6 +14,7 @@ $justice_real_estate_config = function_exists( 'justice_theme_get_practice_landi
 	: null;
 
 if ( is_array( $justice_real_estate_config ) ) {
+	$justice_real_estate_config['term_slug'] = 'real-estate-law';
 	$justice_real_estate_config['title']      = 'מדריך עורך דין מקרקעין';
 	$justice_real_estate_config['keyword']    = 'עורך דין מקרקעין';
 	$justice_real_estate_config['summary']    = 'מרכז מידע מעשי על קנייה ומכירת דירה, חוזי מכר, רישום זכויות, מיסוי מקרקעין, איחור במסירה ובדיקות משפטיות לפני עסקת נדל"ן.';

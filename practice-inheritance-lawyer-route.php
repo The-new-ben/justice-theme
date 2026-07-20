@@ -14,6 +14,7 @@ $justice_inheritance_config = function_exists( 'justice_theme_get_practice_landi
 	: null;
 
 if ( is_array( $justice_inheritance_config ) ) {
+	$justice_inheritance_config['term_slug'] = 'inheritance-law';
 	$justice_inheritance_config['title']         = 'עורך דין ירושה וצוואות';
 	$justice_inheritance_config['display_title'] = $justice_inheritance_config['title'];
 	$justice_inheritance_config['keyword']       = 'עורך דין ירושה';

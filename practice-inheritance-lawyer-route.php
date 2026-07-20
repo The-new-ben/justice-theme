@@ -40,11 +40,16 @@ if ( function_exists( 'justice_theme_mark_controlled_practice_route_found' ) ) {
 
 get_header();
 
+// Resolve the canonical CMS page so its content section renders (mirrors the
+// medical-malpractice route; page 20210 carries the hire/price/chooser body).
+$justice_inheritance_page    = get_page_by_path( 'inheritance-lawyer' );
+$justice_inheritance_page_id = $justice_inheritance_page instanceof WP_Post ? (int) $justice_inheritance_page->ID : 0;
+
 get_template_part(
 	'template-parts/content/practice-landing-page',
 	null,
 	array(
-		'page_id' => 0,
+		'page_id' => $justice_inheritance_page_id,
 		'config'  => is_array( $justice_inheritance_config ) ? $justice_inheritance_config : array(),
 	)
 );

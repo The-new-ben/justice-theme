@@ -204,8 +204,7 @@ if ( post_type_exists( 'articles' ) ) {
 				'post_status'    => 'publish',
 				'posts_per_page' => 6,
 				'no_found_rows'  => true,
-				'meta_key'       => 'priority_score',
-				'orderby'        => array( 'meta_value_num' => 'DESC', 'title' => 'ASC' ),
+				'orderby'        => array( 'title' => 'ASC' ),
 				'tax_query'      => array(
 					array(
 						'taxonomy' => 'practice-areas',

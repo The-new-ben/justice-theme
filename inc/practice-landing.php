@@ -21,6 +21,7 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 	$configs = array(
 		'divorce-lawyer'      => array(
 			'term_slug'      => 'family-law',
+			'featured_lawyer' => 'advocate-maya-rotenberg',
 			'title'          => 'עורך דין גירושין',
 			'display_title'  => 'עורך דין גירושין',
 			'keyword'        => 'עורך דין גירושין',
@@ -473,11 +474,11 @@ add_action( 'template_redirect', 'justice_theme_maybe_prepare_family_law_practic
  * topics bar before get_header() runs.
  */
 function justice_theme_set_practice_scope_for_pages(): void {
-	if ( is_admin() || ! is_page() ) {
+	if ( is_admin() ) {
 		return;
 	}
-	$post = get_post();
-	if ( ! $post instanceof WP_Post ) {
+	$post = get_queried_object();
+	if ( ! $post instanceof WP_Post || 'page' !== $post->post_type ) {
 		return;
 	}
 	$config = justice_theme_get_practice_landing_config( $post->post_name );

@@ -81,7 +81,7 @@ if ( post_type_exists( 'articles' ) ) {
 				<strong><?php echo esc_html( $keyword ); ?></strong>
 				<ul>
 					<li><?php esc_html_e( 'להבין את הבעיה המשפטית ואת רמת הדחיפות.', 'justice-theme' ); ?></li>
-					<li><?php esc_html_e( 'לקרוא מדריכים קשורים בלי ליצור כפילות SEO.', 'justice-theme' ); ?></li>
+					<li><?php esc_html_e( 'לקרוא מדריכים ממוקדים למצב שלכם, צעד אחר צעד.', 'justice-theme' ); ?></li>
 					<li><?php esc_html_e( 'להשאיר פנייה מסודרת לעיון מקצועי.', 'justice-theme' ); ?></li>
 				</ul>
 			</aside>

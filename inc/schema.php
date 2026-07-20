@@ -266,7 +266,7 @@ function justice_theme_legal_service_schema() {
 			'רשלנות רפואית', 'דיני ירושה', 'צוואות', 'דיני עבודה',
 			'Criminal Law', 'Family Law', 'Real Estate Law', 'Inheritance Law',
 		),
-		'description' => 'פורטל משפטי מוביל בישראל: מדריכים מקצועיים, מאגר עורכי דין, מחשבונים משפטיים וייעוץ בכל תחומי המשפט.',
+		'description' => 'פורטל משפטי מוביל בישראל: מדריכים מקצועיים, חיפוש עורכי דין, מחשבונים משפטיים וייעוץ בכל תחומי המשפט.',
 	);
 
 	// On pillar pages, add the specific service type as a named service.

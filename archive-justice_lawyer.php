@@ -177,7 +177,7 @@ $area_term = null;
 
 // Dynamic H1 based on filters
 $page_title = 'חיפוש עורך דין לפי שם, תחום ועיר';
-$page_desc  = 'אינדקס עורכי דין בחינם: השוו פרופילים, תחומי התמחות, אזורי שירות ודרכי פנייה. כל עורך דין ניתן לאימות מול ספר עורכי הדין הרשמי של לשכת עורכי הדין לפי שם או מספר רישיון.';
+$page_desc  = 'חיפוש עורך דין לפי תחום ועיר: השוו פרופילים, תחומי התמחות, אזורי שירות ודרכי פנייה. כל עורך דין ניתן לאימות מול ספר עורכי הדין הרשמי של לשכת עורכי הדין לפי שם או מספר רישיון.';
 
 if ( $filter_city ) {
 	$city_term = get_term_by( 'slug', $filter_city, 'city' );
@@ -303,22 +303,22 @@ $approved_count = (int) $lawyers->found_posts;
 
 			<section class="directory-comparison-playbook" aria-label="<?php esc_attr_e( 'בדיקת התאמה לפני בחירת עורך דין', 'justice-theme' ); ?>">
 				<div class="directory-comparison-playbook__header">
-					<span><?php esc_html_e( 'בהשראת דפוסי חיפוש באינדקסים משפטיים מובילים', 'justice-theme' ); ?></span>
-					<h2><?php esc_html_e( 'מה כדאי לבדוק לפני שבוחרים פרופיל?', 'justice-theme' ); ?></h2>
-					<p><?php esc_html_e( 'העמוד הזה לא מסתפק ברשימת שמות. הוא מכוון את הגולש לבדוק תחום, אזור, סימני אימות ויכולת פנייה, כדי שהאינדקס ירגיש רציני כמו אתרי עורכי הדין החזקים בישראל בלי להציג עובדות שלא נבדקו.', 'justice-theme' ); ?></p>
+					<span><?php esc_html_e( 'בדיקת התאמה לפני פנייה', 'justice-theme' ); ?></span>
+					<h2><?php esc_html_e( 'מה כדאי לבדוק לפני שבוחרים עורך דין?', 'justice-theme' ); ?></h2>
+					<p><?php esc_html_e( 'לפני שפונים לעורך דין כדאי לבדוק תחום, אזור שירות, ניסיון רלוונטי ודרכי פנייה. ריכזנו כאן את הבדיקות שחשוב לעשות, בלי הבטחות ובלי עובדות שלא נבדקו.', 'justice-theme' ); ?></p>
 				</div>
 				<div class="directory-comparison-playbook__grid">
 					<article>
 						<strong><?php esc_html_e( 'התאמת תחום ועיר', 'justice-theme' ); ?></strong>
-						<span><?php esc_html_e( 'כמו באינדקסים תחרותיים, נקודת הפתיחה היא סינון לפי תחום משפטי ואזור שירות. אם התחום קרוב, למשל גירושין ודיני משפחה, הוא צריך להופיע יחד ולא להתפצל למסלולים מבלבלים.', 'justice-theme' ); ?></span>
+						<span><?php esc_html_e( 'נקודת הפתיחה היא סינון לפי תחום משפטי ואזור שירות. אם התחום קרוב, למשל גירושין ודיני משפחה, בודקים את שניהם יחד ולא מתפצלים למסלולים מבלבלים.', 'justice-theme' ); ?></span>
 					</article>
 					<article>
 						<strong><?php esc_html_e( 'אמון בלי המצאות', 'justice-theme' ); ?></strong>
-						<span><?php esc_html_e( 'תמונה, ביקורות, השכלה, תיקים או הופעות במדיה מוצגים רק כאשר הם קיימים ומאומתים. בפרופילים בסיסיים עדיף להציג פחות, אבל נכון.', 'justice-theme' ); ?></span>
+						<span><?php esc_html_e( 'תמונה, ביקורות, השכלה, תיקים או הופעות במדיה מוצגים רק כשהם נתמכים במקורות גלויים. בפרופילים בסיסיים עדיף להציג פחות, אבל נכון.', 'justice-theme' ); ?></span>
 					</article>
 					<article>
 						<strong><?php esc_html_e( 'מסלול שדרוג ברור', 'justice-theme' ); ?></strong>
-						<span><?php esc_html_e( 'פרופיל בסיסי יכול להפוך לכרטיס רשום: תמונה, מאמרים, ביקורות מאומתות, קישורי מדיה ובולטות גבוהה יותר במפה ובמדריכים — והפרטים מתעדכנים עבורכם באופן שוטף.', 'justice-theme' ); ?></span>
+						<span><?php esc_html_e( 'פרופיל בסיסי יכול להפוך לכרטיס רשום: תמונה, מאמרים, ביקורות מאומתות, קישורי מדיה ובולטות גבוהה יותר במפה ובמדריכים, והפרטים מתעדכנים עבורכם באופן שוטף.', 'justice-theme' ); ?></span>
 					</article>
 				</div>
 				<div class="directory-comparison-playbook__actions">
@@ -457,7 +457,7 @@ $approved_count = (int) $lawyers->found_posts;
 				$justice_fallback_shown = 0;
 				?>
 				<?php if ( ! empty( $justice_fallback_ids ) ) : ?>
-					<h3 class="directory-empty__more"><?php esc_html_e( 'בינתיים, אנשי מקצוע מאומתים מתחומים נוספים', 'justice-theme' ); ?></h3>
+					<h3 class="directory-empty__more"><?php esc_html_e( 'בינתיים, אנשי מקצוע מובילים מתחומים נוספים', 'justice-theme' ); ?></h3>
 					<div class="lawyers-grid">
 						<?php
 						foreach ( $justice_fallback_ids as $justice_fb_id ) {

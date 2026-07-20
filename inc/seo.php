@@ -177,7 +177,7 @@ function justice_theme_seed_yoast_configuration(): void {
 		// Justice Lawyer CPT.
 		'title-justice_lawyer'          => '%%title%% %%sep%% %%sitename%%',
 		'metadesc-justice_lawyer'       => '%%title%% - פרופיל עורך דין. תחומי התמחות, אזורי פעילות ופרטי קשר.',
-		'title-ptarchive-justice_lawyer' => 'מאגר עורכי דין %%page%% %%sep%% %%sitename%%',
+		'title-ptarchive-justice_lawyer' => 'עורכי דין בישראל %%page%% %%sep%% %%sitename%%',
 		'metadesc-ptarchive-justice_lawyer' => 'חפשו עורכי דין לפי תחום התמחות ואזור. מאגר עורכי דין מקצועי בישראל.',
 
 		// Practice-areas taxonomy (main hub pages).

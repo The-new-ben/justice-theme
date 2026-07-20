@@ -55,9 +55,9 @@ wp_add_inline_script(
 			<div id="legal-map-canvas" class="legal-map-canvas"></div>
 		</div>
 		<p class="legal-map-legend">
-			<span><i class="legal-map-dot legal-map-dot--lawyer"></i> <?php esc_html_e( 'עורכי דין מאומתים', 'justice-theme' ); ?></span>
+			<span><i class="legal-map-dot legal-map-dot--lawyer"></i> <?php esc_html_e( 'עורכי דין מובילים', 'justice-theme' ); ?></span>
 			<span><i class="legal-map-dot legal-map-dot--place"></i> <?php esc_html_e( 'בתי משפט, מוסדות ומשרדים מובילים', 'justice-theme' ); ?></span>
-			<span><?php esc_html_e( 'הנתונים מהמאגר המאומת בלבד.', 'justice-theme' ); ?></span>
+			<span><?php esc_html_e( 'מציגים משרדים שנבדקו ונמצאו בין המובילים בתחומם.', 'justice-theme' ); ?></span>
 		</p>
 	</div>
 </section>

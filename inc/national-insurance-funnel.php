@@ -372,7 +372,7 @@ function justice_theme_render_btl_appeal_route(): void {
 							</article>
 							<article>
 								<strong><?php esc_html_e( 'מחפשים עורך דין בתחום ביטוח לאומי', 'justice-theme' ); ?></strong>
-								<p><?php esc_html_e( 'אפשר לעבור ישירות לאינדקס עורכי הדין ולסנן לפי תחום ביטוח לאומי. מומלץ להכין מראש החלטה, פרוטוקול ועדה, מסמכים רפואיים ותאריך קבלת ההחלטה.', 'justice-theme' ); ?></p>
+								<p><?php esc_html_e( 'אפשר לעבור ישירות לחיפוש עורכי הדין ולסנן לפי תחום ביטוח לאומי. מומלץ להכין מראש החלטה, פרוטוקול ועדה, מסמכים רפואיים ותאריך קבלת ההחלטה.', 'justice-theme' ); ?></p>
 								<a href="<?php echo esc_url( home_url( '/lawyers/?area=national-insurance' ) ); ?>"><?php esc_html_e( 'מעבר לעורכי דין ביטוח לאומי', 'justice-theme' ); ?></a>
 							</article>
 						</div>

@@ -357,7 +357,20 @@ if ( post_type_exists( 'articles' ) ) {
 		<section class="legal-pillar-reviewed section">
 			<div class="container">
 				<p class="eeat-reviewed-footer"><strong>התוכן בעמוד נבדק על ידי <?php echo esc_html( $config['reviewed_by'] ); ?></strong></p>
-				<script type="application/ld+json"><?php echo wp_json_encode( array( '@context' => 'https://schema.org', '@type' => 'Person', 'name' => $config['reviewed_by'], 'jobTitle' => 'עורך דין', 'worksFor' => array( '@type' => 'Organization', 'name' => 'Jus-Tice' ) ), JSON_UNESCAPED_UNICODE ); ?></script>
+				<?php
+				$justice_reviewer_schema = array(
+					'@context' => 'https://schema.org',
+					'@type'    => 'Person',
+					'name'     => $config['reviewed_by'],
+					'jobTitle' => ! empty( $config['reviewed_by_title'] ) ? $config['reviewed_by_title'] : 'עורך דין',
+				);
+				if ( ! empty( $config['reviewed_by_sameas'] ) ) {
+					$justice_reviewer_schema['sameAs'] = array( $config['reviewed_by_sameas'] );
+				} else {
+					$justice_reviewer_schema['worksFor'] = array( '@type' => 'Organization', 'name' => 'Jus-Tice' );
+				}
+			?>
+			<script type="application/ld+json"><?php echo wp_json_encode( $justice_reviewer_schema, JSON_UNESCAPED_UNICODE ); ?></script>
 			</div>
 		</section>
 	<?php endif; ?>

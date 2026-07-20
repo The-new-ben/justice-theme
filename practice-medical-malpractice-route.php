@@ -69,6 +69,19 @@ if ( function_exists( 'justice_theme_mark_controlled_practice_route_found' ) ) {
 	status_header( 200 );
 }
 
+
+// Isolate the topics bar to the malpractice ecosystem on this route
+// (winner pattern: zero cross-practice anchors on ranking pillars).
+$GLOBALS['justice_practice_scope'] = array(
+	array( 'label' => 'עורך דין רשלנות רפואית', 'url' => home_url( '/medical-malpractice-lawyer/' ) ),
+	array( 'label' => 'רשלנות רפואית בלידה', 'url' => home_url( '/medical-malpractice-lawyer-birth-recommended/' ) ),
+	array( 'label' => 'רשלנות רפואית בניתוח', 'url' => home_url( '/medical-malpractice-surgery/' ) ),
+	array( 'label' => 'רשלנות רפואית שיניים', 'url' => home_url( '/dental-malpractice/' ) ),
+	array( 'label' => 'פיצויים ברשלנות רפואית', 'url' => home_url( '/medical-malpractice-compensation/' ) ),
+	array( 'label' => 'כמה עולה תביעת רשלנות רפואית', 'url' => home_url( '/medical-malpractice-cost/' ) ),
+	array( 'label' => 'מומחים רפואיים לחוות דעת', 'url' => home_url( '/court-legal-opinion-experts-medical-2023/' ) ),
+);
+
 get_header();
 
 get_template_part(

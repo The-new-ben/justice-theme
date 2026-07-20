@@ -47,6 +47,13 @@ $justice_whatsapp_url = function_exists( 'justice_theme_public_whatsapp_url' )
 	? justice_theme_public_whatsapp_url( __( 'שלום, אני צריך/ה עזרה משפטית דרך Jus-Tice ואשמח לחזרה קצרה.', 'justice-theme' ) )
 	: '';
 
+// Practice routes can isolate the topics bar to their own ecosystem
+// (measured winner pattern: #1-#3 for רשלנות רפואית carry 0-3 off-topic
+// practice anchors sitewide; cross-practice anchors dilute the pillar).
+$justice_practice_scope = isset( $GLOBALS['justice_practice_scope'] ) && is_array( $GLOBALS['justice_practice_scope'] )
+	? $GLOBALS['justice_practice_scope']
+	: null;
+
 $justice_topic_links = array(
 	array(
 		'label' => __( 'עורך דין גירושין', 'justice-theme' ),
@@ -85,6 +92,10 @@ $justice_topic_links = array(
 		'url'   => justice_theme_safe_public_link( '/legal-tools/ai-intake/', '/legal-tools/' ),
 	),
 );
+
+if ( null !== $justice_practice_scope && ! empty( $justice_practice_scope ) ) {
+	$justice_topic_links = $justice_practice_scope;
+}
 ?>
 
 <header class="site-header jt2-header" role="banner">

@@ -476,7 +476,7 @@ function justice_theme_render_html_sitemap_page(): void {
 				<nav class="jt-html-sitemap__quick-links" aria-label="<?php esc_attr_e( 'עמודים מרכזיים באתר', 'justice-theme' ); ?>">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'דף הבית', 'justice-theme' ); ?></a>
 					<a href="<?php echo esc_url( home_url( '/articles/' ) ); ?>"><?php esc_html_e( 'מאגר מאמרים משפטיים', 'justice-theme' ); ?></a>
-					<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>"><?php esc_html_e( 'אינדקס עורכי דין', 'justice-theme' ); ?></a>
+					<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>"><?php esc_html_e( 'כל עורכי הדין', 'justice-theme' ); ?></a>
 					<a href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>"><?php esc_html_e( 'התייעצות משפטית', 'justice-theme' ); ?></a>
 					<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'יצירת קשר', 'justice-theme' ); ?></a>
 					<a href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php esc_html_e( 'אודות Jus-Tice', 'justice-theme' ); ?></a>

@@ -204,8 +204,8 @@ if ( post_type_exists( 'articles' ) ) {
 			<div class="container">
 				<div class="section-header section-header--split">
 					<div>
-						<p class="section-header__eyebrow"><?php esc_html_e( 'מהאינדקס המאומת', 'justice-theme' ); ?></p>
-						<h2><?php echo esc_html( sprintf( 'משרדי עורכי דין מובילים בתחום %s', $title ) ); ?></h2>
+						<p class="section-header__eyebrow"><?php esc_html_e( 'נבדקו ונמצאו מובילים', 'justice-theme' ); ?></p>
+						<h2><?php echo esc_html( sprintf( 'משרדי עורכי דין מובילים ב%s', $term instanceof WP_Term ? $term->name : $title ) ); ?></h2>
 					</div>
 					<a class="button button--primary" href="<?php echo esc_url( $lawyer_url ); ?>"><?php esc_html_e( 'לכל המשרדים במפה', 'justice-theme' ); ?></a>
 				</div>

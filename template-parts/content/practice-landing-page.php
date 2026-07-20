@@ -129,7 +129,7 @@ if ( post_type_exists( 'articles' ) ) {
 	);
 	$signals = $practice_signals[ $term_slug ] ?? $practice_signals[ 'family-law' ];
 	?>
-	<section class="practice-signals section" aria-label="<?php echo esc_attr( sprintf( '%s — תחומי עיסוק', $title ) ); ?>">
+	<section class="practice-signals section" aria-label="<?php echo esc_attr( sprintf( '%s: תחומי עיסוק', $title ) ); ?>">
 		<div class="container practice-signals__grid">
 			<?php foreach ( $signals as $signal ) : ?>
 			<div class="practice-signals__item">

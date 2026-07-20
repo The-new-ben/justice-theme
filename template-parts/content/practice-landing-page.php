@@ -29,7 +29,10 @@ $title           = ! empty( $config['display_title'] )
 	? (string) $config['display_title']
 	: ( $term instanceof WP_Term ? $term->name : ( $config['title'] ?? get_the_title( $page_id ) ) );
 $keyword         = $config['keyword'] ?? $title;
-$summary         = $term instanceof WP_Term && $term->description ? $term->description : ( $config['summary'] ?? '' );
+$summary         = ! empty( $config['summary'] )
+	? (string) $config['summary']
+	: ( $term instanceof WP_Term ? $term->description : '' );
+$summary         = wp_trim_words( wp_strip_all_tags( $summary ), 40, '' );
 $supporting      = is_array( $config['supporting'] ?? null ) ? $config['supporting'] : array();
 $lawyer_archive  = get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' );
 $lawyer_url      = $term_slug ? add_query_arg( 'area', $term_slug, $lawyer_archive ) : $lawyer_archive;

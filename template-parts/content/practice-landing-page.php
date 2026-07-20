@@ -89,8 +89,12 @@ if ( post_type_exists( 'articles' ) ) {
 							__( 'להשאיר פנייה מסודרת לעיון מקצועי.', 'justice-theme' ),
 						);
 					foreach ( $justice_quick_path as $justice_quick_line ) :
-						?>
-						<li><?php echo esc_html( $justice_quick_line ); ?></li>
+						if ( is_array( $justice_quick_line ) && ! empty( $justice_quick_line['url'] ) ) :
+							?>
+							<li><a href="<?php echo esc_url( home_url( $justice_quick_line['url'] ) ); ?>"><?php echo esc_html( $justice_quick_line['label'] ?? '' ); ?></a></li>
+						<?php else : ?>
+							<li><?php echo esc_html( is_array( $justice_quick_line ) ? ( $justice_quick_line['label'] ?? '' ) : $justice_quick_line ); ?></li>
+						<?php endif; ?>
 					<?php endforeach; ?>
 				</ul>
 			</aside>
@@ -127,8 +131,9 @@ if ( post_type_exists( 'articles' ) ) {
 			array( 'icon' => '&#9993;', 'label' => 'ניהול', 'text' => 'מנהל עיזבון, חלוקת נכסים, מסים' ),
 		),
 	);
-	$signals = $practice_signals[ $term_slug ] ?? $practice_signals[ 'family-law' ];
+	$signals = empty( $config['hide_signals'] ) ? ( $practice_signals[ $term_slug ] ?? $practice_signals['family-law'] ) : array();
 	?>
+	<?php if ( ! empty( $signals ) ) : ?>
 	<section class="practice-signals section" aria-label="<?php echo esc_attr( sprintf( '%s: תחומי עיסוק', $title ) ); ?>">
 		<div class="container practice-signals__grid">
 			<?php foreach ( $signals as $signal ) : ?>
@@ -140,6 +145,7 @@ if ( post_type_exists( 'articles' ) ) {
 			<?php endforeach; ?>
 		</div>
 	</section>
+	<?php endif; ?>
 
 	<section class="legal-pillar-body section">
 		<div class="container legal-pillar-body__grid">

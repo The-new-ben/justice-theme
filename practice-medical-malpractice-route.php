@@ -34,10 +34,13 @@ $justice_medical_malpractice_config = function_exists( 'justice_theme_get_practi
 if ( is_array( $justice_medical_malpractice_config ) ) {
 	$justice_medical_malpractice_config['display_title'] = 'עורך דין רשלנות רפואית';
 	$justice_medical_malpractice_config['quick_path'] = array(
-		'עורך דין רשלנות רפואית בודק קודם עילה: חריגה מסטנדרט רפואי סביר ונזק שנגרם בגללה.',
-		'חוות דעת רפואית של מומחה היא הראיה שמכריעה תיקי רשלנות רפואית.',
-		'התיישנות: בדרך כלל 7 שנים, עם חריגים לקטינים ולגילוי מאוחר.',
+		array( 'label' => 'רשלנות רפואית בלידה', 'url' => '/medical-malpractice-lawyer-birth-recommended/' ),
+		array( 'label' => 'רשלנות רפואית בניתוח', 'url' => '/medical-malpractice-surgery/' ),
+		array( 'label' => 'רשלנות רפואית שיניים', 'url' => '/dental-malpractice/' ),
+		array( 'label' => 'שכר טרחה עורך דין רשלנות רפואית', 'url' => '/medical-malpractice-cost/' ),
+		array( 'label' => 'פיצויים ברשלנות רפואית', 'url' => '/medical-malpractice-compensation/' ),
 	);
+	$justice_medical_malpractice_config['hide_signals'] = true;
 
 }
 

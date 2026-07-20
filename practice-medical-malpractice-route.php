@@ -41,6 +41,7 @@ if ( is_array( $justice_medical_malpractice_config ) ) {
 		array( 'label' => 'פיצויים ברשלנות רפואית', 'url' => '/medical-malpractice-compensation/' ),
 	);
 	$justice_medical_malpractice_config['hide_signals'] = true;
+	$justice_medical_malpractice_config['show_map'] = true;
 
 }
 

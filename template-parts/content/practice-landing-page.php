@@ -259,6 +259,12 @@ if ( post_type_exists( 'articles' ) ) {
 		<!-- justice-monitor: pillar-lawyers-band EMPTY for term '<?php echo esc_html( $term_slug ); ?>' — loud-failure marker, journey-monitor asserts this never ships silently -->
 	<?php endif; ?>
 
+	<?php if ( ! empty( $config['show_map'] ) && function_exists( 'justice_cinema_block' ) ) : ?>
+		<section class="legal-pillar-map section" aria-label="מפת משרדי עורכי דין בתחום">
+			<?php echo justice_cinema_block( false ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		</section>
+	<?php endif; ?>
+
 	<?php if ( $articles && $articles->have_posts() ) : ?>
 		<section class="legal-pillar-articles section">
 			<div class="container">

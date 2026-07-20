@@ -328,6 +328,14 @@ add_action( 'admin_init', 'justice_theme_handle_family_cluster_publication_actio
  * @return string
  */
 function justice_theme_guard_family_cluster_public_content( ?string $content ): string {
+	// The divorce pillar migrated to the practice-landing architecture
+	// (2026-07-20): the DB is the single source of truth for its content,
+	// and the legacy MD replacement carried stale imported blocks.
+	$justice_guard_post = get_post();
+	if ( $justice_guard_post instanceof WP_Post && 'divorce-lawyer' === $justice_guard_post->post_name ) {
+		return $content;
+	}
+
 	if ( null === $content ) {
 		return '';
 	}

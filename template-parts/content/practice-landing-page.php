@@ -68,10 +68,6 @@ if ( post_type_exists( 'articles' ) ) {
 			<div>
 				<p class="section-header__eyebrow"><?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?></p>
 				<h1><?php echo esc_html( $title ); ?></h1>
-				<?php if ( ! empty( $config['reviewed_by'] ) ) : ?>
-					<p class="legal-pillar-hero__reviewed">התוכן בעמוד נבדק על ידי <?php echo esc_html( $config['reviewed_by'] ); ?></p>
-					<script type="application/ld+json"><?php echo wp_json_encode( array( '@context' => 'https://schema.org', '@type' => 'Person', 'name' => $config['reviewed_by'], 'jobTitle' => 'עורך דין', 'worksFor' => array( '@type' => 'Organization', 'name' => 'Jus-Tice' ) ), JSON_UNESCAPED_UNICODE ); ?></script>
-				<?php endif; ?>
 				<?php if ( $summary ) : ?>
 					<p><?php echo esc_html( wp_strip_all_tags( $summary ) ); ?></p>
 				<?php endif; ?>
@@ -239,6 +235,12 @@ if ( post_type_exists( 'articles' ) ) {
 			$area_lawyer_posts = array_slice( $area_lawyer_posts, 0, 6 );
 		}
 	}
+	echo '<!-- JTBAND ' . esc_html( wp_json_encode( array(
+		'term'   => $term instanceof WP_Term ? $term->term_id : 'null',
+		'wpq'    => $area_lawyers instanceof WP_Query ? $area_lawyers->post_count : 'nq',
+		'objids' => isset( $object_ids ) && is_array( $object_ids ) ? count( $object_ids ) : 'na',
+		'final'  => count( $area_lawyer_posts ),
+	) ) ) . ' -->';
 	?>
 
 	<?php if ( ! empty( $area_lawyer_posts ) ) : ?>
@@ -326,4 +328,13 @@ if ( post_type_exists( 'articles' ) ) {
 			</div>
 		</div>
 	</section>
+	<?php if ( ! empty( $config['reviewed_by'] ) ) : ?>
+		<section class="legal-pillar-reviewed section">
+			<div class="container">
+				<p class="eeat-reviewed-footer"><strong>התוכן בעמוד נבדק על ידי <?php echo esc_html( $config['reviewed_by'] ); ?></strong></p>
+				<script type="application/ld+json"><?php echo wp_json_encode( array( '@context' => 'https://schema.org', '@type' => 'Person', 'name' => $config['reviewed_by'], 'jobTitle' => 'עורך דין', 'worksFor' => array( '@type' => 'Organization', 'name' => 'Jus-Tice' ) ), JSON_UNESCAPED_UNICODE ); ?></script>
+			</div>
+		</section>
+	<?php endif; ?>
+
 </article>

@@ -22,6 +22,7 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 		'divorce-lawyer'      => array(
 			'term_slug'      => 'family-law',
 			'featured_lawyer' => 'advocate-maya-rotenberg',
+			'reviewed_by'     => 'עו"ד מאיה רוטנברג',
 			'title'          => 'עורך דין גירושין',
 			'display_title'  => 'עורך דין גירושין',
 			'keyword'        => 'עורך דין גירושין',

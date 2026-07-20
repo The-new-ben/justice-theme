@@ -218,7 +218,30 @@ if ( post_type_exists( 'articles' ) ) {
 	}
 	?>
 
-	<?php if ( $area_lawyers instanceof WP_Query && $area_lawyers->have_posts() ) : ?>
+	<?php
+	// Poison-proof fallback: on flag-corrupted requests an ops-level
+	// pre_get_posts empties secondary WP_Queries (measured: clean-context
+	// probe returns 6, in-page query returns 1). Rebuild the list straight
+	// from the term relationships, no WP_Query involved.
+	$area_lawyer_posts = array();
+	if ( $area_lawyers instanceof WP_Query && $area_lawyers->post_count >= 3 ) {
+		$area_lawyer_posts = $area_lawyers->posts;
+	} elseif ( $term instanceof WP_Term ) {
+		$object_ids = get_objects_in_term( $term->term_id, 'practice-areas' );
+		if ( is_array( $object_ids ) ) {
+			foreach ( $object_ids as $object_id ) {
+				$candidate = get_post( (int) $object_id );
+				if ( $candidate instanceof WP_Post && 'justice_lawyer' === $candidate->post_type && 'publish' === $candidate->post_status ) {
+					$area_lawyer_posts[] = $candidate;
+				}
+			}
+			usort( $area_lawyer_posts, function ( $a, $b ) { return strcmp( $a->post_title, $b->post_title ); } );
+			$area_lawyer_posts = array_slice( $area_lawyer_posts, 0, 6 );
+		}
+	}
+	?>
+
+	<?php if ( ! empty( $area_lawyer_posts ) ) : ?>
 		<section class="legal-pillar-lawyers section">
 			<div class="container">
 				<div class="section-header section-header--split">
@@ -230,10 +253,11 @@ if ( post_type_exists( 'articles' ) ) {
 				</div>
 				<div class="lawyers-grid">
 					<?php
-					while ( $area_lawyers->have_posts() ) :
-						$area_lawyers->the_post();
+					foreach ( $area_lawyer_posts as $area_lawyer_post ) :
+						$GLOBALS['post'] = $area_lawyer_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+						setup_postdata( $area_lawyer_post );
 						get_template_part( 'template-parts/cards/lawyer-card' );
-					endwhile;
+					endforeach;
 					wp_reset_postdata();
 					?>
 				</div>

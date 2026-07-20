@@ -740,3 +740,18 @@ function justice_eeat_inject_content_signals( $content ) {
 	return $byline_html . $content . $disclaimer_html . $sources_html;
 }
 add_filter( 'the_content', 'justice_eeat_inject_content_signals', 15 );
+
+/**
+ * Reviewed-by stamp at the END of every article (owner law 2026-07-20:
+ * the reviewer credit belongs at the bottom, not the hero).
+ */
+function justice_eeat_reviewed_footer( $content ) {
+	if ( ! is_singular( 'articles' ) || ! in_the_loop() || ! is_main_query() ) {
+		return $content;
+	}
+	if ( false !== strpos( $content, 'eeat-reviewed-footer' ) ) {
+		return $content;
+	}
+	return $content . '<p class="eeat-reviewed-footer"><strong>נבדק על ידי עו"ד בן בטש</strong></p>';
+}
+add_filter( 'the_content', 'justice_eeat_reviewed_footer', 16 );

@@ -33,6 +33,12 @@ $justice_medical_malpractice_config = function_exists( 'justice_theme_get_practi
 // Override SEO meta with the richer values from the published page.
 if ( is_array( $justice_medical_malpractice_config ) ) {
 	$justice_medical_malpractice_config['display_title'] = 'עורך דין רשלנות רפואית';
+	$justice_medical_malpractice_config['quick_path'] = array(
+		'עורך דין רשלנות רפואית בודק קודם עילה: חריגה מסטנדרט רפואי סביר ונזק שנגרם בגללה.',
+		'חוות דעת רפואית של מומחה היא הראיה שמכריעה תיקי רשלנות רפואית.',
+		'התיישנות: בדרך כלל 7 שנים, עם חריגים לקטינים ולגילוי מאוחר.',
+	);
+
 }
 
 // Apply SEO meta overrides + mark as 200 OK.

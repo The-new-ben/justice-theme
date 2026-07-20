@@ -80,9 +80,18 @@ if ( post_type_exists( 'articles' ) ) {
 			<aside class="legal-pillar-hero__panel" aria-label="<?php esc_attr_e( 'מסלול מהיר', 'justice-theme' ); ?>">
 				<strong><?php echo esc_html( $keyword ); ?></strong>
 				<ul>
-					<li><?php esc_html_e( 'להבין את הבעיה המשפטית ואת רמת הדחיפות.', 'justice-theme' ); ?></li>
-					<li><?php esc_html_e( 'לקרוא מדריכים ממוקדים למצב שלכם, צעד אחר צעד.', 'justice-theme' ); ?></li>
-					<li><?php esc_html_e( 'להשאיר פנייה מסודרת לעיון מקצועי.', 'justice-theme' ); ?></li>
+					<?php
+					$justice_quick_path = is_array( $config['quick_path'] ?? null ) && ! empty( $config['quick_path'] )
+						? $config['quick_path']
+						: array(
+							__( 'להבין את הבעיה המשפטית ואת רמת הדחיפות.', 'justice-theme' ),
+							__( 'לקרוא מדריכים ממוקדים למצב שלכם, צעד אחר צעד.', 'justice-theme' ),
+							__( 'להשאיר פנייה מסודרת לעיון מקצועי.', 'justice-theme' ),
+						);
+					foreach ( $justice_quick_path as $justice_quick_line ) :
+						?>
+						<li><?php echo esc_html( $justice_quick_line ); ?></li>
+					<?php endforeach; ?>
 				</ul>
 			</aside>
 		</div>

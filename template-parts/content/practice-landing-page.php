@@ -68,6 +68,10 @@ if ( post_type_exists( 'articles' ) ) {
 			<div>
 				<p class="section-header__eyebrow"><?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?></p>
 				<h1><?php echo esc_html( $title ); ?></h1>
+				<?php if ( ! empty( $config['reviewed_by'] ) ) : ?>
+					<p class="legal-pillar-hero__reviewed">התוכן בעמוד נבדק על ידי <?php echo esc_html( $config['reviewed_by'] ); ?></p>
+					<script type="application/ld+json"><?php echo wp_json_encode( array( '@context' => 'https://schema.org', '@type' => 'Person', 'name' => $config['reviewed_by'], 'jobTitle' => 'עורך דין', 'worksFor' => array( '@type' => 'Organization', 'name' => 'Jus-Tice' ) ), JSON_UNESCAPED_UNICODE ); ?></script>
+				<?php endif; ?>
 				<?php if ( $summary ) : ?>
 					<p><?php echo esc_html( wp_strip_all_tags( $summary ) ); ?></p>
 				<?php endif; ?>

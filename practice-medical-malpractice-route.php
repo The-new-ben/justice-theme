@@ -42,6 +42,7 @@ if ( is_array( $justice_medical_malpractice_config ) ) {
 	);
 	$justice_medical_malpractice_config['hide_signals'] = true;
 	$justice_medical_malpractice_config['show_map'] = true;
+	$justice_medical_malpractice_config['reviewed_by'] = 'עו"ד בן בטש';
 
 }
 

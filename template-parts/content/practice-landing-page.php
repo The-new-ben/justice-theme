@@ -201,7 +201,7 @@ if ( post_type_exists( 'articles' ) ) {
 			array(
 				'post_type'      => 'justice_lawyer',
 				'post_status'    => 'publish',
-				'posts_per_page'   => 6,
+				'posts_per_page'   => 10,
 				'no_found_rows'    => true,
 				'suppress_filters' => true,
 				'orderby'          => array( 'title' => 'ASC' ),
@@ -235,7 +235,7 @@ if ( post_type_exists( 'articles' ) ) {
 				}
 			}
 			usort( $area_lawyer_posts, function ( $a, $b ) { return strcmp( $a->post_title, $b->post_title ); } );
-			$area_lawyer_posts = array_slice( $area_lawyer_posts, 0, 6 );
+			$area_lawyer_posts = array_slice( $area_lawyer_posts, 0, 10 );
 		}
 	}
 	?>

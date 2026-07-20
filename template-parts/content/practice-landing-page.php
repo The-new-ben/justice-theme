@@ -202,9 +202,10 @@ if ( post_type_exists( 'articles' ) ) {
 			array(
 				'post_type'      => 'justice_lawyer',
 				'post_status'    => 'publish',
-				'posts_per_page' => 6,
-				'no_found_rows'  => true,
-				'orderby'        => array( 'title' => 'ASC' ),
+				'posts_per_page'   => 6,
+				'no_found_rows'    => true,
+				'suppress_filters' => true,
+				'orderby'          => array( 'title' => 'ASC' ),
 				'tax_query'      => array(
 					array(
 						'taxonomy' => 'practice-areas',

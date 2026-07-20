@@ -61,23 +61,23 @@ $justice_topic_links = array(
 		'url'   => home_url( '/practice-areas/real-estate-law/' ),
 	),
 	array(
-		'label' => __( 'רשלנות רפואית', 'justice-theme' ),
+		'label' => __( 'עורך דין רשלנות רפואית', 'justice-theme' ),
 		'url'   => home_url( '/medical-malpractice-lawyer/' ),
 	),
 	array(
-		'label' => __( 'נזיקין ותאונות', 'justice-theme' ),
+		'label' => __( 'עורך דין נזיקין ותאונות', 'justice-theme' ),
 		'url'   => home_url( '/tort-lawyer/' ),
 	),
 	array(
-		'label' => __( 'תעבורה', 'justice-theme' ),
+		'label' => __( 'עורך דין תעבורה', 'justice-theme' ),
 		'url'   => justice_theme_safe_public_link( '/traffic-lawyer/', '/lawyers/?area=traffic-law' ),
 	),
 	array(
-		'label' => __( 'עבודה', 'justice-theme' ),
+		'label' => __( 'עורך דין דיני עבודה', 'justice-theme' ),
 		'url'   => home_url( '/practice-areas/labor-law/' ),
 	),
 	array(
-		'label' => __( 'ירושה וצוואות', 'justice-theme' ),
+		'label' => __( 'עורך דין ירושה וצוואות', 'justice-theme' ),
 		'url'   => justice_theme_safe_public_link( '/inheritance-lawyer/', '/lawyers/?area=inheritance-law' ),
 	),
 	array(

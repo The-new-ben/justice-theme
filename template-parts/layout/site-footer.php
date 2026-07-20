@@ -35,7 +35,7 @@ $justice_footer_areas = array(
 );
 
 $justice_footer_nav = array(
-	array( __( 'מאגר מאמרים', 'justice-theme' ), home_url( '/articles/' ) ),
+	array( __( 'כל המאמרים', 'justice-theme' ), home_url( '/articles/' ) ),
 	array( __( 'כל עורכי הדין', 'justice-theme' ), $justice_lawyers_archive ),
 	array( __( 'כלי AI משפטיים', 'justice-theme' ), home_url( '/legal-tools/' ) ),
 	array( __( 'התייעצות משפטית', 'justice-theme' ), home_url( '/#ask-lawyer' ) ),

@@ -19,6 +19,40 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 	$slug = sanitize_title( $slug );
 
 	$configs = array(
+		'divorce-lawyer'      => array(
+			'term_slug'      => 'family-law',
+			'title'          => 'עורך דין גירושין',
+			'display_title'  => 'עורך דין גירושין',
+			'keyword'        => 'עורך דין גירושין',
+			'summary'        => 'איך בוחרים עורך דין גירושין מומלץ: השוואת משרדים, מחירים ושכר טרחה, שאלות לפגישה ראשונה ומדריכי עומק על הסכם גירושין, מזונות ומשמורת.',
+			'hide_signals'   => true,
+			'show_map'       => true,
+			'reviewed_by'    => 'עו"ד בן בטש',
+			'quick_path'     => array(
+				array( 'label' => 'עורך דין גירושין מחיר', 'url' => '/divorce-costs-2025/' ),
+				array( 'label' => 'הסכם גירושין', 'url' => '/free-divorce-agreement-template/' ),
+				array( 'label' => 'מזונות ילדים', 'url' => '/child-support/' ),
+				array( 'label' => 'משמורת ילדים', 'url' => '/child-custody-guide/' ),
+				array( 'label' => 'גישור גירושין', 'url' => '/divorce-mediation/' ),
+			),
+			'practice_scope' => array(
+				array( 'label' => 'עורך דין גירושין', 'url' => '/divorce-lawyer/' ),
+				array( 'label' => 'הסכם גירושין', 'url' => '/free-divorce-agreement-template/' ),
+				array( 'label' => 'עלויות גירושין ושכר טרחה', 'url' => '/divorce-costs-2025/' ),
+				array( 'label' => 'מזונות ילדים', 'url' => '/child-support/' ),
+				array( 'label' => 'משמורת ילדים', 'url' => '/child-custody-guide/' ),
+				array( 'label' => 'גישור גירושין', 'url' => '/divorce-mediation/' ),
+				array( 'label' => 'אישור הסכם ברבנות', 'url' => '/rabbinical-agreement-approval/' ),
+			),
+			'supporting'     => array(
+				array( 'label' => 'הסכם גירושין: דוגמה להורדה', 'url' => '/free-divorce-agreement-template/' ),
+				array( 'label' => 'כמה עולה גירושין', 'url' => '/divorce-costs-2025/' ),
+				array( 'label' => 'מחשבון מזונות ילדים', 'url' => '/child-support/' ),
+				array( 'label' => 'משמורת ילדים: המדריך', 'url' => '/child-custody-guide/' ),
+				array( 'label' => 'גישור גירושין', 'url' => '/divorce-mediation/' ),
+				array( 'label' => 'אישור הסכם גירושין ברבנות', 'url' => '/rabbinical-agreement-approval/' ),
+			),
+		),
 		'family-law'          => array(
 			'term_slug'       => 'family-law',
 			'title'           => 'דיני משפחה וגירושין',
@@ -433,6 +467,30 @@ function justice_theme_maybe_prepare_family_law_practice_route(): void {
 	}
 }
 add_action( 'template_redirect', 'justice_theme_maybe_prepare_family_law_practice_route', -3500 );
+
+/**
+ * Page-based pillars: expose the config practice scope to the header
+ * topics bar before get_header() runs.
+ */
+function justice_theme_set_practice_scope_for_pages(): void {
+	if ( is_admin() || ! is_page() ) {
+		return;
+	}
+	$post = get_post();
+	if ( ! $post instanceof WP_Post ) {
+		return;
+	}
+	$config = justice_theme_get_practice_landing_config( $post->post_name );
+	if ( is_array( $config ) && ! empty( $config['practice_scope'] ) ) {
+		$GLOBALS['justice_practice_scope'] = array_map(
+			function ( $item ) {
+				return array( 'label' => $item['label'], 'url' => home_url( $item['url'] ) );
+			},
+			$config['practice_scope']
+		);
+	}
+}
+add_action( 'template_redirect', 'justice_theme_set_practice_scope_for_pages', -3400 );
 
 /**
  * Get the controlled practice-route template for the current request.

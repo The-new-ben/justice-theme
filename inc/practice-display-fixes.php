@@ -16,16 +16,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Practice-areas term archives must surface the articles CPT.
+ * Practice-areas term archives AND category archives must surface the
+ * articles CPT (the /practice-areas/ URLs are category archives whose base
+ * was rewritten; their default post-type query returned nothing, so pillar
+ * links landed on empty pages).
  */
 function justice_theme_practice_tax_archive_post_types( WP_Query $query ): void {
-	if ( is_admin() || ! $query->is_main_query() || ! $query->is_tax( 'practice-areas' ) ) {
+	if ( is_admin() || ! $query->is_main_query() ) {
+		return;
+	}
+	if ( ! $query->is_tax( 'practice-areas' ) && ! $query->is_category() ) {
 		return;
 	}
 	$query->set( 'post_type', array( 'articles', 'post' ) );
 	$query->set( 'posts_per_page', 12 );
 }
 add_action( 'pre_get_posts', 'justice_theme_practice_tax_archive_post_types', 20 );
+
+/**
+ * Archive headings speak the topic, not WordPress internals.
+ */
+function justice_theme_clean_archive_title( string $title ): string {
+	return preg_replace( '/^(קטגוריה|תגית|ארכיון):\s*/u', '', $title );
+}
+add_filter( 'get_the_archive_title', 'justice_theme_clean_archive_title' );
 
 /**
  * Map a city-page slug to its practice term and pillar.

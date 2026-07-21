@@ -191,6 +191,9 @@ if ( post_type_exists( 'articles' ) ) {
 		$justice_band_seen = array();
 		$justice_band_out  = array();
 		foreach ( $area_lawyer_posts as $justice_band_post ) {
+			if ( function_exists( 'justice_theme_lawyer_is_visible' ) && ! justice_theme_lawyer_is_visible( (int) $justice_band_post->ID ) ) {
+				continue;
+			}
 			$justice_band_key = mb_substr( preg_replace( '/[^א-תa-z0-9]/iu', '', mb_strtolower( $justice_band_post->post_title ) ), 0, 18 );
 			$justice_band_dup = isset( $justice_band_seen[ $justice_band_key ] );
 			if ( ! $justice_band_dup ) {

@@ -79,6 +79,9 @@ function justice_theme_city_page_enrichment( ?string $content ): string {
 					if ( ! ( $candidate instanceof WP_Post ) || 'justice_lawyer' !== $candidate->post_type || 'publish' !== $candidate->post_status ) {
 						continue;
 					}
+					if ( function_exists( 'justice_theme_lawyer_is_visible' ) && ! justice_theme_lawyer_is_visible( (int) $candidate->ID ) ) {
+						continue;
+					}
 					$key = mb_substr( preg_replace( '/[^א-תa-z0-9]/iu', '', mb_strtolower( $candidate->post_title ) ), 0, 18 );
 					$dup = isset( $seen[ $key ] );
 					if ( ! $dup ) {

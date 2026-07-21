@@ -21,11 +21,16 @@ status_header( 200 );
 
 get_header();
 
+// The family CMS page (20305) carries the pillar body: text first, then
+// the mid-fold registered band and map render inside it.
+$justice_family_law_page    = get_page_by_path( 'family-law' );
+$justice_family_law_page_id = $justice_family_law_page instanceof WP_Post ? (int) $justice_family_law_page->ID : 0;
+
 get_template_part(
 	'template-parts/content/practice-landing-page',
 	null,
 	array(
-		'page_id' => 0,
+		'page_id' => $justice_family_law_page_id,
 		'config'  => is_array( $justice_family_law_config ) ? $justice_family_law_config : array(),
 	)
 );

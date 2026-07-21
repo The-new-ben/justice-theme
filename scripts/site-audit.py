@@ -85,7 +85,9 @@ def audit_page(url, check_links=False):
         return [f'FETCH FAILED: {e}'], []
     if status != 200:
         return [f'HTTP {status}'], []
-    text = re.sub(r'\s+', ' ', unescape(re.sub(r'<[^>]+>', ' ', h)))
+    visible_html = re.sub(
+        r'<script[^>]*>.*?</script>|<style[^>]*>.*?</style>', ' ', h, flags=re.S)
+    text = re.sub(r'\s+', ' ', unescape(re.sub(r'<[^>]+>', ' ', visible_html)))
     size = len(h)
 
     # 1. ecosystem parity
@@ -106,19 +108,28 @@ def audit_page(url, check_links=False):
     if 'נבדק על ידי' not in h:
         fails.append('reviewed-by: missing')
 
-    # 2. upper-fold law
+    # 2. upper-fold law — measured in VISIBLE-TEXT position (raw-byte offsets
+    # overstate depth because of head/schema/minified chrome).
+    def text_depth(byte_pos):
+        visible_before = len(re.sub(r'\s+', ' ', re.sub(
+            r'<[^>]+>', ' ', re.sub(
+                r'<script[^>]*>.*?</script>|<style[^>]*>.*?</style>', ' ',
+                h[:byte_pos], flags=re.S))))
+        total = len(text)
+        return round(100 * visible_before / total) if total else 0
+
     forms = [m.start() for m in re.finditer(r'<form', h)]
     if not forms:
         fails.append('form: missing')
     else:
-        depth = round(100 * forms[0] / size)
+        depth = text_depth(forms[0])
         if depth > 45:
-            fails.append(f'form: first form buried at {depth}%')
+            fails.append(f'form: first form buried at {depth}% of visible text')
         elif depth > 30:
-            warns.append(f'form: first form at {depth}%')
+            warns.append(f'form: first form at {depth}% of visible text')
     mappos = max(h.find('jtcm-'), h.find('legal-map'))
-    if mappos > 0 and round(100 * mappos / size) > 65:
-        warns.append(f'map: deep at {round(100 * mappos / size)}%')
+    if mappos > 0 and text_depth(mappos) > 65:
+        warns.append(f'map: deep at {text_depth(mappos)}% of visible text')
 
     # 3. language laws
     for t in AI_TELLS:

@@ -107,7 +107,12 @@ function justice_theme_registered_band_html( string $term_slug, string $practice
 	$html  = '<div class="jt-registered-band">';
 	if ( ! empty( $firms ) ) {
 		foreach ( $firms as $firm ) {
-			$photo = get_the_post_thumbnail( $firm, 'medium', array( 'class' => 'jt-premium-card__photo', 'loading' => 'lazy' ) );
+			// Prefer the dedicated portrait (owner: the face looks at you from
+			// the screen) over the featured banner/collage.
+			$portrait_id = (int) get_post_meta( $firm->ID, 'profile_portrait_id', true );
+			$photo       = $portrait_id
+				? wp_get_attachment_image( $portrait_id, 'medium', false, array( 'class' => 'jt-premium-card__photo', 'loading' => 'lazy' ) )
+				: get_the_post_thumbnail( $firm, 'medium', array( 'class' => 'jt-premium-card__photo', 'loading' => 'lazy' ) );
 			$firm_name = wp_strip_all_tags( (string) get_post_meta( $firm->ID, 'firm_name', true ) );
 			$firm_name = trim( str_replace( array( "\xE2\x80\x94", ' - ' ), array( ',', ', ' ), $firm_name ) );
 			$city  = wp_strip_all_tags( (string) get_post_meta( $firm->ID, 'office_city', true ) );

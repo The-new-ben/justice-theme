@@ -476,7 +476,7 @@ function justice_theme_render_cluster_hub_links( int $post_id ): string {
 	?>
 	<aside class="cluster-hub" data-cluster="<?php echo esc_attr( $c['key'] ); ?>" aria-label="<?php esc_attr_e( 'מדריכים מקושרים לנושא הזה', 'justice-theme' ); ?>">
 		<h2 class="cluster-hub__title"><?php esc_html_e( 'מדריכים מקצועיים בנושא הזה', 'justice-theme' ); ?></h2>
-		<p class="cluster-hub__desc"><?php esc_html_e( 'המדריך הזה הוא עמוד האב של הנושא. כאן כל מדריכי ההמשך, לפי השאלות שאנשים באמת שואלים:', 'justice-theme' ); ?></p>
+		<p class="cluster-hub__desc"><?php esc_html_e( 'אפשר לקרוא עוד מדריכים שלנו בנושא, לפי השאלות שאנשים באמת שואלים:', 'justice-theme' ); ?></p>
 		<ul class="cluster-hub__list">
 			<?php echo wp_kses_post( implode( "\n", $spoke_links ) ); ?>
 		</ul>

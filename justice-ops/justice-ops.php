@@ -506,7 +506,7 @@ add_filter( 'pre_get_document_title', function ( $title ) {
 	}
 
 	if ( justice_ops_is_plain_lawyer_directory() ) {
-		return 'חיפוש עורך דין לפי שם, תחום ועיר | אינדקס Jus-Tice';
+		return 'חיפוש עורך דין לפי שם, תחום ועיר | Jus-Tice';
 	}
 
 	return $title;
@@ -524,7 +524,7 @@ add_filter( 'wpseo_title', function ( $title ) {
 	}
 
 	if ( justice_ops_is_plain_lawyer_directory() ) {
-		return 'חיפוש עורך דין לפי שם, תחום ועיר | אינדקס Jus-Tice';
+		return 'חיפוש עורך דין לפי שם, תחום ועיר | Jus-Tice';
 	}
 
 	return $title;
@@ -542,7 +542,7 @@ add_filter( 'wpseo_metadesc', function ( $desc ) {
 	}
 
 	if ( justice_ops_is_plain_lawyer_directory() ) {
-		return 'מאגר עורכי דין בישראל בחינם: חיפוש לפי שם, תחום התמחות, עיר או מספר רישיון. פרופילים מאומתים עם ניסיון, תחומי עיסוק ודרכי קשר, ללא עלות וללא הרשמה.';
+		return 'חיפוש עורך דין בישראל בחינם: לפי שם, תחום התמחות, עיר או מספר רישיון. פרופילים עם ניסיון, תחומי עיסוק ודרכי קשר, ללא עלות וללא הרשמה.';
 	}
 
 	return $desc;

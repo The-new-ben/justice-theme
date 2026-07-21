@@ -1,0 +1,179 @@
+#!/usr/bin/env python3
+"""READ-ONLY site quality gate for jus-tice.co.il.
+
+Born 2026-07-21 after the criminal-pillar failure: the owner's laws, encoded
+as a checker that runs BEFORE any report of "done". This script never writes
+anything anywhere. It fetches rendered pages and grades them against the
+pillar parity contract:
+
+  1. Ecosystem parity: firms band (unique cards), map, booking form,
+     reviewed-by entity.
+  2. Upper-fold law: first conversion element (form) and map must not be
+     buried; depth is reported as % of document.
+  3. Language laws: no AI-tells (ChatGPT filler), no site jargon (hub), no
+     banned index-membership words, no em dashes.
+  4. Freshness: stale non-current years are flagged for review (never
+     auto-changed; rulings and law names carry legitimate years).
+  5. Link integrity: internal links must resolve 200 and not land on empty
+     archives.
+
+Usage:
+  python scripts/site-audit.py                      # audit the pillar set
+  python scripts/site-audit.py URL [URL ...]        # audit specific pages
+  python scripts/site-audit.py --links URL          # include link crawl
+
+Exit code: 0 all green, 1 warnings only, 2 failures. Use as a gate.
+"""
+import re
+import sys
+import urllib.request
+from html import unescape
+
+PILLARS = [
+    'https://jus-tice.co.il/medical-malpractice-lawyer/',
+    'https://jus-tice.co.il/divorce-lawyer/',
+    'https://jus-tice.co.il/criminal-defense-attorney/',
+    'https://jus-tice.co.il/inheritance-lawyer/',
+    'https://jus-tice.co.il/family-law/',
+]
+
+AI_TELLS = [
+    'במדריך זה', 'במאמר זה נסקור', 'אנו נסקור', 'מדריך זה יסקור', 'נעמיק ונבחן',
+    'חשוב לציין ש', 'ראוי לציין ש', 'יש לציין ש', 'כפי שציינו',
+    'לסיכום,', 'לסיכומו של דבר', 'בשורה התחתונה',
+    'בעידן המודרני', 'בעידן הדיגיטלי', 'בעולם של היום',
+    'יתרה מכך', 'זאת ועוד', 'אין ספק ש', 'למותר לציין',
+    'צלילה עמוקה', 'אבן דרך משמעותית', 'מגוון רחב של',
+    'הן עבור', 'תובנות מעשיות', 'ננווט יחד',
+]
+
+JARGON = ['hub', 'האב של', 'עמוד ראשי מסוג', 'CMS', 'SEO קילר']
+BANNED = ['מהמאגר המאומת', 'באינדקס שלנו', 'במאגר שלנו', 'אינדקס עורכי דין',
+          'מאגר עורכי הדין של', 'במאגר של Jus-Tice']
+CURRENT_YEAR = 2026
+
+UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) jus-tice-quality-gate/1.0'
+
+
+def fetch(url, timeout=30):
+    req = urllib.request.Request(url, headers={'User-Agent': UA})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return r.status, r.read().decode('utf-8', errors='ignore')
+
+
+def norm_key(title):
+    return re.sub(r'[^א-תa-z0-9]', '', title.lower())[:18]
+
+
+def levenshtein(a, b):
+    if len(a) < len(b):
+        a, b = b, a
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a):
+        cur = [i + 1]
+        for j, cb in enumerate(b):
+            cur.append(min(prev[j + 1] + 1, cur[j] + 1, prev[j] + (ca != cb)))
+        prev = cur
+    return prev[-1]
+
+
+def audit_page(url, check_links=False):
+    fails, warns = [], []
+    try:
+        status, h = fetch(url)
+    except Exception as e:
+        return [f'FETCH FAILED: {e}'], []
+    if status != 200:
+        return [f'HTTP {status}'], []
+    text = re.sub(r'\s+', ' ', unescape(re.sub(r'<[^>]+>', ' ', h)))
+    size = len(h)
+
+    # 1. ecosystem parity
+    names = [n.strip() for n in re.findall(
+        r'lawyer-card__name[^>]*>\s*(?:<a[^>]*>)?\s*([^<]{3,60})', h)]
+    if not names:
+        fails.append('band: NO firm cards')
+    else:
+        keys = [norm_key(n) for n in names]
+        twins = [(a, b) for i, a in enumerate(keys) for b in keys[i + 1:]
+                 if a == b or levenshtein(a, b) <= 4]
+        if twins:
+            fails.append(f'band: duplicate/twin firms {len(twins)}')
+        if len(names) < 6:
+            warns.append(f'band: only {len(names)} cards')
+    if h.find('jtcm-') < 0 and h.find('legal-map') < 0:
+        fails.append('map: missing')
+    if 'נבדק על ידי' not in h:
+        fails.append('reviewed-by: missing')
+
+    # 2. upper-fold law
+    forms = [m.start() for m in re.finditer(r'<form', h)]
+    if not forms:
+        fails.append('form: missing')
+    else:
+        depth = round(100 * forms[0] / size)
+        if depth > 45:
+            fails.append(f'form: first form buried at {depth}%')
+        elif depth > 30:
+            warns.append(f'form: first form at {depth}%')
+    mappos = max(h.find('jtcm-'), h.find('legal-map'))
+    if mappos > 0 and round(100 * mappos / size) > 65:
+        warns.append(f'map: deep at {round(100 * mappos / size)}%')
+
+    # 3. language laws
+    for t in AI_TELLS:
+        n = text.count(t)
+        if n:
+            fails.append(f'AI-tell: "{t}" x{n}')
+    for t in JARGON:
+        n = len(re.findall(re.escape(t), text, re.I)) if t.isascii() else text.count(t)
+        if n:
+            fails.append(f'jargon: "{t}" x{n}')
+    for t in BANNED:
+        if t in text:
+            fails.append(f'BANNED WORD: "{t}"')
+    if chr(8212) in h:
+        fails.append(f'em-dash x{h.count(chr(8212))}')
+
+    # 4. freshness (flag only, human decides)
+    for y in range(2020, CURRENT_YEAR):
+        n = len(re.findall(rf'\b{y}\b', text))
+        if n > 3:
+            warns.append(f'year {y} appears x{n} (review: factual or stale?)')
+
+    # 5. link integrity (sampled)
+    if check_links:
+        links = list(dict.fromkeys(re.findall(
+            r'href="(https://jus-tice\.co\.il/[^"#?]+/)"', h)))[:25]
+        for link in links:
+            try:
+                st, lh = fetch(link, timeout=20)
+                if st != 200:
+                    fails.append(f'link {link} -> HTTP {st}')
+                elif ('לא נמצאו' in lh or 'אין תוצאות' in lh) and \
+                        len(re.findall(r'<article', lh)) == 0:
+                    fails.append(f'link {link} -> EMPTY archive')
+            except Exception as e:
+                fails.append(f'link {link} -> {type(e).__name__}')
+    return fails, warns
+
+
+def main():
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    check_links = '--links' in sys.argv
+    urls = args or PILLARS
+    worst = 0
+    for url in urls:
+        fails, warns = audit_page(url, check_links)
+        mark = 'FAIL' if fails else ('WARN' if warns else 'PASS')
+        worst = max(worst, 2 if fails else (1 if warns else 0))
+        print(f'[{mark}] {url}')
+        for f in fails:
+            print(f'   FAIL {f}')
+        for w in warns:
+            print(f'   warn {w}')
+    sys.exit(worst)
+
+
+if __name__ == '__main__':
+    main()

@@ -58,7 +58,7 @@ function justice_theme_get_trust_route_config( string $path ): ?array {
 			'slug'        => 'about',
 			'title'       => __( 'אודות Jus-Tice', 'justice-theme' ),
 			'eyebrow'     => __( 'מי אנחנו', 'justice-theme' ),
-			'description' => __( 'Jus-Tice הוא פורטל משפטי בישראל שמרכז מידע, מדריכים, פסקי דין, אינדקס עורכי דין וטפסי פנייה כדי לעזור לציבור להבין נושאים משפטיים ולמצוא את הצעד הבא.', 'justice-theme' ),
+			'description' => __( 'Jus-Tice הוא פורטל משפטי בישראל שמרכז מידע, מדריכים, פסקי דין, מדריך עורכי דין וטפסי פנייה כדי לעזור לציבור להבין נושאים משפטיים ולמצוא את הצעד הבא.', 'justice-theme' ),
 			'canonical'   => home_url( '/about/' ),
 		),
 		'/editorial-policy/' => array(
@@ -292,7 +292,7 @@ function justice_theme_render_trust_route_page( array $config ): void {
 								</a>
 							<?php endif; ?>
 							<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>">
-								<span><?php esc_html_e( 'אינדקס', 'justice-theme' ); ?></span>
+								<span><?php esc_html_e( 'עורכי דין', 'justice-theme' ); ?></span>
 								<?php esc_html_e( 'חיפוש עורכי דין לפי תחום', 'justice-theme' ); ?>
 							</a>
 						</div>
@@ -331,7 +331,7 @@ function justice_theme_render_trust_route_page( array $config ): void {
 						<p><?php esc_html_e( 'Jus-Tice מחבר בין שלושה צרכים: מידע משפטי נגיש לציבור, ניווט לפי תחומי משפט, ופנייה מסודרת לעורכי דין כאשר יש צורך בבדיקה פרטנית.', 'justice-theme' ); ?></p>
 						<ul class="jt-trust-list">
 							<li><?php esc_html_e( 'מדריכים ומאמרים משפטיים לפי תחום ונושא.', 'justice-theme' ); ?></li>
-							<li><?php esc_html_e( 'אינדקס עורכי דין ופרופילים ציבוריים כאשר יש מידע מאומת לפרסום.', 'justice-theme' ); ?></li>
+							<li><?php esc_html_e( 'רשימת עורכי דין ופרופילים ציבוריים כאשר יש מידע מאומת לפרסום.', 'justice-theme' ); ?></li>
 							<li><?php esc_html_e( 'טפסי פנייה שמסייעים להבין תחום, עיר, דחיפות ורקע ראשוני.', 'justice-theme' ); ?></li>
 						</ul>
 						<div class="jt-trust-actions">

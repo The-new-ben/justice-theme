@@ -27,7 +27,7 @@ function justice_adv_plans(): array {
 			'label'  => 'רישום במדריך',
 			'price'  => (int) get_option( 'justice_adv_price_listing', 0 ),
 			'score'  => 0,
-			'points' => array( 'פרופיל מאומת במדריך עורכי הדין', 'הופעה בתוצאות החיפוש הפנימי ובמפה', 'קבלת פניות מהאינדקס' ),
+			'points' => array( 'פרופיל מאומת במדריך עורכי הדין', 'הופעה בתוצאות החיפוש הפנימי ובמפה', 'קבלת פניות מהמדריך' ),
 		),
 		'featured' => array(
 			'label'  => 'כרטיס מקודם',

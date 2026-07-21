@@ -115,7 +115,7 @@ $plan_checkout_url = static function ( string $plan_key, string $surface = 'pric
 		<section class="lawyer-plans-system" aria-labelledby="lawyer-plans-system-title">
 			<div class="lawyer-plans-system__intro">
 				<p class="section-header__eyebrow"><?php esc_html_e( 'מה עורך הדין מקבל בפועל', 'justice-theme' ); ?></p>
-				<h2 id="lawyer-plans-system-title"><?php esc_html_e( 'מערכת מכירה ולא רק עוד כרטיס באינדקס', 'justice-theme' ); ?></h2>
+				<h2 id="lawyer-plans-system-title"><?php esc_html_e( 'מערכת מכירה ולא רק עוד כרטיס במדריך', 'justice-theme' ); ?></h2>
 				<p><?php esc_html_e( 'המסלול בנוי כדי שעורך הדין יראה ללקוחות מדויקים, יקבל פניות מדידות, ויוכל להבין מאיפה מגיע הערך העסקי.', 'justice-theme' ); ?></p>
 			</div>
 			<div class="lawyer-plans-system__grid">
@@ -148,14 +148,14 @@ $plan_checkout_url = static function ( string $plan_key, string $surface = 'pric
 
 		<section class="lawyer-plans-market-proof" aria-labelledby="lawyer-plans-market-proof-title">
 			<div class="lawyer-plans-market-proof__intro">
-				<p class="section-header__eyebrow"><?php esc_html_e( 'מה למדנו מאינדקסים ושירותי שיווק לעורכי דין', 'justice-theme' ); ?></p>
+				<p class="section-header__eyebrow"><?php esc_html_e( 'מה למדנו משירותי שיווק לעורכי דין', 'justice-theme' ); ?></p>
 				<h2 id="lawyer-plans-market-proof-title"><?php esc_html_e( 'עורכי דין לא קונים עוד כרטיס. הם קונים מערכת שמביאה אותם לשיחת לקוח.', 'justice-theme' ); ?></h2>
 				<p><?php esc_html_e( 'המסר שעובד אצל פלטפורמות מובילות פשוט: להופיע מול אנשים שמחפשים עורך דין עכשיו, לבנות אמון דרך פרופיל מלא, לאפשר יצירת קשר קלה, למדוד מה עובד, ולהראות שהחשבון מנוהל אחרי ההרשמה. Jus-Tice לוקחת את זה לשוק הישראלי עם מסלול מבוקר, פניות מתועדות ואזור אישי.', 'justice-theme' ); ?></p>
 			</div>
 			<div class="lawyer-plans-market-proof__grid">
 				<article>
 					<span><?php esc_html_e( 'נראות בזמן כוונה', 'justice-theme' ); ?></span>
-					<strong><?php esc_html_e( 'לא רק להיות באינדקס', 'justice-theme' ); ?></strong>
+					<strong><?php esc_html_e( 'לא רק להופיע ברשימה', 'justice-theme' ); ?></strong>
 					<p><?php esc_html_e( 'הפרופיל נבנה סביב תחום, עיר, זמינות ותוכן שמסביר למה הלקוח צריך לפנות דווקא עכשיו.', 'justice-theme' ); ?></p>
 				</article>
 				<article>

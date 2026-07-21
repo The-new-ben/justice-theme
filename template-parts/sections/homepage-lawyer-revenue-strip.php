@@ -40,7 +40,7 @@ $lawyer_fast_fit_whatsapp_url = function_exists( 'justice_theme_public_whatsapp_
 
 $signals = array(
 	array(
-		'label' => __( 'כרטיס בסיסי באינדקס', 'justice-theme' ),
+		'label' => __( 'כרטיס בסיסי במדריך', 'justice-theme' ),
 		'value' => __( 'פרופיל שמופיע לפי תחום, אזור ושם, עם פרטים זהירים וברורים', 'justice-theme' ),
 	),
 	array(
@@ -130,7 +130,7 @@ $fast_fit_steps = array(
 			<div class="homepage-lawyer-revenue__mini-dashboard" aria-label="<?php esc_attr_e( 'תצוגת פרופיל עורך דין', 'justice-theme' ); ?>">
 				<div>
 					<span><?php esc_html_e( 'כרטיס ציבורי', 'justice-theme' ); ?></span>
-					<strong><?php esc_html_e( 'מופיע באינדקס לאחר בדיקה', 'justice-theme' ); ?></strong>
+					<strong><?php esc_html_e( 'מופיע במדריך לאחר בדיקה', 'justice-theme' ); ?></strong>
 				</div>
 				<div>
 					<span><?php esc_html_e( 'חשיפה', 'justice-theme' ); ?></span>

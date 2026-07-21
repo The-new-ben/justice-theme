@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="jt2-section__inner">
 		<span class="jt2-eyebrow"><?php esc_html_e( 'איך זה עובד', 'justice-theme' ); ?></span>
 		<h2 class="jt2-h2"><?php esc_html_e( 'מהתיאור הראשון ועד עורך דין מתאים, בלי לחזור על עצמכם', 'justice-theme' ); ?></h2>
-		<p class="jt2-sub"><?php esc_html_e( 'כלי ה-AI, המדריכים והאינדקס מדברים זה עם זה: מה שכתבתם בכלי משפטי או קראתם במדריך ממשיך להתאמת עורך דין, בלי טופס נוסף.', 'justice-theme' ); ?></p>
+		<p class="jt2-sub"><?php esc_html_e( 'כלי ה-AI, המדריכים ומדריך עורכי הדין מדברים זה עם זה: מה שכתבתם בכלי משפטי או קראתם במדריך ממשיך להתאמת עורך דין, בלי טופס נוסף.', 'justice-theme' ); ?></p>
 
 		<div class="jt2-steps">
 			<div class="jt2-step">
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="jt2-step">
 				<div class="jt2-step__n">2</div>
 				<strong><?php esc_html_e( 'המערכת מנתחת ומכוונת', 'justice-theme' ); ?></strong>
-				<p><?php esc_html_e( 'תחום, מורכבות ודחיפות נבדקים יחד, כדי להציע מדריך נוסף, כלי AI אחר, או מעבר ישיר לאינדקס עורכי הדין.', 'justice-theme' ); ?></p>
+				<p><?php esc_html_e( 'תחום, מורכבות ודחיפות נבדקים יחד, כדי להציע מדריך נוסף, כלי AI אחר, או מעבר ישיר לעורכי הדין.', 'justice-theme' ); ?></p>
 			</div>
 			<div class="jt2-step jt2-step--accent">
 				<div class="jt2-step__n">3</div>

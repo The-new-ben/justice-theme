@@ -132,9 +132,9 @@ while ( have_posts() ) :
 			<section class="lawyer-selection-integrated-panel" aria-label="<?php esc_attr_e( 'מסלול בחירת עורך דין', 'justice-theme' ); ?>">
 				<div class="container">
 					<div class="lawyer-selection-integrated-panel__header">
-						<span><?php esc_html_e( 'מדריך בחירה מחובר לאינדקס', 'justice-theme' ); ?></span>
+						<span><?php esc_html_e( 'מדריך בחירה מחובר לעורכי הדין', 'justice-theme' ); ?></span>
 						<h2><?php esc_html_e( 'כך בודקים עורך דין לפני שמשאירים פנייה', 'justice-theme' ); ?></h2>
-						<p><?php esc_html_e( 'המסלול הזה משלב את מה שעובד באינדקסים חזקים: חיפוש לפי תחום ואזור, קריאת פרופיל מקצועי, סימון פרטים מאומתים, ורק אז פנייה קצרה עם הקשר ברור. בלי דירוג מומצא ובלי עובדות שלא נבדקו.', 'justice-theme' ); ?></p>
+						<p><?php esc_html_e( 'המסלול הזה משלב את מה שעובד בשירותים דומים חזקים: חיפוש לפי תחום ואזור, קריאת פרופיל מקצועי, סימון פרטים מאומתים, ורק אז פנייה קצרה עם הקשר ברור. בלי דירוג מומצא ובלי עובדות שלא נבדקו.', 'justice-theme' ); ?></p>
 					</div>
 					<div class="lawyer-selection-integrated-panel__grid">
 						<article>

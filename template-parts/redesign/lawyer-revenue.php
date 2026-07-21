@@ -57,7 +57,7 @@ $justice_registration_url = add_query_arg(
 				<div>
 					<span class="jt2-eyebrow"><?php esc_html_e( 'לעורכי דין ומשרדים', 'justice-theme' ); ?></span>
 					<h2><?php esc_html_e( 'לקוחות מחפשים עורך דין עכשיו. תנו להם למצוא חשבון מקצועי, לא רק שם ברשימה.', 'justice-theme' ); ?></h2>
-					<p class="jt2-revenue__lead"><?php esc_html_e( 'פניות מגיעות אל הפלטפורמה דרך חיפוש, מדריכים וגם דרך כלי ה-AI, ומנותבות לפי תחום, עיר וזמינות. כרטיס בסיסי נכנס לאינדקס לאחר בדיקה; פרופיל משלם מקבל נראות, תוכן ופניות מסודרות.', 'justice-theme' ); ?></p>
+					<p class="jt2-revenue__lead"><?php esc_html_e( 'פניות מגיעות אל הפלטפורמה דרך חיפוש, מדריכים וגם דרך כלי ה-AI, ומנותבות לפי תחום, עיר וזמינות. כרטיס בסיסי נכנס למדריך לאחר בדיקה; פרופיל משלם מקבל נראות, תוכן ופניות מסודרות.', 'justice-theme' ); ?></p>
 					<div class="jt2-revenue__flow">
 						<span><?php esc_html_e( '1. פתיחה', 'justice-theme' ); ?></span>
 						<span><?php esc_html_e( '2. פרופיל', 'justice-theme' ); ?></span>
@@ -66,7 +66,7 @@ $justice_registration_url = add_query_arg(
 					</div>
 					<div class="jt2-revenue__ctas">
 						<a class="button button--primary" href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>"><?php esc_html_e( 'השוואת מסלולים ←', 'justice-theme' ); ?></a>
-						<a class="button button--ghost" href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>"><?php esc_html_e( 'צפייה באינדקס', 'justice-theme' ); ?></a>
+						<a class="button button--ghost" href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>"><?php esc_html_e( 'צפייה בעורכי הדין', 'justice-theme' ); ?></a>
 					</div>
 				</div>
 				<div class="jt2-plans">

@@ -148,7 +148,7 @@ $registration_url = add_query_arg(
 			</div>
 			<div class="featured-lawyers__actions">
 				<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" class="button button--ghost">
-					<?php esc_html_e( 'צפייה באינדקס', 'justice-theme' ); ?>
+					<?php esc_html_e( 'צפייה בעורכי הדין', 'justice-theme' ); ?>
 				</a>
 				<a href="<?php echo esc_url( $registration_url ); ?>" class="button button--gold">
 					<?php esc_html_e( 'שדרוג לכרטיס מוביל', 'justice-theme' ); ?>

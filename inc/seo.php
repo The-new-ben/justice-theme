@@ -214,9 +214,9 @@ function justice_theme_seed_yoast_configuration(): void {
 		// Media/attachment pages: redirect to parent.
 		'disable-attachment'            => true,
 
-		// Homepage (front page) — matching din.co.il keyword pattern + keyword stuffing.
-		'title-home-wpseo'              => 'אינדקס עורכי דין בישראל | מאמרים משפטיים, מדריכים וייעוץ משפטי - Jus-Tice',
-		'metadesc-home-wpseo'           => 'פורטל המשפט המוביל בישראל. אינדקס עורכי דין מקיף לפי תחום ומיקום, מאמרים משפטיים, מדריכים מקצועיים. עורך דין גירושין, עורך דין פלילי, עורך דין נדל\"ן, נזיקין, עבודה, ירושה ועוד — חיפוש חינם.',
+		// Homepage (front page): head phrase + dominant search-by-name intent + brand.
+		'title-home-wpseo'              => 'עורכי דין מומלצים | חיפוש עורך דין לפי שם, תחום ועיר | Jus-Tice',
+		'metadesc-home-wpseo'           => 'פורטל המשפט המוביל בישראל: חיפוש עורך דין לפי שם, תחום ועיר, מדריכים משפטיים מקצועיים, מחשבונים ומסמכים. עורך דין גירושין, פלילי, מקרקעין, נזיקין, עבודה וירושה. חיפוש חינם.',
 	);
 
 	foreach ( $updates as $key => $value ) {
@@ -1062,9 +1062,10 @@ function justice_theme_lawyer_directory_default_title(): string {
 	}
 
 	// GSC 2026-06-09: the family is a search-tool intent (22k impr across
-	// "חיפוש לפי שם", "איתור", "אינדקס", "מאגר", "לפי מספר רישיון") stuck at
-	// pos 7-12 with sub-1% CTR. Head query first, registry vocabulary next.
-	return 'חיפוש עורך דין לפי שם, תחום ועיר | אינדקס Jus-Tice';
+	// "חיפוש לפי שם", "איתור", "לפי מספר רישיון") stuck at pos 7-12 with
+	// sub-1% CTR. Head query first, then the search vocabulary (no banned
+	// "index/database" words in public copy, owner law 2026-07-21).
+	return 'חיפוש עורך דין לפי שם, תחום ועיר | Jus-Tice';
 }
 
 /**

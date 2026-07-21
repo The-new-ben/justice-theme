@@ -125,25 +125,33 @@ def audit_page(url, check_links=False):
                 h[:byte_pos], flags=re.S))))
 
     # Upper-fold rule as the owner stated it: engagement elements (firms
-    # band, map, lead form) live at the TOP. At least two of the three must
-    # appear within the first ~3000 visible chars, and the form itself
-    # within 6000.
+    # band, map, lead form) live at the TOP of the content. Measured from
+    # the H1 so header chrome (nav, topics bar) does not skew the distance.
+    # At least two of the three within ~2500 visible chars of the H1, and
+    # the form within 6000.
     forms = [m.start() for m in re.finditer(r'<form', h)]
     band_pos = h.find('lawyer-card__name')
     map_pos = max(h.find('jtcm-'), h.find('legal-map'))
+    h1_pos = h.find('<h1')
+    base = chars_before(h1_pos) if h1_pos > 0 else 0
+
+    def after_h1(p):
+        return max(0, chars_before(p) - base)
+
     if not forms:
         fails.append('form: missing')
     else:
         early = sum(
             1 for p in (band_pos, map_pos, forms[0])
-            if p > 0 and chars_before(p) <= 3000)
-        form_chars = chars_before(forms[0])
+            if p > 0 and after_h1(p) <= 2500)
+        form_chars = after_h1(forms[0])
         if early < 2:
             fails.append(
-                f'upper fold: only {early}/3 engagement elements in the '
-                f'first 3000 visible chars')
+                f'upper fold: only {early}/3 engagement elements within '
+                f'2500 visible chars of the H1')
         if form_chars > 6000:
-            fails.append(f'form: first form {form_chars} visible chars in')
+            fails.append(
+                f'form: first form {form_chars} visible chars after the H1')
     mappos = max(h.find('jtcm-'), h.find('legal-map'))
     if mappos > 0 and text_depth(mappos) > 65:
         warns.append(f'map: deep at {text_depth(mappos)}% of visible text')

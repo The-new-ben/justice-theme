@@ -121,7 +121,17 @@ function justice_theme_article_midfold( ?string $content ): string {
 	}
 	$term  = function_exists( 'justice_theme_get_primary_practice_area' ) ? justice_theme_get_primary_practice_area( $queried->ID ) : null;
 	$label = $term instanceof WP_Term ? trim( str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ' ), '', $term->name ) ) : '';
-	$strip  = '<div class="single-article__fold">';
+	// Pillar-class articles carry the registered band too (owner order:
+	// these pages must match the full pillar standard).
+	$pillar_articles = array(
+		'labor-lawyer' => array( 'term' => 'labor-law', 'label' => 'דיני עבודה' ),
+	);
+	$band_html = '';
+	if ( isset( $pillar_articles[ $queried->post_name ] ) && function_exists( 'justice_theme_registered_band_html' ) ) {
+		$pa        = $pillar_articles[ $queried->post_name ];
+		$band_html = justice_theme_registered_band_html( $pa['term'], $pa['label'] );
+	}
+	$strip  = '<div class="single-article__fold">' . $band_html;
 	$strip .= '<div class="single-article__fold-cta">';
 	$strip .= '<strong>' . esc_html( $label ? 'צריכים עורך דין ' . $label . '?' : 'צריכים עורך דין מתאים?' ) . '</strong> ';
 	$strip .= '<a class="button button--gold" href="' . esc_url( home_url( '/#ask-lawyer' ) ) . '">' . esc_html__( 'השארת פנייה קצרה', 'justice-theme' ) . '</a> ';

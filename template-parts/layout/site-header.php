@@ -81,7 +81,7 @@ $justice_topic_links = array(
 	),
 	array(
 		'label' => __( 'עורך דין דיני עבודה', 'justice-theme' ),
-		'url'   => home_url( '/practice-areas/labor-law/' ),
+		'url'   => home_url( '/labor-lawyer/' ),
 	),
 	array(
 		'label' => __( 'עורך דין ירושה וצוואות', 'justice-theme' ),

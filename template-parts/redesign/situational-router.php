@@ -68,7 +68,7 @@ $justice_situations = array(
 		'tag'          => __( 'עבודה ופרנסה', 'justice-theme' ),
 		'title'        => __( 'פיטורים, שימוע, שכר או חוזה עבודה', 'justice-theme' ),
 		'desc'         => __( 'כדאי להבין אילו זכויות יש לכם לפני שמגיבים בלחץ.', 'justice-theme' ),
-		'guide_url'    => home_url( '/practice-areas/labor-law/' ),
+		'guide_url'    => home_url( '/labor-lawyer/' ),
 		'lawyers_url'  => home_url( '/lawyers/?area=labor-law' ),
 		'lawyer_label' => __( 'לחפש עורך דין דיני עבודה', 'justice-theme' ),
 		'related'      => array(

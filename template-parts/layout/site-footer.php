@@ -28,10 +28,10 @@ $justice_footer_whatsapp_url = function_exists( 'justice_theme_public_whatsapp_u
 $justice_footer_areas = array(
 	array( __( 'דיני משפחה וגירושין', 'justice-theme' ), home_url( '/family-law/' ) ),
 	array( __( 'משפט פלילי', 'justice-theme' ), home_url( '/criminal-defense-attorney/' ) ),
-	array( __( 'מקרקעין ונדל"ן', 'justice-theme' ), home_url( '/practice-areas/real-estate-law/' ) ),
+	array( __( 'מקרקעין ונדל"ן', 'justice-theme' ), home_url( '/real-estate-lawyer-guide/' ) ),
 	array( __( 'רשלנות רפואית', 'justice-theme' ), home_url( '/medical-malpractice-lawyer/' ) ),
 	array( __( 'נזיקין ותאונות', 'justice-theme' ), home_url( '/tort-lawyer/' ) ),
-	array( __( 'דיני עבודה', 'justice-theme' ), home_url( '/practice-areas/labor-law/' ) ),
+	array( __( 'דיני עבודה', 'justice-theme' ), home_url( '/labor-lawyer/' ) ),
 );
 
 $justice_footer_nav = array(

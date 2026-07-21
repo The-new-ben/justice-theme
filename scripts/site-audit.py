@@ -123,10 +123,19 @@ def audit_page(url, check_links=False):
         fails.append('form: missing')
     else:
         depth = text_depth(forms[0])
-        if depth > 45:
-            fails.append(f'form: first form buried at {depth}% of visible text')
-        elif depth > 30:
-            warns.append(f'form: first form at {depth}% of visible text')
+        chars_before = len(re.sub(r'\s+', ' ', re.sub(
+            r'<[^>]+>', ' ', re.sub(
+                r'<script[^>]*>.*?</script>|<style[^>]*>.*?</style>', ' ',
+                h[:forms[0]], flags=re.S))))
+        # A form within the first ~3000 visible chars is upper-fold no matter
+        # what percentage of a short page that happens to be.
+        if chars_before > 3000:
+            if depth > 45:
+                fails.append(
+                    f'form: first form buried at {depth}% '
+                    f'({chars_before} visible chars in)')
+            elif depth > 30:
+                warns.append(f'form: first form at {depth}%')
     mappos = max(h.find('jtcm-'), h.find('legal-map'))
     if mappos > 0 and text_depth(mappos) > 65:
         warns.append(f'map: deep at {text_depth(mappos)}% of visible text')

@@ -182,7 +182,7 @@ if ( post_type_exists( 'articles' ) ) {
 
 				<?php if ( ! empty( $supporting ) ) : ?>
 					<div class="legal-pillar-topic-box practice-landing__topics">
-						<h2><?php esc_html_e( 'מדריכים קשורים לפי כוונת חיפוש', 'justice-theme' ); ?></h2>
+						<h2><?php esc_html_e( 'מדריכים קשורים', 'justice-theme' ); ?></h2>
 						<div class="legal-pillar-topic-grid">
 							<?php foreach ( $supporting as $item ) : ?>
 								<?php if ( empty( $item['label'] ) ) : ?>
@@ -205,6 +205,26 @@ if ( post_type_exists( 'articles' ) ) {
 	</section>
 
 
+
+	<?php if ( $articles && $articles->have_posts() ) : ?>
+		<section class="legal-pillar-articles section">
+			<div class="container">
+				<div class="section-header section-header--split">
+					<div>
+						<p class="section-header__eyebrow"><?php esc_html_e( 'מדריכים משפטיים', 'justice-theme' ); ?></p>
+						<h2><?php esc_html_e( 'מאמרים מחוברים לתחום', 'justice-theme' ); ?></h2>
+					</div>
+					<a class="button button--ghost" href="<?php echo esc_url( justice_theme_public_url( (string) get_post_type_archive_link( 'articles' ) ) ); ?>"><?php esc_html_e( 'כל המאמרים', 'justice-theme' ); ?></a>
+				</div>
+				<div class="article-grid">
+					<?php while ( $articles->have_posts() ) : $articles->the_post(); ?>
+						<?php get_template_part( 'template-parts/cards/article-card' ); ?>
+					<?php endwhile; ?>
+				</div>
+			</div>
+		</section>
+		<?php wp_reset_postdata(); ?>
+	<?php endif; ?>
 
 	<?php
 	// Area-scoped firms band: the indexed lawyers ARE the product — the
@@ -261,25 +281,6 @@ if ( post_type_exists( 'articles' ) ) {
 		<!-- justice-monitor: pillar-lawyers-band EMPTY for term '<?php echo esc_html( $term_slug ); ?>' — loud-failure marker, journey-monitor asserts this never ships silently -->
 	<?php endif; ?>
 
-	<?php if ( $articles && $articles->have_posts() ) : ?>
-		<section class="legal-pillar-articles section">
-			<div class="container">
-				<div class="section-header section-header--split">
-					<div>
-						<p class="section-header__eyebrow"><?php esc_html_e( 'מדריכים משפטיים', 'justice-theme' ); ?></p>
-						<h2><?php esc_html_e( 'מאמרים מחוברים לתחום', 'justice-theme' ); ?></h2>
-					</div>
-					<a class="button button--ghost" href="<?php echo esc_url( justice_theme_public_url( (string) get_post_type_archive_link( 'articles' ) ) ); ?>"><?php esc_html_e( 'כל המאמרים', 'justice-theme' ); ?></a>
-				</div>
-				<div class="article-grid">
-					<?php while ( $articles->have_posts() ) : $articles->the_post(); ?>
-						<?php get_template_part( 'template-parts/cards/article-card' ); ?>
-					<?php endwhile; ?>
-				</div>
-			</div>
-		</section>
-		<?php wp_reset_postdata(); ?>
-	<?php endif; ?>
 
 	<section class="practice-hub-cta section">
 		<div class="container practice-hub-cta__panel">

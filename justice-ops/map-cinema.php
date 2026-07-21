@@ -55,6 +55,17 @@ function justice_cinema_wanted(): bool {
 		return true;
 	}
 
+	// Every practice-landing surface renders the block mid-fold, and its
+	// styles and scripts must load there too (owner law: the map must WORK
+	// wherever it appears, not render as bare markup).
+	$jtcm_path = trailingslashit( strtok( (string) ( $_SERVER['REQUEST_URI'] ?? '' ), '?' ) );
+	if ( in_array( $jtcm_path, array( '/medical-malpractice-lawyer/', '/family-law/', '/inheritance-lawyer/', '/real-estate-lawyer-guide/', '/divorce-lawyer/', '/criminal-defense-attorney/' ), true ) ) {
+		return true;
+	}
+	if ( preg_match( '#^/(criminal|family|real-estate)-lawyer(s)?-[a-z-]+/$#', $jtcm_path ) || preg_match( '#^/family-law-[a-z-]+/$#', $jtcm_path ) ) {
+		return true;
+	}
+
 	$qo = get_queried_object();
 
 	if ( $qo instanceof WP_Post && 'page' === $qo->post_type ) {
@@ -112,8 +123,7 @@ function justice_cinema_block( bool $front = false ): string {
 
 	return '<section class="jtcm-wrap">'
 		. '<h2>' . esc_html( $title ) . '</h2>'
-		. '<p class="jtcm-sub">מפה תלת ממדית חיה: משרדים מובילים בדגל זהב, בתי משפט ומוסדות מסומנים, סיור אווירי בין המשרדים המובילים. מציגים משרדים שנבדקו ונמצאו בין המובילים בתחומם.</p>'
-		. justice_cinema_finder()
+				. justice_cinema_finder()
 		. '<div class="jtcm-chips" role="group" aria-label="סינון שכבות המפה">'
 		. '<button type="button" class="jtcm-chipbtn is-on" data-layer="all">הכל</button>'
 		. '<button type="button" class="jtcm-chipbtn" data-layer="lawyer">משרדי עורכי דין</button>'

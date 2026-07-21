@@ -105,23 +105,43 @@ function justice_theme_get_practice_firms( string $term_slug, int $limit = 6, bo
 function justice_theme_registered_band_html( string $term_slug, string $practice_label ): string {
 	$firms = justice_theme_get_practice_firms( $term_slug, 3, true );
 	$html  = '<div class="jt-registered-band">';
-	$html .= '<p class="section-header__eyebrow">' . esc_html__( 'כרטיס רשום', 'justice-theme' ) . '</p>';
 	if ( ! empty( $firms ) ) {
-		$html .= '<ul class="jt-registered-band__list">';
 		foreach ( $firms as $firm ) {
-			$html .= '<li><a href="' . esc_url( get_permalink( $firm ) ) . '">' . esc_html( $firm->post_title ) . '</a>';
-			$city  = get_post_meta( $firm->ID, 'office_city', true );
-			if ( $city ) {
-				$html .= ' <span class="jt-registered-band__city">' . esc_html( wp_strip_all_tags( (string) $city ) ) . '</span>';
+			$photo = get_the_post_thumbnail( $firm, 'medium', array( 'class' => 'jt-premium-card__photo', 'loading' => 'lazy' ) );
+			$firm_name = wp_strip_all_tags( (string) get_post_meta( $firm->ID, 'firm_name', true ) );
+			$firm_name = trim( str_replace( array( "\xE2\x80\x94", ' - ' ), array( ',', ', ' ), $firm_name ) );
+			$city  = wp_strip_all_tags( (string) get_post_meta( $firm->ID, 'office_city', true ) );
+			$bio   = wp_strip_all_tags( (string) get_post_meta( $firm->ID, 'bio_short', true ) );
+			$phone = preg_replace( '/[^0-9]/', '', (string) get_post_meta( $firm->ID, 'phone', true ) );
+			$wa    = $phone ? 'https://wa.me/972' . ltrim( $phone, '0' ) : '';
+			$html .= '<div class="jt-premium-card">';
+			if ( $photo ) {
+				$html .= '<a class="jt-premium-card__photo-link" href="' . esc_url( get_permalink( $firm ) ) . '">' . $photo . '</a>';
 			}
-			$html .= '</li>';
+			$html .= '<div class="jt-premium-card__body">';
+			$html .= '<a class="jt-premium-card__name" href="' . esc_url( get_permalink( $firm ) ) . '">' . esc_html( $firm->post_title ) . '</a>';
+			$meta_line = implode( ' · ', array_filter( array( $firm_name, $city ) ) );
+			if ( $meta_line ) {
+				$html .= '<span class="jt-premium-card__meta">' . esc_html( $meta_line ) . '</span>';
+			}
+			if ( $bio ) {
+				$html .= '<p class="jt-premium-card__bio">' . esc_html( wp_trim_words( $bio, 22, '' ) ) . '</p>';
+			}
+			$html .= '<span class="jt-premium-card__actions">';
+			if ( $wa ) {
+				$html .= '<a class="button button--gold jt-premium-card__wa" href="' . esc_url( $wa ) . '" target="_blank" rel="noopener">וואטסאפ</a>';
+			}
+			if ( $phone ) {
+				$html .= '<a class="button button--primary" href="tel:' . esc_attr( $phone ) . '">התקשרו</a>';
+			}
+			$html .= '<a class="button button--ghost" href="' . esc_url( get_permalink( $firm ) ) . '">לפרופיל המלא</a>';
+			$html .= '</span></div></div>';
 		}
-		$html .= '</ul>';
 	} else {
 		$html .= '<div class="jt-registered-band__recruit">';
-		$html .= '<strong>' . esc_html( sprintf( 'המקום הזה שמור למשרד רשום בתחום %s.', $practice_label ) ) . '</strong> ';
+		$html .= '<strong>' . esc_html( sprintf( 'המקום הזה שמור למשרד מוביל בתחום %s.', $practice_label ) ) . '</strong> ';
 		$html .= esc_html__( 'עורכי דין: רוצים להופיע כאן בפני לקוחות שמחפשים בדיוק אתכם?', 'justice-theme' );
-		$html .= ' <a class="button button--ghost" href="' . esc_url( home_url( '/lawyer-plans/' ) ) . '">' . esc_html__( 'הצטרפות ככרטיס רשום', 'justice-theme' ) . '</a>';
+		$html .= ' <a class="button button--ghost" href="' . esc_url( home_url( '/lawyer-plans/' ) ) . '">' . esc_html__( 'לפרטים והצטרפות', 'justice-theme' ) . '</a>';
 		$html .= '</div>';
 	}
 	$html .= '</div>';

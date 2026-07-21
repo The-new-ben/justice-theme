@@ -45,7 +45,7 @@ get_template_part(
 	'template-parts/content/practice-landing-page',
 	null,
 	array(
-		'page_id' => 0,
+		'page_id' => ( $justice_re_page = get_page_by_path( 'real-estate-lawyer-guide' ) ) instanceof WP_Post ? (int) $justice_re_page->ID : 0,
 		'config'  => is_array( $justice_real_estate_config ) ? $justice_real_estate_config : array(),
 	)
 );

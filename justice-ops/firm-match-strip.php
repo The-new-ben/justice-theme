@@ -159,7 +159,6 @@ function justice_fms_render( array $firms, string $area_slug ): string {
 			$html .= '<span class="jt-firm-strip__meta">' . esc_html( implode( ' · ', $meta_bits ) ) . '</span>';
 		}
 		if ( $firm['sponsored'] ) {
-			$html .= '<span class="jt-firm-strip__chip">כרטיס רשום</span>';
 		}
 		$html .= '</a>';
 	}

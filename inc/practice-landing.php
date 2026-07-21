@@ -92,6 +92,10 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 		),
 		'family-law'          => array(
 			'term_slug'       => 'family-law',
+			'reviewed_by'        => 'עו"ד מאיה רוטנברג',
+			'reviewed_by_title'  => 'עורכת דין לענייני משפחה ומגשרת',
+			'reviewed_by_sameas' => 'https://rotenberglaw.co.il/',
+			'show_map'        => true,
 			'title'           => 'דיני משפחה וגירושין',
 			'keyword'         => 'עורך דין לענייני משפחה',
 			'summary'         => 'מרכז מידע למשפחה, גירושין, הסכמים, ילדים, מזונות, חלוקת רכוש וסכסוכי משפחה. המטרה היא לעזור להבין את המסלול, להתכונן נכון ולפנות לעורכת דין מתאימה כאשר צריך ליווי אישי.',
@@ -150,6 +154,8 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 		),
 		'inheritance'         => array(
 			'term_slug'  => 'inheritance-law',
+			'reviewed_by' => 'עו"ד בן בטש',
+			'show_map'   => true,
 			'title'      => 'ירושה וצוואות',
 			'keyword'    => 'עורך דין ירושה',
 			'summary'    => 'מידע על צוואות, ירושות, התנגדות לצוואה, ניהול עיזבון וסכסוכים משפחתיים סביב רכוש.',

@@ -354,12 +354,19 @@ function justice_theme_collection_page_schema() {
 		$firm_name = get_post_meta( $lawyer->ID, 'firm_name', true );
 		$phone     = get_post_meta( $lawyer->ID, 'phone', true );
 		$address   = get_post_meta( $lawyer->ID, 'office_address', true );
+		// Firm meta often mirrors the title in the data; append only when it
+		// adds information, and never with an em dash (owner copy law).
+		$lawyer_schema_name = wp_strip_all_tags( get_the_title( $lawyer->ID ) );
+		$firm_schema_name   = $firm_name ? wp_strip_all_tags( $firm_name ) : '';
+		if ( $firm_schema_name && $firm_schema_name !== $lawyer_schema_name ) {
+			$lawyer_schema_name .= ', ' . $firm_schema_name;
+		}
 		$item      = array(
 			'@type'    => 'ListItem',
 			'position' => $i + 1,
 			'item'     => array(
 				'@type'       => 'LegalService',
-				'name'        => wp_strip_all_tags( get_the_title( $lawyer->ID ) ) . ( $firm_name ? ' — ' . wp_strip_all_tags( $firm_name ) : '' ),
+				'name'        => $lawyer_schema_name,
 				'url'         => esc_url_raw( justice_theme_public_permalink( $lawyer->ID ) ),
 				'serviceType' => $svc['label'],
 				'areaServed'  => array( '@type' => 'Country', 'name' => 'Israel' ),

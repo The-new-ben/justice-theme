@@ -135,9 +135,11 @@ def audit_page(url, check_links=False):
     if chr(8212) in h:
         fails.append(f'em-dash x{h.count(chr(8212))}')
 
-    # 4. freshness (flag only, human decides)
+    # 4. freshness (flag only, human decides); ISO dates and datetime
+    # attributes are metadata, not stale copy.
+    text_no_dates = re.sub(r'\b\d{4}-\d{2}-\d{2}\b', ' ', text)
     for y in range(2020, CURRENT_YEAR):
-        n = len(re.findall(rf'\b{y}\b', text))
+        n = len(re.findall(rf'\b{y}\b', text_no_dates))
         if n > 3:
             warns.append(f'year {y} appears x{n} (review: factual or stale?)')
 

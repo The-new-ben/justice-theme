@@ -136,84 +136,83 @@ if ( post_type_exists( 'articles' ) ) {
 	);
 	$signals = empty( $config['hide_signals'] ) ? ( $practice_signals[ $term_slug ] ?? $practice_signals['family-law'] ) : array();
 	?>
-		<?php
+	
+
+	<?php if ( ! empty( $signals ) ) : ?>
+	<section class="practice-signals section" aria-label="<?php echo esc_attr( sprintf( '%s: תחומי עיסוק', $title ) ); ?>">
+		<div class="container practice-signals__grid">
+			<?php foreach ( $signals as $signal ) : ?>
+			<div class="practice-signals__item">
+				<span class="practice-signals__icon" aria-hidden="true"><?php echo $signal['icon']; // phpcs:ignore ?></span>
+				<strong class="practice-signals__label"><?php echo esc_html( $signal['label'] ); ?></strong>
+				<p class="practice-signals__text"><?php echo esc_html( $signal['text'] ); ?></p>
+			</div>
+			<?php endforeach; ?>
+		</div>
+	</section>
+	<?php endif; ?>
+
+	<section class="legal-pillar-body section">
+		<div class="container legal-pillar-body__grid">
+
+			<div class="legal-pillar-content entry-content">
+				<?php
+				// Render full Gutenberg pillar content as the primary body,
+				// FIRST inside the content column: the user and Googlebot must
+				// land on the article's answer, not on link chrome. The
+				// supporting-guides box moved below the article (2026-07-14,
+				// google-god-mode audit: first relevant paragraph sat three
+				// viewports down).
+				$page_raw_content = $page_id > 0 ? get_post_field( 'post_content', $page_id ) : '';
+				if ( trim( wp_strip_all_tags( $page_raw_content ) ) ) :
+					?>
+					<div class="practice-landing__pillar-content">
+						<?php
+					$justice_body_html = apply_filters( 'the_content', $page_raw_content );
+					if ( function_exists( 'justice_theme_inject_after_section' ) && function_exists( 'justice_theme_midfold_block_html' ) ) {
+						$justice_body_html = justice_theme_inject_after_section(
+							$justice_body_html,
+							justice_theme_midfold_block_html( $term_slug, $title )
+						);
+					}
+					echo $justice_body_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					?>
+					</div>
+				<?php endif; ?>
+
+				<?php if ( ! empty( $supporting ) ) : ?>
+					<div class="legal-pillar-topic-box practice-landing__topics">
+						<h2><?php esc_html_e( 'מדריכים קשורים לפי כוונת חיפוש', 'justice-theme' ); ?></h2>
+						<div class="legal-pillar-topic-grid">
+							<?php foreach ( $supporting as $item ) : ?>
+								<?php if ( empty( $item['label'] ) ) : ?>
+									<?php continue; ?>
+								<?php endif; ?>
+								<a href="<?php echo esc_url( home_url( $item['url'] ?? '#' ) ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
+							<?php endforeach; ?>
+						</div>
+					</div>
+				<?php endif; ?>
+			</div>
+
+			
+			<aside class="legal-pillar-sidebar" id="practice-lead-form">
+				<h2><?php esc_html_e( 'צריכים הכוונה?', 'justice-theme' ); ?></h2>
+				<p><?php esc_html_e( 'השאירו פרטים קצרים. המטרה היא להפוך שאלה כללית לפנייה מסודרת עם תחום, עיר ודחיפות.', 'justice-theme' ); ?></p>
+				<?php get_template_part( 'template-parts/forms/lead-form' ); ?>
+			</aside>
+		</div>
+	</section>
+
+
+
+	<?php
 	// Area-scoped firms band: the indexed lawyers ARE the product — the
 	// pillar must surface them (owner law 2026-07-20). Falls back to the
 	// single featured profile only when no area match exists.
-	$area_lawyers = null;
-	if ( $term_slug && post_type_exists( 'justice_lawyer' ) && taxonomy_exists( 'practice-areas' ) ) {
-		$area_lawyers = new WP_Query(
-			array(
-				'post_type'      => 'justice_lawyer',
-				'post_status'    => 'publish',
-				'posts_per_page'   => 10,
-				'no_found_rows'    => true,
-				'suppress_filters' => true,
-				'orderby'          => array( 'title' => 'ASC' ),
-				'tax_query'      => array(
-					array(
-						'taxonomy' => 'practice-areas',
-						'field'    => 'slug',
-						'terms'    => $term_slug,
-					),
-				),
-			)
-		);
-	}
-	?>
-
-	<?php
-	// Poison-proof fallback: on flag-corrupted requests an ops-level
-	// pre_get_posts empties secondary WP_Queries (measured: clean-context
-	// probe returns 6, in-page query returns 1). Rebuild the list straight
-	// from the term relationships, no WP_Query involved.
-	$area_lawyer_posts = array();
-	if ( $area_lawyers instanceof WP_Query && $area_lawyers->post_count >= 3 ) {
-		$area_lawyer_posts = $area_lawyers->posts;
-	} elseif ( $term instanceof WP_Term ) {
-		$object_ids = get_objects_in_term( $term->term_id, 'practice-areas' );
-		if ( is_array( $object_ids ) ) {
-			foreach ( $object_ids as $object_id ) {
-				$candidate = get_post( (int) $object_id );
-				if ( $candidate instanceof WP_Post && 'justice_lawyer' === $candidate->post_type && 'publish' === $candidate->post_status ) {
-					$area_lawyer_posts[] = $candidate;
-				}
-			}
-			usort( $area_lawyer_posts, function ( $a, $b ) { return strcmp( $a->post_title, $b->post_title ); } );
-			$area_lawyer_posts = array_slice( $area_lawyer_posts, 0, 10 );
-		}
-	}
-	?>
-
-	<?php
-	// Dedupe typo-twin firm names (e.g. two 'א. טירר' variants in the data).
-	if ( ! empty( $area_lawyer_posts ) ) {
-		$justice_band_seen = array();
-		$justice_band_out  = array();
-		foreach ( $area_lawyer_posts as $justice_band_post ) {
-			if ( function_exists( 'justice_theme_lawyer_is_visible' ) && ! justice_theme_lawyer_is_visible( (int) $justice_band_post->ID ) ) {
-				continue;
-			}
-			$justice_band_key = mb_substr( preg_replace( '/[^א-תa-z0-9]/iu', '', mb_strtolower( $justice_band_post->post_title ) ), 0, 18 );
-			$justice_band_dup = isset( $justice_band_seen[ $justice_band_key ] );
-			if ( ! $justice_band_dup ) {
-				// Typo twins can differ inside the prefix window (ונוטריון/ונטוריון),
-				// so near-identical keys count as the same firm too.
-				foreach ( array_keys( $justice_band_seen ) as $justice_band_seen_key ) {
-					if ( levenshtein( $justice_band_key, (string) $justice_band_seen_key ) <= 4 ) {
-						$justice_band_dup = true;
-						break;
-					}
-				}
-			}
-			if ( $justice_band_dup ) {
-				continue;
-			}
-			$justice_band_seen[ $justice_band_key ] = true;
-			$justice_band_out[]                     = $justice_band_post;
-		}
-		$area_lawyer_posts = array_slice( $justice_band_out, 0, 6 );
-	}
+	$area_lawyer_posts = function_exists( 'justice_theme_get_practice_firms' )
+		? justice_theme_get_practice_firms( $term_slug, 6 )
+		: array();
 	?>
 
 	<?php if ( ! empty( $area_lawyer_posts ) ) : ?>
@@ -261,71 +260,6 @@ if ( post_type_exists( 'articles' ) ) {
 	<?php else : ?>
 		<!-- justice-monitor: pillar-lawyers-band EMPTY for term '<?php echo esc_html( $term_slug ); ?>' — loud-failure marker, journey-monitor asserts this never ships silently -->
 	<?php endif; ?>
-
-	<?php if ( ! empty( $config['show_map'] ) && function_exists( 'justice_cinema_block' ) ) : ?>
-		<section class="legal-pillar-map section" aria-label="מפת משרדי עורכי דין בתחום">
-			<?php echo justice_cinema_block( false ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-		</section>
-	<?php endif; ?>
-
-	<?php if ( ! empty( $signals ) ) : ?>
-	<section class="practice-signals section" aria-label="<?php echo esc_attr( sprintf( '%s: תחומי עיסוק', $title ) ); ?>">
-		<div class="container practice-signals__grid">
-			<?php foreach ( $signals as $signal ) : ?>
-			<div class="practice-signals__item">
-				<span class="practice-signals__icon" aria-hidden="true"><?php echo $signal['icon']; // phpcs:ignore ?></span>
-				<strong class="practice-signals__label"><?php echo esc_html( $signal['label'] ); ?></strong>
-				<p class="practice-signals__text"><?php echo esc_html( $signal['text'] ); ?></p>
-			</div>
-			<?php endforeach; ?>
-		</div>
-	</section>
-	<?php endif; ?>
-
-	<section class="legal-pillar-body section">
-		<div class="container legal-pillar-body__grid">
-			<aside class="legal-pillar-sidebar" id="practice-lead-form">
-				<h2><?php esc_html_e( 'צריכים הכוונה?', 'justice-theme' ); ?></h2>
-				<p><?php esc_html_e( 'השאירו פרטים קצרים. המטרה היא להפוך שאלה כללית לפנייה מסודרת עם תחום, עיר ודחיפות.', 'justice-theme' ); ?></p>
-				<?php get_template_part( 'template-parts/forms/lead-form' ); ?>
-			</aside>
-
-			<div class="legal-pillar-content entry-content">
-				<?php
-				// Render full Gutenberg pillar content as the primary body,
-				// FIRST inside the content column: the user and Googlebot must
-				// land on the article's answer, not on link chrome. The
-				// supporting-guides box moved below the article (2026-07-14,
-				// google-god-mode audit: first relevant paragraph sat three
-				// viewports down).
-				$page_raw_content = $page_id > 0 ? get_post_field( 'post_content', $page_id ) : '';
-				if ( trim( wp_strip_all_tags( $page_raw_content ) ) ) :
-					?>
-					<div class="practice-landing__pillar-content">
-						<?php echo apply_filters( 'the_content', $page_raw_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-					</div>
-				<?php endif; ?>
-
-				<?php if ( ! empty( $supporting ) ) : ?>
-					<div class="legal-pillar-topic-box practice-landing__topics">
-						<h2><?php esc_html_e( 'מדריכים קשורים לפי כוונת חיפוש', 'justice-theme' ); ?></h2>
-						<div class="legal-pillar-topic-grid">
-							<?php foreach ( $supporting as $item ) : ?>
-								<?php if ( empty( $item['label'] ) ) : ?>
-									<?php continue; ?>
-								<?php endif; ?>
-								<a href="<?php echo esc_url( home_url( $item['url'] ?? '#' ) ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
-							<?php endforeach; ?>
-						</div>
-					</div>
-				<?php endif; ?>
-			</div>
-
-			
-		</div>
-	</section>
-
-
 
 	<?php if ( $articles && $articles->have_posts() ) : ?>
 		<section class="legal-pillar-articles section">

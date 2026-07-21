@@ -5017,3 +5017,47 @@ a.jt-ai-fab {
   justify-content: center;
   margin-bottom: 1rem;
 }
+
+
+/* Mid-fold registered band + map (text-first law 2026-07-21) */
+.jt-midfold {
+  margin: 2rem 0;
+}
+
+.jt-registered-band {
+  background: var(--jt-surface, #f7f9fc);
+  border: 1px solid rgba(13, 44, 84, 0.12);
+  border-radius: 12px;
+  padding: 1.1rem 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.jt-registered-band__list {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.6rem;
+  font-weight: 700;
+}
+
+.jt-registered-band__city {
+  color: var(--jt-muted, #667);
+  font-weight: 400;
+  font-size: 0.9em;
+}
+
+.jt-registered-band__recruit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+/* Text-first correction: the lead form returns after the article on mobile */
+@media (max-width: 900px) {
+  .legal-pillar-body__grid .legal-pillar-sidebar {
+    order: 2;
+  }
+}

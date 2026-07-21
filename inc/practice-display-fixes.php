@@ -82,49 +82,15 @@ function justice_theme_city_page_enrichment( ?string $content ): string {
 
 	$top = '';
 
-	if ( taxonomy_exists( 'practice-areas' ) && post_type_exists( 'justice_lawyer' ) ) {
-		$term = get_term_by( 'slug', $practice['term'], 'practice-areas' );
-		if ( $term instanceof WP_Term ) {
-			$object_ids = get_objects_in_term( $term->term_id, 'practice-areas' );
-			$firms      = array();
-			$seen       = array();
-			if ( is_array( $object_ids ) ) {
-				foreach ( $object_ids as $object_id ) {
-					$candidate = get_post( (int) $object_id );
-					if ( ! ( $candidate instanceof WP_Post ) || 'justice_lawyer' !== $candidate->post_type || 'publish' !== $candidate->post_status ) {
-						continue;
-					}
-					if ( function_exists( 'justice_theme_lawyer_is_visible' ) && ! justice_theme_lawyer_is_visible( (int) $candidate->ID ) ) {
-						continue;
-					}
-					$key = mb_substr( preg_replace( '/[^א-תa-z0-9]/iu', '', mb_strtolower( $candidate->post_title ) ), 0, 18 );
-					$dup = isset( $seen[ $key ] );
-					if ( ! $dup ) {
-						foreach ( array_keys( $seen ) as $seen_key ) {
-							if ( levenshtein( $key, (string) $seen_key ) <= 4 ) {
-								$dup = true;
-								break;
-							}
-						}
-					}
-					if ( $dup ) {
-						continue;
-					}
-					$seen[ $key ] = true;
-					$firms[]      = $candidate;
-					if ( count( $firms ) >= 6 ) {
-						break;
-					}
-				}
-			}
-			if ( count( $firms ) >= 3 ) {
-				$top .= '<div class="city-page-firms"><p class="section-header__eyebrow">נבדקו ונמצאו מובילים</p><h2>משרדי עורכי דין מובילים בתחום</h2><ul class="city-page-firms__list">';
-				foreach ( $firms as $firm ) {
-					$top .= '<li><a href="' . esc_url( get_permalink( $firm ) ) . '">' . esc_html( $firm->post_title ) . '</a></li>';
-				}
-				$top .= '</ul></div>';
-			}
+	$firms = function_exists( 'justice_theme_get_practice_firms' )
+		? justice_theme_get_practice_firms( $practice['term'], 6 )
+		: array();
+	if ( count( $firms ) >= 3 ) {
+		$top .= '<div class="city-page-firms"><p class="section-header__eyebrow">נבדקו ונמצאו מובילים</p><h2>משרדי עורכי דין מובילים בתחום</h2><ul class="city-page-firms__list">';
+		foreach ( $firms as $firm ) {
+			$top .= '<li><a href="' . esc_url( get_permalink( $firm ) ) . '">' . esc_html( $firm->post_title ) . '</a></li>';
 		}
+		$top .= '</ul></div>';
 	}
 
 	if ( function_exists( 'justice_cinema_block' ) ) {
@@ -133,6 +99,38 @@ function justice_theme_city_page_enrichment( ?string $content ): string {
 
 	$bottom = '<p class="city-page-pillar-link">למדריך המלא: <a href="' . esc_url( home_url( $practice['pillar'] ) ) . '">' . esc_html( $practice['label'] ) . '</a>.</p>';
 
-	return $top . $content . $bottom;
+	// Text first (the blind-librarian law): the band and map come AFTER
+	// the page's own text, in the lower upper fold, never above it.
+	return $content . $top . $bottom;
 }
 add_filter( 'the_content', 'justice_theme_city_page_enrichment', 60 );
+
+/**
+ * Mid-article conversion strip for the articles CPT: CTA plus the map,
+ * injected after the second H2 so the reader (and the librarian) meets
+ * text first. Display-only.
+ */
+function justice_theme_article_midfold( ?string $content ): string {
+	$content = (string) $content;
+	if ( is_admin() || ! function_exists( 'justice_theme_inject_after_section' ) ) {
+		return $content;
+	}
+	$queried = get_queried_object();
+	if ( ! ( $queried instanceof WP_Post ) || 'articles' !== $queried->post_type || get_the_ID() !== $queried->ID ) {
+		return $content;
+	}
+	$term  = function_exists( 'justice_theme_get_primary_practice_area' ) ? justice_theme_get_primary_practice_area( $queried->ID ) : null;
+	$label = $term instanceof WP_Term ? trim( str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ' ), '', $term->name ) ) : '';
+	$strip  = '<div class="single-article__fold">';
+	$strip .= '<div class="single-article__fold-cta">';
+	$strip .= '<strong>' . esc_html( $label ? 'צריכים עורך דין ' . $label . '?' : 'צריכים עורך דין מתאים?' ) . '</strong> ';
+	$strip .= '<a class="button button--gold" href="' . esc_url( home_url( '/#ask-lawyer' ) ) . '">' . esc_html__( 'השארת פנייה קצרה', 'justice-theme' ) . '</a> ';
+	$strip .= '<a class="button button--ghost" href="' . esc_url( home_url( '/lawyers/' ) ) . '">' . esc_html__( 'חיפוש עורך דין לפי תחום ועיר', 'justice-theme' ) . '</a>';
+	$strip .= '</div>';
+	if ( function_exists( 'justice_cinema_block' ) ) {
+		$strip .= justice_cinema_block( false );
+	}
+	$strip .= '</div>';
+	return justice_theme_inject_after_section( $content, $strip );
+}
+add_filter( 'the_content', 'justice_theme_article_midfold', 12 );

@@ -124,13 +124,16 @@ def audit_page(url, check_links=False):
                 r'<script[^>]*>.*?</script>|<style[^>]*>.*?</style>', ' ',
                 h[:byte_pos], flags=re.S))))
 
-    # Upper-fold rule as the owner stated it: engagement elements (firms
-    # band, map, lead form) live at the TOP of the content. Measured from
-    # the H1 so header chrome (nav, topics bar) does not skew the distance.
-    # At least two of the three within ~2500 visible chars of the H1, and
-    # the form within 6000.
+    # The blind-librarian law (owner, 2026-07-21): TEXT first, then the
+    # engagement block in the lower upper fold. Google reads the page like
+    # braille: the first thing after the H1 must be relevant text, never a
+    # widget wall. So: at least ~1200 visible chars of text between the H1
+    # and the first widget (band/map), the widgets present and sitting in
+    # the middle zone (not buried past 75%), and a form on the page.
     forms = [m.start() for m in re.finditer(r'<form', h)]
-    band_pos = h.find('lawyer-card__name')
+    band_pos = min([p for p in (
+        h.find('lawyer-card__name'), h.find('jt-registered-band')) if p > 0],
+        default=-1)
     map_pos = max(h.find('jtcm-'), h.find('legal-map'))
     h1_pos = h.find('<h1')
     base = chars_before(h1_pos) if h1_pos > 0 else 0
@@ -140,18 +143,16 @@ def audit_page(url, check_links=False):
 
     if not forms:
         fails.append('form: missing')
-    else:
-        early = sum(
-            1 for p in (band_pos, map_pos, forms[0])
-            if p > 0 and after_h1(p) <= 2500)
-        form_chars = after_h1(forms[0])
-        if early < 2:
+    first_widget = min([p for p in (band_pos, map_pos) if p > 0], default=-1)
+    if first_widget > 0:
+        lead_text = after_h1(first_widget)
+        if lead_text < 1200:
             fails.append(
-                f'upper fold: only {early}/3 engagement elements within '
-                f'2500 visible chars of the H1')
-        if form_chars > 6000:
-            fails.append(
-                f'form: first form {form_chars} visible chars after the H1')
+                f'text-first: only {lead_text} visible chars between the H1 '
+                f'and the first widget (need 1200+)')
+        depth = text_depth(first_widget)
+        if depth > 75:
+            warns.append(f'engagement block buried at {depth}%')
     mappos = max(h.find('jtcm-'), h.find('legal-map'))
     if mappos > 0 and text_depth(mappos) > 65:
         warns.append(f'map: deep at {text_depth(mappos)}% of visible text')

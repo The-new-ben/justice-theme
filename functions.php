@@ -73,6 +73,7 @@ $justice_theme_files = array(
 	'inc/pillar-pages.php',
 	'inc/content-utils.php',
 	'inc/pillar-faq-schema.php',
+	'inc/lawyer-band.php',
 	'inc/practice-display-fixes.php',
 	'inc/publication-safety.php',
 	'inc/lawyer-recommendations.php',

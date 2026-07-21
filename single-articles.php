@@ -57,6 +57,14 @@ while ( have_posts() ) :
 	}
 	?>
 
+	<?php
+	// Upper-fold conversion strip (owner law 2026-07-21): whoever lands on a
+	// content page sees the path to a lawyer immediately. The cinema map
+	// lazy-loads near the viewport, so it never blocks reading.
+	$justice_fold_term_name = $primary_term instanceof WP_Term
+		? trim( str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ' ), '', $primary_term->name ) )
+		: '';
+	?>
 	<article <?php post_class( 'single-article premium-card' ); ?> style="background: var(--jt-surface); border: none; box-shadow: none;">
 		<header class="single-article__header glass-panel" style="max-width: 900px; margin: 40px auto 3rem; padding: 3rem 2rem; text-align: center; border-radius: var(--jt-radius-lg);">
 			<div class="container container--narrow">
@@ -110,6 +118,18 @@ while ( have_posts() ) :
 				</div>
 			</div>
 		</header>
+
+		<?php if ( function_exists( 'justice_cinema_block' ) ) : ?>
+			<section class="single-article__fold" aria-label="מציאת עורך דין">
+				<div class="single-article__fold-cta">
+					<strong><?php echo esc_html( $justice_fold_term_name ? 'צריכים עורך דין ' . $justice_fold_term_name . '?' : 'צריכים עורך דין מתאים?' ); ?></strong>
+					<a class="button button--gold" href="<?php echo esc_url( $article_contextual_cta['url'] ); ?>"><?php esc_html_e( 'השארת פנייה קצרה', 'justice-theme' ); ?></a>
+					<a class="button button--ghost" href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>"><?php esc_html_e( 'חיפוש עורך דין לפי תחום ועיר', 'justice-theme' ); ?></a>
+				</div>
+				<?php echo justice_cinema_block( false ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			</section>
+		<?php endif; ?>
+
 
 		<?php if ( apply_filters( 'justice_theme_show_article_intent_panel', false, get_the_ID() ) ) : ?>
 		<section class="article-intent-panel" aria-label="<?php esc_attr_e( 'מה חשוב להבין לפני קריאת המדריך', 'justice-theme' ); ?>">

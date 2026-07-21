@@ -5002,3 +5002,18 @@ a.jt-ai-fab {
     order: 1;
   }
 }
+
+/* Article upper-fold conversion strip */
+.single-article__fold {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+}
+
+.single-article__fold-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}

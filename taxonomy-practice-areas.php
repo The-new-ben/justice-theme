@@ -199,20 +199,53 @@ $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-
 			<a class="button button--ghost" href="<?php echo esc_url( justice_theme_public_url( (string) get_post_type_archive_link( 'articles' ) ) ); ?>"><?php esc_html_e( 'כל המאמרים', 'justice-theme' ); ?></a>
 		</div>
 
-		<?php if ( have_posts() ) : ?>
+		<?php
+		// The main tax query arrives empty on ops-corrupted requests, so the
+		// articles list uses its own query with a term-relationship fallback
+		// (same poison-proof pattern as the pillar firms band).
+		$justice_tax_articles = array();
+		if ( post_type_exists( 'articles' ) && $term_slug ) {
+			$justice_tax_articles_query = new WP_Query( array(
+				'post_type'        => 'articles',
+				'post_status'      => 'publish',
+				'posts_per_page'   => 12,
+				'no_found_rows'    => true,
+				'suppress_filters' => true,
+				'tax_query'        => array(
+					array(
+						'taxonomy' => 'practice-areas',
+						'field'    => 'slug',
+						'terms'    => $term_slug,
+					),
+				),
+			) );
+			if ( $justice_tax_articles_query->post_count >= 1 ) {
+				$justice_tax_articles = $justice_tax_articles_query->posts;
+			} elseif ( isset( $term ) && $term instanceof WP_Term ) {
+				$justice_tax_object_ids = get_objects_in_term( $term->term_id, 'practice-areas' );
+				if ( is_array( $justice_tax_object_ids ) ) {
+					foreach ( $justice_tax_object_ids as $justice_tax_object_id ) {
+						$justice_tax_candidate = get_post( (int) $justice_tax_object_id );
+						if ( $justice_tax_candidate instanceof WP_Post && 'articles' === $justice_tax_candidate->post_type && 'publish' === $justice_tax_candidate->post_status ) {
+							$justice_tax_articles[] = $justice_tax_candidate;
+							if ( count( $justice_tax_articles ) >= 12 ) {
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		?>
+		<?php if ( ! empty( $justice_tax_articles ) ) : ?>
 			<div class="article-grid">
-				<?php while ( have_posts() ) : the_post(); ?>
-					<?php get_template_part( 'template-parts/cards/article-card' ); ?>
-				<?php endwhile; ?>
-			</div>
-
-			<div class="pagination">
 				<?php
-				the_posts_pagination( array(
-					'mid_size'  => 2,
-					'prev_text' => esc_html__( 'הקודם', 'justice-theme' ),
-					'next_text' => esc_html__( 'הבא', 'justice-theme' ),
-				) );
+				global $post;
+				foreach ( $justice_tax_articles as $post ) : // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+					setup_postdata( $post );
+					get_template_part( 'template-parts/cards/article-card' );
+				endforeach;
+				wp_reset_postdata();
 				?>
 			</div>
 		<?php else : ?>

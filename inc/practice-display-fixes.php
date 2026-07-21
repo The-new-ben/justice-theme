@@ -50,10 +50,16 @@ function justice_theme_city_page_practice( string $slug ): ?array {
  */
 function justice_theme_city_page_enrichment( ?string $content ): string {
 	$content = (string) $content;
-	if ( is_admin() || ! is_page() || ! in_the_loop() || ! is_main_query() ) {
+	if ( is_admin() ) {
 		return $content;
 	}
-	$slug     = (string) get_post_field( 'post_name', get_queried_object_id() );
+	// Flag-proof: ops early hooks corrupt is_page()/is_main_query() on pages,
+	// so route by the queried object itself (same fix as the pillar router).
+	$queried = get_queried_object();
+	if ( ! ( $queried instanceof WP_Post ) || 'page' !== $queried->post_type || get_the_ID() !== $queried->ID ) {
+		return $content;
+	}
+	$slug     = (string) $queried->post_name;
 	$practice = justice_theme_city_page_practice( $slug );
 	if ( null === $practice ) {
 		return $content;

@@ -103,7 +103,7 @@ def audit_page(url, check_links=False):
             fails.append(f'band: duplicate/twin firms {len(twins)}')
         if len(names) < 6:
             warns.append(f'band: only {len(names)} cards')
-    if h.find('jtcm-') < 0 and h.find('legal-map') < 0:
+    if h.find('jtcm-finder') < 0 and h.find('legal-map-canvas') < 0:
         fails.append('map: missing')
     if 'נבדק על ידי' not in h:
         fails.append('reviewed-by: missing')
@@ -134,7 +134,7 @@ def audit_page(url, check_links=False):
     band_pos = min([p for p in (
         h.find('lawyer-card__name'), h.find('jt-registered-band')) if p > 0],
         default=-1)
-    map_pos = max(h.find('jtcm-'), h.find('legal-map'))
+    map_pos = max(h.find('jtcm-finder'), h.find('legal-map-canvas'))
     h1_pos = h.find('<h1')
     base = chars_before(h1_pos) if h1_pos > 0 else 0
 
@@ -153,7 +153,7 @@ def audit_page(url, check_links=False):
         depth = text_depth(first_widget)
         if depth > 75:
             warns.append(f'engagement block buried at {depth}%')
-    mappos = max(h.find('jtcm-'), h.find('legal-map'))
+    mappos = max(h.find('jtcm-finder'), h.find('legal-map-canvas'))
     if mappos > 0 and text_depth(mappos) > 65:
         warns.append(f'map: deep at {text_depth(mappos)}% of visible text')
 

@@ -62,7 +62,9 @@ function justice_cinema_wanted(): bool {
 			return true;
 		}
 
-		return in_array( $qo->post_name, array( 'legal-help', 'ask-a-lawyer', 'legal-calculators', 'legal-documents', 'family-law' ), true );
+		// family-law now renders ONE map in its mid-fold via the practice
+		// landing template (text-first law 2026-07-21); it left this list.
+		return in_array( $qo->post_name, array( 'legal-help', 'ask-a-lawyer', 'legal-calculators', 'legal-documents' ), true );
 	}
 
 	return false;

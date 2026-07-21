@@ -106,6 +106,31 @@ builds entity trust for brand queries — it will not enter the עורך-דין
 local pack and must never pretend to be a law office. Red lines: no faked
 reviews/ratings, no invented experience, no impersonating a firm.
 
+## The 2026-07-21 hardening (born from the criminal-pillar failure)
+
+6. **The parity gate is mandatory.** Run `python scripts/site-audit.py` (a
+   READ-ONLY checker in the theme repo) before any "done" report. It grades
+   every pillar for: firms band (unique, twin-deduped), map, reviewed-by,
+   form depth, AI-tells, jargon, banned words, em dashes, stale years,
+   dead/empty links. Exit 2 = you are not done. The changed page must never
+   be the worst row.
+7. **Upper-fold law, site-wide.** Booking form, firms band and map belong
+   before the article body on EVERY content page, not only pillars. The
+   cinema map lazy-loads near the viewport, so it never blocks reading.
+8. **No AI-tells.** Research what ChatGPT-style filler looks like in Hebrew
+   and never write it: "במדריך זה", "אנו נסקור", "חשוב לציין", "לסיכום",
+   "בעידן המודרני", "יתרה מכך", "מגוון רחב של" and the rest of the list in
+   site-audit.py. Winners open with the searcher's situation, not with meta
+   prose about the guide.
+9. **Never noindex a content article.** Not a decision the agent may make,
+   ever. Thin pages get ENRICHED (band, map, pillar link), not hidden.
+10. **No self-firing content engines, ever.** All four legacy engines were
+    deleted 2026-07-21 (guard, importer, seeder, auto-publisher). Quality
+    enforcement is read-only checkers; content changes are explicit,
+    reviewed, revision-backed one-shots.
+11. **Every verification ends with a real screenshot.** Server-side greps
+    are necessary but not sufficient; the owner sees pixels.
+
 ## Rollout order and lock criteria
 
 רשלנות רפואית (current) → גירושין/משפחה → פלילי → מקרקעין → ירושה →

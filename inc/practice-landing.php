@@ -156,7 +156,6 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 				array( 'label' => 'רישום בטאבו', 'url' => '/registration-of-real-estate-israel/' ),
 			),
 		),
-		),
 		'labor-law'           => array(
 			'term_slug'  => 'labor-law',
 			'title'      => 'דיני עבודה',

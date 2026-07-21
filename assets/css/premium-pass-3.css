@@ -4980,3 +4980,25 @@ a.money-keywords__card:hover {
 a.jt-ai-fab {
   bottom: 92px !important;
 }
+
+/* Upper-fold law (owner order 2026-07-21): the lead form is DOM-first inside
+   the body grid so users and crawlers meet it early; desktop keeps the
+   article in the first (right, RTL) column via explicit order, mobile shows
+   the form before the article. */
+.legal-pillar-body__grid .legal-pillar-content {
+  order: 1;
+}
+
+.legal-pillar-body__grid .legal-pillar-sidebar {
+  order: 2;
+}
+
+@media (max-width: 900px) {
+  .legal-pillar-body__grid .legal-pillar-sidebar {
+    order: 0;
+  }
+
+  .legal-pillar-body__grid .legal-pillar-content {
+    order: 1;
+  }
+}

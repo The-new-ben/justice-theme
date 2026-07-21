@@ -136,62 +136,7 @@ if ( post_type_exists( 'articles' ) ) {
 	);
 	$signals = empty( $config['hide_signals'] ) ? ( $practice_signals[ $term_slug ] ?? $practice_signals['family-law'] ) : array();
 	?>
-	<?php if ( ! empty( $signals ) ) : ?>
-	<section class="practice-signals section" aria-label="<?php echo esc_attr( sprintf( '%s: תחומי עיסוק', $title ) ); ?>">
-		<div class="container practice-signals__grid">
-			<?php foreach ( $signals as $signal ) : ?>
-			<div class="practice-signals__item">
-				<span class="practice-signals__icon" aria-hidden="true"><?php echo $signal['icon']; // phpcs:ignore ?></span>
-				<strong class="practice-signals__label"><?php echo esc_html( $signal['label'] ); ?></strong>
-				<p class="practice-signals__text"><?php echo esc_html( $signal['text'] ); ?></p>
-			</div>
-			<?php endforeach; ?>
-		</div>
-	</section>
-	<?php endif; ?>
-
-	<section class="legal-pillar-body section">
-		<div class="container legal-pillar-body__grid">
-			<div class="legal-pillar-content entry-content">
-				<?php
-				// Render full Gutenberg pillar content as the primary body,
-				// FIRST inside the content column: the user and Googlebot must
-				// land on the article's answer, not on link chrome. The
-				// supporting-guides box moved below the article (2026-07-14,
-				// google-god-mode audit: first relevant paragraph sat three
-				// viewports down).
-				$page_raw_content = $page_id > 0 ? get_post_field( 'post_content', $page_id ) : '';
-				if ( trim( wp_strip_all_tags( $page_raw_content ) ) ) :
-					?>
-					<div class="practice-landing__pillar-content">
-						<?php echo apply_filters( 'the_content', $page_raw_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-					</div>
-				<?php endif; ?>
-
-				<?php if ( ! empty( $supporting ) ) : ?>
-					<div class="legal-pillar-topic-box practice-landing__topics">
-						<h2><?php esc_html_e( 'מדריכים קשורים לפי כוונת חיפוש', 'justice-theme' ); ?></h2>
-						<div class="legal-pillar-topic-grid">
-							<?php foreach ( $supporting as $item ) : ?>
-								<?php if ( empty( $item['label'] ) ) : ?>
-									<?php continue; ?>
-								<?php endif; ?>
-								<a href="<?php echo esc_url( home_url( $item['url'] ?? '#' ) ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
-							<?php endforeach; ?>
-						</div>
-					</div>
-				<?php endif; ?>
-			</div>
-
-			<aside class="legal-pillar-sidebar" id="practice-lead-form">
-				<h2><?php esc_html_e( 'צריכים הכוונה?', 'justice-theme' ); ?></h2>
-				<p><?php esc_html_e( 'השאירו פרטים קצרים. המטרה היא להפוך שאלה כללית לפנייה מסודרת עם תחום, עיר ודחיפות.', 'justice-theme' ); ?></p>
-				<?php get_template_part( 'template-parts/forms/lead-form' ); ?>
-			</aside>
-		</div>
-	</section>
-
-	<?php
+		<?php
 	// Area-scoped firms band: the indexed lawyers ARE the product — the
 	// pillar must surface them (owner law 2026-07-20). Falls back to the
 	// single featured profile only when no area match exists.
@@ -319,6 +264,65 @@ if ( post_type_exists( 'articles' ) ) {
 			<?php echo justice_cinema_block( false ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		</section>
 	<?php endif; ?>
+
+	<?php if ( ! empty( $signals ) ) : ?>
+	<section class="practice-signals section" aria-label="<?php echo esc_attr( sprintf( '%s: תחומי עיסוק', $title ) ); ?>">
+		<div class="container practice-signals__grid">
+			<?php foreach ( $signals as $signal ) : ?>
+			<div class="practice-signals__item">
+				<span class="practice-signals__icon" aria-hidden="true"><?php echo $signal['icon']; // phpcs:ignore ?></span>
+				<strong class="practice-signals__label"><?php echo esc_html( $signal['label'] ); ?></strong>
+				<p class="practice-signals__text"><?php echo esc_html( $signal['text'] ); ?></p>
+			</div>
+			<?php endforeach; ?>
+		</div>
+	</section>
+	<?php endif; ?>
+
+	<section class="legal-pillar-body section">
+		<div class="container legal-pillar-body__grid">
+			<aside class="legal-pillar-sidebar" id="practice-lead-form">
+				<h2><?php esc_html_e( 'צריכים הכוונה?', 'justice-theme' ); ?></h2>
+				<p><?php esc_html_e( 'השאירו פרטים קצרים. המטרה היא להפוך שאלה כללית לפנייה מסודרת עם תחום, עיר ודחיפות.', 'justice-theme' ); ?></p>
+				<?php get_template_part( 'template-parts/forms/lead-form' ); ?>
+			</aside>
+
+			<div class="legal-pillar-content entry-content">
+				<?php
+				// Render full Gutenberg pillar content as the primary body,
+				// FIRST inside the content column: the user and Googlebot must
+				// land on the article's answer, not on link chrome. The
+				// supporting-guides box moved below the article (2026-07-14,
+				// google-god-mode audit: first relevant paragraph sat three
+				// viewports down).
+				$page_raw_content = $page_id > 0 ? get_post_field( 'post_content', $page_id ) : '';
+				if ( trim( wp_strip_all_tags( $page_raw_content ) ) ) :
+					?>
+					<div class="practice-landing__pillar-content">
+						<?php echo apply_filters( 'the_content', $page_raw_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					</div>
+				<?php endif; ?>
+
+				<?php if ( ! empty( $supporting ) ) : ?>
+					<div class="legal-pillar-topic-box practice-landing__topics">
+						<h2><?php esc_html_e( 'מדריכים קשורים לפי כוונת חיפוש', 'justice-theme' ); ?></h2>
+						<div class="legal-pillar-topic-grid">
+							<?php foreach ( $supporting as $item ) : ?>
+								<?php if ( empty( $item['label'] ) ) : ?>
+									<?php continue; ?>
+								<?php endif; ?>
+								<a href="<?php echo esc_url( home_url( $item['url'] ?? '#' ) ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
+							<?php endforeach; ?>
+						</div>
+					</div>
+				<?php endif; ?>
+			</div>
+
+			
+		</div>
+	</section>
+
+
 
 	<?php if ( $articles && $articles->have_posts() ) : ?>
 		<section class="legal-pillar-articles section">

@@ -118,24 +118,32 @@ def audit_page(url, check_links=False):
         total = len(text)
         return round(100 * visible_before / total) if total else 0
 
+    def chars_before(byte_pos):
+        return len(re.sub(r'\s+', ' ', re.sub(
+            r'<[^>]+>', ' ', re.sub(
+                r'<script[^>]*>.*?</script>|<style[^>]*>.*?</style>', ' ',
+                h[:byte_pos], flags=re.S))))
+
+    # Upper-fold rule as the owner stated it: engagement elements (firms
+    # band, map, lead form) live at the TOP. At least two of the three must
+    # appear within the first ~3000 visible chars, and the form itself
+    # within 6000.
     forms = [m.start() for m in re.finditer(r'<form', h)]
+    band_pos = h.find('lawyer-card__name')
+    map_pos = max(h.find('jtcm-'), h.find('legal-map'))
     if not forms:
         fails.append('form: missing')
     else:
-        depth = text_depth(forms[0])
-        chars_before = len(re.sub(r'\s+', ' ', re.sub(
-            r'<[^>]+>', ' ', re.sub(
-                r'<script[^>]*>.*?</script>|<style[^>]*>.*?</style>', ' ',
-                h[:forms[0]], flags=re.S))))
-        # A form within the first ~3000 visible chars is upper-fold no matter
-        # what percentage of a short page that happens to be.
-        if chars_before > 3000:
-            if depth > 45:
-                fails.append(
-                    f'form: first form buried at {depth}% '
-                    f'({chars_before} visible chars in)')
-            elif depth > 30:
-                warns.append(f'form: first form at {depth}%')
+        early = sum(
+            1 for p in (band_pos, map_pos, forms[0])
+            if p > 0 and chars_before(p) <= 3000)
+        form_chars = chars_before(forms[0])
+        if early < 2:
+            fails.append(
+                f'upper fold: only {early}/3 engagement elements in the '
+                f'first 3000 visible chars')
+        if form_chars > 6000:
+            fails.append(f'form: first form {form_chars} visible chars in')
     mappos = max(h.find('jtcm-'), h.find('legal-map'))
     if mappos > 0 and text_depth(mappos) > 65:
         warns.append(f'map: deep at {text_depth(mappos)}% of visible text')

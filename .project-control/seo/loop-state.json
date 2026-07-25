@@ -178,17 +178,32 @@
    "strategy_note": "we do not chase the deal-sellers' commercial query. We take the protective/legal lane they leave empty, which is also the lane the AI Overview describes.",
    "sourced": "FIRPTA, LLC classification, Title Company/Commitment and inspection cost all web-verified before writing",
    "verified": "rendered + screenshot; 40 restored headings intact; guide links through"
+  },
+  {
+   "slug": "/about-usa/ + /about-cyprus/",
+   "date": "2026-07-25",
+   "target_query": "hierarchy, not a query",
+   "correction_to_prior_entry": "the queue said these hubs cannibalise the money pages. Measured: they do not. A commercial-intent filter over every query each hub ranks for returns 0 impressions on both. The right complaint was never 'they compete', it was 'they feed nothing'.",
+   "measured": {
+    "/about-usa/": "4022 imp, 1 click, pos 10.2, 0% commercial queries",
+    "/about-cyprus/": "959 imp, 2 clicks, 0% commercial queries",
+    "/real-estate-usa/": "absent from the page report entirely, zero impressions"
+   },
+   "gaps_found": [
+    "/about-usa/ carried 6 internal links in the whole body and not one went to a US money page",
+    "the strongest US asset we own by impressions passed none of that authority anywhere",
+    "/about-cyprus/ has no legal-service section to attach a link to; it is pure geography (Limassol, ports, population)"
+   ],
+   "changes": [
+    "/about-usa/: four contextual links placed inside the sections that already discuss the subject (עורכי דין, ויזה והגירה, ייעוץ מס, נדל\"ן), reaching all 7 US money pages",
+    "/about-cyprus/: a single bridge paragraph after the geography, since no in-section anchor exists, reaching all 4 Cyprus money pages",
+    "every one of the 11 link targets verified HTTP 200 before insertion and again after"
+   ],
+   "note": "first pass missed one anchor because I matched against rendered text rather than raw post_content. Found the raw form and inserted on a second pass.",
+   "verified": "rendered + screenshot; 7 of 7 and 4 of 4 linked; zero dead links"
   }
  ],
  "next_targets": [
-  {
-   "cluster": "about-usa-hierarchy",
-   "why": "/about-usa/ takes 135 impressions and 0 clicks on encyclopedia queries (how many states, population). Same disease as /about-cyprus/."
-  },
-  {
-   "cluster": "about-cyprus-hierarchy",
-   "why": "658 informational impressions on geography queries that should feed the money pages"
-  },
   {
    "cluster": "divorce-and-prenup-fees",
    "why": "הסכם גירושין מחיר 78 imp at 41, עלות גירושין 38 imp at 61, עלות הסכם ממון 28 imp at 24"

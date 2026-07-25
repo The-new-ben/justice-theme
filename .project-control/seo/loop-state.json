@@ -310,6 +310,21 @@
    ],
    "sourced": "Law 74/2025 and the 12 March 2026 ruling web-verified before writing; nothing invented",
    "verified": "rendered + screenshot; 74/2025 x3, דרכון x12 where it was 0"
+  },
+  {
+   "slug": "regression sweep + why the lead queries do not rank",
+   "date": "2026-07-25",
+   "target_query": "structural",
+   "regression": "18 pages re-checked: all HTTP 200, zero fabricated ratings, word counts intact. Four flagged one phrase each; three were my counter being wrong (המגוון רחב, חשוב לציין זאת, מגוון רחב יותר are ordinary Hebrew). One was real and showed why it survived: 'יתרה מכך,במקרה' has no space after the comma and my rule required one. Swept the no-space variants: 6 more pages, 6 phrases, re-scan returns zero.",
+   "THE FINDING": "We are a lawyer directory whose country lawyer pages contain no lawyers. /greece-lawyers/ 18,960 words, /italy-lawyers/ 14,728, /usa-lawyers/ 11,619, /cyprus-lawyer/ 9,328 — and all four render ZERO lawyer cards, ZERO phone numbers, ZERO emails. Meanwhile #1 for עורך דין ביוון is the Israeli embassy's list of lawyers in Greece with names, phones and languages, and din.co.il ranks with '3 lawyers, 79 recommendations' in its title. The page does not do what the query asks for, which is why the lead-generating queries do not rank while the information queries do.",
+   "why_I_did_not_fix_it": {
+    "records": "1,093 lawyer posts; 980 have a phone, 778 an email, 912 a website",
+    "office_city": "EMPTY on all 1,093, which is the field the band displays",
+    "consent": "sponsored/consented records: 1",
+    "country_tagging": "does not exist. The only taxonomies on justice_lawyer are practice-areas and city, and no country terms are present.",
+    "conclusion": "There is no way to know which lawyer serves Greece, Italy or the USA, and none of them consented. Putting them on the page would break the owner's first standing rule. This is a data and business blocker, not an engineering one."
+   },
+   "verified": "measured live on all four pages and against the database"
   }
  ],
  "next_targets": [
@@ -348,6 +363,9 @@
   },
   {
    "item": "1,073 lawyer profile pages average 120-152 words and 98% of them earn no impressions. Enriching them needs data we do not have, and they describe firms that never consented, which is the same exposure behind your no-index-claim rule. The options are enrich, drop from the sitemap while leaving them live, consolidate into listing pages, or leave as is. This is a business and legal call, not an SEO one, so it waits for you."
+  },
+  {
+   "item": "The country lawyer pages carry no lawyers, and that is the reason the lead queries do not rank. Fixing it needs three things only you can supply: which lawyers serve which country, their consent to appear, and the office_city field populated (it is empty on all 1,093 records). Until then the honest option is the recruitment card already built into the band ('המקום הזה שמור למשרד מוביל'), which invites lawyers instead of claiming any."
   }
  ],
  "proven_pattern": "Price intent is the site's winning shape. Both cycles found the same four gaps: missing year, missing the searcher's exact phrase, a promise without proof, and a stale opener. GSC understated the real position both times (18.3 vs 4, 16.7 vs 7).",

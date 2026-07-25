@@ -38,6 +38,9 @@ $justice_footer_nav = array(
 	array( __( 'כל המאמרים', 'justice-theme' ), home_url( '/articles/' ) ),
 	array( __( 'כל עורכי הדין', 'justice-theme' ), $justice_lawyers_archive ),
 	array( __( 'כלי AI משפטיים', 'justice-theme' ), home_url( '/legal-tools/' ) ),
+	// Site-wide link, owner order 2026-07-25: the tariff regulation in full,
+	// with the calculator built on it.
+	array( __( 'מחשבון שכר טרחת עורך דין', 'justice-theme' ), home_url( '/lawyer-fees-tariff/' ) ),
 	array( __( 'התייעצות משפטית', 'justice-theme' ), home_url( '/#ask-lawyer' ) ),
 	array( __( 'אודות Jus-Tice', 'justice-theme' ), home_url( '/about/' ) ),
 	array( __( 'מדיניות עריכה', 'justice-theme' ), home_url( '/editorial-policy/' ) ),

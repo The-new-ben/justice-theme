@@ -195,6 +195,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p><strong><?php esc_html_e( 'חשוב: לפי כללי לשכת עורכי הדין, כל הסכם שכר טרחה חייב להיות בכתב. אם עורך הדין לא מציע הסכם כתוב, אל תמשיכו.', 'justice-theme' ); ?></strong></p>
 		</div>
 
+		<?php
+		/*
+		 * Where the fee is capped by regulation, and by which regulation.
+		 *
+		 * Added 2026-07-25 after checking the real Israeli SERP for
+		 * "שכר טרחה עורך דין": position 1 is the Bar's tariff regulation on
+		 * nevo.co.il, 3 is the National Insurance fee cap and 4 is the Bar's
+		 * own fee committee. Google is ranking the law itself on this query,
+		 * so the page that names the regulations and states the exact tiers is
+		 * the page that belongs there. Every figure below is from the
+		 * regulation, not an estimate.
+		 */
+		?>
+		<div class="find-guide__deep-section">
+			<h3><?php esc_html_e( 'מתי שכר הטרחה מוגבל בתקנות, וכמה בדיוק', 'justice-theme' ); ?></h3>
+			<p><?php esc_html_e( 'בחלק מהתחומים שכר הטרחה אינו נתון למשא ומתן חופשי אלא מוגבל בתקנות, ובתאונות דרכים הוא גם משולם על ידי חברת הביטוח ולא על ידי הנפגע. אלה השיעורים המדויקים:', 'justice-theme' ); ?></p>
+			<ul>
+				<li><strong><?php esc_html_e( 'תאונות דרכים, פשרה לפני הגשת תביעה:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'עד 8% מסכום הפיצוי.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'תאונות דרכים, פשרה אחרי שהוגשה תביעה:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'עד 11%.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'תאונות דרכים, לאחר פסק דין:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'עד 13%. השיעורים אינם כוללים מע"מ.', 'justice-theme' ); ?></li>
+			</ul>
+			<p><?php esc_html_e( 'המקור: כללי לשכת עורכי הדין (תעריף מקסימלי לשכר טרחה בטיפול בתביעות לפי חוק פיצויים לנפגעי תאונות דרכים), תשל"ז-1977. בתחומים שאינם מוגבלים בתקנות קיים תעריף מינימלי מומלץ של הלשכה, כללי לשכת עורכי הדין (התעריף המינימלי המומלץ), תש"ס-2000, שהוא המלצה ולא חובה.', 'justice-theme' ); ?></p>
+			<p><?php esc_html_e( 'בתביעות נכות מול הביטוח הלאומי שכר הטרחה מוגבל אף הוא בחוק, וניתן לבדוק את התקרה החלה על התביעה באתר המוסד לביטוח לאומי לפני החתימה.', 'justice-theme' ); ?></p>
+			<p><?php esc_html_e( 'במחלוקת על שכר טרחה מול עורך דין אפשר לפנות לוועדת שכר טרחה של לשכת עורכי הדין. הפנייה אינה כרוכה בתשלום.', 'justice-theme' ); ?></p>
+		</div>
+
 		<!-- When You Must Have a Lawyer -->
 		<div class="find-guide__deep-section">
 			<h3><?php esc_html_e( '⚖️ מתי חובה להיעזר בעורך דין?', 'justice-theme' ); ?></h3>

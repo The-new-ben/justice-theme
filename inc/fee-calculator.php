@@ -74,23 +74,28 @@ function justice_theme_fee_calculator_shortcode(): string {
 
 <style>
 .jtfee{--jf-navy:#0d2149;--jf-gold:#c9a227;--jf-line:#e6e6ea;border:1px solid var(--jf-line);border-radius:14px;overflow:hidden;margin:28px 0;background:#fff;direction:rtl}
-.jtfee__head{background:var(--jf-navy);color:#fff;padding:18px 20px}
-.jtfee__title{margin:0 0 6px;font-size:1.15rem;line-height:1.35;color:#fff}
-.jtfee__sub{margin:0;font-size:.9rem;opacity:.9;line-height:1.6}
+.jtfee .jtfee__head{background:var(--jf-navy);padding:18px 20px}
+/* The theme styles h2 and p globally and won out on specificity, which put
+   navy text on the navy header: rgb(14,46,79) on rgb(13,33,73), a contrast
+   ratio near 1.1:1. Scoped and forced so the theme cannot override it. */
+.jtfee .jtfee__head .jtfee__title,
+.jtfee .jtfee__head h2{margin:0 0 6px!important;font-size:1.15rem!important;line-height:1.35!important;color:#fff!important}
+.jtfee .jtfee__head .jtfee__sub,
+.jtfee .jtfee__head p{margin:0!important;font-size:.9rem!important;line-height:1.6!important;color:#e8ecf4!important}
 .jtfee__form{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:18px 20px}
 .jtfee__field{display:flex;flex-direction:column;gap:6px;min-width:0}
-.jtfee__label{font-size:.85rem;font-weight:600;color:#333}
+.jtfee .jtfee__label{font-size:.85rem!important;font-weight:600!important;color:#22262e!important}
 .jtfee__control{width:100%;padding:11px 12px;border:1px solid #cfd2da;border-radius:9px;font-size:1rem;font-family:inherit;background:#fff;color:#111}
 .jtfee__control:focus{outline:2px solid var(--jf-gold);outline-offset:1px;border-color:var(--jf-gold)}
 .jtfee__check{grid-column:1/-1;display:flex;align-items:center;gap:8px;font-size:.88rem;color:#444}
 .jtfee__out{display:block;margin:0 20px 18px;padding:16px 18px;background:#faf8f2;border-right:5px solid var(--jf-gold);border-radius:10px}
 .jtfee__result{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px}
-.jtfee__result-label{font-size:.85rem;color:#555}
-.jtfee__result-value{font-size:1.9rem;font-weight:800;color:var(--jf-navy);line-height:1.1}
+.jtfee .jtfee__result-label{font-size:.85rem!important;color:#3d4149!important}
+.jtfee .jtfee__result-value{font-size:1.9rem!important;font-weight:800!important;color:#0d2149!important;line-height:1.1!important}
 .jtfee__result-vat{font-size:.95rem;color:#555;font-weight:600}
-.jtfee__how{margin:10px 0 0;font-size:.9rem;color:#333;line-height:1.7}
-.jtfee__sec{margin:6px 0 0;font-size:.82rem;color:#666}
-.jtfee__disclaimer{margin:0;padding:14px 20px 18px;font-size:.82rem;color:#666;line-height:1.7;border-top:1px solid var(--jf-line)}
+.jtfee .jtfee__how{margin:10px 0 0!important;font-size:.9rem!important;color:#22262e!important;line-height:1.7!important}
+.jtfee .jtfee__sec{margin:6px 0 0!important;font-size:.82rem!important;color:#4a4f58!important}
+.jtfee .jtfee__disclaimer{margin:0!important;padding:14px 20px 18px!important;font-size:.82rem!important;color:#4a4f58!important;line-height:1.7!important;border-top:1px solid var(--jf-line)}
 @media(max-width:640px){.jtfee__form{grid-template-columns:1fr}.jtfee__result-value{font-size:1.6rem}}
 .jt-tariff{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem}
 .jt-tariff th{background:#0d2149;color:#fff;text-align:right;padding:9px 11px}

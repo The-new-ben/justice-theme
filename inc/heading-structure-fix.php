@@ -117,7 +117,35 @@ function justice_theme_restore_heading_spine( $content ) {
 
 	$promoted = 0;
 
-	// A bold line between two <br> tags was tried as a second pattern and
+	// Pattern A2, checked first because it is the least ambiguous shape there
+	// is: a paragraph whose entire content is bold, followed by a real
+	// paragraph. Nothing else is written that way. This shows up wherever the
+	// source separated the label from its body with a blank line, which is
+	// what wpautop produces on any re-save, so it grows over time.
+	$content = preg_replace_callback(
+		'/<p([^>]*)>\s*<strong>(.*?)<\/strong>\s*<\/p>\s*(?=<p[\s>])/isu',
+		static function ( array $m ) use ( &$promoted ) {
+			if ( $promoted >= 40 ) {
+				return $m[0];
+			}
+			$label = preg_replace( '/<br\s*\/?>/i', ' ', $m[2] );
+			$label = trim( html_entity_decode( wp_strip_all_tags( $label ), ENT_QUOTES, 'UTF-8' ) );
+			$label = trim( preg_replace( '/\s+/u', ' ', $label ) );
+			// The lookahead already proved a real paragraph follows, so the
+			// run-up length test does not apply here.
+			if ( ! justice_theme_looks_like_section_title( $label, str_repeat( 'x', 100 ) ) ) {
+				return $m[0];
+			}
+			$promoted++;
+			return '<h2 class="jt-restored-heading">' . esc_html( $label ) . '</h2>';
+		},
+		$content
+	);
+	if ( null === $content || '' === $content ) {
+		return $original;
+	}
+
+	// A bold line between two <br> tags was tried as a third pattern and
 	// rejected on evidence: on /about-usa/ it fired 60 times and promoted
 	// encyclopedia section titles (רכישת לואיזיאנה, לוס אנג'לס), which pushes
 	// a lawyer page further toward Wikipedia rather than toward intent. The

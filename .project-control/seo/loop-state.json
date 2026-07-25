@@ -134,6 +134,26 @@
    ],
    "sourced": "FIRPTA and LLC facts web-verified before writing",
    "verified": "rendered + screenshot; 40 restored headings"
+  },
+  {
+   "slug": "SITE-WIDE AI-tell sweep",
+   "date": "2026-07-25",
+   "target_query": "owner law, not a query",
+   "gaps_found": [
+    "a 40-page sample found 19 pages carrying stock LLM filler, extrapolating to ~698 of 1,470 content URLs",
+    "/criminal-law-lawyer-criminal/ alone held 133 occurrences"
+   ],
+   "changes": [
+    "24 deterministic phrase rules applied to post_content with a revision saved per page",
+    "497 pages cleaned, 1,584 phrases removed, re-scan of 1,495 posts returns zero"
+   ],
+   "rejected_on_evidence": [
+    "בסופו של דבר: legitimate mid-sentence Hebrew meaning 'eventually'. Deleting it turned 'החלטות אלה בוטלו בסופו של דבר, ובית המשפט קבע' into 'בוטלו ובית המשפט קבע'.",
+    "the bare 'חשוב לציין, ' rule left an orphaned כי ('לעניין זה כי זימון'), so the ', כי' forms were ordered first to consume it"
+   ],
+   "false_alarm_corrected": "11 apparent residuals on /criminal-law-lawyer-criminal/ are legal cross-references (כפי שצוין בפרק 1, סעיף 4.3.2), not filler. The counter was wrong, not the sweep.",
+   "not_changed": "the >=3 content-heading gate. A 35-page sample found zero pages blocked by it that still had bold run-ins to promote, so scaling it would add risk for no measured gain.",
+   "verified": "re-scan zero; spot-checked 7 pages all HTTP 200 with word counts intact"
   }
  ],
  "next_targets": [
@@ -165,7 +185,16 @@
  "open_decisions_for_owner": [
   "posta page: 11015 impressions / 26 clicks on a competitor news brand — de-optimize title and wire into criminal, or leave",
   "backlinks: never addressed at all, the single biggest untouched lever",
-  "master branch: archive commit 75f9a3f8 exists locally, push to origin failed (HTTP 408), reset not performed"
+  "master branch: archive commit 75f9a3f8 exists locally, push to origin failed (HTTP 408), reset not performed",
+  {
+   "item": "339 code snippets have accumulated on the site; only 5 are active and legitimate. The other 334 are spent one-shots from past sessions. Safe to bulk-delete but it is a destructive action on your install, so it waits for your word."
+  },
+  {
+   "item": "The lawyer band renders on no article page. The quality gate reports 'NO firm cards' on every page checked, which means long-form articles carry no lawyer surface at all. That is a monetization gap, not an SEO one."
+  },
+  {
+   "item": "/criminal-law-lawyer-criminal/ is 140,969 words in one URL, roughly 470 printed pages, with 5 headings and only 1 bold run-in to work with. It cannot be repaired mechanically and needs a split into a pillar plus children."
+  }
  ],
  "proven_pattern": "Price intent is the site's winning shape. Both cycles found the same four gaps: missing year, missing the searcher's exact phrase, a promise without proof, and a stale opener. GSC understated the real position both times (18.3 vs 4, 16.7 vs 7).",
  "pattern_confirmed_times": 5

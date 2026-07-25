@@ -253,12 +253,39 @@
     "a slug-to-Hebrew map for the 14 legal domains, using their standard names, applied to both the H1 and the document title via wpseo_title and pre_get_document_title"
    ],
    "verified": "14 of 14 titles and 14 of 14 H1s now Hebrew, all HTTP 200, screenshot taken"
+  },
+  {
+   "slug": "backlink program",
+   "date": "2026-07-25",
+   "target_query": "off-page, not a query",
+   "note": "the nine steps do not apply literally to an off-page target, so they were adapted: baseline measurement instead of GSC scoring, competitor citation footprint instead of page teardown, and a verified target list instead of a surgical edit.",
+   "measured": {
+    "external hosts mentioning jus-tice.co.il": 8,
+    "same query against din.co.il": 8,
+    "method_limit": "Google's brand-mention operator deduplicates and only matches literal strings in indexed text. It CANNOT compare link profiles and no comparison is claimed. Ahrefs is connected but unauthenticated in this session."
+   },
+   "gaps_found": [
+    "din.co.il has a Hebrew Wikipedia entry and jus-tice does not, which is a durable authority signal we cannot create for ourselves without a conflict of interest",
+    "the article ranking #1 in Israel for שכר טרחה עורך דין (nadlancenter.co.il/article/6510) is 2,143 words with ZERO external citations, so the incumbent on our money query has no data behind it",
+    "psakdin.co.il is the legal channel for mako, ynet and כיכר השבת and supplies opinion pieces to Calcalist, which makes it a distribution path rather than a single link"
+   ],
+   "delivered": ".project-control/seo/backlink-program.md with named, verified targets and published editorial contacts",
+   "not_done_deliberately": "no outreach was sent. Every contact listed is for the owner to send or approve, since sending on his behalf is his call and not the agent's.",
+   "verified": "every target opened and read in the owner's real Chrome on the day"
   }
  ],
  "next_targets": [
   {
-   "cluster": "backlinks",
-   "why": "never addressed; our price tables are original data and Israeli business media need exactly that"
+   "cluster": "remeasure",
+   "why": "cycles 1-13 shipped between 2026-07-24 and 2026-07-25. Positions need 2 to 4 weeks to move. Re-pull GSC for every touched slug and compare against the recorded before-position, then reopen only what got worse."
+  },
+  {
+   "cluster": "lawyer-profile-decision",
+   "why": "blocked on the owner: 1,073 profiles at 120-152 words, 98% with no impressions."
+  },
+  {
+   "cluster": "criminal-law-lawyer-criminal-split",
+   "why": "140,969 words in one URL with 5 headings and only 1 bold run-in, so it cannot be repaired mechanically."
   }
  ],
  "open_decisions_for_owner": [

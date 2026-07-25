@@ -1,0 +1,50 @@
+{
+ "loop": "seo-money-loop",
+ "updated": "2026-07-25",
+ "completed": [
+  {
+   "slug": "/greece-price-list/",
+   "date": "2026-07-25",
+   "target_query": "דירה ביוון מחיר",
+   "gsc_position_claimed": 18.3,
+   "real_chrome_position": 4,
+   "gaps_found": [
+    "no year in title",
+    "exact phrase 'כמה עולה' absent from 12561 words",
+    "title promised a table, page had zero <table>",
+    "opener said מחירון 2025"
+   ],
+   "changes": [
+    "title -> מחירי דירות ביוון 2026: כמה עולה דירה ביוון לפי אזור",
+    "added direct-answer H2 + 16-row price table from our own verified figures",
+    "yoast title+meta rewritten, indexable purged",
+    "stale year fixed"
+   ],
+   "verified": "rendered + screenshot",
+   "remeasure": "דירה ביוון מחיר"
+  }
+ ],
+ "next_targets": [
+  {
+   "cluster": "cyprus",
+   "why": "/about-cyprus/ geography page cannibalizes /cyprus-lawyer/; 563 informational vs 31 commercial impressions"
+  },
+  {
+   "cluster": "dubai",
+   "why": "most commercially pure: 250 commercial vs 65 informational; נדלן בדובאי 2025 already position 6.4"
+  },
+  {
+   "cluster": "portugal",
+   "why": "אזרחות פורטוגלית 190 impressions at position 24; דרכון פורטוגלי עורך דין is an explicit lawyer query"
+  },
+  {
+   "cluster": "site-wide",
+   "why": "1510 of 2828 pages (53%) got zero impressions in 28 days; site CTR 0.49%"
+  }
+ ],
+ "open_decisions_for_owner": [
+  "posta page: 11015 impressions / 26 clicks on a competitor news brand — de-optimize title and wire into criminal, or leave",
+  "backlinks: never addressed at all, the single biggest untouched lever",
+  "master branch: archive commit 75f9a3f8 exists locally, push to origin failed (HTTP 408), reset not performed"
+ ]
+}

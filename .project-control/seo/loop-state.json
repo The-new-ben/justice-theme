@@ -289,6 +289,27 @@
    },
    "entity_gap_note": "The full credentialed entity (hasCredential, sameAs to the Israel Bar card, admitted 2000-11-30) IS computed on every page and never printed, because the emitter is the killed reviewer box. Turning it on is blocked on the same unresolved question, not on engineering.",
    "verified": "rendered + screenshot"
+  },
+  {
+   "slug": "/italy-lawyers/ + /real-estate-italy/",
+   "date": "2026-07-25",
+   "target_query": "עורך דין איטליה",
+   "gsc_position_claimed": 12.1,
+   "real_chrome_position": "NOT in top 20",
+   "gaps_found": [
+    "14,519 words on the page and the word דרכון appeared ZERO times, אזרחות twice",
+    "the #1 result (italiancitizenship-israel.com) is entirely about Italian citizenship and passport, and the AI Overview names אזרחות ודרכון as the first area of practice",
+    "din.co.il sits at #5 with 3 lawyers and 79 recommendations",
+    "/real-estate-italy/ took 99 impressions and linked to the lawyer page zero times",
+    "LEGAL CHANGE we did not carry: Law 74/2025 (in force 28 March 2025) cut jure sanguinis to a two-generation limit, and the Constitutional Court upheld it on 12 March 2026"
+   ],
+   "changes": [
+    "title -> עורך דין באיטליה 2026: אזרחות ודרכון, נדל\"ן ועסקים (Yoast indexable cleared)",
+    "direct-answer H2 on citizenship: the parent-or-grandparent requirement, the 1861 line that no longer applies, the Constitutional Court ruling of 12 March 2026, the transitional provisions for filings made before the decree, and the routes that were not cut",
+    "hierarchy: /real-estate-italy/ now links up to the lawyer page"
+   ],
+   "sourced": "Law 74/2025 and the 12 March 2026 ruling web-verified before writing; nothing invented",
+   "verified": "rendered + screenshot; 74/2025 x3, דרכון x12 where it was 0"
   }
  ],
  "next_targets": [
@@ -297,16 +318,16 @@
    "why": "BLOCKED ON OWNER. Either a real per-page review process exists and the credentialed entity can be emitted honestly, or the 2026-07-14 kill switch should also cover the eeat footer. Right now the site displays a review claim the 14 July order was written to prevent."
   },
   {
-   "cluster": "remeasure",
-   "why": "cycles 1-13 shipped between 2026-07-24 and 2026-07-25. Positions need 2 to 4 weeks to move. Re-pull GSC for every touched slug and compare against the recorded before-position, then reopen only what got worse."
-  },
-  {
    "cluster": "lawyer-profile-decision",
    "why": "blocked on the owner: 1,073 profiles at 120-152 words, 98% with no impressions."
   },
   {
    "cluster": "criminal-law-lawyer-criminal-split",
    "why": "140,969 words in one URL with 5 headings and only 1 bold run-in, so it cannot be repaired mechanically."
+  },
+  {
+   "cluster": "remeasure",
+   "why": "cycles 1-15 shipped 24-25 July. Positions need 2-4 weeks. Re-pull GSC per touched slug and reopen only what got worse."
   }
  ],
  "open_decisions_for_owner": [

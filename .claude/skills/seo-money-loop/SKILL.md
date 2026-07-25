@@ -28,9 +28,13 @@ Take the highest score not already in `completed`.
 
 ## Step 2 — verify the REAL position in Chrome. Never skip this.
 
-**GSC position is an average across devices, locations and time. It lies.**
-Measured 2026-07-25: GSC said "דירה ביוון מחיר" was position 18.3; the real
-Israeli desktop SERP had us at **position 4**. SerpApi has its own failure mode:
+**GSC position is an average across devices, locations and time. It lies in
+BOTH directions, so the sign of the error cannot be assumed.** Measured
+2026-07-25: GSC said "דירה ביוון מחיר" was position 18.3 and the real Israeli
+desktop SERP had us at **position 4** (understated). The same day GSC claimed
+position 5.7 on "ייצוג משפטי ארצות הברית" and 15.9 on "עורך דין ארצות הברית",
+and real Chrome had us **not in the top 20 on either** (overstated). The
+zero-click reading was the honest signal; the GSC position was not. SerpApi has its own failure mode:
 it matched Chrome exactly on head keywords but claimed we were #3 on a long-tail
 where we were not on page 1 at all.
 
@@ -61,6 +65,32 @@ Measured on the Greece page, all four present at once:
 3. **Promise without proof.** Our title promised "טבלת מחירים" and the page had
    **no `<table>` at all**. Tables are also what AI Overviews quote.
 4. **Stale opener.** The first line read "מחירון 2025" in 2026.
+
+## Step 4b — audit the heading spine before writing a word
+
+Measured 2026-07-25 across the 26 highest-impression pages: **10 carried
+9,000 to 53,000 words with fewer than three content H2s.** Their section
+titles existed, but as a bold run-in at the head of a paragraph. Google reads
+the heading spine; it does not read bold. The correlation was clean in both
+directions: /germany-lawyers/ (53 headings) and /lahav-433/ (22, best CTR on
+the site) rank and earn clicks; /guide-israeli-apartment-2025/ (15,237 words,
+1 heading) took 3,502 impressions and 10 clicks.
+
+Count *content* H2s only. The theme prints map, editorial note, CTA and
+related-guides headings around every article, and counting those makes a
+structureless page look structured. Related guides use H3, so count H2 alone.
+
+The repair is markup, not copy: `inc/heading-structure-fix.php` promotes an
+existing bold run-in to a real heading at `the_content` priority 11. Two
+shapes are handled, `<p><strong>Label</strong> body…</p>` and
+`<p><strong>Label</strong></p><p>body…</p>` (the second is what wpautop
+produces on any re-save). A third shape, bold between `<br>` tags, was
+**rejected on evidence**: on /about-usa/ it fired 60 times and promoted
+Wikipedia section titles.
+
+Always prove word-for-word equality on real page HTML before deploying, and
+allow a trailing `?`: "מהן דרישות התפקיד?" is exactly the heading Google
+matches to a People-Also-Ask query.
 
 ## Step 5 — fix surgically, never rewrite
 
@@ -114,3 +144,7 @@ Greece (done 2026-07-25) → Cyprus (geography page cannibalizes the lawyer page
 → Dubai (most commercially pure: 250 commercial vs 65 informational impressions)
 → Portugal (`אזרחות פורטוגלית`, 190 impressions at position 24) → the criminal
 and family pillars → the 1,510 zero-impression pages.
+
+Heading-spine repair shipped 2026-07-25: a 30-page random sample of the 1,470
+sitemap content URLs found 17 pages receiving a restored spine, extrapolating
+to roughly 833 pages and 7,742 headings site-wide.

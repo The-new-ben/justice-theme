@@ -97,12 +97,53 @@
    ],
    "sourced": "web-verified before writing; no legal facts invented",
    "verified": "rendered + screenshot"
+  },
+  {
+   "slug": "SITE-WIDE heading spine",
+   "date": "2026-07-25",
+   "target_query": "structural, not query-specific",
+   "gaps_found": [
+    "10 of the 26 highest-impression pages carried 9,000-53,000 words with fewer than three content H2s",
+    "section titles existed but were marked up as bold run-ins; /usa-lawyers/ had 83 of them across 237 paragraphs and zero headings",
+    "the pages that do have a spine rank and earn clicks; the ones without collect impressions and none"
+   ],
+   "changes": [
+    "inc/heading-structure-fix.php: display-layer promotion of bold run-ins to H2, no DB writes, no copy changed",
+    "proved word-for-word equality on four real pages before deploy (13,474 -> 13,474)",
+    "rejected the <br> pattern on evidence after it promoted Wikipedia titles on /about-usa/"
+   ],
+   "verified": "live on 8 of 10, 7,284 impressions; 30-page sample extrapolates to ~833 pages and ~7,742 headings"
+  },
+  {
+   "slug": "/usa-lawyers/",
+   "date": "2026-07-25",
+   "target_query": "עורך דין ארצות הברית",
+   "gsc_position_claimed": 15.9,
+   "real_chrome_position": "NOT in top 20",
+   "gaps_found": [
+    "GSC claimed 15.9 and 5.7 on the two head queries; real Chrome had us off page 1 on both",
+    "din.co.il holds #1 with a directory format (9 lawyers, 52 reviews) which is what we actually are",
+    "11,305 words with zero content headings",
+    "opener was translated filler quoting 2023 GDP and 2022 trade figures as the present",
+    "zero mentions of ויזה and one of הגירה while the SERP is dominated by immigration firms"
+   ],
+   "changes": [
+    "title -> עורך דין בארצות הברית לישראלים 2026: הגירה, נדל\"ן, מס וחברות (Yoast indexable row cleared)",
+    "direct-answer block: state-level licensing, FIRPTA 15% withholding and the multi-member LLC US Person exception, holding structure decided pre-purchase, dual reporting",
+    "stale economics reframed as historical background; banned phrase מגוון רחב removed"
+   ],
+   "sourced": "FIRPTA and LLC facts web-verified before writing",
+   "verified": "rendered + screenshot; 40 restored headings"
   }
  ],
  "next_targets": [
   {
-   "cluster": "usa-real-estate",
-   "why": "$1.06B Israeli investment in US real estate in 2025 and we have almost no content"
+   "cluster": "usa-real-estate-page",
+   "why": "US real-estate demand (איפה כדאי לקנות נכס בארהב, קניית נכס להשקעה בארהב עד 400 אלף) currently lands on /guide-israeli-apartment-2025/, an Israeli apartment guide. No US real-estate page exists."
+  },
+  {
+   "cluster": "about-usa-hierarchy",
+   "why": "/about-usa/ takes 135 impressions and 0 clicks on encyclopedia queries (how many states, population). Same disease as /about-cyprus/."
   },
   {
    "cluster": "about-cyprus-hierarchy",

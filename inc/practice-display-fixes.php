@@ -34,13 +34,76 @@ function justice_theme_practice_tax_archive_post_types( WP_Query $query ): void 
 add_action( 'pre_get_posts', 'justice_theme_practice_tax_archive_post_types', 20 );
 
 /**
+ * The encyclopedia domain terms were created with English slugs and no Hebrew
+ * name, so WordPress fell back to printing the slug: "ארכיון civil-procedure".
+ * Measured 2026-07-25: 14 of these are live and at least one is indexed, which
+ * means a Hebrew searcher is shown an English slug in the result. These are the
+ * standard Hebrew names of the legal domains, not invented labels.
+ *
+ * @return array<string,string>
+ */
+function justice_theme_encyclopedia_domain_names(): array {
+	return array(
+		'civil-procedure'         => 'סדר דין אזרחי',
+		'consumer-law'            => 'דיני צרכנות',
+		'contract-law'            => 'דיני חוזים',
+		'corporate-law'           => 'דיני תאגידים',
+		'criminal-law'            => 'משפט פלילי',
+		'enforcement-insolvency'  => 'הוצאה לפועל וחדלות פירעון',
+		'family-law'              => 'דיני משפחה',
+		'immigration-citizenship' => 'הגירה ואזרחות',
+		'labor-law'               => 'דיני עבודה',
+		'legal-system'            => 'מערכת המשפט',
+		'nezikin'                 => 'דיני נזיקין',
+		'property-law'            => 'דיני קניין',
+		'real-estate-planning'    => 'מקרקעין, תכנון ובנייה',
+		'tax-law'                 => 'דיני מסים',
+	);
+}
+
+/**
  * Archive headings speak the topic, not WordPress internals.
  */
 function justice_theme_clean_archive_title( string $title ): string {
 	$title = wp_strip_all_tags( $title );
-	return trim( preg_replace( '/^(קטגוריה|תגית|ארכיון):\s*/u', '', $title ) );
+	// The prefix comes in three shapes: "ארכיון:", a bare "ארכיון " with no
+	// colon on taxonomy archives that have no label, and the taxonomy's own
+	// singular name ("תחומי אנציקלופדיה:"). The original pattern matched only
+	// the first, so the other two shipped straight to Google.
+	$title = trim( preg_replace( '/^(קטגוריה|תגית|ארכיון|תחומי אנציקלופדיה|מונחים)\s*:?\s*/u', '', $title ) );
+
+	$names = justice_theme_encyclopedia_domain_names();
+	if ( isset( $names[ $title ] ) ) {
+		$title = $names[ $title ];
+	}
+	return $title;
 }
 add_filter( 'get_the_archive_title', 'justice_theme_clean_archive_title', 20 );
+
+/**
+ * The same repair for the document title, which Yoast owns and which the
+ * archive-heading filter never reaches.
+ *
+ * @param string $title Document title.
+ * @return string
+ */
+function justice_theme_fix_domain_document_title( $title ) {
+	if ( ! is_string( $title ) || is_admin() ) {
+		return $title;
+	}
+	$term = get_queried_object();
+	if ( ! ( $term instanceof WP_Term ) ) {
+		return $title;
+	}
+	$names = justice_theme_encyclopedia_domain_names();
+	if ( ! isset( $names[ $term->slug ] ) ) {
+		return $title;
+	}
+	$hebrew = $names[ $term->slug ];
+	return sprintf( '%s: מונחים והגדרות | Jus-Tice', $hebrew );
+}
+add_filter( 'wpseo_title', 'justice_theme_fix_domain_document_title', 20 );
+add_filter( 'pre_get_document_title', 'justice_theme_fix_domain_document_title', 20 );
 
 /**
  * Map a city-page slug to its practice term and pillar.

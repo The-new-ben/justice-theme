@@ -226,13 +226,36 @@
    ],
    "sourced": "court fees web-verified; the price range taken from our own existing table, nothing invented",
    "verified": "rendered + screenshot; 0 stars, 6 tables, 73 rows, all links resolve"
+  },
+  {
+   "slug": "zero-impression audit + encyclopedia archive titles",
+   "date": "2026-07-25",
+   "target_query": "diagnostic",
+   "correction_to_my_own_number": "I have been reporting 1,510 dead pages. Re-measured with URL decoding applied to both sides of the diff: 45 of those were an encoding artifact in my own comparison. The real figure is 1,464 of 2,827 (52%).",
+   "diagnosis": {
+    "articles": "1,190 total, 134 dead (11%). The written content is NOT the problem.",
+    "lawyer-profiles": "1,093 total, 1,073 dead (98%). This is 73% of all dead pages. Cause is not indexation and not canonicals: they are indexed, they are simply 120-152 words each. Thin content at scale.",
+    "encyclopedia-terms": "124 total, 122 dead (98%), but each carries 528-812 words of real legal definition and they ARE indexed (verified by site: query in Chrome). They lose on merit to Wikipedia, kolzchut and gov.il, not on technical grounds.",
+    "term-cats": "14 of 14 dead",
+    "categories": "17 of 19 dead",
+    "cities": "37 of 47 dead",
+    "practice-areas": "33 of 62 dead"
+   },
+   "false_lead_dropped": "I first suspected a canonical mismatch, because the sitemap submits percent-encoded Hebrew URLs while the canonical tag prints the decoded form. Those are the same URL and Google normalises the encoding. Not the cause.",
+   "gaps_found": [
+    "14 encyclopedia-domain archives shipped a WordPress default title showing an English slug to a Hebrew audience (ארכיון civil-procedure), and at least one is already indexed",
+    "the existing archive-title filter matched only the colon form 'ארכיון:', so the bare 'ארכיון family-law' and the taxonomy form 'תחומי אנציקלופדיה: family-law' both passed straight through",
+    "the document title is owned by Yoast and the archive-heading filter never reached it",
+    "the homepage links to /encyclopedia/ zero times"
+   ],
+   "changes": [
+    "prefix pattern widened to cover the bare and taxonomy-name forms",
+    "a slug-to-Hebrew map for the 14 legal domains, using their standard names, applied to both the H1 and the document title via wpseo_title and pre_get_document_title"
+   ],
+   "verified": "14 of 14 titles and 14 of 14 H1s now Hebrew, all HTTP 200, screenshot taken"
   }
  ],
  "next_targets": [
-  {
-   "cluster": "zero-impression-pages",
-   "why": "1,510 of 2,828 pages got no impressions in 28 days"
-  },
   {
    "cluster": "backlinks",
    "why": "never addressed; our price tables are original data and Israeli business media need exactly that"
@@ -253,6 +276,9 @@
   },
   {
    "item": "Google's AI Overview already names מאיה רוטנברג as the authority on divorce-agreement pricing. That is a distribution asset we are not using. Worth deciding whether her firm and jus-tice should be cross-referenced explicitly on the fee pages, which is a commercial question between you and her, not an SEO call I should make alone."
+  },
+  {
+   "item": "1,073 lawyer profile pages average 120-152 words and 98% of them earn no impressions. Enriching them needs data we do not have, and they describe firms that never consented, which is the same exposure behind your no-index-claim rule. The options are enrich, drop from the sitemap while leaving them live, consolidate into listing pages, or leave as is. This is a business and legal call, not an SEO one, so it waits for you."
   }
  ],
  "proven_pattern": "Price intent is the site's winning shape. Both cycles found the same four gaps: missing year, missing the searcher's exact phrase, a promise without proof, and a stale opener. GSC understated the real position both times (18.3 vs 4, 16.7 vs 7).",

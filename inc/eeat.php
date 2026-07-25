@@ -752,6 +752,27 @@ function justice_eeat_reviewed_footer( $content ) {
 	if ( false !== strpos( $content, 'eeat-reviewed-footer' ) ) {
 		return $content;
 	}
-	return $content . '<p class="eeat-reviewed-footer"><strong>נבדק על ידי עו"ד בן בטש</strong></p>';
+
+	/*
+	 * The name was hardcoded, so every article credited the owner even where
+	 * the authority layer resolves someone else. Measured live 2026-07-25:
+	 * inc/authority.php returns עו״ד מאיה רוטנברג for the family-law cluster
+	 * (/divorce-costs-2025/, /how-much-does-a-divorce-agreement-cost/) exactly
+	 * as the standing rule requires, while this line printed the owner on both.
+	 *
+	 * This does not add or remove a review claim. It makes the claim that is
+	 * already displayed name the right person, and it falls back to the owner
+	 * only when the resolver has nobody else, which is what it did before.
+	 */
+	$name = 'עו"ד בן בטש';
+	if ( function_exists( 'justice_theme_article_reviewer_with_fallback' ) ) {
+		$reviewer = justice_theme_article_reviewer_with_fallback( (int) get_the_ID() );
+		if ( is_array( $reviewer ) && ! empty( $reviewer['name'] ) ) {
+			$name = (string) $reviewer['name'];
+		}
+	}
+
+	return $content . '<p class="eeat-reviewed-footer"><strong>'
+		. esc_html( sprintf( 'נבדק על ידי %s', $name ) ) . '</strong></p>';
 }
 add_filter( 'the_content', 'justice_eeat_reviewed_footer', 16 );

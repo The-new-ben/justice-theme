@@ -272,9 +272,30 @@
    "delivered": ".project-control/seo/backlink-program.md with named, verified targets and published editorial contacts",
    "not_done_deliberately": "no outreach was sent. Every contact listed is for the owner to send or approve, since sending on his behalf is his call and not the agent's.",
    "verified": "every target opened and read in the owner's real Chrome on the day"
+  },
+  {
+   "slug": "reviewer attribution + a decision I did NOT make",
+   "date": "2026-07-25",
+   "target_query": "compliance, not a query",
+   "what_I_almost_did_wrong": "I told the owner I would enable the reviewer box unless he objected. I should have read the code first. The hook was commented out by HIS OWN ORDER of 2026-07-14: 'the reviewer box is disabled until a real per-page attorney review process exists'. Enabling it would have restored a claim he killed for a substantive reason. I did not enable it.",
+   "conflict_surfaced": "Two owner orders point opposite ways. 2026-07-14: kill review claims. 2026-07-20 (six days later): put נבדק על ידי at the end of articles. The later one is what the code implements, via inc/eeat.php. Both are his; choosing between them is his call, not mine. The 2026-07-14 concern (no real per-page review process = the claim is not backed) has not been resolved, only overridden by a placement instruction.",
+   "defect_fixed": "inc/eeat.php hardcoded 'עו\"ד בן בטש' on EVERY article, including family law, while inc/authority.php correctly resolves עו\"ד מאיה רוטנברג for the family-law cluster exactly as the standing rule requires. The footer now reads the resolver. This adds no claim and removes no claim; it makes the claim already on the page name the right person.",
+   "verified_live": {
+    "divorce-costs-2025": "מאיה רוטנברג",
+    "how-much-does-a-divorce-agreement-cost": "מאיה רוטנברג",
+    "how-much-does-prenup-cost": "מאיה רוטנברג",
+    "real-estate-usa": "בן בטש",
+    "cyprus-prices": "בן בטש"
+   },
+   "entity_gap_note": "The full credentialed entity (hasCredential, sameAs to the Israel Bar card, admitted 2000-11-30) IS computed on every page and never printed, because the emitter is the killed reviewer box. Turning it on is blocked on the same unresolved question, not on engineering.",
+   "verified": "rendered + screenshot"
   }
  ],
  "next_targets": [
+  {
+   "cluster": "review-process-decision",
+   "why": "BLOCKED ON OWNER. Either a real per-page review process exists and the credentialed entity can be emitted honestly, or the 2026-07-14 kill switch should also cover the eeat footer. Right now the site displays a review claim the 14 July order was written to prevent."
+  },
   {
    "cluster": "remeasure",
    "why": "cycles 1-13 shipped between 2026-07-24 and 2026-07-25. Positions need 2 to 4 weeks to move. Re-pull GSC for every touched slug and compare against the recorded before-position, then reopen only what got worse."

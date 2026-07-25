@@ -154,13 +154,33 @@
    "false_alarm_corrected": "11 apparent residuals on /criminal-law-lawyer-criminal/ are legal cross-references (כפי שצוין בפרק 1, סעיף 4.3.2), not filler. The counter was wrong, not the sweep.",
    "not_changed": "the >=3 content-heading gate. A 35-page sample found zero pages blocked by it that still had bold run-ins to promote, so scaling it would add risk for no measured gain.",
    "verified": "re-scan zero; spot-checked 7 pages all HTTP 200 with word counts intact"
+  },
+  {
+   "slug": "/real-estate-usa/",
+   "date": "2026-07-25",
+   "target_query": "עורך דין נדל\"ן בארה\"ב",
+   "correction_to_prior_entry": "the previous cycle logged 'no US real-estate page exists'. That was wrong. /real-estate-usa/ exists and so do three more US property pages. This was a hierarchy problem, not a content gap.",
+   "real_chrome_position": "NOT in top 20 on either 'השקעות נדלן בארהב' or 'עורך דין נדלן בארהב'",
+   "gaps_found": [
+    "page 1 for השקעות נדלן בארהב is entirely deal-selling investment companies with minimum-ticket hooks in their titles (ג'נסיס 100 from 150,000 shekel, פסיפיק from $50,000). That query is not winnable and not our intent.",
+    "the lawyer query IS winnable: din.co.il sits at #4 with only 4 lawyers and 1 recommendation",
+    "the AI Overview names the answer explicitly: state-level law and licence, Title Search due diligence, and opening a holding company. We were cited nowhere and the page covered none of it as a quotable block.",
+    "/real-estate-usa/ mentioned תשואה zero times while /guide-israeli-apartment-2025/ mentions it 76 times, which is why the guide absorbs all 37 US impressions",
+    "the guide had ZERO links to /real-estate-usa/",
+    "opener claimed US inflation 'remains at historic highs not seen since the 1980s', true around 2022 and false now"
+   ],
+   "changes": [
+    "title -> עורך דין נדל\"ן בארה\"ב 2026: בדיקת נאותות, LLC ומיסוי למשקיע ישראלי (Yoast indexable cleared)",
+    "direct-answer block shaped to the AI Overview: state-level licence, Title Search and Title Commitment, escrow, LLC holding structure, FIRPTA 15% and the multi-member US Person exception, Home Inspection at $250-500 as a separate check",
+    "stale inflation claim reframed to the period it describes",
+    "hierarchy: contextual link inserted inside the guide's own USA section, pointing at the money page"
+   ],
+   "strategy_note": "we do not chase the deal-sellers' commercial query. We take the protective/legal lane they leave empty, which is also the lane the AI Overview describes.",
+   "sourced": "FIRPTA, LLC classification, Title Company/Commitment and inspection cost all web-verified before writing",
+   "verified": "rendered + screenshot; 40 restored headings intact; guide links through"
   }
  ],
  "next_targets": [
-  {
-   "cluster": "usa-real-estate-page",
-   "why": "US real-estate demand (איפה כדאי לקנות נכס בארהב, קניית נכס להשקעה בארהב עד 400 אלף) currently lands on /guide-israeli-apartment-2025/, an Israeli apartment guide. No US real-estate page exists."
-  },
   {
    "cluster": "about-usa-hierarchy",
    "why": "/about-usa/ takes 135 impressions and 0 clicks on encyclopedia queries (how many states, population). Same disease as /about-cyprus/."

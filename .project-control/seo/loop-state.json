@@ -201,13 +201,34 @@
    ],
    "note": "first pass missed one anchor because I matched against rendered text rather than raw post_content. Found the raw form and inserted on a second pass.",
    "verified": "rendered + screenshot; 7 of 7 and 4 of 4 linked; zero dead links"
+  },
+  {
+   "slug": "divorce fee cluster (8 pages)",
+   "date": "2026-07-25",
+   "target_query": "הסכם גירושין מחיר",
+   "gsc_position_claimed": 41.4,
+   "real_chrome_position": "NOT in top 20",
+   "OWNER_LAW_VIOLATION_FOUND": "61 fabricated star-rating cells (336 glyphs) across the 6 fee tables on /divorce-costs-2025/, grading services ⭐⭐⭐⭐☆. Owner law: no invented reviews, ratings, experience or statistics. All removed; the 6 tables and 73 rows survive intact.",
+   "gaps_found": [
+    "8 of our pages compete for the same 325-impression cost cluster and it returns 0 clicks",
+    "the weak page wins and the strong one is buried: /how-much-does-a-divorce-agreement-cost/ has 1,039 words, 3 price figures and no tables and takes 191 impressions, while /divorce-costs-2025/ has 14,032 words, 6 tables and 71 price figures and takes 26",
+    "'הסכם גירושין מחיר' and 'כמה עולה הסכם גירושין' land on two different pages of ours",
+    "only 1 internal link existed among the four fee pages; the deepest page linked to nothing",
+    "rabbinical-court fees quoted from 2021 and 2023 on a page whose title says 2026"
+   ],
+   "big_finding": "the AI Overview for 'הסכם גירושין מחיר' cites משרד עורכי דין מאיה רוטנברג as a source, and rotenberglaw.co.il also ranks for the official fee schedule. She is our reviewed-by expert for family law and Google already treats her as the authority on this exact query, while jus-tice is not in the top 20.",
+   "changes": [
+    "336 star glyphs removed, tables and rows verified intact after",
+    "stale 2021/2023 court fees replaced with verified current figures: אישור הסכם גירושין 457, בקשה משותפת 178, חזקת ילדים 395, with the caveat that the binding tariff is the official schedule on the filing date",
+    "a dangling back-reference ('אגרה של 750 ₪ כפי שצוין') pointed at a figure I had just replaced; rewritten rather than given an invented replacement, since the surrounding 400/360/280 figures were never verified",
+    "direct-answer block on /how-much-does-a-divorce-agreement-cost/ built from OUR OWN published range (7,000-15,000 for a leading firm) plus the verified court fees",
+    "hub and spoke wired: deep guide links down to both children, both children link up"
+   ],
+   "sourced": "court fees web-verified; the price range taken from our own existing table, nothing invented",
+   "verified": "rendered + screenshot; 0 stars, 6 tables, 73 rows, all links resolve"
   }
  ],
  "next_targets": [
-  {
-   "cluster": "divorce-and-prenup-fees",
-   "why": "הסכם גירושין מחיר 78 imp at 41, עלות גירושין 38 imp at 61, עלות הסכם ממון 28 imp at 24"
-  },
   {
    "cluster": "zero-impression-pages",
    "why": "1,510 of 2,828 pages got no impressions in 28 days"
@@ -229,6 +250,9 @@
   },
   {
    "item": "/criminal-law-lawyer-criminal/ is 140,969 words in one URL, roughly 470 printed pages, with 5 headings and only 1 bold run-in to work with. It cannot be repaired mechanically and needs a split into a pillar plus children."
+  },
+  {
+   "item": "Google's AI Overview already names מאיה רוטנברג as the authority on divorce-agreement pricing. That is a distribution asset we are not using. Worth deciding whether her firm and jus-tice should be cross-referenced explicitly on the fee pages, which is a commercial question between you and her, not an SEO call I should make alone."
   }
  ],
  "proven_pattern": "Price intent is the site's winning shape. Both cycles found the same four gaps: missing year, missing the searcher's exact phrase, a promise without proof, and a stale opener. GSC understated the real position both times (18.3 vs 4, 16.7 vs 7).",

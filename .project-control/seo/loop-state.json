@@ -45,28 +45,80 @@
    "kept": "13 existing price tables and 15,449 words untouched",
    "verified": "rendered + screenshot",
    "remeasure": "דירות בקפריסין מחירים"
+  },
+  {
+   "slug": "/real-estate-lawyer-cost-2025/",
+   "date": "2026-07-25",
+   "target_query": "שכר טרחה עורך דין במכירת דירה",
+   "gsc_position_claimed": 55.6,
+   "real_chrome_position": "not on page 1",
+   "gaps_found": [
+    "#1 (doron-aharoni) says מעודכן לשנת 2026 and repeats 2026 sixteen times; we had 8 mentions of 2025",
+    "our title did not lead with the exact query phrase",
+    "we have 11,838 words and 5 tables against their 1,726 words and zero tables, yet we are not on page 1"
+   ],
+   "changes": [
+    "title -> שכר טרחת עורך דין במכירת דירה וברכישה 2026: מחירון מלא",
+    "direct-answer block: 0.5% + VAT per side, contractor-purchase rule, bar tariff 2% to 0.75%",
+    "non-factual 2025 references updated; tax-law dates left factual"
+   ],
+   "verified": "rendered",
+   "remeasure": "שכר טרחה עורך דין במכירת דירה"
+  },
+  {
+   "slug": "/real-estate-dubai-2025/",
+   "date": "2026-07-25",
+   "target_query": "נדלן בדובאי",
+   "gaps_found": [
+    "title carried 2025",
+    "25 mentions of 2025 in body",
+    "no direct answer on yield, which is the actual buying question"
+   ],
+   "changes": [
+    "title -> נדל\"ן בדובאי 2026: מחירים, תשואות ואיפה כדאי להשקיע",
+    "direct-answer block: 6% Marina long-let yield, ~7% studios, freehold zones, escrow and DLD registration"
+   ],
+   "note": "REST PUT returned 409: the publication gate false-positived on the pre-existing word CRM. Applied via wp_save_post_revision + direct wpdb update.",
+   "verified": "rendered"
+  },
+  {
+   "slug": "/portugal-citizenship/",
+   "date": "2026-07-25",
+   "target_query": "אזרחות פורטוגלית",
+   "gsc_impressions": 532,
+   "gsc_position_claimed": 30.0,
+   "gaps_found": [
+    "page was generic translated content with no headings, no year and no current law",
+    "LEGAL EXPOSURE: the Sephardic route was abolished by Lei Organica 1/2026 in force 19 May 2026 and the Lisbon Jewish Community stopped accepting applications on 4 May 2026, and our page still implied it was open"
+   ],
+   "changes": [
+    "title -> אזרחות פורטוגלית 2026: מסלולים, זכאות ומה השתנה בחוק",
+    "accurate current-law block: route closed, pre-May-2026 filings continue under the regime at filing date, the 2024-2026 interim regime under Law 1/2024 requiring three years residence, and the routes still open including the new great-grandchild route with five years residence"
+   ],
+   "sourced": "web-verified before writing; no legal facts invented",
+   "verified": "rendered + screenshot"
   }
  ],
  "next_targets": [
   {
-   "cluster": "lawyer-fee-cluster",
-   "why": "1,582 price-intent impressions and 2 clicks site-wide; שכר טרחה עורך דין במכירת דירה 91 imp at position 55; the Greece/Cyprus price pattern proven twice, apply it to legal fees"
-  },
-  {
    "cluster": "usa-real-estate",
-   "why": "$1.06B Israeli investment in US real estate in 2025, Israel in the global top 10, and we have almost no content"
-  },
-  {
-   "cluster": "portugal",
-   "why": "tops Israeli foreign property investment; אזרחות פורטוגלית 190 imp at position 24"
-  },
-  {
-   "cluster": "dubai",
-   "why": "250 commercial vs 65 informational impressions; נדלן בדובאי 2025 already at 6.4"
+   "why": "$1.06B Israeli investment in US real estate in 2025 and we have almost no content"
   },
   {
    "cluster": "about-cyprus-hierarchy",
-   "why": "658 informational impressions on geography queries that should feed the money pages, not compete"
+   "why": "658 informational impressions on geography queries that should feed the money pages"
+  },
+  {
+   "cluster": "divorce-and-prenup-fees",
+   "why": "הסכם גירושין מחיר 78 imp at 41, עלות גירושין 38 imp at 61, עלות הסכם ממון 28 imp at 24"
+  },
+  {
+   "cluster": "zero-impression-pages",
+   "why": "1,510 of 2,828 pages got no impressions in 28 days"
+  },
+  {
+   "cluster": "backlinks",
+   "why": "never addressed; our price tables are original data and Israeli business media need exactly that"
   }
  ],
  "open_decisions_for_owner": [
@@ -74,5 +126,6 @@
   "backlinks: never addressed at all, the single biggest untouched lever",
   "master branch: archive commit 75f9a3f8 exists locally, push to origin failed (HTTP 408), reset not performed"
  ],
- "proven_pattern": "Price intent is the site's winning shape. Both cycles found the same four gaps: missing year, missing the searcher's exact phrase, a promise without proof, and a stale opener. GSC understated the real position both times (18.3 vs 4, 16.7 vs 7)."
+ "proven_pattern": "Price intent is the site's winning shape. Both cycles found the same four gaps: missing year, missing the searcher's exact phrase, a promise without proof, and a stale opener. GSC understated the real position both times (18.3 vs 4, 16.7 vs 7).",
+ "pattern_confirmed_times": 5
 }

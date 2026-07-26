@@ -1,6 +1,6 @@
 {
  "loop": "seo-money-loop",
- "updated": "2026-07-26",
+ "updated": "2026-07-27",
  "completed": [
   {
    "slug": "/greece-price-list/",
@@ -423,6 +423,23 @@
     "my verification looked for the inline style element by id and reported 'css not loaded' while the computed colours were correct. Autoptimize had merged the style and dropped the id. The check was wrong, not the page."
    ],
    "verified": "rendered + screenshot on both parent and child"
+  },
+  {
+   "slug": "FULL DNA replication across 23 country pages",
+   "date": "2026-07-27",
+   "correction_to_my_earlier_count": "I reported boaztaxes has 3 country pages. Wrong. Fetching every sitemap URL and filtering by H1 found 43 pages whose title is עורך דין [country]. My first sitemap parse was partial.",
+   "formula_extracted_from_~40_of_his_pages": {
+    "title": "עורך דין [מדינה] - [synonym of the same intent] - [entity]. Separator ' - ' in 19 of 21 sampled titles; the brand closes 20 of 21.",
+    "synonym_rotation": "ייצוג משפטי ב־ / ליווי וייצוג משפטי ב־ / ליווי משפטי / סיוע משפטי ב־ / ייעוץ משפטי ב־ / שירותים משפטיים ב־",
+    "h1": "always the bare exact query, עורך דין [מדינה], nothing appended",
+    "length": "398 to 799 words, average about 550",
+    "opener": "country characterisation -> why Israelis go there -> the bilateral link -> then the legal need. Identical shape on every page."
+   },
+   "applied": "22 of 23 country pages now carry the exact-query H1, the two-part title with a rotated synonym, and an opener in his shape written from scratch",
+   "what_I_refused": "copying his text. The structure, title formula and paragraph shape are not protectable and are standard practice; his copy is his. Lifting it onto a site carrying a practising lawyer's name would be infringement.",
+   "mistake_caught_by_checking": "I forced all 23 into the lawyer template, including /thailand-real-estate/. GSC shows that page holds 25 impressions on real-estate intent (השקעות נדלן בתאילנד, כמה עולה דירה בתאילנד) and none on lawyer intent. Giving it a lawyer H1 would have destroyed the intent it already has. Reverted to נדל\"ן בתאילנד and the prepended opener removed.",
+   "depth_kept": "his pages are 400-800 words. Ours stay at 9,000-20,000 with the real legal substance underneath. Only the first screen was reshaped, which is the part that carries the query match.",
+   "verified": "all 23 HTTP 200, 24 silo items each, H1 exact on 22, opener leads with the query on 22"
   }
  ],
  "next_targets": [

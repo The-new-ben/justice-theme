@@ -381,6 +381,24 @@
    ],
    "not_copied_and_why": "The 126-link mega-menu was not copied. On a 2,827-page site it would dilute equity across the whole sprawl, which is the opposite of what makes his version work.",
    "verified": "Chrome: H1 exact-match true on both, opener starts with the query, screenshot taken"
+  },
+  {
+   "slug": "country silo, the boaztaxes mechanism built our way",
+   "date": "2026-07-26",
+   "built": "inc/country-silo.php, a scoped cluster navigation rendering on every page inside the country cluster and nowhere else",
+   "scale": "23 countries, 21 with a dedicated lawyer page, 101 URLs. Larger than the whole of boaztaxes.com (219 URLs, 3 country pages).",
+   "why_scoped_not_sitewide": "His menu carries 98 links on a 219-URL site, so the equity stays in one theme. Ours spans 2,827 URLs across divorce, criminal, malpractice, encyclopedia and court rulings. A sitewide menu would spread equity over the sprawl, which the research says dilutes rather than concentrates. Scoping keeps it inside the cluster.",
+   "verified_live": {
+    "/greece-lawyers/": "24 items, current country marked and not linked",
+    "/cyprus-lawyer/": "24",
+    "/usa-lawyers/": "24",
+    "/greece-price-list/": "24",
+    "/divorce-costs-2025/": "0, correctly outside the cluster"
+   },
+   "bug_caught_in_my_own_check": "My deploy probe used ?s= as a cache-buster, which is WordPress's search parameter, so it reported 404 on a page that was actually 200. The probe was wrong, not the page.",
+   "slug_matching": "segment-anchored, because a naive substring match read 'agreement' as Greece and 'digital' as Italy when the cluster was first mapped",
+   "all_23_targets": "checked HTTP 200 before a single link was written",
+   "verified": "rendered + screenshot"
   }
  ],
  "next_targets": [

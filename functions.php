@@ -77,6 +77,7 @@ $justice_theme_files = array(
 	'inc/practice-display-fixes.php',
 	'inc/heading-structure-fix.php',
 	'inc/fee-calculator.php',
+	'inc/country-silo.php',
 	'inc/publication-safety.php',
 	'inc/lawyer-recommendations.php',
 	'inc/lawyer-reviews.php',

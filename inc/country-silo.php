@@ -125,6 +125,43 @@ function justice_theme_country_silo_html( string $current, bool $is_parent = fal
 }
 
 /**
+ * The cluster menu that sits ABOVE the article, not inside it.
+ *
+ * This is the part of the boaztaxes shape that was still missing. His country
+ * pages carry a header menu exposing the whole cluster on every page, so a
+ * reader (and a crawler) meets the cluster before the copy. Ours is a
+ * disclosure element so it costs no vertical space until it is opened, and it
+ * renders only on the 101 cluster pages.
+ *
+ * @param string $current Silo key, or '' on the parent.
+ * @return string HTML.
+ */
+function justice_theme_country_menu_html( string $current ): string {
+	$silo = justice_theme_country_silo();
+	$here = isset( $silo[ $current ] ) ? $silo[ $current ]['label'] : '';
+	$label = $here ? sprintf( 'עורך דין ב%s ובעוד %d מדינות', $here, count( $silo ) - 1 )
+		: sprintf( 'עורך דין ב%d מדינות', count( $silo ) );
+
+	$html  = '<details class="jt-cmenu">';
+	$html .= '<summary class="jt-cmenu__toggle">' . esc_html( $label ) . '</summary>';
+	$html .= '<div class="jt-cmenu__panel">';
+	$html .= '<a class="jt-cmenu__parent" href="' . esc_url( home_url( '/' . JUSTICE_SILO_PARENT_SLUG . '/' ) ) . '">'
+		. esc_html( JUSTICE_SILO_PARENT_LABEL ) . '</a>';
+	$html .= '<ul class="jt-cmenu__list">';
+	foreach ( $silo as $key => $c ) {
+		if ( $key === $current ) {
+			$html .= '<li class="jt-cmenu__item jt-cmenu__item--current"><span aria-current="page">'
+				. esc_html( $c['label'] ) . '</span></li>';
+			continue;
+		}
+		$html .= '<li class="jt-cmenu__item"><a href="' . esc_url( home_url( '/' . $c['lead'] . '/' ) ) . '">'
+			. esc_html( $c['label'] ) . '</a></li>';
+	}
+	$html .= '</ul></div></details>';
+	return $html;
+}
+
+/**
  * Attach the silo to any page inside the cluster.
  *
  * @param string $content Post content.
@@ -142,14 +179,14 @@ function justice_theme_append_country_silo( $content ) {
 	// On the parent itself, print the full country grid with nothing marked
 	// current, so the category page routes down to every child.
 	if ( JUSTICE_SILO_PARENT_SLUG === $slug ) {
-		return $content . justice_theme_country_silo_html( '', true );
+		return justice_theme_country_menu_html( '' ) . $content . justice_theme_country_silo_html( '', true );
 	}
 
 	$key = justice_theme_country_for_slug( $slug );
 	if ( '' === $key ) {
 		return $content;
 	}
-	return $content . justice_theme_country_silo_html( $key );
+	return justice_theme_country_menu_html( $key ) . $content . justice_theme_country_silo_html( $key );
 }
 add_filter( 'the_content', 'justice_theme_append_country_silo', 26 );
 
@@ -232,6 +269,19 @@ function justice_theme_country_silo_css(): void {
 		. '.jt-silo__item a:hover{border-color:#c9a227;background:#faf8f2}'
 		. '.jt-silo__item--current span{background:#0d2149;color:#fff;border-color:#0d2149;font-weight:700}'
 		. '@media(max-width:520px){.jt-silo__list{grid-template-columns:1fr 1fr}}'
+		. '.jt-cmenu{border:1px solid #e6e6ea;border-radius:10px;margin:0 0 20px;background:#fff;direction:rtl;overflow:hidden}'
+		. '.jt-cmenu__toggle{cursor:pointer;padding:12px 16px;font-weight:700;font-size:.95rem;color:#0d2149;background:#faf8f2;list-style:none}'
+		. '.jt-cmenu__toggle::-webkit-details-marker{display:none}'
+		. '.jt-cmenu__toggle::after{content:"\25bc";float:left;font-size:.7em;opacity:.6}'
+		. '.jt-cmenu[open] .jt-cmenu__toggle::after{content:"\25b2"}'
+		. '.jt-cmenu__panel{padding:12px 16px 16px;border-top:1px solid #e6e6ea}'
+		. '.jt-cmenu__parent{display:inline-block;margin-bottom:10px;padding:7px 13px;border-radius:7px;'
+		. 'background:#0d2149;color:#fff!important;text-decoration:none;font-weight:700;font-size:.9rem}'
+		. '.jt-cmenu__list{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;margin:0;padding:0;list-style:none}'
+		. '.jt-cmenu__item a,.jt-cmenu__item span{display:block;padding:7px 10px;border:1px solid #e6e6ea;border-radius:6px;'
+		. 'font-size:.86rem;text-decoration:none;color:#0d2149;background:#fff}'
+		. '.jt-cmenu__item a:hover{border-color:#c9a227;background:#faf8f2}'
+		. '.jt-cmenu__item--current span{background:#0d2149;color:#fff;border-color:#0d2149;font-weight:700}'
 		. '</style>';
 }
 add_action( 'wp_head', 'justice_theme_country_silo_css', 30 );

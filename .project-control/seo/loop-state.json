@@ -440,6 +440,20 @@
    "mistake_caught_by_checking": "I forced all 23 into the lawyer template, including /thailand-real-estate/. GSC shows that page holds 25 impressions on real-estate intent (השקעות נדלן בתאילנד, כמה עולה דירה בתאילנד) and none on lawyer intent. Giving it a lawyer H1 would have destroyed the intent it already has. Reverted to נדל\"ן בתאילנד and the prepended opener removed.",
    "depth_kept": "his pages are 400-800 words. Ours stay at 9,000-20,000 with the real legal substance underneath. Only the first screen was reshaped, which is the part that carries the query match.",
    "verified": "all 23 HTTP 200, 24 silo items each, H1 exact on 22, opener leads with the query on 22"
+  },
+  {
+   "slug": "cluster menu above the fold + full QA",
+   "date": "2026-07-27",
+   "built": "justice_theme_country_menu_html(): the cluster menu now sits ABOVE the article, which was the last piece of his shape still missing. His country pages meet the reader with the cluster before the copy. Ours is a disclosure element so it costs no vertical space closed, links to the parent, marks the current country, and renders only on the 101 cluster pages.",
+   "QA_27_pages": {
+    "23 country pages": "all HTTP 200, menu 24, silo 24, breadcrumb present",
+    "parent": "200, 23 links, no breadcrumb (it is the top of the chain)",
+    "separation": "/divorce-costs-2025/ and /lawyer-fees-tariff/ both return ZERO menu items and ZERO silo items. The cluster takes nothing from the rest of the site.",
+    "word counts": "2,756 to 35,753. Depth intact underneath the reshaped first screen.",
+    "fabricated ratings": "zero across all 27"
+   },
+   "third_AI_tell_variant_found": "QA surfaced 'ראוי לציין גם', which survived both earlier sweeps because my rules covered כי, ש and the comma form but not גם. Swept: 57 pages, 78 phrases, re-scan returns zero. That is three passes now, each one catching a variant the previous rule set could not express.",
+   "verified": "rendered + screenshot with the menu open"
   }
  ],
  "next_targets": [

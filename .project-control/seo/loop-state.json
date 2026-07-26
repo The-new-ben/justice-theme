@@ -1,6 +1,6 @@
 {
  "loop": "seo-money-loop",
- "updated": "2026-07-25",
+ "updated": "2026-07-26",
  "completed": [
   {
    "slug": "/greece-price-list/",
@@ -325,6 +325,39 @@
     "conclusion": "There is no way to know which lawyer serves Greece, Italy or the USA, and none of them consented. Putting them on the page would break the owner's first standing rule. This is a data and business blocker, not an engineering one."
    },
    "verified": "measured live on all four pages and against the database"
+  },
+  {
+   "slug": "GREECE PILLAR rebuild",
+   "date": "2026-07-26",
+   "target_query": "עורך דין ביוון",
+   "real_chrome_position": "NOT in top 20 before this cycle",
+   "competitors_fetched_individually": {
+    "boaztaxes.com": "563 words, 2 H2, 8 phone links",
+    "firon.co.il Athens branch": "363 words, 3 phone links",
+    "athenslawoffice.com": "2,000 words, 20 H2, 6 tables, 1 phone",
+    "gr-il.com": "2,621 words, 0 H2, 4 phone links",
+    "hamam-law.co.il": "HTTP 404. The Google AI Overview cites a dead page.",
+    "jus-tice before": "18,960 words and ZERO phone links"
+   },
+   "conclusion": "563 words outrank 18,960. Volume is not the variable. #1 is the Israeli embassy's list of lawyers in Greece, a government document, so the page that aggregates and explains the state's own requirements in Hebrew outranks any single one of them.",
+   "cannibalisation_fixed": [
+    "8932 קניית דירה ביוון: מחירים... -> הליך רכישת דירה ביוון: שלב אחר שלב מול הרשויות (it was fighting greece-price-list on price, which is verified at real position 4)",
+    "11857 השקעות נדל\"ן ביוון -> תשואות נדל\"ן ביוון לפי אזור (was fighting investing-in-greece)",
+    "10377 השקעה ביוון -> השקעה עסקית ביוון: הקמת חברה, רגולציה ומיסוי (moved off real estate entirely)"
+   ],
+   "pillar": "8863 retitled עורך דין ביוון 2026: רכישת נכס, אשרת משקיעים ומה המדינה דורשת; state-requirements block prepended; hub of all 9 spokes appended",
+   "spokes": "9 of 9 now link up to the pillar; verified in Chrome",
+   "state_sources_carried": [
+    "Law 5100/2024 thresholds: 800,000 EUR Attica/Thessaloniki/Mykonos/Santorini/islands over 3,100 residents; 400,000 elsewhere; 250,000 only for conversion or listed-building restoration",
+    "120 sqm floor on the two main tiers, one property not an aggregate",
+    "short-term letting ban on Golden Visa property, in force since 2024",
+    "AFM through myAADE or a notarised apostilled power of attorney; non-EU applicants appoint a tax representative",
+    "title search at BOTH Ktimatologio and the Registry of Mortgages",
+    "Greek notary is mandatory and represents neither side",
+    "authority: Ministry of Migration and Asylum, Article 20B, contact line 213 212 8400, fetched from migration.gov.gr directly"
+   ],
+   "note": "Most Greek government sites return 403 to a non-browser agent. migration.gov.gr answered and was fetched directly; the remaining figures were cross-checked across independent legal sources before writing. Nothing was quoted from a source I did not open.",
+   "verified": "rendered + screenshot; 19,559 words, 9/9 spokes, every figure present"
   }
  ],
  "next_targets": [

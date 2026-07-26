@@ -358,6 +358,29 @@
    ],
    "note": "Most Greek government sites return 403 to a non-browser agent. migration.gov.gr answered and was fetched directly; the remaining figures were cross-checked across independent legal sources before writing. Nothing was quoted from a source I did not open.",
    "verified": "rendered + screenshot; 19,559 words, 9/9 spokes, every figure present"
+  },
+  {
+   "slug": "boaztaxes DNA teardown + transplant (Greece, Cyprus)",
+   "date": "2026-07-26",
+   "why": "The owner rejected my claim that we cannot rank without a lawyer on the page, and pointed at boaztaxes.com, which ranks on countries it does not practise in. He was right to reject it. I scanned the site instead of theorising.",
+   "what_the_scan_found": {
+    "site_size": "219 URLs in total across both sitemaps. Not a content farm.",
+    "country_pages": "only 3: lawyer-greece, lawyer-hungary, lawyer-slovakia",
+    "they_are_near_identical_clones": "896 / 853 / 926 words, 2 H2 and 0 H3 each, 3 images each, 3 external links each",
+    "internal_links": "126 / 127 / 126 per page. 98 of them sit in the header mega-menu, 14 in the footer, and ZERO in the body.",
+    "silo": "the menu exposes two tight clusters, מיסים פליליים and משפט בינלאומי, and the country pages sit inside the international-law cluster rather than standing alone",
+    "on_page": "H1 is the bare exact query (עורך דין יוון, 13 chars); title is query + the named lawyer (31 chars); the query appears 3 times in the first 50 words"
+   },
+   "research_check": "Searched the technique rather than assuming. Mega-menus DILUTE per-link equity, so the menu alone is not the mechanism. What the sources credit is topical concentration: a small, tightly themed site where every page reinforces one subject, so each child inherits the parent topic's authority.",
+   "the_real_difference": "His 3 country pages are 3 of 219 URLs in one coherent silo. Ours was 1 of 2,827 across divorce, criminal, malpractice, encyclopedia, court rulings and city pages. The signal per topic is diluted by the sprawl, not by the word count.",
+   "transplanted": [
+    "H1 is now the bare exact query: עורך דין ביוון (14 chars) and עורך דין בקפריסין. I had made this WORSE the day before by writing a 61-character descriptive H1.",
+    "Yoast title kept descriptive so the SERP snippet still sells, while the H1 carries the exact match",
+    "openers rewritten to start with the exact query and carry it twice inside the first 50 words",
+    "Greece silo already wired in the previous cycle: 9 of 9 spokes link to the pillar"
+   ],
+   "not_copied_and_why": "The 126-link mega-menu was not copied. On a 2,827-page site it would dilute equity across the whole sprawl, which is the opposite of what makes his version work.",
+   "verified": "Chrome: H1 exact-match true on both, opener starts with the query, screenshot taken"
   }
  ],
  "next_targets": [

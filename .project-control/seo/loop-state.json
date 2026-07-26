@@ -399,6 +399,30 @@
    "slug_matching": "segment-anchored, because a naive substring match read 'agreement' as Greece and 'digital' as Italy when the cluster was first mapped",
    "all_23_targets": "checked HTTP 200 before a single link was written",
    "verified": "rendered + screenshot"
+  },
+  {
+   "slug": "country silo HIERARCHY complete",
+   "date": "2026-07-26",
+   "research_first": "Searched silo architecture before building. The method: each silo is a pillar plus subpages, children link UP to a category page, the category page connects to the homepage, navigation stays inside the silo, and flat everything-links-to-everything is the failure mode to avoid.",
+   "built": {
+    "parent": "/international-lawyers/ (id 24152), עורך דין בחו״ל. Carries what is common to every country: apostille, local tax number (AFM/NIF/ITIN), local registry check, dual reporting, and how to verify a foreign licence. 315 words, DNA shape: exact query opens the text.",
+    "children": "23 country pages each link up to the parent",
+    "parent_down": "the parent renders all 23 country links",
+    "breadcrumb": "BreadcrumbList schema on every country page: עמוד הבית > עורך דין בחו״ל > עורך דין ב[מדינה]. URLs were NOT reorganised into /international-lawyers/greece/ because that would break pages that already rank, so the hierarchy is declared in schema instead."
+   },
+   "separation_verified": {
+    "/international-lawyers/": "23 links, no breadcrumb (it is the parent)",
+    "/greece-lawyers/": "24 items, 1 up-link, breadcrumb yes",
+    "/cyprus-lawyer/": "24 / 1 / yes",
+    "/usa-lawyers/": "24 / 1 / yes",
+    "/italy-lawyers/": "24 / 1 / yes",
+    "/divorce-costs-2025/": "0 items, 0 up-link, no breadcrumb. The cluster takes nothing from the other practice areas."
+   },
+   "bugs_caught_in_my_own_checks": [
+    "the CSS loader keyed off the country lookup, which returns empty for the parent, so the parent rendered the grid as an unstyled bullet list. Fixed.",
+    "my verification looked for the inline style element by id and reported 'css not loaded' while the computed colours were correct. Autoptimize had merged the style and dropped the id. The check was wrong, not the page."
+   ],
+   "verified": "rendered + screenshot on both parent and child"
   }
  ],
  "next_targets": [

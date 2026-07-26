@@ -78,21 +78,37 @@ function justice_theme_country_for_slug( string $slug ): string {
 }
 
 /**
+ * The silo parent. Supporting pages link up to it and it links back down, which
+ * is the hierarchy the silo research calls for: children point at a category
+ * page, the category page connects to the homepage, and lateral links stay
+ * inside the cluster.
+ */
+const JUSTICE_SILO_PARENT_SLUG  = 'international-lawyers';
+const JUSTICE_SILO_PARENT_LABEL = 'עורך דין בחו״ל';
+
+/**
  * Render the silo navigation. Present country first, then the rest.
  *
  * @param string $current Silo key of the page being viewed.
  * @return string HTML.
  */
-function justice_theme_country_silo_html( string $current ): string {
+function justice_theme_country_silo_html( string $current, bool $is_parent = false ): string {
 	$silo = justice_theme_country_silo();
-	if ( ! isset( $silo[ $current ] ) ) {
+	if ( ! $is_parent && ! isset( $silo[ $current ] ) ) {
 		return '';
 	}
-	$here = $silo[ $current ]['label'];
+	$here      = $is_parent ? '' : $silo[ $current ]['label'];
+	$parent_url = home_url( '/' . JUSTICE_SILO_PARENT_SLUG . '/' );
 
 	$html  = '<nav class="jt-silo" aria-label="' . esc_attr__( 'עורכי דין לפי מדינה', 'justice-theme' ) . '">';
-	$html .= '<h2 class="jt-silo__title">' . esc_html( sprintf( 'עורך דין ב%s, ובכל מדינה אחרת', $here ) ) . '</h2>';
-	$html .= '<p class="jt-silo__lede">' . esc_html__( 'ישראלים שרוכשים נכס, מקימים חברה או מסדירים אזרחות בחו״ל נתקלים באותן שאלות בכל מדינה, והתשובה משתנה לפי הדין המקומי. אלה העמודים לפי מדינה:', 'justice-theme' ) . '</p>';
+	$html .= '<h2 class="jt-silo__title">' . esc_html( $is_parent ? 'עורך דין לפי מדינה' : sprintf( 'עורך דין ב%s, ובכל מדינה אחרת', $here ) ) . '</h2>';
+	if ( $is_parent ) {
+		$html .= '<p class="jt-silo__lede">' . esc_html__( 'לכל מדינה דין מקומי משלה, מרשם משלה וסכומים משלה. אלה העמודים לפי מדינה:', 'justice-theme' ) . '</p>';
+	} else {
+		$html .= '<p class="jt-silo__lede">' . esc_html__( 'ישראלים שרוכשים נכס, מקימים חברה או מסדירים אזרחות בחו״ל נתקלים באותן שאלות בכל מדינה, והתשובה משתנה לפי הדין המקומי. מה שזהה בכל המדינות מרוכז בעמוד ', 'justice-theme' )
+			. '<a href="' . esc_url( $parent_url ) . '">' . esc_html( JUSTICE_SILO_PARENT_LABEL ) . '</a>'
+			. esc_html__( ', ואלה העמודים לפי מדינה:', 'justice-theme' ) . '</p>';
+	}
 	$html .= '<ul class="jt-silo__list">';
 
 	foreach ( $silo as $key => $c ) {
@@ -122,13 +138,75 @@ function justice_theme_append_country_silo( $content ) {
 		return $content;
 	}
 	$slug = (string) get_post_field( 'post_name', get_the_ID() );
-	$key  = justice_theme_country_for_slug( $slug );
+
+	// On the parent itself, print the full country grid with nothing marked
+	// current, so the category page routes down to every child.
+	if ( JUSTICE_SILO_PARENT_SLUG === $slug ) {
+		return $content . justice_theme_country_silo_html( '', true );
+	}
+
+	$key = justice_theme_country_for_slug( $slug );
 	if ( '' === $key ) {
 		return $content;
 	}
 	return $content . justice_theme_country_silo_html( $key );
 }
 add_filter( 'the_content', 'justice_theme_append_country_silo', 26 );
+
+/**
+ * Breadcrumb hierarchy for the silo: Home > עורך דין בחו״ל > עורך דין ב[מדינה].
+ *
+ * The URLs cannot be reorganised into /international-lawyers/greece/ without
+ * breaking live pages that already rank, so the parent-child relationship is
+ * declared in schema instead. That is what tells Google the country pages are
+ * children of one category rather than 23 unrelated pages.
+ */
+function justice_theme_country_silo_breadcrumbs(): void {
+	if ( ! is_singular() ) {
+		return;
+	}
+	$slug = (string) get_post_field( 'post_name', get_queried_object_id() );
+	$key  = justice_theme_country_for_slug( $slug );
+	if ( '' === $key || JUSTICE_SILO_PARENT_SLUG === $slug ) {
+		return;
+	}
+	$silo = justice_theme_country_silo();
+	if ( ! isset( $silo[ $key ] ) ) {
+		return;
+	}
+	$items = array(
+		array(
+			'@type'    => 'ListItem',
+			'position' => 1,
+			'name'     => 'עמוד הבית',
+			'item'     => home_url( '/' ),
+		),
+		array(
+			'@type'    => 'ListItem',
+			'position' => 2,
+			'name'     => JUSTICE_SILO_PARENT_LABEL,
+			'item'     => home_url( '/' . JUSTICE_SILO_PARENT_SLUG . '/' ),
+		),
+		array(
+			'@type'    => 'ListItem',
+			'position' => 3,
+			'name'     => sprintf( 'עורך דין ב%s', $silo[ $key ]['label'] ),
+			'item'     => get_permalink( get_queried_object_id() ),
+		),
+	);
+	echo '<script type="application/ld+json" id="jt-silo-breadcrumb">'
+		. wp_json_encode(
+			array(
+				'@context'        => 'https://schema.org',
+				'@type'           => 'BreadcrumbList',
+				'@id'             => get_permalink( get_queried_object_id() ) . '#silo-breadcrumb',
+				'itemListElement' => $items,
+			),
+			JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+		)
+		. '</script>';
+}
+add_action( 'wp_head', 'justice_theme_country_silo_breadcrumbs', 31 );
 
 /**
  * Silo styles. Inlined at the point of use so no extra request is made.
@@ -138,7 +216,9 @@ function justice_theme_country_silo_css(): void {
 		return;
 	}
 	$slug = (string) get_post_field( 'post_name', get_queried_object_id() );
-	if ( '' === justice_theme_country_for_slug( $slug ) ) {
+	// The parent is not a country, so the country lookup returns empty for it.
+	// Without this it rendered the grid as an unstyled bullet list.
+	if ( '' === justice_theme_country_for_slug( $slug ) && JUSTICE_SILO_PARENT_SLUG !== $slug ) {
 		return;
 	}
 	echo '<style id="jt-silo-css">'

@@ -139,8 +139,8 @@ function justice_theme_country_silo_html( string $current, bool $is_parent = fal
 function justice_theme_country_menu_html( string $current ): string {
 	$silo = justice_theme_country_silo();
 	$here = isset( $silo[ $current ] ) ? $silo[ $current ]['label'] : '';
-	$label = $here ? sprintf( 'עורך דין ב%s ובעוד %d מדינות', $here, count( $silo ) - 1 )
-		: sprintf( 'עורך דין ב%d מדינות', count( $silo ) );
+	$label = $here ? sprintf( 'עורך דין ישראלי ב%s ובעוד %d מדינות', $here, count( $silo ) - 1 )
+		: sprintf( 'עורך דין ישראלי ב%d מדינות', count( $silo ) );
 
 	$html  = '<details class="jt-cmenu">';
 	$html .= '<summary class="jt-cmenu__toggle">' . esc_html( $label ) . '</summary>';
@@ -179,14 +179,26 @@ function justice_theme_append_country_silo( $content ) {
 	// On the parent itself, print the full country grid with nothing marked
 	// current, so the category page routes down to every child.
 	if ( JUSTICE_SILO_PARENT_SLUG === $slug ) {
-		return justice_theme_country_menu_html( '' ) . $content . justice_theme_country_silo_html( '', true );
+		// The parent is short and IS the directory, so the grid is its content.
+		return $content . justice_theme_country_silo_html( '', true );
 	}
 
 	$key = justice_theme_country_for_slug( $slug );
 	if ( '' === $key ) {
 		return $content;
 	}
-	return justice_theme_country_menu_html( $key ) . $content . justice_theme_country_silo_html( $key );
+
+	// Text first. The menu drops to the lower upper fold, after the second H2
+	// section, the same slot the mid-fold law gives every other widget. It sat
+	// above the content for one day (2026-07-26/27) and the owner caught it:
+	// the crawler met a widget before it met a word of copy.
+	$menu = justice_theme_country_menu_html( $key );
+	if ( function_exists( 'justice_theme_inject_after_section' ) ) {
+		$content = justice_theme_inject_after_section( $content, $menu, 2 );
+	} else {
+		$content .= $menu;
+	}
+	return $content . justice_theme_country_silo_html( $key );
 }
 add_filter( 'the_content', 'justice_theme_append_country_silo', 26 );
 

@@ -454,6 +454,18 @@
    },
    "third_AI_tell_variant_found": "QA surfaced 'ראוי לציין גם', which survived both earlier sweeps because my rules covered כי, ש and the comma form but not גם. Swept: 57 pages, 78 phrases, re-scan returns zero. That is three passes now, each one catching a variant the previous rule set could not express.",
    "verified": "rendered + screenshot with the menu open"
+  },
+  {
+   "slug": "upper-fold violation fixed + traffic audit",
+   "date": "2026-07-27",
+   "owner_was_right_about_the_placement": "The cluster menu I shipped on 2026-07-26 sat 103 chars after the H1, BEFORE the opener paragraph, with the TOC beside it: two widgets before a word of copy. That violates the text-first law the owner set on 2026-07-21 and that my own memory records. Moved to the lower upper fold via justice_theme_inject_after_section(content, menu, 2). Now 3,115-9,249 visible chars of text come first. Label renamed to עורך דין ישראלי ב[מדינה] per the owner.",
+   "traffic_measured_honestly": {
+    "site daily clicks": "avg 32.3/day before 20.7 vs 40.8/day from 20.7; 20.7 was the best day of the month (63)",
+    "the dip": "24.7 fell to 24 clicks but 25.7 recovered to 39, and 23-24 click days existed before any changes (10.7, 16.7)",
+    "the key fact": "GSC data ends 25.7. The menu-above-content days (26-27.7) are not measurable yet. The owner's eye caught the violation before the data could. No measured drop is attributable to the recent changes so far; the next GSC days must be watched."
+   },
+   "map": "on /cyprus-lawyer/ the midfold sits 28,225 chars deep; /greece-lawyers/ has no map. Left alone per the owner (design pass later).",
+   "verified": "element order after H1 is now h1 > p(opener) > toc > text > h2 on all four sampled pages, all 200"
   }
  ],
  "next_targets": [

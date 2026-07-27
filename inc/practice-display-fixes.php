@@ -207,3 +207,11 @@ function justice_theme_article_midfold( ?string $content ): string {
 	return justice_theme_inject_after_section( $content, $strip );
 }
 add_filter( 'the_content', 'justice_theme_article_midfold', 12 );
+
+/**
+ * Titles keep their literal hyphen. wptexturize converts " - " into an en dash
+ * in the H1, and the owner's standing order (2026-07-20) bans dash characters
+ * site-wide. The Yoast <title> is unfiltered and was already safe; this brings
+ * the visible H1 in line with it.
+ */
+remove_filter( 'the_title', 'wptexturize' );

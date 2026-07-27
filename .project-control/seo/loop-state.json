@@ -466,6 +466,27 @@
    },
    "map": "on /cyprus-lawyer/ the midfold sits 28,225 chars deep; /greece-lawyers/ has no map. Left alone per the owner (design pass later).",
    "verified": "element order after H1 is now h1 > p(opener) > toc > text > h2 on all four sampled pages, all 200"
+  },
+  {
+   "slug": "ROOTS: full-corpus cannibalization + strike-zone analysis",
+   "date": "2026-07-27",
+   "corpus": "ALL 10,813 query+page pairs from GSC, 28 days. Not samples.",
+   "ROOT_1_cannibalization": {
+    "measured": "778 queries served by 2+ of our pages; 22,961 impressions land on secondary pages",
+    "worst": "עורך דין גירושין itself: 942 imp split across three pages, all stuck at 53-83",
+    "already_healed": "/lawyer-divorce/ and /most-recommended-family-lawyer/ already 301 to the canonicals from earlier consolidation; GSC's window still shows their history",
+    "fixed_now": [
+     "12897 -> עורך דין גירושין מומלץ - עורכי דין מומלצים לענייני משפחה (searcher word order, keyword+synonym)",
+     "12264 -> עורכי הדין הפליליים המובילים בעולם - סקירה בינלאומית (dropped ובישראל, stops fighting the criminal pillar)",
+     "12259 -> שכר טרחת עורכי דין בעולם - השוואה בין מדינות (niched to its world-survey content)",
+     "20264 -> שכר טרחה עורך דין לפי תחום - טבלת מחירים (niched to per-field)",
+     "24137 -> מחירון שכר טרחה עורכי דין - התעריף המינימלי המומלץ ומחשבון (the tariff page now owns מחירון)",
+     "5 up-links: worldwide+famous -> criminal pillar; both fee pages -> tariff page; women-lawyer page -> divorce pillar"
+    ]
+   },
+   "ROOT_2_strike_zone": "201 queries at positions 4-15 with >=25 impressions and ZERO clicks, 11,518 impressions lost at the moment of choice. Top case /free-divorce-agreement-template/ (951imp @8.2) already carries a corrected title from an earlier cycle; the zero-click history predates it.",
+   "bug_fixed_on_the_way": "wptexturize converted the ' - ' separator into an en dash in the H1, violating the owner's site-wide dash ban. remove_filter('the_title','wptexturize') added; all five titles verified live with a plain hyphen.",
+   "verified": "all five titles + H1s fetched live and dash-clean; up-links added with revisions saved"
   }
  ],
  "next_targets": [

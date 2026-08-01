@@ -29,7 +29,7 @@ from typing import Any, Iterable, Mapping, Sequence
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGET_BASE_URL = "https://jus-tice.co.il"
-REPORT_SCHEMA_VERSION = 5
+REPORT_SCHEMA_VERSION = 6
 DEFAULT_REPORT_DIR = (
     ROOT
     / "reports"
@@ -50,7 +50,10 @@ QUARANTINED_PROFILE_PATHS_BY_TITLE = {
 CANONICAL_SURFACES = (
     "/mediation-divorce/",
     "/immigration-to-portugal/",
-    "/category/news/",
+    # Yoast removes the category base on this site. WordPress exposes /news/
+    # as term 505's native link; /category/news/ is its pre-existing redirect
+    # alias and is not the archive document whose canonical is under test.
+    "/news/",
     "/practice-areas/child-support/",
     "/practice-areas/family-law/",
 )
@@ -2638,19 +2641,82 @@ def find_baseline(explicit: Path | None, report_path: Path) -> Path:
     return candidates[-1]
 
 
-def load_baseline(path: Path, expected_base_url: str) -> dict[str, object]:
+def report_check_ids(checks: object) -> list[str]:
+    if not isinstance(checks, list):
+        raise VerificationError("the verification report has no checks array")
+    if not checks:
+        raise VerificationError("the verification report has an empty checks array")
+
+    check_ids: list[str] = []
+    for check in checks:
+        if not isinstance(check, dict):
+            raise VerificationError("the verification report has a malformed check")
+        check_id = check.get("id")
+        if not isinstance(check_id, str) or not check_id.strip():
+            raise VerificationError("the verification report has a check without an ID")
+        check_ids.append(check_id)
+
+    if len(check_ids) != len(set(check_ids)):
+        raise VerificationError("the verification report has duplicate check IDs")
+    return check_ids
+
+
+def values_equal_exact(left: object, right: object) -> bool:
+    """Compare JSON-compatible values without bool/int or int/float coercion."""
+
+    if type(left) is not type(right):
+        return False
+    if isinstance(left, dict):
+        return left.keys() == right.keys() and all(
+            values_equal_exact(left[key], right[key]) for key in left
+        )
+    if isinstance(left, list):
+        return len(left) == len(right) and all(
+            values_equal_exact(left_item, right_item)
+            for left_item, right_item in zip(left, right)
+        )
+    return left == right
+
+
+def load_baseline(
+    path: Path,
+    expected_base_url: str,
+    expected_configuration: Mapping[str, object],
+    expected_check_ids: Sequence[str],
+) -> dict[str, object]:
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
         raise VerificationError(f"could not read pre baseline: {error}") from None
     if not isinstance(value, dict) or value.get("expect") != "pre":
         raise VerificationError("the selected baseline is not a P0 pre report")
-    if value.get("schema_version") != REPORT_SCHEMA_VERSION:
+    schema_version = value.get("schema_version")
+    if type(schema_version) is not int or schema_version != REPORT_SCHEMA_VERSION:
         raise VerificationError("the selected baseline uses an obsolete report schema")
     if normalize_url(str(value.get("base_url") or "")) != normalize_url(expected_base_url):
         raise VerificationError("the pre baseline targets a different base URL")
+    baseline_configuration = value.get("configuration")
+    if not isinstance(baseline_configuration, dict):
+        raise VerificationError("the pre baseline has no configuration object")
+    dynamic_configuration_keys = {"env_file_found"}
+    baseline_contract = {
+        key: item
+        for key, item in baseline_configuration.items()
+        if key not in dynamic_configuration_keys
+    }
+    expected_contract = {
+        key: item
+        for key, item in expected_configuration.items()
+        if key not in dynamic_configuration_keys
+    }
+    if not values_equal_exact(baseline_contract, expected_contract):
+        raise VerificationError("the pre baseline uses a different verification contract")
     if not isinstance(value.get("observations"), dict):
         raise VerificationError("the pre baseline has no observations object")
+    if report_check_ids(value.get("checks")) != list(expected_check_ids):
+        raise VerificationError(
+            "the pre baseline uses a different ordered check-ID contract"
+        )
     return value
 
 
@@ -2842,17 +2908,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         report["base_url"] = config["WP_BASE_URL"]
         report["configuration"]["env_file_found"] = env_path is not None
 
-        baseline: dict[str, object] | None = None
-        baseline_path: Path | None = None
-        if args.expect == "post":
-            baseline_path = find_baseline(args.baseline, report_path)
-            baseline = load_baseline(baseline_path, config["WP_BASE_URL"])
-            report["baseline"] = {
-                "path": str(baseline_path),
-                "sha256": sha256_bytes(baseline_path.read_bytes()),
-                "generated_at_utc": baseline.get("generated_at_utc"),
-            }
-
         snippet_prefixes = tuple(
             dict.fromkeys((*KNOWN_TEMP_SNIPPET_PREFIXES, *args.snippet_prefix))
         )
@@ -2871,6 +2926,40 @@ def main(argv: Sequence[str] | None = None) -> int:
         report["configuration"]["strict_all_tmp_snippets"] = (
             args.strict_all_tmp_snippets
         )
+
+        expected_check_ids = report_check_ids(
+            build_checks(
+                {},
+                expect=args.expect,
+                required_plugin_version=args.required_plugin_version,
+                required_plugin_marker=args.required_plugin_marker,
+                required_live_theme=args.required_unchanged_live_theme,
+                required_live_theme_version=(
+                    args.required_unchanged_live_theme_version
+                ),
+                required_live_theme_marker=(
+                    args.required_unchanged_live_theme_marker
+                ),
+                baseline=None,
+                strict_all_tmp_snippets=args.strict_all_tmp_snippets,
+            )
+        )
+
+        baseline: dict[str, object] | None = None
+        baseline_path: Path | None = None
+        if args.expect == "post":
+            baseline_path = find_baseline(args.baseline, report_path)
+            baseline = load_baseline(
+                baseline_path,
+                config["WP_BASE_URL"],
+                report["configuration"],
+                expected_check_ids,
+            )
+            report["baseline"] = {
+                "path": str(baseline_path),
+                "sha256": sha256_bytes(baseline_path.read_bytes()),
+                "generated_at_utc": baseline.get("generated_at_utc"),
+            }
 
         client = WordPressClient(
             config["WP_BASE_URL"],
@@ -2899,6 +2988,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             baseline=baseline,
             strict_all_tmp_snippets=args.strict_all_tmp_snippets,
         )
+        current_check_ids = report_check_ids(checks)
+        if current_check_ids != expected_check_ids:
+            raise VerificationError(
+                "the current run produced a different ordered check-ID contract"
+            )
         report["checks"] = checks
         observed_failures = [check["id"] for check in checks if not check["passed"]]
         enforced_failures = [

@@ -417,11 +417,13 @@ function justice_theme_total_approved_review_stats(): array {
 	if ( post_type_exists( 'justice_lawyer' ) ) {
 		$lawyer_ids = get_posts(
 			array(
-				'post_type'      => 'justice_lawyer',
-				'post_status'    => 'publish',
-				'posts_per_page' => 500,
-				'fields'         => 'ids',
-				'no_found_rows'  => true,
+				'post_type'                     => 'justice_lawyer',
+				'post_status'                   => 'publish',
+				'posts_per_page'                => 500,
+				'fields'                        => 'ids',
+				'no_found_rows'                 => true,
+				'suppress_filters'              => false,
+				'justice_public_lawyer_listing' => true,
 				'meta_query'     => array(
 					array(
 						'key'     => 'review_count',
@@ -434,6 +436,13 @@ function justice_theme_total_approved_review_stats(): array {
 		);
 
 		foreach ( $lawyer_ids as $lawyer_id ) {
+			if (
+				! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+				|| ! justice_theme_lawyer_profile_is_public_approved( (int) $lawyer_id )
+			) {
+				continue;
+			}
+
 			$state = justice_theme_lawyer_reviews_public_state( (int) $lawyer_id );
 			if ( $state['show'] ) {
 				$stats['count']   += $state['count'];

@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 12
     steps:
       - name: Check out reviewed source
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           fetch-depth: 2
 
@@ -27,6 +27,17 @@ jobs:
         run: |
           set -euo pipefail
           git ls-files -z '*.php' | sort -z | xargs -0 -r -n1 php -l
+
+      - name: Enforce append-only release ZIPs
+        run: |
+          set -euo pipefail
+          while IFS=$'\t' read -r status path; do
+            test -z "$status" && continue
+            if [ "$status" != "A" ]; then
+              echo "Versioned release artifact is not append-only: $status $path" >&2
+              exit 1
+            fi
+          done < <(git diff --name-status HEAD^ HEAD -- 'plugin-dist/*.zip')
 
       - name: Verify the tracked Justice Ops release artifact
         run: |
@@ -51,3 +62,68 @@ jobs:
           test -f /tmp/justice-ops-artifact/justice-ops/justice-ops.php
           grep -q "Version: $VERSION" /tmp/justice-ops-artifact/justice-ops/justice-ops.php
           find /tmp/justice-ops-artifact/justice-ops -type f -name '*.php' -print0 | sort -z | xargs -0 -r -n1 php -l
+
+      - name: Validate Justice SEO Recovery P0 source and artifact
+        run: |
+          set -euo pipefail
+          php tools/check-justice-seo-recovery-p0.php
+          VERSION="$(php -r '$s=file_get_contents("justice-seo-recovery-p0/justice-seo-recovery-p0.php"); preg_match("/^\\s*\\*\\s*Version:\\s*(\\S+)/m", $s, $m); echo $m[1] ?? "";')"
+          test -n "$VERSION"
+          ZIP="plugin-dist/justice-seo-recovery-p0-$VERSION.zip"
+          git ls-files --error-unmatch "$ZIP"
+          test -f "$ZIP"
+          test ! -L "$ZIP"
+          test "$(git ls-files -s "$ZIP" | awk '{print $1}')" = "100644"
+          mapfile -t ADDED_P0_ZIPS < <(git diff --diff-filter=A --name-only HEAD^ HEAD -- 'plugin-dist/justice-seo-recovery-p0-*.zip')
+          for ADDED_ZIP in "${ADDED_P0_ZIPS[@]}"; do
+            test "$ADDED_ZIP" = "$ZIP" || {
+              echo "Unexpected P0 release artifact added: $ADDED_ZIP" >&2
+              exit 1
+            }
+          done
+          git ls-files --error-unmatch scripts/deploy/build-seo-recovery-p0-zip.py
+          git ls-files --error-unmatch tools/check-justice-seo-recovery-p0.php
+          git ls-files --error-unmatch tools/verify-seo-recovery-p0-live.py
+          git ls-files --error-unmatch tools/wp_deploy_seo_recovery_p0.py
+          python3 -m py_compile \
+            scripts/deploy/build-seo-recovery-p0-zip.py \
+            tools/verify-seo-recovery-p0-live.py \
+            tools/wp_deploy_seo_recovery_p0.py
+          python3 tools/wp_deploy_seo_recovery_p0.py --self-test
+          python3 scripts/deploy/build-seo-recovery-p0-zip.py "$VERSION"
+          git diff --exit-code -- "$ZIP"
+          rm -rf /tmp/justice-seo-recovery-p0-artifact
+          mkdir -p /tmp/justice-seo-recovery-p0-artifact
+          unzip -q "$ZIP" -d /tmp/justice-seo-recovery-p0-artifact
+          php -l /tmp/justice-seo-recovery-p0-artifact/justice-seo-recovery-p0/justice-seo-recovery-p0.php
+          python3 - "$ZIP" <<'PY'
+          from pathlib import Path
+          import sys
+          import zipfile
+
+          path = sys.argv[1]
+          expected = "justice-seo-recovery-p0/justice-seo-recovery-p0.php"
+          source = Path(expected).read_bytes().replace(b"\r\n", b"\n")
+          with zipfile.ZipFile(path) as archive:
+              infos = archive.infolist()
+              assert len(infos) == 1, "P0 ZIP must contain exactly one file"
+              info = infos[0]
+              assert info.filename == expected, "P0 ZIP member path changed"
+              assert info.date_time == (1980, 1, 1, 0, 0, 0), "P0 ZIP timestamp varies"
+              assert info.create_system == 3, "P0 ZIP is missing Unix metadata"
+              assert (info.external_attr >> 16) == 0o100644, "P0 ZIP mode changed"
+              assert info.compress_type == zipfile.ZIP_STORED, "P0 ZIP must be stored for cross-platform determinism"
+              assert archive.read(expected) == source, "P0 ZIP member differs from LF-normalized reviewed source"
+          print(f"PASS: inspected {path}")
+          PY
+          JUSTICE_P0_PLUGIN_FILE=/tmp/justice-seo-recovery-p0-artifact/justice-seo-recovery-p0/justice-seo-recovery-p0.php \
+            php tools/check-justice-seo-recovery-p0.php
+
+      - name: Test P0 on declared PHP 7.4 floor
+        run: |
+          set -euo pipefail
+          docker run --rm \
+            -v "$GITHUB_WORKSPACE:/workspace" \
+            -w /workspace \
+            php:7.4.33-cli-bullseye@sha256:620a6b9f4d4feef2210026172570465e9d0c1de79766418d3affd09190a7fda5 \
+            sh -lc 'php -l justice-seo-recovery-p0/justice-seo-recovery-p0.php && php tools/check-justice-seo-recovery-p0.php'

@@ -23,12 +23,13 @@ while ( have_posts() ) :
 	$lawyers = null;
 	if ( post_type_exists( 'justice_lawyer' ) ) {
 		$lawyer_args = array(
-			'post_type'      => 'justice_lawyer',
-			'post_status'    => 'publish',
-			'posts_per_page' => 3,
-			'orderby'        => 'meta_value_num',
-			'meta_key'       => 'priority_score',
-			'order'          => 'DESC',
+			'post_type'                     => 'justice_lawyer',
+			'post_status'                   => 'publish',
+			'posts_per_page'                => 3,
+			'orderby'                       => 'meta_value_num',
+			'meta_key'                      => 'priority_score',
+			'order'                         => 'DESC',
+			'justice_public_lawyer_listing' => true,
 		);
 
 		if ( $lawyer_area && taxonomy_exists( 'practice-areas' ) ) {
@@ -41,7 +42,18 @@ while ( have_posts() ) :
 			);
 		}
 
-		$lawyers = new WP_Query( $lawyer_args );
+		$lawyers        = new WP_Query( $lawyer_args );
+		$lawyers->posts = array_values(
+			array_filter(
+				$lawyers->posts,
+				static function ( $candidate ): bool {
+					return $candidate instanceof WP_Post
+						&& function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+						&& justice_theme_lawyer_profile_is_public_approved( (int) $candidate->ID );
+				}
+			)
+		);
+		$lawyers->post_count = count( $lawyers->posts );
 	}
 
 	$articles = null;

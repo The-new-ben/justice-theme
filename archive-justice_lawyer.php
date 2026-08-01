@@ -54,9 +54,10 @@ $filter_area_tax_slug = $area_taxonomy_slug_map[ $filter_area ] ?? $filter_area;
 
 // Build query
 $args = array(
-	'post_type'      => 'justice_lawyer',
-	'posts_per_page' => 24,
-	'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+	'post_type'                     => 'justice_lawyer',
+	'posts_per_page'                => 24,
+	'paged'                         => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+	'justice_public_lawyer_listing' => true,
 	'meta_query'     => array(
 		'relation' => 'OR',
 		array(
@@ -111,6 +112,7 @@ $candidate_args['fields']         = 'ids';
 $candidate_args['posts_per_page'] = (int) apply_filters( 'justice_theme_lawyer_directory_approval_scan_limit', -1 );
 $candidate_args['paged']          = 1;
 $candidate_args['no_found_rows']  = true;
+$candidate_args['suppress_filters'] = false;
 
 unset( $candidate_args['meta_query'], $candidate_args['meta_key'], $candidate_args['orderby'], $candidate_args['order'] );
 
@@ -446,13 +448,15 @@ $approved_count = (int) $lawyers->found_posts;
 				<?php
 				// Cross-area fallback: show real approved professionals instead of a wall.
 				$justice_fallback_ids = get_posts( array(
-					'post_type'      => 'justice_lawyer',
-					'post_status'    => 'publish',
-					'posts_per_page' => 12,
-					'fields'         => 'ids',
-					'no_found_rows'  => true,
-					'orderby'        => 'modified',
-					'order'          => 'DESC',
+					'post_type'                     => 'justice_lawyer',
+					'post_status'                   => 'publish',
+					'posts_per_page'                => 12,
+					'fields'                        => 'ids',
+					'no_found_rows'                 => true,
+					'orderby'                       => 'modified',
+					'order'                         => 'DESC',
+					'suppress_filters'              => false,
+					'justice_public_lawyer_listing' => true,
 				) );
 				$justice_fallback_shown = 0;
 				?>
@@ -464,7 +468,10 @@ $approved_count = (int) $lawyers->found_posts;
 							if ( $justice_fallback_shown >= 3 ) {
 								break;
 							}
-							if ( function_exists( 'justice_theme_lawyer_profile_is_public_approved' ) && ! justice_theme_lawyer_profile_is_public_approved( (int) $justice_fb_id ) ) {
+							if (
+								! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+								|| ! justice_theme_lawyer_profile_is_public_approved( (int) $justice_fb_id )
+							) {
 								continue;
 							}
 							$justice_fb_post = get_post( (int) $justice_fb_id );

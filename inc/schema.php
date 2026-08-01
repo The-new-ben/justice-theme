@@ -339,6 +339,8 @@ function justice_theme_collection_page_schema() {
 		'post_type'      => 'justice_lawyer',
 		'posts_per_page' => 5,
 		'post_status'    => 'publish',
+		'suppress_filters' => false,
+		'justice_public_lawyer_listing' => true,
 		'tax_query'      => array(
 			array(
 				'taxonomy' => 'practice-areas',
@@ -350,7 +352,16 @@ function justice_theme_collection_page_schema() {
 	$lawyers = get_posts( $lawyer_args );
 
 	$list_items = array();
-	foreach ( $lawyers as $i => $lawyer ) {
+	$position   = 0;
+	foreach ( $lawyers as $lawyer ) {
+		if (
+			! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+			|| ! justice_theme_lawyer_profile_is_public_approved( (int) $lawyer->ID )
+		) {
+			continue;
+		}
+
+		$position++;
 		$firm_name = get_post_meta( $lawyer->ID, 'firm_name', true );
 		$phone     = get_post_meta( $lawyer->ID, 'phone', true );
 		$address   = get_post_meta( $lawyer->ID, 'office_address', true );
@@ -363,7 +374,7 @@ function justice_theme_collection_page_schema() {
 		}
 		$item      = array(
 			'@type'    => 'ListItem',
-			'position' => $i + 1,
+			'position' => $position,
 			'item'     => array(
 				'@type'       => 'LegalService',
 				'name'        => $lawyer_schema_name,

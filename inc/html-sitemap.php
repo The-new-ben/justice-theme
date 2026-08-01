@@ -46,18 +46,22 @@ function justice_theme_html_sitemap_get_post_ids( string $post_type, int $limit 
 		return array();
 	}
 
-	$post_ids = get_posts(
-		array(
-			'post_type'        => $post_type,
-			'post_status'      => 'publish',
-			'posts_per_page'   => $limit,
-			'orderby'          => 'title',
-			'order'            => 'ASC',
-			'fields'           => 'ids',
-			'no_found_rows'    => true,
-			'suppress_filters' => false,
-		)
+	$args = array(
+		'post_type'        => $post_type,
+		'post_status'      => 'publish',
+		'posts_per_page'   => $limit,
+		'orderby'          => 'title',
+		'order'            => 'ASC',
+		'fields'           => 'ids',
+		'no_found_rows'    => true,
+		'suppress_filters' => false,
 	);
+
+	if ( 'justice_lawyer' === $post_type ) {
+		$args['justice_public_lawyer_listing'] = true;
+	}
+
+	$post_ids = get_posts( $args );
 
 	return array_values( array_map( 'intval', is_array( $post_ids ) ? $post_ids : array() ) );
 }
@@ -278,7 +282,7 @@ function justice_theme_render_html_sitemap_page(): void {
 		static function ( int $post_id ): bool {
 			return function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
 				? justice_theme_lawyer_profile_is_public_approved( $post_id )
-				: true;
+				: false;
 		}
 	);
 	$practice_terms = justice_theme_html_sitemap_get_terms( 'practice-areas' );

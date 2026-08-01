@@ -15,9 +15,10 @@ $lawyers       = null;
 
 if ( $city_slug && $practice_slug && post_type_exists( 'justice_lawyer' ) ) {
 	$lawyers = new WP_Query( array(
-		'post_type'      => 'justice_lawyer',
-		'post_status'    => 'publish',
-		'posts_per_page' => 6,
+		'post_type'                     => 'justice_lawyer',
+		'post_status'                   => 'publish',
+		'posts_per_page'                => 6,
+		'justice_public_lawyer_listing' => true,
 		'tax_query'      => array(
 			'relation' => 'AND',
 			array(
@@ -32,6 +33,18 @@ if ( $city_slug && $practice_slug && post_type_exists( 'justice_lawyer' ) ) {
 			),
 		),
 	) );
+
+	$lawyers->posts = array_values(
+		array_filter(
+			$lawyers->posts,
+			static function ( $candidate ): bool {
+				return $candidate instanceof WP_Post
+					&& function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+					&& justice_theme_lawyer_profile_is_public_approved( (int) $candidate->ID );
+			}
+		)
+	);
+	$lawyers->post_count = count( $lawyers->posts );
 }
 
 $city_name     = $city_term && ! is_wp_error( $city_term ) ? $city_term->name : '';

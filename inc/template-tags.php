@@ -413,7 +413,12 @@ function justice_theme_get_connected_lawyer_by_slug( string $slug ): ?WP_Post {
 	}
 
 	$lawyer = get_page_by_path( $slug, OBJECT, 'justice_lawyer' );
-	if ( $lawyer instanceof WP_Post && 'publish' === get_post_status( $lawyer ) ) {
+	if (
+		$lawyer instanceof WP_Post
+		&& 'publish' === get_post_status( $lawyer )
+		&& function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+		&& justice_theme_lawyer_profile_is_public_approved( (int) $lawyer->ID )
+	) {
 		return $lawyer;
 	}
 
@@ -428,22 +433,36 @@ function justice_theme_get_connected_lawyer_by_slug( string $slug ): ?WP_Post {
 
 	foreach ( $legacy_slugs as $legacy_slug ) {
 		$lawyer = get_page_by_path( $legacy_slug, OBJECT, 'justice_lawyer' );
-		if ( $lawyer instanceof WP_Post && 'publish' === get_post_status( $lawyer ) ) {
+		if (
+			$lawyer instanceof WP_Post
+			&& 'publish' === get_post_status( $lawyer )
+			&& function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+			&& justice_theme_lawyer_profile_is_public_approved( (int) $lawyer->ID )
+		) {
 			return $lawyer;
 		}
 	}
 
 	$candidates = get_posts(
 		array(
-			'post_type'      => 'justice_lawyer',
-			'post_status'    => 'publish',
-			's'              => rawurldecode( '%D7%9E%D7%90%D7%99%D7%94%20%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92' ),
-			'posts_per_page' => 5,
-			'no_found_rows'  => true,
+			'post_type'                     => 'justice_lawyer',
+			'post_status'                   => 'publish',
+			's'                             => rawurldecode( '%D7%9E%D7%90%D7%99%D7%94%20%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92' ),
+			'posts_per_page'                => 5,
+			'no_found_rows'                 => true,
+			'suppress_filters'              => false,
+			'justice_public_lawyer_listing' => true,
 		)
 	);
 
 	foreach ( $candidates as $candidate ) {
+		if (
+			! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+			|| ! justice_theme_lawyer_profile_is_public_approved( (int) $candidate->ID )
+		) {
+			continue;
+		}
+
 		$title = get_the_title( $candidate );
 
 		if (

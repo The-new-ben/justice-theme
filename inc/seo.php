@@ -1528,14 +1528,10 @@ add_filter( 'wpseo_canonical', 'justice_theme_filter_directory_canonical' );
 add_filter( 'aioseo_canonical_url', 'justice_theme_filter_directory_canonical' );
 
 /**
- * Ensure robots.txt references our REST API sitemap.
+ * Ensure robots.txt advertises the verified Yoast sitemap index.
  *
- * On uPress, nginx 301-redirects all .xml files to the homepage.
- * Yoast's sitemap_index.xml and WordPress core's wp-sitemap.xml
- * are both unreachable. Our REST API endpoint is the only working
- * sitemap delivery method.
- *
- * GSC fully supports REST API endpoints as sitemap URLs.
+ * The REST sitemap remains an auxiliary diagnostic surface. Search engines
+ * receive one stable sitemap directive for the direct, valid Yoast index.
  *
  * @param string $output Robots.txt output.
  * @param bool   $public Whether search engines are allowed.
@@ -1549,25 +1545,13 @@ function justice_theme_robots_sitemap_directive( ?string $output, ?bool $public 
 		return $output;
 	}
 
-	// Our REST API sitemap is the only one that works on uPress.
+	// Keep a single authoritative directive and remove superseded variants.
 	$correct_sitemap = justice_theme_normalize_public_url(
-		home_url( '/wp-json/justice/v1/sitemap' )
+		home_url( '/sitemap_index.xml' )
 	);
-
-	// Remove any stale sitemap references (old .xml paths).
-	$stale_patterns = array(
-		'sitemap_index.xml',
-		'sitemap.xml',
-		'justice-sitemap.xml',
-		'wp-sitemap.xml',
-	);
-	foreach ( $stale_patterns as $stale ) {
-		$output = preg_replace( '/Sitemap:\s*[^\n]*' . preg_quote( $stale, '/' ) . '[^\n]*\n?/i', '', $output );
-	}
-
-	// Don't duplicate if already present.
-	if ( false !== stripos( $output, 'justice/v1/sitemap' ) ) {
-		return $output;
+	$without_sitemaps = preg_replace( '/^\s*Sitemap:\s*\S+\s*$/mi', '', $output );
+	if ( is_string( $without_sitemaps ) ) {
+		$output = $without_sitemaps;
 	}
 
 	$output = rtrim( $output );
@@ -1660,8 +1644,8 @@ add_filter( 'wp_sitemaps_users_entry', 'justice_theme_normalize_core_sitemap_ent
 /**
  * Normalize SEO-plugin sitemap URL entries to the public HTTPS origin.
  *
- * Yoast sitemap is disabled on this site (uPress nginx blocks .xml),
- * but these hooks remain as safety nets. Rank Math hooks removed.
+ * Yoast is the primary sitemap system. These hooks keep every emitted
+ * first-party location on the canonical public HTTPS origin.
  */
 add_filter( 'wpseo_xml_sitemap_post_url', 'justice_theme_normalize_sitemap_url_string', 20 );
 add_filter( 'wpseo_xml_sitemap_term_url', 'justice_theme_normalize_sitemap_url_string', 20 );

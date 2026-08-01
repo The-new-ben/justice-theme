@@ -39,12 +39,13 @@ $practice_area_seo = $practice_area_seo_overrides[ $term_slug ] ?? array();
 $lawyers = null;
 if ( post_type_exists( 'justice_lawyer' ) && $term_slug ) {
 	$lawyer_candidates = new WP_Query( array(
-		'post_type'      => 'justice_lawyer',
-		'post_status'    => 'publish',
-		'posts_per_page' => 9,
-		'orderby'        => 'meta_value_num',
-		'meta_key'       => 'priority_score',
-		'order'          => 'DESC',
+		'post_type'                     => 'justice_lawyer',
+		'post_status'                   => 'publish',
+		'posts_per_page'                => 9,
+		'orderby'                       => 'meta_value_num',
+		'meta_key'                      => 'priority_score',
+		'order'                         => 'DESC',
+		'justice_public_lawyer_listing' => true,
 		'tax_query'      => array(
 			array(
 				'taxonomy' => 'practice-areas',
@@ -66,8 +67,6 @@ if ( post_type_exists( 'justice_lawyer' ) && $term_slug ) {
 				}
 			}
 		}
-	} else {
-		$approved_posts = array_slice( $lawyer_candidates->posts, 0, 3 );
 	}
 
 	$lawyers = $lawyer_candidates;

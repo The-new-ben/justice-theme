@@ -11,11 +11,9 @@
  *   /wp-json/justice/v1/sitemap/lawyers
  *   /wp-json/justice/v1/sitemap/taxonomies
  *
- * The uPress nginx config 301-redirects .xml files to the homepage before
- * PHP can handle them, so Yoast's standard sitemap_index.xml is unreachable.
- * This REST-based sitemap is the only delivery method that works.
- *
- * robots.txt points to: https://jus-tice.co.il/wp-json/justice/v1/sitemap
+ * This REST sitemap is an auxiliary delivery surface. Yoast remains the
+ * primary sitemap system at /sitemap_index.xml and is the sitemap advertised
+ * in robots.txt. Both surfaces must apply the same public-profile trust gate.
  *
  * @package JusticeTheme
  */
@@ -46,19 +44,6 @@ function justice_theme_register_sitemap_rest_routes() {
 	}
 }
 add_action( 'rest_api_init', 'justice_theme_register_sitemap_rest_routes' );
-
-/**
- * Disable Yoast SEO's built-in XML sitemap.
- *
- * Yoast generates sitemaps at /sitemap_index.xml, /post-sitemap.xml, etc.
- * On uPress, nginx 301-redirects all .xml files to the homepage, making
- * Yoast's sitemaps unreachable. Additionally, the "All 404 Redirect to
- * Homepage" plugin intercepts Yoast's ?sitemap=1 query parameter.
- *
- * We disable Yoast's sitemap to prevent confusion and serve our own
- * REST-based sitemap that bypasses nginx entirely.
- */
-add_filter( 'wpseo_sitemaps_enabled', '__return_false' );
 
 /**
  * Also disable WordPress core sitemaps (/wp-sitemap.xml) to avoid duplicates.
@@ -175,14 +160,23 @@ function justice_theme_render_sitemap_lawyers() {
 	$xml = justice_theme_sitemap_urlset_header();
 
 	$lawyers = get_posts( array(
-		'post_type'      => 'justice_lawyer',
-		'post_status'    => 'publish',
-		'posts_per_page' => 500,
-		'orderby'        => 'modified',
-		'order'          => 'DESC',
+		'post_type'                    => 'justice_lawyer',
+		'post_status'                  => 'publish',
+		'posts_per_page'               => 500,
+		'orderby'                      => 'modified',
+		'order'                        => 'DESC',
+		'suppress_filters'             => false,
+		'justice_public_lawyer_listing' => true,
 	) );
 
 	foreach ( $lawyers as $lawyer ) {
+		if (
+			! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+			|| ! justice_theme_lawyer_profile_is_public_approved( (int) $lawyer->ID )
+		) {
+			continue;
+		}
+
 		$permalink = get_permalink( $lawyer );
 		$modified  = get_the_modified_date( 'Y-m-d\TH:i:s+00:00', $lawyer );
 		$xml .= justice_theme_sitemap_url_entry( $permalink, '0.7', 'monthly', $modified );

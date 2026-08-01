@@ -87,22 +87,23 @@ $showcase_hold_count = 0;
 if ( post_type_exists( 'justice_lawyer' ) ) {
 	$candidate_ids = get_posts(
 		array(
-			'post_type'        => 'justice_lawyer',
-			'post_status'      => 'publish',
-			'posts_per_page'   => (int) apply_filters( 'justice_theme_homepage_lawyer_showcase_scan_limit', 72 ),
-			'fields'           => 'ids',
-			'no_found_rows'    => true,
-			'suppress_filters' => true,
-			'orderby'          => 'modified',
-			'order'            => 'DESC',
+			'post_type'                     => 'justice_lawyer',
+			'post_status'                   => 'publish',
+			'posts_per_page'                => (int) apply_filters( 'justice_theme_homepage_lawyer_showcase_scan_limit', 72 ),
+			'fields'                        => 'ids',
+			'no_found_rows'                 => true,
+			'suppress_filters'              => false,
+			'orderby'                       => 'modified',
+			'order'                         => 'DESC',
+			'justice_public_lawyer_listing' => true,
 		)
 	);
 
 	foreach ( $candidate_ids as $candidate_id ) {
 		$candidate_id = (int) $candidate_id;
 		if (
-			function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
-			&& ! justice_theme_lawyer_profile_is_public_approved( $candidate_id )
+			! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+			|| ! justice_theme_lawyer_profile_is_public_approved( $candidate_id )
 		) {
 			continue;
 		}

@@ -462,13 +462,15 @@ function justice_theme_matched_lawyers_callback( WP_REST_Request $request ) {
 
 	$candidate_ids = get_posts(
 		array(
-			'post_type'      => 'justice_lawyer',
-			'post_status'    => 'publish',
-			'posts_per_page' => 12,
-			'fields'         => 'ids',
-			'no_found_rows'  => true,
-			'orderby'        => 'modified',
-			'order'          => 'DESC',
+			'post_type'                     => 'justice_lawyer',
+			'post_status'                   => 'publish',
+			'posts_per_page'                => 12,
+			'fields'                        => 'ids',
+			'no_found_rows'                 => true,
+			'orderby'                       => 'modified',
+			'order'                         => 'DESC',
+			'suppress_filters'              => false,
+			'justice_public_lawyer_listing' => true,
 			'tax_query'      => array(
 				array(
 					'taxonomy' => 'practice-areas',
@@ -484,7 +486,10 @@ function justice_theme_matched_lawyers_callback( WP_REST_Request $request ) {
 	foreach ( $candidate_ids as $lawyer_id ) {
 		$lawyer_id = (int) $lawyer_id;
 
-		if ( function_exists( 'justice_theme_lawyer_profile_is_public_approved' ) && ! justice_theme_lawyer_profile_is_public_approved( $lawyer_id ) ) {
+		if (
+			! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+			|| ! justice_theme_lawyer_profile_is_public_approved( $lawyer_id )
+		) {
 			continue;
 		}
 

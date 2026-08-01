@@ -277,14 +277,16 @@ function justice_theme_map_offices_geojson() {
 	if ( post_type_exists( 'justice_lawyer' ) ) {
 		$lawyer_ids = get_posts(
 			array(
-				'post_type'      => 'justice_lawyer',
-				'post_status'    => 'publish',
+				'post_type'                     => 'justice_lawyer',
+				'post_status'                   => 'publish',
 				// 500 silently hid half the map once the 2026-07 index import
 				// pushed the geocoded pool to ~970. justice-ops/map-feed-v3.php
 				// overrides this route live; this is the theme catching up.
-				'posts_per_page' => -1,
-				'fields'         => 'ids',
-				'no_found_rows'  => true,
+				'posts_per_page'                => -1,
+				'fields'                        => 'ids',
+				'no_found_rows'                 => true,
+				'suppress_filters'              => false,
+				'justice_public_lawyer_listing' => true,
 				'meta_query'     => array(
 					array(
 						'key'     => 'office_lat',
@@ -297,7 +299,10 @@ function justice_theme_map_offices_geojson() {
 		foreach ( $lawyer_ids as $lawyer_id ) {
 			$lawyer_id = (int) $lawyer_id;
 
-			if ( function_exists( 'justice_theme_lawyer_profile_is_public_approved' ) && ! justice_theme_lawyer_profile_is_public_approved( $lawyer_id ) ) {
+			if (
+				! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+				|| ! justice_theme_lawyer_profile_is_public_approved( $lawyer_id )
+			) {
 				continue;
 			}
 

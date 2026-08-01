@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only pre/post acceptance verifier for the SEO Recovery P0 release.
+"""Read-only pre/post acceptance verifier for the plugin-only SEO Recovery P0 release.
 
 The verifier reads WordPress credentials from a local .env file, never writes
 them to output, and performs only GET and OPTIONS requests against the
@@ -29,7 +29,7 @@ from typing import Any, Iterable, Mapping, Sequence
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGET_BASE_URL = "https://jus-tice.co.il"
-REPORT_SCHEMA_VERSION = 4
+REPORT_SCHEMA_VERSION = 5
 DEFAULT_REPORT_DIR = (
     ROOT
     / "reports"
@@ -113,12 +113,12 @@ DIRECT_REDIRECT_REPAIRS = (
 )
 
 DEFAULT_HEALTH_ROUTE = "justice-seo-recovery/v1/healthcheck"
-DEFAULT_EXPECTED_VERSION = "0.1.0"
-DEFAULT_EXPECTED_MARKER = "p0-20260801"
+DEFAULT_REQUIRED_PLUGIN_VERSION = "0.1.1"
+DEFAULT_REQUIRED_PLUGIN_MARKER = "p0-plugin-only-20260801-v2"
 DEFAULT_THEME_HEALTH_ROUTE = "justice/v1/healthcheck"
-DEFAULT_EXPECTED_THEME = "justice-theme"
-DEFAULT_EXPECTED_THEME_VERSION = "2.23.1"
-DEFAULT_EXPECTED_THEME_MARKER = "2026-08-01-seo-recovery-p0-v1"
+DEFAULT_REQUIRED_LIVE_THEME = "justice-theme"
+DEFAULT_REQUIRED_LIVE_THEME_VERSION = "2.23.0"
+DEFAULT_REQUIRED_LIVE_THEME_MARKER = "2026-07-06-home-keywords-upperfold-v1"
 EXPECTED_ROBOTS_SITEMAP_URL = f"{TARGET_BASE_URL}/sitemap_index.xml"
 
 KNOWN_TEMP_SNIPPET_PREFIXES = (
@@ -1265,6 +1265,7 @@ def health_observation(
         json_error = str(error)
     return {
         "request": result.summary(),
+        "authenticated": False,
         "version": str(value.get("version") or ""),
         "marker": str(value.get("marker") or ""),
         "response_fields": sorted(str(key) for key in value),
@@ -1838,11 +1839,11 @@ def build_checks(
     observations: Mapping[str, object],
     *,
     expect: str,
-    expected_version: str,
-    expected_marker: str,
-    expected_theme: str,
-    expected_theme_version: str,
-    expected_theme_marker: str,
+    required_plugin_version: str,
+    required_plugin_marker: str,
+    required_live_theme: str,
+    required_live_theme_version: str,
+    required_live_theme_marker: str,
     baseline: Mapping[str, object] | None,
     strict_all_tmp_snippets: bool,
 ) -> list[dict[str, object]]:
@@ -1900,23 +1901,24 @@ def build_checks(
         == theme_health_request.get("final_url")
         and theme_health_request.get("requested_url")
         == f"{TARGET_BASE_URL}/wp-json/{DEFAULT_THEME_HEALTH_ROUTE}"
-        and theme_health.get("theme") == expected_theme
-        and theme_health.get("theme_version") == expected_theme_version
-        and theme_health.get("deploy_marker") == expected_theme_marker
+        and theme_health.get("theme") == required_live_theme
+        and theme_health.get("theme_version") == required_live_theme_version
+        and theme_health.get("deploy_marker") == required_live_theme_marker
     )
     add_check(
         checks,
         "public_theme_health_version_and_marker",
         theme_health_ok,
         {
+            "precondition": "live_theme_must_remain_unchanged",
             "request": theme_health_request,
             "authenticated": theme_health.get("authenticated"),
             "theme": theme_health.get("theme"),
             "theme_version": theme_health.get("theme_version"),
             "deploy_marker": theme_health.get("deploy_marker"),
-            "expected_theme": expected_theme,
-            "expected_theme_version": expected_theme_version,
-            "expected_theme_marker": expected_theme_marker,
+            "required_unchanged_live_theme": required_live_theme,
+            "required_unchanged_live_theme_version": required_live_theme_version,
+            "required_unchanged_live_theme_marker": required_live_theme_marker,
         },
         enforced=enforced,
     )
@@ -1994,18 +1996,35 @@ def build_checks(
     health = observations.get("health")
     health = health if isinstance(health, dict) else {}
     health_request = health.get("request") if isinstance(health.get("request"), dict) else {}
+    plugin_health_ok = (
+        health.get("authenticated") is False
+        and health_request.get("status") == 200
+        and health_request.get("redirects") == []
+        and health_request.get("transport") == "pretty"
+        and health_request.get("pretty_preflight_status") is None
+        and health_request.get("requested_url") == health_request.get("final_url")
+        and health_request.get("requested_url")
+        == f"{TARGET_BASE_URL}/wp-json/{DEFAULT_HEALTH_ROUTE}"
+        and str(health_request.get("content_type") or "")
+        .lower()
+        .startswith("application/json")
+        and health.get("json_error") == ""
+        and health.get("version") == required_plugin_version
+        and health.get("marker") == required_plugin_marker
+    )
     add_check(
         checks,
         "p0_health_version_and_marker",
-        health_request.get("status") == 200
-        and health.get("version") == expected_version
-        and health.get("marker") == expected_marker,
+        plugin_health_ok,
         {
-            "status": health_request.get("status"),
+            "contract": "required_plugin_must_be_active",
+            "request": health_request,
+            "authenticated": health.get("authenticated"),
             "version": health.get("version"),
             "marker": health.get("marker"),
-            "expected_version": expected_version,
-            "expected_marker": expected_marker,
+            "required_plugin_version": required_plugin_version,
+            "required_plugin_marker": required_plugin_marker,
+            "json_error": health.get("json_error"),
         },
         enforced=enforced,
     )
@@ -2370,7 +2389,7 @@ def build_checks(
         canonicals = canonicals if isinstance(canonicals, list) else []
         og_urls = og_urls if isinstance(og_urls, list) else []
         passed = (
-            request_is_direct_200(surface)
+            request_is_exact_direct_200(surface)
             and canonicals == [expected_url]
             and og_urls == [expected_url]
         )
@@ -2397,7 +2416,7 @@ def build_checks(
             checks,
             "canonical_surface_excludes_quarantined_profiles_"
             + re.sub(r"[^a-z0-9]+", "_", path.lower()).strip("_"),
-            request_is_direct_200(surface) and not bad_ids,
+            request_is_exact_direct_200(surface) and not bad_ids,
             {
                 "path": path,
                 "quarantined_references": bad_ids,
@@ -2427,7 +2446,7 @@ def build_checks(
             checks,
             "direct_200_self_canonical_"
             + re.sub(r"[^a-z0-9]+", "_", path.lower()).strip("_"),
-            request_is_direct_200(surface) and canonicals == [expected_url],
+            request_is_exact_direct_200(surface) and canonicals == [expected_url],
             {
                 "path": path,
                 "expected_url": expected_url,
@@ -2647,28 +2666,57 @@ def save_report(path: Path, report: Mapping[str, object]) -> None:
 
 def parse_args(argv: Sequence[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Record or enforce live acceptance for the SEO Recovery P0 release.",
+        description=(
+            "Record or enforce live acceptance for the plugin-only SEO Recovery "
+            "P0 release while requiring the live theme to remain unchanged."
+        ),
     )
     parser.add_argument("--expect", choices=("pre", "post"), required=True)
     parser.add_argument("--env-file", type=Path)
     parser.add_argument("--base-url")
     parser.add_argument("--report", type=Path)
     parser.add_argument("--baseline", type=Path)
-    parser.add_argument("--health-route", default=DEFAULT_HEALTH_ROUTE)
-    parser.add_argument("--expected-version", default=DEFAULT_EXPECTED_VERSION)
-    parser.add_argument("--expected-marker", default=DEFAULT_EXPECTED_MARKER)
     parser.add_argument(
+        "--plugin-health-route",
+        "--health-route",
+        dest="plugin_health_route",
+        default=DEFAULT_HEALTH_ROUTE,
+    )
+    parser.add_argument(
+        "--required-plugin-version",
+        "--expected-version",
+        dest="required_plugin_version",
+        default=DEFAULT_REQUIRED_PLUGIN_VERSION,
+    )
+    parser.add_argument(
+        "--required-plugin-marker",
+        "--expected-marker",
+        dest="required_plugin_marker",
+        default=DEFAULT_REQUIRED_PLUGIN_MARKER,
+    )
+    parser.add_argument(
+        "--unchanged-live-theme-health-route",
         "--theme-health-route",
+        dest="unchanged_live_theme_health_route",
         default=DEFAULT_THEME_HEALTH_ROUTE,
     )
-    parser.add_argument("--expected-theme", default=DEFAULT_EXPECTED_THEME)
     parser.add_argument(
-        "--expected-theme-version",
-        default=DEFAULT_EXPECTED_THEME_VERSION,
+        "--required-unchanged-live-theme",
+        "--expected-theme",
+        dest="required_unchanged_live_theme",
+        default=DEFAULT_REQUIRED_LIVE_THEME,
     )
     parser.add_argument(
+        "--required-unchanged-live-theme-version",
+        "--expected-theme-version",
+        dest="required_unchanged_live_theme_version",
+        default=DEFAULT_REQUIRED_LIVE_THEME_VERSION,
+    )
+    parser.add_argument(
+        "--required-unchanged-live-theme-marker",
         "--expected-theme-marker",
-        default=DEFAULT_EXPECTED_THEME_MARKER,
+        dest="required_unchanged_live_theme_marker",
+        default=DEFAULT_REQUIRED_LIVE_THEME_MARKER,
     )
     parser.add_argument("--timeout", type=float, default=60.0)
     parser.add_argument(
@@ -2693,9 +2741,49 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
         parser.error("--timeout must be greater than 0 and no more than 300 seconds")
     if args.expect == "pre" and args.baseline is not None:
         parser.error("--baseline is valid only with --expect post")
-    if args.theme_health_route.strip("/") != DEFAULT_THEME_HEALTH_ROUTE:
+    if args.plugin_health_route.strip("/") != DEFAULT_HEALTH_ROUTE:
         parser.error(
-            "--theme-health-route must remain the exact public justice/v1/healthcheck route"
+            "--plugin-health-route must remain the exact public "
+            "justice-seo-recovery/v1/healthcheck route"
+        )
+    if args.required_plugin_version != DEFAULT_REQUIRED_PLUGIN_VERSION:
+        parser.error(
+            "--required-plugin-version must remain the release version "
+            f"{DEFAULT_REQUIRED_PLUGIN_VERSION}"
+        )
+    if args.required_plugin_marker != DEFAULT_REQUIRED_PLUGIN_MARKER:
+        parser.error(
+            "--required-plugin-marker must remain the release marker "
+            f"{DEFAULT_REQUIRED_PLUGIN_MARKER}"
+        )
+    if (
+        args.unchanged_live_theme_health_route.strip("/")
+        != DEFAULT_THEME_HEALTH_ROUTE
+    ):
+        parser.error(
+            "--unchanged-live-theme-health-route must remain the exact public "
+            "justice/v1/healthcheck route"
+        )
+    if args.required_unchanged_live_theme != DEFAULT_REQUIRED_LIVE_THEME:
+        parser.error(
+            "--required-unchanged-live-theme must remain the unchanged live theme "
+            f"{DEFAULT_REQUIRED_LIVE_THEME}"
+        )
+    if (
+        args.required_unchanged_live_theme_version
+        != DEFAULT_REQUIRED_LIVE_THEME_VERSION
+    ):
+        parser.error(
+            "--required-unchanged-live-theme-version must remain the unchanged "
+            f"live version {DEFAULT_REQUIRED_LIVE_THEME_VERSION}"
+        )
+    if (
+        args.required_unchanged_live_theme_marker
+        != DEFAULT_REQUIRED_LIVE_THEME_MARKER
+    ):
+        parser.error(
+            "--required-unchanged-live-theme-marker must remain the unchanged "
+            f"live marker {DEFAULT_REQUIRED_LIVE_THEME_MARKER}"
         )
     return args
 
@@ -2711,15 +2799,22 @@ def main(argv: Sequence[str] | None = None) -> int:
         "completed_at_utc": None,
         "base_url": args.base_url or "",
         "configuration": {
+            "release_contract": "plugin_only_with_unchanged_live_theme",
             "target_base_url": TARGET_BASE_URL,
             "expected_robots_sitemap_url": EXPECTED_ROBOTS_SITEMAP_URL,
-            "health_route": args.health_route.strip("/"),
-            "expected_version": args.expected_version,
-            "expected_marker": args.expected_marker,
-            "theme_health_route": args.theme_health_route.strip("/"),
-            "expected_theme": args.expected_theme,
-            "expected_theme_version": args.expected_theme_version,
-            "expected_theme_marker": args.expected_theme_marker,
+            "plugin_health_route": args.plugin_health_route.strip("/"),
+            "required_plugin_version": args.required_plugin_version,
+            "required_plugin_marker": args.required_plugin_marker,
+            "unchanged_live_theme_health_route": (
+                args.unchanged_live_theme_health_route.strip("/")
+            ),
+            "required_unchanged_live_theme": args.required_unchanged_live_theme,
+            "required_unchanged_live_theme_version": (
+                args.required_unchanged_live_theme_version
+            ),
+            "required_unchanged_live_theme_marker": (
+                args.required_unchanged_live_theme_marker
+            ),
             "profile_ids": list(PROFILE_IDS),
             "canonical_surfaces": list(CANONICAL_SURFACES),
             "html_listing_surfaces": list(HTML_LISTING_SURFACES),
@@ -2785,8 +2880,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         observations = collect_observations(
             client,
-            health_route=args.health_route,
-            theme_health_route=args.theme_health_route,
+            health_route=args.plugin_health_route,
+            theme_health_route=args.unchanged_live_theme_health_route,
             snippet_prefixes=snippet_prefixes,
             route_prefixes=route_prefixes,
         )
@@ -2794,11 +2889,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         checks = build_checks(
             observations,
             expect=args.expect,
-            expected_version=args.expected_version,
-            expected_marker=args.expected_marker,
-            expected_theme=args.expected_theme,
-            expected_theme_version=args.expected_theme_version,
-            expected_theme_marker=args.expected_theme_marker,
+            required_plugin_version=args.required_plugin_version,
+            required_plugin_marker=args.required_plugin_marker,
+            required_live_theme=args.required_unchanged_live_theme,
+            required_live_theme_version=(
+                args.required_unchanged_live_theme_version
+            ),
+            required_live_theme_marker=args.required_unchanged_live_theme_marker,
             baseline=baseline,
             strict_all_tmp_snippets=args.strict_all_tmp_snippets,
         )
@@ -2846,7 +2943,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     overall = report.get("overall")
     status = overall.get("status") if isinstance(overall, dict) else "unknown"
-    print(f"SEO Recovery P0 live verifier: {status}")
+    print(f"SEO Recovery P0 plugin-only live verifier: {status}")
     print(f"Evidence: {report_path}")
     if exit_code:
         failures = overall.get("enforced_failures") if isinstance(overall, dict) else []

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice SEO Recovery P0
  * Description: Bounded P0 canonical and public lawyer-listing corrections for Jus-Tice.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Requires PHP: 7.4
  * Author: Jus-Tice
  * License: GPL-2.0-or-later
@@ -12,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_P0_VERSION', '0.1.0' );
-define( 'JUSTICE_P0_MARKER', 'p0-20260801' );
+define( 'JUSTICE_P0_VERSION', '0.1.1' );
+define( 'JUSTICE_P0_MARKER', 'p0-plugin-only-20260801-v2' );
 
 /**
  * Remove the one shared map payload that can outlive profile approval changes.
@@ -76,6 +76,66 @@ function justice_p0_retire_term_cross_canonicals( $map ) {
 	return $map;
 }
 add_filter( 'justice_seo_term_canonicals', 'justice_p0_retire_term_cross_canonicals', 999, 1 );
+
+/**
+ * Keep the canonical Yoast sitemap index enabled on the old live theme.
+ *
+ * @param mixed $enabled Existing Yoast sitemap state.
+ * @return bool
+ */
+function justice_p0_yoast_sitemaps_enabled( $enabled ) {
+	unset( $enabled );
+
+	return true;
+}
+
+/**
+ * Remove the old theme's exact sitemap kill switch, then win the final value.
+ *
+ * This runs after the theme has loaded so a top-level __return_false callback
+ * can be removed without changing any unrelated Yoast filters.
+ *
+ * @return void
+ */
+function justice_p0_enforce_yoast_sitemaps() {
+	remove_filter( 'wpseo_sitemaps_enabled', '__return_false', 10 );
+	add_filter( 'wpseo_sitemaps_enabled', 'justice_p0_yoast_sitemaps_enabled', PHP_INT_MAX, 1 );
+
+	remove_filter( 'robots_txt', 'justice_theme_robots_sitemap_directive', PHP_INT_MAX );
+	remove_filter( 'robots_txt', 'justice_p0_canonical_robots_sitemap', PHP_INT_MAX );
+	add_filter( 'robots_txt', 'justice_p0_canonical_robots_sitemap', PHP_INT_MAX, 2 );
+}
+add_action( 'after_setup_theme', 'justice_p0_enforce_yoast_sitemaps', PHP_INT_MAX, 0 );
+
+/**
+ * Emit one canonical sitemap directive while preserving all other robots lines.
+ *
+ * @param mixed $output Existing robots.txt output.
+ * @param mixed $public Whether WordPress considers the site public.
+ * @return string
+ */
+function justice_p0_canonical_robots_sitemap( $output, $public ) {
+	unset( $public );
+
+	$lines     = preg_split( '/\r\n|\n|\r/', (string) $output );
+	$preserved = array();
+
+	foreach ( is_array( $lines ) ? $lines : array() as $line ) {
+		if ( preg_match( '/^[\t ]*sitemap[\t ]*:/i', $line ) ) {
+			continue;
+		}
+
+		$preserved[] = $line;
+	}
+
+	while ( ! empty( $preserved ) && '' === end( $preserved ) ) {
+		array_pop( $preserved );
+	}
+
+	$preserved[] = 'Sitemap: https://jus-tice.co.il/sitemap_index.xml';
+
+	return implode( "\n", $preserved ) . "\n";
+}
 
 /**
  * Stable fingerprints for the two unverified duplicate profile records.
@@ -172,6 +232,14 @@ function justice_p0_is_non_public_runtime() {
 		return true;
 	}
 
+	if ( function_exists( 'wp_doing_ajax' ) && wp_doing_ajax() ) {
+		return true;
+	}
+
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		return true;
+	}
+
 	if ( function_exists( 'wp_doing_cron' ) && wp_doing_cron() ) {
 		return true;
 	}
@@ -193,6 +261,18 @@ function justice_p0_is_non_public_runtime() {
 	}
 
 	if ( defined( 'IMPORTING' ) && IMPORTING ) {
+		return true;
+	}
+
+	if ( function_exists( 'current_user_can' ) && current_user_can( 'edit_others_posts' ) ) {
+		return true;
+	}
+
+	$method = isset( $_SERVER['REQUEST_METHOD'] )
+		? strtoupper( (string) $_SERVER['REQUEST_METHOD'] )
+		: 'GET';
+
+	if ( ! in_array( $method, array( 'GET', 'HEAD' ), true ) ) {
 		return true;
 	}
 
@@ -225,6 +305,127 @@ function justice_p0_request_path() {
 }
 
 /**
+ * Remove every exact query-parameter occurrence without rewriting other bytes.
+ *
+ * @param string $query_string Raw query string without a leading question mark.
+ * @param string $parameter    Decoded parameter name to remove.
+ * @return string
+ */
+function justice_p0_query_string_without_parameter( $query_string, $parameter ) {
+	$preserved = array();
+
+	foreach ( explode( '&', (string) $query_string ) as $part ) {
+		$name = explode( '=', $part, 2 );
+		$name = rawurldecode( str_replace( '+', ' ', $name[0] ) );
+
+		if ( $parameter === $name ) {
+			continue;
+		}
+
+		if ( '' !== $part ) {
+			$preserved[] = $part;
+		}
+	}
+
+	return implode( '&', $preserved );
+}
+
+/**
+ * Remove one query parameter from a request URI while retaining path and peers.
+ *
+ * @param string $request_uri Raw request URI.
+ * @param string $parameter   Decoded parameter name to remove.
+ * @return string
+ */
+function justice_p0_request_uri_without_parameter( $request_uri, $parameter ) {
+	$fragment = '';
+	$uri      = (string) $request_uri;
+	$hash     = strpos( $uri, '#' );
+
+	if ( false !== $hash ) {
+		$fragment = substr( $uri, $hash );
+		$uri      = substr( $uri, 0, $hash );
+	}
+
+	$question = strpos( $uri, '?' );
+
+	if ( false === $question ) {
+		return $uri . $fragment;
+	}
+
+	$path  = substr( $uri, 0, $question );
+	$query = justice_p0_query_string_without_parameter( substr( $uri, $question + 1 ), $parameter );
+
+	return $path . ( '' !== $query ? '?' . $query : '' ) . $fragment;
+}
+
+/**
+ * Keep quarantined IDs out of the public profile-claim rendering path.
+ *
+ * No redirect is performed, so the browser URL remains unchanged. The PHP
+ * request globals are scrubbed before the template and attribution helpers
+ * run, preventing hidden fields from echoing the quarantined ID.
+ *
+ * @return void
+ */
+function justice_p0_sanitize_quarantined_claim_request() {
+	if (
+		justice_p0_is_non_public_runtime()
+		|| '/lawyer-registration/' !== justice_p0_request_path()
+	) {
+		return;
+	}
+
+	$quarantined = justice_p0_quarantined_profile_ids();
+	$parameters  = array();
+
+	if ( isset( $_GET['claim_profile_id'] ) && is_scalar( $_GET['claim_profile_id'] ) ) {
+		$claim_profile_id = absint( (string) $_GET['claim_profile_id'] );
+
+		if ( in_array( $claim_profile_id, $quarantined, true ) ) {
+			$parameters[] = 'claim_profile_id';
+		}
+	}
+
+	if ( isset( $_GET['claim_profile'] ) && is_scalar( $_GET['claim_profile'] ) ) {
+		$claim_profile_slug = sanitize_title( (string) $_GET['claim_profile'] );
+		$claim_profile      = '' !== $claim_profile_slug
+			? get_page_by_path( $claim_profile_slug, OBJECT, 'justice_lawyer' )
+			: null;
+
+		if (
+			$claim_profile instanceof WP_Post
+			&& in_array( (int) $claim_profile->ID, $quarantined, true )
+		) {
+			$parameters[] = 'claim_profile';
+		}
+	}
+
+	if ( empty( $parameters ) ) {
+		return;
+	}
+
+	foreach ( $parameters as $parameter ) {
+		unset( $_GET[ $parameter ], $_REQUEST[ $parameter ] );
+
+		if ( isset( $_SERVER['REQUEST_URI'] ) ) {
+			$_SERVER['REQUEST_URI'] = justice_p0_request_uri_without_parameter(
+				(string) $_SERVER['REQUEST_URI'],
+				$parameter
+			);
+		}
+
+		if ( isset( $_SERVER['QUERY_STRING'] ) ) {
+			$_SERVER['QUERY_STRING'] = justice_p0_query_string_without_parameter(
+				(string) $_SERVER['QUERY_STRING'],
+				$parameter
+			);
+		}
+	}
+}
+add_action( 'template_redirect', 'justice_p0_sanitize_quarantined_claim_request', -100000, 0 );
+
+/**
  * Determine whether a query explicitly requests lawyer profile records.
  *
  * @param mixed $query Query under construction.
@@ -242,11 +443,13 @@ function justice_p0_is_lawyer_query( $query ) {
 }
 
 /**
- * Decide whether a query is one of the audited public lawyer listings.
+ * Decide whether an anonymous read query can return a quarantined record.
  *
- * Generic secondary queries remain untouched. A secondary query is eligible
- * only on the exact legacy HTML-sitemap path, or when its caller deliberately
- * supplies the strict boolean justice_public_lawyer_listing query variable.
+ * The live theme contains public secondary and get_posts() calls that do not
+ * opt into a custom query variable and sometimes set suppress_filters=true.
+ * pre_get_posts still runs for those calls. Every public main query is eligible
+ * because an empty post_type search can return lawyer records. A secondary
+ * query remains eligible only when it explicitly requests justice_lawyer.
  *
  * @param mixed $query Query under construction.
  * @return bool
@@ -261,32 +464,11 @@ function justice_p0_should_filter_public_query( $query ) {
 		return false;
 	}
 
-	$is_main_query = $query->is_main_query();
-
-	if ( $is_main_query ) {
-		if ( method_exists( $query, 'is_singular' ) && $query->is_singular() ) {
-			return false;
-		}
-
-		$is_city_archive = method_exists( $query, 'is_tax' ) && $query->is_tax( 'city' );
-		$is_lawyer_archive = method_exists( $query, 'is_post_type_archive' )
-			&& $query->is_post_type_archive( 'justice_lawyer' );
-
-		if ( $is_city_archive || $is_lawyer_archive ) {
-			return true;
-		}
-	}
-
-	if (
-		true === $query->get( 'justice_public_lawyer_listing' )
-		&& justice_p0_is_lawyer_query( $query )
-	) {
+	if ( $query->is_main_query() ) {
 		return true;
 	}
 
-	return ! $is_main_query
-		&& '/sitemap-jus-tice/' === justice_p0_request_path()
-		&& justice_p0_is_lawyer_query( $query );
+	return justice_p0_is_lawyer_query( $query );
 }
 
 /**
@@ -307,6 +489,49 @@ function justice_p0_exclude_quarantined_profiles( $query ) {
 
 	if ( empty( $quarantined ) ) {
 		return;
+	}
+
+	$current_post_in = (array) $query->get( 'post__in' );
+
+	if ( ! empty( $current_post_in ) ) {
+		$filtered_post_in = array();
+
+		foreach ( $current_post_in as $post_id ) {
+			$post_id = (int) $post_id;
+
+			if (
+				$post_id > 0
+				&& ! in_array( $post_id, $quarantined, true )
+				&& ! in_array( $post_id, $filtered_post_in, true )
+			) {
+				$filtered_post_in[] = $post_id;
+			}
+		}
+
+		$query->set( 'post__in', ! empty( $filtered_post_in ) ? $filtered_post_in : array( 0 ) );
+	}
+
+	$singular_id_keys = array( 'p', 'page_id', 'attachment_id', 'subpost_id' );
+	$blocked_singular = false;
+
+	foreach ( $singular_id_keys as $singular_id_key ) {
+		$singular_id = $query->get( $singular_id_key );
+
+		if (
+			is_scalar( $singular_id )
+			&& in_array( (int) $singular_id, $quarantined, true )
+		) {
+			$query->set( $singular_id_key, 0 );
+			$blocked_singular = true;
+		}
+	}
+
+	if ( $blocked_singular ) {
+		foreach ( $singular_id_keys as $singular_id_key ) {
+			$query->set( $singular_id_key, 0 );
+		}
+
+		$query->set( 'post__in', array( 0 ) );
 	}
 
 	$current = (array) $query->get( 'post__not_in' );

@@ -10,6 +10,7 @@
 declare(strict_types=1);
 
 define( 'ABSPATH', dirname( __DIR__ ) . DIRECTORY_SEPARATOR );
+define( 'OBJECT', 'OBJECT' );
 
 $justice_p0_runtime_scenario = '';
 
@@ -23,11 +24,20 @@ if ( isset( $argv[1], $argv[2] ) && '--runtime' === $argv[1] ) {
 		case 'importer':
 			define( 'WP_LOAD_IMPORTERS', true );
 			break;
+		case 'wp_importing':
+			define( 'WP_IMPORTING', true );
+			break;
+		case 'importing':
+			define( 'IMPORTING', true );
+			break;
 		case 'cron':
 			define( 'DOING_CRON', true );
 			break;
 		case 'cli':
 			define( 'WP_CLI', true );
+			break;
+		case 'ajax':
+			define( 'DOING_AJAX', true );
 			break;
 		default:
 			fwrite( STDERR, "FAIL: unknown runtime scenario {$justice_p0_runtime_scenario}\n" );
@@ -42,9 +52,16 @@ $GLOBALS['justice_p0_activation_hooks']    = array();
 $GLOBALS['justice_p0_deleted_transients']  = array();
 $GLOBALS['justice_p0_test_is_admin']       = false;
 $GLOBALS['justice_p0_test_doing_cron']     = false;
+$GLOBALS['justice_p0_test_doing_ajax']     = false;
+$GLOBALS['justice_p0_test_capabilities']   = array();
 $GLOBALS['justice_p0_test_approved_ids']   = array();
 $GLOBALS['justice_p0_test_profile_posts']  = array();
 $_SERVER['REQUEST_URI']                    = '/';
+$_SERVER['QUERY_STRING']                   = '';
+$_SERVER['REQUEST_METHOD']                 = 'GET';
+$_GET                                      = array();
+$_POST                                     = array();
+$_REQUEST                                  = array();
 
 /**
  * Minimal immutable-by-convention post record for instanceof checks.
@@ -62,12 +79,16 @@ class WP_Post {
 	/** @var string */
 	public $post_title;
 
+	/** @var string */
+	public $post_name;
+
 	/** @param array<string,mixed> $values Post field values. */
 	public function __construct( array $values ) {
 		$this->ID          = (int) $values['ID'];
 		$this->post_type   = (string) $values['post_type'];
 		$this->post_status = (string) $values['post_status'];
 		$this->post_title  = (string) $values['post_title'];
+		$this->post_name   = isset( $values['post_name'] ) ? (string) $values['post_name'] : '';
 	}
 }
 
@@ -92,6 +113,7 @@ class WP_Query {
 				'main'           => false,
 				'singular'       => false,
 				'city_tax'       => false,
+				'practice_tax'   => false,
 				'lawyer_archive' => false,
 			),
 			$flags
@@ -140,17 +162,26 @@ class WP_Query {
 	public function is_tax( $taxonomy = '', $term = '' ): bool {
 		unset( $term );
 
-		if ( true !== $this->flags['city_tax'] ) {
+		$matches_city = true === $this->flags['city_tax']
+			&& (
+				'' === $taxonomy
+				|| array() === $taxonomy
+				|| ( is_array( $taxonomy ) && in_array( 'city', $taxonomy, true ) )
+				|| 'city' === $taxonomy
+			);
+		$matches_practice = true === $this->flags['practice_tax']
+			&& (
+				'' === $taxonomy
+				|| array() === $taxonomy
+				|| ( is_array( $taxonomy ) && in_array( 'practice-areas', $taxonomy, true ) )
+				|| 'practice-areas' === $taxonomy
+			);
+
+		if ( ! $matches_city && ! $matches_practice ) {
 			return false;
 		}
 
-		if ( '' === $taxonomy || array() === $taxonomy ) {
-			return true;
-		}
-
-		return is_array( $taxonomy )
-			? in_array( 'city', $taxonomy, true )
-			: 'city' === $taxonomy;
+		return true;
 	}
 }
 
@@ -170,6 +201,33 @@ function add_filter( string $tag, $callback, int $priority = 10, int $accepted_a
 	);
 
 	return true;
+}
+
+/**
+ * Remove one exact filter registration at one exact priority.
+ *
+ * @param callable|string|array<int,mixed> $callback Callback.
+ */
+function remove_filter( string $tag, $callback, int $priority = 10 ): bool {
+	if ( empty( $GLOBALS['justice_p0_test_filters'][ $tag ][ $priority ] ) ) {
+		return false;
+	}
+
+	$removed = false;
+	$kept    = array();
+
+	foreach ( $GLOBALS['justice_p0_test_filters'][ $tag ][ $priority ] as $entry ) {
+		if ( ! $removed && $callback === $entry['callback'] ) {
+			$removed = true;
+			continue;
+		}
+
+		$kept[] = $entry;
+	}
+
+	$GLOBALS['justice_p0_test_filters'][ $tag ][ $priority ] = $kept;
+
+	return $removed;
 }
 
 /**
@@ -198,6 +256,14 @@ function wp_doing_cron(): bool {
 	return true === $GLOBALS['justice_p0_test_doing_cron'];
 }
 
+function wp_doing_ajax(): bool {
+	return true === $GLOBALS['justice_p0_test_doing_ajax'];
+}
+
+function current_user_can( string $capability ): bool {
+	return ! empty( $GLOBALS['justice_p0_test_capabilities'][ $capability ] );
+}
+
 /** @param mixed $value */
 function absint( $value ): int {
 	return abs( (int) $value );
@@ -210,6 +276,26 @@ function get_post( int $post_id ) {
 	}
 
 	return clone $GLOBALS['justice_p0_test_profile_posts'][ $post_id ];
+}
+
+function sanitize_title( string $title ): string {
+	$title = strtolower( trim( $title ) );
+	$title = preg_replace( '/[^a-z0-9_-]+/', '-', $title );
+
+	return is_string( $title ) ? trim( $title, '-' ) : '';
+}
+
+/** @return mixed */
+function get_page_by_path( string $path, string $output = OBJECT, string $post_type = 'page' ) {
+	unset( $output );
+
+	foreach ( $GLOBALS['justice_p0_test_profile_posts'] as $post ) {
+		if ( $path === $post->post_name && $post_type === $post->post_type ) {
+			return clone $post;
+		}
+	}
+
+	return null;
 }
 
 function justice_theme_lawyer_profile_is_public_approved( int $post_id ): bool {
@@ -232,6 +318,22 @@ function rest_ensure_response( $value ) {
 
 function __return_true(): bool {
 	return true;
+}
+
+function __return_false(): bool {
+	return false;
+}
+
+/** @param mixed $public */
+function justice_theme_robots_sitemap_directive( string $output, $public ): string {
+	unset( $public );
+	return rtrim( $output, "\r\n" ) . "\nSitemap: https://jus-tice.co.il/wp-json/justice/v1/sitemap\n";
+}
+
+/** @param mixed $public */
+function justice_p0_test_unrelated_robots_callback( string $output, $public ): string {
+	unset( $public );
+	return rtrim( $output, "\r\n" ) . "\nDisallow: /preserved-callback/\n";
 }
 
 /** @param callable|string|array<int,mixed> $callback */
@@ -329,12 +431,14 @@ function justice_p0_test_reset_profiles(): void {
 			'ID'          => 23405,
 			'post_type'   => 'justice_lawyer',
 			'post_status' => 'publish',
+			'post_name'   => 'maya-rotenberg-firm',
 			'post_title'  => 'מאיה רוטנברג חברת עורכי דין',
 		) ),
 		23406 => new WP_Post( array(
 			'ID'          => 23406,
 			'post_type'   => 'justice_lawyer',
 			'post_status' => 'publish',
+			'post_name'   => 'maya-rotenberg-office',
 			'post_title'  => 'מאיה רוטנברג משרד עורכי דין',
 		) ),
 	);
@@ -368,39 +472,109 @@ justice_p0_test_reset_profiles();
 
 /* Isolated constant-based runtime cases. */
 if ( '' !== $justice_p0_runtime_scenario ) {
-	$generic = new WP_Query(
-		array(
-			'post_type'    => 'justice_lawyer',
-			'post__not_in' => array( 801 ),
-		)
-	);
-	justice_p0_test_run_query( $generic, '/wp-json/example/v1/import/' );
-	justice_p0_test_assert_same(
-		array( 801 ),
-		$generic->get( 'post__not_in' ),
-		"{$justice_p0_runtime_scenario} generic secondary query was modified"
-	);
-
-	$explicit = new WP_Query(
-		array(
-			'post_type'                    => 'justice_lawyer',
-			'justice_public_lawyer_listing' => true,
-			'post__not_in'                  => array( 802 ),
-		)
-	);
-	justice_p0_test_run_query( $explicit, '/wp-json/example/v1/lawyers/' );
-
 	if ( 'rest' === $justice_p0_runtime_scenario ) {
+		$_SERVER['REQUEST_METHOD'] = 'GET';
+		$pretty = new WP_Query(
+			array(
+				'post_type'       => 'justice_lawyer',
+				'post__not_in'    => array( 801 ),
+				'suppress_filters' => true,
+			)
+		);
+		justice_p0_test_run_query( $pretty, '/wp-json/justice/v1/knowledge/professionals?area=family-law' );
+		justice_p0_test_assert_same(
+			array( 801, 23405, 23406 ),
+			$pretty->get( 'post__not_in' ),
+			'anonymous pretty REST GET with suppress_filters escaped quarantine'
+		);
+
+		$_GET['rest_route']        = '/justice/v1/legal-tools/matched-lawyers';
+		$_SERVER['QUERY_STRING']   = 'rest_route=%2Fjustice%2Fv1%2Flegal-tools%2Fmatched-lawyers';
+		$plain = new WP_Query(
+			array(
+				'post_type'    => array( 'post', 'justice_lawyer' ),
+				'post__not_in' => array( 802, 23405 ),
+			)
+		);
+		justice_p0_test_run_query( $plain, '/?rest_route=%2Fjustice%2Fv1%2Flegal-tools%2Fmatched-lawyers' );
 		justice_p0_test_assert_same(
 			array( 802, 23405, 23406 ),
-			$explicit->get( 'post__not_in' ),
-			'REST explicit public lawyer listing was not quarantined'
+			$plain->get( 'post__not_in' ),
+			'anonymous plain REST GET did not merge exact IDs'
+		);
+
+		$public_rest_routes = array(
+			'/wp/v2/justice_lawyer',
+			'/wp/v2/justice_lawyer/23405',
+			'/justice/v1/sitemap/lawyers',
+			'/justice/v1/knowledge/professionals',
+			'/justice/v1/legal-tools/matched-lawyers',
+			'/justice/v1/map/offices',
+		);
+
+		foreach ( $public_rest_routes as $route_index => $route ) {
+			foreach ( array( 'pretty', 'plain' ) as $transport ) {
+				$_SERVER['REQUEST_METHOD'] = 'GET';
+				$_GET = 'plain' === $transport ? array( 'rest_route' => $route ) : array();
+				$uri  = 'plain' === $transport
+					? '/?rest_route=' . rawurlencode( $route )
+					: '/wp-json' . $route;
+				$route_query = new WP_Query(
+					array(
+						'post_type'       => 'justice_lawyer',
+						'post__not_in'    => array( 820 + $route_index ),
+						'suppress_filters' => true,
+					)
+				);
+				justice_p0_test_run_query( $route_query, $uri );
+				justice_p0_test_assert_same(
+					array( 820 + $route_index, 23405, 23406 ),
+					$route_query->get( 'post__not_in' ),
+					"{$transport} REST route {$route} escaped quarantine"
+				);
+			}
+		}
+
+		$GLOBALS['justice_p0_test_capabilities']['edit_others_posts'] = true;
+		$editor = new WP_Query(
+			array(
+				'post_type'    => 'justice_lawyer',
+				'post__not_in' => array( 803 ),
+			)
+		);
+		justice_p0_test_run_query( $editor, '/wp-json/wp/v2/justice_lawyer' );
+		justice_p0_test_assert_same(
+			array( 803 ),
+			$editor->get( 'post__not_in' ),
+			'authenticated editor REST GET was modified'
+		);
+
+		$GLOBALS['justice_p0_test_capabilities'] = array();
+		$_SERVER['REQUEST_METHOD']               = 'POST';
+		$importer = new WP_Query(
+			array(
+				'post_type'    => 'justice_lawyer',
+				'post__not_in' => array( 804 ),
+			)
+		);
+		justice_p0_test_run_query( $importer, '/wp-json/justice/v1/lawyer-index/import' );
+		justice_p0_test_assert_same(
+			array( 804 ),
+			$importer->get( 'post__not_in' ),
+			'public REST POST importer query was modified'
 		);
 	} else {
+		$guarded = new WP_Query(
+			array(
+				'post_type'    => 'justice_lawyer',
+				'post__not_in' => array( 805 ),
+			)
+		);
+		justice_p0_test_run_query( $guarded, '/lawyers/' );
 		justice_p0_test_assert_same(
-			array( 802 ),
-			$explicit->get( 'post__not_in' ),
-			"{$justice_p0_runtime_scenario} explicit query escaped its runtime guard"
+			array( 805 ),
+			$guarded->get( 'post__not_in' ),
+			"{$justice_p0_runtime_scenario} query escaped its runtime guard"
 		);
 	}
 
@@ -408,8 +582,8 @@ if ( '' !== $justice_p0_runtime_scenario ) {
 	exit( 0 );
 }
 
-justice_p0_test_assert_same( '0.1.0', JUSTICE_P0_VERSION, 'plugin version contract changed' );
-justice_p0_test_assert_same( 'p0-20260801', JUSTICE_P0_MARKER, 'plugin marker contract changed' );
+justice_p0_test_assert_same( '0.1.1', JUSTICE_P0_VERSION, 'plugin version contract changed' );
+justice_p0_test_assert_same( 'p0-plugin-only-20260801-v2', JUSTICE_P0_MARKER, 'plugin marker contract changed' );
 justice_p0_test_assert_same(
 	1,
 	count( $GLOBALS['justice_p0_activation_hooks'] ),
@@ -472,12 +646,103 @@ $rest_callback           = justice_p0_test_registered_callback(
 	'justice_p0_register_healthcheck',
 	0
 );
+$after_setup_callback    = justice_p0_test_registered_callback(
+	'action',
+	'after_setup_theme',
+	PHP_INT_MAX,
+	'justice_p0_enforce_yoast_sitemaps',
+	0
+);
+$claim_callback          = justice_p0_test_registered_callback(
+	'action',
+	'template_redirect',
+	-100000,
+	'justice_p0_sanitize_quarantined_claim_request',
+	0
+);
 justice_p0_test_registered_callback(
 	'action',
 	'pre_get_posts',
 	99,
 	'justice_p0_exclude_quarantined_profiles',
 	1
+);
+
+justice_p0_test_assert_same(
+	array(),
+	isset( $GLOBALS['justice_p0_test_filters']['robots_txt'][PHP_INT_MAX] )
+		? $GLOBALS['justice_p0_test_filters']['robots_txt'][PHP_INT_MAX]
+		: array(),
+	'plugin registered its robots callback before the theme loaded'
+);
+
+/* Simulate the old theme loading after plugins at the same maximum priority. */
+add_filter( 'robots_txt', 'justice_theme_robots_sitemap_directive', PHP_INT_MAX, 2 );
+add_filter( 'robots_txt', 'justice_p0_test_unrelated_robots_callback', PHP_INT_MAX, 2 );
+add_filter( 'wpseo_sitemaps_enabled', '__return_false', 10, 1 );
+call_user_func( $after_setup_callback );
+justice_p0_test_assert_same(
+	array(),
+	$GLOBALS['justice_p0_test_filters']['wpseo_sitemaps_enabled'][10],
+	'old-theme Yoast __return_false callback was not removed exactly'
+);
+$yoast_enabled_callback = justice_p0_test_registered_callback(
+	'filter',
+	'wpseo_sitemaps_enabled',
+	PHP_INT_MAX,
+	'justice_p0_yoast_sitemaps_enabled',
+	1
+);
+justice_p0_test_assert_same(
+	true,
+	call_user_func( $yoast_enabled_callback, false ),
+	'late Yoast sitemap state was not forced on'
+);
+
+$robots_callback = justice_p0_test_registered_callback(
+	'filter',
+	'robots_txt',
+	PHP_INT_MAX,
+	'justice_p0_canonical_robots_sitemap',
+	2
+);
+justice_p0_test_registered_callback(
+	'filter',
+	'robots_txt',
+	PHP_INT_MAX,
+	'justice_p0_test_unrelated_robots_callback',
+	2
+);
+$robots_entries   = $GLOBALS['justice_p0_test_filters']['robots_txt'][PHP_INT_MAX];
+$robots_callbacks = array_map(
+	static function ( array $entry ) {
+		return $entry['callback'];
+	},
+	$robots_entries
+);
+justice_p0_test_assert_same(
+	array( 'justice_p0_test_unrelated_robots_callback', 'justice_p0_canonical_robots_sitemap' ),
+	$robots_callbacks,
+	'late robots enforcement did not remove only the old theme callback and register P0 last'
+);
+
+$robots_input = "User-agent: *\r\nDisallow: /private/\r\nSitemap: https://old.example/sitemap.xml\r\nAllow: /public/\r\n  sItEmAp : https://old.example/second.xml\r\n";
+$robots_expected = "User-agent: *\nDisallow: /private/\nAllow: /public/\nDisallow: /preserved-callback/\nSitemap: https://jus-tice.co.il/sitemap_index.xml\n";
+$robots_output   = $robots_input;
+
+foreach ( $robots_entries as $robots_entry ) {
+	$robots_output = call_user_func( $robots_entry['callback'], $robots_output, true );
+}
+
+justice_p0_test_assert_same(
+	$robots_expected,
+	$robots_output,
+	'robots filter changed non-Sitemap directives or canonical output'
+);
+justice_p0_test_assert_same(
+	1,
+	preg_match_all( '/^Sitemap: https:\/\/jus-tice\.co\.il\/sitemap_index\.xml$/m', $robots_output ),
+	'robots output did not contain exactly one canonical sitemap directive'
 );
 
 $post_canonicals = array(
@@ -593,6 +858,20 @@ justice_p0_test_assert_same(
 	'public main city archive was not quarantined'
 );
 
+$practice_query = new WP_Query(
+	array( 'post__not_in' => array( 5011 ) ),
+	array(
+		'main'         => true,
+		'practice_tax' => true,
+	)
+);
+justice_p0_test_run_query( $practice_query, '/practice-areas/family-law/' );
+justice_p0_test_assert_same(
+	array( 5011, 23405, 23406 ),
+	$practice_query->get( 'post__not_in' ),
+	'mixed main practice taxonomy with empty post_type was not quarantined'
+);
+
 $archive_query = new WP_Query(
 	array( 'post_type' => 'justice_lawyer' ),
 	array(
@@ -607,17 +886,18 @@ justice_p0_test_assert_same(
 	'public main lawyer archive was not quarantined'
 );
 
-$legacy_query = new WP_Query(
+$xml_query = new WP_Query(
 	array(
-		'post_type'    => array( 'post', 'justice_lawyer' ),
-		'post__not_in' => array( 502 ),
+		'post_type'       => array( 'post', 'justice_lawyer' ),
+		'post__not_in'    => array( 502, 23405 ),
+		'suppress_filters' => true,
 	)
 );
-justice_p0_test_run_query( $legacy_query, '/sitemap-jus-tice/?view=lawyers' );
+justice_p0_test_run_query( $xml_query, '/wp-json/justice/v1/sitemap/lawyers' );
 justice_p0_test_assert_same(
 	array( 502, 23405, 23406 ),
-	$legacy_query->get( 'post__not_in' ),
-	'exact legacy sitemap lawyer query was not quarantined'
+	$xml_query->get( 'post__not_in' ),
+	'public XML lawyer query with suppress_filters did not merge exact IDs'
 );
 
 $opt_in_query = new WP_Query(
@@ -658,7 +938,11 @@ $singular_query = new WP_Query(
 	)
 );
 justice_p0_test_run_query( $singular_query, '/lawyer/example/' );
-justice_p0_test_assert_same( array( 602 ), $singular_query->get( 'post__not_in' ), 'singular query was modified' );
+justice_p0_test_assert_same(
+	array( 602, 23405, 23406 ),
+	$singular_query->get( 'post__not_in' ),
+	'anonymous public lawyer singular did not receive the bounded quarantine'
+);
 
 $secondary_query = new WP_Query(
 	array(
@@ -668,9 +952,141 @@ $secondary_query = new WP_Query(
 );
 justice_p0_test_run_query( $secondary_query, '/family-law/' );
 justice_p0_test_assert_same(
-	array( 603 ),
+	array( 603, 23405, 23406 ),
 	$secondary_query->get( 'post__not_in' ),
-	'generic secondary lawyer query was modified'
+	'generic secondary HTML lawyer query was not quarantined'
+);
+
+$main_search_query = new WP_Query(
+	array(
+		's'            => 'lawyer search',
+		'post__not_in' => array( 6031 ),
+	),
+	array( 'main' => true )
+);
+justice_p0_test_run_query( $main_search_query, '/?s=lawyer+search' );
+justice_p0_test_assert_same(
+	array( 6031, 23405, 23406 ),
+	$main_search_query->get( 'post__not_in' ),
+	'main search with empty post_type could still return quarantined IDs'
+);
+
+$mixed_post_in_query = new WP_Query(
+	array(
+		'post_type'    => 'justice_lawyer',
+		'post__in'     => array( 701, 23405, '23406', 702, 701 ),
+		'post__not_in' => array( 703 ),
+	)
+);
+justice_p0_test_run_query( $mixed_post_in_query, '/featured-lawyers/' );
+justice_p0_test_assert_same(
+	array( 701, 702 ),
+	$mixed_post_in_query->get( 'post__in' ),
+	'mixed post__in retained quarantined IDs or changed safe ordering'
+);
+justice_p0_test_assert_same(
+	array( 703, 23405, 23406 ),
+	$mixed_post_in_query->get( 'post__not_in' ),
+	'mixed post__in query did not retain merged post__not_in evidence'
+);
+
+$all_bad_post_in_query = new WP_Query(
+	array(
+		'post_type' => 'justice_lawyer',
+		'post__in'  => array( 23405, '23406', 23405 ),
+	)
+);
+justice_p0_test_run_query( $all_bad_post_in_query, '/featured-lawyers/' );
+justice_p0_test_assert_same(
+	array( 0 ),
+	$all_bad_post_in_query->get( 'post__in' ),
+	'all-quarantined post__in did not become the non-empty no-result sentinel'
+);
+
+$direct_singular_query = new WP_Query(
+	array(
+		'post_type' => 'justice_lawyer',
+		'p'         => '23405',
+	),
+	array( 'main' => true )
+);
+justice_p0_test_run_query( $direct_singular_query, '/lawyers/quarantined-profile/' );
+justice_p0_test_assert_same(
+	0,
+	$direct_singular_query->get( 'p' ),
+	'direct quarantined p selector was not neutralized'
+);
+justice_p0_test_assert_same(
+	array( 0 ),
+	$direct_singular_query->get( 'post__in' ),
+	'direct quarantined p query was not forced to no results'
+);
+
+$equivalent_singular_query = new WP_Query(
+	array( 'page_id' => 23406 ),
+	array( 'main' => true )
+);
+justice_p0_test_run_query( $equivalent_singular_query, '/?page_id=23406' );
+justice_p0_test_assert_same(
+	0,
+	$equivalent_singular_query->get( 'page_id' ),
+	'quarantined page_id selector was not neutralized'
+);
+justice_p0_test_assert_same(
+	0,
+	$equivalent_singular_query->get( 'p' ),
+	'quarantined page_id did not neutralize its related p selector'
+);
+justice_p0_test_assert_same(
+	array( 0 ),
+	$equivalent_singular_query->get( 'post__in' ),
+	'equivalent quarantined singular ID query was not forced to no results'
+);
+
+$attachment_singular_query = new WP_Query(
+	array(
+		'attachment_id' => 23405,
+		'p'             => 23405,
+	),
+	array( 'main' => true )
+);
+justice_p0_test_run_query( $attachment_singular_query, '/?attachment_id=23405' );
+justice_p0_test_assert_same(
+	0,
+	$attachment_singular_query->get( 'attachment_id' ),
+	'quarantined attachment_id selector was not neutralized'
+);
+justice_p0_test_assert_same(
+	0,
+	$attachment_singular_query->get( 'p' ),
+	'quarantined attachment_id mapped p selector was not neutralized'
+);
+justice_p0_test_assert_same(
+	array( 0 ),
+	$attachment_singular_query->get( 'post__in' ),
+	'quarantined attachment_id query lacked the no-result sentinel'
+);
+
+$subpost_singular_query = new WP_Query(
+	array(
+		'subpost_id'   => 23406,
+		'attachment_id' => 23406,
+		'p'            => 23406,
+	),
+	array( 'main' => true )
+);
+justice_p0_test_run_query( $subpost_singular_query, '/?subpost_id=23406' );
+foreach ( array( 'subpost_id', 'attachment_id', 'p' ) as $neutralized_key ) {
+	justice_p0_test_assert_same(
+		0,
+		$subpost_singular_query->get( $neutralized_key ),
+		"quarantined subpost selector did not neutralize {$neutralized_key}"
+	);
+}
+justice_p0_test_assert_same(
+	array( 0 ),
+	$subpost_singular_query->get( 'post__in' ),
+	'quarantined subpost query lacked the no-result sentinel'
 );
 
 $unrelated_query = new WP_Query(
@@ -681,7 +1097,11 @@ $unrelated_query = new WP_Query(
 	array( 'main' => true )
 );
 justice_p0_test_run_query( $unrelated_query, '/legal-article/' );
-justice_p0_test_assert_same( array( 604 ), $unrelated_query->get( 'post__not_in' ), 'unrelated query was modified' );
+justice_p0_test_assert_same(
+	array( 604, 23405, 23406 ),
+	$unrelated_query->get( 'post__not_in' ),
+	'public main query did not receive the bounded cross-post-type exclusion'
+);
 
 foreach ( array( 1, '1' ) as $non_boolean_opt_in ) {
 	$strict_query = new WP_Query(
@@ -693,9 +1113,9 @@ foreach ( array( 1, '1' ) as $non_boolean_opt_in ) {
 	);
 	justice_p0_test_run_query( $strict_query, '/controlled-lawyer-list/' );
 	justice_p0_test_assert_same(
-		array( 605 ),
+		array( 605, 23405, 23406 ),
 		$strict_query->get( 'post__not_in' ),
-		'explicit opt-in accepted a non-boolean value'
+		'public lawyer query incorrectly depended on a boolean theme opt-in'
 	);
 }
 
@@ -713,6 +1133,25 @@ justice_p0_test_assert_same(
 	'explicit opt-in modified a non-lawyer query'
 );
 
+$secondary_non_lawyer_post_in = new WP_Query(
+	array(
+		'post_type'    => 'articles',
+		'post__in'     => array( 23405, 6061 ),
+		'post__not_in' => array( 6062 ),
+	)
+);
+justice_p0_test_run_query( $secondary_non_lawyer_post_in, '/internal-article-widget/' );
+justice_p0_test_assert_same(
+	array( 23405, 6061 ),
+	$secondary_non_lawyer_post_in->get( 'post__in' ),
+	'non-main non-lawyer post__in query was modified'
+);
+justice_p0_test_assert_same(
+	array( 6062 ),
+	$secondary_non_lawyer_post_in->get( 'post__not_in' ),
+	'non-main non-lawyer post__not_in query was modified'
+);
+
 $lookalike_legacy = new WP_Query(
 	array(
 		'post_type'    => 'justice_lawyer',
@@ -721,9 +1160,9 @@ $lookalike_legacy = new WP_Query(
 );
 justice_p0_test_run_query( $lookalike_legacy, '/sitemap-jus-tice-copy/' );
 justice_p0_test_assert_same(
-	array( 607 ),
+	array( 607, 23405, 23406 ),
 	$lookalike_legacy->get( 'post__not_in' ),
-	'lookalike legacy sitemap path was treated as exact'
+	'generic public lawyer query incorrectly depended on an HTML path allowlist'
 );
 
 $GLOBALS['justice_p0_test_doing_cron'] = true;
@@ -742,6 +1181,271 @@ justice_p0_test_assert_same(
 );
 $GLOBALS['justice_p0_test_doing_cron'] = false;
 
+$GLOBALS['justice_p0_test_doing_ajax'] = true;
+$ajax_query = new WP_Query(
+	array(
+		'post_type'    => 'justice_lawyer',
+		'post__not_in' => array( 609 ),
+	)
+);
+justice_p0_test_run_query( $ajax_query, '/wp-admin/admin-ajax.php?action=preview' );
+justice_p0_test_assert_same(
+	array( 609 ),
+	$ajax_query->get( 'post__not_in' ),
+	'wp_doing_ajax query escaped its runtime guard'
+);
+$GLOBALS['justice_p0_test_doing_ajax'] = false;
+
+$GLOBALS['justice_p0_test_capabilities']['edit_others_posts'] = true;
+$editor_query = new WP_Query(
+	array(
+		'post_type'    => 'justice_lawyer',
+		'post__not_in' => array( 610 ),
+	)
+);
+justice_p0_test_run_query( $editor_query, '/lawyers/?preview=1' );
+justice_p0_test_assert_same(
+	array( 610 ),
+	$editor_query->get( 'post__not_in' ),
+	'authenticated editor preview query was modified'
+);
+$GLOBALS['justice_p0_test_capabilities'] = array();
+
+$_SERVER['REQUEST_METHOD'] = 'POST';
+$post_query = new WP_Query(
+	array(
+		'post_type'    => 'justice_lawyer',
+		'post__not_in' => array( 611 ),
+	)
+);
+justice_p0_test_run_query( $post_query, '/wp-json/justice/v1/lawyer-index/import' );
+justice_p0_test_assert_same(
+	array( 611 ),
+	$post_query->get( 'post__not_in' ),
+	'public POST importer query was modified'
+);
+
+$_SERVER['REQUEST_METHOD'] = 'HEAD';
+$head_query = new WP_Query(
+	array(
+		'post_type'    => 'justice_lawyer',
+		'post__not_in' => array( 612 ),
+	)
+);
+justice_p0_test_run_query( $head_query, '/lawyers/' );
+justice_p0_test_assert_same(
+	array( 612, 23405, 23406 ),
+	$head_query->get( 'post__not_in' ),
+	'anonymous public HEAD lawyer query was not quarantined'
+);
+$_SERVER['REQUEST_METHOD'] = 'GET';
+
+justice_p0_test_reset_profiles();
+$GLOBALS['justice_p0_test_approved_ids'][23405] = true;
+$partially_approved_query = new WP_Query(
+	array(
+		'post_type'    => 'justice_lawyer',
+		'post__not_in' => array( 613, 23406 ),
+	)
+);
+justice_p0_test_run_query( $partially_approved_query, '/family-law/' );
+justice_p0_test_assert_same(
+	array( 613, 23406 ),
+	$partially_approved_query->get( 'post__not_in' ),
+	'approval did not release only profile 23405 or merge existing exclusions'
+);
+
+$approved_direct_query = new WP_Query(
+	array(
+		'post_type' => 'justice_lawyer',
+		'p'         => 23405,
+	),
+	array( 'main' => true )
+);
+justice_p0_test_run_query( $approved_direct_query, '/lawyers/approved-profile/' );
+justice_p0_test_assert_same(
+	23405,
+	$approved_direct_query->get( 'p' ),
+	'approved direct p selector was neutralized'
+);
+justice_p0_test_assert_same(
+	null,
+	$approved_direct_query->get( 'post__in' ),
+	'approved direct profile query was forced to the no-result sentinel'
+);
+justice_p0_test_assert_same(
+	array( 23406 ),
+	$approved_direct_query->get( 'post__not_in' ),
+	'approved direct profile query lost the remaining exact quarantine'
+);
+
+$approved_scalar_cases = array(
+	'page_id' => array( 'page_id' => 23405 ),
+	'attachment_id' => array( 'attachment_id' => 23405, 'p' => 23405 ),
+	'subpost_id' => array( 'subpost_id' => 23405, 'attachment_id' => 23405, 'p' => 23405 ),
+);
+
+foreach ( $approved_scalar_cases as $approved_case => $approved_query_vars ) {
+	$approved_scalar_query = new WP_Query( $approved_query_vars, array( 'main' => true ) );
+	justice_p0_test_run_query( $approved_scalar_query, '/lawyers/approved-profile/' );
+
+	foreach ( $approved_query_vars as $approved_key => $approved_value ) {
+		justice_p0_test_assert_same(
+			$approved_value,
+			$approved_scalar_query->get( $approved_key ),
+			"approved {$approved_case} query changed {$approved_key}"
+		);
+	}
+
+	justice_p0_test_assert_same(
+		null,
+		$approved_scalar_query->get( 'post__in' ),
+		"approved {$approved_case} query was forced to the no-result sentinel"
+	);
+}
+
+$GLOBALS['justice_p0_test_approved_ids'][23406] = true;
+$fully_approved_query = new WP_Query(
+	array(
+		'post_type'    => 'justice_lawyer',
+		'post__not_in' => array( 614 ),
+	)
+);
+justice_p0_test_run_query( $fully_approved_query, '/family-law/' );
+justice_p0_test_assert_same(
+	array( 614 ),
+	$fully_approved_query->get( 'post__not_in' ),
+	'approval was not the sole release path for both exact profiles'
+);
+
+justice_p0_test_reset_profiles();
+$_SERVER['REQUEST_METHOD'] = 'GET';
+$_SERVER['REQUEST_URI']    = '/lawyer-registration/?utm_source=owner&claim_profile_id=23405&plan_interest=free';
+$_SERVER['QUERY_STRING']   = 'utm_source=owner&claim_profile_id=23405&plan_interest=free';
+$_GET = array(
+	'utm_source'       => 'owner',
+	'claim_profile_id' => '23405',
+	'plan_interest'    => 'free',
+);
+$_REQUEST = $_GET;
+call_user_func( $claim_callback );
+justice_p0_test_assert(
+	! isset( $_GET['claim_profile_id'] ) && ! isset( $_REQUEST['claim_profile_id'] ),
+	'quarantined claim ID remained in GET or REQUEST'
+);
+justice_p0_test_assert_same(
+	array( 'utm_source' => 'owner', 'plan_interest' => 'free' ),
+	$_GET,
+	'claim scrub changed unrelated GET parameters'
+);
+justice_p0_test_assert_same(
+	'/lawyer-registration/?utm_source=owner&plan_interest=free',
+	$_SERVER['REQUEST_URI'],
+	'claim scrub did not preserve the registration path and unrelated URI parameters'
+);
+justice_p0_test_assert_same(
+	'utm_source=owner&plan_interest=free',
+	$_SERVER['QUERY_STRING'],
+	'claim scrub did not preserve unrelated QUERY_STRING parameters'
+);
+justice_p0_test_assert(
+	false === strpos( (string) $justice_p0_source, 'wp_safe_redirect' )
+	&& false === strpos( (string) $justice_p0_source, 'wp_redirect' ),
+	'claim quarantine introduced a redirect instead of preserving the browser URL'
+);
+
+justice_p0_test_reset_profiles();
+$_SERVER['REQUEST_URI']  = '/lawyer-registration/?keep=slug&claim_profile=maya-rotenberg-office&utm_medium=manual';
+$_SERVER['QUERY_STRING'] = 'keep=slug&claim_profile=maya-rotenberg-office&utm_medium=manual';
+$_GET = array(
+	'keep'          => 'slug',
+	'claim_profile' => 'maya-rotenberg-office',
+	'utm_medium'    => 'manual',
+);
+$_REQUEST = $_GET;
+call_user_func( $claim_callback );
+justice_p0_test_assert_same(
+	array( 'keep' => 'slug', 'utm_medium' => 'manual' ),
+	$_GET,
+	'quarantined slug-only claim remained in GET or changed unrelated values'
+);
+justice_p0_test_assert_same(
+	'/lawyer-registration/?keep=slug&utm_medium=manual',
+	$_SERVER['REQUEST_URI'],
+	'quarantined slug-only claim remained in REQUEST_URI'
+);
+justice_p0_test_assert_same(
+	'keep=slug&utm_medium=manual',
+	$_SERVER['QUERY_STRING'],
+	'quarantined slug-only claim remained in QUERY_STRING'
+);
+
+justice_p0_test_reset_profiles();
+$GLOBALS['justice_p0_test_approved_ids'][23406] = true;
+$_SERVER['REQUEST_URI']  = '/lawyer-registration/?claim_profile=maya-rotenberg-office&keep=approved-slug';
+$_SERVER['QUERY_STRING'] = 'claim_profile=maya-rotenberg-office&keep=approved-slug';
+$_GET = array( 'claim_profile' => 'maya-rotenberg-office', 'keep' => 'approved-slug' );
+$_REQUEST = $_GET;
+call_user_func( $claim_callback );
+justice_p0_test_assert_same(
+	array( 'claim_profile' => 'maya-rotenberg-office', 'keep' => 'approved-slug' ),
+	$_GET,
+	'approved slug-only claim was scrubbed'
+);
+justice_p0_test_assert_same(
+	'/lawyer-registration/?claim_profile=maya-rotenberg-office&keep=approved-slug',
+	$_SERVER['REQUEST_URI'],
+	'approved slug-only claim request URI was changed'
+);
+
+justice_p0_test_reset_profiles();
+$GLOBALS['justice_p0_test_approved_ids'][23405] = true;
+$_SERVER['REQUEST_URI']  = '/lawyer-registration/?claim_profile_id=23405&keep=yes';
+$_SERVER['QUERY_STRING'] = 'claim_profile_id=23405&keep=yes';
+$_GET = array( 'claim_profile_id' => '23405', 'keep' => 'yes' );
+$_REQUEST = $_GET;
+call_user_func( $claim_callback );
+justice_p0_test_assert_same(
+	array( 'claim_profile_id' => '23405', 'keep' => 'yes' ),
+	$_GET,
+	'approved claim ID was scrubbed'
+);
+justice_p0_test_assert_same(
+	'/lawyer-registration/?claim_profile_id=23405&keep=yes',
+	$_SERVER['REQUEST_URI'],
+	'approved claim request URI was changed'
+);
+
+justice_p0_test_reset_profiles();
+$GLOBALS['justice_p0_test_capabilities']['edit_others_posts'] = true;
+$_SERVER['REQUEST_URI']  = '/lawyer-registration/?claim_profile_id=23406&keep=editor';
+$_SERVER['QUERY_STRING'] = 'claim_profile_id=23406&keep=editor';
+$_GET = array( 'claim_profile_id' => '23406', 'keep' => 'editor' );
+$_REQUEST = $_GET;
+call_user_func( $claim_callback );
+justice_p0_test_assert_same(
+	array( 'claim_profile_id' => '23406', 'keep' => 'editor' ),
+	$_GET,
+	'editor registration inspection was scrubbed'
+);
+$GLOBALS['justice_p0_test_capabilities'] = array();
+
+$_SERVER['REQUEST_URI']  = '/contact/?claim_profile_id=23406&keep=contact';
+$_SERVER['QUERY_STRING'] = 'claim_profile_id=23406&keep=contact';
+$_GET = array( 'claim_profile_id' => '23406', 'keep' => 'contact' );
+$_REQUEST = $_GET;
+call_user_func( $claim_callback );
+justice_p0_test_assert_same(
+	array( 'claim_profile_id' => '23406', 'keep' => 'contact' ),
+	$_GET,
+	'non-registration request was scrubbed'
+);
+
+$_SERVER['REQUEST_URI']  = '/';
+$_SERVER['QUERY_STRING'] = '';
+$_GET                    = array();
+$_REQUEST                = array();
+
 call_user_func( $rest_callback );
 justice_p0_test_assert_same( 1, count( $GLOBALS['justice_p0_test_rest_routes'] ), 'healthcheck route count changed' );
 $health_route = $GLOBALS['justice_p0_test_rest_routes'][0];
@@ -756,8 +1460,8 @@ justice_p0_test_assert(
 	is_array( $health ) && isset( $health['version'], $health['marker'] ),
 	'healthcheck response omitted its release identity'
 );
-justice_p0_test_assert_same( '0.1.0', $health['version'], 'healthcheck version changed' );
-justice_p0_test_assert_same( 'p0-20260801', $health['marker'], 'healthcheck marker changed' );
+justice_p0_test_assert_same( '0.1.1', $health['version'], 'healthcheck version changed' );
+justice_p0_test_assert_same( 'p0-plugin-only-20260801-v2', $health['marker'], 'healthcheck marker changed' );
 
 /**
  * Run constant-based runtime guards in fresh PHP processes because constants
@@ -792,7 +1496,7 @@ function justice_p0_test_runtime_process( string $scenario ): void {
 	);
 }
 
-foreach ( array( 'rest', 'importer', 'cron', 'cli' ) as $runtime_scenario ) {
+foreach ( array( 'rest', 'importer', 'wp_importing', 'importing', 'cron', 'cli', 'ajax' ) as $runtime_scenario ) {
 	justice_p0_test_runtime_process( $runtime_scenario );
 }
 

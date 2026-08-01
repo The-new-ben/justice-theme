@@ -44,12 +44,13 @@ RELEASE_RULESET_ID = 20160370
 REQUIRED_CHECK_NAME = "repository-release-guard"
 PLUGIN_SLUG = "justice-seo-recovery-p0"
 PLUGIN_BASENAME = f"{PLUGIN_SLUG}/{PLUGIN_SLUG}.php"
-SUPPORTED_VERSION = "0.1.0"
+SUPPORTED_VERSION = "0.1.1"
 HEALTH_ROUTE = "justice-seo-recovery/v1/healthcheck"
-HEALTH_MARKER = "p0-20260801"
-EXPECTED_THEME_VERSION = "2.23.1"
-EXPECTED_THEME_MARKER = "2026-08-01-seo-recovery-p0-v1"
+HEALTH_MARKER = "p0-plugin-only-20260801-v2"
+REQUIRED_LIVE_THEME_VERSION = "2.23.0"
+REQUIRED_LIVE_THEME_MARKER = "2026-07-06-home-keywords-upperfold-v1"
 THEME_HEALTH_ROUTE = "justice/v1/healthcheck"
+DEPLOY_TOOL_REPOSITORY_PATH = "tools/wp_deploy_seo_recovery_p0.py"
 HELPER_NAMESPACE = "justice-seo-recovery-deploy/v1"
 MAX_ARTIFACT_BYTES = 20 * 1024 * 1024
 MAX_PLUGIN_FILE_BYTES = 1024 * 1024
@@ -233,48 +234,34 @@ def plugin_source_url(commit_sha: str) -> str:
     )
 
 
-def theme_release_identity(source: str) -> tuple[str, str]:
-    version_match = re.search(
-        r"define\(\s*['\"]JUSTICE_THEME_VERSION['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)",
-        source,
-    )
-    marker_match = re.search(
-        r"define\(\s*['\"]JUSTICE_DEPLOY_MARKER['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)",
-        source,
-    )
-    return (
-        version_match.group(1) if version_match else "",
-        marker_match.group(1) if marker_match else "",
-    )
-
-
-def inspect_theme_source_contract(commit_sha: str, timeout: int) -> dict[str, Any]:
-    """Bind the required live theme marker to the same protected commit."""
+def inspect_deploy_tool_source_contract(
+    commit_sha: str, timeout: int
+) -> dict[str, Any]:
+    """Require this local mutation driver to equal protected-main source."""
 
     url = (
         "https://raw.githubusercontent.com/"
-        f"{REPOSITORY}/{commit_sha}/functions.php"
+        f"{REPOSITORY}/{commit_sha}/{DEPLOY_TOOL_REPOSITORY_PATH}"
     )
     response = requests.get(
         url,
-        headers={"User-Agent": "Jus-Tice-SEO-Recovery-P0-Theme-Source/0.1"},
+        headers={"User-Agent": "Jus-Tice-SEO-Recovery-P0-Driver-Source/0.1"},
         timeout=timeout,
         allow_redirects=False,
     )
     if response.status_code != 200 or not response.content:
-        raise RuntimeError("Protected theme source did not return direct HTTP 200.")
-    source = response.content.decode("utf-8-sig")
-    source_version, source_marker = theme_release_identity(source)
-    if (
-        source_version != EXPECTED_THEME_VERSION
-        or source_marker != EXPECTED_THEME_MARKER
-    ):
-        raise RuntimeError("Protected theme release identity differs from this deploy tool.")
+        raise RuntimeError("Protected deploy-tool source did not return direct HTTP 200.")
+    protected_source = response.content.replace(b"\r\n", b"\n")
+    local_source = Path(__file__).read_bytes().replace(b"\r\n", b"\n")
+    if protected_source != local_source:
+        raise RuntimeError(
+            "Local deploy tool differs from the same file on protected main."
+        )
     return {
         "url": url,
-        "sha256": hashlib.sha256(response.content).hexdigest(),
-        "theme_version": source_version,
-        "deploy_marker": source_marker,
+        "sha256": hashlib.sha256(protected_source).hexdigest(),
+        "local_sha256": hashlib.sha256(local_source).hexdigest(),
+        "source_matches_local": True,
     }
 
 
@@ -1280,33 +1267,35 @@ def public_rest_request(
     return response
 
 
-def verify_theme_release(base_url: str, timeout: int) -> dict[str, Any]:
-    """Require the exact reviewed theme release before plugin installation."""
+def verify_live_theme_precondition(base_url: str, timeout: int) -> dict[str, Any]:
+    """Require the observed live theme baseline without modifying theme files."""
 
     response = requests.get(
         f"{base_url.rstrip('/')}/wp-json/{THEME_HEALTH_ROUTE}",
         headers={
             "Accept": "application/json",
-            "User-Agent": "Jus-Tice-SEO-Recovery-P0-Theme-Gate/0.1",
+            "User-Agent": "Jus-Tice-SEO-Recovery-P0-Theme-Precondition/0.1",
         },
         params={"justice_p0_theme_probe": secrets.token_hex(8)},
         timeout=timeout,
         allow_redirects=False,
     )
     if response.status_code != 200:
-        raise RuntimeError("Reviewed theme healthcheck did not return direct HTTP 200.")
+        raise RuntimeError("Live theme healthcheck did not return direct HTTP 200.")
     try:
         payload = response.json()
     except (ValueError, json.JSONDecodeError) as error:
-        raise RuntimeError("Reviewed theme healthcheck returned invalid JSON.") from error
+        raise RuntimeError("Live theme healthcheck returned invalid JSON.") from error
     if not isinstance(payload, dict):
-        raise RuntimeError("Reviewed theme healthcheck returned an invalid payload.")
+        raise RuntimeError("Live theme healthcheck returned an invalid payload.")
     if (
         payload.get("theme") != "justice-theme"
-        or payload.get("theme_version") != EXPECTED_THEME_VERSION
-        or payload.get("deploy_marker") != EXPECTED_THEME_MARKER
+        or payload.get("theme_version") != REQUIRED_LIVE_THEME_VERSION
+        or payload.get("deploy_marker") != REQUIRED_LIVE_THEME_MARKER
     ):
-        raise RuntimeError("The exact reviewed P0 theme release is not live.")
+        raise RuntimeError(
+            "The live theme differs from the recorded plugin-only precondition."
+        )
     return {
         "status": response.status_code,
         "redirect_count": len(response.history),
@@ -1381,14 +1370,6 @@ def state_reconciliation_observation(
 
 def deployment_contract_self_test() -> dict[str, Any]:
     """Exercise source identity, helper syntax, and fail-closed state guidance."""
-
-    theme_source = (REPO_ROOT / "functions.php").read_text(encoding="utf-8-sig")
-    theme_version, theme_marker = theme_release_identity(theme_source)
-    if (
-        theme_version != EXPECTED_THEME_VERSION
-        or theme_marker != EXPECTED_THEME_MARKER
-    ):
-        raise RuntimeError("Local theme identity differs from deploy-tool constants.")
 
     plugin_source = (
         REPO_ROOT / PLUGIN_BASENAME
@@ -1472,8 +1453,8 @@ def deployment_contract_self_test() -> dict[str, Any]:
 
     return {
         "passed": True,
-        "theme_version": theme_version,
-        "theme_marker": theme_marker,
+        "required_live_theme_version": REQUIRED_LIVE_THEME_VERSION,
+        "required_live_theme_marker": REQUIRED_LIVE_THEME_MARKER,
         "plugin_version": SUPPORTED_VERSION,
         "plugin_marker": HEALTH_MARKER,
         "helper_lints": helper_lints,
@@ -1505,6 +1486,9 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
             "immutable_source_url": immutable_source_url,
             "plugin_basename": PLUGIN_BASENAME,
             "expected_prior_state": args.expected_prior_state,
+            "mutation_scope": "plugin_only_preserve_live_theme",
+            "required_live_theme_version": REQUIRED_LIVE_THEME_VERSION,
+            "required_live_theme_marker": REQUIRED_LIVE_THEME_MARKER,
         },
         "helper": {"name": helper_name, "route": route},
         "checks": {},
@@ -1540,8 +1524,8 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
         evidence["checks"]["protected_release_provenance"] = (
             verify_release_provenance(commit_sha, args.timeout)
         )
-        evidence["checks"]["protected_theme_source"] = (
-            inspect_theme_source_contract(commit_sha, args.timeout)
+        evidence["checks"]["protected_deploy_tool_source"] = (
+            inspect_deploy_tool_source_contract(commit_sha, args.timeout)
         )
         artifact_preflight = inspect_artifact(
             immutable_url,
@@ -1559,8 +1543,8 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
             client
         )
         if args.action == "install":
-            evidence["checks"]["required_theme_release"] = verify_theme_release(
-                base_url, args.timeout
+            evidence["checks"]["required_live_theme_precondition"] = (
+                verify_live_theme_precondition(base_url, args.timeout)
             )
         snippets_before = client.all_snippets()
         evidence["checks"]["authenticated_collection_preflight"] = {
@@ -1746,6 +1730,7 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
     helper_direct_absent = False
     route_absent = False
     health_ok = False
+    theme_unchanged_ok = args.action != "install"
     if client is not None and helper_id is not None:
         try:
             snippets_after = client.all_snippets()
@@ -1791,6 +1776,12 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
                     public_health.status_code == 404
                     and health_summary.get("code") == "rest_no_route"
                 )
+
+            if args.action == "install":
+                evidence["checks"]["live_theme_unchanged_after_install"] = (
+                    verify_live_theme_precondition(client.base_url, 60)
+                )
+                theme_unchanged_ok = True
         except Exception as verification_error:  # noqa: BLE001
             evidence["checks"]["final_verification_error"] = {
                 "type": type(verification_error).__name__
@@ -1802,6 +1793,7 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
         and helper_direct_absent
         and route_absent
         and health_ok
+        and theme_unchanged_ok
     )
     if execution_error and passed:
         passed = False

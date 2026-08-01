@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Justice SEO Recovery P0
- * Description: Bounded P0 canonical and public lawyer-listing corrections for Jus-Tice.
- * Version: 0.1.1
+ * Description: Bounded P0 canonical, sitemap, mobile navigation, and public lawyer-listing corrections for Jus-Tice.
+ * Version: 0.1.2
  * Requires PHP: 7.4
  * Author: Jus-Tice
  * License: GPL-2.0-or-later
@@ -12,8 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_P0_VERSION', '0.1.1' );
-define( 'JUSTICE_P0_MARKER', 'p0-plugin-only-20260801-v2' );
+define( 'JUSTICE_P0_VERSION', '0.1.2' );
+define( 'JUSTICE_P0_MARKER', 'p0-plugin-only-20260801-v3' );
+define( 'JUSTICE_P0_MOBILE_NAV_STYLE_ELEMENT_ID', 'justice-p0-mobile-nav-recovery-inline-css' );
+define( 'JUSTICE_P0_MOBILE_NAV_CSS_MARKER', 'justice-p0-mobile-nav-recovery-v1' );
 
 /**
  * Remove the one shared map payload that can outlive profile approval changes.
@@ -138,6 +140,107 @@ function justice_p0_canonical_robots_sitemap( $output, $public ) {
 }
 
 /**
+ * Prove that two WordPress-generated links are the same absolute document URL.
+ *
+ * Deliberately require exact string equality. A host, scheme, port, slash,
+ * query, fragment, or encoding difference releases the exclusion instead of
+ * guessing that two routes still collide.
+ *
+ * @param mixed $left  First URL.
+ * @param mixed $right Second URL.
+ * @return bool
+ */
+function justice_p0_is_exact_sitemap_url_collision( $left, $right ) {
+	if (
+		! is_string( $left )
+		|| ! is_string( $right )
+		|| '' === $left
+		|| $left !== $right
+	) {
+		return false;
+	}
+
+	$parts = wp_parse_url( $left );
+
+	if (
+		! is_array( $parts )
+		|| empty( $parts['scheme'] )
+		|| ! in_array( strtolower( (string) $parts['scheme'] ), array( 'http', 'https' ), true )
+		|| empty( $parts['host'] )
+		|| empty( $parts['path'] )
+	) {
+		return false;
+	}
+
+	foreach ( array( 'user', 'pass', 'query', 'fragment' ) as $forbidden_part ) {
+		if ( isset( $parts[ $forbidden_part ] ) ) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/**
+ * Determine whether article 7905 is still the exact /lawyers/ shadow route.
+ *
+ * The record remains published and addressable. It is removed only from Yoast
+ * post sitemap output, and only while every immutable fingerprint field and
+ * the collision with the justice_lawyer archive still match.
+ *
+ * @return bool
+ */
+function justice_p0_article_7905_is_lawyer_archive_shadow() {
+	$post = get_post( 7905 );
+
+	if (
+		! ( $post instanceof WP_Post )
+		|| 7905 !== (int) $post->ID
+		|| 'articles' !== $post->post_type
+		|| 'publish' !== $post->post_status
+		|| 'lawyers' !== $post->post_name
+	) {
+		return false;
+	}
+
+	return justice_p0_is_exact_sitemap_url_collision(
+		get_permalink( $post ),
+		get_post_type_archive_link( 'justice_lawyer' )
+	);
+}
+
+/**
+ * Determine whether practice-areas term 170 still shadows category term 730.
+ *
+ * Both terms remain untouched. Only the exact weaker term is omitted from
+ * Yoast term sitemap output while its fingerprint and link collision hold.
+ *
+ * @return bool
+ */
+function justice_p0_term_170_is_category_730_shadow() {
+	$shadow   = get_term( 170, 'practice-areas' );
+	$dominant = get_term( 730, 'category' );
+
+	if (
+		! ( $shadow instanceof WP_Term )
+		|| ! ( $dominant instanceof WP_Term )
+		|| 170 !== (int) $shadow->term_id
+		|| 'practice-areas' !== $shadow->taxonomy
+		|| 'criminal-law' !== $shadow->slug
+		|| 730 !== (int) $dominant->term_id
+		|| 'category' !== $dominant->taxonomy
+		|| 'criminal-law' !== $dominant->slug
+	) {
+		return false;
+	}
+
+	return justice_p0_is_exact_sitemap_url_collision(
+		get_term_link( $shadow ),
+		get_term_link( $dominant )
+	);
+}
+
+/**
  * Stable fingerprints for the two unverified duplicate profile records.
  *
  * IDs are durable record identities. Title is retained for evidence, but a
@@ -207,7 +310,14 @@ function justice_p0_quarantined_profile_ids() {
  * @return array<int,int>
  */
 function justice_p0_merge_sitemap_exclusions( $ids ) {
-	$merged = array_merge( (array) $ids, justice_p0_quarantined_profile_ids() );
+	$shadow_ids = justice_p0_article_7905_is_lawyer_archive_shadow()
+		? array( 7905 )
+		: array();
+	$merged     = array_merge(
+		(array) $ids,
+		justice_p0_quarantined_profile_ids(),
+		$shadow_ids
+	);
 	$clean  = array();
 
 	foreach ( $merged as $post_id ) {
@@ -221,6 +331,34 @@ function justice_p0_merge_sitemap_exclusions( $ids ) {
 	return $clean;
 }
 add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', 'justice_p0_merge_sitemap_exclusions', 99, 1 );
+
+/**
+ * Keep only the proven weaker criminal-law term out of Yoast XML sitemaps.
+ *
+ * Existing exclusions are preserved byte-for-byte by integer identity. The
+ * dominant category term 730 is never added by this plugin.
+ *
+ * @param mixed $ids Existing term sitemap exclusions.
+ * @return array<int,int>
+ */
+function justice_p0_merge_term_sitemap_exclusions( $ids ) {
+	$merged = array_merge(
+		(array) $ids,
+		justice_p0_term_170_is_category_730_shadow() ? array( 170 ) : array()
+	);
+	$clean  = array();
+
+	foreach ( $merged as $term_id ) {
+		$term_id = (int) $term_id;
+
+		if ( $term_id > 0 && ! in_array( $term_id, $clean, true ) ) {
+			$clean[] = $term_id;
+		}
+	}
+
+	return $clean;
+}
+add_filter( 'wpseo_exclude_from_sitemap_by_term_ids', 'justice_p0_merge_term_sitemap_exclusions', 99, 1 );
 
 /**
  * Detect request contexts that must never receive public-listing mutations.
@@ -548,6 +686,34 @@ function justice_p0_exclude_quarantined_profiles( $query ) {
 	$query->set( 'post__not_in', $merged );
 }
 add_action( 'pre_get_posts', 'justice_p0_exclude_quarantined_profiles', 99, 1 );
+
+/**
+ * Return the exact Chrome-proven mobile navigation recovery stylesheet.
+ *
+ * The 100vh bound supports older mobile browsers. Supporting browsers apply
+ * the following 100dvh declaration, which remains last by contract.
+ *
+ * @return string
+ */
+function justice_p0_mobile_nav_recovery_css() {
+	return '/* justice-p0-mobile-nav-recovery-v1 */@media (max-width:920px){html.nav-is-open,body.nav-is-open{overflow:hidden!important}html.nav-is-open .jt2-header nav.primary-navigation{bottom:auto!important;height:auto!important;max-height:calc(100vh - 9rem)!important;max-height:calc(100dvh - 9rem)!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain!important}html.nav-is-open .jt2-header nav.primary-navigation #primary-menu>li>a{color:var(--jt2-ivory,#f8f3ea)!important}html.nav-is-open .jt2-header nav.primary-navigation #primary-menu>li.jt-nav-ai>a{color:#e7c765!important}}';
+}
+
+/**
+ * Emit one plugin-owned recovery style that Autoptimize must not aggregate.
+ *
+ * The element identity and data-noptimize attribute are part of the live
+ * acceptance contract. CSS is a trusted plugin constant and is not assembled
+ * from request, database, or user input.
+ *
+ * @return void
+ */
+function justice_p0_print_mobile_nav_recovery_style() {
+	echo '<style id="' . esc_attr( JUSTICE_P0_MOBILE_NAV_STYLE_ELEMENT_ID ) . '" data-noptimize="1">'
+		. justice_p0_mobile_nav_recovery_css()
+		. "</style>\n";
+}
+add_action( 'wp_head', 'justice_p0_print_mobile_nav_recovery_style', PHP_INT_MAX, 0 );
 
 /**
  * Public, non-sensitive release healthcheck.

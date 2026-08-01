@@ -56,6 +56,14 @@ $GLOBALS['justice_p0_test_doing_ajax']     = false;
 $GLOBALS['justice_p0_test_capabilities']   = array();
 $GLOBALS['justice_p0_test_approved_ids']   = array();
 $GLOBALS['justice_p0_test_profile_posts']  = array();
+$GLOBALS['justice_p0_test_shadow_posts']   = array();
+$GLOBALS['justice_p0_test_terms']          = array();
+$GLOBALS['justice_p0_test_post_links']     = array();
+$GLOBALS['justice_p0_test_archive_links']  = array();
+$GLOBALS['justice_p0_test_term_links']     = array();
+$GLOBALS['justice_p0_registered_styles']   = array();
+$GLOBALS['justice_p0_enqueued_styles']     = array();
+$GLOBALS['justice_p0_inline_styles']       = array();
 $_SERVER['REQUEST_URI']                    = '/';
 $_SERVER['QUERY_STRING']                   = '';
 $_SERVER['REQUEST_METHOD']                 = 'GET';
@@ -89,6 +97,27 @@ class WP_Post {
 		$this->post_status = (string) $values['post_status'];
 		$this->post_title  = (string) $values['post_title'];
 		$this->post_name   = isset( $values['post_name'] ) ? (string) $values['post_name'] : '';
+	}
+}
+
+/**
+ * Minimal immutable-by-convention term record for instanceof checks.
+ */
+class WP_Term {
+	/** @var int */
+	public $term_id;
+
+	/** @var string */
+	public $taxonomy;
+
+	/** @var string */
+	public $slug;
+
+	/** @param array<string,mixed> $values Term field values. */
+	public function __construct( array $values ) {
+		$this->term_id = (int) $values['term_id'];
+		$this->taxonomy = (string) $values['taxonomy'];
+		$this->slug = (string) $values['slug'];
 	}
 }
 
@@ -271,11 +300,56 @@ function absint( $value ): int {
 
 /** @return mixed */
 function get_post( int $post_id ) {
-	if ( ! isset( $GLOBALS['justice_p0_test_profile_posts'][ $post_id ] ) ) {
+	if ( isset( $GLOBALS['justice_p0_test_profile_posts'][ $post_id ] ) ) {
+		return clone $GLOBALS['justice_p0_test_profile_posts'][ $post_id ];
+	}
+
+	if ( isset( $GLOBALS['justice_p0_test_shadow_posts'][ $post_id ] ) ) {
+		return clone $GLOBALS['justice_p0_test_shadow_posts'][ $post_id ];
+	}
+
+	return null;
+}
+
+/** @param int|WP_Post $post */
+function get_permalink( $post ) {
+	$post_id = $post instanceof WP_Post ? (int) $post->ID : (int) $post;
+
+	return isset( $GLOBALS['justice_p0_test_post_links'][ $post_id ] )
+		? $GLOBALS['justice_p0_test_post_links'][ $post_id ]
+		: false;
+}
+
+/** @return string|false */
+function get_post_type_archive_link( string $post_type ) {
+	return isset( $GLOBALS['justice_p0_test_archive_links'][ $post_type ] )
+		? $GLOBALS['justice_p0_test_archive_links'][ $post_type ]
+		: false;
+}
+
+/** @return WP_Term|null */
+function get_term( int $term_id, string $taxonomy = '' ) {
+	if ( ! isset( $GLOBALS['justice_p0_test_terms'][ $term_id ] ) ) {
 		return null;
 	}
 
-	return clone $GLOBALS['justice_p0_test_profile_posts'][ $post_id ];
+	$term = $GLOBALS['justice_p0_test_terms'][ $term_id ];
+
+	if ( '' !== $taxonomy && $taxonomy !== $term->taxonomy ) {
+		return null;
+	}
+
+	return clone $term;
+}
+
+/** @param int|WP_Term $term */
+function get_term_link( $term, string $taxonomy = '' ) {
+	unset( $taxonomy );
+	$term_id = $term instanceof WP_Term ? (int) $term->term_id : (int) $term;
+
+	return isset( $GLOBALS['justice_p0_test_term_links'][ $term_id ] )
+		? $GLOBALS['justice_p0_test_term_links'][ $term_id ]
+		: false;
 }
 
 function sanitize_title( string $title ): string {
@@ -324,6 +398,10 @@ function __return_false(): bool {
 	return false;
 }
 
+function esc_attr( string $value ): string {
+	return htmlspecialchars( $value, ENT_QUOTES, 'UTF-8' );
+}
+
 /** @param mixed $public */
 function justice_theme_robots_sitemap_directive( string $output, $public ): string {
 	unset( $public );
@@ -346,6 +424,38 @@ function register_activation_hook( string $file, $callback ): void {
 
 function delete_transient( string $name ): bool {
 	$GLOBALS['justice_p0_deleted_transients'][] = $name;
+	return true;
+}
+
+/** @param mixed $src @param array<int,string> $deps @param mixed $ver */
+function wp_register_style( string $handle, $src, array $deps = array(), $ver = false, string $media = 'all' ): bool {
+	$GLOBALS['justice_p0_registered_styles'][] = array(
+		'handle' => $handle,
+		'src'    => $src,
+		'deps'   => $deps,
+		'ver'    => $ver,
+		'media'  => $media,
+	);
+	return true;
+}
+
+/** @param mixed $src @param array<int,string> $deps @param mixed $ver */
+function wp_enqueue_style( string $handle, $src = '', array $deps = array(), $ver = false, string $media = 'all' ): bool {
+	$GLOBALS['justice_p0_enqueued_styles'][] = array(
+		'handle' => $handle,
+		'src'    => $src,
+		'deps'   => $deps,
+		'ver'    => $ver,
+		'media'  => $media,
+	);
+	return true;
+}
+
+function wp_add_inline_style( string $handle, string $data ): bool {
+	$GLOBALS['justice_p0_inline_styles'][] = array(
+		'handle' => $handle,
+		'data'   => $data,
+	);
 	return true;
 }
 
@@ -446,6 +556,43 @@ function justice_p0_test_reset_profiles(): void {
 }
 
 /**
+ * Restore both exact shadow records and their proven dominant-route links.
+ */
+function justice_p0_test_reset_sitemap_collisions(): void {
+	$GLOBALS['justice_p0_test_shadow_posts'] = array(
+		7905 => new WP_Post( array(
+			'ID'          => 7905,
+			'post_type'   => 'articles',
+			'post_status' => 'publish',
+			'post_name'   => 'lawyers',
+			'post_title'  => 'shadow article',
+		) ),
+	);
+	$GLOBALS['justice_p0_test_terms'] = array(
+		170 => new WP_Term( array(
+			'term_id'  => 170,
+			'taxonomy' => 'practice-areas',
+			'slug'     => 'criminal-law',
+		) ),
+		730 => new WP_Term( array(
+			'term_id'  => 730,
+			'taxonomy' => 'category',
+			'slug'     => 'criminal-law',
+		) ),
+	);
+	$GLOBALS['justice_p0_test_post_links'] = array(
+		7905 => 'https://jus-tice.co.il/lawyers/',
+	);
+	$GLOBALS['justice_p0_test_archive_links'] = array(
+		'justice_lawyer' => 'https://jus-tice.co.il/lawyers/',
+	);
+	$GLOBALS['justice_p0_test_term_links'] = array(
+		170 => 'https://jus-tice.co.il/practice-areas/criminal-law/',
+		730 => 'https://jus-tice.co.il/practice-areas/criminal-law/',
+	);
+}
+
+/**
  * Run the registered pre_get_posts callback once.
  */
 function justice_p0_test_run_query( WP_Query $query, string $request_uri = '/' ): WP_Query {
@@ -469,6 +616,7 @@ justice_p0_test_assert( is_file( $justice_p0_plugin ), 'standalone plugin source
 require_once $justice_p0_plugin;
 
 justice_p0_test_reset_profiles();
+justice_p0_test_reset_sitemap_collisions();
 
 /* Isolated constant-based runtime cases. */
 if ( '' !== $justice_p0_runtime_scenario ) {
@@ -582,8 +730,18 @@ if ( '' !== $justice_p0_runtime_scenario ) {
 	exit( 0 );
 }
 
-justice_p0_test_assert_same( '0.1.1', JUSTICE_P0_VERSION, 'plugin version contract changed' );
-justice_p0_test_assert_same( 'p0-plugin-only-20260801-v2', JUSTICE_P0_MARKER, 'plugin marker contract changed' );
+justice_p0_test_assert_same( '0.1.2', JUSTICE_P0_VERSION, 'plugin version contract changed' );
+justice_p0_test_assert_same( 'p0-plugin-only-20260801-v3', JUSTICE_P0_MARKER, 'plugin marker contract changed' );
+justice_p0_test_assert_same(
+	'justice-p0-mobile-nav-recovery-inline-css',
+	JUSTICE_P0_MOBILE_NAV_STYLE_ELEMENT_ID,
+	'mobile navigation style element ID changed'
+);
+justice_p0_test_assert_same(
+	'justice-p0-mobile-nav-recovery-v1',
+	JUSTICE_P0_MOBILE_NAV_CSS_MARKER,
+	'mobile navigation CSS marker changed'
+);
 justice_p0_test_assert_same(
 	1,
 	count( $GLOBALS['justice_p0_activation_hooks'] ),
@@ -639,6 +797,13 @@ $sitemap_callback        = justice_p0_test_registered_callback(
 	'justice_p0_merge_sitemap_exclusions',
 	1
 );
+$term_sitemap_callback   = justice_p0_test_registered_callback(
+	'filter',
+	'wpseo_exclude_from_sitemap_by_term_ids',
+	99,
+	'justice_p0_merge_term_sitemap_exclusions',
+	1
+);
 $rest_callback           = justice_p0_test_registered_callback(
 	'action',
 	'rest_api_init',
@@ -658,6 +823,13 @@ $claim_callback          = justice_p0_test_registered_callback(
 	'template_redirect',
 	-100000,
 	'justice_p0_sanitize_quarantined_claim_request',
+	0
+);
+$mobile_nav_callback     = justice_p0_test_registered_callback(
+	'action',
+	'wp_head',
+	PHP_INT_MAX,
+	'justice_p0_print_mobile_nav_recovery_style',
 	0
 );
 justice_p0_test_registered_callback(
@@ -745,6 +917,57 @@ justice_p0_test_assert_same(
 	'robots output did not contain exactly one canonical sitemap directive'
 );
 
+$mobile_nav_css = '/* justice-p0-mobile-nav-recovery-v1 */@media (max-width:920px){html.nav-is-open,body.nav-is-open{overflow:hidden!important}html.nav-is-open .jt2-header nav.primary-navigation{bottom:auto!important;height:auto!important;max-height:calc(100vh - 9rem)!important;max-height:calc(100dvh - 9rem)!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain!important}html.nav-is-open .jt2-header nav.primary-navigation #primary-menu>li>a{color:var(--jt2-ivory,#f8f3ea)!important}html.nav-is-open .jt2-header nav.primary-navigation #primary-menu>li.jt-nav-ai>a{color:#e7c765!important}}';
+justice_p0_test_assert_same(
+	$mobile_nav_css,
+	justice_p0_mobile_nav_recovery_css(),
+	'mobile navigation recovery CSS bytes changed'
+);
+justice_p0_test_assert_same(
+	1,
+	substr_count( $mobile_nav_css, JUSTICE_P0_MOBILE_NAV_CSS_MARKER ),
+	'mobile navigation recovery marker count changed'
+);
+$vh_position  = strpos( $mobile_nav_css, 'max-height:calc(100vh - 9rem)!important' );
+$dvh_position = strpos( $mobile_nav_css, 'max-height:calc(100dvh - 9rem)!important' );
+justice_p0_test_assert(
+	false !== $vh_position && false !== $dvh_position && $vh_position < $dvh_position,
+	'100vh fallback does not immediately precede the 100dvh mobile bound'
+);
+ob_start();
+call_user_func( $mobile_nav_callback );
+$mobile_nav_head_output = ob_get_clean();
+justice_p0_test_assert_same(
+	'<style id="justice-p0-mobile-nav-recovery-inline-css" data-noptimize="1">' . $mobile_nav_css . "</style>\n",
+	$mobile_nav_head_output,
+	'mobile navigation wp_head element identity, attribute, or CSS bytes changed'
+);
+justice_p0_test_assert_same(
+	1,
+	substr_count( $mobile_nav_head_output, '<style id="justice-p0-mobile-nav-recovery-inline-css" data-noptimize="1">' ),
+	'mobile navigation wp_head element was not emitted exactly once'
+);
+justice_p0_test_assert_same(
+	'justice-p0-mobile-nav-recovery-inline-css',
+	JUSTICE_P0_MOBILE_NAV_STYLE_ELEMENT_ID,
+	'mobile navigation style element ID changed'
+);
+justice_p0_test_assert_same(
+	array(),
+	$GLOBALS['justice_p0_registered_styles'],
+	'legacy mobile navigation style registration survived'
+);
+justice_p0_test_assert_same(
+	array(),
+	$GLOBALS['justice_p0_enqueued_styles'],
+	'legacy mobile navigation style enqueue survived'
+);
+justice_p0_test_assert_same(
+	array(),
+	$GLOBALS['justice_p0_inline_styles'],
+	'legacy wp_add_inline_style output survived'
+);
+
 $post_canonicals = array(
 	'mutual-divorce-agreement-2025' => 'free-divorce-agreement-template',
 	'mediation-divorce'             => 'divorce-mediation',
@@ -772,6 +995,130 @@ justice_p0_test_assert_same(
 		)
 	),
 	'term canonical retirement changed removals or preserved mappings'
+);
+
+justice_p0_test_assert(
+	justice_p0_is_exact_sitemap_url_collision(
+		'https://jus-tice.co.il/lawyers/',
+		'https://jus-tice.co.il/lawyers/'
+	),
+	'exact absolute sitemap URL collision was not recognized'
+);
+foreach (
+	array(
+		array( 'https://jus-tice.co.il/lawyers/', 'https://jus-tice.co.il/lawyers' ),
+		array( 'https://jus-tice.co.il/lawyers/?source=test', 'https://jus-tice.co.il/lawyers/?source=test' ),
+		array( 'https://jus-tice.co.il/lawyers/#proof', 'https://jus-tice.co.il/lawyers/#proof' ),
+		array( '/lawyers/', '/lawyers/' ),
+		array( false, false ),
+	) as $non_collision
+) {
+	justice_p0_test_assert(
+		! justice_p0_is_exact_sitemap_url_collision( $non_collision[0], $non_collision[1] ),
+		'non-exact or unsafe sitemap URL was accepted as a collision'
+	);
+}
+
+justice_p0_test_assert(
+	justice_p0_article_7905_is_lawyer_archive_shadow(),
+	'exact article 7905 collision fingerprint was not recognized'
+);
+foreach (
+	array(
+		'ID'          => 7906,
+		'post_type'   => 'post',
+		'post_status' => 'draft',
+		'post_name'   => 'lawyers-copy',
+	) as $field => $replacement
+) {
+	justice_p0_test_reset_sitemap_collisions();
+	$GLOBALS['justice_p0_test_shadow_posts'][7905]->{$field} = $replacement;
+	justice_p0_test_assert(
+		! justice_p0_article_7905_is_lawyer_archive_shadow(),
+		"article 7905 {$field} drift did not release its sitemap exclusion"
+	);
+}
+justice_p0_test_reset_sitemap_collisions();
+$GLOBALS['justice_p0_test_post_links'][7905] = 'https://jus-tice.co.il/lawyers-copy/';
+justice_p0_test_assert(
+	! justice_p0_article_7905_is_lawyer_archive_shadow(),
+	'article 7905 permalink drift did not release its sitemap exclusion'
+);
+justice_p0_test_reset_sitemap_collisions();
+$GLOBALS['justice_p0_test_archive_links']['justice_lawyer'] = 'https://jus-tice.co.il/lawyers-copy/';
+justice_p0_test_assert(
+	! justice_p0_article_7905_is_lawyer_archive_shadow(),
+	'justice_lawyer archive drift did not release article 7905 sitemap exclusion'
+);
+justice_p0_test_reset_sitemap_collisions();
+$GLOBALS['justice_p0_test_post_links'][7905] = 'https://jus-tice.co.il/lawyers/?collision=ambiguous';
+$GLOBALS['justice_p0_test_archive_links']['justice_lawyer'] = 'https://jus-tice.co.il/lawyers/?collision=ambiguous';
+justice_p0_test_assert(
+	! justice_p0_article_7905_is_lawyer_archive_shadow(),
+	'query-bearing article collision was not rejected fail-safe'
+);
+
+justice_p0_test_reset_sitemap_collisions();
+justice_p0_test_assert(
+	justice_p0_term_170_is_category_730_shadow(),
+	'exact term 170/category 730 collision fingerprint was not recognized'
+);
+foreach (
+	array(
+		'term_id'  => 171,
+		'taxonomy' => 'category',
+		'slug'     => 'criminal-law-copy',
+	) as $field => $replacement
+) {
+	justice_p0_test_reset_sitemap_collisions();
+	$GLOBALS['justice_p0_test_terms'][170]->{$field} = $replacement;
+	justice_p0_test_assert(
+		! justice_p0_term_170_is_category_730_shadow(),
+		"term 170 {$field} drift did not release its sitemap exclusion"
+	);
+}
+foreach (
+	array(
+		'term_id'  => 731,
+		'taxonomy' => 'practice-areas',
+		'slug'     => 'criminal-law-copy',
+	) as $field => $replacement
+) {
+	justice_p0_test_reset_sitemap_collisions();
+	$GLOBALS['justice_p0_test_terms'][730]->{$field} = $replacement;
+	justice_p0_test_assert(
+		! justice_p0_term_170_is_category_730_shadow(),
+		"dominant category 730 {$field} drift did not release term 170 exclusion"
+	);
+}
+justice_p0_test_reset_sitemap_collisions();
+$GLOBALS['justice_p0_test_term_links'][170] = 'https://jus-tice.co.il/practice-areas/criminal-law-copy/';
+justice_p0_test_assert(
+	! justice_p0_term_170_is_category_730_shadow(),
+	'term 170 link drift did not release its sitemap exclusion'
+);
+justice_p0_test_reset_sitemap_collisions();
+$GLOBALS['justice_p0_test_term_links'][170] = 'https://jus-tice.co.il/practice-areas/criminal-law/?collision=ambiguous';
+$GLOBALS['justice_p0_test_term_links'][730] = 'https://jus-tice.co.il/practice-areas/criminal-law/?collision=ambiguous';
+justice_p0_test_assert(
+	! justice_p0_term_170_is_category_730_shadow(),
+	'query-bearing term collision was not rejected fail-safe'
+);
+justice_p0_test_assert_same(
+	array(),
+	call_user_func( $term_sitemap_callback, array() ),
+	'term sitemap exclusion survived after its collision predicate failed'
+);
+justice_p0_test_reset_sitemap_collisions();
+justice_p0_test_assert_same(
+	array( 170 ),
+	call_user_func( $term_sitemap_callback, array() ),
+	'exact weaker term 170 was not added to Yoast exclusions'
+);
+justice_p0_test_assert_same(
+	array( 91, 730, 170 ),
+	call_user_func( $term_sitemap_callback, array( 91, 730, 91 ) ),
+	'term sitemap merge changed existing IDs, added category 730, or failed to de-duplicate'
 );
 
 $expected_fingerprints = array(
@@ -832,17 +1179,25 @@ justice_p0_test_assert_same(
 
 justice_p0_test_reset_profiles();
 justice_p0_test_assert_same(
-	array( 91, 23405, 23406 ),
+	array( 91, 23405, 23406, 7905 ),
 	call_user_func( $sitemap_callback, array( 91, 23405 ) ),
 	'Yoast exclusion merge changed existing IDs, ordering, or de-duplication'
 );
 $GLOBALS['justice_p0_test_approved_ids'][23405] = true;
 justice_p0_test_assert_same(
-	array( 91, 23406 ),
+	array( 91, 23406, 7905 ),
 	call_user_func( $sitemap_callback, array( 91 ) ),
 	'Yoast exclusion merge ignored the approval transition'
 );
 justice_p0_test_reset_profiles();
+justice_p0_test_reset_sitemap_collisions();
+$GLOBALS['justice_p0_test_shadow_posts'][7905]->post_status = 'draft';
+justice_p0_test_assert_same(
+	array( 91, 23405, 23406 ),
+	call_user_func( $sitemap_callback, array( 91 ) ),
+	'article sitemap exclusion survived after its exact fingerprint failed'
+);
+justice_p0_test_reset_sitemap_collisions();
 
 $city_query = new WP_Query(
 	array( 'post__not_in' => array( 501 ) ),
@@ -1460,15 +1815,15 @@ justice_p0_test_assert(
 	is_array( $health ) && isset( $health['version'], $health['marker'] ),
 	'healthcheck response omitted its release identity'
 );
-justice_p0_test_assert_same( '0.1.1', $health['version'], 'healthcheck version changed' );
-justice_p0_test_assert_same( 'p0-plugin-only-20260801-v2', $health['marker'], 'healthcheck marker changed' );
+justice_p0_test_assert_same( '0.1.2', $health['version'], 'healthcheck version changed' );
+justice_p0_test_assert_same( 'p0-plugin-only-20260801-v3', $health['marker'], 'healthcheck marker changed' );
 
 /**
  * Run constant-based runtime guards in fresh PHP processes because constants
  * cannot be undefined safely inside one process.
  */
 function justice_p0_test_runtime_process( string $scenario ): void {
-	$command = escapeshellarg( PHP_BINARY ) . ' ' . escapeshellarg( __FILE__ ) . ' --runtime ' . escapeshellarg( $scenario );
+	$command = array( PHP_BINARY, __FILE__, '--runtime', $scenario );
 	$spec    = array(
 		0 => array( 'pipe', 'r' ),
 		1 => array( 'pipe', 'w' ),

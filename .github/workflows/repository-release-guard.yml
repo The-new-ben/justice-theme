@@ -1,0 +1,53 @@
+name: Repository Release Guard
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  repository-release-guard:
+    name: repository-release-guard
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Check out reviewed source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 2
+
+      - name: Reject whitespace errors
+        run: git diff --check HEAD^ HEAD
+
+      - name: Lint every tracked PHP file
+        run: |
+          set -euo pipefail
+          git ls-files -z '*.php' | sort -z | xargs -0 -r -n1 php -l
+
+      - name: Verify the tracked Justice Ops release artifact
+        run: |
+          set -euo pipefail
+          VERSION="$(php -r '$s=file_get_contents("justice-ops/justice-ops.php"); preg_match("/^\\s*\\*\\s*Version:\\s*(\\S+)/m", $s, $m); echo $m[1] ?? "";')"
+          test -n "$VERSION"
+          ZIP="plugin-dist/justice-ops-$VERSION.zip"
+          git ls-files --error-unmatch "$ZIP"
+          test -f "$ZIP"
+          php -r '
+            $manifest = json_decode(file_get_contents("plugin-dist/justice-ops.json"), true, 512, JSON_THROW_ON_ERROR);
+            $source = file_get_contents("justice-ops/justice-ops.php");
+            preg_match("/^\\s*\\*\\s*Version:\\s*(\\S+)/m", $source, $match);
+            $version = $match[1] ?? "";
+            if ($version === "" || ($manifest["version"] ?? "") !== $version) { exit(1); }
+            $expected = "justice-ops-{$version}.zip";
+            if (!str_ends_with((string) ($manifest["download_url"] ?? ""), "/{$expected}")) { exit(1); }
+          '
+          rm -rf /tmp/justice-ops-artifact
+          mkdir -p /tmp/justice-ops-artifact
+          unzip -q "$ZIP" -d /tmp/justice-ops-artifact
+          test -f /tmp/justice-ops-artifact/justice-ops/justice-ops.php
+          grep -q "Version: $VERSION" /tmp/justice-ops-artifact/justice-ops/justice-ops.php
+          find /tmp/justice-ops-artifact/justice-ops -type f -name '*.php' -print0 | sort -z | xargs -0 -r -n1 php -l

@@ -16,6 +16,7 @@ import json
 import os
 import re
 import sys
+import tempfile
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -29,7 +30,60 @@ from typing import Any, Iterable, Mapping, Sequence
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGET_BASE_URL = "https://jus-tice.co.il"
-REPORT_SCHEMA_VERSION = 6
+REPORT_SCHEMA_VERSION = 7
+MAX_DEACTIVATION_EVIDENCE_AGE_SECONDS = 30 * 60
+DEPLOY_EVIDENCE_SCHEMA_VERSION = 1
+DEPLOY_REPOSITORY = "The-new-ben/justice-theme"
+DEPLOY_TOOL_REPOSITORY_PATH = "tools/wp_deploy_seo_recovery_p0.py"
+DEPLOY_RELEASE_RULESET_ID = 20160370
+DEPLOY_REQUIRED_CHECK_NAME = "repository-release-guard"
+DEPLOY_RELEASE_WORKFLOW_PATH = ".github/workflows/repository-release-guard.yml"
+DEPLOY_RELEASE_WORKFLOW_NAME = "Repository Release Guard"
+DEPLOY_LOCK_CONTRACT = "justice-seo-recovery-p0-lock-v1"
+DEPLOY_LOCK_SCHEMA_VERSION = 1
+DEPLOY_LOCK_STALE_AFTER_SECONDS = 4 * 60 * 60
+DEPLOY_AFFECTED_PATHS = (
+    "/",
+    "/mediation-divorce/",
+    "/divorce-mediation/",
+    "/immigration-to-portugal/",
+    "/portugal-relocation/",
+    "/category/news/",
+    "/legal-news/",
+    "/practice-areas/child-support/",
+    "/child-support/",
+    "/practice-areas/family-law/",
+    "/family-law/",
+    "/practice-areas/criminal-law/",
+    "/lawyers/",
+    "/city/tel-aviv/",
+    "/lawyers/\u05de\u05d0\u05d9\u05d4-\u05e8\u05d5\u05d8\u05e0\u05d1\u05e8\u05d2-\u05d7\u05d1\u05e8\u05ea-\u05e2\u05d5\u05e8\u05db\u05d9-\u05d3\u05d9\u05df/",
+    "/lawyers/\u05de\u05d0\u05d9\u05d4-\u05e8\u05d5\u05d8\u05e0\u05d1\u05e8\u05d2-\u05de\u05e9\u05e8\u05d3-\u05e2\u05d5\u05e8\u05db\u05d9-\u05d3\u05d9\u05df/",
+    "/sitemap-jus-tice/",
+    "/site-map/",
+    "/html-sitemap/",
+    "/sitemap_index.xml",
+    "/articles-sitemap.xml",
+    "/articles-sitemap2.xml",
+    "/justice_lawyer-sitemap.xml",
+    "/justice_lawyer-sitemap2.xml",
+    "/category-sitemap.xml",
+    "/practice-areas-sitemap.xml",
+    "/wp-json/justice/v1/sitemap",
+    "/wp-json/justice/v1/sitemap/lawyers",
+    "/?rest_route=/justice/v1/sitemap",
+    "/?rest_route=/justice/v1/sitemap/lawyers",
+)
+P0_PLUGIN_BASENAME = "justice-seo-recovery-p0/justice-seo-recovery-p0.php"
+SUPPORTED_PRIOR_VERSION = "0.1.1"
+SUPPORTED_PRIOR_MARKER = "p0-plugin-only-20260801-v2"
+SUPPORTED_PRIOR_COMMIT_SHA = "639fc74da19cbc58769bc614487a57898a98e815"
+SUPPORTED_PRIOR_ARTIFACT_SHA256 = (
+    "f8139efa86e185235faa1e66119719d7e4af0a5138eab69be54d266cbd7180d9"
+)
+SUPPORTED_PRIOR_PLUGIN_FILE_SHA256 = (
+    "c3a70cee3831ccb5cdabd910cf12af0c35fd3b0b81f964c1f795acec002b6b5c"
+)
 DEFAULT_REPORT_DIR = (
     ROOT
     / "reports"
@@ -42,6 +96,23 @@ PROFILE_IDS = (23405, 23406, 19130)
 QUARANTINED_PROFILE_IDS = (23405, 23406)
 APPROVED_PROFILE_ID = 19130
 APPROVED_PROFILE_PATH = "/lawyers/advocate-maya-rotenberg/"
+SHADOW_ARTICLE_ID = 7905
+SHADOW_PRACTICE_AREA_TERM_ID = 170
+DOMINANT_CATEGORY_TERM_ID = 730
+SITEMAP_SHADOW_COLLISIONS = (
+    {
+        "key": "article_7905_lawyer_archive",
+        "target_path": "/lawyers/",
+        "shadow_sitemap_kind": "articles",
+        "dominant_sitemap_kind": "justice_lawyer",
+    },
+    {
+        "key": "term_170_category_730",
+        "target_path": "/practice-areas/criminal-law/",
+        "shadow_sitemap_kind": "practice-areas",
+        "dominant_sitemap_kind": "category",
+    },
+)
 QUARANTINED_PROFILE_PATHS_BY_TITLE = {
     "מאיה רוטנברג חברת עורכי דין": "/lawyers/מאיה-רוטנברג-חברת-עורכי-דין/",
     "מאיה רוטנברג משרד עורכי דין": "/lawyers/מאיה-רוטנברג-משרד-עורכי-דין/",
@@ -116,13 +187,32 @@ DIRECT_REDIRECT_REPAIRS = (
 )
 
 DEFAULT_HEALTH_ROUTE = "justice-seo-recovery/v1/healthcheck"
-DEFAULT_REQUIRED_PLUGIN_VERSION = "0.1.1"
-DEFAULT_REQUIRED_PLUGIN_MARKER = "p0-plugin-only-20260801-v2"
+DEFAULT_REQUIRED_PLUGIN_VERSION = "0.1.2"
+DEFAULT_REQUIRED_PLUGIN_MARKER = "p0-plugin-only-20260801-v3"
 DEFAULT_THEME_HEALTH_ROUTE = "justice/v1/healthcheck"
 DEFAULT_REQUIRED_LIVE_THEME = "justice-theme"
 DEFAULT_REQUIRED_LIVE_THEME_VERSION = "2.23.0"
 DEFAULT_REQUIRED_LIVE_THEME_MARKER = "2026-07-06-home-keywords-upperfold-v1"
 EXPECTED_ROBOTS_SITEMAP_URL = f"{TARGET_BASE_URL}/sitemap_index.xml"
+MOBILE_NAV_STYLE_HANDLE = "justice-p0-mobile-nav-recovery"
+MOBILE_NAV_STYLE_ELEMENT_ID = f"{MOBILE_NAV_STYLE_HANDLE}-inline-css"
+MOBILE_NAV_LEGACY_STYLESHEET_ID = f"{MOBILE_NAV_STYLE_HANDLE}-css"
+MOBILE_NAV_CSS_MARKER = "justice-p0-mobile-nav-recovery-v1"
+MOBILE_NAV_INLINE_CSS = (
+    "/* justice-p0-mobile-nav-recovery-v1 */"
+    "@media (max-width:920px){"
+    "html.nav-is-open,body.nav-is-open{overflow:hidden!important}"
+    "html.nav-is-open .jt2-header nav.primary-navigation{"
+    "bottom:auto!important;height:auto!important;"
+    "max-height:calc(100vh - 9rem)!important;"
+    "max-height:calc(100dvh - 9rem)!important;"
+    "overflow-x:hidden!important;overflow-y:auto!important;"
+    "overscroll-behavior:contain!important}"
+    "html.nav-is-open .jt2-header nav.primary-navigation #primary-menu>li>a{"
+    "color:var(--jt2-ivory,#f8f3ea)!important}"
+    "html.nav-is-open .jt2-header nav.primary-navigation "
+    "#primary-menu>li.jt-nav-ai>a{color:#e7c765!important}}"
+)
 
 KNOWN_TEMP_SNIPPET_PREFIXES = (
     "tmp-justice-ops-live-digest-",
@@ -168,6 +258,10 @@ def timestamp_slug(value: datetime | None = None) -> str:
 
 def sha256_bytes(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
+
+
+def sha256_text(value: str) -> str:
+    return sha256_bytes(value.encode("utf-8"))
 
 
 def parse_dotenv(path: Path) -> dict[str, str]:
@@ -293,6 +387,30 @@ def normalize_document_url(value: str, base_url: str) -> str:
     if parts.query or parts.fragment:
         return ""
     return normalize_url(resolved)
+
+
+def normalize_absolute_https_document_url(value: str, base_url: str) -> str:
+    """Accept only an absolute same-origin HTTPS URL without query or fragment."""
+
+    raw = html.unescape(value.strip())
+    try:
+        parts = urllib.parse.urlsplit(raw)
+        base_parts = urllib.parse.urlsplit(base_url)
+        port = parts.port
+    except (UnicodeError, ValueError):
+        return ""
+    if (
+        parts.scheme.lower() != "https"
+        or not parts.netloc
+        or (parts.hostname or "").lower() != (base_parts.hostname or "").lower()
+        or port not in (None, 443)
+        or parts.username is not None
+        or parts.password is not None
+        or bool(parts.query)
+        or bool(parts.fragment)
+    ):
+        return ""
+    return normalize_url(raw)
 
 
 def validate_target_base_url(value: str) -> str:
@@ -632,8 +750,75 @@ class PageParser(HTMLParser):
             self._json_ld_chunks = None
 
 
+class InlineStyleParser(HTMLParser):
+    """Collect exact inline stylesheet text by element ID."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.styles: list[dict[str, object]] = []
+        self._style_id: str | None = None
+        self._style_data_noptimize: str | None = None
+        self._style_id_count = 0
+        self._style_data_noptimize_count = 0
+        self._chunks: list[str] | None = None
+        self.legacy_stylesheet_link_count = 0
+
+    def handle_starttag(
+        self,
+        tag: str,
+        attrs: list[tuple[str, str | None]],
+    ) -> None:
+        tag_name = tag.lower()
+        values = {name.lower(): value or "" for name, value in attrs}
+        if (
+            tag_name == "link"
+            and values.get("id") == MOBILE_NAV_LEGACY_STYLESHEET_ID
+        ):
+            self.legacy_stylesheet_link_count += 1
+        if tag_name != "style":
+            return
+        self._style_id = values.get("id", "")
+        self._style_data_noptimize = values.get("data-noptimize")
+        self._style_id_count = sum(1 for name, _ in attrs if name.lower() == "id")
+        self._style_data_noptimize_count = sum(
+            1 for name, _ in attrs if name.lower() == "data-noptimize"
+        )
+        self._chunks = []
+
+    def handle_data(self, data: str) -> None:
+        if self._chunks is not None:
+            self._chunks.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.lower() != "style" or self._chunks is None:
+            return
+        self.styles.append(
+            {
+                "id": self._style_id or "",
+                "data_noptimize": self._style_data_noptimize or "",
+                "id_attribute_count": str(self._style_id_count),
+                "data_noptimize_attribute_count": str(
+                    self._style_data_noptimize_count
+                ),
+                "css": "".join(self._chunks),
+            }
+        )
+        self._style_id = None
+        self._style_data_noptimize = None
+        self._style_id_count = 0
+        self._style_data_noptimize_count = 0
+        self._chunks = None
+
+
 def parse_page(result: HttpResult) -> PageParser:
     parser = PageParser()
+    parser.feed(result.text)
+    parser.close()
+    return parser
+
+
+def parse_inline_styles(result: HttpResult) -> InlineStyleParser:
+    parser = InlineStyleParser()
     parser.feed(result.text)
     parser.close()
     return parser
@@ -644,12 +829,25 @@ def parse_xml_locs(result: HttpResult) -> tuple[list[str], str | None]:
         root = ET.fromstring(result.body)
     except ET.ParseError as error:
         return [], str(error)
+    root_kind = root.tag.rsplit("}", 1)[-1].lower()
+    expected_entry_kind = {
+        "sitemapindex": "sitemap",
+        "urlset": "url",
+    }.get(root_kind)
+    if expected_entry_kind is None:
+        return [], f"unexpected XML sitemap root: {root_kind or '[empty]'}"
     locs: list[str] = []
-    for element in root.iter():
-        if element.tag.rsplit("}", 1)[-1].lower() == "loc" and element.text:
-            value = element.text.strip()
-            if value:
-                locs.append(value)
+    for entry in root:
+        if entry.tag.rsplit("}", 1)[-1].lower() != expected_entry_kind:
+            continue
+        for element in entry:
+            if element.tag.rsplit("}", 1)[-1].lower() != "loc":
+                continue
+            if element.text:
+                value = element.text.strip()
+                if value:
+                    locs.append(value)
+            break
     return locs, None
 
 
@@ -1058,6 +1256,71 @@ def collect_profiles(
     return records
 
 
+def authenticated_rest_record(
+    client: WordPressClient,
+    *,
+    route: str,
+    fields: Sequence[str],
+    label: str,
+) -> dict[str, object]:
+    """Read one exact WordPress object without mutating or broad collection scans."""
+
+    result = client.rest(
+        "GET",
+        route,
+        params={"context": "edit", "_fields": ",".join(fields)},
+        authenticated=True,
+    )
+    if result.status != 200:
+        raise VerificationError(f"{label} returned HTTP {result.status}")
+    payload = json_object(result, label)
+    missing_fields = [field for field in fields if field not in payload]
+    if missing_fields:
+        raise VerificationError(
+            f"{label} omitted required fields: " + ", ".join(missing_fields)
+        )
+    record = {field: payload.get(field) for field in fields}
+    record.update(
+        {
+            "authenticated": True,
+            "normalized_link": normalize_url(str(payload.get("link") or "")),
+            "body_sha256": sha256_bytes(result.body),
+            "request": result.summary(),
+        }
+    )
+    return record
+
+
+def sitemap_shadow_collision_records_observation(
+    client: WordPressClient,
+) -> dict[str, object]:
+    """Read the two weaker records and the exact dominant category term."""
+
+    return {
+        "article_7905": authenticated_rest_record(
+            client,
+            route=f"wp/v2/articles/{SHADOW_ARTICLE_ID}",
+            fields=("id", "type", "status", "slug", "link"),
+            label=f"authenticated shadow article {SHADOW_ARTICLE_ID}",
+        ),
+        "practice_area_term_170": authenticated_rest_record(
+            client,
+            route=f"wp/v2/practice-areas/{SHADOW_PRACTICE_AREA_TERM_ID}",
+            fields=("id", "taxonomy", "slug", "link"),
+            label=(
+                "authenticated practice-areas term "
+                f"{SHADOW_PRACTICE_AREA_TERM_ID}"
+            ),
+        ),
+        "category_term_730": authenticated_rest_record(
+            client,
+            route=f"wp/v2/categories/{DOMINANT_CATEGORY_TERM_ID}",
+            fields=("id", "taxonomy", "slug", "link"),
+            label=f"authenticated category term {DOMINANT_CATEGORY_TERM_ID}",
+        ),
+    }
+
+
 def profile_targets(
     client: WordPressClient,
     records: Mapping[str, Mapping[str, object]],
@@ -1271,6 +1534,7 @@ def health_observation(
         "authenticated": False,
         "version": str(value.get("version") or ""),
         "marker": str(value.get("marker") or ""),
+        "rest_code": str(value.get("code") or ""),
         "response_fields": sorted(str(key) for key in value),
         "json_error": json_error,
     }
@@ -1289,6 +1553,48 @@ def theme_health_observation(
         "theme_version": str(payload.get("theme_version") or ""),
         "deploy_marker": str(payload.get("deploy_marker") or ""),
         "response_fields": sorted(str(key) for key in payload),
+    }
+
+
+def mobile_nav_recovery_observation(
+    client: WordPressClient,
+) -> dict[str, object]:
+    expected_url = normalize_url(client.public_url("/"))
+    result = client.request_url("GET", expected_url)
+    parser = parse_inline_styles(result)
+    matched_styles = [
+        row
+        for row in parser.styles
+        if row.get("id") == MOBILE_NAV_STYLE_ELEMENT_ID
+    ]
+    matched_css = [row["css"] for row in matched_styles]
+    return {
+        "expected_url": expected_url,
+        "request": result.summary(),
+        "authenticated": False,
+        "style_element_id": MOBILE_NAV_STYLE_ELEMENT_ID,
+        "style_element_count": len(matched_css),
+        "data_noptimize_values": [
+            row.get("data_noptimize") for row in matched_styles
+        ],
+        "id_attribute_counts": [
+            int(row.get("id_attribute_count") or 0) for row in matched_styles
+        ],
+        "data_noptimize_attribute_counts": [
+            int(row.get("data_noptimize_attribute_count") or 0)
+            for row in matched_styles
+        ],
+        "legacy_stylesheet_element_id": MOBILE_NAV_LEGACY_STYLESHEET_ID,
+        "legacy_stylesheet_link_count": parser.legacy_stylesheet_link_count,
+        "exact_css_count": sum(
+            1 for css in matched_css if css == MOBILE_NAV_INLINE_CSS
+        ),
+        "marker_count": sum(
+            css.count(MOBILE_NAV_CSS_MARKER) for css in matched_css
+        ),
+        "observed_css_sha256": [sha256_text(css) for css in matched_css],
+        "expected_css_sha256": sha256_text(MOBILE_NAV_INLINE_CSS),
+        "total_inline_style_count": len(parser.styles),
     }
 
 
@@ -1599,6 +1905,14 @@ def is_lawyer_sitemap(url: str) -> bool:
     )
 
 
+def yoast_sitemap_kind(url: str) -> str:
+    """Return the exact Yoast provider name from a paginated child URL."""
+
+    filename = urllib.parse.urlsplit(url).path.lower().rsplit("/", 1)[-1]
+    match = re.fullmatch(r"([a-z0-9_-]+)-sitemap(?:[0-9]+)?\.xml", filename)
+    return match.group(1) if match else ""
+
+
 def yoast_sitemaps_observation(
     client: WordPressClient,
     targets: Mapping[int, str],
@@ -1606,56 +1920,123 @@ def yoast_sitemaps_observation(
     index_url = client.public_url("/sitemap_index.xml")
     index_result = client.request_url("GET", index_url)
     index_locs, index_error = parse_xml_locs(index_result)
-    lawyer_urls = sorted({url for url in index_locs if is_lawyer_sitemap(url)})
-    base_origin = urllib.parse.urlsplit(client.base_url)
-    sitemap_rows: list[dict[str, object]] = []
-    union_reference = {str(profile_id): False for profile_id in targets}
-    for url in lawyer_urls:
-        parts = urllib.parse.urlsplit(url)
-        same_origin = (
-            parts.scheme.lower() == base_origin.scheme.lower()
-            and (parts.hostname or "").lower() == (base_origin.hostname or "").lower()
+    child_urls = sorted(set(index_locs))
+    collision_targets = {
+        str(spec["key"]): normalize_absolute_https_document_url(
+            client.public_url(str(spec["target_path"])),
+            client.base_url,
         )
+        for spec in SITEMAP_SHADOW_COLLISIONS
+    }
+    child_rows: list[dict[str, object]] = []
+    union_reference = {str(profile_id): False for profile_id in targets}
+    for url in child_urls:
+        same_origin = url_origin(url) == url_origin(client.base_url)
+        sitemap_kind = yoast_sitemap_kind(url)
         if not same_origin:
-            sitemap_rows.append(
+            child_rows.append(
                 {
                     "url": url,
+                    "kind": sitemap_kind,
                     "same_origin": False,
                     "request": None,
                     "xml_error": "external sitemap URL refused",
                     "loc_count": 0,
                     "references": {},
+                    "collision_target_counts": {
+                        key: 0 for key in collision_targets
+                    },
                 }
             )
             continue
         result = client.request_url("GET", url)
         locs, parse_error = parse_xml_locs(result)
-        references = reference_observation(
-            result,
-            locs,
-            targets,
-            client.base_url,
+        normalized_locs = [
+            normalize_absolute_https_document_url(loc, client.base_url)
+            for loc in locs
+        ]
+        collision_target_counts = {
+            key: sum(1 for loc in normalized_locs if loc == target_url)
+            for key, target_url in collision_targets.items()
+        }
+        references = (
+            reference_observation(
+                result,
+                locs,
+                targets,
+                client.base_url,
+            )
+            if is_lawyer_sitemap(url)
+            else {}
         )
         for profile_id, observation in references.items():
             if bool(observation["present"]):
                 union_reference[profile_id] = True
-        sitemap_rows.append(
+        child_rows.append(
             {
                 "url": url,
+                "kind": sitemap_kind,
                 "same_origin": True,
                 "request": result.summary(),
                 "xml_error": parse_error,
                 "loc_count": len(locs),
                 "references": references,
+                "collision_target_counts": collision_target_counts,
             }
         )
+
+    lawyer_rows = [
+        row for row in child_rows if is_lawyer_sitemap(str(row.get("url") or ""))
+    ]
+    collision_summaries: dict[str, object] = {}
+    for spec in SITEMAP_SHADOW_COLLISIONS:
+        key = str(spec["key"])
+        shadow_kind = str(spec["shadow_sitemap_kind"])
+        dominant_kind = str(spec["dominant_sitemap_kind"])
+        rows_with_target: list[dict[str, object]] = []
+        total_count = 0
+        shadow_count = 0
+        dominant_count = 0
+        for row in child_rows:
+            counts = row.get("collision_target_counts")
+            counts = counts if isinstance(counts, dict) else {}
+            count = int(counts.get(key) or 0)
+            kind = str(row.get("kind") or "")
+            total_count += count
+            if kind == shadow_kind:
+                shadow_count += count
+            if kind == dominant_kind:
+                dominant_count += count
+            if count:
+                rows_with_target.append(
+                    {
+                        "url": row.get("url"),
+                        "kind": kind,
+                        "count": count,
+                    }
+                )
+        collision_summaries[key] = {
+            "target_url": collision_targets[key],
+            "shadow_sitemap_kind": shadow_kind,
+            "dominant_sitemap_kind": dominant_kind,
+            "total_count": total_count,
+            "shadow_count": shadow_count,
+            "dominant_count": dominant_count,
+            "other_count": total_count - shadow_count - dominant_count,
+            "rows_with_target": rows_with_target,
+        }
+
     return {
         "index_request": index_result.summary(),
         "index_xml_error": index_error,
         "index_loc_count": len(index_locs),
-        "lawyer_sitemap_count": len(lawyer_urls),
-        "lawyer_sitemaps": sitemap_rows,
+        "index_unique_loc_count": len(child_urls),
+        "child_sitemap_count": len(child_urls),
+        "child_sitemaps": child_rows,
+        "lawyer_sitemap_count": len(lawyer_rows),
+        "lawyer_sitemaps": lawyer_rows,
         "union_presence": union_reference,
+        "shadow_collision_targets": collision_summaries,
     }
 
 
@@ -2032,6 +2413,53 @@ def build_checks(
         enforced=enforced,
     )
 
+    mobile_nav = observations.get("mobile_nav_recovery")
+    mobile_nav = mobile_nav if isinstance(mobile_nav, dict) else {}
+    expected_mobile_css_sha256 = sha256_text(MOBILE_NAV_INLINE_CSS)
+    mobile_nav_ok = (
+        mobile_nav.get("authenticated") is False
+        and request_is_exact_direct_200(mobile_nav)
+        and mobile_nav.get("style_element_id") == MOBILE_NAV_STYLE_ELEMENT_ID
+        and mobile_nav.get("style_element_count") == 1
+        and mobile_nav.get("data_noptimize_values") == ["1"]
+        and mobile_nav.get("id_attribute_counts") == [1]
+        and mobile_nav.get("data_noptimize_attribute_counts") == [1]
+        and mobile_nav.get("legacy_stylesheet_link_count") == 0
+        and mobile_nav.get("exact_css_count") == 1
+        and mobile_nav.get("marker_count") == 1
+        and mobile_nav.get("expected_css_sha256") == expected_mobile_css_sha256
+        and mobile_nav.get("observed_css_sha256") == [expected_mobile_css_sha256]
+    )
+    add_check(
+        checks,
+        "mobile_nav_recovery_inline_css_present_exactly_once",
+        mobile_nav_ok,
+        {
+            "geometry_contract": "real_Chrome_acceptance_is_authoritative",
+            "style_element_id": mobile_nav.get("style_element_id"),
+            "style_element_count": mobile_nav.get("style_element_count"),
+            "required_data_noptimize": "1",
+            "data_noptimize_values": mobile_nav.get("data_noptimize_values"),
+            "id_attribute_counts": mobile_nav.get("id_attribute_counts"),
+            "data_noptimize_attribute_counts": mobile_nav.get(
+                "data_noptimize_attribute_counts"
+            ),
+            "legacy_stylesheet_element_id": mobile_nav.get(
+                "legacy_stylesheet_element_id"
+            ),
+            "legacy_stylesheet_link_count": mobile_nav.get(
+                "legacy_stylesheet_link_count"
+            ),
+            "exact_css_count": mobile_nav.get("exact_css_count"),
+            "marker": MOBILE_NAV_CSS_MARKER,
+            "marker_count": mobile_nav.get("marker_count"),
+            "expected_css_sha256": expected_mobile_css_sha256,
+            "observed_css_sha256": mobile_nav.get("observed_css_sha256"),
+            "request": mobile_nav.get("request"),
+        },
+        enforced=enforced,
+    )
+
     profiles = observations.get("profiles")
     profiles = profiles if isinstance(profiles, dict) else {}
     authenticated_profiles = profiles.get("authenticated")
@@ -2308,6 +2736,179 @@ def build_checks(
         enforced=enforced,
     )
 
+    child_sitemaps = yoast.get("child_sitemaps")
+    child_sitemaps = child_sitemaps if isinstance(child_sitemaps, list) else []
+    child_sitemap_failures: list[dict[str, object]] = []
+    for child in child_sitemaps:
+        child = child if isinstance(child, dict) else {}
+        request = child.get("request")
+        request = request if isinstance(request, dict) else {}
+        if (
+            child.get("same_origin") is not True
+            or not child.get("kind")
+            or request.get("status") != 200
+            or request.get("redirects") != []
+            or request.get("requested_url") != request.get("final_url")
+            or child.get("xml_error") is not None
+        ):
+            child_sitemap_failures.append(
+                {
+                    "url": child.get("url"),
+                    "kind": child.get("kind"),
+                    "same_origin": child.get("same_origin"),
+                    "request": request,
+                    "xml_error": child.get("xml_error"),
+                }
+            )
+    expected_index_url = normalize_url(f"{TARGET_BASE_URL}/sitemap_index.xml")
+    all_yoast_children_ok = (
+        index_request.get("status") == 200
+        and index_request.get("redirects") == []
+        and normalize_url(str(index_request.get("requested_url") or ""))
+        == expected_index_url
+        and normalize_url(str(index_request.get("final_url") or ""))
+        == expected_index_url
+        and yoast.get("index_xml_error") is None
+        and type(yoast.get("index_loc_count")) is int
+        and int(yoast.get("index_loc_count") or 0) > 0
+        and yoast.get("index_loc_count") == yoast.get("index_unique_loc_count")
+        and yoast.get("index_unique_loc_count") == yoast.get("child_sitemap_count")
+        and yoast.get("child_sitemap_count") == len(child_sitemaps)
+        and not child_sitemap_failures
+    )
+
+    collision_records = observations.get("sitemap_shadow_collision_records")
+    collision_records = (
+        collision_records if isinstance(collision_records, dict) else {}
+    )
+    collision_targets = yoast.get("shadow_collision_targets")
+    collision_targets = collision_targets if isinstance(collision_targets, dict) else {}
+
+    def authenticated_collision_record_ok(
+        record: Mapping[str, object],
+        expected_route: str,
+        expected_fields: Sequence[str],
+    ) -> bool:
+        request = record.get("request")
+        request = request if isinstance(request, dict) else {}
+        requested_url = str(request.get("requested_url") or "")
+        requested_parts = urllib.parse.urlsplit(requested_url)
+        requested_query = urllib.parse.parse_qs(
+            requested_parts.query,
+            keep_blank_values=True,
+        )
+        return (
+            record.get("authenticated") is True
+            and request.get("status") == 200
+            and request.get("redirects") == []
+            and request.get("transport") == "pretty"
+            and request.get("pretty_preflight_status") is None
+            and request.get("requested_url") == request.get("final_url")
+            and url_origin(requested_url) == url_origin(TARGET_BASE_URL)
+            and requested_parts.path == f"/wp-json/{expected_route}"
+            and requested_query.get("context") == ["edit"]
+            and requested_query.get("_fields") == [",".join(expected_fields)]
+        )
+
+    article_record = collision_records.get("article_7905")
+    article_record = article_record if isinstance(article_record, dict) else {}
+    lawyer_target = collision_targets.get("article_7905_lawyer_archive")
+    lawyer_target = lawyer_target if isinstance(lawyer_target, dict) else {}
+    expected_lawyer_url = normalize_url(f"{TARGET_BASE_URL}/lawyers/")
+    article_fingerprint_ok = (
+        authenticated_collision_record_ok(
+            article_record,
+            f"wp/v2/articles/{SHADOW_ARTICLE_ID}",
+            ("id", "type", "status", "slug", "link"),
+        )
+        and article_record.get("id") == SHADOW_ARTICLE_ID
+        and article_record.get("type") == "articles"
+        and article_record.get("status") == "publish"
+        and article_record.get("slug") == "lawyers"
+        and article_record.get("normalized_link") == expected_lawyer_url
+    )
+    lawyer_sitemap_contract_ok = (
+        lawyer_target.get("target_url") == expected_lawyer_url
+        and lawyer_target.get("shadow_sitemap_kind") == "articles"
+        and lawyer_target.get("dominant_sitemap_kind") == "justice_lawyer"
+        and lawyer_target.get("total_count") == 1
+        and lawyer_target.get("shadow_count") == 0
+        and lawyer_target.get("dominant_count") == 1
+        and lawyer_target.get("other_count") == 0
+    )
+    add_check(
+        checks,
+        "yoast_shadow_article_7905_absent_lawyer_archive_present_once",
+        all_yoast_children_ok
+        and article_fingerprint_ok
+        and lawyer_sitemap_contract_ok,
+        {
+            "all_yoast_children_ok": all_yoast_children_ok,
+            "child_sitemap_failures": child_sitemap_failures,
+            "article_fingerprint": article_record,
+            "target_summary": lawyer_target,
+        },
+        enforced=enforced,
+    )
+
+    shadow_term_record = collision_records.get("practice_area_term_170")
+    shadow_term_record = (
+        shadow_term_record if isinstance(shadow_term_record, dict) else {}
+    )
+    category_term_record = collision_records.get("category_term_730")
+    category_term_record = (
+        category_term_record if isinstance(category_term_record, dict) else {}
+    )
+    criminal_target = collision_targets.get("term_170_category_730")
+    criminal_target = criminal_target if isinstance(criminal_target, dict) else {}
+    expected_criminal_url = normalize_url(
+        f"{TARGET_BASE_URL}/practice-areas/criminal-law/"
+    )
+    term_fingerprints_ok = (
+        authenticated_collision_record_ok(
+            shadow_term_record,
+            f"wp/v2/practice-areas/{SHADOW_PRACTICE_AREA_TERM_ID}",
+            ("id", "taxonomy", "slug", "link"),
+        )
+        and authenticated_collision_record_ok(
+            category_term_record,
+            f"wp/v2/categories/{DOMINANT_CATEGORY_TERM_ID}",
+            ("id", "taxonomy", "slug", "link"),
+        )
+        and shadow_term_record.get("id") == SHADOW_PRACTICE_AREA_TERM_ID
+        and shadow_term_record.get("taxonomy") == "practice-areas"
+        and shadow_term_record.get("slug") == "criminal-law"
+        and shadow_term_record.get("normalized_link") == expected_criminal_url
+        and category_term_record.get("id") == DOMINANT_CATEGORY_TERM_ID
+        and category_term_record.get("taxonomy") == "category"
+        and category_term_record.get("slug") == "criminal-law"
+        and category_term_record.get("normalized_link") == expected_criminal_url
+    )
+    criminal_sitemap_contract_ok = (
+        criminal_target.get("target_url") == expected_criminal_url
+        and criminal_target.get("shadow_sitemap_kind") == "practice-areas"
+        and criminal_target.get("dominant_sitemap_kind") == "category"
+        and criminal_target.get("total_count") == 1
+        and criminal_target.get("shadow_count") == 0
+        and criminal_target.get("dominant_count") == 1
+        and criminal_target.get("other_count") == 0
+    )
+    add_check(
+        checks,
+        "yoast_shadow_term_170_absent_category_730_present_once",
+        all_yoast_children_ok
+        and term_fingerprints_ok
+        and criminal_sitemap_contract_ok,
+        {
+            "all_yoast_children_ok": all_yoast_children_ok,
+            "child_sitemap_failures": child_sitemap_failures,
+            "shadow_term_fingerprint": shadow_term_record,
+            "dominant_category_fingerprint": category_term_record,
+            "target_summary": criminal_target,
+        },
+        enforced=enforced,
+    )
+
     html_listings = observations.get("html_listings")
     html_listings = html_listings if isinstance(html_listings, dict) else {}
     for path in HTML_LISTING_SURFACES:
@@ -2579,10 +3180,12 @@ def collect_observations(
     site_identity = site_identity_observation(client)
     authenticated_profiles = collect_profiles(client)
     targets = profile_targets(client, authenticated_profiles)
+    sitemap_shadow_records = sitemap_shadow_collision_records_observation(client)
     importer_route = importer_route_observation(client)
     robots = robots_observation(client)
     theme_health = theme_health_observation(client, theme_health_route)
     health = health_observation(client, health_route)
+    mobile_nav_recovery = mobile_nav_recovery_observation(client)
     public_profiles = public_profile_observations(client, targets)
     custom_sitemap = custom_sitemap_observation(client, targets)
     map_feed = map_feed_observation(client, targets)
@@ -2598,10 +3201,12 @@ def collect_observations(
         "robots": robots,
         "theme_health": theme_health,
         "health": health,
+        "mobile_nav_recovery": mobile_nav_recovery,
         "profiles": {
             "authenticated": authenticated_profiles,
             "public": public_profiles,
         },
+        "sitemap_shadow_collision_records": sitemap_shadow_records,
         "sitemaps": {
             "custom": custom_sitemap,
             "yoast": yoast_sitemaps,
@@ -2678,11 +3283,477 @@ def values_equal_exact(left: object, right: object) -> bool:
     return left == right
 
 
+def parse_utc_timestamp(value: object, label: str) -> datetime:
+    if not isinstance(value, str) or not value.strip():
+        raise VerificationError(f"{label} is missing")
+    candidate = value.strip()
+    try:
+        parsed = datetime.fromisoformat(
+            candidate[:-1] + "+00:00" if candidate.endswith("Z") else candidate
+        )
+    except ValueError:
+        raise VerificationError(f"{label} is not an ISO-8601 timestamp") from None
+    if parsed.tzinfo is None or parsed.utcoffset() is None:
+        raise VerificationError(f"{label} is not timezone-aware")
+    return parsed.astimezone(timezone.utc)
+
+
+def exact_inactive_health_observed(observation: object) -> bool:
+    health = observation if isinstance(observation, dict) else {}
+    request = health.get("request")
+    request = request if isinstance(request, dict) else {}
+    exact_url = f"{TARGET_BASE_URL}/wp-json/{DEFAULT_HEALTH_ROUTE}"
+    return (
+        health.get("authenticated") is False
+        and request.get("status") == 404
+        and request.get("redirects") == []
+        and request.get("transport") == "pretty"
+        and request.get("pretty_preflight_status") is None
+        and request.get("requested_url") == exact_url
+        and request.get("final_url") == exact_url
+        and str(request.get("content_type") or "")
+        .lower()
+        .startswith("application/json")
+        and health.get("rest_code") == "rest_no_route"
+        and health.get("version") == ""
+        and health.get("marker") == ""
+        and health.get("json_error") == ""
+    )
+
+
+def exact_guard_workflow_provenance(
+    value: Mapping[str, object],
+    *,
+    commit_sha: str,
+) -> bool:
+    """Require the check, Actions run, and Actions job to share one exact identity."""
+
+    check_id = value.get("guard_check_id")
+    run_id = value.get("guard_run_id")
+    job_id = value.get("guard_job_id")
+    if (
+        type(check_id) is not int
+        or type(run_id) is not int
+        or type(job_id) is not int
+        or check_id <= 0
+        or run_id <= 0
+        or job_id != check_id
+    ):
+        return False
+    expected_details_url = (
+        f"https://github.com/{DEPLOY_REPOSITORY}/actions/runs/{run_id}/job/{job_id}"
+    )
+    return bool(
+        value.get("guard_details_url") == expected_details_url
+        and value.get("guard_workflow_path")
+        in {
+            DEPLOY_RELEASE_WORKFLOW_PATH,
+            f"{DEPLOY_RELEASE_WORKFLOW_PATH}@main",
+        }
+        and value.get("guard_workflow_name") == DEPLOY_RELEASE_WORKFLOW_NAME
+        and value.get("guard_event") == "push"
+        and value.get("guard_head_branch") == "main"
+        and value.get("guard_head_sha") == commit_sha
+        and value.get("guard_repository") == DEPLOY_REPOSITORY
+        and value.get("guard_head_repository") == DEPLOY_REPOSITORY
+        and value.get("guard_run_status") == "completed"
+        and value.get("guard_run_conclusion") == "success"
+        and value.get("guard_job_status") == "completed"
+        and value.get("guard_job_conclusion") == "success"
+    )
+
+
+def exact_deploy_lock_evidence(value: Mapping[str, object]) -> bool:
+    """Require acquired ownership, exact assertions, and owner-value CAS release."""
+
+    common = (
+        value.get("contract") == DEPLOY_LOCK_CONTRACT
+        and type(value.get("schema_version")) is int
+        and value.get("schema_version") == DEPLOY_LOCK_SCHEMA_VERSION
+        and type(value.get("stale_after_seconds")) is int
+        and value.get("stale_after_seconds") == DEPLOY_LOCK_STALE_AFTER_SECONDS
+        and value.get("acquired") is True
+        and value.get("owner_reread_exact") is True
+        and type(value.get("owner_assertions_passed")) is int
+        and int(value.get("owner_assertions_passed") or 0) > 0
+        and value.get("owner_assertion_failed") is False
+        and value.get("release_required") is True
+        and value.get("release_attempted") is True
+        and value.get("release_precondition_exact") is True
+        and type(value.get("release_cas_rows")) is int
+        and value.get("release_cas_rows") == 1
+        and value.get("release_absence_confirmed") is True
+        and value.get("release_error") == ""
+        and value.get("released") is True
+    )
+    if not common:
+        return False
+    mode = value.get("acquisition_mode")
+    if mode == "fresh_add":
+        return bool(
+            value.get("stale_lock_inspected") is False
+            and value.get("stale_lock_identity_valid") is False
+            and value.get("stale_lock_age_seconds") is None
+            and value.get("stale_owner_sha256") == ""
+            and value.get("stale_action") == ""
+            and value.get("stale_expected_prior_state") == ""
+            and value.get("stale_transition_valid") is False
+            and type(value.get("stale_cas_rows")) is int
+            and value.get("stale_cas_rows") == 0
+            and value.get("old_helper_present") is None
+            and value.get("old_helper_identity_valid") is None
+            and value.get("old_helper_deleted") is None
+            and value.get("old_helper_absent_after") is None
+            and value.get("prior_process_death_ambiguity") is False
+            and value.get("exact_prior_state_precondition_verified") is False
+        )
+    if mode != "stale_cas":
+        return False
+    stale_age = value.get("stale_lock_age_seconds")
+    stale_transition = (
+        value.get("stale_action"),
+        value.get("stale_expected_prior_state"),
+    )
+    valid_transitions = {
+        ("install", "absent"),
+        ("install", "inactive_exact"),
+        ("install", "inactive_supported_prior"),
+        ("deactivate", "active_exact"),
+        ("deactivate", "active_supported_prior"),
+        ("reactivate", "inactive_supported_prior"),
+        ("rollback-supported-prior", "active_exact"),
+    }
+    old_helper_present = value.get("old_helper_present")
+    return bool(
+        value.get("stale_lock_inspected") is True
+        and value.get("stale_lock_identity_valid") is True
+        and type(stale_age) is int
+        and stale_age > DEPLOY_LOCK_STALE_AFTER_SECONDS
+        and bool(re.fullmatch(r"[0-9a-f]{64}", str(value.get("stale_owner_sha256") or "")))
+        and stale_transition in valid_transitions
+        and value.get("stale_transition_valid") is True
+        and type(value.get("stale_cas_rows")) is int
+        and value.get("stale_cas_rows") == 1
+        and type(old_helper_present) is bool
+        and value.get("old_helper_identity_valid") is True
+        and (
+            value.get("old_helper_deleted") is True
+            if old_helper_present
+            else value.get("old_helper_deleted") is None
+        )
+        and value.get("old_helper_absent_after") is True
+        and value.get("prior_process_death_ambiguity") is True
+        and value.get("exact_prior_state_precondition_verified") is True
+    )
+
+
+def validate_deactivation_evidence(
+    path: Path,
+    expected_sha256: str,
+    *,
+    expected_base_url: str,
+    not_after: datetime,
+) -> dict[str, object]:
+    """Validate the protected driver report that created the inactive window."""
+
+    resolved = path.expanduser().resolve(strict=False)
+    if not resolved.is_file():
+        raise VerificationError("the deactivation evidence file does not exist")
+    if not re.fullmatch(r"[0-9a-f]{64}", expected_sha256):
+        raise VerificationError(
+            "--deactivation-evidence-sha256 must be exact lowercase 64-hex"
+        )
+    try:
+        evidence_bytes = resolved.read_bytes()
+    except OSError as error:
+        raise VerificationError(f"could not read deactivation evidence: {error}") from None
+    observed_sha256 = sha256_bytes(evidence_bytes)
+    if observed_sha256 != expected_sha256:
+        raise VerificationError("deactivation evidence bytes do not match the caller SHA")
+    try:
+        evidence = json.loads(evidence_bytes.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        raise VerificationError("deactivation evidence is not valid UTF-8 JSON") from None
+    if not isinstance(evidence, dict):
+        raise VerificationError("deactivation evidence root is not an object")
+
+    release = evidence.get("release")
+    release = release if isinstance(release, dict) else {}
+    target = evidence.get("target")
+    target = target if isinstance(target, dict) else {}
+    checks = evidence.get("checks")
+    checks = checks if isinstance(checks, dict) else {}
+    callback = checks.get("operation_callback")
+    callback = callback if isinstance(callback, dict) else {}
+    provenance = checks.get("protected_release_provenance")
+    provenance = provenance if isinstance(provenance, dict) else {}
+    prior_provenance = checks.get("protected_supported_prior_provenance")
+    prior_provenance = prior_provenance if isinstance(prior_provenance, dict) else {}
+    deploy_source = checks.get("protected_deploy_tool_source")
+    deploy_source = deploy_source if isinstance(deploy_source, dict) else {}
+    candidate_artifact = checks.get("client_artifact_preflight")
+    candidate_artifact = candidate_artifact if isinstance(candidate_artifact, dict) else {}
+    prior_artifact = checks.get("client_supported_prior_artifact_preflight")
+    prior_artifact = prior_artifact if isinstance(prior_artifact, dict) else {}
+    identity = checks.get("authenticated_site_identity")
+    identity = identity if isinstance(identity, dict) else {}
+    cleanup = checks.get("final_helper_cleanup")
+    cleanup = cleanup if isinstance(cleanup, dict) else {}
+    direct_get = cleanup.get("direct_get")
+    direct_get = direct_get if isinstance(direct_get, dict) else {}
+    route_after = cleanup.get("route_after")
+    route_after = route_after if isinstance(route_after, dict) else {}
+    public_health = checks.get("public_health")
+    public_health = public_health if isinstance(public_health, dict) else {}
+    theme_after = checks.get("live_theme_unchanged_after_operation")
+    theme_after = theme_after if isinstance(theme_after, dict) else {}
+    external_cleanup = checks.get("external_cleanup_fallback")
+    external_cleanup = external_cleanup if isinstance(external_cleanup, dict) else {}
+    reconciliation = evidence.get("state_reconciliation")
+    reconciliation = reconciliation if isinstance(reconciliation, dict) else {}
+    cache = callback.get("cache")
+    cache = cache if isinstance(cache, dict) else {}
+    callback_lock = callback.get("lock")
+    callback_lock = callback_lock if isinstance(callback_lock, dict) else {}
+
+    commit_sha = str(release.get("protected_commit_sha") or "").lower()
+    candidate_sha256 = str(release.get("artifact_sha256") or "").lower()
+    local_deploy_source = (
+        ROOT / DEPLOY_TOOL_REPOSITORY_PATH
+    ).read_bytes().replace(b"\r\n", b"\n")
+    local_deploy_sha256 = sha256_bytes(local_deploy_source)
+    required_rule_types = {
+        "deletion",
+        "non_fast_forward",
+        "required_linear_history",
+        "pull_request",
+        "required_status_checks",
+    }
+    observed_rule_types = provenance.get("ruleset_rule_types")
+    observed_rule_types = (
+        {str(item) for item in observed_rule_types}
+        if isinstance(observed_rule_types, list)
+        else set()
+    )
+    expected_prior_zip_url = (
+        "https://raw.githubusercontent.com/"
+        f"{DEPLOY_REPOSITORY}/{SUPPORTED_PRIOR_COMMIT_SHA}/plugin-dist/"
+        f"justice-seo-recovery-p0-{SUPPORTED_PRIOR_VERSION}.zip"
+    )
+    expected_prior_source_url = (
+        "https://raw.githubusercontent.com/"
+        f"{DEPLOY_REPOSITORY}/{SUPPORTED_PRIOR_COMMIT_SHA}/{P0_PLUGIN_BASENAME}"
+    )
+    expected_deploy_source_url = (
+        "https://raw.githubusercontent.com/"
+        f"{DEPLOY_REPOSITORY}/{commit_sha}/{DEPLOY_TOOL_REPOSITORY_PATH}"
+    )
+    affected_urls = cache.get("affected_urls")
+    affected_urls = affected_urls if isinstance(affected_urls, list) else []
+    expected_affected_urls = [
+        f"{TARGET_BASE_URL}{path}" for path in DEPLOY_AFFECTED_PATHS
+    ]
+
+    conditions = (
+        type(evidence.get("schema_version")) is int
+        and evidence.get("schema_version") == DEPLOY_EVIDENCE_SCHEMA_VERSION
+        and evidence.get("action") == "deactivate"
+        and evidence.get("passed") is True
+        and "error" not in evidence
+        and target.get("base_url") == expected_base_url == TARGET_BASE_URL
+        and release.get("repository") == DEPLOY_REPOSITORY
+        and bool(re.fullmatch(r"[0-9a-f]{40}", commit_sha))
+        and release.get("version") == DEFAULT_REQUIRED_PLUGIN_VERSION
+        and bool(re.fullmatch(r"[0-9a-f]{64}", candidate_sha256))
+        and release.get("plugin_basename") == P0_PLUGIN_BASENAME
+        and release.get("expected_prior_state") == "active_supported_prior"
+        and release.get("expected_prior_version") == SUPPORTED_PRIOR_VERSION
+        and release.get("expected_prior_marker") == SUPPORTED_PRIOR_MARKER
+        and release.get("expected_prior_artifact_sha256")
+        == SUPPORTED_PRIOR_ARTIFACT_SHA256
+        and release.get("expected_prior_plugin_file_sha256")
+        == SUPPORTED_PRIOR_PLUGIN_FILE_SHA256
+        and release.get("supported_prior_commit_sha") == SUPPORTED_PRIOR_COMMIT_SHA
+        and release.get("immutable_prior_artifact_url") == expected_prior_zip_url
+        and release.get("immutable_prior_source_url") == expected_prior_source_url
+        and release.get("mutation_scope") == "plugin_only_preserve_live_theme"
+        and provenance.get("ruleset_id") == DEPLOY_RELEASE_RULESET_ID
+        and provenance.get("ruleset_enforcement") == "active"
+        and provenance.get("strict_required_check") == DEPLOY_REQUIRED_CHECK_NAME
+        and provenance.get("main_head_sha") == commit_sha
+        and provenance.get("guard_conclusion") == "success"
+        and type(provenance.get("guard_check_id")) is int
+        and int(provenance.get("guard_check_id") or 0) > 0
+        and exact_guard_workflow_provenance(provenance, commit_sha=commit_sha)
+        and required_rule_types.issubset(observed_rule_types)
+        and prior_provenance.get("prior_commit_sha") == SUPPORTED_PRIOR_COMMIT_SHA
+        and prior_provenance.get("candidate_commit_sha") == commit_sha
+        and prior_provenance.get("comparison_status") in {"ahead", "identical"}
+        and prior_provenance.get("merge_base_sha") == SUPPORTED_PRIOR_COMMIT_SHA
+        and prior_provenance.get("guard_check_name") == DEPLOY_REQUIRED_CHECK_NAME
+        and prior_provenance.get("guard_conclusion") == "success"
+        and type(prior_provenance.get("guard_check_id")) is int
+        and int(prior_provenance.get("guard_check_id") or 0) > 0
+        and exact_guard_workflow_provenance(
+            prior_provenance,
+            commit_sha=SUPPORTED_PRIOR_COMMIT_SHA,
+        )
+        and deploy_source.get("url") == expected_deploy_source_url
+        and deploy_source.get("source_matches_local") is True
+        and deploy_source.get("sha256") == local_deploy_sha256
+        and deploy_source.get("local_sha256") == local_deploy_sha256
+        and candidate_artifact.get("sha256") == candidate_sha256
+        and candidate_artifact.get("header_version")
+        == DEFAULT_REQUIRED_PLUGIN_VERSION
+        and candidate_artifact.get("marker") == DEFAULT_REQUIRED_PLUGIN_MARKER
+        and candidate_artifact.get("plugin_entry") == P0_PLUGIN_BASENAME
+        and candidate_artifact.get("source_sha256")
+        == candidate_artifact.get("plugin_entry_sha256")
+        and candidate_artifact.get("source_matches_artifact") is True
+        and prior_artifact.get("url") == expected_prior_zip_url
+        and prior_artifact.get("source_url") == expected_prior_source_url
+        and prior_artifact.get("sha256") == SUPPORTED_PRIOR_ARTIFACT_SHA256
+        and prior_artifact.get("plugin_entry_sha256")
+        == SUPPORTED_PRIOR_PLUGIN_FILE_SHA256
+        and prior_artifact.get("source_sha256")
+        == SUPPORTED_PRIOR_PLUGIN_FILE_SHA256
+        and prior_artifact.get("header_version") == SUPPORTED_PRIOR_VERSION
+        and prior_artifact.get("marker") == SUPPORTED_PRIOR_MARKER
+        and prior_artifact.get("source_matches_artifact") is True
+        and identity.get("settings_url") == TARGET_BASE_URL
+        and identity.get("site_url") == TARGET_BASE_URL
+        and identity.get("home_url") == TARGET_BASE_URL
+        and checks.get("operation_callback_attempted") is True
+        and callback.get("status") == 200
+        and callback.get("success") is True
+        and callback.get("action") == "deactivate"
+        and callback.get("commit_sha") == commit_sha
+        and callback.get("plugin") == P0_PLUGIN_BASENAME
+        and callback.get("version") == SUPPORTED_PRIOR_VERSION
+        and callback.get("marker") == SUPPORTED_PRIOR_MARKER
+        and callback.get("active") is False
+        and callback.get("files_preserved") is True
+        and callback.get("prior_state") == "active_supported_prior"
+        and callback.get("result_state") == "inactive_supported_prior"
+        and callback.get("artifact_sha256") == SUPPORTED_PRIOR_ARTIFACT_SHA256
+        and callback.get("artifact_bytes") == prior_artifact.get("bytes")
+        and callback.get("plugin_file_sha256")
+        == SUPPORTED_PRIOR_PLUGIN_FILE_SHA256
+        and callback.get("expected_prior_version") == SUPPORTED_PRIOR_VERSION
+        and callback.get("expected_prior_marker") == SUPPORTED_PRIOR_MARKER
+        and callback.get("expected_prior_artifact_sha256")
+        == SUPPORTED_PRIOR_ARTIFACT_SHA256
+        and callback.get("expected_prior_plugin_file_sha256")
+        == SUPPORTED_PRIOR_PLUGIN_FILE_SHA256
+        and callback.get("temp_files_cleanup_complete") is True
+        and callback.get("stale_recovery_cleanup_only") is False
+        and callback.get("helper_deleted") is True
+        and callback.get("helper_absent_after") is True
+        and callback.get("lock_acquired") is True
+        and callback.get("lock_release_required") is True
+        and callback.get("lock_release_attempted") is True
+        and callback.get("lock_released") is True
+        and exact_deploy_lock_evidence(callback_lock)
+        and callback_lock.get("acquisition_mode") == "fresh_add"
+        and callback.get("rollback_attempted") is False
+        and callback.get("rollback_succeeded") is True
+        and cache.get("litespeed_purge_all_dispatched") is True
+        and type(cache.get("litespeed_url_purge_dispatches")) is int
+        and cache.get("litespeed_url_purge_dispatches")
+        == len(DEPLOY_AFFECTED_PATHS)
+        and affected_urls == expected_affected_urls
+        and cache.get("post_cache_ids") == [7905, 23405, 23406]
+        and cache.get("term_cache_ids") == [170, 730]
+        and cache.get("object_cache_flush_result") is True
+        and cleanup.get("id_and_name_absent_from_collection") is True
+        and cleanup.get("direct_get_confirms_absence") is True
+        and direct_get.get("status") == 500
+        and direct_get.get("code") == "rest_cannot_get"
+        and cleanup.get("route_after_confirms_absence") is True
+        and route_after.get("status") == 404
+        and route_after.get("code") == "rest_no_route"
+        and external_cleanup.get("attempted") is False
+        and external_cleanup.get("absent_before_fallback") is True
+        and public_health.get("status") == 404
+        and public_health.get("code") == "rest_no_route"
+        and str(public_health.get("content_type") or "")
+        .lower()
+        .startswith("application/json")
+        and theme_after.get("status") == 200
+        and theme_after.get("redirect_count") == 0
+        and theme_after.get("theme") == DEFAULT_REQUIRED_LIVE_THEME
+        and theme_after.get("theme_version") == DEFAULT_REQUIRED_LIVE_THEME_VERSION
+        and theme_after.get("deploy_marker") == DEFAULT_REQUIRED_LIVE_THEME_MARKER
+        and reconciliation.get("expected_prior_state") == "active_supported_prior"
+        and reconciliation.get("callback_attempted") is True
+        and reconciliation.get("callback_confirmed") is True
+        and reconciliation.get("desired_state_observed_by_health") is True
+        and reconciliation.get("callback_reported_failed_rollback") is False
+        and reconciliation.get("helper_absent") is True
+        and reconciliation.get("helper_direct_absent") is True
+        and reconciliation.get("route_absent") is True
+        and reconciliation.get("temp_files_cleanup_complete") is True
+        and reconciliation.get("lock_cleanup_proven") is True
+        and reconciliation.get("stale_helper_cleanup_proven") is True
+        and reconciliation.get("cleanup_proven") is True
+        and reconciliation.get("prior_process_death_ambiguity") is False
+        and reconciliation.get("exact_prior_state_precondition_verified") is False
+        and reconciliation.get("stale_recovery_precondition_unresolved") is False
+        and reconciliation.get("automatic_reconciliation_performed") is False
+        and reconciliation.get("state_is_ambiguous") is False
+        and reconciliation.get("requires_operator_reconciliation") is False
+        and reconciliation.get("safe_to_resume_without_reconciliation") is True
+        and reconciliation.get("required_reconciliation") == "none"
+    )
+    if not conditions:
+        raise VerificationError(
+            "deactivation evidence does not prove the exact protected inactive 0.1.1 state"
+        )
+
+    started_at = parse_utc_timestamp(
+        evidence.get("started_at_utc"), "deactivation started_at_utc"
+    )
+    finished_at = parse_utc_timestamp(
+        evidence.get("finished_at_utc"), "deactivation finished_at_utc"
+    )
+    evidence_age_seconds = (
+        not_after.astimezone(timezone.utc) - finished_at
+    ).total_seconds()
+    if (
+        finished_at < started_at
+        or evidence_age_seconds < 0
+        or evidence_age_seconds > MAX_DEACTIVATION_EVIDENCE_AGE_SECONDS
+    ):
+        raise VerificationError(
+            "deactivation evidence is future-dated, stale, or before its start"
+        )
+    return {
+        "path": str(resolved),
+        "sha256": observed_sha256,
+        "schema_version": DEPLOY_EVIDENCE_SCHEMA_VERSION,
+        "run_id": str(evidence.get("run_id") or ""),
+        "action": "deactivate",
+        "target_base_url": TARGET_BASE_URL,
+        "protected_commit_sha": commit_sha,
+        "supported_prior_commit_sha": SUPPORTED_PRIOR_COMMIT_SHA,
+        "prior_state": "active_supported_prior",
+        "result_state": "inactive_supported_prior",
+        "prior_version": SUPPORTED_PRIOR_VERSION,
+        "prior_marker": SUPPORTED_PRIOR_MARKER,
+        "prior_artifact_sha256": SUPPORTED_PRIOR_ARTIFACT_SHA256,
+        "prior_plugin_file_sha256": SUPPORTED_PRIOR_PLUGIN_FILE_SHA256,
+        "finished_at_utc": utc_iso(finished_at),
+        "max_age_seconds": MAX_DEACTIVATION_EVIDENCE_AGE_SECONDS,
+    }
+
+
 def load_baseline(
     path: Path,
     expected_base_url: str,
     expected_configuration: Mapping[str, object],
     expected_check_ids: Sequence[str],
+    expected_deactivation_evidence: Mapping[str, object],
+    not_after: datetime,
 ) -> dict[str, object]:
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
@@ -2713,6 +3784,45 @@ def load_baseline(
         raise VerificationError("the pre baseline uses a different verification contract")
     if not isinstance(value.get("observations"), dict):
         raise VerificationError("the pre baseline has no observations object")
+    baseline_evidence = baseline_configuration.get("deactivation_evidence")
+    if not values_equal_exact(
+        baseline_evidence,
+        dict(expected_deactivation_evidence),
+    ):
+        raise VerificationError(
+            "the pre baseline is not bound to the same deactivation evidence bytes"
+        )
+    observations = value.get("observations")
+    if not exact_inactive_health_observed(observations.get("health")):
+        raise VerificationError(
+            "the pre baseline does not prove an exact anonymous inactive health route"
+        )
+    overall = value.get("overall")
+    if (
+        not isinstance(overall, dict)
+        or overall.get("passed") is not True
+        or overall.get("status") != "baseline_recorded"
+    ):
+        raise VerificationError("the pre baseline was not successfully recorded")
+    baseline_generated_at = parse_utc_timestamp(
+        value.get("generated_at_utc"), "pre baseline generated_at_utc"
+    )
+    baseline_completed_at = parse_utc_timestamp(
+        value.get("completed_at_utc"), "pre baseline completed_at_utc"
+    )
+    evidence_finished_at = parse_utc_timestamp(
+        expected_deactivation_evidence.get("finished_at_utc"),
+        "deactivation evidence finished_at_utc",
+    )
+    if not (
+        evidence_finished_at
+        <= baseline_generated_at
+        <= baseline_completed_at
+        <= not_after.astimezone(timezone.utc)
+    ):
+        raise VerificationError(
+            "pre baseline chronology is incomplete, reversed, or future-dated"
+        )
     if report_check_ids(value.get("checks")) != list(expected_check_ids):
         raise VerificationError(
             "the pre baseline uses a different ordered check-ID contract"
@@ -2742,6 +3852,8 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
     parser.add_argument("--base-url")
     parser.add_argument("--report", type=Path)
     parser.add_argument("--baseline", type=Path)
+    parser.add_argument("--deactivation-evidence", type=Path, required=True)
+    parser.add_argument("--deactivation-evidence-sha256", required=True)
     parser.add_argument(
         "--plugin-health-route",
         "--health-route",
@@ -2807,6 +3919,10 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
         parser.error("--timeout must be greater than 0 and no more than 300 seconds")
     if args.expect == "pre" and args.baseline is not None:
         parser.error("--baseline is valid only with --expect post")
+    if not re.fullmatch(r"[0-9a-f]{64}", args.deactivation_evidence_sha256):
+        parser.error(
+            "--deactivation-evidence-sha256 must be exact lowercase 64-hex"
+        )
     if args.plugin_health_route.strip("/") != DEFAULT_HEALTH_ROUTE:
         parser.error(
             "--plugin-health-route must remain the exact public "
@@ -2854,8 +3970,748 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
     return args
 
 
+def verification_contract_self_test() -> dict[str, object]:
+    """Exercise the schema, inactive gate, and adversarial evidence binding."""
+
+    check_ids = report_check_ids(
+        build_checks(
+            {},
+            expect="post",
+            required_plugin_version=DEFAULT_REQUIRED_PLUGIN_VERSION,
+            required_plugin_marker=DEFAULT_REQUIRED_PLUGIN_MARKER,
+            required_live_theme=DEFAULT_REQUIRED_LIVE_THEME,
+            required_live_theme_version=DEFAULT_REQUIRED_LIVE_THEME_VERSION,
+            required_live_theme_marker=DEFAULT_REQUIRED_LIVE_THEME_MARKER,
+            baseline=None,
+            strict_all_tmp_snippets=False,
+        )
+    )
+    if (
+        REPORT_SCHEMA_VERSION != 7
+        or len(check_ids) != 53
+        or len(set(check_ids)) != 53
+        or check_ids[4] != "mobile_nav_recovery_inline_css_present_exactly_once"
+        or check_ids[16]
+        != "yoast_shadow_article_7905_absent_lawyer_archive_present_once"
+        or check_ids[17]
+        != "yoast_shadow_term_170_absent_category_730_present_once"
+    ):
+        raise VerificationError("ordered schema-7 check-ID contract changed")
+
+    exact_sitemap_url = f"{TARGET_BASE_URL}/lawyers/"
+    invalid_sitemap_urls = (
+        "/lawyers/",
+        f"{exact_sitemap_url}?x=1",
+        f"{exact_sitemap_url}#x",
+        exact_sitemap_url.replace("https://", "http://", 1),
+        "https://example.com/lawyers/",
+    )
+    if normalize_absolute_https_document_url(
+        exact_sitemap_url, TARGET_BASE_URL
+    ) != normalize_url(exact_sitemap_url) or any(
+        normalize_absolute_https_document_url(value, TARGET_BASE_URL)
+        for value in invalid_sitemap_urls
+    ):
+        raise VerificationError(
+            "sitemap absolute/query/fragment/same-origin contract changed"
+        )
+
+    css_parser = InlineStyleParser()
+    css_parser.feed(
+        f'<style id="{MOBILE_NAV_STYLE_ELEMENT_ID}" data-noptimize="1">'
+        f"{MOBILE_NAV_INLINE_CSS}</style>"
+    )
+    css_parser.close()
+    if (
+        len(css_parser.styles) != 1
+        or css_parser.styles[0].get("id") != MOBILE_NAV_STYLE_ELEMENT_ID
+        or css_parser.styles[0].get("data_noptimize") != "1"
+        or css_parser.styles[0].get("id_attribute_count") != "1"
+        or css_parser.styles[0].get("data_noptimize_attribute_count") != "1"
+        or css_parser.styles[0].get("css") != MOBILE_NAV_INLINE_CSS
+        or sha256_text(str(css_parser.styles[0].get("css") or ""))
+        != "e6df5223a479f6c3af71040f4dc3f33dfb5d166daa6687e45e20b95acd15995b"
+    ):
+        raise VerificationError("direct data-noptimize mobile CSS contract changed")
+    legacy_parser = InlineStyleParser()
+    legacy_parser.feed(f'<link id="{MOBILE_NAV_LEGACY_STYLESHEET_ID}" href="x">')
+    if legacy_parser.legacy_stylesheet_link_count != 1:
+        raise VerificationError("legacy enqueued stylesheet detector changed")
+
+    deadline = datetime.fromisoformat("2026-08-01T12:10:00+00:00")
+    started_at = "2026-08-01T12:04:00+00:00"
+    finished_at = "2026-08-01T12:05:00+00:00"
+    candidate_commit = "a" * 40
+    candidate_artifact_sha = "b" * 64
+    candidate_plugin_sha = "c" * 64
+    local_deploy_sha = sha256_bytes(
+        (ROOT / DEPLOY_TOOL_REPOSITORY_PATH)
+        .read_bytes()
+        .replace(b"\r\n", b"\n")
+    )
+    prior_zip_url = (
+        "https://raw.githubusercontent.com/"
+        f"{DEPLOY_REPOSITORY}/{SUPPORTED_PRIOR_COMMIT_SHA}/plugin-dist/"
+        f"justice-seo-recovery-p0-{SUPPORTED_PRIOR_VERSION}.zip"
+    )
+    prior_source_url = (
+        "https://raw.githubusercontent.com/"
+        f"{DEPLOY_REPOSITORY}/{SUPPORTED_PRIOR_COMMIT_SHA}/{P0_PLUGIN_BASENAME}"
+    )
+    deploy_source_url = (
+        "https://raw.githubusercontent.com/"
+        f"{DEPLOY_REPOSITORY}/{candidate_commit}/{DEPLOY_TOOL_REPOSITORY_PATH}"
+    )
+    purged_urls = [f"{TARGET_BASE_URL}{path}" for path in DEPLOY_AFFECTED_PATHS]
+    evidence: dict[str, object] = {
+        "schema_version": 1,
+        "run_id": "seo-recovery-p0-deactivate-self-test",
+        "started_at_utc": started_at,
+        "finished_at_utc": finished_at,
+        "action": "deactivate",
+        "target": {"base_url": TARGET_BASE_URL},
+        "release": {
+            "repository": DEPLOY_REPOSITORY,
+            "protected_commit_sha": candidate_commit,
+            "version": DEFAULT_REQUIRED_PLUGIN_VERSION,
+            "artifact_sha256": candidate_artifact_sha,
+            "plugin_basename": P0_PLUGIN_BASENAME,
+            "expected_prior_state": "active_supported_prior",
+            "expected_prior_version": SUPPORTED_PRIOR_VERSION,
+            "expected_prior_marker": SUPPORTED_PRIOR_MARKER,
+            "expected_prior_artifact_sha256": SUPPORTED_PRIOR_ARTIFACT_SHA256,
+            "expected_prior_plugin_file_sha256": (
+                SUPPORTED_PRIOR_PLUGIN_FILE_SHA256
+            ),
+            "supported_prior_commit_sha": SUPPORTED_PRIOR_COMMIT_SHA,
+            "immutable_prior_artifact_url": prior_zip_url,
+            "immutable_prior_source_url": prior_source_url,
+            "mutation_scope": "plugin_only_preserve_live_theme",
+        },
+        "checks": {
+            "protected_release_provenance": {
+                "ruleset_id": DEPLOY_RELEASE_RULESET_ID,
+                "ruleset_enforcement": "active",
+                "ruleset_rule_types": [
+                    "deletion",
+                    "non_fast_forward",
+                    "required_linear_history",
+                    "pull_request",
+                    "required_status_checks",
+                ],
+                "strict_required_check": DEPLOY_REQUIRED_CHECK_NAME,
+                "main_head_sha": candidate_commit,
+                "guard_check_id": 1,
+                "guard_conclusion": "success",
+                "guard_details_url": (
+                    "https://github.com/The-new-ben/justice-theme/"
+                    "actions/runs/10/job/1"
+                ),
+                "guard_run_id": 10,
+                "guard_job_id": 1,
+                "guard_workflow_path": DEPLOY_RELEASE_WORKFLOW_PATH,
+                "guard_workflow_name": DEPLOY_RELEASE_WORKFLOW_NAME,
+                "guard_event": "push",
+                "guard_head_branch": "main",
+                "guard_head_sha": candidate_commit,
+                "guard_repository": DEPLOY_REPOSITORY,
+                "guard_head_repository": DEPLOY_REPOSITORY,
+                "guard_run_status": "completed",
+                "guard_run_conclusion": "success",
+                "guard_job_status": "completed",
+                "guard_job_conclusion": "success",
+            },
+            "protected_supported_prior_provenance": {
+                "prior_commit_sha": SUPPORTED_PRIOR_COMMIT_SHA,
+                "candidate_commit_sha": candidate_commit,
+                "comparison_status": "ahead",
+                "merge_base_sha": SUPPORTED_PRIOR_COMMIT_SHA,
+                "guard_check_name": DEPLOY_REQUIRED_CHECK_NAME,
+                "guard_check_id": 2,
+                "guard_conclusion": "success",
+                "guard_details_url": (
+                    "https://github.com/The-new-ben/justice-theme/"
+                    "actions/runs/20/job/2"
+                ),
+                "guard_run_id": 20,
+                "guard_job_id": 2,
+                "guard_workflow_path": DEPLOY_RELEASE_WORKFLOW_PATH,
+                "guard_workflow_name": DEPLOY_RELEASE_WORKFLOW_NAME,
+                "guard_event": "push",
+                "guard_head_branch": "main",
+                "guard_head_sha": SUPPORTED_PRIOR_COMMIT_SHA,
+                "guard_repository": DEPLOY_REPOSITORY,
+                "guard_head_repository": DEPLOY_REPOSITORY,
+                "guard_run_status": "completed",
+                "guard_run_conclusion": "success",
+                "guard_job_status": "completed",
+                "guard_job_conclusion": "success",
+            },
+            "protected_deploy_tool_source": {
+                "url": deploy_source_url,
+                "sha256": local_deploy_sha,
+                "local_sha256": local_deploy_sha,
+                "source_matches_local": True,
+            },
+            "client_artifact_preflight": {
+                "sha256": candidate_artifact_sha,
+                "header_version": DEFAULT_REQUIRED_PLUGIN_VERSION,
+                "marker": DEFAULT_REQUIRED_PLUGIN_MARKER,
+                "plugin_entry": P0_PLUGIN_BASENAME,
+                "plugin_entry_sha256": candidate_plugin_sha,
+                "source_sha256": candidate_plugin_sha,
+                "source_matches_artifact": True,
+            },
+            "client_supported_prior_artifact_preflight": {
+                "url": prior_zip_url,
+                "source_url": prior_source_url,
+                "sha256": SUPPORTED_PRIOR_ARTIFACT_SHA256,
+                "bytes": 123,
+                "plugin_entry_sha256": SUPPORTED_PRIOR_PLUGIN_FILE_SHA256,
+                "source_sha256": SUPPORTED_PRIOR_PLUGIN_FILE_SHA256,
+                "header_version": SUPPORTED_PRIOR_VERSION,
+                "marker": SUPPORTED_PRIOR_MARKER,
+                "source_matches_artifact": True,
+            },
+            "authenticated_site_identity": {
+                "settings_url": TARGET_BASE_URL,
+                "site_url": TARGET_BASE_URL,
+                "home_url": TARGET_BASE_URL,
+            },
+            "operation_callback_attempted": True,
+            "operation_callback": {
+                "status": 200,
+                "success": True,
+                "action": "deactivate",
+                "commit_sha": candidate_commit,
+                "plugin": P0_PLUGIN_BASENAME,
+                "version": SUPPORTED_PRIOR_VERSION,
+                "marker": SUPPORTED_PRIOR_MARKER,
+                "active": False,
+                "files_preserved": True,
+                "prior_state": "active_supported_prior",
+                "result_state": "inactive_supported_prior",
+                "artifact_sha256": SUPPORTED_PRIOR_ARTIFACT_SHA256,
+                "artifact_bytes": 123,
+                "plugin_file_sha256": SUPPORTED_PRIOR_PLUGIN_FILE_SHA256,
+                "expected_prior_version": SUPPORTED_PRIOR_VERSION,
+                "expected_prior_marker": SUPPORTED_PRIOR_MARKER,
+                "expected_prior_artifact_sha256": (
+                    SUPPORTED_PRIOR_ARTIFACT_SHA256
+                ),
+                "expected_prior_plugin_file_sha256": (
+                    SUPPORTED_PRIOR_PLUGIN_FILE_SHA256
+                ),
+                "temp_files_cleanup_complete": True,
+                "stale_recovery_cleanup_only": False,
+                "helper_deleted": True,
+                "helper_absent_after": True,
+                "lock_acquired": True,
+                "lock_release_required": True,
+                "lock_release_attempted": True,
+                "lock_released": True,
+                "lock": {
+                    "contract": DEPLOY_LOCK_CONTRACT,
+                    "schema_version": DEPLOY_LOCK_SCHEMA_VERSION,
+                    "stale_after_seconds": DEPLOY_LOCK_STALE_AFTER_SECONDS,
+                    "acquisition_mode": "fresh_add",
+                    "acquired": True,
+                    "owner_reread_exact": True,
+                    "stale_lock_inspected": False,
+                    "stale_lock_identity_valid": False,
+                    "stale_lock_age_seconds": None,
+                    "stale_owner_sha256": "",
+                    "stale_action": "",
+                    "stale_expected_prior_state": "",
+                    "stale_transition_valid": False,
+                    "stale_cas_rows": 0,
+                    "old_helper_present": None,
+                    "old_helper_identity_valid": None,
+                    "old_helper_deleted": None,
+                    "old_helper_absent_after": None,
+                    "prior_process_death_ambiguity": False,
+                    "exact_prior_state_precondition_verified": False,
+                    "owner_assertions_passed": 20,
+                    "owner_assertion_failed": False,
+                    "release_required": True,
+                    "release_attempted": True,
+                    "release_precondition_exact": True,
+                    "release_cas_rows": 1,
+                    "release_absence_confirmed": True,
+                    "release_error": "",
+                    "released": True,
+                },
+                "rollback_attempted": False,
+                "rollback_succeeded": True,
+                "cache": {
+                    "litespeed_purge_all_dispatched": True,
+                    "litespeed_url_purge_dispatches": len(purged_urls),
+                    "affected_urls": purged_urls,
+                    "post_cache_ids": [7905, 23405, 23406],
+                    "term_cache_ids": [170, 730],
+                    "object_cache_flush_result": True,
+                },
+            },
+            "external_cleanup_fallback": {
+                "attempted": False,
+                "absent_before_fallback": True,
+            },
+            "final_helper_cleanup": {
+                "id_and_name_absent_from_collection": True,
+                "direct_get": {"status": 500, "code": "rest_cannot_get"},
+                "direct_get_confirms_absence": True,
+                "route_after": {"status": 404, "code": "rest_no_route"},
+                "route_after_confirms_absence": True,
+            },
+            "public_health": {
+                "status": 404,
+                "code": "rest_no_route",
+                "content_type": "application/json",
+            },
+            "live_theme_unchanged_after_operation": {
+                "status": 200,
+                "redirect_count": 0,
+                "theme": DEFAULT_REQUIRED_LIVE_THEME,
+                "theme_version": DEFAULT_REQUIRED_LIVE_THEME_VERSION,
+                "deploy_marker": DEFAULT_REQUIRED_LIVE_THEME_MARKER,
+            },
+        },
+        "state_reconciliation": {
+            "expected_prior_state": "active_supported_prior",
+            "callback_attempted": True,
+            "callback_confirmed": True,
+            "desired_state_observed_by_health": True,
+            "callback_reported_failed_rollback": False,
+            "helper_absent": True,
+            "helper_direct_absent": True,
+            "route_absent": True,
+            "temp_files_cleanup_complete": True,
+            "lock_cleanup_proven": True,
+            "stale_helper_cleanup_proven": True,
+            "cleanup_proven": True,
+            "prior_process_death_ambiguity": False,
+            "exact_prior_state_precondition_verified": False,
+            "stale_recovery_precondition_unresolved": False,
+            "automatic_reconciliation_performed": False,
+            "state_is_ambiguous": False,
+            "requires_operator_reconciliation": False,
+            "safe_to_resume_without_reconciliation": True,
+            "required_reconciliation": "none",
+        },
+        "passed": True,
+    }
+
+    inactive_health = {
+        "authenticated": False,
+        "request": {
+            "status": 404,
+            "redirects": [],
+            "transport": "pretty",
+            "pretty_preflight_status": None,
+            "requested_url": f"{TARGET_BASE_URL}/wp-json/{DEFAULT_HEALTH_ROUTE}",
+            "final_url": f"{TARGET_BASE_URL}/wp-json/{DEFAULT_HEALTH_ROUTE}",
+            "content_type": "application/json; charset=UTF-8",
+        },
+        "rest_code": "rest_no_route",
+        "version": "",
+        "marker": "",
+        "json_error": "",
+    }
+    active_health = json.loads(json.dumps(inactive_health))
+    active_health["request"]["status"] = 200
+    active_health["rest_code"] = ""
+    active_health["version"] = DEFAULT_REQUIRED_PLUGIN_VERSION
+    active_health["marker"] = DEFAULT_REQUIRED_PLUGIN_MARKER
+    if (
+        not exact_inactive_health_observed(inactive_health)
+        or exact_inactive_health_observed(active_health)
+    ):
+        raise VerificationError("exact inactive health predicate changed")
+
+    adversarial_rejections = 0
+
+    def must_reject(callback: Any) -> None:
+        nonlocal adversarial_rejections
+        try:
+            callback()
+        except VerificationError:
+            adversarial_rejections += 1
+            return
+        raise VerificationError("adversarial verifier case was accepted")
+
+    with tempfile.TemporaryDirectory(prefix="justice-p0-verifier-self-test-") as temp:
+        temp_path = Path(temp)
+        evidence_path = temp_path / "deactivation.json"
+
+        def write_payload(payload: object) -> str:
+            encoded = (
+                json.dumps(payload, ensure_ascii=False, sort_keys=True) + "\n"
+            ).encode("utf-8")
+            evidence_path.write_bytes(encoded)
+            return sha256_bytes(encoded)
+
+        valid_sha = write_payload(evidence)
+        evidence_identity = validate_deactivation_evidence(
+            evidence_path,
+            valid_sha,
+            expected_base_url=TARGET_BASE_URL,
+            not_after=deadline,
+        )
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                "0" * 64,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        forged_action = json.loads(json.dumps(evidence))
+        forged_action["action"] = "install"
+        forged_sha = write_payload(forged_action)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                forged_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        wrong_state = json.loads(json.dumps(evidence))
+        wrong_state["checks"]["operation_callback"]["result_state"] = "inactive_exact"
+        wrong_state_sha = write_payload(wrong_state)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                wrong_state_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        cache_false = json.loads(json.dumps(evidence))
+        cache_false["checks"]["operation_callback"]["cache"][
+            "object_cache_flush_result"
+        ] = False
+        cache_false_sha = write_payload(cache_false)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                cache_false_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        missing_purge_url = json.loads(json.dumps(evidence))
+        missing_purge_url["checks"]["operation_callback"]["cache"][
+            "affected_urls"
+        ].pop()
+        missing_purge_url_sha = write_payload(missing_purge_url)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                missing_purge_url_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        reordered_purge_urls = json.loads(json.dumps(evidence))
+        reordered_urls = reordered_purge_urls["checks"]["operation_callback"][
+            "cache"
+        ]["affected_urls"]
+        reordered_urls[0], reordered_urls[1] = reordered_urls[1], reordered_urls[0]
+        reordered_purge_urls_sha = write_payload(reordered_purge_urls)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                reordered_purge_urls_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        extra_purge_url = json.loads(json.dumps(evidence))
+        extra_purge_url["checks"]["operation_callback"]["cache"][
+            "affected_urls"
+        ].append(f"{TARGET_BASE_URL}/unexpected/")
+        extra_purge_url_sha = write_payload(extra_purge_url)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                extra_purge_url_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        release_cas_lost = json.loads(json.dumps(evidence))
+        release_cas_lost["checks"]["operation_callback"]["lock"][
+            "release_cas_rows"
+        ] = 0
+        release_cas_lost_sha = write_payload(release_cas_lost)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                release_cas_lost_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        owner_assertion_lost = json.loads(json.dumps(evidence))
+        owner_assertion_lost["checks"]["operation_callback"]["lock"][
+            "owner_assertion_failed"
+        ] = True
+        owner_assertion_lost_sha = write_payload(owner_assertion_lost)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                owner_assertion_lost_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        temp_cleanup_unknown = json.loads(json.dumps(evidence))
+        temp_cleanup_unknown["checks"]["operation_callback"][
+            "temp_files_cleanup_complete"
+        ] = False
+        temp_cleanup_unknown_sha = write_payload(temp_cleanup_unknown)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                temp_cleanup_unknown_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        forged_guard_job = json.loads(json.dumps(evidence))
+        forged_guard_job["checks"]["protected_release_provenance"][
+            "guard_details_url"
+        ] += "?forged=1"
+        forged_guard_job_sha = write_payload(forged_guard_job)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                forged_guard_job_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        cleanup_unproven = json.loads(json.dumps(evidence))
+        cleanup_unproven["state_reconciliation"]["route_absent"] = False
+        cleanup_unproven_sha = write_payload(cleanup_unproven)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                cleanup_unproven_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        wrong_source = json.loads(json.dumps(evidence))
+        wrong_source["checks"]["protected_deploy_tool_source"]["sha256"] = "d" * 64
+        wrong_source_sha = write_payload(wrong_source)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                wrong_source_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        stale = json.loads(json.dumps(evidence))
+        stale["started_at_utc"] = "2026-08-01T11:00:00+00:00"
+        stale["finished_at_utc"] = "2026-08-01T11:01:00+00:00"
+        stale_sha = write_payload(stale)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                stale_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        future = json.loads(json.dumps(evidence))
+        future["started_at_utc"] = "2026-08-01T12:10:01+00:00"
+        future["finished_at_utc"] = "2026-08-01T12:10:02+00:00"
+        future_sha = write_payload(future)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                future_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=deadline,
+            )
+        )
+
+        write_payload(evidence)
+        must_reject(
+            lambda: validate_deactivation_evidence(
+                evidence_path,
+                valid_sha,
+                expected_base_url=TARGET_BASE_URL,
+                not_after=datetime.fromisoformat("2026-08-01T12:40:01+00:00"),
+            )
+        )
+
+        write_payload(evidence)
+        baseline_configuration = {
+            "deactivation_evidence": evidence_identity,
+            "contract": "self-test",
+        }
+        baseline = {
+            "schema_version": REPORT_SCHEMA_VERSION,
+            "expect": "pre",
+            "generated_at_utc": "2026-08-01T12:08:00Z",
+            "completed_at_utc": "2026-08-01T12:09:00Z",
+            "base_url": TARGET_BASE_URL,
+            "configuration": baseline_configuration,
+            "observations": {"health": inactive_health},
+            "checks": [{"id": check_id} for check_id in check_ids],
+            "overall": {"passed": True, "status": "baseline_recorded"},
+        }
+        baseline_path = temp_path / "baseline.json"
+        baseline_path.write_text(
+            json.dumps(baseline, ensure_ascii=False), encoding="utf-8"
+        )
+        load_baseline(
+            baseline_path,
+            TARGET_BASE_URL,
+            baseline_configuration,
+            check_ids,
+            evidence_identity,
+            deadline,
+        )
+        active_baseline = json.loads(json.dumps(baseline))
+        active_baseline["observations"]["health"] = active_health
+        baseline_path.write_text(
+            json.dumps(active_baseline, ensure_ascii=False), encoding="utf-8"
+        )
+        must_reject(
+            lambda: load_baseline(
+                baseline_path,
+                TARGET_BASE_URL,
+                baseline_configuration,
+                check_ids,
+                evidence_identity,
+                deadline,
+            )
+        )
+
+        missing_completed = json.loads(json.dumps(baseline))
+        missing_completed.pop("completed_at_utc", None)
+        baseline_path.write_text(
+            json.dumps(missing_completed, ensure_ascii=False), encoding="utf-8"
+        )
+        must_reject(
+            lambda: load_baseline(
+                baseline_path,
+                TARGET_BASE_URL,
+                baseline_configuration,
+                check_ids,
+                evidence_identity,
+                deadline,
+            )
+        )
+
+        future_baseline = json.loads(json.dumps(baseline))
+        future_baseline["completed_at_utc"] = "2026-08-01T12:10:01Z"
+        baseline_path.write_text(
+            json.dumps(future_baseline, ensure_ascii=False), encoding="utf-8"
+        )
+        must_reject(
+            lambda: load_baseline(
+                baseline_path,
+                TARGET_BASE_URL,
+                baseline_configuration,
+                check_ids,
+                evidence_identity,
+                deadline,
+            )
+        )
+
+        reversed_baseline = json.loads(json.dumps(baseline))
+        reversed_baseline["generated_at_utc"] = "2026-08-01T12:09:00Z"
+        reversed_baseline["completed_at_utc"] = "2026-08-01T12:08:00Z"
+        baseline_path.write_text(
+            json.dumps(reversed_baseline, ensure_ascii=False), encoding="utf-8"
+        )
+        must_reject(
+            lambda: load_baseline(
+                baseline_path,
+                TARGET_BASE_URL,
+                baseline_configuration,
+                check_ids,
+                evidence_identity,
+                deadline,
+            )
+        )
+
+        predating_baseline = json.loads(json.dumps(baseline))
+        predating_baseline["generated_at_utc"] = "2026-08-01T12:04:59Z"
+        baseline_path.write_text(
+            json.dumps(predating_baseline, ensure_ascii=False), encoding="utf-8"
+        )
+        must_reject(
+            lambda: load_baseline(
+                baseline_path,
+                TARGET_BASE_URL,
+                baseline_configuration,
+                check_ids,
+                evidence_identity,
+                deadline,
+            )
+        )
+
+    return {
+        "passed": True,
+        "schema_version": REPORT_SCHEMA_VERSION,
+        "ordered_check_count": len(check_ids),
+        "mobile_nav_css_sha256": sha256_text(MOBILE_NAV_INLINE_CSS),
+        "sitemap_negative_cases": len(invalid_sitemap_urls),
+        "deactivation_evidence_adversarial_rejections": adversarial_rejections,
+        "max_deactivation_evidence_age_seconds": (
+            MAX_DEACTIVATION_EVIDENCE_AGE_SECONDS
+        ),
+    }
+
+
 def main(argv: Sequence[str] | None = None) -> int:
-    args = parse_args(argv or sys.argv[1:])
+    effective_argv = list(sys.argv[1:] if argv is None else argv)
+    if effective_argv == ["--self-test"]:
+        try:
+            print(
+                json.dumps(
+                    verification_contract_self_test(),
+                    ensure_ascii=False,
+                    indent=2,
+                )
+            )
+            return 0
+        except Exception as error:
+            print(
+                json.dumps(
+                    {
+                        "passed": False,
+                        "error": type(error).__name__,
+                        "message": str(error),
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                )
+            )
+            return 2
+
+    args = parse_args(effective_argv)
     started = utc_now()
     report_path = resolve_report_path(args.report, args.expect, started)
     report: dict[str, object] = {
@@ -2868,6 +4724,16 @@ def main(argv: Sequence[str] | None = None) -> int:
             "release_contract": "plugin_only_with_unchanged_live_theme",
             "target_base_url": TARGET_BASE_URL,
             "expected_robots_sitemap_url": EXPECTED_ROBOTS_SITEMAP_URL,
+            "mobile_nav_recovery": {
+                "style_handle": MOBILE_NAV_STYLE_HANDLE,
+                "style_element_id": MOBILE_NAV_STYLE_ELEMENT_ID,
+                "legacy_stylesheet_element_id": MOBILE_NAV_LEGACY_STYLESHEET_ID,
+                "data_noptimize": "1",
+                "marker": MOBILE_NAV_CSS_MARKER,
+                "inline_css_sha256": sha256_text(MOBILE_NAV_INLINE_CSS),
+                "delivery_contract": "late_plugin_owned_wp_head_style",
+                "geometry_contract": "real_Chrome_acceptance_is_authoritative",
+            },
             "plugin_health_route": args.plugin_health_route.strip("/"),
             "required_plugin_version": args.required_plugin_version,
             "required_plugin_marker": args.required_plugin_marker,
@@ -2882,6 +4748,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 args.required_unchanged_live_theme_marker
             ),
             "profile_ids": list(PROFILE_IDS),
+            "sitemap_shadow_collisions": [
+                dict(spec) for spec in SITEMAP_SHADOW_COLLISIONS
+            ],
             "canonical_surfaces": list(CANONICAL_SURFACES),
             "html_listing_surfaces": list(HTML_LISTING_SURFACES),
             "representative_html_surfaces": list(REPRESENTATIVE_HTML_SURFACES),
@@ -2907,6 +4776,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         secrets = [config["WP_USER"], config["WP_APP_PASSWORD"]]
         report["base_url"] = config["WP_BASE_URL"]
         report["configuration"]["env_file_found"] = env_path is not None
+        deactivation_evidence = validate_deactivation_evidence(
+            args.deactivation_evidence,
+            args.deactivation_evidence_sha256,
+            expected_base_url=config["WP_BASE_URL"],
+            not_after=started,
+        )
+        report["configuration"]["deactivation_evidence"] = (
+            deactivation_evidence
+        )
 
         snippet_prefixes = tuple(
             dict.fromkeys((*KNOWN_TEMP_SNIPPET_PREFIXES, *args.snippet_prefix))
@@ -2954,6 +4832,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 config["WP_BASE_URL"],
                 report["configuration"],
                 expected_check_ids,
+                deactivation_evidence,
+                started,
             )
             report["baseline"] = {
                 "path": str(baseline_path),
@@ -2974,7 +4854,18 @@ def main(argv: Sequence[str] | None = None) -> int:
             snippet_prefixes=snippet_prefixes,
             route_prefixes=route_prefixes,
         )
+        observations["health"] = health_observation(
+            client,
+            args.plugin_health_route,
+        )
         report["observations"] = observations
+        if args.expect == "pre" and not exact_inactive_health_observed(
+            observations.get("health")
+        ):
+            raise VerificationError(
+                "pre verification requires the exact anonymous direct 404 "
+                "rest_no_route health response after protected deactivation"
+            )
         checks = build_checks(
             observations,
             expect=args.expect,
@@ -2994,6 +4885,19 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "the current run produced a different ordered check-ID contract"
             )
         report["checks"] = checks
+        final_deactivation_evidence = validate_deactivation_evidence(
+            args.deactivation_evidence,
+            args.deactivation_evidence_sha256,
+            expected_base_url=config["WP_BASE_URL"],
+            not_after=utc_now(),
+        )
+        if not values_equal_exact(
+            final_deactivation_evidence,
+            deactivation_evidence,
+        ):
+            raise VerificationError(
+                "deactivation evidence identity changed during live verification"
+            )
         observed_failures = [check["id"] for check in checks if not check["passed"]]
         enforced_failures = [
             check["id"]

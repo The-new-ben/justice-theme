@@ -83,13 +83,21 @@ jobs:
           done
           git ls-files --error-unmatch scripts/deploy/build-seo-recovery-p0-zip.py
           git ls-files --error-unmatch tools/check-justice-seo-recovery-p0.php
+          git ls-files --error-unmatch tools/gsc_submit_clean_sitemap.py
+          git ls-files --error-unmatch tools/test_gsc_submit_clean_sitemap.py
           git ls-files --error-unmatch tools/verify-seo-recovery-p0-live.py
           git ls-files --error-unmatch tools/wp_deploy_seo_recovery_p0.py
           python3 -m py_compile \
             scripts/deploy/build-seo-recovery-p0-zip.py \
+            tools/gsc_submit_clean_sitemap.py \
+            tools/test_gsc_submit_clean_sitemap.py \
             tools/verify-seo-recovery-p0-live.py \
             tools/wp_deploy_seo_recovery_p0.py
           python3 tools/wp_deploy_seo_recovery_p0.py --self-test
+          python3 -S tools/wp_deploy_seo_recovery_p0.py --self-test
+          python3 tools/verify-seo-recovery-p0-live.py --self-test
+          python3 -S tools/verify-seo-recovery-p0-live.py --self-test
+          python3 -B -S tools/test_gsc_submit_clean_sitemap.py
           python3 scripts/deploy/build-seo-recovery-p0-zip.py "$VERSION"
           git diff --exit-code -- "$ZIP"
           rm -rf /tmp/justice-seo-recovery-p0-artifact

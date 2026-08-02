@@ -131,6 +131,10 @@ require_once __DIR__ . '/family-content-release.php';
 // disclosure, controlled schema and hash-locked Yoast metadata operations.
 require_once __DIR__ . '/maya-profile-release.php';
 
+// Comparison content reset: one exact legacy article renders as a sourced,
+// fact-only provider comparison without mutating its stored content or URL.
+require_once __DIR__ . '/comparison-content-reset.php';
+
 // The courtroom simulation (HADMAIA on jus-tice.com) embedded for real
 // at /legal-simulation/, chrome-less, with honest framing copy.
 require_once __DIR__ . '/simulation-embed.php';

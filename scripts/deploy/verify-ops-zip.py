@@ -41,6 +41,7 @@ def main() -> None:
         required = {
             "justice-ops/justice-ops.php",
             "justice-ops/family-content-release.php",
+            "justice-ops/real-estate-content-release.php",
             "justice-ops/review-claims-off.php",
             "justice-ops/maya-profile-release.php",
             "justice-ops/comparison-content-reset.php",
@@ -53,6 +54,9 @@ def main() -> None:
         main_source = archive.read("justice-ops/justice-ops.php").decode("utf-8")
         release_source = archive.read(
             "justice-ops/family-content-release.php"
+        ).decode("utf-8")
+        real_estate_source = archive.read(
+            "justice-ops/real-estate-content-release.php"
         ).decode("utf-8")
         maya_source = archive.read(
             "justice-ops/maya-profile-release.php"
@@ -75,6 +79,7 @@ def main() -> None:
             "require_once __DIR__ . '/maya-profile-release.php';",
             "require_once __DIR__ . '/comparison-content-reset.php';",
             "require_once __DIR__ . '/release-update-control.php';",
+            "require_once __DIR__ . '/real-estate-content-release.php';",
         ):
             if module_include not in main_source:
                 fail(f"required module include is missing: {module_include}")
@@ -86,6 +91,17 @@ def main() -> None:
         ):
             if marker not in release_source:
                 fail(f"release marker is missing from the zipped module: {marker}")
+        for marker in (
+            'data-jt-real-estate-release="2026-08-02-r1"',
+            "justice_ops_real_estate_release_contracts",
+            "/real-estate-attorney/",
+            "/real-estate-lawyer-guide/",
+            "/lawyer-for-buying-or-selling-a-house/",
+            "/real-estate-lawyer-cost-2025/",
+            "justice_ops_real_estate_release_sanitize_schema_value",
+        ):
+            if marker not in real_estate_source:
+                fail(f"real-estate release marker is missing: {marker}")
         for marker in (
             'data-jt-maya-profile-content="2026-08-02-r2"',
             'data-jt-profile-transparency="visibility-policy"',

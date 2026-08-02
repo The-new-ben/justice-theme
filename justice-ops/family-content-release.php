@@ -23,9 +23,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 function justice_ops_family_release_contracts(): array {
 	return array(
 		'/family-law/' => array(
-			'h1'          => 'עורך דין לענייני משפחה: מציאת מומחה לפי הבעיה המשפטית',
+			'h1'          => 'עורך דין לענייני משפחה לפי סוג ההליך',
 			'seo_title'   => 'עורך דין לענייני משפחה: בחירה לפי סוג המקרה | Jus-Tice',
-			'description' => 'איזה עורך דין לענייני משפחה מתאים למקרה שלכם, מתי נדרשת פעולה דחופה, אילו מסמכים להכין ואיך לבדוק ניסיון, זמינות ושכר טרחה לפני שבוחרים ייצוג.',
+			'description' => 'עורך דין לענייני משפחה מטפל בגירושין, מזונות, אחריות הורית, חלוקת רכוש והסכמים. כך מזהים את ההליך, הדחיפות והניסיון שכדאי לבדוק לפני ייצוג.',
 			'canonical'   => 'https://jus-tice.co.il/family-law/',
 		),
 		'/divorce-lawyer/' => array(
@@ -211,6 +211,119 @@ function justice_ops_family_release_strip_review_claims( string $body ): string 
 }
 
 /**
+ * Replace legacy family-law JSON-LD with one minimal truthful graph.
+ *
+ * Malformed legacy JSON-LD is intentionally left untouched so deployment
+ * acceptance fails visibly instead of hiding an unknown schema state.
+ *
+ * @param array<string,string> $contract Current page contract.
+ */
+function justice_ops_family_release_replace_family_schema( string $html, array $contract ): string {
+	if ( '/family-law/' !== justice_ops_family_release_request_path() ) {
+		return $html;
+	}
+
+	$pattern = '#<script\b[^>]*type=["\']application/ld\+json["\'][^>]*>[\s\S]*?</script>#iu';
+	$matched = preg_match_all( $pattern, $html, $scripts );
+	if ( false === $matched ) {
+		return $html;
+	}
+
+	foreach ( $scripts[0] as $script ) {
+		if ( ! preg_match( '#>([\s\S]*?)</script>#iu', $script, $payload ) ) {
+			return $html;
+		}
+		json_decode( html_entity_decode( trim( $payload[1] ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ), true );
+		if ( JSON_ERROR_NONE !== json_last_error() ) {
+			return $html;
+		}
+	}
+
+	$breadcrumb_id = $contract['canonical'] . '#breadcrumb';
+	$graph         = array(
+		'@context' => 'https://schema.org',
+		'@graph'   => array(
+			array(
+				'@type'       => 'WebPage',
+				'@id'         => $contract['canonical'],
+				'url'         => $contract['canonical'],
+				'name'        => $contract['seo_title'],
+				'description' => $contract['description'],
+				'inLanguage'  => 'he-IL',
+				'isPartOf'    => array( '@id' => 'https://jus-tice.co.il/#website' ),
+				'breadcrumb'  => array( '@id' => $breadcrumb_id ),
+				'publisher'   => array( '@id' => 'https://jus-tice.co.il/#organization' ),
+			),
+			array(
+				'@type'       => 'WebSite',
+				'@id'         => 'https://jus-tice.co.il/#website',
+				'url'         => 'https://jus-tice.co.il/',
+				'name'        => 'Jus-Tice.co.il',
+				'description' => 'פורטל מידע משפטי בישראל',
+				'inLanguage'  => 'he-IL',
+				'publisher'   => array( '@id' => 'https://jus-tice.co.il/#organization' ),
+			),
+			array(
+				'@type' => 'Organization',
+				'@id'   => 'https://jus-tice.co.il/#organization',
+				'url'   => 'https://jus-tice.co.il/',
+				'name'  => 'Jus-Tice',
+			),
+			array(
+				'@type'           => 'BreadcrumbList',
+				'@id'             => $breadcrumb_id,
+				'itemListElement' => array(
+					array(
+						'@type'    => 'ListItem',
+						'position' => 1,
+						'name'     => 'עמוד הבית',
+						'item'     => 'https://jus-tice.co.il/',
+					),
+					array(
+						'@type'    => 'ListItem',
+						'position' => 2,
+						'name'     => $contract['h1'],
+						'item'     => $contract['canonical'],
+					),
+				),
+			),
+		),
+	);
+
+	$json = wp_json_encode( $graph, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+	if ( ! is_string( $json ) || '' === $json ) {
+		return $html;
+	}
+
+	$clean  = preg_replace( $pattern, '', $html );
+	$script = '<script type="application/ld+json" id="justice-family-law-schema">' . $json . '</script>';
+	if ( ! is_string( $clean ) ) {
+		return $html;
+	}
+	if ( false !== stripos( $clean, '</head>' ) ) {
+		$inserted = preg_replace( '#</head>#i', $script . '</head>', $clean, 1 );
+		return is_string( $inserted ) ? $inserted : $html;
+	}
+
+	return $html;
+}
+
+/**
+ * Remove ranking-style language from the generic family-law routing page.
+ */
+function justice_ops_family_release_neutralize_family_card_heading( string $body ): string {
+	if ( '/family-law/' !== justice_ops_family_release_request_path() ) {
+		return $body;
+	}
+
+	return str_replace(
+		array( 'נבדקו ונמצאו מובילים', 'משרדי עורכי דין מובילים בדיני משפחה' ),
+		array( 'משרדים בתחום דיני המשפחה', 'משרדי עורכי דין בתחום דיני משפחה' ),
+		$body
+	);
+}
+
+/**
  * Add the same neutral visibility note to every featured card and remove the
  * unsupported years/exclusivity sentence emitted for Maya by the legacy theme.
  */
@@ -294,6 +407,8 @@ function justice_ops_family_release_filter_html( string $html ): string {
 		return $html;
 	}
 
+	$html = justice_ops_family_release_replace_family_schema( $html, $contract );
+
 	$body_position = stripos( $html, '<body' );
 	if ( false === $body_position ) {
 		return $html;
@@ -305,6 +420,7 @@ function justice_ops_family_release_filter_html( string $html ): string {
 	$body = justice_ops_family_release_replace_summary( $body, $contract['description'] );
 	$body = justice_ops_family_release_strip_review_claims( $body );
 	$body = justice_ops_family_release_truthful_consent( $body );
+	$body = justice_ops_family_release_neutralize_family_card_heading( $body );
 
 	if ( in_array( justice_ops_family_release_request_path(), array( '/family-law/', '/divorce-lawyer/' ), true ) ) {
 		$body = justice_ops_family_release_clarify_featured_cards( $body );

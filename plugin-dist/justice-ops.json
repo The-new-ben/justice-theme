@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.35.7",
+  "version": "2.35.8",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.35.7.zip",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.35.8.zip",
   "last_updated": "2026-08-02",
   "sections": {
-    "changelog": "2.35.7: replace the legacy criminal pillar Hero with one keyword-first intent summary and three stage-specific links, with exact fail-closed rendered-output gates."
+    "changelog": "2.35.8: align the family-law pillar H1, description, visible card language and structured data with its generic owner contract while retaining the focused criminal pillar Hero and exact fail-closed rendered-output gates."
   }
 }

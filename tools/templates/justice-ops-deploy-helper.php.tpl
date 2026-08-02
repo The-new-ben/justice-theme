@@ -89,6 +89,16 @@ add_action( 'rest_api_init', function () {
 			'The fresh server recovery copy differs from live.' => 'backup_copy_mismatch',
 			'Free disk space cannot be measured.' => 'disk_measurement_failed',
 			'Free disk space cannot hold every bounded deploy and recovery copy.' => 'disk_capacity_insufficient',
+			'The bounded disk capacity probe size is outside the safe limit.' => 'disk_probe_size_unbounded',
+			'The bounded disk capacity probe directory is unavailable.' => 'disk_probe_root_unavailable',
+			'The bounded disk capacity probe cannot be opened.' => 'disk_probe_open_failed',
+			'The bounded disk capacity probe write is incomplete.' => 'disk_probe_write_failed',
+			'The bounded disk capacity probe cannot be flushed.' => 'disk_probe_flush_failed',
+			'The bounded disk capacity probe written size differs.' => 'disk_probe_written_size_mismatch',
+			'The bounded disk capacity probe cannot be reopened.' => 'disk_probe_reopen_failed',
+			'The bounded disk capacity probe read is incomplete.' => 'disk_probe_read_failed',
+			'The bounded disk capacity probe readback differs.' => 'disk_probe_readback_mismatch',
+			'The bounded disk capacity probe cannot be removed.' => 'disk_probe_cleanup_failed',
 		);
 		$message = $error->getMessage();
 		if ( isset( $known[ $message ] ) ) {
@@ -663,11 +673,144 @@ add_action( 'rest_api_init', function () {
 		return $cas_state( $state, $next );
 	};
 
-	$assert_disk_capacity = static function ( string $phase, int $prior_expanded, int $rollback_zip_bytes = 0 ) use ( $expected_artifact_bytes, $expected_expanded_bytes ): array {
-		$free = @disk_free_space( WP_CONTENT_DIR );
-		if ( ! is_float( $free ) && ! is_int( $free ) ) {
-			throw new RuntimeException( 'Free disk space cannot be measured.' );
+	// BEGIN JUSTICE OPS DISK CAPACITY CONTRACT.
+	$disk_probe_cleanup_safe = true;
+	$prove_disk_capacity_with_write = static function ( string $phase, int $required ) use ( $expected_run_id, &$disk_probe_cleanup_safe ): array {
+		$disk_probe_cleanup_safe = true;
+		$max_probe_bytes = 150 * 1024 * 1024;
+		if ( $required <= 0 || $required > $max_probe_bytes ) {
+			throw new RuntimeException( 'The bounded disk capacity probe size is outside the safe limit.' );
 		}
+
+		$content_root = realpath( WP_CONTENT_DIR );
+		$probe_root   = WP_CONTENT_DIR . '/upgrade';
+		if ( ! is_string( $content_root ) || '' === $content_root || is_link( $probe_root ) || ! is_dir( $probe_root ) ) {
+			throw new RuntimeException( 'The bounded disk capacity probe directory is unavailable.' );
+		}
+		$probe_root_real = realpath( $probe_root );
+		$content_root    = trailingslashit( wp_normalize_path( $content_root ) );
+		$probe_root_real = is_string( $probe_root_real ) ? wp_normalize_path( $probe_root_real ) : '';
+		if ( '' === $probe_root_real || 0 !== strpos( trailingslashit( $probe_root_real ), $content_root ) ) {
+			throw new RuntimeException( 'The bounded disk capacity probe directory is unavailable.' );
+		}
+
+		$probe_name = '.justice-ops-capacity-probe-' . substr( hash( 'sha256', $expected_run_id . '|' . $phase . '|' . wp_generate_uuid4() ), 0, 32 ) . '.tmp';
+		$probe_path = trailingslashit( $probe_root_real ) . $probe_name;
+		$writer = null;
+		$reader = null;
+		$created = false;
+		$failure = null;
+		$written_bytes = 0;
+		$readable_bytes = 0;
+		$expected_digest = '';
+		$observed_digest = '';
+		$cleanup_verified = false;
+		$unlink_succeeded = false;
+
+		try {
+			$writer = @fopen( $probe_path, 'x+b' );
+			if ( ! is_resource( $writer ) ) {
+				throw new RuntimeException( 'The bounded disk capacity probe cannot be opened.' );
+			}
+			$created = true;
+			$disk_probe_cleanup_safe = false;
+			$write_chunk_bytes = 256 * 1024;
+			$write_hash = hash_init( 'sha256' );
+			while ( $written_bytes < $required ) {
+				$remaining = $required - $written_bytes;
+				$piece_bytes = min( $write_chunk_bytes, $remaining );
+				$piece = random_bytes( $piece_bytes );
+				$written = @fwrite( $writer, $piece );
+				if ( ! is_int( $written ) || $written !== $piece_bytes ) {
+					throw new RuntimeException( 'The bounded disk capacity probe write is incomplete.' );
+				}
+				hash_update( $write_hash, $piece );
+				$written_bytes += $written;
+			}
+			if ( true !== @fflush( $writer ) ) {
+				throw new RuntimeException( 'The bounded disk capacity probe cannot be flushed.' );
+			}
+			$written_stat = @fstat( $writer );
+			if ( ! is_array( $written_stat ) || (int) ( $written_stat['size'] ?? -1 ) !== $required ) {
+				throw new RuntimeException( 'The bounded disk capacity probe written size differs.' );
+			}
+			$expected_digest = hash_final( $write_hash );
+			if ( true !== @fclose( $writer ) ) {
+				throw new RuntimeException( 'The bounded disk capacity probe cannot be flushed.' );
+			}
+			$writer = null;
+			clearstatcache( true, $probe_path );
+			$persisted_size = @filesize( $probe_path );
+			if ( ! is_int( $persisted_size ) || $persisted_size !== $required ) {
+				throw new RuntimeException( 'The bounded disk capacity probe written size differs.' );
+			}
+
+			$reader = @fopen( $probe_path, 'rb' );
+			if ( ! is_resource( $reader ) ) {
+				throw new RuntimeException( 'The bounded disk capacity probe cannot be reopened.' );
+			}
+			$read_hash = hash_init( 'sha256' );
+			$read_chunk_bytes = 256 * 1024;
+			while ( $readable_bytes < $required ) {
+				$read_length = min( $read_chunk_bytes, $required - $readable_bytes );
+				$piece = @fread( $reader, $read_length );
+				if ( ! is_string( $piece ) || '' === $piece ) {
+					throw new RuntimeException( 'The bounded disk capacity probe read is incomplete.' );
+				}
+				$piece_bytes = strlen( $piece );
+				if ( $piece_bytes > $read_length ) {
+					throw new RuntimeException( 'The bounded disk capacity probe readback differs.' );
+				}
+				hash_update( $read_hash, $piece );
+				$readable_bytes += $piece_bytes;
+			}
+			$extra = @fread( $reader, 1 );
+			if ( ! is_string( $extra ) || '' !== $extra ) {
+				throw new RuntimeException( 'The bounded disk capacity probe readback differs.' );
+			}
+			$observed_digest = hash_final( $read_hash );
+			if ( $readable_bytes !== $required || ! hash_equals( $expected_digest, $observed_digest ) ) {
+				throw new RuntimeException( 'The bounded disk capacity probe readback differs.' );
+			}
+			if ( true !== @fclose( $reader ) ) {
+				throw new RuntimeException( 'The bounded disk capacity probe read is incomplete.' );
+			}
+			$reader = null;
+		} catch ( Throwable $error ) {
+			$failure = $error;
+		} finally {
+			if ( is_resource( $reader ) ) {
+				@fclose( $reader );
+			}
+			if ( is_resource( $writer ) ) {
+				@fclose( $writer );
+			}
+			if ( $created ) {
+				$unlink_succeeded = @unlink( $probe_path );
+				clearstatcache( true, $probe_path );
+				$cleanup_verified = $unlink_succeeded && ! file_exists( $probe_path ) && ! is_link( $probe_path );
+				$disk_probe_cleanup_safe = $cleanup_verified;
+			}
+		}
+
+		if ( $created && ! $cleanup_verified ) {
+			throw new RuntimeException( 'The bounded disk capacity probe cannot be removed.' );
+		}
+		if ( $failure instanceof Throwable ) {
+			throw $failure;
+		}
+		return array(
+			'method'           => 'bounded_real_write_read_unlink_probe',
+			'proven_bytes'     => $required,
+			'written_bytes'    => $written_bytes,
+			'readable_bytes'   => $readable_bytes,
+			'sha256'           => $observed_digest,
+			'cleanup_verified' => $cleanup_verified,
+			'max_probe_bytes'  => $max_probe_bytes,
+		);
+	};
+
+	$assert_disk_capacity = static function ( string $phase, int $prior_expanded, int $rollback_zip_bytes = 0 ) use ( $expected_artifact_bytes, $expected_expanded_bytes, $prove_disk_capacity_with_write ): array {
 		$rollback_bound = $rollback_zip_bytes > 0 ? $rollback_zip_bytes : $prior_expanded + 1024 * 1024;
 		$copies = array(
 			'prior_backup_copy'          => $prior_expanded,
@@ -679,16 +822,32 @@ add_action( 'rest_api_init', function () {
 			'safety_margin'              => 20 * 1024 * 1024,
 		);
 		$required = array_sum( $copies );
-		if ( (int) $free < $required ) {
-			throw new RuntimeException( 'Free disk space cannot hold every bounded deploy and recovery copy.' );
+		if ( function_exists( 'disk_free_space' ) ) {
+			$free = @disk_free_space( WP_CONTENT_DIR );
+			if ( ! is_float( $free ) && ! is_int( $free ) ) {
+				throw new RuntimeException( 'Free disk space cannot be measured.' );
+			}
+			if ( (int) $free < $required ) {
+				throw new RuntimeException( 'Free disk space cannot hold every bounded deploy and recovery copy.' );
+			}
+			return array(
+				'phase'          => $phase,
+				'free_bytes'     => (int) $free,
+				'required_bytes' => $required,
+				'copies'         => $copies,
+			);
 		}
+
+		$probe = $prove_disk_capacity_with_write( $phase, (int) $required );
 		return array(
 			'phase'          => $phase,
-			'free_bytes'     => (int) $free,
+			'free_bytes'     => null,
 			'required_bytes' => $required,
 			'copies'         => $copies,
+			'capacity_proof' => $probe,
 		);
 	};
+	// END JUSTICE OPS DISK CAPACITY CONTRACT.
 
 	$inspect_recovery_marker = static function ( bool $consume = false ) use ( $expected_recovery_proof, $expected_marker_sha256, $expected_marker_bytes, $expected_plugin_slug, $expected_base_url, $expected_commit_sha, $expected_artifact_sha256, $expected_prior_version ): array {
 		if ( ! is_array( $expected_recovery_proof ) ) {
@@ -1148,7 +1307,7 @@ add_action( 'rest_api_init', function () {
 		array(
 			'methods'             => 'POST',
 			'permission_callback' => $permission,
-			'callback'            => static function ( WP_REST_Request $request ) use ( $verify_request, $error_response, $classify_failure, $inspect_recovery_marker, $inspect_deploy_lock, $assert_lock_preflight, $assert_disk_capacity, $expected_prior_version, $expected_plugin, $expected_plugin_slug, $expected_backup_root, $state_option, $get_raw_option, $inspect_directory ): WP_REST_Response {
+			'callback'            => static function ( WP_REST_Request $request ) use ( $verify_request, $error_response, $classify_failure, $inspect_recovery_marker, $inspect_deploy_lock, $assert_lock_preflight, $assert_disk_capacity, &$disk_probe_cleanup_safe, $expected_prior_version, $expected_plugin, $expected_plugin_slug, $expected_backup_root, $state_option, $get_raw_option, $inspect_directory ): WP_REST_Response {
 				$request_verified = false;
 				$state_present = false;
 				$backup_root_present = false;
@@ -1193,11 +1352,11 @@ add_action( 'rest_api_init', function () {
 						'expanded_bytes'   => (int) $prior['expanded_bytes'],
 						'directory_sha256' => (string) $prior['directory_sha256'],
 					);
-					$failure_stage = 'disk_preflight';
-					$disk = $assert_disk_capacity( 'preflight', (int) $prior['expanded_bytes'] );
 					$failure_stage = 'lock_preflight';
 					$lock_inspection = $inspect_deploy_lock();
 					$assert_lock_preflight( $lock_inspection );
+					$failure_stage = 'disk_preflight';
+					$disk = $assert_disk_capacity( 'preflight', (int) $prior['expanded_bytes'] );
 
 					return new WP_REST_Response(
 						array(
@@ -1217,6 +1376,7 @@ add_action( 'rest_api_init', function () {
 							'backup_root_created'        => false,
 							'backup_root_absent_after'   => true,
 							'marker_consumed'            => false,
+							'disk_probe_cleanup_safe'     => $disk_probe_cleanup_safe,
 							'safe_to_retire_helper'      => true,
 							'foreign_lock_present'       => ! empty( $lock_inspection['raw_present'] ),
 							'operation_nonce_sha256'     => hash( 'sha256', $operation_nonce ),
@@ -1225,7 +1385,7 @@ add_action( 'rest_api_init', function () {
 					);
 				} catch ( Throwable $error ) {
 					$status = (int) $error->getCode();
-					$safe = $request_verified && ! $state_present && ! $backup_root_present;
+					$safe = $request_verified && ! $state_present && ! $backup_root_present && $disk_probe_cleanup_safe;
 					return $error_response(
 						'justice_ops_preflight_failed',
 						$error->getMessage(),
@@ -1246,6 +1406,7 @@ add_action( 'rest_api_init', function () {
 							'backup_root_created'        => false,
 							'backup_root_absent_after'   => ! $backup_root_present,
 							'marker_consumed'            => false,
+							'disk_probe_cleanup_safe'     => $disk_probe_cleanup_safe,
 							'safe_to_retire_helper'      => $safe,
 							'foreign_lock_present'       => ! empty( $lock_inspection['raw_present'] ),
 						)
@@ -1261,7 +1422,7 @@ add_action( 'rest_api_init', function () {
 		array(
 			'methods'             => 'POST',
 			'permission_callback' => $permission,
-			'callback'            => static function ( WP_REST_Request $request ) use ( $verify_request, $error_response, $classify_failure, $inspect_recovery_marker, $inspect_deploy_lock, $reclaim_stale_lock, $acquire_raw_option_once, $assert_disk_capacity, $persist_new_state, $delete_raw_option_cas, $assert_lock, $expected_run_id, $expected_helper_id, $expected_helper_name, $expected_token_sha256, $expected_commit_sha, $expected_prior_version, $expected_plugin, $expected_plugin_slug, $expected_backup_root, $lock_option, $state_option, $scoped_option_names, $inspect_directory, $copy_directory, $remove_directory, $get_raw_option, $raw_option_value, $database_preconditions, $operation_lease_seconds ): WP_REST_Response {
+			'callback'            => static function ( WP_REST_Request $request ) use ( $verify_request, $error_response, $classify_failure, $inspect_recovery_marker, $inspect_deploy_lock, $reclaim_stale_lock, $acquire_raw_option_once, $assert_disk_capacity, &$disk_probe_cleanup_safe, $persist_new_state, $delete_raw_option_cas, $assert_lock, $expected_run_id, $expected_helper_id, $expected_helper_name, $expected_token_sha256, $expected_commit_sha, $expected_prior_version, $expected_plugin, $expected_plugin_slug, $expected_backup_root, $lock_option, $state_option, $scoped_option_names, $inspect_directory, $copy_directory, $remove_directory, $get_raw_option, $raw_option_value, $database_preconditions, $operation_lease_seconds ): WP_REST_Response {
 				$backup_root         = $expected_backup_root;
 				$lock_value          = '';
 				$operation_nonce     = '';
@@ -1309,9 +1470,6 @@ add_action( 'rest_api_init', function () {
 						'expanded_bytes'   => (int) $prior['expanded_bytes'],
 						'directory_sha256' => (string) $prior['directory_sha256'],
 					);
-					$failure_stage = 'disk_preflight';
-					$disk = $assert_disk_capacity( 'prepare', (int) $prior['expanded_bytes'] );
-
 					$failure_stage = 'lock_preflight_and_reclaim';
 					$lock_inspection = $inspect_deploy_lock();
 					$stale_lock = $reclaim_stale_lock();
@@ -1343,6 +1501,8 @@ add_action( 'rest_api_init', function () {
 					if ( empty( $lock_acquisition['verified'] ) ) {
 						throw new RuntimeException( 'The exclusive Justice Ops deployment lock failed exact readback.', 409 );
 					}
+					$failure_stage = 'disk_preflight';
+					$disk = $assert_disk_capacity( 'prepare', (int) $prior['expanded_bytes'] );
 
 					$failure_stage = 'marker_consumption';
 					$recovery_proof = $inspect_recovery_marker( true );
@@ -1422,6 +1582,7 @@ add_action( 'rest_api_init', function () {
 							'recovery_proof'         => $recovery_proof,
 							'marker_inspection'      => $marker_inspection,
 							'marker_consumed'        => true,
+							'disk_probe_cleanup_safe' => $disk_probe_cleanup_safe,
 							'stale_lock_policy'      => $stale_lock,
 							'operation_nonce_sha256' => hash( 'sha256', $operation_nonce ),
 							'database_preconditions' => $db,
@@ -1437,7 +1598,13 @@ add_action( 'rest_api_init', function () {
 					);
 				} catch ( Throwable $error ) {
 					$cleanup_errors = array();
-					$cleanup_can_continue = true;
+					$cleanup_can_continue = $disk_probe_cleanup_safe;
+					if ( ! $disk_probe_cleanup_safe ) {
+						$cleanup_errors[] = array(
+							'stage'          => 'disk_probe_cleanup',
+							'message_sha256' => hash( 'sha256', 'The bounded disk capacity probe cannot be removed.' ),
+						);
+					}
 					try {
 						$current_state_raw = $raw_option_value( $get_raw_option( $state_option ) );
 						$expected_state_raw = ! empty( $state ) ? maybe_serialize( $state ) : null;
@@ -1513,7 +1680,7 @@ add_action( 'rest_api_init', function () {
 							'message_sha256' => hash( 'sha256', $inspection_error->getMessage() ),
 						);
 					}
-					$safe_to_retire_helper = $request_verified && $state_absent_after && $own_lock_absent_after && $backup_root_absent_after && ! empty( $lock_inspection_after['inspection_complete'] );
+					$safe_to_retire_helper = $request_verified && $disk_probe_cleanup_safe && $state_absent_after && $own_lock_absent_after && $backup_root_absent_after && ! empty( $lock_inspection_after['inspection_complete'] );
 					$status = (int) $error->getCode();
 					return $error_response(
 						'justice_ops_prepare_failed',
@@ -1530,6 +1697,7 @@ add_action( 'rest_api_init', function () {
 							'backup_root_created'        => $backup_root_created,
 							'backup_root_absent_after'   => $backup_root_absent_after,
 							'marker_consumed'            => $marker_consumed,
+							'disk_probe_cleanup_safe'     => $disk_probe_cleanup_safe,
 							'safe_to_retire_helper'      => $safe_to_retire_helper,
 							'foreign_lock_present'       => $foreign_lock_present,
 							'marker_inspection'          => $marker_inspection,

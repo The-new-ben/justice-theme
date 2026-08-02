@@ -22,6 +22,7 @@ SRC = ROOT / "justice-ops"
 MAIN = SRC / "justice-ops.php"
 DIST = ROOT / "plugin-dist"
 MANIFEST = DIST / "justice-ops.json"
+TEXT_SUFFIXES = {".css", ".html", ".js", ".php"}
 
 
 def fail(msg: str) -> None:
@@ -54,10 +55,17 @@ def main() -> None:
     if MAIN not in files:
         fail("justice-ops/justice-ops.php missing from source dir")
 
-    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as zf:
+    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
         for path in files:
             arcname = "justice-ops/" + path.relative_to(SRC).as_posix()
-            zf.write(path, arcname)
+            data = path.read_bytes()
+            if path.suffix.lower() in TEXT_SUFFIXES:
+                data = data.replace(b"\r\n", b"\n")
+            info = zipfile.ZipInfo(arcname, date_time=(1980, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.create_system = 3
+            info.external_attr = 0o100644 << 16
+            zf.writestr(info, data, compress_type=zipfile.ZIP_DEFLATED, compresslevel=9)
 
     with zipfile.ZipFile(out) as zf:
         names = zf.namelist()

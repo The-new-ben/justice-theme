@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.35.0
+ * Version: 2.35.2
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.35.0' );
+	define( 'JUSTICE_OPS_VERSION', '2.35.2' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -118,6 +118,10 @@ require_once __DIR__ . '/rent-gen.php';
 // Review-claims kill switch: no 'legally reviewed by' anywhere until a real
 // per-page attorney review process exists (owner order 2026-07-14).
 require_once __DIR__ . '/review-claims-off.php';
+
+// Family/divorce release bridge: lets the six rewritten records control their
+// public titles and H1s while the older production theme is still installed.
+require_once __DIR__ . '/family-content-release.php';
 
 // The courtroom simulation (HADMAIA on jus-tice.com) embedded for real
 // at /legal-simulation/, chrome-less, with honest framing copy.

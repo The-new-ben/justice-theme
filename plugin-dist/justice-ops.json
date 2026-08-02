@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.35.0",
+  "version": "2.35.2",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.35.0.zip",
-  "last_updated": "2026-07-18",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.35.2.zip",
+  "last_updated": "2026-08-02",
   "sections": {
-    "changelog": "2.35.0: owner language order - all public \"מקודם/ממומן\" vocabulary softened to the registered-card model (כרטיס רשום) on the map flag, popup interception line, claim CTA, map subtitle and article strip chip; lawyers never see us advertising at their expense, they see registration status. 2.34.5: archive map buffer opens at template_redirect -1000010 - /lawyers/ is a render-and-exit controlled route. 2.34.4: archive map slot detection by request URI (query shape AND template basename both miss on the live /lawyers/ route). 2.34.3: archive map detection by template_include basename (is_post_type_archive false on the live /lawyers/ route). 2.34.2: archive map slot - loop_start never fires on the custom-query archive template; switched to the front-page ob_start pattern inserting under the archive H1. 2.34.1: map feed override actually overrides - register_rest_route needs $overri"
+    "changelog": "2.35.2: activate the six-page family and divorce content contract, remove unsupported reviewer output, disclose Maya Rotenberg's paid premium relationship, hold new leads internally until one verified mailbox is configured, and load the existing map safely on the controlled family routes."
   }
 }

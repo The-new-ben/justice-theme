@@ -42,6 +42,7 @@ def main() -> None:
             "justice-ops/justice-ops.php",
             "justice-ops/family-content-release.php",
             "justice-ops/real-estate-content-release.php",
+            "justice-ops/country-content-release.php",
             "justice-ops/review-claims-off.php",
             "justice-ops/maya-profile-release.php",
             "justice-ops/comparison-content-reset.php",
@@ -57,6 +58,9 @@ def main() -> None:
         ).decode("utf-8")
         real_estate_source = archive.read(
             "justice-ops/real-estate-content-release.php"
+        ).decode("utf-8")
+        country_source = archive.read(
+            "justice-ops/country-content-release.php"
         ).decode("utf-8")
         maya_source = archive.read(
             "justice-ops/maya-profile-release.php"
@@ -80,6 +84,7 @@ def main() -> None:
             "require_once __DIR__ . '/comparison-content-reset.php';",
             "require_once __DIR__ . '/release-update-control.php';",
             "require_once __DIR__ . '/real-estate-content-release.php';",
+            "require_once __DIR__ . '/country-content-release.php';",
         ):
             if module_include not in main_source:
                 fail(f"required module include is missing: {module_include}")
@@ -102,6 +107,17 @@ def main() -> None:
         ):
             if marker not in real_estate_source:
                 fail(f"real-estate release marker is missing: {marker}")
+        for marker in (
+            'data-jt-country-schema-release="2026-08-02-r1"',
+            "justice_ops_country_schema_release_paths",
+            "/portugal-lawyers/",
+            "/practice-areas/portugal/",
+            "/usa-lawyers/",
+            "/california-lawyers/",
+            "justice_ops_real_estate_release_filter_schema_scripts",
+        ):
+            if marker not in country_source:
+                fail(f"country release marker is missing: {marker}")
         for marker in (
             'data-jt-maya-profile-content="2026-08-02-r2"',
             'data-jt-profile-transparency="visibility-policy"',

@@ -340,11 +340,16 @@ jt_maya_assert( 'unrelated' === justice_ops_maya_profile_release_post_title( 'un
 $body = justice_ops_maya_profile_release_content( 'legacy body' );
 jt_maya_assert( false === strpos( $body, 'legacy body' ), 'legacy mixed-intent body must be replaced' );
 jt_maya_assert( false === stripos( $body, '<h1' ), 'raw controlled body must leave the single H1 to the template' );
-jt_maya_assert( 1 === preg_match( '#^<section[^>]+>\s*<p>זהו פרופיל מקורות[\s\S]*?</p>\s*<p[^>]+data-jt-commercial-disclosure="maya-rotenberg"#u', $body ), 'disclosure must immediately follow the opening paragraph' );
-jt_maya_assert( 1 === substr_count( $body, 'שותפה עסקית ולקוחה משלמת' ), 'partnership and paying-client disclosure must appear once' );
-jt_maya_assert( false !== strpos( $body, 'למשרד פרופיל פרימיום וחשיפה מוגברת באתר' ), 'premium visibility must be disclosed' );
-jt_maya_assert( 1 === substr_count( $body, 'data-jt-commercial-disclosure="maya-rotenberg"' ), 'disclosure must have one stable DOM hook' );
-jt_maya_assert( false !== strpos( $body, 'role="note" aria-label="גילוי מסחרי"' ), 'disclosure must have an accessible label' );
+jt_maya_assert( 1 === preg_match( '#^<section[^>]+>\s*<p>זהו פרופיל מקורות[\s\S]*?</p>\s*<p[^>]+data-jt-profile-transparency="visibility-policy"#u', $body ), 'neutral visibility note must immediately follow the opening paragraph' );
+jt_maya_assert( 1 === substr_count( $body, 'data-jt-profile-transparency="visibility-policy"' ), 'visibility note must have one stable DOM hook' );
+jt_maya_assert( false !== strpos( $body, 'role="note" aria-label="הבהרת נראות"' ), 'visibility note must have an accessible label' );
+jt_maya_assert( false === strpos( $body, 'שותפה עסקית' ), 'partner claim must not appear in public profile copy' );
+jt_maya_assert( false === strpos( $body, 'לקוחה משלמת' ), 'paying-client claim must not appear in public profile copy' );
+jt_maya_assert( false === strpos( $body, 'פרופיל פרימיום' ), 'candidate-specific premium claim must not appear in public profile copy' );
+jt_maya_assert( false === strpos( $body, 'data-jt-commercial-disclosure' ), 'candidate-specific commercial disclosure hook must be absent' );
+foreach ( array( 'חשיפה מוגברת', 'הקשר העסקי, התשלום', 'התשלום והשותפות', 'גילוי על הקשר המסחרי ל-Jus-Tice' ) as $forbidden_relationship_copy ) {
+	jt_maya_assert( false === strpos( $body, $forbidden_relationship_copy ), "candidate-specific relationship copy must be absent: {$forbidden_relationship_copy}" );
+}
 jt_maya_assert( false !== strpos( $body, 'תוכן שיווקי ופרסומי שפורסם ב-Ynet' ), 'Ynet must be labelled sponsored publisher content' );
 jt_maya_assert( false !== strpos( $body, 'לא כאימות עיתונאי עצמאי' ), 'Ynet must not be presented as independent corroboration' );
 $ynet_paragraph_match = preg_match( '#<p>[^<]*(?:<a[^>]+>[^<]+</a>[^<]*)+Ynet[^<]*לא כאימות עיתונאי עצמאי\.</p>#u', $body );
@@ -353,8 +358,8 @@ jt_maya_assert( false !== strpos( $body, 'ביום 2.8.2026' ), 'visible source-
 jt_maya_assert( false === strpos( $body, 'ביום 1.8.2026' ), 'stale source-check date must be absent' );
 jt_maya_assert( false === stripos( $body, 'mailto:' ), 'provider mailto must be absent' );
 jt_maya_assert( false === stripos( $body, 'wa.me' ), 'provider WhatsApp CTA must be absent' );
-jt_maya_assert( 2 === substr_count( $body, 'href="https://rotenberglaw.co.il/about" rel="sponsored"' ), 'every link to the paying client property must be marked sponsored' );
-jt_maya_assert( false === strpos( $body, 'href="https://rotenberglaw.co.il/about">' ), 'no unqualified paying-client link may remain' );
+jt_maya_assert( 2 === substr_count( $body, 'href="https://rotenberglaw.co.il/about" rel="sponsored"' ), 'every link to the external provider property must be marked sponsored' );
+jt_maya_assert( false === strpos( $body, 'href="https://rotenberglaw.co.il/about">' ), 'no unqualified external-provider link may remain' );
 jt_maya_assert( false === strpos( $body, 'reviewedBy' ), 'reviewer schema claim must be absent from copy' );
 jt_maya_assert( false === strpos( $body, 'מספר רישיון 32125' ), 'unverified licence number must be absent' );
 jt_maya_assert( false === strpos( $body, 'לקוחות מרוצים' ), 'unverified customer claim must be absent' );
@@ -364,13 +369,13 @@ foreach ( array( '<script', '<style', '<iframe', ' onclick=', ' onload=', ' oner
 	jt_maya_assert( false === stripos( $body, $forbidden_markup ), "controlled body must not contain {$forbidden_markup}" );
 }
 
-$disclosure_text = '';
-if ( preg_match( '#<p[^>]+data-jt-commercial-disclosure="maya-rotenberg"[^>]*>([\s\S]*?)</p>#u', $body, $disclosure_match ) ) {
-	$disclosure_text = trim( preg_replace( '/\s+/u', ' ', strip_tags( $disclosure_match[1] ) ) );
+$transparency_text = '';
+if ( preg_match( '#<p[^>]+data-jt-profile-transparency="visibility-policy"[^>]*>([\s\S]*?)</p>#u', $body, $transparency_match ) ) {
+	$transparency_text = trim( preg_replace( '/\s+/u', ' ', strip_tags( $transparency_match[1] ) ) );
 }
 jt_maya_assert(
-	'גילוי מסחרי: מאיה רוטנברג היא שותפה עסקית ולקוחה משלמת של Jus-Tice. למשרד פרופיל פרימיום וחשיפה מוגברת באתר. הקשר אינו ציון איכות, המלצה מקצועית או הבטחת התאמה או תוצאה.' === $disclosure_text,
-	'commercial disclosure normalized text must be exact'
+	'הבהרת נראות: הופעה, מיקום והיקף חשיפה של פרופילים באתר עשויים להיות מושפעים משיקולים מסחריים ועריכתיים. הם אינם דירוג מקצועי, המלצה, הצהרה על עצמאות מסחרית או הבטחת התאמה.' === $transparency_text,
+	'neutral visibility note normalized text must be exact'
 );
 
 $schema = justice_ops_maya_profile_release_schema();
@@ -406,7 +411,7 @@ $sample = <<<'HTML'
 <script>window.keepMe = true;</script>
 </head><body class="single" itemscope itemtype="https://schema.org/Article" typeof="LegalService"><h1 class="entry-title" itemprop="headline">Legacy H1</h1>
 <div class="single-article__author">נבדק מקצועית על ידי אדם לא מאומת</div>
-<main property="author"><section data-jt-maya-profile-content="2026-08-02-r1">Profile body</section></main>
+<main property="author"><section data-jt-maya-profile-content="2026-08-02-r2">Profile body</section></main>
 </body></html>
 HTML;
 
@@ -421,7 +426,7 @@ jt_maya_assert( false === strpos( $rendered, 'נבדק מקצועית' ), 'unsup
 foreach ( array( 'itemscope', 'itemtype=', 'itemprop=', 'typeof=', 'property="author"' ) as $structured_attribute ) {
 	jt_maya_assert( false === strpos( $rendered, $structured_attribute ), "unsupported body structured attribute must be absent: {$structured_attribute}" );
 }
-jt_maya_assert( false !== strpos( $rendered, 'data-jt-maya-profile-release="2026-08-02-r1"' ), 'release marker must be present' );
+jt_maya_assert( false !== strpos( $rendered, 'data-jt-maya-profile-release="2026-08-02-r2"' ), 'release marker must be present' );
 $rendered_schema_match = preg_match( '#<script type="application/ld\+json" id="justice-maya-profile-schema">([\s\S]*?)</script>#u', $rendered, $rendered_schema_parts );
 jt_maya_assert( 1 === $rendered_schema_match, 'controlled JSON-LD script must be extractable' );
 $rendered_schema = json_decode( $rendered_schema_parts[1], true );
@@ -485,7 +490,7 @@ jt_maya_assert(
 	'only the actual div property and itemprop attributes may be removed'
 );
 
-$uncontrolled_sample = str_replace( ' data-jt-maya-profile-content="2026-08-02-r1"', '', $sample );
+$uncontrolled_sample = str_replace( ' data-jt-maya-profile-content="2026-08-02-r2"', '', $sample );
 $uncontrolled_result = justice_ops_maya_profile_release_filter_html( $uncontrolled_sample );
 jt_maya_assert( false === strpos( $uncontrolled_result, 'application/ld+json' ), 'legacy schema must be removed when the controlled body marker is missing' );
 jt_maya_assert( false === strpos( $uncontrolled_result, 'data-jt-maya-profile-release=' ), 'release marker must not claim success when controlled content is missing' );

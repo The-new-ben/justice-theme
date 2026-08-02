@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.35.3
+ * Version: 2.35.5
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.35.3' );
+	define( 'JUSTICE_OPS_VERSION', '2.35.5' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -127,9 +127,13 @@ require_once __DIR__ . '/review-claims-off.php';
 // public titles and H1s while the older production theme is still installed.
 require_once __DIR__ . '/family-content-release.php';
 
-// Maya Rotenberg firm-profile bridge: exact-route factual copy, commercial
-// disclosure, controlled schema and hash-locked Yoast metadata operations.
+// Maya Rotenberg firm-profile bridge: exact-route factual copy, neutral
+// visibility clarification, controlled schema and hash-locked Yoast metadata.
 require_once __DIR__ . '/maya-profile-release.php';
+
+// Comparison content reset: one exact legacy article renders as a sourced,
+// fact-only provider comparison without mutating its stored content or URL.
+require_once __DIR__ . '/comparison-content-reset.php';
 
 // The courtroom simulation (HADMAIA on jus-tice.com) embedded for real
 // at /legal-simulation/, chrome-less, with honest framing copy.

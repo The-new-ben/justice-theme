@@ -79,33 +79,52 @@ def main() -> None:
             if module_include not in main_source:
                 fail(f"required module include is missing: {module_include}")
         for marker in (
-            'data-jt-family-release="2026-08-02-r1"',
-            "שותפה עסקית ולקוחה משלמת",
+            'data-jt-family-release="2026-08-02-r2"',
+            'data-jt-card-visibility-note="general"',
             "justice_ops_verified_lead_mailbox",
             "justice_ops_internal_lead_hold_enabled",
         ):
             if marker not in release_source:
                 fail(f"release marker is missing from the zipped module: {marker}")
         for marker in (
-            'data-jt-maya-profile-content="2026-08-02-r1"',
-            'data-jt-commercial-disclosure="maya-rotenberg"',
+            'data-jt-maya-profile-content="2026-08-02-r2"',
+            'data-jt-profile-transparency="visibility-policy"',
+            'rel="sponsored"',
             "justice-maya-profile-schema",
         ):
             if marker not in maya_source:
                 fail(f"Maya release marker is missing: {marker}")
         for marker in (
-            'data-jt-comparison-content="2026-08-02-r2"',
-            'data-jt-comparison-disclosure="global"',
+            'data-jt-comparison-content="2026-08-02-r3"',
+            'data-jt-comparison-disclosure="visibility-policy"',
             'data-jt-comparison-universe="u0-2026-08-02"',
             'data-jt-comparison-evidence-date="2026-08-02"',
             "בדיקת המקורות: 1 וב־2 באוגוסט 2026",
             "justice-family-comparison-schema",
             "justice_ops_comparison_control_schema",
-            "שותפה עסקית ולקוחה משלמת",
+            "הכרטיסים המוצגים כאן מסודרים לפי שם המשפחה הרשמי בעברית",
             "https://www.israelbar.biz/lawyer-fd/?lawyer=",
         ):
             if marker not in comparison_source:
                 fail(f"comparison release marker is missing: {marker}")
+        public_release_sources = release_source + maya_source + comparison_source
+        for forbidden in (
+            "שותפה עסקית",
+            "לקוחה משלמת",
+            "פרופיל פרימיום",
+            "חשיפה מוגברת",
+            "היחידה מבין המועמדים",
+            "ליתר המועמדים אין קשר מסחרי",
+            "הקשר העסקי, התשלום",
+            "התשלום והשותפות",
+            "גילוי על הקשר המסחרי ל-Jus-Tice",
+            'data-jt-commercial-disclosure=',
+            "אין למועמד או למועמדת קשר מסחרי",
+            'class="jt-comparison-card is-commercial"',
+            "jt-comparison-card__relationship",
+        ):
+            if forbidden in public_release_sources:
+                fail(f"candidate-specific relationship marker remains: {forbidden}")
         for marker in (
             "justice-ops/justice-ops.php",
             "auto_update_plugin",

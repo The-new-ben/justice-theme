@@ -24,7 +24,7 @@ function justice_ops_comparison_content_contract(): array {
 		'path'        => '/the-recommended-family-lawyers/',
 		'h1'          => 'השוואת עורכי דין לענייני משפחה וגירושין לפי נתונים',
 		'seo_title'   => 'השוואת עורכי דין לענייני משפחה לפי נתונים | Jus-Tice',
-		'description' => 'השוואת עורכי דין לענייני משפחה וגירושין לפי רישום פעיל, תחומי עיסוק, מיקום ומועד קבלה, עם מתודולוגיה, מקורות וגילוי מסחרי.',
+		'description' => 'השוואת עורכי דין לענייני משפחה וגירושין לפי רישום פעיל, תחומי עיסוק, מיקום ומועד קבלה, עם מתודולוגיה, מקורות והסבר על אופן הצגת הכרטיסים.',
 		'canonical'   => 'https://jus-tice.co.il/the-recommended-family-lawyers/',
 	);
 }
@@ -228,14 +228,11 @@ function justice_ops_comparison_styles(): string {
 		. '.jt-comparison-method h2{margin-top:0}'
 		. '.jt-comparison-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1rem;margin:1.25rem 0 2.5rem}'
 		. '.jt-comparison-card{padding:1.2rem;border:1px solid rgba(18,57,92,.17);border-radius:14px;background:#fff;box-shadow:0 8px 24px rgba(18,57,92,.06)}'
-		. '.jt-comparison-card.is-commercial{border-color:rgba(179,107,0,.42);background:#fffdf7}'
 		. '.jt-comparison-card h3{margin:.1rem 0 .8rem;font-size:1.25rem}'
 		. '.jt-comparison-card__alias{display:block;margin-top:.25rem;font-size:.9rem;font-weight:500;color:#53697d}'
 		. '.jt-comparison-card dl{display:grid;grid-template-columns:minmax(6.5rem,.42fr) 1fr;gap:.55rem .75rem;margin:0}'
 		. '.jt-comparison-card dt{font-weight:800}'
 		. '.jt-comparison-card dd{margin:0;min-width:0}'
-		. '.jt-comparison-card__relationship{margin:1rem 0 0;padding:.8rem .9rem;border-radius:9px;background:#f2f6f9;line-height:1.65}'
-		. '.jt-comparison-card.is-commercial .jt-comparison-card__relationship{background:#fff3d9;border:1px solid rgba(179,107,0,.24)}'
 		. '.jt-comparison-use{margin:2rem 0}'
 		. '.jt-comparison-editorial{margin:3rem 0 1.5rem;padding:1.25rem 1.4rem;border:1px solid rgba(18,57,92,.14);border-radius:14px;background:#f8fafc}'
 		. '.jt-comparison-editorial h2{margin-top:0;font-size:1.35rem}'
@@ -276,7 +273,6 @@ function justice_ops_comparison_candidates(): array {
 			'office'     => 'ערד, ניגונים 54',
 			'source'     => 'https://www.israelbar.biz/lawyer-fd/?lawyer=W38BjpS3LTM',
 			'checked'    => '1 באוגוסט 2026',
-			'commercial' => false,
 		),
 		array(
 			'id'         => 'C004',
@@ -288,7 +284,6 @@ function justice_ops_comparison_candidates(): array {
 			'office'     => 'חולון, אוסישקין מנחם 13',
 			'source'     => 'https://www.israelbar.biz/lawyer-fd/?lawyer=76e6y1dWvI4',
 			'checked'    => '1 באוגוסט 2026',
-			'commercial' => false,
 		),
 		array(
 			'id'         => 'C003',
@@ -300,7 +295,6 @@ function justice_ops_comparison_candidates(): array {
 			'office'     => 'קריית טבעון, יצחק שדה 54א',
 			'source'     => 'https://www.israelbar.biz/lawyer-fd/?lawyer=2e9M5qWRwXQ',
 			'checked'    => '1 באוגוסט 2026',
-			'commercial' => false,
 		),
 		array(
 			'id'         => 'C012',
@@ -312,7 +306,6 @@ function justice_ops_comparison_candidates(): array {
 			'office'     => 'פתח תקווה, דרך יצחק רבין 2, קומה 17',
 			'source'     => 'https://www.israelbar.biz/lawyer-fd/?lawyer=dyKN79CVf9g',
 			'checked'    => '1 באוגוסט 2026',
-			'commercial' => false,
 		),
 		array(
 			'id'         => 'C016',
@@ -324,7 +317,6 @@ function justice_ops_comparison_candidates(): array {
 			'office'     => 'ראשון לציון, עולי הגרדום 50/16',
 			'source'     => 'https://www.israelbar.biz/lawyer-fd/?lawyer=3%2Fctz58X%2FT8',
 			'checked'    => '1 באוגוסט 2026',
-			'commercial' => false,
 		),
 		array(
 			'id'         => 'C006',
@@ -336,7 +328,6 @@ function justice_ops_comparison_candidates(): array {
 			'office'     => 'נס ציונה, מתחם יובלים, רחוב פרופ׳ אב 19',
 			'source'     => 'https://www.israelbar.biz/lawyer-fd/?lawyer=P%2BYxXR4z7K4',
 			'checked'    => '1 באוגוסט 2026',
-			'commercial' => false,
 		),
 		array(
 			'id'         => 'C013',
@@ -348,7 +339,6 @@ function justice_ops_comparison_candidates(): array {
 			'office'     => 'חיפה, פלים 2',
 			'source'     => 'https://www.israelbar.biz/lawyer-fd/?lawyer=QSXUo1uLen8',
 			'checked'    => '1 באוגוסט 2026',
-			'commercial' => false,
 		),
 		array(
 			'id'         => 'C009',
@@ -360,7 +350,6 @@ function justice_ops_comparison_candidates(): array {
 			'office'     => 'רמת גן, דרך בגין מנחם 11, מגדל רוגובין תדהר',
 			'source'     => 'https://www.israelbar.biz/lawyer-fd/?lawyer=LoGm%2BJ7XNeQ',
 			'checked'    => '1 באוגוסט 2026',
-			'commercial' => false,
 		),
 		array(
 			'id'         => 'C002',
@@ -372,7 +361,6 @@ function justice_ops_comparison_candidates(): array {
 			'office'     => 'תל אביב יפו, ויצמן 4',
 			'source'     => 'https://www.israelbar.biz/lawyer-fd/?lawyer=IvNGHfYodUc',
 			'checked'    => '1 באוגוסט 2026',
-			'commercial' => false,
 		),
 		array(
 			'id'         => 'C017',
@@ -384,7 +372,6 @@ function justice_ops_comparison_candidates(): array {
 			'office'     => 'ראשון לציון, לוי משה 11',
 			'source'     => 'https://www.israelbar.biz/lawyer-fd/?lawyer=IDse8EQ1FnA',
 			'checked'    => '1 באוגוסט 2026',
-			'commercial' => false,
 		),
 		array(
 			'id'         => 'C001',
@@ -396,7 +383,6 @@ function justice_ops_comparison_candidates(): array {
 			'office'     => 'תל אביב יפו, ולנברג ראול 18',
 			'source'     => 'https://www.israelbar.biz/lawyer-fd/?lawyer=XqzAMTJMiiE',
 			'checked'    => '2 באוגוסט 2026',
-			'commercial' => true,
 		),
 		array(
 			'id'         => 'C014',
@@ -408,7 +394,6 @@ function justice_ops_comparison_candidates(): array {
 			'office'     => 'רמת גן, רמבה אייזיק 11',
 			'source'     => 'https://www.israelbar.biz/lawyer-fd/?lawyer=2GqavUNyGJY',
 			'checked'    => '1 באוגוסט 2026',
-			'commercial' => false,
 		),
 		array(
 			'id'         => 'C007',
@@ -420,7 +405,6 @@ function justice_ops_comparison_candidates(): array {
 			'office'     => 'הוד השרון, סוקולוב 46, משרד 1014',
 			'source'     => 'https://www.israelbar.biz/lawyer-fd/?lawyer=SBpBl0HTsFA',
 			'checked'    => '1 באוגוסט 2026',
-			'commercial' => false,
 		),
 	);
 }
@@ -431,23 +415,18 @@ function justice_ops_comparison_candidates(): array {
  * @param array<string,mixed> $candidate Candidate record.
  */
 function justice_ops_comparison_candidate_html( array $candidate ): string {
-	$commercial = ! empty( $candidate['commercial'] );
-	$class      = $commercial ? 'jt-comparison-card is-commercial' : 'jt-comparison-card';
-	$alias      = '' !== (string) $candidate['alias']
+	$alias = '' !== (string) $candidate['alias']
 		? '<span class="jt-comparison-card__alias">שם ציבורי נוסף: ' . esc_html( (string) $candidate['alias'] ) . '</span>'
 		: '';
-	$relation   = $commercial
-		? '<strong>קשר מסחרי:</strong> מאיה רוטנברג היא שותפה עסקית ולקוחה משלמת של Jus-Tice. הכרטיס מסומן כפרופיל פרימיום בעל חשיפה מוגברת. הקשר אינו ציון איכות, המלצה מקצועית או הבטחת התאמה.'
-		: '<strong>קשר עם Jus-Tice:</strong> לפי הצהרת מפעיל האתר מיום 2 באוגוסט 2026, אין למועמד או למועמדת קשר מסחרי, פרסומי, מנוי, העברת פניות, בעלות או שותפות עם Jus-Tice.';
 
-	return '<article class="' . $class . '" data-jt-candidate="' . esc_attr( (string) $candidate['id'] ) . '">'
+	return '<article class="jt-comparison-card" data-jt-candidate="' . esc_attr( (string) $candidate['id'] ) . '">'
 		. '<h3>' . esc_html( (string) $candidate['name'] ) . $alias . '</h3><dl>'
 		. '<dt>מעמד במקור</dt><dd>' . esc_html( (string) $candidate['status'] ) . '</dd>'
 		. '<dt>מועד קבלה</dt><dd>' . esc_html( (string) $candidate['admission'] ) . '</dd>'
 		. '<dt>תחומים בכרטיס</dt><dd>' . esc_html( (string) $candidate['practice'] ) . '</dd>'
 		. '<dt>מען משרד</dt><dd>' . esc_html( (string) $candidate['office'] ) . '</dd>'
 		. '<dt>מקור ובדיקה</dt><dd><a href="' . esc_url( (string) $candidate['source'] ) . '" rel="noopener noreferrer" target="_blank">כרטיס לשכת עורכי הדין</a>, נבדק ' . esc_html( (string) $candidate['checked'] ) . '</dd>'
-		. '</dl><p class="jt-comparison-card__relationship">' . $relation . '</p></article>';
+		. '</dl></article>';
 }
 
 /**
@@ -459,9 +438,9 @@ function justice_ops_comparison_public_content_html(): string {
 		$cards .= justice_ops_comparison_candidate_html( $candidate );
 	}
 
-	return '<div class="jt-comparison-reset" data-jt-comparison-content="2026-08-02-r2">'
-		. '<section class="jt-comparison-intro" aria-label="היקף ההשוואה וגילוי מסחרי"><p>מי שמחפש <strong>עורכי דין מומלצים לענייני משפחה</strong> או עורך דין גירושין צריך להשוות עובדות ולא סיסמאות. בעמוד הזה מוצגים נתונים מן הכרטיסים הציבוריים של לשכת עורכי הדין: התאמת זהות, מעמד פעיל, מועד קבלה, תחומי עיסוק ומען משרד. ההופעה אינה ציון איכות, הבטחת תוצאה או תחליף לבדיקת התאמה לתיק.</p>'
-		. '<div class="jt-comparison-disclosure" data-jt-comparison-disclosure="global" role="note"><strong>גילוי מסחרי:</strong> מאיה רוטנברג היא היחידה מבין המועמדים המוצגים שיש לה קשר מסחרי עם Jus-Tice. היא שותפה עסקית ולקוחה משלמת ומקבלת פרופיל פרימיום וחשיפה מוגברת. ליתר המועמדים אין קשר מסחרי, פרסומי, מנוי, העברת פניות, בעלות או שותפות עם Jus-Tice. הקשר אינו ציון איכות או המלצה מקצועית.</div>'
+	return '<div class="jt-comparison-reset" data-jt-comparison-content="2026-08-02-r3">'
+		. '<section class="jt-comparison-intro" aria-label="היקף ההשוואה והבהרת נראות"><p>מי שמחפש <strong>עורכי דין מומלצים לענייני משפחה</strong> או עורך דין גירושין צריך להשוות עובדות ולא סיסמאות. בעמוד הזה מוצגים נתונים מן הכרטיסים הציבוריים של לשכת עורכי הדין: התאמת זהות, מעמד פעיל, מועד קבלה, תחומי עיסוק ומען משרד. ההופעה אינה ציון איכות, הבטחת תוצאה או תחליף לבדיקת התאמה לתיק.</p>'
+		. '<div class="jt-comparison-disclosure" data-jt-comparison-disclosure="visibility-policy" role="note"><strong>הבהרת נראות:</strong> ההופעה והיקף החשיפה בעמוד עשויים להיות מושפעים משיקולים מסחריים ועריכתיים של Jus-Tice. הכרטיסים המוצגים כאן מסודרים לפי שם המשפחה הרשמי בעברית, והסדר אינו דירוג מקצועי. אין להסיק מהופעה או מנראות המלצה, עצמאות מסחרית, היעדר קשר מסחרי או הבטחת התאמה. הנתונים העובדתיים נבדקו לפי המקורות המפורטים בכל כרטיס.</div>'
 		. '<nav class="jt-comparison-role-links" aria-label="מדריכים משלימים לפי מטרת החיפוש"><strong>בחרו את העמוד שמתאים לשאלה:</strong><ul>'
 		. '<li><a href="https://jus-tice.co.il/divorce-lawyer/">מתי צריך עורך דין גירושין ומה לבדוק בייצוג</a></li>'
 		. '<li><a href="https://jus-tice.co.il/experienced-family-law-attorney/">בדיקות ושאלות לפני פגישת ייעוץ</a></li>'
@@ -473,10 +452,10 @@ function justice_ops_comparison_public_content_html(): string {
 		. '<p><strong>אוכלוסיית המחקר המצומצמת, U0:</strong> שמות ספקים מזוהים שנצפו בתוצאות חיפוש עבריות ציבוריות שנאספו ב־1 וב־2 באוגוסט 2026. קבוצת השאילתות כללה עורך דין גירושין, עורך דין לענייני משפחה, משרד עורכי דין גירושין מומלץ, עורכי דין משפחה מומלצים, עורך דין גירושין מומלץ, עורכי דין גירושין מומלצים, עורך דין משפחה מומלץ ועורך דין לענייני משפחה מומלץ. ההופעה בגוגל שימשה לאיתור בלבד ולא הוכיחה איכות או קבעה את סדר ההצגה.</p>'
 		. '<p>בדיקה חוזרת של כוונת ההשוואה נערכה ב־2 באוגוסט 2026 ב־Google ישראל, בעברית, עבור ישראל, ללא התאמה אישית, כאשר גוגל הציגה את תל אביב יפו כמיקום. המדגם מוטה לטובת מי שכבר זכה לחשיפה בחיפוש ואינו מייצג את כל עורכי הדין בישראל.</p>'
 		. '<p>לאחר האיתור הושוו השם, המעמד, תחומי העיסוק, מועד הקבלה ומען המשרד לכרטיס הציבורי של לשכת עורכי הדין. שלושה עשר כרטיסים מוצגים בסדר אלפביתי לפי שם המשפחה הרשמי. רשומה נוספת אינה מוצגת משום שלא נמצאה התאמת שם מדויקת ונמצאה סתירה בתחום הפעילות. זו החלטת ראיות בלבד, לא קביעה על רישיון או איכות מקצועית.</p>'
-		. '<ul><li>לא ניתן ציון מספרי ולא נעשה שימוש בדירוג כוכבים.</li><li>ביקורות חיצוניות לא שימשו להכללה, להחרגה או לסדר.</li><li>מועד קבלה אינו הוכחה להתאמה לתיק מסוים.</li><li>תחומי העיסוק ומען המשרד מתארים את הכרטיס הרשמי בלבד.</li><li>תשלום, מיקום בגוגל ומספר ביקורות אינם קובעים את סדר הכרטיסים.</li></ul></section>'
+		. '<ul><li>לא ניתן ציון מספרי ולא נעשה שימוש בדירוג כוכבים.</li><li>ביקורות חיצוניות לא שימשו להכללה או להחרגה.</li><li>מועד קבלה אינו הוכחה להתאמה לתיק מסוים.</li><li>תחומי העיסוק ומען המשרד מתארים את הכרטיס הרשמי בלבד.</li><li>שיקולים מסחריים ועריכתיים עשויים להשפיע על הופעה ונראות. הכרטיסים המוצגים מסודרים לפי שם המשפחה הרשמי בעברית, וסדר זה אינו ציון איכות מקצועי.</li></ul></section>'
 		. '<section aria-labelledby="jt-comparison-candidates-title"><h2 id="jt-comparison-candidates-title">השוואה עובדתית בין המועמדים</h2><div class="jt-comparison-grid">' . $cards . '</div></section>'
 		. '<section class="jt-comparison-use" aria-labelledby="jt-comparison-use-title"><h2 id="jt-comparison-use-title">מה לבדוק לפני קביעת פגישה</h2><ol><li>מי יטפל בתיק בפועל ומי צפוי להופיע בדיונים.</li><li>האם תחומי העיסוק הרשומים מתאימים לסוג הבעיה ולשלב שבו אתם נמצאים.</li><li>איך בנוי שכר הטרחה, מה כלול ומה צפוי להיחשב הוצאה נוספת.</li><li>כיצד מתבצעות בדיקת ניגוד עניינים ושמירת מסמכים רגישים.</li><li>אילו מועדים דחופים קיימים ומה אפשר לבצע לפני הפגישה.</li></ol></section>'
-		. '<section class="jt-comparison-editorial" data-jt-comparison-editorial="justice-team"><h2>עריכה, אחריות ותיקון מידע</h2><p><strong>צוות Jus-Tice</strong> אחראי למבנה ההשוואה ולגילוי הקשרים המסחריים. חבילת הראיות לגרסה זו ננעלה ב־2 באוגוסט 2026. לא מוצגת טענה שעורך דין מסוים בדק את העמוד או ממליץ על המועמדים.</p><p>פרטי מעמד, תחום ומען עשויים להשתנות. לתיקון נתון, השתמשו ב<a href="https://jus-tice.co.il/contact/">עמוד יצירת הקשר</a>, צרפו קישור לעמוד, ציינו את השדה המבוקש והוסיפו מקור תומך. אין לשלוח מסמכים משפטיים או מידע רגיש לצורך תיקון.</p><p>העמוד אינו ייעוץ משפטי, אינו דירוג מקצועי ואינו מבטיח תוצאה.</p></section>'
+		. '<section class="jt-comparison-editorial" data-jt-comparison-editorial="justice-team"><h2>עריכה, אחריות ותיקון מידע</h2><p><strong>צוות Jus-Tice</strong> אחראי למבנה ההשוואה ולהבהרה על אופן הצגת הכרטיסים. חבילת הראיות לגרסה זו ננעלה ב־2 באוגוסט 2026. לא מוצגת טענה שעורך דין מסוים בדק את העמוד או ממליץ על המועמדים.</p><p>פרטי מעמד, תחום ומען עשויים להשתנות. לתיקון נתון, השתמשו ב<a href="https://jus-tice.co.il/contact/">עמוד יצירת הקשר</a>, צרפו קישור לעמוד, ציינו את השדה המבוקש והוסיפו מקור תומך. אין לשלוח מסמכים משפטיים או מידע רגיש לצורך תיקון.</p><p>העמוד אינו ייעוץ משפטי, אינו דירוג מקצועי ואינו מבטיח תוצאה.</p></section>'
 		. '</div>';
 }
 
@@ -644,7 +623,7 @@ function justice_ops_comparison_filter_html( string $html ): string {
 	if ( false === strpos( $body, 'data-jt-comparison-reset=' ) ) {
 		$marked = preg_replace(
 			'#<body\b#i',
-			'<body data-jt-comparison-reset="2026-08-02-r2"',
+			'<body data-jt-comparison-reset="2026-08-02-r3"',
 			$body,
 			1
 		);

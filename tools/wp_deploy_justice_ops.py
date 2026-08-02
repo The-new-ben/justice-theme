@@ -92,11 +92,11 @@ MAX_EVIDENCE_MESSAGE_CHARS = 500
 _SAFE_EVIDENCE_IDENTIFIER_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,127}$")
 _EVIDENCE_CONTROL_CHARS_RE = re.compile(r"[\x00-\x1f\x7f]")
 
-RELEASE_MARKER = 'data-jt-family-release="2026-08-02-r1"'
+RELEASE_MARKER = 'data-jt-family-release="2026-08-02-r2"'
 COMPARISON_PATH = "/the-recommended-family-lawyers/"
-COMPARISON_RELEASE_MARKER = 'data-jt-comparison-reset="2026-08-02-r2"'
-COMPARISON_CONTENT_MARKER = 'data-jt-comparison-content="2026-08-02-r2"'
-COMPARISON_DISCLOSURE_MARKER = 'data-jt-comparison-disclosure="global"'
+COMPARISON_RELEASE_MARKER = 'data-jt-comparison-reset="2026-08-02-r3"'
+COMPARISON_CONTENT_MARKER = 'data-jt-comparison-content="2026-08-02-r3"'
+COMPARISON_DISCLOSURE_MARKER = 'data-jt-comparison-disclosure="visibility-policy"'
 COMPARISON_UNIVERSE_MARKER = 'data-jt-comparison-universe="u0-2026-08-02"'
 COMPARISON_EVIDENCE_DATE_MARKER = (
     'data-jt-comparison-evidence-date="2026-08-02"'
@@ -137,11 +137,26 @@ COMPARISON_LEGACY_TEXT = (
     "2026-07-19",
 )
 MAYA_PATH = "/family-law-lawyer-recommended-divorce-wills-inheritances/"
-MAYA_RELEASE_MARKER = 'data-jt-maya-profile-release="2026-08-02-r1"'
-MAYA_CONTENT_MARKER = 'data-jt-maya-profile-content="2026-08-02-r1"'
-MAYA_DISCLOSURE_MARKER = 'data-jt-commercial-disclosure="maya-rotenberg"'
+MAYA_RELEASE_MARKER = 'data-jt-maya-profile-release="2026-08-02-r2"'
+MAYA_CONTENT_MARKER = 'data-jt-maya-profile-content="2026-08-02-r2"'
+MAYA_TRANSPARENCY_MARKER = 'data-jt-profile-transparency="visibility-policy"'
 MAYA_SCHEMA_ID = "justice-maya-profile-schema"
 MAYA_SCHEMA_TYPES = frozenset({"WebPage", "BreadcrumbList", "ListItem"})
+CANDIDATE_RELATIONSHIP_FORBIDDEN = (
+    "שותפה עסקית",
+    "לקוחה משלמת",
+    "פרופיל פרימיום",
+    "חשיפה מוגברת",
+    "היחידה מבין המועמדים",
+    "ליתר המועמדים אין קשר מסחרי",
+    "הקשר העסקי, התשלום",
+    "התשלום והשותפות",
+    "גילוי על הקשר המסחרי ל-Jus-Tice",
+    'data-jt-commercial-disclosure=',
+    "אין למועמד או למועמדת קשר מסחרי",
+    'class="jt-comparison-card is-commercial"',
+    "jt-comparison-card__relationship",
+)
 OLD_REVIEW_MARKERS = (
     "eeat-reviewed-footer",
     "legal-pillar-reviewed",
@@ -212,14 +227,14 @@ PAGE_CONTRACTS: dict[str, dict[str, str]] = {
     COMPARISON_PATH: {
         "h1": "השוואת עורכי דין לענייני משפחה וגירושין לפי נתונים",
         "title": "השוואת עורכי דין לענייני משפחה לפי נתונים | Jus-Tice",
-        "description": "השוואת עורכי דין לענייני משפחה וגירושין לפי רישום פעיל, תחומי עיסוק, מיקום ומועד קבלה, עם מתודולוגיה, מקורות וגילוי מסחרי.",
+        "description": "השוואת עורכי דין לענייני משפחה וגירושין לפי רישום פעיל, תחומי עיסוק, מיקום ומועד קבלה, עם מתודולוגיה, מקורות והסבר על אופן הצגת הכרטיסים.",
         "canonical": "https://jus-tice.co.il/the-recommended-family-lawyers/",
         "release_marker": COMPARISON_RELEASE_MARKER,
     },
     MAYA_PATH: {
         "h1": "משרד מאיה רוטנברג בדיני משפחה: פרופיל ומקורות",
         "title": "משרד מאיה רוטנברג בדיני משפחה: פרופיל ומקורות | Jus-Tice",
-        "description": "פרופיל מקורות של משרד מאיה רוטנברג: תחומי פעילות, רישום ב-Dun’s 100, תיעוד הייצוג בבע\"מ 919/15 וגילוי על הקשר המסחרי ל-Jus-Tice.",
+        "description": "פרופיל מקורות של משרד מאיה רוטנברג: תחומי פעילות, רישום ב-Dun’s 100, תיעוד הייצוג בבע\"מ 919/15 ושיטת בדיקת המידע.",
         "canonical": "https://jus-tice.co.il/family-law-lawyer-recommended-divorce-wills-inheritances/",
         "release_marker": MAYA_RELEASE_MARKER,
     },
@@ -610,7 +625,7 @@ def inspect_artifact(
         raise RuntimeError("Artifact header and runtime version are not exact.")
     for marker in (
         RELEASE_MARKER,
-        "שותפה עסקית ולקוחה משלמת",
+        'data-jt-card-visibility-note="general"',
         "justice_ops_verified_lead_mailbox",
     ):
         if marker not in release:
@@ -624,7 +639,8 @@ def inspect_artifact(
             raise RuntimeError(f"Artifact main file is missing a required module: {include}")
     for marker in (
         MAYA_CONTENT_MARKER,
-        MAYA_DISCLOSURE_MARKER,
+        MAYA_TRANSPARENCY_MARKER,
+        'rel="sponsored"',
         "data-jt-maya-profile-release=",
         MAYA_SCHEMA_ID,
         "justice_ops_maya_profile_release_rest_finalize",
@@ -639,12 +655,18 @@ def inspect_artifact(
         COMPARISON_EVIDENCE_DATE_TEXT,
         COMPARISON_SCHEMA_ID,
         "justice_ops_comparison_control_schema",
-        "שותפה עסקית ולקוחה משלמת",
+        "הכרטיסים המוצגים כאן מסודרים לפי שם המשפחה הרשמי בעברית",
         "https://www.israelbar.biz/lawyer-fd/?lawyer=",
     ):
         if marker not in comparison_release:
             raise RuntimeError(
                 f"Artifact comparison release marker is missing: {marker}"
+            )
+    public_release_sources = release + maya_release + comparison_release
+    for forbidden in CANDIDATE_RELATIONSHIP_FORBIDDEN:
+        if forbidden in public_release_sources:
+            raise RuntimeError(
+                f"Artifact contains candidate-specific relationship marker: {forbidden}"
             )
     for marker in (
         "justice-ops/justice-ops.php",
@@ -993,7 +1015,7 @@ def inspect_seo_html(html: str, headers: Mapping[str, Any]) -> dict[str, Any]:
         ),
         "maya_release_marker_count": body.count(MAYA_RELEASE_MARKER),
         "maya_content_marker_count": body.count(MAYA_CONTENT_MARKER),
-        "maya_disclosure_marker_count": body.count(MAYA_DISCLOSURE_MARKER),
+        "maya_transparency_marker_count": body.count(MAYA_TRANSPARENCY_MARKER),
         "old_review_markers": [marker for marker in OLD_REVIEW_MARKERS if marker in body],
         "reviewer_text_matches": reviewer_text_matches,
         "reviewer_json_ld": reviewer_json_ld,
@@ -1737,7 +1759,7 @@ def semantic_page_fingerprint(probe: Mapping[str, Any]) -> dict[str, Any]:
         ),
         "maya_release_marker_count": int(probe["maya_release_marker_count"]),
         "maya_content_marker_count": int(probe["maya_content_marker_count"]),
-        "maya_disclosure_marker_count": int(probe["maya_disclosure_marker_count"]),
+        "maya_transparency_marker_count": int(probe["maya_transparency_marker_count"]),
         "old_review_markers": list(probe["old_review_markers"]),
         "reviewer_text_matches": list(probe["reviewer_text_matches"]),
         "reviewer_json_ld": bool(probe["reviewer_json_ld"]),
@@ -1919,13 +1941,14 @@ def _assert_candidate_page(path: str, contract: Mapping[str, str], response: Any
             body.count('<article class="jt-comparison-card') != 13
             or body.count('data-jt-candidate="') != 13
             or body.count('data-jt-candidate="C001"') != 1
-            or body.count('class="jt-comparison-card is-commercial"') != 1
-            or body.count("אין למועמד או למועמדת קשר מסחרי") != 12
             or body.count("https://www.israelbar.biz/lawyer-fd/?lawyer=") != 13
-            or body.count("שותפה עסקית ולקוחה משלמת") != 2
+            or any(marker in body for marker in CANDIDATE_RELATIONSHIP_FORBIDDEN)
+            or body.count(
+                "הכרטיסים המוצגים כאן מסודרים לפי שם המשפחה הרשמי בעברית"
+            ) != 1
         ):
             raise RuntimeError(
-                "Comparison candidate card, relationship or official-source cardinality differs."
+                "Comparison candidate card, neutral-visibility or official-source cardinality differs."
             )
         if (
             any(marker not in body for marker in COMPARISON_METHOD_TEXT)
@@ -1941,18 +1964,22 @@ def _assert_candidate_page(path: str, contract: Mapping[str, str], response: Any
     if path == MAYA_PATH:
         if (
             probe["maya_content_marker_count"] != 1
-            or probe["maya_disclosure_marker_count"] != 1
+            or probe["maya_transparency_marker_count"] != 1
+            or body.count(
+                'href="https://rotenberglaw.co.il/about" rel="sponsored"'
+            ) != 2
+            or any(marker in body for marker in CANDIDATE_RELATIONSHIP_FORBIDDEN)
         ):
-            raise RuntimeError("Maya candidate body or commercial disclosure marker is not exact.")
+            raise RuntimeError("Maya candidate body, visibility note or sponsored-link contract is not exact.")
         _assert_maya_candidate_schema(contract, probe)
     if path in ("/family-law/", "/divorce-lawyer/"):
         if (
-            body.count("jt-premium-card__disclosure") != 1
-            or body.count("שותפה עסקית ולקוחה משלמת") != 1
+            body.count('data-jt-card-visibility-note="general"') < 1
+            or any(marker in body for marker in CANDIDATE_RELATIONSHIP_FORBIDDEN)
             or "מעל 20 שנות" in body
             or body.count("הפרטים לא יועברו לעורך דין ללא אישור נוסף ממני") != 1
         ):
-            raise RuntimeError(f"Maya disclosure contract differs on {path}.")
+            raise RuntimeError(f"Featured-card visibility contract differs on {path}.")
     result = semantic_page_fingerprint(probe)
     result.update(
         {
@@ -2353,27 +2380,33 @@ def deployment_contract_self_test() -> dict[str, Any]:
             prior_2352_family_response.text, prior_2352_family_response.headers
         )
     )
-    if prior_2352_family_fingerprint["release_marker_count"] != 1:
-        raise RuntimeError("The 2.35.2 prior-baseline fixture lost its family marker.")
+    if (
+        prior_2352_family_fingerprint["release_marker_count"] != 0
+        or prior_2352_family_html.count(
+            'data-jt-family-release="2026-08-02-r1"'
+        )
+        != 1
+    ):
+        raise RuntimeError("The 2.35.2 prior-baseline fixture lost its immutable family marker.")
     _assert_prior_page(
         TARGET_BASE_URL,
         "/family-law/",
         prior_2352_family_response,
         prior_2352_family_fingerprint,
     )
-    wrong_zero_marker_baseline = dict(prior_2352_family_fingerprint)
-    wrong_zero_marker_baseline["release_marker_count"] = 0
+    wrong_marker_baseline = dict(prior_2352_family_fingerprint)
+    wrong_marker_baseline["release_marker_count"] = 1
     try:
         _assert_prior_page(
             TARGET_BASE_URL,
             "/family-law/",
             prior_2352_family_response,
-            wrong_zero_marker_baseline,
+            wrong_marker_baseline,
         )
     except RuntimeError:
         pass
     else:
-        raise RuntimeError("Rollback accepted a marker-zero assumption over the 2.35.2 baseline.")
+        raise RuntimeError("Rollback accepted an incorrect current-marker assumption over the 2.35.2 baseline.")
 
     maya_contract = PAGE_CONTRACTS[MAYA_PATH]
     maya_schema = {
@@ -2424,10 +2457,12 @@ def deployment_contract_self_test() -> dict[str, Any]:
         f'<meta name="description" content="{maya_description_attribute}">'
         f'<link rel="canonical" href="{maya_contract["canonical"]}">'
         f'<script type="application/ld+json" id="{MAYA_SCHEMA_ID}">{maya_schema_json}</script>'
-        '</head><body data-jt-maya-profile-release="2026-08-02-r1">'
+        '</head><body data-jt-maya-profile-release="2026-08-02-r2">'
         f'<h1>{maya_contract["h1"]}</h1>'
-        '<section data-jt-maya-profile-content="2026-08-02-r1">'
-        '<p data-jt-commercial-disclosure="maya-rotenberg">גילוי מסחרי</p>'
+        '<section data-jt-maya-profile-content="2026-08-02-r2">'
+        '<p data-jt-profile-transparency="visibility-policy">הבהרת נראות כללית</p>'
+        '<a href="https://rotenberglaw.co.il/about" rel="sponsored">מקור ראשון</a>'
+        '<a href="https://rotenberglaw.co.il/about" rel="sponsored">מקור שני</a>'
         '</section></body></html>'
     )
     maya_candidate_response = FakePageResponse(MAYA_PATH, maya_candidate_html)
@@ -2437,7 +2472,7 @@ def deployment_contract_self_test() -> dict[str, Any]:
     if (
         maya_candidate_fingerprint["maya_release_marker_count"] != 1
         or maya_candidate_fingerprint["maya_content_marker_count"] != 1
-        or maya_candidate_fingerprint["maya_disclosure_marker_count"] != 1
+        or maya_candidate_fingerprint["maya_transparency_marker_count"] != 1
         or set(maya_candidate_fingerprint["json_ld_types"]) != MAYA_SCHEMA_TYPES
     ):
         raise RuntimeError("Maya candidate acceptance evidence is incomplete.")
@@ -2511,17 +2546,9 @@ def deployment_contract_self_test() -> dict[str, Any]:
     )
     comparison_cards: list[str] = []
     for candidate_id in comparison_ids:
-        if candidate_id == "C001":
-            card_class = "jt-comparison-card is-commercial"
-            relationship = (
-                "מאיה רוטנברג היא שותפה עסקית ולקוחה משלמת של Jus-Tice."
-            )
-        else:
-            card_class = "jt-comparison-card"
-            relationship = "אין למועמד או למועמדת קשר מסחרי"
         comparison_cards.append(
-            f'<article class="{card_class}" data-jt-candidate="{candidate_id}">'
-            f'<h3>{candidate_id}</h3><p>{relationship}</p>'
+            f'<article class="jt-comparison-card" data-jt-candidate="{candidate_id}">'
+            f'<h3>{candidate_id}</h3>'
             f'<a href="https://www.israelbar.biz/lawyer-fd/?lawyer={candidate_id}">מקור</a>'
             "</article>"
         )
@@ -2533,13 +2560,15 @@ def deployment_contract_self_test() -> dict[str, Any]:
         f'<meta name="description" content="{comparison_description_attribute}">'
         f'<link rel="canonical" href="{comparison_contract["canonical"]}">'
         f'<script type="application/ld+json" id="{COMPARISON_SCHEMA_ID}">{comparison_schema_json}</script>'
-        '</head><body data-jt-comparison-reset="2026-08-02-r2">'
+        '</head><body data-jt-comparison-reset="2026-08-02-r3">'
         f'<h1>{comparison_contract["h1"]}</h1>'
         f'<div class="single-article__meta" {COMPARISON_EVIDENCE_DATE_MARKER}>'
         f'<span>{COMPARISON_EVIDENCE_DATE_TEXT}</span></div>'
-        '<main data-jt-comparison-content="2026-08-02-r2">'
-        '<p data-jt-comparison-disclosure="global">'
-        'מאיה רוטנברג היא שותפה עסקית ולקוחה משלמת של Jus-Tice.</p>'
+        '<main data-jt-comparison-content="2026-08-02-r3">'
+        '<p data-jt-comparison-disclosure="visibility-policy">'
+        'ההופעה והיקף החשיפה בעמוד עשויים להיות מושפעים משיקולים מסחריים ועריכתיים. '
+        'הכרטיסים המוצגים כאן מסודרים לפי שם המשפחה הרשמי בעברית, '
+        'והסדר אינו דירוג מקצועי.</p>'
         '<section data-jt-comparison-universe="u0-2026-08-02">'
         '<p>אוכלוסיית המחקר המצומצמת, U0, נאספה ב־1 וב־2 באוגוסט 2026. '
         'בדיקת הכוונה נערכה ב־Google ישראל ללא התאמה אישית, כאשר גוגל הציגה '

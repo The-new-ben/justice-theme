@@ -4,7 +4,7 @@
  *
  * This module has one record and one public path. It gives that record a
  * single firm-profile intent, publishes the reviewed source-led copy, keeps
- * the approved commercial disclosure visible, and replaces broad legacy
+ * a neutral visibility clarification visible, and replaces broad legacy
  * article/service schema with the two approved page-level graph types.
  *
  * @package JusticeOps
@@ -28,9 +28,9 @@ function justice_ops_maya_profile_release_contract(): array {
 		'canonical'      => 'https://jus-tice.co.il/family-law-lawyer-recommended-divorce-wills-inheritances/',
 		'h1'             => 'משרד מאיה רוטנברג בדיני משפחה: פרופיל ומקורות',
 		'seo_title'      => 'משרד מאיה רוטנברג בדיני משפחה: פרופיל ומקורות | Jus-Tice',
-		'description'    => 'פרופיל מקורות של משרד מאיה רוטנברג: תחומי פעילות, רישום ב-Dun’s 100, תיעוד הייצוג בבע"מ 919/15 וגילוי על הקשר המסחרי ל-Jus-Tice.',
+		'description'    => 'פרופיל מקורות של משרד מאיה רוטנברג: תחומי פעילות, רישום ב-Dun’s 100, תיעוד הייצוג בבע"מ 919/15 ושיטת בדיקת המידע.',
 		'source_checked' => '2026-08-02',
-		'release_marker' => '2026-08-02-r1',
+		'release_marker' => '2026-08-02-r2',
 	);
 }
 
@@ -40,9 +40,9 @@ function justice_ops_maya_profile_release_contract(): array {
  */
 function justice_ops_maya_profile_release_body(): string {
 	return <<<'HTML'
-<section class="jt-maya-profile" data-jt-maya-profile-content="2026-08-02-r1">
+<section class="jt-maya-profile" data-jt-maya-profile-content="2026-08-02-r2">
 <p>זהו פרופיל מקורות של משרד מאיה רוטנברג. הוא מרכז מידע שניתן לבדוק במקורות ציבוריים ואינו מדרג את המשרד, ממליץ עליו או קובע התאמה למקרה מסוים.</p>
-<p class="jt-maya-profile__disclosure" data-jt-commercial-disclosure="maya-rotenberg" role="note" aria-label="גילוי מסחרי"><strong>גילוי מסחרי:</strong> מאיה רוטנברג היא שותפה עסקית ולקוחה משלמת של Jus-Tice. למשרד פרופיל פרימיום וחשיפה מוגברת באתר. הקשר אינו ציון איכות, המלצה מקצועית או הבטחת התאמה או תוצאה.</p>
+<p class="jt-maya-profile__transparency" data-jt-profile-transparency="visibility-policy" role="note" aria-label="הבהרת נראות"><strong>הבהרת נראות:</strong> הופעה, מיקום והיקף חשיפה של פרופילים באתר עשויים להיות מושפעים משיקולים מסחריים ועריכתיים. הם אינם דירוג מקצועי, המלצה, הצהרה על עצמאות מסחרית או הבטחת התאמה.</p>
 <h2>מה מופיע במקורות הציבוריים</h2>
 <p><a href="https://rotenberglaw.co.il/about" rel="sponsored">אתר המשרד</a> מציג את השם "משרד עורכי דין מאיה רוטנברג" ומתאר משרד בתל אביב שעוסק בדיני משפחה וגירושין. <a href="https://www.duns100.co.il/%D7%9E%D7%90%D7%99%D7%94_%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92_%D7%9E%D7%A9%D7%A8%D7%93_%D7%A2%D7%95%D7%A8%D7%9B%D7%99_%D7%93%D7%99%D7%9F">פרופיל Dun’s 100</a> מציג את הישות בשם "מאיה רוטנברג משרד עורכי דין" ובקטגוריה "גירושין, דיני משפחה, ירושות וצוואות".</p>
 <p>הפרטים מוצגים כאן לפי המקור שבו פורסמו. ניסוח באתר המשרד הוא הצהרה של המשרד. ניסוח בפרופיל עסקי חיצוני מוכיח מה מופיע באותו פרופיל, אך אינו מחליף אימות רשמי של כל פרט.</p>
@@ -69,7 +69,7 @@ function justice_ops_maya_profile_release_body(): string {
 <li>דירוגי לקוחות, ביקורות או שביעות רצון.</li>
 <li>מספר אנשי צוות או זהות הצוות הנוכחי.</li>
 <li>סטטוס מקצועי או מספר רישיון של אדם, משום שהעמוד מתאר את המשרד. מידע אישי כזה שייך לפרופיל אדם נפרד ולמקור הרשמי המתאים.</li>
-<li>קשר של העסקה, בעלות משותפת, שליטה או קבלת פניות שלא נמסר ואושר במפורש. הקשר העסקי, התשלום, פרופיל הפרימיום והחשיפה המוגברת שאושרו מוצגים בגילוי שמעל.</li>
+<li>קשרי העסקה, בעלות, שליטה, תשלום או קבלת פניות, אלא אם הם נבדקו ופורסמו במפורש.</li>
 </ol>
 <h2>מקורות ותיקונים</h2>
 <p>המקורות הבאים נבדקו לצורך הפרופיל ביום 2.8.2026:</p>
@@ -810,8 +810,8 @@ add_action(
 		}
 		?>
 		<style id="justice-maya-profile-release-css">
-		.jt-maya-profile__disclosure{display:block;margin:1rem 0 1.4rem;padding:1rem 1.1rem;border:2px solid #9a741b;border-radius:10px;background:#fff8dc;color:#2f2818;line-height:1.65;visibility:visible;opacity:1}
-		.jt-maya-profile__disclosure strong{font-weight:800}
+		.jt-maya-profile__transparency{display:block;margin:1rem 0 1.4rem;padding:1rem 1.1rem;border:2px solid #9a741b;border-radius:10px;background:#fff8dc;color:#2f2818;line-height:1.65;visibility:visible;opacity:1}
+		.jt-maya-profile__transparency strong{font-weight:800}
 		</style>
 		<?php
 	},

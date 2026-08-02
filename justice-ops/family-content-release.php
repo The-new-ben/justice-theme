@@ -211,51 +211,50 @@ function justice_ops_family_release_strip_review_claims( string $body ): string 
 }
 
 /**
- * Add the owner-approved disclosure to the Maya premium card and remove the
- * unsupported years/exclusivity sentence emitted by the legacy theme.
+ * Add the same neutral visibility note to every featured card and remove the
+ * unsupported years/exclusivity sentence emitted for Maya by the legacy theme.
  */
-function justice_ops_family_release_disclose_maya_card( string $body ): string {
+function justice_ops_family_release_clarify_featured_cards( string $body ): string {
 	if ( false === strpos( $body, 'jt-premium-card' ) ) {
 		return $body;
 	}
 
-	$safe_bio   = '<p class="jt-premium-card__bio">עורכת דין בתחום דיני המשפחה והגירושין. לפני התקשרות יש לבדוק רישיון, ניסיון והתאמה למקרה הספציפי.</p>';
-	$disclosure = '<p class="jt-premium-card__disclosure"><strong>גילוי מסחרי:</strong> מאיה רוטנברג היא שותפה עסקית ולקוחה משלמת של Jus-Tice. כרטיס Premium זה מקבל נראות מוגברת. התשלום והשותפות משפיעים על מיקום ונראות הכרטיס, ואינם מהווים דירוג איכות עצמאי, המלצה עצמאית או הבטחת התאמה.</p>';
+	$safe_bio       = '<p class="jt-premium-card__bio">עורכת דין בתחום דיני המשפחה והגירושין. לפני התקשרות יש לבדוק רישיון, ניסיון והתאמה למקרה הספציפי.</p>';
+	$visibility_note = '<p class="jt-card__visibility-note" data-jt-card-visibility-note="general"><strong>הבהרת נראות:</strong> הופעה, מיקום והיקף חשיפה של כרטיסים באתר עשויים להיות מושפעים משיקולים מסחריים ועריכתיים. הם אינם דירוג מקצועי, המלצה, הצהרה על עצמאות מסחרית או הבטחת התאמה.</p>';
 
 	$updated = preg_replace_callback(
 		'#<div\b[^>]*class=["\'][^"\']*\bjt-premium-card\b[^"\']*["\'][^>]*>[\s\S]*?<div\b[^>]*class=["\'][^"\']*\bjt-premium-card__body\b[^"\']*["\'][^>]*>[\s\S]*?</div>\s*</div>#iu',
-		static function ( array $match ) use ( $safe_bio, $disclosure ): string {
+		static function ( array $match ) use ( $safe_bio, $visibility_note ): string {
 			$card = $match[0];
-			if (
-				false === strpos( wp_strip_all_tags( $card ), 'מאיה רוטנברג' )
-				|| false !== strpos( $card, 'jt-premium-card__disclosure' )
-			) {
+			if ( false !== strpos( $card, 'data-jt-card-visibility-note="general"' ) ) {
 				return $card;
 			}
 
-			$with_bio = preg_replace(
-				'#<p\b[^>]*class=["\'][^"\']*\bjt-premium-card__bio\b[^"\']*["\'][^>]*>[\s\S]*?</p>#iu',
-				$safe_bio,
-				$card,
-				1
-			);
-			if ( is_string( $with_bio ) ) {
-				$card = $with_bio;
+			if ( false !== strpos( wp_strip_all_tags( $card ), 'מאיה רוטנברג' ) ) {
+				$with_bio = preg_replace(
+					'#<p\b[^>]*class=["\'][^"\']*\bjt-premium-card__bio\b[^"\']*["\'][^>]*>[\s\S]*?</p>#iu',
+					$safe_bio,
+					$card,
+					1
+				);
+				if ( is_string( $with_bio ) ) {
+					$card = $with_bio;
+				}
 			}
 
-			$with_disclosure = preg_replace(
+			$with_note = preg_replace(
 				'#(<span\b[^>]*class=["\'][^"\']*\bjt-premium-card__meta\b[^"\']*["\'][^>]*>[\s\S]*?</span>)#iu',
-				'$1' . $disclosure,
+				'$1' . $visibility_note,
 				$card,
 				1
 			);
-			if ( is_string( $with_disclosure ) && $with_disclosure !== $card ) {
-				return $with_disclosure;
+			if ( is_string( $with_note ) && $with_note !== $card ) {
+				return $with_note;
 			}
 
 			$fallback = preg_replace(
 				'#(<div\b[^>]*class=["\'][^"\']*\bjt-premium-card__body\b[^"\']*["\'][^>]*>)#iu',
-				'$1' . $disclosure,
+				'$1' . $visibility_note,
 				$card,
 				1
 			);
@@ -308,13 +307,13 @@ function justice_ops_family_release_filter_html( string $html ): string {
 	$body = justice_ops_family_release_truthful_consent( $body );
 
 	if ( in_array( justice_ops_family_release_request_path(), array( '/family-law/', '/divorce-lawyer/' ), true ) ) {
-		$body = justice_ops_family_release_disclose_maya_card( $body );
+		$body = justice_ops_family_release_clarify_featured_cards( $body );
 	}
 
 	if ( false === strpos( $body, 'data-jt-family-release=' ) ) {
 		$marked = preg_replace(
 			'#<body\b#i',
-			'<body data-jt-family-release="2026-08-02-r1"',
+			'<body data-jt-family-release="2026-08-02-r2"',
 			$body,
 			1
 		);
@@ -433,7 +432,7 @@ add_action(
 		}
 		?>
 		<style id="justice-family-release-css">
-		.jt-premium-card__disclosure{display:block;margin:.45rem 0 .65rem;padding:.65rem .75rem;border:1px solid #c49e3c;background:#fff8dd;color:#332b16;font-size:.86rem;line-height:1.55;border-radius:8px}
+		.jt-card__visibility-note{display:block;margin:.45rem 0 .65rem;padding:.65rem .75rem;border:1px solid #c49e3c;background:#fff8dd;color:#332b16;font-size:.86rem;line-height:1.55;border-radius:8px}
 		</style>
 		<?php
 	},

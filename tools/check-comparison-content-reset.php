@@ -67,7 +67,7 @@ jt_comparison_assert( '/the-recommended-family-lawyers/' === $contract['path'], 
 jt_comparison_assert( 'https://jus-tice.co.il/the-recommended-family-lawyers/' === $contract['canonical'], 'canonical must self-reference the preserved URL' );
 jt_comparison_assert( 'השוואת עורכי דין לענייני משפחה לפי נתונים | Jus-Tice' === $contract['seo_title'], 'SEO title must own comparison intent without asserting a recommendation' );
 jt_comparison_assert( 'השוואת עורכי דין לענייני משפחה וגירושין לפי נתונים' === $contract['h1'], 'H1 must state dual-scope data comparison intent' );
-foreach ( array( 'רישום פעיל', 'תחומי עיסוק', 'מיקום', 'מועד קבלה', 'מתודולוגיה', 'מקורות', 'גילוי מסחרי' ) as $description_term ) {
+foreach ( array( 'רישום פעיל', 'תחומי עיסוק', 'מיקום', 'מועד קבלה', 'מתודולוגיה', 'מקורות', 'אופן הצגת הכרטיסים' ) as $description_term ) {
 	jt_comparison_assert( false !== strpos( $contract['description'], $description_term ), "meta description must cover {$description_term}" );
 }
 jt_comparison_assert( false === strpos( $contract['h1'], 'עורך דין גירושין: בחירת' ), 'H1 must not copy the service-pillar promise' );
@@ -86,14 +86,15 @@ jt_comparison_assert( 13 === count( $candidates ), 'exactly thirteen verified re
 jt_comparison_assert( ! in_array( 'C005', $actual_ids, true ), 'unresolved C005 must be excluded' );
 $candidate_json = json_encode( $candidates, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
 jt_comparison_assert( is_string( $candidate_json ), 'candidate evidence must serialize deterministically' );
-jt_comparison_assert( 'de97cfdadec5095ead8a8ec98241231abb18180e71a05f7a824c14fb2d36ab47' === hash( 'sha256', (string) $candidate_json ), 'candidate evidence fields or ordering changed without an explicit contract update' );
+$candidate_hash = hash( 'sha256', (string) $candidate_json );
+jt_comparison_assert( '3df5244b2a6ea46dec8fb7e0159f668f8af147be25a9c2224f7e21bd4c25266d' === $candidate_hash, "candidate evidence fields or ordering changed without an explicit contract update: {$candidate_hash}" );
 
 $release_ledger_path = __DIR__ . '/comparison-content-release-ledger.json';
 $release_ledger_raw  = file_get_contents( $release_ledger_path );
 $release_ledger      = is_string( $release_ledger_raw ) ? json_decode( $release_ledger_raw, true ) : null;
 jt_comparison_assert( is_array( $release_ledger ), 'tracked comparison release ledger must decode' );
 jt_comparison_assert( 1 === ( $release_ledger['schema_version'] ?? 0 ), 'release ledger schema version must be exact' );
-jt_comparison_assert( '2.35.4' === ( $release_ledger['release'] ?? '' ), 'release ledger must bind to 2.35.4' );
+jt_comparison_assert( '2.35.5' === ( $release_ledger['release'] ?? '' ), 'release ledger must bind to 2.35.5' );
 jt_comparison_assert( '/the-recommended-family-lawyers/' === ( $release_ledger['route'] ?? '' ), 'release ledger route must be exact' );
 jt_comparison_assert( 'CONTROLLED_CANARY_ELIGIBLE_FACT_FIELDS_ONLY' === ( $release_ledger['release_state'] ?? '' ), 'release ledger must not overstate final publication approval' );
 jt_comparison_assert( true === ( $release_ledger['editorial_reconciliation']['does_not_claim_publishable_approved'] ?? false ), 'release ledger must preserve the missing named-approval limitation' );
@@ -103,11 +104,11 @@ foreach ( array( 'named_comparison_editor', 'named_entity_verifier', 'named_lega
 }
 jt_comparison_assert( $expected_ids === ( $release_ledger['evidence_contract']['visible_candidate_ids'] ?? array() ), 'release ledger visible candidate IDs must match source order exactly' );
 jt_comparison_assert( hash( 'sha256', (string) $candidate_json ) === ( $release_ledger['evidence_contract']['candidate_data_sha256'] ?? '' ), 'release ledger must bind to exact candidate evidence bytes' );
-jt_comparison_assert( array( 'C001' ) === ( $release_ledger['relationship_contract']['commercial_candidate_ids'] ?? array() ), 'release ledger must identify only Maya as commercial' );
-jt_comparison_assert( 12 === ( $release_ledger['relationship_contract']['noncommercial_visible_candidate_count'] ?? -1 ), 'release ledger noncommercial count must be exact' );
+jt_comparison_assert( 'all visible candidates' === ( $release_ledger['visibility_disclosure_contract']['scope'] ?? '' ), 'visibility policy must apply to the full visible set' );
+jt_comparison_assert( true === ( $release_ledger['visibility_disclosure_contract']['does_not_name_candidate_relationships'] ?? false ), 'ledger must prohibit candidate-specific relationship claims' );
+jt_comparison_assert( true === ( $release_ledger['visibility_disclosure_contract']['does_not_assert_candidate_independence'] ?? false ), 'ledger must prohibit candidate-independence claims' );
 jt_comparison_assert( 'C005' === ( $release_ledger['evidence_contract']['excluded_candidate']['id'] ?? '' ), 'release ledger must preserve the unresolved exclusion' );
 
-$commercial_ids = array();
 foreach ( $candidates as $candidate ) {
 	jt_comparison_assert( preg_match( '#^https://www\.israelbar\.biz/lawyer-fd/\?lawyer=#', (string) $candidate['source'] ) === 1, 'every visible card must link to one official Bar record' );
 	jt_comparison_assert( false !== strpos( (string) $candidate['status'], 'פעילה' ) || false !== strpos( (string) $candidate['status'], 'פעילים' ), 'every visible card must state its active-source match' );
@@ -115,14 +116,12 @@ foreach ( $candidates as $candidate ) {
 	jt_comparison_assert( '' !== trim( (string) $candidate['admission'] ), 'admission date must be present' );
 	jt_comparison_assert( '' !== trim( (string) $candidate['office'] ), 'official office must be present' );
 	jt_comparison_assert( '' !== trim( (string) $candidate['checked'] ), 'source check date must be present' );
-	if ( ! empty( $candidate['commercial'] ) ) {
-		$commercial_ids[] = (string) $candidate['id'];
-	}
+	jt_comparison_assert( ! array_key_exists( 'commercial', $candidate ), 'candidate evidence must not encode candidate-specific commercial status' );
 }
-jt_comparison_assert( array( 'C001' ) === $commercial_ids, 'Maya must be the only commercial candidate' );
 
 $public_copy = justice_ops_comparison_public_content_html();
-jt_comparison_assert( 'c56f2b4c4522d0eb19fb39edc54b7c757cfc505cf7f236a585c79ab1af75e7fb' === hash( 'sha256', $public_copy ), 'exact public comparison output changed without an explicit contract update' );
+$public_copy_hash = hash( 'sha256', $public_copy );
+jt_comparison_assert( '8d257b5711b9833e151d748762a9825316d767148c1cea96f21171fd81efe79a' === $public_copy_hash, "exact public comparison output changed without an explicit contract update: {$public_copy_hash}" );
 jt_comparison_assert( false !== strpos( $public_copy, 'עורכי דין מומלצים לענייני משפחה' ), 'public opening must answer family-law recommendation intent' );
 jt_comparison_assert( false !== strpos( $public_copy, 'עורך דין גירושין' ), 'public opening must preserve the divorce comparison scope' );
 jt_comparison_assert( 1 === substr_count( $public_copy, 'data-jt-comparison-universe="u0-2026-08-02"' ), 'public method must identify the exact U0 evidence freeze' );
@@ -150,11 +149,16 @@ foreach (
 
 jt_comparison_assert( 13 === substr_count( $public_copy, '<article class="jt-comparison-card' ), 'public comparison must render exactly thirteen fact cards' );
 jt_comparison_assert( 13 === substr_count( $public_copy, 'כרטיס לשכת עורכי הדין' ), 'every card must expose its official source' );
-jt_comparison_assert( 12 === substr_count( $public_copy, 'אין למועמד או למועמדת קשר מסחרי' ), 'every non-Maya card must disclose no commercial relationship' );
+jt_comparison_assert( 1 === substr_count( $public_copy, 'data-jt-comparison-disclosure="visibility-policy"' ), 'one page-level neutral visibility policy must appear' );
 jt_comparison_assert( 1 === substr_count( $public_copy, 'data-jt-candidate="C001"' ), 'Maya must render once' );
-jt_comparison_assert( 1 === substr_count( $public_copy, 'class="jt-comparison-card is-commercial"' ), 'only Maya may receive commercial styling' );
-jt_comparison_assert( false !== strpos( $public_copy, 'שותפה עסקית ולקוחה משלמת' ), 'Maya relationship must be stated exactly' );
-jt_comparison_assert( false !== strpos( $public_copy, 'פרופיל פרימיום בעל חשיפה מוגברת' ), 'Maya premium visibility must be stated beside her card' );
+jt_comparison_assert( 0 === substr_count( $public_copy, 'is-commercial' ), 'no candidate may receive relationship-specific styling' );
+jt_comparison_assert( 0 === substr_count( $public_copy, 'jt-comparison-card__relationship' ), 'no candidate-specific relationship paragraph may render' );
+foreach ( array( 'שותפה עסקית', 'לקוחה משלמת', 'פרופיל פרימיום', 'חשיפה מוגברת', 'היחידה מבין המועמדים', 'ליתר המועמדים אין קשר מסחרי', 'הקשר העסקי, התשלום', 'התשלום והשותפות', 'גילוי על הקשר המסחרי ל-Jus-Tice', 'אין למועמד או למועמדת קשר מסחרי' ) as $forbidden_relationship_claim ) {
+	jt_comparison_assert( false === strpos( $public_copy, $forbidden_relationship_claim ), "candidate-specific relationship claim leaked into public output: {$forbidden_relationship_claim}" );
+}
+jt_comparison_assert( false !== strpos( $public_copy, 'ההופעה והיקף החשיפה בעמוד עשויים להיות מושפעים משיקולים מסחריים ועריכתיים של Jus-Tice' ), 'visibility policy must state that commercial and editorial factors may affect appearance and visibility' );
+jt_comparison_assert( false !== strpos( $public_copy, 'הכרטיסים המוצגים כאן מסודרים לפי שם המשפחה הרשמי בעברית, והסדר אינו דירוג מקצועי' ), 'visibility policy must state the actual alphabetical order and deny ranking meaning' );
+jt_comparison_assert( false !== strpos( $public_copy, 'אין להסיק מהופעה או מנראות המלצה, עצמאות מסחרית, היעדר קשר מסחרי או הבטחת התאמה' ), 'visibility policy must not imply independence, quality or suitability' );
 jt_comparison_assert( false === strpos( $public_copy, 'C005' ) && false === strpos( $public_copy, 'אפרים קוליו' ), 'unresolved candidate must not leak into public output' );
 
 foreach (
@@ -209,8 +213,8 @@ jt_comparison_assert( false === strpos( $result, '2025-09-10' ) && false === str
 jt_comparison_assert( false === strpos( $result, 'legacy-opening' ), 'legacy general opening must be removed' );
 jt_comparison_assert( false === strpos( $result, $legacy_unsafe ), 'unsafe legacy candidate prose must be removed' );
 jt_comparison_assert( false !== strpos( $result, '<div class="single-article__content entry-content" data-existing="preserve-opening-tag"><div class="jt-comparison-reset"' ), 'content-container opening tag must be preserved and new body inserted inside it' );
-jt_comparison_assert( 1 === substr_count( $result, 'data-jt-comparison-content="2026-08-02-r2"' ), 'fact-only content marker must render once' );
-jt_comparison_assert( 1 === substr_count( $result, 'data-jt-comparison-reset="2026-08-02-r2"' ), 'body release marker must render once' );
+jt_comparison_assert( 1 === substr_count( $result, 'data-jt-comparison-content="2026-08-02-r3"' ), 'fact-only content marker must render once' );
+jt_comparison_assert( 1 === substr_count( $result, 'data-jt-comparison-reset="2026-08-02-r3"' ), 'body release marker must render once' );
 jt_comparison_assert( 1 === substr_count( $result, 'id="justice-family-comparison-schema"' ), 'controlled schema must render exactly once' );
 jt_comparison_assert( false === strpos( $result, $legacy_schema ), 'legacy Article and LegalService JSON-LD must be removed' );
 foreach ( array( 'itemscope', 'itemtype=', 'itemprop=', 'typeof=' ) as $legacy_attribute ) {
@@ -255,7 +259,8 @@ jt_comparison_assert( $contract['canonical'] === justice_ops_comparison_canonica
 
 justice_ops_comparison_enqueue_styles();
 jt_comparison_assert( isset( $jt_comparison_inline_styles['justice-ops-relevance'] ), 'target page styles must attach to the existing versioned handle' );
-jt_comparison_assert( false !== strpos( $jt_comparison_inline_styles['justice-ops-relevance'], '.jt-comparison-card.is-commercial' ), 'commercial candidate style must be present' );
+jt_comparison_assert( false !== strpos( $jt_comparison_inline_styles['justice-ops-relevance'], '.jt-comparison-grid' ), 'comparison grid style must be present' );
+jt_comparison_assert( false === strpos( $jt_comparison_inline_styles['justice-ops-relevance'], 'is-commercial' ), 'candidate-specific commercial style must be absent' );
 
 $missing_container = '<html><body><header><h1 class="single-article__title">Old</h1>' . $top_reviewer . '</header></body></html>';
 jt_comparison_assert( $missing_container === justice_ops_comparison_filter_html( $missing_container ), 'missing content container must fail closed without partial mutation' );

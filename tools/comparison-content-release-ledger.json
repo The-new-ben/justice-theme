@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "release": "2.35.4",
+  "release": "2.35.5",
   "route": "/the-recommended-family-lawyers/",
   "decision_date": "2026-08-02",
   "release_state": "CONTROLLED_CANARY_ELIGIBLE_FACT_FIELDS_ONLY",
@@ -12,7 +12,7 @@
       "officially listed family-law practice fields",
       "official office address",
       "source URL and check date",
-      "owner-attested commercial relationship to Jus-Tice"
+      "neutral visibility policy applying to the page as a whole"
     ],
     "excluded_fields": [
       "quality score",
@@ -50,16 +50,15 @@
     },
     "limitation": "U0 is a deliberately small, search-visible sample and is not the full Israeli family-law market. Search appearance identified candidates but did not score or order them."
   },
-  "relationship_contract": {
-    "commercial_candidate_ids": [
-      "C001"
-    ],
-    "commercial_fact": "Maya Rotenberg is a business partner and paying customer of Jus-Tice with premium increased visibility.",
-    "noncommercial_visible_candidate_count": 12,
-    "owner_attested_on": "2026-08-02"
+  "visibility_disclosure_contract": {
+    "scope": "all visible candidates",
+    "statement": "Commercial and editorial factors may affect appearance and visibility. Visible cards are ordered by official Hebrew surname, and that order is not a professional quality score.",
+    "does_not_name_candidate_relationships": true,
+    "does_not_assert_candidate_independence": true,
+    "owner_instruction_date": "2026-08-02"
   },
   "evidence_contract": {
-    "candidate_data_sha256": "de97cfdadec5095ead8a8ec98241231abb18180e71a05f7a824c14fb2d36ab47",
+    "candidate_data_sha256": "3df5244b2a6ea46dec8fb7e0159f668f8af147be25a9c2224f7e21bd4c25266d",
     "visible_candidate_count": 13,
     "ordering": "official Hebrew surname, ascending",
     "official_source_host": "www.israelbar.biz",
@@ -102,20 +101,20 @@
   "editorial_reconciliation": {
     "prior_research_state": "DRAFT_ELIGIBLE_NOT_PUBLISHABLE",
     "reconciled_state": "FACT_FIELDS_LOCKED_FOR_ONE_PAGE_CONTROLLED_CANARY",
-    "basis": "The release omits every review, score, outcome, quality and named-reviewer claim that remained unverified. It publishes only the official-card fields and the owner-attested relationship facts identified above.",
+    "basis": "The release omits every review, score, outcome, quality, named-reviewer and candidate-specific commercial claim. It publishes only official-card fields and one page-level visibility policy.",
     "does_not_claim_publishable_approved": true,
     "named_comparison_editor": null,
     "named_entity_verifier": null,
     "named_legal_reviewer": null,
-    "public_attribution_rule": "State Justice Team responsibility for structure and disclosures only. Do not claim named authorship or legal review."
+    "public_attribution_rule": "State Justice Team responsibility for structure and the visibility clarification only. Do not claim named authorship or legal review."
   },
   "live_acceptance_required": [
     "direct HTTP 200 at the preserved self-canonical URL",
     "one exact title, description and H1",
     "index-follow with no X-Robots-Tag noindex",
-    "one U0 method marker and one commercial disclosure marker",
+    "one U0 method marker and one neutral visibility-policy marker",
     "one controlled source-check date marker for 1 and 2 August 2026 and no legacy publication-date row",
-    "13 official fact cards, exactly one commercial card and 12 noncommercial disclosures",
+    "13 official fact cards and no candidate-specific relationship or independence statement",
     "one controlled JSON-LD graph containing only WebPage, BreadcrumbList and ListItem types",
     "no legacy Article, LegalService, Attorney, Person, Organization, author, reviewer, rating or review schema",
     "no legacy recommendation, success, review, ranking, reviewer or dated-ranking prose",

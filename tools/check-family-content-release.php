@@ -55,13 +55,19 @@ jt_assert( false !== strpos( $result, '<p>' . $family['description'] . '</p>' ),
 jt_assert( false === strpos( $result, 'Old summary' ), 'legacy practice hero summary must be absent' );
 jt_assert( false === strpos( $result, 'נבדק על ידי' ), 'unsupported bottom reviewer claim must be absent' );
 jt_assert( false === strpos( $result, 'נבדק מקצועית' ), 'unsupported top reviewer claim must be absent' );
-jt_assert( 1 === substr_count( $result, 'jt-premium-card__disclosure' ), 'commercial disclosure must appear once' );
-jt_assert( false !== strpos( $result, 'משרד אחר</span><p class="jt-premium-card__bio">ביוגרפיה אחרת</p>' ), 'unrelated premium card must remain unchanged' );
-jt_assert( false !== strpos( $result, 'שותפה עסקית ולקוחה משלמת' ), 'commercial relationship must be explicit' );
-jt_assert( false !== strpos( $result, 'אינם מהווים דירוג איכות עצמאי' ), 'commercial placement must not imply quality ranking' );
+jt_assert( 2 === substr_count( $result, 'data-jt-card-visibility-note="general"' ), 'the same neutral visibility note must appear on both featured cards' );
+jt_assert( false !== strpos( $result, '<p class="jt-premium-card__bio">ביוגרפיה אחרת</p>' ), 'unrelated card biography must remain unchanged' );
+jt_assert( 2 === substr_count( $result, 'הופעה, מיקום והיקף חשיפה של כרטיסים באתר עשויים להיות מושפעים משיקולים מסחריים ועריכתיים' ), 'neutral visibility wording must be identical across cards' );
+jt_assert( false !== strpos( $result, 'אינם דירוג מקצועי, המלצה, הצהרה על עצמאות מסחרית או הבטחת התאמה' ), 'visibility must not imply quality or independence' );
+jt_assert( false === strpos( $result, 'שותפה עסקית' ), 'partner claim must not appear on the front end' );
+jt_assert( false === strpos( $result, 'לקוחה משלמת' ), 'paying-client claim must not appear on the front end' );
+jt_assert( false === strpos( $result, 'פרופיל פרימיום' ), 'candidate-specific premium claim must not appear on the front end' );
+foreach ( array( 'חשיפה מוגברת', 'הקשר העסקי, התשלום', 'התשלום והשותפות', 'גילוי על הקשר המסחרי ל-Jus-Tice' ) as $forbidden_relationship_copy ) {
+	jt_assert( false === strpos( $result, $forbidden_relationship_copy ), "candidate-specific relationship copy must be absent: {$forbidden_relationship_copy}" );
+}
 jt_assert( false === strpos( $result, 'מעל 20 שנה בעיסוק בלעדי' ), 'unsupported legacy bio must be absent' );
 jt_assert( false !== strpos( $result, 'הפרטים לא יועברו לעורך דין ללא אישור נוסף ממני' ), 'consent must describe internal-only handling' );
-jt_assert( false !== strpos( $result, 'data-jt-family-release="2026-08-02-r1"' ), 'release marker must be in the body' );
+jt_assert( false !== strpos( $result, 'data-jt-family-release="2026-08-02-r2"' ), 'release marker must be in the body' );
 jt_assert( false !== strpos( $result, '<title>Old title</title>' ), 'body filter must not edit the head' );
 jt_assert( $family['seo_title'] === justice_ops_family_release_title( 'old' ), 'SEO title filter must match contract' );
 jt_assert( $family['description'] === justice_ops_family_release_description( 'old' ), 'description filter must match contract' );

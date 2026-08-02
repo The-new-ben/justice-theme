@@ -93,6 +93,49 @@ _SAFE_EVIDENCE_IDENTIFIER_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,127}$")
 _EVIDENCE_CONTROL_CHARS_RE = re.compile(r"[\x00-\x1f\x7f]")
 
 RELEASE_MARKER = 'data-jt-family-release="2026-08-02-r1"'
+COMPARISON_PATH = "/the-recommended-family-lawyers/"
+COMPARISON_RELEASE_MARKER = 'data-jt-comparison-reset="2026-08-02-r2"'
+COMPARISON_CONTENT_MARKER = 'data-jt-comparison-content="2026-08-02-r2"'
+COMPARISON_DISCLOSURE_MARKER = 'data-jt-comparison-disclosure="global"'
+COMPARISON_UNIVERSE_MARKER = 'data-jt-comparison-universe="u0-2026-08-02"'
+COMPARISON_EVIDENCE_DATE_MARKER = (
+    'data-jt-comparison-evidence-date="2026-08-02"'
+)
+COMPARISON_EVIDENCE_DATE_TEXT = "בדיקת המקורות: 1 וב־2 באוגוסט 2026"
+COMPARISON_SCHEMA_ID = "justice-family-comparison-schema"
+COMPARISON_SCHEMA_TYPES = frozenset({"WebPage", "BreadcrumbList", "ListItem"})
+COMPARISON_MAX_BODY_WORDS = 8000
+COMPARISON_METHOD_TEXT = (
+    "אוכלוסיית המחקר המצומצמת, U0",
+    "1 וב־2 באוגוסט 2026",
+    "Google ישראל",
+    "ללא התאמה אישית",
+    "תל אביב יפו כמיקום",
+    "אינו מייצג את כל עורכי הדין בישראל",
+)
+COMPARISON_QUERY_TERMS = (
+    "עורך דין גירושין",
+    "עורך דין לענייני משפחה",
+    "משרד עורכי דין גירושין מומלץ",
+    "עורכי דין משפחה מומלצים",
+    "עורך דין גירושין מומלץ",
+    "עורכי דין גירושין מומלצים",
+    "עורך דין משפחה מומלץ",
+    "עורך דין לענייני משפחה מומלץ",
+)
+COMPARISON_LEGACY_TEXT = (
+    "צמרת עורכי הדין",
+    "הובילה את המהפכה",
+    "השיג פסק דין",
+    "השיגה פסק דין",
+    "הצלחות נוספות",
+    "מומחיות ייחודית",
+    "נבדק מקצועית על ידי",
+    "עורכי דין מובילים בדיני משפחה בישראל 2025",
+    "המלצות 2026 עורך דין לענייני משפחה מומלץ",
+    "2025-09-10",
+    "2026-07-19",
+)
 MAYA_PATH = "/family-law-lawyer-recommended-divorce-wills-inheritances/"
 MAYA_RELEASE_MARKER = 'data-jt-maya-profile-release="2026-08-02-r1"'
 MAYA_CONTENT_MARKER = 'data-jt-maya-profile-content="2026-08-02-r1"'
@@ -109,7 +152,7 @@ OLD_REVIEW_MARKERS = (
 FORBIDDEN_REVIEW_TEXT_PATTERNS = (
     re.compile(r"\breviewed\s+by\b", re.IGNORECASE),
     re.compile(r"\breviewer\b", re.IGNORECASE),
-    re.compile(r"נבדק(?:ה)?\s+על\s+ידי"),
+    re.compile(r"נבדק(?:ה)?(?:\s+מקצועית)?\s+על\s+ידי"),
     re.compile(r"נערך(?:ה)?\s+על\s+ידי"),
     re.compile(r"ביקורת\s+משפטית\s+של"),
 )
@@ -122,6 +165,7 @@ AFFECTED_PATHS = (
     "/experienced-family-law-attorney/",
     "/divorce-costs-2025/",
     "/lawyer-fees-guide/",
+    COMPARISON_PATH,
     MAYA_PATH,
     "/lawyers/",
     "/legal-help/",
@@ -164,6 +208,13 @@ PAGE_CONTRACTS: dict[str, dict[str, str]] = {
         "title": "שכר טרחה עורך דין: מודלי חיוב ובדיקת הצעה | Jus-Tice",
         "description": "איך בנוי שכר טרחה של עורך דין, מה ההבדל בין מחיר קבוע, שעה ושלב, אילו הוצאות לבדוק ואיך להשוות שתי הצעות על בסיס אותו היקף עבודה.",
         "canonical": "https://jus-tice.co.il/lawyer-fees-guide/",
+    },
+    COMPARISON_PATH: {
+        "h1": "השוואת עורכי דין לענייני משפחה וגירושין לפי נתונים",
+        "title": "השוואת עורכי דין לענייני משפחה לפי נתונים | Jus-Tice",
+        "description": "השוואת עורכי דין לענייני משפחה וגירושין לפי רישום פעיל, תחומי עיסוק, מיקום ומועד קבלה, עם מתודולוגיה, מקורות וגילוי מסחרי.",
+        "canonical": "https://jus-tice.co.il/the-recommended-family-lawyers/",
+        "release_marker": COMPARISON_RELEASE_MARKER,
     },
     MAYA_PATH: {
         "h1": "משרד מאיה רוטנברג בדיני משפחה: פרופיל ומקורות",
@@ -527,6 +578,7 @@ def inspect_artifact(
             "family-content-release.php",
             "review-claims-off.php",
             "maya-profile-release.php",
+            "comparison-content-reset.php",
             "release-update-control.php",
         }
         if not required.issubset(files):
@@ -537,6 +589,9 @@ def inspect_artifact(
         )
         maya_release = archive.read(
             f"{PLUGIN_SLUG}/maya-profile-release.php"
+        ).decode("utf-8-sig")
+        comparison_release = archive.read(
+            f"{PLUGIN_SLUG}/comparison-content-reset.php"
         ).decode("utf-8-sig")
         update_control = archive.read(
             f"{PLUGIN_SLUG}/release-update-control.php"
@@ -562,6 +617,7 @@ def inspect_artifact(
             raise RuntimeError(f"Artifact release marker is missing: {marker}")
     for include in (
         "require_once __DIR__ . '/maya-profile-release.php';",
+        "require_once __DIR__ . '/comparison-content-reset.php';",
         "require_once __DIR__ . '/release-update-control.php';",
     ):
         if include not in main:
@@ -575,6 +631,21 @@ def inspect_artifact(
     ):
         if marker not in maya_release:
             raise RuntimeError(f"Artifact Maya release marker is missing: {marker}")
+    for marker in (
+        COMPARISON_CONTENT_MARKER,
+        COMPARISON_DISCLOSURE_MARKER,
+        COMPARISON_UNIVERSE_MARKER,
+        COMPARISON_EVIDENCE_DATE_MARKER,
+        COMPARISON_EVIDENCE_DATE_TEXT,
+        COMPARISON_SCHEMA_ID,
+        "justice_ops_comparison_control_schema",
+        "שותפה עסקית ולקוחה משלמת",
+        "https://www.israelbar.biz/lawyer-fd/?lawyer=",
+    ):
+        if marker not in comparison_release:
+            raise RuntimeError(
+                f"Artifact comparison release marker is missing: {marker}"
+            )
     for marker in (
         "justice-ops/justice-ops.php",
         "auto_update_plugin",
@@ -743,6 +814,7 @@ class SeoDocumentProbe(HTMLParser):
         self.meta_robots: list[str] = []
         self.json_ld: list[str] = []
         self.json_ld_ids: list[str] = []
+        self.structured_data_attributes: list[str] = []
 
     @staticmethod
     def _attributes(attrs: list[tuple[str, str | None]]) -> dict[str, str]:
@@ -761,6 +833,19 @@ class SeoDocumentProbe(HTMLParser):
             self._body_depth += 1
         elif self._body_depth and tag in {"script", "style", "noscript", "template"}:
             self._ignored_depth += 1
+        microdata_or_rdfa = {
+            "itemscope",
+            "itemprop",
+            "itemtype",
+            "itemid",
+            "itemref",
+            "vocab",
+            "typeof",
+        }
+        if self._body_depth:
+            microdata_or_rdfa.update({"property", "resource", "prefix", "about"})
+        for attribute in sorted(microdata_or_rdfa.intersection(values)):
+            self.structured_data_attributes.append(f"{tag}:{attribute}")
         if tag == "title":
             self._title_depth += 1
             self._title_parts = []
@@ -899,6 +984,13 @@ def inspect_seo_html(html: str, headers: Mapping[str, Any]) -> dict[str, Any]:
         "meta_robots": parser.meta_robots,
         "x_robots_tag": str(headers.get("X-Robots-Tag", "")),
         "release_marker_count": body.count(RELEASE_MARKER),
+        "comparison_release_marker_count": body.count(COMPARISON_RELEASE_MARKER),
+        "comparison_content_marker_count": body.count(COMPARISON_CONTENT_MARKER),
+        "comparison_disclosure_marker_count": body.count(COMPARISON_DISCLOSURE_MARKER),
+        "comparison_universe_marker_count": body.count(COMPARISON_UNIVERSE_MARKER),
+        "comparison_evidence_date_marker_count": body.count(
+            COMPARISON_EVIDENCE_DATE_MARKER
+        ),
         "maya_release_marker_count": body.count(MAYA_RELEASE_MARKER),
         "maya_content_marker_count": body.count(MAYA_CONTENT_MARKER),
         "maya_disclosure_marker_count": body.count(MAYA_DISCLOSURE_MARKER),
@@ -909,6 +1001,8 @@ def inspect_seo_html(html: str, headers: Mapping[str, Any]) -> dict[str, Any]:
         "json_ld_ids": list(parser.json_ld_ids),
         "json_ld_documents": json_ld_documents,
         "json_ld_types": sorted(json_ld_types),
+        "structured_data_attributes": list(parser.structured_data_attributes),
+        "body_text_word_count": len(parser.body_text.split()),
         "body": body,
     }
 
@@ -1626,6 +1720,21 @@ def semantic_page_fingerprint(probe: Mapping[str, Any]) -> dict[str, Any]:
         "meta_robots": list(probe["meta_robots"]),
         "x_robots_tag": str(probe["x_robots_tag"]),
         "release_marker_count": int(probe["release_marker_count"]),
+        "comparison_release_marker_count": int(
+            probe["comparison_release_marker_count"]
+        ),
+        "comparison_content_marker_count": int(
+            probe["comparison_content_marker_count"]
+        ),
+        "comparison_disclosure_marker_count": int(
+            probe["comparison_disclosure_marker_count"]
+        ),
+        "comparison_universe_marker_count": int(
+            probe["comparison_universe_marker_count"]
+        ),
+        "comparison_evidence_date_marker_count": int(
+            probe["comparison_evidence_date_marker_count"]
+        ),
         "maya_release_marker_count": int(probe["maya_release_marker_count"]),
         "maya_content_marker_count": int(probe["maya_content_marker_count"]),
         "maya_disclosure_marker_count": int(probe["maya_disclosure_marker_count"]),
@@ -1635,6 +1744,8 @@ def semantic_page_fingerprint(probe: Mapping[str, Any]) -> dict[str, Any]:
         "json_ld_valid": bool(probe["json_ld_valid"]),
         "json_ld_ids": list(probe["json_ld_ids"]),
         "json_ld_types": list(probe["json_ld_types"]),
+        "structured_data_attributes": list(probe["structured_data_attributes"]),
+        "body_text_word_count": int(probe["body_text_word_count"]),
     }
 
 
@@ -1700,6 +1811,71 @@ def _assert_maya_candidate_schema(
             raise RuntimeError("Maya candidate breadcrumb schema values are not exact.")
 
 
+def _assert_comparison_candidate_schema(
+    contract: Mapping[str, str], probe: Mapping[str, Any]
+) -> None:
+    documents = probe["json_ld_documents"]
+    if probe["json_ld_ids"] != [COMPARISON_SCHEMA_ID] or len(documents) != 1:
+        raise RuntimeError(
+            "Comparison candidate requires exactly one controlled JSON-LD script."
+        )
+    document = documents[0]
+    if not isinstance(document, dict) or document.get("@context") != "https://schema.org":
+        raise RuntimeError("Comparison candidate JSON-LD context is not exact.")
+    if set(probe["json_ld_types"]) != COMPARISON_SCHEMA_TYPES:
+        raise RuntimeError(
+            "Comparison candidate JSON-LD contains missing or unsupported schema types."
+        )
+    if probe["structured_data_attributes"]:
+        raise RuntimeError(
+            "Comparison candidate retains legacy Microdata or body RDFa attributes."
+        )
+    graph = document.get("@graph")
+    if not isinstance(graph, list) or len(graph) != 2:
+        raise RuntimeError("Comparison candidate JSON-LD graph cardinality is not exact.")
+    web_pages = [
+        node for node in graph if isinstance(node, dict) and node.get("@type") == "WebPage"
+    ]
+    breadcrumbs = [
+        node
+        for node in graph
+        if isinstance(node, dict) and node.get("@type") == "BreadcrumbList"
+    ]
+    if len(web_pages) != 1 or len(breadcrumbs) != 1:
+        raise RuntimeError(
+            "Comparison candidate requires one WebPage and one BreadcrumbList node."
+        )
+    page = web_pages[0]
+    if (
+        page.get("@id") != f"{contract['canonical']}#webpage"
+        or page.get("url") != contract["canonical"]
+        or page.get("name") != contract["h1"]
+        or page.get("description") != contract["description"]
+        or page.get("inLanguage") != "he-IL"
+    ):
+        raise RuntimeError("Comparison candidate WebPage schema values differ.")
+    items = breadcrumbs[0].get("itemListElement")
+    if not isinstance(items, list) or len(items) != 3:
+        raise RuntimeError(
+            "Comparison candidate breadcrumb schema cardinality is not exact."
+        )
+    expected_items = (
+        (1, "https://jus-tice.co.il/"),
+        (2, "https://jus-tice.co.il/family-law/"),
+        (3, contract["canonical"]),
+    )
+    for item, (position, target) in zip(items, expected_items, strict=True):
+        if (
+            not isinstance(item, dict)
+            or item.get("@type") != "ListItem"
+            or item.get("position") != position
+            or item.get("item") != target
+        ):
+            raise RuntimeError(
+                "Comparison candidate breadcrumb schema values are not exact."
+            )
+
+
 def _assert_candidate_page(path: str, contract: Mapping[str, str], response: Any) -> dict[str, Any]:
     expected_url = f"{TARGET_BASE_URL}{path}"
     if response.status_code != 200 or response.history or response.url != expected_url:
@@ -1729,6 +1905,39 @@ def _assert_candidate_page(path: str, contract: Mapping[str, str], response: Any
     if not probe["json_ld_valid"]:
         raise RuntimeError(f"Malformed JSON-LD remains on candidate page {path}.")
     body = str(probe["body"])
+    if path == COMPARISON_PATH:
+        if (
+            probe["comparison_content_marker_count"] != 1
+            or probe["comparison_disclosure_marker_count"] != 1
+            or probe["comparison_universe_marker_count"] != 1
+            or probe["comparison_evidence_date_marker_count"] != 1
+        ):
+            raise RuntimeError(
+                "Comparison candidate content, disclosure or U0 marker is not exact."
+            )
+        if (
+            body.count('<article class="jt-comparison-card') != 13
+            or body.count('data-jt-candidate="') != 13
+            or body.count('data-jt-candidate="C001"') != 1
+            or body.count('class="jt-comparison-card is-commercial"') != 1
+            or body.count("אין למועמד או למועמדת קשר מסחרי") != 12
+            or body.count("https://www.israelbar.biz/lawyer-fd/?lawyer=") != 13
+            or body.count("שותפה עסקית ולקוחה משלמת") != 2
+        ):
+            raise RuntimeError(
+                "Comparison candidate card, relationship or official-source cardinality differs."
+            )
+        if (
+            any(marker not in body for marker in COMPARISON_METHOD_TEXT)
+            or any(query not in body for query in COMPARISON_QUERY_TERMS)
+            or body.count(COMPARISON_EVIDENCE_DATE_TEXT) != 1
+            or int(probe["body_text_word_count"]) > COMPARISON_MAX_BODY_WORDS
+            or any(marker in body for marker in COMPARISON_LEGACY_TEXT)
+        ):
+            raise RuntimeError(
+                "Comparison candidate method, scope or legacy-content boundary differs."
+            )
+        _assert_comparison_candidate_schema(contract, probe)
     if path == MAYA_PATH:
         if (
             probe["maya_content_marker_count"] != 1
@@ -2244,6 +2453,273 @@ def deployment_contract_self_test() -> dict[str, Any]:
     else:
         raise RuntimeError("Maya candidate acceptance permitted noindex.")
 
+    comparison_contract = PAGE_CONTRACTS[COMPARISON_PATH]
+    comparison_schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": f"{comparison_contract['canonical']}#webpage",
+                "url": comparison_contract["canonical"],
+                "name": comparison_contract["h1"],
+                "description": comparison_contract["description"],
+                "inLanguage": "he-IL",
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": f"{comparison_contract['canonical']}#breadcrumb",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Jus-Tice",
+                        "item": "https://jus-tice.co.il/",
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "דיני משפחה",
+                        "item": "https://jus-tice.co.il/family-law/",
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": comparison_contract["h1"],
+                        "item": comparison_contract["canonical"],
+                    },
+                ],
+            },
+        ],
+    }
+    comparison_schema_json = json.dumps(
+        comparison_schema, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    )
+    comparison_ids = (
+        "C015",
+        "C004",
+        "C003",
+        "C012",
+        "C016",
+        "C006",
+        "C013",
+        "C009",
+        "C002",
+        "C017",
+        "C001",
+        "C014",
+        "C007",
+    )
+    comparison_cards: list[str] = []
+    for candidate_id in comparison_ids:
+        if candidate_id == "C001":
+            card_class = "jt-comparison-card is-commercial"
+            relationship = (
+                "מאיה רוטנברג היא שותפה עסקית ולקוחה משלמת של Jus-Tice."
+            )
+        else:
+            card_class = "jt-comparison-card"
+            relationship = "אין למועמד או למועמדת קשר מסחרי"
+        comparison_cards.append(
+            f'<article class="{card_class}" data-jt-candidate="{candidate_id}">'
+            f'<h3>{candidate_id}</h3><p>{relationship}</p>'
+            f'<a href="https://www.israelbar.biz/lawyer-fd/?lawyer={candidate_id}">מקור</a>'
+            "</article>"
+        )
+    comparison_description_attribute = html_module.escape(
+        comparison_contract["description"], quote=True
+    )
+    comparison_candidate_html = (
+        f'<html><head><title>{comparison_contract["title"]}</title>'
+        f'<meta name="description" content="{comparison_description_attribute}">'
+        f'<link rel="canonical" href="{comparison_contract["canonical"]}">'
+        f'<script type="application/ld+json" id="{COMPARISON_SCHEMA_ID}">{comparison_schema_json}</script>'
+        '</head><body data-jt-comparison-reset="2026-08-02-r2">'
+        f'<h1>{comparison_contract["h1"]}</h1>'
+        f'<div class="single-article__meta" {COMPARISON_EVIDENCE_DATE_MARKER}>'
+        f'<span>{COMPARISON_EVIDENCE_DATE_TEXT}</span></div>'
+        '<main data-jt-comparison-content="2026-08-02-r2">'
+        '<p data-jt-comparison-disclosure="global">'
+        'מאיה רוטנברג היא שותפה עסקית ולקוחה משלמת של Jus-Tice.</p>'
+        '<section data-jt-comparison-universe="u0-2026-08-02">'
+        '<p>אוכלוסיית המחקר המצומצמת, U0, נאספה ב־1 וב־2 באוגוסט 2026. '
+        'בדיקת הכוונה נערכה ב־Google ישראל ללא התאמה אישית, כאשר גוגל הציגה '
+        'את תל אביב יפו כמיקום. המדגם אינו מייצג את כל עורכי הדין בישראל. '
+        'השאילתות היו עורך דין גירושין, עורך דין לענייני משפחה, משרד עורכי '
+        'דין גירושין מומלץ, עורכי דין משפחה מומלצים, עורך דין גירושין מומלץ, '
+        'עורכי דין גירושין מומלצים, עורך דין משפחה מומלץ ועורך דין לענייני '
+        'משפחה מומלץ.</p></section>'
+        + "".join(comparison_cards)
+        + "</main></body></html>"
+    )
+    comparison_candidate_response = FakePageResponse(
+        COMPARISON_PATH, comparison_candidate_html
+    )
+    comparison_candidate_fingerprint = _assert_candidate_page(
+        COMPARISON_PATH, comparison_contract, comparison_candidate_response
+    )
+    if (
+        comparison_candidate_fingerprint["comparison_release_marker_count"] != 1
+        or comparison_candidate_fingerprint["comparison_content_marker_count"] != 1
+        or comparison_candidate_fingerprint["comparison_disclosure_marker_count"] != 1
+        or comparison_candidate_fingerprint["comparison_universe_marker_count"] != 1
+        or comparison_candidate_fingerprint["comparison_evidence_date_marker_count"]
+        != 1
+        or set(comparison_candidate_fingerprint["json_ld_types"])
+        != COMPARISON_SCHEMA_TYPES
+    ):
+        raise RuntimeError("Comparison candidate acceptance evidence is incomplete.")
+
+    comparison_bad_schema = comparison_candidate_html.replace(
+        '"@type":"WebPage"', '"@type":["WebPage","Article"]', 1
+    )
+    try:
+        _assert_candidate_page(
+            COMPARISON_PATH,
+            comparison_contract,
+            FakePageResponse(COMPARISON_PATH, comparison_bad_schema),
+        )
+    except RuntimeError:
+        pass
+    else:
+        raise RuntimeError("Comparison acceptance permitted legacy Article schema.")
+
+    comparison_reviewer_claim = comparison_candidate_html.replace(
+        "</main>",
+        '<p>נבדק מקצועית על ידי עו״ד מאיה רוטנברג</p></main>',
+        1,
+    )
+    try:
+        _assert_candidate_page(
+            COMPARISON_PATH,
+            comparison_contract,
+            FakePageResponse(COMPARISON_PATH, comparison_reviewer_claim),
+        )
+    except RuntimeError:
+        pass
+    else:
+        raise RuntimeError(
+            "Comparison acceptance permitted the unsupported named reviewer claim."
+        )
+
+    comparison_dated_rankings = comparison_candidate_html.replace(
+        "</main>",
+        "<h2>עורכי דין מובילים בדיני משפחה בישראל 2025</h2>"
+        "<h2>המלצות 2026 עורך דין לענייני משפחה מומלץ</h2></main>",
+        1,
+    )
+    try:
+        _assert_candidate_page(
+            COMPARISON_PATH,
+            comparison_contract,
+            FakePageResponse(COMPARISON_PATH, comparison_dated_rankings),
+        )
+    except RuntimeError:
+        pass
+    else:
+        raise RuntimeError(
+            "Comparison acceptance permitted legacy dated ranking headings."
+        )
+
+    comparison_legacy_dates = comparison_candidate_html.replace(
+        "</main>",
+        "<p>2025-09-10</p><p>עודכן: 2026-07-19</p></main>",
+        1,
+    )
+    try:
+        _assert_candidate_page(
+            COMPARISON_PATH,
+            comparison_contract,
+            FakePageResponse(COMPARISON_PATH, comparison_legacy_dates),
+        )
+    except RuntimeError:
+        pass
+    else:
+        raise RuntimeError(
+            "Comparison acceptance permitted legacy publication dates."
+        )
+
+    comparison_unbounded_body = comparison_candidate_html.replace(
+        "</main>",
+        "<p>" + ("טקסט " * (COMPARISON_MAX_BODY_WORDS + 1)) + "</p></main>",
+        1,
+    )
+    try:
+        _assert_candidate_page(
+            COMPARISON_PATH,
+            comparison_contract,
+            FakePageResponse(COMPARISON_PATH, comparison_unbounded_body),
+        )
+    except RuntimeError:
+        pass
+    else:
+        raise RuntimeError("Comparison acceptance permitted an unbounded body.")
+
+    comparison_missing_card = comparison_candidate_html.replace(
+        comparison_cards[0], "", 1
+    )
+    try:
+        _assert_candidate_page(
+            COMPARISON_PATH,
+            comparison_contract,
+            FakePageResponse(COMPARISON_PATH, comparison_missing_card),
+        )
+    except RuntimeError:
+        pass
+    else:
+        raise RuntimeError("Comparison acceptance permitted a missing fact card.")
+
+    comparison_legacy_microdata = comparison_candidate_html.replace(
+        '<main data-jt-comparison-content=',
+        '<main itemscope itemtype="https://schema.org/LegalService" data-jt-comparison-content=',
+        1,
+    )
+    try:
+        _assert_candidate_page(
+            COMPARISON_PATH,
+            comparison_contract,
+            FakePageResponse(COMPARISON_PATH, comparison_legacy_microdata),
+        )
+    except RuntimeError:
+        pass
+    else:
+        raise RuntimeError(
+            "Comparison acceptance permitted legacy Microdata attributes."
+        )
+
+    comparison_prior_html = (
+        '<html><head><title>Legacy comparison title</title>'
+        '<meta name="description" content="Legacy comparison description">'
+        f'<link rel="canonical" href="{comparison_contract["canonical"]}">'
+        '</head><body><h1>Legacy comparison H1</h1><p>Legacy body</p></body></html>'
+    )
+    comparison_prior_response = FakePageResponse(
+        COMPARISON_PATH, comparison_prior_html
+    )
+    comparison_prior_fingerprint = semantic_page_fingerprint(
+        inspect_seo_html(
+            comparison_prior_response.text, comparison_prior_response.headers
+        )
+    )
+    _assert_prior_page(
+        TARGET_BASE_URL,
+        COMPARISON_PATH,
+        comparison_prior_response,
+        comparison_prior_fingerprint,
+    )
+    try:
+        _assert_prior_page(
+            TARGET_BASE_URL,
+            COMPARISON_PATH,
+            comparison_candidate_response,
+            comparison_prior_fingerprint,
+        )
+    except RuntimeError:
+        pass
+    else:
+        raise RuntimeError(
+            "Comparison rollback accepted candidate semantics over the prior baseline."
+        )
+
     maya_prior_html = (
         '<html><head><title>Legacy Maya title</title>'
         '<meta name="description" content="Legacy Maya description">'
@@ -2453,6 +2929,7 @@ def deployment_contract_self_test() -> dict[str, Any]:
             "release_marker_count"
         ],
         "maya_candidate_and_rollback_contracts": True,
+        "comparison_candidate_and_rollback_contracts": True,
     }
 
 

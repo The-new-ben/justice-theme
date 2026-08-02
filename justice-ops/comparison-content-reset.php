@@ -23,7 +23,7 @@ function justice_ops_comparison_content_contract(): array {
 	return array(
 		'path'        => '/the-recommended-family-lawyers/',
 		'h1'          => 'השוואת עורכי דין לענייני משפחה וגירושין לפי נתונים',
-		'seo_title'   => 'עורכי דין מומלצים לענייני משפחה: השוואה | Jus-Tice',
+		'seo_title'   => 'השוואת עורכי דין לענייני משפחה לפי נתונים | Jus-Tice',
 		'description' => 'השוואת עורכי דין לענייני משפחה וגירושין לפי רישום פעיל, תחומי עיסוק, מיקום ומועד קבלה, עם מתודולוגיה, מקורות וגילוי מסחרי.',
 		'canonical'   => 'https://jus-tice.co.il/the-recommended-family-lawyers/',
 	);
@@ -62,10 +62,25 @@ function justice_ops_comparison_bridge_enabled(): bool {
 }
 
 /**
+ * Require the already-reviewed exact-HTML helpers before changing this page.
+ * The Maya profile module is loaded immediately before this module by the
+ * plugin bootstrap. If that invariant changes, the comparison bridge fails
+ * closed instead of leaving a title/body/schema split.
+ */
+function justice_ops_comparison_schema_helpers_available(): bool {
+	return function_exists( 'justice_ops_maya_profile_release_remove_json_ld_scripts' )
+		&& function_exists( 'justice_ops_maya_profile_release_strip_body_structured_attributes' );
+}
+
+/**
  * Register final metadata filters after theme and legacy title modules.
  */
 function justice_ops_install_comparison_metadata_filters(): void {
-	if ( ! justice_ops_comparison_bridge_enabled() || ! justice_ops_comparison_is_target() ) {
+	if (
+		! justice_ops_comparison_bridge_enabled()
+		|| ! justice_ops_comparison_is_target()
+		|| ! justice_ops_comparison_schema_helpers_available()
+	) {
 		return;
 	}
 
@@ -73,10 +88,13 @@ function justice_ops_install_comparison_metadata_filters(): void {
 	add_filter( 'wpseo_title', 'justice_ops_comparison_title', PHP_INT_MAX );
 	add_filter( 'wpseo_opengraph_title', 'justice_ops_comparison_title', PHP_INT_MAX );
 	add_filter( 'wpseo_twitter_title', 'justice_ops_comparison_title', PHP_INT_MAX );
+	add_filter( 'aioseo_title', 'justice_ops_comparison_title', PHP_INT_MAX );
 	add_filter( 'wpseo_metadesc', 'justice_ops_comparison_description', PHP_INT_MAX );
 	add_filter( 'wpseo_opengraph_desc', 'justice_ops_comparison_description', PHP_INT_MAX );
 	add_filter( 'wpseo_twitter_description', 'justice_ops_comparison_description', PHP_INT_MAX );
+	add_filter( 'aioseo_description', 'justice_ops_comparison_description', PHP_INT_MAX );
 	add_filter( 'wpseo_canonical', 'justice_ops_comparison_canonical', PHP_INT_MAX );
+	add_filter( 'wpseo_opengraph_url', 'justice_ops_comparison_canonical', PHP_INT_MAX );
 }
 add_action( 'get_header', 'justice_ops_install_comparison_metadata_filters', PHP_INT_MAX );
 
@@ -114,6 +132,87 @@ function justice_ops_comparison_canonical( $canonical ): string {
 }
 
 /**
+ * Return the complete and deliberately narrow structured-data contract.
+ * Candidate names are not emitted as ItemList entries because this release
+ * does not claim a quality rank or recommendation score.
+ *
+ * @return array<string,mixed>
+ */
+function justice_ops_comparison_schema(): array {
+	$contract = justice_ops_comparison_content_contract();
+
+	return array(
+		'@context' => 'https://schema.org',
+		'@graph'   => array(
+			array(
+				'@type'       => 'WebPage',
+				'@id'         => $contract['canonical'] . '#webpage',
+				'url'         => $contract['canonical'],
+				'name'        => $contract['h1'],
+				'description' => $contract['description'],
+				'inLanguage'  => 'he-IL',
+			),
+			array(
+				'@type'           => 'BreadcrumbList',
+				'@id'             => $contract['canonical'] . '#breadcrumb',
+				'itemListElement' => array(
+					array(
+						'@type'    => 'ListItem',
+						'position' => 1,
+						'name'     => 'Jus-Tice',
+						'item'     => 'https://jus-tice.co.il/',
+					),
+					array(
+						'@type'    => 'ListItem',
+						'position' => 2,
+						'name'     => 'דיני משפחה',
+						'item'     => 'https://jus-tice.co.il/family-law/',
+					),
+					array(
+						'@type'    => 'ListItem',
+						'position' => 3,
+						'name'     => $contract['h1'],
+						'item'     => $contract['canonical'],
+					),
+				),
+			),
+		),
+	);
+}
+
+/**
+ * Remove every legacy JSON-LD graph and insert the one controlled graph.
+ */
+function justice_ops_comparison_control_schema( string $html ): string {
+	if ( ! justice_ops_comparison_schema_helpers_available() ) {
+		return $html;
+	}
+
+	$clean   = justice_ops_maya_profile_release_remove_json_ld_scripts( $html );
+	$options = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;
+	$json    = function_exists( 'wp_json_encode' )
+		? wp_json_encode( justice_ops_comparison_schema(), $options )
+		: json_encode( justice_ops_comparison_schema(), $options );
+
+	if ( ! is_string( $json ) || '' === $json ) {
+		return $clean;
+	}
+
+	$script = '<script type="application/ld+json" id="justice-family-comparison-schema">' . $json . '</script>';
+	if ( false !== stripos( $clean, '</head>' ) ) {
+		$inserted = preg_replace( '#</head>#i', $script . '</head>', $clean, 1 );
+		return is_string( $inserted ) ? $inserted : $clean;
+	}
+
+	if ( false !== stripos( $clean, '<body' ) ) {
+		$inserted = preg_replace( '#<body\b#i', $script . '<body', $clean, 1 );
+		return is_string( $inserted ) ? $inserted : $clean;
+	}
+
+	return $clean;
+}
+
+/**
  * Return the bounded CSS for the fact-only comparison.
  */
 function justice_ops_comparison_styles(): string {
@@ -148,7 +247,11 @@ function justice_ops_comparison_styles(): string {
  * Attach styles only on the allowlisted page.
  */
 function justice_ops_comparison_enqueue_styles(): void {
-	if ( ! justice_ops_comparison_bridge_enabled() || ! justice_ops_comparison_is_target() ) {
+	if (
+		! justice_ops_comparison_bridge_enabled()
+		|| ! justice_ops_comparison_is_target()
+		|| ! justice_ops_comparison_schema_helpers_available()
+	) {
 		return;
 	}
 
@@ -366,13 +469,14 @@ function justice_ops_comparison_public_content_html(): string {
 		. '<li><a href="https://jus-tice.co.il/divorce-costs-2025/">עלויות גירושין, אגרות והוצאות נלוות</a></li>'
 		. '<li><a href="https://jus-tice.co.il/lawyer-fees-guide/">השוואת הצעות שכר טרחה של עורכי דין</a></li>'
 		. '</ul></nav></section>'
-		. '<section class="jt-comparison-method" aria-labelledby="jt-comparison-method-title"><h2 id="jt-comparison-method-title">איך נבנה המדגם</h2>'
-		. '<p>המועמדים אותרו במדגם מצומצם של תוצאות חיפוש עבריות שנבדקו. ההופעה בגוגל שימשה לאיתור בלבד ולא קבעה את סדר ההצגה. לאחר מכן הושוו השם, המעמד, תחומי העיסוק ומען המשרד לכרטיס הציבורי של לשכת עורכי הדין.</p>'
-		. '<p>שלושה עשר כרטיסים מוצגים בסדר אלפביתי לפי שם המשפחה הרשמי. רשומה נוספת אינה מוצגת משום שלא נמצאה התאמת שם מדויקת ונמצאה סתירה בתחום הפעילות. זו החלטת ראיות בלבד, לא קביעה על רישיון או איכות מקצועית.</p>'
-		. '<ul><li>לא ניתן ציון מספרי ולא נעשה שימוש בדירוג כוכבים.</li><li>מועד קבלה אינו הוכחה להתאמה לתיק מסוים.</li><li>תחומי העיסוק ומען המשרד מתארים את הכרטיס הרשמי בלבד.</li><li>תשלום, מיקום בגוגל ומספר ביקורות אינם קובעים את סדר הכרטיסים.</li></ul></section>'
+		. '<section class="jt-comparison-method" data-jt-comparison-universe="u0-2026-08-02" aria-labelledby="jt-comparison-method-title"><h2 id="jt-comparison-method-title">איך נבנה המדגם</h2>'
+		. '<p><strong>אוכלוסיית המחקר המצומצמת, U0:</strong> שמות ספקים מזוהים שנצפו בתוצאות חיפוש עבריות ציבוריות שנאספו ב־1 וב־2 באוגוסט 2026. קבוצת השאילתות כללה עורך דין גירושין, עורך דין לענייני משפחה, משרד עורכי דין גירושין מומלץ, עורכי דין משפחה מומלצים, עורך דין גירושין מומלץ, עורכי דין גירושין מומלצים, עורך דין משפחה מומלץ ועורך דין לענייני משפחה מומלץ. ההופעה בגוגל שימשה לאיתור בלבד ולא הוכיחה איכות או קבעה את סדר ההצגה.</p>'
+		. '<p>בדיקה חוזרת של כוונת ההשוואה נערכה ב־2 באוגוסט 2026 ב־Google ישראל, בעברית, עבור ישראל, ללא התאמה אישית, כאשר גוגל הציגה את תל אביב יפו כמיקום. המדגם מוטה לטובת מי שכבר זכה לחשיפה בחיפוש ואינו מייצג את כל עורכי הדין בישראל.</p>'
+		. '<p>לאחר האיתור הושוו השם, המעמד, תחומי העיסוק, מועד הקבלה ומען המשרד לכרטיס הציבורי של לשכת עורכי הדין. שלושה עשר כרטיסים מוצגים בסדר אלפביתי לפי שם המשפחה הרשמי. רשומה נוספת אינה מוצגת משום שלא נמצאה התאמת שם מדויקת ונמצאה סתירה בתחום הפעילות. זו החלטת ראיות בלבד, לא קביעה על רישיון או איכות מקצועית.</p>'
+		. '<ul><li>לא ניתן ציון מספרי ולא נעשה שימוש בדירוג כוכבים.</li><li>ביקורות חיצוניות לא שימשו להכללה, להחרגה או לסדר.</li><li>מועד קבלה אינו הוכחה להתאמה לתיק מסוים.</li><li>תחומי העיסוק ומען המשרד מתארים את הכרטיס הרשמי בלבד.</li><li>תשלום, מיקום בגוגל ומספר ביקורות אינם קובעים את סדר הכרטיסים.</li></ul></section>'
 		. '<section aria-labelledby="jt-comparison-candidates-title"><h2 id="jt-comparison-candidates-title">השוואה עובדתית בין המועמדים</h2><div class="jt-comparison-grid">' . $cards . '</div></section>'
 		. '<section class="jt-comparison-use" aria-labelledby="jt-comparison-use-title"><h2 id="jt-comparison-use-title">מה לבדוק לפני קביעת פגישה</h2><ol><li>מי יטפל בתיק בפועל ומי צפוי להופיע בדיונים.</li><li>האם תחומי העיסוק הרשומים מתאימים לסוג הבעיה ולשלב שבו אתם נמצאים.</li><li>איך בנוי שכר הטרחה, מה כלול ומה צפוי להיחשב הוצאה נוספת.</li><li>כיצד מתבצעות בדיקת ניגוד עניינים ושמירת מסמכים רגישים.</li><li>אילו מועדים דחופים קיימים ומה אפשר לבצע לפני הפגישה.</li></ol></section>'
-		. '<section class="jt-comparison-editorial" data-jt-comparison-editorial="justice-team"><h2>עריכה, אחריות ותיקון מידע</h2><p><strong>צוות Jus-Tice</strong> אחראי למבנה ההשוואה ולגילוי הקשרים המסחריים. לא מוצגת טענה שעורך דין מסוים בדק את העמוד או ממליץ על המועמדים.</p><p>פרטי מעמד, תחום ומען עשויים להשתנות. לתיקון נתון, השתמשו ב<a href="https://jus-tice.co.il/contact/">עמוד יצירת הקשר</a>, צרפו קישור לעמוד, ציינו את השדה המבוקש והוסיפו מקור תומך. אין לשלוח מסמכים משפטיים או מידע רגיש לצורך תיקון.</p><p>העמוד אינו ייעוץ משפטי, אינו דירוג מקצועי ואינו מבטיח תוצאה.</p></section>'
+		. '<section class="jt-comparison-editorial" data-jt-comparison-editorial="justice-team"><h2>עריכה, אחריות ותיקון מידע</h2><p><strong>צוות Jus-Tice</strong> אחראי למבנה ההשוואה ולגילוי הקשרים המסחריים. חבילת הראיות לגרסה זו ננעלה ב־2 באוגוסט 2026. לא מוצגת טענה שעורך דין מסוים בדק את העמוד או ממליץ על המועמדים.</p><p>פרטי מעמד, תחום ומען עשויים להשתנות. לתיקון נתון, השתמשו ב<a href="https://jus-tice.co.il/contact/">עמוד יצירת הקשר</a>, צרפו קישור לעמוד, ציינו את השדה המבוקש והוסיפו מקור תומך. אין לשלוח מסמכים משפטיים או מידע רגיש לצורך תיקון.</p><p>העמוד אינו ייעוץ משפטי, אינו דירוג מקצועי ואינו מבטיח תוצאה.</p></section>'
 		. '</div>';
 }
 
@@ -406,6 +510,23 @@ function justice_ops_comparison_strip_top_reviewer( string $body ): string {
 	);
 
 	return is_string( $updated ) ? $updated : $body;
+}
+
+/**
+ * Replace the stale article publication row with the exact evidence-check date.
+ * This comparison is a controlled data treatment, not the legacy article.
+ */
+function justice_ops_comparison_control_header_meta( string $body ): string {
+	$replacement = '<div class="single-article__meta" data-jt-comparison-evidence-date="2026-08-02"><span>בדיקת המקורות: 1 וב־2 באוגוסט 2026</span></div>';
+	$updated     = preg_replace(
+		'#<div\b[^>]*class=["\'][^"\']*\bsingle-article__meta\b[^"\']*["\'][^>]*>[\s\S]*?</div>#iu',
+		$replacement,
+		$body,
+		1,
+		$count
+	);
+
+	return is_string( $updated ) && 1 === $count ? $updated : $body;
 }
 
 /**
@@ -494,10 +615,15 @@ function justice_ops_comparison_replace_article_content( string $body ): string 
  * Apply the idempotent, exact-URL rendered-body treatment.
  */
 function justice_ops_comparison_filter_html( string $html ): string {
-	if ( ! justice_ops_comparison_bridge_enabled() || ! justice_ops_comparison_is_target() ) {
+	if (
+		! justice_ops_comparison_bridge_enabled()
+		|| ! justice_ops_comparison_is_target()
+		|| ! justice_ops_comparison_schema_helpers_available()
+	) {
 		return $html;
 	}
 
+	$original      = $html;
 	$body_position = stripos( $html, '<body' );
 	if ( false === $body_position ) {
 		return $html;
@@ -509,9 +635,10 @@ function justice_ops_comparison_filter_html( string $html ): string {
 	$body = justice_ops_comparison_protect_raw_text( $body, $raw );
 	$body = justice_ops_comparison_replace_h1( $body );
 	$body = justice_ops_comparison_strip_top_reviewer( $body );
+	$body = justice_ops_comparison_control_header_meta( $body );
 	$body = justice_ops_comparison_replace_article_content( $body );
 	if ( false === strpos( $body, 'data-jt-comparison-content=' ) ) {
-		return $html;
+		return $original;
 	}
 
 	if ( false === strpos( $body, 'data-jt-comparison-reset=' ) ) {
@@ -527,14 +654,28 @@ function justice_ops_comparison_filter_html( string $html ): string {
 	}
 
 	$body = justice_ops_comparison_restore_raw_text( $body, $raw );
+	$html = $head . $body;
+	$html = justice_ops_maya_profile_release_strip_body_structured_attributes( $html );
+	$html = justice_ops_comparison_control_schema( $html );
+	if (
+		1 !== substr_count( $html, '<script type="application/ld+json" id="justice-family-comparison-schema">' )
+		|| 1 !== substr_count( $html, 'data-jt-comparison-evidence-date="2026-08-02"' )
+	) {
+		return $original;
+	}
 
-	return $head . $body;
+	return $html;
 }
 
 add_action(
 	'template_redirect',
 	static function (): void {
-		if ( is_admin() || ! justice_ops_comparison_bridge_enabled() || ! justice_ops_comparison_is_target() ) {
+		if (
+			is_admin()
+			|| ! justice_ops_comparison_bridge_enabled()
+			|| ! justice_ops_comparison_is_target()
+			|| ! justice_ops_comparison_schema_helpers_available()
+		) {
 			return;
 		}
 

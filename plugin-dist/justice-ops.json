@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.35.3",
+  "version": "2.35.4",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.35.3.zip",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.35.4.zip",
   "last_updated": "2026-08-02",
   "sections": {
-    "changelog": "2.35.3: publish the source-led Maya Rotenberg firm profile with a clear paid-partner disclosure and sponsored-link qualification, add hash-locked Yoast metadata operations, extend exact live acceptance and rollback checks to the preserved profile URL, and disable native Justice Ops auto-updates by default."
+    "changelog": "2.35.4: replace the preserved family-law comparison page with a fact-only U0 sample, disclose Maya Rotenberg as the sole commercial candidate, remove legacy ranking and reviewer claims, emit one controlled WebPage and breadcrumb graph, and extend exact live acceptance and rollback checks to the comparison URL."
   }
 }

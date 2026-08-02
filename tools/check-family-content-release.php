@@ -15,6 +15,7 @@ function wp_parse_url( string $url, int $component = -1 ) { return parse_url( $u
 function esc_html( string $value ): string { return htmlspecialchars( $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8' ); }
 function is_admin(): bool { return false; }
 function wp_strip_all_tags( string $value ): string { return strip_tags( $value ); }
+function wp_json_encode( $value, int $flags = 0 ) { return json_encode( $value, $flags ); }
 
 require_once dirname( __DIR__ ) . '/justice-ops/family-content-release.php';
 
@@ -37,8 +38,12 @@ foreach ( $contracts as $path => $contract ) {
 
 $_SERVER['REQUEST_URI'] = '/family-law/?test=1';
 $sample = <<<'HTML'
-<html><head><title>Old title</title></head><body class="page">
+<html><head><title>Old title</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","name":"Old page"},{"@type":"WebSite","description":"עורכי דין מומלצים"},{"@type":"LegalService","serviceType":"דיני משפחה","hasOfferCatalog":{"@type":"OfferCatalog","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"ייצוג משפטי בדיני משפחה"}}]}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"עורכי דין מומלצים בדיני משפחה | Jus-Tice","mainEntity":{"@type":"ItemList"}}</script>
+</head><body class="page">
 <section class="legal-pillar-hero section"><div><h1 class="old">Old H1</h1><p>Old summary</p><div class="single-article__author"><span>נבדק מקצועית על ידי מאיה רוטנברג</span></div></div></section>
+<section class="legal-pillar-lawyers section"><p class="section-header__eyebrow">נבדקו ונמצאו מובילים</p><h2>משרדי עורכי דין מובילים בדיני משפחה</h2></section>
 <p class="eeat-reviewed-footer"><strong>נבדק על ידי מאיה רוטנברג</strong></p>
 <div class="jt-premium-card"><div class="jt-premium-card__body"><a class="jt-premium-card__name">משרד אחר</a><span class="jt-premium-card__meta">משרד אחר</span><p class="jt-premium-card__bio">ביוגרפיה אחרת</p></div></div>
 <div class="jt-premium-card"><div class="jt-premium-card__body"><a class="jt-premium-card__name">מאיה רוטנברג</a><span class="jt-premium-card__meta">משרד מאיה רוטנברג</span><p class="jt-premium-card__bio">מעל 20 שנה בעיסוק בלעדי</p></div></div>
@@ -53,6 +58,19 @@ $family = $contracts['/family-law/'];
 jt_assert( false !== strpos( $result, '<h1 class="old">' . $family['h1'] . '</h1>' ), 'H1 must match the release contract' );
 jt_assert( false !== strpos( $result, '<p>' . $family['description'] . '</p>' ), 'practice hero summary must match the released excerpt' );
 jt_assert( false === strpos( $result, 'Old summary' ), 'legacy practice hero summary must be absent' );
+jt_assert( 1 === substr_count( $result, 'id="justice-family-law-schema"' ), 'family page must expose one controlled schema graph' );
+foreach ( array( 'LegalService', 'Service', 'Offer', 'OfferCatalog', 'CollectionPage', 'ItemList', 'Article', 'Person', 'Review', 'AggregateRating' ) as $forbidden_schema_type ) {
+	jt_assert( false === strpos( $result, '"@type":"' . $forbidden_schema_type . '"' ), "forbidden schema type must be absent: {$forbidden_schema_type}" );
+}
+foreach ( array( 'WebPage', 'WebSite', 'Organization', 'BreadcrumbList', 'ListItem' ) as $required_schema_type ) {
+	jt_assert( false !== strpos( $result, '"@type":"' . $required_schema_type . '"' ), "required schema type must be present: {$required_schema_type}" );
+}
+jt_assert( false === strpos( $result, 'עורכי דין מומלצים' ), 'recommendation intent must be absent from the family schema' );
+jt_assert( false === strpos( $result, 'ייצוג משפטי בדיני משפחה' ), 'representation offer must be absent from the family schema' );
+jt_assert( false === strpos( $result, 'נבדקו ונמצאו מובילים' ), 'ranking-style eyebrow must be absent' );
+jt_assert( false === strpos( $result, 'משרדי עורכי דין מובילים בדיני משפחה' ), 'ranking-style heading must be absent' );
+jt_assert( false !== strpos( $result, 'משרדים בתחום דיני המשפחה' ), 'neutral eyebrow must be present' );
+jt_assert( false !== strpos( $result, 'משרדי עורכי דין בתחום דיני משפחה' ), 'neutral heading must be present' );
 jt_assert( false === strpos( $result, 'נבדק על ידי' ), 'unsupported bottom reviewer claim must be absent' );
 jt_assert( false === strpos( $result, 'נבדק מקצועית' ), 'unsupported top reviewer claim must be absent' );
 jt_assert( 2 === substr_count( $result, 'data-jt-card-visibility-note="general"' ), 'the same neutral visibility note must appear on both featured cards' );

@@ -93,6 +93,23 @@ _SAFE_EVIDENCE_IDENTIFIER_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,127}$")
 _EVIDENCE_CONTROL_CHARS_RE = re.compile(r"[\x00-\x1f\x7f]")
 
 RELEASE_MARKER = 'data-jt-family-release="2026-08-02-r2"'
+FAMILY_SCHEMA_ID = "justice-family-law-schema"
+FAMILY_SCHEMA_TYPES = {"WebPage", "WebSite", "Organization", "BreadcrumbList", "ListItem"}
+FAMILY_SCHEMA_FORBIDDEN = {
+    "AggregateRating",
+    "Article",
+    "Attorney",
+    "CollectionPage",
+    "FAQPage",
+    "ItemList",
+    "LegalService",
+    "Offer",
+    "OfferCatalog",
+    "Person",
+    "QAPage",
+    "Review",
+    "Service",
+}
 COMPARISON_PATH = "/the-recommended-family-lawyers/"
 COMPARISON_RELEASE_MARKER = 'data-jt-comparison-reset="2026-08-02-r3"'
 COMPARISON_CONTENT_MARKER = 'data-jt-comparison-content="2026-08-02-r3"'
@@ -190,7 +207,7 @@ AFFECTED_PATHS = (
 PAGE_CONTRACTS: dict[str, dict[str, str]] = {
     "/family-law/": {
         "h1": "עורך דין לענייני משפחה לפי סוג ההליך",
-        "title": "עורך דין לענייני משפחה: גירושין, מזונות ומשמורת | Jus-Tice",
+        "title": "עורך דין לענייני משפחה: בחירה לפי סוג המקרה | Jus-Tice",
         "description": "עורך דין לענייני משפחה מטפל בגירושין, מזונות, אחריות הורית, חלוקת רכוש והסכמים. כך מזהים את ההליך, הדחיפות והניסיון שכדאי לבדוק לפני ייצוג.",
         "canonical": "https://jus-tice.co.il/family-law/",
     },
@@ -2273,6 +2290,20 @@ def _assert_candidate_page(path: str, contract: Mapping[str, str], response: Any
             or body.count("הפרטים לא יועברו לעורך דין ללא אישור נוסף ממני") != 1
         ):
             raise RuntimeError(f"Featured-card visibility contract differs on {path}.")
+    if path == "/family-law/":
+        if probe["json_ld_ids"] != [FAMILY_SCHEMA_ID]:
+            raise RuntimeError("Family pillar requires exactly one controlled JSON-LD graph.")
+        observed_types = set(probe["json_ld_types"])
+        if observed_types != FAMILY_SCHEMA_TYPES or observed_types & FAMILY_SCHEMA_FORBIDDEN:
+            raise RuntimeError("Family pillar structured-data contract differs.")
+        if any(
+            marker in body
+            for marker in (
+                "נבדקו ונמצאו מובילים",
+                "משרדי עורכי דין מובילים בדיני משפחה",
+            )
+        ):
+            raise RuntimeError("Family pillar retains ranking-style card language.")
     result = semantic_page_fingerprint(probe)
     result.update(
         {
@@ -2701,6 +2732,102 @@ def deployment_contract_self_test() -> dict[str, Any]:
         pass
     else:
         raise RuntimeError("Rollback accepted an incorrect current-marker assumption over the 2.35.2 baseline.")
+
+    family_contract = PAGE_CONTRACTS["/family-law/"]
+    family_schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": family_contract["canonical"],
+                "url": family_contract["canonical"],
+                "name": family_contract["title"],
+                "description": family_contract["description"],
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://jus-tice.co.il/#website",
+                "name": "Jus-Tice.co.il",
+            },
+            {
+                "@type": "Organization",
+                "@id": "https://jus-tice.co.il/#organization",
+                "name": "Jus-Tice",
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": f'{family_contract["canonical"]}#breadcrumb',
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "עמוד הבית",
+                        "item": "https://jus-tice.co.il/",
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": family_contract["h1"],
+                        "item": family_contract["canonical"],
+                    },
+                ],
+            },
+        ],
+    }
+    family_schema_json = json.dumps(
+        family_schema, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    )
+    family_description_attribute = html_module.escape(
+        family_contract["description"], quote=True
+    )
+    family_candidate_html = (
+        f'<html><head><title>{family_contract["title"]}</title>'
+        f'<meta name="description" content="{family_description_attribute}">'
+        f'<link rel="canonical" href="{family_contract["canonical"]}">'
+        f'<script type="application/ld+json" id="{FAMILY_SCHEMA_ID}">{family_schema_json}</script>'
+        '</head><body data-jt-family-release="2026-08-02-r2">'
+        f'<h1>{family_contract["h1"]}</h1>'
+        '<p data-jt-card-visibility-note="general">הבהרת נראות כללית</p>'
+        '<p>הפרטים לא יועברו לעורך דין ללא אישור נוסף ממני</p>'
+        '</body></html>'
+    )
+    family_candidate_fingerprint = _assert_candidate_page(
+        "/family-law/",
+        family_contract,
+        FakePageResponse("/family-law/", family_candidate_html),
+    )
+    if (
+        family_candidate_fingerprint["json_ld_ids"] != [FAMILY_SCHEMA_ID]
+        or set(family_candidate_fingerprint["json_ld_types"])
+        != FAMILY_SCHEMA_TYPES
+    ):
+        raise RuntimeError("Family candidate schema acceptance evidence is incomplete.")
+    family_bad_schema = family_candidate_html.replace(
+        '"@type":"Organization"', '"@type":"LegalService"', 1
+    )
+    try:
+        _assert_candidate_page(
+            "/family-law/",
+            family_contract,
+            FakePageResponse("/family-law/", family_bad_schema),
+        )
+    except RuntimeError:
+        pass
+    else:
+        raise RuntimeError("Family acceptance permitted LegalService schema.")
+    family_bad_heading = family_candidate_html.replace(
+        "</body>", "<h2>משרדי עורכי דין מובילים בדיני משפחה</h2></body>", 1
+    )
+    try:
+        _assert_candidate_page(
+            "/family-law/",
+            family_contract,
+            FakePageResponse("/family-law/", family_bad_heading),
+        )
+    except RuntimeError:
+        pass
+    else:
+        raise RuntimeError("Family acceptance permitted ranking-style card language.")
 
     maya_contract = PAGE_CONTRACTS[MAYA_PATH]
     maya_schema = {

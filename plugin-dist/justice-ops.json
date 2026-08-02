@@ -10,6 +10,6 @@
   "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.35.8.zip",
   "last_updated": "2026-08-02",
   "sections": {
-    "changelog": "2.35.8: align the family-law pillar Title, H1 and description with its generic family-law owner contract while retaining the focused criminal pillar Hero and exact fail-closed rendered-output gates."
+    "changelog": "2.35.8: align the family-law pillar H1, description, visible card language and structured data with its generic owner contract while retaining the focused criminal pillar Hero and exact fail-closed rendered-output gates."
   }
 }

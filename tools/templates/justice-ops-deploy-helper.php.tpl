@@ -55,6 +55,48 @@ add_action( 'rest_api_init', function () {
 		);
 	};
 
+	$classify_failure = static function ( Throwable $error, string $fallback ): string {
+		$known = array(
+			'The one-time deployment token is invalid.' => 'request_token_invalid',
+			'The target site or release fingerprint changed.' => 'request_target_changed',
+			'The Code Snippets identity API is unavailable.' => 'helper_identity_api_unavailable',
+			'The temporary helper identity changed.' => 'helper_identity_changed',
+			'The temporary helper code hash changed.' => 'helper_code_hash_changed',
+			'The normalized helper self-hash changed.' => 'helper_self_hash_changed',
+			'The operation nonce is absent or invalid.' => 'operation_nonce_invalid',
+			'This Justice Ops deployment state already exists.' => 'run_state_exists',
+			'The bound uPress recovery proof is invalid.' => 'marker_contract_invalid',
+			'The bound uPress recovery marker filename is unsafe.' => 'marker_filename_invalid',
+			'The bounded uPress marker directory is absent or linked.' => 'marker_root_unavailable',
+			'The single-use uPress recovery marker is absent.' => 'marker_absent',
+			'The uPress recovery marker bytes changed.' => 'marker_bytes_mismatch',
+			'The uPress recovery marker payload changed.' => 'marker_payload_mismatch',
+			'The uPress recovery marker is not bound to this exact site and release.' => 'marker_binding_mismatch',
+			'The live plugin path differs from the recovery proof.' => 'marker_plugin_path_mismatch',
+			'The single-use uPress recovery marker cannot be consumed.' => 'marker_consume_failed',
+			'The consumed uPress recovery marker still exists.' => 'marker_consume_readback_failed',
+			'An unknown deployment lock exists and requires manual recovery.' => 'foreign_lock_unknown_contract',
+			'An active or recently expired deployment lock exists.' => 'foreign_lock_recent',
+			'The stale lock recovery paths are outside the bounded policy.' => 'foreign_lock_paths_unbounded',
+			'A stale lock still has recovery state, files or a helper; automatic reclaim is forbidden.' => 'foreign_lock_has_recovery',
+			'The exclusive Justice Ops deployment lock cannot be acquired.' => 'lock_insert_conflict',
+			'The exclusive Justice Ops deployment lock failed exact readback.' => 'lock_readback_failed',
+			'The expected prior Justice Ops plugin is not active.' => 'prior_inactive_or_missing',
+			'The live Justice Ops version differs from the prior pin.' => 'prior_version_mismatch',
+			'The live plugin changed during snapshot preparation.' => 'prior_tree_changed',
+			'The bounded server recovery root already exists.' => 'backup_root_preexists',
+			'The bounded server recovery root cannot be created.' => 'backup_root_create_failed',
+			'The fresh server recovery copy differs from live.' => 'backup_copy_mismatch',
+			'Free disk space cannot be measured.' => 'disk_measurement_failed',
+			'Free disk space cannot hold every bounded deploy and recovery copy.' => 'disk_capacity_insufficient',
+		);
+		$message = $error->getMessage();
+		if ( isset( $known[ $message ] ) ) {
+			return $known[ $message ];
+		}
+		return 1 === preg_match( '/^[a-z0-9_]{3,80}$/', $fallback ) ? $fallback : 'unexpected_failure';
+	};
+
 	$inspect_directory = static function ( string $directory, bool $include_data = false ) use ( $max_files, $max_file_bytes, $max_plugin_bytes ): array {
 		$directory = untrailingslashit( $directory );
 		if ( ! is_dir( $directory ) || is_link( $directory ) ) {
@@ -185,6 +227,11 @@ add_action( 'rest_api_init', function () {
 		return @rmdir( $directory );
 	};
 
+	$invalidate_option_cache = static function ( string $option_name ): void {
+		wp_cache_delete( $option_name, 'options' );
+		wp_cache_delete( 'notoptions', 'options' );
+	};
+
 	$get_raw_option = static function ( string $option_name ): array {
 		global $wpdb;
 		$row = $wpdb->get_row(
@@ -225,7 +272,7 @@ add_action( 'rest_api_init', function () {
 		}
 	};
 
-	$delete_raw_option_cas = static function ( string $option_name, string $expected_raw ) use ( $assert_raw_option ): bool {
+	$delete_raw_option_cas = static function ( string $option_name, string $expected_raw ) use ( $assert_raw_option, $invalidate_option_cache ): bool {
 		global $wpdb;
 		$rows = $wpdb->query(
 			$wpdb->prepare(
@@ -237,17 +284,66 @@ add_action( 'rest_api_init', function () {
 		if ( 1 !== $rows || '' !== (string) $wpdb->last_error ) {
 			throw new RuntimeException( 'An exact option CAS delete failed: ' . $option_name );
 		}
-		wp_cache_delete( $option_name, 'options' );
+		$invalidate_option_cache( $option_name );
 		$assert_raw_option( $option_name, null );
+		if ( null !== get_option( $option_name, null ) ) {
+			throw new RuntimeException( 'An exact option CAS delete remained visible through the option API: ' . $option_name );
+		}
 		return true;
 	};
 
-	$persist_new_state = static function ( string $option_name, array $state ) use ( $get_raw_option, $raw_option_value, $assert_raw_option ): array {
+	$acquire_raw_option_once = static function ( string $option_name, string $raw_value ) use ( $get_raw_option, $raw_option_value, $invalidate_option_cache ): array {
+		global $wpdb;
+		$invalidate_option_cache( $option_name );
+		$rows = $wpdb->query(
+			$wpdb->prepare(
+				"INSERT IGNORE INTO {$wpdb->options} (option_name, option_value, autoload) VALUES (%s, %s, %s)",
+				$option_name,
+				$raw_value,
+				'no'
+			)
+		);
+		if ( false === $rows || '' !== (string) $wpdb->last_error ) {
+			throw new RuntimeException( 'The exclusive lock insert failed at the database boundary.' );
+		}
+		if ( 1 !== $rows ) {
+			$observed = $raw_option_value( $get_raw_option( $option_name ) );
+			return array(
+				'inserted'              => false,
+				'verified'              => false,
+				'conflict_raw_present'  => is_string( $observed ),
+				'conflict_raw_sha256'   => is_string( $observed ) ? hash( 'sha256', $observed ) : '',
+			);
+		}
+
+		$invalidate_option_cache( $option_name );
+		try {
+			$observed = $raw_option_value( $get_raw_option( $option_name ) );
+			$api_value = get_option( $option_name, null );
+			$verified = is_string( $observed ) && hash_equals( $raw_value, $observed ) && is_string( $api_value ) && hash_equals( $raw_value, $api_value );
+			return array(
+				'inserted'              => true,
+				'verified'              => $verified,
+				'raw_sha256'            => is_string( $observed ) ? hash( 'sha256', $observed ) : '',
+				'api_sha256'            => is_string( $api_value ) ? hash( 'sha256', $api_value ) : '',
+				'raw_api_match'         => $verified,
+			);
+		} catch ( Throwable $error ) {
+			return array(
+				'inserted'              => true,
+				'verified'              => false,
+				'readback_error_sha256' => hash( 'sha256', $error->getMessage() ),
+			);
+		}
+	};
+
+	$persist_new_state = static function ( string $option_name, array $state ) use ( $get_raw_option, $raw_option_value, $assert_raw_option, $invalidate_option_cache ): array {
 		$raw = maybe_serialize( $state );
+		$invalidate_option_cache( $option_name );
 		if ( ! is_string( $raw ) || ! add_option( $option_name, $state, '', false ) ) {
 			throw new RuntimeException( 'The bounded deployment state cannot be persisted.' );
 		}
-		wp_cache_delete( $option_name, 'options' );
+		$invalidate_option_cache( $option_name );
 		$assert_raw_option( $option_name, $raw );
 		$readback = $raw_option_value( $get_raw_option( $option_name ) );
 		if ( ! is_string( $readback ) || ! hash_equals( $raw, $readback ) ) {
@@ -256,7 +352,7 @@ add_action( 'rest_api_init', function () {
 		return $state;
 	};
 
-	$cas_state = static function ( array $expected, array $next ) use ( $state_option, $assert_raw_option ): array {
+	$cas_state = static function ( array $expected, array $next ) use ( $state_option, $assert_raw_option, $invalidate_option_cache ): array {
 		global $wpdb;
 		$expected_raw = maybe_serialize( $expected );
 		$next_raw     = maybe_serialize( $next );
@@ -274,7 +370,7 @@ add_action( 'rest_api_init', function () {
 		if ( 1 !== $rows || '' !== (string) $wpdb->last_error ) {
 			throw new RuntimeException( 'The atomic deployment state transition lost its CAS.' );
 		}
-		wp_cache_delete( $state_option, 'options' );
+		$invalidate_option_cache( $state_option );
 		$assert_raw_option( $state_option, $next_raw );
 		$readback = get_option( $state_option, null );
 		if ( ! is_array( $readback ) || maybe_serialize( $readback ) !== $next_raw ) {
@@ -594,7 +690,7 @@ add_action( 'rest_api_init', function () {
 		);
 	};
 
-	$consume_recovery_marker = static function () use ( $expected_recovery_proof, $expected_marker_sha256, $expected_marker_bytes, $expected_plugin_slug, $expected_base_url, $expected_commit_sha, $expected_artifact_sha256, $expected_prior_version ): array {
+	$inspect_recovery_marker = static function ( bool $consume = false ) use ( $expected_recovery_proof, $expected_marker_sha256, $expected_marker_bytes, $expected_plugin_slug, $expected_base_url, $expected_commit_sha, $expected_artifact_sha256, $expected_prior_version ): array {
 		if ( ! is_array( $expected_recovery_proof ) ) {
 			throw new RuntimeException( 'The bound uPress recovery proof is invalid.' );
 		}
@@ -638,18 +734,23 @@ add_action( 'rest_api_init', function () {
 		if ( substr( $normalized_plugin, -strlen( '/wp-content/plugins/justice-ops' ) ) !== '/wp-content/plugins/justice-ops' ) {
 			throw new RuntimeException( 'The live plugin path differs from the recovery proof.', 409 );
 		}
-		if ( ! @unlink( $marker ) ) {
-			throw new RuntimeException( 'The single-use uPress recovery marker cannot be consumed.' );
-		}
-		clearstatcache( true, $marker );
-		if ( file_exists( $marker ) || is_link( $marker ) ) {
-			throw new RuntimeException( 'The consumed uPress recovery marker still exists.' );
+		if ( $consume ) {
+			if ( ! @unlink( $marker ) ) {
+				throw new RuntimeException( 'The single-use uPress recovery marker cannot be consumed.' );
+			}
+			clearstatcache( true, $marker );
+			if ( file_exists( $marker ) || is_link( $marker ) ) {
+				throw new RuntimeException( 'The consumed uPress recovery marker still exists.' );
+			}
 		}
 		return array(
 			'contract'        => 'justice-ops-upress-recovery-proof-v2',
 			'marker_sha256'   => $expected_marker_sha256,
 			'marker_filename' => $filename,
-			'single_use_deleted'=> true,
+			'marker_bytes'    => $expected_marker_bytes,
+			'marker_present'  => ! $consume,
+			'single_use_deleted'=> $consume,
+			'consumed'        => $consume,
 			'upress_pid'      => 90517,
 			'marker_path'     => 'wp-content/upgrade/' . $filename,
 		);
@@ -841,40 +942,142 @@ add_action( 'rest_api_init', function () {
 		);
 	};
 
-	$reclaim_stale_lock = static function () use ( $lock_option, $get_raw_option, $raw_option_value, $delete_raw_option_cas, $stale_lock_seconds ): array {
-		$raw = $raw_option_value( $get_raw_option( $lock_option ) );
-		if ( null === $raw ) {
-			return array( 'present' => false, 'reclaimed' => false );
+	$inspect_deploy_lock = static function () use ( $lock_option, $get_raw_option, $raw_option_value, $stale_lock_seconds ): array {
+		$record = $get_raw_option( $lock_option );
+		$raw = $raw_option_value( $record );
+		$api_value = get_option( $lock_option, null );
+		$notoptions = wp_cache_get( 'notoptions', 'options' );
+		$raw_autoload = is_string( $raw ) ? (string) ( $record['autoload'] ?? '' ) : '';
+		$summary = array(
+			'raw_present'             => is_string( $raw ),
+			'raw_sha256'              => is_string( $raw ) ? hash( 'sha256', $raw ) : '',
+			'raw_autoload'            => in_array( $raw_autoload, array( 'yes', 'no', 'on', 'off', 'auto', 'auto-on', 'auto-off' ), true ) ? $raw_autoload : '',
+			'raw_autoload_sha256'     => '' === $raw_autoload ? '' : hash( 'sha256', $raw_autoload ),
+			'api_present'             => is_string( $api_value ),
+			'api_sha256'              => is_string( $api_value ) ? hash( 'sha256', $api_value ) : '',
+			'raw_api_match'           => null === $raw ? null === $api_value : is_string( $api_value ) && hash_equals( $raw, $api_value ),
+			'notoptions_contains_lock'=> is_array( $notoptions ) && isset( $notoptions[ $lock_option ] ),
+			'recognized_contract'     => false,
+			'paths_bounded'           => false,
+			'recent'                  => false,
+			'reclaimable'             => false,
+			'state_present'           => false,
+			'backup_present'          => false,
+			'helper_present'          => false,
+			'helper_inspection_available'=> function_exists( 'Code_Snippets\\get_snippet' ),
+		);
+		if ( ! is_string( $raw ) ) {
+			return $summary;
 		}
+
 		$decoded = json_decode( $raw, true );
 		if ( ! is_array( $decoded ) || 'justice-ops-deploy-lock-v2' !== (string) ( $decoded['contract'] ?? '' ) ) {
-			throw new RuntimeException( 'An unknown deployment lock exists and requires manual recovery.', 409 );
+			return $summary;
 		}
-		$expires = (int) ( $decoded['lease_expires_epoch'] ?? 0 );
+		$summary['recognized_contract'] = true;
+		$foreign_run_id = (string) ( $decoded['run_id'] ?? '' );
+		$summary['owner_run_sha256'] = hash( 'sha256', $foreign_run_id );
+		$summary['helper_id'] = (int) ( $decoded['helper_id'] ?? 0 );
+		$summary['acquired_epoch'] = (int) ( $decoded['acquired_epoch'] ?? 0 );
+		$summary['lease_expires_epoch'] = (int) ( $decoded['lease_expires_epoch'] ?? 0 );
+		$summary['expired_by_seconds'] = time() - (int) $summary['lease_expires_epoch'];
+		$summary['recent'] = (int) $summary['lease_expires_epoch'] <= 0 || time() <= (int) $summary['lease_expires_epoch'] + $stale_lock_seconds;
+
 		$foreign_state = (string) ( $decoded['state_option'] ?? '' );
 		$foreign_backup = wp_normalize_path( (string) ( $decoded['backup_root'] ?? '' ) );
 		$allowed_backup_prefix = wp_normalize_path( WP_CONTENT_DIR . '/upgrade/.justice-ops-recovery-' );
-		if ( $expires <= 0 || time() <= $expires + $stale_lock_seconds ) {
+		$state_bounded = 1 === preg_match( '/^justice_ops_deploy_state_[0-9a-f]{20}$/', $foreign_state );
+		$backup_bounded = 1 === preg_match( '#^' . preg_quote( $allowed_backup_prefix, '#' ) . '[0-9a-f]{20}$#', $foreign_backup );
+		$identity_bounded = 1 === preg_match( '/^justice-ops-install-[0-9]{8}T[0-9]{6}Z-[a-f0-9]{8}$/', $foreign_run_id ) && (int) $summary['helper_id'] > 0;
+		$summary['identity_bounded'] = $identity_bounded;
+		$summary['paths_bounded'] = $state_bounded && $backup_bounded && $identity_bounded;
+		$summary['state_option_sha256'] = '' === $foreign_state ? '' : hash( 'sha256', $foreign_state );
+		$summary['backup_root_sha256'] = '' === $foreign_backup ? '' : hash( 'sha256', $foreign_backup );
+
+		if ( $state_bounded ) {
+			$state_record = $get_raw_option( $foreign_state );
+			$state_raw = $raw_option_value( $state_record );
+			$summary['state_present'] = is_string( $state_raw );
+			$summary['state_raw_sha256'] = is_string( $state_raw ) ? hash( 'sha256', $state_raw ) : '';
+			$state = is_string( $state_raw ) ? maybe_unserialize( $state_raw ) : null;
+			if ( is_array( $state ) ) {
+				$operation = isset( $state['operation'] ) && is_array( $state['operation'] ) ? $state['operation'] : array();
+				$last = isset( $state['last_operation'] ) && is_array( $state['last_operation'] ) ? $state['last_operation'] : array();
+				$phase = (string) ( $state['phase'] ?? '' );
+				$operation_name = (string) ( $operation['name'] ?? '' );
+				$last_operation_name = (string) ( $last['name'] ?? '' );
+				$summary['state_summary'] = array(
+					'phase'                 => 1 === preg_match( '/^[a-z0-9_]{1,80}$/', $phase ) ? $phase : '',
+					'phase_sha256'          => '' === $phase ? '' : hash( 'sha256', $phase ),
+					'state_revision'        => (int) ( $state['state_revision'] ?? 0 ),
+					'mutation_started'      => ! empty( $state['mutation_started'] ),
+					'operation_active'      => ! empty( $operation['active'] ),
+					'operation_name'        => 1 === preg_match( '/^[a-z0-9_]{1,80}$/', $operation_name ) ? $operation_name : '',
+					'operation_name_sha256' => '' === $operation_name ? '' : hash( 'sha256', $operation_name ),
+					'lease_expires_epoch'   => (int) ( $operation['lease_expires_epoch'] ?? 0 ),
+					'last_operation_name'   => 1 === preg_match( '/^[a-z0-9_]{1,80}$/', $last_operation_name ) ? $last_operation_name : '',
+					'last_operation_name_sha256'=> '' === $last_operation_name ? '' : hash( 'sha256', $last_operation_name ),
+				);
+			}
+		}
+		if ( $backup_bounded ) {
+			$summary['backup_present'] = file_exists( $foreign_backup ) || is_link( $foreign_backup );
+			$summary['backup_is_link'] = is_link( $foreign_backup );
+		}
+
+		$foreign_helper_id = (int) $summary['helper_id'];
+		if ( $foreign_helper_id > 0 && ! empty( $summary['helper_inspection_available'] ) ) {
+			$foreign_helper = \Code_Snippets\get_snippet( $foreign_helper_id, false );
+			$summary['helper_present'] = (bool) $foreign_helper && (int) $foreign_helper->id === $foreign_helper_id;
+			if ( $summary['helper_present'] ) {
+				$summary['helper_active'] = (bool) $foreign_helper->active;
+				$summary['helper_name_sha256'] = hash( 'sha256', (string) $foreign_helper->name );
+				$summary['helper_code_sha256'] = hash( 'sha256', (string) $foreign_helper->code );
+			}
+		}
+
+		$summary['reclaimable'] = $summary['recognized_contract'] && $summary['paths_bounded'] && ! empty( $summary['helper_inspection_available'] ) && ! $summary['recent'] && ! $summary['state_present'] && ! $summary['backup_present'] && ! $summary['helper_present'];
+		return $summary;
+	};
+
+	$assert_lock_preflight = static function ( array $inspection ): void {
+		if ( empty( $inspection['raw_present'] ) ) {
+			return;
+		}
+		if ( empty( $inspection['recognized_contract'] ) ) {
+			throw new RuntimeException( 'An unknown deployment lock exists and requires manual recovery.', 409 );
+		}
+		if ( ! empty( $inspection['recent'] ) ) {
 			throw new RuntimeException( 'An active or recently expired deployment lock exists.', 409 );
 		}
-		if ( 1 !== preg_match( '/^justice_ops_deploy_state_[0-9a-f]{20}$/', $foreign_state ) || 0 !== strpos( $foreign_backup, $allowed_backup_prefix ) ) {
+		if ( empty( $inspection['paths_bounded'] ) ) {
 			throw new RuntimeException( 'The stale lock recovery paths are outside the bounded policy.', 409 );
 		}
-		$foreign_helper_id = (int) ( $decoded['helper_id'] ?? 0 );
-		$foreign_helper_present = false;
-		if ( $foreign_helper_id > 0 && function_exists( 'Code_Snippets\\get_snippet' ) ) {
-			$foreign_helper = \Code_Snippets\get_snippet( $foreign_helper_id, false );
-			$foreign_helper_present = (bool) $foreign_helper && (int) $foreign_helper->id === $foreign_helper_id;
-		}
-		if ( null !== get_option( $foreign_state, null ) || file_exists( $foreign_backup ) || is_link( $foreign_backup ) || $foreign_helper_present ) {
+		if ( ! empty( $inspection['state_present'] ) || ! empty( $inspection['backup_present'] ) || ! empty( $inspection['helper_present'] ) ) {
 			throw new RuntimeException( 'A stale lock still has recovery state, files or a helper; automatic reclaim is forbidden.', 409 );
+		}
+		if ( empty( $inspection['reclaimable'] ) ) {
+			throw new RuntimeException( 'An unknown deployment lock exists and requires manual recovery.', 409 );
+		}
+	};
+
+	$reclaim_stale_lock = static function () use ( $lock_option, $get_raw_option, $raw_option_value, $delete_raw_option_cas, $inspect_deploy_lock, $assert_lock_preflight ): array {
+		$inspection = $inspect_deploy_lock();
+		if ( empty( $inspection['raw_present'] ) ) {
+			return array( 'present' => false, 'reclaimed' => false, 'inspection' => $inspection );
+		}
+		$assert_lock_preflight( $inspection );
+		$raw = $raw_option_value( $get_raw_option( $lock_option ) );
+		if ( ! is_string( $raw ) || ! hash_equals( (string) $inspection['raw_sha256'], hash( 'sha256', $raw ) ) ) {
+			throw new RuntimeException( 'The deployment lock changed after preflight.', 409 );
 		}
 		$delete_raw_option_cas( $lock_option, $raw );
 		return array(
 			'present'              => true,
 			'reclaimed'            => true,
-			'prior_run_id_sha256'  => hash( 'sha256', (string) ( $decoded['run_id'] ?? '' ) ),
-			'expired_by_seconds'   => time() - $expires,
+			'prior_run_id_sha256'  => (string) ( $inspection['owner_run_sha256'] ?? '' ),
+			'expired_by_seconds'   => (int) ( $inspection['expired_by_seconds'] ?? 0 ),
+			'inspection'           => $inspection,
 		);
 	};
 
@@ -941,24 +1144,40 @@ add_action( 'rest_api_init', function () {
 
 	register_rest_route(
 		'justice-ops-deploy/v1',
-		$expected_route_base . '/prepare',
+		$expected_route_base . '/preflight',
 		array(
 			'methods'             => 'POST',
 			'permission_callback' => $permission,
-			'callback'            => static function ( WP_REST_Request $request ) use ( $verify_request, $error_response, $consume_recovery_marker, $reclaim_stale_lock, $assert_disk_capacity, $persist_new_state, $delete_raw_option_cas, $assert_raw_option, $assert_lock, $expected_run_id, $expected_helper_id, $expected_helper_name, $expected_token_sha256, $expected_commit_sha, $expected_prior_version, $expected_plugin, $expected_plugin_slug, $expected_backup_root, $lock_option, $state_option, $scoped_option_names, $inspect_directory, $copy_directory, $remove_directory, $get_raw_option, $database_preconditions, $operation_lease_seconds ): WP_REST_Response {
-				$backup_root = '';
-				$lock_value  = '';
-				$state_persisted = false;
+			'callback'            => static function ( WP_REST_Request $request ) use ( $verify_request, $error_response, $classify_failure, $inspect_recovery_marker, $inspect_deploy_lock, $assert_lock_preflight, $assert_disk_capacity, $expected_prior_version, $expected_plugin, $expected_plugin_slug, $expected_backup_root, $state_option, $get_raw_option, $inspect_directory ): WP_REST_Response {
+				$request_verified = false;
+				$state_present = false;
+				$backup_root_present = false;
+				$failure_stage = 'request_verification';
+				$marker_inspection = array();
+				$lock_inspection = array();
+				$prior_identity = array();
+				$disk = array();
 				try {
 					$operation_nonce = $verify_request( $request );
-					if ( null !== get_option( $state_option, null ) ) {
+					$request_verified = true;
+					$failure_stage = 'run_state_inspection';
+					$state_record = $get_raw_option( $state_option );
+					$state_present = ! empty( $state_record['exists'] );
+					if ( $state_present ) {
 						throw new RuntimeException( 'This Justice Ops deployment state already exists.', 409 );
 					}
-					$recovery_proof = $consume_recovery_marker();
-					$stale_lock = $reclaim_stale_lock();
+					$failure_stage = 'backup_root_inspection';
+					$backup_root_present = file_exists( $expected_backup_root ) || is_link( $expected_backup_root );
+					if ( $backup_root_present ) {
+						throw new RuntimeException( 'The bounded server recovery root already exists.', 409 );
+					}
+
+					$failure_stage = 'marker_inspection';
+					$marker_inspection = $inspect_recovery_marker( false );
 					require_once ABSPATH . 'wp-admin/includes/plugin.php';
 					$plugin_dir = WP_PLUGIN_DIR . '/' . $expected_plugin_slug;
 					$plugin_file = WP_PLUGIN_DIR . '/' . $expected_plugin;
+					$failure_stage = 'prior_identity_inspection';
 					if ( ! is_plugin_active( $expected_plugin ) || ! is_file( $plugin_file ) ) {
 						throw new RuntimeException( 'The expected prior Justice Ops plugin is not active.', 409 );
 					}
@@ -967,7 +1186,135 @@ add_action( 'rest_api_init', function () {
 						throw new RuntimeException( 'The live Justice Ops version differs from the prior pin.', 409 );
 					}
 					$prior = $inspect_directory( $plugin_dir, false );
+					$prior_identity = array(
+						'version'          => $expected_prior_version,
+						'active'           => true,
+						'file_count'       => (int) $prior['file_count'],
+						'expanded_bytes'   => (int) $prior['expanded_bytes'],
+						'directory_sha256' => (string) $prior['directory_sha256'],
+					);
+					$failure_stage = 'disk_preflight';
+					$disk = $assert_disk_capacity( 'preflight', (int) $prior['expanded_bytes'] );
+					$failure_stage = 'lock_preflight';
+					$lock_inspection = $inspect_deploy_lock();
+					$assert_lock_preflight( $lock_inspection );
+
+					return new WP_REST_Response(
+						array(
+							'success'                    => true,
+							'operation'                  => 'preflight',
+							'ready'                      => true,
+							'state'                      => 'preflight_ready',
+							'marker_inspection'          => $marker_inspection,
+							'lock_inspection'            => $lock_inspection,
+							'prior_identity'             => $prior_identity,
+							'disk_capacity'              => $disk,
+							'candidate_mutation_started' => false,
+							'state_persisted'            => false,
+							'state_absent_after'         => true,
+							'own_lock_acquired'          => false,
+							'own_lock_absent_after'      => true,
+							'backup_root_created'        => false,
+							'backup_root_absent_after'   => true,
+							'marker_consumed'            => false,
+							'safe_to_retire_helper'      => true,
+							'foreign_lock_present'       => ! empty( $lock_inspection['raw_present'] ),
+							'operation_nonce_sha256'     => hash( 'sha256', $operation_nonce ),
+						),
+						200
+					);
+				} catch ( Throwable $error ) {
+					$status = (int) $error->getCode();
+					$safe = $request_verified && ! $state_present && ! $backup_root_present;
+					return $error_response(
+						'justice_ops_preflight_failed',
+						$error->getMessage(),
+						$status >= 400 && $status <= 599 ? $status : 500,
+						array(
+							'failure_reason'             => $classify_failure( $error, $failure_stage ),
+							'failure_stage'              => $failure_stage,
+							'ready'                      => false,
+							'marker_inspection'          => $marker_inspection,
+							'lock_inspection'            => $lock_inspection,
+							'prior_identity'             => $prior_identity,
+							'disk_capacity'              => $disk,
+							'candidate_mutation_started' => false,
+							'state_persisted'            => $state_present,
+							'state_absent_after'         => ! $state_present,
+							'own_lock_acquired'          => false,
+							'own_lock_absent_after'      => true,
+							'backup_root_created'        => false,
+							'backup_root_absent_after'   => ! $backup_root_present,
+							'marker_consumed'            => false,
+							'safe_to_retire_helper'      => $safe,
+							'foreign_lock_present'       => ! empty( $lock_inspection['raw_present'] ),
+						)
+					);
+				}
+			},
+		)
+	);
+
+	register_rest_route(
+		'justice-ops-deploy/v1',
+		$expected_route_base . '/prepare',
+		array(
+			'methods'             => 'POST',
+			'permission_callback' => $permission,
+			'callback'            => static function ( WP_REST_Request $request ) use ( $verify_request, $error_response, $classify_failure, $inspect_recovery_marker, $inspect_deploy_lock, $reclaim_stale_lock, $acquire_raw_option_once, $assert_disk_capacity, $persist_new_state, $delete_raw_option_cas, $assert_lock, $expected_run_id, $expected_helper_id, $expected_helper_name, $expected_token_sha256, $expected_commit_sha, $expected_prior_version, $expected_plugin, $expected_plugin_slug, $expected_backup_root, $lock_option, $state_option, $scoped_option_names, $inspect_directory, $copy_directory, $remove_directory, $get_raw_option, $raw_option_value, $database_preconditions, $operation_lease_seconds ): WP_REST_Response {
+				$backup_root         = $expected_backup_root;
+				$lock_value          = '';
+				$operation_nonce     = '';
+				$failure_stage       = 'request_verification';
+				$request_verified     = false;
+				$lock_acquired       = false;
+				$marker_consumed      = false;
+				$backup_root_created = false;
+				$state_persisted      = false;
+				$state                = array();
+				$marker_inspection    = array();
+				$lock_inspection      = array();
+				$lock_acquisition     = array();
+				$prior_identity       = array();
+				$disk                 = array();
+				$stale_lock           = array();
+				$recovery_proof       = array();
+				try {
+					$operation_nonce = $verify_request( $request );
+					$request_verified = true;
+					$failure_stage = 'run_state_inspection';
+					$state_record = $get_raw_option( $state_option );
+					if ( ! empty( $state_record['exists'] ) ) {
+						throw new RuntimeException( 'This Justice Ops deployment state already exists.', 409 );
+					}
+
+					$failure_stage = 'marker_revalidation';
+					$marker_inspection = $inspect_recovery_marker( false );
+					require_once ABSPATH . 'wp-admin/includes/plugin.php';
+					$plugin_dir = WP_PLUGIN_DIR . '/' . $expected_plugin_slug;
+					$plugin_file = WP_PLUGIN_DIR . '/' . $expected_plugin;
+					$failure_stage = 'prior_identity_inspection';
+					if ( ! is_plugin_active( $expected_plugin ) || ! is_file( $plugin_file ) ) {
+						throw new RuntimeException( 'The expected prior Justice Ops plugin is not active.', 409 );
+					}
+					$data = get_plugin_data( $plugin_file, false, false );
+					if ( (string) ( $data['Version'] ?? '' ) !== $expected_prior_version ) {
+						throw new RuntimeException( 'The live Justice Ops version differs from the prior pin.', 409 );
+					}
+					$prior = $inspect_directory( $plugin_dir, false );
+					$prior_identity = array(
+						'version'          => $expected_prior_version,
+						'active'           => true,
+						'file_count'       => (int) $prior['file_count'],
+						'expanded_bytes'   => (int) $prior['expanded_bytes'],
+						'directory_sha256' => (string) $prior['directory_sha256'],
+					);
+					$failure_stage = 'disk_preflight';
 					$disk = $assert_disk_capacity( 'prepare', (int) $prior['expanded_bytes'] );
+
+					$failure_stage = 'lock_preflight_and_reclaim';
+					$lock_inspection = $inspect_deploy_lock();
+					$stale_lock = $reclaim_stale_lock();
 					$now = time();
 					$lock_value = wp_json_encode(
 						array(
@@ -984,15 +1331,28 @@ add_action( 'rest_api_init', function () {
 							'lease_expires_epoch' => $now + $operation_lease_seconds,
 						)
 					);
-					if ( ! is_string( $lock_value ) || ! add_option( $lock_option, $lock_value, '', false ) ) {
+					if ( ! is_string( $lock_value ) ) {
+						throw new RuntimeException( 'The exclusive Justice Ops deployment lock cannot be encoded.' );
+					}
+					$failure_stage = 'exclusive_lock_acquisition';
+					$lock_acquisition = $acquire_raw_option_once( $lock_option, $lock_value );
+					$lock_acquired = ! empty( $lock_acquisition['inserted'] );
+					if ( ! $lock_acquired ) {
 						throw new RuntimeException( 'The exclusive Justice Ops deployment lock cannot be acquired.', 409 );
 					}
-					wp_cache_delete( $lock_option, 'options' );
-					$assert_raw_option( $lock_option, $lock_value );
-					$backup_root = $expected_backup_root;
+					if ( empty( $lock_acquisition['verified'] ) ) {
+						throw new RuntimeException( 'The exclusive Justice Ops deployment lock failed exact readback.', 409 );
+					}
+
+					$failure_stage = 'marker_consumption';
+					$recovery_proof = $inspect_recovery_marker( true );
+					$marker_consumed = true;
+					$failure_stage = 'backup_root_creation';
 					if ( file_exists( $backup_root ) || is_link( $backup_root ) || ! wp_mkdir_p( $backup_root ) ) {
 						throw new RuntimeException( 'The bounded server recovery root cannot be created.' );
 					}
+					$backup_root_created = true;
+					$failure_stage = 'backup_snapshot';
 					$backup = $copy_directory( $plugin_dir, trailingslashit( $backup_root ) . 'plugin' );
 					if ( $backup['files'] !== $prior['files'] || $backup['directory_sha256'] !== $prior['directory_sha256'] ) {
 						throw new RuntimeException( 'The fresh server recovery copy differs from live.' );
@@ -1001,7 +1361,9 @@ add_action( 'rest_api_init', function () {
 					foreach ( $scoped_option_names as $option_name ) {
 						$option_snapshot[ $option_name ] = $get_raw_option( $option_name );
 					}
+					$failure_stage = 'database_preconditions';
 					$db = $database_preconditions();
+					$failure_stage = 'immediate_prior_revalidation';
 					$immediate_prior = $inspect_directory( $plugin_dir, false );
 					$data = get_plugin_data( $plugin_file, false, false );
 					if ( ! is_plugin_active( $expected_plugin ) || (string) ( $data['Version'] ?? '' ) !== $expected_prior_version || $immediate_prior['files'] !== $prior['files'] || $immediate_prior['directory_sha256'] !== $prior['directory_sha256'] ) {
@@ -1036,8 +1398,10 @@ add_action( 'rest_api_init', function () {
 						),
 						'prepared_at_utc'         => gmdate( 'c' ),
 					);
+					$failure_stage = 'state_persistence';
 					$persist_new_state( $state_option, $state );
 					$state_persisted = true;
+					$failure_stage = 'prepared_state_verification';
 					$assert_lock( $state );
 					return new WP_REST_Response(
 						array(
@@ -1051,31 +1415,132 @@ add_action( 'rest_api_init', function () {
 							'expanded_bytes'         => $prior['expanded_bytes'],
 							'files'                  => $prior['rows'],
 							'lock_acquired'          => true,
+							'own_lock_acquired'      => true,
+							'own_lock_absent_after'  => false,
+							'lock_acquisition'       => $lock_acquisition,
 							'disk_capacity'          => $disk,
 							'recovery_proof'         => $recovery_proof,
+							'marker_inspection'      => $marker_inspection,
+							'marker_consumed'        => true,
 							'stale_lock_policy'      => $stale_lock,
 							'operation_nonce_sha256' => hash( 'sha256', $operation_nonce ),
 							'database_preconditions' => $db,
+							'candidate_mutation_started' => false,
+							'state_persisted'        => true,
+							'state_absent_after'     => false,
+							'backup_root_created'    => true,
+							'backup_root_absent_after'=> false,
+							'safe_to_retire_helper'  => false,
+							'foreign_lock_present'   => false,
 						),
 						200
 					);
 				} catch ( Throwable $error ) {
-					if ( '' !== $backup_root && file_exists( $backup_root ) ) {
-						try { $remove_directory( $backup_root ); } catch ( Throwable $ignored ) {}
-					}
-					if ( $state_persisted ) {
-						try {
-							$current_state = get_option( $state_option, null );
-							if ( is_array( $current_state ) ) {
-								$delete_raw_option_cas( $state_option, maybe_serialize( $current_state ) );
+					$cleanup_errors = array();
+					$cleanup_can_continue = true;
+					try {
+						$current_state_raw = $raw_option_value( $get_raw_option( $state_option ) );
+						$expected_state_raw = ! empty( $state ) ? maybe_serialize( $state ) : null;
+						if ( is_string( $expected_state_raw ) && is_string( $current_state_raw ) && hash_equals( $expected_state_raw, $current_state_raw ) ) {
+							$state_persisted = true;
+							$current_lock_raw = $raw_option_value( $get_raw_option( $lock_option ) );
+							if ( ! $lock_acquired || ! is_string( $current_lock_raw ) || ! hash_equals( $lock_value, $current_lock_raw ) ) {
+								throw new RuntimeException( 'Owned state cleanup requires the exact owned deployment lock.' );
 							}
-						} catch ( Throwable $ignored ) {}
+							$delete_raw_option_cas( $state_option, $expected_state_raw );
+						} elseif ( is_string( $current_state_raw ) ) {
+							throw new RuntimeException( 'A non-owned deployment state blocks automatic cleanup.' );
+						}
+					} catch ( Throwable $cleanup_error ) {
+						$cleanup_can_continue = false;
+						$cleanup_errors[] = array(
+							'stage'          => 'state_cleanup',
+							'message_sha256' => hash( 'sha256', $cleanup_error->getMessage() ),
+						);
 					}
-					if ( '' !== $lock_value ) {
-						try { $delete_raw_option_cas( $lock_option, $lock_value ); } catch ( Throwable $ignored ) {}
+
+					if ( $cleanup_can_continue && $backup_root_created && ( file_exists( $backup_root ) || is_link( $backup_root ) ) ) {
+						try {
+							if ( ! $remove_directory( $backup_root ) ) {
+								throw new RuntimeException( 'The owned recovery directory cleanup returned false.' );
+							}
+							clearstatcache( true, $backup_root );
+							if ( file_exists( $backup_root ) || is_link( $backup_root ) ) {
+								throw new RuntimeException( 'The owned recovery directory remains after cleanup.' );
+							}
+						} catch ( Throwable $cleanup_error ) {
+							$cleanup_can_continue = false;
+							$cleanup_errors[] = array(
+								'stage'          => 'backup_cleanup',
+								'message_sha256' => hash( 'sha256', $cleanup_error->getMessage() ),
+							);
+						}
 					}
+
+					if ( $cleanup_can_continue && $lock_acquired ) {
+						try {
+							$delete_raw_option_cas( $lock_option, $lock_value );
+						} catch ( Throwable $cleanup_error ) {
+							$cleanup_errors[] = array(
+								'stage'          => 'lock_cleanup',
+								'message_sha256' => hash( 'sha256', $cleanup_error->getMessage() ),
+							);
+						}
+					}
+
+					$state_absent_after = false;
+					$own_lock_absent_after = false;
+					$backup_root_absent_after = ! file_exists( $backup_root ) && ! is_link( $backup_root );
+					$foreign_lock_present = false;
+					$lock_inspection_after = array( 'inspection_complete' => false );
+					try {
+						$state_after_raw = $raw_option_value( $get_raw_option( $state_option ) );
+						$lock_after_raw = $raw_option_value( $get_raw_option( $lock_option ) );
+						$state_absent_after = ! is_string( $state_after_raw );
+						$own_lock_absent_after = '' === $lock_value || ! is_string( $lock_after_raw ) || ! hash_equals( $lock_value, $lock_after_raw );
+						$foreign_lock_present = is_string( $lock_after_raw ) && ( '' === $lock_value || ! hash_equals( $lock_value, $lock_after_raw ) );
+						$lock_inspection_after = $inspect_deploy_lock();
+						$lock_inspection_after['inspection_complete'] = true;
+						if ( ! empty( $lock_inspection_after['raw_present'] ) ) {
+							$observed_lock_sha256 = (string) ( $lock_inspection_after['raw_sha256'] ?? '' );
+							$own_lock_sha256 = '' === $lock_value ? '' : hash( 'sha256', $lock_value );
+							$foreign_lock_present = '' === $own_lock_sha256 || ! hash_equals( $own_lock_sha256, $observed_lock_sha256 );
+							$own_lock_absent_after = '' === $own_lock_sha256 || $foreign_lock_present;
+						}
+					} catch ( Throwable $inspection_error ) {
+						$cleanup_errors[] = array(
+							'stage'          => 'cleanup_readback',
+							'message_sha256' => hash( 'sha256', $inspection_error->getMessage() ),
+						);
+					}
+					$safe_to_retire_helper = $request_verified && $state_absent_after && $own_lock_absent_after && $backup_root_absent_after && ! empty( $lock_inspection_after['inspection_complete'] );
 					$status = (int) $error->getCode();
-					return $error_response( 'justice_ops_prepare_failed', $error->getMessage(), $status >= 400 && $status <= 599 ? $status : 500 );
+					return $error_response(
+						'justice_ops_prepare_failed',
+						$error->getMessage(),
+						$status >= 400 && $status <= 599 ? $status : 500,
+						array(
+							'failure_reason'             => $classify_failure( $error, $failure_stage ),
+							'failure_stage'              => $failure_stage,
+							'candidate_mutation_started' => false,
+							'state_persisted'            => $state_persisted,
+							'state_absent_after'         => $state_absent_after,
+							'own_lock_acquired'          => $lock_acquired,
+							'own_lock_absent_after'      => $own_lock_absent_after,
+							'backup_root_created'        => $backup_root_created,
+							'backup_root_absent_after'   => $backup_root_absent_after,
+							'marker_consumed'            => $marker_consumed,
+							'safe_to_retire_helper'      => $safe_to_retire_helper,
+							'foreign_lock_present'       => $foreign_lock_present,
+							'marker_inspection'          => $marker_inspection,
+							'lock_inspection'            => $lock_inspection,
+							'lock_inspection_after'      => $lock_inspection_after,
+							'lock_acquisition'           => $lock_acquisition,
+							'prior_identity'             => $prior_identity,
+							'disk_capacity'              => $disk,
+							'cleanup_errors'             => $cleanup_errors,
+						)
+					);
 				}
 			},
 		)

@@ -87,6 +87,10 @@ MAX_ARTIFACT_BYTES = 25 * 1024 * 1024
 MAX_PLUGIN_BYTES = 20 * 1024 * 1024
 MAX_FILE_BYTES = 5 * 1024 * 1024
 MAX_FILES = 250
+MAX_EVIDENCE_MESSAGE_CHARS = 500
+
+_SAFE_EVIDENCE_IDENTIFIER_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,127}$")
+_EVIDENCE_CONTROL_CHARS_RE = re.compile(r"[\x00-\x1f\x7f]")
 
 RELEASE_MARKER = 'data-jt-family-release="2026-08-02-r1"'
 OLD_REVIEW_MARKERS = (
@@ -915,8 +919,13 @@ def response_summary(response: Any) -> dict[str, Any]:
     except (ValueError, json.JSONDecodeError):
         return summary
     if isinstance(payload, dict):
+        data = payload.get("data")
+        error_shaped = payload.get("success") is False or (
+            isinstance(data, dict)
+            and isinstance(data.get("status"), int)
+            and not isinstance(data.get("status"), bool)
+        )
         for key in (
-            "code",
             "success",
             "operation",
             "state",
@@ -967,10 +976,43 @@ def response_summary(response: Any) -> dict[str, Any]:
             "post_options_match",
             "current_post_option_fingerprint",
             "stored_post_option_fingerprint",
+            "ready",
+            "marker_inspection",
+            "lock_inspection",
+            "lock_inspection_after",
+            "prior_identity",
+            "candidate_mutation_started",
+            "state_persisted",
+            "own_lock_acquired",
+            "own_lock_absent_after",
+            "backup_root_created",
+            "backup_root_absent_after",
+            "marker_consumed",
+            "safe_to_retire_helper",
+            "foreign_lock_present",
+            "lock_acquisition",
+            "cleanup_errors",
         ):
             if key in payload:
                 summary[key] = payload[key]
-        data = payload.get("data")
+        if error_shaped:
+            accepted_error_code = False
+            for key in ("code", "failure_reason", "failure_stage"):
+                value = payload.get(key)
+                if isinstance(value, str) and _SAFE_EVIDENCE_IDENTIFIER_RE.fullmatch(value):
+                    summary[key] = value
+                    if key == "code":
+                        accepted_error_code = True
+            message = payload.get("message")
+            if isinstance(message, str):
+                summary["message_sha256"] = sha256_text(message)
+                safe_message = _EVIDENCE_CONTROL_CHARS_RE.sub(" ", message).strip()
+                if (
+                    accepted_error_code
+                    and safe_message
+                    and len(safe_message) <= MAX_EVIDENCE_MESSAGE_CHARS
+                ):
+                    summary["message"] = safe_message
         if isinstance(data, dict):
             for key in (
                 "status",
@@ -983,6 +1025,19 @@ def response_summary(response: Any) -> dict[str, Any]:
                 if key in data:
                     summary[key] = data[key]
     return summary
+
+
+def is_proven_safe_pre_mutation_failure(summary: Mapping[str, Any]) -> bool:
+    """Return true only for a helper failure with complete negative-mutation proof."""
+
+    return bool(
+        summary.get("success") is False
+        and summary.get("candidate_mutation_started") is False
+        and summary.get("state_absent_after") is True
+        and summary.get("own_lock_absent_after") is True
+        and summary.get("backup_root_absent_after") is True
+        and summary.get("safe_to_retire_helper") is True
+    )
 
 
 def snippet_identity(row: Mapping[str, Any]) -> dict[str, Any]:
@@ -1794,6 +1849,77 @@ def save_evidence(
 
 
 def deployment_contract_self_test() -> dict[str, Any]:
+    class FakeResponse:
+        def __init__(self, status_code: int, payload: Mapping[str, Any]) -> None:
+            self.status_code = status_code
+            self.headers = {"Content-Type": "application/json; charset=UTF-8"}
+            self._payload = dict(payload)
+
+        def json(self) -> dict[str, Any]:
+            return dict(self._payload)
+
+    snippet_source = "<?php\n" + ("echo 'sensitive';\n" * 200) + "?>"
+    snippet_summary = response_summary(
+        FakeResponse(
+            200,
+            {
+                "id": 404,
+                "name": "temporary-helper",
+                "active": True,
+                "code": snippet_source,
+            },
+        )
+    )
+    if "code" in snippet_summary or "message" in snippet_summary:
+        raise RuntimeError("A non-error Code Snippets payload leaked source into evidence.")
+
+    controlled_message = "An active or recently expired deployment lock exists."
+    controlled_summary = response_summary(
+        FakeResponse(
+            409,
+            {
+                "success": False,
+                "code": "justice_ops_preflight_failed",
+                "message": controlled_message,
+                "failure_reason": "foreign_lock_recent",
+                "failure_stage": "lock_preflight",
+                "candidate_mutation_started": False,
+                "state_absent_after": True,
+                "own_lock_absent_after": True,
+                "backup_root_absent_after": True,
+                "safe_to_retire_helper": True,
+            },
+        )
+    )
+    if (
+        controlled_summary.get("code") != "justice_ops_preflight_failed"
+        or controlled_summary.get("failure_reason") != "foreign_lock_recent"
+        or controlled_summary.get("failure_stage") != "lock_preflight"
+        or controlled_summary.get("message") != controlled_message
+        or controlled_summary.get("message_sha256") != sha256_text(controlled_message)
+        or not is_proven_safe_pre_mutation_failure(controlled_summary)
+    ):
+        raise RuntimeError("A bounded controlled helper failure lost its safe evidence.")
+    incomplete_controlled = dict(controlled_summary)
+    incomplete_controlled["own_lock_absent_after"] = False
+    if is_proven_safe_pre_mutation_failure(incomplete_controlled):
+        raise RuntimeError("An incomplete cleanup proof was accepted as safe.")
+
+    unsafe_error_summary = response_summary(
+        FakeResponse(
+            500,
+            {
+                "success": False,
+                "code": snippet_source,
+                "message": "x" * (MAX_EVIDENCE_MESSAGE_CHARS + 1),
+            },
+        )
+    )
+    if "code" in unsafe_error_summary or "message" in unsafe_error_summary:
+        raise RuntimeError("Unbounded error evidence was retained.")
+    if "message_sha256" not in unsafe_error_summary:
+        raise RuntimeError("Unbounded error evidence lost its non-reversible digest.")
+
     sample_files = {
         "justice-ops.php": {"bytes": 3, "sha256": sha256_bytes(b"abc")},
         "family-content-release.php": {"bytes": 3, "sha256": sha256_bytes(b"def")},
@@ -1968,6 +2094,33 @@ def deployment_contract_self_test() -> dict[str, Any]:
     lint = lint_php_snippet(code)
     if normalized not in code or _SELF_HASH_MARKER in code:
         raise RuntimeError("Generated helper self-hash contract failed.")
+    preflight_route = code.find("$expected_route_base . '/preflight'")
+    prepare_route = code.find("$expected_route_base . '/prepare'")
+    lock_insert = code.find("INSERT IGNORE INTO {$wpdb->options}")
+    lock_acquire = code.find("$acquire_raw_option_once( $lock_option, $lock_value )")
+    marker_consume = code.find("$inspect_recovery_marker( true )", lock_acquire)
+    if (
+        preflight_route < 0
+        or prepare_route <= preflight_route
+        or "$inspect_recovery_marker( false )" not in code
+        or lock_insert < 0
+        or "add_option( $lock_option" in code
+        or lock_acquire < 0
+        or marker_consume <= lock_acquire
+        or "if ( $cleanup_can_continue && $lock_acquired )" not in code
+    ):
+        raise RuntimeError("Protected preflight, lock acquisition or marker ordering changed.")
+    for proof_field in (
+        "'candidate_mutation_started'",
+        "'state_absent_after'",
+        "'own_lock_absent_after'",
+        "'backup_root_absent_after'",
+        "'marker_consumed'",
+        "'safe_to_retire_helper'",
+        "'foreign_lock_present'",
+    ):
+        if proof_field not in code:
+            raise RuntimeError(f"Generated helper lost cleanup proof field: {proof_field}")
     backup_cleanup = code.find("$backup_removed = $remove_directory")
     final_lock_release = code.find("$lock_released = $release_lock", backup_cleanup)
     if backup_cleanup < 0 or final_lock_release <= backup_cleanup:
@@ -2029,12 +2182,16 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
     prepare_attempted = False
     prepared = False
     mutation_attempted = False
+    candidate_install_attempted = False
     candidate_observed = False
     rollback_confirmed = False
     finalized = False
     execution_error = ""
     live_state_ambiguous = False
     status_reconciled = False
+    helper_safe_to_retire = False
+    safe_pre_mutation_failure = False
+    control_plane_reconciliation_required = False
     prior_public_baseline: dict[str, Any] = {}
 
     try:
@@ -2171,14 +2328,78 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
         if observed_active != expected_active:
             raise RuntimeError("Active helper identity or code changed.")
 
+        preflight = call_helper(
+            client, route_base, "preflight", token, helper_hash, args.timeout
+        )
+        preflight_payload = (
+            preflight.json()
+            if "json" in preflight.headers.get("Content-Type", "")
+            else {}
+        )
+        preflight_summary = response_summary(preflight)
+        evidence["checks"]["preflight_callback"] = preflight_summary
+        if (
+            preflight.status_code != 200
+            or not isinstance(preflight_payload, dict)
+            or preflight_payload.get("success") is not True
+            or preflight_payload.get("ready") is not True
+        ):
+            safe_pre_mutation_failure = is_proven_safe_pre_mutation_failure(
+                preflight_summary
+            )
+            helper_safe_to_retire = safe_pre_mutation_failure
+            control_plane_reconciliation_required = bool(
+                preflight_summary.get("foreign_lock_present") is True
+                or not safe_pre_mutation_failure
+            )
+            reason = str(preflight_summary.get("failure_reason") or "unknown_failure")
+            message = str(preflight_summary.get("message") or "No safe message returned.")
+            raise RuntimeError(f"Server preflight failed [{reason}]: {message}")
+        preflight_marker = preflight_payload.get("marker_inspection")
+        preflight_prior = preflight_payload.get("prior_identity")
+        if (
+            not isinstance(preflight_marker, dict)
+            or preflight_marker.get("consumed") is not False
+            or preflight_marker.get("marker_present") is not True
+            or preflight_marker.get("single_use_deleted") is not False
+            or preflight_marker.get("marker_sha256") != recovery_proof["marker_sha256"]
+            or preflight_marker.get("marker_filename")
+            != recovery_proof["marker_filename"]
+            or not isinstance(preflight_prior, dict)
+            or preflight_prior.get("version") != prior_version
+            or preflight_prior.get("active") is not True
+            or preflight_payload.get("candidate_mutation_started") is not False
+            or preflight_payload.get("state_absent_after") is not True
+            or preflight_payload.get("own_lock_acquired") is not False
+            or preflight_payload.get("own_lock_absent_after") is not True
+            or preflight_payload.get("backup_root_absent_after") is not True
+            or preflight_payload.get("marker_consumed") is not False
+            or preflight_payload.get("safe_to_retire_helper") is not True
+        ):
+            control_plane_reconciliation_required = True
+            raise RuntimeError("Server preflight proof is incomplete or changed.")
+        helper_safe_to_retire = True
+
         prepare_attempted = True
+        helper_safe_to_retire = False
         prepare = call_helper(
             client, route_base, "prepare", token, helper_hash, args.timeout
         )
         prepare_payload = prepare.json() if "json" in prepare.headers.get("Content-Type", "") else {}
-        evidence["checks"]["prepare_callback"] = response_summary(prepare)
+        prepare_summary = response_summary(prepare)
+        evidence["checks"]["prepare_callback"] = prepare_summary
         if prepare.status_code != 200 or not isinstance(prepare_payload, dict) or prepare_payload.get("success") is not True:
-            raise RuntimeError("Server-side snapshot preparation failed.")
+            safe_pre_mutation_failure = is_proven_safe_pre_mutation_failure(
+                prepare_summary
+            )
+            helper_safe_to_retire = safe_pre_mutation_failure
+            control_plane_reconciliation_required = bool(
+                prepare_summary.get("foreign_lock_present") is True
+                or not safe_pre_mutation_failure
+            )
+            reason = str(prepare_summary.get("failure_reason") or "unknown_failure")
+            message = str(prepare_summary.get("message") or "No safe message returned.")
+            raise RuntimeError(f"Server-side snapshot preparation failed [{reason}]: {message}")
         consumed = prepare_payload.get("recovery_proof")
         if (
             not isinstance(consumed, dict)
@@ -2235,6 +2456,7 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
         ):
             raise RuntimeError("The server did not seal the exact local rollback ZIP.")
 
+        candidate_install_attempted = True
         mutation_attempted = True
         install_nonce = secrets.token_hex(OPERATION_NONCE_BYTES)
         try:
@@ -2416,7 +2638,12 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
         execution_error = str(error)
         evidence["error"] = {"type": type(error).__name__, "message": execution_error}
         observed_state = ""
-        if client is not None and helper_id is not None and helper_hash:
+        if (
+            client is not None
+            and helper_id is not None
+            and helper_hash
+            and not helper_safe_to_retire
+        ):
             try:
                 ambiguous_status = call_helper(
                     client, route_base, "status", token, helper_hash, args.timeout
@@ -2563,6 +2790,7 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
             and helper_id is not None
             and (
                 (not prepare_attempted and not prepared)
+                or helper_safe_to_retire
                 or finalized
                 or rollback_confirmed
             )
@@ -2632,11 +2860,29 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
         and route_absent
         and lock_absent
     )
+    requires_plugin_rollback = bool(
+        candidate_install_attempted
+        and not passed
+        and not finalized
+        and not rollback_confirmed
+    )
+    requires_control_plane_reconciliation = bool(
+        control_plane_reconciliation_required
+        or (
+            not passed
+            and not finalized
+            and not rollback_confirmed
+            and not safe_pre_mutation_failure
+            and (prepare_attempted or prepared or live_state_ambiguous)
+        )
+    )
     evidence["state_reconciliation"] = {
         "prepare_attempted": prepare_attempted,
         "prepared": prepared,
         "mutation_attempted": mutation_attempted,
+        "candidate_install_attempted": candidate_install_attempted,
         "candidate_observed": candidate_observed,
+        "candidate_runtime_observed": candidate_observed,
         "finalized": finalized,
         "automatic_rollback_confirmed": rollback_confirmed,
         "helper_absent": helper_absent,
@@ -2645,14 +2891,14 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
         "lock_absent": lock_absent,
         "status_reconciled": status_reconciled,
         "live_state_ambiguous": live_state_ambiguous,
+        "safe_pre_mutation_failure": safe_pre_mutation_failure,
+        "helper_safe_to_retire": helper_safe_to_retire,
+        "requires_control_plane_reconciliation": requires_control_plane_reconciliation,
+        "requires_plugin_rollback": requires_plugin_rollback,
         "preserved_helper_on_unknown_state": bool(
             live_state_ambiguous and not finalized and not rollback_confirmed
         ),
-        "requires_uPress_recovery": bool(
-            (mutation_attempted or live_state_ambiguous)
-            and not passed
-            and not rollback_confirmed
-        ),
+        "requires_uPress_recovery": requires_plugin_rollback,
     }
     evidence["passed"] = passed
     evidence["finished_at_utc"] = utc_now()

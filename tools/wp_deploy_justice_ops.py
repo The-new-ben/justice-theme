@@ -836,6 +836,7 @@ class SeoDocumentProbe(HTMLParser):
 
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
+        self._head_depth = 0
         self._body_depth = 0
         self._title_depth = 0
         self._h1_depth = 0
@@ -868,7 +869,9 @@ class SeoDocumentProbe(HTMLParser):
     ) -> None:
         tag = tag.lower()
         values = self._attributes(attrs)
-        if tag == "body":
+        if tag == "head":
+            self._head_depth += 1
+        elif tag == "body":
             self._body_depth += 1
         elif self._body_depth and tag in {"script", "style", "noscript", "template"}:
             self._ignored_depth += 1
@@ -885,7 +888,7 @@ class SeoDocumentProbe(HTMLParser):
             microdata_or_rdfa.update({"property", "resource", "prefix", "about"})
         for attribute in sorted(microdata_or_rdfa.intersection(values)):
             self.structured_data_attributes.append(f"{tag}:{attribute}")
-        if tag == "title":
+        if self._head_depth and tag == "title":
             self._title_depth += 1
             self._title_parts = []
         if self._body_depth and tag == "h1":
@@ -935,6 +938,8 @@ class SeoDocumentProbe(HTMLParser):
             self._script_parts = []
         if self._body_depth and tag in {"script", "style", "noscript", "template"}:
             self._ignored_depth = max(0, self._ignored_depth - 1)
+        if tag == "head" and self._head_depth:
+            self._head_depth -= 1
         if tag == "body" and self._body_depth:
             self._body_depth -= 1
 
@@ -2689,6 +2694,14 @@ def deployment_contract_self_test() -> dict[str, Any]:
             self.history: list[Any] = []
             self.headers = {"Content-Type": "text/html; charset=UTF-8"}
             self.text = markup
+
+    accessibility_title_probe = inspect_seo_html(
+        "<html><head><title>SEO document title</title></head>"
+        "<body><svg><title>Accessibility icon label</title></svg></body></html>",
+        {"Content-Type": "text/html; charset=UTF-8"},
+    )
+    if accessibility_title_probe["titles"] != ["SEO document title"]:
+        raise RuntimeError("Body SVG titles were misclassified as document SEO titles.")
 
     prior_2352_family_html = (
         '<html><head><title>Prior family title</title>'

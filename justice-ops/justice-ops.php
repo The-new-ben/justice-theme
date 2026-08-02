@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.35.8
+ * Version: 2.35.9
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.35.8' );
+	define( 'JUSTICE_OPS_VERSION', '2.35.9' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -134,6 +134,10 @@ require_once __DIR__ . '/criminal-content-release.php';
 // Real-estate release bridge: four preserved URLs receive one intent each,
 // controlled metadata, truthful identity handling and bounded schema output.
 require_once __DIR__ . '/real-estate-content-release.php';
+
+// Country release schema boundary: Portugal and USA editorial cohorts keep
+// WebPage/Article/Breadcrumb graphs but cannot inherit unproved provider nodes.
+require_once __DIR__ . '/country-content-release.php';
 
 // Maya Rotenberg firm-profile bridge: exact-route factual copy, neutral
 // visibility clarification, controlled schema and hash-locked Yoast metadata.

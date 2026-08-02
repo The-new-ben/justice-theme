@@ -25,5 +25,6 @@ if ( ! function_exists( 'justice_privacy_deny_public_lead_rest' ) ) {
 			array( 'status' => 404 )
 		);
 	}
-	add_filter( 'rest_pre_dispatch', 'justice_privacy_deny_public_lead_rest', -9999, 3 );
+	// Run last so another plugin cannot accidentally replace the denial result.
+	add_filter( 'rest_pre_dispatch', 'justice_privacy_deny_public_lead_rest', PHP_INT_MAX, 3 );
 }

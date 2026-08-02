@@ -48,7 +48,7 @@ function justice_privacy_assert( $condition, $message ) {
 }
 
 justice_privacy_assert( 'rest_pre_dispatch' === $justice_privacy_test_filter['hook'], 'Wrong hook.' );
-justice_privacy_assert( -9999 === $justice_privacy_test_filter['priority'], 'Wrong priority.' );
+justice_privacy_assert( PHP_INT_MAX === $justice_privacy_test_filter['priority'], 'Wrong priority.' );
 justice_privacy_assert( 3 === $justice_privacy_test_filter['args'], 'Wrong argument count.' );
 
 $sentinel = (object) array( 'prior' => true );

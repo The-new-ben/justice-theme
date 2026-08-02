@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.35.5",
+  "version": "2.35.6",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.35.5.zip",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.35.6.zip",
   "last_updated": "2026-08-02",
   "sections": {
-    "changelog": "2.35.5: replace candidate-specific commercial statements with one neutral visibility policy, preserve fact-only profiles and source links, retain sponsored-link attributes, and extend immutable release checks so no candidate is named as commercial or independent."
+    "changelog": "2.35.6: coordinate the four preserved real-estate intent owners, make their reviewed titles and H1s authoritative, remove unsupported identity claims and narrow unproved schema without changing URLs."
   }
 }

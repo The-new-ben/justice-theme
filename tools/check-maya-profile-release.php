@@ -23,6 +23,8 @@ $jt_uuid_counter = 0;
 $jt_can_edit_profile = true;
 $jt_meta_write_without_evidence = false;
 $jt_fail_delete_option_name = '';
+$jt_wpdb_before_query = null;
+$jt_cache_deletes = array();
 
 class WP_Post {
 	public $ID;
@@ -64,6 +66,39 @@ class WP_REST_Request {
 	}
 }
 
+class Justice_Maya_Profile_Test_Wpdb {
+	public $options = 'wp_options';
+
+	public function prepare( string $query, ...$args ) {
+		return array( 'query' => $query, 'args' => $args );
+	}
+
+	public function query( $prepared ) {
+		global $jt_options, $jt_wpdb_before_query;
+		if (
+			! is_array( $prepared )
+			|| false === strpos( (string) ( $prepared['query'] ?? '' ), 'DELETE FROM wp_options' )
+			|| 2 !== count( $prepared['args'] ?? array() )
+		) {
+			return false;
+		}
+		if ( is_callable( $jt_wpdb_before_query ) ) {
+			$callback             = $jt_wpdb_before_query;
+			$jt_wpdb_before_query = null;
+			$callback();
+		}
+		$name     = (string) $prepared['args'][0];
+		$expected = (string) $prepared['args'][1];
+		if ( ! array_key_exists( $name, $jt_options ) || maybe_serialize( $jt_options[ $name ] ) !== $expected ) {
+			return 0;
+		}
+		unset( $jt_options[ $name ] );
+		return 1;
+	}
+}
+
+$wpdb = new Justice_Maya_Profile_Test_Wpdb();
+
 function add_action( string $hook, $callback, int $priority = 10, int $accepted_args = 1 ): void {
 	global $jt_actions;
 	$jt_actions[ $hook ][] = array( $callback, $priority, $accepted_args );
@@ -93,6 +128,12 @@ function esc_attr( string $value ): string { return htmlspecialchars( $value, EN
 function wp_json_encode( $value, int $flags = 0 ) { return json_encode( $value, $flags ); }
 function __return_empty_array(): array { return array(); }
 function apply_filters( string $hook, $value ) { return $value; }
+function maybe_serialize( $value ) { return is_array( $value ) || is_object( $value ) ? serialize( $value ) : $value; }
+function wp_cache_delete( string $key, string $group = '' ): bool {
+	global $jt_cache_deletes;
+	$jt_cache_deletes[] = array( $key, $group );
+	return true;
+}
 function current_user_can( string $capability, int $post_id = 0 ): bool {
 	global $jt_can_edit_profile;
 	return $jt_can_edit_profile && 'edit_post' === $capability && 11687 === $post_id;
@@ -312,6 +353,8 @@ jt_maya_assert( false !== strpos( $body, 'ביום 2.8.2026' ), 'visible source-
 jt_maya_assert( false === strpos( $body, 'ביום 1.8.2026' ), 'stale source-check date must be absent' );
 jt_maya_assert( false === stripos( $body, 'mailto:' ), 'provider mailto must be absent' );
 jt_maya_assert( false === stripos( $body, 'wa.me' ), 'provider WhatsApp CTA must be absent' );
+jt_maya_assert( 2 === substr_count( $body, 'href="https://rotenberglaw.co.il/about" rel="sponsored"' ), 'every link to the paying client property must be marked sponsored' );
+jt_maya_assert( false === strpos( $body, 'href="https://rotenberglaw.co.il/about">' ), 'no unqualified paying-client link may remain' );
 jt_maya_assert( false === strpos( $body, 'reviewedBy' ), 'reviewer schema claim must be absent from copy' );
 jt_maya_assert( false === strpos( $body, 'מספר רישיון 32125' ), 'unverified licence number must be absent' );
 jt_maya_assert( false === strpos( $body, 'לקוחות מרוצים' ), 'unverified customer claim must be absent' );
@@ -474,6 +517,36 @@ foreach ( $jt_routes['justice-ops/v1/maya-profile-seo'] as $forward_handler ) {
 	jt_maya_assert( false === call_user_func( $forward_handler['permission_callback'] ), 'forward metadata route must deny a user without profile edit capability' );
 }
 $jt_can_edit_profile = true;
+
+$lock_name = justice_ops_maya_profile_release_lock_name();
+$expired_lock = array( 'token' => 'expired-token', 'expires_at' => time() - 1 );
+$jt_options[ $lock_name ] = $expired_lock;
+$recovered_lock_token = justice_ops_maya_profile_release_acquire_lock();
+jt_maya_assert( is_string( $recovered_lock_token ), 'an unchanged expired lock must be replaced atomically' );
+jt_maya_assert( $recovered_lock_token === $jt_options[ $lock_name ]['token'], 'expired-lock replacement must store the returned token' );
+jt_maya_assert( in_array( array( $lock_name, 'options' ), $jt_cache_deletes, true ), 'exact SQL deletion must clear the option cache' );
+justice_ops_maya_profile_release_release_lock( $recovered_lock_token );
+jt_maya_assert( ! array_key_exists( $lock_name, $jt_options ), 'the exact owned lock must be released' );
+
+$newer_lock = array( 'token' => 'newer-token', 'expires_at' => time() + 120 );
+$jt_options[ $lock_name ] = $expired_lock;
+$jt_wpdb_before_query = static function () use ( $lock_name, $newer_lock ): void {
+	global $jt_options;
+	$jt_options[ $lock_name ] = $newer_lock;
+};
+$raced_acquire = justice_ops_maya_profile_release_acquire_lock();
+jt_maya_assert( $raced_acquire instanceof WP_Error && 'maya_profile_locked' === $raced_acquire->code, 'changed stale-lock state must fail closed' );
+jt_maya_assert( $newer_lock === $jt_options[ $lock_name ], 'stale-lock recovery must not delete a concurrently acquired lock' );
+
+$owned_lock = array( 'token' => 'owned-token', 'expires_at' => time() + 120 );
+$jt_options[ $lock_name ] = $owned_lock;
+$jt_wpdb_before_query = static function () use ( $lock_name, $newer_lock ): void {
+	global $jt_options;
+	$jt_options[ $lock_name ] = $newer_lock;
+};
+justice_ops_maya_profile_release_release_lock( 'owned-token' );
+jt_maya_assert( $newer_lock === $jt_options[ $lock_name ], 'lock release must not delete a newer concurrent owner' );
+unset( $jt_options[ $lock_name ] );
 
 $before = justice_ops_maya_profile_release_stored_seo();
 $get    = justice_ops_maya_profile_release_rest_get();

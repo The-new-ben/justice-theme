@@ -93,6 +93,12 @@ _SAFE_EVIDENCE_IDENTIFIER_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,127}$")
 _EVIDENCE_CONTROL_CHARS_RE = re.compile(r"[\x00-\x1f\x7f]")
 
 RELEASE_MARKER = 'data-jt-family-release="2026-08-02-r1"'
+MAYA_PATH = "/family-law-lawyer-recommended-divorce-wills-inheritances/"
+MAYA_RELEASE_MARKER = 'data-jt-maya-profile-release="2026-08-02-r1"'
+MAYA_CONTENT_MARKER = 'data-jt-maya-profile-content="2026-08-02-r1"'
+MAYA_DISCLOSURE_MARKER = 'data-jt-commercial-disclosure="maya-rotenberg"'
+MAYA_SCHEMA_ID = "justice-maya-profile-schema"
+MAYA_SCHEMA_TYPES = frozenset({"WebPage", "BreadcrumbList", "ListItem"})
 OLD_REVIEW_MARKERS = (
     "eeat-reviewed-footer",
     "legal-pillar-reviewed",
@@ -116,6 +122,7 @@ AFFECTED_PATHS = (
     "/experienced-family-law-attorney/",
     "/divorce-costs-2025/",
     "/lawyer-fees-guide/",
+    MAYA_PATH,
     "/lawyers/",
     "/legal-help/",
     "/medical-malpractice-lawyer/",
@@ -157,6 +164,13 @@ PAGE_CONTRACTS: dict[str, dict[str, str]] = {
         "title": "שכר טרחה עורך דין: מודלי חיוב ובדיקת הצעה | Jus-Tice",
         "description": "איך בנוי שכר טרחה של עורך דין, מה ההבדל בין מחיר קבוע, שעה ושלב, אילו הוצאות לבדוק ואיך להשוות שתי הצעות על בסיס אותו היקף עבודה.",
         "canonical": "https://jus-tice.co.il/lawyer-fees-guide/",
+    },
+    MAYA_PATH: {
+        "h1": "משרד מאיה רוטנברג בדיני משפחה: פרופיל ומקורות",
+        "title": "משרד מאיה רוטנברג בדיני משפחה: פרופיל ומקורות | Jus-Tice",
+        "description": "פרופיל מקורות של משרד מאיה רוטנברג: תחומי פעילות, רישום ב-Dun’s 100, תיעוד הייצוג בבע\"מ 919/15 וגילוי על הקשר המסחרי ל-Jus-Tice.",
+        "canonical": "https://jus-tice.co.il/family-law-lawyer-recommended-divorce-wills-inheritances/",
+        "release_marker": MAYA_RELEASE_MARKER,
     },
 }
 
@@ -508,13 +522,25 @@ def inspect_artifact(
                 "bytes": len(body),
                 "sha256": sha256_bytes(body),
             }
-        required = {"justice-ops.php", "family-content-release.php", "review-claims-off.php"}
+        required = {
+            "justice-ops.php",
+            "family-content-release.php",
+            "review-claims-off.php",
+            "maya-profile-release.php",
+            "release-update-control.php",
+        }
         if not required.issubset(files):
             raise RuntimeError("Artifact is missing a required release file.")
         main = archive.read(f"{PLUGIN_SLUG}/justice-ops.php").decode("utf-8-sig")
         release = archive.read(f"{PLUGIN_SLUG}/family-content-release.php").decode(
             "utf-8-sig"
         )
+        maya_release = archive.read(
+            f"{PLUGIN_SLUG}/maya-profile-release.php"
+        ).decode("utf-8-sig")
+        update_control = archive.read(
+            f"{PLUGIN_SLUG}/release-update-control.php"
+        ).decode("utf-8-sig")
 
     header = re.search(r"^\s*\*\s*Version:\s*([^\r\n]+)$", main, re.MULTILINE)
     constant = re.search(
@@ -534,6 +560,29 @@ def inspect_artifact(
     ):
         if marker not in release:
             raise RuntimeError(f"Artifact release marker is missing: {marker}")
+    for include in (
+        "require_once __DIR__ . '/maya-profile-release.php';",
+        "require_once __DIR__ . '/release-update-control.php';",
+    ):
+        if include not in main:
+            raise RuntimeError(f"Artifact main file is missing a required module: {include}")
+    for marker in (
+        MAYA_CONTENT_MARKER,
+        MAYA_DISCLOSURE_MARKER,
+        "data-jt-maya-profile-release=",
+        MAYA_SCHEMA_ID,
+        "justice_ops_maya_profile_release_rest_finalize",
+    ):
+        if marker not in maya_release:
+            raise RuntimeError(f"Artifact Maya release marker is missing: {marker}")
+    for marker in (
+        "justice-ops/justice-ops.php",
+        "auto_update_plugin",
+        "/release-update-control",
+        "expected_state_sha256",
+    ):
+        if marker not in update_control:
+            raise RuntimeError(f"Artifact update-control marker is missing: {marker}")
 
     result = {
         "url": url,
@@ -682,6 +731,7 @@ class SeoDocumentProbe(HTMLParser):
         self._h1_depth = 0
         self._ignored_depth = 0
         self._script_type = ""
+        self._script_id = ""
         self._title_parts: list[str] = []
         self._h1_parts: list[str] = []
         self._script_parts: list[str] = []
@@ -692,6 +742,7 @@ class SeoDocumentProbe(HTMLParser):
         self.canonicals: list[str] = []
         self.meta_robots: list[str] = []
         self.json_ld: list[str] = []
+        self.json_ld_ids: list[str] = []
 
     @staticmethod
     def _attributes(attrs: list[tuple[str, str | None]]) -> dict[str, str]:
@@ -731,6 +782,7 @@ class SeoDocumentProbe(HTMLParser):
                 )
         elif tag == "script":
             self._script_type = values.get("type", "").strip().lower()
+            self._script_id = values.get("id", "").strip()
             self._script_parts = []
 
     def handle_startendtag(
@@ -753,7 +805,9 @@ class SeoDocumentProbe(HTMLParser):
         if tag == "script":
             if self._script_type == "application/ld+json":
                 self.json_ld.append("".join(self._script_parts).strip())
+                self.json_ld_ids.append(self._script_id)
             self._script_type = ""
+            self._script_id = ""
             self._script_parts = []
         if self._body_depth and tag in {"script", "style", "noscript", "template"}:
             self._ignored_depth = max(0, self._ignored_depth - 1)
@@ -791,6 +845,24 @@ def _json_contains_reviewer_claim(value: Any) -> bool:
     return False
 
 
+def _json_ld_types(value: Any) -> set[str]:
+    """Return every explicit Schema.org type in one decoded JSON-LD document."""
+
+    found: set[str] = set()
+    if isinstance(value, dict):
+        schema_type = value.get("@type")
+        if isinstance(schema_type, str) and schema_type:
+            found.add(schema_type)
+        elif isinstance(schema_type, list):
+            found.update(item for item in schema_type if isinstance(item, str) and item)
+        for item in value.values():
+            found.update(_json_ld_types(item))
+    elif isinstance(value, list):
+        for item in value:
+            found.update(_json_ld_types(item))
+    return found
+
+
 def inspect_seo_html(html: str, headers: Mapping[str, Any]) -> dict[str, Any]:
     lower = html.lower()
     body_position = lower.find("<body")
@@ -802,12 +874,17 @@ def inspect_seo_html(html: str, headers: Mapping[str, Any]) -> dict[str, Any]:
     parser.close()
     reviewer_json_ld = False
     json_ld_valid = True
+    json_ld_documents: list[Any] = []
+    json_ld_types: set[str] = set()
     for raw in parser.json_ld:
         try:
             parsed = json.loads(raw)
         except (ValueError, json.JSONDecodeError):
             json_ld_valid = False
+            json_ld_documents.append(None)
             continue
+        json_ld_documents.append(parsed)
+        json_ld_types.update(_json_ld_types(parsed))
         reviewer_json_ld = reviewer_json_ld or _json_contains_reviewer_claim(parsed)
     reviewer_text_matches = [
         pattern.pattern
@@ -822,10 +899,16 @@ def inspect_seo_html(html: str, headers: Mapping[str, Any]) -> dict[str, Any]:
         "meta_robots": parser.meta_robots,
         "x_robots_tag": str(headers.get("X-Robots-Tag", "")),
         "release_marker_count": body.count(RELEASE_MARKER),
+        "maya_release_marker_count": body.count(MAYA_RELEASE_MARKER),
+        "maya_content_marker_count": body.count(MAYA_CONTENT_MARKER),
+        "maya_disclosure_marker_count": body.count(MAYA_DISCLOSURE_MARKER),
         "old_review_markers": [marker for marker in OLD_REVIEW_MARKERS if marker in body],
         "reviewer_text_matches": reviewer_text_matches,
         "reviewer_json_ld": reviewer_json_ld,
         "json_ld_valid": json_ld_valid,
+        "json_ld_ids": list(parser.json_ld_ids),
+        "json_ld_documents": json_ld_documents,
+        "json_ld_types": sorted(json_ld_types),
         "body": body,
     }
 
@@ -1543,9 +1626,15 @@ def semantic_page_fingerprint(probe: Mapping[str, Any]) -> dict[str, Any]:
         "meta_robots": list(probe["meta_robots"]),
         "x_robots_tag": str(probe["x_robots_tag"]),
         "release_marker_count": int(probe["release_marker_count"]),
+        "maya_release_marker_count": int(probe["maya_release_marker_count"]),
+        "maya_content_marker_count": int(probe["maya_content_marker_count"]),
+        "maya_disclosure_marker_count": int(probe["maya_disclosure_marker_count"]),
         "old_review_markers": list(probe["old_review_markers"]),
         "reviewer_text_matches": list(probe["reviewer_text_matches"]),
         "reviewer_json_ld": bool(probe["reviewer_json_ld"]),
+        "json_ld_valid": bool(probe["json_ld_valid"]),
+        "json_ld_ids": list(probe["json_ld_ids"]),
+        "json_ld_types": list(probe["json_ld_types"]),
     }
 
 
@@ -1560,6 +1649,55 @@ def capture_prior_public(base_url: str, timeout: int) -> dict[str, Any]:
         probe = inspect_seo_html(response.text, response.headers)
         pages[path] = semantic_page_fingerprint(probe)
     return {"canonical_unbusted": True, "pages": pages}
+
+
+def _assert_maya_candidate_schema(
+    contract: Mapping[str, str], probe: Mapping[str, Any]
+) -> None:
+    documents = probe["json_ld_documents"]
+    if probe["json_ld_ids"] != [MAYA_SCHEMA_ID] or len(documents) != 1:
+        raise RuntimeError("Maya candidate requires exactly one controlled JSON-LD script.")
+    document = documents[0]
+    if not isinstance(document, dict) or document.get("@context") != "https://schema.org":
+        raise RuntimeError("Maya candidate JSON-LD context is not exact.")
+    if set(probe["json_ld_types"]) != MAYA_SCHEMA_TYPES:
+        raise RuntimeError("Maya candidate JSON-LD contains missing or unsupported schema types.")
+    graph = document.get("@graph")
+    if not isinstance(graph, list) or len(graph) != 2:
+        raise RuntimeError("Maya candidate JSON-LD graph cardinality is not exact.")
+    web_pages = [node for node in graph if isinstance(node, dict) and node.get("@type") == "WebPage"]
+    breadcrumbs = [
+        node
+        for node in graph
+        if isinstance(node, dict) and node.get("@type") == "BreadcrumbList"
+    ]
+    if len(web_pages) != 1 or len(breadcrumbs) != 1:
+        raise RuntimeError("Maya candidate requires one WebPage and one BreadcrumbList node.")
+    page = web_pages[0]
+    if (
+        page.get("@id") != f"{contract['canonical']}#webpage"
+        or page.get("url") != contract["canonical"]
+        or page.get("name") != contract["h1"]
+        or page.get("description") != contract["description"]
+        or page.get("inLanguage") != "he-IL"
+    ):
+        raise RuntimeError("Maya candidate WebPage schema values differ from the page contract.")
+    items = breadcrumbs[0].get("itemListElement")
+    if not isinstance(items, list) or len(items) != 3:
+        raise RuntimeError("Maya candidate breadcrumb schema cardinality is not exact.")
+    expected_items = (
+        (1, "https://jus-tice.co.il/"),
+        (2, "https://jus-tice.co.il/family-law/"),
+        (3, contract["canonical"]),
+    )
+    for item, (position, target) in zip(items, expected_items, strict=True):
+        if (
+            not isinstance(item, dict)
+            or item.get("@type") != "ListItem"
+            or item.get("position") != position
+            or item.get("item") != target
+        ):
+            raise RuntimeError("Maya candidate breadcrumb schema values are not exact.")
 
 
 def _assert_candidate_page(path: str, contract: Mapping[str, str], response: Any) -> dict[str, Any]:
@@ -1579,7 +1717,8 @@ def _assert_candidate_page(path: str, contract: Mapping[str, str], response: Any
     x_robots = str(probe["x_robots_tag"]).lower()
     if "noindex" in robots or "noindex" in x_robots:
         raise RuntimeError(f"Candidate unexpectedly noindexes {path} via meta or X-Robots-Tag.")
-    if probe["release_marker_count"] != 1:
+    release_marker = contract.get("release_marker", RELEASE_MARKER)
+    if str(probe["body"]).count(release_marker) != 1:
         raise RuntimeError(f"Candidate requires exactly one rendered release marker on {path}.")
     if probe["old_review_markers"]:
         raise RuntimeError(
@@ -1590,6 +1729,13 @@ def _assert_candidate_page(path: str, contract: Mapping[str, str], response: Any
     if not probe["json_ld_valid"]:
         raise RuntimeError(f"Malformed JSON-LD remains on candidate page {path}.")
     body = str(probe["body"])
+    if path == MAYA_PATH:
+        if (
+            probe["maya_content_marker_count"] != 1
+            or probe["maya_disclosure_marker_count"] != 1
+        ):
+            raise RuntimeError("Maya candidate body or commercial disclosure marker is not exact.")
+        _assert_maya_candidate_schema(contract, probe)
     if path in ("/family-law/", "/divorce-lawyer/"):
         if (
             body.count("jt-premium-card__disclosure") != 1
@@ -1653,21 +1799,15 @@ def verify_prior_public(
         raise RuntimeError("Automatic rollback did not restore the prior public health version.")
     expected_pages = baseline.get("pages")
     if not isinstance(expected_pages, dict) or set(expected_pages) != set(PAGE_CONTRACTS):
-        raise RuntimeError("The prior six-page semantic baseline is incomplete.")
+        raise RuntimeError("The prior page-contract semantic baseline is incomplete.")
     pages: dict[str, Any] = {}
     for path in PAGE_CONTRACTS:
         observed_rounds: list[dict[str, Any]] = []
         for _ in range(2):
             response = public_request(base_url, path, timeout=timeout, cache_bust=False)
-            expected_url = f"{base_url}{path}"
-            if response.status_code != 200 or response.history or response.url != expected_url:
-                raise RuntimeError(f"Rollback page is not canonical direct HTTP 200: {path}")
-            probe = inspect_seo_html(response.text, response.headers)
-            fingerprint = semantic_page_fingerprint(probe)
-            if fingerprint["release_marker_count"] != 0:
-                raise RuntimeError(f"Candidate rendered marker remains after rollback on {path}.")
-            if fingerprint != expected_pages[path]:
-                raise RuntimeError(f"Rollback did not restore the exact SEO fingerprint on {path}.")
+            fingerprint = _assert_prior_page(
+                base_url, path, response, expected_pages[path]
+            )
             observed_rounds.append(fingerprint)
         if observed_rounds[0] != observed_rounds[1]:
             raise RuntimeError(f"Two canonical rollback reads differ on {path}.")
@@ -1675,9 +1815,27 @@ def verify_prior_public(
     return {
         "health": summary,
         "pages": pages,
-        "candidate_marker_absent_all_six": True,
+        "exact_prior_fingerprints_restored": True,
         "canonical_unbusted_reads_per_page": 2,
     }
+
+
+def _assert_prior_page(
+    base_url: str,
+    path: str,
+    response: Any,
+    expected_fingerprint: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Require the rollback page to equal its captured pre-install semantics."""
+
+    expected_url = f"{base_url}{path}"
+    if response.status_code != 200 or response.history or response.url != expected_url:
+        raise RuntimeError(f"Rollback page is not canonical direct HTTP 200: {path}")
+    probe = inspect_seo_html(response.text, response.headers)
+    fingerprint = semantic_page_fingerprint(probe)
+    if fingerprint != dict(expected_fingerprint):
+        raise RuntimeError(f"Rollback did not restore the exact SEO fingerprint on {path}.")
+    return fingerprint
 
 
 def helper_route(route_base: str, operation: str) -> str:
@@ -1962,6 +2120,155 @@ def deployment_contract_self_test() -> dict[str, Any]:
         pass
     else:
         raise RuntimeError("Autoptimize-only cache confirmation was accepted.")
+
+    class FakePageResponse:
+        def __init__(self, path: str, markup: str) -> None:
+            self.status_code = 200
+            self.url = f"{TARGET_BASE_URL}{path}"
+            self.history: list[Any] = []
+            self.headers = {"Content-Type": "text/html; charset=UTF-8"}
+            self.text = markup
+
+    prior_2352_family_html = (
+        '<html><head><title>Prior family title</title>'
+        '<meta name="description" content="Prior family description">'
+        '<link rel="canonical" href="https://jus-tice.co.il/family-law/">'
+        '</head><body data-jt-family-release="2026-08-02-r1">'
+        '<h1>Prior family H1</h1><p>Prior family body</p></body></html>'
+    )
+    prior_2352_family_response = FakePageResponse(
+        "/family-law/", prior_2352_family_html
+    )
+    prior_2352_family_fingerprint = semantic_page_fingerprint(
+        inspect_seo_html(
+            prior_2352_family_response.text, prior_2352_family_response.headers
+        )
+    )
+    if prior_2352_family_fingerprint["release_marker_count"] != 1:
+        raise RuntimeError("The 2.35.2 prior-baseline fixture lost its family marker.")
+    _assert_prior_page(
+        TARGET_BASE_URL,
+        "/family-law/",
+        prior_2352_family_response,
+        prior_2352_family_fingerprint,
+    )
+    wrong_zero_marker_baseline = dict(prior_2352_family_fingerprint)
+    wrong_zero_marker_baseline["release_marker_count"] = 0
+    try:
+        _assert_prior_page(
+            TARGET_BASE_URL,
+            "/family-law/",
+            prior_2352_family_response,
+            wrong_zero_marker_baseline,
+        )
+    except RuntimeError:
+        pass
+    else:
+        raise RuntimeError("Rollback accepted a marker-zero assumption over the 2.35.2 baseline.")
+
+    maya_contract = PAGE_CONTRACTS[MAYA_PATH]
+    maya_schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": f"{maya_contract['canonical']}#webpage",
+                "url": maya_contract["canonical"],
+                "name": maya_contract["h1"],
+                "description": maya_contract["description"],
+                "inLanguage": "he-IL",
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": f"{maya_contract['canonical']}#breadcrumb",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Jus-Tice",
+                        "item": "https://jus-tice.co.il/",
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "דיני משפחה",
+                        "item": "https://jus-tice.co.il/family-law/",
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": maya_contract["h1"],
+                        "item": maya_contract["canonical"],
+                    },
+                ],
+            },
+        ],
+    }
+    maya_schema_json = json.dumps(
+        maya_schema, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    )
+    maya_description_attribute = html_module.escape(
+        maya_contract["description"], quote=True
+    )
+    maya_candidate_html = (
+        f'<html><head><title>{maya_contract["title"]}</title>'
+        f'<meta name="description" content="{maya_description_attribute}">'
+        f'<link rel="canonical" href="{maya_contract["canonical"]}">'
+        f'<script type="application/ld+json" id="{MAYA_SCHEMA_ID}">{maya_schema_json}</script>'
+        '</head><body data-jt-maya-profile-release="2026-08-02-r1">'
+        f'<h1>{maya_contract["h1"]}</h1>'
+        '<section data-jt-maya-profile-content="2026-08-02-r1">'
+        '<p data-jt-commercial-disclosure="maya-rotenberg">גילוי מסחרי</p>'
+        '</section></body></html>'
+    )
+    maya_candidate_response = FakePageResponse(MAYA_PATH, maya_candidate_html)
+    maya_candidate_fingerprint = _assert_candidate_page(
+        MAYA_PATH, maya_contract, maya_candidate_response
+    )
+    if (
+        maya_candidate_fingerprint["maya_release_marker_count"] != 1
+        or maya_candidate_fingerprint["maya_content_marker_count"] != 1
+        or maya_candidate_fingerprint["maya_disclosure_marker_count"] != 1
+        or set(maya_candidate_fingerprint["json_ld_types"]) != MAYA_SCHEMA_TYPES
+    ):
+        raise RuntimeError("Maya candidate acceptance evidence is incomplete.")
+    maya_noindex = maya_candidate_html.replace(
+        "<head>", '<head><meta name="robots" content="noindex,follow">', 1
+    )
+    try:
+        _assert_candidate_page(
+            MAYA_PATH, maya_contract, FakePageResponse(MAYA_PATH, maya_noindex)
+        )
+    except RuntimeError:
+        pass
+    else:
+        raise RuntimeError("Maya candidate acceptance permitted noindex.")
+
+    maya_prior_html = (
+        '<html><head><title>Legacy Maya title</title>'
+        '<meta name="description" content="Legacy Maya description">'
+        f'<link rel="canonical" href="{maya_contract["canonical"]}">'
+        '</head><body><h1>Legacy Maya H1</h1><p>Legacy body</p></body></html>'
+    )
+    maya_prior_response = FakePageResponse(MAYA_PATH, maya_prior_html)
+    maya_prior_fingerprint = semantic_page_fingerprint(
+        inspect_seo_html(maya_prior_response.text, maya_prior_response.headers)
+    )
+    _assert_prior_page(
+        TARGET_BASE_URL, MAYA_PATH, maya_prior_response, maya_prior_fingerprint
+    )
+    try:
+        _assert_prior_page(
+            TARGET_BASE_URL,
+            MAYA_PATH,
+            maya_candidate_response,
+            maya_prior_fingerprint,
+        )
+    except RuntimeError:
+        pass
+    else:
+        raise RuntimeError("Maya rollback accepted candidate semantics over the prior baseline.")
+
     if safe_relative_member("justice-ops/a/b.php") != "a/b.php":
         raise RuntimeError("Safe ZIP path normalization failed.")
     for unsafe in ("../x", "justice-ops/../x", "/justice-ops/x", "other/x"):
@@ -2142,6 +2449,10 @@ def deployment_contract_self_test() -> dict[str, Any]:
         "generated_helper_sha256": sha256_text(code),
         "generated_helper_lint": lint,
         "recovery_marker_validation_sha256": proof_result["marker_sha256"],
+        "prior_2_35_2_marker_baseline": prior_2352_family_fingerprint[
+            "release_marker_count"
+        ],
+        "maya_candidate_and_rollback_contracts": True,
     }
 
 

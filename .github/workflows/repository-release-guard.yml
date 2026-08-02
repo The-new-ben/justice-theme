@@ -63,8 +63,12 @@ jobs:
             scripts/deploy/verify-ops-zip.py \
             tools/check-family-content-release.php \
             tools/check-lead-routing-hold.php \
+            tools/check-maya-profile-release.php \
+            tools/check-release-update-control.php \
             tools/wp_deploy_justice_ops.py \
-            tools/templates/justice-ops-deploy-helper.php.tpl; do
+            tools/templates/justice-ops-deploy-helper.php.tpl \
+            justice-ops/maya-profile-release.php \
+            justice-ops/release-update-control.php; do
             git ls-files --error-unmatch "$REQUIRED_PATH"
             test -f "$REQUIRED_PATH"
             test ! -L "$REQUIRED_PATH"
@@ -81,6 +85,8 @@ jobs:
           '
           php tools/check-family-content-release.php
           php tools/check-lead-routing-hold.php
+          php tools/check-maya-profile-release.php
+          php tools/check-release-update-control.php
           python3 -m py_compile \
             scripts/deploy/build-ops-zip.py \
             scripts/deploy/verify-ops-zip.py \
@@ -165,11 +171,11 @@ jobs:
           JUSTICE_P0_PLUGIN_FILE=/tmp/justice-seo-recovery-p0-artifact/justice-seo-recovery-p0/justice-seo-recovery-p0.php \
             php tools/check-justice-seo-recovery-p0.php
 
-      - name: Test P0 on declared PHP 7.4 floor
+      - name: Test plugins on declared PHP 7.4 floor
         run: |
           set -euo pipefail
           docker run --rm \
             -v "$GITHUB_WORKSPACE:/workspace" \
             -w /workspace \
             php:7.4.33-cli-bullseye@sha256:620a6b9f4d4feef2210026172570465e9d0c1de79766418d3affd09190a7fda5 \
-            sh -lc 'php -l justice-seo-recovery-p0/justice-seo-recovery-p0.php && php tools/check-justice-seo-recovery-p0.php'
+            sh -lc 'php -l justice-ops/maya-profile-release.php && php tools/check-maya-profile-release.php && php -l justice-ops/release-update-control.php && php tools/check-release-update-control.php && php -l justice-seo-recovery-p0/justice-seo-recovery-p0.php && php tools/check-justice-seo-recovery-p0.php'

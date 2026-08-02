@@ -44,7 +44,7 @@ function justice_ops_maya_profile_release_body(): string {
 <p>זהו פרופיל מקורות של משרד מאיה רוטנברג. הוא מרכז מידע שניתן לבדוק במקורות ציבוריים ואינו מדרג את המשרד, ממליץ עליו או קובע התאמה למקרה מסוים.</p>
 <p class="jt-maya-profile__disclosure" data-jt-commercial-disclosure="maya-rotenberg" role="note" aria-label="גילוי מסחרי"><strong>גילוי מסחרי:</strong> מאיה רוטנברג היא שותפה עסקית ולקוחה משלמת של Jus-Tice. למשרד פרופיל פרימיום וחשיפה מוגברת באתר. הקשר אינו ציון איכות, המלצה מקצועית או הבטחת התאמה או תוצאה.</p>
 <h2>מה מופיע במקורות הציבוריים</h2>
-<p><a href="https://rotenberglaw.co.il/about">אתר המשרד</a> מציג את השם "משרד עורכי דין מאיה רוטנברג" ומתאר משרד בתל אביב שעוסק בדיני משפחה וגירושין. <a href="https://www.duns100.co.il/%D7%9E%D7%90%D7%99%D7%94_%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92_%D7%9E%D7%A9%D7%A8%D7%93_%D7%A2%D7%95%D7%A8%D7%9B%D7%99_%D7%93%D7%99%D7%9F">פרופיל Dun’s 100</a> מציג את הישות בשם "מאיה רוטנברג משרד עורכי דין" ובקטגוריה "גירושין, דיני משפחה, ירושות וצוואות".</p>
+<p><a href="https://rotenberglaw.co.il/about" rel="sponsored">אתר המשרד</a> מציג את השם "משרד עורכי דין מאיה רוטנברג" ומתאר משרד בתל אביב שעוסק בדיני משפחה וגירושין. <a href="https://www.duns100.co.il/%D7%9E%D7%90%D7%99%D7%94_%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92_%D7%9E%D7%A9%D7%A8%D7%93_%D7%A2%D7%95%D7%A8%D7%9B%D7%99_%D7%93%D7%99%D7%9F">פרופיל Dun’s 100</a> מציג את הישות בשם "מאיה רוטנברג משרד עורכי דין" ובקטגוריה "גירושין, דיני משפחה, ירושות וצוואות".</p>
 <p>הפרטים מוצגים כאן לפי המקור שבו פורסמו. ניסוח באתר המשרד הוא הצהרה של המשרד. ניסוח בפרופיל עסקי חיצוני מוכיח מה מופיע באותו פרופיל, אך אינו מחליף אימות רשמי של כל פרט.</p>
 <h2>זהות, ניהול ומיקום</h2>
 <p>אתר המשרד ופרופיל Dun’s 100 מציגים משרד בתל אביב. בפרופיל Dun’s 100 מאיה רוטנברג מופיעה תחת "מנהלים" בתיאור "עו"ד ובעלים". הפרופיל הנוכחי מייחס את התיאור למקור ואינו משתמש בו כהוכחה עצמאית לסטטוס רישיון נוכחי.</p>
@@ -74,7 +74,7 @@ function justice_ops_maya_profile_release_body(): string {
 <h2>מקורות ותיקונים</h2>
 <p>המקורות הבאים נבדקו לצורך הפרופיל ביום 2.8.2026:</p>
 <ol>
-<li><a href="https://rotenberglaw.co.il/about">עמוד אודות באתר משרד מאיה רוטנברג</a>.</li>
+<li><a href="https://rotenberglaw.co.il/about" rel="sponsored">עמוד אודות באתר משרד מאיה רוטנברג</a>.</li>
 <li><a href="https://www.duns100.co.il/%D7%9E%D7%90%D7%99%D7%94_%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92_%D7%9E%D7%A9%D7%A8%D7%93_%D7%A2%D7%95%D7%A8%D7%9B%D7%99_%D7%93%D7%99%D7%9F">פרופיל מאיה רוטנברג משרד עורכי דין ב-Dun’s 100</a>.</li>
 <li><a href="https://meronlaw.co.il/wp-content/uploads/2023/10/1a801bbb-6429-4d35-a4b1-0cf2ca5a487d.pdf">עותק פסק הדין בבע"מ 919/15</a>.</li>
 <li><a href="https://www.ynet.co.il/article/SycYNVqsv">תוכן שיווקי ופרסומי שפורסם ב-Ynet על הייצוג בפסק הדין</a>.</li>
@@ -1075,6 +1075,50 @@ function justice_ops_maya_profile_release_rollback_evidence() {
 }
 
 /**
+ * Delete only the exact expired lock value that was observed by this request.
+ *
+ * WordPress delete_option() is not compare-and-set. A blind stale-lock delete
+ * can therefore remove a newer lock acquired by a concurrent request. The
+ * conditional SQL delete keeps that hand-off atomic and fails closed when the
+ * stored value changed after it was read.
+ *
+ * @param string              $lock_name Lock option name.
+ * @param array<string,mixed> $observed  Exact expired value read by this request.
+ */
+function justice_ops_maya_profile_release_delete_lock_value_exact( string $lock_name, array $observed ): bool {
+	global $wpdb;
+
+	if (
+		! isset( $wpdb )
+		|| ! is_object( $wpdb )
+		|| ! isset( $wpdb->options )
+		|| ! is_string( $wpdb->options )
+		|| '' === $wpdb->options
+		|| ! method_exists( $wpdb, 'prepare' )
+		|| ! method_exists( $wpdb, 'query' )
+	) {
+		return false;
+	}
+
+	$serialized = function_exists( 'maybe_serialize' ) ? maybe_serialize( $observed ) : serialize( $observed );
+	$query      = $wpdb->prepare(
+		"DELETE FROM {$wpdb->options} WHERE option_name = %s AND option_value = %s",
+		$lock_name,
+		$serialized
+	);
+	$deleted    = $wpdb->query( $query );
+	if ( 1 !== $deleted ) {
+		return false;
+	}
+
+	if ( function_exists( 'wp_cache_delete' ) ) {
+		wp_cache_delete( $lock_name, 'options' );
+	}
+
+	return true;
+}
+
+/**
  * Acquire and release the exact metadata operation lock.
  *
  * @return string|WP_Error
@@ -1084,7 +1128,9 @@ function justice_ops_maya_profile_release_acquire_lock() {
 	$lock_token = wp_generate_uuid4();
 	$existing   = get_option( $lock_name, null );
 	if ( is_array( $existing ) && isset( $existing['expires_at'] ) && (int) $existing['expires_at'] < time() ) {
-		delete_option( $lock_name );
+		if ( ! justice_ops_maya_profile_release_delete_lock_value_exact( $lock_name, $existing ) ) {
+			return new WP_Error( 'maya_profile_locked', 'Another Maya profile metadata operation is active.', array( 'status' => 409 ) );
+		}
 	}
 	if ( ! add_option( $lock_name, array( 'token' => $lock_token, 'expires_at' => time() + 120 ), '', 'no' ) ) {
 		return new WP_Error( 'maya_profile_locked', 'Another Maya profile metadata operation is active.', array( 'status' => 409 ) );
@@ -1097,7 +1143,7 @@ function justice_ops_maya_profile_release_release_lock( string $lock_token ): vo
 	$lock_name = justice_ops_maya_profile_release_lock_name();
 	$held      = get_option( $lock_name, null );
 	if ( is_array( $held ) && isset( $held['token'] ) && hash_equals( $lock_token, (string) $held['token'] ) ) {
-		delete_option( $lock_name );
+		justice_ops_maya_profile_release_delete_lock_value_exact( $lock_name, $held );
 	}
 }
 

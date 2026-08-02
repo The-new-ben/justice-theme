@@ -107,6 +107,11 @@ function justice_router_route_lead( int $lead_id ): array {
 		return array( 'ok' => false, 'why' => 'not a lead or already routed' );
 	}
 
+	if ( get_post_meta( $lead_id, 'routing_hold', true ) ) {
+		update_post_meta( $lead_id, 'lead_routing_status', 'held_for_owner' );
+		return array( 'ok' => false, 'why' => 'routing is on owner hold' );
+	}
+
 	$area   = (string) get_post_meta( $lead_id, 'legal_area', true );
 	$family = justice_router_area_to_family( $area );
 	$map    = justice_cards_family_map();

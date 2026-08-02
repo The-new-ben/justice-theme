@@ -38,6 +38,8 @@ function justice_strip_reviewedby_jsonld( string $html ): string {
 
 add_action( 'init', function () {
 	remove_filter( 'the_content', 'justice_theme_append_reviewer_box', 24 );
+	remove_filter( 'the_content', 'justice_eeat_reviewed_footer', 16 );
+	remove_filter( 'the_content', 'justice_theme_append_reviewed_footer', 16 );
 
 	if ( function_exists( 'justice_theme_article_schema' ) ) {
 		remove_action( 'wp_head', 'justice_theme_article_schema', 20 );
@@ -57,6 +59,25 @@ add_action( 'init', function () {
 		}, 25 );
 	}
 }, 2 );
+
+// Keep a final content-level guard because older theme releases registered the
+// same unsupported paragraph under more than one callback name.
+add_filter( 'the_content', function ( $content ) {
+	if ( ! is_string( $content ) ) {
+		return $content;
+	}
+
+	$clean = preg_replace(
+		array(
+			'#<p\b[^>]*class=["\'][^"\']*\beeat-reviewed-footer\b[^"\']*["\'][^>]*>[\s\S]*?</p>#iu',
+			'#<p\b[^>]*class=["\'][^"\']*\blegal-pillar-hero__reviewed\b[^"\']*["\'][^>]*>[\s\S]*?</p>#iu',
+		),
+		'',
+		$content
+	);
+
+	return is_string( $clean ) ? $clean : $content;
+}, PHP_INT_MAX );
 
 // Inline ld+json inside post content (eeat content signals inject at 15).
 add_filter( 'the_content', 'justice_strip_reviewedby_jsonld', 16 );

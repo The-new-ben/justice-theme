@@ -18,7 +18,9 @@ jobs:
       - name: Check out reviewed source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
-          fetch-depth: 2
+          # The P0 deployment self-test verifies its immutable rollback source
+          # against the pinned historical commit, so that object must exist.
+          fetch-depth: 0
 
       - name: Reject whitespace errors
         run: git diff --check HEAD^ HEAD
@@ -47,6 +49,27 @@ jobs:
           ZIP="plugin-dist/justice-ops-$VERSION.zip"
           git ls-files --error-unmatch "$ZIP"
           test -f "$ZIP"
+          test ! -L "$ZIP"
+          test "$(git ls-files -s "$ZIP" | awk '{print $1}')" = "100644"
+          mapfile -t ADDED_OPS_ZIPS < <(git diff --diff-filter=A --name-only HEAD^ HEAD -- 'plugin-dist/justice-ops-*.zip')
+          for ADDED_ZIP in "${ADDED_OPS_ZIPS[@]}"; do
+            test "$ADDED_ZIP" = "$ZIP" || {
+              echo "Unexpected Justice Ops release artifact added: $ADDED_ZIP" >&2
+              exit 1
+            }
+          done
+          for REQUIRED_PATH in \
+            scripts/deploy/build-ops-zip.py \
+            scripts/deploy/verify-ops-zip.py \
+            tools/check-family-content-release.php \
+            tools/check-lead-routing-hold.php \
+            tools/wp_deploy_justice_ops.py \
+            tools/templates/justice-ops-deploy-helper.php.tpl; do
+            git ls-files --error-unmatch "$REQUIRED_PATH"
+            test -f "$REQUIRED_PATH"
+            test ! -L "$REQUIRED_PATH"
+            test "$(git ls-files -s "$REQUIRED_PATH" | awk '{print $1}')" = "100644"
+          done
           php -r '
             $manifest = json_decode(file_get_contents("plugin-dist/justice-ops.json"), true, 512, JSON_THROW_ON_ERROR);
             $source = file_get_contents("justice-ops/justice-ops.php");
@@ -56,6 +79,21 @@ jobs:
             $expected = "justice-ops-{$version}.zip";
             if (!str_ends_with((string) ($manifest["download_url"] ?? ""), "/{$expected}")) { exit(1); }
           '
+          php tools/check-family-content-release.php
+          php tools/check-lead-routing-hold.php
+          python3 -m py_compile \
+            scripts/deploy/build-ops-zip.py \
+            scripts/deploy/verify-ops-zip.py \
+            tools/wp_deploy_justice_ops.py
+          python3 tools/wp_deploy_justice_ops.py --self-test
+          python3 -S tools/wp_deploy_justice_ops.py --self-test
+          python3 scripts/deploy/build-ops-zip.py "$VERSION"
+          FIRST_SHA256="$(sha256sum "$ZIP" | awk '{print $1}')"
+          python3 scripts/deploy/build-ops-zip.py "$VERSION"
+          SECOND_SHA256="$(sha256sum "$ZIP" | awk '{print $1}')"
+          test "$FIRST_SHA256" = "$SECOND_SHA256"
+          git diff --exit-code -- "$ZIP"
+          python3 scripts/deploy/verify-ops-zip.py "$VERSION"
           rm -rf /tmp/justice-ops-artifact
           mkdir -p /tmp/justice-ops-artifact
           unzip -q "$ZIP" -d /tmp/justice-ops-artifact

@@ -1187,6 +1187,7 @@ def response_summary(response: Any) -> dict[str, Any]:
             "backup_root_created",
             "backup_root_absent_after",
             "marker_consumed",
+            "disk_probe_cleanup_safe",
             "safe_to_retire_helper",
             "foreign_lock_present",
             "lock_acquisition",
@@ -1235,6 +1236,7 @@ def is_proven_safe_pre_mutation_failure(summary: Mapping[str, Any]) -> bool:
         and summary.get("state_absent_after") is True
         and summary.get("own_lock_absent_after") is True
         and summary.get("backup_root_absent_after") is True
+        and summary.get("disk_probe_cleanup_safe") is True
         and summary.get("safe_to_retire_helper") is True
     )
 
@@ -1361,6 +1363,297 @@ def lint_php_snippet(code: str) -> dict[str, Any]:
     finally:
         if temp_path is not None:
             temp_path.unlink(missing_ok=True)
+
+
+def generated_disk_capacity_self_test(code: str) -> dict[str, Any]:
+    start = code.find("// BEGIN JUSTICE OPS DISK CAPACITY CONTRACT.")
+    end_marker = "// END JUSTICE OPS DISK CAPACITY CONTRACT."
+    end = code.find(end_marker, start)
+    if start < 0 or end <= start:
+        raise RuntimeError("Generated helper disk-capacity contract cannot be extracted.")
+    fragment = code[start : end + len(end_marker)]
+    required_markers = (
+        "function_exists( 'disk_free_space' )",
+        "$free = @disk_free_space( WP_CONTENT_DIR );",
+        "$probe = $prove_disk_capacity_with_write( $phase, (int) $required );",
+        "WP_CONTENT_DIR . '/upgrade'",
+        "@fopen( $probe_path, 'x+b' )",
+        "random_bytes( $piece_bytes )",
+        "@fwrite( $writer, $piece )",
+        "@fflush( $writer )",
+        "@fstat( $writer )",
+        "@filesize( $probe_path )",
+        "@fopen( $probe_path, 'rb' )",
+        "@fread( $reader, $read_length )",
+        "hash_equals( $expected_digest, $observed_digest )",
+        "finally {",
+        "@unlink( $probe_path )",
+        "$cleanup_verified = $unlink_succeeded && ! file_exists( $probe_path ) && ! is_link( $probe_path );",
+    )
+    for marker in required_markers:
+        if marker not in fragment:
+            raise RuntimeError(f"Generated helper lost disk-capacity marker: {marker}")
+    if "ftruncate" in fragment:
+        raise RuntimeError("Generated helper disk-capacity proof became sparse.")
+    function_guard = fragment.find("function_exists( 'disk_free_space' )")
+    free_call = fragment.find("$free = @disk_free_space( WP_CONTENT_DIR );")
+    fallback_call = fragment.find(
+        "$probe = $prove_disk_capacity_with_write( $phase, (int) $required );"
+    )
+    if function_guard < 0 or free_call <= function_guard or fallback_call <= free_call:
+        raise RuntimeError("Generated helper disk-space availability guard ordering changed.")
+
+    def run_harness(
+        php_fragment: str,
+        content_root: Path,
+        *,
+        disable_disk_free_space: bool,
+        direct_probe_bytes: int | None = None,
+    ) -> tuple[int, dict[str, Any]]:
+        invocation = (
+            f"$result = $prove_disk_capacity_with_write( 'self-test', {direct_probe_bytes} );"
+            if direct_probe_bytes is not None
+            else "$result = $assert_disk_capacity( 'self-test', 1024, 2048 );"
+        )
+        source = (
+            "<?php\n"
+            + f"define( 'WP_CONTENT_DIR', {php_literal(str(content_root))} );\n"
+            + "function trailingslashit( string $value ): string { return rtrim( $value, '/\\\\' ) . '/'; }\n"
+            + "function wp_normalize_path( string $value ): string { return str_replace( '\\\\', '/', $value ); }\n"
+            + "function wp_generate_uuid4(): string { return bin2hex( random_bytes( 16 ) ); }\n"
+            + "$expected_run_id = 'justice-ops-disk-capacity-self-test';\n"
+            + "$expected_artifact_bytes = 123;\n"
+            + "$expected_expanded_bytes = 321;\n"
+            + php_fragment
+            + "\ntry {\n"
+            + invocation
+            + "\n echo json_encode( array( 'ok' => true, 'result' => $result ), JSON_UNESCAPED_SLASHES );\n"
+            + "} catch ( Throwable $error ) {\n"
+            + " echo json_encode( array( 'ok' => false, 'error' => $error->getMessage() ), JSON_UNESCAPED_SLASHES );\n"
+            + " exit( 17 );\n"
+            + "}\n"
+        )
+        script = content_root.parent / "disk-capacity-self-test.php"
+        script.write_text(source, encoding="utf-8", newline="\n")
+        command = ["php"]
+        if disable_disk_free_space:
+            command.extend(["-d", "disable_functions=disk_free_space"])
+        command.append(str(script))
+        completed = subprocess.run(
+            command,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
+        try:
+            payload = json.loads(completed.stdout)
+        except json.JSONDecodeError as error:
+            raise RuntimeError(
+                "Generated disk-capacity harness returned malformed evidence: "
+                f"{completed.stdout}{completed.stderr}"
+            ) from error
+        if not isinstance(payload, dict):
+            raise RuntimeError("Generated disk-capacity harness evidence is not an object.")
+        return completed.returncode, payload
+
+    with tempfile.TemporaryDirectory(prefix="justice-ops-disk-capacity-") as temp:
+        root = Path(temp)
+        content_root = root / "wp-content"
+        upgrade_root = content_root / "upgrade"
+        upgrade_root.mkdir(parents=True)
+        expected_required = (
+            1024 + 2048 + 1024 + 123 + 321 + 1024 + 20 * 1024 * 1024
+        )
+
+        normal_status, normal = run_harness(
+            fragment,
+            content_root,
+            disable_disk_free_space=False,
+        )
+        normal_result = normal.get("result") if isinstance(normal, dict) else None
+        if (
+            normal_status != 0
+            or normal.get("ok") is not True
+            or not isinstance(normal_result, dict)
+            or normal_result.get("required_bytes") != expected_required
+            or type(normal_result.get("free_bytes")) is not int
+            or "capacity_proof" in normal_result
+        ):
+            raise RuntimeError("Normal disk_free_space path changed or invoked fallback.")
+
+        fallback_status, fallback = run_harness(
+            fragment,
+            content_root,
+            disable_disk_free_space=True,
+        )
+        fallback_result = fallback.get("result") if isinstance(fallback, dict) else None
+        proof = (
+            fallback_result.get("capacity_proof")
+            if isinstance(fallback_result, dict)
+            else None
+        )
+        if (
+            fallback_status != 0
+            or fallback.get("ok") is not True
+            or not isinstance(fallback_result, dict)
+            or fallback_result.get("free_bytes") is not None
+            or fallback_result.get("required_bytes") != expected_required
+            or not isinstance(proof, dict)
+            or proof.get("method") != "bounded_real_write_read_unlink_probe"
+            or proof.get("proven_bytes") != expected_required
+            or proof.get("written_bytes") != expected_required
+            or proof.get("readable_bytes") != expected_required
+            or proof.get("cleanup_verified") is not True
+            or not _SHA256_RE.fullmatch(str(proof.get("sha256", "")))
+        ):
+            raise RuntimeError("Unavailable disk_free_space fallback proof is incomplete.")
+        if list(upgrade_root.glob(".justice-ops-capacity-probe-*.tmp")):
+            raise RuntimeError("Successful disk-capacity fallback left a probe file.")
+
+        low_space_fragment = fragment.replace(
+            "$free = @disk_free_space( WP_CONTENT_DIR );",
+            "$free = 0;",
+            1,
+        )
+        low_status, low = run_harness(
+            low_space_fragment,
+            content_root,
+            disable_disk_free_space=False,
+        )
+        if (
+            low_status == 0
+            or low.get("ok") is not False
+            or low.get("error")
+            != "Free disk space cannot hold every bounded deploy and recovery copy."
+            or list(upgrade_root.glob(".justice-ops-capacity-probe-*.tmp"))
+        ):
+            raise RuntimeError("Numeric insufficient disk measurement incorrectly used fallback.")
+
+        short_write_fragment = fragment.replace(
+            "$written = @fwrite( $writer, $piece );",
+            "$written = @fwrite( $writer, $piece ); if ( is_int( $written ) ) { --$written; }",
+            1,
+        )
+        short_status, short = run_harness(
+            short_write_fragment,
+            content_root,
+            disable_disk_free_space=True,
+            direct_probe_bytes=1024 * 1024,
+        )
+        if (
+            short_status == 0
+            or short.get("ok") is not False
+            or short.get("error")
+            != "The bounded disk capacity probe write is incomplete."
+            or list(upgrade_root.glob(".justice-ops-capacity-probe-*.tmp"))
+        ):
+            raise RuntimeError("Short disk-capacity write did not clean up and fail closed.")
+
+        mismatched_fragment = fragment.replace(
+            "$observed_digest = hash_final( $read_hash );",
+            "$observed_digest = str_repeat( '0', 64 );",
+            1,
+        )
+        mismatch_status, mismatch = run_harness(
+            mismatched_fragment,
+            content_root,
+            disable_disk_free_space=True,
+            direct_probe_bytes=1024 * 1024,
+        )
+        if (
+            mismatch_status == 0
+            or mismatch.get("ok") is not False
+            or mismatch.get("error")
+            != "The bounded disk capacity probe readback differs."
+            or list(upgrade_root.glob(".justice-ops-capacity-probe-*.tmp"))
+        ):
+            raise RuntimeError("Disk-capacity readback failure did not clean up and fail closed.")
+
+        reopen_fragment = fragment.replace(
+            "$reader = @fopen( $probe_path, 'rb' );",
+            "$reader = false;",
+            1,
+        )
+        reopen_status, reopen = run_harness(
+            reopen_fragment,
+            content_root,
+            disable_disk_free_space=True,
+            direct_probe_bytes=1024 * 1024,
+        )
+        if (
+            reopen_status == 0
+            or reopen.get("ok") is not False
+            or reopen.get("error")
+            != "The bounded disk capacity probe cannot be reopened."
+            or list(upgrade_root.glob(".justice-ops-capacity-probe-*.tmp"))
+        ):
+            raise RuntimeError("Disk-capacity reopen failure did not clean up and fail closed.")
+
+        unlink_fragment = fragment.replace(
+            "$unlink_succeeded = @unlink( $probe_path );",
+            "$unlink_succeeded = false;",
+            1,
+        )
+        unlink_status, unlink_failure = run_harness(
+            unlink_fragment,
+            content_root,
+            disable_disk_free_space=True,
+            direct_probe_bytes=1024 * 1024,
+        )
+        residual_probes = list(upgrade_root.glob(".justice-ops-capacity-probe-*.tmp"))
+        if (
+            unlink_status == 0
+            or unlink_failure.get("ok") is not False
+            or unlink_failure.get("error")
+            != "The bounded disk capacity probe cannot be removed."
+            or len(residual_probes) != 1
+        ):
+            raise RuntimeError("Disk-capacity unlink failure was not distinguished.")
+        residual_probes[0].unlink()
+
+        missing_root = root / "missing-content"
+        missing_root.mkdir()
+        missing_status, missing = run_harness(
+            fragment,
+            missing_root,
+            disable_disk_free_space=True,
+        )
+        if (
+            missing_status == 0
+            or missing.get("ok") is not False
+            or missing.get("error")
+            != "The bounded disk capacity probe directory is unavailable."
+        ):
+            raise RuntimeError("Missing upgrade directory did not fail closed.")
+
+        oversized_status, oversized = run_harness(
+            fragment,
+            content_root,
+            disable_disk_free_space=True,
+            direct_probe_bytes=150 * 1024 * 1024 + 1,
+        )
+        if (
+            oversized_status == 0
+            or oversized.get("ok") is not False
+            or oversized.get("error")
+            != "The bounded disk capacity probe size is outside the safe limit."
+            or list(upgrade_root.glob(".justice-ops-capacity-probe-*.tmp"))
+        ):
+            raise RuntimeError("Oversized disk-capacity probe did not fail closed.")
+
+    return {
+        "normal_path": True,
+        "fallback_path": True,
+        "exact_probe_bytes": expected_required,
+        "numeric_insufficient_no_fallback": True,
+        "short_write_cleanup": True,
+        "readback_mismatch_cleanup": True,
+        "reopen_failure_cleanup": True,
+        "unlink_failure_distinct": True,
+        "missing_root_fail_closed": True,
+        "oversized_fail_closed": True,
+    }
 
 
 def parse_expected_live_manifest(path: Path) -> dict[str, dict[str, Any]]:
@@ -2281,6 +2574,7 @@ def deployment_contract_self_test() -> dict[str, Any]:
                 "state_absent_after": True,
                 "own_lock_absent_after": True,
                 "backup_root_absent_after": True,
+                "disk_probe_cleanup_safe": True,
                 "safe_to_retire_helper": True,
             },
         )
@@ -2904,6 +3198,7 @@ def deployment_contract_self_test() -> dict[str, Any]:
         },
     )
     lint = lint_php_snippet(code)
+    disk_capacity = generated_disk_capacity_self_test(code)
     if normalized not in code or _SELF_HASH_MARKER in code:
         raise RuntimeError("Generated helper self-hash contract failed.")
     preflight_route = code.find("$expected_route_base . '/preflight'")
@@ -2928,6 +3223,7 @@ def deployment_contract_self_test() -> dict[str, Any]:
         "'own_lock_absent_after'",
         "'backup_root_absent_after'",
         "'marker_consumed'",
+        "'disk_probe_cleanup_safe'",
         "'safe_to_retire_helper'",
         "'foreign_lock_present'",
     ):
@@ -2953,6 +3249,7 @@ def deployment_contract_self_test() -> dict[str, Any]:
         "rollback_round_trip_sha256": rollback["rollback_zip_sha256"],
         "generated_helper_sha256": sha256_text(code),
         "generated_helper_lint": lint,
+        "generated_disk_capacity": disk_capacity,
         "recovery_marker_validation_sha256": proof_result["marker_sha256"],
         "prior_2_35_2_marker_baseline": prior_2352_family_fingerprint[
             "release_marker_count"
@@ -3191,6 +3488,7 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
             or preflight_payload.get("own_lock_absent_after") is not True
             or preflight_payload.get("backup_root_absent_after") is not True
             or preflight_payload.get("marker_consumed") is not False
+            or preflight_payload.get("disk_probe_cleanup_safe") is not True
             or preflight_payload.get("safe_to_retire_helper") is not True
         ):
             control_plane_reconciliation_required = True
@@ -3223,6 +3521,7 @@ def run(args: argparse.Namespace) -> tuple[int, Path, dict[str, Any]]:
             or consumed.get("single_use_deleted") is not True
             or consumed.get("marker_sha256") != recovery_proof["marker_sha256"]
             or consumed.get("marker_filename") != recovery_proof["marker_filename"]
+            or prepare_payload.get("disk_probe_cleanup_safe") is not True
         ):
             raise RuntimeError("The server did not consume the exact single-use uPress marker.")
         prepared = True

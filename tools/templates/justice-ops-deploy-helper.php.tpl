@@ -23,7 +23,9 @@ add_action( 'rest_api_init', function () {
 	$expected_marker_sha256   = __RECOVERY_MARKER_SHA256__;
 	$expected_marker_bytes    = __RECOVERY_MARKER_BYTES__;
 	$expected_normalized_hash = '__JUSTICE_OPS_HELPER_NORMALIZED_SHA256__';
-	$expected_backup_root     = WP_CONTENT_DIR . '/upgrade/.justice-ops-recovery-' . substr( hash( 'sha256', $expected_run_id ), 0, 20 );
+	// WP_Upgrader::unpack_package() clears every child of wp-content/upgrade.
+	// Recovery material must therefore live in a dedicated sibling path.
+	$expected_backup_root     = WP_CONTENT_DIR . '/.justice-ops-recovery-' . substr( hash( 'sha256', $expected_run_id ), 0, 20 );
 
 	$max_files        = 250;
 	$max_file_bytes   = 5 * 1024 * 1024;
@@ -1144,7 +1146,7 @@ add_action( 'rest_api_init', function () {
 
 		$foreign_state = (string) ( $decoded['state_option'] ?? '' );
 		$foreign_backup = wp_normalize_path( (string) ( $decoded['backup_root'] ?? '' ) );
-		$allowed_backup_prefix = wp_normalize_path( WP_CONTENT_DIR . '/upgrade/.justice-ops-recovery-' );
+		$allowed_backup_prefix = wp_normalize_path( WP_CONTENT_DIR . '/.justice-ops-recovery-' );
 		$state_bounded = 1 === preg_match( '/^justice_ops_deploy_state_[0-9a-f]{20}$/', $foreign_state );
 		$backup_bounded = 1 === preg_match( '#^' . preg_quote( $allowed_backup_prefix, '#' ) . '[0-9a-f]{20}$#', $foreign_backup );
 		$identity_bounded = 1 === preg_match( '/^justice-ops-install-[0-9]{8}T[0-9]{6}Z-[a-f0-9]{8}$/', $foreign_run_id ) && (int) $summary['helper_id'] > 0;

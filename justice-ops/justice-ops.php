@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.35.9
+ * Version: 2.35.10
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.35.9' );
+	define( 'JUSTICE_OPS_VERSION', '2.35.10' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -113,6 +113,10 @@ require_once __DIR__ . '/tools-discovery.php';
 // truth for titles; legacy per-post override filters are retired (wave 0).
 require_once __DIR__ . '/title-authority.php';
 
+// Title stability: restore the canonical server title only when third-party
+// chat replaces it with a narrowly matched notification counter.
+require_once __DIR__ . '/title-stability.php';
+
 // Legacy URL rescue: 301s for dead historical URLs still carrying equity.
 require_once __DIR__ . '/legacy-redirects.php';
 
@@ -138,6 +142,9 @@ require_once __DIR__ . '/real-estate-content-release.php';
 // Country release schema boundary: Portugal and USA editorial cohorts keep
 // WebPage/Article/Breadcrumb graphs but cannot inherit unproved provider nodes.
 require_once __DIR__ . '/country-content-release.php';
+
+// Exact-CAS REST bridge for the controlled eight-page Cyprus cohort.
+require_once __DIR__ . '/cyprus-content-bridge.php';
 
 // Maya Rotenberg firm-profile bridge: exact-route factual copy, neutral
 // visibility clarification, controlled schema and hash-locked Yoast metadata.
@@ -175,6 +182,7 @@ require_once __DIR__ . '/publish-notify.php';
 // (dry-run/execute REST routes, owner-authorized per row batch).
 require_once __DIR__ . '/lawyer-index-import.php';
 require_once __DIR__ . '/firm-match-strip.php';
+require_once __DIR__ . '/content-first-order.php';
 require_once __DIR__ . '/map-feed-v3.php';
 
 /**

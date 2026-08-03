@@ -202,6 +202,14 @@ AFFECTED_PATHS = (
     "/lawyers/",
     "/legal-help/",
     "/medical-malpractice-lawyer/",
+    "/about-cyprus/",
+    "/avoiding-mistakes-when-buying-property-in-cyprus/",
+    "/buy-real-estate-cyprus/",
+    "/cyprus-corporate-tax/",
+    "/cyprus-lawyer/",
+    "/cyprus-prices/",
+    "/real-estate-market-greece-cyprus/",
+    "/real-estate-market-review-cyprus-guide-israelis-2025/",
 )
 
 PAGE_CONTRACTS: dict[str, dict[str, str]] = {
@@ -836,6 +844,7 @@ class SeoDocumentProbe(HTMLParser):
 
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
+        self._head_depth = 0
         self._body_depth = 0
         self._title_depth = 0
         self._h1_depth = 0
@@ -868,7 +877,9 @@ class SeoDocumentProbe(HTMLParser):
     ) -> None:
         tag = tag.lower()
         values = self._attributes(attrs)
-        if tag == "body":
+        if tag == "head":
+            self._head_depth += 1
+        elif tag == "body":
             self._body_depth += 1
         elif self._body_depth and tag in {"script", "style", "noscript", "template"}:
             self._ignored_depth += 1
@@ -885,7 +896,7 @@ class SeoDocumentProbe(HTMLParser):
             microdata_or_rdfa.update({"property", "resource", "prefix", "about"})
         for attribute in sorted(microdata_or_rdfa.intersection(values)):
             self.structured_data_attributes.append(f"{tag}:{attribute}")
-        if tag == "title":
+        if tag == "title" and self._head_depth:
             self._title_depth += 1
             self._title_parts = []
         if self._body_depth and tag == "h1":
@@ -937,6 +948,8 @@ class SeoDocumentProbe(HTMLParser):
             self._ignored_depth = max(0, self._ignored_depth - 1)
         if tag == "body" and self._body_depth:
             self._body_depth -= 1
+        if tag == "head" and self._head_depth:
+            self._head_depth -= 1
 
     def handle_data(self, data: str) -> None:
         if self._title_depth:
@@ -2688,6 +2701,15 @@ def deployment_contract_self_test() -> dict[str, Any]:
             self.history: list[Any] = []
             self.headers = {"Content-Type": "text/html; charset=UTF-8"}
             self.text = markup
+
+    title_scope_probe = inspect_seo_html(
+        '<html><head><title>Canonical SEO title</title></head><body>'
+        '<svg aria-hidden="true"><title>Decorative icon title</title></svg>'
+        '</body></html>',
+        {"Content-Type": "text/html; charset=UTF-8"},
+    )
+    if title_scope_probe["titles"] != ["Canonical SEO title"]:
+        raise RuntimeError("SEO title parsing escaped the document head boundary.")
 
     prior_2352_family_html = (
         '<html><head><title>Prior family title</title>'

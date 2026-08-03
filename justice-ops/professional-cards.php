@@ -3,10 +3,9 @@
  * Professional cards: the monetization surface.
  *
  * Sponsored lawyer cards inside articles, news briefs and encyclopedia
- * entries, resolved by the page's legal family, ranked by priority_score
- * (the placement dial that sells this surface) with a daily rotation among
- * equal scores. Only profiles that pass the theme public-approval gate AND
- * carry a positive score ever float, so the sponsored label is never false.
+ * entries, resolved by the page's legal family. Public sponsorship truth is
+ * supplied only by the theme's commercial-status helper. priority_score may
+ * order already-eligible placements but never establishes payment by itself.
  *
  * Design benchmarked against the strongest marketplace cards (photo-first
  * with one saturated accent, gradient border with layered elevation, strict
@@ -34,7 +33,6 @@ function justice_cards_settings(): array {
 		'min_gap_chars'   => 2500,
 		'brand'           => '#14213d',
 		'accent'          => '#e7c765',
-		'flag_label'      => 'עורך דין מוביל לתחום',
 		'sponsored_label' => 'מקודם',
 		'wa_label'        => 'שליחת הודעה עכשיו',
 		'profile_label'   => 'לפרופיל המלא',
@@ -47,9 +45,17 @@ function justice_cards_settings(): array {
 		$settings[ $key ] = '' === $value ? $default : $value;
 	}
 
+	$filtered = apply_filters( 'justice_cards_settings', $settings );
+	if ( is_array( $filtered ) ) {
+		$settings = array_merge( $settings, $filtered );
+	}
 	$settings['max'] = max( 1, min( 3, (int) $settings['max'] ) );
 
-	return apply_filters( 'justice_cards_settings', $settings );
+	// Disclosure is a truth control, not a marketing setting. Historical
+	// options and third-party filters cannot weaken or rename it.
+	$settings['sponsored_label'] = 'מקודם';
+
+	return $settings;
 }
 
 
@@ -157,51 +163,263 @@ function justice_cards_current_terms(): array {
 // ---------------------------------------------------------------------------
 
 /**
- * Query the family's professionals: approval gate + positive score, priority
- * first, daily rotation tie-break among equals.
+ * Return a country key only for an explicitly reviewed foreign-country page.
+ */
+function justice_cards_current_request_path(): string {
+	if ( function_exists( 'get_queried_object_id' ) ) {
+		$queried_id = (int) get_queried_object_id();
+		if ( $queried_id > 0 ) {
+			$permalink = get_permalink( $queried_id );
+			$path      = is_string( $permalink ) ? (string) wp_parse_url( $permalink, PHP_URL_PATH ) : '';
+			if ( '' !== $path ) {
+				$path = '/' . trim( $path, '/' ) . '/';
+
+				return '//' === $path ? '/' : $path;
+			}
+		}
+	}
+
+	$path = (string) wp_parse_url( (string) ( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH );
+	$path = '/' . trim( $path, '/' ) . '/';
+
+	return '//' === $path ? '/' : $path;
+}
+
+/**
+ * Return the foreign-country context for the canonical queried document.
+ * Cross-country comparisons suppress provider cards because a Cyprus-only
+ * capability signal cannot prove eligibility for Greece as well.
+ */
+function justice_cards_country_context(): string {
+	$path = justice_cards_current_request_path();
+
+	if ( '/real-estate-market-greece-cyprus/' === $path ) {
+		return 'comparison';
+	}
+
+	$cyprus_paths = function_exists( 'justice_ops_content_first_target_paths' )
+		? justice_ops_content_first_target_paths()
+		: array(
+			'/about-cyprus/',
+			'/avoiding-mistakes-when-buying-property-in-cyprus/',
+			'/buy-real-estate-cyprus/',
+			'/cyprus-corporate-tax/',
+			'/cyprus-lawyer/',
+			'/cyprus-prices/',
+			'/real-estate-market-review-cyprus-guide-israelis-2025/',
+		);
+
+	return in_array( $path, $cyprus_paths, true ) ? 'cyprus' : '';
+}
+
+/**
+ * Foreign-country cards are off unless an integration explicitly confirms
+ * the profile's capability for the named jurisdiction.
+ */
+function justice_cards_has_verified_jurisdiction_eligibility( int $lawyer_id, string $country ): bool {
+	if ( '' === $country ) {
+		return true;
+	}
+	if ( 'comparison' === $country ) {
+		return false;
+	}
+	$path = justice_cards_current_request_path();
+
+	return true === apply_filters(
+		'justice_cards_verified_jurisdiction_eligible',
+		false,
+		$lawyer_id,
+		$country,
+		$path
+	);
+}
+
+/**
+ * Every active promotional plan that constitutes sponsored placement.
+ *
+ * The advertiser module currently sells featured and premium. Legacy plans
+ * remain recognized so an active paid profile can never leak into an organic
+ * surface merely because an older theme helper omitted a plan key.
+ *
+ * @return string[]
+ */
+function justice_cards_active_paid_plan_keys(): array {
+	$keys = array( 'pro', 'featured', 'premium', 'lead_partner', 'full_service' );
+
+	if ( function_exists( 'justice_adv_plans' ) ) {
+		foreach ( justice_adv_plans() as $key => $plan ) {
+			if ( is_array( $plan ) && (int) ( $plan['score'] ?? 0 ) > 0 ) {
+				$keys[] = sanitize_key( (string) $key );
+			}
+		}
+	}
+
+	$keys = apply_filters( 'justice_cards_active_paid_plan_keys', array_values( array_unique( array_filter( $keys ) ) ) );
+
+	return array_values( array_unique( array_filter( array_map( 'sanitize_key', (array) $keys ) ) ) );
+}
+
+/**
+ * Canonical public sponsored-placement truth for plugin surfaces.
+ */
+function justice_cards_has_public_sponsored_placement( int $lawyer_id ): bool {
+	if (
+		function_exists( 'justice_theme_lawyer_has_public_sponsored_placement' )
+		&& justice_theme_lawyer_has_public_sponsored_placement( $lawyer_id )
+	) {
+		return true;
+	}
+
+	$subscription = sanitize_key( (string) get_post_meta( $lawyer_id, 'subscription_status', true ) );
+	$plan         = sanitize_key( (string) get_post_meta( $lawyer_id, 'plan_type', true ) );
+
+	return 'active' === $subscription && in_array( $plan, justice_cards_active_paid_plan_keys(), true );
+}
+
+/**
+ * Hydrate cached profile IDs in bounded database requests.
+ *
+ * @param int[] $ids Profile IDs.
+ * @return WP_Post[]
+ */
+function justice_cards_hydrate_profiles( array $ids ): array {
+	$profiles = array();
+
+	foreach ( array_chunk( array_values( array_unique( array_map( 'intval', $ids ) ) ), 64 ) as $chunk ) {
+		$posts = get_posts( array(
+			'post_type'              => 'justice_lawyer',
+			'post_status'            => 'publish',
+			'post__in'               => $chunk,
+			'posts_per_page'         => count( $chunk ),
+			'orderby'                => 'post__in',
+			'no_found_rows'          => true,
+			'update_post_meta_cache' => true,
+			'update_post_term_cache' => false,
+		) );
+		foreach ( $posts as $post ) {
+			if ( $post instanceof WP_Post ) {
+				$profiles[ (int) $post->ID ] = $post;
+			}
+		}
+	}
+
+	$ordered = array();
+	foreach ( $ids as $id ) {
+		if ( isset( $profiles[ (int) $id ] ) ) {
+			$ordered[] = $profiles[ (int) $id ];
+		}
+	}
+
+	return $ordered;
+}
+
+/**
+ * Query every plausible sponsored candidate in bounded pages, then cache IDs.
+ * The SQL eligibility prefilter prevents a cold request from scanning the
+ * complete lawyer directory. Paging continues through all sponsored matches,
+ * so a legitimate paid profile is never cut off by an arbitrary total cap.
+ *
+ * @param string[] $term_slugs Practice-area slugs.
+ * @return WP_Post[]
+ */
+function justice_cards_sponsored_candidates( array $term_slugs ): array {
+	$term_slugs = array_values( array_unique( array_filter( array_map( 'sanitize_title', $term_slugs ) ) ) );
+	sort( $term_slugs, SORT_STRING );
+	$cache_key  = 'jt_pc_' . substr( hash( 'sha256', wp_json_encode( array( $term_slugs, justice_cards_active_paid_plan_keys() ) ) ), 0, 28 );
+	$cached     = get_transient( $cache_key );
+
+	if ( is_array( $cached ) ) {
+		return justice_cards_hydrate_profiles( $cached );
+	}
+
+	$profiles   = array();
+	$offset     = 0;
+	$batch_size = 64;
+	$seen       = array();
+
+	do {
+		$batch = get_posts( array(
+			'post_type'              => 'justice_lawyer',
+			'post_status'            => 'publish',
+			'posts_per_page'         => $batch_size,
+			'offset'                 => $offset,
+			'orderby'                => 'ID',
+			'order'                  => 'ASC',
+			'no_found_rows'          => true,
+			'update_post_meta_cache' => true,
+			'update_post_term_cache' => false,
+			'tax_query'              => array(
+				array(
+					'taxonomy' => 'practice-areas',
+					'field'    => 'slug',
+					'terms'    => $term_slugs,
+				),
+			),
+			'meta_query'             => array(
+				'relation' => 'OR',
+				array(
+					'key'   => 'sponsored_placement_status',
+					'value' => 'active',
+				),
+				array(
+					'relation' => 'AND',
+					array(
+						'key'   => 'subscription_status',
+						'value' => 'active',
+					),
+					array(
+						'key'     => 'plan_type',
+						'value'   => justice_cards_active_paid_plan_keys(),
+						'compare' => 'IN',
+					),
+				),
+			),
+		) );
+
+		$new_in_batch = 0;
+		foreach ( $batch as $profile ) {
+			if ( ! $profile instanceof WP_Post || isset( $seen[ (int) $profile->ID ] ) ) {
+				continue;
+			}
+			$seen[ (int) $profile->ID ]     = true;
+			$profiles[ (int) $profile->ID ] = $profile;
+			$new_in_batch++;
+		}
+		$offset += count( $batch );
+	} while ( count( $batch ) === $batch_size && $new_in_batch > 0 );
+
+	set_transient( $cache_key, array_keys( $profiles ), 5 * MINUTE_IN_SECONDS );
+
+	return array_values( $profiles );
+}
+
+/**
+ * Query the family's sponsored professionals, then use priority only for
+ * ordering and daily rotation among equal scores.
  */
 function justice_cards_lawyers( array $term_slugs, int $limit ): array {
-	if ( ! $term_slugs || ! post_type_exists( 'justice_lawyer' ) ) {
+	if (
+		! $term_slugs
+		|| ! post_type_exists( 'justice_lawyer' )
+		|| ! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+	) {
 		return array();
 	}
 
-	// No meta_key in the query: that inner join would drop profiles missing
-	// the meta. Ranking happens in PHP after the public-approval gate.
-	$candidates = get_posts( array(
-		'post_type'      => 'justice_lawyer',
-		'post_status'    => 'publish',
-		'posts_per_page' => 24,
-		'orderby'        => 'date',
-		'order'          => 'DESC',
-		'tax_query'      => array(
-			array(
-				'taxonomy' => 'practice-areas',
-				'field'    => 'slug',
-				'terms'    => $term_slugs,
-			),
-		),
-	) );
+	$candidates = justice_cards_sponsored_candidates( $term_slugs );
 
-	// Sponsored placement is stricter than directory listing: only profiles
-	// the theme approves for public output may float inside content, and only
-	// with a positive priority_score. Score zero means directory-only; the
-	// score is the placement dial that sells this surface.
+	// Sponsorship and public approval are truth contracts, not score guesses.
+	// Country pages add a separate, explicit jurisdiction capability contract.
 	$lawyers = array();
+	$country = justice_cards_country_context();
 
 	foreach ( $candidates as $candidate ) {
-		if ( (int) get_post_meta( $candidate->ID, 'priority_score', true ) < 1 ) {
+		if (
+			! justice_theme_lawyer_profile_is_public_approved( $candidate->ID )
+			|| ! justice_cards_has_public_sponsored_placement( (int) $candidate->ID )
+			|| ! justice_cards_has_verified_jurisdiction_eligibility( (int) $candidate->ID, $country )
+		) {
 			continue;
-		}
-
-		if ( function_exists( 'justice_theme_lawyer_profile_is_public_approved' ) ) {
-			if ( ! justice_theme_lawyer_profile_is_public_approved( $candidate->ID ) ) {
-				continue;
-			}
-		} else {
-			$status = strtolower( (string) get_post_meta( $candidate->ID, 'profile_status', true ) );
-			if ( ! in_array( $status, array( 'approved', 'public', 'published', 'active', 'verified' ), true ) ) {
-				continue;
-			}
 		}
 
 		$lawyers[] = $candidate;
@@ -324,11 +542,42 @@ function justice_cards_response_badge( int $lawyer_id ): string {
 }
 
 /**
+ * Whether free-form profile facts may be repeated on public article cards.
+ */
+function justice_cards_profile_facts_are_approved( int $lawyer_id ): bool {
+	$status = sanitize_key( (string) get_post_meta( $lawyer_id, 'profile_fact_review_status', true ) );
+
+	if ( function_exists( 'justice_lawyer_fact_review_status_is_approved' ) ) {
+		return justice_lawyer_fact_review_status_is_approved( $status );
+	}
+
+	return in_array( $status, array( 'approved', 'source_checked', 'owner_approved', 'lawyer_approved' ), true );
+}
+
+/**
+ * Neutral, accurate visible label for the profile's controlled type.
+ */
+function justice_cards_professional_type_label( int $lawyer_id ): string {
+	$type = sanitize_key( (string) get_post_meta( $lawyer_id, 'professional_type', true ) );
+	$map  = array(
+		'lawyer'              => 'כרטיס עורך דין',
+		'law_firm'            => 'כרטיס משרד עורכי דין',
+		'rabbinical_advocate' => 'כרטיס טוען רבני',
+		'mediator'            => 'כרטיס מגשר',
+		'notary'              => 'כרטיס נוטריון',
+		'legal_supplier'      => 'כרטיס ספק שירותים משפטיים',
+	);
+
+	return $map[ $type ] ?? 'כרטיס איש מקצוע משפטי';
+}
+
+/**
  * Render one professional card.
  */
 function justice_cards_render( WP_Post $lawyer ): string {
 	$s      = justice_cards_settings();
 	$pid    = $lawyer->ID;
+	$label  = justice_cards_professional_type_label( $pid );
 	$name   = get_the_title( $pid );
 	$url    = add_query_arg( array( 'utm_source' => 'jt-card', 'utm_medium' => 'incontent' ), get_permalink( $pid ) );
 	$areas  = get_the_terms( $pid, 'practice-areas' );
@@ -351,8 +600,9 @@ function justice_cards_render( WP_Post $lawyer ): string {
 		}
 	}
 
-	$license = (string) get_post_meta( $pid, 'license_number', true );
-	$years   = (int) get_post_meta( $pid, 'years_experience', true );
+	$years = justice_cards_profile_facts_are_approved( $pid )
+		? (int) get_post_meta( $pid, 'years_experience', true )
+		: 0;
 
 	$wa_message = 'שלום, אני פונה מהעמוד: ' . mb_substr( wp_strip_all_tags( get_the_title() ), 0, 70 )
 		. ' | ' . get_permalink()
@@ -385,18 +635,15 @@ function justice_cards_render( WP_Post $lawyer ): string {
 	}
 
 	$trust = '';
-	if ( $license ) {
-		$trust .= '<span class="jt-procard__trustitem jt-procard__verified"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4zm-1.5 15.5-4-4 1.4-1.4 2.6 2.6 6.1-6.1L18 9l-7.5 7.5z"/></svg>רישיון מאומת</span>';
-	}
 	if ( $years >= 3 ) {
 		$trust .= '<span class="jt-procard__trustitem">' . esc_html( number_format_i18n( $years ) ) . ' שנות ניסיון</span>';
 	}
 	$trust .= justice_cards_response_badge( $pid );
 	$trust .= $rating_html;
 
-	return '<aside class="jt-procard" role="complementary" aria-label="' . esc_attr( $s['flag_label'] ) . '" data-card-surface="incontent" data-l="' . (int) $pid . '">'
+	return '<aside class="jt-procard" role="complementary" aria-label="' . esc_attr( $label ) . '" data-card-surface="incontent" data-l="' . (int) $pid . '">'
 		. '<div class="jt-procard__ribbon">'
-		. '<span class="jt-procard__flag"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M12 3l1.8 3.8 4.2.6-3 2.9.7 4.2L12 12.6l-3.7 1.9.7-4.2-3-2.9 4.2-.6L12 3z"/></svg>' . esc_html( $s['flag_label'] ) . '</span>'
+		. '<span class="jt-procard__flag">' . esc_html( $label ) . '</span>'
 		. '<em class="jt-procard__sponsored">' . esc_html( $s['sponsored_label'] ) . '</em>'
 		. '</div>'
 		. '<div class="jt-procard__main">'
@@ -442,7 +689,6 @@ function justice_cards_css(): string {
 		. '.jt-procard__chip--city{background:#faf6ea;color:#7c6519}'
 		. '.jt-procard__trust{display:flex;flex-wrap:wrap;gap:12px;align-items:center;color:#5a6579;font-size:12.5px}'
 		. '.jt-procard__trustitem{display:inline-flex;align-items:center;gap:4px;font-weight:600}'
-		. '.jt-procard__verified{color:#0a7d2f}'
 		. '.jt-procard__rating{color:#8a6d1d;font-weight:700}'
 		. '.jt-procard__resp{color:#1465b0;font-weight:700}'
 		. '.jt-procard__actions{display:flex;gap:10px;padding:14px 18px 18px;position:relative;z-index:1}'
@@ -475,8 +721,39 @@ add_action( 'wp_head', function () {
 // Placement
 // ---------------------------------------------------------------------------
 
-add_filter( 'the_content', function ( $content ) {
-	if ( ! is_singular( justice_cards_singular_types() ) || ! in_the_loop() || ! is_main_query() ) {
+function justice_cards_is_public_main_content_request(): bool {
+	if (
+		is_feed()
+		|| ( defined( 'REST_REQUEST' ) && REST_REQUEST )
+		|| ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() )
+		|| ( function_exists( 'is_preview' ) && is_preview() )
+		|| ( function_exists( 'is_embed' ) && is_embed() )
+		|| ( function_exists( 'is_admin' ) && is_admin() )
+	) {
+		return false;
+	}
+
+	foreach ( array( 'preview', 'feed', 'embed', 'rest_route' ) as $variant ) {
+		if ( isset( $_GET[ $variant ] ) ) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/**
+ * Inject sponsored cards into the public canonical content response only.
+ */
+function justice_cards_filter_content( $content ): string {
+	$content = (string) $content;
+
+	if (
+		! is_singular( justice_cards_singular_types() )
+		|| ! in_the_loop()
+		|| ! is_main_query()
+		|| ! justice_cards_is_public_main_content_request()
+	) {
 		return $content;
 	}
 
@@ -534,7 +811,9 @@ add_filter( 'the_content', function ( $content ) {
 	$rest  = substr( $content, $pos );
 
 	if ( isset( $cards[1] ) ) {
-		$faq_pos = mb_strpos( $rest, 'שאלות נפוצות' );
+		// All surrounding offsets use byte-oriented substr/strrpos, so the FAQ
+		// anchor must use a byte offset too. Mixing mb_strpos here can split UTF-8.
+		$faq_pos = strpos( $rest, 'שאלות נפוצות' );
 
 		if ( false !== $faq_pos && $faq_pos > (int) $s['min_gap_chars'] ) {
 			$h2_before = strrpos( substr( $rest, 0, $faq_pos ), '<h2' );
@@ -547,7 +826,8 @@ add_filter( 'the_content', function ( $content ) {
 	}
 
 	return $first . $cards[0] . $rest;
-}, 17 );
+}
+add_filter( 'the_content', 'justice_cards_filter_content', 17 );
 
 // ---------------------------------------------------------------------------
 // Admin: Settings > Justice Cards
@@ -564,8 +844,6 @@ add_action( 'admin_init', function () {
 		'justice_cards_min_gap_chars'   => 'absint',
 		'justice_cards_brand'           => 'sanitize_hex_color',
 		'justice_cards_accent'          => 'sanitize_hex_color',
-		'justice_cards_flag_label'      => 'sanitize_text_field',
-		'justice_cards_sponsored_label' => 'sanitize_text_field',
 		'justice_cards_wa_label'        => 'sanitize_text_field',
 		'justice_cards_profile_label'   => 'sanitize_text_field',
 	);
@@ -584,7 +862,7 @@ function justice_cards_settings_page(): void {
 	?>
 	<div class="wrap">
 		<h1>Justice Cards: כרטיסי אנשי מקצוע בתוכן</h1>
-		<p>כרטיס ממומן צף בתוך מאמרים, חדשות והאנציקלופדיה לפי תחום העמוד. מי מופיע: פרופיל שעובר את שער האישור הציבורי ומחזיק priority_score חיובי. מכירת מיקום = תיוג הפרופיל בתחום + קביעת priority_score (גבוה יותר = מקום ראשון; שוויון מתחלף יומית).</p>
+		<p>כרטיס ממומן צף בתוך מאמרים, חדשות והאנציקלופדיה לפי תחום העמוד. מי מופיע: רק פרופיל שעובר את שער האישור הציבורי ושער הסטטוס המסחרי. priority_score מסדר פרופילים שכבר נמצאו זכאים ואינו מוכיח תשלום. בעמוד מדינה זרה נדרש גם אישור התאמה מפורש לאותה מדינה.</p>
 		<form method="post" action="options.php">
 			<?php settings_fields( 'justice_cards' ); ?>
 			<table class="form-table" role="presentation">
@@ -593,8 +871,6 @@ function justice_cards_settings_page(): void {
 				<tr><th scope="row">מרווח מינימלי בין כרטיסים (תווים)</th><td><input type="number" name="justice_cards_min_gap_chars" min="800" max="12000" step="100" value="<?php echo esc_attr( (string) $s['min_gap_chars'] ); ?>"><p class="description">כרטיס שני נכנס רק אם עוגן השאלות הנפוצות רחוק מספיק מהכרטיס הראשון.</p></td></tr>
 				<tr><th scope="row">צבע מותג</th><td><input type="text" class="regular-text" name="justice_cards_brand" value="<?php echo esc_attr( (string) $s['brand'] ); ?>" placeholder="#14213d"></td></tr>
 				<tr><th scope="row">צבע הדגשה</th><td><input type="text" class="regular-text" name="justice_cards_accent" value="<?php echo esc_attr( (string) $s['accent'] ); ?>" placeholder="#e7c765"></td></tr>
-				<tr><th scope="row">תווית הכרטיס</th><td><input type="text" class="regular-text" name="justice_cards_flag_label" value="<?php echo esc_attr( (string) $s['flag_label'] ); ?>"></td></tr>
-				<tr><th scope="row">תווית שקיפות</th><td><input type="text" class="regular-text" name="justice_cards_sponsored_label" value="<?php echo esc_attr( (string) $s['sponsored_label'] ); ?>"></td></tr>
 				<tr><th scope="row">כפתור וואטסאפ</th><td><input type="text" class="regular-text" name="justice_cards_wa_label" value="<?php echo esc_attr( (string) $s['wa_label'] ); ?>"></td></tr>
 				<tr><th scope="row">כפתור פרופיל</th><td><input type="text" class="regular-text" name="justice_cards_profile_label" value="<?php echo esc_attr( (string) $s['profile_label'] ); ?>"></td></tr>
 			</table>

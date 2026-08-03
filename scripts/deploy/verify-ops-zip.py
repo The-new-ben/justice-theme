@@ -47,6 +47,10 @@ def main() -> None:
             "justice-ops/maya-profile-release.php",
             "justice-ops/comparison-content-reset.php",
             "justice-ops/release-update-control.php",
+            "justice-ops/cyprus-content-bridge.php",
+            "justice-ops/content-first-order.php",
+            "justice-ops/title-stability.php",
+            "justice-ops/professional-cards.php",
         }
         missing = required.difference(names)
         if missing:
@@ -76,6 +80,18 @@ def main() -> None:
         firm_strip_source = archive.read(
             "justice-ops/firm-match-strip.php"
         ).decode("utf-8")
+        professional_cards_source = archive.read(
+            "justice-ops/professional-cards.php"
+        ).decode("utf-8")
+        cyprus_bridge_source = archive.read(
+            "justice-ops/cyprus-content-bridge.php"
+        ).decode("utf-8")
+        content_first_source = archive.read(
+            "justice-ops/content-first-order.php"
+        ).decode("utf-8")
+        title_stability_source = archive.read(
+            "justice-ops/title-stability.php"
+        ).decode("utf-8")
         tools_source = archive.read("justice-ops/tools-discovery.php").decode("utf-8")
         if f"Version: {version}" not in main_source or f"'{version}'" not in main_source:
             fail("version markers are missing from the zipped main file")
@@ -85,6 +101,9 @@ def main() -> None:
             "require_once __DIR__ . '/release-update-control.php';",
             "require_once __DIR__ . '/real-estate-content-release.php';",
             "require_once __DIR__ . '/country-content-release.php';",
+            "require_once __DIR__ . '/cyprus-content-bridge.php';",
+            "require_once __DIR__ . '/content-first-order.php';",
+            "require_once __DIR__ . '/title-stability.php';",
         ):
             if module_include not in main_source:
                 fail(f"required module include is missing: {module_include}")
@@ -169,8 +188,35 @@ def main() -> None:
             fail("lead router does not enforce the owner hold")
         if "/family-law/" not in map_source or "מציגים משרדים שנבדקו" in map_source:
             fail("map bridge is missing or still carries the unsupported vetting claim")
-        if "כרטיס רשום" not in firm_strip_source:
-            fail("the live registered-card disclosure was not preserved")
+        for marker in (
+            "אנשי מקצוע משפטיים נוספים",
+            "return $content . $strip;",
+            "justice_fms_has_public_sponsored_placement",
+        ):
+            if marker not in firm_strip_source:
+                fail(f"organic end-of-content card marker is missing: {marker}")
+        if "כרטיס רשום" in firm_strip_source:
+            fail("the obsolete registered-card label remains in organic inventory")
+        for marker in (
+            "'sponsored_label' => 'מקודם'",
+            "$settings['sponsored_label'] = 'מקודם';",
+            "justice_cards_has_public_sponsored_placement",
+            "justice_cards_has_verified_jurisdiction_eligibility",
+        ):
+            if marker not in professional_cards_source:
+                fail(f"verified sponsored-card marker is missing: {marker}")
+        for marker in (
+            "justice_ops_cyprus_bridge_allowlist",
+            "justice_ops_cyprus_bridge_transition_batch",
+            "justice_ops_cyprus_bridge_reconcile_public_caches",
+            "/cyprus-prices/",
+        ):
+            if marker not in cyprus_bridge_source:
+                fail(f"Cyprus exact-release bridge marker is missing: {marker}")
+        if "justice_ops_content_first_filter" not in content_first_source:
+            fail("content-first terminal ordering filter is missing")
+        if "justice_ops_title_stability_script" not in title_stability_source:
+            fail("narrow title-stability module is missing")
         if "bottom:18px" not in tools_source or "bottom:76px" not in tools_source:
             fail("the live AI button placement was not preserved")
 

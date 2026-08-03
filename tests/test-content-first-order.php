@@ -8,6 +8,10 @@ $jt_content_first_preview = false;
 $jt_content_first_json    = false;
 
 function add_filter( ...$args ): void {}
+function add_action( ...$args ): void {}
+function get_option( $key, $default = false ) {
+	return 'justice_ops_content_first_rollout_scope' === $key ? array( 'mode' => 'all', 'paths' => array() ) : $default;
+}
 function wp_parse_url( $url, $component = -1 ) {
 	return parse_url( $url, $component );
 }
@@ -38,6 +42,27 @@ function is_embed(): bool {
 function is_admin(): bool {
 	return false;
 }
+function sanitize_key( $value ): string {
+	return strtolower( preg_replace( '/[^a-z0-9_\-]/', '', (string) $value ) );
+}
+function get_post_meta( $id, $key, $single = false ) {
+	$meta = array(
+		11 => array(
+			'subscription_status' => 'active',
+			'plan_type'           => 'featured',
+		),
+	);
+	return $meta[ (int) $id ][ $key ] ?? '';
+}
+function get_post_type( $id = 0 ): string {
+	return 11 === (int) $id ? 'justice_lawyer' : 'articles';
+}
+function justice_theme_lawyer_profile_is_public_approved( $id ): bool {
+	return 11 === (int) $id;
+}
+function justice_cards_has_public_sponsored_placement( int $id ): bool {
+	return 11 === $id;
+}
 
 require_once dirname( __DIR__ ) . '/justice-ops/content-first-order.php';
 
@@ -50,7 +75,7 @@ function jt_content_first_assert( bool $condition, string $message ): void {
 $html = '<p>Direct answer</p>'
 	. '<div class="single-article__fold"><div><div>Organic lawyer map</div></div></div>'
 	. '<h2>Evidence</h2><p>Editorial body</p>'
-	. '<a class="jt-procard">Sponsored lawyer</a>'
+	. '<a class="jt-procard" data-l="11"><span class="jt-procard__sponsored">מקודם</span>Sponsored lawyer</a>'
 	. '<details class="jt-cmenu"><summary>Country lawyers</summary><div>Links</div></details>'
 	. '<aside class="jt-firm-strip"><div><a>Free lawyer</a></div></aside>'
 	. '<script>const sample = "<div class=\"single-article__fold\">ignore</div>";</script>'
@@ -125,7 +150,9 @@ foreach ( justice_ops_content_first_target_paths() as $path ) {
 }
 
 $_SERVER['REQUEST_URI'] = '/family-law/?source=test';
-jt_content_first_assert( $nested === justice_ops_content_first_filter( $nested ), 'A URL outside the exact Cyprus cohort was changed.' );
+$family_ordered = justice_ops_content_first_filter( $nested );
+jt_content_first_assert( false !== strpos( $family_ordered, 'data-jt-content-first-order=' ), 'A non-Cyprus editorial article was not reordered.' );
+jt_content_first_assert( strpos( $family_ordered, 'Last editorial paragraph' ) < strpos( $family_ordered, 'Map start' ), 'Sitewide article ordering left providers above family-law content.' );
 
 $_SERVER['REQUEST_URI'] = '/cyprus-prices/';
 $jt_content_first_preview = true;

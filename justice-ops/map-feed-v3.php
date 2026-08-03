@@ -23,6 +23,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Purge every historical map payload key used by this plugin.
+ *
+ * The feed intentionally keeps the original v1 key and advances its embedded
+ * schema marker. This makes an old jt_v3 payload fail closed and be replaced,
+ * while this helper also removes the briefly introduced v2 key.
+ */
+function justice_ops_purge_map_feed_cache(): void {
+	delete_transient( 'justice_map_geojson_v1' );
+	delete_transient( 'justice_map_geojson_v2' );
+}
+
+/**
+ * Map prominence uses the same canonical active-paid truth as every card.
+ */
+function justice_ops_map_profile_is_active_paid( int $lawyer_id ): bool {
+	return function_exists( 'justice_ops_content_first_profile_is_active_paid' )
+		&& justice_ops_content_first_profile_is_active_paid( $lawyer_id );
+}
+
 add_action( 'rest_api_init', function () {
 	// The 4th arg ($override = true) is load-bearing: without it WP APPENDS
 	// this handler after the theme's and dispatch picks the FIRST method
@@ -43,7 +63,7 @@ add_action( 'rest_api_init', function () {
 function justice_ops_map_offices_v3() {
 	$cached = get_transient( 'justice_map_geojson_v1' );
 
-	if ( is_array( $cached ) && ! empty( $cached['jt_v3'] ) ) {
+	if ( is_array( $cached ) && ! empty( $cached['jt_v4'] ) ) {
 		return new WP_REST_Response( $cached, 200 );
 	}
 
@@ -90,8 +110,7 @@ function justice_ops_map_offices_v3() {
 
 			$city_terms = get_the_terms( $lawyer_id, 'city' );
 
-			$plan_type = strtolower( (string) get_post_meta( $lawyer_id, 'plan_type', true ) );
-			$is_paid   = in_array( $plan_type, array( 'featured', 'premium', 'partner', 'pro' ), true );
+			$is_paid = justice_ops_map_profile_is_active_paid( $lawyer_id );
 			$claimed   = '' !== (string) get_post_meta( $lawyer_id, 'claimed_by_user_id', true );
 
 			$props = array(
@@ -190,7 +209,7 @@ function justice_ops_map_offices_v3() {
 	$payload = array(
 		'type'     => 'FeatureCollection',
 		'features' => $features,
-		'jt_v3'    => true,
+		'jt_v4'    => true,
 	);
 
 	set_transient( 'justice_map_geojson_v1', $payload, HOUR_IN_SECONDS * 6 );

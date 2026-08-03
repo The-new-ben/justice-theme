@@ -290,7 +290,12 @@ function justice_ops_seed_courts( int $limit = 60 ): array {
 	}
 
 	if ( $created > 0 ) {
-		delete_transient( 'justice_map_geojson_v1' );
+		if ( function_exists( 'justice_ops_purge_map_feed_cache' ) ) {
+			justice_ops_purge_map_feed_cache();
+		} else {
+			delete_transient( 'justice_map_geojson_v1' );
+			delete_transient( 'justice_map_geojson_v2' );
+		}
 	}
 
 	return array(

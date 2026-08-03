@@ -25,6 +25,7 @@ import json
 import os
 import re
 import secrets
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -70,6 +71,7 @@ LOCK_OPTION = "justice_ops_deploy_lock_v1"
 RECOVERY_PROOF_CONTRACT = "justice-ops-upress-recovery-proof-v2"
 RECOVERY_PLUGIN_PATH = "wp-content/plugins/justice-ops"
 RECOVERY_MARKER_ROOT = "wp-content/upgrade"
+SERVER_RECOVERY_PREFIX = ".justice-ops-recovery-"
 RECOVERY_UPRESS_PID = 90517
 RECOVERY_PROOF_MAX_AGE_SECONDS = 15 * 60
 OPERATION_NONCE_BYTES = 32
@@ -1683,6 +1685,60 @@ def generated_disk_capacity_self_test(code: str) -> dict[str, Any]:
         "unlink_failure_distinct": True,
         "missing_root_fail_closed": True,
         "oversized_fail_closed": True,
+    }
+
+
+def generated_recovery_root_self_test(code: str) -> dict[str, Any]:
+    """Prove that WP_Upgrader's scratch sweep cannot delete rollback material."""
+    expected_assignment = (
+        "$expected_backup_root     = WP_CONTENT_DIR . '/"
+        + SERVER_RECOVERY_PREFIX
+        + "' . substr( hash( 'sha256', $expected_run_id ), 0, 20 );"
+    )
+    expected_foreign_prefix = (
+        "$allowed_backup_prefix = wp_normalize_path( WP_CONTENT_DIR . '/"
+        + SERVER_RECOVERY_PREFIX
+        + "' );"
+    )
+    legacy_fragment = "WP_CONTENT_DIR . '/upgrade/.justice-ops-recovery-'"
+    if expected_assignment not in code:
+        raise RuntimeError("Generated helper server recovery root contract changed.")
+    if expected_foreign_prefix not in code:
+        raise RuntimeError("Generated helper stale-lock recovery prefix changed.")
+    if legacy_fragment in code:
+        raise RuntimeError("Server recovery material re-entered WP_Upgrader scratch space.")
+
+    with tempfile.TemporaryDirectory(prefix="justice-ops-upgrader-sweep-") as temp:
+        content_root = Path(temp) / "wp-content"
+        upgrade_root = content_root / "upgrade"
+        recovery_root = content_root / f"{SERVER_RECOVERY_PREFIX}{'a' * 20}"
+        scratch_payload = upgrade_root / "candidate" / "candidate.php"
+        recovery_payload = recovery_root / "plugin" / "justice-ops.php"
+        scratch_payload.parent.mkdir(parents=True)
+        recovery_payload.parent.mkdir(parents=True)
+        scratch_payload.write_bytes(b"candidate")
+        recovery_payload.write_bytes(b"rollback")
+
+        # Mirrors WP_Upgrader::unpack_package(): delete every child of upgrade/.
+        for child in upgrade_root.iterdir():
+            if child.is_dir() and not child.is_symlink():
+                shutil.rmtree(child)
+            else:
+                child.unlink()
+
+        if scratch_payload.exists():
+            raise RuntimeError("Simulated WP_Upgrader scratch cleanup did not run.")
+        if recovery_payload.read_bytes() != b"rollback":
+            raise RuntimeError("Simulated WP_Upgrader scratch cleanup reached recovery data.")
+        if recovery_root.parent != content_root or recovery_root.parent == upgrade_root:
+            raise RuntimeError("Server recovery root is not a direct wp-content sibling.")
+
+    return {
+        "passed": True,
+        "wordpress_upgrader_scratch": "wp-content/upgrade",
+        "server_recovery_prefix": f"wp-content/{SERVER_RECOVERY_PREFIX}",
+        "simulated_scratch_deleted": True,
+        "simulated_recovery_survived": True,
     }
 
 
@@ -3350,6 +3406,7 @@ def deployment_contract_self_test() -> dict[str, Any]:
     )
     lint = lint_php_snippet(code)
     disk_capacity = generated_disk_capacity_self_test(code)
+    recovery_root = generated_recovery_root_self_test(code)
     if normalized not in code or _SELF_HASH_MARKER in code:
         raise RuntimeError("Generated helper self-hash contract failed.")
     preflight_route = code.find("$expected_route_base . '/preflight'")
@@ -3409,6 +3466,7 @@ def deployment_contract_self_test() -> dict[str, Any]:
         "generated_helper_sha256": sha256_text(code),
         "generated_helper_lint": lint,
         "generated_disk_capacity": disk_capacity,
+        "generated_recovery_root": recovery_root,
         "recovery_marker_validation_sha256": proof_result["marker_sha256"],
         "recovery_marker_canonical_no_trailing_bytes": True,
         "server_exact_readback_and_single_use_contract": True,

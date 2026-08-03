@@ -132,4 +132,19 @@ ob_start();
 justice_ops_content_first_connected_lawyer_css();
 jt_sitewide_article_assert( '' === (string) ob_get_clean(), 'Article CSS printed without a connected lawyer.' );
 
+$header_fixture = '<header class="single-article__header">'
+	. '<h1>משמורת משותפת</h1>'
+	. '<div class="single-article__author" style="display:flex"><span>⚖</span><span>נבדק מקצועית על ידי <a href="/maya/">עו״ד מאיה רוטנברג</a></span></div>'
+	. '<div class="single-article__meta"><time>2021-06-28</time><span>1 דקת קריאה</span><span>עודכן: 2026-08-03</span><span class="meta-author">נכתב ע&quot;י: jus-tice</span></div>'
+	. '</header><main><p>תוכן משפטי מאושר.</p><aside class="reviewer-box" aria-label="הבהרה משפטית"><p>מידע כללי בלבד.</p></aside></main>'
+	. '<script>var untouched = "<span class=\"meta-author\">not markup</span>";</script>';
+$clean_header = justice_ops_content_first_remove_top_attribution_noise( $header_fixture );
+jt_sitewide_article_assert( false === strpos( $clean_header, 'single-article__author' ), 'The top named-reviewer block remains.' );
+jt_sitewide_article_assert( false === strpos( $clean_header, '1 דקת קריאה' ), 'The stale Hebrew reading-time label remains.' );
+jt_sitewide_article_assert( false === strpos( $clean_header, 'נכתב ע&quot;י: jus-tice' ), 'The generic top author label remains.' );
+jt_sitewide_article_assert( false !== strpos( $clean_header, 'עודכן: 2026-08-03' ), 'The modified date was removed.' );
+jt_sitewide_article_assert( false !== strpos( $clean_header, 'reviewer-box' ), 'The claim-free bottom disclaimer was removed.' );
+jt_sitewide_article_assert( false !== strpos( $clean_header, 'not markup' ), 'Raw script text was changed.' );
+jt_sitewide_article_assert( $clean_header === justice_ops_content_first_remove_top_attribution_noise( $clean_header ), 'The top-attribution cleanup is not idempotent.' );
+
 echo "sitewide article content-first tests passed\n";

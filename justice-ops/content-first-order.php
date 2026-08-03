@@ -2056,6 +2056,67 @@ function justice_ops_content_first_relocate_singular_tail( string $html ): strin
 }
 
 /**
+ * Remove unsupported or noisy attribution from the top of editorial pages.
+ *
+ * The site-wide review-claims kill switch already suppresses reviewedBy schema
+ * and bottom reviewer claims. Two legacy templates can still print a reviewer
+ * or generic author inside the page header, and the articles template prints a
+ * Hebrew reading-time value that is calculated with an ASCII-only counter.
+ * Those three fragments are removed from rendered HTML so crawlers and readers
+ * receive the same claim-free, content-first header. Dates and the claim-free
+ * disclaimer remain intact.
+ */
+function justice_ops_content_first_remove_top_attribution_noise( string $html ): string {
+	if ( '' === $html ) {
+		return $html;
+	}
+
+	$original  = $html;
+	$protected = array();
+	$masked    = justice_ops_content_first_protect_raw_text( $html, $protected );
+	$tags      = justice_ops_content_first_scan_tags( $masked );
+	$removals  = array();
+
+	foreach ( array( 'single-article__author', 'meta-author' ) as $class_name ) {
+		$blocks = justice_ops_content_first_find_class_blocks( $masked, $tags, $class_name );
+		if ( null === $blocks ) {
+			return $original;
+		}
+		foreach ( $blocks as $block ) {
+			$removals[] = $block;
+		}
+	}
+
+	usort( $removals, static fn( array $a, array $b ): int => $b['start'] <=> $a['start'] );
+	foreach ( $removals as $block ) {
+		$masked = substr_replace( $masked, '', $block['start'], $block['end'] - $block['start'] );
+	}
+
+	$tags        = justice_ops_content_first_scan_tags( $masked );
+	$meta_blocks = justice_ops_content_first_find_class_blocks( $masked, $tags, 'single-article__meta' );
+	if ( null === $meta_blocks ) {
+		return $original;
+	}
+
+	usort( $meta_blocks, static fn( array $a, array $b ): int => $b['start'] <=> $a['start'] );
+	foreach ( $meta_blocks as $block ) {
+		$clean = preg_replace(
+			'#<span\b[^>]*>\s*[0-9]+\s+דק(?:ת|ות)\s+קריאה\s*</span>\s*#u',
+			'',
+			$block['element']
+		);
+		if ( ! is_string( $clean ) ) {
+			return $original;
+		}
+		if ( $clean !== $block['element'] ) {
+			$masked = substr_replace( $masked, $clean, $block['start'], $block['end'] - $block['start'] );
+		}
+	}
+
+	return empty( $protected ) ? $masked : strtr( $masked, $protected );
+}
+
+/**
  * Apply route-role ordering and the universal disclosure contract.
  */
 function justice_ops_content_first_filter_full_html( string $html, ?string $role = null ): string {
@@ -2068,6 +2129,7 @@ function justice_ops_content_first_filter_full_html( string $html, ?string $role
 		return $html;
 	}
 
+	$html = justice_ops_content_first_remove_top_attribution_noise( $html );
 	$html = justice_ops_content_first_normalize_public_disclosures( $html );
 
 	if ( 'editorial_taxonomy' === $role ) {

@@ -487,6 +487,42 @@ function justice_ops_content_first_comparison_paths(): array {
 }
 
 /**
+ * Resolve the queried object to a real WP_Post before calling typed theme APIs.
+ *
+ * Taxonomy and category routes return WP_Term from get_queried_object(). Some
+ * theme versions declare justice_theme_is_practice_landing_page( ?WP_Post ),
+ * so passing an arbitrary object is a fatal TypeError. A post-like object may
+ * be normalized through get_post(), but terms and every other object fail
+ * closed without entering the typed predicate.
+ *
+ * @return WP_Post|null
+ */
+function justice_ops_content_first_queried_post() {
+	if ( ! function_exists( 'get_queried_object' ) || ! class_exists( 'WP_Post' ) ) {
+		return null;
+	}
+
+	$queried = get_queried_object();
+	if ( $queried instanceof WP_Post ) {
+		return $queried;
+	}
+
+	if (
+		! is_object( $queried )
+		|| ! isset( $queried->ID, $queried->post_type )
+		|| ! is_numeric( $queried->ID )
+		|| (int) $queried->ID <= 0
+		|| ! function_exists( 'get_post' )
+	) {
+		return null;
+	}
+
+	$post = get_post( (int) $queried->ID );
+
+	return $post instanceof WP_Post ? $post : null;
+}
+
+/**
  * Resolve the public route role before any ordering decision.
  *
  * Provider-intent routes never inherit editorial ordering merely because they
@@ -539,9 +575,9 @@ function justice_ops_content_first_route_role(): string {
 	if ( ! $pillar && function_exists( 'justice_theme_get_controlled_practice_route_template' ) ) {
 		$pillar = '' !== (string) justice_theme_get_controlled_practice_route_template();
 	}
-	if ( ! $pillar && function_exists( 'get_queried_object' ) && function_exists( 'justice_theme_is_practice_landing_page' ) ) {
-		$queried = get_queried_object();
-		$pillar  = is_object( $queried ) && justice_theme_is_practice_landing_page( $queried );
+	if ( ! $pillar && function_exists( 'justice_theme_is_practice_landing_page' ) ) {
+		$queried_post = justice_ops_content_first_queried_post();
+		$pillar       = null !== $queried_post && justice_theme_is_practice_landing_page( $queried_post );
 	}
 	if ( $pillar ) {
 		return 'editorial_pillar';
@@ -1160,8 +1196,8 @@ function justice_ops_content_first_filter( $content ): string {
 	$content = (string) $content;
 
 	if (
-		'editorial_singular' !== justice_ops_content_first_route_role()
-		|| ! justice_ops_content_first_rollout_allows_path()
+		! justice_ops_content_first_rollout_allows_path()
+		|| 'editorial_singular' !== justice_ops_content_first_route_role()
 		|| ! in_the_loop()
 		|| ! is_main_query()
 		|| is_feed()
@@ -1439,8 +1475,8 @@ function justice_ops_practice_taxonomy_reorder_html( string $html ): string {
  */
 function justice_ops_practice_taxonomy_should_buffer(): bool {
 	if (
-		'editorial_taxonomy' !== justice_ops_content_first_route_role()
-		|| ! justice_ops_content_first_rollout_allows_path()
+		! justice_ops_content_first_rollout_allows_path()
+		|| 'editorial_taxonomy' !== justice_ops_content_first_route_role()
 		|| ( function_exists( 'is_admin' ) && is_admin() )
 		|| ( function_exists( 'is_feed' ) && is_feed() )
 		|| ( function_exists( 'is_preview' ) && is_preview() )

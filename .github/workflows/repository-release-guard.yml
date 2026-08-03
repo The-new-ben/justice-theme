@@ -71,12 +71,14 @@ jobs:
             tools/check-release-update-control.php \
             tests/test-content-first-route-role-term-safety.php \
             tests/test-real-estate-content-release.php \
+            tests/test-hfcm-legacy-card-retirement.php \
             tools/wp_deploy_justice_ops.py \
             tools/templates/justice-ops-deploy-helper.php.tpl \
             justice-ops/maya-profile-release.php \
             justice-ops/comparison-content-reset.php \
             justice-ops/real-estate-content-release.php \
-            justice-ops/release-update-control.php; do
+            justice-ops/release-update-control.php \
+            justice-ops/hfcm-legacy-card-retirement.php; do
             git ls-files --error-unmatch "$REQUIRED_PATH"
             test -f "$REQUIRED_PATH"
             test ! -L "$REQUIRED_PATH"
@@ -100,6 +102,7 @@ jobs:
           php tools/check-release-update-control.php
           php tests/test-content-first-route-role-term-safety.php
           php tests/test-real-estate-content-release.php
+          php tests/test-hfcm-legacy-card-retirement.php
           python3 -m py_compile \
             scripts/deploy/build-ops-zip.py \
             scripts/deploy/verify-ops-zip.py \
@@ -199,4 +202,4 @@ jobs:
             -v "$GITHUB_WORKSPACE:/workspace" \
             -w /workspace \
             php:7.4.33-cli-bullseye@sha256:620a6b9f4d4feef2210026172570465e9d0c1de79766418d3affd09190a7fda5 \
-            sh -lc 'php -l tools/templates/justice-ops-deploy-helper.php.tpl && php -l justice-ops/criminal-content-release.php && php tools/check-criminal-content-release.php && php tests/test-criminal-content-release.php && php -l justice-ops/maya-profile-release.php && php tools/check-maya-profile-release.php && php -l justice-ops/comparison-content-reset.php && php tools/check-comparison-content-reset.php && php -l justice-ops/real-estate-content-release.php && php tests/test-real-estate-content-release.php && php -l justice-ops/release-update-control.php && php tools/check-release-update-control.php && php -l tests/test-content-first-route-role-term-safety.php && php tests/test-content-first-route-role-term-safety.php && php -l justice-seo-recovery-p0/justice-seo-recovery-p0.php && php tools/check-justice-seo-recovery-p0.php'
+            sh -lc 'php -l tools/templates/justice-ops-deploy-helper.php.tpl && php -l justice-ops/criminal-content-release.php && php tools/check-criminal-content-release.php && php tests/test-criminal-content-release.php && php -l justice-ops/maya-profile-release.php && php tools/check-maya-profile-release.php && php -l justice-ops/comparison-content-reset.php && php tools/check-comparison-content-reset.php && php -l justice-ops/real-estate-content-release.php && php tests/test-real-estate-content-release.php && php -l justice-ops/release-update-control.php && php tools/check-release-update-control.php && php -l tests/test-content-first-route-role-term-safety.php && php tests/test-content-first-route-role-term-safety.php && php -l justice-ops/hfcm-legacy-card-retirement.php && php tests/test-hfcm-legacy-card-retirement.php && php -l justice-seo-recovery-p0/justice-seo-recovery-p0.php && php tools/check-justice-seo-recovery-p0.php'

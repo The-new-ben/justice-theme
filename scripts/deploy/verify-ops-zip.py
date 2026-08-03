@@ -41,6 +41,7 @@ def main() -> None:
         required = {
             "justice-ops/justice-ops.php",
             "justice-ops/family-content-release.php",
+            "justice-ops/criminal-content-release.php",
             "justice-ops/real-estate-content-release.php",
             "justice-ops/country-content-release.php",
             "justice-ops/review-claims-off.php",
@@ -59,6 +60,9 @@ def main() -> None:
         main_source = archive.read("justice-ops/justice-ops.php").decode("utf-8")
         release_source = archive.read(
             "justice-ops/family-content-release.php"
+        ).decode("utf-8")
+        criminal_source = archive.read(
+            "justice-ops/criminal-content-release.php"
         ).decode("utf-8")
         real_estate_source = archive.read(
             "justice-ops/real-estate-content-release.php"
@@ -100,6 +104,7 @@ def main() -> None:
             "require_once __DIR__ . '/comparison-content-reset.php';",
             "require_once __DIR__ . '/release-update-control.php';",
             "require_once __DIR__ . '/real-estate-content-release.php';",
+            "require_once __DIR__ . '/criminal-content-release.php';",
             "require_once __DIR__ . '/country-content-release.php';",
             "require_once __DIR__ . '/cyprus-content-bridge.php';",
             "require_once __DIR__ . '/content-first-order.php';",
@@ -115,6 +120,21 @@ def main() -> None:
         ):
             if marker not in release_source:
                 fail(f"release marker is missing from the zipped module: {marker}")
+        for marker in (
+            'data-jt-criminal-release="2026-08-03-r2"',
+            'data-jt-criminal-hero="2026-08-03-r2"',
+            "justice_ops_criminal_release_r2_enabled",
+            "משרדים בתחום הפלילי",
+            "משרדי עורכי דין במשפט פלילי",
+        ):
+            if marker not in criminal_source:
+                fail(f"criminal release marker is missing: {marker}")
+        for forbidden in (
+            "נבדקו ונמצאו מובילים",
+            "משרדי עורכי דין מובילים במשפט פלילי",
+        ):
+            if forbidden not in criminal_source:
+                fail(f"criminal fail-closed source marker is missing: {forbidden}")
         for marker in (
             'data-jt-real-estate-release="2026-08-02-r1"',
             "justice_ops_real_estate_release_contracts",
@@ -188,6 +208,8 @@ def main() -> None:
             fail("lead router does not enforce the owner hold")
         if "/family-law/" not in map_source or "מציגים משרדים שנבדקו" in map_source:
             fail("map bridge is missing or still carries the unsupported vetting claim")
+        if "סיור במפת המשרדים" not in map_source or "סיור אווירי מעל המשרדים המובילים" in map_source:
+            fail("map control is missing the neutral label or retains the unsupported ranking label")
         for marker in (
             "אנשי מקצוע משפטיים נוספים",
             "return $content . $strip;",

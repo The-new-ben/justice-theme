@@ -132,7 +132,7 @@ function justice_cinema_block( bool $front = false ): string {
 		. '</div>'
 		. '<div id="jt-cinema-map" role="img" aria-label="מפה תלת ממדית של עורכי דין, משרדים ובתי משפט. לניווט נגיש השתמשו בבורר התחום והעיר שמעל המפה."></div>'
 		. '<div class="jtcm-actions">'
-		. '<button type="button" id="jt-cinema-tour" class="jtcm-tour">סיור אווירי מעל המשרדים המובילים</button>'
+		. '<button type="button" id="jt-cinema-tour" class="jtcm-tour">סיור במפת המשרדים</button>'
 		. '<button type="button" id="jt-cinema-near" class="jtcm-near">מצאו את הקרובים אליי</button>'
 		. '<span class="jtcm-legend" id="jt-cinema-legend" aria-live="polite"></span>'
 		. '</div>'

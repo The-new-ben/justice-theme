@@ -1729,13 +1729,12 @@ def validate_recovery_probe(
     }
     if set(payload) != expected_keys:
         raise RuntimeError("The uPress recovery marker field set is not exact.")
-    canonical = (
-        json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-        + "\n"
+    canonical = json.dumps(
+        payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
     ).encode("utf-8")
     if raw != canonical:
         raise RuntimeError(
-            "The uPress recovery marker must use canonical sorted compact JSON plus one newline."
+            "The uPress recovery marker must use canonical sorted compact JSON without trailing bytes."
         )
     target = str(payload.get("target") or "").rstrip("/")
     issued_raw = str(payload.get("issued_at_utc") or "")
@@ -3244,11 +3243,8 @@ def deployment_contract_self_test() -> dict[str, Any]:
         "target": TARGET_BASE_URL,
         "upress_pid": RECOVERY_UPRESS_PID,
     }
-    proof_bytes = (
-        json.dumps(
-            proof_payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
-        )
-        + "\n"
+    proof_bytes = json.dumps(
+        proof_payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
     ).encode("utf-8")
     with tempfile.TemporaryDirectory(prefix="justice-ops-proof-self-test-") as temp:
         proof_path = Path(temp) / proof_filename
@@ -3258,10 +3254,19 @@ def deployment_contract_self_test() -> dict[str, Any]:
         )
         if (
             proof_result["marker_sha256"] != sha256_bytes(proof_bytes)
+            or proof_result["marker_bytes"] != len(proof_bytes)
             or proof_result["marker_path"] != f"{RECOVERY_MARKER_ROOT}/{proof_filename}"
             or proof_result["upress_pid"] != RECOVERY_UPRESS_PID
+            or proof_bytes.endswith(b"\n")
         ):
             raise RuntimeError("Challenge-bound uPress marker validation changed.")
+        proof_path.write_bytes(proof_bytes + b"\n")
+        try:
+            validate_recovery_probe(proof_path, "0" * 40, "d" * 64, "2.35.0")
+        except RuntimeError:
+            pass
+        else:
+            raise RuntimeError("Trailing-newline uPress marker bytes were accepted.")
         proof_path.write_text(json.dumps(proof_payload, indent=2), encoding="utf-8")
         try:
             validate_recovery_probe(proof_path, "0" * 40, "d" * 64, "2.35.0")
@@ -3291,14 +3296,11 @@ def deployment_contract_self_test() -> dict[str, Any]:
         "target": TARGET_BASE_URL,
         "upress_pid": RECOVERY_UPRESS_PID,
     }
-    recovery_bytes = (
-        json.dumps(
-            recovery_payload,
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-        )
-        + "\n"
+    recovery_bytes = json.dumps(
+        recovery_payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
     ).encode("utf-8")
     code, normalized = build_helper_code(
         run_id="justice-ops-install-20260802T000000Z-00000000",
@@ -3333,10 +3335,18 @@ def deployment_contract_self_test() -> dict[str, Any]:
     lock_insert = code.find("INSERT IGNORE INTO {$wpdb->options}")
     lock_acquire = code.find("$acquire_raw_option_once( $lock_option, $lock_value )")
     marker_consume = code.find("$inspect_recovery_marker( true )", lock_acquire)
+    marker_proof_fragments = (
+        "strlen( $body ) !== $expected_marker_bytes",
+        "hash_equals( $expected_marker_sha256, hash( 'sha256', $body ) )",
+        "$decoded !== $expected_recovery_proof",
+        "if ( ! @unlink( $marker ) )",
+        "if ( file_exists( $marker ) || is_link( $marker ) )",
+    )
     if (
         preflight_route < 0
         or prepare_route <= preflight_route
         or "$inspect_recovery_marker( false )" not in code
+        or any(fragment not in code for fragment in marker_proof_fragments)
         or lock_insert < 0
         or "add_option( $lock_option" in code
         or lock_acquire < 0
@@ -3378,6 +3388,8 @@ def deployment_contract_self_test() -> dict[str, Any]:
         "generated_helper_lint": lint,
         "generated_disk_capacity": disk_capacity,
         "recovery_marker_validation_sha256": proof_result["marker_sha256"],
+        "recovery_marker_canonical_no_trailing_bytes": True,
+        "server_exact_readback_and_single_use_contract": True,
         "prior_2_35_2_marker_baseline": prior_2352_family_fingerprint[
             "release_marker_count"
         ],

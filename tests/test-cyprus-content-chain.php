@@ -495,8 +495,10 @@ jt_cyprus_chain_assert( false === strpos( $chain_output, 'jt-procard' ), 'Unappr
 jt_cyprus_chain_assert( strpos( $chain_output, 'Late module' ) < strpos( $chain_output, 'jt-firm-strip' ), 'Organic directory did not move behind late editorial modules.' );
 jt_cyprus_chain_assert_fold( $chain_output, 'cyprus-prices ordered chain' );
 
-$_SERVER['REQUEST_URI'] = '/family-law/';
+$_SERVER['REQUEST_URI'] = '/online-family-law-services/';
 $control = '<p>Answer</p><div class="single-article__fold"><details class="jt-cmenu">Menu</details></div><h2>Body</h2>';
-jt_cyprus_chain_assert( $control === justice_ops_content_first_filter( $control ), 'A page outside the exact Cyprus cohort changed.' );
+$control_ordered = justice_ops_content_first_filter( $control );
+jt_cyprus_chain_assert( false !== strpos( $control_ordered, 'data-jt-content-first-order=' ), 'Default article canary was not ordered.' );
+jt_cyprus_chain_assert( strpos( $control_ordered, 'Body' ) < strpos( $control_ordered, 'Menu' ), 'Article-canary provider module remained above the editorial body.' );
 
 echo "captured Cyprus content-chain tests passed\n";

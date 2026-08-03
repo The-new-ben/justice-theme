@@ -448,7 +448,12 @@ function justice_lii_import( WP_REST_Request $request ) {
 	}
 
 	if ( ! $dry_run ) {
-		delete_transient( 'justice_map_geojson_v1' );
+		if ( function_exists( 'justice_ops_purge_map_feed_cache' ) ) {
+			justice_ops_purge_map_feed_cache();
+		} else {
+			delete_transient( 'justice_map_geojson_v1' );
+			delete_transient( 'justice_map_geojson_v2' );
+		}
 	}
 
 	return new WP_REST_Response( array(
@@ -724,7 +729,12 @@ function justice_lii_import_v2( WP_REST_Request $request ) {
 	}
 
 	if ( ! $dry_run ) {
-		delete_transient( 'justice_map_geojson_v1' );
+		if ( function_exists( 'justice_ops_purge_map_feed_cache' ) ) {
+			justice_ops_purge_map_feed_cache();
+		} else {
+			delete_transient( 'justice_map_geojson_v1' );
+			delete_transient( 'justice_map_geojson_v2' );
+		}
 	}
 
 	return new WP_REST_Response( array(

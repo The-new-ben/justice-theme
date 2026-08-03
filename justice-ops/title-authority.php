@@ -9,10 +9,10 @@
  * and always let an explicit Yoast field win. Render output is
  * byte-identical to pre-wave-0 by construction and verified live.
  *
- * The five-slug H1 shim exists because those pages' bodies contain strings
- * the publication-safety gate flags (false positives like "בדיקה משפטית"),
- * so their post_title could not be mirrored without touching the gate.
- * Remove each entry once the page's content is cleaned in wave 1+.
+ * Five legacy H1 shims remain. Two Cyprus shims are state-aware during their
+ * controlled release: the exact old DB title keeps the old rendered H1, the
+ * exact approved target title renders from the DB, and rollback automatically
+ * restores the old H1. Unexpected DB values fail closed to the legacy H1.
  *
  * @package JusticeOps
  */
@@ -94,6 +94,24 @@ function justice_title_authority_h1_shim_money(): array {
 	);
 }
 
+/**
+ * Exact pre-release and approved target DB titles for state-aware H1 control.
+ *
+ * @return array<string,array<string,string>>
+ */
+function justice_title_authority_cyprus_h1_states(): array {
+	return array(
+		'about-cyprus' => array(
+			'prior_post_title'  => 'קפריסין | דסק קפריסין',
+			'target_post_title' => 'קפריסין: מידע מעשי ומשפטי לישראלים',
+		),
+		'buy-real-estate-cyprus' => array(
+			'prior_post_title'  => 'השקעות נדל"ן בקפריסין 2024 | ' . "\u{202B}" . 'עלויות נדל”ן קפריסין',
+			'target_post_title' => 'עלויות ומיסוי ברכישת נכס בקפריסין',
+		),
+	);
+}
+
 // H1 shim, queried-page-only style (mirrors the retired strike H1 guard).
 function justice_title_authority_h1_shim_queried(): array {
 	return array(
@@ -164,6 +182,16 @@ add_filter( 'the_title', function ( $title, $post_id = 0 ) {
 	$money = justice_title_authority_h1_shim_money();
 
 	if ( in_the_loop() && 'articles' === $post->post_type && isset( $money[ $post->post_name ] ) ) {
+		$cyprus_states = justice_title_authority_cyprus_h1_states();
+		if ( isset( $cyprus_states[ $post->post_name ] ) ) {
+			$state = $cyprus_states[ $post->post_name ];
+			if ( $state['target_post_title'] === (string) $post->post_title ) {
+				return (string) $post->post_title;
+			}
+
+			// Exact prior and every unexpected state retain the legacy H1.
+			return $money[ $post->post_name ];
+		}
 		return $money[ $post->post_name ];
 	}
 

@@ -28,9 +28,10 @@ function jt_country_assert( bool $condition, string $message ): void {
 }
 
 $paths = justice_ops_country_schema_release_paths();
-jt_country_assert( 10 === count( $paths ), 'The country schema bridge must stay limited to ten paths.' );
+jt_country_assert( 18 === count( $paths ), 'The country schema bridge must stay limited to eighteen paths.' );
 jt_country_assert( in_array( '/usa-lawyers/', $paths, true ), 'USA owner path is missing.' );
 jt_country_assert( in_array( '/practice-areas/portugal/', $paths, true ), 'Portugal taxonomy path is missing.' );
+jt_country_assert( in_array( '/cyprus-prices/', $paths, true ), 'Cyprus price owner path is missing.' );
 
 $schema = array(
 	'@context' => 'https://schema.org',
@@ -38,6 +39,7 @@ $schema = array(
 		array( '@type' => 'WebPage', '@id' => 'https://jus-tice.co.il/usa-lawyers/#webpage' ),
 		array( '@type' => 'Article', '@id' => 'https://jus-tice.co.il/usa-lawyers/#article' ),
 		array( '@type' => 'BreadcrumbList', '@id' => 'https://jus-tice.co.il/usa-lawyers/#breadcrumb' ),
+		array( '@type' => 'WebSite', 'description' => 'עורכי דין מומלצים בישראל' ),
 		array( '@type' => 'LegalService', 'name' => 'Unproved service' ),
 		array( '@type' => 'Person', 'name' => 'Unproved reviewer' ),
 		array( '@type' => 'AggregateRating', 'ratingValue' => '5' ),
@@ -54,9 +56,17 @@ jt_country_assert( false === strpos( $output, 'AggregateRating' ), 'AggregateRat
 jt_country_assert( false !== strpos( $output, 'WebPage' ), 'WebPage schema was removed.' );
 jt_country_assert( false !== strpos( $output, 'Article' ), 'Article schema was removed.' );
 jt_country_assert( false !== strpos( $output, 'BreadcrumbList' ), 'Breadcrumb schema was removed.' );
+jt_country_assert( false === strpos( $output, 'עורכי דין מומלצים' ), 'Unsupported WebSite recommendation claim remained.' );
+jt_country_assert( false !== strpos( $output, 'פורטל מידע משפטי בישראל' ), 'Neutral WebSite description is missing.' );
 
 $_SERVER['REQUEST_URI'] = '/practice-areas/portugal/?acceptance=1';
 jt_country_assert( $html !== justice_ops_country_schema_release_filter_html( $html ), 'Portugal taxonomy path was not governed.' );
+
+$_SERVER['REQUEST_URI'] = '/cyprus-prices/?acceptance=1';
+$cyprus_output = justice_ops_country_schema_release_filter_html( $html );
+jt_country_assert( $html !== $cyprus_output, 'Cyprus price path was not governed.' );
+jt_country_assert( false === strpos( $cyprus_output, 'LegalService' ), 'Cyprus price path retained unsupported LegalService schema.' );
+jt_country_assert( false === strpos( $cyprus_output, 'עורכי דין מומלצים' ), 'Cyprus WebSite schema retained a recommendation claim.' );
 
 $_SERVER['REQUEST_URI'] = '/unrelated-page/';
 jt_country_assert( $html === justice_ops_country_schema_release_filter_html( $html ), 'Unrelated page was modified.' );

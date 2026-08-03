@@ -52,6 +52,7 @@ def main() -> None:
             "justice-ops/content-first-order.php",
             "justice-ops/title-stability.php",
             "justice-ops/professional-cards.php",
+            "justice-ops/hfcm-legacy-card-retirement.php",
         }
         missing = required.difference(names)
         if missing:
@@ -96,6 +97,9 @@ def main() -> None:
         title_stability_source = archive.read(
             "justice-ops/title-stability.php"
         ).decode("utf-8")
+        hfcm_retirement_source = archive.read(
+            "justice-ops/hfcm-legacy-card-retirement.php"
+        ).decode("utf-8")
         tools_source = archive.read("justice-ops/tools-discovery.php").decode("utf-8")
         if f"Version: {version}" not in main_source or f"'{version}'" not in main_source:
             fail("version markers are missing from the zipped main file")
@@ -109,6 +113,7 @@ def main() -> None:
             "require_once __DIR__ . '/cyprus-content-bridge.php';",
             "require_once __DIR__ . '/content-first-order.php';",
             "require_once __DIR__ . '/title-stability.php';",
+            "require_once __DIR__ . '/hfcm-legacy-card-retirement.php';",
         ):
             if module_include not in main_source:
                 fail(f"required module include is missing: {module_include}")
@@ -239,6 +244,18 @@ def main() -> None:
             fail("content-first terminal ordering filter is missing")
         if "justice_ops_title_stability_script" not in title_stability_source:
             fail("narrow title-stability module is missing")
+        for marker in (
+            "retire-hfcm-legacy-head-cards-v2",
+            "justice_ops_hfcm_retirement_snapshot",
+            "justice_ops_hfcm_retirement_locked_state",
+            "justice_ops_hfcm_retirement_is_complete",
+            "FOR UPDATE",
+            "script_id IN (5,6,7)",
+            "lawyer-card-container",
+            "jus-tice-expert.webp",
+        ):
+            if marker not in hfcm_retirement_source:
+                fail(f"HFCM retirement marker is missing: {marker}")
         if "bottom:18px" not in tools_source or "bottom:76px" not in tools_source:
             fail("the live AI button placement was not preserved")
 

@@ -73,7 +73,7 @@
 		el.innerHTML = '<span class="jtcm-flag__pin"></span>'
 			+ (p.logo ? '<img class="jtcm-flag__photo" src="' + esc(p.logo) + '" alt="" loading="lazy">' : '')
 			+ '<span class="jtcm-flag__name">' + esc(p.name) + '</span>'
-			+ '<span class="jtcm-flag__tag">כרטיס רשום</span>';
+			+ '<span class="jtcm-flag__tag" data-jt-sponsored-disclosure="active-paid">מקודם</span>';
 		return el;
 	}
 
@@ -166,6 +166,9 @@
 			h += '<div class="jtcm-pop__card">'
 				+ '<span class="jtcm-pop__ava">' + (p.logo ? '<img src="' + esc(p.logo) + '" alt="">' : avatarSvg(p.name)) + '</span>'
 				+ '<span class="jtcm-pop__id"><strong>' + esc(p.name) + '</strong>';
+			if (p.paid) {
+				h += '<span class="jtcm-pop__sponsored" data-jt-sponsored-disclosure="active-paid">מקודם</span>';
+			}
 			var meta = [];
 			if (p.areas && p.areas.length) { meta.push(esc([].concat(p.areas).join(', '))); }
 			if (p.city) { meta.push(esc(p.city)); }
@@ -184,7 +187,7 @@
 			// exists in the radius - the visible value a plan buys.
 			if (!p.paid && p.nearPaid) {
 				h += '<a class="jtcm-pop__near" href="' + esc(p.nearPaid.url || '#') + '">'
-					+ '<span class="jtcm-pop__near-tag">כרטיס רשום באזור</span>'
+					+ '<span class="jtcm-pop__near-tag" data-jt-sponsored-disclosure="active-paid">מקודם</span>'
 					+ '<strong>' + esc(p.nearPaid.name) + '</strong>'
 					+ (p.nearPaid.km < 9 ? '<span class="jtcm-pop__near-km">' + (p.nearPaid.km < 1 ? Math.round(p.nearPaid.km * 1000) + ' מ׳' : p.nearPaid.km.toFixed(1) + ' ק"מ') + ' מכאן</span>' : '')
 					+ '</a>';

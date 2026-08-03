@@ -26,13 +26,17 @@ function justice_ops_criminal_release_request_path(): string {
 }
 
 /**
- * Allow operations to retire the bridge after the theme gains a config filter.
+ * Allow operations to retire the r2 bridge after the theme gains a config filter.
+ *
+ * The legacy Hero can remain visible when an unknown or stale r1 option state
+ * disables the earlier contract. A new, release-specific option isolates this
+ * reviewed contract from the r1 state.
  */
 function justice_ops_criminal_release_bridge_enabled(): bool {
 	$enabled = true;
 
 	if ( function_exists( 'get_option' ) ) {
-		$enabled = '0' !== (string) get_option( 'justice_ops_criminal_release_bridge_enabled', '1' );
+		$enabled = '0' !== (string) get_option( 'justice_ops_criminal_release_r2_enabled', '1' );
 	}
 
 	return (bool) apply_filters( 'justice_ops_criminal_release_bridge_enabled', $enabled );
@@ -48,8 +52,12 @@ function justice_ops_criminal_release_contract(): array {
 		'page_id'      => 20211,
 		'path'         => '/criminal-defense-attorney/',
 		'old_summary'  => 'זומנתם לחקירה, נעצרתם או קיבלתם כתב אישום? כך בוחרים עורך דין פלילי מומלץ: השוואת סנגורים לפי סוג העבירה, שכר טרחה וזמינות למעצר, וכל שלבי ההליך הפלילי צעד אחר צעד.',
-		'new_summary'  => 'עורך דין פלילי מייעץ לחשודים לפני חקירה, מייצג בדיוני מעצר ומלווה את ההגנה לאחר הגשת כתב אישום. בעמוד זה תמצאו את שלבי ההליך הפלילי, זכויות חשוד ונאשם והפעולות הדחופות בכל שלב.',
+		'new_summary'  => 'עורך דין פלילי מייעץ לפני חקירה ומייצג בהליכי מעצר, שימוע וכתב אישום. בעמוד זה אפשר לזהות מה דחוף עכשיו, אילו מסמכים להכין ואיזה ניסיון צריך לבדוק לפני בחירת סנגור לתיק.',
 		'body_marker'   => 'עורך דין פלילי מייעץ לחשודים לפני חקירה, מייצג עצורים ונאשמים',
+		'surface_replacements' => array(
+			'נבדקו ונמצאו מובילים' => 'משרדים בתחום הפלילי',
+			'משרדי עורכי דין מובילים במשפט פלילי' => 'משרדי עורכי דין במשפט פלילי',
+		),
 		'legacy_links' => array(
 			'/criminal-law-price-list-lawyer-recommended-review-costs/' => 'עורך דין פלילי מחירון ושכר טרחה',
 			'/detention-days/' => 'מעצר וימי מעצר',
@@ -89,7 +97,7 @@ function justice_ops_criminal_release_panel( array $links ): string {
 		$items .= '<li><a href="' . esc_url( home_url( $path ) ) . '">' . esc_html( $label ) . '</a></li>';
 	}
 
-	return '<aside class="legal-pillar-hero__panel" aria-label="מסלול מהיר" data-jt-criminal-hero="2026-08-02-r1">'
+	return '<aside class="legal-pillar-hero__panel" aria-label="מסלול מהיר" data-jt-criminal-hero="2026-08-03-r2">'
 		. '<strong>שלבי ההליך הפלילי</strong><ul>' . $items . '</ul></aside>';
 }
 
@@ -159,7 +167,7 @@ function justice_ops_criminal_release_filter_html( string $html ): string {
 	if (
 		0 !== substr_count( $new_hero, $contract['old_summary'] )
 		|| 1 !== substr_count( $new_hero, $contract['new_summary'] )
-		|| 1 !== substr_count( $new_hero, 'data-jt-criminal-hero="2026-08-02-r1"' )
+		|| 1 !== substr_count( $new_hero, 'data-jt-criminal-hero="2026-08-03-r2"' )
 	) {
 		return $html;
 	}
@@ -181,7 +189,21 @@ function justice_ops_criminal_release_filter_html( string $html ): string {
 		return $html;
 	}
 
-	$new_body = preg_replace( '#<body\\b#i', '<body data-jt-criminal-release="2026-08-02-r1"', $new_body, 1, $body_marker_count );
+	foreach ( $contract['surface_replacements'] as $old_surface => $new_surface ) {
+		if (
+			1 !== substr_count( $new_body, $old_surface )
+			|| 0 !== substr_count( $new_body, $new_surface )
+		) {
+			return $html;
+		}
+
+		$new_body = str_replace( $old_surface, $new_surface, $new_body, $surface_replacements );
+		if ( 1 !== $surface_replacements ) {
+			return $html;
+		}
+	}
+
+	$new_body = preg_replace( '#<body\\b#i', '<body data-jt-criminal-release="2026-08-03-r2"', $new_body, 1, $body_marker_count );
 	if ( ! is_string( $new_body ) || 1 !== $body_marker_count ) {
 		return $html;
 	}

@@ -119,6 +119,11 @@ $show_profile_claims        = ! $requires_fact_gate || $profile_is_fact_checked;
 $trusted_contact_source     = in_array( strtolower( (string) $source_type ), array( 'lawyer_submitted', 'owner_verified', 'verified_public' ), true );
 $show_direct_contact        = $card_active && ( $show_profile_claims || $is_paid || 'verified' === strtolower( (string) $verified ) || $trusted_contact_source );
 $is_basic_public            = $is_basic_public && $card_active;
+// Name-only means name only: an inactive card must not render the firm, bio,
+// experience, languages or rating either. Fact-checking does not create
+// consent (bot review on PR #52 caught this leak).
+$show_profile_claims        = $show_profile_claims && $card_active;
+$requires_fact_gate         = $requires_fact_gate && $card_active;
 $show_rating                = $show_rating && $show_profile_claims;
 
 if ( ! $show_profile_claims ) {

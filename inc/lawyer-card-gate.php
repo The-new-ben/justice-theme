@@ -80,6 +80,28 @@ function justice_theme_inactive_lawyer_robots( array $robots ): array {
 add_filter( 'wp_robots', 'justice_theme_inactive_lawyer_robots', 20 );
 
 /**
+ * Yoast owns robots output on production and does not read wp_robots, so the
+ * same rule is mirrored into its filters (bot review on PR #52 caught this).
+ *
+ * @param array|string $robots Yoast robots value.
+ * @return array|string
+ */
+function justice_theme_inactive_lawyer_yoast_robots( $robots ) {
+	if ( ! is_singular( 'justice_lawyer' )
+		|| justice_theme_lawyer_card_is_active( (int) get_queried_object_id() ) ) {
+		return $robots;
+	}
+	if ( is_array( $robots ) ) {
+		$robots['index']  = 'noindex';
+		$robots['follow'] = 'follow';
+		return $robots;
+	}
+	return 'noindex, follow';
+}
+add_filter( 'wpseo_robots_array', 'justice_theme_inactive_lawyer_yoast_robots', 99997 );
+add_filter( 'wpseo_robots', 'justice_theme_inactive_lawyer_yoast_robots', 99997 );
+
+/**
  * Inactive profiles leave the XML sitemap. Cached: 1,000+ records, and the
  * answer only changes when a lawyer joins.
  *

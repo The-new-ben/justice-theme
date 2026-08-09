@@ -173,6 +173,8 @@ function justice_theme_render_sitemap_lawyers() {
 		if (
 			! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
 			|| ! justice_theme_lawyer_profile_is_public_approved( (int) $lawyer->ID )
+			|| ( function_exists( 'justice_theme_lawyer_card_is_active' )
+				&& ! justice_theme_lawyer_card_is_active( (int) $lawyer->ID ) )
 		) {
 			continue;
 		}

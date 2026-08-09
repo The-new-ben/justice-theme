@@ -113,21 +113,31 @@ function justice_ops_map_offices_v3() {
 			$is_paid = justice_ops_map_profile_is_active_paid( $lawyer_id );
 			$claimed   = '' !== (string) get_post_meta( $lawyer_id, 'claimed_by_user_id', true );
 
+			// Inactive-card gate (owner order 2026-07-27): unconsented lawyers
+			// keep a name-only pin. No profile URL, no WhatsApp, and no claim
+			// link, because a claim link on their name is exactly the demand
+			// the owner ordered removed.
+			$map_card_active = function_exists( 'justice_theme_lawyer_card_is_active' )
+				? justice_theme_lawyer_card_is_active( $lawyer_id )
+				: ( $is_paid || $claimed );
+
 			$props = array(
 				'kind'     => 'lawyer',
 				'id'       => $lawyer_id,
 				'paid'     => $is_paid,
 				'name'     => wp_specialchars_decode( get_the_title( $lawyer_id ), ENT_QUOTES ),
-				'url'      => function_exists( 'justice_theme_public_permalink' ) ? justice_theme_public_permalink( $lawyer_id ) : get_permalink( $lawyer_id ),
+				'url'      => $map_card_active ? ( function_exists( 'justice_theme_public_permalink' ) ? justice_theme_public_permalink( $lawyer_id ) : get_permalink( $lawyer_id ) ) : '',
 				'city'     => ( is_array( $city_terms ) && $city_terms ) ? $city_terms[0]->name : '',
 				'areas'    => $areas,
-				'verified' => 'verified' === strtolower( (string) get_post_meta( $lawyer_id, 'verification_status', true ) ),
-				'whatsapp' => function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( (string) get_post_meta( $lawyer_id, 'whatsapp', true ) ) : '',
+				'verified' => $map_card_active && 'verified' === strtolower( (string) get_post_meta( $lawyer_id, 'verification_status', true ) ),
+				'whatsapp' => $map_card_active ? ( function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( (string) get_post_meta( $lawyer_id, 'whatsapp', true ) ) : '' ) : '',
+				'inactive' => ! $map_card_active,
 			);
 
 			// The one-click FOMO door: an unclaimed office's popup carries
-			// its own claim link. Claimed-or-paid offices never show it.
-			if ( ! $claimed && ! $is_paid ) {
+			// its own claim link. Claimed-or-paid offices never show it, and
+			// inactive (unconsented) cards never carry it at all.
+			if ( ! $claimed && ! $is_paid && $map_card_active ) {
 				$props['claim'] = add_query_arg(
 					array(
 						'claim_profile_id' => $lawyer_id,

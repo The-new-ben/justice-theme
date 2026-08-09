@@ -465,6 +465,17 @@ function justice_theme_lawyer_schema() {
 
 	$post_id = get_the_ID();
 
+	// Inactive-card gate: an unconsented profile emits NO structured data.
+	// The bot review on PR #53 caught the head leaking firm, phone, email and
+	// address into JSON-LD while the body was already gated.
+	if (
+		function_exists( 'justice_theme_lawyer_card_is_active' )
+		&& ! justice_theme_lawyer_card_is_active( (int) $post_id )
+		&& ! current_user_can( 'edit_post', $post_id )
+	) {
+		return;
+	}
+
 	if (
 		function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
 		&& ! justice_theme_lawyer_profile_is_public_approved( $post_id )

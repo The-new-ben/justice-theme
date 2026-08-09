@@ -124,6 +124,10 @@ $is_basic_public            = $is_basic_public && $card_active;
 // consent (bot review on PR #52 caught this leak).
 $show_profile_claims        = $show_profile_claims && $card_active;
 $requires_fact_gate         = $requires_fact_gate && $card_active;
+if ( ! $card_active ) {
+	$city_name  = '';
+	$area_names = array();
+}
 $show_rating                = $show_rating && $show_profile_claims;
 
 if ( ! $show_profile_claims ) {
@@ -136,6 +140,7 @@ if ( ! $show_direct_contact ) {
 }
 
 $show_thumbnail  = $has_thumbnail
+	&& $card_active
 	&& ! $is_seed_data
 	&& ( ! $is_maya_profile || $profile_is_fact_checked )
 	&& (

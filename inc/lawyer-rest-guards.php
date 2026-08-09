@@ -64,7 +64,11 @@ function justice_theme_filter_public_lawyer_rest_query( array $args, WP_REST_Req
 		array_filter(
 			array_map( 'intval', $candidate_ids ),
 			static function ( int $post_id ): bool {
-				return justice_theme_lawyer_profile_is_public_approved( $post_id );
+				if ( ! justice_theme_lawyer_profile_is_public_approved( $post_id ) ) {
+					return false;
+				}
+				return ! function_exists( 'justice_theme_lawyer_card_is_active' )
+					|| justice_theme_lawyer_card_is_active( $post_id );
 			}
 		)
 	);
@@ -317,6 +321,8 @@ function justice_theme_block_unapproved_lawyer_rest_item( $response, $handler, W
 		$post_id > 0
 		&& function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
 		&& justice_theme_lawyer_profile_is_public_approved( $post_id )
+		&& ( ! function_exists( 'justice_theme_lawyer_card_is_active' )
+			|| justice_theme_lawyer_card_is_active( $post_id ) )
 	) {
 		return $response;
 	}
@@ -349,6 +355,8 @@ function justice_theme_sanitize_public_lawyer_rest_response( WP_REST_Response $r
 	if (
 		! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
 		|| ! justice_theme_lawyer_profile_is_public_approved( (int) $post->ID )
+		|| ( function_exists( 'justice_theme_lawyer_card_is_active' )
+			&& ! justice_theme_lawyer_card_is_active( (int) $post->ID ) )
 	) {
 		$response->set_data(
 			array(

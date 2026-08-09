@@ -525,6 +525,29 @@
     "divorce cluster": "flat; the de-cannibalization landed 27.7, too fresh to judge."
    },
    "honest_summary": "The price pages, where we were already close and fixed title+answer, converted into real clicks. The lawyer pages did not, which matches the entity diagnosis. New assets are indexing."
+  },
+  {
+   "slug": "git-pull unblocked via git-less sync + map feed sealed",
+   "date": "2026-08-10",
+   "git_pull_problem": "the server cannot run git (exec disabled, no SSH); the panel pull was failing while main moved ahead. Solved without git: a one-shot REST route downloads the public main zipball server-side, lints every PHP with token_get_all, writes only changed files, and rolls back on probe failure.",
+   "sync_result": "991 files identical, 38 written (the other stream's PRs 42-51 that had never reached live), 0 lint failures, all probes 200. Live now equals main.",
+   "false_alarm_resolved": "cyprus-prices and divorce-costs word counts collapsed after the sync. Diagnosis proved 100% of the DB content renders; the other work stream deliberately REWROTE those pages on 3 August into short, source-verified versions (CYSTAT, dated verification). An editorial decision, not a defect. Nothing reverted.",
+   "map_feed_final_cause": "not stale bytecode: the ops feed caches its full GeoJSON in a 6-hour transient (justice_map_geojson_v1) and was serving a pre-gate payload. Purged; the rebuilt feed applies the gate natively: 919 pins, 918 inactive as name+city only, 1 active (Maya) with her URL, zero leaks.",
+   "defense_added": "rest_post_dispatch seal in the theme sanitises the feed response whichever callback produced it, so a stale compile or cached payload can never leak an unconsented lawyer's details again."
+  },
+  {
+   "slug": "five more gate bypasses closed (PR #53 bot review, all real)",
+   "date": "2026-08-10",
+   "found_and_fixed": {
+    "1 JSON-LD head leak": "the inactive-profile template gated the body while get_header still emitted firm, phone, email and street address into schema. Now zero structured data for inactive profiles; og/twitter image falls back to the site logo, verified.",
+    "2 core REST leak": "/wp-json/wp/v2/justice_lawyer served bio content, taxonomies and links for imported profiles. Collection, item and prepare paths all gated; anonymous collection now returns exactly 1 item (the paying profile).",
+    "3 geometry leak": "blanking the address left precise geocoded coordinates in the pin. Inactive pins are now omitted entirely from both feed implementations and dropped by the response seal. Feed: 919 lawyer pins -> 1 (Maya) + 42 places.",
+    "4 stale caches": "the 12h inactive list and 6h map payloads had no invalidation. Purge hooks now fire on save and on any change to sponsored/plan/subscription/claimed/source/verification meta.",
+    "5 card leftovers": "city, practice areas and the featured photo still rendered on inactive cards. Verified live: 23 inactive cards, zero meta lines, zero photos."
+   },
+   "business_note": "the map now shows one lawyer pin. That is the honest consequence of consent-first: the map FOMO mechanism is effectively off until lawyers join. The 42 institutional places keep the map alive.",
+   "release": "justice-ops 2.35.18 built and verified with the repo's own script",
+   "verified": "all five checks run live post-deploy, all probes 200"
   }
  ],
  "next_targets": [

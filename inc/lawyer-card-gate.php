@@ -150,3 +150,106 @@ function justice_theme_inactive_card_css(): void {
 		. '</style>';
 }
 add_action( 'wp_head', 'justice_theme_inactive_card_css', 32 );
+
+
+/**
+ * Response-layer seal for the map feed.
+ *
+ * The gate exists in both feed implementations, but uPress opcache held the
+ * plugin route on stale bytecode for over an hour after the file was replaced
+ * (opcache_invalidate is blocked on this host). This filter sanitises the
+ * response itself, whichever callback produced it, so a stale compile or any
+ * future feed regression cannot leak an unconsented lawyer's details.
+ *
+ * @param mixed           $result  Route response.
+ * @param WP_REST_Server  $server  Server.
+ * @param WP_REST_Request $request Request.
+ * @return mixed
+ */
+function justice_theme_seal_map_feed( $result, $server, $request ) {
+	if ( false === strpos( (string) $request->get_route(), '/justice/v1/map/offices' ) ) {
+		return $result;
+	}
+	$data = $result instanceof WP_REST_Response ? $result->get_data() : $result;
+	if ( ! is_array( $data ) ) {
+		return $result;
+	}
+	$inactive = array_flip( array_map( 'intval', justice_theme_exclude_inactive_lawyers_from_sitemap( array() ) ) );
+	$has_feats = isset( $data['features'] ) && is_array( $data['features'] );
+	$list      = $has_feats ? $data['features'] : $data;
+	$kept      = array();
+	foreach ( $list as $feat ) {
+		if ( ! is_array( $feat ) ) {
+			continue;
+		}
+		$has_props = isset( $feat['properties'] ) && is_array( $feat['properties'] );
+		$t         = $has_props ? $feat['properties'] : $feat;
+		if ( ( $t['kind'] ?? '' ) !== 'lawyer' ) {
+			$kept[] = $feat;
+			continue;
+		}
+		$id = (int) ( $t['id'] ?? 0 );
+		if ( $id && isset( $inactive[ $id ] ) ) {
+			// Dropped entirely: even a name pin carries precise office
+			// coordinates in the feature geometry (PR #53 bot review).
+			continue;
+		}
+		$kept[] = $feat;
+	}
+	if ( $has_feats ) {
+		$data['features'] = array_values( $kept );
+	} else {
+		$data = array_values( $kept );
+	}
+	if ( $result instanceof WP_REST_Response ) {
+		$result->set_data( $data );
+		return $result;
+	}
+	return $data;
+}
+add_filter( 'rest_post_dispatch', 'justice_theme_seal_map_feed', 999, 3 );
+
+
+/**
+ * The gate's caches go stale the moment a lawyer's standing changes, and
+ * nothing purged them (PR #53 bot review: the subscription watchdog flips
+ * subscription_status without a post save). Any change to a field the
+ * active-check reads purges the inactive-ID list and both map payload keys.
+ */
+function justice_theme_card_gate_purge_caches(): void {
+	delete_transient( 'justice_inactive_lawyer_ids_v1' );
+	delete_transient( 'justice_map_geojson_v1' );
+	delete_transient( 'justice_map_geojson_v2' );
+}
+
+function justice_theme_card_gate_meta_watch( $meta_id, $post_id, $meta_key ): void {
+	unset( $meta_id );
+	if ( 'justice_lawyer' !== get_post_type( (int) $post_id ) ) {
+		return;
+	}
+	$watched = array( 'sponsored_placement_status', 'plan_type', 'subscription_status', 'claimed_by_user_id', 'source_type', 'verification_status' );
+	if ( in_array( (string) $meta_key, $watched, true ) ) {
+		justice_theme_card_gate_purge_caches();
+	}
+}
+add_action( 'updated_post_meta', 'justice_theme_card_gate_meta_watch', 10, 3 );
+add_action( 'added_post_meta', 'justice_theme_card_gate_meta_watch', 10, 3 );
+add_action( 'deleted_post_meta', 'justice_theme_card_gate_meta_watch', 10, 3 );
+add_action( 'save_post_justice_lawyer', 'justice_theme_card_gate_purge_caches' );
+
+/**
+ * No OpenGraph/Twitter image for an inactive profile: the head must not ship
+ * the lawyer's photo after the body stopped doing so.
+ *
+ * @param string $image Image URL.
+ * @return string
+ */
+function justice_theme_inactive_lawyer_og_image( $image ) {
+	if ( is_singular( 'justice_lawyer' )
+		&& ! justice_theme_lawyer_card_is_active( (int) get_queried_object_id() ) ) {
+		return '';
+	}
+	return $image;
+}
+add_filter( 'wpseo_opengraph_image', 'justice_theme_inactive_lawyer_og_image', 99 );
+add_filter( 'wpseo_twitter_image', 'justice_theme_inactive_lawyer_og_image', 99 );

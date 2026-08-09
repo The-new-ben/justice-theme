@@ -1,6 +1,6 @@
 {
  "loop": "seo-money-loop",
- "updated": "2026-07-27",
+ "updated": "2026-08-10",
  "completed": [
   {
    "slug": "/greece-price-list/",
@@ -506,6 +506,25 @@
    },
    "lint_gate_win": "the blocking php -l gate caught a missing endif in the card template BEFORE deploy. The 2026-07-21 outage cannot repeat through this path.",
    "note": "privacy exposure reduced: 980 phone numbers and 778 emails published without consent are no longer reachable through the site."
+  },
+  {
+   "slug": "REMEASUREMENT, 13 days before vs 13 days after",
+   "date": "2026-08-10",
+   "windows": "2026-07-06..07-18 vs 2026-07-27..08-08",
+   "site": "clicks 413 -> 424 (+2.7%), impressions 84,683 -> 77,134 (-9%), avg pos 31.9 -> 32.5",
+   "what_moved_up": {
+    "greece-price-list": "12 -> 16 clicks, pos 11.4 -> 9.9, imp +17%. The first loop cycle's fix, and it held.",
+    "cyprus-prices": "5 -> 9 clicks, pos 10.5 -> 9.4",
+    "about-usa": "1 -> 3 clicks, imp 1,590 -> 2,322 (+46%) after the hub wiring",
+    "lawyer-fees-tariff": "new page: 0 -> 180 impressions in its first two weeks, entering at pos 35",
+    "international-lawyers": "new parent indexed, first impressions"
+   },
+   "what_did_not_move": {
+    "country lawyer pages": "greece/cyprus/usa/italy-lawyers flat on clicks; italy pos 12 -> 15.6. The DNA+silo went live only 26-27.7 so the after-window covers ~12 days of it, but the honest read stands: on-page work alone is not moving the lawyer-intent queries. Every page-one winner shows a named lawyer; our blocker is the empty office_city + single consent, which is the owner's open decision.",
+    "portugal-citizenship": "impressions 397 -> 250. The law-change news wave passed; watch before touching.",
+    "divorce cluster": "flat; the de-cannibalization landed 27.7, too fresh to judge."
+   },
+   "honest_summary": "The price pages, where we were already close and fixed title+answer, converted into real clicks. The lawyer pages did not, which matches the entity diagnosis. New assets are indexing."
   }
  ],
  "next_targets": [

@@ -340,22 +340,32 @@ function justice_theme_map_offices_geojson() {
 					'type'        => 'Point',
 					'coordinates' => array( $lng, $lat ),
 				),
-				'properties' => array(
-					'kind'     => 'lawyer',
-					'id'       => $lawyer_id,
-					'paid'     => $is_paid,
-					'logo'     => $logo_url,
-					'name'     => wp_specialchars_decode( get_the_title( $lawyer_id ), ENT_QUOTES ),
-					'url'      => function_exists( 'justice_theme_public_permalink' ) ? justice_theme_public_permalink( $lawyer_id ) : get_permalink( $lawyer_id ),
-					'city'     => ( is_array( $city_terms ) && $city_terms ) ? $city_terms[0]->name : '',
-					'areas'    => $areas,
-					'verified' => 'verified' === strtolower( (string) get_post_meta( $lawyer_id, 'verification_status', true ) ),
-					'rating'   => $review_state['show'] ? (float) $review_state['average'] : 0,
-					'reviews'  => $review_state['show'] ? (int) $review_state['count'] : 0,
-					'phone'    => function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( (string) get_post_meta( $lawyer_id, 'phone', true ) ) : '',
-					'whatsapp' => function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( (string) get_post_meta( $lawyer_id, 'whatsapp', true ) ) : '',
-					'address'  => (string) get_post_meta( $lawyer_id, 'office_address', true ),
-				),
+				'properties' => ( static function () use ( $lawyer_id, $is_paid, $logo_url, $city_terms, $areas, $review_state ) {
+					// Inactive-card gate (owner order 2026-07-27): the map feed
+					// is anonymous REST, and without this it kept serving the
+					// profile URL, phone, WhatsApp and street address of
+					// lawyers who never consented, bypassing the card gate.
+					$map_card_active = function_exists( 'justice_theme_lawyer_card_is_active' )
+						? justice_theme_lawyer_card_is_active( $lawyer_id )
+						: true;
+					return array(
+						'kind'     => 'lawyer',
+						'id'       => $lawyer_id,
+						'paid'     => $is_paid,
+						'logo'     => $map_card_active ? $logo_url : '',
+						'name'     => wp_specialchars_decode( get_the_title( $lawyer_id ), ENT_QUOTES ),
+						'url'      => $map_card_active ? ( function_exists( 'justice_theme_public_permalink' ) ? justice_theme_public_permalink( $lawyer_id ) : get_permalink( $lawyer_id ) ) : '',
+						'city'     => ( is_array( $city_terms ) && $city_terms ) ? $city_terms[0]->name : '',
+						'areas'    => $areas,
+						'verified' => $map_card_active && 'verified' === strtolower( (string) get_post_meta( $lawyer_id, 'verification_status', true ) ),
+						'rating'   => ( $map_card_active && $review_state['show'] ) ? (float) $review_state['average'] : 0,
+						'reviews'  => ( $map_card_active && $review_state['show'] ) ? (int) $review_state['count'] : 0,
+						'phone'    => $map_card_active ? ( function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( (string) get_post_meta( $lawyer_id, 'phone', true ) ) : '' ) : '',
+						'whatsapp' => $map_card_active ? ( function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( (string) get_post_meta( $lawyer_id, 'whatsapp', true ) ) : '' ) : '',
+						'address'  => $map_card_active ? (string) get_post_meta( $lawyer_id, 'office_address', true ) : '',
+						'inactive' => ! $map_card_active,
+					);
+				} )(),
 			);
 		}
 	}

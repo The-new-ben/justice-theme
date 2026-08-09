@@ -1,6 +1,6 @@
 {
  "loop": "seo-money-loop",
- "updated": "2026-07-27",
+ "updated": "2026-08-10",
  "completed": [
   {
    "slug": "/greece-price-list/",
@@ -487,6 +487,44 @@
    "ROOT_2_strike_zone": "201 queries at positions 4-15 with >=25 impressions and ZERO clicks, 11,518 impressions lost at the moment of choice. Top case /free-divorce-agreement-template/ (951imp @8.2) already carries a corrected title from an earlier cycle; the zero-click history predates it.",
    "bug_fixed_on_the_way": "wptexturize converted the ' - ' separator into an en dash in the H1, violating the owner's site-wide dash ban. remove_filter('the_title','wptexturize') added; all five titles verified live with a plain hyphen.",
    "verified": "all five titles + H1s fetched live and dash-clean; up-links added with revisions saved"
+  },
+  {
+   "slug": "inactive-card gate on all lawyer cards",
+   "date": "2026-07-27",
+   "owner_intent": "his concern is the LAWYERS: details were published about them without consent. So no join funnel, no claim CTA, no redirect anywhere near an unconsented card. The card simply goes inactive.",
+   "active_definition": "sponsored active/reserved, or paid plan in force, or profile claimed by its owner, or data submitted/verified by the lawyer. Imported/seed records are inactive.",
+   "shipped": {
+    "card": "name stays visible; no link, no phone/whatsapp, no claim block, no action buttons; muted look + 'כרטיס לא פעיל' label",
+    "profile": "same URL, HTTP 200, renders name + one line only; no redirect, no offer; noindex,follow; editors still see the full profile for QA",
+    "sitemap": "inactive profiles excluded; the lawyer sitemap dropped from 1,093 entries to 2",
+    "removed_CTAs": "the previous 'תביעת כרטיס' and 'התחלת שדרוג' offers no longer render on unconsented cards, which is exactly what the owner feared would look like trading on their names"
+   },
+   "verified": {
+    "archive": "24 cards, 23 inactive with the label, 0 links in an inactive card, 0 claim CTAs",
+    "inactive profile": "200 + noindex + 'הכרטיס אינו פעיל'; page dropped from full profile to chrome-only word count; remaining tel: links are the site's own floating WhatsApp/footer, on every page",
+    "paying": "Maya's card carries 4 links and her profile is untouched, no noindex"
+   },
+   "lint_gate_win": "the blocking php -l gate caught a missing endif in the card template BEFORE deploy. The 2026-07-21 outage cannot repeat through this path.",
+   "note": "privacy exposure reduced: 980 phone numbers and 778 emails published without consent are no longer reachable through the site."
+  },
+  {
+   "slug": "REMEASUREMENT, 13 days before vs 13 days after",
+   "date": "2026-08-10",
+   "windows": "2026-07-06..07-18 vs 2026-07-27..08-08",
+   "site": "clicks 413 -> 424 (+2.7%), impressions 84,683 -> 77,134 (-9%), avg pos 31.9 -> 32.5",
+   "what_moved_up": {
+    "greece-price-list": "12 -> 16 clicks, pos 11.4 -> 9.9, imp +17%. The first loop cycle's fix, and it held.",
+    "cyprus-prices": "5 -> 9 clicks, pos 10.5 -> 9.4",
+    "about-usa": "1 -> 3 clicks, imp 1,590 -> 2,322 (+46%) after the hub wiring",
+    "lawyer-fees-tariff": "new page: 0 -> 180 impressions in its first two weeks, entering at pos 35",
+    "international-lawyers": "new parent indexed, first impressions"
+   },
+   "what_did_not_move": {
+    "country lawyer pages": "greece/cyprus/usa/italy-lawyers flat on clicks; italy pos 12 -> 15.6. The DNA+silo went live only 26-27.7 so the after-window covers ~12 days of it, but the honest read stands: on-page work alone is not moving the lawyer-intent queries. Every page-one winner shows a named lawyer; our blocker is the empty office_city + single consent, which is the owner's open decision.",
+    "portugal-citizenship": "impressions 397 -> 250. The law-change news wave passed; watch before touching.",
+    "divorce cluster": "flat; the de-cannibalization landed 27.7, too fresh to judge."
+   },
+   "honest_summary": "The price pages, where we were already close and fixed title+answer, converted into real clicks. The lawyer pages did not, which matches the entity diagnosis. New assets are indexing."
   }
  ],
  "next_targets": [

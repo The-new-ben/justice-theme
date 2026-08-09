@@ -21,6 +21,29 @@ if (
 	exit;
 }
 
+// Inactive-card gate (owner order 2026-07-27): profiles imported without the
+// lawyer's consent publish their details, and that exposure is the whole
+// concern. When the card is inactive the full profile is not reachable:
+// same URL, no redirect, no offer, no demand. Just the name and a closed
+// card. Editors still see the full profile for QA.
+if (
+	function_exists( 'justice_theme_lawyer_card_is_active' )
+	&& ! justice_theme_lawyer_card_is_active( get_the_ID() )
+	&& ! current_user_can( 'edit_post', get_the_ID() )
+) {
+	get_header();
+	?>
+	<main id="primary" class="site-main">
+		<section class="inactive-profile">
+			<h1><?php the_title(); ?></h1>
+			<p><?php esc_html_e( 'הכרטיס אינו פעיל ואינו מציג פרטים.', 'justice-theme' ); ?></p>
+		</section>
+	</main>
+	<?php
+	get_footer();
+	exit;
+}
+
 get_header();
 
 $lawyer_id = get_the_ID();

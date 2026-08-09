@@ -280,6 +280,10 @@ function justice_theme_render_html_sitemap_page(): void {
 	$lawyers        = array_filter(
 		justice_theme_html_sitemap_get_post_ids( 'justice_lawyer', 300 ),
 		static function ( int $post_id ): bool {
+			if ( function_exists( 'justice_theme_lawyer_card_is_active' )
+				&& ! justice_theme_lawyer_card_is_active( (int) $post_id ) ) {
+				return false;
+			}
 			return function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
 				? justice_theme_lawyer_profile_is_public_approved( $post_id )
 				: false;

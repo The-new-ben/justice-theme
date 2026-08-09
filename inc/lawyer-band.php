@@ -41,7 +41,10 @@ function justice_theme_get_practice_firms( string $term_slug, int $limit = 6, bo
 		if ( ! ( $candidate instanceof WP_Post ) || 'justice_lawyer' !== $candidate->post_type || 'publish' !== $candidate->post_status ) {
 			continue;
 		}
-		if ( function_exists( 'justice_theme_lawyer_is_visible' ) && ! justice_theme_lawyer_is_visible( (int) $candidate->ID ) ) {
+		if (
+			! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+			|| ! justice_theme_lawyer_profile_is_public_approved( (int) $candidate->ID )
+		) {
 			continue;
 		}
 		if ( $registered_only ) {

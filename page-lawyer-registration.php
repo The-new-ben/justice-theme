@@ -129,9 +129,11 @@ if ( ! $registration_claim_profile && $registration_claim_profile_slug && post_t
 
 if (
 	$registration_claim_profile
-	&& function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
-	&& ! justice_theme_lawyer_profile_is_public_approved( (int) $registration_claim_profile->ID )
 	&& ! current_user_can( 'edit_post', (int) $registration_claim_profile->ID )
+	&& (
+		! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+		|| ! justice_theme_lawyer_profile_is_public_approved( (int) $registration_claim_profile->ID )
+	)
 ) {
 	$registration_claim_profile = null;
 }

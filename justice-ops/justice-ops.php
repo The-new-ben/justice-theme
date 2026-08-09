@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.35.0
+ * Version: 2.35.16
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,10 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.35.0' );
+	define( 'JUSTICE_OPS_VERSION', '2.35.16' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
+
+// Native auto-update is fail-closed for this plugin and can be changed only
+// through the authenticated compare-and-set control route.
+require_once __DIR__ . '/release-update-control.php';
 
 // AI engine: one door for every model call, loud failover, circuit breakers.
 require_once __DIR__ . '/ai-engine.php';
@@ -109,6 +113,10 @@ require_once __DIR__ . '/tools-discovery.php';
 // truth for titles; legacy per-post override filters are retired (wave 0).
 require_once __DIR__ . '/title-authority.php';
 
+// Title stability: restore the canonical server title only when third-party
+// chat replaces it with a narrowly matched notification counter.
+require_once __DIR__ . '/title-stability.php';
+
 // Legacy URL rescue: 301s for dead historical URLs still carrying equity.
 require_once __DIR__ . '/legacy-redirects.php';
 
@@ -118,6 +126,33 @@ require_once __DIR__ . '/rent-gen.php';
 // Review-claims kill switch: no 'legally reviewed by' anywhere until a real
 // per-page attorney review process exists (owner order 2026-07-14).
 require_once __DIR__ . '/review-claims-off.php';
+
+// Family/divorce release bridge: lets the six rewritten records control their
+// public titles and H1s while the older production theme is still installed.
+require_once __DIR__ . '/family-content-release.php';
+
+// Criminal pillar bridge: one preserved URL receives a keyword-first Hero
+// and three stage-specific links while the legacy theme stays unchanged.
+require_once __DIR__ . '/criminal-content-release.php';
+
+// Real-estate release bridge: four preserved URLs receive one intent each,
+// controlled metadata, truthful identity handling and bounded schema output.
+require_once __DIR__ . '/real-estate-content-release.php';
+
+// Country release schema boundary: Portugal and USA editorial cohorts keep
+// WebPage/Article/Breadcrumb graphs but cannot inherit unproved provider nodes.
+require_once __DIR__ . '/country-content-release.php';
+
+// Exact-CAS REST bridge for the controlled eight-page Cyprus cohort.
+require_once __DIR__ . '/cyprus-content-bridge.php';
+
+// Maya Rotenberg firm-profile bridge: exact-route factual copy, neutral
+// visibility clarification, controlled schema and hash-locked Yoast metadata.
+require_once __DIR__ . '/maya-profile-release.php';
+
+// Comparison content reset: one exact legacy article renders as a sourced,
+// fact-only provider comparison without mutating its stored content or URL.
+require_once __DIR__ . '/comparison-content-reset.php';
 
 // The courtroom simulation (HADMAIA on jus-tice.com) embedded for real
 // at /legal-simulation/, chrome-less, with honest framing copy.
@@ -147,7 +182,11 @@ require_once __DIR__ . '/publish-notify.php';
 // (dry-run/execute REST routes, owner-authorized per row batch).
 require_once __DIR__ . '/lawyer-index-import.php';
 require_once __DIR__ . '/firm-match-strip.php';
+require_once __DIR__ . '/content-first-order.php';
 require_once __DIR__ . '/map-feed-v3.php';
+
+// One-shot, hash-locked retirement of three legacy HFCM head-card snippets.
+require_once __DIR__ . '/hfcm-legacy-card-retirement.php';
 
 /**
  * Public healthcheck: what version of the ops plugin is live.

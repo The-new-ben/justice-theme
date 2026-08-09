@@ -121,6 +121,13 @@ function justice_ops_map_offices_v3() {
 				? justice_theme_lawyer_card_is_active( $lawyer_id )
 				: ( $is_paid || $claimed );
 
+			// Bot review on PR #53: blanking the address is not enough when the
+			// pin still carries coordinates geocoded FROM that address. An
+			// unconsented office does not appear on the map at all.
+			if ( ! $map_card_active ) {
+				continue;
+			}
+
 			$props = array(
 				'kind'     => 'lawyer',
 				'id'       => $lawyer_id,

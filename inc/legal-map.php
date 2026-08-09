@@ -299,6 +299,10 @@ function justice_theme_map_offices_geojson() {
 		foreach ( $lawyer_ids as $lawyer_id ) {
 			$lawyer_id = (int) $lawyer_id;
 
+			if ( function_exists( 'justice_theme_lawyer_card_is_active' )
+				&& ! justice_theme_lawyer_card_is_active( $lawyer_id ) ) {
+				continue;
+			}
 			if (
 				! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
 				|| ! justice_theme_lawyer_profile_is_public_approved( $lawyer_id )

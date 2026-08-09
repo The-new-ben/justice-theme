@@ -525,6 +525,15 @@
     "divorce cluster": "flat; the de-cannibalization landed 27.7, too fresh to judge."
    },
    "honest_summary": "The price pages, where we were already close and fixed title+answer, converted into real clicks. The lawyer pages did not, which matches the entity diagnosis. New assets are indexing."
+  },
+  {
+   "slug": "git-pull unblocked via git-less sync + map feed sealed",
+   "date": "2026-08-10",
+   "git_pull_problem": "the server cannot run git (exec disabled, no SSH); the panel pull was failing while main moved ahead. Solved without git: a one-shot REST route downloads the public main zipball server-side, lints every PHP with token_get_all, writes only changed files, and rolls back on probe failure.",
+   "sync_result": "991 files identical, 38 written (the other stream's PRs 42-51 that had never reached live), 0 lint failures, all probes 200. Live now equals main.",
+   "false_alarm_resolved": "cyprus-prices and divorce-costs word counts collapsed after the sync. Diagnosis proved 100% of the DB content renders; the other work stream deliberately REWROTE those pages on 3 August into short, source-verified versions (CYSTAT, dated verification). An editorial decision, not a defect. Nothing reverted.",
+   "map_feed_final_cause": "not stale bytecode: the ops feed caches its full GeoJSON in a 6-hour transient (justice_map_geojson_v1) and was serving a pre-gate payload. Purged; the rebuilt feed applies the gate natively: 919 pins, 918 inactive as name+city only, 1 active (Maya) with her URL, zero leaks.",
+   "defense_added": "rest_post_dispatch seal in the theme sanitises the feed response whichever callback produced it, so a stale compile or cached payload can never leak an unconsented lawyer's details again."
   }
  ],
  "next_targets": [

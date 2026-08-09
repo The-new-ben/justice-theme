@@ -150,3 +150,76 @@ function justice_theme_inactive_card_css(): void {
 		. '</style>';
 }
 add_action( 'wp_head', 'justice_theme_inactive_card_css', 32 );
+
+
+/**
+ * Response-layer seal for the map feed.
+ *
+ * The gate exists in both feed implementations, but uPress opcache held the
+ * plugin route on stale bytecode for over an hour after the file was replaced
+ * (opcache_invalidate is blocked on this host). This filter sanitises the
+ * response itself, whichever callback produced it, so a stale compile or any
+ * future feed regression cannot leak an unconsented lawyer's details.
+ *
+ * @param mixed           $result  Route response.
+ * @param WP_REST_Server  $server  Server.
+ * @param WP_REST_Request $request Request.
+ * @return mixed
+ */
+function justice_theme_seal_map_feed( $result, $server, $request ) {
+	if ( false === strpos( (string) $request->get_route(), '/justice/v1/map/offices' ) ) {
+		return $result;
+	}
+	$data = $result instanceof WP_REST_Response ? $result->get_data() : $result;
+	if ( ! is_array( $data ) ) {
+		return $result;
+	}
+	$inactive = array_flip( array_map( 'intval', justice_theme_exclude_inactive_lawyers_from_sitemap( array() ) ) );
+	$has_feats = isset( $data['features'] ) && is_array( $data['features'] );
+	$list      = $has_feats ? $data['features'] : $data;
+	foreach ( $list as &$feat ) {
+		if ( ! is_array( $feat ) ) {
+			continue;
+		}
+		$has_props = isset( $feat['properties'] ) && is_array( $feat['properties'] );
+		$t         = $has_props ? $feat['properties'] : $feat;
+		if ( ( $t['kind'] ?? '' ) !== 'lawyer' ) {
+			continue;
+		}
+		$id = (int) ( $t['id'] ?? 0 );
+		if ( ! $id || ! isset( $inactive[ $id ] ) ) {
+			continue;
+		}
+		foreach ( array( 'url', 'whatsapp', 'phone', 'address', 'logo' ) as $k ) {
+			if ( isset( $t[ $k ] ) ) {
+				$t[ $k ] = '';
+			}
+		}
+		unset( $t['claim'] );
+		$t['verified'] = false;
+		if ( isset( $t['rating'] ) ) {
+			$t['rating'] = 0;
+		}
+		if ( isset( $t['reviews'] ) ) {
+			$t['reviews'] = 0;
+		}
+		$t['inactive'] = true;
+		if ( $has_props ) {
+			$feat['properties'] = $t;
+		} else {
+			$feat = $t;
+		}
+	}
+	unset( $feat );
+	if ( $has_feats ) {
+		$data['features'] = $list;
+	} else {
+		$data = $list;
+	}
+	if ( $result instanceof WP_REST_Response ) {
+		$result->set_data( $data );
+		return $result;
+	}
+	return $data;
+}
+add_filter( 'rest_post_dispatch', 'justice_theme_seal_map_feed', 999, 3 );

@@ -55,6 +55,17 @@ if ( ! function_exists( 'justice_theme_lawyer_card_public_city_label' ) ) {
 
 $lawyer_id       = get_the_ID();
 $lawyer_url      = justice_theme_public_permalink( $lawyer_id );
+
+// Inactive-card gate (owner order 2026-07-27): a card whose owner never
+// consented and never paid shows the name only. No link, no contact details,
+// no claim offer, no buttons. The details behind it were published without
+// the lawyer's permission, and the card must not trade on them.
+$card_active = function_exists( 'justice_theme_lawyer_card_is_active' )
+	? justice_theme_lawyer_card_is_active( $lawyer_id )
+	: true;
+if ( ! $card_active ) {
+	$lawyer_url = '';
+}
 $firm            = get_post_meta( $lawyer_id, 'firm_name', true );
 $phone           = get_post_meta( $lawyer_id, 'phone', true );
 $whatsapp        = get_post_meta( $lawyer_id, 'whatsapp', true );
@@ -106,7 +117,8 @@ $requires_fact_gate         = $is_maya_profile
 	|| in_array( strtolower( (string) $source_type ), array( 'public_index', 'import' ), true );
 $show_profile_claims        = ! $requires_fact_gate || $profile_is_fact_checked;
 $trusted_contact_source     = in_array( strtolower( (string) $source_type ), array( 'lawyer_submitted', 'owner_verified', 'verified_public' ), true );
-$show_direct_contact        = $show_profile_claims || $is_paid || 'verified' === strtolower( (string) $verified ) || $trusted_contact_source;
+$show_direct_contact        = $card_active && ( $show_profile_claims || $is_paid || 'verified' === strtolower( (string) $verified ) || $trusted_contact_source );
+$is_basic_public            = $is_basic_public && $card_active;
 $show_rating                = $show_rating && $show_profile_claims;
 
 if ( ! $show_profile_claims ) {
@@ -151,6 +163,10 @@ if ( $has_public_sponsor ) {
 if ( $requires_fact_gate && ! $profile_is_fact_checked ) {
 	$card_classes[] = 'lawyer-card--fact-gated';
 }
+
+if ( ! $card_active ) {
+	$card_classes[] = 'lawyer-card--inactive';
+}
 $is_legal_provider = in_array( $professional, array( 'rabbinical_advocate', 'mediator', 'legal_service_provider', 'expert_witness' ), true )
 	|| false !== mb_stripos( get_the_title(), 'טוען רבני' )
 	|| false !== mb_stripos( get_the_title(), 'מגשר' );
@@ -168,7 +184,11 @@ $inquiry_url     = add_query_arg( 'lawyer_id', $lawyer_id, home_url( '/contact/'
 ?>
 
 <article class="<?php echo esc_attr( implode( ' ', array_unique( $card_classes ) ) ); ?>">
+	<?php if ( $card_active ) : ?>
 	<a class="lawyer-card__media<?php echo $show_thumbnail ? '' : ' lawyer-card__media--initials'; ?>" href="<?php echo esc_url( $lawyer_url ); ?>" aria-label="<?php echo esc_attr( sprintf( '%s %s', $profile_label, get_the_title() ) ); ?>">
+	<?php else : ?>
+	<span class="lawyer-card__media lawyer-card__media--plain<?php echo $show_thumbnail ? '' : ' lawyer-card__media--initials'; ?>">
+	<?php endif; ?>
 		<?php if ( $show_thumbnail ) : ?>
 			<?php
 			echo wp_get_attachment_image(
@@ -205,14 +225,24 @@ $inquiry_url     = add_query_arg( 'lawyer_id', $lawyer_id, home_url( '/contact/'
 		?>
 			<span class="lawyer-card__initials" aria-hidden="true"><?php echo esc_html( $initials ); ?></span>
 		<?php endif; ?>
+	<?php if ( $card_active ) : ?>
 	</a>
+	<?php else : ?>
+	</span>
+	<?php endif; ?>
 
 	<div class="lawyer-card__body">
 		<div class="lawyer-card__top">
 			<h3 class="lawyer-card__name">
-				<a href="<?php echo esc_url( $lawyer_url ); ?>"><?php the_title(); ?></a>
+				<?php if ( $card_active ) : ?>
+					<a href="<?php echo esc_url( $lawyer_url ); ?>"><?php the_title(); ?></a>
+				<?php else : ?>
+					<?php the_title(); ?>
+				<?php endif; ?>
 			</h3>
-			<?php if ( $has_public_sponsor && $show_profile_claims ) : ?>
+			<?php if ( ! $card_active ) : ?>
+				<span class="lawyer-card__status lawyer-card__status--inactive"><?php esc_html_e( 'כרטיס לא פעיל', 'justice-theme' ); ?></span>
+			<?php elseif ( $has_public_sponsor && $show_profile_claims ) : ?>
 				<span class="lawyer-card__status lawyer-card__status--sponsored"><?php esc_html_e( 'כרטיס רשום', 'justice-theme' ); ?></span>
 			<?php elseif ( $has_reserved_sponsor && $show_profile_claims ) : ?>
 				<span class="lawyer-card__status lawyer-card__status--sponsored"><?php esc_html_e( 'כרטיס רשום', 'justice-theme' ); ?></span>
@@ -267,6 +297,7 @@ $inquiry_url     = add_query_arg( 'lawyer_id', $lawyer_id, home_url( '/contact/'
 			</div>
 		<?php endif; ?>
 
+		<?php if ( $card_active ) : ?>
 		<div class="lawyer-card__actions">
 			<a class="button button--primary" href="<?php echo esc_url( $lawyer_url ); ?>"><?php echo $is_basic_public ? esc_html__( 'צפייה בכרטיס', 'justice-theme' ) : esc_html__( 'צפייה בפרופיל', 'justice-theme' ); ?></a>
 			<?php if ( $whatsapp_link ) : ?>
@@ -281,5 +312,6 @@ $inquiry_url     = add_query_arg( 'lawyer_id', $lawyer_id, home_url( '/contact/'
 				<a class="button button--ghost" href="<?php echo esc_url( $inquiry_url ); ?>">שליחת פנייה</a>
 			<?php endif; ?>
 		</div>
+		<?php endif; ?>
 	</div>
 </article>

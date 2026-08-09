@@ -487,6 +487,25 @@
    "ROOT_2_strike_zone": "201 queries at positions 4-15 with >=25 impressions and ZERO clicks, 11,518 impressions lost at the moment of choice. Top case /free-divorce-agreement-template/ (951imp @8.2) already carries a corrected title from an earlier cycle; the zero-click history predates it.",
    "bug_fixed_on_the_way": "wptexturize converted the ' - ' separator into an en dash in the H1, violating the owner's site-wide dash ban. remove_filter('the_title','wptexturize') added; all five titles verified live with a plain hyphen.",
    "verified": "all five titles + H1s fetched live and dash-clean; up-links added with revisions saved"
+  },
+  {
+   "slug": "inactive-card gate on all lawyer cards",
+   "date": "2026-07-27",
+   "owner_intent": "his concern is the LAWYERS: details were published about them without consent. So no join funnel, no claim CTA, no redirect anywhere near an unconsented card. The card simply goes inactive.",
+   "active_definition": "sponsored active/reserved, or paid plan in force, or profile claimed by its owner, or data submitted/verified by the lawyer. Imported/seed records are inactive.",
+   "shipped": {
+    "card": "name stays visible; no link, no phone/whatsapp, no claim block, no action buttons; muted look + 'כרטיס לא פעיל' label",
+    "profile": "same URL, HTTP 200, renders name + one line only; no redirect, no offer; noindex,follow; editors still see the full profile for QA",
+    "sitemap": "inactive profiles excluded; the lawyer sitemap dropped from 1,093 entries to 2",
+    "removed_CTAs": "the previous 'תביעת כרטיס' and 'התחלת שדרוג' offers no longer render on unconsented cards, which is exactly what the owner feared would look like trading on their names"
+   },
+   "verified": {
+    "archive": "24 cards, 23 inactive with the label, 0 links in an inactive card, 0 claim CTAs",
+    "inactive profile": "200 + noindex + 'הכרטיס אינו פעיל'; page dropped from full profile to chrome-only word count; remaining tel: links are the site's own floating WhatsApp/footer, on every page",
+    "paying": "Maya's card carries 4 links and her profile is untouched, no noindex"
+   },
+   "lint_gate_win": "the blocking php -l gate caught a missing endif in the card template BEFORE deploy. The 2026-07-21 outage cannot repeat through this path.",
+   "note": "privacy exposure reduced: 980 phone numbers and 778 emails published without consent are no longer reachable through the site."
   }
  ],
  "next_targets": [

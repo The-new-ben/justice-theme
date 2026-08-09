@@ -74,6 +74,7 @@ $justice_theme_files = array(
 	'inc/content-utils.php',
 	'inc/pillar-faq-schema.php',
 	'inc/lawyer-band.php',
+	'inc/lawyer-card-gate.php',
 	'inc/practice-display-fixes.php',
 	'inc/heading-structure-fix.php',
 	'inc/fee-calculator.php',

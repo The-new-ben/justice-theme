@@ -46,13 +46,22 @@ The 40 `WAVE_1_24H_SAFETY_GATE` candidates were checked live on 2026-08-26:
 - 40/40 are still present in a live sitemap.
 - 40/40 pass the public-data gate: zero clicks, zero GSC link targets, zero
   public REST inlinks, and no protected money page.
-- 0/40 are authorized for live 410 yet.
+- WordPress/CRM history contains a source URL for 26/26 reviewed lead records;
+  none of those source URLs matches a wave-1 candidate.
+- A manual uPress backup completed before the live plugin update: 2.8 GiB,
+  one database, 75 posts, two themes, WordPress 7.1.
+- The uPress activity UI exposed only the current-day window. That log is
+  contaminated by this audit because each of the 40 candidate paths appears
+  once from the preflight requests themselves.
+- 0/40 are authorized for live 410. No 410 was published.
 
 The following private gates remain mandatory before a 410 is published:
 
-1. No attributable lead in WordPress/CRM history.
-2. No material recent human/server-log demand.
-3. Full host database and media backup, not only a Git code bundle.
+1. No attributable lead in WordPress/CRM history. **Passed for all 40 in the
+   26-record source-URL review.**
+2. No material recent human/server-log demand. **Blocked: the available
+   current-day log is too short and audit-contaminated.**
+3. Full host database and media backup, not only a Git code bundle. **Passed.**
 
 Do not convert a pending candidate into a 410 merely because its public gate
 passes. Remove approved URLs from every sitemap/internal link source before
@@ -76,12 +85,50 @@ These pages are never eligible for the wave-1 retirement map:
 - Plugin ZIP `plugin-dist/justice-ops-2.35.19.zip` builds and reopens
   successfully with normalized archive paths.
 
+## Live execution result — 2026-08-26
+
+- A manual uPress backup completed before deployment (2.8 GiB, one database,
+  75 posts, two themes, WordPress 7.1).
+- `justice-ops` 2.35.19 was installed through the WordPress updater and the
+  cache-clear action was run.
+- The live healthcheck reports 2.35.19, marker
+  `seo-recovery-phase1-freeze-v1`, and
+  `automatic_content_paused: true`.
+- The freeze snapshot reports one scheduled `justice_term` moved to draft;
+  the encyclopedia engine now reports zero scheduled entries. News and
+  encyclopedia settings remain stored as enabled, but the global freeze
+  prevents automatic publication.
+- `/recommended-jus-tice-team-lawyer/` now returns an exact 404 with no
+  `Location` header, so the self-redirect loop is gone.
+- The four protected money pages return 200.
+- The production 404-routing check passes 7/7.
+- Three representative rendered cluster links resolve to their canonical
+  root pillars and return 200:
+  `/free-divorce-agreement-template/` -> `/divorce-lawyer/`,
+  `/lawyer-for-buying-or-selling-a-house/` -> `/real-estate-attorney/`, and
+  `/speeding/` -> `/traffic-lawyer/`. No sampled link targets an
+  `/articles/` copy.
+- No wave-1 410 was published because the server-log gate did not pass.
+
+Live evidence is stored outside Git in the evidence directory named above.
+The final local delivery ZIP intentionally excludes OAuth credentials and
+other secrets.
+
+## Live theme worktree blocker
+
+The uPress Git-status screen showed a dirty live theme worktree with modified,
+deleted, and untracked files, including `inc/content-clusters.php`. No theme
+Pull was run and no live file was overwritten. The merged repository fix
+remains the future reconciliation source. Current rendered production output
+already passes the three sampled canonical-cluster checks, so this blocker
+does not invalidate the live proof; it prevents claiming that the live theme
+was updated from Git in this phase.
+
 ## Deployment and rollback
 
-Deployment is not complete until the live healthcheck shows 2.35.19 and the
-rendered live routes are verified.
-
-After deployment verify:
+The safe plugin subset is deployed and rendered verification is complete.
+The theme Pull was intentionally not performed because the live worktree is
+dirty. Re-run these checks after any future theme reconciliation:
 
 1. `/wp-json/justice-ops/v1/healthcheck` reports 2.35.19 and
    `automatic_content_paused: true`.

@@ -200,5 +200,9 @@ add_action( 'rest_api_init', function () {
  * new local pages automatically).
  */
 add_action( 'justice_serp_tick', function () {
+	if ( function_exists( 'justice_ops_automatic_content_paused' ) && justice_ops_automatic_content_paused() ) {
+		return;
+	}
+
 	justice_city_generate( 2 );
 } );

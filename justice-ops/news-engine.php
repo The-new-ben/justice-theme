@@ -282,6 +282,12 @@ function justice_news_collect_candidates(): array {
 function justice_news_run( bool $forced ): array {
 	$out = array( 'published' => array(), 'note' => '' );
 
+	if ( ! $forced && function_exists( 'justice_ops_automatic_content_paused' ) && justice_ops_automatic_content_paused() ) {
+		$out['note'] = 'automatic content paused';
+
+		return $out;
+	}
+
 	if ( ! (int) get_option( 'justice_news_enabled', 1 ) && ! $forced ) {
 		$out['note'] = 'paused';
 
@@ -543,6 +549,7 @@ add_action( 'rest_api_init', function () {
 		'callback'            => function () {
 			return rest_ensure_response( array(
 				'enabled'   => (int) get_option( 'justice_news_enabled', 1 ),
+				'automatic_pause' => function_exists( 'justice_ops_automatic_content_paused' ) && justice_ops_automatic_content_paused(),
 				'daily_cap' => (int) get_option( 'justice_news_daily', 3 ),
 				'model'     => (string) get_option( 'justice_news_model', 'gpt-4.1' ),
 				'today'     => justice_news_stat(),

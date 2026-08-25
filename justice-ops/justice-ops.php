@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.35.18
+ * Version: 2.35.19
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,10 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.35.18' );
+	define( 'JUSTICE_OPS_VERSION', '2.35.19' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
+
+// Phase-1 SEO recovery freeze: automatic content generators fail closed while
+// the existing inventory is audited. The option is reversible without another
+// code release; authenticated/manual tools remain available where documented.
+require_once __DIR__ . '/content-freeze.php';
 
 // Native auto-update is fail-closed for this plugin and can be changed only
 // through the authenticated compare-and-set control route.
@@ -197,10 +202,11 @@ add_action( 'rest_api_init', function () {
 		'permission_callback' => '__return_true',
 		'callback'            => function () {
 			return array(
-				'plugin'   => 'justice-ops',
-				'version'  => JUSTICE_OPS_VERSION,
-				'marker'   => 'self-update-proof-v1',
-				'time_utc' => gmdate( 'c' ),
+				'plugin'                   => 'justice-ops',
+				'version'                  => JUSTICE_OPS_VERSION,
+				'marker'                   => 'seo-recovery-phase1-freeze-v1',
+				'automatic_content_paused' => justice_ops_automatic_content_paused(),
+				'time_utc'                 => gmdate( 'c' ),
 			);
 		},
 	) );

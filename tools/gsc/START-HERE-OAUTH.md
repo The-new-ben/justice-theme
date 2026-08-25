@@ -36,8 +36,10 @@ flow again; never request or share the secret in chat.
 
 - Last verified: 2026-08-25
 - OAuth scope: `https://www.googleapis.com/auth/webmasters.readonly`
+- Justice property: `https://jus-tice.co.il/`
+- Justice permission at verification: `siteOwner`
 - NadLan property: `sc-domain:nad-lan.co.il`
-- Permission at verification: `siteOwner`
+- NadLan permission at verification: `siteOwner`
 
 The full commands and run history are in `README-GSC-CONNECTION.md`. Private
 property listings and GSC data remain under `%USERPROFILE%\Documents\GSC-Data\`.

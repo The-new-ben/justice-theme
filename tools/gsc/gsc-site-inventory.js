@@ -44,6 +44,7 @@ function usage() {
     '',
     'Optional:',
     `  --base-url=${DEFAULT_BASE_URL}`,
+    '  --include-types=post,page,<custom_type> (comma-separated)',
     '  --help',
   ].join('\n');
 }
@@ -378,8 +379,11 @@ async function main() {
   const types = await fetchJson(`${baseUrl}/wp-json/wp/v2/types`);
   const taxonomies = await fetchJson(`${baseUrl}/wp-json/wp/v2/taxonomies`);
   const termMaps = await fetchTaxonomyTerms(baseUrl, taxonomies);
+  const includedTypes = args.includeTypes
+    ? new Set(String(args.includeTypes).split(',').map((value) => value.trim()).filter(Boolean))
+    : PUBLIC_CONTENT_TYPES;
   const selectedTypes = Object.entries(types).filter(([type, descriptor]) =>
-    PUBLIC_CONTENT_TYPES.has(type) && descriptor.rest_namespace === 'wp/v2' && descriptor.rest_base);
+    includedTypes.has(type) && descriptor.rest_namespace === 'wp/v2' && descriptor.rest_base);
 
   const restRows = [];
   const restCounts = [];

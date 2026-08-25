@@ -206,3 +206,20 @@ To change the target site, edit `SITE_URL` at the top of `gsc-pull.js`.
 ## Token File
 
 `gsc-token.json` is created locally and listed in `.gitignore`. Never commit it.
+
+## Universal Multi-Site Pull
+
+For a reusable, exact-property, read-only export, read
+[`README-GSC-CONNECTION.md`](README-GSC-CONNECTION.md) first and use
+`gsc-universal-pull.js`. The runner never falls back to another property and
+supports full-range pagination, daily shards, resume checkpoints, controls,
+reconciliation, a run manifest, and SHA-256 hashes.
+
+The NadLan analysis workflow uses these additional read-only tools:
+
+- `gsc-site-inventory.js` — public WordPress REST and XML sitemap inventory.
+- `gsc-nadlan-analysis.js` — multi-URL query classification and migration inventory.
+- `gsc-nadlan-analysis.test.js` — numerical, ordering, and safety QA.
+
+Raw GSC data, property registries, tokens, and generated reports belong outside
+the repository. Do not commit or publish them.

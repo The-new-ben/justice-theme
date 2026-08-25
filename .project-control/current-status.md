@@ -1,3 +1,10 @@
+# LATEST WORK STATUS - 2026-08-26 00:23 Asia/Jerusalem
+- SEO RECOVERY PHASE 1 PREPARED: added a fail-closed automatic-content freeze, removed the known self-redirect mapping with a generic self-loop guard, and made content-cluster targets prefer canonical pages over same-slug article copies.
+- LIVE BASELINE: `justice-ops` 2.35.18 and theme 2.23.1 are live; news and encyclopedia automation report enabled; one encyclopedia term is scheduled; real 404 behavior passes 7/7; `/recommended-jus-tice-team-lawyer/` still self-loops before deployment.
+- WAVE-1 410 PREFLIGHT: 40/40 candidates return 200, 40/40 remain in the sitemap, 40/40 pass the public evidence gate, 0/40 are protected money pages, and 0/40 may receive live 410 until CRM, server logs, and a full host database/media backup pass.
+- VERIFIED LOCAL: PHP syntax, the full standalone PHP suite, three new regression tests, Git whitespace checks, and the reproducible `justice-ops-2.35.19.zip` build passed.
+- HANDOFF: read `.project-control/seo-recovery-phase1-2026-08-26.md` before any related live action. Deployment and screenshots are still pending authenticated browser/host access; do not claim the fixes are live until rendered verification passes.
+
 # LATEST WORK STATUS - 2026-05-28 07:12 Asia/Jerusalem
 - BTL FIRST PAID-LEAD PROOF LOCK LIVE: added an owner-only Justice CRM proof-lock panel for the Bituach Leumi first-paid-lead loop and deployed it through uPress.
 - CODE/REPORTS ADDED: `inc/lead-crm.php`, `tools/check-btl-first-paid-lead-readiness.mjs`, `.project-control/scripts/check-lead-crm-operator-readiness.ps1`, `.project-control/btl-first-paid-lead-readiness-2026-05-28.md`, `.project-control/btl-first-paid-lead-proof-lock-2026-05-28.md`, `.reports/btl-first-paid-lead-readiness-2026-05-28.json`.

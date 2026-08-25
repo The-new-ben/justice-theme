@@ -292,22 +292,26 @@ function justice_theme_cluster_resolve_target( string $slug ): ?array {
 	if ( '' === $slug ) {
 		return null;
 	}
-	$pts = array();
-	foreach ( array( 'articles', 'page', 'post' ) as $pt ) {
-		if ( post_type_exists( $pt ) ) {
-			$pts[] = $pt;
+	// Prefer canonical root pages over same-slug articles. Passing all post
+	// types to one get_page_by_path() call leaves selection order to SQL and
+	// previously linked pillars to /articles/... copies that immediately 301.
+	foreach ( array( 'page', 'post', 'articles' ) as $post_type ) {
+		if ( ! post_type_exists( $post_type ) ) {
+			continue;
 		}
-	}
-	if ( empty( $pts ) ) {
-		$pts = array( 'post' );
-	}
-	$post = get_page_by_path( $slug, OBJECT, $pts );
-	if ( $post instanceof WP_Post && 'publish' === get_post_status( $post ) ) {
+
+		$post = get_page_by_path( $slug, OBJECT, $post_type );
+		if ( ! $post instanceof WP_Post || 'publish' !== get_post_status( $post ) ) {
+			continue;
+		}
+
 		$url = function_exists( 'justice_theme_public_permalink' )
 			? justice_theme_public_permalink( $post->ID )
 			: get_permalink( $post->ID );
+
 		return array( 'url' => (string) $url, 'title' => get_the_title( $post->ID ) );
 	}
+
 	return null;
 }
 

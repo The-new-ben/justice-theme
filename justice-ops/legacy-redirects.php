@@ -58,7 +58,6 @@ function justice_legacy_redirect_map(): array {
 		'/psakdin/מה-עושים-עורךי-דין-בבית-המשפט-ומהם-חומ/' => '/articles/',
 		'/psakdin/תשלום-מס-שכר-בגין-שכרם-של-עובדי-העירייה/' => '/articles/',
 		'/real-estate-registration-procedure-israel/' => '/real-estate-attorney/',
-		'/recommended-jus-tice-team-lawyer/' => '/recommended-jus-tice-team-lawyer/',
 		'/review-of-divorce-by-divorce-lawyer-israel/' => '/divorce-lawyer/',
 		'/small_claims/company/' => '/articles/',
 		'/supreme-court-of-israel/' => '/articles/',
@@ -137,6 +136,13 @@ function justice_legacy_redirect_map(): array {
 	);
 }
 
+function justice_legacy_redirect_target( string $path ): string {
+	$target = justice_legacy_redirect_map()[ $path ] ?? '';
+
+	// A self-target is always a configuration error and must fail closed.
+	return $target === $path ? '' : $target;
+}
+
 add_action( 'template_redirect', function () {
 	if ( ! is_404() ) {
 		return;
@@ -149,10 +155,10 @@ add_action( 'template_redirect', function () {
 		return;
 	}
 
-	$map = justice_legacy_redirect_map();
+	$target = justice_legacy_redirect_target( $path );
 
-	if ( isset( $map[ $path ] ) ) {
-		wp_redirect( home_url( $map[ $path ] ), 301 );
+	if ( '' !== $target ) {
+		wp_redirect( home_url( $target ), 301 );
 		exit;
 	}
 }, -9000 );

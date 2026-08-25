@@ -342,6 +342,10 @@ add_action( 'init', function () {
 } );
 
 add_action( 'justice_enc_writer_tick', function () {
+	if ( function_exists( 'justice_ops_automatic_content_paused' ) && justice_ops_automatic_content_paused() ) {
+		return;
+	}
+
 	justice_enc_writer_tick( 3 );
 } );
 
@@ -358,6 +362,12 @@ function justice_enc_writer_stat(): array {
 
 function justice_enc_writer_tick( int $batch = 3 ): array {
 	$summary = array( 'written' => array(), 'failed' => array(), 'room' => 0 );
+
+	if ( function_exists( 'justice_ops_automatic_content_paused' ) && justice_ops_automatic_content_paused() ) {
+		$summary['note'] = 'automatic content paused';
+
+		return $summary;
+	}
 
 	if ( ! (int) get_option( 'justice_enc_writer_enabled', 1 ) || '' === justice_enc_openai_key() ) {
 		$summary['note'] = 'disabled or no key';
@@ -578,6 +588,7 @@ function justice_enc_status() {
 
 	return rest_ensure_response( array(
 		'enabled'              => (int) get_option( 'justice_enc_writer_enabled', 1 ),
+		'automatic_pause'      => function_exists( 'justice_ops_automatic_content_paused' ) && justice_ops_automatic_content_paused(),
 		'model'                => (string) get_option( 'justice_enc_writer_model', 'gpt-4o-mini' ),
 		'daily_cap'            => (int) get_option( 'justice_enc_writer_daily', 15 ),
 		'per_day_drip'         => (int) get_option( 'justice_enc_per_day', 12 ),
@@ -873,11 +884,21 @@ function justice_art_next_slot(): int {
 }
 
 add_action( 'justice_enc_writer_tick', function () {
+	if ( function_exists( 'justice_ops_automatic_content_paused' ) && justice_ops_automatic_content_paused() ) {
+		return;
+	}
+
 	justice_art_writer_tick( false );
 }, 20 );
 
 function justice_art_writer_tick( bool $forced ): array {
 	$summary = array( 'written' => array(), 'failed' => array() );
+
+	if ( ! $forced && function_exists( 'justice_ops_automatic_content_paused' ) && justice_ops_automatic_content_paused() ) {
+		$summary['note'] = 'automatic content paused';
+
+		return $summary;
+	}
 
 	if ( '' === justice_enc_openai_key() ) {
 		return $summary;

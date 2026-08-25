@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.35.18",
+  "version": "2.35.19",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.35.18.zip",
-  "last_updated": "2026-08-03",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.35.19.zip",
+  "last_updated": "2026-08-26",
   "sections": {
-    "changelog": "2.35.16: add a one-shot authenticated and hash-locked retirement bridge for three legacy HFCM lawyer cards injected into document heads."
+    "changelog": "2.35.19: phase-1 SEO recovery freezes automatic content creation, returns scheduled encyclopedia content to draft, and removes a self-redirect loop with a fail-closed guard."
   }
 }

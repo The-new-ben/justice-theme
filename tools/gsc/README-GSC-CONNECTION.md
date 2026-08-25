@@ -80,6 +80,60 @@ node tools/gsc/gsc-nadlan-analysis.test.js `
   "$env:USERPROFILE\Documents\GSC-Data\nad-lan.co.il\2026-05-25_2026-08-25"
 ```
 
+## Last verified Justice run
+
+- Verified: 2026-08-25
+- Exact property: `https://jus-tice.co.il/`
+- Permission at verification: `siteOwner`
+- Requested dates: 2025-04-25 through 2026-08-25
+- Final data returned: 2025-04-25 through 2026-08-23
+- Partial dates kept separate: 2026-08-24 and 2026-08-25
+- Reconciled query-page rows: 94,175, with zero metric differences between
+  the direct full-range pull and the daily-shard reconstruction
+- Output directory:
+  `%USERPROFILE%\Documents\GSC-Data\jus-tice.co.il\2025-04-25_2026-08-25`
+
+Reproduce or resume the read-only pull:
+
+```powershell
+cd "$env:USERPROFILE\Documents\ChatGPT-Work\justice-theme"
+node tools/gsc/gsc-universal-pull.js `
+  --site="https://jus-tice.co.il/" `
+  --start="2025-04-25" `
+  --end="2026-08-25" `
+  --type="web" `
+  --data-state="final" `
+  --daily-shards `
+  --resume `
+  --output-dir="$env:USERPROFILE\Documents\GSC-Data\jus-tice.co.il\2025-04-25_2026-08-25"
+```
+
+Rebuild the public site inventory and the read-only Justice analyses:
+
+```powershell
+node tools/gsc/gsc-site-inventory.js `
+  --site="https://jus-tice.co.il" `
+  --include-types="post,page,articles,justice_question,justice_term,product,labor_law,small_claims,corona_virus,supreme_court,tort,goverment-gazette,justice_lawyer,justice_legal_tool,yada_wiki" `
+  --output-dir="$env:USERPROFILE\Documents\GSC-Data\jus-tice.co.il\2025-04-25_2026-08-25"
+
+node tools/gsc/gsc-justice-deep-analysis.js `
+  --run-dir="$env:USERPROFILE\Documents\GSC-Data\jus-tice.co.il\2025-04-25_2026-08-25"
+
+node tools/gsc/gsc-justice-content-architecture-audit.js `
+  --run-dir="$env:USERPROFILE\Documents\GSC-Data\jus-tice.co.il\2025-04-25_2026-08-25"
+
+node tools/gsc/gsc-justice-live-url-audit.js `
+  --run-dir="$env:USERPROFILE\Documents\GSC-Data\jus-tice.co.il\2025-04-25_2026-08-25"
+
+node tools/gsc/gsc-justice-final-actions.js `
+  --run-dir="$env:USERPROFILE\Documents\GSC-Data\jus-tice.co.il\2025-04-25_2026-08-25"
+```
+
+The analysis outputs are intentionally outside the repository. The OAuth client
+and token are also outside the repository and must never be copied into an
+analysis ZIP. A distributable ZIP may contain this non-secret handoff text and
+the generated reports, but never either JSON credential file.
+
 ## Safety boundary
 
 These tools read GSC, public WordPress REST, and XML sitemaps. They must not

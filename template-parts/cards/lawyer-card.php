@@ -55,6 +55,9 @@ if ( ! function_exists( 'justice_theme_lawyer_card_public_city_label' ) ) {
 
 $lawyer_id       = get_the_ID();
 $lawyer_url      = justice_theme_public_permalink( $lawyer_id );
+if ( $lawyer_url && function_exists( 'justice_theme_append_current_product_handoff_args' ) ) {
+	$lawyer_url = justice_theme_append_current_product_handoff_args( $lawyer_url );
+}
 
 // Inactive-card gate (owner order 2026-07-27): a card whose owner never
 // consented and never paid shows the name only. No link, no contact details,

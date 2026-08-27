@@ -51,6 +51,7 @@ This map is sourced from the reconciled GSC architecture output at the local, no
 - User-entered homepage facts remain in the editorial browser and are not placed in the cross-domain URL.
 - `tests/test-simulation-handoff.php` proves 11 unique owners, all four commercial journeys, and fail-closed behavior for an unknown value containing phone-like digits.
 - CourtAI's post-simulation professional action maps the same 11 clusters to allow-listed `/lawyers/?area=…` values and never transfers Matter content.
+- The reverse product-to-professional leg now uses an opaque browser-session `journey_id`; the directory, lawyer profile and consented lead form preserve it without Matter content. The full KPI and release contract is in `JUSTICE-JURIS-LEAD-REVENUE-ATTRIBUTION-2026-08-27.md`.
 - `justice-ops/map-cinema.php` now retains an incoming canonical area in the server-rendered finder instead of silently reverting to Family; `justice-ops/city-practice.php` adds Medical Malpractice as its own finder option.
 
 ## Live finding and release order
@@ -68,8 +69,9 @@ Therefore the WordPress handoff must not be published first. Safe release order:
 3. deploy this theme branch;
 4. verify an allow-listed criminal, family, real-estate, and medical-malpractice journey;
 5. verify the product analytics event contains the canonical cluster/owner and no Matter content;
-6. finish one real JURIS run, save a deliverable, use the professional-review action, and verify the destination finder retains the same legal area;
-7. preserve desktop/mobile screenshots and the deployed commit identifiers.
+6. finish one real JURIS run, save a deliverable, use the professional-review action, and verify the destination finder retains the same legal area and opaque journey;
+7. submit only a synthetic no-PII test lead with explicit consent and verify the CRM joins the same journey to the correct cluster;
+8. preserve desktop/mobile screenshots and the deployed commit identifiers.
 
 ## Rollback
 

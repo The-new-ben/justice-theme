@@ -19,6 +19,8 @@ The accessible uploaded CSV files were processed directly. The uploaded RAR arch
 - Do not upload importer scripts until this master file is verified.
 
 ## Main files
+- `JUSTICE-JURIS-LEAD-REVENUE-ATTRIBUTION-2026-08-27.md` — current privacy-safe product → lead → revenue contract and release gate
+- `JUSTICE-SEO-PRODUCT-HANDOFF-2026-08-27.md` — SEO → Matter product contract and 11-cluster owner map
 - `content-master/master-content-database.csv`
 - `content-master/master-content-database.xlsx`
 - `content-master/missing-data-request.csv`

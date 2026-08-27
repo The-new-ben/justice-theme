@@ -30,6 +30,9 @@ jobs:
           set -euo pipefail
           git ls-files -z '*.php' | sort -z | xargs -0 -r -n1 php -l
 
+      - name: Validate product-to-professional attribution
+        run: php tests/test-product-handoff-attribution.php
+
       - name: Enforce append-only release ZIPs
         run: |
           set -euo pipefail

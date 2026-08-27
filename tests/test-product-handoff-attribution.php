@@ -40,6 +40,12 @@ $owner_map = justice_theme_product_handoff_cluster_owners();
 jt_product_handoff_assert( 11 === count( array_unique( array_values( $owner_map ) ) ), 'Two product clusters share an SEO owner URL.' );
 jt_product_handoff_assert( '/criminal-defense-attorney/' === justice_theme_product_handoff_owner_path( 'criminal-law' ), 'Criminal attribution received the wrong SEO owner.' );
 jt_product_handoff_assert( '' === justice_theme_product_handoff_owner_path( 'client-0500000000' ), 'Unknown cluster received an SEO owner.' );
+$scenario_map = justice_theme_product_handoff_cluster_scenarios();
+jt_product_handoff_assert( 11 === count( $scenario_map ), 'Product scenario contract no longer covers all 11 clusters.' );
+jt_product_handoff_assert( 11 === count( array_unique( array_values( $scenario_map ) ) ), 'Product scenario contract is not uniquely attributable.' );
+jt_product_handoff_assert( 'investigation-rehearsal' === justice_theme_sanitize_product_handoff_scenario( 'investigation-rehearsal', 'criminal-law' ), 'Canonical criminal scenario was rejected.' );
+jt_product_handoff_assert( '' === justice_theme_sanitize_product_handoff_scenario( 'mediation-preparation', 'criminal-law' ), 'A scenario crossed into the wrong cluster.' );
+jt_product_handoff_assert( '' === justice_theme_sanitize_product_handoff_scenario( 'client-0500000000', 'criminal-law' ), 'User content passed the scenario allow-list.' );
 
 $new_stages = justice_theme_product_handoff_stage_flags( 'new', 'not_started' );
 jt_product_handoff_assert( ! array_filter( $new_stages ), 'A new untouched lead was counted as a downstream result.' );
@@ -54,6 +60,7 @@ $_GET = array(
 	'source'       => 'juris-arena',
 	'journey_id'   => $journey,
 	'cluster'      => 'criminal-law',
+	'scenario'     => 'investigation-rehearsal',
 	'utm_source'   => 'jus-tice.com',
 	'utm_medium'   => 'product_handoff',
 	'utm_campaign' => 'professional_review',
@@ -63,6 +70,7 @@ jt_product_handoff_assert( justice_theme_is_current_juris_handoff(), 'Valid JURI
 $profile_url = justice_theme_append_current_product_handoff_args( 'https://jus-tice.co.il/lawyers/example/' );
 jt_product_handoff_assert( false !== strpos( $profile_url, 'journey_id=' . rawurlencode( $journey ) ), 'Profile navigation lost the opaque journey.' );
 jt_product_handoff_assert( false !== strpos( $profile_url, 'cluster=criminal-law' ), 'Profile navigation lost the allow-listed cluster.' );
+jt_product_handoff_assert( false !== strpos( $profile_url, 'scenario=investigation-rehearsal' ), 'Profile navigation lost the allow-listed scenario.' );
 jt_product_handoff_assert( false === strpos( $profile_url, 'matter' ), 'A Matter dimension appeared in the public handoff.' );
 
 $_GET['utm_campaign'] = 'client-0500000000';
@@ -74,6 +82,7 @@ ob_start();
 justice_theme_render_lead_attribution_fields();
 $hidden_fields = (string) ob_get_clean();
 jt_product_handoff_assert( false !== strpos( $hidden_fields, 'name="utm_campaign" value="professional_review"' ), 'Lead form did not canonicalize the product campaign.' );
+jt_product_handoff_assert( false !== strpos( $hidden_fields, 'name="product_origin_scenario" value="investigation-rehearsal"' ), 'Lead form lost the canonical product scenario.' );
 jt_product_handoff_assert( false === strpos( $hidden_fields, '0500000000' ), 'User-controlled UTM content leaked into hidden lead fields.' );
 
 $lead_url = justice_theme_ask_lawyer_fallback_url(
@@ -84,6 +93,7 @@ $lead_url = justice_theme_ask_lawyer_fallback_url(
 );
 jt_product_handoff_assert( false !== strpos( $lead_url, 'lead_source_surface=juris_professional_review' ), 'Lead form lost the product source surface.' );
 jt_product_handoff_assert( false !== strpos( $lead_url, 'lead_area=criminal-law' ), 'Lead form lost the safe legal-area prefill.' );
+jt_product_handoff_assert( false !== strpos( $lead_url, 'scenario=investigation-rehearsal' ), 'Lead form URL lost the canonical scenario.' );
 jt_product_handoff_assert( str_ends_with( $lead_url, '#ask-lawyer' ), 'Product CTA no longer lands on the consented lead form.' );
 
 $_GET['source'] = 'spoofed';
@@ -92,6 +102,7 @@ jt_product_handoff_assert( array() === justice_theme_current_product_handoff_arg
 
 $core_source = file_get_contents( dirname( __DIR__ ) . '/justice-core/includes/lead-submissions.php' );
 jt_product_handoff_assert( false !== strpos( $core_source, "'product_journey_id'" ), 'Lead handler does not register the product journey.' );
+jt_product_handoff_assert( false !== strpos( $core_source, "'product_origin_scenario'" ), 'Lead handler does not register the product scenario.' );
 jt_product_handoff_assert( false !== strpos( $core_source, "'justice_juris_handoff'" ), 'Lead handler does not stamp the product source system.' );
 
 echo "product handoff attribution tests passed\n";

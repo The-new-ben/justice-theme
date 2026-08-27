@@ -60,6 +60,10 @@ function justice_theme_render_lead_attribution_fields(): void {
 		$cluster = justice_theme_current_product_handoff_cluster();
 		if ( '' !== $cluster ) {
 			echo '<input type="hidden" name="product_origin_cluster" value="' . esc_attr( $cluster ) . '">' . "\n";
+			$scenario = justice_theme_current_product_handoff_scenario();
+			if ( '' !== $scenario ) {
+				echo '<input type="hidden" name="product_origin_scenario" value="' . esc_attr( $scenario ) . '">' . "\n";
+			}
 		}
 	}
 }
@@ -163,6 +167,9 @@ function justice_theme_ask_lawyer_fallback_url( array $args = array() ): string 
 	$product_cluster     = function_exists( 'justice_theme_sanitize_product_handoff_cluster' )
 		? justice_theme_sanitize_product_handoff_cluster( $args['cluster'] ?? '' )
 		: '';
+	$product_scenario    = function_exists( 'justice_theme_sanitize_product_handoff_scenario' )
+		? justice_theme_sanitize_product_handoff_scenario( $args['scenario'] ?? '', $product_cluster )
+		: '';
 
 	if ( in_array( $lead_area, justice_theme_lead_area_values(), true ) ) {
 		$query['lead_area'] = $lead_area;
@@ -181,6 +188,9 @@ function justice_theme_ask_lawyer_fallback_url( array $args = array() ): string 
 		$query['journey_id'] = $product_journey_id;
 		if ( '' !== $product_cluster ) {
 			$query['cluster'] = $product_cluster;
+			if ( '' !== $product_scenario ) {
+				$query['scenario'] = $product_scenario;
+			}
 		}
 	}
 

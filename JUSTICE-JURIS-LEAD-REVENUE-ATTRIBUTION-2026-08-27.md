@@ -17,7 +17,7 @@ The shared key is `journey_id`, generated with browser cryptographic randomness 
 4. The directory presents a specific JURIS continuation panel. Its primary action opens the consented homepage lead form and can preselect only a known legal area.
 5. The lead form adds hidden attribution fields only when both `source=juris-arena` and a strictly valid `journey_id` exist.
 6. A successful WordPress lead insert stores `product_journey_id`, `product_origin_cluster` and `product_handoff_source=juris-arena` beside the existing consent, CRM status and payment-evidence fields.
-7. The owner-only Justice CRM reports the strict downstream funnel and evidenced revenue as a total and as 11 fixed cluster rows, each joined to its canonical SEO Owner URL. Invalid or missing clusters appear only in a separate `unattributed` row and are never guessed into a commercial cluster.
+7. The owner-only Justice CRM reports the strict downstream funnel and evidenced revenue as a total, as 11 fixed cluster rows joined to canonical SEO Owner URLs, and as 11 canonical product-scenario rows plus `Unattributed`. Invalid values are never guessed into a commercial segment.
 
 No new database table or migration is required; the existing WordPress post-meta model is used.
 
@@ -28,6 +28,7 @@ No new database table or migration is required; the existing WordPress post-meta
 | `source` | exactly `juris-arena` | distinguishes the product handoff |
 | `journey_id` | `jf-` plus UUID or 32 cryptographic hex characters | joins the product event and CRM lead |
 | `cluster` | one of the reconciled 11 GSC clusters | attributes SEO demand to business outcome |
+| `scenario` | the one canonical scenario derived from that cluster | compares product preparation tracks through collected revenue |
 | `area` / `lead_area` | derived from a fixed cluster-to-practice map | safely preselects a form area |
 | UTM values | rewritten to three canonical constants | reporting compatibility without free text |
 
@@ -91,6 +92,7 @@ Bad example 2: treating `professional_action_started`, a WhatsApp click or an in
 - `justice-core/includes/lead-submissions.php` — authoritative lead storage.
 - `inc/lead-routing.php` — product source channel and owner next action.
 - `inc/lead-crm.php` — owner-only funnel and evidenced-revenue snapshot, including the 11 Owner rows plus `unattributed`.
+- `inc/lead-crm.php` — also reports 11 canonical product scenarios plus `Unattributed` through the same strict funnel stages.
 - `tests/test-product-handoff-attribution.php` — executable privacy and continuity contract.
 - `tests/test-product-handoff-report.php` — executable consent, invalid-journey, unknown-cluster and evidence-backed-revenue reporting contract.
 

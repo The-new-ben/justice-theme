@@ -11,7 +11,7 @@ The bridge is implemented in the theme, independently of the older Justice Ops s
 Example:
 
 ```text
-https://jus-tice.com/#/intake?jurisdiction=IL&source=organic&cluster=criminal-law&owner=%2Fcriminal-defense-attorney%2F
+https://jus-tice.com/#/intake?jurisdiction=IL&source=organic&cluster=criminal-law&owner=%2Fcriminal-defense-attorney%2F&scenario=investigation-rehearsal
 ```
 
 Allowed fields:
@@ -22,6 +22,7 @@ Allowed fields:
 | `source` | fixed to `organic` |
 | `cluster` | one of the 11 reconciled GSC cluster keys |
 | `owner` | derived from the selected cluster; never accepted as arbitrary request content |
+| `scenario` | derived from the selected cluster; a mismatched public value is discarded |
 | `embed` | fixed rendering flag used only inside the WordPress iframe |
 | `domain` / `host` | fixed embed context, not visitor data |
 
@@ -51,6 +52,8 @@ This map is sourced from the reconciled GSC architecture output at the local, no
 - User-entered homepage facts remain in the editorial browser and are not placed in the cross-domain URL.
 - `tests/test-simulation-handoff.php` proves 11 unique owners, all four commercial journeys, and fail-closed behavior for an unknown value containing phone-like digits.
 - CourtAI's post-simulation professional action maps the same 11 clusters to allow-listed `/lawyers/?area=…` values and never transfers Matter content.
+- The same 11 clusters now derive 11 unique product scenarios. Full mapping,
+  CRM behavior and proof: `JUSTICE-PRODUCT-SCENARIO-CONTRACT-2026-08-27.md`.
 - The reverse product-to-professional leg now uses an opaque browser-session `journey_id`; the directory, lawyer profile and consented lead form preserve it without Matter content. The full KPI and release contract is in `JUSTICE-JURIS-LEAD-REVENUE-ATTRIBUTION-2026-08-27.md`.
 - `justice-ops/map-cinema.php` now retains an incoming canonical area in the server-rendered finder instead of silently reverting to Family; `justice-ops/city-practice.php` adds Medical Malpractice as its own finder option.
 

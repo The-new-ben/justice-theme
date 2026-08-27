@@ -72,6 +72,7 @@ function uje_register_lead_meta() {
 		'utm_medium'           => 'string',
 		'product_journey_id'   => 'string',
 		'product_origin_cluster' => 'string',
+		'product_origin_scenario' => 'string',
 		'product_handoff_source' => 'string',
 	);
 
@@ -119,10 +120,15 @@ function uje_handle_lead() {
 	$product_origin_cluster = function_exists( 'justice_theme_sanitize_product_handoff_cluster' )
 		? justice_theme_sanitize_product_handoff_cluster( $product_origin_cluster )
 		: ( in_array( sanitize_key( (string) $product_origin_cluster ), array( 'family-law', 'criminal-law', 'real-estate', 'immigration', 'international-real-estate', 'traffic-law', 'inheritance', 'employment', 'medical-malpractice', 'personal-injury', 'tax' ), true ) ? sanitize_key( (string) $product_origin_cluster ) : '' );
+	$product_origin_scenario = isset( $_POST['product_origin_scenario'] ) ? wp_unslash( $_POST['product_origin_scenario'] ) : '';
+	$product_origin_scenario = function_exists( 'justice_theme_sanitize_product_handoff_scenario' )
+		? justice_theme_sanitize_product_handoff_scenario( $product_origin_scenario, $product_origin_cluster )
+		: '';
 	$product_handoff_source = isset( $_POST['product_handoff_source'] ) ? sanitize_key( wp_unslash( $_POST['product_handoff_source'] ) ) : '';
 	if ( '' === $product_journey_id || 'juris-arena' !== $product_handoff_source ) {
 		$product_journey_id     = '';
 		$product_origin_cluster = '';
+		$product_origin_scenario = '';
 		$product_handoff_source = '';
 	}
 
@@ -168,6 +174,9 @@ function uje_handle_lead() {
 			$meta['product_handoff_source'] = $product_handoff_source;
 			if ( $product_origin_cluster ) {
 				$meta['product_origin_cluster'] = $product_origin_cluster;
+				if ( $product_origin_scenario ) {
+					$meta['product_origin_scenario'] = $product_origin_scenario;
+				}
 			}
 		}
 

@@ -7,6 +7,7 @@ $jt_product_report_meta = array(
 	1 => array(
 		'product_journey_id'                    => 'jf-123e4567-e89b-12d3-a456-426614174001',
 		'product_origin_cluster'                 => 'criminal-law',
+		'product_origin_scenario'                => 'investigation-rehearsal',
 		'product_handoff_source'                 => 'juris-arena',
 		'consent'                                => '1',
 		'lead_status'                            => 'accepted',
@@ -18,6 +19,7 @@ $jt_product_report_meta = array(
 	2 => array(
 		'product_journey_id'                    => 'jf-123e4567-e89b-12d3-a456-426614174002',
 		'product_origin_cluster'                 => 'criminal-law',
+		'product_origin_scenario'                => 'investigation-rehearsal',
 		'product_handoff_source'                 => 'juris-arena',
 		'consent'                                => '1',
 		'lead_status'                            => 'converted',
@@ -29,6 +31,7 @@ $jt_product_report_meta = array(
 	3 => array(
 		'product_journey_id'                    => 'jf-123e4567-e89b-12d3-a456-426614174003',
 		'product_origin_cluster'                 => 'not-an-allowed-cluster',
+		'product_origin_scenario'                => 'client-0500000000',
 		'product_handoff_source'                 => 'juris-arena',
 		'consent'                                => '1',
 		'lead_status'                            => 'new',
@@ -116,6 +119,7 @@ jt_product_report_assert( 1 === $snapshot['won'], 'Won count does not follow CRM
 jt_product_report_assert( 1 === $snapshot['collected_count'], 'Paid leads without evidence polluted collected revenue.' );
 jt_product_report_assert( 500 === $snapshot['collected_value'], 'Collected revenue does not equal evidence-backed value.' );
 jt_product_report_assert( 12 === count( $snapshot['by_cluster'] ), 'Report must expose 11 fixed clusters plus Unattributed.' );
+jt_product_report_assert( 12 === count( $snapshot['by_scenario'] ), 'Scenario report must expose 11 fixed scenarios plus Unattributed.' );
 
 $criminal = $snapshot['by_cluster']['criminal-law'];
 jt_product_report_assert( '/criminal-defense-attorney/' === $criminal['owner_path'], 'Criminal row has the wrong canonical owner.' );
@@ -123,6 +127,12 @@ jt_product_report_assert( 2 === $criminal['submitted'], 'Criminal submitted coun
 jt_product_report_assert( 2 === $criminal['qualified'], 'Criminal qualified count is wrong.' );
 jt_product_report_assert( 1 === $criminal['won'], 'Criminal won count is wrong.' );
 jt_product_report_assert( 500 === $criminal['collected_value'], 'Criminal collected value is wrong.' );
+
+$criminal_scenario = $snapshot['by_scenario']['investigation-rehearsal'];
+jt_product_report_assert( 'criminal-law' === $criminal_scenario['cluster'], 'Criminal scenario has the wrong cluster.' );
+jt_product_report_assert( 2 === $criminal_scenario['submitted'], 'Criminal scenario submitted count is wrong.' );
+jt_product_report_assert( 1 === $criminal_scenario['won'], 'Criminal scenario won count is wrong.' );
+jt_product_report_assert( 500 === $criminal_scenario['collected_value'], 'Criminal scenario collected value is wrong.' );
 
 $unattributed = $snapshot['by_cluster']['unattributed'];
 jt_product_report_assert( '' === $unattributed['owner_path'], 'Unattributed traffic was assigned an SEO owner.' );

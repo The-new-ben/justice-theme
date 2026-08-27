@@ -22,7 +22,7 @@ function justice_theme_simulation_cluster_owners(): array {
  * Map the site's practice taxonomy to a reconciled GSC cluster owner.
  *
  * @param string $area_slug Practice-area term slug.
- * @return array{cluster:string,owner:string}|null
+ * @return array{cluster:string,owner:string,scenario:string}|null
  */
 function justice_theme_simulation_handoff_context( string $area_slug ): ?array {
 	$area_to_cluster = array(
@@ -44,7 +44,11 @@ function justice_theme_simulation_handoff_context( string $area_slug ): ?array {
 	$cluster         = $area_to_cluster[ sanitize_key( $area_slug ) ] ?? '';
 
 	return isset( $owners[ $cluster ] )
-		? array( 'cluster' => $cluster, 'owner' => $owners[ $cluster ] )
+		? array(
+			'cluster'  => $cluster,
+			'owner'    => $owners[ $cluster ],
+			'scenario' => justice_theme_product_handoff_scenario( $cluster ),
+		)
 		: null;
 }
 
@@ -61,6 +65,7 @@ function justice_theme_simulation_handoff_url( string $area_slug ): string {
 	if ( null !== $context ) {
 		$args['cluster'] = $context['cluster'];
 		$args['owner']   = $context['owner'];
+		$args['scenario'] = $context['scenario'];
 	}
 
 	return add_query_arg( $args, home_url( '/legal-simulation/' ) );
@@ -84,6 +89,7 @@ function justice_theme_courtai_product_url( string $cluster = '', bool $embed = 
 	if ( isset( $owners[ $cluster ] ) ) {
 		$params['cluster'] = $cluster;
 		$params['owner']   = $owners[ $cluster ];
+		$params['scenario'] = justice_theme_product_handoff_scenario( $cluster );
 	}
 
 	if ( $embed ) {

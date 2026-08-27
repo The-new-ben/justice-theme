@@ -36,6 +36,27 @@ function justice_theme_product_handoff_cluster_owners(): array {
 }
 
 /**
+ * Return the launch-safe product scenario owned by each GSC cluster.
+ *
+ * @return array<string,string>
+ */
+function justice_theme_product_handoff_cluster_scenarios(): array {
+	return array(
+		'family-law'                => 'mediation-preparation',
+		'criminal-law'              => 'investigation-rehearsal',
+		'real-estate'               => 'transaction-dispute-rehearsal',
+		'immigration'               => 'immigration-interview-preparation',
+		'international-real-estate' => 'cross-border-transaction-review',
+		'traffic-law'               => 'traffic-hearing-rehearsal',
+		'inheritance'               => 'probate-dispute-preparation',
+		'employment'                => 'employment-dispute-rehearsal',
+		'medical-malpractice'       => 'medical-expert-preparation',
+		'personal-injury'           => 'damages-testimony-preparation',
+		'tax'                       => 'tax-review-preparation',
+	);
+}
+
+/**
  * Return the exact organic clusters allowed across the public handoff.
  *
  * @return string[]
@@ -52,6 +73,16 @@ function justice_theme_product_handoff_owner_path( $cluster ): string {
 	$owners  = justice_theme_product_handoff_cluster_owners();
 
 	return $cluster ? $owners[ $cluster ] : '';
+}
+
+/**
+ * Resolve the canonical product scenario for an allow-listed cluster.
+ */
+function justice_theme_product_handoff_scenario( $cluster ): string {
+	$cluster   = justice_theme_sanitize_product_handoff_cluster( $cluster );
+	$scenarios = justice_theme_product_handoff_cluster_scenarios();
+
+	return $cluster ? $scenarios[ $cluster ] : '';
 }
 
 /**
@@ -75,6 +106,17 @@ function justice_theme_sanitize_product_handoff_cluster( $value ): string {
 }
 
 /**
+ * Accept a scenario only when it is the canonical launch scenario for the
+ * selected cluster. Arbitrary query, Matter, or prompt text is rejected.
+ */
+function justice_theme_sanitize_product_handoff_scenario( $value, $cluster ): string {
+	$value    = sanitize_key( (string) $value );
+	$expected = justice_theme_product_handoff_scenario( $cluster );
+
+	return '' !== $expected && $value === $expected ? $value : '';
+}
+
+/**
  * Read and validate the current product journey.
  */
 function justice_theme_current_product_journey_id(): string {
@@ -90,6 +132,18 @@ function justice_theme_current_product_handoff_cluster(): string {
 	$value = isset( $_GET['cluster'] ) ? wp_unslash( $_GET['cluster'] ) : '';
 
 	return justice_theme_sanitize_product_handoff_cluster( $value );
+}
+
+/**
+ * Read the current canonical product scenario after cluster validation.
+ */
+function justice_theme_current_product_handoff_scenario(): string {
+	$value = isset( $_GET['scenario'] ) ? wp_unslash( $_GET['scenario'] ) : '';
+
+	return justice_theme_sanitize_product_handoff_scenario(
+		$value,
+		justice_theme_current_product_handoff_cluster()
+	);
 }
 
 /**
@@ -123,6 +177,10 @@ function justice_theme_current_product_handoff_args(): array {
 	$cluster = justice_theme_current_product_handoff_cluster();
 	if ( '' !== $cluster ) {
 		$args['cluster'] = $cluster;
+		$scenario        = justice_theme_current_product_handoff_scenario();
+		if ( '' !== $scenario ) {
+			$args['scenario'] = $scenario;
+		}
 	}
 
 	return $args;

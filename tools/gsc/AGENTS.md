@@ -14,3 +14,7 @@
 7. Run syntax checks and `gsc-nadlan-analysis.test.js` after relevant changes.
 8. Never commit a token, OAuth client, client secret, refresh token, password,
    private property registry, or raw client data.
+9. Read `README-410-RELEASE-GATES.md` before any 410 recommendation or release.
+   `CANDIDATE_*` is not an execution instruction. A URL may move to a live
+   change only when `execution_readiness` is explicitly release-ready and the
+   owner separately approves the production mutation.

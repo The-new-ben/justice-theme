@@ -17,7 +17,7 @@ The shared key is `journey_id`, generated with browser cryptographic randomness 
 4. The directory presents a specific JURIS continuation panel. Its primary action opens the consented homepage lead form and can preselect only a known legal area.
 5. The lead form adds hidden attribution fields only when both `source=juris-arena` and a strictly valid `journey_id` exist.
 6. A successful WordPress lead insert stores `product_journey_id`, `product_origin_cluster` and `product_handoff_source=juris-arena` beside the existing consent, CRM status and payment-evidence fields.
-7. The owner-only Justice CRM reports the strict downstream funnel and evidenced revenue.
+7. The owner-only Justice CRM reports the strict downstream funnel and evidenced revenue as a total and as 11 fixed cluster rows, each joined to its canonical SEO Owner URL. Invalid or missing clusters appear only in a separate `unattributed` row and are never guessed into a commercial cluster.
 
 No new database table or migration is required; the existing WordPress post-meta model is used.
 
@@ -48,7 +48,8 @@ The KPI hierarchy is intentionally small and tied to decisions.
 - professional-action click → consented lead conversion, joined on `journey_id`;
 - consented lead → qualified rate;
 - accepted → won rate;
-- stage counts by `product_origin_cluster`, beginning with criminal, family, real estate and medical malpractice.
+- stage counts and evidenced collected revenue by all 11 `product_origin_cluster` values and their canonical Owner URLs;
+- a separate `unattributed` row that makes mapping failures visible without corrupting a valid cluster.
 
 ### Guardrails
 
@@ -83,14 +84,15 @@ Bad example 2: treating `professional_action_started`, a WhatsApp click or an in
 
 ## Implementation map
 
-- `inc/product-handoff-attribution.php` — strict format and cluster allow-lists, canonical navigation args.
+- `inc/product-handoff-attribution.php` — strict format and cluster allow-lists, the single 11-cluster-to-Owner contract, and canonical navigation args.
 - `inc/lead-spam-guard.php` — hidden form attribution and safe fallback URL.
 - `archive-justice_lawyer.php` — JURIS continuation panel and filter preservation.
 - `template-parts/cards/lawyer-card.php` — safe journey preservation into a professional profile.
 - `justice-core/includes/lead-submissions.php` — authoritative lead storage.
 - `inc/lead-routing.php` — product source channel and owner next action.
-- `inc/lead-crm.php` — owner-only funnel and evidenced-revenue snapshot.
+- `inc/lead-crm.php` — owner-only funnel and evidenced-revenue snapshot, including the 11 Owner rows plus `unattributed`.
 - `tests/test-product-handoff-attribution.php` — executable privacy and continuity contract.
+- `tests/test-product-handoff-report.php` — executable consent, invalid-journey, unknown-cluster and evidence-backed-revenue reporting contract.
 
 The corresponding product implementation and event contract are documented in CourtAI at `docs/JUSTICE-PROFESSIONAL-ACTION-HANDOFF-2026-08-27.md` and `docs/JUSTICE-FUNNEL-INSTRUMENTATION-2026-08-27.md`.
 

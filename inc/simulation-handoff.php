@@ -15,19 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array<string,string>
  */
 function justice_theme_simulation_cluster_owners(): array {
-	return array(
-		'family-law'                => '/divorce-lawyer/',
-		'criminal-law'              => '/criminal-defense-attorney/',
-		'real-estate'               => '/articles/real-estate-attorney/',
-		'immigration'               => '/immigration-lawyer/',
-		'international-real-estate' => '/buying-property-abroad-guide/',
-		'traffic-law'               => '/articles/traffic-lawyer/',
-		'inheritance'               => '/inheritance-lawyer/',
-		'employment'                => '/labor-lawyer/',
-		'medical-malpractice'       => '/medical-malpractice-lawyer/',
-		'personal-injury'           => '/personal-injury-law/',
-		'tax'                       => '/real-estate-tax-advisor/',
-	);
+	return justice_theme_product_handoff_cluster_owners();
 }
 
 /**

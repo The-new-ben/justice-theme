@@ -36,6 +36,10 @@ jt_product_handoff_assert( '' === justice_theme_sanitize_product_journey_id( 'ma
 jt_product_handoff_assert( 'criminal-law' === justice_theme_sanitize_product_handoff_cluster( 'criminal-law' ), 'Known GSC cluster was rejected.' );
 jt_product_handoff_assert( '' === justice_theme_sanitize_product_handoff_cluster( 'client-0500000000' ), 'Unknown cluster content passed the allow-list.' );
 jt_product_handoff_assert( 11 === count( justice_theme_product_handoff_clusters() ), 'The product attribution vocabulary no longer matches all 11 GSC clusters.' );
+$owner_map = justice_theme_product_handoff_cluster_owners();
+jt_product_handoff_assert( 11 === count( array_unique( array_values( $owner_map ) ) ), 'Two product clusters share an SEO owner URL.' );
+jt_product_handoff_assert( '/criminal-defense-attorney/' === justice_theme_product_handoff_owner_path( 'criminal-law' ), 'Criminal attribution received the wrong SEO owner.' );
+jt_product_handoff_assert( '' === justice_theme_product_handoff_owner_path( 'client-0500000000' ), 'Unknown cluster received an SEO owner.' );
 
 $new_stages = justice_theme_product_handoff_stage_flags( 'new', 'not_started' );
 jt_product_handoff_assert( ! array_filter( $new_stages ), 'A new untouched lead was counted as a downstream result.' );

@@ -33,6 +33,9 @@ jobs:
       - name: Validate product-to-professional attribution
         run: php tests/test-product-handoff-attribution.php
 
+      - name: Validate product-to-revenue reporting
+        run: php tests/test-product-handoff-report.php
+
       - name: Enforce append-only release ZIPs
         run: |
           set -euo pipefail

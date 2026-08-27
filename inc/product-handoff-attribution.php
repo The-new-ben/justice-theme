@@ -15,24 +15,43 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Return the canonical owner pages for the reconciled GSC architecture.
+ *
+ * @return array<string,string>
+ */
+function justice_theme_product_handoff_cluster_owners(): array {
+	return array(
+		'family-law'                => '/divorce-lawyer/',
+		'criminal-law'              => '/criminal-defense-attorney/',
+		'real-estate'               => '/articles/real-estate-attorney/',
+		'immigration'               => '/immigration-lawyer/',
+		'international-real-estate' => '/buying-property-abroad-guide/',
+		'traffic-law'               => '/articles/traffic-lawyer/',
+		'inheritance'               => '/inheritance-lawyer/',
+		'employment'                => '/labor-lawyer/',
+		'medical-malpractice'       => '/medical-malpractice-lawyer/',
+		'personal-injury'           => '/personal-injury-law/',
+		'tax'                       => '/real-estate-tax-advisor/',
+	);
+}
+
+/**
  * Return the exact organic clusters allowed across the public handoff.
  *
  * @return string[]
  */
 function justice_theme_product_handoff_clusters(): array {
-	return array(
-		'family-law',
-		'criminal-law',
-		'real-estate',
-		'immigration',
-		'international-real-estate',
-		'traffic-law',
-		'inheritance',
-		'employment',
-		'medical-malpractice',
-		'personal-injury',
-		'tax',
-	);
+	return array_keys( justice_theme_product_handoff_cluster_owners() );
+}
+
+/**
+ * Resolve a canonical SEO owner without accepting a public URL.
+ */
+function justice_theme_product_handoff_owner_path( $cluster ): string {
+	$cluster = justice_theme_sanitize_product_handoff_cluster( $cluster );
+	$owners  = justice_theme_product_handoff_cluster_owners();
+
+	return $cluster ? $owners[ $cluster ] : '';
 }
 
 /**

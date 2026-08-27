@@ -149,6 +149,7 @@ function justice_theme_render_crm_admin_page(): void {
 				<small style="display:block;color:#646970;margin-top:4px;">Unworked situation-card leads shown now</small>
 			</a>
 		</div>
+		<?php justice_theme_crm_render_product_handoff_report( $product_funnel ); ?>
 
 		<?php justice_theme_crm_render_whatsapp_lead_bridge(); ?>
 		<?php justice_theme_crm_render_external_lead_importer(); ?>
@@ -4931,9 +4932,33 @@ function justice_theme_crm_count_by_status( string $post_type, string $meta_key 
  * and explicit form consent. Downstream stages use the authoritative CRM
  * disposition. Revenue requires both Paid and a payment evidence URL.
  *
- * @return array{submitted:int,qualified:int,accepted:int,closed:int,won:int,collected_count:int,collected_value:int}
+ * @return array{submitted:int,qualified:int,accepted:int,closed:int,won:int,collected_count:int,collected_value:int,by_cluster:array<string,array{owner_path:string,submitted:int,qualified:int,accepted:int,closed:int,won:int,collected_count:int,collected_value:int}>}
  */
 function justice_theme_crm_product_handoff_snapshot(): array {
+	$owners     = justice_theme_product_handoff_cluster_owners();
+	$by_cluster = array();
+	foreach ( $owners as $cluster => $owner_path ) {
+		$by_cluster[ $cluster ] = array(
+			'owner_path'      => $owner_path,
+			'submitted'       => 0,
+			'qualified'       => 0,
+			'accepted'        => 0,
+			'closed'          => 0,
+			'won'             => 0,
+			'collected_count' => 0,
+			'collected_value' => 0,
+		);
+	}
+	$by_cluster['unattributed'] = array(
+		'owner_path'      => '',
+		'submitted'       => 0,
+		'qualified'       => 0,
+		'accepted'        => 0,
+		'closed'          => 0,
+		'won'             => 0,
+		'collected_count' => 0,
+		'collected_value' => 0,
+	);
 	$snapshot = array(
 		'submitted'       => 0,
 		'qualified'       => 0,
@@ -4942,6 +4967,7 @@ function justice_theme_crm_product_handoff_snapshot(): array {
 		'won'             => 0,
 		'collected_count' => 0,
 		'collected_value' => 0,
+		'by_cluster'      => $by_cluster,
 	);
 	if ( ! post_type_exists( 'justice_lead' ) ) {
 		return $snapshot;
@@ -4971,23 +4997,84 @@ function justice_theme_crm_product_handoff_snapshot(): array {
 		}
 
 		++$snapshot['submitted'];
+		$cluster     = justice_theme_sanitize_product_handoff_cluster( get_post_meta( $post_id, 'product_origin_cluster', true ) );
+		$cluster_key = $cluster ?: 'unattributed';
+		++$snapshot['by_cluster'][ $cluster_key ]['submitted'];
 		$status    = (string) get_post_meta( $post_id, 'lead_status', true );
 		$follow_up = (string) get_post_meta( $post_id, 'follow_up_status', true );
 		$stages    = justice_theme_product_handoff_stage_flags( $status, $follow_up );
 		foreach ( array( 'qualified', 'accepted', 'closed', 'won' ) as $stage ) {
 			if ( $stages[ $stage ] ) {
 				++$snapshot[ $stage ];
+				++$snapshot['by_cluster'][ $cluster_key ][ $stage ];
 			}
 		}
 
 		$billing_status = (string) get_post_meta( $post_id, 'qualified_lead_billing_status', true );
 		if ( 'paid' === $billing_status && justice_theme_crm_lead_has_payment_evidence( $post_id ) ) {
 			++$snapshot['collected_count'];
-			$snapshot['collected_value'] += absint( get_post_meta( $post_id, 'suggested_lead_price_ils', true ) );
+			++$snapshot['by_cluster'][ $cluster_key ]['collected_count'];
+			$collected_value = absint( get_post_meta( $post_id, 'suggested_lead_price_ils', true ) );
+			$snapshot['collected_value'] += $collected_value;
+			$snapshot['by_cluster'][ $cluster_key ]['collected_value'] += $collected_value;
 		}
 	}
 
 	return $snapshot;
+}
+
+/**
+ * Render the owner-only 11-cluster product outcome report.
+ *
+ * @param array<string,mixed> $snapshot Product funnel snapshot.
+ */
+function justice_theme_crm_render_product_handoff_report( array $snapshot ): void {
+	$rows = isset( $snapshot['by_cluster'] ) && is_array( $snapshot['by_cluster'] ) ? $snapshot['by_cluster'] : array();
+	if ( empty( $rows ) ) {
+		return;
+	}
+	?>
+	<section style="margin:20px 0 28px;">
+		<h2>JURIS funnel by SEO owner</h2>
+		<p>Owner URLs are derived from the fixed 11-cluster architecture. Unattributed is shown separately and is never guessed into an existing cluster.</p>
+		<div style="overflow-x:auto;">
+			<table class="widefat striped">
+				<thead>
+					<tr>
+						<th>Cluster</th>
+						<th>Canonical owner</th>
+						<th>Submitted</th>
+						<th>Qualified</th>
+						<th>Accepted</th>
+						<th>Closed</th>
+						<th>Won</th>
+						<th>Collected</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ( $rows as $cluster => $row ) : ?>
+						<tr>
+							<td><code><?php echo esc_html( $cluster ); ?></code></td>
+							<td>
+								<?php if ( ! empty( $row['owner_path'] ) ) : ?>
+									<a href="<?php echo esc_url( home_url( $row['owner_path'] ) ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $row['owner_path'] ); ?></a>
+								<?php else : ?>
+									<span aria-label="No canonical owner">—</span>
+								<?php endif; ?>
+							</td>
+							<td><?php echo esc_html( (string) $row['submitted'] ); ?></td>
+							<td><?php echo esc_html( (string) $row['qualified'] ); ?></td>
+							<td><?php echo esc_html( (string) $row['accepted'] ); ?></td>
+							<td><?php echo esc_html( (string) $row['closed'] ); ?></td>
+							<td><?php echo esc_html( (string) $row['won'] ); ?></td>
+							<td>₪<?php echo esc_html( number_format_i18n( (int) $row['collected_value'] ) ); ?></td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<?php
 }
 
 /**

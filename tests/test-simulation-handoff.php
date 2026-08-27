@@ -14,6 +14,7 @@ function add_query_arg( array $args, string $url ): string {
 	return $url . '?' . http_build_query( $args, '', '&', PHP_QUERY_RFC3986 );
 }
 
+require_once dirname( __DIR__ ) . '/inc/product-handoff-attribution.php';
 require_once dirname( __DIR__ ) . '/inc/simulation-handoff.php';
 
 function jt_handoff_assert( bool $condition, string $message ): void {

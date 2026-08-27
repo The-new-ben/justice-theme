@@ -248,10 +248,10 @@ function justice_theme_content_clusters(): array {
 			),
 		),
 
-		// ─── TAX (international + returning resident) ───────────────────────────────
+		// ─── TAX (international + returning resident + authority representation) ──
 		'tax' => array(
-			'pillar' => 'real-estate-tax-advisor',
-			'label'  => 'המדריך למיסוי בינלאומי וישראלי',
+			'pillar' => 'tax-lawyer',
+			'label'  => 'המדריך לעורך דין מסים, מיסוי בינלאומי וייצוג מול רשות המסים',
 			'spokes' => array(
 				'returning-resident-rights-determining-tax-rate',
 				'top-global-tax-cpa-firms',

@@ -24,7 +24,7 @@ business journey without accepting arbitrary public text or Matter content.
 | `employment` | `/labor-lawyer/` | `employment-dispute-rehearsal` |
 | `medical-malpractice` | `/medical-malpractice-lawyer/` | `medical-expert-preparation` |
 | `personal-injury` | `/personal-injury-law/` | `damages-testimony-preparation` |
-| `tax` | `/real-estate-tax-advisor/` | `tax-review-preparation` |
+| `tax` | `/tax-lawyer/` | `tax-review-preparation` |
 
 `scenario` is accepted only when it exactly matches the selected cluster. A
 missing, legacy, unknown or mismatched value is never guessed from free text.

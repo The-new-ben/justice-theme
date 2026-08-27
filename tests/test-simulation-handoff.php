@@ -39,6 +39,7 @@ jt_handoff_assert( false !== strpos( $unknown, 'jurisdiction=IL' ), 'Safe generi
 $owners = justice_theme_simulation_cluster_owners();
 jt_handoff_assert( 11 === count( $owners ), 'The reconciled GSC architecture no longer has exactly 11 owners.' );
 jt_handoff_assert( 11 === count( array_unique( array_values( $owners ) ) ), 'Two clusters share an owner path.' );
+jt_handoff_assert( '/tax-lawyer/' === $owners['tax'], 'Tax simulation handoff must resolve to the live broad tax-law owner.' );
 $scenarios = justice_theme_product_handoff_cluster_scenarios();
 jt_handoff_assert( 11 === count( $scenarios ), 'The scenario contract no longer covers all 11 clusters.' );
 jt_handoff_assert( 11 === count( array_unique( array_values( $scenarios ) ) ), 'Two clusters share a launch scenario.' );

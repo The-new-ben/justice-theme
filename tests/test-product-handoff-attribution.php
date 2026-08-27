@@ -38,6 +38,7 @@ jt_product_handoff_assert( '' === justice_theme_sanitize_product_handoff_cluster
 jt_product_handoff_assert( 11 === count( justice_theme_product_handoff_clusters() ), 'The product attribution vocabulary no longer matches all 11 GSC clusters.' );
 $owner_map = justice_theme_product_handoff_cluster_owners();
 jt_product_handoff_assert( 11 === count( array_unique( array_values( $owner_map ) ) ), 'Two product clusters share an SEO owner URL.' );
+jt_product_handoff_assert( '/tax-lawyer/' === $owner_map['tax'], 'Tax journey must use the live broad tax-law owner, not the unrelated missing real-estate-tax URL.' );
 jt_product_handoff_assert( '/criminal-defense-attorney/' === justice_theme_product_handoff_owner_path( 'criminal-law' ), 'Criminal attribution received the wrong SEO owner.' );
 jt_product_handoff_assert( '' === justice_theme_product_handoff_owner_path( 'client-0500000000' ), 'Unknown cluster received an SEO owner.' );
 $scenario_map = justice_theme_product_handoff_cluster_scenarios();

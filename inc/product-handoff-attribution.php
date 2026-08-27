@@ -31,7 +31,7 @@ function justice_theme_product_handoff_cluster_owners(): array {
 		'employment'                => '/labor-lawyer/',
 		'medical-malpractice'       => '/medical-malpractice-lawyer/',
 		'personal-injury'           => '/personal-injury-law/',
-		'tax'                       => '/real-estate-tax-advisor/',
+		'tax'                       => '/tax-lawyer/',
 	);
 }
 

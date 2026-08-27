@@ -40,9 +40,9 @@ Allowed fields:
 | `employment` | `/labor-lawyer/` |
 | `medical-malpractice` | `/medical-malpractice-lawyer/` |
 | `personal-injury` | `/personal-injury-law/` |
-| `tax` | `/real-estate-tax-advisor/` |
+| `tax` | `/tax-lawyer/` |
 
-This map is sourced from the reconciled GSC architecture output at the local, non-repository run directory. Raw GSC client data and OAuth files remain outside Git.
+This map is sourced from the reconciled GSC architecture output at the local, non-repository run directory, with the tax owner corrected after a query-intent and live-page review. The former `/real-estate-tax-advisor/` target did not exist and mismatched an international-tax/returning-resident cluster; `/tax-lawyer/` is the live broad tax-law owner. Raw GSC client data and OAuth files remain outside Git.
 
 ## Wiring
 

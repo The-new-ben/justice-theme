@@ -241,3 +241,27 @@ homepage redirect or chained redirect is not an acceptable substitute.
 5. **Production gate:** explicit scoped approval for the named pages only.
 6. **Measurement:** weekly 8-week overlap/CTR review, then monthly business and
    revenue review.
+
+## Verification evidence
+
+- Rebuilt read-only architecture: 11 clusters, 11 live mapped pillars and 102
+  mapped spokes.
+- Rebuilt deletion gate: 75 analytical candidates, 18 protection conflicts and
+  zero release-ready 410 URLs.
+- GSC analyzer regression and final-action gates: 6/6 tests passed.
+- WordPress handoff/attribution tests passed, including the explicit
+  `/tax-lawyer/` owner assertion.
+- CourtAI launch-critical suite: 25 files and 138/138 tests passed; TypeScript
+  typecheck passed; all GitHub CI, lint, type, build, launch-critical, legacy,
+  System3 and conflict gates passed.
+- Theme commit: `520424c0`; PR:
+  https://github.com/The-new-ben/justice-theme/pull/56
+- CourtAI commit: `fda3736d`; PR:
+  https://github.com/The-new-ben/courtai/pull/238
+- Local visual evidence:
+  `C:\Users\777\Documents\GSC-Data\jus-tice.co.il\2025-04-25_2026-08-25\phase-2-evidence-2026-08-27\01-courtai-pr238-ready-to-merge.png`
+  and
+  `C:\Users\777\Documents\GSC-Data\jus-tice.co.il\2025-04-25_2026-08-25\phase-2-evidence-2026-08-27\02-justice-theme-release-guard-success.png`.
+
+No merge, WordPress edit, schema/canonical change, 301, 410 or Production
+deployment was performed in this slice.

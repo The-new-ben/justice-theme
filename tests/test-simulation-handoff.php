@@ -42,6 +42,22 @@ $family_bridge = justice_theme_simulation_handoff_url( 'family-law' );
 jt_handoff_assert( false !== strpos( $family_bridge, 'cluster=family-law' ), 'Practice area did not map to a product cluster.' );
 jt_handoff_assert( false !== strpos( $family_bridge, 'owner=%2Fdivorce-lawyer%2F' ), 'Practice area lost its canonical owner.' );
 
+$commercial_journeys = array(
+	'family-law'            => array( 'family-law', '/divorce-lawyer/' ),
+	'criminal-law'          => array( 'criminal-law', '/criminal-defense-attorney/' ),
+	'real-estate-law'       => array( 'real-estate', '/articles/real-estate-attorney/' ),
+	'medical-malpractice'   => array( 'medical-malpractice', '/medical-malpractice-lawyer/' ),
+);
+foreach ( $commercial_journeys as $area => $expected ) {
+	$context = justice_theme_simulation_handoff_context( $area );
+	jt_handoff_assert( is_array( $context ), 'Commercial area did not resolve: ' . $area );
+	jt_handoff_assert( $expected[0] === $context['cluster'], 'Commercial area received the wrong cluster: ' . $area );
+	jt_handoff_assert( $expected[1] === $context['owner'], 'Commercial area received the wrong owner: ' . $area );
+	$url = justice_theme_simulation_handoff_url( $area );
+	jt_handoff_assert( false !== strpos( $url, 'cluster=' . rawurlencode( $expected[0] ) ), 'Commercial bridge lost its cluster: ' . $area );
+	jt_handoff_assert( false !== strpos( $url, 'owner=' . rawurlencode( $expected[1] ) ), 'Commercial bridge lost its owner: ' . $area );
+}
+
 $unknown_bridge = justice_theme_simulation_handoff_url( 'unknown-area-0500000000' );
 jt_handoff_assert( false === strpos( $unknown_bridge, '0500000000' ), 'Unknown area leaked into the local bridge URL.' );
 

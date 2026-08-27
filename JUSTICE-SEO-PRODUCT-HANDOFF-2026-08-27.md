@@ -49,7 +49,7 @@ This map is sourced from the reconciled GSC architecture output at the local, no
 - `inc/legal-tools-app.php` sends article simulation CTAs to the bridge with the article's mapped cluster owner.
 - `template-parts/redesign/ai-tools-strip.php` sends the homepage continuation to Matter intake, not to a seeded recorded channel.
 - User-entered homepage facts remain in the editorial browser and are not placed in the cross-domain URL.
-- `tests/test-simulation-handoff.php` proves 11 unique owners, correct known-cluster mapping, and fail-closed behavior for an unknown value containing phone-like digits.
+- `tests/test-simulation-handoff.php` proves 11 unique owners, all four commercial journeys, and fail-closed behavior for an unknown value containing phone-like digits.
 
 ## Live finding and release order
 
@@ -75,8 +75,9 @@ If the destination fails after release, revert only the theme handoff commit so 
 ## Verification performed
 
 - PHP syntax checks passed for the handoff module, legal-tools bridge, and homepage template.
-- `php tests/test-simulation-handoff.php` passed.
+- `php tests/test-simulation-handoff.php` passed and now asserts criminal, family, real-estate and medical-malpractice cluster/owner URLs separately.
 - repository whitespace check passed for the implementation files.
 - live before-state inspected in Chrome on both domains.
+- the CourtAI preview at https://6a8fa2421cfd5857b008ce1e--courtai-code-ai.netlify.app visibly confirmed the real-estate handoff and its zero-Matter-content analytics boundary; fresh browser sessions confirmed the other three commercial labels.
 
 Production after-state is intentionally not claimed until the CourtAI product deployment is updated first.

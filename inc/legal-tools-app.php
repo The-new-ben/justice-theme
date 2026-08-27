@@ -283,15 +283,7 @@ function justice_theme_article_tools_mesh( string $content ): string {
 	}
 
 	$tools_hub      = home_url( '/legal-tools/' );
-	$simulation_url = add_query_arg(
-		array_filter(
-			array(
-				'tool' => 'court-arena',
-				'area' => $area_slug,
-			)
-		),
-		$tools_hub
-	);
+	$simulation_url = justice_theme_simulation_handoff_url( $area_slug );
 
 	$matched          = justice_theme_area_matched_tool( $area_slug );
 	$matched_tool_url = add_query_arg(

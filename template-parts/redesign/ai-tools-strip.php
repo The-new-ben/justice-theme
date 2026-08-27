@@ -77,7 +77,7 @@ $justice_ai_tools = array(
 	<div class="jt2-section__inner">
 		<span class="jt2-eyebrow"><?php esc_html_e( 'מרכז ה-AI המשפטי', 'justice-theme' ); ?></span>
 		<h2 class="jt2-h2"><?php esc_html_e( 'מתארים פעם אחת, וכל הכלים ממשיכים מאותה נקודה', 'justice-theme' ); ?></h2>
-		<p class="jt2-sub"><?php esc_html_e( 'סימולציית בית משפט שאפשר גם לדבר איתה, טיוטות מסמכים, הערכת עלות ועורכי דין מתאימים: הכל מחובר. מה שתכתבו כאן ממשיך איתכם לכלי, בלי לחזור על עצמכם. חינם לניסיון, בלי הרשמה.', 'justice-theme' ); ?></p>
+		<p class="jt2-sub"><?php esc_html_e( 'סימולציית בית משפט שאפשר גם לדבר איתה, טיוטות מסמכים, הערכת עלות ועורכי דין מתאימים: הכל מחובר. תיאור המקרה יוצר כאן מפת דיון ראשונית; המעבר ל-Matter המאובטח נושא רק תחום ועמוד מקור, בלי לשלוח את הטקסט בכתובת.', 'justice-theme' ); ?></p>
 
 		<div class="jt2-ai__launcher" id="ai-launcher">
 			<div class="jt2-ai__launcher-fields">
@@ -120,14 +120,14 @@ $justice_ai_tools = array(
 				// paint, so homepage performance and CWV stay untouched.
 				$justice_visual_sim_url = (string) apply_filters(
 					'justice_theme_visual_simulation_embed_url',
-					'https://jus-tice.com/#/hadmaia?channel=862a54c6-aaa1-453a-b2d3-991dd6751c4e'
+					'https://jus-tice.com/#/intake?jurisdiction=IL&source=organic'
 				);
 				?>
 				<?php if ( '' !== $justice_visual_sim_url ) : ?>
 				<div class="jt2-courtroom-visual" id="ai-visual-sim" data-embed-url="<?php echo esc_url( $justice_visual_sim_url ); ?>">
 					<button type="button" id="ai-visual-sim-load" class="jt2-courtroom-visual__load">
 						<span aria-hidden="true">&#9654;</span>
-						<?php esc_html_e( 'צפייה בהדמיה החזותית של אולם הדיונים', 'justice-theme' ); ?>
+						<?php esc_html_e( 'פתיחת Matter מאובטח והמשך לזירת JURIS', 'justice-theme' ); ?>
 					</button>
 					<span class="jt2-courtroom-visual__note"><?php esc_html_e( 'ההדמיה נטענת רק בלחיצה. תרגול והמחשה בלבד, לא ייעוץ משפטי.', 'justice-theme' ); ?></span>
 				</div>
@@ -153,8 +153,28 @@ $justice_ai_tools = array(
 			var btn = document.getElementById( 'ai-launcher-go' );
 			if ( ! btn ) { return; }
 			var heByArea = { 'family-law': 'משפחה וגירושין', 'criminal-law': 'פלילי ותעבורה', 'real-estate-law': 'מקרקעין ונדל"ן', 'labor-law': 'עבודה', 'torts': 'נזיקין וביטוח לאומי', 'debt-collection': 'חוזים וכספים' };
-			var toolsUrl = <?php echo wp_json_encode( esc_url( home_url( '/legal-tools/' ) ) ); ?>;
 			var lawyersUrl = <?php echo wp_json_encode( esc_url( home_url( '/lawyers/' ) ) ); ?>;
+			var productIntakeUrl = 'https://jus-tice.com/#/intake';
+			var handoffByArea = <?php
+				echo wp_json_encode( array(
+					'family-law'      => justice_theme_simulation_handoff_context( 'family-law' ),
+					'criminal-law'    => justice_theme_simulation_handoff_context( 'criminal-law' ),
+					'real-estate-law' => justice_theme_simulation_handoff_context( 'real-estate-law' ),
+					'labor-law'       => justice_theme_simulation_handoff_context( 'labor-law' ),
+					'torts'           => justice_theme_simulation_handoff_context( 'torts' ),
+					'debt-collection' => null,
+				) );
+			?>;
+
+			function productHandoffUrl( area ) {
+				var context = handoffByArea[ area ];
+				var params = new URLSearchParams( { jurisdiction: 'IL', source: 'organic' } );
+				if ( context ) {
+					params.set( 'cluster', context.cluster );
+					params.set( 'owner', context.owner );
+				}
+				return productIntakeUrl + '?' + params.toString();
+			}
 
 			function docket( areaHe, facts ) {
 				var today = new Date().toLocaleDateString( 'he-IL', { year: 'numeric', month: 'long', day: 'numeric' } );
@@ -204,7 +224,7 @@ $justice_ai_tools = array(
 					} ) );
 				} catch ( e ) {}
 
-				var continueUrl = toolsUrl + '?tool=court-arena' + ( area ? '&area=' + encodeURIComponent( area ) : '' );
+				var continueUrl = productHandoffUrl( area );
 				document.getElementById( 'ai-sim-continue' ).setAttribute( 'href', continueUrl );
 				document.getElementById( 'ai-sim-lawyers' ).setAttribute( 'href', area ? lawyersUrl + '?area=' + encodeURIComponent( area ) : lawyersUrl );
 				stage.scrollIntoView( { behavior: 'smooth', block: 'nearest' } );

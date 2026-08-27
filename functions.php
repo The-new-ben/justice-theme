@@ -106,6 +106,7 @@ $justice_theme_files = array(
 	'inc/url-redirects.php',
 	'inc/slug-collision-guard.php',
 	'inc/admin-dashboard.php',
+	'inc/simulation-handoff.php',
 	'inc/legal-tools-app.php',
 	'inc/knowledge-api.php',
 );

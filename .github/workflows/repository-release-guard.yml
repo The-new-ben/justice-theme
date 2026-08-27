@@ -30,6 +30,12 @@ jobs:
           set -euo pipefail
           git ls-files -z '*.php' | sort -z | xargs -0 -r -n1 php -l
 
+      - name: Validate product-to-professional attribution
+        run: php tests/test-product-handoff-attribution.php
+
+      - name: Validate product-to-revenue reporting
+        run: php tests/test-product-handoff-report.php
+
       - name: Enforce append-only release ZIPs
         run: |
           set -euo pipefail
@@ -72,6 +78,7 @@ jobs:
             tests/test-content-first-route-role-term-safety.php \
             tests/test-real-estate-content-release.php \
             tests/test-hfcm-legacy-card-retirement.php \
+            tests/test-simulation-handoff.php \
             tools/wp_deploy_justice_ops.py \
             tools/templates/justice-ops-deploy-helper.php.tpl \
             justice-ops/maya-profile-release.php \
@@ -103,6 +110,7 @@ jobs:
           php tests/test-content-first-route-role-term-safety.php
           php tests/test-real-estate-content-release.php
           php tests/test-hfcm-legacy-card-retirement.php
+          php tests/test-simulation-handoff.php
           python3 -m py_compile \
             scripts/deploy/build-ops-zip.py \
             scripts/deploy/verify-ops-zip.py \

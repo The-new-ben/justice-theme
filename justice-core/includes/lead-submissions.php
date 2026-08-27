@@ -70,6 +70,10 @@ function uje_register_lead_meta() {
 		'utm_source'           => 'string',
 		'utm_campaign'         => 'string',
 		'utm_medium'           => 'string',
+		'product_journey_id'   => 'string',
+		'product_origin_cluster' => 'string',
+		'product_origin_scenario' => 'string',
+		'product_handoff_source' => 'string',
 	);
 
 	foreach ( $fields as $key => $type ) {
@@ -108,6 +112,25 @@ function uje_handle_lead() {
 	$owner_next_step     = function_exists( 'justice_theme_public_lead_revenue_next_step' )
 		? justice_theme_public_lead_revenue_next_step( $lead_source_surface )
 		: 'Review this public lead quickly, call or WhatsApp the visitor, confirm legal area and consent, then assign only to a paid/approved lawyer path. Do not mark paid without payment evidence.';
+	$product_journey_id = isset( $_POST['product_journey_id'] ) ? wp_unslash( $_POST['product_journey_id'] ) : '';
+	$product_journey_id = function_exists( 'justice_theme_sanitize_product_journey_id' )
+		? justice_theme_sanitize_product_journey_id( $product_journey_id )
+		: ( preg_match( '/^jf-(?:[a-f0-9]{32}|[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12})$/Di', (string) $product_journey_id ) ? strtolower( (string) $product_journey_id ) : '' );
+	$product_origin_cluster = isset( $_POST['product_origin_cluster'] ) ? wp_unslash( $_POST['product_origin_cluster'] ) : '';
+	$product_origin_cluster = function_exists( 'justice_theme_sanitize_product_handoff_cluster' )
+		? justice_theme_sanitize_product_handoff_cluster( $product_origin_cluster )
+		: ( in_array( sanitize_key( (string) $product_origin_cluster ), array( 'family-law', 'criminal-law', 'real-estate', 'immigration', 'international-real-estate', 'traffic-law', 'inheritance', 'employment', 'medical-malpractice', 'personal-injury', 'tax' ), true ) ? sanitize_key( (string) $product_origin_cluster ) : '' );
+	$product_origin_scenario = isset( $_POST['product_origin_scenario'] ) ? wp_unslash( $_POST['product_origin_scenario'] ) : '';
+	$product_origin_scenario = function_exists( 'justice_theme_sanitize_product_handoff_scenario' )
+		? justice_theme_sanitize_product_handoff_scenario( $product_origin_scenario, $product_origin_cluster )
+		: '';
+	$product_handoff_source = isset( $_POST['product_handoff_source'] ) ? sanitize_key( wp_unslash( $_POST['product_handoff_source'] ) ) : '';
+	if ( '' === $product_journey_id || 'juris-arena' !== $product_handoff_source ) {
+		$product_journey_id     = '';
+		$product_origin_cluster = '';
+		$product_origin_scenario = '';
+		$product_handoff_source = '';
+	}
 
 	if ( empty( $name ) || empty( $phone ) ) {
 		wp_safe_redirect( add_query_arg( 'lead', 'missing', wp_get_referer() ?: home_url( '/' ) ) );
@@ -138,7 +161,7 @@ function uje_handle_lead() {
 			'source_page_url'     => $source_url,
 			'source_keyword'      => $source_keyword,
 			'source_channel'      => $source_channel,
-			'source_system'       => 'justice_public_site',
+			'source_system'       => $product_journey_id ? 'justice_juris_handoff' : 'justice_public_site',
 			'lead_source_surface' => $lead_source_surface,
 			'lead_revenue_model'  => 'public_intake_review',
 			'qualified_lead_billing_status' => 'not_ready',
@@ -146,6 +169,16 @@ function uje_handle_lead() {
 			'owner_revenue_next_step' => $owner_next_step,
 			'assigned_lawyer_id' => $assigned_lawyer_id,
 		);
+		if ( $product_journey_id ) {
+			$meta['product_journey_id']     = $product_journey_id;
+			$meta['product_handoff_source'] = $product_handoff_source;
+			if ( $product_origin_cluster ) {
+				$meta['product_origin_cluster'] = $product_origin_cluster;
+				if ( $product_origin_scenario ) {
+					$meta['product_origin_scenario'] = $product_origin_scenario;
+				}
+			}
+		}
 
 		foreach ( $meta as $key => $value ) {
 			update_post_meta( $lead_id, $key, $value );

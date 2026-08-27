@@ -32,16 +32,38 @@ function justice_theme_render_lead_spam_fields(): void {
  * Render hidden attribution fields so SEO/ad context reaches the lead CRM.
  */
 function justice_theme_render_lead_attribution_fields(): void {
-	$source_keyword = justice_theme_get_current_lead_source_keyword();
+	$source_keyword   = justice_theme_get_current_lead_source_keyword();
+	$is_juris_handoff = function_exists( 'justice_theme_is_current_juris_handoff' ) && justice_theme_is_current_juris_handoff();
 
 	if ( '' !== $source_keyword ) {
 		echo '<input type="hidden" name="source_keyword" value="' . esc_attr( $source_keyword ) . '">' . "\n";
 	}
 
+	$juris_utm = array(
+		'utm_source'   => 'jus-tice.com',
+		'utm_campaign' => 'professional_review',
+		'utm_medium'   => 'product_handoff',
+	);
 	foreach ( array( 'utm_source', 'utm_campaign', 'utm_medium' ) as $utm_key ) {
-		$value = isset( $_GET[ $utm_key ] ) ? sanitize_text_field( wp_unslash( $_GET[ $utm_key ] ) ) : '';
+		$value = $is_juris_handoff
+			? $juris_utm[ $utm_key ]
+			: ( isset( $_GET[ $utm_key ] ) ? sanitize_text_field( wp_unslash( $_GET[ $utm_key ] ) ) : '' );
 		if ( '' !== $value ) {
 			echo '<input type="hidden" name="' . esc_attr( $utm_key ) . '" value="' . esc_attr( $value ) . '">' . "\n";
+		}
+	}
+
+	if ( $is_juris_handoff ) {
+		echo '<input type="hidden" name="product_handoff_source" value="juris-arena">' . "\n";
+		echo '<input type="hidden" name="product_journey_id" value="' . esc_attr( justice_theme_current_product_journey_id() ) . '">' . "\n";
+
+		$cluster = justice_theme_current_product_handoff_cluster();
+		if ( '' !== $cluster ) {
+			echo '<input type="hidden" name="product_origin_cluster" value="' . esc_attr( $cluster ) . '">' . "\n";
+			$scenario = justice_theme_current_product_handoff_scenario();
+			if ( '' !== $scenario ) {
+				echo '<input type="hidden" name="product_origin_scenario" value="' . esc_attr( $scenario ) . '">' . "\n";
+			}
 		}
 	}
 }
@@ -139,6 +161,15 @@ function justice_theme_ask_lawyer_fallback_url( array $args = array() ): string 
 	$lead_area           = isset( $args['lead_area'] ) ? sanitize_key( $args['lead_area'] ) : '';
 	$lead_message        = isset( $args['lead_message'] ) ? sanitize_textarea_field( $args['lead_message'] ) : '';
 	$lead_source_surface = isset( $args['lead_source_surface'] ) ? sanitize_key( $args['lead_source_surface'] ) : '';
+	$product_journey_id  = function_exists( 'justice_theme_sanitize_product_journey_id' )
+		? justice_theme_sanitize_product_journey_id( $args['journey_id'] ?? '' )
+		: '';
+	$product_cluster     = function_exists( 'justice_theme_sanitize_product_handoff_cluster' )
+		? justice_theme_sanitize_product_handoff_cluster( $args['cluster'] ?? '' )
+		: '';
+	$product_scenario    = function_exists( 'justice_theme_sanitize_product_handoff_scenario' )
+		? justice_theme_sanitize_product_handoff_scenario( $args['scenario'] ?? '', $product_cluster )
+		: '';
 
 	if ( in_array( $lead_area, justice_theme_lead_area_values(), true ) ) {
 		$query['lead_area'] = $lead_area;
@@ -150,6 +181,17 @@ function justice_theme_ask_lawyer_fallback_url( array $args = array() ): string 
 
 	if ( '' !== $lead_source_surface ) {
 		$query['lead_source_surface'] = $lead_source_surface;
+	}
+
+	if ( '' !== $product_journey_id && 'juris_professional_review' === $lead_source_surface ) {
+		$query['source']     = 'juris-arena';
+		$query['journey_id'] = $product_journey_id;
+		if ( '' !== $product_cluster ) {
+			$query['cluster'] = $product_cluster;
+			if ( '' !== $product_scenario ) {
+				$query['scenario'] = $product_scenario;
+			}
+		}
 	}
 
 	foreach ( $query_keys as $key ) {

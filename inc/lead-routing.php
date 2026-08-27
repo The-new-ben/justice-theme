@@ -138,6 +138,10 @@ function justice_theme_public_lead_source_channel( string $lead_source_surface )
 		return 'public_lawyer_profile_form';
 	}
 
+	if ( 'juris_professional_review' === $lead_source_surface ) {
+		return 'product_professional_handoff';
+	}
+
 	return 'public_site_form';
 }
 
@@ -159,6 +163,10 @@ function justice_theme_public_lead_revenue_next_step( string $lead_source_surfac
 
 	if ( 'lawyer_profile_lead' === $lead_source_surface ) {
 		return 'Lawyer profile lead: verify the visitor intended this lawyer, confirm consent, then route only if the lawyer is paid/approved for the handoff. Do not mark paid without payment evidence.';
+	}
+
+	if ( 'juris_professional_review' === $lead_source_surface ) {
+		return 'JURIS professional-review lead: confirm explicit consent and legal need, inspect only the information the visitor deliberately submitted here, then record qualification, acceptance, outcome and evidenced payment. Product Matter data is not transferred.';
 	}
 
 	return 'Review this public lead quickly, call or WhatsApp the visitor, confirm legal area and consent, then assign only to a paid/approved lawyer path. Do not mark paid without payment evidence.';

@@ -5,7 +5,7 @@ const fs = require('fs');
 const fsp = fs.promises;
 const path = require('path');
 
-const VERSION = '1.0.0';
+const VERSION = '2.0.0';
 
 function parseArgs(argv) {
   const output = {};
@@ -80,46 +80,63 @@ function urlKey(value) {
   }
 }
 
-function decide(row) {
+function trueFlag(value) {
+  return String(value || '').trim().toUpperCase() === 'TRUE';
+}
+
+function protectedSignal(migration = {}) {
+  return trueFlag(migration.protected_url_flag)
+    || trueFlag(migration.business_protection_flag)
+    || /^KEEP_/i.test(String(migration.proposed_action || ''));
+}
+
+function decide(row, migration = {}) {
   const fullImpressions = number(row.full_impressions);
   const recentImpressions = number(row.recent_90d_impressions);
+  if (protectedSignal(migration)) return {
+    final_action: 'HOLD_PROTECTED_URL_REVIEW',
+    execution_wave: 'WAVE_0_PROTECTION_CONFLICT',
+    priority: 'P0_BLOCK_RELEASE',
+    decision_confidence: 'BLOCKED_BY_PROTECTION_SIGNAL',
+    decision_reason: `A protected/keep signal in the migration inventory conflicts with the 410 candidate. Resolve the ownership and revenue evidence before any removal. Previous action: ${migration.proposed_action || 'protected flag'}.`,
+  };
   if (row.recommendation === 'MERGE_CONTENT_THEN_410_HIGH') return {
-    final_action: 'MERGE_UNIQUE_CONTENT_THEN_410',
+    final_action: 'CANDIDATE_MERGE_UNIQUE_CONTENT_THEN_410',
     execution_wave: 'WAVE_1_CONTENT_CAPTURE',
     priority: number(row.full_clicks) > 0 ? 'P1_14_DAYS' : 'P0_7_DAYS',
     decision_confidence: 'HIGH',
     decision_reason: 'Near-duplicate active page; retain any unique legal evidence in the owner page before removal.',
   };
   if (row.recommendation === 'DELETE_410_DIRECT_HIGH') return {
-    final_action: 'DELETE_410',
+    final_action: 'CANDIDATE_DELETE_410',
     execution_wave: 'WAVE_1_24H_SAFETY_GATE',
     priority: 'P0_7_DAYS',
     decision_confidence: 'HIGH',
     decision_reason: 'Exact-content duplicate with no GSC traffic and no GSC Links target evidence.',
   };
   if (isThinLocal(row.url)) return {
-    final_action: 'DELETE_410',
+    final_action: 'CANDIDATE_DELETE_410',
     execution_wave: 'WAVE_1_24H_SAFETY_GATE',
     priority: 'P1_14_DAYS',
     decision_confidence: 'HIGH_MEDIUM',
     decision_reason: 'Thin local-service doorway candidate: 0 clicks, <=7 full-range impressions, no GSC Links target evidence, and no unique local proof in the public body.',
   };
   if (fullImpressions === 0) return {
-    final_action: 'DELETE_410',
+    final_action: 'CANDIDATE_DELETE_410',
     execution_wave: 'WAVE_1_24H_SAFETY_GATE',
     priority: 'P1_14_DAYS',
     decision_confidence: 'HIGH_MEDIUM',
     decision_reason: 'Active thin page with zero full-range GSC visibility and no GSC Links target evidence.',
   };
   if (recentImpressions === 0) return {
-    final_action: 'DELETE_410',
+    final_action: 'CANDIDATE_DELETE_410',
     execution_wave: 'WAVE_2_CRM_AND_LOG_GATE',
     priority: 'P2_30_DAYS',
     decision_confidence: 'MEDIUM',
     decision_reason: 'Historical-only negligible visibility; require CRM and server-log exclusion before deletion.',
   };
   return {
-    final_action: 'REBUILD_OR_RETIRE_AFTER_30D_TEST',
+    final_action: 'HOLD_REBUILD_OR_RETIRE_AFTER_30D_TEST',
     execution_wave: 'WAVE_3_STRATEGIC_DECISION',
     priority: 'P2_30_DAYS',
     decision_confidence: 'MEDIUM',
@@ -135,22 +152,44 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (!args.runDir || !path.isAbsolute(args.runDir)) throw new Error('--run-dir must be absolute');
   const analysisDir = path.join(args.runDir, 'analysis');
-  const [candidates, liveRows, externalRows, internalRows, pairRows] = await Promise.all([
+  const [candidates, liveRows, externalRows, internalRows, pairRows, migrationRows] = await Promise.all([
     readCsv(path.join(analysisDir, 'justice-410-candidates.csv')),
     readCsv(path.join(analysisDir, 'justice-live-url-status.csv')),
     readCsv(path.join(analysisDir, 'justice-gsc-external-linked-targets.csv')),
     readCsv(path.join(analysisDir, 'justice-gsc-internal-linked-targets.csv')),
     readCsv(path.join(analysisDir, 'justice-page-pair-content-enriched.csv')),
+    readCsv(path.join(analysisDir, 'justice-page-migration-inventory.csv')),
   ]);
   const live = new Map(liveRows.map((row) => [urlKey(row.original_url), row]));
   const external = new Map(externalRows.map((row) => [urlKey(row.target_url), row]));
   const internal = new Map(internalRows.map((row) => [urlKey(row.target_url), row]));
+  const migration = new Map(migrationRows.map((row) => [urlKey(row.url), row]));
 
   const actions = candidates.map((row) => {
     const status = live.get(urlKey(row.url)) || {};
     const externalEvidence = external.get(urlKey(row.url)) || {};
     const internalEvidence = internal.get(urlKey(row.url)) || {};
-    const decision = decide(row);
+    const migrationEvidence = migration.get(urlKey(row.url)) || {};
+    const decision = decide(row, migrationEvidence);
+    const dataGates = {
+      gate_live_200: status.original_status === '200' && status.final_status === '200' ? 'PASS' : 'FAIL',
+      gate_zero_full_clicks: number(row.full_clicks) === 0 ? 'PASS' : 'FAIL',
+      gate_zero_recent_clicks: number(row.recent_90d_clicks) === 0 ? 'PASS' : 'FAIL',
+      gate_no_gsc_external_link_evidence: number(externalEvidence.external_links) === 0 ? 'PASS_SAMPLED_ONLY' : 'FAIL',
+      gate_no_gsc_internal_link_evidence: number(internalEvidence.internal_links) === 0 ? 'PASS_SAMPLED_ONLY' : 'FAIL',
+      gate_no_public_rest_inlinks: number(row.internal_inlinks) === 0 ? 'PASS' : 'FAIL',
+      gate_not_protected: protectedSignal(migrationEvidence) ? 'FAIL' : 'PASS',
+    };
+    const failedDataGates = Object.entries(dataGates).filter(([, value]) => value === 'FAIL').map(([key]) => key);
+    const unresolvedExternalGates = [
+      'CRM_LEADS_UNVERIFIED',
+      'SERVER_LOGS_UNVERIFIED',
+      'COMPLETE_BACKLINK_AUDIT_UNVERIFIED',
+      decision.final_action.includes('MERGE') ? 'UNIQUE_CONTENT_CAPTURE_REQUIRED' : 'UNIQUE_INFORMATION_REVIEW_UNVERIFIED',
+      'BACKUP_UNVERIFIED',
+      'SITEMAP_AND_INTERNAL_LINK_RELEASE_PLAN_PENDING',
+      'EXPLICIT_PRODUCTION_APPROVAL_PENDING',
+    ];
     return {
       priority: decision.priority,
       execution_wave: decision.execution_wave,
@@ -161,6 +200,9 @@ async function main() {
       content_type: row.content_type,
       owner_url: row.owner_url,
       source_recommendation: row.recommendation,
+      migration_proposed_action: migrationEvidence.proposed_action || '',
+      protected_url_flag: migrationEvidence.protected_url_flag || '',
+      business_protection_flag: migrationEvidence.business_protection_flag || '',
       live_original_status: status.original_status || '',
       live_final_status: status.final_status || '',
       live_final_url: status.final_url || '',
@@ -175,6 +217,10 @@ async function main() {
       public_rest_internal_inlinks: number(row.internal_inlinks),
       word_count: number(row.word_count),
       thin_local_pattern: isThinLocal(row.url),
+      ...dataGates,
+      failed_data_gates: failedDataGates.join('|'),
+      unresolved_external_gates: unresolvedExternalGates.join('|'),
+      execution_readiness: 'NOT_RELEASE_READY',
       decision_reason: decision.decision_reason,
       mandatory_24h_gate: 'Verify CRM/leads, server logs, unique legal information, and a backup; remove from sitemap and all internal links; then verify an exact 410 response.',
       revenue_data_status: 'UNAVAILABLE_NOT_IN_GSC',
@@ -236,6 +282,10 @@ async function main() {
     by_execution_wave: by('execution_wave'),
     by_priority: by('priority'),
     all_candidates_live_200: actions.every((row) => row.live_original_status === '200'),
+    release_ready_410: actions.filter((row) => row.execution_readiness === 'READY_FOR_EXPLICIT_RELEASE_APPROVAL').length,
+    not_release_ready: actions.filter((row) => row.execution_readiness !== 'READY_FOR_EXPLICIT_RELEASE_APPROVAL').length,
+    protected_conflicts: actions.filter((row) => row.final_action === 'HOLD_PROTECTED_URL_REVIEW').length,
+    candidates_with_failed_data_gates: actions.filter((row) => row.failed_data_gates).length,
     candidates_with_gsc_external_link_evidence: actions.filter((row) => row.gsc_external_links > 0).length,
     candidates_with_gsc_internal_link_evidence: actions.filter((row) => row.gsc_internal_links > 0).length,
     active_overlap_pairs: activePairs.length,
@@ -244,6 +294,8 @@ async function main() {
       'GSC Links is sampled/reporting-limited evidence, not a complete backlink index.',
       'GSC does not contain lead quality, accepted cases, collected fees, margin, or profit.',
       'The 24-hour gate is mandatory even for high-confidence candidates.',
+      'CANDIDATE actions are recommendations, not executable release instructions.',
+      'A 410 may be released only after all external gates are evidenced and explicit production approval is recorded; this run marks zero URLs release-ready.',
       'No live page, redirect, sitemap, canonical, WordPress setting, or Search Console setting was changed.',
     ],
     outputs: { action_matrix: actionFile, active_overlap_pairs: pairsFile, redirect_debt: redirectDebtFile },

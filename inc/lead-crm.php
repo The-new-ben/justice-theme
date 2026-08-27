@@ -76,6 +76,10 @@ function justice_theme_crm_register_lead_meta(): void {
 		'owner_revenue_next_step'   => 'string',
 		'routing_hold'              => 'string',
 		'manual_lead_created_by_user_id' => 'string',
+		'product_journey_id'        => 'string',
+		'product_origin_cluster'     => 'string',
+		'product_origin_scenario'    => 'string',
+		'product_handoff_source'     => 'string',
 	);
 
 	foreach ( $fields as $key => $type ) {
@@ -98,6 +102,7 @@ function justice_theme_render_crm_admin_page(): void {
 	$coverage_counts = justice_theme_crm_count_by_status( 'justice_lead', 'coverage_status' );
 	$tool_counts = post_type_exists( 'justice_legal_request' ) ? justice_theme_crm_count_by_status( 'justice_legal_request', 'status' ) : array();
 	$qualified_revenue = justice_theme_crm_qualified_lead_revenue_snapshot();
+	$product_funnel    = justice_theme_crm_product_handoff_snapshot();
 	$leads       = justice_theme_crm_query_items( 'justice_lead', 15 );
 	$homepage_router_leads = justice_theme_crm_query_homepage_router_leads( 8 );
 	$uncovered_demand = justice_theme_crm_query_uncovered_demand( 15 );
@@ -129,12 +134,23 @@ function justice_theme_render_crm_admin_page(): void {
 				<span>Qualified lead billing queue</span>
 				<small style="display:block;color:#646970;margin-top:4px;"><?php echo esc_html( sprintf( '%d open / %d paid', $qualified_revenue['open_count'], $qualified_revenue['paid_count'] ) ); ?></small>
 			</div>
+			<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $product_funnel['submitted'] ); ?></strong>
+				<span>JURIS consented leads</span>
+				<small style="display:block;color:#646970;margin-top:4px;"><?php echo esc_html( sprintf( '%d qualified / %d accepted / %d closed / %d won', $product_funnel['qualified'], $product_funnel['accepted'], $product_funnel['closed'], $product_funnel['won'] ) ); ?></small>
+			</div>
+			<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:24px;">₪<?php echo esc_html( number_format_i18n( $product_funnel['collected_value'] ) ); ?></strong>
+				<span>JURIS evidenced revenue</span>
+				<small style="display:block;color:#646970;margin-top:4px;"><?php echo esc_html( sprintf( '%d payment%s with evidence', $product_funnel['collected_count'], 1 === $product_funnel['collected_count'] ? '' : 's' ) ); ?></small>
+			</div>
 			<a href="#justice-homepage-router-leads" style="display:block;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;text-decoration:none;color:#1d2327;">
 				<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) ( $homepage_router_leads ? $homepage_router_leads->post_count : 0 ) ); ?></strong>
 				<span>Homepage lead actions</span>
 				<small style="display:block;color:#646970;margin-top:4px;">Unworked situation-card leads shown now</small>
 			</a>
 		</div>
+		<?php justice_theme_crm_render_product_handoff_report( $product_funnel ); ?>
 
 		<?php justice_theme_crm_render_whatsapp_lead_bridge(); ?>
 		<?php justice_theme_crm_render_external_lead_importer(); ?>
@@ -4911,6 +4927,226 @@ function justice_theme_crm_count_by_status( string $post_type, string $meta_key 
 }
 
 /**
+ * Return a strict, owner-only product-to-revenue funnel snapshot.
+ *
+ * A click is never a lead. Submitted requires a valid opaque product journey
+ * and explicit form consent. Downstream stages use the authoritative CRM
+ * disposition. Revenue requires both Paid and a payment evidence URL.
+ *
+ * @return array{submitted:int,qualified:int,accepted:int,closed:int,won:int,collected_count:int,collected_value:int,by_cluster:array<string,array<string,mixed>>,by_scenario:array<string,array<string,mixed>>}
+ */
+function justice_theme_crm_product_handoff_snapshot(): array {
+	$owners     = justice_theme_product_handoff_cluster_owners();
+	$scenarios  = justice_theme_product_handoff_cluster_scenarios();
+	$by_cluster = array();
+	$by_scenario = array();
+	foreach ( $owners as $cluster => $owner_path ) {
+		$by_cluster[ $cluster ] = array(
+			'owner_path'      => $owner_path,
+			'submitted'       => 0,
+			'qualified'       => 0,
+			'accepted'        => 0,
+			'closed'          => 0,
+			'won'             => 0,
+			'collected_count' => 0,
+			'collected_value' => 0,
+		);
+		$scenario = $scenarios[ $cluster ];
+		$by_scenario[ $scenario ] = array(
+			'cluster'         => $cluster,
+			'owner_path'      => $owner_path,
+			'submitted'       => 0,
+			'qualified'       => 0,
+			'accepted'        => 0,
+			'closed'          => 0,
+			'won'             => 0,
+			'collected_count' => 0,
+			'collected_value' => 0,
+		);
+	}
+	$by_cluster['unattributed'] = array(
+		'owner_path'      => '',
+		'submitted'       => 0,
+		'qualified'       => 0,
+		'accepted'        => 0,
+		'closed'          => 0,
+		'won'             => 0,
+		'collected_count' => 0,
+		'collected_value' => 0,
+	);
+	$by_scenario['unattributed'] = array(
+		'cluster'         => '',
+		'owner_path'      => '',
+		'submitted'       => 0,
+		'qualified'       => 0,
+		'accepted'        => 0,
+		'closed'          => 0,
+		'won'             => 0,
+		'collected_count' => 0,
+		'collected_value' => 0,
+	);
+	$snapshot = array(
+		'submitted'       => 0,
+		'qualified'       => 0,
+		'accepted'        => 0,
+		'closed'          => 0,
+		'won'             => 0,
+		'collected_count' => 0,
+		'collected_value' => 0,
+		'by_cluster'      => $by_cluster,
+		'by_scenario'     => $by_scenario,
+	);
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return $snapshot;
+	}
+
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_lead',
+		'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+		'posts_per_page' => -1,
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+		'meta_query'     => array(
+			array(
+				'key'   => 'product_handoff_source',
+				'value' => 'juris-arena',
+			),
+		),
+	) );
+
+	foreach ( $query->posts ?: array() as $post_id ) {
+		$post_id  = (int) $post_id;
+		$journey = function_exists( 'justice_theme_sanitize_product_journey_id' )
+			? justice_theme_sanitize_product_journey_id( get_post_meta( $post_id, 'product_journey_id', true ) )
+			: '';
+		if ( '' === $journey || '1' !== (string) get_post_meta( $post_id, 'consent', true ) ) {
+			continue;
+		}
+
+		++$snapshot['submitted'];
+		$cluster     = justice_theme_sanitize_product_handoff_cluster( get_post_meta( $post_id, 'product_origin_cluster', true ) );
+		$cluster_key = $cluster ?: 'unattributed';
+		$scenario    = justice_theme_sanitize_product_handoff_scenario(
+			get_post_meta( $post_id, 'product_origin_scenario', true ),
+			$cluster
+		);
+		$scenario_key = $scenario ?: 'unattributed';
+		++$snapshot['by_cluster'][ $cluster_key ]['submitted'];
+		++$snapshot['by_scenario'][ $scenario_key ]['submitted'];
+		$status    = (string) get_post_meta( $post_id, 'lead_status', true );
+		$follow_up = (string) get_post_meta( $post_id, 'follow_up_status', true );
+		$stages    = justice_theme_product_handoff_stage_flags( $status, $follow_up );
+		foreach ( array( 'qualified', 'accepted', 'closed', 'won' ) as $stage ) {
+			if ( $stages[ $stage ] ) {
+				++$snapshot[ $stage ];
+				++$snapshot['by_cluster'][ $cluster_key ][ $stage ];
+				++$snapshot['by_scenario'][ $scenario_key ][ $stage ];
+			}
+		}
+
+		$billing_status = (string) get_post_meta( $post_id, 'qualified_lead_billing_status', true );
+		if ( 'paid' === $billing_status && justice_theme_crm_lead_has_payment_evidence( $post_id ) ) {
+			++$snapshot['collected_count'];
+			++$snapshot['by_cluster'][ $cluster_key ]['collected_count'];
+			++$snapshot['by_scenario'][ $scenario_key ]['collected_count'];
+			$collected_value = absint( get_post_meta( $post_id, 'suggested_lead_price_ils', true ) );
+			$snapshot['collected_value'] += $collected_value;
+			$snapshot['by_cluster'][ $cluster_key ]['collected_value'] += $collected_value;
+			$snapshot['by_scenario'][ $scenario_key ]['collected_value'] += $collected_value;
+		}
+	}
+
+	return $snapshot;
+}
+
+/**
+ * Render the owner-only 11-cluster product outcome report.
+ *
+ * @param array<string,mixed> $snapshot Product funnel snapshot.
+ */
+function justice_theme_crm_render_product_handoff_report( array $snapshot ): void {
+	$rows = isset( $snapshot['by_cluster'] ) && is_array( $snapshot['by_cluster'] ) ? $snapshot['by_cluster'] : array();
+	if ( empty( $rows ) ) {
+		return;
+	}
+	?>
+	<section style="margin:20px 0 28px;">
+		<h2>JURIS funnel by SEO owner</h2>
+		<p>Owner URLs are derived from the fixed 11-cluster architecture. Unattributed is shown separately and is never guessed into an existing cluster.</p>
+		<div style="overflow-x:auto;">
+			<table class="widefat striped">
+				<thead>
+					<tr>
+						<th>Cluster</th>
+						<th>Canonical owner</th>
+						<th>Submitted</th>
+						<th>Qualified</th>
+						<th>Accepted</th>
+						<th>Closed</th>
+						<th>Won</th>
+						<th>Collected</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ( $rows as $cluster => $row ) : ?>
+						<tr>
+							<td><code><?php echo esc_html( $cluster ); ?></code></td>
+							<td>
+								<?php if ( ! empty( $row['owner_path'] ) ) : ?>
+									<a href="<?php echo esc_url( home_url( $row['owner_path'] ) ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $row['owner_path'] ); ?></a>
+								<?php else : ?>
+									<span aria-label="No canonical owner">—</span>
+								<?php endif; ?>
+							</td>
+							<td><?php echo esc_html( (string) $row['submitted'] ); ?></td>
+							<td><?php echo esc_html( (string) $row['qualified'] ); ?></td>
+							<td><?php echo esc_html( (string) $row['accepted'] ); ?></td>
+							<td><?php echo esc_html( (string) $row['closed'] ); ?></td>
+							<td><?php echo esc_html( (string) $row['won'] ); ?></td>
+							<td>₪<?php echo esc_html( number_format_i18n( (int) $row['collected_value'] ) ); ?></td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		</div>
+		<?php $scenario_rows = isset( $snapshot['by_scenario'] ) && is_array( $snapshot['by_scenario'] ) ? $snapshot['by_scenario'] : array(); ?>
+		<?php if ( ! empty( $scenario_rows ) ) : ?>
+			<h3 style="margin-top:24px;">JURIS funnel by product scenario</h3>
+			<p>Only the canonical scenario assigned to the recorded cluster is counted. Missing, legacy, or mismatched values remain Unattributed.</p>
+			<div style="overflow-x:auto;">
+				<table class="widefat striped">
+					<thead>
+						<tr>
+							<th>Scenario</th>
+							<th>Cluster</th>
+							<th>Submitted</th>
+							<th>Qualified</th>
+							<th>Accepted</th>
+							<th>Won</th>
+							<th>Collected</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ( $scenario_rows as $scenario => $row ) : ?>
+							<tr>
+								<td><code><?php echo esc_html( $scenario ); ?></code></td>
+								<td><code><?php echo esc_html( $row['cluster'] ?: 'unattributed' ); ?></code></td>
+								<td><?php echo esc_html( (string) $row['submitted'] ); ?></td>
+								<td><?php echo esc_html( (string) $row['qualified'] ); ?></td>
+								<td><?php echo esc_html( (string) $row['accepted'] ); ?></td>
+								<td><?php echo esc_html( (string) $row['won'] ); ?></td>
+								<td>₪<?php echo esc_html( number_format_i18n( (int) $row['collected_value'] ) ); ?></td>
+							</tr>
+						<?php endforeach; ?>
+					</tbody>
+				</table>
+			</div>
+		<?php endif; ?>
+	</section>
+	<?php
+}
+
+/**
  * Snapshot qualified lead revenue that is waiting to be billed or already paid.
  *
  * @return array{open_count:int,open_value:int,paid_count:int,paid_value:int}
@@ -5556,6 +5792,9 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 	$billing_note    = get_post_meta( $post->ID, 'qualified_lead_owner_note', true );
 	$source_channel  = get_post_meta( $post->ID, 'source_channel', true );
 	$source_surface  = get_post_meta( $post->ID, 'lead_source_surface', true );
+	$product_journey = get_post_meta( $post->ID, 'product_journey_id', true );
+	$product_cluster = get_post_meta( $post->ID, 'product_origin_cluster', true );
+	$product_scenario = get_post_meta( $post->ID, 'product_origin_scenario', true );
 	$owner_next_step = get_post_meta( $post->ID, 'owner_revenue_next_step', true );
 	$quality_options = array(
 		'auto'   => 'Auto score',
@@ -5621,6 +5860,19 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 			<?php if ( $owner_next_step ) : ?>
 				<p style="margin:0;"><?php echo esc_html( $owner_next_step ); ?></p>
 			<?php endif; ?>
+		</div>
+	<?php endif; ?>
+	<?php if ( $product_journey ) : ?>
+		<div style="border:1px solid #9ec5fe;border-radius:4px;background:#eff6ff;padding:8px;margin:10px 0;">
+			<strong style="display:block;margin-bottom:4px;">JURIS product attribution</strong>
+			<code><?php echo esc_html( $product_journey ); ?></code>
+			<?php if ( $product_cluster ) : ?>
+				<br><small>Organic cluster: <?php echo esc_html( $product_cluster ); ?></small>
+			<?php endif; ?>
+			<?php if ( $product_scenario ) : ?>
+				<br><small>Product scenario: <?php echo esc_html( $product_scenario ); ?></small>
+			<?php endif; ?>
+			<p style="margin:6px 0 0;color:#646970;font-size:12px;">Opaque correlation only. It grants no access to Matter content.</p>
 		</div>
 	<?php endif; ?>
 	<?php if ( $revenue_model || $suggested_price ) : ?>

@@ -64,6 +64,7 @@ $justice_theme_files = array(
 	'inc/cluster-pillar-titles.php',
 	'inc/article-archive-controls.php',
 	'inc/practice-landing.php',
+	'inc/product-handoff-attribution.php',
 	'inc/lead-spam-guard.php',
 	'inc/lead-ui.php',
 	'inc/lead-crm.php',
@@ -106,6 +107,7 @@ $justice_theme_files = array(
 	'inc/url-redirects.php',
 	'inc/slug-collision-guard.php',
 	'inc/admin-dashboard.php',
+	'inc/simulation-handoff.php',
 	'inc/legal-tools-app.php',
 	'inc/knowledge-api.php',
 );

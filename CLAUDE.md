@@ -68,3 +68,6 @@ boundaries) - owner order 2026-07-15, see .claude/skills/google-god-mode.
 - .env (WP app password, SerpApi key) is never committed and never printed.
 - Theme deploys via owner pull; plugin ships via justice-ops (wp-deploy
   skill). Content writes must create revisions (wp_update_post/REST).
+- Read `JUSTICE-SEO-PRODUCT-HANDOFF-2026-08-27.md` before changing the
+  `/legal-simulation/` bridge, CourtAI/JURIS URLs, cluster attribution, or the
+  handoff release order. Never put user-entered case facts in those URLs.

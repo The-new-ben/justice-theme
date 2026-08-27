@@ -7,7 +7,7 @@ const fsp = fs.promises;
 const path = require('path');
 const readline = require('readline');
 
-const SCRIPT_VERSION = '1.0.0';
+const SCRIPT_VERSION = '1.0.1';
 const PROPERTY = 'https://jus-tice.co.il/';
 const PARAMETERS = Object.freeze({
   lowEvidenceImpressions: 3,
@@ -209,6 +209,43 @@ function normalizeUrl(raw, keepQuery = true) {
   } catch {
     return String(raw || '').trim();
   }
+}
+
+function hasFragment(raw) {
+  try {
+    return Boolean(new URL(raw).hash);
+  } catch {
+    return false;
+  }
+}
+
+function buildPageControlMap(rows) {
+  const result = new Map();
+  for (const row of rows) {
+    const key = normalizeUrl(row.page, true);
+    const current = result.get(key);
+    if (!current) {
+      result.set(key, row);
+      continue;
+    }
+
+    // Search Console can report fragment-bearing variants even though fragments
+    // normalize to the same document URL. Preserve the explicit fragment-free
+    // row as the authoritative page control instead of allowing input order to
+    // replace it with a tiny #section row.
+    const currentHasFragment = hasFragment(current.page);
+    const candidateHasFragment = hasFragment(row.page);
+    if (currentHasFragment !== candidateHasFragment) {
+      if (!candidateHasFragment) result.set(key, row);
+      continue;
+    }
+
+    if (number(row.impressions) > number(current.impressions)
+      || (number(row.impressions) === number(current.impressions) && number(row.clicks) > number(current.clicks))) {
+      result.set(key, row);
+    }
+  }
+  return result;
 }
 
 function technicalUrl(raw) {
@@ -1054,7 +1091,7 @@ async function main() {
     manual_review_required: 'TRUE',
   })).sort((left, right) => right.shared_impressions - left.shared_impressions || right.shared_query_count - left.shared_query_count);
 
-  const pageControlMap = new Map(pageControls.map((row) => [normalizeUrl(row.page, true), row]));
+  const pageControlMap = buildPageControlMap(pageControls);
   const recentPageTotalsNormalized = aggregateMetricsByNormalizedUrl(context.recentPageTotals);
   const previousPageTotalsNormalized = aggregateMetricsByNormalizedUrl(context.previousPageTotals);
   const recent28PageTotalsNormalized = aggregateMetricsByNormalizedUrl(context.recent28PageTotals);
@@ -1202,7 +1239,11 @@ async function main() {
   process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
 }
 
-main().catch((error) => {
-  process.stderr.write(`ERROR: ${error.stack || error.message}\n`);
-  process.exitCode = 1;
-});
+if (require.main === module) {
+  main().catch((error) => {
+    process.stderr.write(`ERROR: ${error.stack || error.message}\n`);
+    process.exitCode = 1;
+  });
+}
+
+module.exports = { buildPageControlMap, normalizeUrl };

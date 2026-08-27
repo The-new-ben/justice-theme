@@ -111,6 +111,15 @@ Single cluster:
 
 Review all generated decision maps before any CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy or internal-link action.
 
+## Justice 410 Release Gates
+
+Before treating a Justice removal candidate as an executable action, read
+[`README-410-RELEASE-GATES.md`](README-410-RELEASE-GATES.md). The final-action
+builder now distinguishes `CANDIDATE_*` and `HOLD_*` decisions from actual
+release readiness, blocks conflicting protection signals, and emits zero
+release-ready URLs while CRM, server-log, complete-backlink, unique-information,
+backup and explicit production-approval evidence remain unresolved.
+
 The validator is intentionally strict. It blocks missing focused export folders, missing required files, malformed CSV headers, empty page/query/protected-source exports and decision maps that still come from baseline cache/dashboard data instead of `FOCUSED_GSC_EXPORT`.
 
 ## Criminal Law First Export

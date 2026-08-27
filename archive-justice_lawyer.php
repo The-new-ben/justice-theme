@@ -16,6 +16,7 @@ get_header();
 $filter_city    = isset( $_GET['city'] )    ? sanitize_text_field( wp_unslash( $_GET['city'] ) )    : '';
 $filter_area    = isset( $_GET['area'] )    ? sanitize_text_field( wp_unslash( $_GET['area'] ) )    : '';
 $filter_keyword = isset( $_GET['keyword'] ) ? sanitize_text_field( wp_unslash( $_GET['keyword'] ) ) : '';
+$is_juris_handoff = function_exists( 'justice_theme_is_current_juris_handoff' ) && justice_theme_is_current_juris_handoff();
 
 $legacy_area_map = array(
 	'family'              => 'family-law',
@@ -278,6 +279,12 @@ if ( $filter_keyword ) {
 }
 
 $approved_count = (int) $lawyers->found_posts;
+$juris_lead_url = '';
+if ( $is_juris_handoff && function_exists( 'justice_theme_ask_lawyer_fallback_url' ) ) {
+	$juris_handoff_args              = justice_theme_current_product_handoff_args();
+	$juris_handoff_args['lead_area'] = in_array( $filter_area, justice_theme_lead_area_values(), true ) ? $filter_area : '';
+	$juris_lead_url                  = justice_theme_ask_lawyer_fallback_url( $juris_handoff_args );
+}
 ?>
 
 <section class="lawyer-directory section" aria-labelledby="directory-heading">
@@ -287,6 +294,17 @@ $approved_count = (int) $lawyers->found_posts;
 				<h1 id="directory-heading"><?php echo esc_html( $page_title ); ?></h1>
 				<p><?php echo esc_html( $page_desc ); ?></p>
 			</header>
+
+			<?php if ( $is_juris_handoff && $juris_lead_url ) : ?>
+				<section class="directory-product-handoff" aria-labelledby="juris-professional-review-heading">
+					<div>
+						<span class="directory-product-handoff__eyebrow"><?php esc_html_e( 'המשך מאובטח מ־JURIS Arena', 'justice-theme' ); ?></span>
+						<h2 id="juris-professional-review-heading"><?php esc_html_e( 'התוצר נשאר אצלכם; מכאן אפשר לבקש בדיקה מקצועית', 'justice-theme' ); ?></h2>
+						<p><?php esc_html_e( 'לא הועברו לכאן פרטי תיק, שמות, ראיות, תשובות או תמליל. אם תבחרו להשאיר פנייה, עורך הדין יקבל רק את המידע שתזינו בטופס ובהסכמה מפורשת.', 'justice-theme' ); ?></p>
+					</div>
+					<a class="button button--gold" href="<?php echo esc_url( $juris_lead_url ); ?>"><?php esc_html_e( 'פתיחת פנייה מסודרת', 'justice-theme' ); ?></a>
+				</section>
+			<?php endif; ?>
 
 			<div class="directory-guidance" aria-label="איך להשתמש במדריך עורכי הדין">
 				<div class="directory-guidance__item">
@@ -331,6 +349,11 @@ $approved_count = (int) $lawyers->found_posts;
 
 			<!-- Filter bar -->
 			<form class="directory-filters" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ); ?>">
+				<?php if ( $is_juris_handoff ) : ?>
+					<?php foreach ( justice_theme_current_product_handoff_args() as $handoff_key => $handoff_value ) : ?>
+						<input type="hidden" name="<?php echo esc_attr( $handoff_key ); ?>" value="<?php echo esc_attr( $handoff_value ); ?>">
+					<?php endforeach; ?>
+				<?php endif; ?>
 				<div class="directory-filters__fields">
 					<div class="directory-filters__field">
 						<label for="filter-area"><?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?></label>
@@ -494,7 +517,7 @@ $approved_count = (int) $lawyers->found_posts;
 					<strong>לא בטוחים איזה עורך דין מתאים?</strong>
 					<span>אפשר להשאיר פנייה קצרה עם התחום, העיר והדחיפות. המערכת נבנית כדי לסייע בניתוב ראשוני בלי להציג הבטחות או דירוגים לא מאומתים.</span>
 				</div>
-				<a class="button button--gold" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">שליחת פנייה</a>
+				<a class="button button--gold" href="<?php echo esc_url( $juris_lead_url ?: home_url( '/contact/' ) ); ?>">שליחת פנייה</a>
 			</aside>
 
 			<?php wp_reset_postdata(); ?>

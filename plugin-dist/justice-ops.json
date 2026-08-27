@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.35.19",
+  "version": "2.35.20",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.35.19.zip",
-  "last_updated": "2026-08-26",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.35.20.zip",
+  "last_updated": "2026-08-27",
   "sections": {
-    "changelog": "2.35.19: phase-1 SEO recovery freezes automatic content creation, returns scheduled encyclopedia content to draft, and removes a self-redirect loop with a fail-closed guard."
+    "changelog": "2.35.20: the public lawyer finder now preserves SEO area context and supports the medical-malpractice city family; 2.35.19 remains the immutable phase-1 recovery release."
   }
 }

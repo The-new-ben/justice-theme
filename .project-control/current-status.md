@@ -1,9 +1,11 @@
-# LATEST WORK STATUS - 2026-08-26 00:23 Asia/Jerusalem
-- SEO RECOVERY PHASE 1 PREPARED: added a fail-closed automatic-content freeze, removed the known self-redirect mapping with a generic self-loop guard, and made content-cluster targets prefer canonical pages over same-slug article copies.
-- LIVE BASELINE: `justice-ops` 2.35.18 and theme 2.23.1 are live; news and encyclopedia automation report enabled; one encyclopedia term is scheduled; real 404 behavior passes 7/7; `/recommended-jus-tice-team-lawyer/` still self-loops before deployment.
-- WAVE-1 410 PREFLIGHT: 40/40 candidates return 200, 40/40 remain in the sitemap, 40/40 pass the public evidence gate, 0/40 are protected money pages, and 0/40 may receive live 410 until CRM, server logs, and a full host database/media backup pass.
-- VERIFIED LOCAL: PHP syntax, the full standalone PHP suite, three new regression tests, Git whitespace checks, and the reproducible `justice-ops-2.35.19.zip` build passed.
-- HANDOFF: read `.project-control/seo-recovery-phase1-2026-08-26.md` before any related live action. Deployment and screenshots are still pending authenticated browser/host access; do not claim the fixes are live until rendered verification passes.
+# LATEST WORK STATUS - 2026-08-26 01:35 Asia/Jerusalem
+- SEO RECOVERY PHASE 1 SAFE SUBSET LIVE: `justice-ops` 2.35.19 is installed; the healthcheck reports `seo-recovery-phase1-freeze-v1` and `automatic_content_paused: true`; one scheduled encyclopedia term was moved back to draft and the live scheduled count is zero.
+- LIVE ROUTES VERIFIED: `/recommended-jus-tice-team-lawyer/` returns exact 404 with no redirect; four protected money pages return 200; the production 404-routing suite passes 7/7; three sampled cluster links target canonical root pillars and return 200.
+- BACKUP VERIFIED: a manual uPress backup completed before deployment (2.8 GiB, one database, 75 posts, two themes, WordPress 7.1); the pre-change Git bundle is also preserved in the private evidence package.
+- WAVE-1 410 DECISION: CRM/source-URL gate passed for 40/40 candidates, backup gate passed for 40/40, but server-log gate passed 0/40 because uPress exposed only the current-day window and the audit itself touched every candidate. No 410 was published.
+- THEME DEPLOYMENT BLOCKER: uPress showed a dirty live theme worktree with modified/deleted/untracked files, including `inc/content-clusters.php`; no Git Pull or overwrite was attempted. The repository fix is merged, and current rendered production already passes the sampled cluster-resolution checks.
+- REPOSITORY/OAUTH HANDOFF: PR #54 merged the Phase-1 code and reusable GSC workflow. Future agents must start with `tools/gsc/START-HERE-OAUTH.md` and `tools/gsc/README-GSC-CONNECTION.md`; credential files remain local only and must never be committed or added to delivery ZIPs.
+- HANDOFF: read `.project-control/seo-recovery-phase1-2026-08-26.md` before any related live action. Reconcile the dirty live theme worktree before any future uPress Git Pull, and obtain an uncontaminated multi-day server-log window before authorizing a 410.
 
 # LATEST WORK STATUS - 2026-05-28 07:12 Asia/Jerusalem
 - BTL FIRST PAID-LEAD PROOF LOCK LIVE: added an owner-only Justice CRM proof-lock panel for the Bituach Leumi first-paid-lead loop and deployed it through uPress.

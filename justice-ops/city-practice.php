@@ -21,6 +21,7 @@ function justice_city_family_labels(): array {
 		'family'       => array( 'he' => 'דיני משפחה וגירושין', 'slug' => 'family-lawyer', 'hub' => '/family-law/' ),
 		'criminal-law' => array( 'he' => 'פלילי', 'slug' => 'criminal-lawyer', 'hub' => '/criminal-law/' ),
 		'real-estate'  => array( 'he' => 'מקרקעין ונדל"ן', 'slug' => 'real-estate-lawyer', 'hub' => '/real-estate/' ),
+		'medical-malpractice' => array( 'he' => 'רשלנות רפואית', 'slug' => 'medical-malpractice-lawyer-city', 'hub' => '/medical-malpractice-lawyer/' ),
 		'labor'        => array( 'he' => 'דיני עבודה', 'slug' => 'labor-lawyer', 'hub' => '/israeli-labor-law/' ),
 		'nezikin'      => array( 'he' => 'נזיקין ותאונות', 'slug' => 'injury-lawyer', 'hub' => '/personal-injury/' ),
 		'traffic'      => array( 'he' => 'תעבורה', 'slug' => 'traffic-lawyer', 'hub' => '/traffic-law/' ),

@@ -82,13 +82,48 @@ function justice_cinema_wanted(): bool {
 }
 
 /**
+ * Resolve the requested public-directory area to a supported finder family.
+ */
+function justice_cinema_requested_family(): string {
+	$requested = isset( $_GET['area'] ) ? sanitize_key( wp_unslash( $_GET['area'] ) ) : '';
+	$area_to_family = array(
+		'family'                  => 'family',
+		'family-law'              => 'family',
+		'criminal'                => 'criminal-law',
+		'criminal-law'            => 'criminal-law',
+		'real-estate'             => 'real-estate',
+		'real-estate-law'         => 'real-estate',
+		'labor'                   => 'labor',
+		'labor-law'               => 'labor',
+		'employment-law'          => 'labor',
+		'personal-injury'         => 'nezikin',
+		'personal-injury-law'     => 'nezikin',
+		'torts'                   => 'nezikin',
+		'medical-malpractice'     => 'medical-malpractice',
+		'medical-malpractice-law' => 'medical-malpractice',
+		'traffic'                 => 'traffic',
+		'traffic-law'             => 'traffic',
+		'inheritance'             => 'inheritance',
+		'inheritance-law'         => 'inheritance',
+		'tax'                     => 'tax-business',
+		'tax-law'                 => 'tax-business',
+	);
+
+	return $area_to_family[ $requested ] ?? 'family';
+}
+
+/**
  * The finder strip: server-rendered internal links, no JS required.
  */
 function justice_cinema_finder(): string {
-	$areas = '';
+	$areas         = '';
+	$area_labels   = justice_city_family_labels();
+	$active_family = justice_cinema_requested_family();
+	$active_conf   = $area_labels[ $active_family ] ?? $area_labels['family'];
+	$default_url   = home_url( $active_conf['hub'] );
 
-	foreach ( justice_city_family_labels() as $family => $conf ) {
-		$areas .= '<option value="' . esc_attr( home_url( $conf['hub'] ) ) . '">' . esc_html( $conf['he'] ) . '</option>';
+	foreach ( $area_labels as $family => $conf ) {
+		$areas .= '<option value="' . esc_attr( home_url( $conf['hub'] ) ) . '"' . selected( $family, $active_family, false ) . '>' . esc_html( $conf['he'] ) . '</option>';
 	}
 
 	$cities = '';
@@ -109,7 +144,7 @@ function justice_cinema_finder(): string {
 		. '<strong>מציאת עורך דין</strong>'
 		. '<select id="jtcm-area" aria-label="בחירת תחום">' . $areas . '</select>'
 		. ( $cities ? '<select id="jtcm-city" aria-label="בחירה לפי עיר"><option value="">לפי עיר (אופציונלי)</option>' . $cities . '</select>' : '' )
-		. '<a class="jtcm-finder__go" href="' . esc_url( home_url( '/family-law/' ) ) . '" onclick="var c=document.getElementById(\'jtcm-city\');var a=document.getElementById(\'jtcm-area\');this.href=(c&&c.value)?c.value:a.value;">מעבר</a>'
+		. '<a class="jtcm-finder__go" href="' . esc_url( $default_url ) . '" onclick="var c=document.getElementById(\'jtcm-city\');var a=document.getElementById(\'jtcm-area\');this.href=(c&&c.value)?c.value:a.value;">מעבר</a>'
 		. '<a class="jtcm-finder__alt" href="' . esc_url( home_url( '/legal-ai-desk/' ) ) . '">לא בטוחים? קבלו כיוון משפטי מיידי</a>'
 		. '</div>';
 }

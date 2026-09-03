@@ -45,6 +45,7 @@ $justice_theme_files = array(
 	'inc/deployment-marker.php',
 	'inc/healthcheck.php',
 	'inc/enqueue.php',
+	'inc/new-look.php',
 	'inc/menu-seed.php',
 	'inc/template-tags.php',
 	'inc/authority.php',

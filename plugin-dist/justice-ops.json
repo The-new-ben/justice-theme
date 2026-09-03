@@ -1,15 +1,15 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.35.19",
+  "version": "2.36.0",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.35.19.zip",
-  "last_updated": "2026-08-26",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.36.0.zip",
+  "last_updated": "2026-09-03",
   "sections": {
-    "changelog": "2.35.19: phase-1 SEO recovery freezes automatic content creation, returns scheduled encyclopedia content to draft, and removes a self-redirect loop with a fail-closed guard."
+    "changelog": "2.36.0: cleanup-v1 (owner order 2026-09-03). Encyclopedia writer and news engine removed, their cron cleared; one-shot trash of every encyclopedia entry (any status), every auto-news brief, and 8 thin zero-demand posts + 33 zero-demand pages created since May 2026 (log in option justice_cleanup_2026_09_log, status at /wp-json/justice-ops/v1/cleanup-2026-09). AI-layer state e-mails now opt-in. 2.35.19 remains the phase-1 recovery release."
   }
 }

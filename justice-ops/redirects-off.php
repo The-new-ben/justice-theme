@@ -32,7 +32,8 @@ add_filter( 'redirect_canonical', function ( $redirect_url, $requested_url ) {
 // Two shortcodes that lost their handler long ago print raw text on pages;
 // render nothing instead.
 add_action( 'init', function () {
-	foreach ( array( 'justice_contact_form', 'justice_lawyer_listing' ) as $tag ) {
+	foreach ( array( 'justice_contact_form', 'justice_lawyer_listing', 'justice_ai_desk',
+		'justice_qa', 'justice_criminal_map', 'justice_arena_embed', 'justice_brain' ) as $tag ) {
 		if ( ! shortcode_exists( $tag ) ) {
 			add_shortcode( $tag, '__return_empty_string' );
 		}

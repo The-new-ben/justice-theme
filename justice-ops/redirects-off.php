@@ -1,11 +1,15 @@
 <?php
 /**
- * Redirects off (owner rule 2026-09-03: no content redirects, ever).
+ * Redirect policy (2026-09-03, revised the same evening).
  *
- * WordPress itself issues 301s for old post slugs (_wp_old_slug meta) and
- * "guesses" a permalink for unknown URLs. Both are content redirects and are
- * disabled here. Canonical host/scheme/trailing-slash redirects for EXISTING
- * pages stay; on a 404 nothing redirects — the URL answers 404.
+ * No NEW content redirects: WordPress may not "guess" a permalink for an
+ * unknown URL, and a 404 stays a 404. But the two legacy maps that carry the
+ * site's ranking history — WordPress's own old-slug 301s (_wp_old_slug) and
+ * the theme's Hebrew→English slug map from the 2026-05-17 migration — stay
+ * ON. Search Console shows Google crawling those Hebrew URLs as redirects
+ * until 2026-09-02; the 2.37.0/2.37.1 unhooking turned every one of them
+ * into a 404 and started erasing the equity they still carry. This release
+ * puts the legacy maps back exactly as they were before 2.37.0.
  *
  * @package JusticeOps
  */
@@ -17,12 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 // No permalink guessing for unknown URLs (WP 5.5+ filter).
 add_filter( 'do_redirect_guess_404_permalink', '__return_false' );
 
-// No old-slug redirects (post or term).
-add_action( 'init', function () {
-	remove_action( 'template_redirect', 'wp_old_slug_redirect' );
-}, 1 );
-add_filter( 'old_slug_redirect_url', '__return_false' );
-
 // Canonical redirect never fires for a 404 request.
 add_filter( 'redirect_canonical', function ( $redirect_url, $requested_url ) {
 	if ( is_404() ) {
@@ -30,18 +28,6 @@ add_filter( 'redirect_canonical', function ( $redirect_url, $requested_url ) {
 	}
 	return $redirect_url;
 }, 10, 2 );
-
-
-// The THEME (justice-theme/inc/url-redirects.php) carries a second redirect
-// engine: an exact legacy-path map on init and a ~1,000-entry old-slug map on
-// template_redirect. Owner rule: off. Removed here after the theme loads.
-add_action( 'after_setup_theme', function () {
-	remove_action( 'init', 'justice_theme_exact_legacy_path_redirect', -3001 );
-	remove_action( 'template_redirect', 'justice_theme_native_slug_redirect', -3000 );
-}, 0 );
-add_action( 'template_redirect', function () {
-	remove_action( 'template_redirect', 'justice_theme_native_slug_redirect', -3000 );
-}, -3001 );
 
 // Two shortcodes that lost their handler long ago print raw text on pages;
 // render nothing instead.

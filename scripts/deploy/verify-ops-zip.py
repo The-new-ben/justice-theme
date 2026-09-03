@@ -104,16 +104,25 @@ def main() -> None:
         if f"Version: {version}" not in main_source or f"'{version}'" not in main_source:
             fail("version markers are missing from the zipped main file")
         for module_include in (
-            "require_once __DIR__ . '/maya-profile-release.php';",
-            "require_once __DIR__ . '/comparison-content-reset.php';",
+            "require_once __DIR__ . '/content-freeze.php';",
             "require_once __DIR__ . '/release-update-control.php';",
-            "require_once __DIR__ . '/real-estate-content-release.php';",
-            "require_once __DIR__ . '/criminal-content-release.php';",
-            "require_once __DIR__ . '/country-content-release.php';",
-            "require_once __DIR__ . '/cyprus-content-bridge.php';",
-            "require_once __DIR__ . '/content-first-order.php';",
+            "require_once __DIR__ . '/compat-stubs.php';",
+            "require_once __DIR__ . '/redirects-off.php';",
+            "require_once __DIR__ . '/cleanup-2026-09.php';",
+            "require_once __DIR__ . '/review-claims-off.php';",
+            "require_once __DIR__ . '/title-authority.php';",
             "require_once __DIR__ . '/title-stability.php';",
-            "require_once __DIR__ . '/hfcm-legacy-card-retirement.php';",
+            "require_once __DIR__ . '/practice-polish.php';",
+            "require_once __DIR__ . '/seo-hierarchy.php';",
+            "require_once __DIR__ . '/professional-cards.php';",
+            "require_once __DIR__ . '/advertise.php';",
+            "require_once __DIR__ . '/lead-router.php';",
+            "require_once __DIR__ . '/scheduler.php';",
+            "require_once __DIR__ . '/calculators.php';",
+            "require_once __DIR__ . '/doc-generators.php';",
+            "require_once __DIR__ . '/rent-gen.php';",
+            "require_once __DIR__ . '/divorce-gen.php';",
+            "require_once __DIR__ . '/malpractice-checker.php';",
         ):
             if module_include not in main_source:
                 fail(f"required module include is missing: {module_include}")

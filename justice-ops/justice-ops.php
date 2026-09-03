@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.36.0
+ * Version: 2.37.0
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,187 +14,78 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.36.0' );
+	define( 'JUSTICE_OPS_VERSION', '2.37.0' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
 
-// Phase-1 SEO recovery freeze: automatic content generators fail closed while
-// the existing inventory is audited. The option is reversible without another
-// code release; authenticated/manual tools remain available where documented.
+// 2026-09-03 owner order "zero friction": the plugin loads ONLY protection,
+// registration, the lead path and the page tools. Every other module stays in
+// the repo but is not loaded. Removed from load: ai-brain, ai-desk, ai-engine,
+// ai-surfaces, card-analytics, city-practice, cockpit, comparison-content-reset,
+// content-first-order, country/criminal/family/real-estate-content-release,
+// criminal-map, cyprus-content-bridge, encyclopedia-writer, firm-match-strip,
+// hfcm-legacy-card-retirement, homepage-pro, intake-brain, journey-monitor,
+// lawyer-index-import, legacy-redirects, map-cinema, map-feed-v3, map-places,
+// market-science, maya-profile-release, news-engine, publish-notify, qa-engine,
+// reader-ux, reviews-engine, serp-machine, simulation-embed, tools-discovery.
+// Phase-1 freeze guard (fail-closed for any generator).
 require_once __DIR__ . '/content-freeze.php';
 
-// Native auto-update is fail-closed for this plugin and can be changed only
-// through the authenticated compare-and-set control route.
+// Update safety: native auto-update control plane.
 require_once __DIR__ . '/release-update-control.php';
 
-// AI engine: one door for every model call, loud failover, circuit breakers.
-require_once __DIR__ . '/ai-engine.php';
+// Neutral stubs for functions of unloaded modules.
+require_once __DIR__ . '/compat-stubs.php';
 
-// Self-writing legal encyclopedia: CPT, intake, hourly writer, drip, status.
-// 2026-09-03 owner order: encyclopedia writer removed. See cleanup-2026-09.php.
-// require_once __DIR__ . '/encyclopedia-writer.php';
+// Owner rule: no content redirects. WordPress old-slug and 404-guess redirects disabled.
+require_once __DIR__ . '/redirects-off.php';
 
-// Legal news engine: feed watcher, sourced value-add briefs, news sitemap, admin panel.
-// 2026-09-03 owner order: news engine removed. See cleanup-2026-09.php.
-// require_once __DIR__ . '/news-engine.php';
+// Cleanup 2026-09 status route + cron clearing.
 require_once __DIR__ . '/cleanup-2026-09.php';
 
-// Practice-area polish + sitewide WhatsApp lead button with page context.
-require_once __DIR__ . '/practice-polish.php';
-
-// Professional cards: sponsored lawyer cards inside content by practice family.
-require_once __DIR__ . '/professional-cards.php';
-
-// Synthetic journey monitor: hourly walk of the money paths + transition alerts.
-require_once __DIR__ . '/journey-monitor.php';
-
-// Card analytics: viewable impressions and clicks per lawyer, monthly proof report.
-require_once __DIR__ . '/card-analytics.php';
-
-// Advertiser funnel: /advertise/ plans, application intake, activation, watchdog.
-require_once __DIR__ . '/advertise.php';
-
-// Lead router: leads reach the top eligible advertiser with a billing trail.
-require_once __DIR__ . '/lead-router.php';
-
-// Verified reviews: tokenized case-linked review flow into native aggregates.
-require_once __DIR__ . '/reviews-engine.php';
-
-// SERP title machine: weekly strike-zone titles with measure and auto-revert.
-require_once __DIR__ . '/serp-machine.php';
-
-// City x practice pages: inventory-gated local landing engine.
-require_once __DIR__ . '/city-practice.php';
-
-// Owner cockpit: business state on one screen plus cockpit-json.
-require_once __DIR__ . '/cockpit.php';
-
-// Legal calculators: statutory formulas, dated rates, prequalified WhatsApp leads.
-require_once __DIR__ . '/calculators.php';
-
-// Intake brain: guided triage into the routing engine.
-require_once __DIR__ . '/intake-brain.php';
-
-// Document generators: guided letters ending in prequalified review leads.
-require_once __DIR__ . '/doc-generators.php';
-
-// AI answer surfaces: llms.txt, FAQPage and Attorney JSON-LD.
-require_once __DIR__ . '/ai-surfaces.php';
-
-// AI brain: grounded, verified, judged generation shared by every machine.
-require_once __DIR__ . '/ai-brain.php';
-
-// Q&A engine: public questions become moderated, indexable answer pages.
-require_once __DIR__ . '/qa-engine.php';
-
-// Reader UX: automatic table of contents + reading progress on long form.
-require_once __DIR__ . '/reader-ux.php';
-
-// Marketplace science: SLA escalation, performance matching, truthful proof.
-require_once __DIR__ . '/market-science.php';
-
-// Cinematic map + lawyer finder: 3D drone tour over the paying offices.
-require_once __DIR__ . '/map-cinema.php';
-
-// National court layer: every court and government complex, geocoded from
-// its official published address, labeled on the map.
-require_once __DIR__ . '/map-places.php';
-
-// AI Legal Desk: one-action front door. Describe or upload a document,
-// get an instant plain-Hebrew read, then a one-tap lawyer handoff.
-require_once __DIR__ . '/ai-desk.php';
-
-// Content hierarchy: internal-authority mesh into buried money pages,
-// plus the missing tool-page meta descriptions.
-require_once __DIR__ . '/seo-hierarchy.php';
-
-// Professional homepage layer: one-box into the AI desk, truthful trust
-// wall, curated money links from the strongest page on the site.
-require_once __DIR__ . '/homepage-pro.php';
-
-// AI tools discoverability: primary-menu entry, floating assistant
-// button, in-guide one-box teaser. The desk stops being a hidden page.
-require_once __DIR__ . '/tools-discovery.php';
-
-// Title authority: DB (Yoast fields + post_title) is the single source of
-// truth for titles; legacy per-post override filters are retired (wave 0).
-require_once __DIR__ . '/title-authority.php';
-
-// Title stability: restore the canonical server title only when third-party
-// chat replaces it with a narrowly matched notification counter.
-require_once __DIR__ . '/title-stability.php';
-
-// Legacy URL rescue: 301s for dead historical URLs still carrying equity.
-require_once __DIR__ . '/legacy-redirects.php';
-
-// Rent agreement builder v2: the six-step wizard app on /online-rent-agreement/.
-require_once __DIR__ . '/rent-gen.php';
-
-// Review-claims kill switch: no 'legally reviewed by' anywhere until a real
-// per-page attorney review process exists (owner order 2026-07-14).
+// Protection: no "legally reviewed by" claims anywhere.
 require_once __DIR__ . '/review-claims-off.php';
 
-// Family/divorce release bridge: lets the six rewritten records control their
-// public titles and H1s while the older production theme is still installed.
-require_once __DIR__ . '/family-content-release.php';
+// Titles: database is the single source of truth (non-per-post behavior only).
+require_once __DIR__ . '/title-authority.php';
 
-// Criminal pillar bridge: one preserved URL receives a keyword-first Hero
-// and three stage-specific links while the legacy theme stays unchanged.
-require_once __DIR__ . '/criminal-content-release.php';
+// Titles: keep the server title stable.
+require_once __DIR__ . '/title-stability.php';
 
-// Real-estate release bridge: four preserved URLs receive one intent each,
-// controlled metadata, truthful identity handling and bounded schema output.
-require_once __DIR__ . '/real-estate-content-release.php';
+// Practice hubs render correctly + sitewide WhatsApp lead button.
+require_once __DIR__ . '/practice-polish.php';
 
-// Country release schema boundary: Portugal and USA editorial cohorts keep
-// WebPage/Article/Breadcrumb graphs but cannot inherit unproved provider nodes.
-require_once __DIR__ . '/country-content-release.php';
+// Internal links from pillars to the money pages.
+require_once __DIR__ . '/seo-hierarchy.php';
 
-// Exact-CAS REST bridge for the controlled eight-page Cyprus cohort.
-require_once __DIR__ . '/cyprus-content-bridge.php';
+// Sponsored lawyer cards (what advertisers pay for).
+require_once __DIR__ . '/professional-cards.php';
 
-// Maya Rotenberg firm-profile bridge: exact-route factual copy, neutral
-// visibility clarification, controlled schema and hash-locked Yoast metadata.
-require_once __DIR__ . '/maya-profile-release.php';
+// Advertiser registration funnel (/advertise/).
+require_once __DIR__ . '/advertise.php';
 
-// Comparison content reset: one exact legacy article renders as a sourced,
-// fact-only provider comparison without mutating its stored content or URL.
-require_once __DIR__ . '/comparison-content-reset.php';
+// Leads reach the paying lawyer with a billing trail.
+require_once __DIR__ . '/lead-router.php';
 
-// The courtroom simulation (HADMAIA on jus-tice.com) embedded for real
-// at /legal-simulation/, chrome-less, with honest framing copy.
-require_once __DIR__ . '/simulation-embed.php';
-
-// Divorce agreement generator: free preview, paid full document on the
-// existing lead rail. The "every money page is an application" rule.
-require_once __DIR__ . '/divorce-gen.php';
-
-// Criminal process map: stage-picker of rights, mistakes and statutory
-// clocks, built ahead of the criminal mega article.
-require_once __DIR__ . '/criminal-map.php';
-
-// Real scheduling: slot grid, ICS calendar artifact, routed-lead
-// bookings, and the criminal emergency strip.
+// Appointment booking + criminal emergency strip.
 require_once __DIR__ . '/scheduler.php';
 
-// Medical-malpractice claim checker: the malpractice vertical's embedded
-// application (conservative limitation engine, four-element map).
+// Legal calculators (pages with demand).
+require_once __DIR__ . '/calculators.php';
+
+// Document generators (pages with demand).
+require_once __DIR__ . '/doc-generators.php';
+
+// Rent agreement builder (/online-rent-agreement/, money page).
+require_once __DIR__ . '/rent-gen.php';
+
+// Divorce agreement generator (/free-divorce-agreement-template/, money page).
+require_once __DIR__ . '/divorce-gen.php';
+
+// Malpractice claim checker (embedded app on a money page).
 require_once __DIR__ . '/malpractice-checker.php';
 
-// Publish notifications: the owner gets an email for every piece of
-// content that goes live, from any engine or human (owner order).
-require_once __DIR__ . '/publish-notify.php';
-
-// Lawyer index import: ranking-guides ingestion into basic public cards
-// (dry-run/execute REST routes, owner-authorized per row batch).
-require_once __DIR__ . '/lawyer-index-import.php';
-require_once __DIR__ . '/firm-match-strip.php';
-require_once __DIR__ . '/content-first-order.php';
-require_once __DIR__ . '/map-feed-v3.php';
-
-// One-shot, hash-locked retirement of three legacy HFCM head-card snippets.
-require_once __DIR__ . '/hfcm-legacy-card-retirement.php';
 
 /**
  * Public healthcheck: what version of the ops plugin is live.

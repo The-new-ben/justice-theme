@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.35.19
+ * Version: 2.36.0
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.35.19' );
+	define( 'JUSTICE_OPS_VERSION', '2.36.0' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -32,10 +32,13 @@ require_once __DIR__ . '/release-update-control.php';
 require_once __DIR__ . '/ai-engine.php';
 
 // Self-writing legal encyclopedia: CPT, intake, hourly writer, drip, status.
-require_once __DIR__ . '/encyclopedia-writer.php';
+// 2026-09-03 owner order: encyclopedia writer removed. See cleanup-2026-09.php.
+// require_once __DIR__ . '/encyclopedia-writer.php';
 
 // Legal news engine: feed watcher, sourced value-add briefs, news sitemap, admin panel.
-require_once __DIR__ . '/news-engine.php';
+// 2026-09-03 owner order: news engine removed. See cleanup-2026-09.php.
+// require_once __DIR__ . '/news-engine.php';
+require_once __DIR__ . '/cleanup-2026-09.php';
 
 // Practice-area polish + sitewide WhatsApp lead button with page context.
 require_once __DIR__ . '/practice-polish.php';

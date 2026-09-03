@@ -179,7 +179,8 @@ function justice_ai_transition( string $new, string $provider, string $reason ):
 		'normal'   => "הספק הראשי (OpenAI) שוב עונה תקין, והמערכת חזרה אליו אוטומטית.",
 	);
 
-	if ( isset( $subjects[ $new ] ) ) {
+	// 2026-09-03 owner order: AI-layer state e-mails are opt-in (jt_ai_notify_email = 1).
+	if ( isset( $subjects[ $new ] ) && get_option( 'jt_ai_notify_email', 0 ) ) {
 		wp_mail(
 			get_option( 'admin_email' ),
 			$subjects[ $new ],

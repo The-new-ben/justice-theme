@@ -1,0 +1,262 @@
+:root {
+	--jt-ink: #101827;
+	--jt-navy: #13233f;
+	--jt-navy-2: #0c172c;
+	--jt-blue: #2457d6;
+	--jt-blue-soft: #e9efff;
+	--jt-paper: #fbf7ef;
+	--jt-card: #ffffff;
+	--jt-line: rgba(24, 38, 66, 0.13);
+	--jt-muted: #5d6a7f;
+	--jt-shadow: 0 24px 70px rgba(12, 23, 44, 0.13);
+	--jt-radius: 24px;
+}
+
+body.jt-premium-bridge {
+	background:
+		radial-gradient(circle at 80% 0%, rgba(36, 87, 214, 0.08), transparent 30%),
+		linear-gradient(180deg, #fffaf1 0%, #ffffff 38%, #f7f9fd 100%);
+	color: var(--jt-ink);
+}
+
+.jt-premium-bridge .site-header.jt2-header {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	background: rgba(255, 255, 255, 0.92);
+	backdrop-filter: blur(18px);
+	border-bottom: 1px solid var(--jt-line);
+	box-shadow: 0 10px 34px rgba(12, 23, 44, 0.07);
+}
+
+.jt-premium-bridge .jt2-header__main,
+.jt-premium-bridge .jt2-header__topics,
+.jt-premium-bridge .container,
+.jt-premium-bridge .site-main > section {
+	max-width: 1180px;
+	margin-inline: auto;
+}
+
+.jt-premium-bridge .jt2-header__brand-name,
+.jt-premium-bridge .site-title,
+.jt-premium-bridge h1,
+.jt-premium-bridge h2,
+.jt-premium-bridge h3 {
+	letter-spacing: -0.02em;
+}
+
+.jt-premium-bridge .jt2-header__brand-name {
+	color: var(--jt-navy);
+	font-weight: 850;
+}
+
+.jt-premium-bridge .primary-navigation a,
+.jt-premium-bridge .jt2-header__topics a {
+	color: var(--jt-navy);
+	text-decoration: none;
+}
+
+.jt-premium-bridge .jt2-header__whatsapp,
+.jt-premium-bridge .jt2-header__phone,
+.jt-premium-bridge a.button,
+.jt-premium-bridge button,
+.jt-premium-bridge input[type="submit"] {
+	border-radius: 999px;
+	font-weight: 800;
+}
+
+.jt-premium-bridge .jt2-header__whatsapp,
+.jt-premium-bridge .jt2-hero__search button,
+.jt-premium-bridge input[type="submit"] {
+	background: linear-gradient(135deg, var(--jt-navy), var(--jt-blue));
+	color: #fff;
+	box-shadow: 0 16px 35px rgba(36, 87, 214, 0.23);
+}
+
+.jt-premium-bridge .jt2-hero {
+	position: relative;
+	overflow: hidden;
+	margin: 24px auto 34px;
+	border-radius: 36px;
+	background:
+		linear-gradient(135deg, rgba(19, 35, 63, 0.94), rgba(36, 87, 214, 0.78)),
+		linear-gradient(45deg, #111827, #22345b);
+	color: #fff;
+	box-shadow: var(--jt-shadow);
+}
+
+.jt-premium-bridge .jt2-hero::after {
+	content: "";
+	position: absolute;
+	inset: auto -8% -28% -8%;
+	height: 55%;
+	background:
+		radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.28), transparent 12%),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.16), transparent);
+	opacity: 0.75;
+	pointer-events: none;
+}
+
+.jt-premium-bridge .jt2-hero h1 {
+	max-width: 850px;
+	font-size: clamp(2.25rem, 5vw, 4.9rem);
+	line-height: 0.96;
+	margin-bottom: 18px;
+}
+
+.jt-premium-bridge .jt2-hero__lead {
+	max-width: 760px;
+	color: rgba(255, 255, 255, 0.86);
+	font-size: clamp(1.05rem, 1.7vw, 1.32rem);
+	line-height: 1.7;
+}
+
+.jt-premium-bridge .jt2-hero__search,
+.jt-premium-bridge .jt2-hero__panel,
+.jt-premium-bridge .single-article,
+.jt-premium-bridge .entry-content,
+.jt-premium-bridge .jt2-footer__card,
+.jt-premium-bridge .single-article__lead-cta {
+	border: 1px solid var(--jt-line);
+	border-radius: var(--jt-radius);
+	background: rgba(255, 255, 255, 0.92);
+	box-shadow: 0 18px 55px rgba(12, 23, 44, 0.09);
+}
+
+.jt-premium-bridge .jt2-hero__search,
+.jt-premium-bridge .jt2-hero__panel {
+	backdrop-filter: blur(16px);
+}
+
+.jt-premium-bridge .jt2-hero__search select,
+.jt-premium-bridge .jt2-hero__search input,
+.jt-premium-bridge .entry-content input,
+.jt-premium-bridge .entry-content textarea,
+.jt-premium-bridge .entry-content select {
+	border: 1px solid rgba(24, 38, 66, 0.17);
+	border-radius: 16px;
+	background: #fff;
+	color: var(--jt-ink);
+}
+
+.jt-premium-bridge .section,
+.jt-premium-bridge .jt2-section,
+.jt-premium-bridge .site-main > section {
+	border-radius: 32px;
+}
+
+.jt-premium-bridge .card,
+.jt-premium-bridge .article-card,
+.jt-premium-bridge .lawyer-card,
+.jt-premium-bridge .practice-card,
+.jt-premium-bridge .tool-card {
+	border: 1px solid var(--jt-line);
+	border-radius: 24px;
+	background: #fff;
+	box-shadow: 0 16px 44px rgba(12, 23, 44, 0.08);
+	transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.jt-premium-bridge .card:hover,
+.jt-premium-bridge .article-card:hover,
+.jt-premium-bridge .lawyer-card:hover,
+.jt-premium-bridge .practice-card:hover,
+.jt-premium-bridge .tool-card:hover {
+	transform: translateY(-2px);
+	border-color: rgba(36, 87, 214, 0.24);
+	box-shadow: 0 22px 60px rgba(12, 23, 44, 0.13);
+}
+
+.jt-premium-bridge .single-article {
+	max-width: 1040px;
+	margin: 24px auto 44px;
+	padding: clamp(18px, 3vw, 34px);
+}
+
+.jt-premium-bridge .single-article__header,
+.jt-premium-bridge .single-article__content {
+	max-width: 880px;
+	margin-inline: auto;
+}
+
+.jt-premium-bridge .single-article__header h1 {
+	color: var(--jt-navy);
+	font-size: clamp(2rem, 4vw, 4.4rem);
+	line-height: 1.03;
+}
+
+.jt-premium-bridge .single-article__content {
+	font-size: 1.06rem;
+	line-height: 1.85;
+	color: #243147;
+}
+
+.jt-premium-bridge .jt-sim__wrap {
+	margin: 30px auto;
+	padding: clamp(12px, 2vw, 20px);
+	border-radius: 30px;
+	background:
+		linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(235, 240, 250, 0.9)),
+		var(--jt-paper);
+	border: 1px solid rgba(19, 35, 63, 0.13);
+	box-shadow: var(--jt-shadow);
+}
+
+.jt-premium-bridge .jt-sim__frame {
+	width: 100%;
+	min-height: min(860px, 82vh);
+	border: 0;
+	border-radius: 24px;
+	background: #0b1224;
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.jt-premium-bridge .jt-sim__note {
+	max-width: 840px;
+	margin: 14px auto 0;
+	color: var(--jt-muted);
+	font-size: 0.92rem;
+	line-height: 1.7;
+}
+
+.jt-premium-bridge .site-footer.jt2-footer {
+	background: var(--jt-navy-2);
+	color: #edf3ff;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.jt-premium-bridge .jt2-footer a {
+	color: #fff;
+}
+
+@media (max-width: 760px) {
+	.jt-premium-bridge .site-header.jt2-header {
+		position: sticky;
+	}
+
+	.jt-premium-bridge .jt2-hero {
+		margin: 10px 10px 24px;
+		border-radius: 26px;
+	}
+
+	.jt-premium-bridge .jt2-hero h1,
+	.jt-premium-bridge .single-article__header h1 {
+		font-size: clamp(2rem, 11vw, 3.1rem);
+	}
+
+	.jt-premium-bridge .single-article {
+		margin: 10px;
+		padding: 16px;
+		border-radius: 24px;
+	}
+
+	.jt-premium-bridge .jt-sim__frame {
+		min-height: 78vh;
+		border-radius: 18px;
+	}
+
+	.jt-premium-bridge .jt-sim__wrap {
+		margin-inline: -6px;
+		border-radius: 22px;
+	}
+}

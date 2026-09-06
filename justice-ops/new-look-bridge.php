@@ -21,6 +21,14 @@ add_action( 'wp_enqueue_scripts', function () {
 		array(),
 		JUSTICE_OPS_VERSION
 	);
+
+	wp_enqueue_script(
+		'justice-ops-new-look-bridge',
+		plugins_url( 'assets/new-look-bridge.js', __FILE__ ),
+		array(),
+		JUSTICE_OPS_VERSION,
+		true
+	);
 }, 40 );
 
 add_filter( 'body_class', function ( array $classes ): array {

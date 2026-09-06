@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-const JUSTICE_SIM_ARENA_URL = 'https://jus-tice.com/#/hadmaia?embed=1&domain=legal&host=https%3A%2F%2Fjus-tice.co.il';
+const JUSTICE_SIM_ARENA_URL = 'https://jus-tice.com/#/hadmaia?embed=1&domain=legal&lang=he&host=https%3A%2F%2Fjus-tice.co.il';
 
 add_shortcode( 'justice_arena_embed', function () {
 	return '<div class="jt-sim__wrap">'
@@ -30,7 +30,7 @@ add_shortcode( 'justice_arena_embed', function () {
 		. ' allow="microphone; camera; autoplay; clipboard-write"'
 		. ' loading="eager" referrerpolicy="origin"></iframe>'
 		. '<p class="jt-sim__note">ההדמיה נוצרת בעזרת בינה מלאכותית והיא כלי התנסות ולימוד בלבד, לא ייעוץ משפטי ולא שחזור של תיק אמיתי. אפשר לפתוח אותה גם במסך מלא: '
-		. '<a href="https://jus-tice.com/#/hadmaia" target="_blank" rel="noopener">jus-tice.com</a></p>'
+		. '<a href="https://jus-tice.com/#/hadmaia?domain=legal&lang=he" target="_blank" rel="noopener">jus-tice.com</a></p>'
 		. '</div>';
 } );
 

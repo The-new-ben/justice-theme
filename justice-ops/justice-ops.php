@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.37.2
+ * Version: 2.37.3
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.37.2' );
+	define( 'JUSTICE_OPS_VERSION', '2.37.3' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -28,7 +28,7 @@ define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/j
 // hfcm-legacy-card-retirement, homepage-pro, intake-brain, journey-monitor,
 // lawyer-index-import, legacy-redirects, map-cinema, map-feed-v3, map-places,
 // market-science, maya-profile-release, news-engine, publish-notify, qa-engine,
-// reader-ux, reviews-engine, serp-machine, simulation-embed, tools-discovery.
+// reader-ux, reviews-engine, serp-machine, tools-discovery.
 // Phase-1 freeze guard (fail-closed for any generator).
 require_once __DIR__ . '/content-freeze.php';
 
@@ -85,6 +85,9 @@ require_once __DIR__ . '/divorce-gen.php';
 
 // Malpractice claim checker (embedded app on a money page).
 require_once __DIR__ . '/malpractice-checker.php';
+
+// HADMAIA courtroom simulation embed at /legal-simulation/.
+require_once __DIR__ . '/simulation-embed.php';
 
 
 /**

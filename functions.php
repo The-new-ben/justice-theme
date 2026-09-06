@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_VERSION', '2.23.1' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-08-01-seo-recovery-p0-v1' );
+define( 'JUSTICE_THEME_VERSION', '2.23.2' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-09-07-new-look-v3-preview-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -45,6 +45,7 @@ $justice_theme_files = array(
 	'inc/deployment-marker.php',
 	'inc/healthcheck.php',
 	'inc/enqueue.php',
+	'inc/new-look-parts.php',
 	'inc/new-look.php',
 	'inc/menu-seed.php',
 	'inc/template-tags.php',

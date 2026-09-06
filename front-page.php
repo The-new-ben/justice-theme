@@ -17,6 +17,12 @@
 get_header();
 ?>
 
+<?php if ( function_exists( 'justice_theme_new_look_active' ) && justice_theme_new_look_active() ) : ?>
+
+<?php get_template_part( 'template-parts/look3/home' ); ?>
+
+<?php else : ?>
+
 <?php get_template_part( 'template-parts/redesign/hero' ); ?>
 
 <?php get_template_part( 'template-parts/redesign/practice-areas' ); ?>
@@ -48,6 +54,8 @@ get_header();
 <?php get_template_part( 'template-parts/redesign/faq' ); ?>
 
 <?php get_template_part( 'template-parts/redesign/final-cta' ); ?>
+
+<?php endif; ?>
 
 <?php
 get_footer();

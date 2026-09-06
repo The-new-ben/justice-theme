@@ -86,6 +86,14 @@ add_action(
 			array( 'justice-redesign' ),
 			JUSTICE_THEME_VERSION . '-look3'
 		);
+
+		wp_enqueue_script(
+			'justice-new-look',
+			JUSTICE_THEME_URI . '/assets/js/new-look.js',
+			array(),
+			JUSTICE_THEME_VERSION . '-look3',
+			true
+		);
 	},
 	20
 );

@@ -29,16 +29,97 @@ function justice_theme_render_lead_spam_fields(): void {
 }
 
 /**
+ * Return the public product intents accepted from Hadmaia.
+ *
+ * @return array<string, array<string, string>>
+ */
+function justice_theme_professional_review_products(): array {
+	return array(
+		'court_rehearsal' => array(
+			'label'          => __( 'תרגול דיון', 'justice-theme' ),
+			'headline'       => __( 'להמשיך מסימולציית דיון לבדיקה מקצועית', 'justice-theme' ),
+			'body'           => __( 'אפשר להשאיר פנייה קצרה, לציין תחום ועיר, ולקבל כיוון לגבי עורך דין מתאים לבדיקת ההכנה.', 'justice-theme' ),
+			'lead_message'   => __( 'סיימתי סימולציית דיון ב-Hadmaia ואשמח לבדיקה מקצועית.', 'justice-theme' ),
+			'source_keyword' => __( 'בדיקה מקצועית אחרי סימולציית דיון', 'justice-theme' ),
+		),
+		'mediation'       => array(
+			'label'          => __( 'גישור', 'justice-theme' ),
+			'headline'       => __( 'להמשיך מסימולציית גישור לבדיקה מקצועית', 'justice-theme' ),
+			'body'           => __( 'אפשר לבדוק את נקודות ההסכמה, הסיכונים והצעד הבא עם גורם מקצועי מתאים.', 'justice-theme' ),
+			'lead_message'   => __( 'סיימתי סימולציית גישור ב-Hadmaia ואשמח לבדיקה מקצועית.', 'justice-theme' ),
+			'source_keyword' => __( 'בדיקה מקצועית אחרי סימולציית גישור', 'justice-theme' ),
+		),
+		'witness_prep'    => array(
+			'label'          => __( 'הכנת עדות', 'justice-theme' ),
+			'headline'       => __( 'להמשיך מהכנת עדות לבדיקה מקצועית', 'justice-theme' ),
+			'body'           => __( 'אפשר להעביר פנייה מסודרת כדי להבין אילו נקודות בעדות כדאי לחדד לפני שיחה עם עורך דין.', 'justice-theme' ),
+			'lead_message'   => __( 'סיימתי הכנת עדות ב-Hadmaia ואשמח לבדיקה מקצועית.', 'justice-theme' ),
+			'source_keyword' => __( 'בדיקה מקצועית אחרי הכנת עדות', 'justice-theme' ),
+		),
+		'case_review'     => array(
+			'label'          => __( 'בדיקת סיכויים', 'justice-theme' ),
+			'headline'       => __( 'להמשיך מבדיקת סיכויים לבדיקה מקצועית', 'justice-theme' ),
+			'body'           => __( 'אפשר להשאיר פנייה קצרה כדי לסדר את החוזקות, החולשות והמסמכים לפני המשך טיפול.', 'justice-theme' ),
+			'lead_message'   => __( 'סיימתי בדיקת סיכויים ב-Hadmaia ואשמח לבדיקה מקצועית.', 'justice-theme' ),
+			'source_keyword' => __( 'בדיקה מקצועית אחרי בדיקת סיכויים', 'justice-theme' ),
+		),
+	);
+}
+
+/**
+ * Read a safe Hadmaia product intent from a request value.
+ */
+function justice_theme_normalize_professional_review_product_intent( string $intent ): string {
+	$intent = sanitize_key( $intent );
+
+	return array_key_exists( $intent, justice_theme_professional_review_products() ) ? $intent : '';
+}
+
+/**
+ * Read the current Hadmaia product context from the URL.
+ *
+ * @return array<string, string>
+ */
+function justice_theme_current_professional_review_product(): array {
+	$intent = '';
+
+	foreach ( array( 'product_intent', 'utm_content' ) as $query_key ) {
+		if ( empty( $_GET[ $query_key ] ) ) {
+			continue;
+		}
+
+		$intent = justice_theme_normalize_professional_review_product_intent( (string) wp_unslash( $_GET[ $query_key ] ) );
+		if ( '' !== $intent ) {
+			break;
+		}
+	}
+
+	if ( '' === $intent ) {
+		return array();
+	}
+
+	$product                   = justice_theme_professional_review_products()[ $intent ];
+	$product['product_intent'] = $intent;
+
+	return $product;
+}
+
+/**
  * Render hidden attribution fields so SEO/ad context reaches the lead CRM.
  */
 function justice_theme_render_lead_attribution_fields(): void {
 	$source_keyword = justice_theme_get_current_lead_source_keyword();
+	$product        = justice_theme_current_professional_review_product();
+
+	if ( ! empty( $product['product_intent'] ) ) {
+		echo '<input type="hidden" name="product_intent" value="' . esc_attr( $product['product_intent'] ) . '">' . "\n";
+	}
 
 	if ( '' !== $source_keyword ) {
 		echo '<input type="hidden" name="source_keyword" value="' . esc_attr( $source_keyword ) . '">' . "\n";
 	}
 
-	foreach ( array( 'utm_source', 'utm_campaign', 'utm_medium' ) as $utm_key ) {
+	foreach ( array( 'utm_source', 'utm_campaign', 'utm_medium', 'utm_content' ) as $utm_key ) {
 		$value = isset( $_GET[ $utm_key ] ) ? sanitize_text_field( wp_unslash( $_GET[ $utm_key ] ) ) : '';
 		if ( '' !== $value ) {
 			echo '<input type="hidden" name="' . esc_attr( $utm_key ) . '" value="' . esc_attr( $value ) . '">' . "\n";
@@ -110,6 +191,11 @@ function justice_theme_current_lead_prefill_message(): string {
 	$message = trim( preg_replace( '/\s+/', ' ', $message ) );
 
 	if ( '' === $message ) {
+		$product = justice_theme_current_professional_review_product();
+		$message = ! empty( $product['lead_message'] ) ? (string) $product['lead_message'] : '';
+	}
+
+	if ( '' === $message ) {
 		return '';
 	}
 
@@ -139,6 +225,7 @@ function justice_theme_ask_lawyer_fallback_url( array $args = array() ): string 
 	$lead_area           = isset( $args['lead_area'] ) ? sanitize_key( $args['lead_area'] ) : '';
 	$lead_message        = isset( $args['lead_message'] ) ? sanitize_textarea_field( $args['lead_message'] ) : '';
 	$lead_source_surface = isset( $args['lead_source_surface'] ) ? sanitize_key( $args['lead_source_surface'] ) : '';
+	$product_intent      = isset( $args['product_intent'] ) ? justice_theme_normalize_professional_review_product_intent( (string) $args['product_intent'] ) : '';
 
 	if ( in_array( $lead_area, justice_theme_lead_area_values(), true ) ) {
 		$query['lead_area'] = $lead_area;
@@ -150,6 +237,10 @@ function justice_theme_ask_lawyer_fallback_url( array $args = array() ): string 
 
 	if ( '' !== $lead_source_surface ) {
 		$query['lead_source_surface'] = $lead_source_surface;
+	}
+
+	if ( '' !== $product_intent ) {
+		$query['product_intent'] = $product_intent;
 	}
 
 	foreach ( $query_keys as $key ) {
@@ -165,6 +256,11 @@ function justice_theme_ask_lawyer_fallback_url( array $args = array() ): string 
  * Resolve a public source keyword for lead attribution.
  */
 function justice_theme_get_current_lead_source_keyword(): string {
+	$product = justice_theme_current_professional_review_product();
+	if ( ! empty( $product['source_keyword'] ) ) {
+		return sanitize_text_field( $product['source_keyword'] );
+	}
+
 	foreach ( array( 'source_keyword', 'keyword', 's', 'utm_term' ) as $query_key ) {
 		if ( ! empty( $_GET[ $query_key ] ) ) {
 			return sanitize_text_field( wp_unslash( $_GET[ $query_key ] ) );

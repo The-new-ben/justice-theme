@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.37.12
+ * Version: 2.37.13
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.37.12' );
+	define( 'JUSTICE_OPS_VERSION', '2.37.13' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -98,6 +98,9 @@ require_once __DIR__ . '/posta-refocus.php';
 
 // The legal entity network: wave-seeded reference pages (2026-09-07).
 require_once __DIR__ . '/legal-entities.php';
+
+// Hadmaia product handoff: simulation product intent reaches the lead path.
+require_once __DIR__ . '/hadmaia-professional-review.php';
 
 
 /**

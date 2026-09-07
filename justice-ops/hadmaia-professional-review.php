@@ -68,6 +68,62 @@ function justice_ops_hadmaia_current_product(): array {
 	return array();
 }
 
+function justice_ops_hadmaia_bridge_html( array $product ): string {
+	$primary_url = add_query_arg(
+		array(
+			'lead_source_surface' => 'hadmaia_professional_review',
+			'product_intent'      => $product['product_intent'],
+			'utm_source'          => 'jus-tice.com',
+			'utm_medium'          => 'product_handoff',
+			'utm_campaign'        => 'professional_review',
+			'source_keyword'      => $product['source_keyword'],
+		),
+		home_url( '/' )
+	) . '#ask-lawyer';
+
+	$whatsapp_text = 'שלום, ' . $product['lead_message'];
+	$whatsapp_url  = 'https://wa.me/972525101555?text=' . rawurlencode( $whatsapp_text );
+
+	return '<section class="hadmaia-review-bridge" aria-label="המשך מסימולציה לבדיקה מקצועית">'
+		. '<div class="hadmaia-review-bridge__copy">'
+		. '<span>הגעתם מסימולציית Hadmaia</span>'
+		. '<h2>' . esc_html( $product['headline'] ) . '</h2>'
+		. '<p>' . esc_html( $product['body'] ) . '</p>'
+		. '</div>'
+		. '<div class="hadmaia-review-bridge__actions">'
+		. '<a class="button button--primary" href="' . esc_url( $primary_url ) . '">השארת פנייה מסודרת</a>'
+		. '<a class="button button--whatsapp-inline" target="_blank" rel="noopener" href="' . esc_url( $whatsapp_url ) . '">המשך בוואטסאפ</a>'
+		. '</div>'
+		. '</section>';
+}
+
+add_action( 'template_redirect', function (): void {
+	$request_path = trim( (string) ( $GLOBALS['wp']->request ?? '' ), '/' );
+	if ( is_admin() || 'lawyers' !== $request_path ) {
+		return;
+	}
+
+	$product = justice_ops_hadmaia_current_product();
+	if ( empty( $product['product_intent'] ) ) {
+		return;
+	}
+
+	ob_start( function ( string $html ) use ( $product ): string {
+		if ( false !== strpos( $html, 'hadmaia-review-bridge' ) ) {
+			return $html;
+		}
+
+		$bridge = justice_ops_hadmaia_bridge_html( $product );
+		$needle = '<div class="directory-guidance"';
+		if ( false !== strpos( $html, $needle ) ) {
+			return str_replace( $needle, $bridge . $needle, $html );
+		}
+
+		$needle = '<main id="primary"';
+		return str_replace( $needle, $bridge . $needle, $html );
+	} );
+}, 1 );
+
 add_action( 'init', function (): void {
 	register_post_meta( 'justice_lead', 'product_intent', array(
 		'single'            => true,

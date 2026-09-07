@@ -65,6 +65,7 @@ function wp_list_pluck( $list, $field ): array { return array_map( static fn( $i
 function get_page_by_path( $path, $output = OBJECT, $types = 'page' ) { global $jt_posts; return $jt_posts[ $path ] ?? null; }
 function get_option( $key, $default = false ) { global $jt_options; return $jt_options[ $key ] ?? $default; }
 function update_option( $key, $value, $autoload = null ): bool { global $jt_options; $jt_options[ $key ] = $value; return true; }
+function delete_option( $key ): bool { global $jt_options; unset( $jt_options[ $key ] ); return true; }
 function get_transient( $key ) { global $jt_transient; return $jt_transient[ $key ] ?? false; }
 function set_transient( $key, $value, $ttl = 0 ): bool { global $jt_transient; $jt_transient[ $key ] = $value; return true; }
 function delete_transient( $key ): bool { global $jt_transient; unset( $jt_transient[ $key ] ); return true; }
@@ -197,9 +198,15 @@ $jt_posts['res-ipsa-loquitur-israel'] = new WP_Post( ++$id, 'res-ipsa-loquitur-i
 foreach ( justice_ops_entity_waves() as $key => $file ) { $jt_options[ $key ] = 'done:2026-09-07 12:00:00 created:47 skipped:0'; $jt_options[ $key . '_data' ] = md5_file( $file ); }
 unset( $jt_options['justice_ops_entity_wave_medical-malpractice-w5'], $jt_options['justice_ops_entity_wave_medical-malpractice-w5_data'] );
 $jt_transient = array();
+$jt_updates   = array();
 justice_ops_entity_seed();
+$first_batch = count( $jt_inserts ) + count( $jt_updates );
+check( 'seeder: the first request writes at most one batch, releases the lock, keeps progress', $first_batch > 0 && $first_batch <= JUSTICE_OPS_ENTITY_BATCH && empty( $jt_transient ) && is_array( get_option( 'justice_ops_entity_wave_medical-malpractice-w5_progress' ) ) );
+$rounds = 1;
+while ( ! get_option( 'justice_ops_entity_wave_medical-malpractice-w5' ) && $rounds < 40 ) { justice_ops_entity_request_worked( false ); justice_ops_entity_seed(); $rounds++; }
 $state = (string) get_option( 'justice_ops_entity_wave_medical-malpractice-w5' );
-check( 'seeder: 42 inserted + 3 adopted marked drafts = created:45, editor draft + living slug skipped:2', 42 === count( $jt_inserts ) && false !== strpos( $state, 'created:45 skipped:2' ) );
+check( 'seeder: 42 inserted + 3 adopted marked drafts = created:45, editor draft + living slug skipped:2, across ' . $rounds . ' requests', 42 === count( $jt_inserts ) && false !== strpos( $state, 'created:45 skipped:2' ) && $rounds >= 9 && null === get_option( 'justice_ops_entity_wave_medical-malpractice-w5_progress', null ) );
+check( 'seeder: a page inserted in an early batch links a sibling from a later batch by title', false !== strpos( $jt_posts['checking-negligence-claim-grounds']->post_content, '/known-complication-versus-negligence/' ) );
 check( 'seeder: adopted drafts were published with content', 'publish' === $jt_posts['obtaining-medical-records-copy']->post_status && false !== strpos( $jt_posts['obtaining-medical-records-copy']->post_content, 'בקצרה' ) );
 check( 'seeder: the editor\'s unmarked draft stays a draft, untouched', 'draft' === $jt_posts['kol-habriut-hotline']->post_status && '' === $jt_posts['kol-habriut-hotline']->post_content );
 check( 'seeder: new drafts carry the ownership marker', 'justice_ops_entity_wave_medical-malpractice-w5' === get_post_meta( $jt_posts['venue-malpractice-claim-court']->ID, '_justice_ops_entity_seed', true ) );
@@ -221,9 +228,13 @@ foreach ( $index['by_slug'] as $slug => $entry ) {
 }
 $jt_posts['fees-rabbinical-courts']->post_modified_gmt = '2026-09-07 18:00:00'; // The owner edited this one later.
 justice_ops_entity_refresh();
+$first = count( $jt_updates );
+check( 'refresh: the first request re-renders at most one batch', $first > 0 && $first <= JUSTICE_OPS_ENTITY_BATCH && empty( $jt_transient ) );
+$rounds = 1;
+while ( ! get_option( 'justice_ops_entity_wave_family-law-w1_refresh' ) && $rounds < 40 ) { justice_ops_entity_request_worked( false ); justice_ops_entity_refresh(); $rounds++; }
 $refresh = (string) get_option( 'justice_ops_entity_wave_family-law-w1_refresh' );
 check( 'refresh: 46 untouched wave-1 pages re-rendered, 1 edited page kept', false !== strpos( $refresh, 'refreshed:46 kept:1' ) && ! in_array( 'fees-rabbinical-courts', $jt_updates, true ) );
-check( 'refresh: only wave 1 ran (one wave per request)', 46 === count( $jt_updates ) );
+check( 'refresh: only wave 1 pages were touched, each once, across ' . $rounds . ' requests', 46 === count( array_unique( $jt_updates ) ) && $rounds >= 10 && ! array_diff( $jt_updates, array_keys( $jt_posts ) ) );
 $dead_left = 0;
 $fixed     = 0;
 foreach ( $jt_updates as $slug ) {
@@ -239,7 +250,8 @@ $jt_updates = array();
 $jt_options['justice_ops_entity_wave_family-law-w1_data'] = 'stale';
 $jt_meta[ $jt_posts['temporary-alimony']->ID ]['_justice_ops_entity_hash'] = 'different';
 $jt_posts['temporary-alimony']->post_modified_gmt = '2026-09-08 09:00:00';
-justice_ops_entity_refresh();
+$rounds = 0;
+while ( get_option( 'justice_ops_entity_wave_family-law-w1_data' ) !== md5_file( __DIR__ . '/../justice-ops/data/legal-entities/family-law-w1.php' ) && $rounds < 40 ) { justice_ops_entity_request_worked( false ); justice_ops_entity_refresh(); $rounds++; }
 check( 'refresh: fingerprint mismatch means the page is the owner\'s now', ! in_array( 'temporary-alimony', $jt_updates, true ) );
 
 echo $failures ? "\n$failures FAILED\n" : "\nALL PASS\n";

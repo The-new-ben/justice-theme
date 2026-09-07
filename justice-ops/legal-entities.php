@@ -22,6 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! defined( 'JUSTICE_OPS_ENTITY_BATCH' ) ) {
+	define( 'JUSTICE_OPS_ENTITY_BATCH', 5 ); // Pages written per front request; a page costs about 10 seconds on the host.
+}
+
 /**
  * Wave files: version-keyed so a wave runs exactly once per key.
  *
@@ -164,19 +168,23 @@ function justice_ops_entity_seed(): void {
 			continue;
 		}
 
-		// One wave per request keeps the run bounded (47 inserts plus 47
-		// publishes with Yoast indexing); the lock stops two concurrent front
-		// requests from seeding the same wave side by side.
+		// A wave is seeded in small batches, one batch per front request:
+		// a whole 47-page wave in one request saturated the host's PHP
+		// workers (measured 2026-09-08: 10 minutes per wave, 502s for
+		// visitors). The lock keeps concurrent requests from seeding the same
+		// wave side by side and is short because a batch is short.
 		if ( get_transient( 'justice_ops_entity_seeding' ) ) {
 			return;
 		}
 
 		justice_ops_entity_request_worked( true );
-		set_transient( 'justice_ops_entity_seeding', $option_key, 10 * MINUTE_IN_SECONDS );
+		set_transient( 'justice_ops_entity_seeding', $option_key, 3 * MINUTE_IN_SECONDS );
 
 		if ( function_exists( 'set_time_limit' ) ) {
-			@set_time_limit( 600 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			@set_time_limit( 180 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 		}
+
+		ignore_user_abort( true );
 
 		$entries = include $file;
 
@@ -187,83 +195,99 @@ function justice_ops_entity_seed(): void {
 			continue;
 		}
 
-		$created = 0;
-		$skipped = 0;
-		$made    = array();
+		$progress = (array) get_option( $option_key . '_progress', array() );
+		$progress = array_merge( array( 'created' => 0, 'skipped' => 0, 'seen' => array() ), $progress );
+		$wave     = array();
+		$batch    = array();
 
-		// Pass 1: create every page first, so cross-links between wave
-		// siblings resolve when the content renders in pass 2.
 		foreach ( $entries as $entry ) {
-			if ( empty( $entry['slug'] ) || empty( $entry['title'] ) ) {
-				$skipped++;
+			if ( ! empty( $entry['slug'] ) ) {
+				$wave[ $entry['slug'] ] = array( 0, $entry ); // Sibling titles resolve from data, whatever the seeding order.
+			}
+		}
 
+		foreach ( $entries as $entry ) {
+			$slug = (string) ( $entry['slug'] ?? '' );
+
+			if ( '' === $slug || empty( $entry['title'] ) ) {
 				continue;
 			}
 
-			$existing = get_page_by_path( $entry['slug'], OBJECT, array( 'page', 'post', 'articles' ) );
+			if ( isset( $progress['seen'][ $slug ] ) ) {
+				continue;
+			}
+
+			$existing = get_page_by_path( $slug, OBJECT, array( 'page', 'post', 'articles' ) );
 
 			if ( $existing instanceof WP_Post ) {
 				// Adopt only a draft that carries this wave's own ownership
-				// marker (written in pass 1 below) and is still empty: that is
-				// our pass 1 from a run cut off before pass 2. An editor's draft
-				// under the same slug has no marker and is a living slug.
+				// marker and is still empty (an interrupted run of the older
+				// draft-first seeder). Anything else is a living slug.
 				$ours = 'page' === $existing->post_type
 					&& 'draft' === $existing->post_status
 					&& '' === trim( (string) $existing->post_content )
 					&& $option_key === (string) get_post_meta( $existing->ID, '_justice_ops_entity_seed', true );
 
-				if ( $ours ) {
-					$made[ $entry['slug'] ] = array( (int) $existing->ID, $entry );
-				} else {
-					$skipped++;
+				if ( ! $ours ) {
+					$progress['seen'][ $slug ] = 1;
+					$progress['skipped']++;
+
+					continue;
 				}
 
-				continue;
+				$batch[ $slug ] = array( (int) $existing->ID, $entry );
+			} else {
+				$batch[ $slug ] = array( 0, $entry );
 			}
 
-			$post_id = wp_insert_post( wp_slash( array(
-				'post_type'    => 'page',
-				'post_status'  => 'draft',
-				'post_name'    => $entry['slug'],
-				'post_title'   => $entry['title'],
-				'post_content' => '',
-			) ), true );
-
-			if ( is_wp_error( $post_id ) || ! $post_id ) {
-				$skipped++;
-
-				continue;
+			if ( count( $batch ) >= JUSTICE_OPS_ENTITY_BATCH ) {
+				break;
 			}
-
-			update_post_meta( (int) $post_id, '_justice_ops_entity_seed', $option_key );
-
-			$made[ $entry['slug'] ] = array( (int) $post_id, $entry );
 		}
 
-		// Pass 2: render (drafts resolve via the id map) and publish.
-		foreach ( $made as $slug => $pair ) {
+		if ( ! $batch ) {
+			// Nothing left to create: the wave is complete.
+			update_option( $option_key, sprintf( 'done:%s created:%d skipped:%d', wp_date( 'Y-m-d H:i:s' ), (int) $progress['created'], (int) $progress['skipped'] ), false );
+			update_option( $option_key . '_data', md5_file( $file ), false );
+			delete_option( $option_key . '_progress' );
+			delete_transient( 'justice_ops_entity_seeding' );
+
+			return;
+		}
+
+		foreach ( $batch as $slug => $pair ) {
 			list( $post_id, $entry ) = $pair;
 
-			$result = wp_update_post( wp_slash( array(
-				'ID'           => $post_id,
+			$fields = array(
+				'post_type'    => 'page',
 				'post_status'  => 'publish',
 				'post_name'    => $slug,
-				'post_content' => justice_ops_entity_render( $entry, $made ),
-			) ), true );
+				'post_title'   => $entry['title'],
+				'post_content' => justice_ops_entity_render( $entry, $wave ),
+			);
 
-			if ( is_wp_error( $result ) ) {
-				$skipped++;
+			if ( $post_id > 0 ) {
+				$fields['ID'] = $post_id;
+				$result       = wp_update_post( wp_slash( $fields ), true );
+			} else {
+				$result = wp_insert_post( wp_slash( $fields ), true );
+			}
+
+			$progress['seen'][ $slug ] = 1;
+
+			if ( is_wp_error( $result ) || ! $result ) {
+				$progress['skipped']++;
 
 				continue;
 			}
 
-			justice_ops_entity_apply_meta( $post_id, $entry );
+			update_post_meta( (int) $result, '_justice_ops_entity_seed', $option_key );
+			justice_ops_entity_apply_meta( (int) $result, $entry );
 
-			$created++;
+			$progress['created']++;
 		}
 
-		update_option( $option_key, sprintf( 'done:%s created:%d skipped:%d', wp_date( 'Y-m-d H:i:s' ), $created, $skipped ), false );
-		update_option( $option_key . '_data', md5_file( $file ), false );
+		update_option( $option_key . '_progress', $progress, false );
 		delete_transient( 'justice_ops_entity_seeding' );
 
 		return;
@@ -321,11 +345,13 @@ function justice_ops_entity_refresh(): void {
 		}
 
 		justice_ops_entity_request_worked( true );
-		set_transient( 'justice_ops_entity_seeding', $option_key . ':refresh', 10 * MINUTE_IN_SECONDS );
+		set_transient( 'justice_ops_entity_seeding', $option_key . ':refresh', 3 * MINUTE_IN_SECONDS );
 
 		if ( function_exists( 'set_time_limit' ) ) {
-			@set_time_limit( 600 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			@set_time_limit( 180 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 		}
+
+		ignore_user_abort( true );
 
 		$entries = include $file;
 
@@ -335,69 +361,99 @@ function justice_ops_entity_refresh(): void {
 			continue;
 		}
 
-		$seeded_at = strtotime( substr( $state, 5, 19 ) . ' ' . wp_timezone_string() ) ?: 0;
-		$wave      = array();
-		$pages     = array();
+		// Same batching as the seeder: a few pages per request, progress kept
+		// in an option, restarted from scratch if the data changes mid-way.
+		$progress = (array) get_option( $option_key . '_refresh_progress', array() );
 
-		foreach ( $entries as $entry ) {
-			if ( empty( $entry['slug'] ) || empty( $entry['title'] ) ) {
-				continue;
-			}
-
-			$page = get_page_by_path( $entry['slug'], OBJECT, 'page' );
-
-			if ( ! ( $page instanceof WP_Post ) || 'publish' !== $page->post_status ) {
-				continue;
-			}
-
-			$wave[ $entry['slug'] ]  = array( (int) $page->ID, $entry );
-			$pages[ $entry['slug'] ] = $page;
+		if ( ( $progress['hash'] ?? '' ) !== $data_hash ) {
+			$progress = array( 'hash' => $data_hash, 'seen' => array(), 'refreshed' => 0, 'kept' => 0, 'failed' => 0 );
 		}
 
-		$refreshed = 0;
-		$kept      = 0;
-		$failed    = 0;
+		$seeded_at = strtotime( substr( $state, 5, 19 ) . ' ' . wp_timezone_string() ) ?: 0;
+		$wave      = array();
 
-		foreach ( $pages as $slug => $page ) {
+		foreach ( $entries as $entry ) {
+			if ( ! empty( $entry['slug'] ) ) {
+				$wave[ $entry['slug'] ] = array( 0, $entry );
+			}
+		}
+
+		$updates = 0;
+		$pending = 0;
+
+		foreach ( $entries as $entry ) {
+			$slug = (string) ( $entry['slug'] ?? '' );
+
+			if ( '' === $slug || empty( $entry['title'] ) || isset( $progress['seen'][ $slug ] ) ) {
+				continue;
+			}
+
+			if ( $updates >= JUSTICE_OPS_ENTITY_BATCH ) {
+				$pending++;
+
+				break;
+			}
+
+			$page = get_page_by_path( $slug, OBJECT, 'page' );
+
+			if ( ! ( $page instanceof WP_Post ) || 'publish' !== $page->post_status ) {
+				$progress['seen'][ $slug ] = 1;
+				$progress['kept']++;
+
+				continue;
+			}
+
 			$stored    = (string) get_post_meta( $page->ID, '_justice_ops_entity_hash', true );
 			$untouched = '' !== $stored
 				? hash_equals( $stored, md5( (string) $page->post_content ) )
 				: ( $seeded_at > 0 && strtotime( $page->post_modified_gmt . ' UTC' ) <= $seeded_at + 5 * MINUTE_IN_SECONDS );
 
+			$progress['seen'][ $slug ] = 1;
+
 			if ( ! $untouched ) {
-				$kept++;
+				$progress['kept']++;
 
 				continue;
 			}
 
-			$entry  = $wave[ $slug ][1];
 			$result = wp_update_post( wp_slash( array(
 				'ID'           => $page->ID,
 				'post_title'   => $entry['title'],
 				'post_content' => justice_ops_entity_render( $entry, $wave ),
 			) ), true );
 
+			$updates++;
+
 			if ( is_wp_error( $result ) ) {
-				$failed++;
+				$progress['failed']++;
 
 				continue;
 			}
 
 			justice_ops_entity_apply_meta( $page->ID, $entry );
 
-			$refreshed++;
+			$progress['refreshed']++;
 		}
 
-		// The data hash advances only when every intended update landed;
-		// otherwise the wave stays due and is retried after a pause, so a
-		// transient failure is neither lost nor retried on every request.
-		if ( 0 === $failed ) {
+		if ( $pending > 0 ) {
+			update_option( $option_key . '_refresh_progress', $progress, false );
+			delete_transient( 'justice_ops_entity_seeding' );
+
+			return;
+		}
+
+		// Every entry was seen: the data hash advances only when every
+		// intended update landed; otherwise the wave stays due and is
+		// retried after a pause, so a transient failure is neither lost nor
+		// retried on every request.
+		if ( 0 === (int) $progress['failed'] ) {
 			update_option( $option_key . '_data', $data_hash, false );
 		} else {
-			set_transient( $option_key . '_retry_after', $failed, HOUR_IN_SECONDS );
+			set_transient( $option_key . '_retry_after', (int) $progress['failed'], HOUR_IN_SECONDS );
 		}
 
-		update_option( $option_key . '_refresh', sprintf( 'done:%s refreshed:%d kept:%d failed:%d', wp_date( 'Y-m-d H:i:s' ), $refreshed, $kept, $failed ), false );
+		update_option( $option_key . '_refresh', sprintf( 'done:%s refreshed:%d kept:%d failed:%d', wp_date( 'Y-m-d H:i:s' ), (int) $progress['refreshed'], (int) $progress['kept'], (int) $progress['failed'] ), false );
+		delete_option( $option_key . '_refresh_progress' );
 		delete_transient( 'justice_ops_entity_seeding' );
 
 		return;
@@ -780,6 +836,14 @@ add_action( 'rest_api_init', function () {
 				}
 
 				$status[ $name . ' data' ] = ( get_option( $option_key . '_data' ) === md5_file( $file ) ) ? 'current' : 'pending';
+
+				foreach ( array( '_progress' => ' seeding', '_refresh_progress' => ' refreshing' ) as $suffix => $label ) {
+					$progress = get_option( $option_key . $suffix );
+
+					if ( is_array( $progress ) ) {
+						$status[ $name . $label ] = sprintf( 'seen:%d created:%d refreshed:%d kept:%d skipped:%d failed:%d', count( (array) ( $progress['seen'] ?? array() ) ), (int) ( $progress['created'] ?? 0 ), (int) ( $progress['refreshed'] ?? 0 ), (int) ( $progress['kept'] ?? 0 ), (int) ( $progress['skipped'] ?? 0 ), (int) ( $progress['failed'] ?? 0 ) );
+					}
+				}
 			}
 
 			$status['lock'] = (string) get_transient( 'justice_ops_entity_seeding' ) ?: 'free';

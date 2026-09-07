@@ -86,9 +86,14 @@ function justice_ops_hadmaia_bridge_html( array $product ): string {
 
 	return '<section class="hadmaia-review-bridge" aria-label="המשך מסימולציה לבדיקה מקצועית">'
 		. '<div class="hadmaia-review-bridge__copy">'
-		. '<span>הגעתם מסימולציית Hadmaia</span>'
+		. '<span class="hadmaia-review-bridge__eyebrow">הגעתם מסימולציית Hadmaia</span>'
 		. '<h2>' . esc_html( $product['headline'] ) . '</h2>'
 		. '<p>' . esc_html( $product['body'] ) . '</p>'
+		. '<div class="hadmaia-review-bridge__chips" aria-label="מה אפשר לבדוק עכשיו">'
+		. '<span>בדיקת סיכונים</span>'
+		. '<span>הכנה לשיחה</span>'
+		. '<span>חיבור לגורם מתאים</span>'
+		. '</div>'
 		. '</div>'
 		. '<div class="hadmaia-review-bridge__actions">'
 		. '<a class="button button--primary" href="' . esc_url( $primary_url ) . '">השארת פנייה מסודרת</a>'
@@ -159,7 +164,7 @@ add_action( 'wp_enqueue_scripts', function (): void {
 	wp_enqueue_style( 'justice-ops-hadmaia-review' );
 	wp_add_inline_style(
 		'justice-ops-hadmaia-review',
-		'.hadmaia-review-bridge{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.5rem;align-items:center;margin:0 0 2rem;padding:clamp(1.25rem,3vw,2rem);border:1px solid rgba(15,39,76,.14);border-radius:18px;background:linear-gradient(135deg,#f8fafc 0%,#eef4fb 52%,#fff 100%);box-shadow:0 18px 48px rgba(15,39,76,.1)}.hadmaia-review-bridge__copy span{display:inline-flex;margin-bottom:.55rem;color:#b65343;font-size:.78rem;font-weight:800;letter-spacing:.04em}.hadmaia-review-bridge__copy h2{margin:0 0 .55rem;color:#0f274c;font-size:clamp(1.35rem,2.4vw,2rem);line-height:1.25}.hadmaia-review-bridge__copy p{margin:0;color:#334155;font-size:1rem;line-height:1.7}.hadmaia-review-bridge__actions{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:flex-end}.hadmaia-review-bridge__actions .button{white-space:nowrap}@media(max-width:760px){.hadmaia-review-bridge{grid-template-columns:1fr}.hadmaia-review-bridge__actions{justify-content:stretch}.hadmaia-review-bridge__actions .button{width:100%;text-align:center}}'
+		'.hadmaia-review-bridge{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) minmax(16rem,auto);gap:clamp(1rem,2.5vw,2rem);align-items:center;margin:0 0 clamp(2rem,5vw,3.5rem);padding:clamp(1.35rem,3.4vw,2.35rem);border:1px solid rgba(15,39,76,.16);border-radius:28px;background:radial-gradient(circle at 18% 0%,rgba(34,211,238,.18),transparent 34%),linear-gradient(135deg,#fffaf2 0%,#f4f8fd 54%,#ffffff 100%);box-shadow:0 22px 60px rgba(15,39,76,.13),inset 0 1px 0 rgba(255,255,255,.78)}.hadmaia-review-bridge:before{content:"";position:absolute;inset:auto -10% -45% 42%;height:10rem;border-radius:999px;background:rgba(15,39,76,.08);filter:blur(34px);z-index:-1}.hadmaia-review-bridge__eyebrow{display:inline-flex;align-items:center;gap:.45rem;margin-bottom:.7rem;padding:.35rem .7rem;border:1px solid rgba(182,83,67,.2);border-radius:999px;background:rgba(255,255,255,.68);color:#a14537;font-size:.78rem;font-weight:900;letter-spacing:.03em}.hadmaia-review-bridge__eyebrow:before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:#1f8f6b;box-shadow:0 0 0 5px rgba(31,143,107,.12)}.hadmaia-review-bridge__copy h2{margin:0 0 .6rem;color:#0f274c;font-size:clamp(1.45rem,2.55vw,2.15rem);line-height:1.2;letter-spacing:-.02em}.hadmaia-review-bridge__copy p{max-width:46rem;margin:0;color:#334155;font-size:1.02rem;line-height:1.75}.hadmaia-review-bridge__chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}.hadmaia-review-bridge__chips span{padding:.45rem .7rem;border:1px solid rgba(15,39,76,.12);border-radius:999px;background:rgba(255,255,255,.62);color:#18365f;font-size:.86rem;font-weight:800}.hadmaia-review-bridge__actions{display:flex;flex-direction:column;gap:.75rem;justify-content:center;align-items:stretch}.hadmaia-review-bridge__actions .button{width:100%;min-width:12.5rem;padding:.9rem 1.1rem;border-radius:999px;text-align:center;white-space:nowrap;box-shadow:0 10px 24px rgba(15,39,76,.12)}.hadmaia-review-bridge__actions .button--whatsapp-inline{background:#25d366!important;color:#062c18!important;border-color:#25d366!important}@media(max-width:880px){.hadmaia-review-bridge{grid-template-columns:1fr;padding-bottom:calc(clamp(1.35rem,3.4vw,2.35rem) + 1rem)}.hadmaia-review-bridge__actions{display:grid;grid-template-columns:1fr 1fr}.hadmaia-review-bridge__actions .button{min-width:0;white-space:normal}}@media(max-width:560px){.hadmaia-review-bridge{border-radius:22px;margin-bottom:5.5rem}.hadmaia-review-bridge__actions{grid-template-columns:1fr}.hadmaia-review-bridge__copy p{font-size:.98rem}.hadmaia-review-bridge__chips span{font-size:.82rem}}'
 	);
 
 	wp_enqueue_script(

@@ -206,38 +206,17 @@ function justice_seo_tool_descriptions(): array {
 	);
 }
 
-/**
- * Index bloat control: WooCommerce and account utility pages plus the
- * default WP category were indexable and sitemap-listed, diluting the
- * site-quality signal Google evaluates only on indexed pages. None of them
- * is a search landing page. Two separate levers because Yoast treats them
- * separately: the robots filter changes the meta tag, and the sitemap
- * exclusion filters drop the URLs from the XML (a runtime robots filter
- * does NOT touch the sitemap, which is exactly how /checkout/ ended up
- * noindexed yet sitemap-listed). Money and content pages are untouched.
- *
- * @return array<int,string> post slugs to keep out of the index.
+/*
+ * Indexing is the owner's decision only (standing law; reaffirmed
+ * 2026-09-07). The 2.37.x utility-page noindex list (cart, checkout,
+ * my-account, shop, lawyer-dashboard, uncategorized) shipped without his
+ * word and is removed here. Only the legal-tools archive index forcing
+ * stays: it repairs an earlier unordered noindex.
  */
-function justice_seo_noindex_slugs(): array {
-	return apply_filters( 'justice_seo_noindex_slugs', array(
-		'cart', 'checkout', 'my-account', 'shop', 'lawyer-dashboard',
-	) );
-}
-
 add_filter( 'wpseo_robots_array', function ( $robots ) {
-	$qo = get_queried_object();
-
 	if ( is_post_type_archive( 'justice_legal_tool' ) ) {
 		$robots['index']  = 'index';
 		$robots['follow'] = 'follow';
-	}
-
-	if ( $qo instanceof WP_Post && in_array( $qo->post_name, justice_seo_noindex_slugs(), true ) ) {
-		$robots['index'] = 'noindex';
-	}
-
-	if ( $qo instanceof WP_Term && 'uncategorized' === $qo->slug ) {
-		$robots['index'] = 'noindex';
 	}
 
 	return $robots;
@@ -260,34 +239,6 @@ add_filter( 'wpseo_metadesc', function ( $description ) {
 
 	return $description;
 }, PHP_INT_MAX );
-
-add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', function ( $ids ) {
-	static $resolved = null;
-
-	if ( null === $resolved ) {
-		$resolved = array();
-
-		foreach ( justice_seo_noindex_slugs() as $slug ) {
-			$page = get_page_by_path( $slug, OBJECT, 'page' );
-
-			if ( $page instanceof WP_Post ) {
-				$resolved[] = (int) $page->ID;
-			}
-		}
-	}
-
-	return array_merge( (array) $ids, $resolved );
-} );
-
-add_filter( 'wpseo_exclude_from_sitemap_by_term_ids', function ( $ids ) {
-	$term = get_term_by( 'slug', 'uncategorized', 'category' );
-
-	if ( $term instanceof WP_Term ) {
-		$ids[] = (int) $term->term_id;
-	}
-
-	return $ids;
-} );
 
 /**
  * Cannibalization consolidation: when several of our own pages fight over

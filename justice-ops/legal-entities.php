@@ -45,9 +45,10 @@ function justice_ops_entity_waves(): array {
  * the simulation invitation, and the standing disclaimer.
  *
  * @param array $entry Entity definition.
+ * @param array $wave  slug => array(post_id, entry) of the wave being seeded.
  * @return string
  */
-function justice_ops_entity_render( array $entry ): string {
+function justice_ops_entity_render( array $entry, array $wave = array() ): string {
 	$html = '';
 
 	if ( ! empty( $entry['intro'] ) ) {
@@ -88,6 +89,12 @@ function justice_ops_entity_render( array $entry ): string {
 	$related_links = array();
 
 	foreach ( (array) ( $entry['related'] ?? array() ) as $related_slug ) {
+		if ( isset( $wave[ $related_slug ] ) ) {
+			$related_links[] = '<li><a href="' . esc_url( home_url( '/' . $related_slug . '/' ) ) . '">' . esc_html( $wave[ $related_slug ][1]['title'] ) . '</a></li>';
+
+			continue;
+		}
+
 		$related_post = get_page_by_path( $related_slug, OBJECT, array( 'page', 'post', 'articles' ) );
 
 		if ( $related_post instanceof WP_Post && 'publish' === $related_post->post_status ) {
@@ -138,7 +145,10 @@ function justice_ops_entity_seed(): void {
 
 		$created = 0;
 		$skipped = 0;
+		$made    = array();
 
+		// Pass 1: create every page first, so cross-links between wave
+		// siblings resolve when the content renders in pass 2.
 		foreach ( $entries as $entry ) {
 			if ( empty( $entry['slug'] ) || empty( $entry['title'] ) ) {
 				$skipped++;
@@ -154,13 +164,33 @@ function justice_ops_entity_seed(): void {
 
 			$post_id = wp_insert_post( wp_slash( array(
 				'post_type'    => 'page',
-				'post_status'  => 'publish',
+				'post_status'  => 'draft',
 				'post_name'    => $entry['slug'],
 				'post_title'   => $entry['title'],
-				'post_content' => justice_ops_entity_render( $entry ),
+				'post_content' => '',
 			) ), true );
 
 			if ( is_wp_error( $post_id ) || ! $post_id ) {
+				$skipped++;
+
+				continue;
+			}
+
+			$made[ $entry['slug'] ] = array( (int) $post_id, $entry );
+		}
+
+		// Pass 2: render (drafts resolve via the id map) and publish.
+		foreach ( $made as $slug => $pair ) {
+			list( $post_id, $entry ) = $pair;
+
+			$result = wp_update_post( wp_slash( array(
+				'ID'           => $post_id,
+				'post_status'  => 'publish',
+				'post_name'    => $slug,
+				'post_content' => justice_ops_entity_render( $entry, $made ),
+			) ), true );
+
+			if ( is_wp_error( $result ) ) {
 				$skipped++;
 
 				continue;

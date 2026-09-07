@@ -212,6 +212,146 @@ function justice_ops_entity_seed(): void {
 }
 add_action( 'init', 'justice_ops_entity_seed', 50 );
 
+/**
+ * The wiring layer (owner order 2026-09-07): every entity page carries a
+ * clean hierarchy line up to its money pillar, and every pillar carries a
+ * practical-information hub listing its wave entities. All links are plain
+ * paths, no parameters; only pages that exist render. The layered,
+ * everything-clickable model follows kolzchut; outbound links stay
+ * official-only (that lives in the wave data, not here).
+ */
+
+/**
+ * Reverse index over every wave file: slug => entry, pillar => entries.
+ *
+ * @return array{by_slug:array<string,array>,by_pillar:array<string,array<int,array>>}
+ */
+function justice_ops_entity_index(): array {
+	static $index = null;
+
+	if ( null !== $index ) {
+		return $index;
+	}
+
+	$index = array(
+		'by_slug'   => array(),
+		'by_pillar' => array(),
+	);
+
+	foreach ( justice_ops_entity_waves() as $file ) {
+		$entries = include $file;
+
+		if ( ! is_array( $entries ) ) {
+			continue;
+		}
+
+		foreach ( $entries as $entry ) {
+			if ( empty( $entry['slug'] ) || empty( $entry['title'] ) ) {
+				continue;
+			}
+
+			$index['by_slug'][ $entry['slug'] ] = $entry;
+
+			if ( ! empty( $entry['pillar'] ) ) {
+				$index['by_pillar'][ $entry['pillar'] ][] = $entry;
+			}
+		}
+	}
+
+	return $index;
+}
+
+add_filter( 'the_content', function ( $content ) {
+	if ( ! is_singular() || ! in_the_loop() || ! is_main_query() ) {
+		return $content;
+	}
+
+	$post = get_queried_object();
+
+	if ( ! ( $post instanceof WP_Post ) ) {
+		return $content;
+	}
+
+	$slug  = $post->post_name;
+	$index = justice_ops_entity_index();
+
+	// Entity page: a hierarchy line up to the money pillar.
+	if ( isset( $index['by_slug'][ $slug ] ) && false === strpos( $content, 'jt-entity-crumb' ) ) {
+		$entry  = $index['by_slug'][ $slug ];
+		$pieces = array( '<a href="' . esc_url( home_url( '/' ) ) . '">דף הבית</a>' );
+
+		if ( ! empty( $entry['pillar'] ) ) {
+			$pillar_post = get_page_by_path( $entry['pillar'], OBJECT, array( 'page', 'post', 'articles' ) );
+
+			if ( $pillar_post instanceof WP_Post && 'publish' === $pillar_post->post_status ) {
+				$pieces[] = '<a href="' . esc_url( get_permalink( $pillar_post ) ) . '">' . esc_html( get_the_title( $pillar_post ) ) . '</a>';
+			}
+		}
+
+		$pieces[] = '<span>' . esc_html( get_the_title( $post ) ) . '</span>';
+
+		$crumb = '<nav class="jt-entity-crumb" aria-label="מיקום בהיררכיה">' . implode( ' <span aria-hidden="true">&#8250;</span> ', $pieces ) . '</nav>';
+
+		$content = $crumb . $content;
+	}
+
+	// Pillar page: the practical-information hub of its entities.
+	if ( isset( $index['by_pillar'][ $slug ] ) && false === strpos( $content, 'jt-entity-hub' ) ) {
+		$items = '';
+		$count = 0;
+
+		foreach ( $index['by_pillar'][ $slug ] as $entry ) {
+			if ( $count >= 30 ) {
+				break;
+			}
+
+			if ( ! get_page_by_path( $entry['slug'], OBJECT, array( 'page' ) ) ) {
+				continue; // Link only pages that were actually seeded.
+			}
+
+			$items .= '<li><a href="' . esc_url( home_url( '/' . $entry['slug'] . '/' ) ) . '">' . esc_html( $entry['title'] ) . '</a></li>';
+			$count++;
+		}
+
+		if ( $count >= 3 ) {
+			$content .= '<section class="jt-entity-hub"><h2>מידע מעשי בנושא: אגרות, טפסים, מוסדות וחוקים</h2><ul>' . $items . '</ul></section>';
+		}
+	}
+
+	return $content;
+}, 28 );
+
+add_action( 'wp_head', function () {
+	if ( ! is_singular() ) {
+		return;
+	}
+
+	$post = get_queried_object();
+
+	if ( ! ( $post instanceof WP_Post ) ) {
+		return;
+	}
+
+	$index = justice_ops_entity_index();
+
+	if ( ! isset( $index['by_slug'][ $post->post_name ] ) && ! isset( $index['by_pillar'][ $post->post_name ] ) ) {
+		return;
+	}
+
+	echo '<style id="jt-entity-wiring-css">'
+		. '.jt-entity-crumb{margin:0 0 18px;font-size:13px;color:#5b6780}'
+		. '.jt-entity-crumb a{color:#5b6780;text-decoration:none}'
+		. '.jt-entity-crumb a:hover{color:#14213d}'
+		. '.jt-entity-hub{margin:34px 0;padding:22px 24px;background:#f7f9fd;border:1px solid #e3e8f2;border-radius:16px}'
+		. '.jt-entity-hub h2{margin:0 0 14px;font-size:19px;color:#14213d}'
+		. '.jt-entity-hub ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px 22px}'
+		. '.jt-entity-hub li{padding-inline-start:18px;position:relative}'
+		. '.jt-entity-hub li::before{content:"\\2190";position:absolute;inset-inline-start:0;color:#c99a2e}'
+		. '.jt-entity-hub a{color:#14213d;text-decoration:none;line-height:1.9}'
+		. '.jt-entity-hub a:hover{border-bottom:1px solid #c99a2e}'
+		. '</style>';
+}, 45 );
+
 // Status route: GET /wp-json/justice-ops/v1/entity-waves
 add_action( 'rest_api_init', function () {
 	register_rest_route( 'justice-ops/v1', '/entity-waves', array(

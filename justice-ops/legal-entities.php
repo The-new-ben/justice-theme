@@ -26,6 +26,10 @@ if ( ! defined( 'JUSTICE_OPS_ENTITY_BATCH' ) ) {
 	define( 'JUSTICE_OPS_ENTITY_BATCH', 5 ); // Pages written per front request; a page costs about 10 seconds on the host.
 }
 
+if ( ! defined( 'JUSTICE_OPS_ENTITY_LOCK_TTL' ) ) {
+	define( 'JUSTICE_OPS_ENTITY_LOCK_TTL', 3 * MINUTE_IN_SECONDS );
+}
+
 /**
  * Wave files: version-keyed so a wave runs exactly once per key.
  *
@@ -156,6 +160,35 @@ function justice_ops_entity_request_worked( ?bool $set = null ): bool {
 }
 
 /**
+ * The seeding lock carries its own timestamp: if the transient layer fails
+ * to expire it (observed on the host on 2026-09-08: a lock from a killed
+ * request stayed visible for over an hour), a lock older than the TTL is
+ * treated as free.
+ *
+ * @return bool Whether a live lock is held by another request.
+ */
+function justice_ops_entity_locked(): bool {
+	$lock = (string) get_transient( 'justice_ops_entity_seeding' );
+
+	if ( '' === $lock ) {
+		return false;
+	}
+
+	$at = (int) substr( strrchr( $lock, '@' ) ?: '@0', 1 );
+
+	return $at > 0 && ( time() - $at ) < JUSTICE_OPS_ENTITY_LOCK_TTL;
+}
+
+/**
+ * Take the lock for this request.
+ *
+ * @param string $label What holds it (wave key, plus :refresh for the refresh pass).
+ */
+function justice_ops_entity_lock( string $label ): void {
+	set_transient( 'justice_ops_entity_seeding', $label . '@' . time(), JUSTICE_OPS_ENTITY_LOCK_TTL );
+}
+
+/**
  * Seed pending waves: one-time per wave key, on a normal front request.
  */
 function justice_ops_entity_seed(): void {
@@ -173,12 +206,12 @@ function justice_ops_entity_seed(): void {
 		// workers (measured 2026-09-08: 10 minutes per wave, 502s for
 		// visitors). The lock keeps concurrent requests from seeding the same
 		// wave side by side and is short because a batch is short.
-		if ( get_transient( 'justice_ops_entity_seeding' ) ) {
+		if ( justice_ops_entity_locked() ) {
 			return;
 		}
 
 		justice_ops_entity_request_worked( true );
-		set_transient( 'justice_ops_entity_seeding', $option_key, 3 * MINUTE_IN_SECONDS );
+		justice_ops_entity_lock( $option_key );
 
 		if ( function_exists( 'set_time_limit' ) ) {
 			@set_time_limit( 180 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
@@ -340,12 +373,12 @@ function justice_ops_entity_refresh(): void {
 			continue;
 		}
 
-		if ( get_transient( 'justice_ops_entity_seeding' ) || get_transient( $option_key . '_retry_after' ) ) {
+		if ( justice_ops_entity_locked() || get_transient( $option_key . '_retry_after' ) ) {
 			return;
 		}
 
 		justice_ops_entity_request_worked( true );
-		set_transient( 'justice_ops_entity_seeding', $option_key . ':refresh', 3 * MINUTE_IN_SECONDS );
+		justice_ops_entity_lock( $option_key . ':refresh' );
 
 		if ( function_exists( 'set_time_limit' ) ) {
 			@set_time_limit( 180 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
@@ -846,7 +879,8 @@ add_action( 'rest_api_init', function () {
 				}
 			}
 
-			$status['lock'] = (string) get_transient( 'justice_ops_entity_seeding' ) ?: 'free';
+			$lock           = (string) get_transient( 'justice_ops_entity_seeding' );
+			$status['lock'] = ( '' !== $lock && justice_ops_entity_locked() ) ? $lock : ( '' !== $lock ? $lock . ' (stale, ignored)' : 'free' );
 
 			return $status;
 		},

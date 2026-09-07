@@ -63,6 +63,8 @@ add_action( 'rest_api_init', function () {
 				'theme_slug_map_hooked' => false !== has_action( 'template_redirect', 'justice_theme_native_slug_redirect' ),
 				'theme_exact_map_hooked' => false !== has_action( 'init', 'justice_theme_exact_legacy_path_redirect' ),
 				'native_auto_update' => '1' === (string) get_option( 'justice_ops_native_auto_update_enabled', '0' ),
+				'legacy_2025_map'    => function_exists( 'justice_ops_legacy_2025_map' ) ? count( justice_ops_legacy_2025_map() ) : 0,
+				'posta_refocus'      => (string) get_option( 'justice_ops_posta_refocus_v1', '' ),
 			);
 		},
 	) );

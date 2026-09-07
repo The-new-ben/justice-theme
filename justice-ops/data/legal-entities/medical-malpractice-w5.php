@@ -60,7 +60,6 @@ return array(
 			array( 'מסירת מידע לגורם שלישי מחייבת טופס ויתור סודיות חתום', 'https://www.kolzchut.org.il/he/ויתור_על_סודיות_רפואית', 'כל זכות' ),
 		),
 		'official'  => array(
-			array( 'רשומות רפואיות, משרד הבריאות', 'https://www.gov.il/he/departments/topics/medical_records/govil-landing-page' ),
 			array( 'תחום רישום ומידע רפואי, משרד הבריאות', 'https://www.gov.il/he/departments/units/medical_registration_unit/govil-landing-page' ),
 			array( 'קבלת מידע מהרשומה הרפואית, כל זכות', 'https://www.kolzchut.org.il/he/קבלת_מידע_מהרשומה_הרפואית' ),
 		),
@@ -104,7 +103,7 @@ return array(
 		),
 		'official'  => array(
 			array( 'הרשות השופטת', 'https://www.gov.il/he/departments/the_judicial_authority/govil-landing-page' ),
-			array( 'טבלת אגרות בתי המשפט', 'https://www.gov.il/he/departments/general/fees_16' ),
+			array( 'טבלת אגרות בתי המשפט', 'https://www.gov.il/he/pages/fee_guide' ),
 			array( 'חוק בתי המשפט, הנוסח המלא', 'https://he.wikisource.org/wiki/חוק_בתי_המשפט' ),
 		),
 		'related'   => array( 'costs-litigation-losing-party', 'deadline-suing-medical-negligence', 'appealing-malpractice-judgment' ),
@@ -401,11 +400,11 @@ return array(
 			array( 'זכה התובע, הנתבע נושא באגרה ומשפה את התובע (תקנה 5(ב)(5)); נדחתה התביעה, התובע משלם את היתרה (תקנה 5(ב)(7))', 'https://he.wikisource.org/wiki/תקנות_בתי_המשפט_(אגרות)', 'תקנות האגרות' ),
 			array( 'פטור מיתרת האגרה אם ההליך הסתיים בפשרה, גישור או בוררות לפני תום קדם המשפט השלישי (תקנה 5(ב)(2))', 'https://he.wikisource.org/wiki/תקנות_בתי_המשפט_(אגרות)', 'תקנות האגרות' ),
 			array( 'בקשה לפטור מאגרה מוסדרת בתקנה 14, בצירוף תצהיר על מצב כלכלי; בנזקי גוף מוגשת עד 15 ימים מהמועד לתשלום', 'https://he.wikisource.org/wiki/תקנות_בתי_המשפט_(אגרות)', 'תקנות האגרות' ),
-			array( 'טבלת האגרות הרשמית מתפרסמת באתר בתי המשפט', 'https://www.gov.il/he/departments/general/fees_16', 'gov.il' ),
+			array( 'טבלת האגרות הרשמית מתפרסמת באתר בתי המשפט', 'https://www.gov.il/he/pages/fee_guide', 'gov.il' ),
 		),
 		'official'  => array(
 			array( 'תקנות בתי המשפט (אגרות), הנוסח המלא', 'https://he.wikisource.org/wiki/תקנות_בתי_המשפט_(אגרות)' ),
-			array( 'טבלת אגרות בתי המשפט', 'https://www.gov.il/he/departments/general/fees_16' ),
+			array( 'טבלת אגרות בתי המשפט', 'https://www.gov.il/he/pages/fee_guide' ),
 			array( 'הרשות השופטת', 'https://www.gov.il/he/departments/the_judicial_authority/govil-landing-page' ),
 		),
 		'related'   => array( 'venue-malpractice-claim-court', 'contingency-fee-injury-claims', 'compromise-mediation-malpractice-cases', 'medical-malpractice-costs' ),

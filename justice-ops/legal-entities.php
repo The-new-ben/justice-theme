@@ -138,14 +138,14 @@ function justice_ops_entity_render( array $entry, array $wave = array() ): strin
  * One heavy pass per request, whether seeding or refreshing: the flag is
  * raised by whichever ran, and the other backs off until the next request.
  *
- * @param bool $raise Set the flag.
+ * @param bool|null $set true raises the flag, false clears it (tests), null reads.
  * @return bool Whether a pass already ran in this request.
  */
-function justice_ops_entity_request_worked( bool $raise = false ): bool {
+function justice_ops_entity_request_worked( ?bool $set = null ): bool {
 	static $worked = false;
 
-	if ( $raise ) {
-		$worked = true;
+	if ( null !== $set ) {
+		$worked = $set;
 	}
 
 	return $worked;

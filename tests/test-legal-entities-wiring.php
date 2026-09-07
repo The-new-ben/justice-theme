@@ -160,7 +160,7 @@ check( 'entity page gets no hub', false === strpos( $out, 'jt-entity-hub' ) );
 $jt_queried = $jt_posts['divorce-lawyer'];
 $_SERVER['REQUEST_URI'] = '/divorce-lawyer/';
 check( 'template function: hub html for a pillar by slug', substr_count( justice_ops_entity_hub_html( 'medical-malpractice-lawyer' ), '<li>' ) === 30 );
-check( 'template function: hub html defaults to the served pillar', false !== strpos( justice_ops_entity_hub_html(), '/fees-rabbinical-courts/' ) );
+check( 'template function: hub html defaults to the served pillar', justice_ops_entity_hub_html() === justice_ops_entity_hub_html( 'divorce-lawyer' ) && 9 === substr_count( justice_ops_entity_hub_html(), '<li>' ) );
 check( 'template function: crumb html for an entity by slug', false !== strpos( justice_ops_entity_crumb_html( 'sachar-minimum-2026' ), '/labor-lawyer/' ) && '' === justice_ops_entity_crumb_html( 'about-us' ) );
 check( 'shortcode [justice_entity_hub pillar=…] renders with a custom title', false !== strpos( $jt_shortcodes['justice_entity_hub']( array( 'pillar' => 'labor-lawyer', 'title' => 'כלים לעובדים' ) ), '<h2>כלים לעובדים</h2>' ) );
 check( 'data function: items carry slug/title/description/url for live pages only', count( justice_ops_entity_items( 'labor-lawyer', 5 ) ) === 5 && isset( justice_ops_entity_items( 'labor-lawyer', 1 )[0]['description'] ) );
@@ -209,7 +209,8 @@ check( 'seeder: lock released and data hash recorded', empty( $jt_transient ) &&
 check( 'seeder: fingerprint stored on seeded pages', '' !== get_post_meta( $jt_posts['checking-negligence-claim-grounds']->ID, '_justice_ops_entity_hash', true ) );
 check( 'seeder: rendered page links the simulation and the pillar', false !== strpos( $jt_posts['checking-negligence-claim-grounds']->post_content, '/legal-simulation/' ) && false !== strpos( $jt_posts['checking-negligence-claim-grounds']->post_content, '/medical-malpractice-lawyer/' ) );
 
-// 7. Refresh: wave 1 data changed (hash stale). Untouched page (old modified stamp, no fingerprint) refreshes; edited page is kept.
+// 7. Refresh, in a NEW request: wave 1 data changed (hash stale). Untouched page (old modified stamp, no fingerprint) refreshes; edited page is kept.
+justice_ops_entity_request_worked( false );
 $jt_updates = array();
 $jt_options['justice_ops_entity_wave_family-law-w1'] = 'done:2026-09-07 16:40:21 created:47 skipped:0';
 $jt_options['justice_ops_entity_wave_family-law-w1_data'] = 'stale';
@@ -232,7 +233,8 @@ foreach ( $jt_updates as $slug ) {
 check( 'refresh: no dead gov.il link left in any re-rendered page, fixed links present', 0 === $dead_left && $fixed >= 5 );
 check( 'refresh: data hash now current', md5_file( __DIR__ . '/../justice-ops/data/legal-entities/family-law-w1.php' ) === get_option( 'justice_ops_entity_wave_family-law-w1_data' ) );
 
-// 8. Refresh with fingerprint: an edited page whose stored fingerprint no longer matches is kept.
+// 8. Refresh with fingerprint (new request): an edited page whose stored fingerprint no longer matches is kept.
+justice_ops_entity_request_worked( false );
 $jt_updates = array();
 $jt_options['justice_ops_entity_wave_family-law-w1_data'] = 'stale';
 $jt_meta[ $jt_posts['temporary-alimony']->ID ]['_justice_ops_entity_hash'] = 'different';

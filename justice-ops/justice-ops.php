@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.37.5
+ * Version: 2.37.8
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.37.5' );
+	define( 'JUSTICE_OPS_VERSION', '2.37.8' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -289,6 +289,32 @@ add_action( 'wp_enqueue_scripts', function () {
 	// theme's redesign.css awaiting the owner pull.
 	wp_enqueue_style( 'justice-ops-relevance', plugins_url( 'assets/relevance-fixes.css', __FILE__ ), array(), JUSTICE_OPS_VERSION );
 }, 60 );
+
+add_action( 'template_redirect', function () {
+	if ( is_admin() || ! is_front_page() ) {
+		return;
+	}
+
+	ob_start( function ( $html ) {
+		return str_replace(
+			array(
+				'כרטיס לא פעיל',
+				'פרטים בסיסיים מוצגים בזהירות, בלי עובדות לימודים, ניסיון או תמונה שלא נבדקו.',
+				'ביקורות, מדיה ותוכן מקצועי נכנסים רק אחרי מקור ברור ואישור מתאים.',
+				'עורכי דין ואנשי מקצוע ✓ פרופילים נבדקים לפני הצגה ✓ ללא הבטחת תוצאה או דירוג ✓ שקיפות מלאה לגבי שיתופי פעולה ומסלולים בתשלום',
+				'href="#" id="ai-sim-continue"',
+			),
+			array(
+				'פרופיל בסיסי',
+				'פרטים בסיסיים מוצגים בצורה תמציתית, עם דגש על תחום, אזור ודרך יצירת קשר.',
+				'פרופיל מורחב יכול לכלול ביקורות, מדיה ותוכן מקצועי שמחזקים אמון.',
+				'עורכי דין ואנשי מקצוע ✓ פרטים לפי תחום ואזור ✓ ללא הבטחת תוצאה או דירוג ✓ שקיפות מלאה לגבי שיתופי פעולה ומסלולים בתשלום',
+				'href="/legal-simulation/?utm_source=homepage&amp;utm_medium=ai_center&amp;utm_campaign=court_arena_continue" id="ai-sim-continue"',
+			),
+			$html
+		);
+	} );
+}, 0 );
 
 // CC BY-SA 2.0 attribution for the homepage hero photograph (Ted Eytan,
 // "Tel Aviv from the Air", via Wikimedia Commons). License requires

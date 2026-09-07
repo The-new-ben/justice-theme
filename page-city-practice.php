@@ -59,8 +59,8 @@ $practice_name = $practice_term && ! is_wp_error( $practice_term ) ? $practice_t
 			<p><?php echo esc_html( get_the_excerpt() ?: 'עמוד עיר ותחום נועד לחבר בין צורך משפטי, מיקום, עורכי דין רלוונטיים, מדריכים וכלי פנייה מסודרים.' ); ?></p>
 		</div>
 		<aside>
-			<strong><?php esc_html_e( 'לא עמוד דלת דק', 'justice-theme' ); ?></strong>
-			<p><?php esc_html_e( 'עמודים אלה נשארים בטיוטה עד שיש בהם תוכן ייחודי, עורכי דין רלוונטיים, שאלות נפוצות וקישורים פנימיים אמיתיים.', 'justice-theme' ); ?></p>
+			<strong><?php esc_html_e( 'מדריך מקומי לפי תחום ועיר', 'justice-theme' ); ?></strong>
+			<p><?php esc_html_e( 'בעמוד הזה מרוכזים תחום משפטי, אזור שירות, מדריכים קשורים ודרכי פנייה, כדי לעזור להבין את האפשרויות באזור אחד בלי לדלג בין עשרות חיפושים.', 'justice-theme' ); ?></p>
 		</aside>
 	</div>
 </section>
@@ -82,7 +82,7 @@ $practice_name = $practice_term && ! is_wp_error( $practice_term ) ? $practice_t
 					<?php endwhile; wp_reset_postdata(); ?>
 				</div>
 			<?php else : ?>
-				<p class="city-practice-body__empty"><?php esc_html_e( 'עדיין אין מספיק פרופילים מאושרים לעמוד הזה. העמוד צריך להישאר טיוטה עד שיש התאמה אמיתית.', 'justice-theme' ); ?></p>
+				<p class="city-practice-body__empty"><?php esc_html_e( 'אפשר להתחיל מחיפוש רחב יותר במדריך עורכי הדין או להשאיר פנייה קצרה עם העיר והתחום. כך קל יותר להבין למי נכון לפנות.', 'justice-theme' ); ?></p>
 			<?php endif; ?>
 		</main>
 

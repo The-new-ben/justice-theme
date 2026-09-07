@@ -84,11 +84,11 @@ $plan_checkout_url = static function ( string $plan_key, string $surface = 'pric
 		<div>
 			<p class="section-header__eyebrow"><?php esc_html_e( 'מסלולים לעורכי דין', 'justice-theme' ); ?></p>
 			<h1><?php esc_html_e( 'פרופיל מקצועי, תוכן, לידים וכלים במקום אחד', 'justice-theme' ); ?></h1>
-			<p><?php esc_html_e( 'Jus-Tice נבנית כמערכת מסחרית לעורכי דין: פרופיל מקצועי, תוכן, חשיפה, פניות ודוחות ערך. המחירים פורסמו כדי לאפשר מכירה ושיחות לקוח ברורות; מעבר לתשלום חודשי אוטומטי ייפתח רק לאחר שהסליקה והמוצרים יהיו מאושרים ופעילים בפועל.', 'justice-theme' ); ?></p>
+			<p><?php esc_html_e( 'Jus-Tice היא מערכת מסחרית לעורכי דין: פרופיל מקצועי, תוכן, חשיפה, פניות ודוחות ערך. המסלולים מיועדים למשרדים שרוצים להופיע מול קהל שמחפש מידע משפטי ודרך התקשרות ברורה.', 'justice-theme' ); ?></p>
 		</div>
 		<aside>
-			<strong><?php esc_html_e( 'סטטוס תשלומים', 'justice-theme' ); ?></strong>
-			<p><?php esc_html_e( 'אם הסליקה החודשית עדיין לא מוכנה, הכפתורים מובילים להרשמה ובדיקת התאמה. כשהתשלום החודשי יהיה מאושר ופעיל, הכפתורים יעברו אוטומטית לתשלום מאובטח.', 'justice-theme' ); ?></p>
+			<strong><?php esc_html_e( 'איך מתחילים', 'justice-theme' ); ?></strong>
+			<p><?php esc_html_e( 'בוחרים מסלול, משאירים פרטים ומקבלים חזרה מסודרת להמשך הפעלה. כל מסלול מוצג בשפה ברורה כדי שיהיה קל להבין מה מקבלים ומה הצעד הבא.', 'justice-theme' ); ?></p>
 		</aside>
 	</div>
 </section>
@@ -295,7 +295,7 @@ $plan_checkout_url = static function ( string $plan_key, string $surface = 'pric
 		<div class="lawyer-plans__notice">
 			<h2><?php esc_html_e( 'כללי הפעלה לפני סליקה', 'justice-theme' ); ?></h2>
 			<p><?php esc_html_e( 'כל מסלול בתשלום כפוף לבדיקה, גילוי נאות, תנאי שירות, מדיניות פרטיות וכללי לשכת עורכי הדין. אין הבטחה לתוצאה משפטית או עסקית, ופניות נכללות כחלק ממכסת המסלול בלבד.', 'justice-theme' ); ?></p>
-			<p><?php esc_html_e( 'עד שהסליקה החודשית האוטומטית תאושר, אפשר לקלוט עורכי דין למסלול בתשלום דרך חשבונית והפעלה ידנית לאחר בדיקת התאמה ואישור תשלום.', 'justice-theme' ); ?></p>
+			<p><?php esc_html_e( 'אפשר להתחיל במסלול ברור עם פרטי תשלום מסודרים, הפעלת פרופיל מקצועי ומעקב אחרי ערך עסקי לאורך החודש.', 'justice-theme' ); ?></p>
 		</div>
 
 		<section class="lawyer-plans-faq" aria-labelledby="lawyer-plans-faq-title">

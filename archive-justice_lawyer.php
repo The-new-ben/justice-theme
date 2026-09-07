@@ -307,7 +307,7 @@ $approved_count = (int) $lawyers->found_posts;
 				<div class="directory-comparison-playbook__header">
 					<span><?php esc_html_e( 'בדיקת התאמה לפני פנייה', 'justice-theme' ); ?></span>
 					<h2><?php esc_html_e( 'מה כדאי לבדוק לפני שבוחרים עורך דין?', 'justice-theme' ); ?></h2>
-					<p><?php esc_html_e( 'לפני שפונים לעורך דין כדאי לבדוק תחום, אזור שירות, ניסיון רלוונטי ודרכי פנייה. ריכזנו כאן את הבדיקות שחשוב לעשות, בלי הבטחות ובלי עובדות שלא נבדקו.', 'justice-theme' ); ?></p>
+					<p><?php esc_html_e( 'לפני שפונים לעורך דין כדאי להבין תחום, אזור שירות, ניסיון רלוונטי ודרך התקשרות. ריכזנו כאן נקודות שעוזרות להשוות בצורה רגועה, בלי הבטחות ובלי לחץ.', 'justice-theme' ); ?></p>
 				</div>
 				<div class="directory-comparison-playbook__grid">
 					<article>
@@ -377,7 +377,7 @@ $approved_count = (int) $lawyers->found_posts;
 						<?php
 						printf(
 							/* translators: %d: approved lawyer profiles count. */
-							esc_html__( 'נמצאו %d פרופילים המאושרים להצגה', 'justice-theme' ),
+							esc_html__( 'נמצאו %d פרופילים רלוונטיים', 'justice-theme' ),
 							(int) $approved_count
 						);
 						?>
@@ -432,8 +432,8 @@ $approved_count = (int) $lawyers->found_posts;
 					: '';
 				?>
 				<div class="directory-empty">
-					<h2><?php echo esc_html( $justice_empty_area_name ? sprintf( 'הפרופילים בתחום %s נמצאים בבדיקת אימות', $justice_empty_area_name ) : 'הפרופילים בתחום הזה נמצאים בבדיקת אימות' ); ?></h2>
-					<p><?php esc_html_e( 'אנחנו מציגים רק פרופילים שעברו בדיקה. עד שהם עולים, אפשר להתקדם כבר עכשיו:', 'justice-theme' ); ?></p>
+					<h2><?php echo esc_html( $justice_empty_area_name ? sprintf( 'אפשר להתחיל בחיפוש רחב יותר בתחום %s', $justice_empty_area_name ) : 'אפשר להתחיל בחיפוש רחב יותר בתחום הזה' ); ?></h2>
+					<p><?php esc_html_e( 'לא מצאתם התאמה מדויקת ברשימה? אפשר להתחיל מפנייה קצרה או מסימולציה של המקרה, ולקבל כיוון ראשוני להמשך.', 'justice-theme' ); ?></p>
 					<div class="directory-empty__cta">
 						<?php if ( $justice_empty_whatsapp ) : ?>
 							<a href="<?php echo esc_url( $justice_empty_whatsapp ); ?>" class="button button--whatsapp-inline" target="_blank" rel="noopener" data-whatsapp-surface="directory_empty" data-lead-utm-source="directory_empty" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help"><?php esc_html_e( 'התאמה אישית בוואטסאפ', 'justice-theme' ); ?></a>

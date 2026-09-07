@@ -197,7 +197,7 @@
 			{
 				title: 'בדיקה ושליחה',
 				kicker: 'שלב 5',
-				description: 'שליחה לבדיקה. שום דבר לא מתפרסם אוטומטית לפני בדיקת רישיון, התאמה, תוכן וכללי פרסום.',
+				description: 'שליחה מסודרת של פרטי המשרד, תחומי העיסוק והמסלול הרצוי.',
 				fields: []
 			}
 		];
@@ -263,7 +263,7 @@
 
 		var finalSummary = document.createElement('div');
 		finalSummary.className = 'lawyer-registration-wizard__summary';
-		finalSummary.innerHTML = '<strong>מה קורה אחרי השליחה?</strong><ul><li>נבדוק רישיון, תחום, אזורי שירות וזמינות למענה.</li><li>נכין את הפרופיל והמיני-סייט לבדיקה לפני פרסום.</li><li>אם נבחר מסלול בתשלום, נשלח הוראות תשלום או נפעיל תשלום אוטומטי רק כשהסליקה מאושרת.</li></ul>';
+		finalSummary.innerHTML = '<strong>מה קורה אחרי השליחה?</strong><ul><li>נחזור אליכם עם המשך הפעלה מסודר.</li><li>נבנה פרופיל מקצועי עם תחומים, אזורי שירות ודרכי קשר.</li><li>במסלול עסקי תקבלו גם פרטי תשלום ומעקב אחר ערך הפרופיל.</li></ul>';
 		finalStep.insertBefore(finalSummary, finalFields);
 
 		stepElements.forEach(function (step, index) {

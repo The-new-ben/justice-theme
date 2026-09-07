@@ -176,7 +176,7 @@ if ( $registration_claim_profile ) {
 	<div class="container lawyer-registration__grid">
 		<div class="lawyer-registration__content">
 			<h2><?php esc_html_e( 'הרשמה ראשונית', 'justice-theme' ); ?></h2>
-			<p><?php esc_html_e( 'הפרופיל לא מתפרסם אוטומטית. לאחר שליחה הוא נכנס לבדיקה, אימות ועריכה לפני עלייה לאתר.', 'justice-theme' ); ?></p>
+			<p><?php esc_html_e( 'השאירו פרטים, תחומי עיסוק ואזורי שירות. נחזור אליכם עם המשך הפעלה מסודר לפרופיל מקצועי באתר.', 'justice-theme' ); ?></p>
 
 			<?php if ( $registration_sent ) : ?>
 				<div class="lawyer-registration-success" role="status">
@@ -186,7 +186,7 @@ if ( $registration_claim_profile ) {
 						<?php
 						printf(
 							/* translators: %s: selected lawyer plan label. */
-							esc_html__( 'המסלול שנבחר: %s. הפרופיל לא מתפרסם אוטומטית, וכל מסלול בתשלום מופעל רק אחרי בדיקת התאמה ואישור תשלום.', 'justice-theme' ),
+							esc_html__( 'המסלול שנבחר: %s. נחזור אליכם עם פרטי המשך, תשלום והפעלת הפרופיל.', 'justice-theme' ),
 							esc_html( $selected_plan['label'] ?? $selected_plan_interest )
 						);
 						?>
@@ -228,7 +228,7 @@ if ( $registration_claim_profile ) {
 			<?php endif; ?>
 
 			<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
-				<div class="legaltool-request__notice"><?php esc_html_e( 'בקשת המסלול תטופל ידנית: לאחר בדיקת התאמה נשלח חשבונית/דרישת תשלום ונפעיל את המסלול לאחר אישור תשלום.', 'justice-theme' ); ?></div>
+				<div class="legaltool-request__notice"><?php esc_html_e( 'אחרי שליחת הפרטים נחזור אליכם עם המשך הפעלה מסודר, פרטי מסלול ותשלום, ודרך ברורה להתחיל לקבל ערך מהפרופיל.', 'justice-theme' ); ?></div>
 			<?php endif; ?>
 
 			<?php if ( $selected_plan ) : ?>
@@ -241,7 +241,7 @@ if ( $registration_claim_profile ) {
 						<span><?php esc_html_e( 'מחיר', 'justice-theme' ); ?></span>
 						<strong><?php echo esc_html( $selected_plan['price'] ?? '-' ); ?></strong>
 					</div>
-					<p><?php echo 'manual_invoice' === $selected_payment_path ? esc_html__( 'השליחה תיצור בקשת בדיקת התאמה וחשבונית ידנית. לא יתבצע חיוב אוטומטי מהטופס הזה.', 'justice-theme' ) : esc_html__( 'השליחה יוצרת פרופיל טיוטה לבדיקה. תשלום אוטומטי ייפתח רק כאשר הסליקה והמוצרים יהיו פעילים.', 'justice-theme' ); ?></p>
+					<p><?php echo 'manual_invoice' === $selected_payment_path ? esc_html__( 'השליחה פותחת בקשת הצטרפות מסודרת. נחזור אליכם עם פרטי התשלום וההפעלה.', 'justice-theme' ) : esc_html__( 'השליחה פותחת בקשת הצטרפות לפרופיל מקצועי ולמסלול חשיפה באתר.', 'justice-theme' ); ?></p>
 				</section>
 			<?php endif; ?>
 
@@ -266,7 +266,7 @@ if ( $registration_claim_profile ) {
 					</li>
 					<li data-registration-state="paid_requires_evidence">
 						<strong><?php esc_html_e( 'שקיפות מלאה', 'justice-theme' ); ?></strong>
-						<span><?php esc_html_e( 'שום חיוב לא מתבצע אוטומטית מהטופס. מסלול בתשלום מופעל רק אחרי אישור מסודר מכם.', 'justice-theme' ); ?></span>
+					<span><?php esc_html_e( 'ההצטרפות מתחילה מבקשה מסודרת. פרטי תשלום והפעלה נשלחים להמשך אישור ברור מולכם.', 'justice-theme' ); ?></span>
 					</li>
 				</ol>
 			</section>
@@ -440,12 +440,12 @@ if ( $registration_claim_profile ) {
 					<label>
 						<span><?php esc_html_e( 'תמונת פרופיל', 'justice-theme' ); ?></span>
 						<input type="file" name="profile_photo_upload" accept="image/jpeg,image/png,image/webp">
-						<small class="lawyer-registration-form__file-note"><?php esc_html_e( 'נשמר לבדיקה פנימית ולא מתפרסם אוטומטית.', 'justice-theme' ); ?></small>
+						<small class="lawyer-registration-form__file-note"><?php esc_html_e( 'אפשר לצרף תמונה מקצועית שתשמש לבניית הפרופיל.', 'justice-theme' ); ?></small>
 					</label>
 					<label>
 						<span><?php esc_html_e( 'לוגו משרד', 'justice-theme' ); ?></span>
 						<input type="file" name="profile_logo_upload" accept="image/jpeg,image/png,image/webp">
-						<small class="lawyer-registration-form__file-note"><?php esc_html_e( 'אופציונלי. יוצג רק אחרי אישור בעל האתר.', 'justice-theme' ); ?></small>
+						<small class="lawyer-registration-form__file-note"><?php esc_html_e( 'אופציונלי. מתאים למשרדים שרוצים להציג שיחה, הסבר קצר או היכרות אישית.', 'justice-theme' ); ?></small>
 					</label>
 					<label>
 						<span><?php esc_html_e( 'קובץ ציבורי / מצגת משרד', 'justice-theme' ); ?></span>
@@ -463,13 +463,13 @@ if ( $registration_claim_profile ) {
 					</label>
 					<label class="lawyer-registration-form__full">
 						<span><?php esc_html_e( 'שאלות נפוצות שתרצו לענות עליהן', 'justice-theme' ); ?></span>
-						<textarea name="profile_faqs" rows="4" placeholder="<?php esc_attr_e( 'כל שורה: שאלה | תשובה קצרה. כל תשובה תיבדק לפני פרסום.', 'justice-theme' ); ?>"></textarea>
+						<textarea name="profile_faqs" rows="4" placeholder="<?php esc_attr_e( 'כל שורה: שאלה | תשובה קצרה. לדוגמה: כמה זמן נמשכת פגישה ראשונה | בדרך כלל 30 עד 60 דקות', 'justice-theme' ); ?>"></textarea>
 					</label>
 				</div>
 
 				<label class="lawyer-registration-form__consent">
 					<input type="checkbox" name="consent" value="1" required>
-					<span><?php esc_html_e( 'אני מאשר/ת יצירת פרופיל טיוטה ובדיקת הפרטים לפני פרסום. ברור לי שהפרופיל לא יפורסם אוטומטית.', 'justice-theme' ); ?></span>
+					<span><?php esc_html_e( 'אני מאשר/ת פתיחת בקשת הצטרפות ויצירת פרופיל מקצועי לפי הפרטים שמסרתי.', 'justice-theme' ); ?></span>
 				</label>
 
 				<button class="button button--gold" type="submit"><?php esc_html_e( 'שליחת פרטים לבדיקה', 'justice-theme' ); ?></button>

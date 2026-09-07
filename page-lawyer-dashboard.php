@@ -38,7 +38,7 @@ if ( ! is_user_logged_in() ) :
 			<p class="section-header__eyebrow"><?php esc_html_e( 'אזור אישי לעורכי דין', 'justice-theme' ); ?></p>
 			<h1><?php esc_html_e( 'התחברו כדי לנהל את הנוכחות שלכם ב-Jus-Tice', 'justice-theme' ); ?></h1>
 			<p><?php esc_html_e( 'האזור האישי מרכז את הפרופיל, הלידים, התוכן, סטטוס המנוי ובקשות השירות במקום אחד. פרסום ועדכונים מהותיים עוברים בדיקה לפני עלייה לאתר.', 'justice-theme' ); ?></p>
-			<ul class="lawyer-dashboard__gate-points" aria-label="<?php esc_attr_e( 'מה מחכה באזור האישי', 'justice-theme' ); ?>">
+			<ul class="lawyer-dashboard__gate-points" aria-label="<?php esc_attr_e( 'מה יש באזור האישי', 'justice-theme' ); ?>">
 				<li><?php esc_html_e( 'מעקב אחרי פניות ולידים שהגיעו מהאתר.', 'justice-theme' ); ?></li>
 				<li><?php esc_html_e( 'בקשת עדכונים לפרופיל המקצועי, תחומי עיסוק ופרטי קשר בלי כניסה לוורדפרס.', 'justice-theme' ); ?></li>
 				<li><?php esc_html_e( 'בקשות לתוכן חתום, המלצות Google וחיבור לספקים מקצועיים תחת בקרת מערכת.', 'justice-theme' ); ?></li>
@@ -65,11 +65,11 @@ if ( ! is_user_logged_in() ) :
 					</li>
 					<li data-dashboard-state="payment_evidence_required">
 						<strong><?php esc_html_e( 'נדרשת הוכחת תשלום', 'justice-theme' ); ?></strong>
-						<span><?php esc_html_e( 'סטטוס משלם מופעל רק אחרי אסמכתא פרטית, תאריך תשלום ואישור בעלים.', 'justice-theme' ); ?></span>
+						<span><?php esc_html_e( 'מסלול התשלום והפרופיל מוצגים במקום אחד, לצד נתוני פניות ופעולות המשך.', 'justice-theme' ); ?></span>
 					</li>
 					<li data-dashboard-state="lead_routing_after_paid">
-						<strong><?php esc_html_e( 'שיוך לידים אחרי אישור', 'justice-theme' ); ?></strong>
-						<span><?php esc_html_e( 'רק לאחר אישור תשלום ניתן לחבר לידים, דוחות ערך ופעולות שימור לעורך הדין.', 'justice-theme' ); ?></span>
+						<strong><?php esc_html_e( 'שיוך פניות לפי תחום ועיר', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'פניות, דוחות ערך ופעולות המשך מתחברים לפרופיל המקצועי בצורה מסודרת.', 'justice-theme' ); ?></span>
 					</li>
 				</ol>
 			</div>
@@ -212,7 +212,7 @@ $completed_first_value_steps = count( array_filter( $first_value_steps, static f
 } ) );
 $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 'trialing' ), true )
 	? __( 'תשלום פעיל לפי סטטוס המנוי.', 'justice-theme' )
-	: __( 'תשלום וסליקה עדיין לא פעילים עד אישור מסחרי, חשבוניות וכללי חיוב.', 'justice-theme' );
+	: __( 'פרטי התשלום והמסלול יוצגו כאן לצד מצב הפרופיל והפניות.', 'justice-theme' );
 $primary_plan_key           = $primary_profile_id ? ( get_post_meta( $primary_profile_id, 'plan_type', true ) ?: 'free' ) : 'free';
 $primary_payment_path       = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'payment_path', true ) : '';
 $primary_payment_followup   = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'payment_followup_status', true ) : '';

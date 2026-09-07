@@ -106,14 +106,21 @@ add_action( 'wp_enqueue_scripts', function (): void {
 		'.hadmaia-review-bridge{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.5rem;align-items:center;margin:0 0 2rem;padding:clamp(1.25rem,3vw,2rem);border:1px solid rgba(15,39,76,.14);border-radius:18px;background:linear-gradient(135deg,#f8fafc 0%,#eef4fb 52%,#fff 100%);box-shadow:0 18px 48px rgba(15,39,76,.1)}.hadmaia-review-bridge__copy span{display:inline-flex;margin-bottom:.55rem;color:#b65343;font-size:.78rem;font-weight:800;letter-spacing:.04em}.hadmaia-review-bridge__copy h2{margin:0 0 .55rem;color:#0f274c;font-size:clamp(1.35rem,2.4vw,2rem);line-height:1.25}.hadmaia-review-bridge__copy p{margin:0;color:#334155;font-size:1rem;line-height:1.7}.hadmaia-review-bridge__actions{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:flex-end}.hadmaia-review-bridge__actions .button{white-space:nowrap}@media(max-width:760px){.hadmaia-review-bridge{grid-template-columns:1fr}.hadmaia-review-bridge__actions{justify-content:stretch}.hadmaia-review-bridge__actions .button{width:100%;text-align:center}}'
 	);
 
+	wp_enqueue_script(
+		'justice-ops-hadmaia-review',
+		plugins_url( 'assets/hadmaia-review.js', __FILE__ ),
+		array(),
+		JUSTICE_OPS_VERSION,
+		true
+	);
+
 	add_action( 'wp_footer', function () use ( $config ): void {
 		?>
-		<script id="justice-ops-hadmaia-review-footer">
-		window.JusticeHadmaiaReview=<?php echo wp_json_encode( $config, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ); ?>;
-		(function(){var cfg=window.JusticeHadmaiaReview||{};if(!cfg.intent)return;var allowed=['court_rehearsal','mediation','witness_prep','case_review'];if(allowed.indexOf(cfg.intent)===-1)return;function hidden(form,name,value){if(!form)return;var field=form.querySelector('[name="'+name+'"]');if(!field){field=document.createElement('input');field.type='hidden';field.name=name;form.appendChild(field);}field.value=value||'';}function applyForms(){document.querySelectorAll('#ask-lawyer form,.ask-lawyer__form,#lawyer-inquiry form').forEach(function(form){hidden(form,'product_intent',cfg.intent);hidden(form,'lead_source_surface','hadmaia_professional_review');hidden(form,'utm_source','jus-tice.com');hidden(form,'utm_medium','product_handoff');hidden(form,'utm_campaign','professional_review');hidden(form,'utm_content',cfg.intent);hidden(form,'source_keyword',cfg.sourceKeyword||'');var msg=form.querySelector('[name="lead_message"],[name="message"]');if(msg&&!msg.value&&cfg.leadMessage)msg.value=cfg.leadMessage;});}function renderBridge(){if(!/\/lawyers\/?/.test(location.pathname)||document.querySelector('.hadmaia-review-bridge'))return;var target=document.querySelector('.directory-guidance')||document.querySelector('.lawyer-directory .container')||document.querySelector('main');if(!target)return;var bridge=document.createElement('section');bridge.className='hadmaia-review-bridge';bridge.setAttribute('aria-label','המשך מסימולציה לבדיקה מקצועית');bridge.innerHTML='<div class="hadmaia-review-bridge__copy"><span>הגעתם מסימולציית Hadmaia</span><h2></h2><p></p></div><div class="hadmaia-review-bridge__actions"><a class="button button--primary" href="/#ask-lawyer">השארת פנייה מסודרת</a><a class="button button--whatsapp-inline" target="_blank" rel="noopener">המשך בוואטסאפ</a></div>';bridge.querySelector('h2').textContent=cfg.headline||'';bridge.querySelector('p').textContent=cfg.body||'';bridge.querySelector('.button--primary').href='/?lead_source_surface=hadmaia_professional_review&product_intent='+encodeURIComponent(cfg.intent)+'&utm_source=jus-tice.com&utm_medium=product_handoff&utm_campaign=professional_review&source_keyword='+encodeURIComponent(cfg.sourceKeyword||'')+'#ask-lawyer';bridge.querySelector('.button--whatsapp-inline').href=cfg.whatsappUrl||'https://wa.me/972525101555';target.parentNode.insertBefore(bridge,target);}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){applyForms();renderBridge();});}else{applyForms();renderBridge();}})();
+		<script type="application/json" id="justice-ops-hadmaia-review-config">
+		<?php echo wp_json_encode( $config, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ); ?>
 		</script>
 		<?php
-	}, 75 );
+	}, 5 );
 }, 75 );
 
 add_action( 'save_post_justice_lead', function ( int $post_id, WP_Post $post, bool $update ): void {

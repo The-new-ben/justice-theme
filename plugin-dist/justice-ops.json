@@ -1,13 +1,13 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.37.8",
+  "version": "2.37.9",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.37.8.zip",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.37.9.zip",
   "last_updated": "2026-09-06",
   "sections": {
     "changelog": "2.37.8: makes the homepage AI simulation CTA a real raw HTML URL for crawlers, not only a client-side JavaScript repair. 2.37.7: cleans homepage public status language server-side so crawlers receive the corrected wording. 2.37.6: cleans public homepage status language and keeps the AI links wiring from 2.37.5. 2.37.5: adds safe homepage AI link wiring so visible buttons have real destinations before interaction. 2.37.4: adds a conservative premium visual bridge through the plugin channel while the theme Git pull is repaired. It improves the visible layer and simulation framing without changing URLs, public content, indexability, menus, or database records. 2.37.3: restores the HADMAIA courtroom simulation shortcode on /legal-simulation/ and routes the embedded arena to Hebrew by default. 2.37.2: legacy redirects back on (evidence-driven, pending owner approval). WordPress old-slug 301s and the theme's 2026-05-17 Hebrew-to-English slug map are restored exactly as before 2.37.0 — Search Console showed Google crawling those ranking Hebrew URLs as redirects until 2026-09-02, and 2.37.0/2.37.1 turned them into 404s. Still off: 404 permalink guessing and any canonical redirect on a 404. Shortcode stubs and native auto-update unchanged. 2.37.1: zero-friction r1. The theme's own redirect engine (exact legacy-path map on init, old-slug map on template_redirect) is unhooked by the plugin; two orphaned shortcodes render empty; Justice Ops native auto-update enabled once (owner order: no more manual update clicks). 2.37.0: zero-friction (owner order 2026-09-03). All content redirects off: WordPress old-slug redirects, 404 permalink guessing, and the legacy 301 map are disabled; unknown URLs answer 404 (canonical host/https redirects stay). Plugin now loads only public protection, update control, registration, lead routing, scheduler, sponsored cards, title/claims guards, practice rendering, internal links, calculators, document/rent/divorce generators, malpractice checker, and simulation embed modules. AI/content generators remain unloaded. Status routes: /justice-ops/v1/redirects-off, /justice-ops/v1/cleanup-2026-09. 2.36.0 = cleanup-v1; 2.35.19 = phase-1 recovery release."

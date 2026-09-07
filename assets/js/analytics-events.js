@@ -150,6 +150,24 @@
 		field.value = value;
 	}
 
+	function getSafeProductIntent(value) {
+		value = String(value || '').trim();
+
+		if (['court_rehearsal', 'mediation', 'witness_prep', 'case_review'].indexOf(value) === -1) {
+			return '';
+		}
+
+		return value;
+	}
+
+	function currentProductIntent() {
+		var query = new URLSearchParams(window.location.search);
+		var hash = window.location.hash || '';
+		var hashQuery = new URLSearchParams(hash.indexOf('?') !== -1 ? hash.split('?').slice(1).join('?') : hash.replace(/^#/, ''));
+
+		return getSafeProductIntent(query.get('product_intent')) || getSafeProductIntent(query.get('utm_content')) || getSafeProductIntent(hashQuery.get('product_intent')) || getSafeProductIntent(hashQuery.get('utm_content'));
+	}
+
 	function getLawyerRevenueDestination(linkUrl) {
 		if (!linkUrl) {
 			return '';
@@ -241,7 +259,7 @@
 			return false;
 		}
 
-		if (!link.dataset.leadArea && !link.dataset.leadMessage && !link.dataset.leadSourceKeyword && !link.dataset.leadSourceSurface) {
+		if (!link.dataset.leadArea && !link.dataset.leadMessage && !link.dataset.leadSourceKeyword && !link.dataset.leadSourceSurface && !link.dataset.productIntent) {
 			return false;
 		}
 
@@ -269,6 +287,7 @@
 		setOrCreateHidden(form, 'utm_source', link.dataset.leadUtmSource || '');
 		setOrCreateHidden(form, 'utm_medium', link.dataset.leadUtmMedium || '');
 		setOrCreateHidden(form, 'utm_campaign', link.dataset.leadUtmCampaign || '');
+		setOrCreateHidden(form, 'product_intent', getSafeProductIntent(link.dataset.productIntent));
 
 		return true;
 	}
@@ -378,6 +397,17 @@
 		if ('sent' === query.get('request')) {
 			track('document_request_submit', { form_type: 'legal_tool_request' });
 		}
+
+		if ('juris-arena' === query.get('source') && currentProductIntent()) {
+			track('hadmaia_professional_review_landed', {
+				product_intent: currentProductIntent(),
+				journey_present: query.get('journey_id') ? 'yes' : 'no',
+				utm_source: query.get('utm_source') || '',
+				utm_medium: query.get('utm_medium') || '',
+				utm_campaign: query.get('utm_campaign') || '',
+				utm_content: currentProductIntent()
+			});
+		}
 	}
 
 	function trackFormStart(form) {
@@ -407,7 +437,8 @@
 			track('ask_lawyer_start', {
 				form_type: formType,
 				legal_area: getFieldValue(form, 'lead_area'),
-				assigned_lawyer_id: getFieldValue(form, 'assigned_lawyer_id')
+				assigned_lawyer_id: getFieldValue(form, 'assigned_lawyer_id'),
+				product_intent: getSafeProductIntent(getFieldValue(form, 'product_intent'))
 			});
 		}
 	}
@@ -423,7 +454,8 @@
 				lead_city_present: getFieldValue(form, 'lead_city') ? 'yes' : 'no',
 				lead_urgency: getFieldValue(form, 'lead_urgency'),
 				source_keyword: getFieldValue(form, 'source_keyword'),
-				assigned_lawyer_id: getFieldValue(form, 'assigned_lawyer_id')
+				assigned_lawyer_id: getFieldValue(form, 'assigned_lawyer_id'),
+				product_intent: getSafeProductIntent(getFieldValue(form, 'product_intent'))
 			});
 			return;
 		}

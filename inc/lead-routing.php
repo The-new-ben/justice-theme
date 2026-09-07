@@ -138,6 +138,10 @@ function justice_theme_public_lead_source_channel( string $lead_source_surface )
 		return 'public_lawyer_profile_form';
 	}
 
+	if ( 'hadmaia_professional_review' === $lead_source_surface ) {
+		return 'hadmaia_professional_review';
+	}
+
 	return 'public_site_form';
 }
 
@@ -159,6 +163,10 @@ function justice_theme_public_lead_revenue_next_step( string $lead_source_surfac
 
 	if ( 'lawyer_profile_lead' === $lead_source_surface ) {
 		return 'Lawyer profile lead: verify the visitor intended this lawyer, confirm consent, then route only if the lawyer is paid/approved for the handoff. Do not mark paid without payment evidence.';
+	}
+
+	if ( 'hadmaia_professional_review' === $lead_source_surface ) {
+		return 'Hadmaia professional-review request: call or WhatsApp the visitor, confirm the simulation purpose and legal area, then decide whether to sell a paid review, mediation preparation, witness preparation or lawyer handoff.';
 	}
 
 	return 'Review this public lead quickly, call or WhatsApp the visitor, confirm legal area and consent, then assign only to a paid/approved lawyer path. Do not mark paid without payment evidence.';
@@ -240,11 +248,22 @@ function justice_theme_prime_public_lead_revenue_triage_on_save( int $post_id, W
 		update_post_meta( $post_id, 'lead_revenue_model', 'public_intake_review' );
 	}
 
+	$product_intent = '';
+	if ( function_exists( 'justice_theme_normalize_professional_review_product_intent' ) ) {
+		$product_intent = justice_theme_normalize_professional_review_product_intent( (string) get_post_meta( $post_id, 'product_intent', true ) );
+	}
+	if ( '' !== $product_intent ) {
+		update_post_meta( $post_id, 'product_intent', $product_intent );
+		update_post_meta( $post_id, 'lead_revenue_model', 'hadmaia_professional_review' );
+	}
+
 	if ( '' === (string) get_post_meta( $post_id, 'qualified_lead_billing_status', true ) ) {
 		update_post_meta( $post_id, 'qualified_lead_billing_status', 'not_ready' );
 	}
 
-	if ( '' === (string) get_post_meta( $post_id, 'lead_revenue_notes', true ) ) {
+	if ( '' !== $product_intent && '' === (string) get_post_meta( $post_id, 'lead_revenue_notes', true ) ) {
+		update_post_meta( $post_id, 'lead_revenue_notes', 'Hadmaia professional-review lead. Confirm consent, legal area and whether the visitor wants a paid review, preparation session, mediation path or lawyer handoff.' );
+	} elseif ( '' === (string) get_post_meta( $post_id, 'lead_revenue_notes', true ) ) {
 		update_post_meta( $post_id, 'lead_revenue_notes', 'Public site lead. Qualify need, consent, coverage and lawyer commercial terms before billing.' );
 	}
 
@@ -282,6 +301,7 @@ function justice_theme_prime_public_lead_revenue_triage_on_meta_update( int $met
 		'legal_area',
 		'ai_detected_area',
 		'lead_source_surface',
+		'product_intent',
 		'source_url',
 	);
 

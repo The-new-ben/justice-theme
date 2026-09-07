@@ -211,6 +211,59 @@ h1, h2, h3, h4, h5, h6 { color: var(--color-heading); font-weight: 800; margin-t
 .cluster-more:hover { color: var(--color-accent); }
 
 /* Lawyer Directory & Cards */
+.hadmaia-review-bridge {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	gap: 1.5rem;
+	align-items: center;
+	margin: 0 0 2rem;
+	padding: clamp(1.25rem, 3vw, 2rem);
+	border: 1px solid rgba(15, 39, 76, 0.14);
+	border-radius: var(--radius-md);
+	background: linear-gradient(135deg, #f8fafc 0%, #eef4fb 52%, #ffffff 100%);
+	box-shadow: var(--shadow-soft);
+}
+.hadmaia-review-bridge__copy span {
+	display: inline-flex;
+	margin-bottom: 0.55rem;
+	color: var(--color-secondary);
+	font-size: 0.78rem;
+	font-weight: 800;
+	letter-spacing: 0.04em;
+}
+.hadmaia-review-bridge__copy h2 {
+	margin: 0 0 0.55rem;
+	color: var(--color-heading);
+	font-size: clamp(1.35rem, 2.4vw, 2rem);
+	line-height: 1.25;
+}
+.hadmaia-review-bridge__copy p {
+	margin: 0;
+	color: var(--color-text);
+	font-size: 1rem;
+	line-height: 1.7;
+}
+.hadmaia-review-bridge__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	justify-content: flex-end;
+}
+.hadmaia-review-bridge__actions .button {
+	white-space: nowrap;
+}
+@media (max-width: 760px) {
+	.hadmaia-review-bridge {
+		grid-template-columns: 1fr;
+	}
+	.hadmaia-review-bridge__actions {
+		justify-content: stretch;
+	}
+	.hadmaia-review-bridge__actions .button {
+		width: 100%;
+		text-align: center;
+	}
+}
 .lawyers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
 .lawyer-card { padding: 2rem; align-items: center; text-align: center; }
 .lawyer-card--promoted { border-width: 2px; border-color: var(--color-primary); position: relative; }

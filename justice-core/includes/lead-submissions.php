@@ -56,6 +56,7 @@ function uje_register_lead_meta() {
 		'source_system'        => 'string',
 		'source_page_url'      => 'string',
 		'lead_source_surface'  => 'string',
+		'product_intent'       => 'string',
 		'lead_revenue_model'      => 'string',
 		'suggested_lead_price_ils' => 'string',
 		'lead_revenue_notes'      => 'string',
@@ -70,6 +71,7 @@ function uje_register_lead_meta() {
 		'utm_source'           => 'string',
 		'utm_campaign'         => 'string',
 		'utm_medium'           => 'string',
+		'utm_content'          => 'string',
 	);
 
 	foreach ( $fields as $key => $type ) {
@@ -101,6 +103,10 @@ function uje_handle_lead() {
 	$source_keyword     = isset( $_POST['source_keyword'] ) ? sanitize_text_field( wp_unslash( $_POST['source_keyword'] ) ) : '';
 	$lead_source_surface = isset( $_POST['lead_source_surface'] ) ? sanitize_key( wp_unslash( $_POST['lead_source_surface'] ) ) : '';
 	$lead_source_surface = $lead_source_surface ?: 'public_lead_form';
+	$product_intent      = isset( $_POST['product_intent'] ) ? sanitize_key( wp_unslash( $_POST['product_intent'] ) ) : '';
+	$product_intent      = function_exists( 'justice_theme_normalize_professional_review_product_intent' )
+		? justice_theme_normalize_professional_review_product_intent( $product_intent )
+		: ( in_array( $product_intent, array( 'court_rehearsal', 'mediation', 'witness_prep', 'case_review' ), true ) ? $product_intent : '' );
 	$source_url          = wp_get_referer();
 	$source_channel      = function_exists( 'justice_theme_public_lead_source_channel' )
 		? justice_theme_public_lead_source_channel( $lead_source_surface )
@@ -140,6 +146,7 @@ function uje_handle_lead() {
 			'source_channel'      => $source_channel,
 			'source_system'       => 'justice_public_site',
 			'lead_source_surface' => $lead_source_surface,
+			'product_intent'      => $product_intent,
 			'lead_revenue_model'  => 'public_intake_review',
 			'qualified_lead_billing_status' => 'not_ready',
 			'lead_revenue_notes'  => 'Public site lead. Qualify need, consent, coverage and lawyer commercial terms before billing.',
@@ -152,7 +159,7 @@ function uje_handle_lead() {
 		}
 
 		// UTM tracking
-		foreach ( array( 'utm_source', 'utm_campaign', 'utm_medium' ) as $utm ) {
+		foreach ( array( 'utm_source', 'utm_campaign', 'utm_medium', 'utm_content' ) as $utm ) {
 			if ( isset( $_POST[ $utm ] ) ) {
 				update_post_meta( $lead_id, $utm, sanitize_text_field( wp_unslash( $_POST[ $utm ] ) ) );
 			}

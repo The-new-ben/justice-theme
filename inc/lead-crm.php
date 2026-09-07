@@ -44,6 +44,7 @@ function justice_theme_crm_register_lead_meta(): void {
 		'source_page_url'           => 'string',
 		'source_keyword'            => 'string',
 		'lead_source_surface'       => 'string',
+		'product_intent'            => 'string',
 		'whatsapp_source_note'      => 'string',
 		'consent_status'            => 'string',
 		'consent_basis'             => 'string',
@@ -5556,6 +5557,7 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 	$billing_note    = get_post_meta( $post->ID, 'qualified_lead_owner_note', true );
 	$source_channel  = get_post_meta( $post->ID, 'source_channel', true );
 	$source_surface  = get_post_meta( $post->ID, 'lead_source_surface', true );
+	$product_intent  = get_post_meta( $post->ID, 'product_intent', true );
 	$owner_next_step = get_post_meta( $post->ID, 'owner_revenue_next_step', true );
 	$quality_options = array(
 		'auto'   => 'Auto score',
@@ -5610,12 +5612,17 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 		<label for="justice-customer-success-note"><strong>Customer-success note</strong></label>
 		<textarea id="justice-customer-success-note" name="customer_success_note" rows="5" style="width:100%;"><?php echo esc_textarea( $customer_note ); ?></textarea>
 	</p>
-	<?php if ( $source_channel || $source_surface || $owner_next_step ) : ?>
+	<?php if ( $source_channel || $source_surface || $product_intent || $owner_next_step ) : ?>
 		<div style="border:1px solid #dcdcde;border-radius:4px;background:#f8fafc;padding:8px;margin:10px 0;">
 			<strong style="display:block;margin-bottom:6px;">Revenue triage</strong>
 			<?php if ( $source_channel || $source_surface ) : ?>
 				<p style="margin:0 0 6px;color:#646970;">
 					Source: <?php echo esc_html( trim( (string) $source_channel . ' / ' . (string) $source_surface, ' /' ) ); ?>
+				</p>
+			<?php endif; ?>
+			<?php if ( $product_intent ) : ?>
+				<p style="margin:0 0 6px;color:#646970;">
+					Product: <?php echo esc_html( justice_theme_crm_hadmaia_product_intent_label( (string) $product_intent ) ); ?>
 				</p>
 			<?php endif; ?>
 			<?php if ( $owner_next_step ) : ?>
@@ -5854,9 +5861,24 @@ function justice_theme_crm_lead_source_surface_label( string $surface ): string 
 		'public_lead_form'           => 'Public lead form',
 		'public_site_form'           => 'Public site form',
 		'lawyer_profile_lead'        => 'Lawyer profile lead',
+		'hadmaia_professional_review' => 'Hadmaia professional review',
 	);
 
 	return $labels[ $surface ] ?? str_replace( '_', ' ', $surface );
+}
+
+function justice_theme_crm_hadmaia_product_intent_label( string $intent ): string {
+	$intent = function_exists( 'justice_theme_normalize_professional_review_product_intent' )
+		? justice_theme_normalize_professional_review_product_intent( $intent )
+		: sanitize_key( $intent );
+	$labels = array(
+		'court_rehearsal' => 'Court rehearsal',
+		'mediation'       => 'Mediation',
+		'witness_prep'    => 'Witness preparation',
+		'case_review'     => 'Case review',
+	);
+
+	return $labels[ $intent ] ?? str_replace( '_', ' ', sanitize_key( $intent ) );
 }
 
 function justice_theme_crm_render_lead_admin_revenue_column( string $column, int $post_id ): void {
@@ -5864,6 +5886,7 @@ function justice_theme_crm_render_lead_admin_revenue_column( string $column, int
 		$billing = justice_theme_crm_qualified_lead_billing_badge( $post_id );
 		$source  = (string) get_post_meta( $post_id, 'source_channel', true );
 		$surface = (string) get_post_meta( $post_id, 'lead_source_surface', true );
+		$product = (string) get_post_meta( $post_id, 'product_intent', true );
 		$source_display = trim( $source . ' / ' . ( $surface ? justice_theme_crm_lead_source_surface_label( $surface ) : '' ), ' /' );
 		?>
 		<span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $billing['style'] ); ?>"><?php echo esc_html( $billing['label'] ); ?></span>
@@ -5872,6 +5895,9 @@ function justice_theme_crm_render_lead_admin_revenue_column( string $column, int
 		<?php endif; ?>
 		<?php if ( $source_display ) : ?>
 			<small style="display:block;color:#646970;margin-top:3px;"><?php echo esc_html( $source_display ); ?></small>
+		<?php endif; ?>
+		<?php if ( $product ) : ?>
+			<small style="display:block;color:#646970;margin-top:3px;"><?php echo esc_html( justice_theme_crm_hadmaia_product_intent_label( $product ) ); ?></small>
 		<?php endif; ?>
 		<?php
 		return;

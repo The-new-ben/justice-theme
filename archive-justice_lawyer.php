@@ -16,6 +16,7 @@ get_header();
 $filter_city    = isset( $_GET['city'] )    ? sanitize_text_field( wp_unslash( $_GET['city'] ) )    : '';
 $filter_area    = isset( $_GET['area'] )    ? sanitize_text_field( wp_unslash( $_GET['area'] ) )    : '';
 $filter_keyword = isset( $_GET['keyword'] ) ? sanitize_text_field( wp_unslash( $_GET['keyword'] ) ) : '';
+$professional_review_product = function_exists( 'justice_theme_current_professional_review_product' ) ? justice_theme_current_professional_review_product() : array();
 
 $legacy_area_map = array(
 	'family'              => 'family-law',
@@ -278,6 +279,25 @@ if ( $filter_keyword ) {
 }
 
 $approved_count = (int) $lawyers->found_posts;
+$professional_review_cta_url = '';
+$professional_review_whatsapp = '';
+if ( ! empty( $professional_review_product['product_intent'] ) ) {
+	$professional_review_cta_url = function_exists( 'justice_theme_ask_lawyer_fallback_url' )
+		? justice_theme_ask_lawyer_fallback_url( array(
+			'lead_source_surface' => 'hadmaia_professional_review',
+			'lead_message'        => $professional_review_product['lead_message'] ?? '',
+			'product_intent'      => $professional_review_product['product_intent'],
+			'utm_source'          => 'jus-tice.com',
+			'utm_medium'          => 'product_handoff',
+			'utm_campaign'        => 'professional_review',
+			'utm_term'            => 'hadmaia',
+			'source_keyword'      => $professional_review_product['source_keyword'] ?? '',
+		) )
+		: home_url( '/#ask-lawyer' );
+	$professional_review_whatsapp = function_exists( 'justice_theme_public_whatsapp_url' )
+		? justice_theme_public_whatsapp_url( sprintf( 'שלום, %s', $professional_review_product['lead_message'] ?? 'סיימתי סימולציה ב-Hadmaia ואשמח לבדיקה מקצועית.' ) )
+		: '';
+}
 ?>
 
 <section class="lawyer-directory section" aria-labelledby="directory-heading">
@@ -287,6 +307,26 @@ $approved_count = (int) $lawyers->found_posts;
 				<h1 id="directory-heading"><?php echo esc_html( $page_title ); ?></h1>
 				<p><?php echo esc_html( $page_desc ); ?></p>
 			</header>
+
+			<?php if ( ! empty( $professional_review_product['product_intent'] ) ) : ?>
+				<section class="hadmaia-review-bridge" aria-label="<?php esc_attr_e( 'המשך מסימולציה לבדיקה מקצועית', 'justice-theme' ); ?>">
+					<div class="hadmaia-review-bridge__copy">
+						<span><?php esc_html_e( 'הגעתם מסימולציית Hadmaia', 'justice-theme' ); ?></span>
+						<h2><?php echo esc_html( $professional_review_product['headline'] ); ?></h2>
+						<p><?php echo esc_html( $professional_review_product['body'] ); ?></p>
+					</div>
+					<div class="hadmaia-review-bridge__actions">
+						<a class="button button--gold" href="<?php echo esc_url( $professional_review_cta_url ); ?>">
+							<?php esc_html_e( 'השארת פנייה מסודרת', 'justice-theme' ); ?>
+						</a>
+						<?php if ( $professional_review_whatsapp ) : ?>
+							<a class="button button--whatsapp-inline" href="<?php echo esc_url( $professional_review_whatsapp ); ?>" target="_blank" rel="noopener" data-whatsapp-surface="hadmaia_professional_review" data-lead-source-surface="hadmaia_professional_review" data-product-intent="<?php echo esc_attr( $professional_review_product['product_intent'] ); ?>" data-lead-utm-source="jus-tice.com" data-lead-utm-medium="product_handoff" data-lead-utm-campaign="professional_review">
+								<?php esc_html_e( 'המשך בוואטסאפ', 'justice-theme' ); ?>
+							</a>
+						<?php endif; ?>
+					</div>
+				</section>
+			<?php endif; ?>
 
 			<div class="directory-guidance" aria-label="איך להשתמש במדריך עורכי הדין">
 				<div class="directory-guidance__item">
@@ -315,8 +355,8 @@ $approved_count = (int) $lawyers->found_posts;
 						<span><?php esc_html_e( 'נקודת הפתיחה היא סינון לפי תחום משפטי ואזור שירות. אם התחום קרוב, למשל גירושין ודיני משפחה, בודקים את שניהם יחד ולא מתפצלים למסלולים מבלבלים.', 'justice-theme' ); ?></span>
 					</article>
 					<article>
-						<strong><?php esc_html_e( 'אמון בלי המצאות', 'justice-theme' ); ?></strong>
-						<span><?php esc_html_e( 'תמונה, ביקורות, השכלה, תיקים או הופעות במדיה מוצגים רק כשהם נתמכים במקורות גלויים. בפרופילים בסיסיים עדיף להציג פחות, אבל נכון.', 'justice-theme' ); ?></span>
+						<strong><?php esc_html_e( 'פרופיל שאפשר להבין מהר', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'תמונה, תחומי עיסוק, השכלה, ניסיון, ביקורות וקישורי מדיה מוצגים כשהם מוסיפים ערך לבחירה. כך קל יותר להבין מי מתאים לשיחה ראשונה.', 'justice-theme' ); ?></span>
 					</article>
 					<article>
 						<strong><?php esc_html_e( 'מסלול שדרוג ברור', 'justice-theme' ); ?></strong>

@@ -188,7 +188,7 @@ return array(
 		),
 		'official'  => array(
 			array( 'היחידה לעיכוב הליכים', 'https://www.gov.il/he/departments/topics/stay_of_proceedings/govil-landing-page' ),
-			array( 'שאלות ותשובות עיכוב הליכים', 'https://www.gov.il/he/departments/faq/stayofproceeding-faq' ),
+			array( 'שאלות ותשובות עיכוב הליכים', 'https://www.gov.il/he/pages/stayofproceeding-faq' ),
 		),
 		'related'   => array( 'pardon-request-president', 'bargain-plea-agreement', 'retrial-request-supreme' ),
 		'pillar'    => 'criminal-defense-attorney',
@@ -396,12 +396,12 @@ return array(
 		'seo_desc'  => 'שש פרקליטויות מחוז פליליות: ירושלים, תל אביב, מרכז, חיפה, צפון ודרום. מה כל אחת מכסה ומי מולכם בתיק.',
 		'intro'     => 'בכל מחוז גיאוגרפי פועלות שתי פרקליטויות, פלילית ואזרחית. בתיק פלילי, הפרקליטות המחוזית היא הצד שמולכם. אלה המחוזות והכיסוי שלהם.',
 		'facts'     => array(
-			array( 'המחוזות הפליליים: ירושלים, תל אביב, מרכז, חיפה, צפון (נצרת) ודרום (באר שבע)', 'https://www.gov.il/he/Departments/General/departments', 'gov.il' ),
+			array( 'המחוזות הפליליים: ירושלים, תל אביב, מרכז, חיפה, צפון (נצרת) ודרום (באר שבע)', 'https://www.gov.il/he/pages/departments', 'gov.il' ),
 			array( 'מחוז מרכז הפלילי: כ-175 עובדים, מהם 108 פרקליטים, ומשרת מעל 2.5 מיליון תושבים', 'https://www.gov.il/he/pages/central-criminal-about', 'gov.il' ),
 			array( 'מחוז חיפה הפלילי: כ-100 עובדים, כ-60 פרקליטים, שיפוט מגבול לבנון עד חדרה', 'https://www.gov.il/he/pages/haifa-criminal-about', 'gov.il' ),
 		),
 		'official'  => array(
-			array( 'מחוזות ומחלקות הפרקליטות', 'https://www.gov.il/he/Departments/General/departments' ),
+			array( 'מחוזות ומחלקות הפרקליטות', 'https://www.gov.il/he/pages/departments' ),
 			array( 'אודות התחום הפלילי בפרקליטות', 'https://www.gov.il/he/pages/criminal-about' ),
 		),
 		'related'   => array( 'mahash-police-investigations-department', 'ombudsman-prosecution-complaints', 'stay-proceedings-attorney-general' ),
@@ -434,8 +434,8 @@ return array(
 		'seo_desc'  => 'המחלקה לחקירות שוטרים במשרד המשפטים חוקרת עבירות של אנשי משטרה. מי רשאי להתלונן, איך מגישים ומה קורה אחרי.',
 		'intro'     => 'מח"ש, המחלקה לחקירות שוטרים במשרד המשפטים, היא הגוף שחוקר חשדות פליליים נגד אנשי משטרה. כל אדם רשאי להגיש תלונה, וההגשה מקוונת.',
 		'facts'     => array(
-			array( 'מח"ש מוסמכת לחקור עבירות פליליות של אנשי משטרה שעונשן מעל שנת מאסר', 'https://www.gov.il/he/Departments/General/complaint_against_police', 'gov.il' ),
-			array( 'כל אדם רשאי להתלונן, על עבירה במילוי תפקיד או מחוצה לו', 'https://www.gov.il/he/Departments/General/complaint_against_police', 'gov.il' ),
+			array( 'מח"ש מוסמכת לחקור עבירות פליליות של אנשי משטרה שעונשן מעל שנת מאסר', 'https://www.gov.il/he/pages/complaint_against_police', 'gov.il' ),
+			array( 'כל אדם רשאי להתלונן, על עבירה במילוי תפקיד או מחוצה לו', 'https://www.gov.il/he/pages/complaint_against_police', 'gov.il' ),
 			array( 'הגשת תלונה בטופס מקוון בלבד, עם אפשרות לצרף קבצים ותיעוד', 'https://www.gov.il/he/service/filing_a_complaint_against_police', 'gov.il' ),
 		),
 		'official'  => array(
@@ -455,7 +455,7 @@ return array(
 		'facts'     => array(
 			array( 'הגשה: בכל תחנת משטרה, בשגרירות ישראל בחו"ל או אונליין', 'https://www.gov.il/he/service/request-for-criminal-information-certificate', 'gov.il' ),
 			array( 'מדצמבר 2024 מונפקת גם תעודה דיגיטלית בעברית ובאנגלית בשירות מקוון', 'https://www.gov.il/he/service/request-for-criminal-information-certificate', 'gov.il' ),
-			array( 'התעודה כוללת רק הרשעות שלא התיישנו או נמחקו, ותיקים תלויים ועומדים', 'https://www.gov.il/he/departments/general/police_criminal_information_certificates', 'gov.il' ),
+			array( 'התעודה כוללת רק הרשעות שלא התיישנו או נמחקו, ותיקים תלויים ועומדים', 'https://www.gov.il/he/pages/police_criminal_information_certificates', 'gov.il' ),
 			array( 'עיון עצמי במרשם: בהצגה על מסך בתחנת משטרה (סעיף 4 לחוק); טלפון המדור 02-5429757', 'https://he.wikisource.org/wiki/חוק_המידע_הפלילי_ותקנת_השבים', 'נוסח החוק' ),
 		),
 		'official'  => array(
@@ -518,7 +518,8 @@ return array(
 		),
 		'official'  => array(
 			array( 'איך קובעים ביקור', 'https://www.gov.il/he/pages/klaley_bikur' ),
-			array( 'שאלות ותשובות ביקורים', 'https://www.gov.il/he/departments/faq/bikurim_ips' ),
+			array( 'שירות בתי הסוהר, כל זכות', 'https://www.kolzchut.org.il/he/שירות_בתי_הסוהר' ),
+			array( 'תקנות בתי הסוהר, הנוסח המלא', 'https://he.wikisource.org/wiki/תקנות_בתי_הסוהר' ),
 		),
 		'related'   => array( 'rehabilitation-prisoner-authority', 'remand-until-proceedings-end', 'victims-rights-law-2001' ),
 		'pillar'    => 'criminal-defense-attorney',
@@ -804,7 +805,7 @@ return array(
 		'facts'     => array(
 			array( 'סעיף 34יז: אין אחריות פלילית אם המעשה קל ערך לאור טיבו, נסיבותיו, תוצאותיו והאינטרס הציבורי', 'https://he.wikisource.org/wiki/חוק_העונשין', 'נוסח החוק' ),
 			array( 'זהו סייג מהחלק הכללי של החוק, לצד הגנה עצמית, צורך וכורח', 'https://he.wikisource.org/wiki/חוק_העונשין', 'נוסח החוק' ),
-			array( 'העיקרון מוחל גם בשלב התביעה, כשיקול בסגירת תיק בעילת נסיבות העניין', 'https://www.kolzchut.org.il/he/סגירת_תיק_פלילי', 'כל זכות' ),
+			array( 'העיקרון מוחל גם בשלב התביעה, כשיקול בסגירת תיק בעילת נסיבות העניין', 'https://he.wikisource.org/wiki/חוק_סדר_הדין_הפלילי', 'סעיף 62 לחוק סדר הדין הפלילי' ),
 		),
 		'official'  => array(
 			array( 'חוק העונשין, הנוסח המלא', 'https://he.wikisource.org/wiki/חוק_העונשין' ),
@@ -899,7 +900,7 @@ return array(
 		'facts'     => array(
 			array( 'המרשם הפלילי (סעיף 8 לחוק המידע הפלילי): הרשעות, עונשים, צווי מבחן וקביעות דין', 'https://he.wikisource.org/wiki/חוק_המידע_הפלילי_ותקנת_השבים', 'נוסח החוק' ),
 			array( 'המרשם המשטרתי (סעיף 27): תיקים תלויים ועומדים, תיקים סגורים וזיכויים', 'https://he.wikisource.org/wiki/חוק_המידע_הפלילי_ותקנת_השבים', 'נוסח החוק' ),
-			array( 'תעודת מידע פלילי מציגה רק פרטים שלא התיישנו או נמחקו, ותיקים תלויים', 'https://www.gov.il/he/departments/general/police_criminal_information_certificates', 'gov.il' ),
+			array( 'תעודת מידע פלילי מציגה רק פרטים שלא התיישנו או נמחקו, ותיקים תלויים', 'https://www.gov.il/he/pages/police_criminal_information_certificates', 'gov.il' ),
 			array( 'תיקים סגורים ניתנים לביטול: אוטומטית אחרי 7 שנים בעוון ובחטא, או בבקשה יזומה', 'https://www.kolzchut.org.il/he/ביטול_רישום_משטרתי_של_תיקים_סגורים', 'כל זכות' ),
 		),
 		'official'  => array(

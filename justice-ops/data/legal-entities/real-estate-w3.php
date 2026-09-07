@@ -274,10 +274,10 @@ return array(
 			array( 'דירה יחידה: 0 אחוזים עד 1,978,745 ש"ח; 3.5 אחוזים עד 2,347,040 ש"ח; 5 אחוזים עד 6,055,070 ש"ח; 8 אחוזים עד 20,183,565 ש"ח; 10 אחוזים מעל', 'https://www.kolzchut.org.il/he/חישוב_מס_רכישה', 'כל זכות' ),
 			array( 'דירה נוספת: 8 אחוזים עד 6,055,070 ש"ח ו-10 אחוזים מעל', 'https://www.kolzchut.org.il/he/חישוב_מס_רכישה', 'כל זכות' ),
 			array( 'החישוב מדורג, והבסיס בסעיף 9 לחוק מיסוי מקרקעין', 'https://he.wikisource.org/wiki/חוק_מיסוי_מקרקעין_(שבח_ורכישה)', 'נוסח החוק' ),
-			array( 'סימולטור רשמי של רשות המסים זמין לחישוב מדויק', 'https://www.misim.gov.il/svsimurechisha', 'רשות המסים' ),
+			array( 'סימולטור רשמי של רשות המסים זמין לחישוב מדויק', 'https://www.misim.gov.il/svsimurechisha/', 'רשות המסים' ),
 		),
 		'official'  => array(
-			array( 'סימולטור מס רכישה, רשות המסים', 'https://www.misim.gov.il/svsimurechisha' ),
+			array( 'סימולטור מס רכישה, רשות המסים', 'https://www.misim.gov.il/svsimurechisha/' ),
 			array( 'חישוב מס רכישה, כל זכות', 'https://www.kolzchut.org.il/he/חישוב_מס_רכישה' ),
 		),
 		'related'   => array( 'olim-disabled-purchase-tax-relief', 'refund-purchase-tax-replacement' ),
@@ -414,7 +414,7 @@ return array(
 		),
 		'official'  => array(
 			array( 'חישוב מס רכישה, כל זכות', 'https://www.kolzchut.org.il/he/חישוב_מס_רכישה' ),
-			array( 'סימולטור רשות המסים', 'https://www.misim.gov.il/svsimurechisha' ),
+			array( 'סימולטור רשות המסים', 'https://www.misim.gov.il/svsimurechisha/' ),
 		),
 		'related'   => array( 'acquisition-tax-brackets-2026', 'appreciation-tax-single-apartment-exemption' ),
 		'pillar'    => 'real-estate-attorney',

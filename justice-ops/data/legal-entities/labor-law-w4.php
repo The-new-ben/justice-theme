@@ -33,7 +33,7 @@ return array(
 		),
 		'official'  => array(
 			array( 'שימוע לפני פיטורים, כל זכות', 'https://www.kolzchut.org.il/he/שימוע_לפני_פיטורים' ),
-			array( 'בתי הדין לעבודה', 'https://www.gov.il/he/departments/labor_courts/govil-landing-page' ),
+			array( 'בית הדין לעבודה, כל זכות', 'https://www.kolzchut.org.il/he/בית_הדין_לעבודה' ),
 		),
 		'related'   => array( 'zimun-leshimua', 'hodaa-mukdemet', 'pitzuei-piturim' ),
 		'pillar'    => 'labor-lawyer',
@@ -238,11 +238,11 @@ return array(
 			array( 'תעריף המגזר הציבורי: 511.6 ש"ח ליום', 'https://www.kolzchut.org.il/he/דמי_הבראה', 'כל זכות' ),
 			array( 'הזכאות מתחילה לאחר השלמת שנת עבודה אצל המעסיק', 'https://www.kolzchut.org.il/he/דמי_הבראה', 'כל זכות' ),
 			array( 'מדרגות הימים במגזר הפרטי: שנה 1: 5 ימים; שנים 2 עד 3: 6; שנים 4 עד 10: 7; 11 עד 15: 8; 16 עד 19: 9; מ-20: 10', 'https://www.kolzchut.org.il/he/דמי_הבראה', 'כל זכות' ),
-			array( 'המקור המשפטי: צו הרחבה בדבר השתתפות המעסיק בהוצאות הבראה ונופש', 'https://www.gov.il/he/departments/guides/extension-orders', 'מאגר צווי ההרחבה' ),
+			array( 'המקור המשפטי: צו הרחבה בדבר השתתפות המעסיק בהוצאות הבראה ונופש', 'https://www.kolzchut.org.il/he/צו_הרחבה', 'צו הרחבה, כל זכות' ),
 		),
 		'official'  => array(
 			array( 'דמי הבראה, כל זכות', 'https://www.kolzchut.org.il/he/דמי_הבראה' ),
-			array( 'מאגר צווי ההרחבה', 'https://www.gov.il/he/departments/guides/extension-orders' ),
+			array( 'צו הרחבה, כל זכות', 'https://www.kolzchut.org.il/he/צו_הרחבה' ),
 		),
 		'related'   => array( 'tzav-harchava', 'vacation-days-quota', 'sachar-minimum-2026' ),
 		'pillar'    => 'labor-lawyer',
@@ -282,7 +282,7 @@ return array(
 			array( 'תשלום מתחת לשכר המינימום הוא עבירה פלילית הנאכפת על ידי זרוע העבודה', 'https://www.kolzchut.org.il/he/מינהל_הסדרה_ואכיפת_חוקי_עבודה', 'כל זכות' ),
 		),
 		'official'  => array(
-			array( 'שכר מינימום, העמוד הרשמי', 'https://www.gov.il/he/pages/minimum_wage' ),
+			array( 'שכר מינימום, כל זכות', 'https://www.kolzchut.org.il/he/שכר_מינימום' ),
 			array( 'חוק שכר מינימום', 'https://he.wikisource.org/wiki/חוק_שכר_מינימום' ),
 		),
 		'related'   => array( 'noar-employment-rules', 'halanat-sachar', 'hourly-vs-global-salary' ),
@@ -318,13 +318,13 @@ return array(
 		'intro'     => 'החזר הנסיעות לעבודה מגיע לכל עובד שזקוק לתחבורה, מכוח צו הרחבה כללי החל על כלל המשק. זו התקרה ואלה הכללים.',
 		'facts'     => array(
 			array( 'התקרה: עד 22.60 ש"ח ליום עבודה, לפי עלות תחבורה ציבורית מוזלת', 'https://www.kolzchut.org.il/he/החזר_הוצאות_נסיעה', 'כל זכות' ),
-			array( 'המקור: צו הרחבה כללי בדבר השתתפות המעסיק בהוצאות נסיעה', 'https://www.gov.il/he/departments/guides/extension-orders', 'מאגר צווי ההרחבה' ),
+			array( 'המקור: צו הרחבה כללי בדבר השתתפות המעסיק בהוצאות נסיעה', 'https://www.kolzchut.org.il/he/צו_הרחבה', 'צו הרחבה, כל זכות' ),
 			array( 'אי אפשר לוותר על הזכות או להסכים להחזר נמוך מהמינימום', 'https://www.kolzchut.org.il/he/החזר_הוצאות_נסיעה', 'כל זכות' ),
 			array( 'החזר הנסיעות הוא הכנסה חייבת במס, בביטוח לאומי ובמס בריאות', 'https://www.kolzchut.org.il/he/החזר_הוצאות_נסיעה', 'כל זכות' ),
 		),
 		'official'  => array(
 			array( 'החזר הוצאות נסיעה, כל זכות', 'https://www.kolzchut.org.il/he/החזר_הוצאות_נסיעה' ),
-			array( 'מאגר צווי ההרחבה', 'https://www.gov.il/he/departments/guides/extension-orders' ),
+			array( 'צו הרחבה, כל זכות', 'https://www.kolzchut.org.il/he/צו_הרחבה' ),
 		),
 		'related'   => array( 'tzav-harchava', 'payslip-requirements', 'sachar-minimum-2026' ),
 		'pillar'    => 'labor-lawyer',
@@ -387,7 +387,7 @@ return array(
 		),
 		'official'  => array(
 			array( 'ביטוח פנסיוני לעובדים, כל זכות', 'https://www.kolzchut.org.il/he/ביטוח_פנסיוני_לעובדים' ),
-			array( 'מאגר צווי ההרחבה', 'https://www.gov.il/he/departments/guides/extension-orders' ),
+			array( 'צו הרחבה, כל זכות', 'https://www.kolzchut.org.il/he/צו_הרחבה' ),
 		),
 		'related'   => array( 'seif-14-arrangement', 'keren-hishtalmut', 'tzav-harchava' ),
 		'pillar'    => 'labor-lawyer',
@@ -471,7 +471,7 @@ return array(
 		),
 		'official'  => array(
 			array( 'דמי אבטלה, ביטוח לאומי', 'https://www.btl.gov.il/benefits/Unemployment/Pages/default.aspx' ),
-			array( 'שירות התעסוקה', 'https://www.gov.il/he/departments/israeli_employment_service/govil-landing-page' ),
+			array( 'שירות התעסוקה, האתר הרשמי', 'https://www.taasuka.gov.il/' ),
 		),
 		'related'   => array( 'avtala-bituach-leumi', 'lishkat-taasuka', 'resignation-deemed-dismissal' ),
 		'pillar'    => 'labor-lawyer',
@@ -484,13 +484,13 @@ return array(
 		'seo_desc'  => 'ירושלים, בת ים, חיפה, נוף הגליל ובאר שבע: חמשת בתי הדין האזוריים, המותב הייחודי עם נציגי ציבור, והסמכות הייחודית.',
 		'intro'     => 'סכסוכי עבודה נדונים במערכת ערכאות נפרדת: בתי הדין לעבודה, שהוקמו בחוק בית הדין לעבודה משנת 1969, עם מותב ייחודי של שופט ונציגי ציבור.',
 		'facts'     => array(
-			array( 'חמישה בתי דין אזוריים: ירושלים, בת ים (מחוז תל אביב), חיפה, נוף הגליל נצרת (הצפון) ובאר שבע (הדרום)', 'https://www.gov.il/he/departments/labor_courts/govil-landing-page', 'הרשות השופטת' ),
+			array( 'חמישה בתי דין אזוריים: ירושלים, בת ים (מחוז תל אביב), חיפה, נוף הגליל נצרת (הצפון) ובאר שבע (הדרום)', 'https://www.kolzchut.org.il/he/בית_הדין_לעבודה', 'כל זכות' ),
 			array( 'המותב: שופט מקצועי, נציג ציבור עובדים ונציג ציבור מעסיקים', 'https://www.kolzchut.org.il/he/בית_הדין_לעבודה', 'כל זכות' ),
 			array( 'סמכות ייחודית בענייני משפט העבודה והביטחון הסוציאלי, כולל ביטוח לאומי וביטוח בריאות ממלכתי', 'https://www.kolzchut.org.il/he/בית_הדין_לעבודה', 'כל זכות' ),
 			array( 'המערכת המקוונת משייכת תביעה אוטומטית לבית הדין בעל הסמכות המקומית', 'https://www.gov.il/he/service/claim_employee_dismissal_compensation_or_social_rights', 'gov.il' ),
 		),
 		'official'  => array(
-			array( 'בתי הדין לעבודה, הרשות השופטת', 'https://www.gov.il/he/departments/labor_courts/govil-landing-page' ),
+			array( 'בית הדין לעבודה, כל זכות', 'https://www.kolzchut.org.il/he/בית_הדין_לעבודה' ),
 			array( 'חוק בית הדין לעבודה', 'https://he.wikisource.org/wiki/חוק_בית_הדין_לעבודה' ),
 		),
 		'related'   => array( 'artzi-labor-court', 'claim-labor-court', 'halanat-sachar' ),
@@ -650,7 +650,7 @@ return array(
 			array( 'דורש עבודה רשאי לסרב לעבודה שאינה מתאימה כהגדרתה', 'https://www.kolzchut.org.il/he/הזכות_לסרב_לעבודה_שאינה_מתאימה', 'כל זכות' ),
 		),
 		'official'  => array(
-			array( 'שירות התעסוקה', 'https://www.gov.il/he/departments/israeli_employment_service/govil-landing-page' ),
+			array( 'שירות התעסוקה, האתר הרשמי', 'https://www.taasuka.gov.il/' ),
 		),
 		'related'   => array( 'unemployment-benefits-eligibility', 'avtala-bituach-leumi', 'resignation-deemed-dismissal' ),
 		'pillar'    => 'labor-lawyer',
@@ -904,10 +904,10 @@ return array(
 			array( 'צו הרחבה מוצא בידי השר מכוח חוק הסכמים קיבוציים, ומרחיב הוראות הסכם על עובדים שאינם צד לו', 'https://he.wikisource.org/wiki/חוק_הסכמים_קיבוציים', 'נוסח החוק' ),
 			array( 'הוראות הצו הופכות לחלק מחוזה העבודה האישי של כל עובד', 'https://www.kolzchut.org.il/he/צו_הרחבה', 'כל זכות' ),
 			array( 'צווים כלליים חלים על כלל המשק: פנסיה חובה, דמי הבראה, החזר נסיעות וקיצור שבוע העבודה', 'https://www.kolzchut.org.il/he/צו_הרחבה', 'כל זכות' ),
-			array( 'מאגר צווי ההרחבה הרשמי מתפרסם באתר משרד העבודה', 'https://www.gov.il/he/departments/guides/extension-orders', 'gov.il' ),
+			array( 'מאגר צווי ההרחבה הרשמי מתפרסם באתר משרד העבודה', 'https://www.kolzchut.org.il/he/צו_הרחבה', 'כל זכות' ),
 		),
 		'official'  => array(
-			array( 'מאגר צווי ההרחבה', 'https://www.gov.il/he/departments/guides/extension-orders' ),
+			array( 'צו הרחבה, כל זכות', 'https://www.kolzchut.org.il/he/צו_הרחבה' ),
 			array( 'חוק הסכמים קיבוציים', 'https://he.wikisource.org/wiki/חוק_הסכמים_קיבוציים' ),
 		),
 		'related'   => array( 'collective-agreement', 'dmei-havraa-2026', 'hafrashot-pensia' ),

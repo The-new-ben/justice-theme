@@ -135,10 +135,27 @@ function justice_ops_entity_render( array $entry, array $wave = array() ): strin
 }
 
 /**
+ * One heavy pass per request, whether seeding or refreshing: the flag is
+ * raised by whichever ran, and the other backs off until the next request.
+ *
+ * @param bool $raise Set the flag.
+ * @return bool Whether a pass already ran in this request.
+ */
+function justice_ops_entity_request_worked( bool $raise = false ): bool {
+	static $worked = false;
+
+	if ( $raise ) {
+		$worked = true;
+	}
+
+	return $worked;
+}
+
+/**
  * Seed pending waves: one-time per wave key, on a normal front request.
  */
 function justice_ops_entity_seed(): void {
-	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() || justice_ops_entity_request_worked() ) {
 		return;
 	}
 
@@ -154,6 +171,7 @@ function justice_ops_entity_seed(): void {
 			return;
 		}
 
+		justice_ops_entity_request_worked( true );
 		set_transient( 'justice_ops_entity_seeding', $option_key, 10 * MINUTE_IN_SECONDS );
 
 		if ( function_exists( 'set_time_limit' ) ) {
@@ -185,11 +203,16 @@ function justice_ops_entity_seed(): void {
 			$existing = get_page_by_path( $entry['slug'], OBJECT, array( 'page', 'post', 'articles' ) );
 
 			if ( $existing instanceof WP_Post ) {
-				// An empty draft page under this slug can only be our own pass 1
-				// from a run that was cut off before pass 2: adopt it so the wave
-				// completes instead of leaving drafts behind. Anything else is a
-				// living slug and is never touched.
-				if ( 'page' === $existing->post_type && 'draft' === $existing->post_status && '' === trim( (string) $existing->post_content ) ) {
+				// Adopt only a draft that carries this wave's own ownership
+				// marker (written in pass 1 below) and is still empty: that is
+				// our pass 1 from a run cut off before pass 2. An editor's draft
+				// under the same slug has no marker and is a living slug.
+				$ours = 'page' === $existing->post_type
+					&& 'draft' === $existing->post_status
+					&& '' === trim( (string) $existing->post_content )
+					&& $option_key === (string) get_post_meta( $existing->ID, '_justice_ops_entity_seed', true );
+
+				if ( $ours ) {
 					$made[ $entry['slug'] ] = array( (int) $existing->ID, $entry );
 				} else {
 					$skipped++;
@@ -211,6 +234,8 @@ function justice_ops_entity_seed(): void {
 
 				continue;
 			}
+
+			update_post_meta( (int) $post_id, '_justice_ops_entity_seed', $option_key );
 
 			$made[ $entry['slug'] ] = array( (int) $post_id, $entry );
 		}
@@ -274,7 +299,7 @@ function justice_ops_entity_apply_meta( int $post_id, array $entry ): void {
  * post_modified stamp that is still inside the seeding minute.
  */
 function justice_ops_entity_refresh(): void {
-	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() || justice_ops_entity_request_worked() ) {
 		return;
 	}
 
@@ -291,10 +316,11 @@ function justice_ops_entity_refresh(): void {
 			continue;
 		}
 
-		if ( get_transient( 'justice_ops_entity_seeding' ) ) {
+		if ( get_transient( 'justice_ops_entity_seeding' ) || get_transient( $option_key . '_retry_after' ) ) {
 			return;
 		}
 
+		justice_ops_entity_request_worked( true );
 		set_transient( 'justice_ops_entity_seeding', $option_key . ':refresh', 10 * MINUTE_IN_SECONDS );
 
 		if ( function_exists( 'set_time_limit' ) ) {
@@ -330,6 +356,7 @@ function justice_ops_entity_refresh(): void {
 
 		$refreshed = 0;
 		$kept      = 0;
+		$failed    = 0;
 
 		foreach ( $pages as $slug => $page ) {
 			$stored    = (string) get_post_meta( $page->ID, '_justice_ops_entity_hash', true );
@@ -351,7 +378,7 @@ function justice_ops_entity_refresh(): void {
 			) ), true );
 
 			if ( is_wp_error( $result ) ) {
-				$kept++;
+				$failed++;
 
 				continue;
 			}
@@ -361,8 +388,16 @@ function justice_ops_entity_refresh(): void {
 			$refreshed++;
 		}
 
-		update_option( $option_key . '_data', $data_hash, false );
-		update_option( $option_key . '_refresh', sprintf( 'done:%s refreshed:%d kept:%d', wp_date( 'Y-m-d H:i:s' ), $refreshed, $kept ), false );
+		// The data hash advances only when every intended update landed;
+		// otherwise the wave stays due and is retried after a pause, so a
+		// transient failure is neither lost nor retried on every request.
+		if ( 0 === $failed ) {
+			update_option( $option_key . '_data', $data_hash, false );
+		} else {
+			set_transient( $option_key . '_retry_after', $failed, HOUR_IN_SECONDS );
+		}
+
+		update_option( $option_key . '_refresh', sprintf( 'done:%s refreshed:%d kept:%d failed:%d', wp_date( 'Y-m-d H:i:s' ), $refreshed, $kept, $failed ), false );
 		delete_transient( 'justice_ops_entity_seeding' );
 
 		return;
@@ -492,12 +527,120 @@ function justice_ops_entity_live_slugs( string $pillar ): array {
 	return $live;
 }
 
+/**
+ * Design contract for the theme (Astra's redesign lane): these two template
+ * functions, the shortcode and the filters below are the public surface.
+ * A template that places the hub or the hierarchy line itself calls the
+ * function where the design wants it and turns the automatic placement
+ * off with add_filter( 'justice_ops_entity_auto_wire', '__return_false' ).
+ * The markup passes through 'justice_ops_entity_hub_html' and
+ * 'justice_ops_entity_crumb_html' so the design can restyle or rebuild it.
+ */
+
+/**
+ * The live entities of a pillar as plain data (slug, title, description, url).
+ *
+ * @param string $pillar Pillar slug.
+ * @param int    $limit  Cap.
+ * @return array<int,array{slug:string,title:string,description:string,url:string}>
+ */
+function justice_ops_entity_items( string $pillar, int $limit = 30 ): array {
+	$index = justice_ops_entity_index();
+
+	if ( empty( $index['by_pillar'][ $pillar ] ) ) {
+		return array();
+	}
+
+	$live  = justice_ops_entity_live_slugs( $pillar );
+	$items = array();
+
+	foreach ( $index['by_pillar'][ $pillar ] as $entry ) {
+		if ( count( $items ) >= $limit ) {
+			break;
+		}
+
+		if ( empty( $live[ $entry['slug'] ] ) ) {
+			continue; // Only pages that were actually seeded.
+		}
+
+		$items[] = array(
+			'slug'        => $entry['slug'],
+			'title'       => $entry['title'],
+			'description' => (string) ( $entry['seo_desc'] ?? '' ),
+			'url'         => home_url( '/' . $entry['slug'] . '/' ),
+		);
+	}
+
+	return $items;
+}
+
+/**
+ * The practical-information hub of a pillar. Empty string below 3 live items.
+ *
+ * @param string $pillar Pillar slug (defaults to the page being served).
+ * @param string $title  Heading.
+ * @return string
+ */
+function justice_ops_entity_hub_html( string $pillar = '', string $title = 'מידע מעשי בנושא: אגרות, טפסים, מוסדות וחוקים' ): string {
+	$pillar = '' !== $pillar ? $pillar : justice_ops_entity_current_slug();
+	$items  = justice_ops_entity_items( $pillar );
+
+	if ( count( $items ) < 3 ) {
+		return '';
+	}
+
+	$list = '';
+
+	foreach ( $items as $item ) {
+		$list .= '<li><a href="' . esc_url( $item['url'] ) . '">' . esc_html( $item['title'] ) . '</a></li>';
+	}
+
+	$html = '<section class="jt-entity-hub"><h2>' . esc_html( $title ) . '</h2><ul>' . $list . '</ul></section>';
+
+	return (string) apply_filters( 'justice_ops_entity_hub_html', $html, $pillar, $items );
+}
+
+/**
+ * The hierarchy line of an entity page: home, pillar, page.
+ *
+ * @param string $slug Entity slug (defaults to the page being served).
+ * @return string Empty when the slug is not an entity.
+ */
+function justice_ops_entity_crumb_html( string $slug = '' ): string {
+	$slug  = '' !== $slug ? $slug : justice_ops_entity_current_slug();
+	$index = justice_ops_entity_index();
+
+	if ( ! isset( $index['by_slug'][ $slug ] ) ) {
+		return '';
+	}
+
+	$entry       = $index['by_slug'][ $slug ];
+	$pieces      = array( '<a href="' . esc_url( home_url( '/' ) ) . '">דף הבית</a>' );
+	$pillar_post = justice_ops_entity_pillar_post( $entry );
+
+	if ( $pillar_post ) {
+		$pieces[] = '<a href="' . esc_url( get_permalink( $pillar_post ) ) . '">' . esc_html( get_the_title( $pillar_post ) ) . '</a>';
+	}
+
+	$pieces[] = '<span>' . esc_html( $entry['title'] ) . '</span>';
+
+	$html = '<nav class="jt-entity-crumb" aria-label="מיקום בהיררכיה">' . implode( ' <span aria-hidden="true">&#8250;</span> ', $pieces ) . '</nav>';
+
+	return (string) apply_filters( 'justice_ops_entity_crumb_html', $html, $slug, $entry );
+}
+
+add_shortcode( 'justice_entity_hub', function ( $atts ) {
+	$atts = shortcode_atts( array( 'pillar' => '', 'title' => 'מידע מעשי בנושא: אגרות, טפסים, מוסדות וחוקים' ), (array) $atts, 'justice_entity_hub' );
+
+	return justice_ops_entity_hub_html( (string) $atts['pillar'], (string) $atts['title'] );
+} );
+
 add_filter( 'the_content', function ( $content ) {
 	// No in_the_loop() test on purpose: the theme's practice-landing part
 	// (the divorce, criminal and malpractice pillars) applies the_content to
 	// the page's raw body outside the loop, and that is exactly where the hub
 	// has to appear. Secondary loops never pass is_main_query().
-	if ( ! is_main_query() || ! is_string( $content ) ) {
+	if ( ! is_main_query() || ! is_string( $content ) || ! apply_filters( 'justice_ops_entity_auto_wire', true ) ) {
 		return $content;
 	}
 
@@ -511,43 +654,12 @@ add_filter( 'the_content', function ( $content ) {
 
 	// Entity page: a hierarchy line up to the money pillar.
 	if ( isset( $index['by_slug'][ $slug ] ) && false === strpos( $content, 'jt-entity-crumb' ) ) {
-		$entry       = $index['by_slug'][ $slug ];
-		$pieces      = array( '<a href="' . esc_url( home_url( '/' ) ) . '">דף הבית</a>' );
-		$pillar_post = justice_ops_entity_pillar_post( $entry );
-
-		if ( $pillar_post ) {
-			$pieces[] = '<a href="' . esc_url( get_permalink( $pillar_post ) ) . '">' . esc_html( get_the_title( $pillar_post ) ) . '</a>';
-		}
-
-		$pieces[] = '<span>' . esc_html( $entry['title'] ) . '</span>';
-
-		$crumb = '<nav class="jt-entity-crumb" aria-label="מיקום בהיררכיה">' . implode( ' <span aria-hidden="true">&#8250;</span> ', $pieces ) . '</nav>';
-
-		$content = $crumb . $content;
+		$content = justice_ops_entity_crumb_html( $slug ) . $content;
 	}
 
 	// Pillar page: the practical-information hub of its entities.
 	if ( isset( $index['by_pillar'][ $slug ] ) && false === strpos( $content, 'jt-entity-hub' ) ) {
-		$live  = justice_ops_entity_live_slugs( $slug );
-		$items = '';
-		$count = 0;
-
-		foreach ( $index['by_pillar'][ $slug ] as $entry ) {
-			if ( $count >= 30 ) {
-				break;
-			}
-
-			if ( empty( $live[ $entry['slug'] ] ) ) {
-				continue; // Link only pages that were actually seeded.
-			}
-
-			$items .= '<li><a href="' . esc_url( home_url( '/' . $entry['slug'] . '/' ) ) . '">' . esc_html( $entry['title'] ) . '</a></li>';
-			$count++;
-		}
-
-		if ( $count >= 3 ) {
-			$content .= '<section class="jt-entity-hub"><h2>מידע מעשי בנושא: אגרות, טפסים, מוסדות וחוקים</h2><ul>' . $items . '</ul></section>';
-		}
+		$content .= justice_ops_entity_hub_html( $slug );
 	}
 
 	return $content;
@@ -618,6 +730,37 @@ add_action( 'wp_head', function () {
 		. '.jt-entity-hub a:hover{border-bottom:1px solid #c99a2e}'
 		. '</style>';
 }, 45 );
+
+// Data route for the design and the React app: GET /wp-json/justice-ops/v1/entities?pillar=<slug>
+// (or no pillar: the map of every pillar to its live entity count).
+add_action( 'rest_api_init', function () {
+	register_rest_route( 'justice-ops/v1', '/entities', array(
+		'methods'             => 'GET',
+		'permission_callback' => '__return_true',
+		'args'                => array(
+			'pillar' => array( 'type' => 'string', 'sanitize_callback' => 'sanitize_title' ),
+		),
+		'callback'            => function ( $request ) {
+			$pillar = (string) $request->get_param( 'pillar' );
+
+			if ( '' !== $pillar ) {
+				return array(
+					'pillar' => $pillar,
+					'url'    => home_url( '/' . $pillar . '/' ),
+					'items'  => justice_ops_entity_items( $pillar, 100 ),
+				);
+			}
+
+			$map = array();
+
+			foreach ( array_keys( justice_ops_entity_index()['by_pillar'] ) as $slug ) {
+				$map[ $slug ] = count( justice_ops_entity_items( $slug, 100 ) );
+			}
+
+			return $map;
+		},
+	) );
+} );
 
 // Status route: GET /wp-json/justice-ops/v1/entity-waves
 add_action( 'rest_api_init', function () {

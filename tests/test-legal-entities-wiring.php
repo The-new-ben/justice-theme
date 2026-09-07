@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 define( 'ABSPATH', __DIR__ . '/' );
 define( 'MINUTE_IN_SECONDS', 60 );
+define( 'HOUR_IN_SECONDS', 3600 );
 define( 'OBJECT', 'OBJECT' );
 
 class WP_Post {
@@ -94,6 +95,10 @@ function wp_update_post( $arr, $wp_error = false ) {
 	return new WP_Error();
 }
 function register_rest_route( ...$args ): void {}
+function add_shortcode( $tag, $cb ): void { global $jt_shortcodes; $jt_shortcodes[ $tag ] = $cb; }
+function shortcode_atts( $defaults, $atts, $tag = '' ): array { return array_merge( $defaults, array_intersect_key( $atts, $defaults ) ); }
+function apply_filters( $tag, $value, ...$args ) { global $jt_filters; if ( isset( $jt_filters[ $tag ] ) ) { foreach ( $jt_filters[ $tag ] as $cb ) { $value = $cb( $value, ...$args ); } } return $value; }
+function sanitize_title( $s ): string { return strtolower( preg_replace( '/[^a-z0-9-]/', '', (string) $s ) ); }
 
 class JT_WPDB {
 	public string $posts = 'wp_posts';
@@ -151,6 +156,22 @@ check( 'entity page gets the hierarchy line first', 0 === strpos( $out, '<nav cl
 check( 'hierarchy line links home and the pillar', false !== strpos( $out, 'href="https://jus-tice.co.il/"' ) && false !== strpos( $out, 'href="https://jus-tice.co.il/medical-malpractice-lawyer/"' ) );
 check( 'entity page gets no hub', false === strpos( $out, 'jt-entity-hub' ) );
 
+// 3b. Design contract: template functions, shortcode, restyle filter, auto-wire off.
+$jt_queried = $jt_posts['divorce-lawyer'];
+$_SERVER['REQUEST_URI'] = '/divorce-lawyer/';
+check( 'template function: hub html for a pillar by slug', substr_count( justice_ops_entity_hub_html( 'medical-malpractice-lawyer' ), '<li>' ) === 30 );
+check( 'template function: hub html defaults to the served pillar', false !== strpos( justice_ops_entity_hub_html(), '/fees-rabbinical-courts/' ) );
+check( 'template function: crumb html for an entity by slug', false !== strpos( justice_ops_entity_crumb_html( 'sachar-minimum-2026' ), '/labor-lawyer/' ) && '' === justice_ops_entity_crumb_html( 'about-us' ) );
+check( 'shortcode [justice_entity_hub pillar=…] renders with a custom title', false !== strpos( $jt_shortcodes['justice_entity_hub']( array( 'pillar' => 'labor-lawyer', 'title' => 'כלים לעובדים' ) ), '<h2>כלים לעובדים</h2>' ) );
+check( 'data function: items carry slug/title/description/url for live pages only', count( justice_ops_entity_items( 'labor-lawyer', 5 ) ) === 5 && isset( justice_ops_entity_items( 'labor-lawyer', 1 )[0]['description'] ) );
+$jt_filters['justice_ops_entity_hub_html'][10] = static fn( $html, $pillar, $items ) => '<div class="astra-hub" data-count="' . count( $items ) . '"></div>';
+check( 'restyle filter replaces the hub markup', '<div class="astra-hub" data-count="9"></div>' === justice_ops_entity_hub_html( 'divorce-lawyer' ) );
+unset( $jt_filters['justice_ops_entity_hub_html'] );
+$jt_filters['justice_ops_entity_auto_wire'][10] = '__return_false_stub';
+function __return_false_stub(): bool { return false; }
+check( 'auto-wire off: the_content is left alone for a template that places the hub itself', '<p>pillar body</p>' === $the_content( '<p>pillar body</p>' ) );
+unset( $jt_filters['justice_ops_entity_auto_wire'] );
+
 // 4. Unrelated page: untouched.
 $jt_queried = new WP_Post( 5, 'about-us' );
 $_SERVER['REQUEST_URI'] = '/about-us/';
@@ -164,19 +185,26 @@ $links = $yoast( array( array( 'url' => 'https://jus-tice.co.il/', 'text' => 'ר
 check( 'Yoast breadcrumb: home > pillar > entity', 3 === count( $links ) && 'https://jus-tice.co.il/labor-lawyer/' === $links[1]['url'] );
 check( 'Yoast breadcrumb: not inserted twice', 3 === count( $yoast( $links ) ) );
 
-// 6. Seeder adopts an interrupted run: one wave pending, 3 empty drafts already exist, one living slug is skipped.
+// 6. Seeder adopts an interrupted run: one wave pending, 3 empty drafts with our marker exist, an editor's unmarked empty draft and one living slug are skipped.
 $jt_posts = array();
 $jt_posts['medical-malpractice-lawyer'] = new WP_Post( 30001, 'medical-malpractice-lawyer' );
-foreach ( array( 'checking-negligence-claim-grounds', 'obtaining-medical-records-copy', 'attaching-expert-opinion-claim' ) as $draft ) { $jt_posts[ $draft ] = new WP_Post( ++$id, $draft, 'page', 'draft', '' ); }
+foreach ( array( 'checking-negligence-claim-grounds', 'obtaining-medical-records-copy', 'attaching-expert-opinion-claim' ) as $draft ) {
+	$jt_posts[ $draft ] = new WP_Post( ++$id, $draft, 'page', 'draft', '' );
+	$jt_meta[ $id ]['_justice_ops_entity_seed'] = 'justice_ops_entity_wave_medical-malpractice-w5';
+}
+$jt_posts['kol-habriut-hotline']     = new WP_Post( ++$id, 'kol-habriut-hotline', 'page', 'draft', '' ); // An editor's own empty draft: no marker.
 $jt_posts['res-ipsa-loquitur-israel'] = new WP_Post( ++$id, 'res-ipsa-loquitur-israel', 'page', 'publish', '<p>owner wrote this</p>' );
 foreach ( justice_ops_entity_waves() as $key => $file ) { $jt_options[ $key ] = 'done:2026-09-07 12:00:00 created:47 skipped:0'; $jt_options[ $key . '_data' ] = md5_file( $file ); }
 unset( $jt_options['justice_ops_entity_wave_medical-malpractice-w5'], $jt_options['justice_ops_entity_wave_medical-malpractice-w5_data'] );
 $jt_transient = array();
 justice_ops_entity_seed();
 $state = (string) get_option( 'justice_ops_entity_wave_medical-malpractice-w5' );
-check( 'seeder: 43 inserted + 3 adopted drafts = created:46, living slug skipped:1', 43 === count( $jt_inserts ) && false !== strpos( $state, 'created:46 skipped:1' ) );
+check( 'seeder: 42 inserted + 3 adopted marked drafts = created:45, editor draft + living slug skipped:2', 42 === count( $jt_inserts ) && false !== strpos( $state, 'created:45 skipped:2' ) );
 check( 'seeder: adopted drafts were published with content', 'publish' === $jt_posts['obtaining-medical-records-copy']->post_status && false !== strpos( $jt_posts['obtaining-medical-records-copy']->post_content, 'בקצרה' ) );
+check( 'seeder: the editor\'s unmarked draft stays a draft, untouched', 'draft' === $jt_posts['kol-habriut-hotline']->post_status && '' === $jt_posts['kol-habriut-hotline']->post_content );
+check( 'seeder: new drafts carry the ownership marker', 'justice_ops_entity_wave_medical-malpractice-w5' === get_post_meta( $jt_posts['venue-malpractice-claim-court']->ID, '_justice_ops_entity_seed', true ) );
 check( 'seeder: the living slug was not touched', '<p>owner wrote this</p>' === $jt_posts['res-ipsa-loquitur-israel']->post_content );
+check( 'same request: refresh backs off after the seeder worked', ( function () { global $jt_updates; $jt_options_before = $GLOBALS['jt_options']; $GLOBALS['jt_options']['justice_ops_entity_wave_family-law-w1_data'] = 'stale'; $before = count( $jt_updates ); justice_ops_entity_refresh(); $GLOBALS['jt_options'] = $jt_options_before; return count( $jt_updates ) === $before; } )() );
 check( 'seeder: lock released and data hash recorded', empty( $jt_transient ) && get_option( 'justice_ops_entity_wave_medical-malpractice-w5_data' ) === md5_file( __DIR__ . '/../justice-ops/data/legal-entities/medical-malpractice-w5.php' ) );
 check( 'seeder: fingerprint stored on seeded pages', '' !== get_post_meta( $jt_posts['checking-negligence-claim-grounds']->ID, '_justice_ops_entity_hash', true ) );
 check( 'seeder: rendered page links the simulation and the pillar', false !== strpos( $jt_posts['checking-negligence-claim-grounds']->post_content, '/legal-simulation/' ) && false !== strpos( $jt_posts['checking-negligence-claim-grounds']->post_content, '/medical-malpractice-lawyer/' ) );

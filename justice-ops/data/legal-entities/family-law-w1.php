@@ -115,7 +115,7 @@ return array(
 		),
 		'official'  => array(
 			array( 'חוק שיפוט בענייני התרת נישואין', 'https://he.wikisource.org/wiki/חוק_שיפוט_בעניני_התרת_נישואין_(מקרים_מיוחדים_וסמכות_בין-לאומית)' ),
-			array( 'אגרות בית המשפט לענייני משפחה', 'https://www.gov.il/he/pages/family_fee' ),
+			array( 'תקנות בית המשפט לענייני משפחה (אגרות), הנוסח המלא', 'https://he.wikisource.org/wiki/תקנות_בית_המשפט_לעניני_משפחה_(אגרות)' ),
 		),
 		'related'   => array( 'abroad-civil-marriage-registration', 'directory-family-courts', 'statute-family-court' ),
 		'pillar'    => 'family-law',
@@ -152,10 +152,10 @@ return array(
 			array( 'בקשה דחופה ניתן להגיש בכל שלב, גם בתקופת עיכוב ההליכים של יישוב סכסוך', 'https://www.kolzchut.org.il/he/מזונות_זמניים', 'כל זכות' ),
 			array( 'למשיב 14 ימים להגיב; אם נקבע דיון, בתוך 30 ימים לכל היותר מהתגובה', 'https://www.kolzchut.org.il/he/מזונות_זמניים', 'כל זכות' ),
 			array( 'נדרשים תצהיר, הרצאת פרטים ואסמכתאות כמו בתביעת מזונות רגילה', 'https://www.kolzchut.org.il/he/מזונות_זמניים', 'כל זכות' ),
-			array( 'אגרת תביעת מזונות: 283 ש"ח בבית המשפט, 279 ש"ח בבית הדין הרבני', 'https://www.gov.il/he/pages/family_fee', 'תעריפי האגרות' ),
+			array( 'אגרת תביעת מזונות: 283 ש"ח בבית המשפט, 279 ש"ח בבית הדין הרבני', 'https://he.wikisource.org/wiki/תקנות_בית_המשפט_לעניני_משפחה_(אגרות)', 'תקנות האגרות' ),
 		),
 		'official'  => array(
-			array( 'אגרות בית המשפט לענייני משפחה', 'https://www.gov.il/he/pages/family_fee' ),
+			array( 'תקנות בית המשפט לענייני משפחה (אגרות), הנוסח המלא', 'https://he.wikisource.org/wiki/תקנות_בית_המשפט_לעניני_משפחה_(אגרות)' ),
 			array( 'מזונות זמניים, המדריך המלא', 'https://www.kolzchut.org.il/he/מזונות_זמניים' ),
 		),
 		'related'   => array( 'temporary-alimony', 'bituach-leumi-alimony', 'agrot-family-court' ),
@@ -197,7 +197,7 @@ return array(
 		),
 		'official'  => array(
 			array( 'תביעת אבהות, המדריך המלא', 'https://www.kolzchut.org.il/he/תביעת_אבהות' ),
-			array( 'אגרות בית המשפט לענייני משפחה', 'https://www.gov.il/he/pages/family_fee' ),
+			array( 'תקנות בית המשפט לענייני משפחה (אגרות), הנוסח המלא', 'https://he.wikisource.org/wiki/תקנות_בית_המשפט_לעניני_משפחה_(אגרות)' ),
 		),
 		'related'   => array( 'adopting-child-israel', 'directory-family-courts', 'statute-family-court' ),
 		'pillar'    => 'child-support',
@@ -320,8 +320,8 @@ return array(
 			array( 'מקבלי סיוע משפטי פטורים מאגרה בהליכי משפחה', 'https://www.kolzchut.org.il/he/פטור_מתשלום_אגרה_או_מהפקדת_ערבון_בהגשת_תביעה_לבית_המשפט_או_לבית_הדין', 'כל זכות' ),
 		),
 		'official'  => array(
-			array( 'אגרות בית המשפט לענייני משפחה, gov.il', 'https://www.gov.il/he/pages/family_fee' ),
-			array( 'תקנות בית המשפט לענייני משפחה (אגרות)', 'https://he.wikisource.org/wiki/תקנות_בית_המשפט_לעניני_משפחה_(אגרות)' ),
+			array( 'תקנות בית המשפט לענייני משפחה (אגרות), הנוסח המלא', 'https://he.wikisource.org/wiki/תקנות_בית_המשפט_לעניני_משפחה_(אגרות)' ),
+			array( 'פטור מאגרה, כל זכות', 'https://www.kolzchut.org.il/he/פטור_מתשלום_אגרה_או_מהפקדת_ערבון_בהגשת_תביעה_לבית_המשפט_או_לבית_הדין' ),
 		),
 		'related'   => array( 'fees-rabbinical-courts', 'appeals-court-fees', 'exemption-court-fee' ),
 		'pillar'    => 'divorce-costs-2025',
@@ -422,7 +422,7 @@ return array(
 			array( 'טלפון ארצי אחיד לכולם: 5889 כוכבית', 'https://data.gov.il/dataset/861', 'המאגר הרשמי' ),
 			array( 'קבלת קהל: ימים א עד ה, 08:30 עד 13:30', 'https://data.gov.il/dataset/861', 'המאגר הרשמי' ),
 			array( 'השיוך לבית דין לפי אזורי השיפוט של יישובי המגורים, במאגר רשמי ייעודי', 'https://data.gov.il/dataset/864', 'מאגר אזורי השיפוט' ),
-			array( 'ההרכב: שלושה דיינים, למעט החלטות ביניים ועניינים שבדיין יחיד', 'https://www.gov.il/he/departments/about/about2', 'הנהלת בתי הדין' ),
+			array( 'ההרכב: שלושה דיינים, למעט החלטות ביניים ועניינים שבדיין יחיד', 'https://www.gov.il/he/pages/about2', 'הנהלת בתי הדין' ),
 		),
 		'official'  => array(
 			array( 'מאגר בתי הדין הרבניים', 'https://data.gov.il/dataset/861' ),
@@ -441,12 +441,12 @@ return array(
 		'facts'     => array(
 			array( 'מועד ערעור: 30 יום מפסק הדין של בית הדין האזורי', 'https://www.kolzchut.org.il/he/תביעת_גירושין_בין_יהודים', 'כל זכות' ),
 			array( 'אגרות: בקשת רשות ערעור 52 ש"ח; אגרת בקשה לבית הדין הגדול 326 ש"ח', 'https://data.gov.il/dataset/860', 'תעריף האגרות הרשמי' ),
-			array( 'אישור הנשיא נדרש להטלת סנקציות על סרבניות גט, להיתרי נישואין ולהעברת תיק בין בתי דין', 'https://www.gov.il/he/departments/about/about2', 'הנהלת בתי הדין' ),
+			array( 'אישור הנשיא נדרש להטלת סנקציות על סרבניות גט, להיתרי נישואין ולהעברת תיק בין בתי דין', 'https://www.gov.il/he/pages/about2', 'הנהלת בתי הדין' ),
 			array( 'כתובת: אהליאב 5, ירושלים; טלפון 5889 כוכבית', 'https://data.gov.il/dataset/861', 'המאגר הרשמי' ),
 		),
 		'official'  => array(
 			array( 'בית הדין הרבני הגדול, gov.il', 'https://www.gov.il/he/government-service-branches/hagadol' ),
-			array( 'על מערכת בתי הדין הרבניים', 'https://www.gov.il/he/departments/about/about2' ),
+			array( 'על מערכת בתי הדין הרבניים', 'https://www.gov.il/he/pages/about2' ),
 		),
 		'related'   => array( 'regional-rabbinical-courts', 'appeals-court-fees', 'refusal-of-get' ),
 		'pillar'    => 'divorce-lawyer',
@@ -567,7 +567,8 @@ return array(
 			array( 'קיים סיוע ייעודי בנושא אלימות במשפחה', 'https://www.kolzchut.org.il/he/סיוע_משפטי_בנושא_אלימות_במשפחה_מטעם_משרד_המשפטים', 'כל זכות' ),
 		),
 		'official'  => array(
-			array( 'הסיוע המשפטי, משרד המשפטים', 'https://www.gov.il/he/departments/legal_aid/govil-landing-page' ),
+			array( 'סיוע משפטי חינם מטעם משרד המשפטים, כל זכות', 'https://www.kolzchut.org.il/he/סיוע_משפטי_חינם_מטעם_משרד_המשפטים' ),
+			array( 'חוק הסיוע המשפטי, הנוסח המלא', 'https://he.wikisource.org/wiki/חוק_הסיוע_המשפטי' ),
 		),
 		'related'   => array( 'exemption-court-fee', 'order-protection-request', 'bituach-leumi-alimony' ),
 		'pillar'    => 'family-law',
@@ -585,7 +586,8 @@ return array(
 			array( 'גם על בני זוג מוסלמים חל החוק להסדר התדיינויות: בקשה ליישוב סכסוך מוגשת גם לבית הדין השרעי', 'https://www.kolzchut.org.il/he/בקשה_ליישוב_סכסוך_במשפחה', 'כל זכות' ),
 		),
 		'official'  => array(
-			array( 'בתי הדין השרעיים, gov.il', 'https://www.gov.il/he/departments/the_sharia_courts/govil-landing-page' ),
+			array( 'חוק הקאדים, הנוסח המלא', 'https://he.wikisource.org/wiki/חוק_הקאדים' ),
+			array( 'דבר המלך במועצה על ארץ ישראל, סמכות בתי הדין הדתיים', 'https://he.wikisource.org/wiki/דבר_המלך_במועצה_על_ארץ_ישראל' ),
 		),
 		'related'   => array( 'directory-family-courts', 'regional-rabbinical-courts', 'dispute-resolution-request' ),
 		'pillar'    => 'family-law',
@@ -750,7 +752,7 @@ return array(
 		),
 		'official'  => array(
 			array( 'נוסח החוק המלא', 'https://he.wikisource.org/wiki/חוק_שיפוט_בתי_דין_רבניים_(נישואין_וגירושין)' ),
-			array( 'על מערכת בתי הדין הרבניים', 'https://www.gov.il/he/departments/about/about2' ),
+			array( 'על מערכת בתי הדין הרבניים', 'https://www.gov.il/he/pages/about2' ),
 		),
 		'related'   => array( 'opening-divorce-file-rabbinical', 'refusal-of-get', 'regional-rabbinical-courts' ),
 		'pillar'    => 'divorce-lawyer',
@@ -847,7 +849,7 @@ return array(
 		),
 		'official'  => array(
 			array( 'מזונות אישה, המדריך המלא', 'https://www.kolzchut.org.il/he/מזונות_אישה' ),
-			array( 'אגרות בית המשפט לענייני משפחה', 'https://www.gov.il/he/pages/family_fee' ),
+			array( 'תקנות בית המשפט לענייני משפחה (אגרות), הנוסח המלא', 'https://he.wikisource.org/wiki/תקנות_בית_המשפט_לעניני_משפחה_(אגרות)' ),
 		),
 		'related'   => array( 'temporary-alimony', 'resource-balancing' ),
 		'pillar'    => 'child-support',
@@ -958,11 +960,11 @@ return array(
 		'facts'     => array(
 			array( 'חוק בתי דין רבניים (קיום פסקי דין של גירושין) משנת 1995 מסמיך להטיל צווי הגבלה, ובהם עיכוב יציאה מהארץ ואף מאסר', 'https://www.kolzchut.org.il/he/מסורבת_גט_בדת_היהודית', 'כל זכות' ),
 			array( 'סעיף 6 לחוק שיפוט בתי דין רבניים מאפשר כפיית גט במאסר באמצעות בית המשפט המחוזי, לאחר 60 ימי אי ציות', 'https://he.wikisource.org/wiki/חוק_שיפוט_בתי_דין_רבניים_(נישואין_וגירושין)', 'נוסח החוק' ),
-			array( 'הטלת סנקציות על סרבניות גט טעונה אישור נשיא בית הדין הגדול', 'https://www.gov.il/he/departments/about/about2', 'הנהלת בתי הדין' ),
+			array( 'הטלת סנקציות על סרבניות גט טעונה אישור נשיא בית הדין הגדול', 'https://www.gov.il/he/pages/about2', 'הנהלת בתי הדין' ),
 			array( 'האישה זכאית בינתיים למזונות מעוכבת', 'https://www.kolzchut.org.il/he/מזונות_לאישה_שבעלה_מסרב_לתת_לה_גט_(מזונות_מעוכבת)', 'כל זכות' ),
 		),
 		'official'  => array(
-			array( 'על מערכת בתי הדין הרבניים', 'https://www.gov.il/he/departments/about/about2' ),
+			array( 'על מערכת בתי הדין הרבניים', 'https://www.gov.il/he/pages/about2' ),
 			array( 'מסורבת גט, כל זכות', 'https://www.kolzchut.org.il/he/מסורבת_גט_בדת_היהודית' ),
 		),
 		'related'   => array( 'gett-jewish-divorce', 'great-rabbinical-court', 'temporary-alimony' ),

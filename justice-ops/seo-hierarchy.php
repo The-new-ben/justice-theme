@@ -227,6 +227,11 @@ function justice_seo_noindex_slugs(): array {
 add_filter( 'wpseo_robots_array', function ( $robots ) {
 	$qo = get_queried_object();
 
+	if ( is_post_type_archive( 'justice_legal_tool' ) ) {
+		$robots['index']  = 'index';
+		$robots['follow'] = 'follow';
+	}
+
 	if ( $qo instanceof WP_Post && in_array( $qo->post_name, justice_seo_noindex_slugs(), true ) ) {
 		$robots['index'] = 'noindex';
 	}

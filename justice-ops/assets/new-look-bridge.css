@@ -23,10 +23,32 @@ body.jt-premium-bridge {
 	position: sticky;
 	top: 0;
 	z-index: 50;
-	background: rgba(255, 255, 255, 0.92);
+	background:
+		linear-gradient(135deg, rgba(8, 24, 46, 0.98), rgba(17, 43, 79, 0.96)) !important;
+	color: #fff;
 	backdrop-filter: blur(18px);
-	border-bottom: 1px solid var(--jt-line);
-	box-shadow: 0 10px 34px rgba(12, 23, 44, 0.07);
+	-webkit-backdrop-filter: blur(18px);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.11) !important;
+	box-shadow: 0 14px 42px rgba(7, 21, 47, 0.22) !important;
+}
+
+.jt-premium-bridge .jt2-header__main {
+	min-height: 74px;
+	padding: 10px 24px;
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 18px;
+}
+
+.jt-premium-bridge .jt2-header__brand {
+	color: #fff;
+}
+
+.jt-premium-bridge .jt2-header__brand img {
+	width: 36px;
+	height: 36px;
+	border-radius: 12px;
 }
 
 .jt-premium-bridge .jt2-header__main,
@@ -46,14 +68,60 @@ body.jt-premium-bridge {
 }
 
 .jt-premium-bridge .jt2-header__brand-name {
-	color: var(--jt-navy);
+	color: #fff;
 	font-weight: 850;
 }
 
 .jt-premium-bridge .primary-navigation a,
 .jt-premium-bridge .jt2-header__topics a {
-	color: var(--jt-navy);
+	color: rgba(255, 255, 255, 0.84);
 	text-decoration: none;
+}
+
+.jt-premium-bridge .jt2-header nav.primary-navigation {
+	justify-self: center;
+	max-width: 100%;
+	background: rgba(255, 255, 255, 0.07);
+	border: 1px solid rgba(255, 255, 255, 0.09);
+	border-radius: 999px;
+	padding: 5px;
+	overflow: hidden;
+}
+
+.jt-premium-bridge .jt2-header nav.primary-navigation ul {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	flex-wrap: nowrap;
+}
+
+.jt-premium-bridge .jt2-header nav.primary-navigation ul li a {
+	display: inline-flex;
+	align-items: center;
+	min-height: 38px;
+	padding: 8px 12px;
+	border-radius: 999px;
+	font-size: 13px;
+	line-height: 1;
+	white-space: nowrap;
+	color: rgba(255, 255, 255, 0.84) !important;
+}
+
+.jt-premium-bridge .jt2-header nav.primary-navigation ul li a:hover,
+.jt-premium-bridge .jt2-header nav.primary-navigation ul li.current-menu-item a {
+	background: rgba(255, 255, 255, 0.13);
+	color: #fff !important;
+}
+
+.jt-premium-bridge .jt2-header__actions {
+	display: inline-flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 8px;
+	min-width: 0;
 }
 
 .jt-premium-bridge .jt2-header__whatsapp,
@@ -71,6 +139,62 @@ body.jt-premium-bridge {
 	background: linear-gradient(135deg, var(--jt-navy), var(--jt-blue));
 	color: #fff;
 	box-shadow: 0 16px 35px rgba(36, 87, 214, 0.23);
+}
+
+.jt-premium-bridge .jt2-header__phone {
+	background: rgba(255, 255, 255, 0.08);
+	border-color: rgba(255, 255, 255, 0.16);
+	color: rgba(255, 255, 255, 0.9);
+	box-shadow: none;
+}
+
+.jt-premium-bridge .jt2-header__whatsapp {
+	min-height: 40px;
+	padding: 9px 16px;
+	background: linear-gradient(135deg, #16a34a, #15803d);
+	color: #fff !important;
+}
+
+.jt-premium-bridge .jt2-header__topics {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-height: 46px;
+	padding: 0 24px 10px;
+	background: transparent;
+	overflow-x: auto;
+	scrollbar-width: none;
+}
+
+.jt-premium-bridge .jt2-header__topics-label {
+	color: rgba(255, 255, 255, 0.48);
+	font-size: 12px;
+	white-space: nowrap;
+}
+
+.jt-premium-bridge .jt2-header__topics a,
+.jt-premium-bridge .jt2-mega-trigger {
+	display: inline-flex;
+	align-items: center;
+	min-height: 34px;
+	padding: 7px 13px;
+	border: 1px solid rgba(255, 255, 255, 0.11);
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.055);
+	color: rgba(255, 255, 255, 0.82) !important;
+	font-size: 12.5px;
+	font-weight: 750;
+	white-space: nowrap;
+}
+
+.jt-premium-bridge .jt2-mega-trigger {
+	cursor: pointer;
+}
+
+.jt-premium-bridge .jt2-header__topics a:hover,
+.jt-premium-bridge .jt2-mega-trigger:hover {
+	background: rgba(255, 255, 255, 0.12);
+	color: #fff !important;
 }
 
 .jt-premium-bridge .jt2-hero {
@@ -232,6 +356,28 @@ body.jt-premium-bridge {
 @media (max-width: 760px) {
 	.jt-premium-bridge .site-header.jt2-header {
 		position: sticky;
+	}
+
+	.jt-premium-bridge .jt2-header__main {
+		display: flex;
+		min-height: 64px;
+		padding: 10px 14px;
+	}
+
+	.jt-premium-bridge .jt2-header__whatsapp {
+		min-height: 38px;
+		padding: 8px 13px;
+	}
+
+	.jt-premium-bridge .jt2-header .menu-toggle {
+		display: inline-flex;
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		background: rgba(255, 255, 255, 0.1);
+		color: #fff;
+	}
+
+	.jt-premium-bridge .jt2-header__topics {
+		padding: 0 14px 10px;
 	}
 
 	.jt-premium-bridge .jt2-hero {

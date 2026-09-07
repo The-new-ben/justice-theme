@@ -227,6 +227,11 @@ function justice_seo_noindex_slugs(): array {
 add_filter( 'wpseo_robots_array', function ( $robots ) {
 	$qo = get_queried_object();
 
+	if ( is_post_type_archive( 'justice_legal_tool' ) ) {
+		$robots['index']  = 'index';
+		$robots['follow'] = 'follow';
+	}
+
 	if ( $qo instanceof WP_Post && in_array( $qo->post_name, justice_seo_noindex_slugs(), true ) ) {
 		$robots['index'] = 'noindex';
 	}
@@ -237,6 +242,24 @@ add_filter( 'wpseo_robots_array', function ( $robots ) {
 
 	return $robots;
 } );
+
+function justice_seo_legal_tools_archive_title( $title ) {
+	if ( is_post_type_archive( 'justice_legal_tool' ) ) {
+		return 'כלים משפטיים להכנת מסמכים וסימולציה | Jus-Tice';
+	}
+
+	return $title;
+}
+add_filter( 'pre_get_document_title', 'justice_seo_legal_tools_archive_title', PHP_INT_MAX );
+add_filter( 'wpseo_title', 'justice_seo_legal_tools_archive_title', PHP_INT_MAX );
+
+add_filter( 'wpseo_metadesc', function ( $description ) {
+	if ( is_post_type_archive( 'justice_legal_tool' ) ) {
+		return 'כלים משפטיים להכנת מסמכים, בדיקת מצב ראשונית וסימולציה משפטית לפני פנייה לעורך דין. שימוש בעברית ובאנגלית, עם מעבר ברור לשיחה אנושית.';
+	}
+
+	return $description;
+}, PHP_INT_MAX );
 
 add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', function ( $ids ) {
 	static $resolved = null;

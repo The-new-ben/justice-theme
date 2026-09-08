@@ -99,6 +99,7 @@ function register_rest_route( ...$args ): void {}
 function add_shortcode( $tag, $cb ): void { global $jt_shortcodes; $jt_shortcodes[ $tag ] = $cb; }
 function shortcode_atts( $defaults, $atts, $tag = '' ): array { return array_merge( $defaults, array_intersect_key( $atts, $defaults ) ); }
 function apply_filters( $tag, $value, ...$args ) { global $jt_filters; if ( isset( $jt_filters[ $tag ] ) ) { foreach ( $jt_filters[ $tag ] as $cb ) { $value = $cb( $value, ...$args ); } } return $value; }
+function wp_json_encode( $v, $f = 0 ): string { return json_encode( $v, JSON_UNESCAPED_UNICODE ); }
 function sanitize_title( $s ): string { return strtolower( preg_replace( '/[^a-z0-9-]/', '', (string) $s ) ); }
 
 class JT_WPDB {
@@ -203,7 +204,7 @@ justice_ops_entity_seed();
 $first_batch = count( $jt_inserts ) + count( $jt_updates );
 check( 'seeder: the first request writes at most one batch, releases the lock, keeps progress', $first_batch > 0 && $first_batch <= JUSTICE_OPS_ENTITY_BATCH && empty( $jt_transient ) && is_array( get_option( 'justice_ops_entity_wave_medical-malpractice-w5_progress' ) ) );
 $rounds = 1;
-while ( ! get_option( 'justice_ops_entity_wave_medical-malpractice-w5' ) && $rounds < 40 ) { justice_ops_entity_request_worked( false ); justice_ops_entity_seed(); $rounds++; }
+while ( ! get_option( 'justice_ops_entity_wave_medical-malpractice-w5' ) && $rounds < 400 ) { justice_ops_entity_request_worked( false ); justice_ops_entity_seed(); $rounds++; }
 $state = (string) get_option( 'justice_ops_entity_wave_medical-malpractice-w5' );
 check( 'seeder: 42 inserted + 3 adopted marked drafts = created:45, editor draft + living slug skipped:2, across ' . $rounds . ' requests', 42 === count( $jt_inserts ) && false !== strpos( $state, 'created:45 skipped:2' ) && $rounds >= 9 && null === get_option( 'justice_ops_entity_wave_medical-malpractice-w5_progress', null ) );
 check( 'seeder: a page inserted in an early batch links a sibling from a later batch by title', false !== strpos( $jt_posts['checking-negligence-claim-grounds']->post_content, '/known-complication-versus-negligence/' ) );
@@ -231,7 +232,7 @@ justice_ops_entity_refresh();
 $first = count( $jt_updates );
 check( 'refresh: the first request re-renders at most one batch', $first > 0 && $first <= JUSTICE_OPS_ENTITY_BATCH && empty( $jt_transient ) );
 $rounds = 1;
-while ( ! get_option( 'justice_ops_entity_wave_family-law-w1_refresh' ) && $rounds < 40 ) { justice_ops_entity_request_worked( false ); justice_ops_entity_refresh(); $rounds++; }
+while ( ! get_option( 'justice_ops_entity_wave_family-law-w1_refresh' ) && $rounds < 400 ) { justice_ops_entity_request_worked( false ); justice_ops_entity_refresh(); $rounds++; }
 $refresh = (string) get_option( 'justice_ops_entity_wave_family-law-w1_refresh' );
 check( 'refresh: 46 untouched wave-1 pages re-rendered, 1 edited page kept', false !== strpos( $refresh, 'refreshed:46 kept:1' ) && ! in_array( 'fees-rabbinical-courts', $jt_updates, true ) );
 check( 'refresh: only wave 1 pages were touched, each once, across ' . $rounds . ' requests', 46 === count( array_unique( $jt_updates ) ) && $rounds >= 10 && ! array_diff( $jt_updates, array_keys( $jt_posts ) ) );
@@ -251,7 +252,7 @@ $jt_options['justice_ops_entity_wave_family-law-w1_data'] = 'stale';
 $jt_meta[ $jt_posts['temporary-alimony']->ID ]['_justice_ops_entity_hash'] = 'different';
 $jt_posts['temporary-alimony']->post_modified_gmt = '2026-09-08 09:00:00';
 $rounds = 0;
-while ( get_option( 'justice_ops_entity_wave_family-law-w1_data' ) !== md5_file( __DIR__ . '/../justice-ops/data/legal-entities/family-law-w1.php' ) && $rounds < 40 ) { justice_ops_entity_request_worked( false ); justice_ops_entity_refresh(); $rounds++; }
+while ( get_option( 'justice_ops_entity_wave_family-law-w1_data' ) !== md5_file( __DIR__ . '/../justice-ops/data/legal-entities/family-law-w1.php' ) && $rounds < 400 ) { justice_ops_entity_request_worked( false ); justice_ops_entity_refresh(); $rounds++; }
 check( 'refresh: fingerprint mismatch means the page is the owner\'s now', ! in_array( 'temporary-alimony', $jt_updates, true ) );
 
 echo $failures ? "\n$failures FAILED\n" : "\nALL PASS\n";

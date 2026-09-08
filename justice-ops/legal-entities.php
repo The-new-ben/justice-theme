@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_ENTITY_BATCH' ) ) {
-	define( 'JUSTICE_OPS_ENTITY_BATCH', 5 ); // Pages written per front request; a page costs about 10 seconds on the host.
+	define( 'JUSTICE_OPS_ENTITY_BATCH', 1 ); // Pages written per front request. One until the host's per-page cost is measured (see the diag option).
 }
 
 if ( ! defined( 'JUSTICE_OPS_ENTITY_LOCK_TTL' ) ) {
@@ -180,12 +180,87 @@ function justice_ops_entity_locked(): bool {
 }
 
 /**
- * Take the lock for this request.
+ * Take the lock for this request, and arm the diagnostics: if this request
+ * dies while holding the lock (timeout, fatal, memory), the shutdown hook
+ * records what PHP saw last, so the status route can show it. Without log
+ * access on the host this is the only window into a failing pass.
  *
  * @param string $label What holds it (wave key, plus :refresh for the refresh pass).
  */
 function justice_ops_entity_lock( string $label ): void {
 	set_transient( 'justice_ops_entity_seeding', $label . '@' . time(), JUSTICE_OPS_ENTITY_LOCK_TTL );
+	justice_ops_entity_diag( 'start', $label );
+
+	static $armed = false;
+
+	if ( ! $armed ) {
+		$armed = true;
+
+		register_shutdown_function( function () {
+			if ( ! justice_ops_entity_diag_open() ) {
+				return; // The pass released the lock normally.
+			}
+
+			$error = error_get_last();
+			justice_ops_entity_diag( 'died', $error ? sprintf( '%s in %s:%d', (string) $error['message'], basename( (string) $error['file'] ), (int) $error['line'] ) : 'no php error recorded (killed from outside)' );
+			delete_transient( 'justice_ops_entity_seeding' );
+		} );
+	}
+}
+
+/**
+ * Whether a pass started in this request and has not marked its end.
+ *
+ * @return bool
+ */
+function justice_ops_entity_diag_open(): bool {
+	$diag = (array) get_option( 'justice_ops_entity_diag', array() );
+
+	return ! empty( $diag['open'] );
+}
+
+/**
+ * Diagnostics record (one small option): start, step, end or died, with
+ * seconds since the pass started and the peak memory.
+ *
+ * @param string $event start | step | end | died.
+ * @param string $note  Free text.
+ */
+function justice_ops_entity_diag( string $event, string $note ): void {
+	$diag = (array) get_option( 'justice_ops_entity_diag', array() );
+
+	if ( 'start' === $event ) {
+		$diag = array( 'open' => 1, 'label' => $note, 'started' => time(), 'steps' => array(), 'peak_mb' => 0 );
+	} elseif ( 'step' === $event ) {
+		$diag['steps'][] = sprintf( '%ds %s', time() - (int) ( $diag['started'] ?? time() ), $note );
+		$diag['steps']   = array_slice( (array) $diag['steps'], -12 );
+	} elseif ( 'end' === $event ) {
+		$diag['open']  = 0;
+		$diag['ended'] = sprintf( '%ds %s', time() - (int) ( $diag['started'] ?? time() ), $note );
+	} else {
+		$diag['open'] = 0;
+		$diag['died'] = sprintf( '%ds %s', time() - (int) ( $diag['started'] ?? time() ), $note );
+	}
+
+	$diag['peak_mb'] = max( (int) ( $diag['peak_mb'] ?? 0 ), (int) round( memory_get_peak_usage( true ) / 1048576 ) );
+	$diag['last']    = wp_date( 'Y-m-d H:i:s' );
+
+	update_option( 'justice_ops_entity_diag', $diag, false );
+}
+
+/**
+ * What the theme's publication-safety gate would block in this text, if the
+ * gate is present. Empty when the gate is absent or the text is clean.
+ *
+ * @param string $text Title plus body.
+ * @return array<int,string>
+ */
+function justice_ops_entity_gate_markers( string $text ): array {
+	if ( ! function_exists( 'justice_theme_detect_publication_safety_markers' ) ) {
+		return array();
+	}
+
+	return (array) justice_theme_detect_publication_safety_markers( $text );
 }
 
 /**
@@ -223,6 +298,7 @@ function justice_ops_entity_seed(): void {
 
 		if ( ! is_array( $entries ) ) {
 			update_option( $option_key, 'skipped:bad-file', false );
+			justice_ops_entity_diag( 'end', 'bad file' );
 			delete_transient( 'justice_ops_entity_seeding' );
 
 			continue;
@@ -283,10 +359,13 @@ function justice_ops_entity_seed(): void {
 			update_option( $option_key, sprintf( 'done:%s created:%d skipped:%d', wp_date( 'Y-m-d H:i:s' ), (int) $progress['created'], (int) $progress['skipped'] ), false );
 			update_option( $option_key . '_data', md5_file( $file ), false );
 			delete_option( $option_key . '_progress' );
+			justice_ops_entity_diag( 'end', 'wave complete' );
 			delete_transient( 'justice_ops_entity_seeding' );
 
 			return;
 		}
+
+		justice_ops_entity_diag( 'step', sprintf( 'scan done, batch %d, seen %d', count( $batch ), count( (array) $progress['seen'] ) ) );
 
 		foreach ( $batch as $slug => $pair ) {
 			list( $post_id, $entry ) = $pair;
@@ -298,6 +377,24 @@ function justice_ops_entity_seed(): void {
 				'post_title'   => $entry['title'],
 				'post_content' => justice_ops_entity_render( $entry, $wave ),
 			);
+
+			// The theme's publication-safety gate wp_die()s a publish whose text
+			// carries an internal marker (measured 2026-09-08: the whole request
+			// died on the first such entry, every time). Screen first: a blocked
+			// entry is recorded and skipped, the wave moves on.
+			$markers = justice_ops_entity_gate_markers( $fields['post_title'] . "
+
+" . $fields['post_content'] );
+
+			if ( $markers ) {
+				$progress['seen'][ $slug ]      = 1;
+				$progress['blocked'][ $slug ] = implode( ', ', array_slice( $markers, 0, 4 ) );
+				$progress['skipped']++;
+				update_option( $option_key . '_progress', $progress, false );
+				justice_ops_entity_diag( 'step', 'gate blocks ' . $slug . ': ' . implode( ', ', array_slice( $markers, 0, 4 ) ) );
+
+				continue;
+			}
 
 			if ( $post_id > 0 ) {
 				$fields['ID'] = $post_id;
@@ -318,9 +415,12 @@ function justice_ops_entity_seed(): void {
 			justice_ops_entity_apply_meta( (int) $result, $entry );
 
 			$progress['created']++;
+			update_option( $option_key . '_progress', $progress, false ); // After every page: a killed request keeps its work.
+			justice_ops_entity_diag( 'step', 'wrote ' . $slug );
 		}
 
 		update_option( $option_key . '_progress', $progress, false );
+		justice_ops_entity_diag( 'end', 'batch ok' );
 		delete_transient( 'justice_ops_entity_seeding' );
 
 		return;
@@ -389,6 +489,7 @@ function justice_ops_entity_refresh(): void {
 		$entries = include $file;
 
 		if ( ! is_array( $entries ) ) {
+			justice_ops_entity_diag( 'end', 'bad file' );
 			delete_transient( 'justice_ops_entity_seeding' );
 
 			continue;
@@ -449,10 +550,24 @@ function justice_ops_entity_refresh(): void {
 				continue;
 			}
 
+			$content = justice_ops_entity_render( $entry, $wave );
+			$markers = justice_ops_entity_gate_markers( $entry['title'] . "
+
+" . $content );
+
+			if ( $markers ) {
+				$progress['kept']++;
+				$progress['blocked'][ $slug ] = implode( ', ', array_slice( $markers, 0, 4 ) );
+				update_option( $option_key . '_refresh_progress', $progress, false );
+				justice_ops_entity_diag( 'step', 'gate blocks refresh of ' . $slug );
+
+				continue;
+			}
+
 			$result = wp_update_post( wp_slash( array(
 				'ID'           => $page->ID,
 				'post_title'   => $entry['title'],
-				'post_content' => justice_ops_entity_render( $entry, $wave ),
+				'post_content' => $content,
 			) ), true );
 
 			$updates++;
@@ -466,10 +581,13 @@ function justice_ops_entity_refresh(): void {
 			justice_ops_entity_apply_meta( $page->ID, $entry );
 
 			$progress['refreshed']++;
+			update_option( $option_key . '_refresh_progress', $progress, false );
+			justice_ops_entity_diag( 'step', 'refreshed ' . $slug );
 		}
 
 		if ( $pending > 0 ) {
 			update_option( $option_key . '_refresh_progress', $progress, false );
+			justice_ops_entity_diag( 'end', 'refresh batch ok' );
 			delete_transient( 'justice_ops_entity_seeding' );
 
 			return;
@@ -487,6 +605,7 @@ function justice_ops_entity_refresh(): void {
 
 		update_option( $option_key . '_refresh', sprintf( 'done:%s refreshed:%d kept:%d failed:%d', wp_date( 'Y-m-d H:i:s' ), (int) $progress['refreshed'], (int) $progress['kept'], (int) $progress['failed'] ), false );
 		delete_option( $option_key . '_refresh_progress' );
+		justice_ops_entity_diag( 'end', 'refresh complete' );
 		delete_transient( 'justice_ops_entity_seeding' );
 
 		return;
@@ -874,11 +993,12 @@ add_action( 'rest_api_init', function () {
 					$progress = get_option( $option_key . $suffix );
 
 					if ( is_array( $progress ) ) {
-						$status[ $name . $label ] = sprintf( 'seen:%d created:%d refreshed:%d kept:%d skipped:%d failed:%d', count( (array) ( $progress['seen'] ?? array() ) ), (int) ( $progress['created'] ?? 0 ), (int) ( $progress['refreshed'] ?? 0 ), (int) ( $progress['kept'] ?? 0 ), (int) ( $progress['skipped'] ?? 0 ), (int) ( $progress['failed'] ?? 0 ) );
+						$status[ $name . $label ] = sprintf( 'seen:%d created:%d refreshed:%d kept:%d skipped:%d failed:%d blocked:%s', count( (array) ( $progress['seen'] ?? array() ) ), (int) ( $progress['created'] ?? 0 ), (int) ( $progress['refreshed'] ?? 0 ), (int) ( $progress['kept'] ?? 0 ), (int) ( $progress['skipped'] ?? 0 ), (int) ( $progress['failed'] ?? 0 ), wp_json_encode( (array) ( $progress['blocked'] ?? array() ), JSON_UNESCAPED_UNICODE ) );
 					}
 				}
 			}
 
+			$status['diag'] = get_option( 'justice_ops_entity_diag', 'none' );
 			$lock           = (string) get_transient( 'justice_ops_entity_seeding' );
 			$status['lock'] = ( '' !== $lock && justice_ops_entity_locked() ) ? $lock : ( '' !== $lock ? $lock . ' (stale, ignored)' : 'free' );
 

@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_ENTITY_BATCH' ) ) {
-	define( 'JUSTICE_OPS_ENTITY_BATCH', 1 ); // Pages written per front request. One until the host's per-page cost is measured (see the diag option).
+	define( 'JUSTICE_OPS_ENTITY_BATCH', 3 ); // Pages written per front request; the diag measured about 10 seconds per page on the host.
 }
 
 if ( ! defined( 'JUSTICE_OPS_ENTITY_LOCK_TTL' ) ) {

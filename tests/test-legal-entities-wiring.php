@@ -121,7 +121,7 @@ $failures = 0;
 function check( string $label, bool $ok ): void { global $failures; echo ( $ok ? 'PASS ' : 'FAIL ' ) . $label . "\n"; if ( ! $ok ) { $failures++; } }
 
 $index = justice_ops_entity_index();
-check( 'index loads 5 waves x 47 = 235 entities', 235 === count( $index['by_slug'] ) );
+check( 'index loads 6 waves x 47 = 282 entities', 282 === count( $index['by_slug'] ) );
 check( 'malpractice pillar has 47 entities', 47 === count( $index['by_pillar']['medical-malpractice-lawyer'] ?? array() ) );
 
 // Live pillars and every entity page as published pages.

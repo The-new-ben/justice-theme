@@ -51,7 +51,7 @@ return array(
 			array( 'h' => 'למה ההגדרה קובעת את כל המסלול', 'p' => 'אם האירוע הוא תאונת דרכים, חלה אחריות מוחלטת ללא הוכחת אשם, התביעה מופנית למבטח בביטוח חובה, ורק חוק הפיצויים חל, עם תקרותיו ועם מומחה מטעם בית המשפט. אם אינו תאונת דרכים, הנפגע צריך להוכיח רשלנות לפי פקודת הנזיקין, בלי תקרה אך עם אפשרות של הפחתה בשל אשם תורם. לכן בודקים את ההגדרה עוד לפני שאוספים מסמכים רפואיים, ומול כל אחד מרכיביה: מי השתמש ברכב, לאיזו מטרה ומה בדיוק גרם לנזק.' ),
 		),
 		'related'   => array( 'vehicle-use-transport-purpose', 'nofault-liability-road-accidents', 'exclusivity-claim-cause-section-8', 'israel-road-accident-compensation-law' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -77,7 +77,7 @@ return array(
 			array( 'h' => 'איך משתלב יסוד המטרה התחבורתית', 'p' => 'לא די בשימוש; הוא צריך להיות למטרות תחבורה. לכן ניצול הכוח המכני של הרכב נכנס להגדרה רק אם הרכב לא שינה את ייעודו המקורי, ורכב שמשמש כמנוף או כמתקן עבודה נבחן לפי השאלה אם הפעולה עדיין תחבורתית. סעיף 15ב מוציא גם שימוש בכלי תחרותי בעת נהיגה ספורטיבית, למעט נהיגה בקטע קישור. בכל מקרה גבולי בודקים תחילה אם האירוע נכנס לאחת החזקות של ההגדרה, ורק אז עוברים ליסוד המטרה.' ),
 		),
 		'related'   => array( 'definition-road-accident-law', 'workplace-accident-definition-btl', 'excluded-victims-section-seven' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -103,7 +103,7 @@ return array(
 			array( 'h' => 'מה החוק מוציא מהחובה', 'p' => 'סעיף 2(ב1) מוציא מהחובה שירותי בריאות הכלולים בסל שהנפגע זכאי להם מקופת החולים כתושב, ומשאיר אותה לגבי מי שבתקופת המתנה, חיילים, ומי שזכאי לגמלת נפגעי עבודה. המימון של הטיפול מגיע לקופות דרך העברות מהמבטחים לקרנית לפי סעיפים 12ד עד 12ו. לכן נפגע תאונת דרכים מטופל בקופת החולים שלו, ובית החולים מבקש אישור משטרה על התאונה כדי לחייב את המבטח לפי סעיף 28 לפקודת הביטוח.' ),
 		),
 		'related'   => array( 'definition-road-accident-law', 'contributory-fault-section-68', 'ceiling-lost-earnings-triple-wage', 'car-accident-auto-injury-lawyer' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -129,7 +129,7 @@ return array(
 			array( 'h' => 'איך משפיעה קביעת נכות ממקום אחר', 'p' => 'סעיף 6ב מחבר בין המסלולים: דרגת נכות שקבעה ועדה רפואית לפי דין אחר, למשל בביטוח הלאומי כשהתאונה היא גם תאונת עבודה, מחייבת בתביעה לפי החוק אם נקבעה לפני שמיעת הראיות. בית המשפט רשאי להתיר ראיות לסתור רק מטעמים מיוחדים שיירשמו. התוצאה היא שנפגע כזה אינו זקוק למומחה מטעם בית המשפט, ושהערר על החלטת הוועדה הרפואית הופך לחלק מהתביעה נגד המבטח.' ),
 		),
 		'related'   => array( 'nofault-liability-road-accidents', 'excluded-victims-section-seven', 'combined-road-work-accident-benefits', 'nezikin-ordinance-negligence' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -157,7 +157,7 @@ return array(
 			array( 'h' => 'מי לא יקבל מהקרן', 'p' => 'הקרן אינה מפצה את מי שסעיף 7 מוציא מגדר הזכאים, ובראשם מי שנהג בעצמו ללא ביטוח או ללא רישיון, ומי שהרכב שימש לו לפשע. הקרן מטפלת בנזקי גוף בלבד ולא בנזקי רכוש, ולכן נזק לרכב מרכב לא מבוטח נתבע מהנהג עצמו לפי פקודת הנזיקין. לאחר ששילמה, עומדת לקרן זכות חזרה על הנהג חסר הביטוח לפי סעיף 9, ולפי כל זכות היא אכן תובעת ממנו את הפיצוי ששילמה.' ),
 		),
 		'related'   => array( 'excluded-victims-section-seven', 'imprisonment-driving-without-insurance', 'interim-payment-sixty-days', 'compulsory-motor-vehicle-insurance' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -184,7 +184,7 @@ return array(
 			array( 'h' => 'מה הגבולות', 'p' => 'סעיף 5ה מגביל: בקשה נוספת רק אחרי שישה חודשים ובשינוי נסיבות, ולא יותר משנתיים מיום התאונה, אלא מטעמים שיירשמו. ההחלטה אינה מעשה בית דין, ולכן אינה קובעת דבר לגבי התביעה העיקרית. אם התביעה נדחית או שהסכום ששולם עלה על מה שנפסק, הנתבע זכאי להחזר לפי סעיף 5ז מהתובע, מהאחראי לנזק או מהקרן, בתוספת ריבית שקלית. הקרן ששילמה חוזרת על התובע ועל האחראי לנזק יחד ולחוד.' ),
 		),
 		'related'   => array( 'karnit-fund-uninsured-hit-run', 'magistrates-court-jurisdiction-tort', 'ceiling-lost-earnings-triple-wage' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -211,7 +211,7 @@ return array(
 			array( 'h' => 'מי משלם ומה משקל קביעה קודמת', 'p' => 'בית המשפט קובע את שכר המומחה ומי ישלם אותו, ובדרך כלל מטיל את התשלום הראשוני על הנתבע, כשהחלוקה הסופית נקבעת בפסק הדין. סעיף 6ב מוסיף כלל חשוב: אם ועדה לפי דין אחר, כמו הביטוח הלאומי בתאונת עבודה, קבעה דרגת נכות בשל אותה תאונה לפני שמיעת הראיות, הקביעה מחייבת ואין צורך במומחה. לפי כל זכות, את הליך המינוי מסדירות תקנות המומחים משנת 1986.' ),
 		),
 		'related'   => array( 'exclusivity-claim-cause-section-8', 'nonpecuniary-damage-formula-regulations', 'combined-road-work-accident-benefits', 'appointed-court-expert' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -238,7 +238,7 @@ return array(
 			array( 'h' => 'מה חל מפקודת הנזיקין', 'p' => 'סעיף 4(א) מחיל על הזכות לפיצוי את סעיפים 19 עד 22, 76 עד 83, 86, 88 ו-89 לפקודת הנזיקין: כללי הפיצוי, זכות התלויים במי שנהרג, האיסור להיפרע פעמיים על אותו נזק, אי הבאת סכומי ביטוח בחשבון, ומועד תחילת ההתיישנות. ראשי הנזק זהים לתביעת נזיקין רגילה: הפסד השתכרות בעבר ובעתיד, הוצאות רפואיות, עזרת הזולת, ניידות וכאב וסבל, רק שהשניים הראשונים והאחרון כפופים לתקרות. כך שהתקרה אינה נוגעת להוצאות ולעזרת הזולת.' ),
 		),
 		'related'   => array( 'nonpecuniary-damage-formula-regulations', 'nofault-liability-road-accidents', 'sole-court-expert-road-accident', 'components-compensation-damage' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -265,7 +265,7 @@ return array(
 			array( 'h' => 'למה זה שונה מתביעת רשלנות', 'p' => 'בתביעה לפי פקודת הנזיקין בית המשפט פוסק כאב וסבל לפי הנסיבות, ללא תקרה ובלי נוסחה. בחוק הפיצויים הנוסחה קבועה, ולכן אחוזי הנכות שקובע המומחה מטעם בית המשפט וימי האשפוז המתועדים הם הנתונים שמכריעים את הרכיב, וכל אחוז נכות שווה כסף. זו הסיבה שהמאבק בתיקי תאונות דרכים מתנהל סביב שאלות ההבהרה למומחה וסביב תיעוד האשפוז, ולא סביב תיאור הסבל. לכן גם ערעור על גובה הרכיב הוא בפועל ערעור על הנכות.' ),
 		),
 		'related'   => array( 'ceiling-lost-earnings-triple-wage', 'sole-court-expert-road-accident', 'degree-disability-regulations-1956', 'pain-suffering-compensation-caselaw' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -293,7 +293,7 @@ return array(
 			array( 'h' => 'ממה גוזרים את האחוזים', 'p' => 'הבסיס הוא הסכום שהוסכם לשלם לנפגע או שנפסק לטובתו. תשלום תכוף שהתקבל במהלך ההליך הוא חלק מהפיצוי, ולכן נכנס לבסיס החישוב, ואילו הוצאות משפט ושכר טרחה שנפסקו בפסק הדין אינם חלק ממנו, וכך גם אינם חלק ממנו סכומים שהועברו לביטוח הלאומי. לפי פסקי דין שמובאים בכל זכות, החישוב נעשה מלמטה: מהסכום ששולם בפועל לניזוק, ולא מכל סכום רעיוני אחר. כך הנפגע יודע מראש מה יישאר בידו.' ),
 		),
 		'related'   => array( 'interim-payment-sixty-days', 'magistrates-court-jurisdiction-tort', 'representation-medical-committee-lawyer', 'contingency-fee-injury-claims' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -320,7 +320,7 @@ return array(
 			array( 'h' => 'זכות החזרה על המוחרג', 'p' => 'סעיף 9 סוגר את המעגל. מי ששילם פיצוי לפי החוק, מבטח או קרנית, רשאי לחזור על מי שאינו זכאי לפי סעיף 7 ועל מי שנהג ללא ביטוח, למעט מי שהיה לו ביטוח שנתי שפג בתוך 30 יום לפני התאונה. חבותו של המוחרג נבחנת לפי פקודת הנזיקין, כלומר לפי אשמו. מי שאינו מוחרג אינו נחשף לתביעת חזרה, גם אם גרם לתאונה ברשלנות חמורה. לכן חידוש הפוליסה בזמן חוסך גם את תביעת החזרה.' ),
 		),
 		'related'   => array( 'karnit-fund-uninsured-hit-run', 'imprisonment-driving-without-insurance', 'exclusivity-claim-cause-section-8' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -347,7 +347,7 @@ return array(
 			array( 'h' => 'ההסדר המיוחד לאופנועים', 'p' => 'סעיף 3(ג) מסיט חלק מהעלות ממבטחי האופנועים: בתאונה בין אופנוע לרכב אחר, מבטחי הרכב האחר משלמים למבטחי האופנוע 75% מהפיצויים שמבטחי האופנוע חייבים בהם, למעט החבות כלפי מי שנפגע מחוץ לרכב. ההגדרה כוללת קטנוע ותלת אופנוע עד 400 קילוגרם. הנפגע עצמו אינו מושפע מההסדר, שנוגע להתחשבנות בין מבטחים, ורוכב האופנוע ממשיך לתבוע את המבטח של האופנוע. שר האוצר רשאי לשנות את היחס בצו.' ),
 		),
 		'related'   => array( 'nofault-liability-road-accidents', 'definition-road-accident-law', 'karnit-fund-uninsured-hit-run' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -375,7 +375,7 @@ return array(
 			array( 'h' => 'מה קורה עם הנפגעים האחרים', 'p' => 'הולך רגל או נוסע שנפגעו מרכב לא מבוטח מקבלים את מלוא הפיצוי מקרנית לפי סעיף 12, בדיוק כאילו היה מבטח. אחר כך הקרן, או מבטח ששילם, חוזרים על הנהג לפי סעיף 9, למעט מי שהפוליסה השנתית שלו פגה בתוך 30 יום לפני התאונה. חבותו של הנהג נבחנת אז לפי דיני הנזיקין, כך שנהג שגרם לתאונה ברשלנות עלול לשאת בכל הפיצוי מכיסו, בנוסף לעונש הפלילי.' ),
 		),
 		'related'   => array( 'excluded-victims-section-seven', 'karnit-fund-uninsured-hit-run', 'ordinance-motor-vehicle-insurance', 'compulsory-motor-vehicle-insurance' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -402,7 +402,7 @@ return array(
 			array( 'h' => 'מה מקבל המבוטח', 'p' => 'הפוליסה שמנפיק מנהל ההסדר היא פוליסת חובה לכל דבר: אותו כיסוי לפי סעיף 3 לפקודה, אותה תעודת ביטוח, ואותה חובה של המבטח לשפות ולפצות לפי סעיף 12. מנהל ההסדר מייצג את המבטחים כלפי המבוטחים בכל דין החל על מבטח, ובכלל זה הוראות הממונה. ביטוח לתקופה קצרה משנה מתומחר לפי תקנה 6: 5% מהתעריף השנתי לשבוע, ותוספת יומית אחר כך, ורכב מושבת מבוטח בתעריף מופחת לפי תקנה 7.' ),
 		),
 		'related'   => array( 'ordinance-motor-vehicle-insurance', 'imprisonment-driving-without-insurance', 'capital-market-insurance-authority', 'compulsory-motor-vehicle-insurance' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -430,7 +430,7 @@ return array(
 			array( 'h' => 'מה עוד עלול לשלול הכרה', 'p' => 'סעיף 82 עוסק ברשלנות: תאונה בעת שהעובד נהג בניגוד להוראה חוקית או להוראות המעביד אינה מוכרת, אלא אם התוצאה הייתה מוות, נכות או אי כושר של עשרה ימים לפחות, ובתנאי שהייתה מוכרת אלמלא הרשלנות. סעיף 80 מוסיף חזקות נוספות: פגיעה בזמן הצלת גוף או רכוש במקום העבודה, ופגיעה של חבר ועד עובדים במילוי תפקידו. הביטוח הלאומי מכיר גם בפגיעות שאינן תאונה: מחלת מקצוע ומיקרוטראומה.' ),
 		),
 		'related'   => array( 'injury-allowance-2026-rates', 'occupational-disease-list-regulations', 'microtrauma-repetitive-strain-recognition', 'combined-road-work-accident-benefits' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -458,7 +458,7 @@ return array(
 			array( 'h' => 'מה קורה אחרי 13 שבועות', 'p' => 'מי שנותרה לו נכות, או שאינו מסוגל לעבוד גם אחרי 91 יום, מגיש תביעה נפרדת לקביעת דרגת נכות מעבודה, ואם יזכה לקצבה היא תחושב מדמי הפגיעה ליום. ההכרה בתביעה לדמי פגיעה היא תנאי לתביעה הזו, ולכן מגישים אותה גם כשלא נעדרים מהעבודה, לצורך ההכרה והחזר הוצאות הטיפול. לפי כל זכות, את התביעה מגישים בתוך 12 חודשים, ותשלום רטרואקטיבי ניתן עד שנה אחורה בלבד.' ),
 		),
 		'related'   => array( 'workplace-accident-definition-btl', 'grant-versus-pension-work-disability', 'committee-work-disability-degree', 'sick-pay-accrual' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -486,7 +486,7 @@ return array(
 			array( 'h' => 'איך מגישים ומה המועד', 'p' => 'ההליך זהה לתאונת עבודה: תביעה לדמי פגיעה שהיא גם תביעה להכרה, ואחריה תביעה לקביעת נכות בפני ועדה רפואית. לפי פסק דין של בית הדין הארצי שמובא בכל זכות, במחלת מקצוע עילת התביעה קמה במועד תחילת הנכות שקובעת הוועדה, ואיחור מעבר ל-12 חודשים נחשב שיהוי שעלול להפחית את הגמלה. לכן מי שרופא תעסוקתי קשר את מחלתו לעבודה מגיש את התביעה מיד, ולא ממתין לסיום הטיפול.' ),
 		),
 		'related'   => array( 'microtrauma-repetitive-strain-recognition', 'workplace-accident-definition-btl', 'committee-work-disability-degree' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -514,7 +514,7 @@ return array(
 			array( 'h' => 'המועד שקובע את היקף הזכאות', 'p' => 'רופא הביטוח הלאומי קובע את תאריך תחילת הפגיעה, ומתאריך זה נמדדים גם דמי הפגיעה וגם תקופת השיהוי. לפי פסק דין של בית הדין הארצי שמובא בכל זכות, עילת התביעה קמה במועד תחילת הנכות, ותביעה שהוגשה מעבר ל-12 חודשים ממנו נחשבת שיהוי, כך שהמענק מופחת במספר חודשי האיחור. התקופה שבה המוסד עצמו טיפל בתביעה להכרה אינה נספרת כשיהוי, וגם לא 12 חודשים מההכרה ועד תביעת הנכות.' ),
 		),
 		'related'   => array( 'occupational-disease-list-regulations', 'workplace-accident-definition-btl', 'grant-versus-pension-work-disability' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -542,7 +542,7 @@ return array(
 			array( 'h' => 'מה קובעת ההחלטה', 'p' => 'ההחלטה ניתנת בכתב עם ממצאים ונימוקים, ומועברת לנפגע לפי תקנות 24 ו-25. היא כוללת את מועד תחילת הנכות, את אחוזיה ואם היא זמנית או לצמיתות. דרגה זמנית נקבעת לכל היותר לשנה קדימה לפי סעיף 119, ובסופה מזמנים ועדה נוספת. ליקויים שקדמו לפגיעה מנוכים לפי סעיף 120, ומספר ליקויים משוקללים ולא מחוברים. על ההחלטה אפשר לערור לוועדה לעררים בתוך שלושים יום. וגם המוסד רשאי לערור באותו מועד.' ),
 		),
 		'related'   => array( 'grant-versus-pension-work-disability', 'contesting-committee-decision-thirty-days', 'weighted-disability-percentages-calculation', 'representation-medical-committee-lawyer' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -570,7 +570,7 @@ return array(
 			array( 'h' => 'תקרה, הצמדה ותשלום', 'p' => 'הקצבה מתעדכנת ב-1 בינואר לפי המדד, והתקרה ב-2026 היא 39,428 שקלים בחודש. הכנסה מעבודה או מכל מקור אחר אינה מפחיתה אותה, בניגוד לקצבת נכות כללית. התשלום ב-28 בחודש לחשבון הבנק, ומי שנקבעה לו נכות לצמיתות של 20% ומעלה זכאי גם לתעודת נכה. מי שקיבל מענק ומצבו הוחמר לדרגה של 20% ומעלה עובר לקצבה, והמענק העודף מנוכה ממנה לפי סעיף 114. דרגה של 75% ומעלה מזכה גם בקצבה מיוחדת.' ),
 		),
 		'related'   => array( 'committee-work-disability-degree', 'worsening-condition-reopening-degree', 'lump-sum-conversion-work-pension', 'functional-disability-increase-half' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -598,7 +598,7 @@ return array(
 			array( 'h' => 'מה קורה בדרך', 'p' => 'לפי כל זכות הוועדה לעררים מתכנסת בין 60 ל-90 יום מההגשה, ואפשר לבקש דיון בלי נוכחות, במכתב לסניף או דרך המוקד הטלפוני. הביטוח הלאומי אינו דוחה ערר שהוגש בתוך 90 יום בנסיבות מוצדקות, אך כדאי לעמוד בשלושים הימים שבתקנות. מי שלא התייצב גם במועד השני עלול להידרש לקנס או לעיכוב הגמלה, ואפשר לבקש החזר הוצאות נסיעה כשהדיון נערך ביוזמת המוסד. הגשת הערר מקוונת או בטופס ידני לסניף.' ),
 		),
 		'related'   => array( 'committee-work-disability-degree', 'representation-medical-committee-lawyer', 'general-disability-pension-2026', 'batei-din-avoda' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -626,7 +626,7 @@ return array(
 			array( 'h' => 'מה קורה כשהדרגה עולה', 'p' => 'הנפגע מוזמן לוועדה רפואית שמחליטה אם להעלות את הדרגה, ורשאית לקבוע גם דרגה זמנית. מי שקיבל מענק והדרגה החדשה היא 20% ומעלה עובר לקצבה חודשית, ולפי סעיף 114 מנוכה ממנה החלק העודף של המענק. כל זכות מסבירה: אם טרם חלפו 43 חודשים מקביעת הזכאות למענק, הקצבאות של החודשים החופפים מקוזזות. מי שדרגתו עלתה ל-75% ומעלה יכול לבקש גם קצבה מיוחדת ומענק לסידורים. הבקשה לקצבה מיוחדת מוגשת למחלקת השיקום.' ),
 		),
 		'related'   => array( 'grant-versus-pension-work-disability', 'committee-work-disability-degree', 'contesting-committee-decision-thirty-days' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -653,7 +653,7 @@ return array(
 			array( 'h' => 'מה קורה אחר כך', 'p' => 'הרשות רשאית לדון מחדש בהשפעת הנכות על ההכנסות אחרי 12 חודשים ולא יותר מ-60 חודשים מהקביעה, לפי תקנה 17, ולהגדיל או להקטין את תוספת תקנה 15 לפי השינוי, גם ביוזמת המוסד. מי שהוועדה לא הפעילה לגביו את התקנה, או שהוועדה לא דנה בה כלל, יכול לערור על כך לוועדה לעררים בתוך שלושים יום, ואם הוועדה לא נימקה את סירובה, זו שאלה משפטית לבית הדין לעבודה.' ),
 		),
 		'related'   => array( 'committee-work-disability-degree', 'grant-versus-pension-work-disability', 'contesting-committee-decision-thirty-days' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -681,7 +681,7 @@ return array(
 			array( 'h' => 'על מה לשים לב', 'p' => 'המוסד רשאי לבחון מחדש את דרגת הנכות במסגרת הבקשה, כולל את הזכאות לקצבה מיוחדת, ואינו מחויב להכיר בהוצאות שהוצאו לפני האישור. בתום תקופת היוון קצוב מתחדשת הקצבה. מי שזכאי גם לקצבת אזרח ותיק בוחר בין הקצבאות: מי שבחר בקצבת אזרח ותיק וקצבת הנכות שלו נמוכה ממנה מקבל מענק של 36 קצבאות נכות, ומי שבחר כך אינו יכול להגיש בעתיד תביעה להחמרה.' ),
 		),
 		'related'   => array( 'grant-versus-pension-work-disability', 'subrogation-btl-section-328', 'worsening-condition-reopening-degree', 'capitalization-future-damages' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -708,7 +708,7 @@ return array(
 			array( 'h' => 'ההגנה על הנפגע בסעיף 330', 'p' => 'כשהתביעות נדונות יחד, המוסד אינו מקבל יותר מ-75% מסך הפיצויים, והיתרה לנפגע. נפגע שתבע והודיע למוסד בדואר רשום זכאי לפחות ל-25% מהסכום שנפסק, גם כשהגמלאות עולות על הפיצוי. סעיף 331 מונע מהמזיק לגלגל חלק על המעביד, וסעיף 329 מאפשר למוסד לזקוף עד 75% מתשלום שקיבל הזכאי מצד שלישי על חשבון הגמלה. סעיף 332 קובע שגמלה נחשבת זכות מחוזה לעניין סעיף 86 לפקודת הנזיקין. כך הנפגע אינו נפגע מתביעת המוסד.' ),
 		),
 		'related'   => array( 'combined-road-work-accident-benefits', 'lump-sum-conversion-work-pension', 'insurer-subrogation-section-62', 'deducting-national-insurance-benefits' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -736,7 +736,7 @@ return array(
 			array( 'h' => 'על מה לשים לב מראש', 'p' => 'הוועדה הרפואית של הביטוח הלאומי היא בפועל המומחה של התיק כולו, ולכן מתכוננים אליה עם כל המסמכים ומגישים ערר בזמן אם הדרגה נמוכה. סעיף 330 מבטיח לנפגע לפחות 25% מהפיצוי כשהוא תובע ומודיע למוסד, ולכן ההודעה למוסד על התביעה חשובה. לפי כל זכות, במקרה מוות המשפחה בוחרת בין קצבת שאירים לגמלת תלויים, ובדרך כלל הגבוהה מביניהן. התביעה לגמלת תלויים מוגשת בתוך שנה מהפטירה, ואת קצבת השאירים תובעים בכל מקרה תחילה.' ),
 		),
 		'related'   => array( 'subrogation-btl-section-328', 'workplace-accident-definition-btl', 'exclusivity-claim-cause-section-8', 'deducting-national-insurance-benefits' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -764,7 +764,7 @@ return array(
 			array( 'h' => 'מענקים ומועדים', 'p' => 'אלמנה שטרם מלאו לה 40 ואין עמה ילדים מקבלת מענק של 36 קצבאות במקום קצבה, ואם ילדה ילד לנפטר אחרי מותו חוזרת לקצבה. אלמנה שנישאה מחדש מקבלת שני מענקים של 18 קצבאות, ואם הנישואין הסתיימו בתוך עשר שנים הקצבה חוזרת. את התביעה מגישים בתוך שנה מהפטירה עם אישורי שכר מהמעסיק, והקצבה משולמת ב-28 בכל חודש. בן משפחה חייב להודיע למוסד על כל פיצוי שקיבל מצד שלישי.' ),
 		),
 		'related'   => array( 'workplace-accident-definition-btl', 'grant-versus-pension-work-disability', 'subrogation-btl-section-328', 'dependents-estate-claims-death' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -792,7 +792,7 @@ return array(
 			array( 'h' => 'מה גובים ומה ניתן חינם', 'p' => 'מאז 5 בדצמבר 2015 החוק מגביל את שכר הטרחה שעורכי דין, רואי חשבון וחברות מיצוי זכויות רשאים לגבות בתביעות נכות מעבודה, נכות כללית, ניידות וילד נכה, וגם את מועדי התשלום ואת ההסכם שחייבים לחתום מראש. בערעור לבית הדין לעבודה ניתן ייצוג חינם מהסיוע המשפטי של משרד המשפטים, ללא מבחן הכנסה, אך לא בוועדות עצמן, אלא אם בית הדין החזיר את הדיון לוועדה.' ),
 		),
 		'related'   => array( 'committee-work-disability-degree', 'contesting-committee-decision-thirty-days', 'general-disability-pension-2026', 'eight-eleven-thirteen-fee-tariff' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -820,7 +820,7 @@ return array(
 			array( 'h' => 'אותה שיטה בנכות כללית', 'p' => 'ועדה לנכות כללית קובעת אחוזים לפי אותו ספר מבחנים ומשקללת באותה דרך, ולפי כל זכות מחלת לב של 40% וסוכרת של 20% נותנות 52%. ההבדל הוא הליקויים המנופים: פריטים שהתקנות קבעו שאינם פוגעים בכושר ההשתכרות, כמו מצב אחרי כריתת טחול, ולכן אינם נספרים לקצבה, אך נספרים לפטור ממס הכנסה. גם המומחה בתביעת תאונת דרכים משקלל כך, ואחוזי הנכות מוזנים לנוסחת הכאב והסבל. לכן החישוב זהה בכל שלושת המסלולים.' ),
 		),
 		'related'   => array( 'committee-work-disability-degree', 'general-disability-pension-2026', 'degree-disability-regulations-1956', 'nonpecuniary-damage-formula-regulations' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -848,7 +848,7 @@ return array(
 			array( 'h' => 'ערר ובדיקה מחדש', 'p' => 'על אחוזי הנכות הרפואית עוררים לוועדה רפואית לעררים בתוך 60 יום, ועל דרגת אי הכושר לוועדת עררים נפרדת, שבה מומחים בתעסוקה ובשיקום, באותו מועד. שתי הוועדות רשאיות להעלות או להוריד, ואפשר למשוך את הערר אם מסתמנת הפחתה. משם הדרך היא בית הדין האזורי לעבודה, בשאלה משפטית בלבד ובתוך 60 יום. תביעה חוזרת אפשרית אחרי שישה חודשים, ובהחמרה ללא המתנה. הביטוח הלאומי רשאי ליזום בדיקה מחדש כשחל שיפור.' ),
 		),
 		'related'   => array( 'weighted-disability-percentages-calculation', 'mobility-allowance-health-ministry-committee', 'representation-medical-committee-lawyer', 'nechut-klalit-benefit' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -876,7 +876,7 @@ return array(
 			array( 'h' => 'ערר ובדיקה חוזרת', 'p' => 'על החלטת הוועדה הרפואית עוררים בתוך 60 יום מקבלת הפרוטוקול לוועדת ערר לניידות, שמזמנת לבדיקה נוספת, ומי שמסתמנת פגיעה בזכויותיו רשאי למשוך את הערר בתוך שבועיים. על החלטת ועדת הערר מערערים בשאלה משפטית לבית הדין לעבודה, ועל החלטת פקיד התביעות בביטוח הלאומי בתוך 12 חודשים. מי שמצבו הוחמר, או שחלפו 42 חודשים מהבדיקה, יכול לבקש ועדה חוזרת גם ללא החמרה. גם המוסד רשאי לערור על החלטת הוועדה לניידות.' ),
 		),
 		'related'   => array( 'general-disability-pension-2026', 'representation-medical-committee-lawyer', 'social-security-institute-btl' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -903,7 +903,7 @@ return array(
 			array( 'h' => 'מה קורה באיחור ובמרמה', 'p' => 'איחור בהודעה אינו שולל תגמולים באופן אוטומטי. לפי סעיף 24 המבטח פטור רק במידה שהאיחור מנע ממנו להקטין את חבותו, ולא כשהאיחור מוצדק או לא הכביד על הבירור; מי שהכשיל את הבירור במתכוון מאבד את החלק שנפגע מכך. לעומת זאת, סעיף 25 קובע פטור מלא כשהמבוטח מסר עובדות כוזבות או העלים עובדות בכוונת מרמה, וסעיף 26 פוטר את המבטח ממקרה שנגרם במתכוון. על סעיפים אלה אין להתנות אלא לטובת המבוטח.' ),
 		),
 		'related'   => array( 'three-years-insurance-limitation', 'thirty-days-payout-undisputed', 'disclosure-duty-insurance-proposal', 'insurance-claim-dispute' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -930,7 +930,7 @@ return array(
 			array( 'h' => 'ההשוואה לנזיקין', 'p' => 'תביעה נגד המזיק לפי פקודת הנזיקין או לפי חוק הפיצויים לנפגעי תאונות דרכים מתיישנת לפי חוק ההתיישנות אחרי שבע שנים, ובקטין מונים מגיל 18, כך שהוא יכול לתבוע עד גיל 25. מי שנפגע בתאונה ויש לו גם פוליסה אישית צריך לנהל שני לוחות זמנים במקביל: שלוש שנים מול המבטח שלו ושבע שנים מול המזיק ומבטחו, ותביעת השיבוב של הביטוח הלאומי מתיישנת בנפרד לפי סעיף 328.' ),
 		),
 		'related'   => array( 'notifying-insurer-insurance-event', 'thirty-days-payout-undisputed', 'policyholder-law-1981-section-map', 'hityashnut-law-1958' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -957,7 +957,7 @@ return array(
 			array( 'h' => 'סעד מיוחד ותגמולים חוזרים', 'p' => 'סעיף 29 מאפשר לבית המשפט לחייב את המבטח בתגמולים, כולם או מקצתם, גם כשהמבוטח הפר תנאי בפוליסה, אם ההפרה לא השפיעה השפעה של ממש על סיכון המבטח ונראה צודק לעשות כן. סעיף 30 מבהיר שהמבטח חייב גם כשמקרה הביטוח קרה יותר מפעם אחת בתקופת הביטוח, עד סכום הביטוח. מי שהמבטח מתמהמה מולו יכול במקביל לפנות ליחידה לפניות הציבור ברשות שוק ההון. הפנייה אינה עוצרת את מרוץ ההתיישנות.' ),
 		),
 		'related'   => array( 'notifying-insurer-insurance-event', 'three-years-insurance-limitation', 'inquiries-unit-capital-market-insurance', 'insurance-claim-dispute' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -984,7 +984,7 @@ return array(
 			array( 'h' => 'מתי המבטח מאבד את הטענה', 'p' => 'סעיף 8 שולל את התרופות כשהמבטח ידע או היה עליו לדעת את האמת, כשהוא גרם לתשובה הלא נכונה, או כשהעובדה חדלה להתקיים לפני המקרה או לא השפיעה עליו, על חבות המבטח או על היקפה. ידיעת סוכן הביטוח על עניין מהותי נחשבת ידיעת המבטח לפי סעיף 33. בביטוח חיים הטענה פוקעת אחרי שלוש שנים מכריתת החוזה, זולת במרמה, ואי אפשר להתנות על סעיפים אלה אלא לטובת המבוטח.' ),
 		),
 		'related'   => array( 'notifying-insurer-insurance-event', 'policyholder-law-1981-section-map', 'inquiries-unit-capital-market-insurance' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -1011,7 +1011,7 @@ return array(
 			array( 'h' => 'החיבור לדיני הנזיקין', 'p' => 'סעיף 86 לפקודת הנזיקין משלים את התמונה: בשומת הפיצויים מהמזיק לא מביאים בחשבון סכום ששולם לפי חוזה ביטוח. המזיק אינו נהנה מהביטוח שרכש הניזוק, והמבטח גובה ממנו את חלקו דרך התחלוף. גם סעיף 61, על הקטנת הנזק, משפיע על היקף התגמולים ולכן על היקף התחלוף. סעיף 54(ב) מחיל את התחלוף גם על ביטוח תאונה או נכות שבו התגמול לפי שיעור הנזק, אך לא על ביטוח בסכום קבוע מראש.' ),
 		),
 		'related'   => array( 'subrogation-btl-section-328', 'thirty-days-payout-undisputed', 'contributory-fault-section-68', 'nezikin-ordinance-negligence' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -1039,7 +1039,7 @@ return array(
 			array( 'h' => 'מה קורה אחרי ההגשה', 'p' => 'לפי כל זכות התלונה מועברת למבטח, שמשיב למתלונן בתוך 30 יום עם העתק ליחידה. אם התשובה אינה מספקת, היחידה ממשיכה בבירור ומכריעה, ורשאית לקבוע שהתלונה מוצדקת ולהורות על תיקון. ההליך אינו מחליף תביעה, אינו עוצר את ההתיישנות של שלוש שנים, והרשות אינה נותנת ייעוץ משפטי. אדם עם מוגבלות שהופלה בחוזה ביטוח יכול, אם לא ניתנה החלטה בתוך 90 יום, להעביר את התלונה לוועדת תלונות.' ),
 		),
 		'related'   => array( 'capital-market-insurance-authority', 'thirty-days-payout-undisputed', 'har-habituach-policies-locator', 'insurance-claim-dispute' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -1066,7 +1066,7 @@ return array(
 			array( 'h' => 'העבר הביטוחי ברכב', 'p' => 'לביטוח רכב רכוש האתר מפיק דוח מרוכז של העבר הביטוחי בשלוש השנים הקודמות, בלי לברר בכל חברה בנפרד ובלי לפנות לסוכן, ומאפשר להעביר אותו ישירות למבטח החדש או לכל כתובת דואר אלקטרוני. הדוח מזרז את הצירוף לביטוח ומשפיע על תנאי הפוליסה ועל הפרמיה, שכן היעדר תביעות בשנים הקודמות מזכה בהנחה. הכניסה למורשים, כמו סוכנים, נעשית במסלול נפרד. הדוח נשמר או מודפס לפי בחירת המשתמש.' ),
 		),
 		'related'   => array( 'capital-market-insurance-authority', 'three-years-insurance-limitation', 'inquiries-unit-capital-market-insurance' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -1094,7 +1094,7 @@ return array(
 			array( 'h' => 'הכלים שהרשות מציעה', 'p' => 'הר הביטוח מציג לכל מבוטח את כל הפוליסות שלו בכל החברות ומתריע על כפל ביטוח. הר הכסף מאתר חסכונות פנסיוניים לא פעילים, וביטוח נט, פנסיה נט וגמל נט משווים בין חברות וקרנות. מערכת האיתור מאפשרת לבדוק אם סוכן מחזיק ברישיון בתוקף, ומחשבונים נפרדים משווים ביטוח דירה, בריאות וחיים. כל הכלים חינמיים ומופיעים באתר הרשות, לצד הדוח השנתי על פניות הציבור.' ),
 		),
 		'related'   => array( 'inquiries-unit-capital-market-insurance', 'har-habituach-policies-locator', 'pool-residual-motor-insurance', 'compulsory-motor-vehicle-insurance' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -1122,7 +1122,7 @@ return array(
 			array( 'h' => 'איך משיגים על החלטה', 'p' => 'החלטת פקיד תביעות ניתנת לערעור בבית הדין האזורי לעבודה בתוך 12 חודשים, עם סיוע משפטי חינם ממשרד המשפטים וללא מבחן הכנסה. בנושאים שאינם רפואיים אפשר קודם לפנות לוועדת תביעות בתוך 6 חודשים, אך הפנייה אינה דוחה את מועד הערעור. על ועדות רפואיות מגישים תחילה ערר לוועדה לעררים, ורק אחר כך ערעור בשאלה משפטית. לתלונות על השירות עצמו פועל במוסד אגף לפניות הציבור.' ),
 		),
 		'related'   => array( 'workplace-accident-definition-btl', 'general-disability-pension-2026', 'subrogation-btl-section-328', 'avtala-bituach-leumi' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -1150,7 +1150,7 @@ return array(
 			array( 'h' => 'האגרה והזמן', 'p' => 'תקנה 5 לתקנות האגרות קובעת לתביעות נזקי גוף מסלול אגרה נפרד: סכום ראשון עם הגשת ההליך, כולל בקשה לתשלום תכוף, ובהמשך לפי הפרטים בתוספת, ומי שהגיש בקשה לתשלום תכוף בשלום ואחר כך תביעה במחוזי משלים את האגרה. ההגדרה כוללת גם תביעות שיפוי על גמלאות. לפי כל זכות, ההליך עלול להימשך שנים, ואפשר להגישו עד 7 שנים מהתאונה, ולכן דורשים תשלום תכוף כבר בתחילתו.' ),
 		),
 		'related'   => array( 'interim-payment-sixty-days', 'eight-eleven-thirteen-fee-tariff', 'chapters-road-accident-compensation-law', 'venue-malpractice-claim-court' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -1177,7 +1177,7 @@ return array(
 			array( 'h' => 'פרקים ג ו-ד: הקרן והשאר', 'p' => 'פרק ג מקים את קרנית, תאגיד וגוף מבוקר, ומגדיר בסעיף 12 מתי היא מפצה, בסעיף 15 את מימונה מתוספת לדמי הביטוח, ובסעיפים 12ד עד 12ו את מימון הטיפול הרפואי דרך העברת 12.66% מדמי הביטוח לקופות החולים באמצעות המוסד לביטוח לאומי. פרק ד כולל את תקרות שכר הטרחה בסעיף 16, את החרגת הנהיגה הספורטיבית בסעיף 15ב, את אחריות המדינה בסעיף 22 ואת התחילה ב-25 בספטמבר 1976. על תאונות שאירעו לפני תחילת החוק חל הדין הקודם.' ),
 		),
 		'related'   => array( 'definition-road-accident-law', 'nofault-liability-road-accidents', 'karnit-fund-uninsured-hit-run', 'israel-road-accident-compensation-law' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -1204,7 +1204,7 @@ return array(
 			array( 'h' => 'בתי חולים ותעודת ביטוח', 'p' => 'סעיף 28 מטיל על המבטח לשלם לבית החולים את ההוצאות הסבירות של הטיפול בנפגע, עד 180 ימי אשפוז או שנה של טיפול חוץ, ולכן בתי החולים מבקשים אישור משטרה על התאונה. סעיף 9 קובע תעודת ביטוח נפרדת לכל רכב, שאפשר להנפיק אלקטרונית ורק לתקופה שבה הפוליסה בתוקף, וסעיף 8 אוסר על מבטח להתנות פוליסת חובה ברכישת ביטוח נוסף. פרק ה מסדיר את זכויות צד שלישי כשהמבוטח בפשיטת רגל.' ),
 		),
 		'related'   => array( 'imprisonment-driving-without-insurance', 'pool-residual-motor-insurance', 'chapters-road-accident-compensation-law', 'compulsory-motor-vehicle-insurance' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'car-accident-auto-injury-lawyer',
 	),
 
 	array(
@@ -1231,7 +1231,7 @@ return array(
 			array( 'h' => 'סעיף 39: מה אי אפשר לשנות בפוליסה', 'p' => 'סעיף 39 מחלק את החוק לשניים. על חלק מהסעיפים אין להתנות כלל, ובהם הבלטת הסייגים, המרמה, המקרה המכוון ומעמד הסוכן. על סעיפי הגילוי, ההודעה, המועד לתשלום, ההצמדה וההתיישנות מותר להתנות רק לטובת המבוטח. תנאי בפוליסה שסוטה מהם לרעת המבוטח אינו תקף, גם אם המבוטח חתם עליו, וסעיף 38 קובע שהתרופות שבחוק מוציאות תרופות לפי דין אחר באותם עניינים. הסעיף הוא הכלי לבדיקת כל פוליסה: השוואה בין תנאיה לכללי החוק.' ),
 		),
 		'related'   => array( 'notifying-insurer-insurance-event', 'three-years-insurance-limitation', 'disclosure-duty-insurance-proposal', 'insurance-claim-dispute' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -1259,7 +1259,7 @@ return array(
 			array( 'h' => 'תלויים, מועדים ושיבוב', 'p' => 'סימן ח, סעיפים 130 עד 135, מגדיר מי תלוי וקובע את שיעורי הקצבה והמענקים לאלמנה, ליתומים ולתלויים אחרים. סעיף 296 מחוץ לפרק קובע תביעה בתוך 12 חודשים ותשלום רטרואקטיבי מוגבל לשנה. סעיפים 328 עד 333 מסדירים את זכות המוסד לתבוע מהמזיק את הגמלאות, את חובת הדיווח של המבטח, את ההגנה על הנפגע בגובה 25% לפחות ואת ההיוון לצורך השיבוב. סעיף 369 מטיל על מעסיק שלא נרשם או לא שילם דמי ביטוח את עלות הגמלאות.' ),
 		),
 		'related'   => array( 'workplace-accident-definition-btl', 'injury-allowance-2026-rates', 'grant-versus-pension-work-disability', 'social-security-institute-btl' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -1287,7 +1287,7 @@ return array(
 			array( 'h' => 'התוספת ומי עוד משתמש בה', 'p' => 'התוספת מחולקת לפרקים לפי מערכות הגוף, מכלי הדם ומערכת העיכול ועד התסמונות הנוירולוגיות והגפיים, ולצד כל פגימה אחוז נכות. תקנות חוק הפיצויים מפנות אליה לחישוב הנזק שאינו ממוני, וועדות הנכות הכללית קובעות לפיה, בניכוי ליקויים מנופים. לכן היא הבסיס המשותף של כל תביעות נזקי הגוף בישראל, והביטוח הלאומי מפרסם אותה באתרו כספר הליקויים לצד מחשבון לנכות משוקללת. ליקויים שאינם ברשימה נקבעים לפי סעיף דומה, כפי שמסבירה כל זכות.' ),
 		),
 		'related'   => array( 'committee-work-disability-degree', 'weighted-disability-percentages-calculation', 'functional-disability-increase-half', 'nonpecuniary-damage-formula-regulations' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 	array(
@@ -1314,7 +1314,7 @@ return array(
 			array( 'h' => 'למה אין אשם תורם בתאונת דרכים', 'p' => 'סעיף 2(ג) לחוק הפיצויים קובע אחריות מוחלטת ומלאה ושולל כל חשיבות לאשם או לאשם תורם. הולך רגל שחצה באדום ונוסע שלא חגר חגורה מקבלים פיצוי מלא, כפוף לתקרות החוק. השאלה חוזרת רק כשהחוק אינו חל, למשל בפגיעה מאופניים חשמליים או אצל מי שסעיף 7 מוציא מגדר הזכאים, שנדונים לפי פקודת הנזיקין. גם בתביעת חזרה של מבטח או של קרנית נגד נהג ללא ביטוח נבחן אשמו לפי הפקודה.' ),
 		),
 		'related'   => array( 'nofault-liability-road-accidents', 'exclusivity-claim-cause-section-8', 'insurer-subrogation-section-62', 'nezikin-ordinance-negligence' ),
-		'pillar'    => 'tort-lawsuit-negligence-damages-israel',
+		'pillar'    => 'personal-injury-israel',
 	),
 
 );

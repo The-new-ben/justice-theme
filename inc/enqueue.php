@@ -221,6 +221,36 @@ function justice_theme_dequeue_homepage_bloat() {
 add_action( 'wp_enqueue_scripts', 'justice_theme_dequeue_homepage_bloat', 999 );
 
 /**
+ * Performance: WooCommerce and Search & Filter Pro assets are not needed inside single
+ * legal articles and ordinary pages. The store pages (cart, checkout incl. order-pay,
+ * my-account, shop, product) keep everything. Owner order 2026-09-16.
+ */
+function justice_theme_dequeue_singular_bloat() {
+	if ( is_admin() || ! is_singular( array( 'articles', 'post', 'page' ) ) ) {
+		return;
+	}
+	if ( function_exists( 'is_woocommerce' ) && ( is_woocommerce() || is_cart() || is_checkout() || is_account_page()
+		|| ( function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url() ) ) ) {
+		return;
+	}
+	if ( is_singular( 'articles' ) ) {
+		wp_dequeue_script( 'search-filter-build' );
+		wp_dequeue_script( 'chosen-jquery' );
+		wp_dequeue_style( 'search-filter-build' );
+		wp_dequeue_style( 'chosen-css' );
+	}
+	foreach ( array( 'wc-add-to-cart', 'woocommerce', 'wc-cart-fragments', 'js-cookie', 'jquery-blockui', 'sourcebuster-js',
+		'wc-order-attribution', 'wc-add-to-cart-variation', 'wc-single-product' ) as $handle ) {
+		wp_dequeue_script( $handle );
+	}
+	foreach ( array( 'woocommerce-general', 'woocommerce-layout', 'woocommerce-smallscreen', 'woocommerce-inline',
+		'wc-blocks-style', 'wc-blocks-vendors-style', 'brands-styles' ) as $handle ) {
+		wp_dequeue_style( $handle );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'justice_theme_dequeue_singular_bloat', 999 );
+
+/**
  * Strip duplicate theme-color meta tags from plugin output.
  *
  * header.php already defines <meta name="theme-color" content="#07152f">.

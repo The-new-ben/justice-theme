@@ -135,6 +135,26 @@ function justice_theme_strip_internal_publication_note( string $raw ): string {
  * @param string $content Content.
  * @return array
  */
+/**
+ * Is an internal-note marker really present in public text?
+ *
+ * Hebrew phrases keep the old case-insensitive substring test. Pure Latin markers
+ * (product and tool names such as "Linear", "uPress", "GSC", "CRM") are matched as
+ * whole words, case-sensitively: the substring test blocked post 6644 forever because a
+ * court ruling quotes the eyeglass frame brand "lineart", and it matched CSS
+ * "linear-gradient" in any inline style (found 2026-09-16).
+ */
+function justice_theme_internal_marker_present( string $text, string $pattern ): bool {
+	$pattern = trim( $pattern );
+	if ( '' === $pattern ) {
+		return false;
+	}
+	if ( preg_match( '/^[A-Za-z][A-Za-z0-9 .\/-]*$/', $pattern ) ) {
+		return (bool) preg_match( '/(?<![A-Za-z0-9])' . preg_quote( $pattern, '/' ) . '(?![A-Za-z0-9])/u', $text );
+	}
+	return false !== stripos( $text, $pattern );
+}
+
 function justice_theme_detect_public_content_internal_markers( string $content ): array {
 	$markers = array();
 	$patterns = array(
@@ -220,7 +240,7 @@ function justice_theme_detect_public_content_internal_markers( string $content )
 	);
 
 	foreach ( $patterns as $pattern ) {
-		if ( false !== stripos( $content, $pattern ) ) {
+		if ( justice_theme_internal_marker_present( $content, $pattern ) ) {
 			$markers[] = $pattern;
 		}
 	}

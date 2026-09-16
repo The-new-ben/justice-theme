@@ -32,7 +32,10 @@ function justice_theme_admin_cms_write_enabled( string $filter_name ): bool {
 function justice_theme_reading_time( $post_id = 0 ) {
 	$post_id = $post_id ? $post_id : get_the_ID();
 	$content = get_post_field( 'post_content', $post_id );
-	$words   = str_word_count( wp_strip_all_tags( $content ) );
+		// Count Unicode words, including Hebrew and pointed Hebrew, not only Latin.
+	$text    = preg_replace( '/<(?:\/(?:p|div|li|h[1-6]|blockquote|section|tr)|br\b)[^>]*>/i', ' ', strip_shortcodes( (string) $content ) );
+	$text    = html_entity_decode( wp_strip_all_tags( $text ), ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+	$words   = preg_match_all( '/[\p{L}\p{N}][\p{L}\p{M}\p{N}]*/u', $text );
 	$minutes = max( 1, (int) ceil( $words / 220 ) );
 
 	return sprintf(

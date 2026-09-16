@@ -20,6 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Product lane only. Existing SEO/entity-network hooks remain unchanged.
+if ( is_file( __DIR__ . '/article-simulation-entry.php' ) ) {
+	require_once __DIR__ . '/article-simulation-entry.php';
+}
+
 /**
  * Sanitize the mode value.
  *
@@ -60,6 +65,15 @@ function justice_theme_new_look_active() {
 	return false;
 }
 
+// Isolate the homepage wrapper so older installations keep their original
+// front-page templates untouched when the owner turns this layer off.
+add_filter( 'template_include', function ( $template ) {
+	if ( is_front_page() && justice_theme_new_look_active() ) {
+		return JUSTICE_THEME_DIR . '/template-parts/look3/front-page.php';
+	}
+	return $template;
+}, 99 );
+
 add_filter(
 	'body_class',
 	function ( $classes ) {
@@ -84,14 +98,14 @@ add_action(
 			'justice-new-look',
 			JUSTICE_THEME_URI . '/assets/css/new-look.css',
 			array( 'justice-redesign' ),
-			JUSTICE_THEME_VERSION . '-look3'
+			(string) filemtime( JUSTICE_THEME_DIR . '/assets/css/new-look.css' )
 		);
 
 		wp_enqueue_script(
 			'justice-new-look',
 			JUSTICE_THEME_URI . '/assets/js/new-look.js',
 			array(),
-			JUSTICE_THEME_VERSION . '-look3',
+			(string) filemtime( JUSTICE_THEME_DIR . '/assets/js/new-look.js' ),
 			true
 		);
 	},

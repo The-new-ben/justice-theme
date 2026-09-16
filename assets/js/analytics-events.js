@@ -150,24 +150,6 @@
 		field.value = value;
 	}
 
-	function getSafeProductIntent(value) {
-		value = String(value || '').trim();
-
-		if (['court_rehearsal', 'mediation', 'witness_prep', 'case_review'].indexOf(value) === -1) {
-			return '';
-		}
-
-		return value;
-	}
-
-	function currentProductIntent() {
-		var query = new URLSearchParams(window.location.search);
-		var hash = window.location.hash || '';
-		var hashQuery = new URLSearchParams(hash.indexOf('?') !== -1 ? hash.split('?').slice(1).join('?') : hash.replace(/^#/, ''));
-
-		return getSafeProductIntent(query.get('product_intent')) || getSafeProductIntent(query.get('utm_content')) || getSafeProductIntent(hashQuery.get('product_intent')) || getSafeProductIntent(hashQuery.get('utm_content'));
-	}
-
 	function getLawyerRevenueDestination(linkUrl) {
 		if (!linkUrl) {
 			return '';
@@ -259,7 +241,7 @@
 			return false;
 		}
 
-		if (!link.dataset.leadArea && !link.dataset.leadMessage && !link.dataset.leadSourceKeyword && !link.dataset.leadSourceSurface && !link.dataset.productIntent) {
+		if (!link.dataset.leadArea && !link.dataset.leadMessage && !link.dataset.leadSourceKeyword && !link.dataset.leadSourceSurface) {
 			return false;
 		}
 
@@ -287,12 +269,12 @@
 		setOrCreateHidden(form, 'utm_source', link.dataset.leadUtmSource || '');
 		setOrCreateHidden(form, 'utm_medium', link.dataset.leadUtmMedium || '');
 		setOrCreateHidden(form, 'utm_campaign', link.dataset.leadUtmCampaign || '');
-		setOrCreateHidden(form, 'product_intent', getSafeProductIntent(link.dataset.productIntent));
 
 		return true;
 	}
 
 	function applyAskLawyerWhatsAppPrefill(link) {
+		if (link.getAttribute('data-investigation-interest') === 'pilot') return;
 		var href = link.getAttribute('href') || '';
 		var lowerHref = href.toLowerCase();
 		var form;
@@ -397,17 +379,6 @@
 		if ('sent' === query.get('request')) {
 			track('document_request_submit', { form_type: 'legal_tool_request' });
 		}
-
-		if ('juris-arena' === query.get('source') && currentProductIntent()) {
-			track('hadmaia_professional_review_landed', {
-				product_intent: currentProductIntent(),
-				journey_present: query.get('journey_id') ? 'yes' : 'no',
-				utm_source: query.get('utm_source') || '',
-				utm_medium: query.get('utm_medium') || '',
-				utm_campaign: query.get('utm_campaign') || '',
-				utm_content: currentProductIntent()
-			});
-		}
 	}
 
 	function trackFormStart(form) {
@@ -437,8 +408,7 @@
 			track('ask_lawyer_start', {
 				form_type: formType,
 				legal_area: getFieldValue(form, 'lead_area'),
-				assigned_lawyer_id: getFieldValue(form, 'assigned_lawyer_id'),
-				product_intent: getSafeProductIntent(getFieldValue(form, 'product_intent'))
+				assigned_lawyer_id: getFieldValue(form, 'assigned_lawyer_id')
 			});
 		}
 	}
@@ -454,8 +424,7 @@
 				lead_city_present: getFieldValue(form, 'lead_city') ? 'yes' : 'no',
 				lead_urgency: getFieldValue(form, 'lead_urgency'),
 				source_keyword: getFieldValue(form, 'source_keyword'),
-				assigned_lawyer_id: getFieldValue(form, 'assigned_lawyer_id'),
-				product_intent: getSafeProductIntent(getFieldValue(form, 'product_intent'))
+				assigned_lawyer_id: getFieldValue(form, 'assigned_lawyer_id')
 			});
 			return;
 		}
@@ -534,6 +503,9 @@
 
 		if (lowerHref.indexOf('wa.me/') !== -1 || lowerHref.indexOf('api.whatsapp.com') !== -1 || getText(link).toLowerCase().indexOf('whatsapp') !== -1) {
 			params.whatsapp_surface = getWhatsAppSurface(link);
+			if (link.getAttribute('data-investigation-interest') === 'pilot') {
+				track('investigation_simulation_interest', { product_intent: 'police_questioning', surface: 'criminal_article', contact_method: 'whatsapp' });
+			}
 
 			if (link.closest('#ask-lawyer')) {
 				track('lead_whatsapp_intent', Object.assign({}, params, getAskLawyerWhatsAppAnalyticsParams(link)));

@@ -31,14 +31,27 @@ $justice_hero_cities  = array( 'תל אביב', 'ירושלים', 'חיפה', '�
 $justice_guides_total = justice_theme_look3_guides_total();
 $justice_areas_total  = count( $justice_area_terms );
 $justice_situations   = justice_theme_look3_situations();
+$justice_hero_simulation = justice_theme_look3_resolve( array( 'legal-simulation' ), 'https://jus-tice.com/' );
 ?>
 
 <section class="l3-hero" id="hero">
 	<div class="l3-hero__grid">
 		<div class="l3-hero__copy">
-			<span class="l3-kicker"><?php esc_html_e( 'פורטל עורכי דין ומידע משפטי · מדריכים משפטיים וחיפוש עורך דין ללא תשלום', 'justice-theme' ); ?></span>
-			<h1 class="l3-hero__title"><?php esc_html_e( 'מידע משפטי ועורכי דין בישראל: חיפוש עורך דין לפי תחום ועיר', 'justice-theme' ); ?></h1>
+			<span class="l3-kicker"><?php esc_html_e( 'Jus-Tice · פורטל המשפט הישראלי', 'justice-theme' ); ?></span>
+			<h1 class="l3-hero__title"><?php esc_html_e( 'עורכי דין ומידע משפטי. מתחילים כאן.', 'justice-theme' ); ?></h1>
 			<p class="l3-hero__lead"><?php esc_html_e( 'מדריכים משפטיים, הסכמים וטפסים להורדה, מחשבונים, וחיפוש עורך דין לפי תחום עיסוק ועיר. המידע באתר כללי ואינו ייעוץ משפטי.', 'justice-theme' ); ?></p>
+
+			<?php if ( $justice_hero_simulation ) : ?>
+				<a class="l3-hero-rehearsal" href="<?php echo esc_url( $justice_hero_simulation['url'] ); ?>">
+					<img src="https://jus-tice.com/brand/hadmaya-cockpit-showcase-v1.webp" alt="מערכת הסימולציה: משתתפים, תמלול, עריכת המקרה והזמנה לדיון" width="1536" height="961" decoding="async">
+					<span class="l3-hero-rehearsal__copy">
+						<span class="l3-hero-rehearsal__brand" lang="en" dir="ltr">Hadmaya</span>
+						<strong><?php esc_html_e( 'תרגול דיון או גישור', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'מתחילים בתיאור קצר. מתקנים פרטים תוך כדי.', 'justice-theme' ); ?></span>
+						<span class="l3-hero-rehearsal__action"><?php esc_html_e( 'לסימולציה המשפטית', 'justice-theme' ); ?> <span aria-hidden="true">←</span></span>
+					</span>
+				</a>
+			<?php endif; ?>
 
 			<form class="l3-search" role="search" method="get" action="<?php echo esc_url( justice_theme_look3_directory_url() ); ?>" id="hero-search-form">
 				<label class="screen-reader-text" for="hero-practice-area"><?php esc_html_e( 'תחום עיסוק', 'justice-theme' ); ?></label>
@@ -68,13 +81,13 @@ $justice_situations   = justice_theme_look3_situations();
 				<span><?php esc_html_e( 'ללא תשלום · ללא הרשמה', 'justice-theme' ); ?></span>
 			</div>
 
-			<a class="l3-hero__triage" id="ai-triage" href="<?php echo esc_url( justice_theme_look3_triage_url() ); ?>"><?php esc_html_e( 'לא בטוחים באיזה תחום? אבחון משפטי ראשוני תוך 90 שניות ←', 'justice-theme' ); ?></a>
+			<a class="l3-hero__triage" id="ai-triage" href="<?php echo esc_url( justice_theme_look3_triage_url() ); ?>"><?php esc_html_e( 'לא בטוחים מאיפה להתחיל? מצאו את התחום המתאים ←', 'justice-theme' ); ?></a>
 		</div>
 
 		<?php if ( $justice_situations ) : ?>
 			<aside class="l3-hero__aside" aria-label="<?php esc_attr_e( 'בחירה לפי מצב', 'justice-theme' ); ?>">
 				<span class="l3-kicker"><?php esc_html_e( 'איפה נתקלתם בבעיה?', 'justice-theme' ); ?></span>
-				<strong class="l3-hero__aside-title"><?php esc_html_e( 'בחרו את המצב, ונכוון אותכם לעורך הדין ולמדריך המתאימים.', 'justice-theme' ); ?></strong>
+				<strong class="l3-hero__aside-title"><?php esc_html_e( 'כל מצב מתחיל בשאלה.', 'justice-theme' ); ?></strong>
 				<div class="l3-situations">
 					<?php foreach ( $justice_situations as $justice_situation ) : ?>
 						<a class="l3-situation" href="<?php echo esc_url( $justice_situation['url'] ); ?>">

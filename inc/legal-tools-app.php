@@ -304,13 +304,25 @@ function justice_theme_article_tools_mesh( string $content ): string {
 		$tools_hub
 	);
 
+	// Rehearsal actions enter the participant-based application, not the legacy document form.
+	// Leave drafting tools and directory links unchanged.
+	if ( function_exists( 'justice_theme_article_simulation_url' ) ) {
+		$topic = function_exists( 'justice_theme_article_simulation_topic' )
+			? justice_theme_article_simulation_topic( (int) get_the_ID() ) : '';
+		$simulation_url = justice_theme_article_simulation_url( $topic, 'court_rehearsal' );
+		if ( 'witness-prep' === $matched[0] ) {
+			$matched_tool_url = justice_theme_article_simulation_url( $topic, 'witness_prep' );
+		}
+	}
+
 	$lawyers_url = $area_slug
 		? home_url( '/lawyers/?area=' . rawurlencode( $area_slug ) )
 		: home_url( '/lawyers/' );
 
-	$block  = '<div class="jt2-lawyer-cta" data-jt2-mesh="article_tools">';
-	$block .= '<div><strong>' . esc_html__( 'להתכונן לפני שפונים: כלי AI לפי הנושא של המדריך', 'justice-theme' ) . '</strong>';
-	$block .= '<span>' . esc_html__( 'טיוטה בסיסית חינם ובלי הרשמה. המסמך אינו ייעוץ משפטי.', 'justice-theme' ) . '</span></div>';
+	$block  = '<div class="jt2-lawyer-cta jt2-lawyer-cta--visual" data-jt2-mesh="article_tools">';
+	$block .= '<a class="jt2-lawyer-cta__preview" href="' . esc_url( $simulation_url ) . '" data-lead-utm-source="article_mesh" data-lead-utm-medium="legaltech_gateway" data-lead-utm-campaign="court_arena"><img src="https://jus-tice.com/media/walkthrough/courtroom-he-poster.png" width="1440" height="1000" loading="lazy" decoding="async" alt="' . esc_html__( 'מסך הסימולציה: משתתפים, תמלול, עריכת פרטי המקרה והזמנת הצד השני', 'justice-theme' ) . '"><span>' . esc_html__( 'כך נראה הדיון במערכת', 'justice-theme' ) . '</span></a>';
+	$block .= '<div><strong>' . esc_html__( 'תרגלו את המקרה שלכם לפני הדיון', 'justice-theme' ) . '</strong>';
+	$block .= '<span>' . esc_html__( 'מתחילים בתיאור קצר, וצופים בדיון עם משתתפים ותמלול. אפשר לערוך את הפרטים בהמשך. התרגול אינו ייעוץ משפטי.', 'justice-theme' ) . '</span></div>';
 	$block .= '<div style="display:flex;gap:10px;flex-wrap:wrap">';
 	$block .= '<a href="' . esc_url( $simulation_url ) . '" data-lead-utm-source="article_mesh" data-lead-utm-medium="legaltech_gateway" data-lead-utm-campaign="court_arena">' . esc_html__( 'סימולציית בית משפט על המקרה שלכם', 'justice-theme' ) . '</a>';
 	$block .= '<a href="' . esc_url( $matched_tool_url ) . '" data-lead-utm-source="article_mesh" data-lead-utm-medium="legaltech_gateway" data-lead-utm-campaign="area_tool">' . esc_html( $matched[1] ) . '</a>';

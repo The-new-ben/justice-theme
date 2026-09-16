@@ -196,7 +196,7 @@ function justice_theme_article_midfold( ?string $content ): string {
 	}
 	$strip  = '<div class="single-article__fold">' . $band_html;
 	$strip .= '<div class="single-article__fold-cta">';
-	$strip .= '<strong>' . esc_html( $label ? 'צריכים עורך דין ' . $label . '?' : 'צריכים עורך דין מתאים?' ) . '</strong> ';
+	$strip .= '<strong>' . esc_html( justice_theme_article_lead_heading( $label ) ) . '</strong> ';
 	$strip .= '<a class="button button--gold" href="' . esc_url( home_url( '/#ask-lawyer' ) ) . '">' . esc_html__( 'השארת פנייה קצרה', 'justice-theme' ) . '</a> ';
 	$strip .= '<a class="button button--ghost" href="' . esc_url( home_url( '/lawyers/' ) ) . '">' . esc_html__( 'חיפוש עורך דין לפי תחום ועיר', 'justice-theme' ) . '</a>';
 	$strip .= '</div>';
@@ -207,6 +207,18 @@ function justice_theme_article_midfold( ?string $content ): string {
 	return justice_theme_inject_after_section( $content, $strip );
 }
 add_filter( 'the_content', 'justice_theme_article_midfold', 12 );
+
+/** Build the contact prompt without repeating an existing lawyer prefix. */
+function justice_theme_article_lead_heading( string $label ): string {
+	$label = trim( $label );
+	if ( 'משפט פלילי' === $label ) {
+		$label = 'פלילי';
+	}
+	if ( '' === $label || 'עורך דין' === $label ) {
+		return 'צריכים עורך דין מתאים?';
+	}
+	return 'צריכים ' . ( 0 === strpos( $label, 'עורך דין ' ) ? $label : 'עורך דין ' . $label ) . '?';
+}
 
 /**
  * Titles keep their literal hyphen. wptexturize converts " - " into an en dash

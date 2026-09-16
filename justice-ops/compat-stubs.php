@@ -19,7 +19,14 @@ if ( ! function_exists( 'justice_ai_chat' ) ) {
 
 if ( ! function_exists( 'justice_enc_word_count' ) ) {
 	function justice_enc_word_count( string $html ): int {
-		return (int) str_word_count( wp_strip_all_tags( $html ) );
+		// str_word_count() counts only Latin letters, so every Hebrew article measured 0 words
+		// and the professional card fell into the "short content" branch at the very end of the
+		// page (found 2026-09-16). Count whitespace-separated tokens, Unicode-safe.
+		$text = trim( wp_strip_all_tags( $html ) );
+		if ( '' === $text ) {
+			return 0;
+		}
+		return count( preg_split( '/\s+/u', $text ) ?: array() );
 	}
 }
 

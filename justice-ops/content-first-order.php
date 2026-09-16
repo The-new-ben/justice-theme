@@ -954,19 +954,38 @@ function justice_ops_content_first_profile_is_active_paid( int $lawyer_id ): boo
 }
 
 /**
+ * The house professional: the site's own legal content reviewer (Maya Rotenberg).
+ * Her card is editorial, not a paid placement, so it carries no "מקודם" disclosure
+ * and may stay inline (owner order 2026-09-16).
+ */
+function justice_ops_content_first_profile_is_house( int $lawyer_id ): bool {
+	return $lawyer_id > 0
+		&& function_exists( 'justice_lawyer_owner_is_maya_profile' )
+		&& justice_lawyer_owner_is_maya_profile( $lawyer_id );
+}
+
+/**
  * True only for a plugin sponsored card that may remain inline.
  */
 function justice_ops_content_first_procard_is_inline_paid( array $block ): bool {
+	$lawyer_id = justice_ops_content_first_card_profile_id( $block );
+	if ( justice_ops_content_first_profile_is_house( $lawyer_id ) ) {
+		return true;
+	}
 	return justice_ops_content_first_has_promoted_disclosure( (string) $block['element'], 'jt-procard__sponsored' )
-		&& justice_ops_content_first_profile_is_active_paid( justice_ops_content_first_card_profile_id( $block ) );
+		&& justice_ops_content_first_profile_is_active_paid( $lawyer_id );
 }
 
 /**
  * True only for a theme card that may remain above a practice guide.
  */
 function justice_ops_content_first_theme_card_is_inline_paid( array $block ): bool {
+	$lawyer_id = justice_ops_content_first_card_profile_id( $block );
+	if ( justice_ops_content_first_profile_is_house( $lawyer_id ) ) {
+		return true;
+	}
 	return justice_ops_content_first_has_promoted_disclosure( (string) $block['element'], 'lawyer-card__status--sponsored' )
-		&& justice_ops_content_first_profile_is_active_paid( justice_ops_content_first_card_profile_id( $block ) );
+		&& justice_ops_content_first_profile_is_active_paid( $lawyer_id );
 }
 
 /**
@@ -1619,9 +1638,12 @@ function justice_ops_content_first_remove_root_classes( string $html, array $rem
  * Normalize one provider card against the canonical paid-placement truth.
  */
 function justice_ops_content_first_normalize_public_card( array $block, string $kind ): string {
-	$original = (string) $block['element'];
-	$paid     = justice_ops_content_first_profile_is_active_paid( justice_ops_content_first_card_profile_id( $block ) );
-	$updated  = $original;
+	$original  = (string) $block['element'];
+	$lawyer_id = justice_ops_content_first_card_profile_id( $block );
+	// The house reviewer card is editorial: never a paid disclosure on it.
+	$paid      = ! justice_ops_content_first_profile_is_house( $lawyer_id )
+		&& justice_ops_content_first_profile_is_active_paid( $lawyer_id );
+	$updated   = $original;
 
 	if ( 'lawyer-card' === $kind ) {
 		$updated = justice_ops_content_first_remove_fragment_class( $updated, 'lawyer-card__commercial-disclosure' );

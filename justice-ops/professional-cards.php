@@ -615,7 +615,24 @@ function justice_cards_render( WP_Post $lawyer ): string {
 	// The avatar geometry rides inline on the element: theme content CSS
 	// (img { max-width:100%; height:auto }) must never distort it, cached
 	// pages with an older stylesheet included.
-	$avatar_inline = 'width:84px;height:84px;aspect-ratio:1;border-radius:18px;object-fit:cover;object-position:center 30%;display:block;flex:none;margin:0';
+	// House card: the site's own legal content reviewer (Maya Rotenberg). Editorial, not a
+	// paid placement: no "מקודם", a reviewer badge instead, larger portrait and her profile
+	// lead line (owner order 2026-09-16). Keywords come from the profile itself.
+	$house = function_exists( 'justice_lawyer_owner_is_maya_profile' ) && justice_lawyer_owner_is_maya_profile( $pid );
+	$tagline = '';
+	if ( $house ) {
+		$tagline = trim( (string) get_post_meta( $pid, 'profile_subheadline', true ) );
+		if ( '' === $tagline ) {
+			$tagline = trim( wp_strip_all_tags( (string) get_post_field( 'post_excerpt', $pid ) ) );
+		}
+		$tagline = mb_substr( $tagline, 0, 190 );
+		$label   = 'עו״ד בודקת התוכן המשפטי באתר';
+	}
+	$name_parts = preg_split( '/\s+/u', trim( wp_strip_all_tags( $name ) ) ) ?: array();
+	$short_name = $name_parts ? end( $name_parts ) : $name;
+	$avatar_inline = $house
+		? 'width:104px;height:104px;aspect-ratio:1;border-radius:14px;object-fit:cover;object-position:center 25%;display:block;flex:none;margin:0'
+		: 'width:84px;height:84px;aspect-ratio:1;border-radius:18px;object-fit:cover;object-position:center 30%;display:block;flex:none;margin:0';
 	$photo         = justice_cards_avatar_src( $pid );
 
 	if ( $photo ) {
@@ -641,22 +658,27 @@ function justice_cards_render( WP_Post $lawyer ): string {
 	$trust .= justice_cards_response_badge( $pid );
 	$trust .= $rating_html;
 
-	return '<aside class="jt-procard" role="complementary" aria-label="' . esc_attr( $label ) . '" data-card-surface="incontent" data-l="' . (int) $pid . '">'
+	$ribbon = $house
+		? '<span class="jt-procard__flag jt-procard__flag--house"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.5 3.5 5v4.6c0 3.9 2.7 6.5 6.5 7.9 3.8-1.4 6.5-4 6.5-7.9V5L10 2.5z"></path><path d="m7.4 10.1 1.8 1.8 3.6-3.8"></path></svg>' . esc_html( $label ) . '</span>'
+			. '<span class="jt-procard__verified">פרופיל מאומת' . ( $city_name ? ' · ' . esc_html( $city_name ) : '' ) . '</span>'
+		: '<span class="jt-procard__flag">' . esc_html( $label ) . '</span>'
+			. '<em class="jt-procard__sponsored">' . esc_html( $s['sponsored_label'] ) . '</em>';
+	return '<aside class="jt-procard' . ( $house ? ' jt-procard--house' : '' ) . '" role="complementary" aria-label="' . esc_attr( $label ) . '" data-card-surface="incontent" data-l="' . (int) $pid . '">'
 		. '<div class="jt-procard__ribbon">'
-		. '<span class="jt-procard__flag">' . esc_html( $label ) . '</span>'
-		. '<em class="jt-procard__sponsored">' . esc_html( $s['sponsored_label'] ) . '</em>'
+		. $ribbon
 		. '</div>'
 		. '<div class="jt-procard__main">'
 		. $avatar
 		. '<div class="jt-procard__body">'
 		. '<strong class="jt-procard__name">' . esc_html( $name ) . '</strong>'
+		. ( $tagline ? '<p class="jt-procard__tagline">' . esc_html( $tagline ) . '</p>' : '' )
 		. ( $chips ? '<span class="jt-procard__chips">' . $chips . '</span>' : '' )
 		. ( $trust ? '<span class="jt-procard__trust">' . $trust . '</span>' : '' )
 		. '</div></div>'
 		. '<div class="jt-procard__actions">'
 		. '<a class="jt-procard__wa" href="' . esc_url( $wa_href ) . '" target="_blank" rel="noopener nofollow" data-whatsapp-surface="procard">'
 		. '<svg viewBox="0 0 32 32" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.3 4 14.9c0 2.6.8 5 2.3 7L4 29l7.3-2.3c1.5.8 3.1 1.2 4.7 1.2 6.6 0 12-5.3 12-11.9C28 8.3 22.6 3 16 3zm5.9 16.9c-.3.8-1.7 1.6-2.3 1.6-.6.1-1.3.1-2.1-.1-.5-.2-1.1-.4-1.9-.7-3.4-1.5-5.6-4.9-5.8-5.1-.2-.2-1.4-1.8-1.4-3.5s.9-2.5 1.2-2.8c.3-.3.7-.4.9-.4h.7c.2 0 .5-.1.8.6.3.7 1 2.4 1.1 2.6.1.2.1.4 0 .6-.1.2-.2.4-.4.6l-.6.7c-.2.2-.4.4-.2.8.2.4 1 1.6 2.1 2.6 1.4 1.3 2.6 1.7 3 1.9.4.2.6.2.8-.1.2-.2.9-1 1.1-1.4.2-.4.5-.3.8-.2.3.1 2 .9 2.3 1.1.3.2.6.3.6.4.1.3.1.9-.2 1.7z"/></svg>'
-		. esc_html( $s['wa_label'] ) . '</a>'
+		. esc_html( $house ? 'שיחה ישירה עם עו״ד ' . $short_name : $s['wa_label'] ) . '</a>'
 		. '<a class="jt-procard__profile" href="' . esc_url( $url ) . '">' . esc_html( $s['profile_label'] ) . '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true" class="jt-procard__arrow"><path d="M14.7 5.3 8 12l6.7 6.7 1.4-1.4L10.8 12l5.3-5.3-1.4-1.4z"/></svg></a>'
 		. '</div>'
 		. '</aside>';
@@ -700,6 +722,25 @@ function justice_cards_css(): string {
 		. '.jt-procard__wa:active{transform:translateY(0)}'
 		. '@media(max-width:640px){.jt-procard{margin:28px 0;border-radius:18px}.jt-procard__main{gap:13px;padding:15px 14px 6px}.jt-procard__actions{flex-direction:column;padding:12px 14px 15px}.jt-procard__name{font-size:17px}.jt-procard .jt-procard__photo,.jt-procard .jt-procard__photo--initial{width:74px!important;height:74px!important;border-radius:16px!important}.jt-procard__ring{border-radius:19px}}'
 		. '@media(prefers-reduced-motion:reduce){.jt-procard,.jt-procard__wa,.jt-procard__profile,.jt-procard__arrow{transition:none}}'
+		// House reviewer card: new-look v3 palette (paper, deep green, sage), serif name.
+		. '.jt-procard--house{background:#fffefa;border:1px solid rgba(25,43,50,.14);border-radius:12px;box-shadow:0 18px 48px rgba(25,43,50,.08)}'
+		. '.jt-procard--house::before{display:none}'
+		. '.jt-procard--house .jt-procard__ribbon{background:#eef3ee;border-bottom:1px solid rgba(25,43,50,.10);padding:10px 20px}'
+		. '.jt-procard--house .jt-procard__flag{color:#254c43;font-size:13px;gap:8px;letter-spacing:.01em}'
+		. '.jt-procard__verified{font-size:12px;font-weight:600;color:#526064}'
+		. '.jt-procard--house .jt-procard__main{padding:22px 20px 12px;align-items:flex-start;gap:20px}'
+		. '.jt-procard--house .jt-procard__ring{padding:0;border-radius:14px;background:none;box-shadow:0 0 0 3px #fffefa,0 0 0 5px #cdd8ce}'
+		. '.jt-procard--house .jt-procard__photo{border:0}'
+		. '.jt-procard--house .jt-procard__body{gap:8px}'
+		. '.jt-procard--house .jt-procard__name{font-family:"Frank Ruhl Libre","Noto Serif Hebrew",serif;font-weight:700;font-size:24px;line-height:1.2;color:#192b32}'
+		. '.jt-procard__tagline{margin:0;font-size:15px;line-height:1.6;color:#526064}'
+		. '.jt-procard--house .jt-procard__chip,.jt-procard--house .jt-procard__chip--city{background:#f1f4f1;color:#254c43}'
+		. '.jt-procard--house .jt-procard__trustitem{color:#254c43}'
+		. '.jt-procard--house .jt-procard__actions{padding:8px 20px 20px}'
+		. '.jt-procard--house .jt-procard__wa{flex:1.2;background:#254c43;color:#fffefa;box-shadow:none;border-radius:6px}'
+		. '.jt-procard--house .jt-procard__profile{background:#fffefa;color:#254c43;border:1.5px solid #254c43;border-radius:6px}'
+		. '@media(hover:hover){.jt-procard--house .jt-procard__wa:hover{background:#192f2b;box-shadow:none;transform:none}.jt-procard--house .jt-procard__profile:hover{background:#254c43;color:#fffefa;border-color:#254c43}}'
+		. '@media(max-width:640px){.jt-procard--house{border-radius:12px}.jt-procard--house .jt-procard__main{padding:16px 14px 8px;gap:14px}.jt-procard--house .jt-procard__photo{width:88px!important;height:88px!important;border-radius:12px!important}.jt-procard--house .jt-procard__ring{border-radius:12px}.jt-procard--house .jt-procard__name{font-size:21px}.jt-procard--house .jt-procard__tagline{font-size:14px}.jt-procard--house .jt-procard__actions{padding:4px 14px 16px}}'
 		. '</style>';
 }
 
@@ -798,14 +839,19 @@ function justice_cards_filter_content( $content ): string {
 	// and only if the page is long enough to keep the placements far apart:
 	// the second slot anchors before the FAQ heading and must sit at least
 	// min_gap_chars after the first slot.
-	$pos = 0;
+	// First card at the END of the first section (right before the second heading), where
+	// a reader who finished the opening is deciding whom to call. It used to sit after the
+	// second heading, which on long guides landed deep in the page (owner order 2026-09-16).
+	$pos = 0; $second_h2 = false;
 	for ( $i = 0; $i < 2; $i++ ) {
-		$next = strpos( $content, '</h2>', $pos );
+		$next = strpos( $content, '<h2', $pos );
 		if ( false === $next ) {
 			break;
 		}
-		$pos = $next + 5;
+		$second_h2 = $next;
+		$pos       = $next + 3;
 	}
+	$pos = false === $second_h2 ? 0 : $second_h2;
 
 	$first = substr( $content, 0, $pos );
 	$rest  = substr( $content, $pos );

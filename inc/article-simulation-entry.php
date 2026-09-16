@@ -86,11 +86,26 @@ function justice_theme_article_simulation_entry( string $content ): string {
 	// Preserve the article and Claude's contextual links exactly. Keep the opening of the
 	// article for readers and crawlers: insert after the third paragraph, or after the last
 	// paragraph when the article is shorter (owner order 2026-09-16).
-	$end = false; $offset = 0;
-	for ( $i = 0; $i < 3; $i++ ) {
+	// The reader-ux table of contents (<nav class="jt-nav-toc"> / <details class="jt-toc">, priority 14)
+	// carries its own <p> title; paragraphs inside it do not count, otherwise the cockpit lands
+	// between the "בעמוד הזה" label and its list (seen live on 12987 / 21296, 2026-09-16).
+	$skip = array();
+	if ( preg_match_all( '/<(nav|details)\b[^>]*class="[^"]*\bjt-(?:nav-)?toc\b[^"]*"[^>]*>.*?<\/\1>/is', $content, $toc_hits, PREG_OFFSET_CAPTURE ) ) {
+		foreach ( $toc_hits[0] as $hit ) {
+			$skip[] = array( $hit[1], $hit[1] + strlen( $hit[0] ) );
+		}
+	}
+	$end = false; $offset = 0; $count = 0;
+	while ( $count < 3 ) {
 		$found = stripos( $content, '</p>', $offset );
 		if ( false === $found ) { break; }
-		$end = $found; $offset = $found + 4;
+		$offset = $found + 4;
+		$inside = false;
+		foreach ( $skip as $range ) {
+			if ( $found >= $range[0] && $found < $range[1] ) { $inside = true; break; }
+		}
+		if ( $inside ) { continue; }
+		$end = $found; $count++;
 	}
 	return false === $end ? $content . $block : substr_replace( $content, $block, $end + 4, 0 );
 }

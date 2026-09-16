@@ -205,10 +205,7 @@ function justice_theme_dequeue_homepage_bloat() {
 	wp_dequeue_script( 'jquery-ui-datepicker' );
 
 	// Search Filter Pro — no search filter widget on homepage.
-	wp_dequeue_script( 'search-filter-build' );
-	wp_dequeue_script( 'chosen-jquery' );
-	wp_dequeue_style( 'search-filter-build' );
-	wp_dequeue_style( 'chosen-css' );
+	justice_theme_dequeue_search_filter_assets();
 
 	// Dashicons — admin icon font, not needed on frontend.
 	wp_dequeue_style( 'dashicons' );
@@ -234,10 +231,7 @@ function justice_theme_dequeue_singular_bloat() {
 		return;
 	}
 	if ( is_singular( 'articles' ) ) {
-		wp_dequeue_script( 'search-filter-build' );
-		wp_dequeue_script( 'chosen-jquery' );
-		wp_dequeue_style( 'search-filter-build' );
-		wp_dequeue_style( 'chosen-css' );
+		justice_theme_dequeue_search_filter_assets();
 	}
 	foreach ( array( 'wc-add-to-cart', 'woocommerce', 'wc-cart-fragments', 'js-cookie', 'jquery-blockui', 'sourcebuster-js',
 		'wc-order-attribution', 'wc-add-to-cart-variation', 'wc-single-product' ) as $handle ) {
@@ -249,6 +243,41 @@ function justice_theme_dequeue_singular_bloat() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'justice_theme_dequeue_singular_bloat', 999 );
+
+/**
+ * Dequeue every Search & Filter Pro asset by handle prefix. The plugin (2.4.x) registers
+ * `search-filter-plugin-build` / `search-filter-plugin-chosen` (+ `-js-extra`) and the matching
+ * styles, not the `search-filter-build` / `chosen-*` handles the old code guessed, so those
+ * dequeues never removed anything (verified live 2026-09-16: both scripts still loaded on every
+ * article). Matching by prefix survives plugin renames. Runs again at print time because the
+ * plugin can enqueue after priority 999.
+ */
+function justice_theme_dequeue_search_filter_assets(): void {
+	foreach ( array( wp_scripts(), wp_styles() ) as $collection ) {
+		foreach ( (array) $collection->queue as $handle ) {
+			$handle = (string) $handle;
+			if ( 0 !== strpos( $handle, 'search-filter' ) && ! in_array( $handle, array( 'chosen-jquery', 'chosen-css' ), true ) ) {
+				continue;
+			}
+			if ( $collection instanceof WP_Styles ) {
+				wp_dequeue_style( $handle );
+			} else {
+				wp_dequeue_script( $handle );
+			}
+		}
+	}
+}
+
+function justice_theme_dequeue_search_filter_assets_late(): void {
+	if ( is_admin() ) {
+		return;
+	}
+	if ( is_front_page() || ( is_singular( 'articles' ) && ! ( function_exists( 'is_woocommerce' ) && is_woocommerce() ) ) ) {
+		justice_theme_dequeue_search_filter_assets();
+	}
+}
+add_action( 'wp_print_scripts', 'justice_theme_dequeue_search_filter_assets_late', 1 );
+add_action( 'wp_print_styles', 'justice_theme_dequeue_search_filter_assets_late', 1 );
 
 /**
  * Strip duplicate theme-color meta tags from plugin output.

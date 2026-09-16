@@ -145,7 +145,10 @@ function justice_theme_detect_publication_safety_markers( string $content ): arr
 	);
 
 	foreach ( $extra_patterns as $pattern ) {
-		if ( false !== stripos( $text, $pattern ) ) {
+		$present = function_exists( 'justice_theme_internal_marker_present' )
+			? justice_theme_internal_marker_present( $text, $pattern )
+			: false !== stripos( $text, $pattern );
+		if ( $present ) {
 			$markers[] = $pattern;
 		}
 	}

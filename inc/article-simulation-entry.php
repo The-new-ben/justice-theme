@@ -69,10 +69,10 @@ function justice_theme_article_simulation_entry( string $content ): string {
 	$mediation = ! in_array( $topic, array( 'criminal-law', 'traffic-law', 'immigration', 'tax' ), true );
 	$block = '<aside class="l3-article-simulation" data-hadmaia-article-entry="' . esc_attr( $topic ) . '" aria-label="תרגול המקרה שלכם">'
 		. '<a class="l3-article-simulation__visual" href="' . esc_url( justice_theme_article_simulation_url( $topic, 'court_rehearsal' ) ) . '" aria-label="פתיחת סימולציה של דיון"><img src="https://jus-tice.com/brand/hadmaya-cockpit-showcase-v1.webp" alt="מערכת הסימולציה: משתתפים, תמלול, עריכת המקרה והזמנה לדיון" width="1536" height="961" loading="lazy" decoding="async"><span>Hadmaya <span aria-hidden="true">↗</span></span></a>'
-		. '<div><strong>איך זה יישמע בדיון?</strong><p>תרגלו את המקרה שלכם. אפשר להתחיל עכשיו, לדייק פרטים בהמשך ולהזמין את הצד השני להצטרף.</p></div>'
-		. '<div class="l3-article-simulation__actions"><a href="' . esc_url( justice_theme_article_simulation_url( $topic, 'court_rehearsal' ) ) . '">תרגול דיון</a>';
+		. '<div><strong>מה יגידו לכם בדיון על המקרה הזה?</strong><p>ספרו את המקרה שלכם במילים שלכם וראו תוך דקות איך הוא נשמע בבית המשפט: הטענות של הצד השני, השאלות שישאלו אתכם והנקודות שיכריעו. בלי הרשמה, בלי עורך דין בשלב הזה.</p></div>'
+		. '<div class="l3-article-simulation__actions"><a href="' . esc_url( justice_theme_article_simulation_url( $topic, 'court_rehearsal' ) ) . '">לבדוק איך המקרה שלי נשמע</a>';
 	if ( $mediation ) {
-		$block .= '<a class="l3-article-simulation__secondary" href="' . esc_url( justice_theme_article_simulation_url( $topic, 'mediation' ) ) . '">תרגול גישור</a>';
+		$block .= '<a class="l3-article-simulation__secondary" href="' . esc_url( justice_theme_article_simulation_url( $topic, 'mediation' ) ) . '">לנסות גישור לפני בית משפט</a>';
 	}
 	if ( 'criminal-law' === $topic ) {
 		$message = "שלום, אני מתעניין/ת בפיילוט של סימולציית חקירה במשטרה.\nהגעתי מהעמוד: "

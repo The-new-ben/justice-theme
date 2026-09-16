@@ -83,8 +83,15 @@ function justice_theme_article_simulation_entry( string $content ): string {
 			. '" target="_blank" rel="noopener noreferrer">פנייה לגבי סימולציית חקירה</a>';
 	}
 	$block .= '</div><small>סימולציה להכנה, לא ייעוץ משפטי.</small></aside>';
-	// Preserve the article and Claude's contextual links exactly. Insert after its opening paragraph.
-	$end = stripos( $content, '</p>' );
+	// Preserve the article and Claude's contextual links exactly. Keep the opening of the
+	// article for readers and crawlers: insert after the third paragraph, or after the last
+	// paragraph when the article is shorter (owner order 2026-09-16).
+	$end = false; $offset = 0;
+	for ( $i = 0; $i < 3; $i++ ) {
+		$found = stripos( $content, '</p>', $offset );
+		if ( false === $found ) { break; }
+		$end = $found; $offset = $found + 4;
+	}
 	return false === $end ? $content . $block : substr_replace( $content, $block, $end + 4, 0 );
 }
 add_filter( 'the_content', 'justice_theme_article_simulation_entry', 30 );

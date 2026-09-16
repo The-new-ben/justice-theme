@@ -44,7 +44,7 @@
   --shadow-hover: var(--jt-shadow-strong);
   
   --container: 1200px;
-  --container-narrow: 850px;
+  --container-narrow: 920px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }

@@ -741,6 +741,11 @@ function justice_cards_css(): string {
 		. '.jt-procard--house .jt-procard__profile{background:#fffefa;color:#254c43;border:1.5px solid #254c43;border-radius:6px}'
 		. '@media(hover:hover){.jt-procard--house .jt-procard__wa:hover{background:#192f2b;box-shadow:none;transform:none}.jt-procard--house .jt-procard__profile:hover{background:#254c43;color:#fffefa;border-color:#254c43}}'
 		. '@media(max-width:640px){.jt-procard--house{border-radius:12px}.jt-procard--house .jt-procard__main{padding:16px 14px 8px;gap:14px}.jt-procard--house .jt-procard__photo{width:88px!important;height:88px!important;border-radius:12px!important}.jt-procard--house .jt-procard__ring{border-radius:12px}.jt-procard--house .jt-procard__name{font-size:21px}.jt-procard--house .jt-procard__tagline{font-size:14px}.jt-procard--house .jt-procard__actions{padding:4px 14px 16px}}'
+		// Theme link rules (body.jt-look-v3 ... a) outrank the button color and painted the WhatsApp
+		// label in the button's own green (invisible on mobile, found 2026-09-16); pin the CTA colors.
+		. '.jt-procard .jt-procard__actions .jt-procard__wa,.jt-procard .jt-procard__actions .jt-procard__wa:hover,.jt-procard .jt-procard__actions .jt-procard__wa:focus{color:#fff!important}'
+		. '.jt-procard--house .jt-procard__actions .jt-procard__wa,.jt-procard--house .jt-procard__actions .jt-procard__wa:hover,.jt-procard--house .jt-procard__actions .jt-procard__wa:focus{color:#fffefa!important;text-decoration:none!important}'
+		. '.jt-procard .jt-procard__actions .jt-procard__profile{text-decoration:none!important}'
 		. '</style>';
 }
 

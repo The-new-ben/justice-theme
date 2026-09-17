@@ -72,6 +72,47 @@ function justice_theme_content_clusters(): array {
 			),
 		),
 
+		// ─── PRENUP (הסכם ממון) ───────────────────────────────────────────────────────
+		// Added 2026-09-17 (prenup pilot, owner order). GSC 3 months to 2026-09-16: the full guide
+		// /prenuptial-agreements-overview/ (12,969 words) earns 2,818 impressions for "הסכם ממון"
+		// at positions 85-93, 0 clicks, while 8 thin siblings split the same intent and the 20
+		// prenup rulings are orphans. One parent per spoke: marital-property-agreement moves here
+		// from real-estate (it is the "הסכם ממון על דירה" guide).
+		'prenup' => array(
+			'pillar' => 'prenuptial-agreements-overview',
+			'label'  => 'המדריך המלא להסכם ממון',
+			'spokes' => array(
+				'prenuptial-agreement',
+				'prenuptial-agreement-guide',
+				'prenuptial-agreement-cost',
+				'how-much-does-prenup-cost',
+				'prenup-attorney',
+				'prenuptial-agreement-sample',
+				'prenuptial-agreement-for-second-marriage',
+				'changing-or-canceling-a-prenuptial-agreement',
+				'marital-property-agreement',
+				'matrimonial-property-law',
+				'prenuptial-agreement-agreement',
+				'prenuptial-agreement-apartment-law',
+				'prenuptial-agreement-rabbinical-court-approval-agreement-divorce-law',
+				'prenuptial-agreement-jurisdiction-property-house',
+				'prenuptial-agreement-rabbinical-court-haifa-verdict-notary-apartment',
+				'prenuptial-agreement-verdict-judge-cancellation-validity-27071-11-19',
+				'prenup-not-valid',
+				'42471-05-24',
+				'decision22328-09-20',
+				'decision28272-02-21',
+				'decision30452-07-20',
+				'decision53041-12-20a',
+				'1338971-12',
+				'rights-law-process-34613-02-22',
+				'consent-decree-court-divorce-settlement',
+				'obligations-law-rights',
+				'child-support-verdict-lawsuit-agreement-41188-08-20',
+				'dissolution',
+			),
+		),
+
 		// ─── CRIMINAL ────────────────────────────────────────────────────────────────
 		// Pillar confirmed by GSC: /criminal-defense-attorney/ wins 149 queries · 71,554 imp.
 		'criminal-law' => array(
@@ -125,7 +166,6 @@ function justice_theme_content_clusters(): array {
 				'land-appreciation-tax',
 				'real-estate-lawyer-cost-2025',
 				'real-estate-appraiser',
-				'marital-property-agreement',
 				'spouse-property-registration-guide',
 				// Added 2026-07-03: the landlord/tenant family (owner money
 				// keyword) was completely outside the cluster mesh.

@@ -753,6 +753,14 @@ function justice_theme_money_query_seo_map(): array {
 			'seo_title'   => 'זכויות בהליך גירושין וייצוג משפטי: המדריך המלא | Jus-Tice',
 			'description' => 'המדריך לזכויות בהליך גירושין: מזונות, משמורת, חלוקת רכוש וכתובה, איך מתנהל ההליך בבית המשפט לענייני משפחה ובבית הדין הרבני, ומתי נדרש ייצוג.',
 		),
+		// PRENUP PILOT (2026-09-17): the prenup cluster pillar. Its live title ran ~117 chars
+		// with a double colon and a question in the tail; GSC 3 months: 2,818 impr for
+		// "הסכם ממון" at pos 85-93, 0 clicks. Same keywords, head term first, no slogans.
+		'prenuptial-agreements-overview' => array(
+			'title'       => 'הסכם ממון: המדריך המלא, מה כולל, עלות ותהליך האישור',
+			'seo_title'   => 'הסכם ממון: המדריך המלא, מה כולל, עלות ואישור | Jus-Tice',
+			'description' => 'הסכם ממון בישראל: מה כולל ההסכם, מתי חותמים, כמה עולה, איך מאשרים בבית המשפט לענייני משפחה או בבית הדין הרבני, ומה קורה בלי הסכם. המדריך המלא עם דוגמאות.',
+		),
 		// De-cannibalization (2026-07-02): this guide led with "איתור עורך דין",
 		// the directory family head term, splitting the query with /lawyers/.
 		// The guide owns the how-to sub-intent; the directory owns the tool.

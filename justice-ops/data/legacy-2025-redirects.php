@@ -98,7 +98,7 @@ return array(
 	'מדריך-מעשי-לבחירת-חברה-או-יזם-להתחדשות-עירונית' => 'real-estate-attorney',
 	'מדריך-מקיף-לתהליך-רכישת-דירה' => 'lawyer-for-buying-or-selling-a-house',
 	'מדריך-עדכני-לגירושין' => 'divorce-lawyer',
-	'מדריך-עדכני-להסכם-ממון' => 'marital-property-agreement',
+	'מדריך-עדכני-להסכם-ממון' => 'prenuptial-agreements-overview', // retargeted 2026-09-17: the 2025 guide URL belongs to the full prenup guide, not the apartment article
 	'מועד-הקרע-בגירושין-לצורך-איזון-משאבים-בין-בני-זוג-לשעבר-תלהמ-23952-08-19' => 'divorce-lawyer',
 	'מזונות-שבהסכם-והעילות-לביטולן-או-שינויין-מכוח-שינוי-נסיבות' => 'divorce-lawyer',
 	'מחירון-מומלץ-עורך-דין-פלילי' => 'criminal-law-price-list-lawyer-recommended-review-costs',

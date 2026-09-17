@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.37.37
+ * Version: 2.37.38
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.37.37' );
+	define( 'JUSTICE_OPS_VERSION', '2.37.38' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -67,6 +67,9 @@ require_once __DIR__ . '/advertise.php';
 
 // Leads reach the paying lawyer with a billing trail.
 require_once __DIR__ . '/lead-router.php';
+
+// HubSpot sync for site leads (owner order 2026-09-17, HAD-87): contact + deal per lead, token-gated.
+require_once __DIR__ . '/hubspot-sync.php';
 
 // Appointment booking + criminal emergency strip.
 require_once __DIR__ . '/scheduler.php';

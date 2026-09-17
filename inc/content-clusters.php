@@ -179,17 +179,56 @@ function justice_theme_content_clusters(): array {
 		// Override: GSC auto-winner was /medical-institute-for-road-safety/ (a marvad/road-fitness
 		// page leaking into malpractice queries — textbook cannibalization). Correct pillar is
 		// /medical-malpractice-lawyer/ (50 wins · 18,448 imp).
+		//
+		// Expanded 2026-09-17 (HAD-223, cluster-map.md) from 7 spokes to 29. Only 7 of the 64
+		// malpractice pages were wired into the mesh, so most of them rendered no "part of guide"
+		// block and received no sibling links at all. Every slug below was verified live (HTTP 200)
+		// on 2026-09-17; no URL was moved, renamed or redirected by this change.
+		//
+		// Seven of the additions already existed but sat OUTSIDE the cluster and drew no internal
+		// links: the four complaint/committee pages, /misdiagnosis-delayed-diagnosis/ (383 imp,
+		// avg position 30.9) and /dental-malpractice/ (1,209 imp, avg position 38.1). Adopting them
+		// is cheaper and safer than minting new URLs that would cannibalize them.
 		'medical-malpractice' => array(
 			'pillar' => 'medical-malpractice-lawyer',
 			'label'  => 'המדריך לרשלנות רפואית',
 			'spokes' => array(
-				'medical-malpractice-in-the-united-states',
-				'medical-malpractice-common-errors-doctors-hospitals',
-				'anesthesia-medical-malpractice',
-				'cerebral-palsy',
-				'malpractice-cerebral-palsy',
-				'what-is-medical-malpractice-definition-examples',
+				// Core intent pages.
+				'medical-malpractice-lawyer-recommended',
+				'medical-malpractice-lawsuits-law-account',
 				'medical-malpractice-attorney',
+				'what-is-medical-malpractice-definition-examples',
+				// Birth sub-cluster.
+				'birth-injury',
+				'birth-injury-lawyer',
+				'birth-injury-causes',
+				'brain-damage-at-birth',
+				'malpractice-cerebral-palsy',
+				'cerebral-palsy',
+				'cerebral-palsy-rights',
+				'perinatal-asphyxia',
+				'klumpke-paralysis',
+				'medical-malpractice-pregnancy-birth',
+				'medical-malpractice-lawyer-birth-recommended',
+				// Type of treatment.
+				'medical-malpractice-surgery',
+				'anesthesia-medical-malpractice',
+				'medical-malpractice-common-errors-doctors-hospitals',
+				'misdiagnosis-delayed-diagnosis',
+				'dental-malpractice',
+				// Complaints, committees and the disciplinary track.
+				'complaint-health-ministry-commissioner',
+				'commissioner-public-complaints-medical',
+				'internal-hospital-inquiry-committee',
+				'disciplinary-complaint-against-doctor',
+				// Evidence and procedure.
+				'court-legal-opinion-experts-medical-2023',
+				// Cities (existing pattern: /medical-malpractice-<city>/).
+				'medical-malpractice-tel-aviv',
+				'medical-malpractice-haifa',
+				// International comparison.
+				'medical-malpractice-in-the-united-states',
+				'medical-malpractice-lawyers-law-medical-israel',
 			),
 		),
 

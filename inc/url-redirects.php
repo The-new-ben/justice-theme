@@ -1185,14 +1185,22 @@ function justice_theme_native_slug_redirect() {
 
 		if ( isset( $redirects[ $slug ] ) ) {
 			$new_slug = $redirects[ $slug ];
-			// Preserve the rest of the path (e.g. /articles/...)
-			array_pop( $segments );
-			$segments[] = $new_slug;
-			
-			$new_url = home_url( '/' . implode( '/', $segments ) . '/' );
-			
-			wp_redirect( $new_url, 301 );
-			exit;
+			// 2026-09-18 (HAD-226): redirect to the post that actually lives at the mapped slug.
+			// Keeping the request prefix turned 301s into 404s: 54 legacy /psakdin/<hebrew>/ URLs
+			// (2,147 historical clicks, Screaming Frog scan 17-18.9.2026) landed on
+			// /psakdin/<new-slug>/, which does not exist. A mapped slug that resolves to no
+			// published post is left alone (plain 404) so the later legacy map can act on it.
+			foreach ( array( 'articles', 'post', 'page' ) as $ptype ) {
+				if ( ! post_type_exists( $ptype ) ) {
+					continue;
+				}
+				$found = get_page_by_path( $new_slug, OBJECT, $ptype );
+				if ( $found instanceof WP_Post && 'publish' === $found->post_status ) {
+					wp_redirect( get_permalink( $found ), 301 );
+					exit;
+				}
+			}
+			return;
 		}
 	}
 }

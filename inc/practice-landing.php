@@ -138,7 +138,9 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 			'reviewed_by'    => 'עו"ד בן בטש',
 			'show_map'       => true,
 			'title'          => 'עורך דין מקרקעין',
-			'display_title'  => 'עורך דין מקרקעין',
+			// H1 2026-09-19 (HAD-227): the pillar /real-estate-attorney/ owns the bare H1; the guide's
+			// H1 was its exact duplicate (Screaming Frog h1-duplicate).
+			'display_title'  => 'מדריך עורך דין מקרקעין: קנייה, מכירה, מיסוי ורישום',
 			'keyword'        => 'עורך דין מקרקעין',
 			'summary'        => 'קונים או מוכרים דירה? כך בוחרים עורך דין מקרקעין: מה בודקים לפני חתימה על חוזה, כמה עולה הליווי, מס רכישה ומס שבח, ורישום הזכויות בטאבו עד המסירה.',
 			'hide_signals'   => true,

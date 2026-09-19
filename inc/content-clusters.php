@@ -295,6 +295,10 @@ function justice_theme_content_clusters(): array {
 				// Cities (existing pattern: /medical-malpractice-<city>/).
 				'medical-malpractice-tel-aviv',
 				'medical-malpractice-haifa',
+				// Added 2026-09-19 (HAD-223): the two city pages the SERP capture of 17.9 showed as
+				// missing (portals win both queries). Posts 25521 and 25522, published 19.9.2026.
+				'medical-malpractice-jerusalem',
+				'medical-malpractice-beer-sheva',
 				// International comparison.
 				'medical-malpractice-in-the-united-states',
 				'medical-malpractice-lawyers-law-medical-israel',

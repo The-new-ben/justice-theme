@@ -276,6 +276,9 @@ function justice_theme_content_clusters(): array {
 				'klumpke-paralysis',
 				'medical-malpractice-pregnancy-birth',
 				'medical-malpractice-lawyer-birth-recommended',
+				// Added 2026-09-19 (HAD-223): new page on OASIS tears (People Also Ask on both core
+				// malpractice queries, no page on the site before). Post 25482, verified 200 on creation.
+				'perineal-tear-third-fourth-degree',
 				// Type of treatment.
 				'medical-malpractice-surgery',
 				'anesthesia-medical-malpractice',

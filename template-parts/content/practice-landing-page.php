@@ -180,6 +180,22 @@ if ( post_type_exists( 'articles' ) ) {
 					</div>
 				<?php endif; ?>
 
+				<?php
+				// Cluster hub (the DOWN half of hub-and-spoke). The the_content filter that
+				// appends it on ordinary pillars never fires here because this template
+				// applies the filter outside the loop, so criminal/malpractice/inheritance
+				// spokes had no link from their own pillar (Screaming Frog 18.9.2026: the
+				// criminal pillar linked 7 of 25 spokes, 119 orphans site-wide). Rendered
+				// explicitly; the family-law pillar is left as it was (owner rule 19.9.2026:
+				// family-law pages untouched until his word).
+				if ( $page_id > 0 && function_exists( 'justice_theme_render_cluster_hub_links' ) && function_exists( 'justice_theme_cluster_for_slug' ) ) {
+					$justice_hub_cluster = justice_theme_cluster_for_slug( justice_theme_cluster_post_slug( $page_id ) );
+					if ( $justice_hub_cluster && 'pillar' === $justice_hub_cluster['role'] && 'family-law' !== $justice_hub_cluster['key'] ) {
+						echo justice_theme_render_cluster_hub_links( $page_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					}
+				}
+				?>
+
 				<?php if ( ! empty( $supporting ) ) : ?>
 					<div class="legal-pillar-topic-box practice-landing__topics">
 						<h2><?php esc_html_e( 'מדריכים קשורים', 'justice-theme' ); ?></h2>

@@ -412,7 +412,7 @@ function justice_theme_resolve_pillar_for_slug( string $slug ) {
 		'/(immigration|asylum|business-visa)/i' => array( 'name' => 'הגירה', 'url' => '/immigration-lawyer-israel/' ),
 
 		// Copyright/IP patterns
-		'/(copyright|trademark|intellectual-property)/i' => array( 'name' => 'קניין רוחני', 'url' => '/intellectual-property-israel/' ),
+		'/(copyright|trademark|intellectual-property)/i' => array( 'name' => 'קניין רוחני', 'url' => '/intellectual-property-lawyer/' ),
 
 		// Corporate patterns
 		'/(corporate-law|contract-law|startup-lawyer|startup-investment|startup-equity|partner-dispute)/i' => array( 'name' => 'דיני חברות', 'url' => '/corporate-law-israel/' ),

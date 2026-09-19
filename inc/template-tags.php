@@ -201,12 +201,11 @@ function justice_theme_get_contextual_article_lead_cta( $post_id = 0, $primary_t
 	$url          = function_exists( 'justice_theme_ask_lawyer_fallback_url' )
 		? justice_theme_ask_lawyer_fallback_url(
 			array(
+				// No utm_* here: the host strips utm parameters with a 301, so every
+				// CTA carried a redirect hop (Screaming Frog 18.9.2026: 1,740 redirecting
+				// homepage variants). lead_message + source_keyword keep the attribution.
 				'lead_area'      => $lead_area,
 				'lead_message'   => $lead_message,
-				'utm_source'     => 'article_contextual_cta',
-				'utm_medium'     => is_singular( 'articles' ) ? 'single_articles' : 'single_post',
-				'utm_campaign'   => 'content_to_lead',
-				'utm_term'       => $area_slug,
 				'source_keyword' => get_post_field( 'post_name', $post_id ),
 			)
 		)

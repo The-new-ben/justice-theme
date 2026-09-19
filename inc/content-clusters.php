@@ -150,6 +150,40 @@ function justice_theme_content_clusters(): array {
 				'military-lawyer-israel-court-martial-defense',
 				'military-criminal-defense',
 				'criminal-offenses-lawyer-criminal-sentencing-process-arrest',
+				// Added 2026-09-19 (HAD-227): orphans from the Screaming Frog crawl of 18.9.2026, every slug verified 200 that day; no URL moved. City pages first.
+				'criminal-lawyer-netanya',
+				'criminal-lawyer-modiin',
+				'criminal-lawyer-haifa',
+				'criminal-lawyer-kiryat-gat',
+				'criminal-lawyer-hadera',
+				'criminal-lawyer-rosh-haayin',
+				'criminal-lawyer-kfar-saba',
+				'criminal-lawyer-ashkelon',
+				'criminal-lawyer-ashdod',
+				'criminal-lawyer-beit-shemesh',
+				'criminal-lawyer-eilat',
+				'criminal-lawyer-ramle',
+				'criminal-lawyer-dimona',
+				'criminal-lawyer-herzliya',
+				'criminal-lawyer-ramat-gan',
+				'criminal-lawyer-bat-yam',
+				'criminal-lawyer-beer-sheva',
+				'criminal-lawyer-holon',
+				'criminal-lawyer-lod',
+				'criminal-lawyer-raanana',
+				'criminal-lawyer-nazareth',
+				'criminal-lawyer-rishon-lezion',
+				'criminal-lawyer-tiberias',
+				'criminal-lawyer-bnei-brak',
+				'fraud-offenses-israel',
+				'fraud-victim-guide',
+				'criminal-appeal-guide',
+				'criminal-record-israel',
+				'drug-offenses-israel',
+				'drug-offense-guide',
+				'dangerous-drugs-ordinance',
+				'criminal-law-statistics-israel',
+				'criminal-law-statistics-2025',
 			),
 		),
 
@@ -172,6 +206,38 @@ function justice_theme_content_clusters(): array {
 				'rental-agreement-guide',
 				'online-rent-agreement',
 				'commercial-lease-israel',
+				// Added 2026-09-19 (HAD-227): orphans from the Screaming Frog crawl of 18.9.2026, every slug verified 200 that day; no URL moved. City pages follow the existing /real-estate-lawyer-<city>/ pattern.
+				'real-estate-developer-dispute',
+				'combination-deal-taxation',
+				'real-estate-statistics-2025',
+				'real-estate-market-statistics',
+				'real-estate-lawyer-tel-aviv',
+				'real-estate-lawyer-jerusalem',
+				'real-estate-lawyer-haifa',
+				'real-estate-lawyer-rishon-lezion',
+				'real-estate-lawyer-petah-tikva',
+				'real-estate-lawyer-beer-sheva',
+				'real-estate-lawyer-holon',
+				'real-estate-lawyer-bnei-brak',
+				'real-estate-lawyer-ramat-gan',
+				'real-estate-lawyer-bat-yam',
+				'real-estate-lawyer-rehovot',
+				'real-estate-lawyer-herzliya',
+				'real-estate-lawyer-kfar-saba',
+				'real-estate-lawyer-raanana',
+				'real-estate-lawyer-givatayim',
+				'real-estate-lawyer-rosh-haayin',
+				'real-estate-lawyer-yavne',
+				'real-estate-lawyer-kfar-yona',
+				'real-estate-lawyer-beit-shemesh',
+				'real-estate-lawyer-afula',
+				'real-estate-lawyer-tiberias',
+				'real-estate-lawyer-migdal-haemek',
+				'real-estate-lawyer-beit-shean',
+				'real-estate-lawyer-akko',
+				'real-estate-lawyer-carmiel',
+				'real-estate-lawyer-dimona',
+				'real-estate-lawyer-eilat',
 			),
 		),
 
@@ -229,6 +295,8 @@ function justice_theme_content_clusters(): array {
 				// International comparison.
 				'medical-malpractice-in-the-united-states',
 				'medical-malpractice-lawyers-law-medical-israel',
+				// Added 2026-09-19 (HAD-227): orphans from the Screaming Frog crawl of 18.9.2026, every slug verified 200 that day; no URL moved. Pregnancy page adopted (one parent) rather than left cannibalizing outside the mesh.
+				'medical-negligence-pregnancy',
 			),
 		),
 
@@ -240,8 +308,11 @@ function justice_theme_content_clusters(): array {
 				'punishment-for-offenses-of-causing-death-in-road-accidents',
 				'israel-road-accident-compensation-law',
 				'tort-lawyer',
-				'how-much-does-a-lawyer-cost',
+				'lawyer-fees-guide', // was 'how-much-does-a-lawyer-cost' (404 since the 17.5.2026 migration); fixed 2026-09-19
 				'car-accident-auto-injury-lawyer',
+				// Added 2026-09-19 (HAD-227): orphans from the Screaming Frog crawl of 18.9.2026, every slug verified 200 that day; no URL moved.
+				'personal-injury-slip-fall',
+				'personal-injury-statistics',
 			),
 		),
 
@@ -259,6 +330,8 @@ function justice_theme_content_clusters(): array {
 				'dui-refusal-blood-breath-urine-test',
 				'driving-under-the-influence-of-drugs',
 				'driver-with-36-valid-points-or-more-will-be-disqualified-from-holding-a-drivers-license',
+				// Added 2026-09-19 (HAD-227): orphans from the Screaming Frog crawl of 18.9.2026, every slug verified 200 that day; no URL moved.
+				'traffic-offense-points',
 			),
 		),
 
@@ -274,6 +347,15 @@ function justice_theme_content_clusters(): array {
 				'employer-worker-relationship',
 				'israeli-labor-law',
 				'uk-lawyer',
+				// Added 2026-09-19 (HAD-227): orphans from the Screaming Frog crawl of 18.9.2026, every slug verified 200 that day; no URL moved.
+				'labor-law-tel-aviv',
+				'labor-law-haifa',
+				'minimum-wage-israel-2025',
+				'worker-rights-fired-immediately',
+				'employment-contract-termination',
+				'employment-subcontractor',
+				'non-compete-agreement-israel',
+				'labor-law-statistics-2025',
 			),
 		),
 
@@ -292,6 +374,9 @@ function justice_theme_content_clusters(): array {
 				'will-and-testament',
 				'revocation-of-a-will-and-reviving-previous-will',
 				'maximize-an-inheritance',
+				// Added 2026-09-19 (HAD-227): orphans from the Screaming Frog crawl of 18.9.2026, every slug verified 200 that day; no URL moved.
+				'will-executor-israel',
+				'military-will-israel',
 			),
 		),
 
@@ -307,6 +392,8 @@ function justice_theme_content_clusters(): array {
 				'portugal-relocation',   //  9,071 imp · 21 wins
 				'romanian-passport',     //  8,880 imp · 20 wins
 				'germany-lawyers',
+				// Added 2026-09-19 (HAD-227): orphans from the Screaming Frog crawl of 18.9.2026, every slug verified 200 that day; no URL moved.
+				'immigration-asylum-israel',
 			),
 		),
 
@@ -328,8 +415,13 @@ function justice_theme_content_clusters(): array {
 		),
 
 		// ─── TAX (international + returning resident) ───────────────────────────────
+		// Pillar fixed 2026-09-19 (HAD-227): 'real-estate-tax-advisor' never existed (404, zero
+		// GSC rows in 16 months, no row in the 13.5.2026 archive), so none of the spokes had a
+		// parent and the breadcrumb/backlink code suppressed the dead URL. /tax-lawyer/ is the
+		// live full guide ("עורך דין מיסים | המדריך המלא לדיני מיסים בישראל", 10,736 words) and
+		// wins the navigational queries (עורך דין דיני מיסים, דיני מיסים, עורך דין מיסים).
 		'tax' => array(
-			'pillar' => 'real-estate-tax-advisor',
+			'pillar' => 'tax-lawyer',
 			'label'  => 'המדריך למיסוי בינלאומי וישראלי',
 			'spokes' => array(
 				'returning-resident-rights-determining-tax-rate',
@@ -337,6 +429,10 @@ function justice_theme_content_clusters(): array {
 				'top-international-tax-law-firms',
 				'israel-tax-authority',
 				'legal-tax-saving-guide',
+				// Added 2026-09-19 (HAD-227): orphans from the Screaming Frog crawl of 18.9.2026, every slug verified 200 that day; no URL moved.
+				'tax-lawyer-israel',
+				'inheritance-tax-israel',
+				'startup-equity-israel',
 			),
 		),
 	);

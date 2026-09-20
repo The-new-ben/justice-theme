@@ -579,7 +579,9 @@ function justice_cards_render( WP_Post $lawyer ): string {
 	$pid    = $lawyer->ID;
 	$label  = justice_cards_professional_type_label( $pid );
 	$name   = get_the_title( $pid );
-	$url    = add_query_arg( array( 'utm_source' => 'jt-card', 'utm_medium' => 'incontent' ), get_permalink( $pid ) );
+	// Plain permalink (owner order 20.9.2026): the host strips utm parameters with a 301, so the
+	// card link was a redirect hop on 250 pages. Click analytics still arrive via the beacon (data-l).
+	$url    = get_permalink( $pid );
 	$areas  = get_the_terms( $pid, 'practice-areas' );
 	$cities = get_the_terms( $pid, 'city' );
 

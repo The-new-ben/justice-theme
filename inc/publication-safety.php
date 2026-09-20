@@ -8,7 +8,11 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-add_filter( 'wp_insert_post_data', 'justice_theme_block_internal_notes_publication', 20, 4 );
+// Gate switched OFF by owner order (20.9.2026, Linear HAD-227): the marker lists treated ordinary
+// Hebrew phrases ("בדיקה משפטית", "בעל האתר", "מבחינה עסקית") as internal notes and returned
+// 409 on every save of 11 live pages. The detector below is kept for read-only screening
+// (inc/legal-tools-app.php, justice-ops/legal-entities.php); nothing blocks a publish any more.
+// add_filter( 'wp_insert_post_data', 'justice_theme_block_internal_notes_publication', 20, 4 );
 /**
  * Block public publication when internal workflow notes are still in content.
  *

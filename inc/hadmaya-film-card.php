@@ -22,16 +22,46 @@ if ( ! defined( 'JUSTICE_THEME_FILM_POSTER' ) ) {
 }
 
 /**
+ * CMS page rendered by one of the four controlled practice templates.
+ * Resolve by the exact public path; a matching route alone is not a page.
+ *
+ * @return int
+ */
+function justice_theme_film_card_controlled_page_id() {
+	if ( ! function_exists( 'justice_theme_practice_landing_request_path' ) || ! function_exists( 'get_page_by_path' ) ) {
+		return 0;
+	}
+	$pages = array(
+		'/family-law/'               => 'family-law',
+		'/medical-malpractice-lawyer/' => 'medical-malpractice-lawyer',
+		'/real-estate-lawyer-guide/'  => 'real-estate-lawyer-guide',
+		'/inheritance-lawyer/'        => 'inheritance-lawyer',
+	);
+	$path = justice_theme_practice_landing_request_path();
+	if ( ! isset( $pages[ $path ] ) ) {
+		return 0;
+	}
+	$page = get_page_by_path( $pages[ $path ] );
+	return $page instanceof WP_Post && 'page' === $page->post_type ? (int) $page->ID : 0;
+}
+
+/**
  * Whether this request is a reading page that should carry the card.
  *
  * @param int $post_id Current post.
  * @return bool
  */
 function justice_theme_film_card_wanted( $post_id ) {
-	if ( is_admin() || is_feed() || is_front_page() || ! is_main_query() ) {
+	if ( is_admin() || is_feed() || is_front_page() || (int) $post_id <= 0 ) {
 		return false;
 	}
-	if ( ! is_singular( array( 'post', 'page', 'articles' ) ) || (int) $post_id !== (int) get_queried_object_id() ) {
+	$controlled_id = justice_theme_film_card_controlled_page_id();
+	if ( function_exists( 'justice_theme_practice_landing_request_path' )
+		&& in_array( justice_theme_practice_landing_request_path(), array( '/family-law/', '/medical-malpractice-lawyer/', '/real-estate-lawyer-guide/', '/inheritance-lawyer/' ), true )
+		&& ! $controlled_id ) {
+		return false;
+	}
+	if ( $controlled_id ? (int) $post_id !== $controlled_id : ( ! is_main_query() || ! is_singular( array( 'post', 'page', 'articles' ) ) || (int) $post_id !== (int) get_queried_object_id() ) ) {
 		return false;
 	}
 	if ( ! function_exists( 'justice_theme_new_look_active' ) || ! justice_theme_new_look_active() ) {
@@ -70,7 +100,8 @@ function justice_theme_film_card_markup() {
  * @return string
  */
 function justice_theme_film_card( $content ) {
-	if ( false !== strpos( (string) $content, 'data-hadmaya-film' ) || ! justice_theme_film_card_wanted( (int) get_the_ID() ) ) {
+	// Controlled templates apply the_content outside the loop and append with their explicit page ID.
+	if ( justice_theme_film_card_controlled_page_id() || false !== strpos( (string) $content, 'data-hadmaya-film' ) || ! justice_theme_film_card_wanted( (int) get_the_ID() ) ) {
 		return $content;
 	}
 	return $content . justice_theme_film_card_markup();
@@ -80,7 +111,7 @@ add_filter( 'the_content', 'justice_theme_film_card', 40 );
 add_action(
 	'wp_enqueue_scripts',
 	function () {
-		if ( ! justice_theme_film_card_wanted( (int) get_queried_object_id() ) ) {
+		if ( ! justice_theme_film_card_wanted( justice_theme_film_card_controlled_page_id() ?: (int) get_queried_object_id() ) ) {
 			return;
 		}
 		wp_enqueue_style(

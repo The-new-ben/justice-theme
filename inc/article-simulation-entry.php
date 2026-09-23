@@ -68,7 +68,7 @@ function justice_theme_article_simulation_entry( string $content ): string {
 	if ( ! $topic ) { return $content; }
 	$mediation = ! in_array( $topic, array( 'criminal-law', 'traffic-law', 'immigration', 'tax' ), true );
 	$block = '<aside class="l3-article-simulation" data-hadmaia-article-entry="' . esc_attr( $topic ) . '" aria-label="תרגול המקרה שלכם">'
-		. '<a class="l3-article-simulation__visual" href="' . esc_url( justice_theme_article_simulation_url( $topic, 'court_rehearsal' ) ) . '" aria-label="פתיחת סימולציה של דיון"><img src="https://jus-tice.com/brand/hadmaya-cockpit-showcase-v1.webp" alt="מערכת הסימולציה: משתתפים, תמלול, עריכת המקרה והזמנה לדיון" width="1536" height="961" loading="lazy" decoding="async"><span>Hadmaya <span aria-hidden="true">↗</span></span></a>'
+		. '<a class="l3-article-simulation__visual" href="' . esc_url( justice_theme_article_simulation_url( $topic, 'court_rehearsal' ) ) . '" aria-label="פתיחת סימולציה של דיון"><img src="https://jus-tice.com/brand/hadmaya-hearing-live-v2.webp" alt="דיון חי בסימולציה: שופטת, שני הצדדים, עורכי הדין והתמליל" width="1600" height="800" loading="lazy" decoding="async"><span>Hadmaya <span aria-hidden="true">↗</span></span></a>'
 		. '<div><strong>מה יגידו לכם בדיון על המקרה הזה?</strong><p>ספרו את המקרה שלכם במילים שלכם וראו תוך דקות איך הוא נשמע בבית המשפט: הטענות של הצד השני, השאלות שישאלו אתכם והנקודות שיכריעו. בלי הרשמה, בלי עורך דין בשלב הזה.</p></div>'
 		. '<div class="l3-article-simulation__actions"><a href="' . esc_url( justice_theme_article_simulation_url( $topic, 'court_rehearsal' ) ) . '">לבדוק איך המקרה שלי נשמע</a>';
 	if ( $mediation ) {

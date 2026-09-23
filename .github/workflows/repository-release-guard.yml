@@ -103,6 +103,7 @@ jobs:
           php tests/test-content-first-route-role-term-safety.php
           php tests/test-real-estate-content-release.php
           php tests/test-hfcm-legacy-card-retirement.php
+          php tests/test-hadmaya-film-card.php
           python3 -m py_compile \
             scripts/deploy/build-ops-zip.py \
             scripts/deploy/verify-ops-zip.py \

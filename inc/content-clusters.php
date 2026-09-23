@@ -331,6 +331,17 @@ function justice_theme_content_clusters(): array {
 				'medical-malpractice-lawyers-law-medical-israel',
 				// Added 2026-09-19 (HAD-227): orphans from the Screaming Frog crawl of 18.9.2026, every slug verified 200 that day; no URL moved. Pregnancy page adopted (one parent) rather than left cannibalizing outside the mesh.
 				'medical-negligence-pregnancy',
+				// Added 2026-09-23 (HAD-223): pages that draw malpractice demand in Search Console
+				// (24.6-21.9.2026) but sat outside the mesh. 8271 is the page Google picked for
+				// "רשלנות רפואית באבחון" (2,356 impressions via its old Hebrew URL), so it is the
+				// diagnosis owner; compensation (902) and cost (383) carry the money questions;
+				// israel-medical (293) and 7583 (151) carry the "cases" questions. All verified
+				// 200 on 23.9.2026; no URL moved, renamed or redirected.
+				'medical-malpractice-8271',
+				'medical-malpractice-compensation',
+				'medical-malpractice-cost',
+				'medical-malpractice-israel-medical',
+				'medical-malpractice-7583',
 			),
 		),
 

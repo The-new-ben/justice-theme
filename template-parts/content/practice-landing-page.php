@@ -175,7 +175,14 @@ if ( post_type_exists( 'articles' ) ) {
 							justice_theme_midfold_block_html( $term_slug, $title )
 						);
 					}
-					echo $justice_body_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					// The controlled route renders this CMS page outside the main loop.
+						if ( function_exists( 'justice_theme_film_card_controlled_page_id' )
+							&& $page_id === justice_theme_film_card_controlled_page_id()
+							&& justice_theme_film_card_wanted( $page_id )
+							&& false === strpos( $justice_body_html, 'data-hadmaya-film' ) ) {
+							$justice_body_html .= justice_theme_film_card_markup();
+						}
+						echo $justice_body_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					?>
 					</div>
 				<?php endif; ?>

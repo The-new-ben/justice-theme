@@ -1119,3 +1119,80 @@ body.jt-look-v3 .single-article.premium-card:hover { transform: none; }
   }
   body.jt-look-v3 .single-article__title { font-size: clamp(30px, 8vw, 40px); }
 }
+
+/* ── Article content components (2026-09-23, HAD-223) ─────────────────────────
+   Written into post content by the long-form guides (malpractice wave 1):
+   .jt-answer   the direct answer that opens the page (one per page)
+   .jt-keyfacts the verified numbers a reader needs first (one per page)
+   .jt-steps    the "what to do now" sequence as numbered cards (one per page)
+   .jt-note     a single caution that must not be skimmed past
+   Static, in-flow blocks only: nothing floats, sticks or overlays. */
+/* Heading hierarchy inside article bodies. A later rule pins ".entry-content h2" at 21px while
+   ".single-article__content h3" scales to 1.6rem, so sub-headings rendered larger than sections. */
+body.jt-look-v3 .single-article__content.entry-content h2 {
+	font-size: clamp(1.4rem, 2.6vw, 1.75rem); line-height: 1.3;
+	margin-top: 2.2em; padding-top: .9em; border-top: 1px solid rgba(25, 43, 50, .1);
+}
+body.jt-look-v3 .single-article__content.entry-content h3 { font-size: clamp(1.12rem, 2vw, 1.3rem); line-height: 1.4; margin-top: 1.6em; }
+body.jt-look-v3 .single-article__content.entry-content h4 { font-size: 1.04rem; line-height: 1.45; margin: 1.3em 0 .5em; color: #192b32; }
+
+body .entry-content .jt-answer {
+	margin: 0 0 28px; padding: 20px 22px 18px;
+	background: #f1f5f1; border: 1px solid #d5e0d7; border-inline-start: 4px solid #254c43;
+	border-radius: 8px;
+}
+body .entry-content .jt-answer__label {
+	display: block; margin: 0 0 8px;
+	font-size: 13px; font-weight: 800; letter-spacing: .02em; color: #254c43;
+}
+body .entry-content .jt-answer p { margin: 0 0 10px; font-size: 1.08rem; line-height: 1.75; color: #192b32; }
+body .entry-content .jt-answer p:last-child { margin-bottom: 0; }
+
+body .entry-content ul.jt-keyfacts {
+	list-style: none; margin: 0 0 32px; padding: 0;
+	display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px;
+}
+body .entry-content ul.jt-keyfacts > li {
+	margin: 0; padding: 16px 18px;
+	background: #fff; border: 1px solid rgba(25, 43, 50, .13); border-radius: 8px;
+	font-size: .95rem; line-height: 1.6; color: #526064;
+}
+body .entry-content ul.jt-keyfacts > li::before,
+body .entry-content ol.jt-steps > li::marker { content: none; }
+body .entry-content ul.jt-keyfacts > li > strong:first-child {
+	display: block; margin: 0 0 4px;
+	font-family: "Frank Ruhl Libre", "Noto Serif Hebrew", "Heebo", serif;
+	font-size: 1.3rem; font-weight: 700; line-height: 1.3; color: #192b32;
+}
+
+body .entry-content ol.jt-steps {
+	list-style: none; counter-reset: jt-step; margin: 0 0 32px; padding: 0;
+	display: grid; gap: 10px;
+}
+body .entry-content ol.jt-steps > li {
+	counter-increment: jt-step; position: relative;
+	margin: 0; padding: 16px 18px; padding-inline-start: 64px;
+	background: #fff; border: 1px solid rgba(25, 43, 50, .13); border-radius: 8px;
+	line-height: 1.7;
+}
+body .entry-content ol.jt-steps > li::before {
+	content: counter(jt-step);
+	position: absolute; inset-inline-start: 16px; top: 16px;
+	width: 32px; height: 32px; border-radius: 50%;
+	display: flex; align-items: center; justify-content: center;
+	background: #254c43; color: #fff; font-weight: 800; font-size: 15px;
+}
+
+body .entry-content .jt-note {
+	margin: 0 0 28px; padding: 16px 20px;
+	background: #fbf7ec; border: 1px solid #eadfbf; border-inline-start: 4px solid #b98f2e;
+	border-radius: 8px;
+}
+body .entry-content .jt-note p { margin: 0; line-height: 1.7; color: #192b32; }
+
+@media (max-width: 560px) {
+	body .entry-content .jt-answer { padding: 16px 16px 14px; }
+	body .entry-content ul.jt-keyfacts { grid-template-columns: 1fr; gap: 10px; }
+	body .entry-content ol.jt-steps > li { padding: 14px 14px; padding-inline-start: 56px; }
+	body .entry-content ol.jt-steps > li::before { inset-inline-start: 12px; top: 14px; width: 30px; height: 30px; }
+}

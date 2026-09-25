@@ -104,10 +104,13 @@ jobs:
           php tests/test-real-estate-content-release.php
           php tests/test-hfcm-legacy-card-retirement.php
           php tests/test-hadmaya-film-card.php
+          php tests/test-article-simulation-placement.php
+          php tests/test-varnish-cache.php
           python3 -m py_compile \
             scripts/deploy/build-ops-zip.py \
             scripts/deploy/verify-ops-zip.py \
-            tools/wp_deploy_justice_ops.py
+            tools/wp_deploy_justice_ops.py \
+            tools/cache_warmup.py
           grep -Fq "BEGIN JUSTICE OPS DISK CAPACITY CONTRACT" tools/templates/justice-ops-deploy-helper.php.tpl
           grep -Fq "function_exists( 'disk_free_space' )" tools/templates/justice-ops-deploy-helper.php.tpl
           grep -Fq "bounded_real_write_read_unlink_probe" tools/templates/justice-ops-deploy-helper.php.tpl

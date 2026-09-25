@@ -268,6 +268,45 @@ function justice_theme_dequeue_search_filter_assets(): void {
 	}
 }
 
+/**
+ * Performance (HAD-284): a plugin enqueues jQuery UI core + datepicker (+ its Hebrew locale block)
+ * on every page, and it prints in the footer. No single article has a date field and no script on
+ * an article calls .datepicker() (checked on 35 live articles and pages, 25.9.2026). Articles only;
+ * pages and tools keep it in case a form there needs it. Runs at enqueue time and again just before
+ * the head and footer print, because the plugin can enqueue after priority 999.
+ */
+function justice_theme_dequeue_article_datepicker(): void {
+	if ( is_admin() || ! is_singular( 'articles' ) ) {
+		return;
+	}
+	$scripts = wp_scripts();
+	wp_dequeue_script( 'jquery-ui-datepicker' );
+	// jQuery UI core goes too, unless something still queued depends on it.
+	foreach ( (array) $scripts->queue as $handle ) {
+		if ( 'jquery-ui-core' !== $handle && justice_theme_script_depends_on( $scripts, (string) $handle, 'jquery-ui-core' ) ) {
+			return;
+		}
+	}
+	wp_dequeue_script( 'jquery-ui-core' );
+}
+add_action( 'wp_enqueue_scripts', 'justice_theme_dequeue_article_datepicker', 999 );
+add_action( 'wp_print_scripts', 'justice_theme_dequeue_article_datepicker', 1 );
+add_action( 'wp_print_footer_scripts', 'justice_theme_dequeue_article_datepicker', 1 );
+
+/** True when $handle needs $dependency, directly or through its own dependencies. */
+function justice_theme_script_depends_on( WP_Scripts $scripts, string $handle, string $dependency, array $seen = array() ): bool {
+	if ( isset( $seen[ $handle ] ) || ! isset( $scripts->registered[ $handle ] ) ) {
+		return false;
+	}
+	$seen[ $handle ] = true;
+	foreach ( (array) $scripts->registered[ $handle ]->deps as $dep ) {
+		if ( $dep === $dependency || justice_theme_script_depends_on( $scripts, (string) $dep, $dependency, $seen ) ) {
+			return true;
+		}
+	}
+	return false;
+}
+
 function justice_theme_dequeue_search_filter_assets_late(): void {
 	if ( is_admin() ) {
 		return;

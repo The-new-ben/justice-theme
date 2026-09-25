@@ -69,7 +69,8 @@ function justice_theme_article_simulation_entry( string $content ): string {
 	$mediation = ! in_array( $topic, array( 'criminal-law', 'traffic-law', 'immigration', 'tax' ), true );
 	$block = '<aside class="l3-article-simulation" data-hadmaia-article-entry="' . esc_attr( $topic ) . '" aria-label="תרגול המקרה שלכם">'
 		. '<a class="l3-article-simulation__visual" href="' . esc_url( justice_theme_article_simulation_url( $topic, 'court_rehearsal' ) ) . '" aria-label="פתיחת סימולציה של דיון"><img src="https://jus-tice.com/brand/hadmaya-hearing-live-v2.webp" alt="דיון חי בסימולציה: שופטת, שני הצדדים, עורכי הדין והתמליל" width="1600" height="800" loading="lazy" decoding="async"><span>Hadmaya <span aria-hidden="true">↗</span></span></a>'
-		. '<div><strong>מה יגידו לכם בדיון על המקרה הזה?</strong><p>ספרו את המקרה שלכם במילים שלכם וראו תוך דקות איך הוא נשמע בבית המשפט: הטענות של הצד השני, השאלות שישאלו אתכם והנקודות שיכריעו. בלי הרשמה, בלי עורך דין בשלב הזה.</p></div>'
+		// The detail clause is hidden on phones (compact card); the sentence still reads whole.
+		. '<div><strong>מה יגידו לכם בדיון על המקרה הזה?</strong><p>ספרו את המקרה שלכם במילים שלכם וראו תוך דקות איך הוא נשמע בבית המשפט<span class="l3-article-simulation__more">: הטענות של הצד השני, השאלות שישאלו אתכם והנקודות שיכריעו</span>. בלי הרשמה, בלי עורך דין בשלב הזה.</p></div>'
 		. '<div class="l3-article-simulation__actions"><a href="' . esc_url( justice_theme_article_simulation_url( $topic, 'court_rehearsal' ) ) . '">לבדוק איך המקרה שלי נשמע</a>';
 	if ( $mediation ) {
 		$block .= '<a class="l3-article-simulation__secondary" href="' . esc_url( justice_theme_article_simulation_url( $topic, 'mediation' ) ) . '">לנסות גישור לפני בית משפט</a>';
@@ -83,30 +84,106 @@ function justice_theme_article_simulation_entry( string $content ): string {
 			. '" target="_blank" rel="noopener noreferrer">פנייה לגבי סימולציית חקירה</a>';
 	}
 	$block .= '</div><small>סימולציה להכנה, לא ייעוץ משפטי.</small></aside>';
-	// Preserve the article and Claude's contextual links exactly. Keep the opening of the
-	// article for readers and crawlers: insert after the third paragraph, or after the last
-	// paragraph when the article is shorter (owner order 2026-09-16).
-	// The reader-ux table of contents (<nav class="jt-nav-toc"> / <details class="jt-toc">, priority 14)
-	// carries its own <p> title; paragraphs inside it do not count, otherwise the cockpit lands
-	// between the "בעמוד הזה" label and its list (seen live on 12987 / 21296, 2026-09-16).
-	$skip = array();
-	if ( preg_match_all( '/<(nav|details)\b[^>]*class="[^"]*\bjt-(?:nav-)?toc\b[^"]*"[^>]*>.*?<\/\1>/is', $content, $toc_hits, PREG_OFFSET_CAPTURE ) ) {
-		foreach ( $toc_hits[0] as $hit ) {
-			$skip[] = array( $hit[1], $hit[1] + strlen( $hit[0] ) );
-		}
-	}
-	$end = false; $offset = 0; $count = 0;
-	while ( $count < 3 ) {
-		$found = stripos( $content, '</p>', $offset );
-		if ( false === $found ) { break; }
-		$offset = $found + 4;
-		$inside = false;
-		foreach ( $skip as $range ) {
-			if ( $found >= $range[0] && $found < $range[1] ) { $inside = true; break; }
-		}
-		if ( $inside ) { continue; }
-		$end = $found; $count++;
-	}
-	return false === $end ? $content . $block : substr_replace( $content, $block, $end + 4, 0 );
+	// Preserve the article and Claude's contextual links exactly: the card is only inserted.
+	$at = justice_theme_article_simulation_offset( $content );
+	return null === $at ? $content . $block : substr_replace( $content, $block, $at, 0 );
 }
 add_filter( 'the_content', 'justice_theme_article_simulation_entry', 30 );
+
+/**
+ * Byte offset for the simulation card, or null to append it.
+ *
+ * Owner review 24.9.2026 (HAD-284): the card comes after the answer box or the first section,
+ * with at least ~250 words of reading text before it. The old rule (after the third </p>)
+ * counted one-line paragraphs such as "ב"ה" or a case number, so 13 of 70 sampled pages had
+ * under 150 words above the card, and on short city pages the third </p> belonged to the
+ * appended cluster box, which put the card inside it.
+ *
+ * Only top-level blocks are considered, so the card never lands inside a list, a table, the
+ * table of contents or another card. It goes after a reading block and before another reading
+ * block, never next to the professional card or the mid-article strip. A section end (before
+ * an <h2>) within ~350 words of the first valid slot is preferred. Short pages get the card
+ * right after their last reading block, before the appended boxes.
+ */
+function justice_theme_article_simulation_offset( string $content, int $min_words = 250 ): ?int {
+	$blocks = justice_theme_article_simulation_blocks( $content );
+	$answer_end = 0;
+	foreach ( $blocks as $block ) {
+		if ( preg_match( '/\bjt-answer\b/', $block['class'] ) ) { $answer_end = $block['end']; break; }
+	}
+	$words = 0; $first = null; $last_reading = null; $count = count( $blocks );
+	for ( $i = 0; $i < $count; $i++ ) {
+		$block = $blocks[ $i ];
+		if ( ! $block['reading'] ) { continue; }
+		$words += $block['words'];
+		if ( $block['heading'] ) { continue; }
+		$last_reading = $block['end'];
+		$next = $blocks[ $i + 1 ] ?? null;
+		if ( $words < $min_words || $block['end'] < $answer_end || ! $next || ! $next['reading'] ) { continue; }
+		// "The documents you need:" introduces the list that follows; keep them together.
+		if ( 'p' === $block['name'] && ':' === $block['last_char'] && ! $next['heading'] ) { continue; }
+		if ( null === $first ) { $first = array( 'at' => $block['end'], 'words' => $words ); }
+		elseif ( $words > $first['words'] + 350 ) { break; }
+		if ( 'h2' === $next['name'] ) { return $block['end']; }
+	}
+	if ( null !== $first ) { return $first['at']; }
+	return $last_reading;
+}
+
+/**
+ * Top-level blocks of the rendered article: tag, class, byte range, reading words.
+ * Reading blocks are the article text (paragraphs, lists, tables, headings, the answer box and
+ * its sibling components). Navigation, asides, the table of contents and the theme's own strips
+ * are not reading text and are never counted.
+ */
+function justice_theme_article_simulation_blocks( string $content ): array {
+	$void = array( 'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr' );
+	$raw = array( 'script', 'style', 'textarea', 'template', 'svg' );
+	$closes_p = array( 'address', 'article', 'aside', 'blockquote', 'details', 'div', 'dl', 'figure', 'footer', 'form',
+		'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hr', 'nav', 'ol', 'p', 'pre', 'section', 'table', 'ul' );
+	$reading = array( 'p', 'ul', 'ol', 'dl', 'table', 'figure', 'blockquote', 'pre', 'h2', 'h3', 'h4', 'h5', 'h6' );
+	$blocks = array(); $stack = array(); $open = null; $pos = 0; $length = strlen( $content );
+	while ( $pos < $length && preg_match( '/<!--.*?-->|<(\/?)([a-zA-Z][a-zA-Z0-9-]*)((?:[^>"\']|"[^"]*"|\'[^\']*\')*)>/s', $content, $tag, PREG_OFFSET_CAPTURE, $pos ) ) {
+		$start = $tag[0][1]; $end = $start + strlen( $tag[0][0] ); $pos = $end;
+		if ( ! isset( $tag[2] ) || '' === $tag[2][0] ) { continue; } // Comment.
+		$name = strtolower( $tag[2][0] ); $closing = '/' === $tag[1][0];
+		if ( ! $closing && $stack && 'p' === end( $stack ) && in_array( $name, $closes_p, true ) ) {
+			array_pop( $stack ); // A block tag implicitly closes an open paragraph.
+			if ( ! $stack && $open ) { $open['end'] = $start; $blocks[] = $open; $open = null; }
+		}
+		if ( $closing ) {
+			$index = array_search( $name, array_reverse( $stack, true ), true );
+			if ( false === $index ) { continue; } // Stray closing tag.
+			$stack = array_slice( $stack, 0, $index );
+			if ( ! $stack && $open ) { $open['end'] = $end; $blocks[] = $open; $open = null; }
+			continue;
+		}
+		if ( in_array( $name, $void, true ) || '/' === substr( rtrim( $tag[3][0] ), -1 ) ) { continue; }
+		if ( ! $stack ) {
+			$class = preg_match( '/\bclass\s*=\s*(["\'])(.*?)\1/is', $tag[3][0], $c ) ? $c[2] : '';
+			$open = array( 'name' => $name, 'class' => $class, 'start' => $start );
+		}
+		if ( in_array( $name, $raw, true ) ) {
+			$close = stripos( $content, '</' . $name, $end );
+			$pos = false === $close ? $length : ( strpos( $content, '>', $close ) ?: $length - 1 ) + 1;
+			if ( ! $stack && $open ) { $open['end'] = $pos; $blocks[] = $open; $open = null; }
+			continue;
+		}
+		$stack[] = $name;
+	}
+	if ( $open ) { $open['end'] = $length; $blocks[] = $open; }
+	foreach ( $blocks as &$block ) {
+		$component = 'div' === $block['name'] && ( '' === trim( $block['class'] )
+			|| preg_match( '/\b(?:jt-answer|jt-keyfacts|jt-steps|jt-note|wp-block-group)\b/', $block['class'] ) );
+		$block['reading'] = ( in_array( $block['name'], $reading, true ) || $component )
+			&& ! preg_match( '/\b(?:jt-procard|jt-toc|jt-nav-toc|cluster-backlink|jt-film-card)\b/', $block['class'] );
+		$block['heading'] = (bool) preg_match( '/^h[2-6]$/', $block['name'] );
+		// Block tags become word breaks: "<li>א</li><li>ב</li>" is two words, not one.
+		$html = $block['reading'] ? preg_replace( '#<(?:/?(?:p|li|td|th|tr|div|h[1-6]|dt|dd|blockquote|figcaption)\b|br\b)[^>]*>#i', ' $0', substr( $content, $block['start'], $block['end'] - $block['start'] ) ) : '';
+		$text = '' === $html ? '' : trim( html_entity_decode( wp_strip_all_tags( $html ), ENT_QUOTES, 'UTF-8' ) );
+		$block['words'] = '' === $text ? 0 : count( preg_split( '/\s+/u', $text ) ?: array() );
+		$block['last_char'] = '' === $text ? '' : mb_substr( $text, -1 );
+	}
+	unset( $block );
+	return $blocks;
+}

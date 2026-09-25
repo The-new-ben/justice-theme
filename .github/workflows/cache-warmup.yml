@@ -1,0 +1,45 @@
+name: Cache Warm-up
+
+# Keeps the uPress Smart Varnish page cache warm (HAD-284). Public pages declare a 12-hour shared
+# lifetime (inc/varnish-cache.php). Every 3 hours each sitemap URL (plus /lawyers/) is requested
+# once, and a page whose cached copy is already 8 hours old is purged and fetched again, so no
+# page expires between two runs, even when a scheduled run starts late. Cold pages answered in
+# ~2.2 s on 25.9.2026, cached ones in ~0.07 s. Nothing is written except those per-URL purges.
+
+on:
+  workflow_dispatch:
+    inputs:
+      refresh_age:
+        description: "Purge and refetch pages cached at least this many seconds ago (0 = never)"
+        default: "28800"
+  schedule:
+    - cron: "17 */3 * * *"
+
+concurrency:
+  group: cache-warmup
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  warm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - name: Warm the page cache from the sitemap
+        run: >
+          python3 tools/cache_warmup.py
+          --concurrency 2 --pause 0.2
+          --refresh-age "${{ github.event.inputs.refresh_age || '28800' }}"
+          --extra /lawyers/
+          --report warmup-report.json
+      - name: Keep the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cache-warmup-report
+          path: warmup-report.json
+          if-no-files-found: ignore
+          retention-days: 7

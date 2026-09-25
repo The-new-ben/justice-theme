@@ -999,6 +999,28 @@ body.jt-look-v3 .l3-article-simulation__actions [data-investigation-interest] { 
 	body.jt-look-v3 .l3-article-simulation { grid-template-columns: minmax(0,1fr); padding: 1rem; }
 	body.jt-look-v3 .l3-article-simulation__actions { flex-direction: row; flex-wrap: wrap; }
 	body.jt-look-v3 .l3-article-simulation__actions a { flex: 1; }
+	/* Compact in-article card on phones (HAD-284): it used to be 610-678px tall on an 812px
+	   screen. Thumbnail beside the question, the short form of the sentence, one full-width
+	   primary action, the secondary actions side by side. Nothing floats or sticks. */
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) { grid-template-columns: 72px minmax(0,1fr); gap: .5rem .75rem; margin: 1.25rem 0 1.5rem; padding: .85rem .9rem; }
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) > div:not(.l3-article-simulation__actions) { display: contents; }
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) .l3-article-simulation__visual { grid-column: 1; grid-row: 1; width: 72px; height: 72px; align-self: center; border-radius: 6px; }
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) .l3-article-simulation__visual img { width: 100%; height: 100%; object-fit: cover; object-position: 47% 50%; }
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) .l3-article-simulation__visual > span { display: none; }
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) strong { grid-column: 2; grid-row: 1; align-self: center; font-size: 1.06rem; line-height: 1.4; }
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) > div > p { grid-column: 1 / -1; grid-row: 2; margin: 0; font-size: .94rem; line-height: 1.6; }
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) .l3-article-simulation__more { display: none; }
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) .l3-article-simulation__actions { grid-column: 1 / -1; grid-row: 3; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: .45rem; }
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) .l3-article-simulation__actions > * { grid-column: 1 / -1; width: auto; margin: 0; }
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) .l3-article-simulation__actions a { min-height: 46px; padding: .55rem .75rem; }
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) .l3-article-simulation__actions :is(a.l3-article-simulation__secondary, .hadmaya-tour-button) { min-height: 44px; padding: .45rem .6rem; font-size: .9rem; line-height: 1.35; white-space: normal; text-align: center; }
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) .l3-article-simulation__actions .l3-investigation-interest { margin: .2rem 0 0; font-size: .88rem; line-height: 1.5; }
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) small { grid-column: 1 / -1; grid-row: 4; font-size: .76rem; }
+}
+/* Mediation and the product tour share one row; a lone tour button keeps the full width.
+   Below 360px they stack (side by side they wrapped to three lines). */
+@media (min-width: 360px) and (max-width: 650px) {
+	body.jt-look-v3 aside.l3-article-simulation:not(.hadmaya-archive-entry) .l3-article-simulation__actions:has(> a.l3-article-simulation__secondary:not([data-investigation-interest])) > :is(a.l3-article-simulation__secondary:not([data-investigation-interest]), .hadmaya-tour-button) { grid-column: auto; }
 }
 
 /* Justice article controls, 2026-09-11. Keep existing content and destinations. */
@@ -1195,4 +1217,16 @@ body .entry-content .jt-note p { margin: 0; line-height: 1.7; color: #192b32; }
 	body .entry-content ul.jt-keyfacts { grid-template-columns: 1fr; gap: 10px; }
 	body .entry-content ol.jt-steps > li { padding: 14px 14px; padding-inline-start: 56px; }
 	body .entry-content ol.jt-steps > li::before { inset-inline-start: 12px; top: 14px; width: 30px; height: 30px; }
+}
+
+/* Tawk auto message on phones (HAD-284, 25.9.2026). About 13 seconds after load a Tawk trigger
+   opened a 335x296 message preview over the opening paragraph and the accessibility button.
+   The preview has its own container (#message-preview), separate from the bubble (#min-widget)
+   and the chat window (#max-widget), so only the preview is hidden: the bubble stays, keeps its
+   unread badge, and a tap opens the chat with the same message. Tawk_API minimize() and
+   hideWidget()/showWidget() do not remove the preview (tested). The source-level fix is a
+   condition on the trigger in the Tawk dashboard ("Software/Computer of visitor" does not
+   contain "Mobile"); this rule stays harmless once that is set. */
+@media (max-width: 767px) {
+	body div:has(> #min-widget) > #message-preview { display: none !important; }
 }

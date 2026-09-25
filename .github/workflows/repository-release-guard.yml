@@ -104,6 +104,7 @@ jobs:
           php tests/test-real-estate-content-release.php
           php tests/test-hfcm-legacy-card-retirement.php
           php tests/test-hadmaya-film-card.php
+          php tests/test-article-simulation-placement.php
           python3 -m py_compile \
             scripts/deploy/build-ops-zip.py \
             scripts/deploy/verify-ops-zip.py \

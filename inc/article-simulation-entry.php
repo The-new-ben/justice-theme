@@ -101,7 +101,10 @@ add_filter( 'the_content', 'justice_theme_article_simulation_entry', 30 );
  *
  * Only top-level blocks are considered, so the card never lands inside a list, a table, the
  * table of contents or another card. It goes after a reading block and before another reading
- * block, never next to the professional card or the mid-article strip. A section end (before
+ * block (empty paragraphs are skipped; one-line label paragraphs never anchor it), never next to
+ * the professional card or the mid-article strip. A slot right before the table of contents that
+ * leads into a heading closes the first section; the card never sits between the contents and its
+ * heading. A section end (before
  * an <h2>) within ~350 words of the first valid slot is preferred. Short pages get the card
  * right after their last reading block, before the appended boxes.
  */
@@ -116,15 +119,28 @@ function justice_theme_article_simulation_offset( string $content, int $min_word
 		$block = $blocks[ $i ];
 		if ( ! $block['reading'] ) { continue; }
 		$words += $block['words'];
-		if ( $block['heading'] ) { continue; }
+		if ( $block['heading'] || $block['empty'] ) { continue; }
 		$last_reading = $block['end'];
-		$next = $blocks[ $i + 1 ] ?? null;
-		if ( $words < $min_words || $block['end'] < $answer_end || ! $next || ! $next['reading'] ) { continue; }
+		// Empty paragraphs are spacing, not neighbours: "<p></p><nav class=jt-nav-toc>" still
+		// means the table of contents comes next (seen live on the certificate page, 25.9.2026).
+		$j = $i + 1;
+		while ( isset( $blocks[ $j ] ) && $blocks[ $j ]['empty'] ) { $j++; }
+		$next = $blocks[ $j ] ?? null;
+		// The reader-ux table of contents sits between the first section and its heading, so a slot
+		// right before it closes the first section. The card never goes between the contents and
+		// the heading, nor next to the contents anywhere else.
+		$k = $j + 1;
+		while ( isset( $blocks[ $k ] ) && $blocks[ $k ]['empty'] ) { $k++; }
+		$toc_then_heading = $next && $next['toc'] && isset( $blocks[ $k ] ) && $blocks[ $k ]['heading'];
+		$section_end = $next && ( 'h2' === $next['name'] || $toc_then_heading );
+		if ( $words < $min_words || $block['end'] < $answer_end || ! $next || ! ( $next['reading'] || $toc_then_heading ) ) { continue; }
+		// A one-line label ("REQUEST FOR CONFIRMATION...", "להורדת הטופס") introduces what follows.
+		if ( 'p' === $block['name'] && $block['words'] < 12 && ! $section_end ) { continue; }
 		// "The documents you need:" introduces the list that follows; keep them together.
 		if ( 'p' === $block['name'] && ':' === $block['last_char'] && ! $next['heading'] ) { continue; }
 		if ( null === $first ) { $first = array( 'at' => $block['end'], 'words' => $words ); }
 		elseif ( $words > $first['words'] + 350 ) { break; }
-		if ( 'h2' === $next['name'] ) { return $block['end']; }
+		if ( $section_end ) { return $block['end']; }
 	}
 	if ( null !== $first ) { return $first['at']; }
 	return $last_reading;
@@ -180,9 +196,13 @@ function justice_theme_article_simulation_blocks( string $content ): array {
 		$block['heading'] = (bool) preg_match( '/^h[2-6]$/', $block['name'] );
 		// Block tags become word breaks: "<li>א</li><li>ב</li>" is two words, not one.
 		$html = $block['reading'] ? preg_replace( '#<(?:/?(?:p|li|td|th|tr|div|h[1-6]|dt|dd|blockquote|figcaption)\b|br\b)[^>]*>#i', ' $0', substr( $content, $block['start'], $block['end'] - $block['start'] ) ) : '';
-		$text = '' === $html ? '' : trim( html_entity_decode( wp_strip_all_tags( $html ), ENT_QUOTES, 'UTF-8' ) );
+		// Non-breaking spaces ("<p>&nbsp;</p>") and direction marks are spacing, not words.
+		$text = '' === $html ? '' : trim( (string) preg_replace( '/[\s\x{00A0}\x{200B}-\x{200F}]+/u', ' ', html_entity_decode( wp_strip_all_tags( $html ), ENT_QUOTES, 'UTF-8' ) ) );
 		$block['words'] = '' === $text ? 0 : count( preg_split( '/\s+/u', $text ) ?: array() );
 		$block['last_char'] = '' === $text ? '' : mb_substr( $text, -1 );
+		$block['toc'] = in_array( $block['name'], array( 'nav', 'details' ), true ) && (bool) preg_match( '/\bjt-(?:nav-)?toc\b/', $block['class'] );
+		$block['empty'] = 'p' === $block['name'] && 0 === $block['words']
+			&& ! preg_match( '/<(?:img|picture|video|iframe|svg|table|input|button|a)\b/i', substr( $content, $block['start'], $block['end'] - $block['start'] ) );
 	}
 	unset( $block );
 	return $blocks;

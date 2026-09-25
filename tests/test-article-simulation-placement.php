@@ -42,7 +42,7 @@ function p( int $n, string $end = '.' ): string { return '<p>' . words( $n ) . $
 function words_before_card( string $out ): int {
 	$at = strpos( $out, '<aside class="l3-article-simulation"' );
 	$before = preg_replace( '#<(nav|aside|details)\b.*?</\1>#s', '', substr( $out, 0, $at ) );
-	$text = trim( preg_replace( '/<[^>]+>/', ' ', $before ) );
+	$text = trim( preg_replace( '/[\s\x{00A0}]+/u', ' ', html_entity_decode( preg_replace( '/<[^>]+>/', ' ', $before ), ENT_QUOTES, 'UTF-8' ) ) );
 	return '' === $text ? 0 : count( preg_split( '/\s+/u', $text ) );
 }
 function card_parent_is_top_level( string $out ): bool {
@@ -128,6 +128,34 @@ $jt['slug'] = 'criminal-defense-attorney';
 $out = place( $ruling );
 check( 1 === substr_count( $out, 'data-investigation-interest="pilot"' ) && false === strpos( $out, 'purpose=mediation' ), 'criminal variant unchanged' );
 check( words_before_card( $out ) >= 250, 'criminal: at least 250 words above the card' );
+
+// 12. Certificate page (live, 25.9.2026): a 375-word intro, an empty paragraph, the table of
+// contents, then the first heading and a long transcribed form. The intro is the first section:
+// the card closes it, right before the contents; never between the contents and the heading,
+// never mid-form.
+$jt['slug'] = 'divorce-lawyer';
+$form = '<p>REQUEST FOR CONFIRMATION OF RECORDS</p><p>הוראות מילוי למבקש: Instructions for the form</p><ol><li>' . words( 18 ) . '</li></ol>'
+	. '<p>' . words( 13 ) . '</p><table><tr><td>' . words( 60 ) . '</td></tr></table><p>' . words( 40 ) . '</p><ol><li>' . words( 44 ) . '</li></ol>';
+$toc_after_intro = p( 150 ) . p( 160 ) . '<p></p><nav class="jt-nav-toc"><p>בעמוד הזה</p><ol><li><a href="#s">סעיף</a></li></ol></nav>'
+	. '<h2 id="s">סעיף</h2>' . $form . str_repeat( $form, 3 ) . '<h2>סעיף ב</h2>' . p( 60 );
+$out = place( $toc_after_intro );
+check( false !== strpos( $out, '</aside><p></p><nav class="jt-nav-toc">' ), 'toc after intro: the card closes the intro, before the contents' );
+check( false === strpos( $out, '</nav><aside' ) && false === strpos( $out, 'RECORDS</p><aside' ), 'toc after intro: never between the contents and its heading, never mid-form' );
+// The same contents box not followed by a heading is still never a neighbour.
+$toc_mid = p( 300 ) . '<nav class="jt-nav-toc"><p>בעמוד הזה</p></nav>' . p( 40 ) . p( 40 );
+$out = place( $toc_mid );
+check( false === strpos( $out, '</aside><nav' ) && false === strpos( $out, '</nav><aside' ), 'contents box without a heading after it is never a neighbour' );
+
+// 14. One-line labels never anchor the card inside a section.
+$labels = p( 250 ) . '<p>להורדת הטופס תעודת יושר (קובץ PDF)</p>' . p( 30 ) . p( 30 );
+$out = place( $labels );
+check( false === strpos( $out, '(קובץ PDF)</p><aside' ), 'label paragraph is never the anchor' );
+
+// 13. Empty paragraphs ("<p></p>", "<p>&nbsp;</p>") are spacing: they are never the anchor and add no words.
+$spaced = p( 200 ) . '<p>&nbsp;</p>' . p( 60 ) . '<p> </p>' . p( 60 );
+$out = place( $spaced );
+check( false === strpos( $out, '<p>&nbsp;</p><aside' ) && false === strpos( $out, '<p> </p><aside' ), 'empty paragraph is never the anchor' );
+check( 260 === words_before_card( $out ), 'empty paragraphs add no words, got ' . words_before_card( $out ) );
 
 // 11. Empty or text-less content still gets the card at the end (never dropped).
 $jt['slug'] = 'divorce-lawyer';

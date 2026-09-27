@@ -89,7 +89,7 @@ function justice_theme_article_simulation_world( string $topic ): array {
 		'text' => 'ספרו את המקרה במילים שלכם ושמעו תוך דקות את טענות הצד השני ואת השאלות שישאלו אתכם.',
 		'cta' => 'לעלות לדיון עכשיו', 'lead' => 'court_rehearsal', 'alt' => 'לנסות קודם גישור', 'alt_purpose' => 'mediation' );
 	$witness = array( 'world' => 'witness', 'face' => 'crossexam', 'who' => 'עו״ד הצד השני · דמות AI', 'kicker' => 'חקירה נגדית · הכנה לעדות',
-		'text' => 'תרגלו את העדות מול חקירה נגדית, עם עצירה, תיקון ומשוב על כל תשובה.',
+		'text' => 'סימולציה של חקירה נגדית על העדות שלכם, עם עצירה, תיקון ומשוב על כל תשובה.',
 		'cta' => 'להתכונן לעדות', 'lead' => 'witness_prep', 'alt' => 'איך התיק נשמע בדיון', 'alt_purpose' => 'court_rehearsal' );
 	$worlds = array(
 		'criminal-law' => array( 'world' => 'interrogation', 'face' => 'investigator', 'who' => 'החוקר · דמות AI', 'kicker' => 'שאלה מחדר החקירות · הדמיה',
@@ -98,7 +98,7 @@ function justice_theme_article_simulation_world( string $topic ): array {
 			'cta' => 'לענות לחוקר עכשיו', 'lead' => 'police_interrogation', 'alt' => 'איך זה נשמע בבית משפט', 'alt_purpose' => 'court_rehearsal' ),
 		'immigration' => array( 'world' => 'authority', 'face' => 'authority', 'who' => 'נציגת הרשות · דמות AI', 'kicker' => 'ראיון מול רשות · הכנה',
 			'quote' => 'איפה ומתי הכרתם, ומי עוד היה שם?',
-			'text' => 'תרגלו ראיון מול רשות האוכלוסין או גוף ממשלתי אחר, עם שאלות המשך ומשוב בסוף.',
+			'text' => 'סימולציה של ראיון מול רשות האוכלוסין או גוף ממשלתי אחר, עם שאלות המשך ומשוב בסוף.',
 			'cta' => 'להתכונן לראיון', 'lead' => 'witness_prep', 'alt' => 'איך זה נשמע בבית משפט', 'alt_purpose' => 'court_rehearsal' ),
 		'divorce' => array( 'world' => 'mediation', 'face' => 'mediator', 'who' => 'המגשרת · דמות AI', 'kicker' => 'חדר הגישור · הדמיה',
 			'quote' => 'מה הכי חשוב לכם שיישאר אחרי שתחתמו על ההסכם?',
@@ -142,7 +142,7 @@ function justice_theme_article_simulation_entry( string $content ): string {
 	// The white card family (Ben 28.9.2026): the question a reader could be asked, the person who asks it,
 	// one lead action and one alternative. The face link and the actions row keep their classes, because
 	// the 28-second tour button (new-look.js) joins that row and opens the same lead link.
-	$block = '<aside class="l3-article-simulation l3-simcard" data-hadmaia-article-entry="' . esc_attr( $topic ) . '" data-world="' . esc_attr( $w['world'] ) . '" aria-label="תרגול המקרה שלכם">'
+	$block = '<aside class="l3-article-simulation l3-simcard" data-hadmaia-article-entry="' . esc_attr( $topic ) . '" data-world="' . esc_attr( $w['world'] ) . '" aria-label="סימולציה של המקרה שלכם">'
 		. '<a class="l3-article-simulation__visual l3-simcard__face" href="' . esc_url( $lead ) . '" aria-label="' . esc_attr( $w['cta'] ) . '">'
 		. '<img src="' . esc_url( $face ) . '" alt="' . esc_attr( $w['who'] ) . '" width="360" height="360" loading="lazy" decoding="async">'
 		. '<span class="l3-simcard__live"><i aria-hidden="true"></i>מדבר עכשיו</span><span class="l3-simcard__who">' . esc_html( $w['who'] ) . '</span></a>'

@@ -130,7 +130,7 @@
 			const column = el( 'div', 'hadmaya-archive-column' );
 			const card = el( 'aside', 'l3-article-simulation l3-simcard hadmaya-archive-entry' );
 			card.setAttribute( 'data-hadmaia-article-entry', topic ); card.setAttribute( 'data-world', world.world );
-			card.setAttribute( 'aria-label', '\u05ea\u05e8\u05d2\u05d5\u05dc \u05d4\u05de\u05e7\u05e8\u05d4 \u05e9\u05dc\u05db\u05dd' );
+			card.setAttribute( 'aria-label', '\u05e1\u05d9\u05de\u05d5\u05dc\u05e6\u05d9\u05d4 \u05e9\u05dc \u05d4\u05de\u05e7\u05e8\u05d4 \u05e9\u05dc\u05db\u05dd' );
 			const face = el( 'a', 'l3-article-simulation__visual l3-simcard__face' ); face.href = world.lead_url; face.setAttribute( 'aria-label', world.cta );
 			const img = el( 'img' ); img.src = world.face_url; img.alt = world.who; img.width = 360; img.height = 360; img.loading = 'lazy'; img.decoding = 'async';
 			const live = el( 'span', 'l3-simcard__live' ); const dot = el( 'i' ); dot.setAttribute( 'aria-hidden', 'true' ); live.append( dot, '\u05de\u05d3\u05d1\u05e8 \u05e2\u05db\u05e9\u05d9\u05d5' );

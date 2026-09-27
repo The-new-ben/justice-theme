@@ -123,10 +123,10 @@ check( false === strpos( $out, '<li><p>' . words( 150 ) . '</p><aside' ), 'neste
 // 9. The phone card shows the short form of the sentence; the full one stays for larger screens.
 check( false !== strpos( $out, 'בבית המשפט<span class="l3-article-simulation__more">: הטענות של הצד השני' ), 'compact phone clause wrapper' );
 
-// 10. Criminal pages keep the investigation pilot; the placement rule is shared.
+// 10. Criminal pages open the live interrogation world (27.9.2026); the placement rule is shared.
 $jt['slug'] = 'criminal-defense-attorney';
 $out = place( $ruling );
-check( 1 === substr_count( $out, 'data-investigation-interest="pilot"' ) && false === strpos( $out, 'purpose=mediation' ), 'criminal variant unchanged' );
+check( 1 === substr_count( $out, 'data-investigation-entry="live"' ) && false !== strpos( $out, 'purpose=police_interrogation' ) && false === strpos( $out, 'purpose=mediation' ), 'criminal variant opens the interrogation world' );
 check( words_before_card( $out ) >= 250, 'criminal: at least 250 words above the card' );
 
 // 12. Certificate page (live, 25.9.2026): a 375-word intro, an empty paragraph, the table of

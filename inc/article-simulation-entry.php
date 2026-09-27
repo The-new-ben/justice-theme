@@ -13,6 +13,9 @@ function justice_theme_article_simulation_topic( int $post_id ): string {
 		'recording-interrogation-documentation', 'summons-interrogation-warning-rights',
 		'detention-days', 'expunge-closed-cases-record', 'criminal-evidence',
 		'criminal-record-deletion', 'dangerous-drugs-ordinance', 'drug-possession',
+		// Police pages with the most search impressions (GSC 27.8-24.9): the interrogation world fits them.
+		'lahav-433', 'police-stations-israel-directory', 'posta', 'drug-offenses-criminal-lawyer',
+		'apply-for-police-criminal-information-certificates', 'pre-indictment-hearing', 'testimony-investigation-law',
 	), true ) ) { $key = 'criminal-law'; }
 	if ( ! $key && 'family-law' === $slug ) { $key = 'family-law'; }
 	// Read Claude's registry without changing files, seeded pages, or relationships.
@@ -50,7 +53,7 @@ function justice_theme_article_simulation_topic( int $post_id ): string {
 }
 
 function justice_theme_article_simulation_url( string $topic, string $purpose ): string {
-	$purpose = in_array( $purpose, array( 'court_rehearsal', 'mediation', 'witness_prep' ), true ) ? $purpose : 'court_rehearsal';
+	$purpose = in_array( $purpose, array( 'court_rehearsal', 'mediation', 'witness_prep', 'police_interrogation' ), true ) ? $purpose : 'court_rehearsal';
 	$params = array( 'entry' => 'role', 'audience' => 'guest', 'lang' => 'he',
 		'purpose' => $purpose, 'topic' => $topic );
 	return 'https://jus-tice.com/#/simulation?' . http_build_query( $params, '', '&', PHP_QUERY_RFC3986 );
@@ -67,21 +70,22 @@ function justice_theme_article_simulation_entry( string $content ): string {
 	$topic = justice_theme_article_simulation_topic( $post_id );
 	if ( ! $topic ) { return $content; }
 	$mediation = ! in_array( $topic, array( 'criminal-law', 'traffic-law', 'immigration', 'tax' ), true );
+	$criminal = 'criminal-law' === $topic;
+	// Police pages open the live interrogation world (27.9.2026); every other page opens a hearing.
+	$lead = $criminal ? 'police_interrogation' : 'court_rehearsal';
 	$block = '<aside class="l3-article-simulation" data-hadmaia-article-entry="' . esc_attr( $topic ) . '" aria-label="תרגול המקרה שלכם">'
-		. '<a class="l3-article-simulation__visual" href="' . esc_url( justice_theme_article_simulation_url( $topic, 'court_rehearsal' ) ) . '" aria-label="פתיחת סימולציה של דיון"><img src="https://jus-tice.com/brand/hadmaya-hearing-live-v2.webp" alt="דיון חי בסימולציה: שופטת, שני הצדדים, עורכי הדין והתמליל" width="1600" height="800" loading="lazy" decoding="async"><span>Hadmaya <span aria-hidden="true">↗</span></span></a>'
+		. '<a class="l3-article-simulation__visual" href="' . esc_url( justice_theme_article_simulation_url( $topic, $lead ) ) . '" aria-label="' . ( $criminal ? 'פתיחת סימולציה של חקירה במשטרה' : 'פתיחת סימולציה של דיון' ) . '"><img src="https://jus-tice.com/brand/hadmaya-hearing-live-v2.webp" alt="דיון חי בסימולציה: שופטת, שני הצדדים, עורכי הדין והתמליל" width="1600" height="800" loading="lazy" decoding="async"><span>Hadmaya <span aria-hidden="true">↗</span></span></a>';
+	if ( $criminal ) {
+		$block .= '<div><strong>מה ישאלו אתכם בחקירה?</strong><p>חוקר מולכם, אזהרה, זכות השתיקה ולחץ אמיתי<span class="l3-article-simulation__more">, ובסוף תחקיר: איפה עזרתם לעצמכם ואיפה פגעתם</span>. בלי הרשמה, בלי עורך דין בשלב הזה.</p></div>'
+			. '<div class="l3-article-simulation__actions"><a data-investigation-entry="live" href="' . esc_url( justice_theme_article_simulation_url( $topic, 'police_interrogation' ) ) . '">להתכונן לחקירה במשטרה</a>'
+			. '<a class="l3-article-simulation__secondary" href="' . esc_url( justice_theme_article_simulation_url( $topic, 'court_rehearsal' ) ) . '">לבדוק איך המקרה נשמע בבית המשפט</a>';
+	} else {
 		// The detail clause is hidden on phones (compact card); the sentence still reads whole.
-		. '<div><strong>מה יגידו לכם בדיון על המקרה הזה?</strong><p>ספרו את המקרה שלכם במילים שלכם וראו תוך דקות איך הוא נשמע בבית המשפט<span class="l3-article-simulation__more">: הטענות של הצד השני, השאלות שישאלו אתכם והנקודות שיכריעו</span>. בלי הרשמה, בלי עורך דין בשלב הזה.</p></div>'
-		. '<div class="l3-article-simulation__actions"><a href="' . esc_url( justice_theme_article_simulation_url( $topic, 'court_rehearsal' ) ) . '">לבדוק איך המקרה שלי נשמע</a>';
-	if ( $mediation ) {
-		$block .= '<a class="l3-article-simulation__secondary" href="' . esc_url( justice_theme_article_simulation_url( $topic, 'mediation' ) ) . '">לנסות גישור לפני בית משפט</a>';
-	}
-	if ( 'criminal-law' === $topic ) {
-		$message = "שלום, אני מתעניין/ת בפיילוט של סימולציית חקירה במשטרה.\nהגעתי מהעמוד: "
-			. wp_strip_all_tags( get_the_title( $post_id ) ) . "\n" . get_permalink( $post_id );
-		$block .= '<p class="l3-investigation-interest">רוצים להתכונן לחקירה במשטרה? דברו איתנו על השתתפות בפיילוט.</p>'
-			. '<a class="l3-article-simulation__secondary" data-investigation-interest="pilot" data-whatsapp-surface="investigation_simulation_interest" href="'
-			. esc_url( 'https://wa.me/972525101555?text=' . rawurlencode( $message ) )
-			. '" target="_blank" rel="noopener noreferrer">פנייה לגבי סימולציית חקירה</a>';
+		$block .= '<div><strong>מה יגידו לכם בדיון על המקרה הזה?</strong><p>ספרו את המקרה שלכם במילים שלכם וראו תוך דקות איך הוא נשמע בבית המשפט<span class="l3-article-simulation__more">: הטענות של הצד השני, השאלות שישאלו אתכם והנקודות שיכריעו</span>. בלי הרשמה, בלי עורך דין בשלב הזה.</p></div>'
+			. '<div class="l3-article-simulation__actions"><a href="' . esc_url( justice_theme_article_simulation_url( $topic, 'court_rehearsal' ) ) . '">לבדוק איך המקרה שלי נשמע</a>';
+		if ( $mediation ) {
+			$block .= '<a class="l3-article-simulation__secondary" href="' . esc_url( justice_theme_article_simulation_url( $topic, 'mediation' ) ) . '">לנסות גישור לפני בית משפט</a>';
+		}
 	}
 	$block .= '</div><small>סימולציה להכנה, לא ייעוץ משפטי.</small></aside>';
 	// Preserve the article and Claude's contextual links exactly: the card is only inserted.

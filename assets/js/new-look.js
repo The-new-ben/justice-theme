@@ -122,23 +122,29 @@
 			'medical-malpractice':'medical-malpractice', 'medical-malpractice-law':'medical-malpractice',
 			'torts':'personal-injury', 'personal-injury-law':'personal-injury', 'tax-law':'tax', 'immigration-law':'immigration' };
 		const term = Object.keys( topics ).find( key => document.body.classList.contains( 'term-' + key ) );
-		if ( term ) {
+		// The white card family (28.9.2026). Its worlds come from the PHP (window.hadmayaSimWorlds), one source.
+		const world = term ? ( window.hadmayaSimWorlds || {} )[ topics[ term ] ] : null;
+		if ( world ) {
 			const topic = topics[ term ];
-			const url = purpose => 'https://jus-tice.com/#/simulation?' + new URLSearchParams( { entry:'role', audience:'guest', lang:'he', purpose:purpose, topic:topic } );
-			const column = document.createElement( 'div' );
-			column.className = 'hadmaya-archive-column';
-			const card = document.createElement( 'aside' );
-			card.className = 'l3-article-simulation hadmaya-archive-entry';
-			card.setAttribute( 'data-hadmaia-article-entry', topic );
-			card.setAttribute( 'aria-label', '\u05ea\u05e8\u05d2\u05d5\u05dc \u05d4\u05de\u05e7\u05e8\u05d4 \u05e9\u05dc\u05db\u05dd' );
-			card.innerHTML = '<a class="l3-article-simulation__visual" aria-label="\u05e4\u05ea\u05d9\u05d7\u05ea \u05e1\u05d9\u05de\u05d5\u05dc\u05e6\u05d9\u05d4 \u05e9\u05dc \u05d3\u05d9\u05d5\u05df"><img src="https://jus-tice.com/brand/hadmaya-cockpit-showcase-v1.webp" alt="\u05de\u05e2\u05e8\u05db\u05ea \u05d4\u05e1\u05d9\u05de\u05d5\u05dc\u05e6\u05d9\u05d4: \u05de\u05e9\u05ea\u05ea\u05e4\u05d9\u05dd, \u05ea\u05de\u05dc\u05d5\u05dc, \u05e2\u05e8\u05d9\u05db\u05ea \u05d4\u05de\u05e7\u05e8\u05d4 \u05d5\u05d4\u05d6\u05de\u05e0\u05d4 \u05dc\u05d3\u05d9\u05d5\u05df" width="1536" height="961" loading="lazy" decoding="async"><span>Hadmaya <span aria-hidden="true">\u2197</span></span></a><div><strong>\u05d0\u05d9\u05da \u05d6\u05d4 \u05d9\u05d9\u05e9\u05de\u05e2 \u05d1\u05d3\u05d9\u05d5\u05df?</strong><p>\u05ea\u05e8\u05d2\u05dc\u05d5 \u05d0\u05ea \u05d4\u05de\u05e7\u05e8\u05d4 \u05e9\u05dc\u05db\u05dd. \u05d0\u05e4\u05e9\u05e8 \u05dc\u05d4\u05ea\u05d7\u05d9\u05dc \u05e2\u05db\u05e9\u05d9\u05d5 \u05d5\u05dc\u05d3\u05d9\u05d9\u05e7 \u05e4\u05e8\u05d8\u05d9\u05dd \u05d1\u05d4\u05de\u05e9\u05da.</p></div><div class="l3-article-simulation__actions"><a data-archive-trial>\u05ea\u05e8\u05d2\u05d5\u05dc \u05d3\u05d9\u05d5\u05df</a></div><small>\u05e1\u05d9\u05de\u05d5\u05dc\u05e6\u05d9\u05d4 \u05dc\u05d4\u05db\u05e0\u05d4, \u05dc\u05d0 \u05d9\u05d9\u05e2\u05d5\u05e5 \u05de\u05e9\u05e4\u05d8\u05d9.</small>';
-			card.querySelector( '.l3-article-simulation__visual' ).href = url( 'court_rehearsal' );
-			card.querySelector( '[data-archive-trial]' ).href = url( 'court_rehearsal' );
-			if ( ! [ 'criminal-law', 'traffic-law', 'immigration', 'tax' ].includes( topic ) ) {
-				const mediation = document.createElement( 'a' );
-				mediation.className = 'l3-article-simulation__secondary'; mediation.href = url( 'mediation' );
-				mediation.textContent = '\u05ea\u05e8\u05d2\u05d5\u05dc \u05d2\u05d9\u05e9\u05d5\u05e8'; card.querySelector( '.l3-article-simulation__actions' ).append( mediation );
-			}
+			const el = ( tag, cls, text ) => { const node = document.createElement( tag ); if ( cls ) node.className = cls; if ( text ) node.textContent = text; return node; };
+			const column = el( 'div', 'hadmaya-archive-column' );
+			const card = el( 'aside', 'l3-article-simulation l3-simcard hadmaya-archive-entry' );
+			card.setAttribute( 'data-hadmaia-article-entry', topic ); card.setAttribute( 'data-world', world.world );
+			card.setAttribute( 'aria-label', '\u05e1\u05d9\u05de\u05d5\u05dc\u05e6\u05d9\u05d4 \u05e9\u05dc \u05d4\u05de\u05e7\u05e8\u05d4 \u05e9\u05dc\u05db\u05dd' );
+			const face = el( 'a', 'l3-article-simulation__visual l3-simcard__face' ); face.href = world.lead_url; face.setAttribute( 'aria-label', world.cta );
+			const img = el( 'img' ); img.src = world.face_url; img.alt = world.who; img.width = 360; img.height = 360; img.loading = 'lazy'; img.decoding = 'async';
+			const live = el( 'span', 'l3-simcard__live' ); const dot = el( 'i' ); dot.setAttribute( 'aria-hidden', 'true' ); live.append( dot, '\u05de\u05d3\u05d1\u05e8 \u05e2\u05db\u05e9\u05d9\u05d5' );
+			face.append( img, live, el( 'span', 'l3-simcard__who', world.who ) );
+			const quote = el( 'p', 'l3-simcard__quote', '\u05f4' + world.quote + '\u05f4' );
+			const caret = el( 'span', 'l3-simcard__caret' ); caret.setAttribute( 'aria-hidden', 'true' ); quote.append( caret );
+			const actions = el( 'div', 'l3-article-simulation__actions l3-simcard__actions' );
+			const lead = el( 'a', 'l3-simcard__cta', world.cta ); lead.href = world.lead_url;
+			if ( 'police_interrogation' === world.lead ) lead.setAttribute( 'data-investigation-entry', 'live' );
+			const alt = el( 'a', 'l3-article-simulation__secondary l3-simcard__alt', world.alt ); alt.href = world.alt_url;
+			actions.append( lead, alt );
+			const body = el( 'div', 'l3-simcard__body' );
+			body.append( el( 'p', 'l3-simcard__kicker', world.kicker ), quote, el( 'p', 'l3-simcard__text', world.text ), actions, el( 'small', 'l3-simcard__note', '\u05e1\u05d9\u05de\u05d5\u05dc\u05e6\u05d9\u05d4 \u05dc\u05d4\u05db\u05e0\u05d4, \u05dc\u05d0 \u05d9\u05d9\u05e2\u05d5\u05e5 \u05de\u05e9\u05e4\u05d8\u05d9 \u00b7 \u05d3\u05de\u05d5\u05d9\u05d5\u05ea AI' ) );
+			card.append( face, body );
 			archivePanel.before( column ); column.append( card, archivePanel );
 		}
 	}
@@ -149,9 +155,7 @@
 	style.textContent = `
 	body.jt-look-v3 .practice-hub-hero__grid:has(.hadmaya-archive-column){align-items:start}
 	body.jt-look-v3 .hadmaya-archive-column{min-width:0;display:grid;align-content:start;gap:20px}
-	body.jt-look-v3 .l3-article-simulation.hadmaya-archive-entry{margin:0;grid-template-columns:minmax(0,1fr);gap:14px;padding:20px}
-	body.jt-look-v3 .hadmaya-archive-entry .l3-article-simulation__visual{grid-row:auto}
-	body.jt-look-v3 .l3-article-simulation.hadmaya-archive-entry small{grid-column:1}
+	body.jt-look-v3 aside.l3-simcard.l3-article-simulation.hadmaya-archive-entry{margin:0;grid-template-columns:112px minmax(0,1fr)}
 	body.jt-look-v3 .hadmaya-archive-column>.practice-hub-hero__panel{margin:0}
 	.l3-article-simulation__actions .hadmaya-tour-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:10px 18px;border:1px solid #315a4c;border-radius:8px;background:#fffef9;color:#203e34;font:inherit;font-weight:700;line-height:1.5;cursor:pointer;white-space:normal;text-align:center}
 	.hadmaya-tour-button:focus-visible,.hadmaya-tour-dialog :is(button,a):focus-visible{outline:3px solid #315a4c;outline-offset:4px}

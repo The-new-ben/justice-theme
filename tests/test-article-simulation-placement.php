@@ -1,8 +1,8 @@
 <?php
 /**
- * Placement of the in-article simulation card (HAD-284, owner review 24.9.2026):
- * after the answer box or the first section, at least ~250 reading words above it,
- * only between top-level reading blocks, never inside another box.
+ * Placement of the in-article simulation card (Ben 28.9.2026): after the first or second paragraph,
+ * at least ~80 reading words above it and a section end preferred within ~120 more, after the answer
+ * box, only between top-level reading blocks, never inside another box.
  */
 declare(strict_types=1);
 
@@ -27,6 +27,7 @@ function justice_theme_cluster_for_slug( $slug ) {
 function wp_strip_all_tags( $text ): string { return strip_tags( (string) $text ); }
 function esc_attr( $text ): string { return htmlspecialchars( (string) $text, ENT_QUOTES ); }
 function esc_url( $url ): string { return htmlspecialchars( (string) $url, ENT_QUOTES ); }
+function esc_html( $text ): string { return htmlspecialchars( (string) $text, ENT_QUOTES ); }
 
 require_once dirname( __DIR__ ) . '/inc/article-simulation-entry.php';
 
@@ -40,18 +41,18 @@ function words( int $n, string $word = 'מילה' ): string { return trim( str_r
 function p( int $n, string $end = '.' ): string { return '<p>' . words( $n ) . $end . '</p>'; }
 /** Reading words above the card, counted the way a reader meets them (asides and navigation excluded). */
 function words_before_card( string $out ): int {
-	$at = strpos( $out, '<aside class="l3-article-simulation"' );
+	$at = strpos( $out, '<aside class="l3-article-simulation l3-simcard"' );
 	$before = preg_replace( '#<(nav|aside|details)\b.*?</\1>#s', '', substr( $out, 0, $at ) );
 	$text = trim( preg_replace( '/[\s\x{00A0}]+/u', ' ', html_entity_decode( preg_replace( '/<[^>]+>/', ' ', $before ), ENT_QUOTES, 'UTF-8' ) ) );
 	return '' === $text ? 0 : count( preg_split( '/\s+/u', $text ) );
 }
 function card_parent_is_top_level( string $out ): bool {
-	$at = strpos( $out, '<aside class="l3-article-simulation"' );
+	$at = strpos( $out, '<aside class="l3-article-simulation l3-simcard"' );
 	$blocks = justice_theme_article_simulation_blocks( substr( $out, 0, $at ) . '<p>x</p>' );
 	$last = end( $blocks );
 	return $last && 'p' === $last['name'] && $last['end'] === $at + 8; // The probe paragraph closed at top level.
 }
-function without_card( string $out ): string { return preg_replace( '#<aside class="l3-article-simulation".*?</aside>#s', '', $out, 1 ); }
+function without_card( string $out ): string { return preg_replace( '#<aside class="l3-article-simulation l3-simcard".*?</aside>#s', '', $out, 1 ); }
 function place( string $content ): string {
 	$out = justice_theme_article_simulation_entry( $content );
 	check( 1 === substr_count( $out, 'data-hadmaia-article-entry=' ), 'exactly one card' );
@@ -64,8 +65,8 @@ function place( string $content ): string {
 $ruling = '<p>ב"ה</p><p>תיק 1381290/2</p><p>בבית הדין הרבני האזורי ירושלים</p><p>לפני כבוד הדיינים:</p>'
 	. str_repeat( p( 40 ), 12 );
 $out = place( $ruling );
-check( words_before_card( $out ) >= 250, 'ruling: at least 250 words above the card, got ' . words_before_card( $out ) );
-check( words_before_card( $out ) < 330, 'ruling: the card still comes early, got ' . words_before_card( $out ) );
+check( words_before_card( $out ) >= 80, 'ruling: at least 80 words above the card, got ' . words_before_card( $out ) );
+check( words_before_card( $out ) < 140, 'ruling: after the first or second paragraph, got ' . words_before_card( $out ) );
 check( card_parent_is_top_level( $out ), 'ruling: card at top level' );
 
 // 2. Short city page: the card goes after the article text, never inside the appended cluster box.
@@ -73,7 +74,7 @@ $city = '<p>' . words( 25 ) . '</p><h2>מחירים</h2><figure class="wp-block-
 	. '<p><a href="/family-law/">מדריך דיני משפחה</a></p>'
 	. '<aside class="cluster-backlink"><p class="cluster-backlink__parent">חלק מהמדריך: <a href="/divorce-lawyer/">עורך דין גירושין</a></p><p class="cluster-backlink__siblings">ראו גם: <a href="/a/">א</a></p></aside>';
 $out = place( $city );
-check( false !== strpos( $out, '</p><aside class="l3-article-simulation"' ) && strpos( $out, 'l3-article-simulation' ) < strpos( $out, 'cluster-backlink' ), 'short page: card right before the cluster box' );
+check( false !== strpos( $out, '</p><aside class="l3-article-simulation l3-simcard"' ) && strpos( $out, 'l3-article-simulation' ) < strpos( $out, 'cluster-backlink' ), 'short page: card right before the cluster box' );
 check( 1 === substr_count( $out, '<aside class="cluster-backlink"><p class="cluster-backlink__parent">' ), 'short page: cluster box intact and unbroken' );
 
 // 3. Table of contents first: its links are not reading words and the card never enters it.
@@ -81,7 +82,7 @@ $toc = '<nav class="jt-nav-toc"><p>בעמוד הזה</p><ul><li><a href="#a">' .
 	. '<h2 id="a">פרק</h2>' . p( 120 ) . p( 140 ) . p( 100 ) . '<h2>פרק ב</h2>' . p( 200 );
 $out = place( $toc );
 check( strpos( $out, 'l3-article-simulation' ) > strpos( $out, '</nav>' ), 'toc: card after the table of contents' );
-check( false !== strpos( $out, '</p><aside class="l3-article-simulation"' ) && false !== strpos( $out, '</aside><h2>פרק ב</h2>' ), 'toc: card closes the first section, right before the next h2' );
+check( 121 === words_before_card( $out ), 'toc: after the first paragraph of the first section, got ' . words_before_card( $out ) );
 
 // 4. Answer box opens the page: the card comes after it, never inside it.
 $answer = '<div class="jt-answer"><p class="jt-answer__label">בקצרה</p><p>' . words( 280 ) . '</p></div>' . p( 60 ) . p( 60 ) . '<h2>המשך</h2>' . p( 100 );
@@ -90,17 +91,17 @@ check( strpos( $out, 'l3-article-simulation' ) > strpos( $out, '</div>' ), 'answ
 check( card_parent_is_top_level( $out ), 'answer: card at top level' );
 
 // 5. A section end is preferred when it is near; a far one is not worth waiting for.
-$near = p( 130 ) . p( 130 ) . p( 100 ) . '<h2>סעיף</h2>' . p( 100 );
+$near = p( 90 ) . p( 60 ) . '<h2>סעיף</h2>' . p( 100 );
 $out = place( $near );
 check( false !== strpos( $out, '</aside><h2>סעיף</h2>' ), 'near section end preferred' );
-$far = p( 260 ) . p( 400 ) . p( 100 ) . '<h2>סעיף</h2>' . p( 100 );
+$far = p( 100 ) . p( 400 ) . p( 100 ) . '<h2>סעיף</h2>' . p( 100 );
 $out = place( $far );
-check( 260 === words_before_card( $out ), 'far section end not awaited, got ' . words_before_card( $out ) );
+check( 100 === words_before_card( $out ), 'far section end not awaited, got ' . words_before_card( $out ) );
 
 // 6. Never next to the professional card or the mid-article strip.
 $cards = p( 300 ) . '<div class="jt-procard jt-procard--house"><p>עו"ד</p></div><h2>סעיף ב</h2>' . p( 50 ) . p( 50 ) . '<h2>סעיף ג</h2>' . p( 50 );
 $out = place( $cards );
-check( false === strpos( $out, '</div><aside class="l3-article-simulation"' ) && false === strpos( $out, '</aside><div class="jt-procard' ), 'not adjacent to the professional card' );
+check( false === strpos( $out, '</div><aside class="l3-article-simulation l3-simcard"' ) && false === strpos( $out, '</aside><div class="jt-procard' ), 'not adjacent to the professional card' );
 check( false !== strpos( $out, '</aside><h2>סעיף ג</h2>' ), 'professional card: card closes the next section instead' );
 $fold = p( 300 ) . '<div class="single-article__fold"><a href="/#ask-lawyer">פנייה</a></div>' . p( 40 ) . p( 40 );
 $out = place( $fold );
@@ -109,8 +110,8 @@ check( false === strpos( $out, 'single-article__fold"><a href="/#ask-lawyer">פ�
 // 7. A paragraph that introduces a list stays with its list.
 $intro = p( 255, ':' ) . '<ul><li>' . words( 10 ) . '</li><li>' . words( 10 ) . '</li></ul>' . p( 40 ) . p( 40 );
 $out = place( $intro );
-check( false === strpos( $out, ':</p><aside class="l3-article-simulation"' ), 'not between "the documents:" and its list' );
-check( false !== strpos( $out, '</ul><aside class="l3-article-simulation"' ), 'card after the list' );
+check( false === strpos( $out, ':</p><aside class="l3-article-simulation l3-simcard"' ), 'not between "the documents:" and its list' );
+check( false !== strpos( $out, '</ul><aside class="l3-article-simulation l3-simcard"' ), 'card after the list' );
 
 // 8. Never inside nested lists, tables or quotes; unclosed paragraphs and scripts are handled.
 $nested = '<ul><li><p>' . words( 150 ) . '</p></li><li><p>' . words( 150 ) . '</p></li></ul>'
@@ -120,14 +121,14 @@ $out = place( $nested );
 check( card_parent_is_top_level( $out ), 'nested: card at top level' );
 check( false === strpos( $out, '<li><p>' . words( 150 ) . '</p><aside' ), 'nested: never inside a list item' );
 
-// 9. The phone card shows the short form of the sentence; the full one stays for larger screens.
-check( false !== strpos( $out, 'בבית המשפט<span class="l3-article-simulation__more">: הטענות של הצד השני' ), 'compact phone clause wrapper' );
+// 9. The white card: on a divorce page the mediator asks, and the lead action opens mediation.
+check( false !== strpos( $out, 'חדר הגישור' ) && false !== strpos( $out, 'purpose=mediation&amp;topic=divorce' ), 'divorce pages open the mediation world' );
 
 // 10. Criminal pages open the live interrogation world (27.9.2026); the placement rule is shared.
 $jt['slug'] = 'criminal-defense-attorney';
 $out = place( $ruling );
 check( 1 === substr_count( $out, 'data-investigation-entry="live"' ) && false !== strpos( $out, 'purpose=police_interrogation' ) && false === strpos( $out, 'purpose=mediation' ), 'criminal variant opens the interrogation world' );
-check( words_before_card( $out ) >= 250, 'criminal: at least 250 words above the card' );
+check( words_before_card( $out ) >= 80, 'criminal: at least 80 words above the card' );
 
 // 12. Certificate page (live, 25.9.2026): a 375-word intro, an empty paragraph, the table of
 // contents, then the first heading and a long transcribed form. The intro is the first section:
@@ -139,7 +140,7 @@ $form = '<p>REQUEST FOR CONFIRMATION OF RECORDS</p><p>הוראות מילוי ל
 $toc_after_intro = p( 150 ) . p( 160 ) . '<p></p><nav class="jt-nav-toc"><p>בעמוד הזה</p><ol><li><a href="#s">סעיף</a></li></ol></nav>'
 	. '<h2 id="s">סעיף</h2>' . $form . str_repeat( $form, 3 ) . '<h2>סעיף ב</h2>' . p( 60 );
 $out = place( $toc_after_intro );
-check( false !== strpos( $out, '</aside><p></p><nav class="jt-nav-toc">' ), 'toc after intro: the card closes the intro, before the contents' );
+check( 150 === words_before_card( $out ), 'toc after intro: after the first intro paragraph, got ' . words_before_card( $out ) );
 check( false === strpos( $out, '</nav><aside' ) && false === strpos( $out, 'RECORDS</p><aside' ), 'toc after intro: never between the contents and its heading, never mid-form' );
 // The same contents box not followed by a heading is still never a neighbour.
 $toc_mid = p( 300 ) . '<nav class="jt-nav-toc"><p>בעמוד הזה</p></nav>' . p( 40 ) . p( 40 );
@@ -155,10 +156,10 @@ check( false === strpos( $out, '(קובץ PDF)</p><aside' ), 'label paragraph is
 $spaced = p( 200 ) . '<p>&nbsp;</p>' . p( 60 ) . '<p> </p>' . p( 60 );
 $out = place( $spaced );
 check( false === strpos( $out, '<p>&nbsp;</p><aside' ) && false === strpos( $out, '<p> </p><aside' ), 'empty paragraph is never the anchor' );
-check( 260 === words_before_card( $out ), 'empty paragraphs add no words, got ' . words_before_card( $out ) );
+check( 200 === words_before_card( $out ), 'empty paragraphs add no words, got ' . words_before_card( $out ) );
 
 // 11. Empty or text-less content still gets the card at the end (never dropped).
 $jt['slug'] = 'divorce-lawyer';
-check( str_starts_with( justice_theme_article_simulation_entry( '' ), '<aside class="l3-article-simulation"' ), 'empty body: card appended' );
+check( str_starts_with( justice_theme_article_simulation_entry( '' ), '<aside class="l3-article-simulation l3-simcard"' ), 'empty body: card appended' );
 
 echo $checks . " article simulation placement checks passed\n";

@@ -112,6 +112,19 @@ add_action(
 			(string) filemtime( JUSTICE_THEME_DIR . '/assets/js/new-look.js' ),
 			true
 		);
+		// The practice-area hub builds the same white card in the browser; it reads the worlds from here.
+		if ( function_exists( 'justice_theme_article_simulation_world' ) && is_tax( 'practice-areas' ) ) {
+			$worlds = array();
+			foreach ( array( 'family-law', 'criminal-law', 'real-estate', 'medical-malpractice', 'personal-injury', 'traffic-law', 'employment', 'inheritance', 'immigration', 'tax' ) as $topic ) {
+				$world = justice_theme_article_simulation_world( $topic );
+				$worlds[ $topic ] = $world + array(
+					'lead_url' => justice_theme_article_simulation_url( $topic, $world['lead'] ),
+					'alt_url'  => justice_theme_article_simulation_url( $topic, $world['alt_purpose'] ),
+					'face_url' => JUSTICE_THEME_URI . '/assets/images/hadmaya/' . $world['face'] . '.webp',
+				);
+			}
+			wp_add_inline_script( 'justice-new-look', 'window.hadmayaSimWorlds=' . wp_json_encode( $worlds ) . ';', 'before' );
+		}
 	},
 	20
 );

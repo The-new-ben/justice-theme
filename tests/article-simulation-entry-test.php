@@ -17,6 +17,8 @@ function get_permalink( $id ) { return 'https://jus-tice.co.il/' . $GLOBALS['slu
 function wp_strip_all_tags( $value ) { return strip_tags( $value ); }
 function esc_attr( $s ) { return htmlspecialchars( $s, ENT_QUOTES ); }
 function esc_url( $s ) { return htmlspecialchars( $s, ENT_QUOTES ); }
+function esc_html( $s ) { return htmlspecialchars( $s, ENT_QUOTES ); }
+function get_post_type( $id ) { return $GLOBALS['ptype'] ?? 'post'; }
 function justice_theme_cluster_for_slug( $s ) {
 	return match ( $s ) {
 		'divorce-lawyer' => array( 'key' => 'family-law' ),
@@ -35,13 +37,14 @@ check_entry( str_contains( justice_theme_article_simulation_url( 'criminal-law',
 $content = '<h1>Original article</h1><p>Opening paragraph.</p><p>Original body <a href="/divorce-lawyer/">Existing pillar</a></p>';
 $out = justice_theme_article_simulation_entry( $content );
 check_entry( 1 === substr_count( $out, 'data-hadmaia-article-entry=' ), 'one bridge' );
-check_entry( 1 === substr_count( $out, '<img ' ) && str_contains( $out, 'hadmaya-hearing-live-v2.webp' ) && ! str_contains( $out, 'hadmaia-mediation-room-v1.webp' ), 'software cockpit replaces room photograph' );
-check_entry( str_contains( $out, 'class="l3-article-simulation__visual" href="https://jus-tice.com/#/simulation?entry=role&amp;audience=guest&amp;lang=he&amp;purpose=court_rehearsal&amp;topic=divorce"' ), 'visual entry preserves contextual start' );
+check_entry( 1 === substr_count( $out, '<img ' ) && str_contains( $out, '/assets/images/hadmaya/mediator.webp' ) && str_contains( $out, 'המגשרת · דמות AI' ), 'the white card: the mediator asks on divorce pages' );
+check_entry( str_contains( $out, 'data-world="mediation"' ) && str_contains( $out, 'class="l3-simcard__quote"' ) && str_contains( $out, 'דמויות AI' ), 'one question, one world, the AI label' );
+check_entry( str_contains( $out, 'class="l3-article-simulation__visual l3-simcard__face" href="https://jus-tice.com/#/simulation?entry=role&amp;audience=guest&amp;lang=he&amp;purpose=mediation&amp;topic=divorce"' ), 'the face opens the lead world with its topic' );
 check_entry( str_contains( $out, 'purpose=mediation' ) && str_contains( $out, 'purpose=court_rehearsal' ), 'two real actions' );
 check_entry( str_contains( $out, 'topic=divorce' ), 'specific divorce topic' );
 check_entry( ! str_contains( $out, 'police_interrogation' ), 'no interrogation entry on family pages' );
 check_entry( $out === justice_theme_article_simulation_entry( $out ), 'idempotent rendering' );
-check_entry( preg_replace( '#<aside class="l3-article-simulation".*?</aside>#s', '', $out ) === $content, 'all original content and links untouched' );
+check_entry( preg_replace( '#<aside class="l3-article-simulation l3-simcard".*?</aside>#s', '', $out ) === $content, 'all original content and links untouched' );
 $slug = 'criminal-defense-attorney';
 $out = justice_theme_article_simulation_entry( $content );
 check_entry( ! str_contains( $out, 'purpose=mediation' ) && str_contains( $out, 'topic=criminal-law' ), 'criminal trial without suggesting criminal mediation' );
@@ -58,14 +61,27 @@ foreach ( array( 'police-investigation-rights', 'consultation-before-police-ques
 	check_entry( 1 === substr_count( $out, 'data-hadmaia-article-entry="criminal-law"' ), $slug . ': contextual cockpit' );
 	check_entry( ! str_contains( $out, 'purpose=mediation' ), $slug . ': no irrelevant criminal mediation' );
 	check_entry( str_contains( $out, 'purpose=police_interrogation' ), $slug . ': opens the interrogation world' );
-	check_entry( preg_replace( '#<aside class="l3-article-simulation".*?</aside>#s', '', $out ) === $content, $slug . ': original content intact' );
+	check_entry( preg_replace( '#<aside class="l3-article-simulation l3-simcard".*?</aside>#s', '', $out ) === $content, $slug . ': original content intact' );
 }
 $slug = 'opening-divorce-file-rabbinical';
 check_entry( 'divorce' === justice_theme_article_simulation_topic( 1 ), 'read the existing entity registry' );
 $slug = 'family-law';
 check_entry( 'family-law' === justice_theme_article_simulation_topic( 1 ), 'broad family hub remains broad' );
+$slug = 'unrelated-page'; $ptype = 'page';
+check_entry( $content === justice_theme_article_simulation_entry( $content ), 'a page with no legal topic gets no card' );
+$ptype = 'post';
+$out = justice_theme_article_simulation_entry( $content );
+check_entry( str_contains( $out, 'data-hadmaia-article-entry="general"' ) && str_contains( $out, 'purpose=court_rehearsal' ) && ! str_contains( $out, 'topic=' ), 'an unmapped legal article gets the general court card, without a topic' );
+$slug = 'japan-attorneys';
+check_entry( $content === justice_theme_article_simulation_entry( $content ), 'foreign lawyer directories get no card' );
+foreach ( array( 'apartment-divorce-price-appraisal' => 'divorce', 'work-accident-guide' => 'personal-injury', 'real-estate-italy' => 'international-real-estate',
+	'wrongful-dismissal-guide' => 'employment', 'criminal-sentencing-israel' => 'criminal-law', 'landlord-rights-israel' => 'real-estate', 'finland-lawyer-guide' => '' ) as $address => $expected ) {
+	check_entry( $expected === justice_theme_article_simulation_topic_from_slug( $address ), $address . ': classified by its address' );
+}
+$slug = 'work-accident-guide';
+$out = justice_theme_article_simulation_entry( $content );
+check_entry( str_contains( $out, 'data-world="witness"' ) && str_contains( $out, 'purpose=witness_prep&amp;topic=personal-injury' ), 'injury pages prepare the testimony' );
 $slug = 'unrelated-page';
-check_entry( $content === justice_theme_article_simulation_entry( $content ), 'no irrelevant CTA' );
 $slug = 'divorce-lawyer'; $feed = true;
 check_entry( $content === justice_theme_article_simulation_entry( $content ), 'feeds unchanged' );
 $feed = false; $active = false;

@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 $template_path = dirname( __DIR__ ) . '/template-parts/content/practice-landing-page.php';
 $template      = file_get_contents( $template_path );
+$functions     = file_get_contents( dirname( __DIR__ ) . '/functions.php' );
 
-if ( false === $template ) {
-	throw new RuntimeException( 'Could not read the practice landing template.' );
+if ( false === $template || false === $functions ) {
+	throw new RuntimeException( 'Could not read the theme release sources.' );
 }
 
 function jt_funnel_assert( bool $condition, string $message ): void {
@@ -52,6 +53,11 @@ jt_funnel_assert(
 jt_funnel_assert(
 	false !== strpos( $template, 'הפנייה נשלחת דרך Jus-Tice לצורך מיון ראשוני ובדיקת התאמה' ),
 	'The lead-form transparency disclosure is missing.'
+);
+
+jt_funnel_assert(
+	false !== strpos( $functions, "define( 'JUSTICE_DEPLOY_MARKER', '2026-10-05-criminal-funnel-truth-v1' );" ),
+	'The criminal funnel release marker is missing.'
 );
 
 echo "practice landing funnel truth tests passed\n";

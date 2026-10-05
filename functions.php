@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'JUSTICE_THEME_VERSION', '2.23.1' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-08-01-seo-recovery-p0-v1' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-10-05-criminal-funnel-truth-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 

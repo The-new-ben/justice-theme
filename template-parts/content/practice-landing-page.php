@@ -42,6 +42,11 @@ if ( ! empty( $config['featured_lawyer'] ) && function_exists( 'justice_theme_ge
 	$featured_lawyer = justice_theme_get_connected_lawyer_by_slug( (string) $config['featured_lawyer'] );
 }
 
+$area_lawyer_posts = function_exists( 'justice_theme_get_practice_firms' )
+	? justice_theme_get_practice_firms( $term_slug, 6 )
+	: array();
+$has_area_lawyers = ! empty( $area_lawyer_posts );
+
 $articles = null;
 if ( post_type_exists( 'articles' ) ) {
 	$article_args = array(
@@ -76,7 +81,9 @@ if ( post_type_exists( 'articles' ) ) {
 				<?php endif; ?>
 				<div class="legal-pillar-hero__actions">
 					<a class="button button--gold" href="#practice-lead-form"><?php esc_html_e( 'קבלת הכוונה ראשונית', 'justice-theme' ); ?></a>
+					<?php if ( $has_area_lawyers ) : ?>
 					<a class="button button--ghost" href="<?php echo esc_url( $lawyer_url ); ?>"><?php esc_html_e( 'חיפוש עורכי דין בתחום', 'justice-theme' ); ?></a>
+					<?php endif; ?>
 				</div>
 			</div>
 
@@ -214,6 +221,7 @@ if ( post_type_exists( 'articles' ) ) {
 			<aside class="legal-pillar-sidebar" id="practice-lead-form">
 				<h2><?php esc_html_e( 'צריכים הכוונה?', 'justice-theme' ); ?></h2>
 				<p><?php esc_html_e( 'השאירו פרטים קצרים. המטרה היא להפוך שאלה כללית לפנייה מסודרת עם תחום, עיר ודחיפות.', 'justice-theme' ); ?></p>
+				<p class="legal-pillar-sidebar__disclosure"><?php esc_html_e( 'הפנייה נשלחת דרך Jus-Tice לצורך מיון ראשוני ובדיקת התאמה. לפני התקשרות, ודאו מול עורך הדין מי יטפל בפועל ומה כולל שכר הטרחה.', 'justice-theme' ); ?></p>
 				<?php get_template_part( 'template-parts/forms/lead-form' ); ?>
 			</aside>
 		</div>
@@ -240,15 +248,6 @@ if ( post_type_exists( 'articles' ) ) {
 		</section>
 		<?php wp_reset_postdata(); ?>
 	<?php endif; ?>
-
-	<?php
-	// Area-scoped firms band: the indexed lawyers ARE the product — the
-	// pillar must surface them (owner law 2026-07-20). Falls back to the
-	// single featured profile only when no area match exists.
-	$area_lawyer_posts = function_exists( 'justice_theme_get_practice_firms' )
-		? justice_theme_get_practice_firms( $term_slug, 6 )
-		: array();
-	?>
 
 	<?php if ( ! empty( $area_lawyer_posts ) ) : ?>
 		<section class="legal-pillar-lawyers section">
@@ -302,11 +301,17 @@ if ( post_type_exists( 'articles' ) ) {
 			<div>
 				<p class="section-header__eyebrow"><?php esc_html_e( 'שלב הבא', 'justice-theme' ); ?></p>
 				<h2><?php esc_html_e( 'לא בטוחים מאיפה להתחיל?', 'justice-theme' ); ?></h2>
+				<?php if ( $has_area_lawyers ) : ?>
 				<p><?php esc_html_e( 'אפשר להתחיל מקריאת מדריך, מחיפוש עורך דין לפי תחום או מהשארת פנייה קצרה שתעזור למיין את הנושא.', 'justice-theme' ); ?></p>
+				<?php else : ?>
+				<p><?php esc_html_e( 'אפשר להתחיל מקריאת מדריך או מהשארת פנייה קצרה שתעזור למיין את הנושא ולבדוק התאמה.', 'justice-theme' ); ?></p>
+				<?php endif; ?>
 			</div>
 			<div class="practice-hub-cta__actions">
 				<a class="button button--gold" href="#practice-lead-form"><?php esc_html_e( 'השארת פנייה', 'justice-theme' ); ?></a>
+				<?php if ( $has_area_lawyers ) : ?>
 				<a class="button button--ghost" href="<?php echo esc_url( $lawyer_url ); ?>"><?php esc_html_e( 'חיפוש עורכי דין', 'justice-theme' ); ?></a>
+				<?php endif; ?>
 			</div>
 		</div>
 	</section>

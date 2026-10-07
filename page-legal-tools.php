@@ -19,6 +19,12 @@ get_header();
 			<span class="eyebrow"><?php esc_html_e( 'כלים להכנת מסמכים משפטיים', 'justice-theme' ); ?></span>
 			<h1><?php esc_html_e( 'מכינים טיוטה משפטית מסודרת לפני בדיקת עורך דין', 'justice-theme' ); ?></h1>
 			<p class="sub"><?php esc_html_e( 'בחרו נושא, מלאו שאלון קצר וקבלו מסמך ראשוני בעברית או באנגלית. הטיוטה הבסיסית נוצרת מיד בלי הרשמה. שדרוג עם AI, העתקה, הדפסה והורדה פתוחים אחרי פרטי קשר קצרים.', 'justice-theme' ); ?></p>
+			<p class="sub sub--calculators">
+				<?php esc_html_e( 'גם מחשבונים חינמיים, בלי הרשמה:', 'justice-theme' ); ?>
+				<a href="<?php echo esc_url( home_url( '/moadim-hagasha/' ) ); ?>"><?php esc_html_e( 'מחשבון מועדי הגשה', 'justice-theme' ); ?></a><?php esc_html_e( ' לבית המשפט, עם פגרות וחגים,', 'justice-theme' ); ?>
+				<a href="<?php echo esc_url( home_url( '/child-support/' ) ); ?>"><?php esc_html_e( 'מחשבון מזונות ילדים', 'justice-theme' ); ?></a><?php esc_html_e( ' לפי בע״מ 919/15, וכל', 'justice-theme' ); ?>
+				<a href="<?php echo esc_url( home_url( '/legal-calculators/' ) ); ?>"><?php esc_html_e( 'המחשבונים המשפטיים', 'justice-theme' ); ?></a>.
+			</p>
 			<div class="stats">
 				<div class="stat"><b id="statTools">50</b><span><?php esc_html_e( 'כלים משפטיים', 'justice-theme' ); ?></span></div>
 				<div class="stat"><b id="statLive">50</b><span><?php esc_html_e( 'מוכנים לשימוש', 'justice-theme' ); ?></span></div>

@@ -74,6 +74,9 @@ require_once __DIR__ . '/hubspot-sync.php';
 // Appointment booking + criminal emergency strip.
 require_once __DIR__ . '/scheduler.php';
 
+// [justice_lead_form] for editor-built money pages (HAD-447): cache-safe REST path, same lead rail.
+require_once __DIR__ . '/lead-form-shortcode.php';
+
 // Legal calculators (pages with demand).
 require_once __DIR__ . '/calculators.php';
 

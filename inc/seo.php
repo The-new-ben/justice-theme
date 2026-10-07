@@ -1036,6 +1036,13 @@ function justice_theme_practice_area_seo_override( string $term_slug ): array {
 			'title'       => 'עורך דין ירושה וצוואות | צו ירושה, צוואה והתנגדות',
 			'description' => 'מידע על צו ירושה, צו קיום צוואה, עריכת צוואה והתנגדות לצוואה, חלוקת עיזבון וסכסוכי ירושה, עם מדריכים ופנייה לעורך דין ירושה.',
 		),
+		// HAD-461 stage 4 (2026-10-07): the head query "בית הדין הרבני" is an
+		// information and navigation query (official site, courts, fees); the
+		// generic "עורך דין ..." prefix did not match it. The meta description
+		// stays in the term's Yoast field, so there is no description key here.
+		'rabbinical-court' => array(
+			'title' => 'בית הדין הרבני: סמכויות, פתיחת תיק, אגרות וכתובות | Jus-Tice',
+		),
 		'torts'           => array(
 			'title'       => 'עורך דין נזיקין ותאונות | פיצויים על נזקי גוף',
 			'description' => 'מידע על תביעות נזיקין: תאונות דרכים, תאונות עבודה ונזקי גוף, אחוזי נכות ופיצויים, עם מדריכים ופנייה מסודרת לעורך דין נזיקין.',
@@ -1228,7 +1235,8 @@ function justice_theme_document_title( $title_parts ) {
 	if ( is_tax( 'practice-areas' ) ) {
 		$term = get_queried_object();
 		if ( $term ) {
-			$title_parts['title'] = 'עורך דין ' . $term->name . ' | מדריך, מאמרים ועורכי דין מומחים';
+			$practice_area_seo    = justice_theme_practice_area_seo_override( (string) $term->slug );
+			$title_parts['title'] = ! empty( $practice_area_seo['title'] ) ? $practice_area_seo['title'] : 'עורך דין ' . $term->name . ' | מדריך, מאמרים ועורכי דין מומחים';
 		}
 	}
 

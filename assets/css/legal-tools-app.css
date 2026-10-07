@@ -56,6 +56,9 @@ html.justice-ai-app{font-size:var(--fs);-webkit-text-size-adjust:100%}
 .justice-ai-app .brand .tag{display:none}
 }
 .justice-ai-app .hero{max-width:var(--maxw);margin:0 auto;padding:34px 22px 8px;display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,430px);gap:30px;align-items:center}
+/* The theme-wide .hero paints a dark navy band; this app is designed light (dark ink text, muted stats), so it keeps its own ground. */
+.justice-ai-app .hero{background:none;color:var(--ink)}
+.justice-ai-app .hero::before{content:none}
 .justice-ai-app .hero-copy{min-width:0}
 .justice-ai-app .hero .eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:12.5px;letter-spacing:0;
   color:var(--green-2);background:var(--green-bg);border:1px solid var(--green-line);padding:6px 12px;border-radius:var(--r-pill)}

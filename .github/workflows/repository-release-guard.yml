@@ -30,6 +30,15 @@ jobs:
           set -euo pipefail
           git ls-files -z '*.php' | sort -z | xargs -0 -r -n1 php -l
 
+      - name: Test the co.il tools (HAD-485)
+        run: |
+          set -euo pipefail
+          node --version
+          node tools/build-justice-tools.mjs --check
+          node tests/js/test-justice-tools.mjs
+          php tests/test-justice-tools.php
+          python3 -m py_compile tools/justice_tools_registry.py
+
       - name: Enforce append-only release ZIPs
         run: |
           set -euo pipefail

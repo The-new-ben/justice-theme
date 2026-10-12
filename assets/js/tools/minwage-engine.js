@@ -98,7 +98,7 @@ export function compute(registry, input) {
 	const months = monthList(from, to);
 	if (months.length > 240) { return { ok: false, errors: [{ field: 'to', he: 'אפשר לבדוק עד 20 שנה בכל חישוב' }] }; }
 	if (to >= nextUpdate) {
-		flags.push({ code: 'rate_not_published', he: `שכר המינימום מ-1.${lm}.${ly + 1} עוד לא פורסם. לחודשים האלה הכלי משתמש בסכום האחרון שפורסם.` });
+		flags.push({ code: 'rate_not_published', he: `שכר המינימום מ-1.${lm}.${ly + 1} עוד לא פורסם. לחודשים האלה הכלי משתמש בסכום האחרון שפורסם כרף תחתון בלבד: שכר המינימום לא יורד בעדכון (סעיף 5), ולכן הפער בפועל יכול להיות גדול יותר.` });
 	}
 	const rows = [];
 	let gapTotal = 0;

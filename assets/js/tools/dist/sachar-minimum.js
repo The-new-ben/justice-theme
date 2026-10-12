@@ -99,8 +99,12 @@ function track(event, params = {}) {
 	if (typeof window === 'undefined') { return; }
 	const payload = Object.assign({ tool_id: params.tool_id || '', page: window.location.pathname }, params.band ? { band: params.band } : {}, params.channel ? { channel: params.channel } : {}, params.type ? { type: params.type } : {});
 	try {
-		if (typeof window.gtag === 'function') { window.gtag('event', event, payload); }
-		if (Array.isArray(window.dataLayer)) { window.dataLayer.push(Object.assign({ event }, payload)); }
+		// One transport only: gtag already writes to the data layer, so pushing as well would count twice.
+		if (typeof window.gtag === 'function') {
+			window.gtag('event', event, payload);
+		} else if (Array.isArray(window.dataLayer)) {
+			window.dataLayer.push(Object.assign({ event }, payload));
+		}
 	} catch (e) { /* analytics must never break the tool */ }
 }
 
@@ -275,7 +279,7 @@ function compute(registry, input) {
 	const months = monthList(from, to);
 	if (months.length > 240) { return { ok: false, errors: [{ field: 'to', he: 'אפשר לבדוק עד 20 שנה בכל חישוב' }] }; }
 	if (to >= nextUpdate) {
-		flags.push({ code: 'rate_not_published', he: `שכר המינימום מ-1.${lm}.${ly + 1} עוד לא פורסם. לחודשים האלה הכלי משתמש בסכום האחרון שפורסם.` });
+		flags.push({ code: 'rate_not_published', he: `שכר המינימום מ-1.${lm}.${ly + 1} עוד לא פורסם. לחודשים האלה הכלי משתמש בסכום האחרון שפורסם כרף תחתון בלבד: שכר המינימום לא יורד בעדכון (סעיף 5), ולכן הפער בפועל יכול להיות גדול יותר.` });
 	}
 	const rows = [];
 	let gapTotal = 0;

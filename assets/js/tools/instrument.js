@@ -95,8 +95,12 @@ export function track(event, params = {}) {
 	if (typeof window === 'undefined') { return; }
 	const payload = Object.assign({ tool_id: params.tool_id || '', page: window.location.pathname }, params.band ? { band: params.band } : {}, params.channel ? { channel: params.channel } : {}, params.type ? { type: params.type } : {});
 	try {
-		if (typeof window.gtag === 'function') { window.gtag('event', event, payload); }
-		if (Array.isArray(window.dataLayer)) { window.dataLayer.push(Object.assign({ event }, payload)); }
+		// One transport only: gtag already writes to the data layer, so pushing as well would count twice.
+		if (typeof window.gtag === 'function') {
+			window.gtag('event', event, payload);
+		} else if (Array.isArray(window.dataLayer)) {
+			window.dataLayer.push(Object.assign({ event }, payload));
+		}
 	} catch (e) { /* analytics must never break the tool */ }
 }
 

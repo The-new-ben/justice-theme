@@ -229,9 +229,11 @@ export function snapshot(reg) {
 function readForm(root) {
 	const val = (sel) => (root.querySelector(sel) || {}).value || '';
 	const checked = (name) => (root.querySelector(`input[name="${P}-${name}"]:checked`) || {}).value;
+	// Keep what the person typed when it does not parse, so the engine can name the bad row.
+	const amountOf = (text) => { const t = String(text || '').trim(); if (!t) { return ''; } const v = parseMoney(t); return Number.isNaN(v) ? t : v; };
 	const payments = [...root.querySelectorAll('[data-payments] li')].map((li) => ({
-		date: toIso(li.querySelector('[data-pay-date]').value), amount: parseMoney(li.querySelector('[data-pay-amount]').value),
-	})).filter((p) => p.date || p.amount);
+		date: toIso(li.querySelector('[data-pay-date]').value.trim()), amount: amountOf(li.querySelector('[data-pay-amount]').value),
+	})).filter((p) => p.date || p.amount !== '');
 	return {
 		principal: parseMoney(val(`#${P}-amt`)), start: toIso(val(`#${P}-from`)), end: toIso(val(`#${P}-to`)),
 		mode: checked('mode') || 'linked', rule: checked('rule') || 'known', due: toIso(val(`#${P}-due`)), payments,

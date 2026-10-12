@@ -11,7 +11,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as T04 from '../../assets/js/tools/hatzmada-engine.js';
 import * as T02 from '../../assets/js/tools/minwage-engine.js';
-import { encodeState, decodeState, decodeList, parseMoney, csv, ics, isStale } from '../../assets/js/tools/instrument.js';
+import { encodeState, decodeState, decodeList, parseMoney, csv, ics, isStale, track } from '../../assets/js/tools/instrument.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const reg = JSON.parse(readFileSync(join(ROOT, 'assets/data/justice-tools-registry.json'), 'utf8'));
@@ -127,6 +127,24 @@ check(r.ok && r.flags.some((f) => f.code === 'index_not_published'), 'an index n
 check(T04.parseDate('1.3.25') === T04.parseDate('2025-03-01') && T04.parseDate('01/03/2025') === T04.parseDate('2025-03-01'), 'date formats 1.3.25, 01/03/2025, 2025-03-01');
 check(T04.parseDate('31.2.2025') === null, 'impossible dates are rejected');
 
+// Review fixes (PR 121): a half-filled or mistyped payment row is an error, never dropped.
+const base = { principal: 40000, start: '2025-03-01', end: '2026-10-01', mode: 'link' };
+r = T04.compute(reg, Object.assign({}, base, { payments: [{ date: '2025-09-01', amount: '' }] }));
+check(!r.ok && r.errors.some((e) => e.field === 'payments'), 'a payment row without an amount is an error');
+r = T04.compute(reg, Object.assign({}, base, { payments: [{ date: '31.2.2025', amount: 5000 }] }));
+check(!r.ok && r.errors.some((e) => e.field === 'payments'), 'a payment row with an impossible date is an error');
+r = T04.compute(reg, Object.assign({}, base, { payments: [{ date: '', amount: 'abc' }] }));
+check(!r.ok && r.errors.some((e) => e.field === 'payments'), 'a payment row with a mistyped amount is an error');
+r = T04.compute(reg, Object.assign({}, base, { payments: [{ date: '', amount: '' }] }));
+check(r.ok && r.paid === 0, 'an empty payment row is ignored');
+// Review fixes (PR 121): no interest rate is guessed beyond the last published quarter.
+r = T04.compute(reg, { principal: 1000, start: '2026-01-01', end: '2027-01-15', mode: 'linked' });
+check(!r.ok && r.errors.some((e) => e.field === 'end' && e.he.includes('31.12.2026')), 'interest past 31.12.2026 is refused, not extrapolated');
+r = T04.compute(reg, { principal: 1000, start: '2026-01-01', end: '2026-12-31', mode: 'shekel' });
+check(r.ok, 'interest through the last published quarter is computed');
+r = T04.compute(reg, { principal: 1000, start: '2026-01-01', end: '2027-02-01', mode: 'link', due: '2026-06-01' });
+check(!r.ok, 'arrears past the last published quarter are refused too');
+
 /* ---------- 4. Minimum wage (T02) ---------- */
 let m = T02.compute(reg, { age: 'adult', payType: 'hourly', from: '2025-01', to: '2026-09', pay: 33, hours: 182, divisor: 182 });
 check(m.ok && m.gapTotal === 5503.68 && m.monthsShort === 18 && m.months === 21, `board example T02: ${m.gapTotal}`);
@@ -161,6 +179,19 @@ check(parseMoney('12,000') === 12000 && parseMoney('12 אלף') === 12000 && par
 check(csv([['a', 'b,c']]).endsWith('a,"b,c"'), 'CSV quoting');
 check(ics([{ date: '2026-10-02', summary: 'x' }], '2026-10-12T13:00:00').includes('DTSTART;VALUE=DATE:20261002'), 'ics all-day event');
 check(isStale('2026-10-12', 31, new Date('2026-11-20T00:00:00Z')) && !isStale('2026-10-12', 31, new Date('2026-10-20T00:00:00Z')), 'stale-data window');
+
+// Review fix (PR 121): analytics go through one transport only, and never carry amounts.
+{
+	const calls = [];
+	globalThis.window = { location: { pathname: '/hatzmada-madad/' }, dataLayer: [], gtag: (...a) => calls.push(a) };
+	track('tool_result', { tool_id: 'hatzmada', band: 'linked', amount: 40000 });
+	check(calls.length === 1 && window.dataLayer.length === 0, 'with gtag present, the event is sent once (no extra dataLayer push)');
+	check(!JSON.stringify(calls).includes('40000'), 'no amount in the analytics payload');
+	window.gtag = undefined;
+	track('tool_view', { tool_id: 'hatzmada' });
+	check(window.dataLayer.length === 1, 'without gtag, the data layer receives the event');
+	delete globalThis.window;
+}
 
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);

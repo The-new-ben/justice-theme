@@ -99,8 +99,12 @@ function track(event, params = {}) {
 	if (typeof window === 'undefined') { return; }
 	const payload = Object.assign({ tool_id: params.tool_id || '', page: window.location.pathname }, params.band ? { band: params.band } : {}, params.channel ? { channel: params.channel } : {}, params.type ? { type: params.type } : {});
 	try {
-		if (typeof window.gtag === 'function') { window.gtag('event', event, payload); }
-		if (Array.isArray(window.dataLayer)) { window.dataLayer.push(Object.assign({ event }, payload)); }
+		// One transport only: gtag already writes to the data layer, so pushing as well would count twice.
+		if (typeof window.gtag === 'function') {
+			window.gtag('event', event, payload);
+		} else if (Array.isArray(window.dataLayer)) {
+			window.dataLayer.push(Object.assign({ event }, payload));
+		}
 	} catch (e) { /* analytics must never break the tool */ }
 }
 
@@ -329,8 +333,22 @@ function compute(registry, input) {
 	if (start !== null && end !== null && end <= start) { errors.push({ field: 'end', he: 'תאריך הסיום צריך להיות אחרי תאריך ההתחלה' }); }
 	if (input.due && due === null) { errors.push({ field: 'due', he: 'מועד הפירעון לא תקין' }); }
 	if (due !== null && start !== null && due < start) { errors.push({ field: 'due', he: 'מועד הפירעון צריך להיות אחרי תאריך תחילת החישוב' }); }
-	const payments = (input.payments || []).map((p) => ({ day: parseDate(p.date), amount: Number(p.amount) }))
-		.filter((p) => p.day !== null && p.amount > 0).sort((a, b) => a.day - b.day);
+	// A row that is partly filled or mistyped is an error, never silently dropped: dropping it
+	// would show a balance as if that payment had not been made.
+	const payments = [];
+	(input.payments || []).forEach((p, i) => {
+		const rawDate = p && p.date !== undefined && p.date !== null ? String(p.date).trim() : '';
+		const rawAmount = p && p.amount !== undefined && p.amount !== null && p.amount !== '' ? Number(p.amount) : NaN;
+		const emptyAmount = !p || p.amount === undefined || p.amount === null || p.amount === '' || (typeof p.amount === 'number' && Number.isNaN(p.amount));
+		if (!rawDate && emptyAmount) { return; }
+		const day = parseDate(rawDate);
+		if (day === null || !(rawAmount > 0)) {
+			errors.push({ field: 'payments', he: `תשלום ${i + 1}: ${day === null ? 'התאריך לא תקין' : 'הסכום צריך להיות גדול מ-0'}. תקנו או מחקו את השורה.` });
+			return;
+		}
+		payments.push({ day, amount: rawAmount });
+	});
+	payments.sort((a, b) => a.day - b.day);
 	for (const p of payments) {
 		if (start !== null && end !== null && (p.day <= start || p.day > end)) {
 			errors.push({ field: 'payments', he: `תשלום ב-${heDate(p.day)} נמצא מחוץ לתקופת החישוב` });
@@ -353,6 +371,15 @@ function compute(registry, input) {
 		flags.push({ code: 'old_law_period', he: 'לימים שלפני 1.1.2025 חל הנוסח הקודם של החוק (הוראת המעבר בתיקון מס\' 9). לתקופה הזו הכלי מחשב הפרשי הצמדה בלבד, בלי הריבית לפי הדין הקודם, ולכן הסכום בפועל גבוה יותר.' });
 	}
 	const arrearsBegins = due !== null && due < end ? Math.max(due, regimeStart) : null;
+	// Interest is known only through the end of the last quarter the Accountant General published.
+	// Past that day the tool refuses to guess a rate.
+	if ((interestMode || arrearsBegins !== null) && end > regimeStart) {
+		const lastFrom = parseDate(law.linked[law.linked.length - 1].from);
+		const covered = addMonths(lastFrom, 3) - 1;
+		if (end > covered) {
+			return { ok: false, errors: [{ field: 'end', he: `שיעורי הריבית ידועים עד ${heDate(covered)}, סוף הרבעון האחרון שפרסם החשב הכללי. בחרו תאריך סיום עד ${heDate(covered)}.` }] };
+		}
+	}
 	if (due !== null && due < regimeStart && due < end) {
 		flags.push({ code: 'old_law_arrears', he: 'מועד הפירעון לפני 1.1.2025: ריבית הפיגורים לפי הדין הקודם עד 31.12.2024 לא נכללה. מ-1.1.2025 נוספים ריבית שקלית ודמי פיגורים, ומניין שלושת החודשים מתחיל ב-1.1.2025 (סעיף 117(ב)(2) לתיקון מס\' 9).' });
 	}
@@ -747,9 +774,11 @@ function snapshot(reg) {
 function readForm(root) {
 	const val = (sel) => (root.querySelector(sel) || {}).value || '';
 	const checked = (name) => (root.querySelector(`input[name="${P}-${name}"]:checked`) || {}).value;
+	// Keep what the person typed when it does not parse, so the engine can name the bad row.
+	const amountOf = (text) => { const t = String(text || '').trim(); if (!t) { return ''; } const v = parseMoney(t); return Number.isNaN(v) ? t : v; };
 	const payments = [...root.querySelectorAll('[data-payments] li')].map((li) => ({
-		date: toIso(li.querySelector('[data-pay-date]').value), amount: parseMoney(li.querySelector('[data-pay-amount]').value),
-	})).filter((p) => p.date || p.amount);
+		date: toIso(li.querySelector('[data-pay-date]').value.trim()), amount: amountOf(li.querySelector('[data-pay-amount]').value),
+	})).filter((p) => p.date || p.amount !== '');
 	return {
 		principal: parseMoney(val(`#${P}-amt`)), start: toIso(val(`#${P}-from`)), end: toIso(val(`#${P}-to`)),
 		mode: checked('mode') || 'linked', rule: checked('rule') || 'known', due: toIso(val(`#${P}-due`)), payments,

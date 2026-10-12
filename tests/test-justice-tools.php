@@ -30,6 +30,21 @@ function is_singular( $t = '' ) { return false; }
 
 require_once dirname( __DIR__ ) . '/inc/justice-tools.php';
 
+// A child run renders only the fee-only page, the way /small-claims-fee-calculator/ will (a page of its own).
+if ( in_array( '--fee-only', $argv ?? array(), true ) ) {
+	$html = $jt_shortcodes['justice_tool']( array( 'name' => 'tviot-ktanot', 'mode' => 'fee' ) );
+	$ok   = false !== strpos( $html, 'data-jtool-mode="fee"' )
+		&& false !== strpos( $html, '<bdi>400</bdi>' )
+		&& false !== strpos( $html, 'מחשבון אגרת תביעה קטנה' )
+		&& false !== strpos( $html, '1% · מינימום 50 ₪' )
+		&& false !== strpos( $html, '/small-claims-court-israel/' )
+		&& 1 === substr_count( $html, '"@type":"WebApplication"' )
+		&& false === strpos( $html, 'FAQPage' )
+		&& false === strpos( $html, 'jtool-stages' );
+	echo $ok ? 'FEE-OK' : 'FEE-FAIL';
+	exit( 0 );
+}
+
 $failures = 0;
 function check( bool $ok, string $what ): void {
 	global $failures;
@@ -143,6 +158,80 @@ check( '' === $sec( array( 'name' => 'hatzmada', 'part' => 'bogus' ) ), 'unknown
 
 $snap = justice_tools_snapshots();
 check( ( $snap['registry_version'] ?? '' ) === $reg['registry_version'], 'snapshots were built from this registry' );
+
+/* ---------- Wave 2 (HAD-490): registry values checked against the official sources on 12.10.2026 ---------- */
+foreach ( array( 'havraa', 'small_claims' ) as $set ) {
+	check( ! empty( $reg[ $set ]['source_url'] ) && 0 === strpos( $reg[ $set ]['source_url'], 'https://www.gov.il/' ), "{$set} has an official gov.il source" );
+	check( '2026-10-12' === ( $reg[ $set ]['checked_on'] ?? '' ) && (int) ( $reg[ $set ]['refresh_every_days'] ?? 0 ) > 0, "{$set} has checked_on and a refresh window" );
+}
+$hv = $reg['havraa'];
+check( array( array( 1, 1, 5 ), array( 2, 3, 6 ), array( 4, 10, 7 ), array( 11, 15, 8 ), array( 16, 19, 9 ), array( 20, null, 10 ) ) === $hv['days'], 'havraa days by seniority 5/6/7/8/9/10 (order, Yalkut HaPirsumim 7417, s.5(א))' );
+$prices = array_column( $hv['private_rates'], 'rate', 'from' );
+check( array( '2014-01-01' => 378.0, '2023-07-01' => 418.0, '2026-01-01' => 451.5 ) === array_map( 'floatval', $prices ), 'havraa day price: 378 from 2014, 418 from 1.7.2023 (Yalkut 11651), 451.50 for 2026 (Yalkut 14863)' );
+foreach ( $hv['private_rates'] as $row ) {
+	check( 0 === strpos( $row['url'], 'https://www.gov.il/' ), "havraa price {$row['from']} links to gov.il" );
+}
+$ded = array_column( $hv['deductions'], null, 'year' );
+check( 1 === $ded[2024]['days'] && 6000 === $ded[2024]['half_salary_max'] && true === $ded[2024]['half_requires_five_days'], '2024 law: one day, half a day for 5-day workers on up to 6,000 ₪ (Sefer HaChukim 3180)' );
+check( 1 === $ded[2025]['days'] && 6150 === $ded[2025]['half_salary_max'] && false === $ded[2025]['half_requires_five_days'] && 418.0 === (float) $ded[2025]['price_min'] && 471.4 === (float) $ded[2025]['price_max'], '2025 law: one day, half a day up to 6,150 ₪, day price between 418 and 471.4 (Sefer HaChukim 3384)' );
+check( false !== strpos( $ded[2024]['url'], 'fs.knesset.gov.il' ) && false !== strpos( $ded[2025]['url'], 'fs.knesset.gov.il' ), 'the havraa laws link to the Knesset (Sefer HaChukim)' );
+$pub = array_column( $hv['public_rates'], 'rate', 'year' );
+check( 471.4 === (float) $pub[2024] && 471.4 === (float) $pub[2025] && 511.6 === (float) $pub[2026], 'public sector, for comparison: 471.4 (2024, 2025), 511.6 (2026)' );
+check( 7 === $hv['limitation_years'], 'havraa limitation 7 years' );
+$sc = $reg['small_claims'];
+check( 39900 === $sc['ceiling'][ count( $sc['ceiling'] ) - 1 ]['amount'] && '2026-01-01' === $sc['ceiling'][ count( $sc['ceiling'] ) - 1 ]['from'] && '2025-12-22' === $sc['ceiling'][ count( $sc['ceiling'] ) - 1 ]['notice_date'], 'small-claims ceiling 39,900 ₪ from 1.1.2026 (notice of 22.12.2025)' );
+check( 1 === $sc['fee']['pct'] && 50 === $sc['fee']['min'] && 5 === $sc['fee']['round_up_to'], 'small-claims fee 1%, at least 50 ₪, rounded up to 5 ₪ (reg. 6(א))' );
+check( array( 'defence_days' => 30, 'service_check_days_before' => 60, 'plaintiff_service_days_before' => 40, 'witness_request_days_before' => 60, 'interpreter_days_before' => 7, 'set_aside_days' => 30 ) === $sc['deadlines'], 'small-claims deadlines 30/60/40/60/7/30' );
+check( 5 === $sc['max_claims_per_year'] && 5 === $sc['claim_body_max_pages'] && 7 === $sc['limitation_years'], 'five claims a year, five pages, seven years' );
+foreach ( array( 12748 => 130.0, 39900 => 400.0, 5000 => 50.0, 5001 => 55.0, 100 => 50.0, 25010 => 255.0 ) as $amt => $fee ) {
+	check( $fee === justice_tools_sc_fee( $sc, (float) $amt ), "PHP fee on {$amt} = {$fee} (same rule as the engine)" );
+}
+
+/* ---------- Wave 2: server HTML ---------- */
+$h3 = $jt_shortcodes['justice_tool'];
+$t3 = $h3( array( 'name' => 'havraa' ) );
+check( false !== strpos( $t3, 'class="jtool-answer"' ) && false !== strpos( $t3, '451.50' ) && false !== strpos( $t3, '511.6' ), 'T03 answer box: 451.50 private, 511.6 public, from the registry' );
+check( false !== strpos( $t3, '3,160.50' ), 'T03 example result (7 x 451.50) in the server HTML' );
+check( false !== strpos( $t3, '2,508.00' ), 'T03 what-if (2025 after the statutory deduction) in the server HTML' );
+check( false !== strpos( $t3, 'סעיף 5(א)' ) && false !== strpos( $t3, '<ol>' ), 'T03 calculation path with sections' );
+check( 1 === substr_count( $t3, '"@type":"WebApplication"' ) && false === strpos( $t3, 'FAQPage' ), 'T03: one WebApplication, no FAQPage' );
+check( false === strpos( $t3, 'data-act="rehearse"' ) && false !== strpos( $t3, 'data-act="letter"' ), 'T03: demand letter, no rehearsal (conversion 2)' );
+$sec3 = substr( $t3, (int) strpos( $t3, '<section class="jtool"' ) );
+check( false === stripos( substr( $sec3, 0, (int) strpos( $sec3, '</section>' ) ), '<h2' ), 'T03: no <h2> inside the tool card (HAD-487)' );
+check( false === stripos( $t3, 'noindex' ) && false === stripos( $t3, 'maya' ) && false === strpos( $t3, '<form' ), 'T03: no noindex, no Maya card, no form gate' );
+check( 1 === preg_match( '#<script type="application/json" id="jtool-havraa-data">(.*?)</script>#s', $t3, $m3 ) && isset( json_decode( $m3[1], true )['havraa'] ), 'T03 data island carries the havraa registry' );
+check( isset( $jt_enqueued['justice-tool-havraa'] ), 'T03 bundle enqueued' );
+
+$t5 = $h3( array( 'name' => 'tviot-ktanot' ) );
+check( false !== strpos( $t5, '39,900' ) && false !== strpos( $t5, '22.12.2025' ) && false !== strpos( $t5, 'תקנה 6(א)' ), 'T05 answer box: ceiling, notice date and regulation from the registry' );
+check( false !== strpos( $t5, 'אגרה: <span class="jtool-amt"><bdi>130</bdi> ₪</span>' ), 'T05 example result: 12,748 ₪ -> fee 130 ₪ in the server HTML' );
+check( false !== strpos( $t5, '17.12.2026' ) && false !== strpos( $t5, '6.1.2027' ) && false !== strpos( $t5, '1.3.2033' ), 'T05 example deadlines in the server HTML' );
+check( false !== strpos( $t5, 'סעיף 60(א)' ) && false !== strpos( $t5, 'תקנה 3' ), 'T05 readiness map with sections and the claim skeleton' );
+check( false !== strpos( $t5, 'jus-tice.com/#/simulation' ) && strpos( $t5, 'data-act="rehearse"' ) > strpos( $t5, 'data-jtool-result' ), 'T05: the rehearsal is the primary next step, after the result (conversion 5)' );
+check( false !== strpos( $t5, 'jtool-btn--primary" href="https://jus-tice.com/#/simulation' ), 'T05 primary button opens the hearing rehearsal' );
+check( 1 === substr_count( $t5, '"@type":"WebApplication"' ) && false === strpos( $t5, 'FAQPage' ) && false === stripos( $t5, 'aggregateRating' ), 'T05: one WebApplication, no FAQPage, no rating' );
+$sec5 = substr( $t5, (int) strpos( $t5, '<section class="jtool"' ) );
+check( false === stripos( substr( $sec5, 0, (int) strpos( $sec5, '</section>' ) ), '<h2' ), 'T05: no <h2> inside the tool card' );
+check( false === stripos( $t5, 'noindex' ) && false === stripos( $t5, 'maya' ) && false === strpos( $t5, '<form' ), 'T05: no noindex, no Maya card, no form gate' );
+check( false !== strpos( $t5, 'class="jtool-stages"' ) && 5 === substr_count( $t5, 'jtool-stages__n' ) && false !== strpos( $t5, 'id="jtool-tviot-ktanot-next"' ), 'T05 stage bar: five linked stages, the last one to the rehearsal' );
+check( '' === $h3( array( 'name' => 'tviot-ktanot', 'mode' => 'fee' ) ), 'one T05 instrument per page' );
+
+// The fee-only page is a separate request; reset the once-per-page guard by loading a fresh process copy.
+$feehtml = shell_exec( escapeshellarg( PHP_BINARY ) . ' ' . escapeshellarg( __FILE__ ) . ' --fee-only' );
+check( is_string( $feehtml ) && false !== strpos( $feehtml, 'FEE-OK' ), 'fee-only mode renders on its own page (see the --fee-only branch)' );
+
+$numbers3 = $sec( array( 'name' => 'havraa', 'part' => 'numbers' ) );
+check( false !== strpos( $numbers3, '451.50' ) && false !== strpos( $numbers3, '418.00' ) && false !== strpos( $numbers3, '378.00' ) && false !== strpos( $numbers3, 'ספר החוקים 3384' ), 'T03 numbers: price per havraa year with the deduction law' );
+check( false !== strpos( $numbers3, '4,515.00' ), 'T03 numbers: 10 days x 451.50 = 4,515.00' );
+$compare3 = $sec( array( 'name' => 'havraa', 'part' => 'compare' ) );
+check( false !== strpos( $compare3, '2,508.00' ) && false !== strpos( $compare3, '3,160.50' ) && false !== strpos( $compare3, '652.50' ), 'T03 compare: 2025 after the deduction vs 2026' );
+check( false !== strpos( $sec( array( 'name' => 'havraa', 'part' => 'method' ) ), '13,262.25' ), 'T03 method: the period example and its year-by-year table' );
+$numbers5 = $sec( array( 'name' => 'tviot-ktanot', 'part' => 'numbers' ) );
+check( false !== strpos( $numbers5, '39,900' ) && false !== strpos( $numbers5, 'תקנה 7(ב1)' ) && false !== strpos( $numbers5, 'gov.il' ), 'T05 numbers: ceiling, fee and deadlines with sources' );
+check( false !== strpos( $sec( array( 'name' => 'tviot-ktanot', 'part' => 'compare' ) ), '255' ), 'T05 compare: the fee table from the engine' );
+check( false !== strpos( $sec( array( 'name' => 'tviot-ktanot', 'part' => 'method', 'mode' => 'fee' ) ), '399.00' ), 'T05 fee-only method: 39,900 x 1% = 399.00' );
+$index = $jt_shortcodes['justice_tools_index']();
+check( false !== strpos( $index, '/havraa-pay-calculator/' ) && false !== strpos( $index, '/small-claims-court-israel/' ) && false !== strpos( $index, '/small-claims-fee-calculator/' ), 'hub cards include T03, T05 and the fee-only page' );
 
 if ( $failures ) {
 	fwrite( STDERR, "justice tools: {$failures} failure(s)\n" );

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Build the co.il tools (HAD-485) from their ES-module sources.
+ * Build the co.il tools (HAD-485 wave 1, HAD-490 wave 2) from their ES-module sources.
  *
  *   node tools/build-justice-tools.mjs          write the bundles and the server snapshots
  *   node tools/build-justice-tools.mjs --check  fail when a committed file is out of date (CI)
@@ -23,6 +23,8 @@ const CHECK = process.argv.includes('--check');
 const TOOLS = {
 	hatzmada: ['instrument.js', 'hatzmada-engine.js', 'hatzmada-ui.js'],
 	'sachar-minimum': ['instrument.js', 'minwage-engine.js', 'minwage-ui.js'],
+	havraa: ['instrument.js', 'havraa-engine.js', 'havraa-ui.js'],
+	'tviot-ktanot': ['instrument.js', 'tviot-engine.js', 'tviot-ui.js'],
 };
 
 function strip(code) {
@@ -53,7 +55,15 @@ for (const [tool, files] of Object.entries(TOOLS)) {
 const registry = JSON.parse(readFileSync(join(ROOT, 'assets/data/justice-tools-registry.json'), 'utf8'));
 const t04 = await import(pathToFileURL(join(SRC, 'hatzmada-ui.js')).href);
 const t02 = await import(pathToFileURL(join(SRC, 'minwage-ui.js')).href);
-const snapshots = { registry_version: registry.registry_version, hatzmada: t04.snapshot(registry), 'sachar-minimum': t02.snapshot(registry) };
+const t03 = await import(pathToFileURL(join(SRC, 'havraa-ui.js')).href);
+const t05 = await import(pathToFileURL(join(SRC, 'tviot-ui.js')).href);
+const snapshots = {
+	registry_version: registry.registry_version,
+	hatzmada: t04.snapshot(registry),
+	'sachar-minimum': t02.snapshot(registry),
+	havraa: t03.snapshot(registry),
+	'tviot-ktanot': t05.snapshot(registry),
+};
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 
 let stale = 0;

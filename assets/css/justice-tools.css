@@ -168,6 +168,21 @@ a.jtool-cite:hover { text-decoration: underline; }
 .jtool-btn svg { flex: none; }
 .jtool .jtool-toast { margin: 0 !important; min-height: 1.5em; font-size: 0.9rem !important; font-weight: 700; color: var(--jtool-ok) !important; }
 
+/* Wave 2 (HAD-490): readiness map, numbered steps, letters and drafts, notes, rows out of range */
+.jtool .jtool-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.jtool ul.jtool-conds { margin: 0 !important; padding: 0 var(--jtool-space-4) var(--jtool-space-4) !important; list-style: none; display: flex; flex-direction: column; gap: var(--jtool-space-2); }
+.jtool .jtool-cond { display: flex; gap: var(--jtool-space-2); align-items: flex-start; font-size: 0.95rem; line-height: 1.55; color: var(--jtool-ink); }
+.jtool .jtool-cond__mark { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; font-weight: 800; font-size: 0.875rem; }
+.jtool .jtool-cond--yes .jtool-cond__mark { background: var(--jtool-ok-bg); color: var(--jtool-ok); }
+.jtool .jtool-cond--no .jtool-cond__mark { background: var(--jtool-danger-bg); color: var(--jtool-danger); }
+.jtool .jtool-cond--unk .jtool-cond__mark { background: var(--jtool-warn-bg); color: var(--jtool-warn); }
+.jtool ol.jtool-steps { margin: 0 !important; padding: var(--jtool-space-3) var(--jtool-space-6) var(--jtool-space-4) var(--jtool-space-4) !important; display: flex; flex-direction: column; gap: var(--jtool-space-2); }
+.jtool ol.jtool-steps li { font-size: 0.95rem; line-height: 1.6; color: var(--jtool-ink); }
+.jtool pre.jtool-letter { margin: 0; padding: var(--jtool-space-4); white-space: pre-wrap; overflow-wrap: anywhere; font: 400 1rem/1.7 var(--jtool-font); direction: rtl; text-align: right; color: var(--jtool-ink); background: #fff; }
+.jtool ul.jtool-notes { margin: 0 !important; padding: 0 var(--jtool-space-6) var(--jtool-space-4) var(--jtool-space-4) !important; display: flex; flex-direction: column; gap: var(--jtool-space-2); font-size: 0.95rem; line-height: 1.55; }
+.jtool ul.jtool-notes a { color: var(--jtool-verdict); text-decoration: underline; }
+.jtool .jtool-table tr.jtool-muted td { color: var(--jtool-muted); background: var(--jtool-surface-2); }
+
 /* Below-the-fold parts of the instrument: court table, what-if, letter, actions */
 .jtool-details { display: flex; flex-direction: column; gap: var(--jtool-space-4); padding: 0 var(--jtool-space-5) var(--jtool-space-5); }
 .jtool-details:empty { display: none; }
@@ -261,3 +276,26 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jtool .jtool-table th { background: #fff !important; color: #000 !important; border-bottom: 2px solid #000; }
 	.jtool .jtool-table td { white-space: normal; }
 }
+
+/* Stage bar of a combined tool (T05: check, fee, deadlines, claim, rehearse), HAD-490 */
+.jtool-stages { padding: var(--jtool-space-4) var(--jtool-space-5) 0; }
+.jtool .jtool-stages ol { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--jtool-space-2); margin: 0 !important; padding: 0 !important; list-style: none; counter-reset: none; }
+.jtool .jtool-stages li { margin: 0; padding: 0; }
+.jtool .jtool-stages li::before { content: none; }
+.jtool .jtool-stages a { display: flex; align-items: center; gap: var(--jtool-space-2); min-height: 44px; padding: 6px 10px; border-radius: var(--jtool-radius-field); background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); font: 800 0.9rem/1.25 var(--jtool-font); text-decoration: none; }
+.jtool .jtool-stages a:hover { background: #D6E4F2; }
+.jtool .jtool-stages li:first-child a { background: var(--jtool-verdict); color: #fff; }
+.jtool-stages__n { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: #fff; color: var(--jtool-verdict-deep); font-size: 0.85rem; }
+@media (max-width: 600px) {
+	/* Phones: five numbered steps in one row (board T05-360); the names stay for screen readers. */
+	.jtool-stages { padding: var(--jtool-space-3) var(--jtool-space-4) 0; }
+	.jtool .jtool-stages a { justify-content: center; padding: 6px 4px; }
+	.jtool .jtool-stages .jtool-stages__t { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+@media print { .jtool-stages { display: none !important; } }
+
+/* Links in the page sections built from the registry (sources, tables): the tool's blue, always underlined */
+.jtool-page a, .jtool-page .jtool-datatable a, .jtool-page.jtool-sources-list a { color: var(--jtool-verdict) !important; text-decoration: underline !important; text-underline-offset: 2px; }
+.jtool-page a:hover { color: var(--jtool-verdict-deep) !important; }
+.jtool-page a:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool-page.jtool-cards a.jtool-card { text-decoration: none !important; color: var(--jtool-ink) !important; }

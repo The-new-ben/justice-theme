@@ -12,6 +12,10 @@ Sources
   CPI chaining check        https://api.cbs.gov.il/index/data/calculator/120010
   Interest Adjudication Law https://ga.mof.gov.il/api/rate/history/<id>  (Accountant General)
   Minimum wage              https://www.btl.gov.il/Mediniyut/GeneralData/Pages/שכר מינימום.aspx
+  Recuperation pay (T03)    gov.il extension orders (Yalkut HaPirsumim 7417, 11651, 14863), the 2024 and
+                            2025 havraa laws (Sefer HaChukim 3180, 3384): see build_havraa()
+  Small claims (T05)        gov.il fee guide (Courts Authority), the 1976 procedure regulations and the
+                            Courts Law: see build_small_claims()
 
 Usage
   python tools/justice_tools_registry.py --checked-on 2026-10-12 \
@@ -183,6 +187,112 @@ def build_minwage(page_html: str, checked_on: str) -> dict:
     }
 
 
+def build_havraa(checked_on: str) -> dict:
+    """Recuperation pay (T03, HAD-490). gov.il refuses scripted reads, so these rows were read on
+    checked_on from the official files linked in each row (Ministry of Labor extension orders in
+    Yalkut HaPirsumim, the 2024 and 2025 laws in Sefer HaChukim, the Accountant General's guide and
+    the Ministry of Education circular) and are kept here, never typed into a page. A refresh means
+    re-reading those files; nothing here is estimated."""
+    gov = "https://www.gov.il/BlobFolder/dynamiccollectorresultitem/"
+    law_2024 = "https://fs.knesset.gov.il/25/law/25_lsr_4232982.pdf"
+    law_2025 = "https://fs.knesset.gov.il/25/law/25_lsr_6133485.pdf"
+    return {
+        "name_he": "דמי הבראה (קצובת הבראה)",
+        "publisher_he": "משרד העבודה",
+        "source_name": "משרד העבודה, מאגר צווי הרחבה: צו הרחבה בדבר השתתפות המעסיק בהוצאות הבראה ונופש",
+        "source_url": "https://www.gov.il/he/Departments/DynamicCollectors/extension-orders?skip=0",
+        "guide_url": "https://www.gov.il/he/pages/convalescence-pay?chapterIndex=2",
+        "checked_on": checked_on,
+        "refresh_every_days": 365,
+        "order_he": "צו הרחבה בדבר השתתפות המעביד בהוצאות הבראה ונופש (ילקוט הפרסומים 7417, 8.1.2017)",
+        "order_url": gov + "extention-order-recovery-recreation-2016/he/extention-order-recovery-recreation-2016.pdf",
+        "payment_months_he": "יוני עד ספטמבר",
+        # [first work year, last work year (None = and on), days]: the order, s.5(א).
+        "days": [[1, 1, 5], [2, 3, 6], [4, 10, 7], [11, 15, 8], [16, 19, 9], [20, None, 10]],
+        "private_rates": [
+            {"from": "2014-01-01", "rate": 378.0, "label_he": "החל משנת 2014",
+             "source_he": "משרד העבודה, מדריך 'קצובת הבראה', פרק החישוב; צו ההרחבה, ילקוט הפרסומים 7417, סעיף 2(א)",
+             "url": "https://www.gov.il/he/pages/convalescence-pay?chapterIndex=2"},
+            {"from": "2023-07-01", "rate": 418.0, "label_he": "מ-1.7.2023",
+             "source_he": "צו הרחבה בדבר השתתפות המעסיק בהוצאות הבראה ונופש, ילקוט הפרסומים 11651, 20.9.2023, סעיף 3",
+             "url": gov + "11651/he/workers-rights_work-relations_11651.pdf"},
+            {"from": "2026-01-01", "rate": 451.5, "label_he": "שנת ההבראה 2026",
+             "source_he": "צו הרחבה בדבר השתתפות המעסיק בהוצאות הבראה ונופש, ילקוט הפרסומים 14863, 18.8.2026, סעיף 3",
+             "url": gov + "order14863/he/workers-rights_order14863.pdf"},
+        ],
+        "freezes": [
+            {"year": 2024, "law_he": "חוק הקפאה והפחתה של דמי הבראה בשנת 2024 לשם תקצוב הטבות לחיילי מילואים, התשפ\"ד-2024",
+             "section": "סעיף 2(א)", "url": law_2024},
+            {"year": 2025, "law_he": "חוק הקפאה והפחתה של דמי הבראה בשנת 2025, התשפ\"ה-2025",
+             "section": "סעיף 2(א)", "url": law_2025},
+        ],
+        "deductions": [
+            {"year": 2024, "days": 1, "half_salary_max": 6000, "half_months_he": "ינואר עד מרץ 2024", "half_requires_five_days": True,
+             "law_he": "חוק הקפאה והפחתה של דמי הבראה בשנת 2024 לשם תקצוב הטבות לחיילי מילואים, התשפ\"ד-2024",
+             "gazette_he": "ספר החוקים 3180, 18.3.2024", "sections": "סעיפים 1, 3(א) ו-8", "url": law_2024},
+            {"year": 2025, "days": 1, "half_salary_max": 6150, "half_months_he": "אוקטובר עד דצמבר 2024", "half_requires_five_days": False,
+             "price_min": 418.0, "price_max": 471.4,
+             "law_he": "חוק הקפאה והפחתה של דמי הבראה בשנת 2025, התשפ\"ה-2025",
+             "gazette_he": "ספר החוקים 3384, 27.3.2025 (פרק ז')", "sections": "סעיפים 1, 3(א) ו-8", "url": law_2025},
+        ],
+        # Comparison only: public-sector havraa follows public-sector agreements, not this order.
+        "public_rates": [
+            {"year": 2024, "rate": 471.4, "scope_he": "עובדי המדינה, למעט דירוג רופאים",
+             "source_he": "אגף החשב הכללי, 'דמי הבראה, ביגוד ומענק יובל'",
+             "url": "https://www.gov.il/he/pages/clothing-and-service-bonus"},
+            {"year": 2025, "rate": 471.4, "scope_he": "הסכום של 2024 נשמר",
+             "source_he": "חוק הקפאה והפחתה של דמי הבראה בשנת 2025, סעיף 2(א): הסכום של 2024 נשמר",
+             "url": law_2025},
+            {"year": 2026, "rate": 511.6, "scope_he": "עובדי הוראה",
+             "source_he": "משרד החינוך, חוזר לבעלויות תשפ\"ו/7, 22.6.2026",
+             "url": "https://meyda.education.gov.il/files/Sherut/manakyovelh.pdf"},
+        ],
+        "limitation_years": 7,
+        "limitation_he": "חוק ההתיישנות, התשי\"ח-1958, סעיפים 5(1) ו-6",
+        "limitation_url": "https://www.nevo.co.il/law_html/law00/71809.htm",
+        "labor_court_he": "חוק בית הדין לעבודה, התשכ\"ט-1969, סעיף 24(א)(1)",
+        "labor_court_url": "https://www.nevo.co.il/law_html/law01/042_001.htm",
+    }
+
+
+def build_small_claims(checked_on: str) -> dict:
+    """Small claims (T05, HAD-490): the ceiling notice and the fee rule from the Courts Authority's
+    fee guide on gov.il, the procedure rules from the regulations' consolidated text, the court rules
+    from the Courts Law; read on checked_on."""
+    return {
+        "name_he": "בית המשפט לתביעות קטנות",
+        "publisher_he": "הרשות השופטת",
+        "source_name": "הרשות השופטת, מדריך האגרות: אגרות בבתי המשפט לתביעות קטנות",
+        "source_url": "https://www.gov.il/he/pages/fee_guide?chapterIndex=3",
+        "service_url": "https://www.gov.il/he/service/filing_a_small_claim",
+        "checked_on": checked_on,
+        "refresh_every_days": 365,
+        "next_update": "2027-01-01",
+        "ceiling": [
+            {"from": "2026-01-01", "amount": 39900, "notice_date": "2025-12-22",
+             "source_he": "הודעת מנהל בתי המשפט מיום 22.12.2025 לפי סעיף 2(ג) לצו בתי המשפט (שינוי סכום התביעה בתביעות קטנות), התשס\"ח-2008",
+             "url": "https://www.gov.il/BlobFolder/guide/fee_guide/he/8869-11-19_fees_scf1126.pdf"},
+        ],
+        "fee": {"pct": 1, "min": 50, "round_up_to": 5,
+                "regulation_he": "תקנות שיפוט בתביעות קטנות (סדרי דין), התשל\"ז-1976",
+                "section": "תקנה 6(א)",
+                "regulation_url": "https://www.nevo.co.il/law_html/law00/98563.htm"},
+        "law_he": "חוק בתי המשפט [נוסח משולב], התשמ\"ד-1984",
+        "law_url": "https://www.nevo.co.il/law_html/law00/74849.htm",
+        "max_claims_per_year": 5,
+        "deadlines": {"defence_days": 30, "service_check_days_before": 60, "plaintiff_service_days_before": 40,
+                      "witness_request_days_before": 60, "interpreter_days_before": 7, "set_aside_days": 30},
+        "claim_body_max_pages": 5,
+        "online_max_plaintiffs": 5,
+        "online_max_defendants": 5,
+        "limitation_years": 7,
+        "limitation_he": "חוק ההתיישנות, התשי\"ח-1958, סעיפים 5(1) ו-6",
+        "limitation_url": "https://www.nevo.co.il/law_html/law00/71809.htm",
+        "labor_court_he": "חוק בית הדין לעבודה, התשכ\"ט-1969, סעיף 24(א)(1)",
+        "labor_court_url": "https://www.nevo.co.il/law_html/law01/042_001.htm",
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--checked-on", required=True)
@@ -210,12 +320,18 @@ def main() -> int:
         "cpi": build_cpi(cpi_raw, args.checked_on),
         "interest": build_interest(histories, args.checked_on),
         "min_wage": build_minwage(page, args.checked_on),
+        "havraa": build_havraa(args.checked_on),
+        "small_claims": build_small_claims(args.checked_on),
     }
     text = json.dumps(registry, ensure_ascii=False, indent=1)
     # One CPI month per line ("YYYY-MM", value) and one rate row per line keep reviews readable.
     text = re.sub(r'\[\n\s*("\d{4}-\d{2}"),\n\s*([\d.]+)\n\s*\]', r'[\1, \2]', text)
     text = re.sub(r'\{\n\s*("from": "[\d-]+"),\n\s*("rate": [\d.]+)\n\s*\}', r'{\1, \2}', text)
-    Path(args.out).write_text(text + "\n", encoding="utf-8")
+    # One havraa seniority band per line: [first work year, last work year, days].
+    text = re.sub(r'\[\n\s*(\d+),\n\s*(\d+|null),\n\s*(\d+)\n\s*\]', r'[\1, \2, \3]', text)
+    # LF on every platform: CI rejects CRLF (git diff --check), and Windows would otherwise write CRLF.
+    with open(args.out, "w", encoding="utf-8", newline="\n") as handle:
+        handle.write(text + "\n")
     print(f"wrote {args.out}: CPI to {registry['cpi']['latest_month']}, "
           f"{len(registry['interest']['linked'])} interest quarters, {len(registry['min_wage']['rows'])} minimum-wage rows")
     return 0

@@ -253,7 +253,9 @@ export function compute(registry, input) {
 		if (v.valueOn > lastJuly && v.valueOn.slice(0, 4) > String(last)) {
 			return { ok: false, outOfScope: true, errors: [{ field: 'end', he: `מחיר יום ההבראה לשנת ${v.valueOn.slice(0, 4)} עוד לא פורסם. הכלי מחשב עד שנת ${last}.` }] };
 		}
-		v.barred = v.to < limitFrom;
+		// Limitation runs from when the year's payment fell due (the 1 July it is valued at, or the last day of work),
+		// not from the end of the work year (Limitation Law s.6: from the day the cause of action arose).
+		v.barred = v.valueOn < limitFrom;
 		if (input.valuation === 'latest' && !v.barred) {
 			const latest = hv.private_rates[hv.private_rates.length - 1];
 			v.price = latest.rate; v.priceFrom = latest.from; v.gross = round2(v.daysDue * latest.rate);
@@ -263,7 +265,7 @@ export function compute(registry, input) {
 	}
 	const live = valued.filter((v) => !v.barred);
 	if (valued.some((v) => v.barred)) {
-		flags.push({ code: 'limitation', he: `שנות עבודה שהסתיימו לפני ${limitFrom.split('-').reverse().map(Number).join('.')} עברו את 7 שנות ההתיישנות (חוק ההתיישנות, סעיפים 5(1) ו-6), ולכן לא נכללו בסכום.` });
+		flags.push({ code: 'limitation', he: `דמי הבראה שמועד תשלומם היה לפני ${limitFrom.split('-').reverse().map(Number).join('.')} עברו את 7 שנות ההתיישנות (חוק ההתיישנות, סעיפים 5(1) ו-6), ולכן לא נכללו בסכום.` });
 	}
 	if (live.some((v) => v.deduction > 0)) {
 		flags.push({ code: 'deduction', he: 'ב-2024 וב-2025 החוק חייב את המעסיק לנכות יום הבראה אחד מדמי ההבראה ששולמו באותה שנה ולהעביר אותו למדינה. החלק שנוכה לא משולם לעובד גם אחר כך (סעיף 8 בכל אחד מהחוקים).' });

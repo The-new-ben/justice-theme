@@ -359,7 +359,7 @@ function toIso(text) {
 function renderForm(reg, input) {
 	const chip = (name, value, label, checked, type = 'radio') => `<label class="jtool-chip"><input type="${type}" name="${P}-${name}" value="${value}"${checked ? ' checked' : ''}><span>${esc(label)}</span></label>`;
 	const amt = `<div class="jtool-field"><label class="jtool-label" for="${P}-amt">סכום התביעה</label><div class="jtool-input jtool-input--money"><input id="${P}-amt" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.amount ? money(input.amount, input.amount % 1 ? 2 : 0) : '')}" placeholder="לדוגמה: 12,000" aria-describedby="${P}-amt-h ${P}-amt-e"><span class="jtool-input__suffix" aria-hidden="true">₪</span></div>`
-		+ `<p class="jtool-hint" id="${P}-amt-h">${input.mode === 'fee' ? `מעל ${money(reg.small_claims.ceiling[reg.small_claims.ceiling.length - 1].amount, 0)} ₪ זו כבר לא תביעה קטנה.` : 'בתביעה להחלפת מוצר, תיקון או ביטול עסקה: שווי המוצר או העסקה'}</p><p class="jtool-error" id="${P}-amt-e" role="alert"></p></div>`;
+		+ `<p class="jtool-hint" id="${P}-amt-h">${input.mode === 'fee' ? `התקרה מ-${isoToHe(reg.small_claims.ceiling[reg.small_claims.ceiling.length - 1].from)}: ${money(reg.small_claims.ceiling[reg.small_claims.ceiling.length - 1].amount, 0)} ₪ (מתעדכנת ב-1 בינואר). מעליה זו לא תביעה קטנה.` : 'בתביעה להחלפת מוצר, תיקון או ביטול עסקה: שווי המוצר או העסקה'}</p><p class="jtool-error" id="${P}-amt-e" role="alert"></p></div>`;
 	if (input.mode === 'fee') {
 		return amt + `<div class="jtool-field"><span class="jtool-label" id="${P}-ex-l">דוגמאות</span><div class="jtool-chips" role="group" aria-labelledby="${P}-ex-l">${[3000, 5001, 25010].map((a) => `<button class="jtool-btn" type="button" data-amount="${a}">${money(a, 0)} ₪</button>`).join('')}</div></div>`;
 	}
@@ -487,7 +487,9 @@ function renderDetails(reg, r, compareR) {
 	if (!r.ok) { return ''; }
 	const sc = reg.small_claims;
 	if (r.mode === 'fee') { return ''; }
-	let out = `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-fee-h">האגרה, שורה אחרי שורה</h3></div><ol class="jtool-steps">${feeLines(reg, r).map((l) => `<li>${l}</li>`).join('')}</ol></div>`;
+	let out = r.verdict === 'no'
+		? `<p class="jtool-scope" id="${P}-fee-h" tabindex="-1">אגרת תביעות קטנות לא חלה על תביעה שלא מוגשת שם. בבית המשפט ${r.forum === 'district' ? 'המחוזי' : 'השלום'} האגרה אחרת, והכלי לא מחשב אותה.</p>`
+		: `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-fee-h">האגרה, שורה אחרי שורה</h3></div><ol class="jtool-steps">${feeLines(reg, r).map((l) => `<li>${l}</li>`).join('')}</ol></div>`;
 	if (r.dates.length) {
 		const rows = r.dates.map((d) => { const [what, src] = DATE_TEXT[d.rule](reg); return `<tr${d.past ? ' class="jtool-muted"' : ''}><td data-th="עד תאריך"><bdi>${isoToHe(d.date)}</bdi>${d.past ? ' (עבר)' : d.soon ? ' (בקרוב)' : ''}</td><td data-th="מה עושים">${esc(what)}</td><td data-th="הכלל">${src}</td></tr>`; }).join('');
 		out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-dl-h">המועדים שלכם</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="ics">הוספה ליומן (.ics)</button></div></div>`
@@ -496,7 +498,7 @@ function renderDetails(reg, r, compareR) {
 	} else {
 		out += `<p class="jtool-scope" id="${P}-dl-h" tabindex="-1">רוצים את המועדים? פתחו "תאריכים" בטופס והזינו את יום האירוע ומועד הדיון.</p>`;
 	}
-	if (compareR && compareR.ok) {
+	if (compareR && compareR.ok && r.verdict !== 'no') {
 		out += `<div class="jtool-compare" data-compare><h3>מה אם: סכום אחר</h3>`
 			+ `<div class="jtool-field" style="margin-bottom:12px"><label class="jtool-label" for="${P}-cmp">סכום לבדיקה בעמודה ב'</label><div class="jtool-input jtool-input--money"><input id="${P}-cmp" type="text" inputmode="decimal" autocomplete="off" data-compare-amount value="${esc(money(compareR.amount, compareR.amount % 1 ? 2 : 0))}"><span class="jtool-input__suffix" aria-hidden="true">₪</span></div></div>`
 			+ `<div data-compare-out>${renderCompareOut(r, compareR)}</div></div>`;

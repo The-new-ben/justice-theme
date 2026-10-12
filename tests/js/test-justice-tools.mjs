@@ -13,6 +13,7 @@ import * as T04 from '../../assets/js/tools/hatzmada-engine.js';
 import * as T02 from '../../assets/js/tools/minwage-engine.js';
 import * as T03 from '../../assets/js/tools/havraa-engine.js';
 import * as T05 from '../../assets/js/tools/tviot-engine.js';
+import * as T05UI from '../../assets/js/tools/tviot-ui.js';
 import { encodeState, decodeState, decodeList, parseMoney, csv, ics, isStale, track } from '../../assets/js/tools/instrument.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -232,7 +233,7 @@ check(hv.ok && hv.rows[0].full === 5 && hv.rows[0].deduction === 209 && hv.gap =
 hv = T03.compute(reg, { mode: 'period', start: '2026-01-01', end: '2026-06-30', asOf: '2026-10-12', jobPct: 100 });
 check(hv.ok && hv.state === 'not_eligible' && hv.gap === 0, 'less than a year of work: no havraa under the order (s.5(ב))');
 hv = T03.compute(reg, { mode: 'period', start: '2015-01-01', end: '', asOf: '2026-10-12', jobPct: 100 });
-check(hv.ok && hv.flags.some((f) => f.code === 'limitation') && hv.rows.filter((v) => v.barred).length === 4 && hv.limitFrom === '2019-10-12', 'years that ended more than 7 years ago are barred (Limitation Law s.5(1), s.6)');
+check(hv.ok && hv.flags.some((f) => f.code === 'limitation') && hv.rows.filter((v) => v.barred).length === 5 && hv.rows[4].valueOn === '2019-07-01' && hv.rows[4].barred && !hv.rows[5].barred && hv.limitFrom === '2019-10-12', 'a year whose payment fell due more than 7 years ago is barred, counted from its due date (Limitation Law s.5(1), s.6)');
 check(T03.compute(reg, { mode: 'year', years: 3, sector: 'public' }).outOfScope === true, 'public sector is out of scope');
 check(T03.compute(reg, { mode: 'year', years: 3, havraaYear: 2027 }).outOfScope === true, 'a havraa year with no published price is refused, never guessed');
 check(!T03.compute(reg, { mode: 'period', start: '2024-01-01', end: '2026-12-31', asOf: '2026-10-12' }).ok, 'an end date after today is an input error');
@@ -285,6 +286,16 @@ check(T05.compute(reg, { mode: 'full', amount: 39950, plaintiff: 'individual', o
 // Review fix (PR 123, second pass): the court for a claim that is not a small claim (Courts Law s.51(א)(2), s.40(1)).
 check(T05.compute(reg, { mode: 'full', amount: 45000, on: '2026-10-12' }).forum === 'magistrate' && T05.compute(reg, { mode: 'full', amount: 2500000, on: '2026-10-12' }).forum === 'magistrate', 'up to 2,500,000 NIS: magistrate court');
 check(T05.compute(reg, { mode: 'full', amount: 3000000, on: '2026-10-12' }).forum === 'district', 'above 2,500,000 NIS: district court');
+// Review fix (PR 123, third pass): no small-claims fee breakdown or fee what-if for a claim that does not belong there,
+// and the fee page's hint carries the ceiling's date.
+{
+	const no = T05.compute(reg, { mode: 'full', amount: 12748, plaintiff: 'company', on: '2026-10-12' });
+	const html = T05UI.renderDetails(reg, no, T05.compute(reg, { mode: 'full', amount: 39900, plaintiff: 'company', on: '2026-10-12' }));
+	check(!html.includes('האגרה, שורה אחרי שורה') && !html.includes('data-compare') && html.includes('לא חלה'), 'a rejected claim shows no small-claims fee breakdown and no fee what-if');
+	const yes = T05.compute(reg, { mode: 'full', amount: 12748, plaintiff: 'individual', on: '2026-10-12' });
+	check(T05UI.renderDetails(reg, yes, null).includes('האגרה, שורה אחרי שורה'), 'an eligible claim keeps its fee breakdown');
+	check(T05UI.renderForm(reg, { mode: 'fee', amount: 39900 }).includes('התקרה מ-1.1.2026: 39,900'), 'the fee page hint names the ceiling with its date');
+}
 check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T05.compute(reg, { mode: 'full', amount: 100, hearingDate: '31.2.2027', on: '2026-10-12' }).ok, 'zero amount and impossible dates are input errors');
 
 if (failures) {

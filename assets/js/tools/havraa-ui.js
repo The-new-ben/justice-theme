@@ -120,7 +120,7 @@ export function pathLines(reg, r) {
 		? `כל השנים לפי המחיר האחרון שפורסם, <bdi>${money(hv.private_rates[hv.private_rates.length - 1].rate)}</bdi> ₪, בלי ניכוי`
 		: `כל שנה לפי מחיר יום ההבראה ב-1 ביולי שבתוכה (התשלום ביוני עד ספטמבר): 378 ₪ משנת 2014, 418 ₪ מ-1.7.2023, ${money(hv.private_rates[hv.private_rates.length - 1].rate)} ₪ לשנת ${hv.private_rates[hv.private_rates.length - 1].from.slice(0, 4)}${orderCite(reg, 'סעיף 5(ד)')}`);
 	if (r.deduction) { lines.push(`ב-2024 וב-2025: פחות יום הבראה שהחוק ניכה (${money(r.deduction)} ₪ בסך הכול)${cite('חוקי 2024 ו-2025, סעיפים 3(א) ו-8', dedFor(reg, 2025).url)}`); }
-	if (r.flags.some((f) => f.code === 'limitation')) { lines.push(`שנים שהסתיימו לפני <bdi>${isoToHe(r.limitFrom)}</bdi> לא נכללו: 7 שנות התיישנות${cite('חוק ההתיישנות, סעיפים 5(1) ו-6', hv.limitation_url)}`); }
+	if (r.flags.some((f) => f.code === 'limitation')) { lines.push(`שנים שמועד התשלום שלהן היה לפני <bdi>${isoToHe(r.limitFrom)}</bdi> לא נכללו: 7 שנות התיישנות ממועד התשלום${cite('חוק ההתיישנות, סעיפים 5(1) ו-6', hv.limitation_url)}`); }
 	lines.push(`<bdi>${money(r.gross)}${r.deduction ? ` − ${money(r.deduction)}` : ''}${r.paid ? ` − ${money(r.paid)} ששולמו` : ''} = ${money(r.state === 'paid' ? 0 : r.gap)}</bdi> ₪`);
 	return lines;
 }

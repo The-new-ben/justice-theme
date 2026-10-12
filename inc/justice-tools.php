@@ -336,9 +336,12 @@ function justice_tools_shortcode( $atts ): string {
 		. '<button class="jtool-btn" type="button" data-act="save">שמירה במכשיר הזה</button>'
 		. '</div><p class="jtool-toast" data-jtool-toast role="status" aria-live="polite"></p>';
 
+	// The tool title is a heading by role, not an <h2> tag: a plugin outside this repo inserts the page's
+	// "בעמוד הזה" table of contents right before the first <h2> in the content, and with an <h2> title it
+	// landed inside the tool card and pushed the form below the fold (HAD-487). The TOC now starts after the tool.
 	$html  = '1' === (string) $atts['answer'] ? justice_tools_answer( $name ) : '';
 	$html .= '<section class="jtool" id="' . esc_attr( $id ) . '" data-jtool="' . esc_attr( $name ) . '" data-jtool-data="' . esc_attr( $id ) . '-data" aria-labelledby="' . esc_attr( $id ) . '-title">'
-		. '<div class="jtool__head"><div><h2 class="jtool__title" id="' . esc_attr( $id ) . '-title">' . esc_html( $tool['title'] ) . '</h2><p class="jtool__promise">' . esc_html( $tool['promise'] ) . '</p></div>'
+		. '<div class="jtool__head"><div><div class="jtool__title" role="heading" aria-level="2" id="' . esc_attr( $id ) . '-title">' . esc_html( $tool['title'] ) . '</div><p class="jtool__promise">' . esc_html( $tool['promise'] ) . '</p></div>'
 		. '<a class="jtool-stamp" href="#' . esc_attr( $id ) . '-sources"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>' . esc_html( justice_tools_stamp( $name ) ) . '</a></div>'
 		. '<p class="jtool-scope" data-jtool-shared hidden style="margin:12px 24px 0 !important">נפתח מקישור שיתוף. התשובות נטענו מהקישור ולא נשמרו אצלנו, והחישוב רץ שוב עם הנתונים העדכניים.</p>'
 		. '<p class="jtool-scope" data-jtool-saved hidden style="margin:12px 24px 0 !important">יש חישוב שמור במכשיר הזה. <button class="jtool-linkbtn" type="button" data-act="restore">לטעון אותו</button> <button class="jtool-linkbtn" type="button" data-act="clear">למחוק</button></p>'

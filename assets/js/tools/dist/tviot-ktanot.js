@@ -488,7 +488,7 @@ function renderDetails(reg, r, compareR) {
 	const sc = reg.small_claims;
 	if (r.mode === 'fee') { return ''; }
 	let out = r.verdict === 'no'
-		? `<p class="jtool-scope" id="${P}-fee-h" tabindex="-1">אגרת תביעות קטנות לא חלה על תביעה שלא מוגשת שם. בבית המשפט ${r.forum === 'district' ? 'המחוזי' : 'השלום'} האגרה אחרת, והכלי לא מחשב אותה.</p>`
+		? `<p class="jtool-scope" id="${P}-fee-h" tabindex="-1">אגרת תביעות קטנות לא חלה על תביעה שלא מוגשת שם. ${r.forum === 'district' ? 'בבית המשפט המחוזי' : 'בבית משפט השלום'} האגרה אחרת, והכלי לא מחשב אותה.</p>`
 		: `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-fee-h">האגרה, שורה אחרי שורה</h3></div><ol class="jtool-steps">${feeLines(reg, r).map((l) => `<li>${l}</li>`).join('')}</ol></div>`;
 	if (r.dates.length) {
 		const rows = r.dates.map((d) => { const [what, src] = DATE_TEXT[d.rule](reg); return `<tr${d.past ? ' class="jtool-muted"' : ''}><td data-th="עד תאריך"><bdi>${isoToHe(d.date)}</bdi>${d.past ? ' (עבר)' : d.soon ? ' (בקרוב)' : ''}</td><td data-th="מה עושים">${esc(what)}</td><td data-th="הכלל">${src}</td></tr>`; }).join('');

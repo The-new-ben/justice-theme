@@ -216,8 +216,16 @@ export function compute(registry, input) {
 			errors.push({ field: 'leaves', row: i, he: `תקופת חופשה ללא תשלום ${i + 1}: צריך תאריך התחלה וסיום תקינים, בתוך תקופת העבודה` });
 			return;
 		}
-		leaves.push({ from: a, to: b });
+		leaves.push({ from: a, to: b, row: i });
 	});
+	// Overlapping periods would count the same months twice: refuse them instead of guessing which one is right.
+	const sorted = [...leaves].sort((x, y) => (x.from < y.from ? -1 : x.from > y.from ? 1 : 0));
+	for (let i = 1; i < sorted.length; i++) {
+		if (sorted[i].from <= sorted[i - 1].to) {
+			errors.push({ field: 'leaves', row: sorted[i].row, he: `תקופות החופשה ללא תשלום ${sorted[i - 1].row + 1} ו-${sorted[i].row + 1} חופפות. אחדו אותן לתקופה אחת.` });
+			break;
+		}
+	}
 	if (errors.length) { return { ok: false, errors }; }
 	if (start < hv.private_rates[0].from) {
 		flags.push({ code: 'before_table', he: `העבודה התחילה לפני ${Number(hv.private_rates[0].from.slice(0, 4))}. שנים מוקדמות יותר ממילא מחוץ לתקופת ההתיישנות של 7 שנים, והכלי לא מחשב אותן.` });

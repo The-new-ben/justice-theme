@@ -45,6 +45,16 @@ if ( in_array( '--fee-only', $argv ?? array(), true ) ) {
 	exit( 0 );
 }
 
+// A child run on 2.1.2027: the 2026 ceiling is past its update date and no new row exists.
+if ( in_array( '--after-update', $argv ?? array(), true ) ) {
+	define( 'JUSTICE_TOOLS_TODAY', '2027-01-02' );
+	$html = $jt_shortcodes['justice_tool']( array( 'name' => 'tviot-ktanot' ) );
+	$box  = substr( $html, 0, (int) strpos( $html, '<section' ) );
+	$ok   = false !== strpos( $box, 'מתעדכנת ב-1 בינואר' ) && false === strpos( $box, 'אפשר להגיש עד' ) && false !== strpos( $html, 'ייתכן שהתקרה התעדכנה' );
+	echo $ok ? 'AFTER-OK' : 'AFTER-FAIL';
+	exit( 0 );
+}
+
 $failures = 0;
 function check( bool $ok, string $what ): void {
 	global $failures;
@@ -219,6 +229,9 @@ check( '' === $h3( array( 'name' => 'tviot-ktanot', 'mode' => 'fee' ) ), 'one T0
 // The fee-only page is a separate request; reset the once-per-page guard by loading a fresh process copy.
 $feehtml = shell_exec( escapeshellarg( PHP_BINARY ) . ' ' . escapeshellarg( __FILE__ ) . ' --fee-only' );
 check( is_string( $feehtml ) && false !== strpos( $feehtml, 'FEE-OK' ), 'fee-only mode renders on its own page (see the --fee-only branch)' );
+$after = shell_exec( escapeshellarg( PHP_BINARY ) . ' ' . escapeshellarg( __FILE__ ) . ' --after-update' );
+check( is_string( $after ) && false !== strpos( $after, 'AFTER-OK' ), 'after 1.1.2027 with no new ceiling row the answer box does not present 39,900 as the current ceiling' );
+check( false !== strpos( $t5, 'תקרה 39,900 ₪ מ-1.1.2026 · נבדק 12.10.2026' ) && false === strpos( $t5, 'ייתכן שהתקרה התעדכנה' ), 'before the update date the stamp is plain' );
 
 $numbers3 = $sec( array( 'name' => 'havraa', 'part' => 'numbers' ) );
 check( false !== strpos( $numbers3, '451.50' ) && false !== strpos( $numbers3, '418.00' ) && false !== strpos( $numbers3, '378.00' ) && false !== strpos( $numbers3, 'ספר החוקים 3384' ), 'T03 numbers: price per havraa year with the deduction law' );

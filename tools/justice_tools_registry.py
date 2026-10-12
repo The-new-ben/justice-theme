@@ -280,6 +280,11 @@ def build_small_claims(checked_on: str) -> dict:
         "law_he": "חוק בתי המשפט [נוסח משולב], התשמ\"ד-1984",
         "law_url": "https://www.nevo.co.il/law_html/law00/74849.htm",
         "max_claims_per_year": 5,
+        # Where a claim goes when it is not a small claim: Courts Law s.51(א)(2) (magistrate court, civil claims
+        # other than land up to 2,500,000 NIS on the filing day) and s.40(1) (district court, the rest).
+        "magistrate_max": 2500000,
+        "magistrate_section": "סעיף 51(א)(2)",
+        "district_section": "סעיף 40(1)",
         "deadlines": {"defence_days": 30, "service_check_days_before": 60, "plaintiff_service_days_before": 40,
                       "witness_request_days_before": 60, "interpreter_days_before": 7, "set_aside_days": 30},
         "claim_body_max_pages": 5,

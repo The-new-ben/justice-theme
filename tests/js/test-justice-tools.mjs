@@ -246,6 +246,8 @@ hv = T03.compute(reg, { mode: 'period', start: '2021-03-01', end: '2026-08-31', 
 check(hv.ok && Math.abs(hv.rows[3].leave - 1.5) < 1e-9 && hv.rows[3].daysDue === 6.125, `leave inside work year 4 (1.5 months) cuts its days: ${hv.rows[3].daysDue}`);
 check(!T03.compute(reg, { mode: 'period', start: '2021-03-01', end: '2026-08-31', asOf: '2026-10-12', leaves: [{ from: '2024-03-01', to: '' }] }).ok, 'a half-filled leave row is an error, never dropped');
 check(!T03.compute(reg, { mode: 'period', start: '2021-03-01', end: '2026-08-31', asOf: '2026-10-12', leaves: [{ from: '2020-01-01', to: '2020-02-01' }] }).ok, 'a leave period outside the employment is an error');
+check(!T03.compute(reg, { mode: 'period', start: '2021-03-01', end: '2026-08-31', asOf: '2026-10-12', leaves: [{ from: '2024-01-01', to: '2024-03-31' }, { from: '2024-01-01', to: '2024-03-31' }] }).ok, 'overlapping leave periods are refused, never counted twice');
+check(T03.compute(reg, { mode: 'period', start: '2021-03-01', end: '2026-08-31', asOf: '2026-10-12', leaves: [{ from: '2024-01-01', to: '2024-01-31' }, { from: '2024-02-01', to: '2024-02-29' }] }).ok, 'back-to-back leave periods are fine');
 hv = T03.compute(reg, { mode: 'period', start: '2021-03-01', end: '2026-08-31', asOf: '2026-10-12', lowPay: { 2024: false, 2025: true } });
 check(hv.ok && hv.rows[3].deduction === 418 && hv.rows[4].deduction === 209 && hv.gap === 13471.25, `low pay in 2025 only: half a day in 2025, a full day in 2024 (${hv.gap})`);
 hv = T03.compute(reg, { mode: 'year', years: 4, havraaYear: 2025, lowPay: { 2024: true, 2025: false } });
@@ -280,6 +282,9 @@ check(s5.ok && s5.ceilingUnknown && s5.verdict === 'depends' && s5.conds[1].met 
 s5 = T05.compute(reg, { mode: 'fee', amount: 39950, on: '2027-01-02' });
 check(s5.ok && s5.overCeiling === null && s5.fee === 400, 'fee-only after the update date: the fee still computes, the ceiling check does not');
 check(T05.compute(reg, { mode: 'full', amount: 39950, plaintiff: 'individual', on: '2026-12-31' }).verdict === 'no', 'until 31.12.2026 the 39,900 ceiling decides');
+// Review fix (PR 123, second pass): the court for a claim that is not a small claim (Courts Law s.51(א)(2), s.40(1)).
+check(T05.compute(reg, { mode: 'full', amount: 45000, on: '2026-10-12' }).forum === 'magistrate' && T05.compute(reg, { mode: 'full', amount: 2500000, on: '2026-10-12' }).forum === 'magistrate', 'up to 2,500,000 NIS: magistrate court');
+check(T05.compute(reg, { mode: 'full', amount: 3000000, on: '2026-10-12' }).forum === 'district', 'above 2,500,000 NIS: district court');
 check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T05.compute(reg, { mode: 'full', amount: 100, hearingDate: '31.2.2027', on: '2026-10-12' }).ok, 'zero amount and impossible dates are input errors');
 
 if (failures) {

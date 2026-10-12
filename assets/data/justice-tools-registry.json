@@ -873,6 +873,9 @@
   "law_he": "חוק בתי המשפט [נוסח משולב], התשמ\"ד-1984",
   "law_url": "https://www.nevo.co.il/law_html/law00/74849.htm",
   "max_claims_per_year": 5,
+  "magistrate_max": 2500000,
+  "magistrate_section": "סעיף 51(א)(2)",
+  "district_section": "סעיף 40(1)",
   "deadlines": {
    "defence_days": 30,
    "service_check_days_before": 60,

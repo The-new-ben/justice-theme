@@ -237,6 +237,18 @@ function justice_tools_sc_ceiling( array $sc ): array {
 	return $rows ? $rows[ count( $rows ) - 1 ] : array( 'from' => '', 'amount' => 0 );
 }
 
+/** Today's date (Y-m-d). Tests pin it with the JUSTICE_TOOLS_TODAY constant. */
+function justice_tools_today(): string {
+	return defined( 'JUSTICE_TOOLS_TODAY' ) ? (string) JUSTICE_TOOLS_TODAY : gmdate( 'Y-m-d' );
+}
+
+/** True once the registry's next_update date has come with no newer ceiling row (the ceiling is re-indexed each 1 January). */
+function justice_tools_sc_ceiling_unknown( array $sc ): bool {
+	$ceil = justice_tools_sc_ceiling( $sc );
+	$next = (string) ( $sc['next_update'] ?? '' );
+	return '' !== $next && justice_tools_today() >= $next && (string) $ceil['from'] < $next;
+}
+
 /** Reg. 6(a): 1% rounded UP to a multiple of 5 ₪, never below 50 ₪ (the same rule as tviot-engine.js). */
 function justice_tools_sc_fee( array $sc, float $amount ): float {
 	$step = (int) $sc['fee']['round_up_to'] * 100;
@@ -263,6 +275,13 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 		$sc   = $reg['small_claims'];
 		$ceil = justice_tools_sc_ceiling( $sc );
 		$f    = $sc['fee'];
+		if ( justice_tools_sc_ceiling_unknown( $sc ) ) {
+			// Past the 1 January update with no new row: say what was checked, never present it as today's ceiling.
+			$text = '<strong>תקרת התביעות הקטנות מתעדכנת ב-1 בינואר לפי המדד</strong>, והתקרה החדשה עוד לא נבדקה כאן. התקרה שנבדקה אחרונה: ' . justice_tools_money( $ceil['amount'], 0 ) . ' מ-' . esc_html( justice_tools_he_date( $ceil['from'] ) ) . '. '
+				. 'האגרה היא <bdi>' . esc_html( (string) $f['pct'] ) . '%</bdi> מסכום התביעה, מעוגלת כלפי מעלה לכפולה של <bdi>' . (int) $f['round_up_to'] . '</bdi> ₪, ולא פחות מ-' . justice_tools_money( $f['min'], 0 ) . ' (' . esc_html( $f['section'] ) . ' לתקנות שיפוט בתביעות קטנות). '
+				. 'בדקו את התקרה העדכנית באתר ' . esc_html( $sc['publisher_he'] ) . '. נבדק ' . esc_html( justice_tools_he_date( $sc['checked_on'] ) ) . '.';
+			return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+		}
 		if ( 'fee' === $mode ) {
 			$example = (float) ( justice_tools_snapshot( 'tviot-ktanot' )['input']['amount'] ?? 0 );
 			$text    = '<strong>אגרת תביעה קטנה</strong> היא <bdi>' . esc_html( (string) $f['pct'] ) . '%</bdi> מסכום התביעה, מעוגלת כלפי מעלה לכפולה של <bdi>' . (int) $f['round_up_to'] . '</bdi> ₪ ולא פחות מ-' . justice_tools_money( $f['min'], 0 ) . ': על ' . justice_tools_money( $example, 0 ) . ' משלמים ' . justice_tools_money( justice_tools_sc_fee( $sc, $example ), 0 )
@@ -321,7 +340,8 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 		if ( 'fee' === $mode ) {
 			return $sc['fee']['pct'] . '% · מינימום ' . $sc['fee']['min'] . ' ₪ · נבדק ' . justice_tools_he_date( $sc['checked_on'] ?? '' );
 		}
-		return 'תקרה ' . number_format( (float) $ceil['amount'] ) . ' ₪ מ-' . justice_tools_he_date( $ceil['from'] ) . ' · נבדק ' . justice_tools_he_date( $sc['checked_on'] ?? '' );
+		return 'תקרה ' . number_format( (float) $ceil['amount'] ) . ' ₪ מ-' . justice_tools_he_date( $ceil['from'] ) . ' · נבדק ' . justice_tools_he_date( $sc['checked_on'] ?? '' )
+			. ( justice_tools_sc_ceiling_unknown( $sc ) ? ' · ייתכן שהתקרה התעדכנה' : '' );
 	}
 	if ( 'hatzmada' === $name ) {
 		$linked = justice_tools_latest_rate( $reg['interest']['linked'] ?? array() );

@@ -95,7 +95,7 @@ export function compute(registry, input) {
 		flags.push({ code: 'ceiling_unknown', he: `התקרה מתעדכנת ב-1 בינואר לפי המדד. הכלי עוד לא קיבל את התקרה מ-${sc.next_update.split('-').reverse().map(Number).join('.')}, ולכן לא קובע אם הסכום מתחתיה. התקרה האחרונה שנבדקה: ${ceil.amount.toLocaleString('en-US')} ₪.` });
 	}
 	if (input.mode === 'fee') {
-		return { ok: true, mode: 'fee', amount, ceiling: ceil.amount, ceilingFrom: ceil.from, ceilingUnknown, overCeiling: ceilingUnknown ? null : amount > ceil.amount, fee: f.fee, onePct: f.onePct, rounded: f.rounded, floor: f.floor, flags };
+		return { ok: true, mode: 'fee', forum: amount > sc.magistrate_max ? 'district' : 'magistrate', amount, ceiling: ceil.amount, ceilingFrom: ceil.from, ceilingUnknown, overCeiling: ceilingUnknown ? null : amount > ceil.amount, fee: f.fee, onePct: f.onePct, rounded: f.rounded, floor: f.floor, flags };
 	}
 
 	const plaintiff = PLAINTIFF_KEYS.includes(input.plaintiff) ? input.plaintiff : 'individual';
@@ -131,8 +131,10 @@ export function compute(registry, input) {
 	dates.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
 	for (const d of dates) { d.past = d.date < on; d.soon = !d.past && ms(d.date) - ms(on) <= 30 * DAY; }
 
+	// Not a small claim: a money claim goes to the magistrate court up to its limit, above it to the district court.
+	const forum = amount > sc.magistrate_max ? 'district' : 'magistrate';
 	return {
-		ok: true, mode: 'full', verdict, amount, plaintiff, remedy: input.remedy === 'product' ? 'product' : 'money', claims,
+		ok: true, mode: 'full', verdict, forum, amount, plaintiff, remedy: input.remedy === 'product' ? 'product' : 'money', claims,
 		ceiling: ceil.amount, ceilingFrom: ceil.from, ceilingUnknown, overCeiling: ceilingUnknown ? null : amount > ceil.amount, overBy: ceilingUnknown ? 0 : Math.max(0, Math.round((amount - ceil.amount) * 100) / 100),
 		fee: f.fee, onePct: f.onePct, rounded: f.rounded, floor: f.floor, conds, dates, flags, on,
 	};

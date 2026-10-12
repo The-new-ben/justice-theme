@@ -276,7 +276,7 @@ function compute(registry, input) {
 		flags.push({ code: 'ceiling_unknown', he: `התקרה מתעדכנת ב-1 בינואר לפי המדד. הכלי עוד לא קיבל את התקרה מ-${sc.next_update.split('-').reverse().map(Number).join('.')}, ולכן לא קובע אם הסכום מתחתיה. התקרה האחרונה שנבדקה: ${ceil.amount.toLocaleString('en-US')} ₪.` });
 	}
 	if (input.mode === 'fee') {
-		return { ok: true, mode: 'fee', amount, ceiling: ceil.amount, ceilingFrom: ceil.from, ceilingUnknown, overCeiling: ceilingUnknown ? null : amount > ceil.amount, fee: f.fee, onePct: f.onePct, rounded: f.rounded, floor: f.floor, flags };
+		return { ok: true, mode: 'fee', forum: amount > sc.magistrate_max ? 'district' : 'magistrate', amount, ceiling: ceil.amount, ceilingFrom: ceil.from, ceilingUnknown, overCeiling: ceilingUnknown ? null : amount > ceil.amount, fee: f.fee, onePct: f.onePct, rounded: f.rounded, floor: f.floor, flags };
 	}
 
 	const plaintiff = PLAINTIFF_KEYS.includes(input.plaintiff) ? input.plaintiff : 'individual';
@@ -312,8 +312,10 @@ function compute(registry, input) {
 	dates.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
 	for (const d of dates) { d.past = d.date < on; d.soon = !d.past && ms(d.date) - ms(on) <= 30 * DAY; }
 
+	// Not a small claim: a money claim goes to the magistrate court up to its limit, above it to the district court.
+	const forum = amount > sc.magistrate_max ? 'district' : 'magistrate';
 	return {
-		ok: true, mode: 'full', verdict, amount, plaintiff, remedy: input.remedy === 'product' ? 'product' : 'money', claims,
+		ok: true, mode: 'full', verdict, forum, amount, plaintiff, remedy: input.remedy === 'product' ? 'product' : 'money', claims,
 		ceiling: ceil.amount, ceilingFrom: ceil.from, ceilingUnknown, overCeiling: ceilingUnknown ? null : amount > ceil.amount, overBy: ceilingUnknown ? 0 : Math.max(0, Math.round((amount - ceil.amount) * 100) / 100),
 		fee: f.fee, onePct: f.onePct, rounded: f.rounded, floor: f.floor, conds, dates, flags, on,
 	};
@@ -373,6 +375,9 @@ function renderForm(reg, input) {
 		+ `</details>`;
 }
 
+const FORUM = { magistrate: 'לבית משפט השלום', district: 'לבית המשפט המחוזי' };
+const forumText = (r) => FORUM[r.forum] || FORUM.magistrate;
+
 const COND_TEXT = {
 	plaintiff: (r) => (r.conds[0].met ? 'התובע יחיד (גם עוסק פטור או מורשה). חברה בע"מ לא יכולה לתבוע כאן' : `${CANNOT[r.plaintiff]}: רק יחיד`),
 	amount: (r) => (r.ceilingUnknown ? `${money(r.amount, r.amount % 1 ? 2 : 0)} ₪: התקרה החדשה מ-1 בינואר עוד לא נטענה לכלי (האחרונה: ${money(r.ceiling, 0)} ₪)` : r.overCeiling ? `${money(r.amount, r.amount % 1 ? 2 : 0)} ₪ מעל התקרה של ${money(r.ceiling, 0)} ₪ (מ-${isoToHe(r.ceilingFrom)}) ב-${money(r.overBy, r.overBy % 1 ? 2 : 0)} ₪` : `${money(r.amount, r.amount % 1 ? 2 : 0)} ₪, עד ${money(r.ceiling, 0)} ₪ מ-${isoToHe(r.ceilingFrom)}`),
@@ -385,11 +390,11 @@ const COND_SEC = { s60a: 'סעיף 60(א)', s60a1: 'סעיף 60(א)(1)', s60a2: 
 
 function verdictSentence(r) {
 	const amt = `${amount(r.amount)} ₪`;
-	if (r.mode === 'fee') { return r.overCeiling ? `${amt} מעל התקרה של ${amount(r.ceiling)} ₪, ולכן זו לא תביעה קטנה. אם הייתה: ${amount(r.fee)} ₪.` : `האגרה על תביעה קטנה של ${amt} היא ${amount(r.fee)} ₪${r.floor ? ' (האגרה המינימלית)' : r.rounded !== r.onePct ? ` (1% הוא ${money(r.onePct)} ₪, מעוגל כלפי מעלה)` : ''}.`; }
+	if (r.mode === 'fee') { return r.overCeiling ? `${amt} מעל התקרה של ${amount(r.ceiling)} ₪, ולכן זו לא תביעה קטנה: היא מוגשת ${forumText(r)}, והאגרה שם אחרת.` : `האגרה על תביעה קטנה של ${amt} היא ${amount(r.fee)} ₪${r.floor ? ' (האגרה המינימלית)' : r.rounded !== r.onePct ? ` (1% הוא ${money(r.onePct)} ₪, מעוגל כלפי מעלה)` : ''}.`; }
 	if (r.verdict === 'no') {
-		if (!r.conds[0].met) { return `${CANNOT[r.plaintiff]}. תביעה של ${amt} מוגשת לבית משפט השלום.`; }
+		if (!r.conds[0].met) { return `${CANNOT[r.plaintiff]}. תביעה של ${amt} מוגשת ${forumText(r)}, בסדר דין רגיל.`; }
 		if (!r.conds[4].met) { return 'סכסוך בין עובד למעסיק נדון בבית הדין האזורי לעבודה, ולא בתביעות קטנות.'; }
-		if (r.overCeiling) { return `${amt} מעל התקרה של ${amount(r.ceiling)} ₪. תביעה כזאת מוגשת לבית משפט השלום.`; }
+		if (r.overCeiling) { return `${amt} מעל התקרה של ${amount(r.ceiling)} ₪. תביעה כזאת מוגשת ${forumText(r)}, בסדר דין רגיל.`; }
 		return 'תביעה מכוח זכות שהומחתה לא נדונה בתביעות קטנות.';
 	}
 	const feeText = `האגרה: ${amount(r.fee)} ₪${r.floor ? ' (המינימום)' : ''}.`;
@@ -511,7 +516,7 @@ function renderCompareOut(r, compareR) {
 	const delta = Math.round((compareR.fee - r.fee) * 100) / 100;
 	return `<div class="jtool-compare__grid"><div class="jtool-compare__col"><p>א. ${esc(money(r.amount, r.amount % 1 ? 2 : 0))} ₪</p><strong>${ils(r.fee, 0)}</strong></div>`
 		+ `<div class="jtool-compare__col jtool-compare__col--b"><p>ב. ${esc(money(compareR.amount, compareR.amount % 1 ? 2 : 0))} ₪${compareR.overCeiling ? ', מעל התקרה' : ''}</p><strong>${compareR.overCeiling ? 'לא תביעה קטנה' : ils(compareR.fee, 0)}</strong></div></div>`
-		+ `<p class="jtool-delta" aria-live="polite">${compareR.overCeiling ? `מעל ${money(compareR.ceiling, 0)} ₪ מגישים לבית משפט השלום.` : `ההפרש באגרה: ${ils(Math.abs(delta), 0)}.`}</p>`;
+		+ `<p class="jtool-delta" aria-live="polite">${compareR.overCeiling ? `מעל ${money(compareR.ceiling, 0)} ₪ מגישים ${forumText(compareR)}.` : `ההפרש באגרה: ${ils(Math.abs(delta), 0)}.`}</p>`;
 }
 
 function compareFor(reg, input) {

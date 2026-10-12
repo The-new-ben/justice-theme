@@ -1,7 +1,8 @@
 <?php
 /**
- * The co.il tools program, wave 1 (HAD-485): the "instrument" shell, T04 (CPI linkage and the
- * Interest Adjudication Law) and T02 (minimum wage back-pay).
+ * The co.il tools program: the "instrument" shell, wave 1 (HAD-485): T04 (CPI linkage and the
+ * Interest Adjudication Law) and T02 (minimum wage back-pay); wave 2 (HAD-490): T03 (recuperation
+ * pay) and T05 (small claims: fit, fee, deadlines, claim structure, rehearsal; fee-only mode).
  *
  * Extends the legal-tools framework that already lives here: [jt_fee_calculator]
  * (inc/fee-calculator.php), the /legal-tools/ hub and its HAD-454 hero (inc/legal-tools-app.php),
@@ -12,10 +13,15 @@
  * Shortcodes (no page is created by this file; placing them is an editor step):
  *   [justice_tool name="hatzmada"]                       answer box + instrument
  *   [justice_tool name="sachar-minimum" answer="0"]       instrument without the answer box
+ *   [justice_tool name="havraa"]                         T03, recuperation pay
+ *   [justice_tool name="tviot-ktanot"]                   T05, small claims (full instrument)
+ *   [justice_tool name="tviot-ktanot" mode="fee"]        T05, fee only (/small-claims-fee-calculator/)
  *   [justice_tool_section name="hatzmada" part="method"]  part: method | numbers | compare | sources | updated
+ *                                                         (add mode="fee" for the fee-only page's method)
  *   [justice_tools_index]                                 hub cards with the data stamp
  *
- * Claude Design board: https://claude.ai/artifact/JHKhphmy9L1QbYYUk2KX4e
+ * Claude Design boards: https://claude.ai/artifact/JHKhphmy9L1QbYYUk2KX4e (wave 1),
+ * https://claude.ai/artifact/759KGxB7GDSy5NHaajW8sJ (wave 2)
  *
  * @package JusticeTheme
  */
@@ -85,7 +91,74 @@ function justice_tools_catalog(): array {
 			'lawyer'    => array( 'label' => 'עורך דין דיני עבודה', 'path' => '/israeli-labor-law/' ),
 			'sticky'    => 'חסר',
 		),
+		// Wave 2 (HAD-490). Board: https://claude.ai/artifact/759KGxB7GDSy5NHaajW8sJ
+		'havraa'         => array(
+			'name'      => 'מחשבון דמי הבראה',
+			'title'     => 'מחשבון דמי הבראה לפי צו ההרחבה',
+			'promise'   => 'כמה ימים ובכמה, לשנה הזאת או לכל התקופה, כולל מה שלא שולם ומכתב דרישה.',
+			'question'  => 'כמה דמי הבראה מגיעים לי, לפי ותק ואחוז משרה?',
+			'page'      => '/havraa-pay-calculator/',
+			'category'  => 'FinanceApplication',
+			'data'      => array( 'registry_version', 'checked_on', 'havraa' ),
+			'next_text' => 'הצעד הבא: לבדוק בתלוש של יוני עד ספטמבר שהסכום שולם, ואם לא, לשלוח למעסיק מכתב דרישה',
+			'primary'   => array( 'label' => 'הפקת מכתב דרישה', 'act' => 'letter' ),
+			// Conversion to a hearing is 2 in the backlog (below 3), so no rehearsal button here.
+			'rehearse'  => null,
+			'more'      => array( array( 'label' => 'בודק שכר מינימום', 'path' => '/minimum-wage-israel-2025/' ), array( 'label' => 'הצמדה וריבית לחוב', 'path' => '/hatzmada-madad/' ) ),
+			'lawyer'    => array( 'label' => 'עורך דין דיני עבודה', 'path' => '/israeli-labor-law/' ),
+			'sticky'    => 'מגיע',
+		),
+		'tviot-ktanot'   => array(
+			'name'      => 'בודק תביעות קטנות ואגרה',
+			'title'     => 'תביעה קטנה: אפשר? כמה אגרה? עד מתי?',
+			'promise'   => 'בדיקת התאמה, האגרה בעיגול הנכון, המועדים, שלד כתב התביעה ותרגול הדיון.',
+			'question'  => 'האם התביעה שלי מתאימה לתביעות קטנות, וכמה אגרה אשלם?',
+			'page'      => '/small-claims-court-israel/',
+			'category'  => 'LegalApplication',
+			'data'      => array( 'registry_version', 'checked_on', 'small_claims' ),
+			'next_text' => 'הצעד הבא: לתרגל את הדיון מול שופטת וירטואלית, לפני שעומדים מולה באמת',
+			// Conversion 5 (a direct hearing): the rehearsal is the primary next step, after the result.
+			'primary'   => array( 'label' => 'לתרגל את הדיון בתביעה הקטנה', 'rehearse' => true ),
+			'rehearse'  => array( 'label' => 'לתרגל את הדיון בתביעה הקטנה', 'topic' => 'general', 'purpose' => 'court_rehearsal' ),
+			'more'      => array( array( 'label' => 'הגשה באתר הרשות השופטת', 'url' => 'https://www.gov.il/he/service/filing_a_small_claim' ), array( 'label' => 'מחשבון הצמדה וריבית לסכום', 'path' => '/hatzmada-madad/' ) ),
+			'lawyer'    => array( 'label' => 'עורך דין ליטיגציה', 'path' => '/lawyers/' ),
+			'sticky'    => 'אגרה',
+			// The stage bar of a combined tool (design-spec 3, board T05-desktop): check, fee, deadlines, claim, rehearse.
+			'stages'    => array( array( 'אפשר לתבוע כאן?', 'result' ), array( 'האגרה', 'jt5-fee-h' ), array( 'המועדים', 'jt5-dl-h' ), array( 'כתב התביעה', 'jt5-claim-h' ), array( 'תרגול הדיון', 'next' ) ),
+			'modes'     => array(
+				'fee' => array(
+					'name'      => 'מחשבון אגרת תביעה קטנה',
+					'title'     => 'מחשבון אגרת תביעה קטנה',
+					'promise'   => 'האגרה המדויקת, עם העיגול כלפי מעלה שמחשבונים רבים שוכחים.',
+					'question'  => 'כמה אגרה משלמים על תביעה קטנה?',
+					'page'      => '/small-claims-fee-calculator/',
+					'next_text' => 'הצעד הבא: לבדוק שהתביעה בכלל מתאימה לתביעות קטנות, ומה המועדים',
+					'primary'   => array( 'label' => 'בדיקה מלאה, מועדים וכתב תביעה', 'path' => '/small-claims-court-israel/' ),
+					'more'      => array(),
+					'stages'    => array(),
+				),
+			),
+		),
 	);
+}
+
+/** A tool's catalog entry, with a mode's overrides applied (e.g. tviot-ktanot in fee-only mode). */
+function justice_tools_tool( string $name, string $mode = '' ): array {
+	$catalog = justice_tools_catalog();
+	$tool    = $catalog[ $name ] ?? array();
+	if ( '' !== $mode && isset( $tool['modes'][ $mode ] ) ) {
+		$tool = array_merge( $tool, $tool['modes'][ $mode ] );
+	}
+	return $tool;
+}
+
+/** The snapshot of a tool (or of one of its modes), as built by tools/build-justice-tools.mjs. */
+function justice_tools_snapshot( string $name, string $mode = '' ): array {
+	$snap = justice_tools_snapshots()[ $name ] ?? array();
+	if ( '' !== $mode ) {
+		return isset( $snap[ $mode ] ) && is_array( $snap[ $mode ] ) ? $snap[ $mode ] : array();
+	}
+	return $snap;
 }
 
 /** 1.4.2026 from 2026-04-01; 8.2026 from 2026-08. */
@@ -142,9 +215,85 @@ function justice_tools_latest_rate( array $rows ): array {
 	return $rows[ count( $rows ) - 1 ] ?? array( 'from' => '', 'rate' => null );
 }
 
+/** The last private-sector havraa day price and the year it is for. */
+function justice_tools_havraa_latest( array $hv ): array {
+	$rates = $hv['private_rates'] ?? array();
+	$last  = $rates ? $rates[ count( $rates ) - 1 ] : array( 'from' => '', 'rate' => 0 );
+	return array( 'rate' => (float) $last['rate'], 'year' => substr( (string) $last['from'], 0, 4 ), 'row' => $last );
+}
+
+function justice_tools_public_rate( array $hv, int $year ): ?array {
+	foreach ( $hv['public_rates'] ?? array() as $row ) {
+		if ( (int) $row['year'] === $year ) {
+			return $row;
+		}
+	}
+	return null;
+}
+
+/** The small-claims ceiling in force today (the last row of the registry). */
+function justice_tools_sc_ceiling( array $sc ): array {
+	$rows = $sc['ceiling'] ?? array();
+	return $rows ? $rows[ count( $rows ) - 1 ] : array( 'from' => '', 'amount' => 0 );
+}
+
+/** Today's date (Y-m-d). Tests pin it with the JUSTICE_TOOLS_TODAY constant. */
+function justice_tools_today(): string {
+	return defined( 'JUSTICE_TOOLS_TODAY' ) ? (string) JUSTICE_TOOLS_TODAY : gmdate( 'Y-m-d' );
+}
+
+/** True once the registry's next_update date has come with no newer ceiling row (the ceiling is re-indexed each 1 January). */
+function justice_tools_sc_ceiling_unknown( array $sc ): bool {
+	$ceil = justice_tools_sc_ceiling( $sc );
+	$next = (string) ( $sc['next_update'] ?? '' );
+	return '' !== $next && justice_tools_today() >= $next && (string) $ceil['from'] < $next;
+}
+
+/** Reg. 6(a): 1% rounded UP to a multiple of 5 ₪, never below 50 ₪ (the same rule as tviot-engine.js). */
+function justice_tools_sc_fee( array $sc, float $amount ): float {
+	$step = (int) $sc['fee']['round_up_to'] * 100;
+	$pct  = (int) round( $amount * 100 ) * (float) $sc['fee']['pct'] / 100;
+	$fee  = (int) ( ceil( $pct / $step - 1e-9 ) * $step );
+	return max( $fee, (int) $sc['fee']['min'] * 100 ) / 100;
+}
+
 /** The 2-3 sentence answer box (page standard A2), every number read from the registry. */
-function justice_tools_answer( string $name ): string {
+function justice_tools_answer( string $name, string $mode = '' ): string {
 	$reg = justice_tools_registry();
+	if ( 'havraa' === $name && ! empty( $reg['havraa'] ) ) {
+		$hv     = $reg['havraa'];
+		$latest = justice_tools_havraa_latest( $hv );
+		$days   = $hv['days'];
+		$pub    = justice_tools_public_rate( $hv, (int) $latest['year'] );
+		$text   = '<strong>דמי הבראה ' . esc_html( $latest['year'] ) . ' במגזר הפרטי</strong>: ' . justice_tools_money( $latest['rate'] ) . ' ליום הבראה, לפי ' . esc_html( preg_replace( '/^צו הרחבה בדבר השתתפות המעסיק בהוצאות הבראה ונופש, /', 'צו ההרחבה שפורסם ב', (string) $latest['row']['source_he'] ) ) . '. '
+			. 'מספר הימים לפי ותק: <bdi>' . (int) $days[0][2] . '</bdi> בשנה הראשונה ועד <bdi>' . (int) $days[ count( $days ) - 1 ][2] . '</bdi> משנה <bdi>' . (int) $days[ count( $days ) - 1 ][0] . '</bdi>, במשרה חלקית באופן יחסי, והזכאות מתחילה רק אחרי שנת עבודה מלאה. '
+			. ( $pub ? 'בשירות הציבורי ערך יום ההבראה ל-' . esc_html( $latest['year'] ) . ' הוא ' . justice_tools_money( $pub['rate'], 1 ) . ' (' . esc_html( preg_replace( '/,.*$/', '', (string) $pub['source_he'] ) ) . ', ' . esc_html( $pub['scope_he'] ) . '). ' : '' )
+			. 'נבדק ' . esc_html( justice_tools_he_date( $hv['checked_on'] ) ) . '.';
+		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+	}
+	if ( 'tviot-ktanot' === $name && ! empty( $reg['small_claims'] ) ) {
+		$sc   = $reg['small_claims'];
+		$ceil = justice_tools_sc_ceiling( $sc );
+		$f    = $sc['fee'];
+		if ( justice_tools_sc_ceiling_unknown( $sc ) ) {
+			// Past the 1 January update with no new row: say what was checked, never present it as today's ceiling.
+			$text = '<strong>תקרת התביעות הקטנות מתעדכנת ב-1 בינואר לפי המדד</strong>, והתקרה החדשה עוד לא נבדקה כאן. התקרה שנבדקה אחרונה: ' . justice_tools_money( $ceil['amount'], 0 ) . ' מ-' . esc_html( justice_tools_he_date( $ceil['from'] ) ) . '. '
+				. 'האגרה היא <bdi>' . esc_html( (string) $f['pct'] ) . '%</bdi> מסכום התביעה, מעוגלת כלפי מעלה לכפולה של <bdi>' . (int) $f['round_up_to'] . '</bdi> ₪, ולא פחות מ-' . justice_tools_money( $f['min'], 0 ) . ' (' . esc_html( $f['section'] ) . ' לתקנות שיפוט בתביעות קטנות). '
+				. 'בדקו את התקרה העדכנית באתר ' . esc_html( $sc['publisher_he'] ) . '. נבדק ' . esc_html( justice_tools_he_date( $sc['checked_on'] ) ) . '.';
+			return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+		}
+		if ( 'fee' === $mode ) {
+			$example = (float) ( justice_tools_snapshot( 'tviot-ktanot' )['input']['amount'] ?? 0 );
+			$text    = '<strong>אגרת תביעה קטנה</strong> היא <bdi>' . esc_html( (string) $f['pct'] ) . '%</bdi> מסכום התביעה, מעוגלת כלפי מעלה לכפולה של <bdi>' . (int) $f['round_up_to'] . '</bdi> ₪ ולא פחות מ-' . justice_tools_money( $f['min'], 0 ) . ': על ' . justice_tools_money( $example, 0 ) . ' משלמים ' . justice_tools_money( justice_tools_sc_fee( $sc, $example ), 0 )
+				. ', ועל התקרה, ' . justice_tools_money( $ceil['amount'], 0 ) . ' (מ-' . esc_html( justice_tools_he_date( $ceil['from'] ) ) . '), ' . justice_tools_money( justice_tools_sc_fee( $sc, (float) $ceil['amount'] ), 0 ) . '. '
+				. 'המקור: ' . esc_html( $f['section'] ) . ' ל' . esc_html( $f['regulation_he'] ) . ' ומדריך האגרות של ' . esc_html( $sc['publisher_he'] ) . '. נבדק ' . esc_html( justice_tools_he_date( $sc['checked_on'] ) ) . '.';
+			return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+		}
+		$text = '<strong>תביעה קטנה אפשר להגיש עד ' . justice_tools_money( $ceil['amount'], 0 ) . '</strong> מ-' . esc_html( justice_tools_he_date( $ceil['from'] ) ) . ' (הודעת מנהל בתי המשפט, <bdi>' . esc_html( justice_tools_he_date( $ceil['notice_date'] ) ) . '</bdi>). '
+			. 'האגרה היא <bdi>' . esc_html( (string) $f['pct'] ) . '%</bdi> מסכום התביעה, מעוגלת כלפי מעלה לכפולה של <bdi>' . (int) $f['round_up_to'] . '</bdi> ₪, ולא פחות מ-' . justice_tools_money( $f['min'], 0 ) . ' (' . esc_html( $f['section'] ) . ' לתקנות שיפוט בתביעות קטנות). '
+			. 'רק יחיד יכול לתבוע, כולל עוסק פטור או מורשה; חברה בע"מ לא. נבדק ' . esc_html( justice_tools_he_date( $sc['checked_on'] ) ) . '.';
+		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+	}
 	if ( 'hatzmada' === $name && ! empty( $reg['cpi'] ) ) {
 		$cpi      = $reg['cpi'];
 		$latest   = $cpi['latest_month'];
@@ -179,8 +328,21 @@ function justice_tools_answer( string $name ): string {
 	return '';
 }
 
-function justice_tools_stamp( string $name ): string {
+function justice_tools_stamp( string $name, string $mode = '' ): string {
 	$reg = justice_tools_registry();
+	if ( 'havraa' === $name ) {
+		$latest = justice_tools_havraa_latest( $reg['havraa'] ?? array() );
+		return number_format( $latest['rate'], 2 ) . ' ₪ לשנת ' . $latest['year'] . ' · נבדק ' . justice_tools_he_date( $reg['havraa']['checked_on'] ?? '' );
+	}
+	if ( 'tviot-ktanot' === $name ) {
+		$sc   = $reg['small_claims'] ?? array();
+		$ceil = justice_tools_sc_ceiling( $sc );
+		if ( 'fee' === $mode ) {
+			return $sc['fee']['pct'] . '% · מינימום ' . $sc['fee']['min'] . ' ₪ · נבדק ' . justice_tools_he_date( $sc['checked_on'] ?? '' );
+		}
+		return 'תקרה ' . number_format( (float) $ceil['amount'] ) . ' ₪ מ-' . justice_tools_he_date( $ceil['from'] ) . ' · נבדק ' . justice_tools_he_date( $sc['checked_on'] ?? '' )
+			. ( justice_tools_sc_ceiling_unknown( $sc ) ? ' · ייתכן שהתקרה התעדכנה' : '' );
+	}
 	if ( 'hatzmada' === $name ) {
 		$linked = justice_tools_latest_rate( $reg['interest']['linked'] ?? array() );
 		return 'מדד ' . justice_tools_he_month( $reg['cpi']['latest_month'] ?? '' ) . ' · ריבית מ-' . justice_tools_he_date( $linked['from'] ) . ' · נבדק ' . justice_tools_he_date( $reg['checked_on'] ?? '' );
@@ -194,6 +356,38 @@ function justice_tools_stamp( string $name ): string {
 function justice_tools_sources( string $name ): array {
 	$reg = justice_tools_registry();
 	$checked = justice_tools_he_date( $reg['checked_on'] ?? '' );
+	if ( 'havraa' === $name ) {
+		$hv  = $reg['havraa'];
+		$out = array(
+			array( 'name' => $hv['order_he'], 'url' => $hv['order_url'], 'text' => 'סעיף 5(א): ימים לפי ותק; 5(ב): שנה ראשונה; 5(ג): משרה חלקית; 5(ד): תשלום ב' . $hv['payment_months_he'] . '; 6: היעדרויות; 7(א): ביטול הגבלת השנתיים. נבדק ' . $checked . '.' ),
+		);
+		foreach ( $hv['private_rates'] as $row ) {
+			$out[] = array( 'name' => $row['source_he'], 'url' => $row['url'], 'text' => number_format( (float) $row['rate'], 2 ) . ' ₪ ליום הבראה, ' . $row['label_he'] . '. נבדק ' . $checked . '.' );
+		}
+		foreach ( $hv['deductions'] as $d ) {
+			$out[] = array( 'name' => $d['law_he'] . ' (' . $d['gazette_he'] . ')', 'url' => $d['url'], 'text' => 'הקפאת המחיר, ניכוי של יום הבראה אחד ב-' . $d['year'] . ' (חצי יום לשכר עד ' . number_format( (float) $d['half_salary_max'] ) . ' ₪ ב' . $d['half_months_he'] . '), והחלק שנוכה לא משולם אחר כך: ' . $d['sections'] . '.' );
+		}
+		foreach ( $hv['public_rates'] as $p ) {
+			$out[] = array( 'name' => $p['source_he'], 'url' => $p['url'], 'text' => 'להשוואה בלבד: ' . number_format( (float) $p['rate'], 1 ) . ' ₪ ליום ב-' . $p['year'] . ' (' . $p['scope_he'] . ').' );
+		}
+		$out[] = array( 'name' => $hv['limitation_he'], 'url' => $hv['limitation_url'], 'text' => $hv['limitation_years'] . ' שנות התיישנות מיום שנולדה העילה.' );
+		$out[] = array( 'name' => $hv['labor_court_he'], 'url' => $hv['labor_court_url'], 'text' => 'תביעה בין עובד למעסיק מוגשת לבית הדין האזורי לעבודה.' );
+		return $out;
+	}
+	if ( 'tviot-ktanot' === $name ) {
+		$sc   = $reg['small_claims'];
+		$ceil = justice_tools_sc_ceiling( $sc );
+		$dl   = $sc['deadlines'];
+		return array(
+			array( 'name' => $ceil['source_he'], 'url' => $ceil['url'], 'text' => number_format( (float) $ceil['amount'] ) . ' ₪ מ-' . justice_tools_he_date( $ceil['from'] ) . '. נבדק ' . $checked . '.' ),
+			array( 'name' => $sc['fee']['regulation_he'], 'url' => $sc['fee']['regulation_url'], 'text' => 'תקנה 2: מקום השיפוט; 3: תוכן כתב התביעה; 4(ב): כתב הגנה תוך ' . $dl['defence_days'] . ' יום; 6(א): אגרה ' . $sc['fee']['pct'] . '%, מעוגלת כלפי מעלה לכפולה של ' . $sc['fee']['round_up_to'] . ' ₪, לפחות ' . $sc['fee']['min'] . ' ₪; 7(ב1): מסירה בידי התובע ' . $dl['plaintiff_service_days_before'] . ' יום לפני הדיון; 12: ביטול החלטה תוך ' . $dl['set_aside_days'] . ' יום.' ),
+			array( 'name' => $sc['law_he'], 'url' => $sc['law_url'], 'text' => 'סעיף 60: מי תובע ועל מה, ויותר מ-' . $sc['max_claims_per_year'] . ' תביעות בשנה; 63: ייצוג ברשות בית המשפט; 64: ערעור ברשות.' ),
+			array( 'name' => $sc['source_name'], 'url' => $sc['source_url'], 'text' => 'מדריך האגרות: התקרה והאגרה. נבדק ' . $checked . '.' ),
+			array( 'name' => 'הרשות השופטת, הגשת תביעה קטנה', 'url' => $sc['service_url'], 'text' => 'מי יכול לתבוע; בדיקת מסירה וזימון עדים ' . $dl['service_check_days_before'] . ' יום לפני הדיון; מתורגמן ' . $dl['interpreter_days_before'] . ' ימים לפני; הגשה מקוונת עד ' . $sc['online_max_plaintiffs'] . ' תובעים ו-' . $sc['online_max_defendants'] . ' נתבעים.' ),
+			array( 'name' => $sc['limitation_he'], 'url' => $sc['limitation_url'], 'text' => $sc['limitation_years'] . ' שנות התיישנות מיום שנולדה העילה.' ),
+			array( 'name' => $sc['labor_court_he'], 'url' => $sc['labor_court_url'], 'text' => 'סכסוך בין עובד למעסיק: בית הדין לעבודה, לא תביעות קטנות.' ),
+		);
+	}
 	if ( 'hatzmada' === $name ) {
 		$cpi = $reg['cpi'];
 		$int = $reg['interest'];
@@ -233,6 +427,19 @@ function justice_tools_rehearse_url( array $tool ): string {
 		return justice_theme_article_simulation_url( $tool['rehearse']['topic'], $tool['rehearse']['purpose'] );
 	}
 	return 'https://jus-tice.com/#/simulation?entry=role&audience=guest&lang=he&purpose=' . rawurlencode( $tool['rehearse']['purpose'] );
+}
+
+/** The numbered stage bar of a combined tool; each stage is a link to its part of the instrument. */
+function justice_tools_stages_html( array $tool, string $id ): string {
+	if ( empty( $tool['stages'] ) ) {
+		return '';
+	}
+	$items = '';
+	foreach ( $tool['stages'] as $i => $stage ) {
+		$target = in_array( $stage[1], array( 'result', 'next' ), true ) ? $id . '-' . $stage[1] : $stage[1];
+		$items .= '<li><a href="#' . esc_attr( $target ) . '"><span class="jtool-stages__n" aria-hidden="true">' . ( $i + 1 ) . '</span><span class="jtool-stages__t">' . esc_html( $stage[0] ) . '</span></a></li>';
+	}
+	return '<nav class="jtool-stages" aria-label="שלבי הכלי"><ol>' . $items . '</ol></nav>';
 }
 
 /** Enqueue the stylesheet and the tool's bundle (35 KB gzipped budget; measured in the PR). */
@@ -298,16 +505,20 @@ function justice_tools_webapp_schema( string $name, array $tool ): string {
  */
 function justice_tools_shortcode( $atts ): string {
 	static $printed = array();
-	$atts    = shortcode_atts( array( 'name' => '', 'answer' => '1' ), $atts, 'justice_tool' );
+	$atts    = shortcode_atts( array( 'name' => '', 'answer' => '1', 'mode' => '' ), $atts, 'justice_tool' );
 	$name    = sanitize_key( (string) $atts['name'] );
 	$catalog = justice_tools_catalog();
-	$snaps   = justice_tools_snapshots();
-	if ( ! isset( $catalog[ $name ], $snaps[ $name ] ) || isset( $printed[ $name ] ) ) {
+	$mode    = sanitize_key( (string) $atts['mode'] );
+	if ( '' !== $mode && ! isset( $catalog[ $name ]['modes'][ $mode ] ) ) {
+		$mode = '';
+	}
+	$snap = justice_tools_snapshot( $name, $mode );
+	// One instrument per tool per page: two copies would share field ids and one share link.
+	if ( ! isset( $catalog[ $name ] ) || empty( $snap['form'] ) || isset( $printed[ $name ] ) ) {
 		return '';
 	}
 	$printed[ $name ] = true;
-	$tool = $catalog[ $name ];
-	$snap = $snaps[ $name ];
+	$tool = justice_tools_tool( $name, $mode );
 	$reg  = justice_tools_registry();
 	justice_tools_enqueue( $name );
 
@@ -319,14 +530,25 @@ function justice_tools_shortcode( $atts ): string {
 	}
 	$id       = 'jtool-' . $name;
 	$rehearse = justice_tools_rehearse_url( $tool );
+	$primary  = $tool['primary'];
 	$more     = '';
-	if ( $rehearse ) {
+	if ( $rehearse && empty( $primary['rehearse'] ) ) {
 		$more .= '<a href="' . esc_url( $rehearse ) . '" target="_blank" rel="noopener" data-act="rehearse">' . esc_html( $tool['rehearse']['label'] ) . '</a>';
 	}
 	foreach ( $tool['more'] ?? array() as $link ) {
-		$more .= '<a href="' . esc_url( home_url( $link['path'] ) ) . '">' . esc_html( $link['label'] ) . '</a>';
+		$more .= isset( $link['url'] )
+			? '<a href="' . esc_url( $link['url'] ) . '" target="_blank" rel="noopener">' . esc_html( $link['label'] ) . '</a>'
+			: '<a href="' . esc_url( home_url( $link['path'] ) ) . '">' . esc_html( $link['label'] ) . '</a>';
 	}
 	$more .= '<a href="' . esc_url( home_url( $tool['lawyer']['path'] ) ) . '" data-act="lawyer">' . esc_html( $tool['lawyer']['label'] ) . '</a>';
+	// The primary next step: an action in the tool (letter, CSV), the rehearsal, or another page.
+	if ( ! empty( $primary['rehearse'] ) && $rehearse ) {
+		$primary_html = '<a class="jtool-btn jtool-btn--primary" href="' . esc_url( $rehearse ) . '" target="_blank" rel="noopener" data-act="rehearse">' . esc_html( $primary['label'] ) . '</a>';
+	} elseif ( isset( $primary['path'] ) ) {
+		$primary_html = '<a class="jtool-btn jtool-btn--primary" href="' . esc_url( home_url( $primary['path'] ) ) . '">' . esc_html( $primary['label'] ) . '</a>';
+	} else {
+		$primary_html = '<button class="jtool-btn jtool-btn--primary" type="button" data-act="' . esc_attr( $primary['act'] ?? '' ) . '">' . esc_html( $primary['label'] ) . '</button>';
+	}
 
 	$actions = '<div class="jtool-actions">'
 		. '<button class="jtool-btn" type="button" data-act="link">העתקת קישור (בלי פרטים אישיים)</button>'
@@ -339,22 +561,23 @@ function justice_tools_shortcode( $atts ): string {
 	// The tool title is a heading by role, not an <h2> tag: a plugin outside this repo inserts the page's
 	// "בעמוד הזה" table of contents right before the first <h2> in the content, and with an <h2> title it
 	// landed inside the tool card and pushed the form below the fold (HAD-487). The TOC now starts after the tool.
-	$html  = '1' === (string) $atts['answer'] ? justice_tools_answer( $name ) : '';
-	$html .= '<section class="jtool" id="' . esc_attr( $id ) . '" data-jtool="' . esc_attr( $name ) . '" data-jtool-data="' . esc_attr( $id ) . '-data" aria-labelledby="' . esc_attr( $id ) . '-title">'
+	$html  = '1' === (string) $atts['answer'] ? justice_tools_answer( $name, $mode ) : '';
+	$html .= '<section class="jtool" id="' . esc_attr( $id ) . '" data-jtool="' . esc_attr( $name ) . '"' . ( '' !== $mode ? ' data-jtool-mode="' . esc_attr( $mode ) . '"' : '' ) . ' data-jtool-data="' . esc_attr( $id ) . '-data" aria-labelledby="' . esc_attr( $id ) . '-title">'
 		. '<div class="jtool__head"><div><div class="jtool__title" role="heading" aria-level="2" id="' . esc_attr( $id ) . '-title">' . esc_html( $tool['title'] ) . '</div><p class="jtool__promise">' . esc_html( $tool['promise'] ) . '</p></div>'
-		. '<a class="jtool-stamp" href="#' . esc_attr( $id ) . '-sources"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>' . esc_html( justice_tools_stamp( $name ) ) . '</a></div>'
+		. '<a class="jtool-stamp" href="#' . esc_attr( $id ) . '-sources"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>' . esc_html( justice_tools_stamp( $name, $mode ) ) . '</a></div>'
+		. justice_tools_stages_html( $tool, $id )
 		. '<p class="jtool-scope" data-jtool-shared hidden style="margin:12px 24px 0 !important">נפתח מקישור שיתוף. התשובות נטענו מהקישור ולא נשמרו אצלנו, והחישוב רץ שוב עם הנתונים העדכניים.</p>'
 		. '<p class="jtool-scope" data-jtool-saved hidden style="margin:12px 24px 0 !important">יש חישוב שמור במכשיר הזה. <button class="jtool-linkbtn" type="button" data-act="restore">לטעון אותו</button> <button class="jtool-linkbtn" type="button" data-act="clear">למחוק</button></p>'
 		. '<div class="jtool__body"><div class="jtool-form" role="group" aria-label="' . esc_attr( 'הנתונים ל' . $tool['name'] ) . '" data-jtool-form>' . $snap['form'] . '</div>'
 		. '<div class="jtool-result" id="' . esc_attr( $id ) . '-result" data-jtool-result>' . $snap['result'] . '</div></div>'
 		. '<div class="jtool-details" data-jtool-details>' . $snap['details'] . '</div>'
 		. '<div class="jtool-details">' . $actions . '</div>'
-		. '<div class="jtool-next"><p class="jtool-next__text">' . esc_html( $tool['next_text'] ) . '</p><div class="jtool-next__cta">'
-		. '<button class="jtool-btn jtool-btn--primary" type="button" data-act="' . esc_attr( $tool['primary']['act'] ) . '">' . esc_html( $tool['primary']['label'] ) . '</button>'
+		. '<div class="jtool-next" id="' . esc_attr( $id ) . '-next"><p class="jtool-next__text">' . esc_html( $tool['next_text'] ) . '</p><div class="jtool-next__cta">'
+		. $primary_html
 		. '<div class="jtool-next__more">' . $more . '</div></div></div>'
 		. '<details class="jtool-sources" id="' . esc_attr( $id ) . '-sources"><summary>מקורות (נבדקו ב-' . esc_html( justice_tools_he_date( $reg['checked_on'] ?? '' ) ) . ')</summary>' . justice_tools_sources_html( $name ) . '</details>'
 		. '<p class="jtool-foot">מידע כללי, לא ייעוץ משפטי. מה שהקלדתם לא נשמר אצלנו. החישוב נבנה על ידי צוות Jus-Tice.</p>'
-		. '<div class="jtool-sticky" data-show="0"><span>' . esc_html( $tool['sticky'] ) . '</span><strong data-jtool-sticky-figure>' . justice_tools_money( $snap['total'] ) . '</strong><a href="#' . esc_attr( $id ) . '-result">פרטים</a></div>'
+		. '<div class="jtool-sticky" data-show="0"><span>' . esc_html( $tool['sticky'] ) . '</span><strong data-jtool-sticky-figure>' . justice_tools_money( $snap['total'], 'tviot-ktanot' === $name ? 0 : 2 ) . '</strong><a href="#' . esc_attr( $id ) . '-result">פרטים</a></div>'
 		. '</section>'
 		. '<script type="application/json" id="' . esc_attr( $id ) . '-data">' . wp_json_encode( $data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP ) . '</script>'
 		. justice_tools_webapp_schema( $name, $tool );
@@ -362,9 +585,83 @@ function justice_tools_shortcode( $atts ): string {
 }
 add_shortcode( 'justice_tool', 'justice_tools_shortcode' );
 
+/** T03 current numbers: the day price per havraa year (private, with the statutory deduction; public for comparison) and the days table. */
+function justice_tools_havraa_numbers_html( array $hv ): string {
+	$latest = justice_tools_havraa_latest( $hv );
+	$first  = (int) $latest['year'] - (int) $hv['limitation_years'];
+	$rows   = '';
+	for ( $year = (int) $latest['year']; $year >= $first; $year-- ) {
+		$price = null;
+		foreach ( $hv['private_rates'] as $r ) {
+			if ( $r['from'] <= $year . '-07-01' ) {
+				$price = $r;
+			}
+		}
+		if ( ! $price ) {
+			continue;
+		}
+		$ded = null;
+		foreach ( $hv['deductions'] as $d ) {
+			if ( (int) $d['year'] === $year ) {
+				$ded = $d;
+			}
+		}
+		$pub   = justice_tools_public_rate( $hv, $year );
+		$rows .= '<tr><td data-th="שנת ההבראה"><bdi>' . $year . '</bdi></td><td data-th="מגזר פרטי, ליום">' . justice_tools_money( $price['rate'] ) . '</td><td data-th="בתוקף מ">' . esc_html( $price['label_he'] ) . '</td>'
+			. '<td data-th="ניכוי לפי החוק">' . ( $ded ? 'יום אחד (חצי בשכר עד ' . justice_tools_money( $ded['half_salary_max'], 0 ) . '), <a href="' . esc_url( $ded['url'] ) . '" target="_blank" rel="noopener">' . esc_html( $ded['gazette_he'] ) . '</a>' : 'אין' ) . '</td>'
+			. '<td data-th="שירות ציבורי, להשוואה">' . ( $pub ? justice_tools_money( $pub['rate'], 1 ) . ' (' . esc_html( $pub['scope_he'] ) . ')' : '—' ) . '</td>'
+			. '<td data-th="מקור"><a href="' . esc_url( $price['url'] ) . '" target="_blank" rel="noopener">' . esc_html( $price['source_he'] ) . '</a></td></tr>';
+	}
+	$days = '';
+	foreach ( $hv['days'] as $band ) {
+		$label = $band[0] === $band[1] ? 'שנה ' . $band[0] : ( null === $band[1] ? 'משנה ' . $band[0] . ' ואילך' : 'שנים ' . $band[0] . ' עד ' . $band[1] );
+		$days .= '<tr><td data-th="שנת העבודה">' . esc_html( $label ) . '</td><td data-th="ימי הבראה"><bdi>' . (int) $band[2] . '</bdi></td><td data-th="סכום במשרה מלאה, ' . esc_attr( $latest['year'] ) . '">' . justice_tools_money( $band[2] * $latest['rate'] ) . '</td><td data-th="מקור"><a href="' . esc_url( $hv['order_url'] ) . '" target="_blank" rel="noopener">סעיף 5(א) לצו</a></td></tr>';
+	}
+	return '<div class="jtool-page"><h3>מחיר יום הבראה לפי שנה</h3><div class="jtool-datawrap"><table class="jtool-datatable"><caption>כל שנה לפי המחיר ב-1 ביולי שלה (חודשי התשלום: ' . esc_html( $hv['payment_months_he'] ) . '). ב-2024 וב-2025 החוק הקפיא את המחיר וחייב לנכות יום הבראה.</caption><thead><tr><th scope="col">שנת ההבראה</th><th scope="col">מגזר פרטי, ליום</th><th scope="col">בתוקף מ</th><th scope="col">ניכוי לפי החוק</th><th scope="col">שירות ציבורי, להשוואה</th><th scope="col">מקור</th></tr></thead><tbody>' . $rows . '</tbody></table></div>'
+		. '<h3>ימי הבראה לפי ותק במגזר הפרטי, ושוויים ב-' . esc_html( $latest['year'] ) . '</h3><div class="jtool-datawrap"><table class="jtool-datatable"><thead><tr><th scope="col">שנת העבודה</th><th scope="col">ימי הבראה</th><th scope="col">סכום במשרה מלאה, ' . esc_html( $latest['year'] ) . '</th><th scope="col">מקור</th></tr></thead><tbody>' . $days . '</tbody></table></div>'
+		. '<p class="jtool-updated">נבדק מול צווי ההרחבה בילקוט הפרסומים, ספר החוקים, אגף החשב הכללי ומשרד החינוך ב-' . esc_html( justice_tools_he_date( $hv['checked_on'] ) ) . '.</p></div>';
+}
+
+/** T05 current numbers: the ceiling, the fee rule and every deadline, each with its source. */
+function justice_tools_sc_numbers_html( array $sc ): string {
+	$ceil = justice_tools_sc_ceiling( $sc );
+	$dl   = $sc['deadlines'];
+	$reg  = '<a href="' . esc_url( $sc['fee']['regulation_url'] ) . '" target="_blank" rel="noopener">';
+	$law  = '<a href="' . esc_url( $sc['law_url'] ) . '" target="_blank" rel="noopener">';
+	$svc  = '<a href="' . esc_url( $sc['service_url'] ) . '" target="_blank" rel="noopener">';
+	$from = esc_html( justice_tools_he_date( $ceil['from'] ) );
+	$rows = array(
+		array( 'תקרת התביעה', justice_tools_money( $ceil['amount'], 0 ), $from, '<a href="' . esc_url( $ceil['url'] ) . '" target="_blank" rel="noopener">הודעת מנהל בתי המשפט, ' . esc_html( justice_tools_he_date( $ceil['notice_date'] ) ) . '</a>' ),
+		array( 'אגרה', '<bdi>' . esc_html( (string) $sc['fee']['pct'] ) . '%</bdi> מסכום התביעה', $from, $reg . 'תקנה 6(א)(1)</a>' ),
+		array( 'עיגול האגרה', 'כלפי מעלה לכפולה של ' . justice_tools_money( $sc['fee']['round_up_to'], 0 ), $from, $reg . 'תקנה 6(א)(3)</a>' ),
+		array( 'אגרה מינימלית', justice_tools_money( $sc['fee']['min'], 0 ), $from, $reg . 'תקנה 6(א)(2)</a>' ),
+		array( 'תביעות בשנה באותו בית משפט', 'יותר מ-<bdi>' . (int) $sc['max_claims_per_year'] . '</bdi>: בית המשפט רשאי להעביר', $from, $law . 'סעיף 60(ב)</a>' ),
+		array( 'כתב הגנה', '<bdi>' . (int) $dl['defence_days'] . '</bdi> יום מהמסירה', $from, $reg . 'תקנה 4(ב)</a>' ),
+		array( 'בדיקת מסירה וזימון עדים', '<bdi>' . (int) $dl['service_check_days_before'] . '</bdi> יום לפני הדיון', $from, $svc . 'הרשות השופטת</a>' ),
+		array( 'מסירה בידי התובע', '<bdi>' . (int) $dl['plaintiff_service_days_before'] . '</bdi> יום לפני הדיון', $from, $reg . 'תקנה 7(ב1)</a>' ),
+		array( 'בקשה למתורגמן', '<bdi>' . (int) $dl['interpreter_days_before'] . '</bdi> ימים לפני הדיון', $from, $svc . 'הרשות השופטת</a>' ),
+		array( 'ביטול החלטה שניתנה בהיעדר', '<bdi>' . (int) $dl['set_aside_days'] . '</bdi> יום', $from, $reg . 'תקנה 12</a>' ),
+		array( 'גוף כתב התביעה', 'עד <bdi>' . (int) $sc['claim_body_max_pages'] . '</bdi> עמודים', $from, $reg . 'תקנה 3(ה)</a>' ),
+		array( 'הגשה מקוונת', 'עד <bdi>' . (int) $sc['online_max_plaintiffs'] . '</bdi> תובעים ו-<bdi>' . (int) $sc['online_max_defendants'] . '</bdi> נתבעים', $from, $svc . 'הרשות השופטת</a>' ),
+		array( 'התיישנות', '<bdi>' . (int) $sc['limitation_years'] . '</bdi> שנים מיום שנולדה העילה', $from, '<a href="' . esc_url( $sc['limitation_url'] ) . '" target="_blank" rel="noopener">חוק ההתיישנות, סעיפים 5(1) ו-6</a>' ),
+	);
+	$body = '';
+	foreach ( $rows as $r ) {
+		$body .= '<tr><td data-th="מה">' . esc_html( $r[0] ) . '</td><td data-th="הכלל">' . $r[1] . '</td><td data-th="נכון ל">' . $r[2] . '</td><td data-th="מקור">' . $r[3] . '</td></tr>';
+	}
+	return '<div class="jtool-page"><div class="jtool-datawrap"><table class="jtool-datatable"><caption>הסכומים והמועדים בתביעות קטנות, מ-' . $from . '</caption><thead><tr><th scope="col">מה</th><th scope="col">הכלל</th><th scope="col">נכון ל</th><th scope="col">מקור</th></tr></thead><tbody>' . $body . '</tbody></table></div>'
+		. '<p class="jtool-updated">נבדק מול הרשות השופטת, התקנות וחוק בתי המשפט ב-' . esc_html( justice_tools_he_date( $sc['checked_on'] ) ) . '. התקרה מתעדכנת ב-1 בינואר.</p></div>';
+}
+
 /** Current-numbers table (page standard A5): every row has a value, valid-from date and source. */
 function justice_tools_numbers_html( string $name ): string {
 	$reg = justice_tools_registry();
+	if ( 'havraa' === $name ) {
+		return justice_tools_havraa_numbers_html( $reg['havraa'] );
+	}
+	if ( 'tviot-ktanot' === $name ) {
+		return justice_tools_sc_numbers_html( $reg['small_claims'] );
+	}
 	if ( 'hatzmada' === $name ) {
 		$cpi  = $reg['cpi'];
 		$rows = '';
@@ -419,6 +716,37 @@ function justice_tools_numbers_html( string $name ): string {
 
 /** Comparison table (page standard A6). */
 function justice_tools_compare_html( string $name ): string {
+	if ( 'tviot-ktanot' === $name ) {
+		$snap = justice_tools_snapshot( 'tviot-ktanot' );
+		return '<div class="jtool-page">' . ( $snap['compare_table'] ?? '' ) . '</div>';
+	}
+	if ( 'havraa' === $name ) {
+		// Last year against this year, per seniority band: what reached the worker (after the statutory deduction) vs today.
+		$hv     = justice_tools_registry()['havraa'];
+		$latest = justice_tools_havraa_latest( $hv );
+		$prev   = (int) $latest['year'] - 1;
+		$pprice = null;
+		foreach ( $hv['private_rates'] as $r ) {
+			if ( $r['from'] <= $prev . '-07-01' ) {
+				$pprice = (float) $r['rate'];
+			}
+		}
+		$ded = 0;
+		foreach ( $hv['deductions'] as $d ) {
+			if ( (int) $d['year'] === $prev ) {
+				$ded = (float) $d['days'];
+			}
+		}
+		$body      = '';
+		$prev_head = $prev . ( $ded ? ', אחרי הניכוי' : '' );
+		foreach ( $hv['days'] as $band ) {
+			$label = $band[0] === $band[1] ? 'שנה ' . $band[0] : ( null === $band[1] ? 'משנה ' . $band[0] : 'שנים ' . $band[0] . '-' . $band[1] );
+			$a     = round( $band[2] * $pprice - $ded * $pprice, 2 );
+			$b     = round( $band[2] * $latest['rate'], 2 );
+			$body .= '<tr><td data-th="ותק">' . esc_html( $label ) . ' (<bdi>' . (int) $band[2] . '</bdi> ימים)</td><td data-th="' . esc_attr( $prev_head ) . '">' . justice_tools_money( $a ) . '</td><td data-th="' . esc_attr( $latest['year'] ) . '">' . justice_tools_money( $b ) . '</td><td data-th="תוספת">' . justice_tools_money( $b - $a ) . '</td></tr>';
+		}
+		return '<div class="jtool-page"><div class="jtool-datawrap"><table class="jtool-datatable"><caption>דמי הבראה במשרה מלאה: ' . $prev . ' (' . number_format( $pprice, 2 ) . ' ₪ ליום' . ( $ded ? ', פחות יום שנוכה לפי החוק' : '' ) . ') מול ' . esc_html( $latest['year'] ) . ' (' . number_format( $latest['rate'], 2 ) . ' ₪ ליום)</caption><thead><tr><th scope="col">ותק</th><th scope="col">' . esc_html( $prev_head ) . '</th><th scope="col">' . esc_html( $latest['year'] ) . '</th><th scope="col">תוספת</th></tr></thead><tbody>' . $body . '</tbody></table></div></div>';
+	}
 	if ( 'hatzmada' === $name ) {
 		$snap = justice_tools_snapshots()['hatzmada'] ?? array();
 		return '<div class="jtool-page">' . ( $snap['compare_table'] ?? '' ) . '</div>';
@@ -446,16 +774,18 @@ function justice_tools_compare_html( string $name ): string {
  * @return string
  */
 function justice_tools_section_shortcode( $atts ): string {
-	$atts = shortcode_atts( array( 'name' => '', 'part' => '' ), $atts, 'justice_tool_section' );
+	$atts = shortcode_atts( array( 'name' => '', 'part' => '', 'mode' => '' ), $atts, 'justice_tool_section' );
 	$name = sanitize_key( (string) $atts['name'] );
 	if ( ! isset( justice_tools_catalog()[ $name ] ) ) {
 		return '';
 	}
+	$mode = sanitize_key( (string) $atts['mode'] );
+	$mode = isset( justice_tools_catalog()[ $name ]['modes'][ $mode ] ) ? $mode : '';
 	$reg  = justice_tools_registry();
-	$snap = justice_tools_snapshots()[ $name ] ?? array();
+	$snap = justice_tools_snapshot( $name, $mode );
 	switch ( (string) $atts['part'] ) {
 		case 'method':
-			return '<div class="jtool-page jtool-method"><p>לדוגמה, ' . esc_html( $snap['sentence'] ?? '' ) . ' כך הכלי מחשב את זה, שורה אחרי שורה:</p>' . ( $snap['method'] ?? '' ) . '</div>';
+			return '<div class="jtool-page jtool-method"><p>לדוגמה, ' . esc_html( $snap['sentence'] ?? '' ) . ' כך הכלי מחשב את זה, שורה אחרי שורה:</p>' . ( $snap['method'] ?? '' ) . ( $snap['method_table'] ?? '' ) . '</div>';
 		case 'numbers':
 			return justice_tools_numbers_html( $name );
 		case 'compare':
@@ -473,7 +803,10 @@ add_shortcode( 'justice_tool_section', 'justice_tools_section_shortcode' );
 function justice_tools_index_shortcode(): string {
 	$cards = '';
 	foreach ( justice_tools_catalog() as $name => $tool ) {
-		$cards .= '<a class="jtool-card" href="' . esc_url( home_url( $tool['page'] ) ) . '"><strong>' . esc_html( $tool['name'] ) . '</strong><span>' . esc_html( $tool['question'] ) . '</span><small>' . esc_html( justice_tools_stamp( $name ) ) . '</small></a>';
+		foreach ( array_merge( array( '' ), array_keys( $tool['modes'] ?? array() ) ) as $mode ) {
+			$t      = justice_tools_tool( $name, $mode );
+			$cards .= '<a class="jtool-card" href="' . esc_url( home_url( $t['page'] ) ) . '"><strong>' . esc_html( $t['name'] ) . '</strong><span>' . esc_html( $t['question'] ) . '</span><small>' . esc_html( justice_tools_stamp( $name, $mode ) ) . '</small></a>';
+		}
 	}
 	return '<div class="jtool-page jtool-cards">' . $cards . '</div>';
 }

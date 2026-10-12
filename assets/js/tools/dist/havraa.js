@@ -279,13 +279,35 @@ function lastPublishedYear(havraa) {
 	return Number(havraa.private_rates[havraa.private_rates.length - 1].from.slice(0, 4));
 }
 
+/**
+ * The half-day deduction applies per law year: input.lowPay is either one flag for the year in question, or
+ * { 2024: bool, 2025: bool } because each law has its own salary period and threshold.
+ */
+function lowPayFor(lowPay, year) {
+	if (lowPay && typeof lowPay === 'object') { return Boolean(lowPay[year] || lowPay[String(year)]); }
+	return Boolean(lowPay);
+}
+
+/** Months of unpaid leave (חל"ת) that fall inside [from, to], from a list of { from, to } periods. */
+function leaveMonthsIn(leaves, from, to) {
+	let months = 0;
+	for (const l of leaves || []) {
+		const a = l.from > from ? l.from : from;
+		const b = l.to < to ? l.to : to;
+		if (a <= b) { months += monthsWorked(a, b); }
+	}
+	return months;
+}
+
 /** One work year (or part of it): days, price, deduction, amount. */
 function valueYear(havraa, k, from, to, fullTo, jobPct, opts) {
 	const table = havraa.days;
 	const full = daysFor(table, k);
 	const fraction = to >= fullTo ? 1 : round4(Math.min(12, monthsWorked(from, to)) / 12);
-	const leave = k === opts.leaveYear ? Math.min(12, Math.max(0, opts.leaveMonths || 0)) : 0;
-	const share = round4(fraction * (12 - leave) / 12);
+	// Unpaid leave is not counted (the order's s.6): the year's share drops by its months, as in the Ministry's example.
+	const leaveRaw = opts.leaves ? leaveMonthsIn(opts.leaves, from, to) : (k === opts.leaveYear ? opts.leaveMonths || 0 : 0);
+	const leave = round4(Math.min(fraction * 12, Math.max(0, leaveRaw)));
+	const share = round4((fraction * 12 - leave) / 12);
 	const daysDue = round4(full * (jobPct / 100) * share);
 	// The 1 July inside the work year sets the price (payment months June-September, s.5(ד)).
 	const y0 = Number(from.slice(0, 4));
@@ -300,21 +322,23 @@ function valueYear(havraa, k, from, to, fullTo, jobPct, opts) {
 	if (opts.applyDeduction !== false) {
 		ded = deductionFor(havraa, year);
 		if (ded && price) {
-			const half = opts.lowPay && (!ded.half_requires_five_days || full === 5);
+			const half = lowPayFor(opts.lowPay, year) && (!ded.half_requires_five_days || full === 5);
 			deduction = round2(price.rate * (jobPct / 100) * share * (half ? 0.5 : 1) * ded.days);
 		}
 	}
 	return {
 		k, from, to, fullTo, full, fraction, leave, share, daysDue, valueOn, year, price: price ? price.rate : null,
 		priceFrom: price ? price.from : null, gross, deduction, deductionYear: deduction ? year : null,
-		half: Boolean(ded && deduction && opts.lowPay && (!ded.half_requires_five_days || full === 5)),
+		half: Boolean(ded && deduction && lowPayFor(opts.lowPay, year) && (!ded.half_requires_five_days || full === 5)),
 		net: gross === null ? null : round2(gross - deduction),
 	};
 }
 
 /**
  * input (mode "year"):   { mode: 'year', sector, years, jobPct, havraaYear, leaveMonths, lowPay, applyDeduction }
- * input (mode "period"): { mode: 'period', sector, start, end, asOf, jobPct, paid, lowPay, applyDeduction, valuation }
+ * input (mode "period"): { mode: 'period', sector, start, end, asOf, jobPct, paid, leaves: [{ from, to }], lowPay,
+ *                          applyDeduction, valuation }
+ *   lowPay: true/false, or { 2024: bool, 2025: bool } (each deduction law has its own low-pay test).
  *   valuation: 'july' (default) or 'latest' (every year at the latest published price: the what-if).
  */
 function compute(registry, input) {
@@ -361,6 +385,20 @@ function compute(registry, input) {
 	if (start && end && end <= start) { errors.push({ field: 'end', he: 'תאריך הסיום צריך להיות אחרי תאריך ההתחלה' }); }
 	if (end && end > asOf) { errors.push({ field: 'end', he: `תאריך הסיום לא יכול להיות אחרי היום (${asOf.split('-').reverse().map(Number).join('.')})` }); }
 	if (!(paid >= 0)) { errors.push({ field: 'paid', he: 'הסכום ששולם צריך להיות 0 או יותר' }); }
+	// Unpaid-leave periods: both dates or neither, inside the employment, in order. A half-filled row is an error.
+	const leaves = [];
+	(input.leaves || []).forEach((l, i) => {
+		const rawFrom = String(l.from || '').trim();
+		const rawTo = String(l.to || '').trim();
+		if (!rawFrom && !rawTo) { return; }
+		const a = parseDate(rawFrom);
+		const b = parseDate(rawTo);
+		if (!a || !b || b < a || (start && a < start) || (end && b > end)) {
+			errors.push({ field: 'leaves', row: i, he: `תקופת חופשה ללא תשלום ${i + 1}: צריך תאריך התחלה וסיום תקינים, בתוך תקופת העבודה` });
+			return;
+		}
+		leaves.push({ from: a, to: b });
+	});
 	if (errors.length) { return { ok: false, errors }; }
 	if (start < hv.private_rates[0].from) {
 		flags.push({ code: 'before_table', he: `העבודה התחילה לפני ${Number(hv.private_rates[0].from.slice(0, 4))}. שנים מוקדמות יותר ממילא מחוץ לתקופת ההתיישנות של 7 שנים, והכלי לא מחשב אותן.` });
@@ -384,7 +422,7 @@ function compute(registry, input) {
 	const limitFrom = addYears(asOf, -hv.limitation_years);
 	const valued = [];
 	for (const row of rows) {
-		const v = valueYear(hv, row.k, row.from, row.to, row.fullTo, jobPct, { lowPay: input.lowPay, applyDeduction: input.applyDeduction });
+		const v = valueYear(hv, row.k, row.from, row.to, row.fullTo, jobPct, { leaves, lowPay: input.lowPay, applyDeduction: input.applyDeduction });
 		if (v.valueOn > lastJuly && v.valueOn.slice(0, 4) > String(last)) {
 			return { ok: false, outOfScope: true, errors: [{ field: 'end', he: `מחיר יום ההבראה לשנת ${v.valueOn.slice(0, 4)} עוד לא פורסם. הכלי מחשב עד שנת ${last}.` }] };
 		}
@@ -405,13 +443,14 @@ function compute(registry, input) {
 	}
 	const sum = (key) => round2(live.reduce((a, v) => a + (v[key] || 0), 0));
 	const daysDue = round4(live.reduce((a, v) => a + v.daysDue, 0));
+	const leaveMonths = round4(live.reduce((a, v) => a + v.leave, 0));
 	const gross = sum('gross');
 	const deduction = sum('deduction');
 	const net = round2(gross - deduction);
 	const gap = round2(Math.max(0, net - paid));
 	return {
 		ok: true, mode: 'period', state: gap > 0 ? 'owed' : 'paid', start, end, asOf, stillWorking: !input.end, jobPct, limitFrom,
-		rows: valued, flags, daysDue, gross, deduction, net, paid, gap, overpaid: round2(Math.max(0, paid - net)),
+		rows: valued, flags, daysDue, gross, deduction, net, paid, gap, overpaid: round2(Math.max(0, paid - net)), leaveMonths,
 		years: live.length, valuation: input.valuation === 'latest' ? 'latest' : 'july',
 	};
 }
@@ -428,7 +467,8 @@ const TOOL_ID = 'havraa';
 const P = 'jt3';
 
 const EXAMPLE = { mode: 'year', sector: 'private', years: 4, jobPct: 100, havraaYear: 2026, leaveMonths: 0, lowPay: false };
-const EXAMPLE_PERIOD = { mode: 'period', sector: 'private', start: '2021-03-01', end: '2026-08-31', jobPct: 100, paid: 0, lowPay: false, applyDeduction: true };
+const EXAMPLE_PERIOD = { mode: 'period', sector: 'private', start: '2021-03-01', end: '2026-08-31', jobPct: 100, paid: 0, leaves: [], lowPay: false, applyDeduction: true };
+const lowOf = (lp, y) => Boolean(lp && (typeof lp === 'object' ? lp[y] : lp));
 
 const fmtDays = (d) => Number(d).toLocaleString('en-US', { maximumFractionDigits: 2 });
 
@@ -456,6 +496,13 @@ function toIso(text) {
 
 /* ---------------- Pure renderers ---------------- */
 
+function leaveRow(l, i) {
+	return `<li class="jtool-rep__row" data-row="${i}">`
+		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-lf-${i}">מתאריך</label><input id="${P}-lf-${i}" type="text" inputmode="numeric" autocomplete="off" data-leave-from value="${esc(isoToHe(l.from || ''))}" placeholder="לדוגמה: 1.1.2024"></div>`
+		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-lt-${i}">עד תאריך</label><input id="${P}-lt-${i}" type="text" inputmode="numeric" autocomplete="off" data-leave-to value="${esc(isoToHe(l.to || ''))}" placeholder="לדוגמה: 31.3.2024"></div>`
+		+ `<button class="jtool-iconbtn" type="button" data-remove-leave="${i}" aria-label="מחיקת תקופת חופשה ללא תשלום ${i + 1}">✕</button></li>`;
+}
+
 function renderForm(reg, input) {
 	const chip = (name, value, label, checked, type = 'radio') => `<label class="jtool-chip"><input type="${type}" name="${P}-${name}" value="${value}"${checked ? ' checked' : ''}><span>${esc(label)}</span></label>`;
 	const period = input.mode === 'period';
@@ -475,9 +522,11 @@ function renderForm(reg, input) {
 		+ `<div class="jtool-row" style="margin-top:12px"><div class="jtool-field"><label class="jtool-label" for="${P}-ppct">אחוז משרה</label><input id="${P}-ppct" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.jobPct ?? 100)}" aria-describedby="${P}-ppct-e"><p class="jtool-error" id="${P}-ppct-e" role="alert"></p></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-paid">כמה שולם כדמי הבראה בתקופה</label><div class="jtool-input jtool-input--money"><input id="${P}-paid" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.paid ? money(input.paid, 0) : '0')}" aria-describedby="${P}-paid-h ${P}-paid-e"><span class="jtool-input__suffix" aria-hidden="true">₪</span></div><p class="jtool-hint" id="${P}-paid-h">לפי התלושים. לא יודעים? השאירו 0</p><p class="jtool-error" id="${P}-paid-e" role="alert"></p></div></div>`
 		+ `</div>`
-		+ `<details class="jtool-more"${input.lowPay || input.leaveMonths || input.applyDeduction === false ? ' open' : ''}><summary>אפשרויות מתקדמות</summary>`
+		+ `<details class="jtool-more"${lowOf(input.lowPay, 2024) || lowOf(input.lowPay, 2025) || input.leaveMonths || (input.leaves && input.leaves.length) || input.applyDeduction === false ? ' open' : ''}><summary>אפשרויות מתקדמות</summary>`
 		+ `<div class="jtool-field" style="margin-top:8px" data-mode-year${period ? ' hidden' : ''}><label class="jtool-label" for="${P}-leave">חודשי חופשה ללא תשלום בשנה הזאת</label><input id="${P}-leave" type="text" inputmode="numeric" autocomplete="off" value="${esc(input.leaveMonths || 0)}" aria-describedby="${P}-leave-h ${P}-leave-e"><p class="jtool-hint" id="${P}-leave-h">לא נספרים לזכאות. חופשת לידה כן נספרת (סעיף 6)</p><p class="jtool-error" id="${P}-leave-e" role="alert"></p></div>`
-		+ `<div class="jtool-chips" style="margin-top:8px">${chip('low', '1', 'שכר נמוך ב-2024 או ב-2025 (ניכוי של חצי יום)', input.lowPay, 'checkbox')}${chip('noded', '1', 'לחשב בלי הניכוי שבחוק', input.applyDeduction === false, 'checkbox')}</div>`
+		+ `<div class="jtool-field" style="margin-top:8px" data-mode-period${period ? '' : ' hidden'}><span class="jtool-label" id="${P}-leaves-l">תקופות של חופשה ללא תשלום (חל"ת)</span><ul class="jtool-rep" aria-labelledby="${P}-leaves-l" data-leaves>${(input.leaves && input.leaves.length ? input.leaves : [{ from: '', to: '' }]).map(leaveRow).join('')}</ul>`
+		+ `<button class="jtool-linkbtn" type="button" data-add-leave>+ עוד תקופה</button><p class="jtool-hint">לא נספרות לזכאות (סעיף 6). חופשת לידה כן נספרת, ואין להזין אותה כאן.</p><p class="jtool-error" id="${P}-leaves-e" role="alert"></p></div>`
+		+ `<div class="jtool-chips" style="margin-top:8px">${chip('low24', '1', 'שכר נמוך ב-2024 (חצי יום ניכוי)', lowOf(input.lowPay, 2024), 'checkbox')}${chip('low25', '1', 'שכר נמוך ב-2025 (חצי יום ניכוי)', lowOf(input.lowPay, 2025), 'checkbox')}${chip('noded', '1', 'לחשב בלי הניכוי שבחוק', input.applyDeduction === false, 'checkbox')}</div>`
 		+ `<p class="jtool-hint">חצי יום: ב-2025 למי ששכרו הממוצע באוקטובר עד דצמבר 2024 לא עלה על ${money(dedFor(reg, 2025).half_salary_max, 0)} ₪; ב-2024 למי שהיה זכאי ל-5 ימים ושכרו בינואר עד מרץ 2024 לא עלה על ${money(dedFor(reg, 2024).half_salary_max, 0)} ₪ (יחסית לאחוז המשרה).</p>`
 		+ `</details>`;
 }
@@ -520,6 +569,7 @@ function pathLines(reg, r) {
 	}
 	lines.push(`שנות עבודה מ-<bdi>${isoToHe(r.start)}</bdi>: לכל שנה מספר הימים לפי הוותק באותה שנה (5, 6, 7 ... עד 10)${orderCite(reg, 'סעיף 5(א)')}`);
 	lines.push(`משרה של ${money(r.jobPct, 0)}%, ושנה אחרונה חלקית לפי חודשים${orderCite(reg, 'סעיפים 5(ב) ו-5(ג)')}`);
+	if (r.leaveMonths) { lines.push(`חופשה ללא תשלום לא נספרת: ${fmtDays(r.leaveMonths)} חודשים ירדו מהשנים שבהן היו${orderCite(reg, 'סעיף 6')}`); }
 	lines.push(r.valuation === 'latest'
 		? `כל השנים לפי המחיר האחרון שפורסם, <bdi>${money(hv.private_rates[hv.private_rates.length - 1].rate)}</bdi> ₪, בלי ניכוי`
 		: `כל שנה לפי מחיר יום ההבראה ב-1 ביולי שבתוכה (התשלום ביוני עד ספטמבר): 378 ₪ משנת 2014, 418 ₪ מ-1.7.2023, ${money(hv.private_rates[hv.private_rates.length - 1].rate)} ₪ לשנת ${hv.private_rates[hv.private_rates.length - 1].from.slice(0, 4)}${orderCite(reg, 'סעיף 5(ד)')}`);
@@ -618,7 +668,7 @@ function renderDetails(reg, r, compareR, compareLabel) {
 	let out = '';
 	if (r.mode === 'period' && r.rows && r.rows.length) {
 		const rows = r.rows.map((v) => `<tr${v.barred ? ' class="jtool-muted"' : ''}><td data-th="שנת עבודה">${v.k}</td><td data-th="תקופה">${isoToHe(v.from)} עד ${isoToHe(v.to)}</td><td data-th="ימים בטבלה">${v.full}</td>`
-			+ `<td data-th="חלק מהשנה">${v.fraction === 1 ? 'מלאה' : `${fmtDays(Math.round(v.fraction * 12 * 100) / 100)} מתוך 12 חודשים`}</td><td data-th="ימי הבראה">${fmtDays(v.daysDue)}</td>`
+			+ `<td data-th="חלק מהשנה">${v.fraction === 1 && !v.leave ? 'מלאה' : `${fmtDays(Math.round((v.fraction * 12 - v.leave) * 100) / 100)} מתוך 12 חודשים${v.leave ? ` (חל"ת ${fmtDays(Math.round(v.leave * 100) / 100)})` : ''}`}</td><td data-th="ימי הבראה">${fmtDays(v.daysDue)}</td>`
 			+ `<td data-th="מחיר יום">${num(v.price)}</td><td data-th="סכום">${num(v.gross)}</td>`
 			+ `<td data-th="ניכוי לפי החוק"${v.deduction ? ' class="jtool-neg"' : ''}>${v.deduction ? num(-v.deduction) : '0.00'}</td>`
 			+ `<td data-th="מגיע">${v.barred ? 'מחוץ לתקופה' : num(v.net)}</td></tr>`).join('');
@@ -672,10 +722,11 @@ function readForm(root) {
 	return {
 		mode, sector: checked('sector') || 'private',
 		years: val(`#${P}-years`).trim() === '' ? NaN : Number(val(`#${P}-years`).trim()),
-		jobPct: pctText.trim() === '' ? 100 : parseMoney(pctText), havraaYear: Number(checked('year')) || undefined,
+		jobPct: pctText.trim() === '' ? 100 : parseMoney(pctText.replace(/%/g, '')), havraaYear: Number(checked('year')) || undefined,
 		leaveMonths: Number(val(`#${P}-leave`)) || 0,
 		start: toIso(val(`#${P}-start`)), end: toIso(val(`#${P}-end`)), paid: val(`#${P}-paid`).trim() === '' ? 0 : parseMoney(val(`#${P}-paid`)),
-		lowPay: Boolean(checked('low')), applyDeduction: !checked('noded'),
+		leaves: [...root.querySelectorAll('[data-leaves] li')].map((li) => ({ from: toIso(li.querySelector('[data-leave-from]').value.trim()), to: toIso(li.querySelector('[data-leave-to]').value.trim()) })),
+		lowPay: { 2024: Boolean(checked('low24')), 2025: Boolean(checked('low25')) }, applyDeduction: !checked('noded'),
 	};
 }
 
@@ -683,15 +734,19 @@ const stateOf = (i) => encodeState({
 	m: i.mode === 'period' ? 'p' : 'y', c: i.sector === 'public' ? 'pub' : '', j: i.jobPct === 100 ? '' : i.jobPct,
 	y: i.mode === 'period' ? '' : i.years, h: i.mode === 'period' ? '' : i.havraaYear, l: i.leaveMonths || '',
 	s: i.mode === 'period' ? i.start : '', e: i.mode === 'period' ? i.end : '', p: i.mode === 'period' && i.paid ? i.paid : '',
-	w: i.lowPay ? 1 : '', d: i.applyDeduction === false ? 0 : '',
+	w: `${lowOf(i.lowPay, 2024) ? '4' : ''}${lowOf(i.lowPay, 2025) ? '5' : ''}`, d: i.applyDeduction === false ? 0 : '',
+	v: i.mode === 'period' ? (i.leaves || []).filter((l) => l.from && l.to).map((l) => [l.from, l.to]) : '',
 });
+const KEYS = ['m', 'c', 'j', 'y', 'h', 'l', 's', 'e', 'p', 'w', 'd', 'v'];
 function inputOf(s) {
 	if (!s.m) { return null; }
 	const period = s.m === 'p';
 	return {
 		mode: period ? 'period' : 'year', sector: s.c === 'pub' ? 'public' : 'private', jobPct: Number(s.j) || 100,
 		years: s.y === undefined ? 4 : Number(s.y), havraaYear: Number(s.h) || undefined, leaveMonths: Number(s.l) || 0,
-		start: s.s || '', end: s.e || '', paid: Number(s.p) || 0, lowPay: s.w === '1', applyDeduction: s.d !== '0',
+		start: s.s || '', end: s.e || '', paid: Number(s.p) || 0, applyDeduction: s.d !== '0',
+		lowPay: { 2024: /4/.test(s.w || ''), 2025: /5/.test(s.w || '') },
+		leaves: decodeList(s.v).map(([from, to]) => ({ from, to })),
 	};
 }
 
@@ -713,7 +768,7 @@ function mount(root, reg) {
 		root.querySelectorAll('.jtool-error').forEach((e) => { e.textContent = ''; });
 		root.querySelectorAll('[aria-invalid]').forEach((e) => e.removeAttribute('aria-invalid'));
 		if (r.ok || r.outOfScope) { return; }
-		const map = { years: 'years', jobPct: input.mode === 'period' ? 'ppct' : 'pct', leave: 'leave', start: 'start', end: 'end', paid: 'paid' };
+		const map = { years: 'years', jobPct: input.mode === 'period' ? 'ppct' : 'pct', leave: 'leave', leaves: 'leaves', start: 'start', end: 'end', paid: 'paid' };
 		for (const e of r.errors) {
 			const key = map[e.field];
 			const box = key && root.querySelector(`#${P}-${key}-e`);
@@ -746,7 +801,7 @@ function mount(root, reg) {
 		clearTimeout(timer);
 		timer = setTimeout(() => run(readForm(root)), 160);
 	};
-	const fromHash = inputOf(decodeState(window.location.hash, ['m', 'c', 'j', 'y', 'h', 'l', 's', 'e', 'p', 'w', 'd']));
+	const fromHash = inputOf(decodeState(window.location.hash, KEYS));
 	if (fromHash) {
 		form.innerHTML = renderForm(reg, fromHash);
 		const note = root.querySelector('[data-jtool-shared]');
@@ -758,6 +813,18 @@ function mount(root, reg) {
 	form.addEventListener('input', schedule);
 	form.addEventListener('change', schedule);
 	root.addEventListener('click', async (ev) => {
+		const add = ev.target.closest('[data-add-leave]');
+		const del = ev.target.closest('[data-remove-leave]');
+		if (add || del) {
+			const list = root.querySelector('[data-leaves]');
+			const rows = [...list.querySelectorAll('li')].map((li) => ({ from: toIso(li.querySelector('[data-leave-from]').value.trim()), to: toIso(li.querySelector('[data-leave-to]').value.trim()) }));
+			if (add) { rows.push({ from: '', to: '' }); } else { rows.splice(Number(del.getAttribute('data-remove-leave')), 1); }
+			list.innerHTML = (rows.length ? rows : [{ from: '', to: '' }]).map(leaveRow).join('');
+			const focus = list.querySelector(add ? 'li:last-child [data-leave-from]' : '[data-leave-from]');
+			if (focus) { focus.focus(); }
+			schedule();
+			return;
+		}
 		const b = ev.target.closest('[data-act]');
 		if (!b) { return; }
 		const act = b.getAttribute('data-act');
@@ -806,7 +873,7 @@ function mount(root, reg) {
 			store.set('jtool-havraa', stateOf(input));
 			toast(root, 'נשמר במכשיר הזה בלבד. אפשר למחוק בכל רגע.');
 		} else if (act === 'restore') {
-			const s = inputOf(decodeState(store.get('jtool-havraa') || '', ['m', 'c', 'j', 'y', 'h', 'l', 's', 'e', 'p', 'w', 'd']));
+			const s = inputOf(decodeState(store.get('jtool-havraa') || '', KEYS));
 			if (s) { form.innerHTML = renderForm(reg, s); run(s); }
 		} else if (act === 'clear') {
 			store.clear('jtool-havraa');

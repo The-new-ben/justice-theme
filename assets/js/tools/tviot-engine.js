@@ -88,15 +88,21 @@ export function compute(registry, input) {
 	if (errors.length) { return { ok: false, errors }; }
 
 	const f = fee(sc, amount);
+	// The ceiling is re-indexed every 1 January (the 2008 order, s.2(ג)). Past the registry's next_update with no
+	// newer row, the old ceiling is not used for a verdict: the amount test becomes "depends" until it is refreshed.
+	const ceilingUnknown = Boolean(sc.next_update && on >= sc.next_update && ceil.from < sc.next_update);
+	if (ceilingUnknown) {
+		flags.push({ code: 'ceiling_unknown', he: `התקרה מתעדכנת ב-1 בינואר לפי המדד. הכלי עוד לא קיבל את התקרה מ-${sc.next_update.split('-').reverse().map(Number).join('.')}, ולכן לא קובע אם הסכום מתחתיה. התקרה האחרונה שנבדקה: ${ceil.amount.toLocaleString('en-US')} ₪.` });
+	}
 	if (input.mode === 'fee') {
-		return { ok: true, mode: 'fee', amount, ceiling: ceil.amount, ceilingFrom: ceil.from, overCeiling: amount > ceil.amount, fee: f.fee, onePct: f.onePct, rounded: f.rounded, floor: f.floor, flags };
+		return { ok: true, mode: 'fee', amount, ceiling: ceil.amount, ceilingFrom: ceil.from, ceilingUnknown, overCeiling: ceilingUnknown ? null : amount > ceil.amount, fee: f.fee, onePct: f.onePct, rounded: f.rounded, floor: f.floor, flags };
 	}
 
 	const plaintiff = PLAINTIFF_KEYS.includes(input.plaintiff) ? input.plaintiff : 'individual';
 	// Each condition: met (true), not met (false), or depends (null). Never a percentage.
 	const conds = [];
 	conds.push({ code: 'plaintiff', met: plaintiff === 'individual' || plaintiff === 'osek', sec: 's60a' });
-	conds.push({ code: 'amount', met: amount <= ceil.amount, sec: 's60a1' });
+	conds.push({ code: 'amount', met: ceilingUnknown ? null : amount <= ceil.amount, sec: 's60a1' });
 	conds.push({ code: 'remedy', met: true, sec: input.remedy === 'product' ? 's60a2' : 's60a1' });
 	conds.push({ code: 'assigned', met: !input.assigned, sec: 's60a' });
 	conds.push({ code: 'exclusive', met: !input.labor, sec: 's60a' });
@@ -127,7 +133,7 @@ export function compute(registry, input) {
 
 	return {
 		ok: true, mode: 'full', verdict, amount, plaintiff, remedy: input.remedy === 'product' ? 'product' : 'money', claims,
-		ceiling: ceil.amount, ceilingFrom: ceil.from, overCeiling: amount > ceil.amount, overBy: Math.max(0, Math.round((amount - ceil.amount) * 100) / 100),
+		ceiling: ceil.amount, ceilingFrom: ceil.from, ceilingUnknown, overCeiling: ceilingUnknown ? null : amount > ceil.amount, overBy: ceilingUnknown ? 0 : Math.max(0, Math.round((amount - ceil.amount) * 100) / 100),
 		fee: f.fee, onePct: f.onePct, rounded: f.rounded, floor: f.floor, conds, dates, flags, on,
 	};
 }

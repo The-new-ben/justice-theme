@@ -269,15 +269,21 @@ function compute(registry, input) {
 	if (errors.length) { return { ok: false, errors }; }
 
 	const f = fee(sc, amount);
+	// The ceiling is re-indexed every 1 January (the 2008 order, s.2(ג)). Past the registry's next_update with no
+	// newer row, the old ceiling is not used for a verdict: the amount test becomes "depends" until it is refreshed.
+	const ceilingUnknown = Boolean(sc.next_update && on >= sc.next_update && ceil.from < sc.next_update);
+	if (ceilingUnknown) {
+		flags.push({ code: 'ceiling_unknown', he: `התקרה מתעדכנת ב-1 בינואר לפי המדד. הכלי עוד לא קיבל את התקרה מ-${sc.next_update.split('-').reverse().map(Number).join('.')}, ולכן לא קובע אם הסכום מתחתיה. התקרה האחרונה שנבדקה: ${ceil.amount.toLocaleString('en-US')} ₪.` });
+	}
 	if (input.mode === 'fee') {
-		return { ok: true, mode: 'fee', amount, ceiling: ceil.amount, ceilingFrom: ceil.from, overCeiling: amount > ceil.amount, fee: f.fee, onePct: f.onePct, rounded: f.rounded, floor: f.floor, flags };
+		return { ok: true, mode: 'fee', amount, ceiling: ceil.amount, ceilingFrom: ceil.from, ceilingUnknown, overCeiling: ceilingUnknown ? null : amount > ceil.amount, fee: f.fee, onePct: f.onePct, rounded: f.rounded, floor: f.floor, flags };
 	}
 
 	const plaintiff = PLAINTIFF_KEYS.includes(input.plaintiff) ? input.plaintiff : 'individual';
 	// Each condition: met (true), not met (false), or depends (null). Never a percentage.
 	const conds = [];
 	conds.push({ code: 'plaintiff', met: plaintiff === 'individual' || plaintiff === 'osek', sec: 's60a' });
-	conds.push({ code: 'amount', met: amount <= ceil.amount, sec: 's60a1' });
+	conds.push({ code: 'amount', met: ceilingUnknown ? null : amount <= ceil.amount, sec: 's60a1' });
 	conds.push({ code: 'remedy', met: true, sec: input.remedy === 'product' ? 's60a2' : 's60a1' });
 	conds.push({ code: 'assigned', met: !input.assigned, sec: 's60a' });
 	conds.push({ code: 'exclusive', met: !input.labor, sec: 's60a' });
@@ -308,7 +314,7 @@ function compute(registry, input) {
 
 	return {
 		ok: true, mode: 'full', verdict, amount, plaintiff, remedy: input.remedy === 'product' ? 'product' : 'money', claims,
-		ceiling: ceil.amount, ceilingFrom: ceil.from, overCeiling: amount > ceil.amount, overBy: Math.max(0, Math.round((amount - ceil.amount) * 100) / 100),
+		ceiling: ceil.amount, ceilingFrom: ceil.from, ceilingUnknown, overCeiling: ceilingUnknown ? null : amount > ceil.amount, overBy: ceilingUnknown ? 0 : Math.max(0, Math.round((amount - ceil.amount) * 100) / 100),
 		fee: f.fee, onePct: f.onePct, rounded: f.rounded, floor: f.floor, conds, dates, flags, on,
 	};
 }
@@ -369,7 +375,7 @@ function renderForm(reg, input) {
 
 const COND_TEXT = {
 	plaintiff: (r) => (r.conds[0].met ? 'התובע יחיד (גם עוסק פטור או מורשה). חברה בע"מ לא יכולה לתבוע כאן' : `${CANNOT[r.plaintiff]}: רק יחיד`),
-	amount: (r) => (r.overCeiling ? `${money(r.amount, r.amount % 1 ? 2 : 0)} ₪ מעל התקרה של ${money(r.ceiling, 0)} ₪ (מ-${isoToHe(r.ceilingFrom)}) ב-${money(r.overBy, r.overBy % 1 ? 2 : 0)} ₪` : `${money(r.amount, r.amount % 1 ? 2 : 0)} ₪, עד ${money(r.ceiling, 0)} ₪ מ-${isoToHe(r.ceilingFrom)}`),
+	amount: (r) => (r.ceilingUnknown ? `${money(r.amount, r.amount % 1 ? 2 : 0)} ₪: התקרה החדשה מ-1 בינואר עוד לא נטענה לכלי (האחרונה: ${money(r.ceiling, 0)} ₪)` : r.overCeiling ? `${money(r.amount, r.amount % 1 ? 2 : 0)} ₪ מעל התקרה של ${money(r.ceiling, 0)} ₪ (מ-${isoToHe(r.ceilingFrom)}) ב-${money(r.overBy, r.overBy % 1 ? 2 : 0)} ₪` : `${money(r.amount, r.amount % 1 ? 2 : 0)} ₪, עד ${money(r.ceiling, 0)} ₪ מ-${isoToHe(r.ceilingFrom)}`),
 	remedy: (r) => (r.remedy === 'product' ? 'החלפה או תיקון של מוצר, או ביטול עסקה, בשווי עד התקרה' : 'תשלום כסף'),
 	assigned: (r) => (r.conds[3].met ? 'לא מכוח זכות שהומחתה מאדם אחר' : 'תביעה מכוח זכות שהומחתה (חוב שנקנה) לא נדונה בתביעות קטנות'),
 	exclusive: (r) => (r.conds[4].met ? 'לא בסמכות ייחודית של בית משפט אחר (סכסוך עובד-מעסיק: בית הדין לעבודה)' : 'סכסוך בין עובד למעסיק שייך לבית הדין האזורי לעבודה'),
@@ -387,7 +393,12 @@ function verdictSentence(r) {
 		return 'תביעה מכוח זכות שהומחתה לא נדונה בתביעות קטנות.';
 	}
 	const feeText = `האגרה: ${amount(r.fee)} ₪${r.floor ? ' (המינימום)' : ''}.`;
-	if (r.verdict === 'depends') { return `התביעה מתאימה בעיקרה, אבל אחרי 5 תביעות בשנה בית המשפט רשאי להעביר אותה. ${feeText}`; }
+	if (r.verdict === 'depends') {
+		const why = [];
+		if (r.ceilingUnknown) { why.push('התקרה החדשה עוד לא נטענה לכלי, ולכן בדקו אותה באתר הרשות השופטת'); }
+		if (r.conds[5].met === null) { why.push('אחרי 5 תביעות בשנה באותו בית משפט, בית המשפט רשאי להעביר את התביעה'); }
+		return `התביעה מתאימה בשאר התנאים, אבל ${why.join('; ')}. ${feeText}`;
+	}
 	return `אפשר לתבוע ${amt} בתביעות קטנות. ${feeText}`;
 }
 
@@ -407,9 +418,11 @@ function renderResult(reg, r, opts = {}) {
 			+ `<p class="jtool-verdict__sentence">${r.errors.map((e) => esc(e.he)).join(' ')}</p></div>`;
 	}
 	if (r.mode === 'fee') {
-		const state = r.overCeiling ? `<p class="jtool-state jtool-state--warn">! מעל התקרה: ${money(r.ceiling, 0)} ₪ מ-${isoToHe(r.ceilingFrom)}</p>` : `<p class="jtool-state jtool-state--info">✓ עד התקרה: ${money(r.ceiling, 0)} ₪ מ-${isoToHe(r.ceilingFrom)}</p>`;
+		const state = r.ceilingUnknown ? '<p class="jtool-state jtool-state--warn">! התקרה החדשה עוד לא נטענה לכלי</p>'
+			: r.overCeiling ? `<p class="jtool-state jtool-state--warn">! מעל התקרה: ${money(r.ceiling, 0)} ₪ מ-${isoToHe(r.ceilingFrom)}</p>` : `<p class="jtool-state jtool-state--info">✓ עד התקרה: ${money(r.ceiling, 0)} ₪ מ-${isoToHe(r.ceilingFrom)}</p>`;
 		return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true">${state}<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}אגרה על ${esc(money(r.amount, r.amount % 1 ? 2 : 0))} ₪</p>`
 			+ `<strong class="jtool-verdict__figure">${ils(r.fee, 0)}</strong><p class="jtool-verdict__sentence">${esc(verdictSentence(r))}</p></div>`
+			+ (r.flags.length ? `<ul class="jtool-flags">${r.flags.map((f) => `<li>${esc(f.he)}</li>`).join('')}</ul>` : '')
 			+ `<details class="jtool-path" open><summary>איך חישבנו</summary><ol>${feeLines(reg, r).map((l) => `<li>${l}</li>`).join('')}</ol></details>`;
 	}
 	const states = { yes: '<p class="jtool-state jtool-state--ok">✓ כן, אפשר לתבוע בתביעות קטנות</p>', no: '<p class="jtool-state jtool-state--danger">✕ לא בתביעות קטנות</p>', depends: '<p class="jtool-state jtool-state--warn">! תלוי בבית המשפט</p>' };

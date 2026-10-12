@@ -299,3 +299,9 @@ a.jtool-cite:hover { text-decoration: underline; }
 .jtool-page a:hover { color: var(--jtool-verdict-deep) !important; }
 .jtool-page a:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
 .jtool-page.jtool-cards a.jtool-card { text-decoration: none !important; color: var(--jtool-ink) !important; }
+
+/* Phones: a stacked table cell wraps its label and value instead of widening the card (no hidden scroll box). */
+@media (max-width: 600px) {
+	.jtool-page .jtool-datatable td, .jtool .jtool-table td { flex-wrap: wrap; min-width: 0; overflow-wrap: anywhere; }
+	.jtool-page .jtool-datatable td::before, .jtool .jtool-table td::before { margin-inline-end: auto; }
+}

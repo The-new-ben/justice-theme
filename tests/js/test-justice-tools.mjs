@@ -239,6 +239,18 @@ check(!T03.compute(reg, { mode: 'period', start: '2024-01-01', end: '2026-12-31'
 check(!T03.compute(reg, { mode: 'year', years: 3, jobPct: 0 }).ok, 'job % 0 is an input error');
 check(T03.monthsWorked('2026-03-01', '2026-08-31') === 6 && Math.abs(T03.monthsWorked('2026-03-01', '2026-03-15') - 15 / 31) < 1e-9, 'months worked: 6 whole months; half a month as days of that month');
 
+// Review fixes (PR 123): unpaid leave in period mode, and the low-pay half day per law year.
+hv = T03.compute(reg, { mode: 'period', start: '2020-01-01', end: '2021-12-31', asOf: '2026-10-12', jobPct: 100, applyDeduction: false, leaves: [{ from: '2021-01-01', to: '2021-03-31' }] });
+check(hv.ok && hv.daysDue === 9.5 && hv.leaveMonths === 3 && hv.rows[1].leave === 3, `Ministry example in period mode: 3 months of unpaid leave in year 2 -> 9.5 days (${hv.daysDue})`);
+hv = T03.compute(reg, { mode: 'period', start: '2021-03-01', end: '2026-08-31', asOf: '2026-10-12', leaves: [{ from: '2024-03-01', to: '2024-04-15' }] });
+check(hv.ok && Math.abs(hv.rows[3].leave - 1.5) < 1e-9 && hv.rows[3].daysDue === 6.125, `leave inside work year 4 (1.5 months) cuts its days: ${hv.rows[3].daysDue}`);
+check(!T03.compute(reg, { mode: 'period', start: '2021-03-01', end: '2026-08-31', asOf: '2026-10-12', leaves: [{ from: '2024-03-01', to: '' }] }).ok, 'a half-filled leave row is an error, never dropped');
+check(!T03.compute(reg, { mode: 'period', start: '2021-03-01', end: '2026-08-31', asOf: '2026-10-12', leaves: [{ from: '2020-01-01', to: '2020-02-01' }] }).ok, 'a leave period outside the employment is an error');
+hv = T03.compute(reg, { mode: 'period', start: '2021-03-01', end: '2026-08-31', asOf: '2026-10-12', lowPay: { 2024: false, 2025: true } });
+check(hv.ok && hv.rows[3].deduction === 418 && hv.rows[4].deduction === 209 && hv.gap === 13471.25, `low pay in 2025 only: half a day in 2025, a full day in 2024 (${hv.gap})`);
+hv = T03.compute(reg, { mode: 'year', years: 4, havraaYear: 2025, lowPay: { 2024: true, 2025: false } });
+check(hv.ok && hv.deduction === 418, 'year mode reads the low-pay flag of the year asked for');
+
 /* ---------- 7. Small claims, T05 (HAD-490) ---------- */
 const sc = reg.small_claims;
 const FEES = [[12748, 130], [39900, 400], [5000, 50], [5001, 55], [100, 50], [25010, 255], [12500, 125], [1234.56, 50], [10000, 100]];
@@ -262,6 +274,12 @@ check(T05.compute(reg, { mode: 'full', amount: 1000, eventDate: '2019-01-01', on
 s5 = T05.compute(reg, { mode: 'fee', amount: 39900, on: '2026-10-12' });
 check(s5.ok && s5.mode === 'fee' && s5.fee === 400 && !s5.overCeiling, 'fee-only mode: 39,900 ₪ -> 400 ₪');
 check(T05.compute(reg, { mode: 'fee', amount: 50000, on: '2026-10-12' }).overCeiling === true, 'fee-only mode flags an amount over the ceiling');
+// Review fix (PR 123): no verdict on the 2026 ceiling once the 1 January update is due and not yet registered.
+s5 = T05.compute(reg, { mode: 'full', amount: 39950, plaintiff: 'individual', on: '2027-01-02' });
+check(s5.ok && s5.ceilingUnknown && s5.verdict === 'depends' && s5.conds[1].met === null && s5.flags.some((f) => f.code === 'ceiling_unknown'), 'from 1.1.2027 the amount test is "depends", not a 39,900-based no');
+s5 = T05.compute(reg, { mode: 'fee', amount: 39950, on: '2027-01-02' });
+check(s5.ok && s5.overCeiling === null && s5.fee === 400, 'fee-only after the update date: the fee still computes, the ceiling check does not');
+check(T05.compute(reg, { mode: 'full', amount: 39950, plaintiff: 'individual', on: '2026-12-31' }).verdict === 'no', 'until 31.12.2026 the 39,900 ceiling decides');
 check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T05.compute(reg, { mode: 'full', amount: 100, hearingDate: '31.2.2027', on: '2026-10-12' }).ok, 'zero amount and impossible dates are input errors');
 
 if (failures) {

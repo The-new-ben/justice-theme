@@ -57,7 +57,7 @@ export function renderForm(reg, input) {
 
 const COND_TEXT = {
 	plaintiff: (r) => (r.conds[0].met ? 'התובע יחיד (גם עוסק פטור או מורשה). חברה בע"מ לא יכולה לתבוע כאן' : `${CANNOT[r.plaintiff]}: רק יחיד`),
-	amount: (r) => (r.overCeiling ? `${money(r.amount, r.amount % 1 ? 2 : 0)} ₪ מעל התקרה של ${money(r.ceiling, 0)} ₪ (מ-${isoToHe(r.ceilingFrom)}) ב-${money(r.overBy, r.overBy % 1 ? 2 : 0)} ₪` : `${money(r.amount, r.amount % 1 ? 2 : 0)} ₪, עד ${money(r.ceiling, 0)} ₪ מ-${isoToHe(r.ceilingFrom)}`),
+	amount: (r) => (r.ceilingUnknown ? `${money(r.amount, r.amount % 1 ? 2 : 0)} ₪: התקרה החדשה מ-1 בינואר עוד לא נטענה לכלי (האחרונה: ${money(r.ceiling, 0)} ₪)` : r.overCeiling ? `${money(r.amount, r.amount % 1 ? 2 : 0)} ₪ מעל התקרה של ${money(r.ceiling, 0)} ₪ (מ-${isoToHe(r.ceilingFrom)}) ב-${money(r.overBy, r.overBy % 1 ? 2 : 0)} ₪` : `${money(r.amount, r.amount % 1 ? 2 : 0)} ₪, עד ${money(r.ceiling, 0)} ₪ מ-${isoToHe(r.ceilingFrom)}`),
 	remedy: (r) => (r.remedy === 'product' ? 'החלפה או תיקון של מוצר, או ביטול עסקה, בשווי עד התקרה' : 'תשלום כסף'),
 	assigned: (r) => (r.conds[3].met ? 'לא מכוח זכות שהומחתה מאדם אחר' : 'תביעה מכוח זכות שהומחתה (חוב שנקנה) לא נדונה בתביעות קטנות'),
 	exclusive: (r) => (r.conds[4].met ? 'לא בסמכות ייחודית של בית משפט אחר (סכסוך עובד-מעסיק: בית הדין לעבודה)' : 'סכסוך בין עובד למעסיק שייך לבית הדין האזורי לעבודה'),
@@ -75,7 +75,12 @@ export function verdictSentence(r) {
 		return 'תביעה מכוח זכות שהומחתה לא נדונה בתביעות קטנות.';
 	}
 	const feeText = `האגרה: ${amount(r.fee)} ₪${r.floor ? ' (המינימום)' : ''}.`;
-	if (r.verdict === 'depends') { return `התביעה מתאימה בעיקרה, אבל אחרי 5 תביעות בשנה בית המשפט רשאי להעביר אותה. ${feeText}`; }
+	if (r.verdict === 'depends') {
+		const why = [];
+		if (r.ceilingUnknown) { why.push('התקרה החדשה עוד לא נטענה לכלי, ולכן בדקו אותה באתר הרשות השופטת'); }
+		if (r.conds[5].met === null) { why.push('אחרי 5 תביעות בשנה באותו בית משפט, בית המשפט רשאי להעביר את התביעה'); }
+		return `התביעה מתאימה בשאר התנאים, אבל ${why.join('; ')}. ${feeText}`;
+	}
 	return `אפשר לתבוע ${amt} בתביעות קטנות. ${feeText}`;
 }
 
@@ -95,9 +100,11 @@ export function renderResult(reg, r, opts = {}) {
 			+ `<p class="jtool-verdict__sentence">${r.errors.map((e) => esc(e.he)).join(' ')}</p></div>`;
 	}
 	if (r.mode === 'fee') {
-		const state = r.overCeiling ? `<p class="jtool-state jtool-state--warn">! מעל התקרה: ${money(r.ceiling, 0)} ₪ מ-${isoToHe(r.ceilingFrom)}</p>` : `<p class="jtool-state jtool-state--info">✓ עד התקרה: ${money(r.ceiling, 0)} ₪ מ-${isoToHe(r.ceilingFrom)}</p>`;
+		const state = r.ceilingUnknown ? '<p class="jtool-state jtool-state--warn">! התקרה החדשה עוד לא נטענה לכלי</p>'
+			: r.overCeiling ? `<p class="jtool-state jtool-state--warn">! מעל התקרה: ${money(r.ceiling, 0)} ₪ מ-${isoToHe(r.ceilingFrom)}</p>` : `<p class="jtool-state jtool-state--info">✓ עד התקרה: ${money(r.ceiling, 0)} ₪ מ-${isoToHe(r.ceilingFrom)}</p>`;
 		return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true">${state}<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}אגרה על ${esc(money(r.amount, r.amount % 1 ? 2 : 0))} ₪</p>`
 			+ `<strong class="jtool-verdict__figure">${ils(r.fee, 0)}</strong><p class="jtool-verdict__sentence">${esc(verdictSentence(r))}</p></div>`
+			+ (r.flags.length ? `<ul class="jtool-flags">${r.flags.map((f) => `<li>${esc(f.he)}</li>`).join('')}</ul>` : '')
 			+ `<details class="jtool-path" open><summary>איך חישבנו</summary><ol>${feeLines(reg, r).map((l) => `<li>${l}</li>`).join('')}</ol></details>`;
 	}
 	const states = { yes: '<p class="jtool-state jtool-state--ok">✓ כן, אפשר לתבוע בתביעות קטנות</p>', no: '<p class="jtool-state jtool-state--danger">✕ לא בתביעות קטנות</p>', depends: '<p class="jtool-state jtool-state--warn">! תלוי בבית המשפט</p>' };

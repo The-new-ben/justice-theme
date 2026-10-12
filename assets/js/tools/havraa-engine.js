@@ -98,13 +98,35 @@ function lastPublishedYear(havraa) {
 	return Number(havraa.private_rates[havraa.private_rates.length - 1].from.slice(0, 4));
 }
 
+/**
+ * The half-day deduction applies per law year: input.lowPay is either one flag for the year in question, or
+ * { 2024: bool, 2025: bool } because each law has its own salary period and threshold.
+ */
+export function lowPayFor(lowPay, year) {
+	if (lowPay && typeof lowPay === 'object') { return Boolean(lowPay[year] || lowPay[String(year)]); }
+	return Boolean(lowPay);
+}
+
+/** Months of unpaid leave (חל"ת) that fall inside [from, to], from a list of { from, to } periods. */
+export function leaveMonthsIn(leaves, from, to) {
+	let months = 0;
+	for (const l of leaves || []) {
+		const a = l.from > from ? l.from : from;
+		const b = l.to < to ? l.to : to;
+		if (a <= b) { months += monthsWorked(a, b); }
+	}
+	return months;
+}
+
 /** One work year (or part of it): days, price, deduction, amount. */
 function valueYear(havraa, k, from, to, fullTo, jobPct, opts) {
 	const table = havraa.days;
 	const full = daysFor(table, k);
 	const fraction = to >= fullTo ? 1 : round4(Math.min(12, monthsWorked(from, to)) / 12);
-	const leave = k === opts.leaveYear ? Math.min(12, Math.max(0, opts.leaveMonths || 0)) : 0;
-	const share = round4(fraction * (12 - leave) / 12);
+	// Unpaid leave is not counted (the order's s.6): the year's share drops by its months, as in the Ministry's example.
+	const leaveRaw = opts.leaves ? leaveMonthsIn(opts.leaves, from, to) : (k === opts.leaveYear ? opts.leaveMonths || 0 : 0);
+	const leave = round4(Math.min(fraction * 12, Math.max(0, leaveRaw)));
+	const share = round4((fraction * 12 - leave) / 12);
 	const daysDue = round4(full * (jobPct / 100) * share);
 	// The 1 July inside the work year sets the price (payment months June-September, s.5(ד)).
 	const y0 = Number(from.slice(0, 4));
@@ -119,21 +141,23 @@ function valueYear(havraa, k, from, to, fullTo, jobPct, opts) {
 	if (opts.applyDeduction !== false) {
 		ded = deductionFor(havraa, year);
 		if (ded && price) {
-			const half = opts.lowPay && (!ded.half_requires_five_days || full === 5);
+			const half = lowPayFor(opts.lowPay, year) && (!ded.half_requires_five_days || full === 5);
 			deduction = round2(price.rate * (jobPct / 100) * share * (half ? 0.5 : 1) * ded.days);
 		}
 	}
 	return {
 		k, from, to, fullTo, full, fraction, leave, share, daysDue, valueOn, year, price: price ? price.rate : null,
 		priceFrom: price ? price.from : null, gross, deduction, deductionYear: deduction ? year : null,
-		half: Boolean(ded && deduction && opts.lowPay && (!ded.half_requires_five_days || full === 5)),
+		half: Boolean(ded && deduction && lowPayFor(opts.lowPay, year) && (!ded.half_requires_five_days || full === 5)),
 		net: gross === null ? null : round2(gross - deduction),
 	};
 }
 
 /**
  * input (mode "year"):   { mode: 'year', sector, years, jobPct, havraaYear, leaveMonths, lowPay, applyDeduction }
- * input (mode "period"): { mode: 'period', sector, start, end, asOf, jobPct, paid, lowPay, applyDeduction, valuation }
+ * input (mode "period"): { mode: 'period', sector, start, end, asOf, jobPct, paid, leaves: [{ from, to }], lowPay,
+ *                          applyDeduction, valuation }
+ *   lowPay: true/false, or { 2024: bool, 2025: bool } (each deduction law has its own low-pay test).
  *   valuation: 'july' (default) or 'latest' (every year at the latest published price: the what-if).
  */
 export function compute(registry, input) {
@@ -180,6 +204,20 @@ export function compute(registry, input) {
 	if (start && end && end <= start) { errors.push({ field: 'end', he: 'תאריך הסיום צריך להיות אחרי תאריך ההתחלה' }); }
 	if (end && end > asOf) { errors.push({ field: 'end', he: `תאריך הסיום לא יכול להיות אחרי היום (${asOf.split('-').reverse().map(Number).join('.')})` }); }
 	if (!(paid >= 0)) { errors.push({ field: 'paid', he: 'הסכום ששולם צריך להיות 0 או יותר' }); }
+	// Unpaid-leave periods: both dates or neither, inside the employment, in order. A half-filled row is an error.
+	const leaves = [];
+	(input.leaves || []).forEach((l, i) => {
+		const rawFrom = String(l.from || '').trim();
+		const rawTo = String(l.to || '').trim();
+		if (!rawFrom && !rawTo) { return; }
+		const a = parseDate(rawFrom);
+		const b = parseDate(rawTo);
+		if (!a || !b || b < a || (start && a < start) || (end && b > end)) {
+			errors.push({ field: 'leaves', row: i, he: `תקופת חופשה ללא תשלום ${i + 1}: צריך תאריך התחלה וסיום תקינים, בתוך תקופת העבודה` });
+			return;
+		}
+		leaves.push({ from: a, to: b });
+	});
 	if (errors.length) { return { ok: false, errors }; }
 	if (start < hv.private_rates[0].from) {
 		flags.push({ code: 'before_table', he: `העבודה התחילה לפני ${Number(hv.private_rates[0].from.slice(0, 4))}. שנים מוקדמות יותר ממילא מחוץ לתקופת ההתיישנות של 7 שנים, והכלי לא מחשב אותן.` });
@@ -203,7 +241,7 @@ export function compute(registry, input) {
 	const limitFrom = addYears(asOf, -hv.limitation_years);
 	const valued = [];
 	for (const row of rows) {
-		const v = valueYear(hv, row.k, row.from, row.to, row.fullTo, jobPct, { lowPay: input.lowPay, applyDeduction: input.applyDeduction });
+		const v = valueYear(hv, row.k, row.from, row.to, row.fullTo, jobPct, { leaves, lowPay: input.lowPay, applyDeduction: input.applyDeduction });
 		if (v.valueOn > lastJuly && v.valueOn.slice(0, 4) > String(last)) {
 			return { ok: false, outOfScope: true, errors: [{ field: 'end', he: `מחיר יום ההבראה לשנת ${v.valueOn.slice(0, 4)} עוד לא פורסם. הכלי מחשב עד שנת ${last}.` }] };
 		}
@@ -224,13 +262,14 @@ export function compute(registry, input) {
 	}
 	const sum = (key) => round2(live.reduce((a, v) => a + (v[key] || 0), 0));
 	const daysDue = round4(live.reduce((a, v) => a + v.daysDue, 0));
+	const leaveMonths = round4(live.reduce((a, v) => a + v.leave, 0));
 	const gross = sum('gross');
 	const deduction = sum('deduction');
 	const net = round2(gross - deduction);
 	const gap = round2(Math.max(0, net - paid));
 	return {
 		ok: true, mode: 'period', state: gap > 0 ? 'owed' : 'paid', start, end, asOf, stillWorking: !input.end, jobPct, limitFrom,
-		rows: valued, flags, daysDue, gross, deduction, net, paid, gap, overpaid: round2(Math.max(0, paid - net)),
+		rows: valued, flags, daysDue, gross, deduction, net, paid, gap, overpaid: round2(Math.max(0, paid - net)), leaveMonths,
 		years: live.length, valuation: input.valuation === 'latest' ? 'latest' : 'july',
 	};
 }

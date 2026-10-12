@@ -5,7 +5,7 @@
  */
 import { compute } from './havraa-engine.js';
 import {
-	esc, ils, num, money, amount, parseMoney, isoToHe, encodeState, decodeState, csv,
+	esc, ils, num, money, amount, parseMoney, isoToHe, encodeState, decodeState, decodeList, csv,
 	track, download, copyText, toast, shareUrl, whatsappUrl, store, stickyBar, isStale,
 } from './instrument.js';
 
@@ -13,7 +13,8 @@ export const TOOL_ID = 'havraa';
 const P = 'jt3';
 
 export const EXAMPLE = { mode: 'year', sector: 'private', years: 4, jobPct: 100, havraaYear: 2026, leaveMonths: 0, lowPay: false };
-export const EXAMPLE_PERIOD = { mode: 'period', sector: 'private', start: '2021-03-01', end: '2026-08-31', jobPct: 100, paid: 0, lowPay: false, applyDeduction: true };
+export const EXAMPLE_PERIOD = { mode: 'period', sector: 'private', start: '2021-03-01', end: '2026-08-31', jobPct: 100, paid: 0, leaves: [], lowPay: false, applyDeduction: true };
+const lowOf = (lp, y) => Boolean(lp && (typeof lp === 'object' ? lp[y] : lp));
 
 const fmtDays = (d) => Number(d).toLocaleString('en-US', { maximumFractionDigits: 2 });
 
@@ -41,6 +42,13 @@ function toIso(text) {
 
 /* ---------------- Pure renderers ---------------- */
 
+function leaveRow(l, i) {
+	return `<li class="jtool-rep__row" data-row="${i}">`
+		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-lf-${i}">מתאריך</label><input id="${P}-lf-${i}" type="text" inputmode="numeric" autocomplete="off" data-leave-from value="${esc(isoToHe(l.from || ''))}" placeholder="לדוגמה: 1.1.2024"></div>`
+		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-lt-${i}">עד תאריך</label><input id="${P}-lt-${i}" type="text" inputmode="numeric" autocomplete="off" data-leave-to value="${esc(isoToHe(l.to || ''))}" placeholder="לדוגמה: 31.3.2024"></div>`
+		+ `<button class="jtool-iconbtn" type="button" data-remove-leave="${i}" aria-label="מחיקת תקופת חופשה ללא תשלום ${i + 1}">✕</button></li>`;
+}
+
 export function renderForm(reg, input) {
 	const chip = (name, value, label, checked, type = 'radio') => `<label class="jtool-chip"><input type="${type}" name="${P}-${name}" value="${value}"${checked ? ' checked' : ''}><span>${esc(label)}</span></label>`;
 	const period = input.mode === 'period';
@@ -60,9 +68,11 @@ export function renderForm(reg, input) {
 		+ `<div class="jtool-row" style="margin-top:12px"><div class="jtool-field"><label class="jtool-label" for="${P}-ppct">אחוז משרה</label><input id="${P}-ppct" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.jobPct ?? 100)}" aria-describedby="${P}-ppct-e"><p class="jtool-error" id="${P}-ppct-e" role="alert"></p></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-paid">כמה שולם כדמי הבראה בתקופה</label><div class="jtool-input jtool-input--money"><input id="${P}-paid" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.paid ? money(input.paid, 0) : '0')}" aria-describedby="${P}-paid-h ${P}-paid-e"><span class="jtool-input__suffix" aria-hidden="true">₪</span></div><p class="jtool-hint" id="${P}-paid-h">לפי התלושים. לא יודעים? השאירו 0</p><p class="jtool-error" id="${P}-paid-e" role="alert"></p></div></div>`
 		+ `</div>`
-		+ `<details class="jtool-more"${input.lowPay || input.leaveMonths || input.applyDeduction === false ? ' open' : ''}><summary>אפשרויות מתקדמות</summary>`
+		+ `<details class="jtool-more"${lowOf(input.lowPay, 2024) || lowOf(input.lowPay, 2025) || input.leaveMonths || (input.leaves && input.leaves.length) || input.applyDeduction === false ? ' open' : ''}><summary>אפשרויות מתקדמות</summary>`
 		+ `<div class="jtool-field" style="margin-top:8px" data-mode-year${period ? ' hidden' : ''}><label class="jtool-label" for="${P}-leave">חודשי חופשה ללא תשלום בשנה הזאת</label><input id="${P}-leave" type="text" inputmode="numeric" autocomplete="off" value="${esc(input.leaveMonths || 0)}" aria-describedby="${P}-leave-h ${P}-leave-e"><p class="jtool-hint" id="${P}-leave-h">לא נספרים לזכאות. חופשת לידה כן נספרת (סעיף 6)</p><p class="jtool-error" id="${P}-leave-e" role="alert"></p></div>`
-		+ `<div class="jtool-chips" style="margin-top:8px">${chip('low', '1', 'שכר נמוך ב-2024 או ב-2025 (ניכוי של חצי יום)', input.lowPay, 'checkbox')}${chip('noded', '1', 'לחשב בלי הניכוי שבחוק', input.applyDeduction === false, 'checkbox')}</div>`
+		+ `<div class="jtool-field" style="margin-top:8px" data-mode-period${period ? '' : ' hidden'}><span class="jtool-label" id="${P}-leaves-l">תקופות של חופשה ללא תשלום (חל"ת)</span><ul class="jtool-rep" aria-labelledby="${P}-leaves-l" data-leaves>${(input.leaves && input.leaves.length ? input.leaves : [{ from: '', to: '' }]).map(leaveRow).join('')}</ul>`
+		+ `<button class="jtool-linkbtn" type="button" data-add-leave>+ עוד תקופה</button><p class="jtool-hint">לא נספרות לזכאות (סעיף 6). חופשת לידה כן נספרת, ואין להזין אותה כאן.</p><p class="jtool-error" id="${P}-leaves-e" role="alert"></p></div>`
+		+ `<div class="jtool-chips" style="margin-top:8px">${chip('low24', '1', 'שכר נמוך ב-2024 (חצי יום ניכוי)', lowOf(input.lowPay, 2024), 'checkbox')}${chip('low25', '1', 'שכר נמוך ב-2025 (חצי יום ניכוי)', lowOf(input.lowPay, 2025), 'checkbox')}${chip('noded', '1', 'לחשב בלי הניכוי שבחוק', input.applyDeduction === false, 'checkbox')}</div>`
 		+ `<p class="jtool-hint">חצי יום: ב-2025 למי ששכרו הממוצע באוקטובר עד דצמבר 2024 לא עלה על ${money(dedFor(reg, 2025).half_salary_max, 0)} ₪; ב-2024 למי שהיה זכאי ל-5 ימים ושכרו בינואר עד מרץ 2024 לא עלה על ${money(dedFor(reg, 2024).half_salary_max, 0)} ₪ (יחסית לאחוז המשרה).</p>`
 		+ `</details>`;
 }
@@ -105,6 +115,7 @@ export function pathLines(reg, r) {
 	}
 	lines.push(`שנות עבודה מ-<bdi>${isoToHe(r.start)}</bdi>: לכל שנה מספר הימים לפי הוותק באותה שנה (5, 6, 7 ... עד 10)${orderCite(reg, 'סעיף 5(א)')}`);
 	lines.push(`משרה של ${money(r.jobPct, 0)}%, ושנה אחרונה חלקית לפי חודשים${orderCite(reg, 'סעיפים 5(ב) ו-5(ג)')}`);
+	if (r.leaveMonths) { lines.push(`חופשה ללא תשלום לא נספרת: ${fmtDays(r.leaveMonths)} חודשים ירדו מהשנים שבהן היו${orderCite(reg, 'סעיף 6')}`); }
 	lines.push(r.valuation === 'latest'
 		? `כל השנים לפי המחיר האחרון שפורסם, <bdi>${money(hv.private_rates[hv.private_rates.length - 1].rate)}</bdi> ₪, בלי ניכוי`
 		: `כל שנה לפי מחיר יום ההבראה ב-1 ביולי שבתוכה (התשלום ביוני עד ספטמבר): 378 ₪ משנת 2014, 418 ₪ מ-1.7.2023, ${money(hv.private_rates[hv.private_rates.length - 1].rate)} ₪ לשנת ${hv.private_rates[hv.private_rates.length - 1].from.slice(0, 4)}${orderCite(reg, 'סעיף 5(ד)')}`);
@@ -203,7 +214,7 @@ export function renderDetails(reg, r, compareR, compareLabel) {
 	let out = '';
 	if (r.mode === 'period' && r.rows && r.rows.length) {
 		const rows = r.rows.map((v) => `<tr${v.barred ? ' class="jtool-muted"' : ''}><td data-th="שנת עבודה">${v.k}</td><td data-th="תקופה">${isoToHe(v.from)} עד ${isoToHe(v.to)}</td><td data-th="ימים בטבלה">${v.full}</td>`
-			+ `<td data-th="חלק מהשנה">${v.fraction === 1 ? 'מלאה' : `${fmtDays(Math.round(v.fraction * 12 * 100) / 100)} מתוך 12 חודשים`}</td><td data-th="ימי הבראה">${fmtDays(v.daysDue)}</td>`
+			+ `<td data-th="חלק מהשנה">${v.fraction === 1 && !v.leave ? 'מלאה' : `${fmtDays(Math.round((v.fraction * 12 - v.leave) * 100) / 100)} מתוך 12 חודשים${v.leave ? ` (חל"ת ${fmtDays(Math.round(v.leave * 100) / 100)})` : ''}`}</td><td data-th="ימי הבראה">${fmtDays(v.daysDue)}</td>`
 			+ `<td data-th="מחיר יום">${num(v.price)}</td><td data-th="סכום">${num(v.gross)}</td>`
 			+ `<td data-th="ניכוי לפי החוק"${v.deduction ? ' class="jtool-neg"' : ''}>${v.deduction ? num(-v.deduction) : '0.00'}</td>`
 			+ `<td data-th="מגיע">${v.barred ? 'מחוץ לתקופה' : num(v.net)}</td></tr>`).join('');
@@ -257,10 +268,11 @@ function readForm(root) {
 	return {
 		mode, sector: checked('sector') || 'private',
 		years: val(`#${P}-years`).trim() === '' ? NaN : Number(val(`#${P}-years`).trim()),
-		jobPct: pctText.trim() === '' ? 100 : parseMoney(pctText), havraaYear: Number(checked('year')) || undefined,
+		jobPct: pctText.trim() === '' ? 100 : parseMoney(pctText.replace(/%/g, '')), havraaYear: Number(checked('year')) || undefined,
 		leaveMonths: Number(val(`#${P}-leave`)) || 0,
 		start: toIso(val(`#${P}-start`)), end: toIso(val(`#${P}-end`)), paid: val(`#${P}-paid`).trim() === '' ? 0 : parseMoney(val(`#${P}-paid`)),
-		lowPay: Boolean(checked('low')), applyDeduction: !checked('noded'),
+		leaves: [...root.querySelectorAll('[data-leaves] li')].map((li) => ({ from: toIso(li.querySelector('[data-leave-from]').value.trim()), to: toIso(li.querySelector('[data-leave-to]').value.trim()) })),
+		lowPay: { 2024: Boolean(checked('low24')), 2025: Boolean(checked('low25')) }, applyDeduction: !checked('noded'),
 	};
 }
 
@@ -268,15 +280,19 @@ const stateOf = (i) => encodeState({
 	m: i.mode === 'period' ? 'p' : 'y', c: i.sector === 'public' ? 'pub' : '', j: i.jobPct === 100 ? '' : i.jobPct,
 	y: i.mode === 'period' ? '' : i.years, h: i.mode === 'period' ? '' : i.havraaYear, l: i.leaveMonths || '',
 	s: i.mode === 'period' ? i.start : '', e: i.mode === 'period' ? i.end : '', p: i.mode === 'period' && i.paid ? i.paid : '',
-	w: i.lowPay ? 1 : '', d: i.applyDeduction === false ? 0 : '',
+	w: `${lowOf(i.lowPay, 2024) ? '4' : ''}${lowOf(i.lowPay, 2025) ? '5' : ''}`, d: i.applyDeduction === false ? 0 : '',
+	v: i.mode === 'period' ? (i.leaves || []).filter((l) => l.from && l.to).map((l) => [l.from, l.to]) : '',
 });
+const KEYS = ['m', 'c', 'j', 'y', 'h', 'l', 's', 'e', 'p', 'w', 'd', 'v'];
 function inputOf(s) {
 	if (!s.m) { return null; }
 	const period = s.m === 'p';
 	return {
 		mode: period ? 'period' : 'year', sector: s.c === 'pub' ? 'public' : 'private', jobPct: Number(s.j) || 100,
 		years: s.y === undefined ? 4 : Number(s.y), havraaYear: Number(s.h) || undefined, leaveMonths: Number(s.l) || 0,
-		start: s.s || '', end: s.e || '', paid: Number(s.p) || 0, lowPay: s.w === '1', applyDeduction: s.d !== '0',
+		start: s.s || '', end: s.e || '', paid: Number(s.p) || 0, applyDeduction: s.d !== '0',
+		lowPay: { 2024: /4/.test(s.w || ''), 2025: /5/.test(s.w || '') },
+		leaves: decodeList(s.v).map(([from, to]) => ({ from, to })),
 	};
 }
 
@@ -298,7 +314,7 @@ export function mount(root, reg) {
 		root.querySelectorAll('.jtool-error').forEach((e) => { e.textContent = ''; });
 		root.querySelectorAll('[aria-invalid]').forEach((e) => e.removeAttribute('aria-invalid'));
 		if (r.ok || r.outOfScope) { return; }
-		const map = { years: 'years', jobPct: input.mode === 'period' ? 'ppct' : 'pct', leave: 'leave', start: 'start', end: 'end', paid: 'paid' };
+		const map = { years: 'years', jobPct: input.mode === 'period' ? 'ppct' : 'pct', leave: 'leave', leaves: 'leaves', start: 'start', end: 'end', paid: 'paid' };
 		for (const e of r.errors) {
 			const key = map[e.field];
 			const box = key && root.querySelector(`#${P}-${key}-e`);
@@ -331,7 +347,7 @@ export function mount(root, reg) {
 		clearTimeout(timer);
 		timer = setTimeout(() => run(readForm(root)), 160);
 	};
-	const fromHash = inputOf(decodeState(window.location.hash, ['m', 'c', 'j', 'y', 'h', 'l', 's', 'e', 'p', 'w', 'd']));
+	const fromHash = inputOf(decodeState(window.location.hash, KEYS));
 	if (fromHash) {
 		form.innerHTML = renderForm(reg, fromHash);
 		const note = root.querySelector('[data-jtool-shared]');
@@ -343,6 +359,18 @@ export function mount(root, reg) {
 	form.addEventListener('input', schedule);
 	form.addEventListener('change', schedule);
 	root.addEventListener('click', async (ev) => {
+		const add = ev.target.closest('[data-add-leave]');
+		const del = ev.target.closest('[data-remove-leave]');
+		if (add || del) {
+			const list = root.querySelector('[data-leaves]');
+			const rows = [...list.querySelectorAll('li')].map((li) => ({ from: toIso(li.querySelector('[data-leave-from]').value.trim()), to: toIso(li.querySelector('[data-leave-to]').value.trim()) }));
+			if (add) { rows.push({ from: '', to: '' }); } else { rows.splice(Number(del.getAttribute('data-remove-leave')), 1); }
+			list.innerHTML = (rows.length ? rows : [{ from: '', to: '' }]).map(leaveRow).join('');
+			const focus = list.querySelector(add ? 'li:last-child [data-leave-from]' : '[data-leave-from]');
+			if (focus) { focus.focus(); }
+			schedule();
+			return;
+		}
 		const b = ev.target.closest('[data-act]');
 		if (!b) { return; }
 		const act = b.getAttribute('data-act');
@@ -391,7 +419,7 @@ export function mount(root, reg) {
 			store.set('jtool-havraa', stateOf(input));
 			toast(root, 'נשמר במכשיר הזה בלבד. אפשר למחוק בכל רגע.');
 		} else if (act === 'restore') {
-			const s = inputOf(decodeState(store.get('jtool-havraa') || '', ['m', 'c', 'j', 'y', 'h', 'l', 's', 'e', 'p', 'w', 'd']));
+			const s = inputOf(decodeState(store.get('jtool-havraa') || '', KEYS));
 			if (s) { form.innerHTML = renderForm(reg, s); run(s); }
 		} else if (act === 'clear') {
 			store.clear('jtool-havraa');

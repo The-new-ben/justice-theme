@@ -116,6 +116,9 @@ check( false === stripos( $html, 'maya' ) && false === strpos( $html, 'רוטנ�
 check( false === strpos( $html, '<form' ) && false === strpos( $html, 'lead_phone' ), 'no lead form and no gate before the result' );
 check( 1 === preg_match( '#<script type="application/json" id="jtool-hatzmada-data">(.*?)</script>#s', $html, $m ) && is_array( json_decode( $m[1], true ) ), 'the data island is valid JSON' );
 check( isset( $jt_enqueued['justice-tool-hatzmada'], $jt_enqueued['justice-tools'] ), 'bundle and stylesheet enqueued' );
+$tool_section = substr( $html, (int) strpos( $html, '<section class="jtool"' ) );
+check( false === stripos( substr( $tool_section, 0, (int) strpos( $tool_section, '</section>' ) ), '<h2' ), 'no <h2> inside the tool card, so an injected table of contents lands after the tool (HAD-487)' );
+check( false !== strpos( $html, 'role="heading" aria-level="2" id="jtool-hatzmada-title"' ), 'the tool title is still a level-2 heading for screen readers' );
 check( '' === $sc( array( 'name' => 'hatzmada' ) ), 'a tool prints once per page' );
 check( '' === $sc( array( 'name' => 'nope' ) ), 'unknown tool prints nothing' );
 check( false !== strpos( $html, 'jus-tice.com/#/simulation' ) && false !== strpos( $html, 'data-act="rehearse"' ), 'T04 offers the rehearsal after the result (conversion 3)' );

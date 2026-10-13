@@ -389,6 +389,15 @@ function toIso(text) {
 	return `${y}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
 }
 
+/** Today's civil date in Israel (YYYY-MM-DD), not the UTC date (review, PR 124). */
+function ilToday(now = new Date()) {
+	try {
+		return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jerusalem', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+	} catch (e) {
+		return now.toISOString().slice(0, 10);
+	}
+}
+
 /* ---------------- Pure renderers ---------------- */
 
 function renderForm(reg, input) {
@@ -406,7 +415,7 @@ function renderForm(reg, input) {
 		+ `<div data-if-plan="mamad"${input.plan === 'mamad' ? '' : ' hidden'}>${moneyField('mamx', 'החלק מההשבחה שמקורו בשטח שאינו פטור', input.mamadBeyond, 'פטורים: הממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית, והשטח הנוסף לממ"ד לפי סעיף 151(ג)(2) בתנאי סעיף 19(ב)(9)(ג). על שטח אחר: היטל רגיל של מחצית (סעיף 3)', '0 אם אין')}</div>`
 		+ `<fieldset class="jtool-field"><legend>מתי זה קורה</legend><div class="jtool-chips">${EVENTS.map((k) => chip('evt', k, EVENT_LABEL[k], (input.event || 'sale') === k)).join('')}</div></fieldset>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-real">איזה חלק מהזכויות אתם מממשים עכשיו</label><div class="jtool-input"><input id="${P}-real" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.realized ?? 100)}" aria-describedby="${P}-real-h ${P}-realized-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-hint" id="${P}-real-h">מוכרים או בונים רק חלק מהזכויות? משלמים עכשיו את החלק היחסי (${esc(b.partial_section)})</p><p class="jtool-error" id="${P}-realized-e" role="alert"></p></div>`
-		+ `<div data-if-event="sale"${(input.event || 'sale') === 'sale' ? '' : ' hidden'}><div class="jtool-chips">${chip('s4', '1', `מוכרים דירה שנבנתה או הורחבה למגורינו, וגרנו בה ${b.residence_sale_years} שנים לפחות מגמר הבנייה`, input.sale4, 'checkbox')}</div></div>`
+		+ `<div data-if-event="sale"${(input.event || 'sale') === 'sale' ? '' : ' hidden'}><div class="jtool-chips">${chip('s4', '1', `מוכרים דירת מגורים שנבנתה או הורחבה למגורינו, או שאפשר להרחיב לפי תוכנית, וגרנו בה ${b.residence_sale_years} שנים לפחות מגמר הבנייה`, input.sale4, 'checkbox')}</div></div>`
 		+ `<div data-if-event="permit"${input.event === 'permit' ? '' : ' hidden'}><div class="jtool-chips">${chip('home', '1', 'בונים או מרחיבים דירה למגורים שלי או של קרוב', input.ownHome, 'checkbox')}</div>`
 		+ `<div class="jtool-row" data-if-home${input.ownHome ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-field"><label class="jtool-label" for="${P}-ab">שטח הדירה היום</label><div class="jtool-input"><input id="${P}-ab" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.areaBefore ?? '')}" aria-describedby="${P}-areaBefore-e"><span class="jtool-input__suffix" aria-hidden="true">מ"ר</span></div><p class="jtool-error" id="${P}-areaBefore-e" role="alert"></p></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-aa">שטח הדירה אחרי הבנייה</label><div class="jtool-input"><input id="${P}-aa" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.areaAfter ?? '')}" aria-describedby="${P}-areaAfter-h ${P}-areaAfter-e"><span class="jtool-input__suffix" aria-hidden="true">מ"ר</span></div><p class="jtool-hint" id="${P}-areaAfter-h">עד ${b.residence_max_sqm} מ"ר אחרי הבנייה: לא משלמים בהיתר (${esc(b.residence_section)})</p><p class="jtool-error" id="${P}-areaAfter-e" role="alert"></p></div></div></div>`
@@ -587,7 +596,7 @@ function mount(root, reg) {
 	const details = root.querySelector('[data-jtool-details]');
 	const sticky = root.querySelector('[data-jtool-sticky-figure]');
 	const b = reg.betterment;
-	const today = new Date().toISOString().slice(0, 10);
+	const today = ilToday();
 	const saveKey = `jtool-${TOOL_ID}`;
 	let last = null;
 	let started = false;

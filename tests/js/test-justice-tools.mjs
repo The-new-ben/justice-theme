@@ -404,6 +404,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		check(!l1.ok && l1.outOfScope && /עבר/.test(l1.errors[0].he) && RQ.compute(reg, Object.assign({ priorSold: true }, late)).ok, 'replacement deadline passed: the single-home result needs "sold in time" (review, PR 124)');
 		const dp = YE.compute(reg, { spouse: 'married', children: 1, childLines: [2], deeper: true });
 		check(!dp.ok && dp.outOfScope && YUI.renderResult(reg, dp).includes('לא מחלק'), 's.14 beyond one generation: named and stopped (review, PR 124)');
+		check(RQUI.ilToday(new Date('2026-10-13T22:30:00Z')) === '2026-10-14' && HBUI.ilToday(new Date('2026-10-13T12:00:00Z')) === '2026-10-13', 'today is the civil date in Israel, not UTC (review, PR 124)');
 		const gp = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'replacement', groupPrev: true });
 		check(!gp.ok && gp.outOfScope && /\(ב1\)/.test(gp.errors[0].he), 's.9(ג1ג)(2)(ב1): a delayed purchasing-group previous home is named, not computed (review, PR 124)');
 		const gr = YE.compute(reg, { grandparents: 2 });

@@ -36,6 +36,15 @@ function toIso(text) {
 	return `${y}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
 }
 
+/** Today's civil date in Israel (YYYY-MM-DD), not the UTC date (review, PR 124). */
+export function ilToday(now = new Date()) {
+	try {
+		return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jerusalem', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+	} catch (e) {
+		return now.toISOString().slice(0, 10);
+	}
+}
+
 /* ---------------- Pure renderers ---------------- */
 
 export function renderForm(reg, input) {
@@ -222,7 +231,7 @@ export function mount(root, reg) {
 	const details = root.querySelector('[data-jtool-details]');
 	const sticky = root.querySelector('[data-jtool-sticky-figure]');
 	const pt = reg.purchase_tax;
-	const today = new Date().toISOString().slice(0, 10);
+	const today = ilToday();
 	const saveKey = `jtool-${TOOL_ID}`;
 	let last = null;
 	let started = false;

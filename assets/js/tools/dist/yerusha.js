@@ -440,6 +440,15 @@ function cite(text, href) { return ` <a class="jtool-cite" href="${esc(href)}" t
 const lawCite = (reg, text) => cite(text, reg.yerusha.law_url);
 const pctText = (h) => `${(Math.round(h.pct * 100) / 100).toLocaleString('en-US', { maximumFractionDigits: 2 })}%`;
 
+/** Today's civil date in Israel (YYYY-MM-DD), not the UTC date (review, PR 124). */
+function ilToday(now = new Date()) {
+	try {
+		return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jerusalem', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+	} catch (e) {
+		return now.toISOString().slice(0, 10);
+	}
+}
+
 /* ---------------- Pure renderers ---------------- */
 
 function stepper(id, label, value, hint, max = 30) {
@@ -679,7 +688,7 @@ function mount(root, reg) {
 	let started = false;
 	let timer = null;
 	track('tool_view', { tool_id: TOOL_ID });
-	if (isStale(y.checked_on, y.refresh_every_days) || (y.next_update && new Date().toISOString().slice(0, 10) >= y.next_update)) {
+	if (isStale(y.checked_on, y.refresh_every_days) || (y.next_update && ilToday() >= y.next_update)) {
 		const stamp = root.querySelector('.jtool-stamp');
 		if (stamp) { stamp.classList.add('jtool-stamp--stale'); stamp.insertAdjacentText('beforeend', ' · ייתכן שהאגרה התעדכנה'); }
 	}

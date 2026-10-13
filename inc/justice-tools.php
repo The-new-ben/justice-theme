@@ -148,7 +148,9 @@ function justice_tools_catalog(): array {
 			'title'       => 'מי יורש כמה כשאין צוואה',
 			'promise'     => 'בן זוג, ילדים, הורים, אחים: החלק של כל אחד לפי חוק הירושה, בשקלים, עם עץ יורשים ומה עולה צו ירושה.',
 			'question'    => 'מי יורש כמה כשאין צוואה, ומה עולה צו ירושה?',
-			'page'        => '/inheritance/',
+			// Placed on /succession-law-israel/, not /inheritance/: that page carries Adv. Maya Rotenberg's reviewed-by
+			// line, and her review must not appear to cover a calculator she did not review (HAD-498 release, 14.10.2026).
+			'page'        => '/succession-law-israel/',
 			'category'    => 'LegalApplication',
 			'data'        => array( 'registry_version', 'yerusha' ),
 			'dataset'     => 'yerusha',

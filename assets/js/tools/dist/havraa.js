@@ -38,6 +38,16 @@ function parseMoney(text) {
 	return Number(raw) * mult;
 }
 
+/** Today's civil date in Israel (YYYY-MM-DD): never the UTC date or the device's own zone (wave 3 review, PR 124;
+ * shared by every tool from wave 4, HAD-502). */
+function ilToday(now = new Date()) {
+	try {
+		return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jerusalem', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+	} catch (e) {
+		return now.toISOString().slice(0, 10);
+	}
+}
+
 function isoToHe(iso) {
 	if (!iso) { return ''; }
 	const [y, m, d] = iso.split('-').map(Number);
@@ -765,8 +775,7 @@ function mount(root, reg) {
 	const result = root.querySelector('[data-jtool-result]');
 	const details = root.querySelector('[data-jtool-details]');
 	const sticky = root.querySelector('[data-jtool-sticky-figure]');
-	const today = new Date().toISOString().slice(0, 10);
-	let last = null;
+	const today = ilToday(); // the Israel civil date, not UTC (HAD-502)
 	let started = false;
 	let timer = null;
 	track('tool_view', { tool_id: TOOL_ID });
@@ -796,7 +805,6 @@ function mount(root, reg) {
 		result.innerHTML = renderResult(reg, r);
 		details.innerHTML = renderDetails(reg, r, c, cmp ? cmp.label : null);
 		if (sticky) { sticky.innerHTML = r.ok ? ils(r.mode === 'period' ? r.gap : r.net) : '—'; }
-		last = { r, input };
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: r.mode === 'period' ? r.state : `year_${r.state}` }); }
 		if (!r.ok && r.outOfScope) { track('tool_out_of_scope', { tool_id: TOOL_ID }); }
 	};
@@ -838,8 +846,10 @@ function mount(root, reg) {
 		const b = ev.target.closest('[data-act]');
 		if (!b) { return; }
 		const act = b.getAttribute('data-act');
+		// Wave 4 (HAD-502): run a pending debounce now and act on a fresh compute, never the last debounced result.
+		if (timer) { clearTimeout(timer); timer = null; run(readForm(root), { silent: true }); }
 		const input = readForm(root);
-		const r = last ? last.r : compute(reg, Object.assign({}, input, { asOf: today }));
+		const r = compute(reg, Object.assign({}, input, { asOf: today }));
 		const link = shareUrl(stateOf(input));
 		if (act === 'csv' && r.ok && r.mode === 'period') {
 			const head = ['שנת עבודה', 'מתאריך', 'עד תאריך', 'ימים בטבלה', 'חלק מהשנה', 'ימים', 'מחיר יום', 'סכום', 'ניכוי לפי החוק', 'מגיע'];

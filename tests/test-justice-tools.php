@@ -293,6 +293,62 @@ check( false !== strpos( $sec( array( 'name' => 'yerusha', 'part' => 'updated' )
 $index3 = $jt_shortcodes['justice_tools_index']();
 check( false !== strpos( $index3, '/succession-law-israel/' ) && false === strpos( $index3, 'href="' . home_url( '/inheritance/' ) . '"' ) && false !== strpos( $index3, '/acquisition-tax-brackets-2026/' ) && false !== strpos( $index3, '/betterment-levy-israel/' ), 'hub cards include the three wave-3 tools' );
 
+/* ---------- Wave 4 (HAD-502): registry values read on 14.10.2026, and the server HTML ---------- */
+$reg4 = justice_tools_registry();
+$w4   = $reg4['will_cost'];
+check( '2026-10-14' === $w4['checked_on'] && 597 === $w4['registrar']['order'] && 280 === $w4['registrar']['will_before_registrar'] && 126 === $w4['registrar']['deposit'] && 5 === $w4['registrar']['deposit_free_years'], 'will registry: 597 / 280 / 126, free after 5 years (fee regs from 1.1.2026)' );
+check( 293 === $w4['notary']['will_first'] && 147 === $w4['notary']['will_additional'] && 18 === $w4['vat']['pct'] && '2026-01-01' === $w4['notary']['from'], 'will registry: notary 293 / 147 from 1.1.2026, VAT 18%' );
+$c4 = $reg4['car_accident'];
+check( '2026-10-14' === $c4['checked_on'] && 8 === $c4['fees']['stages']['none']['pct'] && 11 === $c4['fees']['stages']['settle']['pct'] && 13 === $c4['fees']['stages']['judgment']['pct'] && 13566 === $c4['earnings']['nii'][0]['s1'], 'car registry: 8 / 11 / 13%, NII average wage 13,566 from 1.1.2026' );
+foreach ( array( $w4, $c4 ) as $ds ) {
+	check( 0 === strpos( (string) $ds['source_url'], 'https://' ) && '2026-10-14' === $ds['checked_on'] && $ds['refresh_every_days'] > 0 && ! empty( $ds['next_update'] ), 'wave-4 dataset carries an https source, the check date, a refresh period and the next update: ' . $ds['name_he'] );
+}
+$h4  = $jt_shortcodes['justice_tool'];
+$w4t = $h4( array( 'name' => 'tzavaa' ) );
+check( false !== strpos( $w4t, 'class="jtool-answer"' ) && false !== strpos( $w4t, '<bdi>280</bdi>' ) && false !== strpos( $w4t, '<bdi>293</bdi>' ) && false !== strpos( $w4t, '<bdi>126</bdi>' ) && false !== strpos( $w4t, '<bdi>597</bdi>' ), 'will answer box: 280, 293, 126 and 597 from the registry' );
+check( false !== strpos( $w4t, '345.74' ) && false !== strpos( $w4t, 'jt11-track' ) && false !== strpos( $w4t, '918.74' ) && false === strpos( $w4t, '507.45' ), 'will example in the server HTML: 345.74 now, the track, 918.74 to the probate order (507 + 66 later)' );
+check( false !== strpos( $w4t, 'data-act="print"' ) && false !== strpos( $w4t, 'purpose=mediation' ), 'will: print is the primary step, the family rehearsal a secondary link' );
+check( false !== strpos( $w4t, 'אגרות ותעריף נוטריונים מ-1.1.2026 · נבדק 14.10.2026' ), 'will stamp: tariffs from 1.1.2026, checked 14.10.2026' );
+$c4t = $h4( array( 'name' => 'teunat-drachim' ) );
+check( false !== strpos( $c4t, 'class="jtool-answer"' ) && false !== strpos( $c4t, '<bdi>13%</bdi>' ) && false !== strpos( $c4t, '<bdi>0.2%</bdi>' ) && false !== strpos( $c4t, 'סעיף 2(ג)' ), 'car answer box: the formula, the fee caps and absolute liability' );
+check( false !== strpos( $c4t, 'מגיל 18' ) && false !== strpos( $c4t, 'סעיפים 5(1) ו-10' ), 'car answer box: the limitation rule names the minor exception (review, PR 126)' );
+check( false !== strpos( $c4t, 'jt10-bar' ) && false !== strpos( $c4t, '10.3.2032' ) && false !== strpos( $c4t, '135,840' ), 'car example in the server HTML: the formula bar, the limitation date, the net after the fee' );
+check( false !== strpos( $c4t, '<strong data-jtool-sticky-figure><bdi>19%</bdi></strong>' ), 'car sticky bar shows a share of the maximum, not shekels' );
+check( false !== strpos( $c4t, 'jtool-btn--primary" href="https://jus-tice.com/#/simulation' ) && false !== strpos( $c4t, 'purpose=witness_prep' ), 'car: the witness and expert rehearsal is the primary next step' );
+foreach ( array( 'tzavaa' => $w4t, 'teunat-drachim' => $c4t ) as $nm => $html ) {
+	check( 1 === substr_count( $html, '"@type":"WebApplication"' ) && false === strpos( $html, 'FAQPage' ) && false === stripos( $html, 'aggregateRating' ), $nm . ': one WebApplication, no FAQPage, no rating' );
+	$card = substr( $html, (int) strpos( $html, '<section class="jtool"' ) );
+	check( false === stripos( substr( $card, 0, (int) strpos( $card, '</section>' ) ), '<h2' ), $nm . ': no <h2> inside the tool card (HAD-487)' );
+	check( false === stripos( $html, 'noindex' ) && false === stripos( $html, 'maya' ) && false === strpos( $html, 'רוטנברג' ) && false === strpos( $html, '<form' ), $nm . ': no noindex, no Maya card, no form gate' );
+	check( isset( $jt_enqueued[ 'justice-tool-' . $nm ] ), $nm . ': bundle enqueued' );
+	check( 1 === preg_match( '#<script type="application/json" id="jtool-' . preg_quote( $nm, '#' ) . '-data">(.*?)</script>#s', $html, $mm ) && count( json_decode( $mm[1], true ) ) === 2, $nm . ': the data island carries only its own dataset' );
+	check( false !== strpos( $html, '"dateModified":"2026-10-14"' ) && false !== strpos( $html, 'נבדקו ב-14.10.2026' ), $nm . ': schema and sources carry its own check date' );
+}
+$nt = $sec( array( 'name' => 'tzavaa', 'part' => 'numbers' ) );
+check( false !== strpos( $nt, 'פרטים 5 ו-5א' ) && false !== strpos( $nt, 'פרט 9' ) && false !== strpos( $nt, 'תקנה 17(ג)' ), 'will numbers: the deposit exemption, the visit fee and the unpriced publication' );
+$nc = $sec( array( 'name' => 'teunat-drachim', 'part' => 'numbers' ) );
+check( false !== strpos( $nc, 'תקנה 3' ) && false !== strpos( $nc, '40,698' ) && false !== strpos( $nc, 'סעיפים 5(1), 10 ו-15א' ), 'car numbers: the age cut, the verified ceiling floor, the limitation rules' );
+check( false !== strpos( $sec( array( 'name' => 'tzavaa', 'part' => 'compare' ) ), '519.20' ) && false !== strpos( $sec( array( 'name' => 'teunat-drachim', 'part' => 'compare' ) ), '<bdi>18%</bdi>' ), 'wave-4 compare tables from the engines' );
+check( false !== strpos( $sec( array( 'name' => 'tzavaa', 'part' => 'updated' ) ), '14.10.2026' ), 'the updated line uses the wave-4 check date' );
+$index4 = $jt_shortcodes['justice_tools_index']();
+check( false !== strpos( $index4, '/depositing-testament-registrar/' ) && false !== strpos( $index4, '/israel-road-accident-compensation-law/' ), 'hub cards include the wave-4 tools' );
+
+$d4 = $reg4['divorce_cost'];
+check( '2026-10-14' === $d4['checked_on'] && 536 === $d4['rabbinical']['agreement'] && 457 === $d4['rabbinical']['divorce'] && 601 === $d4['family']['property'] && 60 === $d4['disputes']['stay_days'], 'divorce registry: 536 / 457 / 601, a 60-day stay' );
+check( 0 === strpos( (string) $d4['source_url'], 'https://' ) && $d4['refresh_every_days'] > 0 && ! empty( $d4['next_update'] ), 'divorce dataset carries an https source, a refresh period and the next update' );
+$g4t = $h4( array( 'name' => 'gerushin' ) );
+check( false !== strpos( $g4t, 'class="jtool-answer"' ) && false !== strpos( $g4t, '<bdi>536</bdi>' ) && false !== strpos( $g4t, '<bdi>119</bdi>' ) && false !== strpos( $g4t, '<bdi>601</bdi>' ), 'divorce answer box: 536, 119 and 601 from the registry' );
+check( false !== strpos( $g4t, '1,188' ) && false !== strpos( $g4t, 'jt9-lanes' ) && false !== strpos( $g4t, '3,767' ), 'divorce example in the server HTML: 1,188 in fees, the lanes, the lawyer minimum' );
+check( false !== strpos( $g4t, 'jtool-btn--primary" href="https://jus-tice.com/#/simulation' ) && false !== strpos( $g4t, 'purpose=mediation' ), 'divorce: the mediation rehearsal is the primary next step' );
+check( 1 === substr_count( $g4t, '"@type":"WebApplication"' ) && false === strpos( $g4t, 'FAQPage' ) && false === stripos( $g4t, 'noindex' ) && false === stripos( $g4t, 'maya' ) && false === strpos( $g4t, 'רוטנברג' ) && false === strpos( $g4t, '<form' ), 'gerushin: one WebApplication, no FAQPage, no noindex, no Maya, no form gate' );
+check( 1 === preg_match( '#<script type="application/json" id="jtool-gerushin-data">(.*?)</script>#s', $g4t, $mm ) && count( json_decode( $mm[1], true ) ) === 2 && isset( $jt_enqueued['justice-tool-gerushin'] ), 'gerushin: its own dataset only, bundle enqueued' );
+$card4 = substr( $g4t, (int) strpos( $g4t, '<section class="jtool"' ) );
+check( false === stripos( substr( $card4, 0, (int) strpos( $card4, '</section>' ) ), '<h2' ) && false !== strpos( $g4t, 'אגרות בית הדין ובית המשפט 2026 · נבדק 14.10.2026' ), 'gerushin: no <h2> in the card; the stamp' );
+$ng = $sec( array( 'name' => 'gerushin', 'part' => 'numbers' ) );
+check( false !== strpos( $ng, 'פרט 4(2)' ) && false !== strpos( $ng, 'פרט 4(3)(ג)' ) && false !== strpos( $ng, 'סעיפים 3(ה) ו-4' ) && false !== strpos( $ng, 'תקנה 14א' ), 'divorce numbers: the agreement, the free get, the clocks, the maintenance exemption' );
+check( false !== strpos( $sec( array( 'name' => 'gerushin', 'part' => 'compare' ) ), '2,910' ), 'divorce compare table from the engine' );
+check( false !== strpos( $jt_shortcodes['justice_tools_index'](), '/opening-divorce-file-rabbinical/' ), 'hub cards include the divorce tool' );
+
 if ( $failures ) {
 	fwrite( STDERR, "justice tools: {$failures} failure(s)\n" );
 	exit( 1 );

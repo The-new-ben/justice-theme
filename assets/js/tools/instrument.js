@@ -34,6 +34,16 @@ export function parseMoney(text) {
 	return Number(raw) * mult;
 }
 
+/** Today's civil date in Israel (YYYY-MM-DD): never the UTC date or the device's own zone (wave 3 review, PR 124;
+ * shared by every tool from wave 4, HAD-502). */
+export function ilToday(now = new Date()) {
+	try {
+		return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jerusalem', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+	} catch (e) {
+		return now.toISOString().slice(0, 10);
+	}
+}
+
 export function isoToHe(iso) {
 	if (!iso) { return ''; }
 	const [y, m, d] = iso.split('-').map(Number);

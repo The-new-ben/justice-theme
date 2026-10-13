@@ -20,7 +20,14 @@ import * as RQ from '../../assets/js/tools/rechisha-engine.js';
 import * as RQUI from '../../assets/js/tools/rechisha-ui.js';
 import * as HB from '../../assets/js/tools/hashbacha-engine.js';
 import * as HBUI from '../../assets/js/tools/hashbacha-ui.js';
-import { encodeState, decodeState, decodeList, parseMoney, csv, ics, isStale, track } from '../../assets/js/tools/instrument.js';
+import * as TZ from '../../assets/js/tools/tzavaa-engine.js';
+import * as TZUI from '../../assets/js/tools/tzavaa-ui.js';
+import * as TE from '../../assets/js/tools/teuna-engine.js';
+import * as TEUI from '../../assets/js/tools/teuna-ui.js';
+import * as DT from '../../assets/js/tools/dates.js';
+import * as GE from '../../assets/js/tools/gerushin-engine.js';
+import * as GEUI from '../../assets/js/tools/gerushin-ui.js';
+import { encodeState, decodeState, decodeList, parseMoney, csv, ics, isStale, track, ilToday } from '../../assets/js/tools/instrument.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const reg = JSON.parse(readFileSync(join(ROOT, 'assets/data/justice-tools-registry.json'), 'utf8'));
@@ -354,7 +361,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	}
 	check(!YE.compute(reg, { children: -1 }).ok && !YE.compute(reg, { childLines: [1.5] }).ok, 'negative or fractional counts are input errors');
 	const fee = YE.compute(reg, { spouse: 'married', children: 1 }).fee;
-	check(fee.fee === 597 && near(fee.online, 507.45), 'registrar fee 597 NIS from 1.1.2026; 85% online = 507.45 (fee regulations, reg. 1(א))');
+	check(fee.fee === 597 && fee.online === 507 && fee.publication === 66, 'registrar fee 597 NIS from 1.1.2026; online 507 and publication 66 as charged by the government payments service (review, PR 126)');
 	const snap = YUI.snapshot(reg);
 	check(snap.sentence.includes('1/2') && snap.details.includes('597') && snap.details.includes('jt6-chart'), 'yerusha snapshot: sentence, the cost of the order and the family chart');
 	check(snap.details.includes('תקנה 17(ג)') && snap.details.includes('הוצאות הפרסום'), 'review fix (PR 124): the order cost names the publication expense the applicant also pays');
@@ -406,7 +413,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		check(!l1.ok && l1.outOfScope && /עבר/.test(l1.errors[0].he) && RQ.compute(reg, Object.assign({ priorSold: true }, late)).ok, 'replacement deadline passed: the single-home result needs "sold in time" (review, PR 124)');
 		const dp = YE.compute(reg, { spouse: 'married', children: 1, childLines: [2], deeper: true });
 		check(!dp.ok && dp.outOfScope && YUI.renderResult(reg, dp).includes('לא מחלק'), 's.14 beyond one generation: named and stopped (review, PR 124)');
-		check(RQUI.ilToday(new Date('2026-10-13T22:30:00Z')) === '2026-10-14' && HBUI.ilToday(new Date('2026-10-13T12:00:00Z')) === '2026-10-13', 'today is the civil date in Israel, not UTC (review, PR 124)');
+		check(ilToday(new Date('2026-10-13T22:30:00Z')) === '2026-10-14' && ilToday(new Date('2026-10-13T12:00:00Z')) === '2026-10-13', 'today is the civil date in Israel, not UTC (review, PR 124)');
 		const nd = RQ.compute(reg, { price: 2000000, date: '2024-01-16', track: 'replacement', contractor: true });
 		check(!nd.ok && !nd.outOfScope && nd.errors[0].field === 'delivery', 'contractor replacement without delivery: an input error, no headline (review, PR 124)');
 		check(RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'single', delivery: 'xx', aliyah: 'yy' }).ok, 'hidden dates of other tracks do not block the result (review, PR 124)');
@@ -525,6 +532,231 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!est({ betterment: 0 }).ok && !est({ betterment: 100, share: 120 }).ok, 'zero betterment and a share over 100% are input errors');
 	const hs = HBUI.snapshot(reg);
 	check(hs.result.includes('jt8-strip') && hs.assessment.result.includes('15.11.2026'), 'betterment snapshot: the plan strip, and the assessment example deadline');
+}
+
+/* ---------- Wave 4 (HAD-502): what a will costs (Succession Law; registrar fee regs and notary fee regs from 1.1.2026) ---------- */
+{
+	const w = reg.will_cost;
+	check(w.checked_on === '2026-10-14' && w.registrar.order === 597 && w.registrar.will_before_registrar === 280 && w.registrar.deposit === 126 && w.registrar.deposit_free_years === 5 && w.registrar.online_pct === 85, 'will registry: 597 / 280 / 126, free deposit after 5 years, 85% online (fee regs, items 1, 4, 5, 5א; reg. 1(א))');
+	check(w.notary.will_first === 293 && w.notary.will_additional === 147 && w.notary.outside_first_hour === 645 && w.notary.outside_half_hour === 197 && w.notary.night_pct === 50 && w.vat.pct === 18, 'will registry: notary 293 / 147, away 645 + 197, +50% at night, VAT 18%');
+	const one = TZ.compute(reg, { form: 'notary', people: 1, deposit: true, recent: [false, false], online: true });
+	check(one.ok && one.nowTotal === 345.74 && one.laterTotal === 573 && one.total === 918.74, 'notary, one testator: 293 x 1.18 = 345.74 now; first deposit free; later 507 online + 66 publication = 573 (review, PR 126)');
+	const two = TZ.compute(reg, { form: 'notary', people: 2, docs: 'one', deposit: false, online: false });
+	check(two.ok && two.laterTotal === 2 * (597 + 66), 'mutual wills filed on paper: a request and a publication for each estate, 2 x (597 + 66)');
+	check(TZ.compute(reg, { form: 'notary', people: 2, docs: 'one', deposit: false }).nowTotal === 519.2, 'mutual wills in one document: (293 + 147) x 1.18 = 519.20 (item 4(א)-(ב))');
+	check(TZ.compute(reg, { form: 'notary', people: 2, docs: 'two', deposit: false }).nowTotal === 691.48, 'mutual wills in two documents: two first signers, 586 x 1.18 = 691.48');
+	check(TZ.compute(reg, { form: 'registrar', people: 1, deposit: false }).nowTotal === 280 && TZ.compute(reg, { form: 'registrar', people: 2, deposit: false }).nowTotal === 560, 'before the registrar: 280 per will, no VAT (item 4)');
+	check(TZ.compute(reg, { form: 'witnesses', people: 1, deposit: true, recent: [true, false] }).nowTotal === 126, 'witnesses: no fee; a deposit after an earlier one within 5 years: 126 (item 5)');
+	check(TZ.compute(reg, { form: 'handwritten', people: 2, deposit: true, recent: [true, true] }).nowTotal === 252, 'two testators who both deposited within 5 years: 2 x 126');
+	check(TZ.compute(reg, { form: 'handwritten', people: 2, deposit: true, recent: [false, false], online: false }).laterTotal === 1326, 'two probate requests on paper, each with its publication: 2 x (597 + 66) = 1,326');
+	check(TZ.translationFee(w.notary, 250) === 645 && TZ.translationFee(w.notary, 1250) === 2321 && TZ.translationFee(w.notary, 100) === 251 && TZ.translationFee(w.notary, 0) === 0, 'translation item 3(א): 251, then 197 per 100 to 1,000, then 99 per 100');
+	check(TZ.compute(reg, { form: 'notary', people: 1, words: 250 }).nowTotal === 726.29, 'a will translated by the notary: (293 + 645 / 2) x 1.18 = 726.29 (item 4(ד))');
+	check(TZ.compute(reg, { form: 'notary', people: 1, night: true }).nowTotal === 518.61, 'at night or on a rest day: 293 x 1.5 x 1.18 = 518.61 (item 10)');
+	check(TZ.outsideFee(w.notary, 1) === 645 && TZ.outsideFee(w.notary, 1.2) === 842 && TZ.outsideFee(w.notary, 1.5) === 842 && TZ.outsideFee(w.notary, 2) === 1039, 'away from the office: 645 for the first hour or part, 197 for each half hour or part (item 9(א))');
+	check(TZ.compute(reg, { form: 'notary', people: 1, outside: true, hours: 1, night: true }).nowTotal === Math.round((293 + 645) * 118) / 100, 'away from the office at night: no 50% on top (item 10 excludes item 9)');
+	check(TZ.compute(reg, { form: 'notary', people: 1, foreign: true }).nowTotal === Math.round((293 + 104) * 118) / 100, 'a certificate in a foreign language other than Arabic or English: +104 (item 12)');
+	check(TZ.compute(reg, { form: 'witnesses', people: 1, lawyer: 2000 }).nowTotal === 2360 && TZ.compute(reg, { form: 'witnesses', people: 1, lawyer: 2000, lawyerVat: false }).nowTotal === 2000, 'a lawyer quote: plus VAT unless it already includes it');
+	check(!TZ.compute(reg, { form: 'notary', lawyer: -5 }).ok && !TZ.compute(reg, { form: 'notary', words: NaN }).ok && !TZ.compute(reg, { form: 'notary', outside: true, hours: '' }).ok, 'negative quote, bad word count and a visit without hours are input errors');
+	const forms = TZ.byForm(reg, { people: 1, deposit: true, recent: [false, false], online: true });
+	check(forms.handwritten.now === 0 && forms.witnesses.now === 0 && forms.registrar.now === 280 && forms.notary.now === 345.74, 'the same will in four forms: 0, 0, 280, 345.74');
+	const ts = TZUI.snapshot(reg);
+	check(ts.total === 345.74 && ts.result.includes('jt11-track') && ts.result.includes('חינם') && ts.method.includes('507') && !ts.method.includes('507.45') && ts.method.includes('66') && ts.compare_table.includes('519.20'), 'will snapshot: 345.74, the track with the free deposit, 507 + 66 later, the forms table');
+}
+
+/* ---------- Wave 4: road-accident compensation (1975 law, 1976 regulations, 1977 Bar rules, Limitation Law) ---------- */
+{
+	const ca = reg.car_accident;
+	check(ca.checked_on === '2026-10-14' && ca.nonpecuniary.hospital_permille === 2 && ca.nonpecuniary.age_from === 30 && ca.nonpecuniary.death_pct === 25 && ca.nonpecuniary.no_permanent_max_pct === 10, 'car registry: 2 permille a day, 1% a year over 30, 25% on death, up to 10% with no disability');
+	check(ca.fees.stages.none.pct === 8 && ca.fees.stages.settle.pct === 11 && ca.fees.stages.judgment.pct === 13 && ca.fees.vat_pct === 18, 'car registry: fee caps 8 / 11 / 13% plus VAT 18% (s.16(א); rules 2-5)');
+	check(ca.earnings.nii[0].s1 === 13566 && ca.earnings.nii[0].s2 === 13769 && ca.earnings.ceiling_multiple === 3 && ca.earnings.tax_cap_pct === 25, 'car registry: NII average wage 13,566 / 13,769 from 1.1.2026; ceiling x3; tax cut at most 25%');
+	const base = { disability: 20, days: 5, age: 40, accident: '2025-03-10', amount: 150000, stage: 'none', today: '2026-10-14' };
+	const r = TE.compute(reg, base);
+	check(r.ok && r.np.pct === 19 && r.np.parts.find((p) => p.key === 'disability').pct === 18 && r.np.parts.find((p) => p.key === 'hospital').pct === 1, '20% disability at 40 and 5 hospital days: 18% + 1% = 19% of the maximum (regs 2(א), 3)');
+	check(TE.compute(reg, Object.assign({}, base, { age: 30 })).np.pct === 21 && TE.compute(reg, Object.assign({}, base, { age: 31 })).np.pct === 20.8 && TE.compute(reg, Object.assign({}, base, { age: 25 })).np.pct === 21, 'the age cut starts above 30: 1% of the disability part per full year');
+	const cap = TE.compute(reg, Object.assign({}, base, { disability: 100, age: 30, days: 10 }));
+	check(cap.np.pct === 100 && cap.flags.some((f) => f.code === 'np_cap'), 'never above the maximum (s.4(א)(3)): 100% + 10 days stops at 100%');
+	check(TE.compute(reg, Object.assign({}, base, { death: true })).np.pct === 25, 'death: 25% of the maximum to the estate (reg. 4)');
+	const other = TE.compute(reg, Object.assign({}, base, { disability: 0, days: 0 }));
+	check(other.ok && other.np.kind === 'other' && other.np.pct === null && other.flags.some((f) => f.code === 'np_other'), 'no disability and no hospital days: up to 10%, agreed or awarded (reg. 2(ב)), not computed');
+	check(TE.compute(reg, Object.assign({}, base, { max: 200000 })).npAmount === 38000, 'with a maximum the person entered: 19% x 200,000 = 38,000');
+	check(r.fees.none.withVat === 14160 && r.fees.none.net === 135840 && r.fees.settle.withVat === 19470 && r.fees.settle.net === 130530 && r.fees.judgment.withVat === 23010 && r.fees.judgment.net === 126990, 'fee caps on 150,000 with VAT: 14,160 / 19,470 / 23,010; net 135,840 / 130,530 / 126,990');
+	check(r.lim.deadline === '2032-03-10' && r.lim.added === 0, 'limitation: 7 years from 10.3.2025 -> 10.3.2032');
+	const war = TE.limitation(ca, '2020-01-15', null);
+	check(war.added === 183 && war.deadline === '2027-07-18' && war.rolled, 'a period running in the war: +183 days (7.10.2023-6.4.2024, s.15א(א)) -> Saturday 17.7.2027 -> 18.7.2027');
+	const inside = TE.limitation(ca, '2023-12-01', null);
+	check(inside.added === 128 && inside.deadline === '2031-04-09' && inside.rolled, 'an accident inside the war window: the 128 days from it to 6.4.2024 are not counted; 8.4.2031 is 15 Nisan -> 9.4.2031');
+	check(TE.limitation(ca, '2016-05-01', null).added === 0 && TE.limitation(ca, '2016-05-01', null).deadline === '2023-05-01', 'a period that ended before 7.10.2023: no extension');
+	const minor = TE.limitation(ca, '2020-01-01', '2010-06-04');
+	check(minor.minor && minor.start === '2028-06-04' && minor.deadline === '2035-06-04', 'a minor: the 7 years start at 18 (Limitation Law s.10)');
+	check(TE.compute(reg, Object.assign({}, base, { age: 12 })).flags.some((f) => f.code === 'minor_birth'), 'a minor without a birth date: a flag asks for it');
+	const e = TE.compute(reg, Object.assign({}, base, { income: 12000, months: 4 }));
+	check(e.earnings.ceilingAtLeast === 40698 && e.earnings.lowPerMonth === 9000 && e.earnings.highPerMonth === 12000 && e.earnings.low === 36000 && e.earnings.high === 48000 && !e.earnings.capped, 'earnings: the ceiling is at least 3 x 13,566 = 40,698; a month off is between 75% and 100% of 12,000');
+	const hi = TE.compute(reg, Object.assign({}, base, { income: 50000 }));
+	check(hi.earnings.capped && hi.earnings.lowPerMonth === 30523.5 && hi.flags.some((f) => f.code === 'ceiling'), 'income above the verified ceiling: flagged; the low bound uses 75% of 40,698');
+	check(TE.compute(reg, Object.assign({}, base, { excluded: ['licence'] })).outOfScope, 's.7: driving without a licence -> may not be entitled (out of scope)');
+	check(!TE.compute(reg, Object.assign({}, base, { accident: '1975-01-01' })).ok && !TE.compute(reg, Object.assign({}, base, { disability: 120 })).ok && !TE.compute(reg, Object.assign({}, base, { age: 40.5 })).ok, 'before 25.9.1976, disability over 100 and a non-whole age are input errors');
+	check(TE.compute(reg, Object.assign({}, base, { work: true })).flags.some((f) => f.code === 'nii'), 'on the way to work: the NII deduction flag (s.328א)');
+	check(TE.compute(reg, Object.assign({}, base, { death: true })).lim === null, 'death: no limitation date computed (the cause arises on the death, s.6)');
+	check(DT.fullYears('2010-06-04', '2028-06-03') === 17 && DT.fullYears('2010-06-04', '2028-06-04') === 18, 'full years: the birthday counts on the day');
+	const cs = TEUI.snapshot(reg);
+	check(cs.total === 19 && cs.result.includes('jt10-bar') && cs.result.includes('10.3.2032') && cs.method.includes('135,840.00') && cs.compare_table.includes('<bdi>18%</bdi>'), 'car snapshot: 19%, the formula bar, the limitation date, the fee and the share table');
+}
+
+/* ---------- Wave 4: what a divorce costs (Dayanim fee regs, Family Court fee regs, Disputes Settlement Law, Property Relations Law) ---------- */
+{
+	const dc = reg.divorce_cost;
+	check(dc.checked_on === '2026-10-14' && dc.rabbinical.divorce === 457 && dc.rabbinical.property === 596 && dc.rabbinical.agreement === 536 && dc.rabbinical.certificate === 326 && dc.rabbinical.request === 119 && dc.rabbinical.custody === 417, 'divorce registry: rabbinical 457 / 596 / 536 / 326 / 119 / 417 (Dayanim fee regs, current to 22.1.2026)');
+	check(dc.family.property === 601 && dc.family.support === 283 && dc.family.custody === 421 && dc.family.agreement === 541 && dc.family.request === 120 && dc.family.transcript === 86, 'divorce registry: family court 601 / 283 / 421 / 541 / 120, transcript 86 (current to 1.7.2026)');
+	check(dc.disputes.meetings_max === 4 && dc.disputes.meetings_days === 45 && dc.disputes.extend_days === 15 && dc.disputes.stay_days === 60 && dc.disputes.stay_days_extended === 75 && dc.disputes.claim_days === 15, 'disputes law: 4 meetings in 45 days (+15), 60 or 75 days stay, claims within 15 days');
+	check(dc.bar.get_consent === 1287 && dc.bar.get_contested === 3173 && dc.bar.agreement_min === 2480 && dc.bar.custody_opposed === 3008, 'Bar recommended minimum (non-binding): 1,287 / 3,173 / 2,480 / 3,008');
+	const agree = GE.compute(reg, { route: 'agree', forum: 'rabbinical', children: true, property: true });
+	check(agree.ok && agree.total === 1188 && !agree.lines.some((l) => l.key === 'request') && agree.clock === null, 'by consent in the rabbinical court: 536 + 2 x 326 = 1,188; no dispute-settlement request (s.2 definitions)');
+	check(agree.bar.total === 3767 && agree.bar.withVat === 4445.06, 'by consent, with a lawyer: at least 1,287 (get, item 8(5)) + 2,480 (the agreement, item 8(9)) = 3,767 before VAT, 4,445.06 with VAT 18%');
+	check(GE.compute(reg, { route: 'agree' }).bar.total === 3767, 'by consent without children: at least 1,287 + 2,480 = 3,767 before VAT (items 8(5), 8(9))');
+	const agreeFam = GE.compute(reg, { route: 'agree', forum: 'family' });
+	check(agreeFam.total === 541 + 86 + 326 + 652 && agreeFam.byWho.family === 627 && agreeFam.byWho.rabbinical === 978, 'agreement approved in the family court: 541 + 86 there; get request 326 + certificates 652 in the rabbinical court');
+	check(GE.compute(reg, { route: 'agree', forum: 'family', abroad: true }).lines.find((l) => l.key === 'get_request').amount === 457, 'one spouse abroad: the get request is 457 (item 4(3)(ב))');
+	check(GE.compute(reg, { route: 'mediate', forum: 'rabbinical' }).total === 119 + 536 + 652, 'mediation then agreement: 119 + 536 + 652');
+	const c0 = GE.compute(reg, { route: 'court', forum: 'rabbinical' });
+	check(c0.total === 1346 && c0.lines.some((l) => l.key === 'divorce_tr' && l.amount === 118), 'contested, no children, no property: 119 + 457 + 118 + 652 = 1,346');
+	const c1 = GE.compute(reg, { route: 'court', forum: 'rabbinical', children: true, property: true });
+	check(c1.total === 2535 && c1.lines.find((l) => l.key === 'support').amount === 0 && c1.flags.some((f) => f.code === 'support'), 'contested in the rabbinical court with children and property: 2,535; the maintenance filer is exempt (reg. 14א)');
+	const c2 = GE.compute(reg, { route: 'court', forum: 'family', children: true, property: true });
+	check(c2.total === 2910 && c2.byWho.family === 120 + 601 + 86 + 421 + 86 + 283 + 86, 'contested with property and children in the family court: 2,910, of which 1,683 there');
+	check(c2.bar.total === 3173 + 3008 && c2.bar.lines.some((l) => l.amount === null), 'contested with a lawyer: 3,173 + 3,008, and the property claim by value (no number)');
+	const clk = GE.compute(reg, { route: 'court', start: '2026-11-01' }).clock;
+	check(clk.meetingsBy === '2026-12-16' && clk.stayEnds === '2026-12-31' && clk.claimsBy === '2027-01-15', 'the clock from 1.11.2026: meetings by 16.12.2026, stay to 31.12.2026, claims by 15.1.2027');
+	const ext = GE.compute(reg, { route: 'mediate', start: '2026-11-01', extended: true }).clock;
+	check(ext.meetingsBy === '2026-12-31' && ext.stayEnds === '2027-01-15' && ext.claimsBy === '2027-01-31' && ext.rolled.claims, 'extended meetings: 60 days, a stay of 75; the 15 days would end on Saturday 30.1.2027, so they run to Sunday 31.1 (Interpretation Law s.10(ג); review, PR 126)');
+	const bal = GE.compute(reg, { route: 'agree', balance: { a: { assets: 1200000, excluded: 300000, debts: 100000 }, b: { assets: 500000, excluded: 0, debts: 0 } } });
+	check(bal.balance.a.net === 800000 && bal.balance.b.net === 500000 && bal.balance.payer === 'a' && bal.balance.pay === 150000, 'balance of resources: (800,000 - 500,000) / 2 = 150,000 from A to B (ss.5, 6(א)-(ב))');
+	check(GE.compute(reg, { route: 'agree', balance: { a: { assets: 100, excluded: 0 }, b: { assets: 100 } } }).balance.payer === null, 'equal nets: no payment');
+	check(!GE.compute(reg, { route: 'agree', balance: { a: { assets: 100, excluded: 200 }, b: {} } }).ok, 'excluded above all assets is an input error');
+	check(GE.compute(reg, { route: 'agree', before1974: true, balance: { a: { assets: 100 }, b: {} } }).flags.some((f) => f.code === 'pre1974'), 'married before 1.1.1974: the balance regime does not apply (s.14)');
+	check(GE.compute(reg, { route: 'agree', notJewish: true }).outOfScope, 'a couple that is not Jewish: out of scope (another religious court, other fees)');
+	const routes = GE.byRoute(reg, { forum: 'rabbinical', children: true, property: true });
+	check(routes.agree.total === 1188 && routes.mediate.total === 1307 && routes.court.total === 2535, 'one family, three routes: 1,188 / 1,307 / 2,535');
+	const gs = GEUI.snapshot(reg);
+	check(gs.total === 1188 && gs.result.includes('jt9-lanes') && gs.result.includes('3,767') && gs.compare_table.includes('2,910') && gs.method.includes('536'), 'divorce snapshot: 1,188, the two lanes, the lawyer minimum, the routes table');
+}
+
+/* ---------- Wave 4: the Bar's recommended minimum as a reference in the will tool (non-binding, before VAT) ---------- */
+{
+	const b = reg.will_cost.bar;
+	check(b.will === 2161 && b.mutual === 3159 && b.deposit_other === 1068 && b.probate_pct === 1.5 && b.probate_min === 4281 && b.objection_add_pct === 25, 'will registry, Bar tariff: 2,161 / 3,159 / 1,068; probate 1.5% of the estate, at least 4,281 (items 11(3), 4.א(4))');
+	const one = TZ.compute(reg, { form: 'notary', people: 1, barRef: true });
+	check(one.bar.make === 2161 && one.bar.probateEach === 4281 && one.bar.total === 6442 && one.bar.withVat === 7601.56 && one.bar.shown, 'one testator, no estate value: drafting 2,161 + probate 4,281 = 6,442 before VAT');
+	check(TZ.compute(reg, { form: 'notary', people: 1, barRef: true, estate: 1000000 }).bar.probateEach === 15000, 'an estate of 1,000,000: 1.5% = 15,000 for the probate request');
+	check(TZ.compute(reg, { form: 'notary', people: 1, barRef: true, estate: 100000 }).bar.probateEach === 4281, 'a small estate: the minimum, 4,281');
+	check(TZ.compute(reg, { form: 'notary', people: 2, barRef: true }).bar.total === 3159 + 2 * 4281, 'mutual wills: 3,159 for both, and a probate request for each estate');
+	check(!TZ.compute(reg, { form: 'notary', barRef: true, estate: -1 }).ok, 'a negative estate value is an input error when the Bar reference is on');
+	check(TZUI.snapshot(reg).details.includes('2,161') && TZUI.snapshot(reg).result.includes('4,281'), 'will snapshot: the Bar reference in the result and the details');
+}
+
+/* ---------- Wave 4: the divorce clock skips the holiday days of s.6א, and the law does not apply abroad (s.4א(1)) ---------- */
+{
+	const dc = reg.divorce_cost;
+	check(DT.isFamilyPause('2026-09-12') && DT.isFamilyPause('2026-09-13') && DT.isFamilyPause('2026-09-21') && DT.isFamilyPause('2026-09-25') && DT.isFamilyPause('2026-10-03') && !DT.isFamilyPause('2026-10-04') && !DT.isFamilyPause('2026-09-24'), 's.6א(א)(1): 1-2 Tishri, 10 Tishri and 14-22 Tishri 5787 (12.9, 13.9, 21.9, 25.9-3.10.2026) are not counted');
+	check(DT.isFamilyPause('2027-04-21') && DT.isFamilyPause('2027-04-28') && !DT.isFamilyPause('2027-04-29'), 's.6א(א)(1): 14-21 Nisan 5787 (21.4-28.4.2027)');
+	const autumn = GE.clock(dc, '2026-09-01', false);
+	check(autumn.meetingsBy === '2026-10-28' && autumn.stayEnds === '2026-11-12' && autumn.claimsBy === '2026-11-27' && autumn.paused, 'a request on 1.9.2026: 12 holiday days are not counted -> meetings by 28.10, stay to 12.11, claims by 27.11.2026');
+	const spring = GE.clock(dc, '2027-03-20', false);
+	check(spring.meetingsBy === '2027-05-13' && spring.rolled.meetings && spring.stayEnds === '2027-05-27', 'a request on 20.3.2027: the 8 Pesach days are not counted; the meetings period would end on Independence Day 12.5.2027, so it runs to 13.5 (s.10(ג))');
+	const lastDay = GE.clock(dc, '2026-07-15', false);
+	check(lastDay.stayEnds === '2026-09-15' && lastDay.claimsBy === '2026-10-11', 'request on 15.7.2026: the stay ends 15.9 (Rosh Hashana not counted); 15 days would end on 30.9 (19 Tishri), so the holidays are not counted (s.6א(ג)) and the window runs to Saturday 10.10, moved to Sunday 11.10.2026 (s.10(ג))');
+	check(GE.compute(reg, { route: 'court', start: '2026-09-01' }).flags.some((f) => f.code === 'pause'), 'a clock that crosses the holidays carries the s.6א flag');
+	const abroad = GE.compute(reg, { route: 'court', forum: 'rabbinical', abroad: true });
+	check(abroad.ok && abroad.clock === null && !abroad.lines.some((l) => l.key === 'request') && abroad.flags.some((f) => f.code === 'abroad') && abroad.lines.some((l) => l.key === 'get_request' && l.amount === 457), 'a spouse domiciled abroad: no dispute-settlement request or clock (s.4א(1)); the get request 457 (item 4(3)(ב))');
+	check(GEUI.renderResult(reg, abroad).includes('סעיף 4א(1)'), 'the lanes say why there is no request when a spouse lives abroad');
+}
+
+/* ---------- Review fixes (PR 126, Codex pass 1) ---------- */
+{
+	const adult = TE.compute(reg, { disability: 10, days: 0, age: 20, accident: '2025-01-01', birth: '2010-01-01' });
+	check(adult.ok && !adult.lim.minor && adult.lim.deadline === '2032-01-01', 'an adult on the accident day: a birth date left over is ignored, 7 years from the accident (review, PR 126)');
+	const minor = TE.compute(reg, { disability: 10, days: 0, age: 15, accident: '2025-01-01', birth: '2010-01-01' });
+	check(minor.ok && minor.lim.minor && minor.lim.deadline === '2035-01-01', 'a minor: the birth date starts the 7 years at 18');
+	check(!TE.compute(reg, { disability: 10, days: 0, age: 15, accident: '2025-01-01', birth: '2026-01-01' }).ok, 'a birth date after the accident is an input error');
+	const pre = GE.compute(reg, { route: 'agree', before1974: true, balance: { a: { assets: 900000 }, b: { assets: 100000 } } });
+	check(pre.ok && pre.balance === null && pre.flags.some((f) => f.code === 'pre1974') && !GEUI.renderResult(reg, pre).includes('משלם ל'), 'married before 1.1.1974: no balance figure at all, only the s.14 note (review, PR 126)');
+	check(!GE.compute(reg, { route: 'court', start: '2026-02-31' }).ok && GE.compute(reg, { route: 'court', start: '2026-02-31' }).errors[0].field === 'start', 'an impossible filing day (31.2.2026) is an input error, not 3.3.2026 (review, PR 126)');
+	check(GE.compute(reg, { route: 'court', start: '1.11.2026' }).clock.meetingsBy === '2026-12-16', 'the filing day may be typed as 1.11.2026');
+	check(GEUI.renderResult(reg, GE.compute(reg, { route: 'agree' })).includes('class="jt9-lanes" role="group"'), 'the lanes are a labelled group (axe: aria-prohibited-attr)');
+}
+
+/* ---------- Review fixes (PR 126, Codex pass 2) ---------- */
+{
+	check(GE.compute(reg, { route: 'agree', start: '2026-02-31' }).ok, 'the agreement route ignores a bad filing day left in the hidden field (review, PR 126)');
+	check(GE.compute(reg, { route: 'court', abroad: true, start: '2026-02-31' }).ok, 'no clock abroad, so a hidden filing day does not block either');
+	const bad = TE.compute(reg, { disability: 10, days: 0, age: 15, accident: '2025-01-01', birth: '2000-01-01' });
+	check(!bad.ok && bad.errors.some((e) => e.field === 'birth'), 'a birth date that contradicts the age on the accident day is an error (review, PR 126)');
+	check(TE.compute(reg, { disability: 10, days: 0, age: 14, accident: '2025-01-01', birth: '2010-06-04' }).ok, 'a matching birth date passes (14 on 1.1.2025)');
+}
+
+/* ---------- Review fixes (PR 126, Codex pass 3) ---------- */
+{
+	const dead = TE.compute(reg, { death: true, accident: '2025-03-10', age: 15, birth: '2000-99-99', income: 'x', months: -4, max: 200000 });
+	check(dead.ok, 'death mode ignores a bad birth date, income and month count left in the hidden living fields (review, PR 126)');
+	check(dead.ok && dead.earnings === null && dead.lim === null, 'death mode shows no earnings of the injured person and no limitation date');
+	check(dead.ok && dead.npAmount === 50000, 'death mode still uses the maximum: 25% of 200,000 is 50,000');
+	const f = TEUI.renderForm(reg, Object.assign({}, TEUI.EXAMPLE, { death: true, max: 200000 }));
+	const maxAt = f.indexOf('-max"');
+	const lastAlive = f.lastIndexOf('<details class="jtool-more" data-if-alive', maxAt);
+	const maxBlock = f.lastIndexOf('<details', maxAt);
+	check(maxAt > 0 && maxBlock !== lastAlive, 'the maximum field stays visible in death mode (it feeds the death formula)');
+}
+
+/* ---------- Review fixes (PR 126, Codex pass 4) ---------- */
+{
+	const kid = TE.compute(reg, { disability: 10, days: 0, age: 12, accident: '2025-01-01' });
+	check(kid.ok && kid.lim === null, 'a minor without a birth date gets no limitation date (review, PR 126)');
+	check(kid.ok && kid.flags.some((f) => f.code === 'minor_birth'), 'and the flag asks for the birth date');
+	const kidB = TE.compute(reg, { disability: 10, days: 0, age: 12, accident: '2025-01-01', birth: '2012-06-04' });
+	check(kidB.ok && kidB.lim && kidB.lim.minor, 'with the birth date the minor deadline is computed from 18');
+	const off = TZ.compute(reg, Object.assign({}, TZUI.EXAMPLE, { barRef: false, estate: -5 }));
+	check(off.ok && off.bar.estate === null, 'with the Bar reference off, a bad estate value in the hidden field is ignored (review, PR 126)');
+	const on = TZ.compute(reg, Object.assign({}, TZUI.EXAMPLE, { barRef: true, estate: -5 }));
+	check(!on.ok && on.errors[0].field === 'estate', 'with the Bar reference on, a bad estate value is still an error');
+}
+
+/* ---------- Review fixes (PR 126, Codex pass 5) ---------- */
+{
+	const lone = GE.compute(reg, { route: 'court', forum: 'family', start: '2026-11-01', balance: { a: { assets: NaN, excluded: '', debts: '' }, b: { assets: '', excluded: '', debts: '' } } });
+	check(!lone.ok && lone.errors.some((e) => e.field === 'a-assets'), 'a lone malformed balance amount is an error on its field (review, PR 126)');
+	const zero = GE.compute(reg, { route: 'court', forum: 'family', start: '2026-11-01', balance: { a: { assets: 0, excluded: '', debts: '' }, b: { assets: '', excluded: '', debts: '' } } });
+	check(zero.ok && zero.balance && zero.balance.pay === 0, 'an entered zero is a balance of zero, not a skipped balance');
+	const none = GE.compute(reg, { route: 'court', forum: 'family', start: '2026-11-01', balance: { a: { assets: '', excluded: '', debts: '' }, b: { assets: '', excluded: '', debts: '' } } });
+	check(none.ok && none.balance === null, 'nothing entered: no balance');
+}
+
+/* ---------- Review fixes (PR 126, Codex pass 7) ---------- */
+{
+	const kid = TE.compute(reg, { disability: 10, days: 0, age: 12, accident: '2025-01-01' });
+	const rows = TEUI.deadlines(reg, kid);
+	check(rows[0].date === '' && rows[0].what.includes('מגיל 18') && !rows[0].what.includes('העיזבון'), 'a minor without a birth date gets the minor no-date row, not the death row (review, PR 126)');
+	const dead = TE.compute(reg, { death: true, accident: '2025-01-01' });
+	check(TEUI.deadlines(reg, dead)[0].what.includes('העיזבון'), 'a death claim keeps the estate and dependants row');
+}
+
+/* ---------- Review fixes (PR 126, Codex pass 8) ---------- */
+{
+	const jan = GE.clock(reg.divorce_cost, '2026-01-05', false);
+	check(jan.claimsBy === '2026-03-22' && jan.rolled.claims, 'a request on 5.1.2026: the 15 days would end on Saturday 21.3.2026, so they run to Sunday 22.3 (Interpretation Law s.10(ג); review, PR 126)');
+	for (const s of ['2026-01-05', '2026-11-01', '2027-03-20', '2026-07-15', '2026-09-01']) {
+		for (const ext of [false, true]) {
+			const c = GE.clock(reg.divorce_cost, s, ext);
+			check(![c.meetingsBy, c.stayEnds, c.claimsBy].some((x) => DT.isRestDay(x)), `no clock end on a rest day (${s}${ext ? ', extended' : ''})`);
+		}
+	}
+	const rows = GEUI.deadlines(reg, { clock: GE.clock(reg.divorce_cost, '2026-01-05', false) });
+	check(rows[2].what.includes('עבר ליום שאחריו') && rows[2].what.includes('סעיף 10(ג)'), 'the deadlines table says when an end moved off a rest day');
+}
+
+/* ---------- Review fixes (PR 126, Codex pass 10) ---------- */
+{
+	const hiddenClock = (input) => /data-if-clock hidden/.test(GEUI.renderForm(reg, Object.assign({}, GEUI.EXAMPLE, input)));
+	check(hiddenClock({ route: 'court', abroad: true }), 'the clock inputs are hidden when a spouse lives abroad (s.4א(1); review, PR 126)');
+	check(hiddenClock({ route: 'agree' }) && !hiddenClock({ route: 'court', abroad: false }), 'hidden on the agreement route, shown for a contested route in Israel');
 }
 
 if (failures) {

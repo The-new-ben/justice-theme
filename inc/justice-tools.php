@@ -19,6 +19,9 @@
  *   [justice_tool name="yerusha"]                        wave 3: inheritance without a will (/inheritance/)
  *   [justice_tool name="mas-rechisha"]                   wave 3: purchase tax and the full cost (/acquisition-tax-brackets-2026/)
  *   [justice_tool name="hetel-hashbacha"]                wave 3: betterment levy (/betterment-levy-israel/)
+ *   [justice_tool name="tzavaa"]                         wave 4: what a will costs, signing to probate (/depositing-testament-registrar/)
+ *   [justice_tool name="teunat-drachim"]                 wave 4: road-accident compensation (/israel-road-accident-compensation-law/)
+ *   [justice_tool name="gerushin"]                       wave 4: what a divorce costs, and the law's clocks (/opening-divorce-file-rabbinical/)
  *   [justice_tool_section name="hatzmada" part="method"]  part: method | numbers | compare | sources | updated
  *                                                         (add mode="fee" for the fee-only page's method)
  *   [justice_tools_index]                                 hub cards with the data stamp
@@ -195,6 +198,58 @@ function justice_tools_catalog(): array {
 			'lawyer'    => array( 'label' => 'עורך דין מקרקעין', 'path' => '/real-estate-attorney/' ),
 			'sticky'    => 'היטל',
 		),
+		// Wave 4 (HAD-502): prices and costs first (Ben, 13-14.10.2026).
+		'tzavaa'          => array(
+			'name'      => 'מחשבון עלות צוואה',
+			'title'     => 'כמה עולה צוואה, מהחתימה ועד צו הקיום',
+			'promise'   => 'נוטריון, רשם או עדים: האגרות והתעריף הרשמי, ההפקדה שלרוב פטורה מאגרה, וצו הקיום שהיורשים ישלמו.',
+			'question'  => 'כמה עולה לעשות צוואה, להפקיד אותה ולקבל עליה צו קיום?',
+			'page'      => '/depositing-testament-registrar/',
+			'category'  => 'LegalApplication',
+			'data'      => array( 'registry_version', 'will_cost' ),
+			'dataset'   => 'will_cost',
+			'next_text' => 'הצעד הבא: להדפיס את מפת העלויות ואת רשימת הדברים שלוקחים להפקדה',
+			'primary'   => array( 'label' => 'הדפסת מפת העלויות', 'act' => 'print' ),
+			'rehearse'  => array( 'label' => 'לתרגל את שיחת הצוואה עם המשפחה', 'topic' => 'inheritance', 'purpose' => 'mediation' ),
+			'more'      => array( array( 'label' => 'מי יורש כשאין צוואה', 'path' => '/succession-law-israel/' ), array( 'label' => 'בקשה לצו קיום, האפוטרופוס הכללי', 'url' => 'https://www.gov.il/he/service/inheritance_order' ) ),
+			'lawyer'    => array( 'label' => 'עורך דין לענייני ירושה', 'path' => '/inheritance-lawyer/' ),
+			'sticky'    => 'היום',
+		),
+		'teunat-drachim'  => array(
+			'name'        => 'מחשבון פיצויים בתאונת דרכים',
+			'title'       => 'פיצויים בתאונת דרכים: כאב וסבל, שכר טרחה והתיישנות',
+			'promise'     => 'הנוסחה שבתקנות לכאב וסבל, התקרה להפסד השתכרות, כמה עורך דין יכול לגבות מההצעה, ועד מתי אפשר לתבוע.',
+			'question'    => 'כמה פיצוי מגיע על כאב וסבל, וכמה יישאר אחרי שכר הטרחה?',
+			'page'        => '/israel-road-accident-compensation-law/',
+			'category'    => 'LegalApplication',
+			'data'        => array( 'registry_version', 'car_accident' ),
+			'dataset'     => 'car_accident',
+			'next_text'   => 'הצעד הבא: לתרגל את העדות ואת הבדיקה אצל המומחה הרפואי, לפני שזה קורה באמת',
+			'primary'     => array( 'label' => 'לתרגל את העדות ואת הבדיקה אצל המומחה', 'rehearse' => true ),
+			'rehearse'    => array( 'label' => 'לתרגל את העדות ואת הבדיקה אצל המומחה', 'topic' => 'personal-injury', 'purpose' => 'witness_prep' ),
+			'more'        => array( array( 'label' => 'שכר טרחה: 8%, 11% או 13%', 'path' => '/eight-eleven-thirteen-fee-tariff/' ), array( 'label' => 'תקרת הפסד השתכרות', 'path' => '/ceiling-lost-earnings-triple-wage/' ) ),
+			'lawyer'      => array( 'label' => 'עורך דין תאונות דרכים', 'path' => '/car-accident-auto-injury-lawyer/' ),
+			'sticky'      => 'כאב וסבל',
+			'sticky_kind' => 'pct',
+		),
+		// Not on /divorce-costs-2025/ (Adv. Maya Rotenberg's reviewed page, and in the HAD-447 cluster plan): on the
+		// rabbinical-court file page, which the head phrase "פתיחת תיק גירושין" reaches (HAD-502).
+		'gerushin'        => array(
+			'name'      => 'מחשבון עלות גירושין',
+			'title'     => 'כמה עולה גירושין: אגרות, עורך דין והמועדים שבחוק',
+			'promise'   => 'בהסכמה, דרך יחידת הסיוע או במחלוקת: כל אגרה בבית הדין הרבני ובבית המשפט, התעריף המינימלי לעורך דין, המועדים, ומי משלם למי באיזון המשאבים.',
+			'question'  => 'כמה עולה להתגרש, ומה ההבדל בין הסכמה למחלוקת?',
+			'page'      => '/opening-divorce-file-rabbinical/',
+			'category'  => 'LegalApplication',
+			'data'      => array( 'registry_version', 'divorce_cost' ),
+			'dataset'   => 'divorce_cost',
+			'next_text' => 'הצעד הבא: לתרגל את הגישור ואת השיחה על ההסכם, לפני הפגישה ביחידת הסיוע',
+			'primary'   => array( 'label' => 'לתרגל את הגישור', 'rehearse' => true ),
+			'rehearse'  => array( 'label' => 'לתרגל את הגישור', 'topic' => 'divorce', 'purpose' => 'mediation' ),
+			'more'      => array( array( 'label' => 'אגרות בית הדין הרבני', 'path' => '/fees-rabbinical-courts/' ), array( 'label' => 'הסכם גירושין: מה כולל', 'path' => '/divorce-agreement/' ) ),
+			'lawyer'    => array( 'label' => 'עורך דין לבית הדין הרבני', 'path' => '/practice-areas/rabbinical-court/' ),
+			'sticky'    => 'אגרות',
+		),
 	);
 }
 
@@ -310,9 +365,16 @@ function justice_tools_sc_ceiling( array $sc ): array {
 	return $rows ? $rows[ count( $rows ) - 1 ] : array( 'from' => '', 'amount' => 0 );
 }
 
-/** Today's date (Y-m-d). Tests pin it with the JUSTICE_TOOLS_TODAY constant. */
+/** Today's civil date in Israel (Y-m-d), not the UTC date (HAD-502). Tests pin it with the JUSTICE_TOOLS_TODAY constant. */
 function justice_tools_today(): string {
-	return defined( 'JUSTICE_TOOLS_TODAY' ) ? (string) JUSTICE_TOOLS_TODAY : gmdate( 'Y-m-d' );
+	if ( defined( 'JUSTICE_TOOLS_TODAY' ) ) {
+		return (string) JUSTICE_TOOLS_TODAY;
+	}
+	try {
+		return ( new DateTimeImmutable( 'now', new DateTimeZone( 'Asia/Jerusalem' ) ) )->format( 'Y-m-d' );
+	} catch ( Exception $e ) {
+		return gmdate( 'Y-m-d' );
+	}
 }
 
 /** True once the registry's next_update date has come with no newer ceiling row (the ceiling is re-indexed each 1 January). */
@@ -338,7 +400,7 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 		$text = '<strong>ירושה על פי דין</strong> חלה כשאין צוואה: בן הזוג נוטל את המיטלטלין של משק הבית ואת המכונית, ומשאר העיזבון '
 			. esc_html( justice_tools_fraction_he( $y['spouse_half'] ) ) . ' אם יש ילדים או הורה, ' . esc_html( justice_tools_fraction_he( $y['spouse_two_thirds'] ) ) . ' אם יש רק אחים או סבים, והכול אם אין אף אחד מהם (סעיף 11 ל' . esc_html( $y['law_he'] ) . '). '
 			. 'הילדים חולקים בשווה, וילד שנפטר לפני המוריש מוחלף בילדיו (סעיפים 13 ו-14). '
-			. 'האגרה לבקשה לצו ירושה היא ' . justice_tools_money( $y['fees']['order_fee'], 0 ) . ' ב-' . esc_html( substr( (string) $y['fees']['from'], 0, 4 ) ) . ', ו-<bdi>' . (int) $y['fees']['online_pct'] . '%</bdi> ממנה בהגשה מקוונת, ועליה נוספות הוצאות הפרסום. '
+			. 'האגרה לבקשה לצו ירושה היא ' . justice_tools_money( $y['fees']['order_fee'], 0 ) . ' ב-' . esc_html( substr( (string) $y['fees']['from'], 0, 4 ) ) . ', ובהגשה מקוונת ' . justice_tools_money( $y['payments']['online_fee'], 0 ) . ', ועליה נוספות הוצאות פרסום של ' . justice_tools_money( $y['payments']['publication'], 0 ) . '. '
 			. 'נבדק ' . esc_html( justice_tools_he_date( $y['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
@@ -364,6 +426,34 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 			. 'משלמים לכל המאוחר במימוש: מכירה, היתר בנייה או תחילת שימוש. '
 			. 'על שומה אפשר להשיג תוך <bdi>' . (int) $b['appeal_days'] . '</bdi> ימים (על לוח שומה: שנה מהצגתו), ובחיוב של עד ' . justice_tools_money( $b['recheck_max'], 0 ) . ', כשחולקים רק על הסכום, גם לבקש מהוועדה לבחון מחדש. '
 			. 'נבדק ' . esc_html( justice_tools_he_date( $b['checked_on'] ) ) . '.';
+		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+	}
+	if ( 'tzavaa' === $name && ! empty( $reg['will_cost'] ) ) {
+		$w    = $reg['will_cost'];
+		$rf   = $w['registrar'];
+		$nf   = $w['notary'];
+		$text = '<strong>כמה עולה צוואה</strong>: בכתב יד או בעדים אין אגרה. בפני רשם לענייני ירושה ' . justice_tools_money( $rf['will_before_registrar'], 0 ) . '. בפני נוטריון ' . justice_tools_money( $nf['will_first'], 0 ) . ' לחותם הראשון ו-' . justice_tools_money( $nf['will_additional'], 0 ) . ' לכל חותם נוסף, ועוד מע"מ <bdi>' . (int) $w['vat']['pct'] . '%</bdi>. '
+			. 'הפקדה אצל הרשם ' . justice_tools_money( $rf['deposit'], 0 ) . ', ופטורה כשלא הופקדה צוואה קודמת ב-<bdi>' . (int) $rf['deposit_free_years'] . '</bdi> השנים שלפני. '
+			. 'אחרי הפטירה: בקשה לצו קיום ' . justice_tools_money( $rf['order'], 0 ) . ', או ' . justice_tools_money( $rf['payments']['online_fee'], 0 ) . ' בהגשה מקוונת, ועוד ' . justice_tools_money( $rf['payments']['publication'], 0 ) . ' הוצאות פרסום. התעריפים מ-' . esc_html( justice_tools_he_date( $rf['from'] ) ) . ', נבדק ' . esc_html( justice_tools_he_date( $w['checked_on'] ) ) . '.';
+		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+	}
+	if ( 'teunat-drachim' === $name && ! empty( $reg['car_accident'] ) ) {
+		$c    = $reg['car_accident'];
+		$np   = $c['nonpecuniary'];
+		$fs   = $c['fees']['stages'];
+		$text = '<strong>פיצוי על כאב וסבל בתאונת דרכים</strong> נקבע בנוסחה שבתקנות: <bdi>' . (int) $np['disability_pct_per_pct'] . '%</bdi> מהסכום המקסימלי לכל אחוז נכות לצמיתות, פחות <bdi>' . (int) $np['age_pct_per_year'] . '%</bdi> לכל שנת גיל מעל ' . (int) $np['age_from'] . ', ועוד <bdi>' . esc_html( (string) ( $np['hospital_permille'] / 10 ) ) . '%</bdi> לכל יום אשפוז. '
+			. 'עורך דין יכול לגבות עד <bdi>' . (int) $fs['none']['pct'] . '%</bdi> בלי תביעה, <bdi>' . (int) $fs['settle']['pct'] . '%</bdi> בפשרה אחרי תביעה ו-<bdi>' . (int) $fs['judgment']['pct'] . '%</bdi> בפסק דין, ועוד מע"מ. '
+			. 'לא משנה מי אשם בתאונה (סעיף 2(ג)), והתביעה מתיישנת <bdi>' . (int) $c['limitation']['years'] . '</bdi> שנים מיום התאונה, ולמי שהיה קטין ביום התאונה מגיל 18 (סעיפים 5(1) ו-10 לחוק ההתיישנות). נבדק ' . esc_html( justice_tools_he_date( $c['checked_on'] ) ) . '.';
+		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+	}
+	if ( 'gerushin' === $name && ! empty( $reg['divorce_cost'] ) ) {
+		$d    = $reg['divorce_cost'];
+		$rb   = $d['rabbinical'];
+		$fc   = $d['family'];
+		$ds   = $d['disputes'];
+		$text = '<strong>כמה עולה גירושין</strong> באגרות: בהסכמה, בבית הדין הרבני, ' . justice_tools_money( $rb['agreement'], 0 ) . ' כדי לתת להסכם תוקף של פסק דין, סידור הגט בלי אגרה כששני בני הזוג בארץ, ו-' . justice_tools_money( $rb['certificate'], 0 ) . ' לתעודת גירושין לכל צד. '
+			. 'במחלוקת: בקשה ליישוב סכסוך ' . justice_tools_money( $rb['request'], 0 ) . ' (' . justice_tools_money( $fc['request'], 0 ) . ' בבית המשפט לענייני משפחה), תביעת גירושין ' . justice_tools_money( $rb['divorce'], 0 ) . ', ותביעה רכושית ' . justice_tools_money( $rb['property'], 0 ) . ' בבית הדין או ' . justice_tools_money( $fc['property'], 0 ) . ' בבית המשפט. '
+			. 'לפני תביעה: עד <bdi>' . (int) $ds['meetings_max'] . '</bdi> פגישות ביחידת הסיוע בלי תשלום, ו-<bdi>' . (int) $ds['stay_days'] . '</bdi> ימים שבהם אי אפשר לתבוע. נבדק ' . esc_html( justice_tools_he_date( $d['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
 	if ( 'havraa' === $name && ! empty( $reg['havraa'] ) ) {
@@ -447,6 +537,19 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 	if ( 'hetel-hashbacha' === $name ) {
 		return 'התוספת השלישית · נבדק ' . justice_tools_he_date( $reg['betterment']['checked_on'] ?? '' );
 	}
+	if ( 'gerushin' === $name ) {
+		return 'אגרות בית הדין ובית המשפט 2026 · נבדק ' . justice_tools_he_date( $reg['divorce_cost']['checked_on'] ?? '' );
+	}
+	if ( 'tzavaa' === $name ) {
+		$w = $reg['will_cost'] ?? array();
+		return 'אגרות ותעריף נוטריונים מ-' . justice_tools_he_date( $w['registrar']['from'] ?? '' ) . ' · נבדק ' . justice_tools_he_date( $w['checked_on'] ?? '' );
+	}
+	if ( 'teunat-drachim' === $name ) {
+		$c   = $reg['car_accident'] ?? array();
+		$nii = $c['earnings']['nii'] ?? array();
+		$nii = $nii ? $nii[ count( $nii ) - 1 ] : array( 'from' => '' );
+		return 'תקנות 1976 · שכר ממוצע מ-' . justice_tools_he_date( $nii['from'] ) . ' · נבדק ' . justice_tools_he_date( $c['checked_on'] ?? '' );
+	}
 	if ( 'havraa' === $name ) {
 		$latest = justice_tools_havraa_latest( $reg['havraa'] ?? array() );
 		return number_format( $latest['rate'], 2 ) . ' ₪ לשנת ' . $latest['year'] . ' · נבדק ' . justice_tools_he_date( $reg['havraa']['checked_on'] ?? '' );
@@ -480,6 +583,7 @@ function justice_tools_sources( string $name ): array {
 			array( 'name' => $y['law_he'], 'url' => $y['law_url'], 'text' => 'סעיף 10: מי יורש; 11: בן הזוג (המיטלטלין, חצי, שני שלישים, הדירה אחרי 3 שנות נישואין, הכול); 12: סדר העדיפות; 13: חלקים שווים; 14: ילדים במקום מי שנפטר; 17: המדינה; 55: ידועים בציבור. נוסח עדכני ל-' . justice_tools_he_date( $y['law_current_to'] ) . ', נבדק ' . $checked . '.' ),
 			array( 'name' => $y['fees']['regulation_he'], 'url' => $y['fees']['url'], 'text' => $y['fees']['section'] . ': ' . number_format( (float) $y['fees']['order_fee'] ) . ' ₪ לבקשה לצו ירושה מ-' . justice_tools_he_date( $y['fees']['from'] ) . ', ' . $y['fees']['online_pct'] . '% בהגשה מקוונת; ' . $y['fees']['exempt_section'] . ': פטור לבני משפחה של מי שנפטר עקב פעולות איבה או בשירות צבאי. נוסח עדכני ל-' . justice_tools_he_date( $y['fees']['current_to'] ) . '.' ),
 			array( 'name' => $y['regulations_he'], 'url' => $y['regulations_url'], 'text' => $y['objection_section'] . ': פרסום הבקשה והתנגדות בתוך ' . $y['objection_he'] . '; ' . $y['publication_section'] . ': הוצאות הפרסום על המבקש, חוץ ממי שפטור מאגרה.' ),
+			array( 'name' => $y['payments']['he'], 'url' => $y['payments']['url'], 'text' => 'בקשה בהגשה מקוונת ' . number_format( (float) $y['payments']['online_fee'] ) . ' ₪; הוצאות פרסום ' . number_format( (float) $y['payments']['publication'] ) . ' ₪ לבקשה. נבדק ' . justice_tools_he_date( $y['payments']['checked_on'] ) . '.' ),
 			array( 'name' => $y['service_he'], 'url' => $y['service_url'], 'text' => 'הגשה מקוונת של בקשה לצו ירושה, ובקשה משולבת לרישום בטאבו. נבדק ' . $checked . '.' ),
 		);
 	}
@@ -496,6 +600,49 @@ function justice_tools_sources( string $name ): array {
 			array( 'name' => $r['war']['source_he'], 'url' => $r['war']['url'], 'text' => $r['war']['law_he'] . ': תקופה שנוגעת ב-' . justice_tools_he_date( $r['war']['from'] ) . ' עד ' . justice_tools_he_date( $r['war']['to'] ) . ' מוארכת ב-' . $r['war']['add_months'] . ' חודשים, ולפחות עד ' . justice_tools_he_date( $r['war']['floor'] ) . '; 18 חודשים לרכישה עד 31.5.2025, 24 חודשים מ-1.6.2025.' ),
 			array( 'name' => 'רשות המסים, הוראת ביצוע מיסוי מקרקעין 2/2016', 'url' => $r['contractor_later_url'], 'text' => $r['contractor_later_he'] . '.' ),
 			array( 'name' => $pt['vat_he'], 'url' => $pt['vat_url'], 'text' => 'מע"מ ' . $pt['vat_pct'] . '% על שכר טרחה ודמי תיווך, מ-' . justice_tools_he_date( $pt['vat_from'] ) . '.' ),
+		);
+	}
+	if ( 'gerushin' === $name ) {
+		$d       = $reg['divorce_cost'];
+		$rb      = $d['rabbinical'];
+		$fc      = $d['family'];
+		$ds      = $d['disputes'];
+		$checked = justice_tools_he_date( $d['checked_on'] );
+		return array(
+			array( 'name' => $rb['regulation_he'], 'url' => $rb['url'], 'text' => 'התוספת הראשונה: גירושין ' . number_format( (float) $rb['divorce'] ) . ' ₪ (4(1)(א)), רכוש ' . number_format( (float) $rb['property'] ) . ' ₪ (4(1)(ב)), הסכם כפסק דין ' . number_format( (float) $rb['agreement'] ) . ' ₪ (4(2)), סידור גט פטור (4(3)(ג)), תעודה ' . number_format( (float) $rb['certificate'] ) . ' ₪ (4(4)(א)), ילדים ' . number_format( (float) $rb['custody'] ) . ' ₪ (7), יישוב סכסוך ' . number_format( (float) $rb['request'] ) . ' ₪ (19(טז)); מזונות: המגיש פטור (תקנה 14א); הפחתה בסיום מוקדם (תקנה 12). נוסח עדכני ל-' . justice_tools_he_date( $rb['current_to'] ) . ', נבדק ' . $checked . '.' ),
+			array( 'name' => $fc['regulation_he'], 'url' => $fc['url'], 'text' => 'רכוש בין בני זוג ' . number_format( (float) $fc['property'] ) . ' ₪ (2א), מזונות ' . number_format( (float) $fc['support'] ) . ' ₪ (5), אישור הסכם ' . number_format( (float) $fc['agreement'] ) . ' ₪ (6א), ילדים ' . number_format( (float) $fc['custody'] ) . ' ₪ (6ב), יישוב סכסוך ' . number_format( (float) $fc['request'] ) . ' ₪ (13), פרוטוקול ' . number_format( (float) $fc['transcript'] ) . ' ₪; מחצית בפשרה עד קדם המשפט (תקנה 8(ב)). נוסח עדכני ל-' . justice_tools_he_date( $fc['current_to'] ) . '.' ),
+			array( 'name' => $ds['law_he'], 'url' => $ds['url'], 'text' => 'סעיף 3(א): בקשה ליישוב סכסוך קודם לתביעה; 3(ב): עד ' . $ds['meetings_max'] . ' פגישות מהו"ת בתוך ' . $ds['meetings_days'] . ' ימים (הארכה של ' . $ds['extend_days'] . '); 3(ה): ' . $ds['stay_days'] . ' או ' . $ds['stay_days_extended'] . ' ימים בלי תביעות; 4: מי שהגיש את הבקשה רשאי לתבוע ראשון, בתוך ' . $ds['claim_days'] . ' ימים, ואחר כך גם הצד השני. יום אחרון שחל ביום מנוחה עובר ליום שאחריו (' . $ds['interpretation_he'] . '). ' . $ds['permanent_he'] . '.' ),
+			array( 'name' => $d['property_law']['law_he'], 'url' => $d['property_law']['url'], 'text' => 'סעיף 5: מחצית שווי הנכסים, בלי ' . $d['property_law']['excluded_he'] . '; 5(ג): כולל פנסיה וחסכונות; 6: ניכוי חובות ומחצית ההפרש; 5א: איזון מוקדם; 8: יחס אחר; 14: לא לנישאים לפני 1.1.1974.' ),
+			array( 'name' => $d['bar']['rules_he'], 'url' => $d['bar']['url'], 'text' => 'פרט 8: גט בהסכמה ' . number_format( (float) $d['bar']['get_consent'] ) . ' ₪, גט בלי הסכמה ' . number_format( (float) $d['bar']['get_contested'] ) . ' ₪, החזקת ילדים ' . number_format( (float) $d['bar']['custody_agreed'] ) . ' או ' . number_format( (float) $d['bar']['custody_opposed'] ) . ' ₪, הסכם לפסק הגט לפחות ' . number_format( (float) $d['bar']['agreement_min'] ) . ' ₪. ' . $d['bar']['note_he'] . '.' ),
+		);
+	}
+	if ( 'tzavaa' === $name ) {
+		$w       = $reg['will_cost'];
+		$rf      = $w['registrar'];
+		$nf      = $w['notary'];
+		$checked = justice_tools_he_date( $w['checked_on'] );
+		return array(
+			array( 'name' => $w['law_he'], 'url' => $w['law_url'], 'text' => 'סעיף 18: ארבע צורות; 19: בכתב יד; 20: בעדים; 21: הפקדה; 22: בפני רשות, ו-22(ז): נוטריון כמו שופט; 8א: צוואות הדדיות; 24 ו-35: מי יכול להיות עד; 39: צו קיום; 67 ו-67א: התנגדות. נבדק ' . $checked . '.' ),
+			array( 'name' => $rf['regulation_he'], 'url' => $rf['url'], 'text' => 'פרט 1: בקשה לצו קיום ' . number_format( (float) $rf['order'] ) . ' ₪; פרט 4: צוואה בפני רשם ' . number_format( (float) $rf['will_before_registrar'] ) . ' ₪; פרט 5: הפקדה ' . number_format( (float) $rf['deposit'] ) . ' ₪, ופרט 5א: פטור בלי הפקדה קודמת ב-' . $rf['deposit_free_years'] . ' שנים; תקנה 1(א): ' . $rf['online_pct'] . '% בהגשה מקוונת. בנוסח מ-' . justice_tools_he_date( $rf['from'] ) . ' (' . $rf['gazette_he'] . ').' ),
+			array( 'name' => $rf['payments']['he'], 'url' => $rf['payments']['url'], 'text' => 'בקשה לצו קיום בהגשה מקוונת ' . number_format( (float) $rf['payments']['online_fee'] ) . ' ₪; הוצאות פרסום ' . number_format( (float) $rf['payments']['publication'] ) . ' ₪ לבקשה. נבדק ' . justice_tools_he_date( $rf['payments']['checked_on'] ) . '.' ),
+			array( 'name' => $nf['regulation_he'], 'url' => $nf['url'], 'text' => 'פרט 4: צוואה ' . number_format( (float) $nf['will_first'] ) . ' ₪ לחותם ראשון, ' . number_format( (float) $nf['will_additional'] ) . ' ₪ לכל חותם נוסף; פרט 3(א): תרגום; פרט 9: מחוץ למשרד ' . number_format( (float) $nf['outside_first_hour'] ) . ' ₪ לשעה הראשונה ו-' . number_format( (float) $nf['outside_half_hour'] ) . ' ₪ לכל חצי שעה; פרט 10: תוספת ' . $nf['night_pct'] . '% בלילה ובימי מנוחה; תקנה 1: ועוד מע"מ. בנוסח מ-' . justice_tools_he_date( $nf['from'] ) . ' (' . $nf['gazette_he'] . ').' ),
+			array( 'name' => $nf['law_he'], 'url' => $nf['law_url'], 'text' => 'נוטריון שגובה יותר מהתעריף, או פחות בלי טעם מספיק, עובר עבירת משמעת.' ),
+			array( 'name' => $w['regulations_he'], 'url' => $w['regulations_url'], 'text' => 'תקנה 6: הפקדה בהתייצבות אישית; תקנה 14: הבקשה לצו קיום; תקנה 17: פרסום באתר האפוטרופוס הכללי וברשומות, הוצאות הפרסום על המבקש (הסכום בתקנות לא קבוע; ' . number_format( (float) $w['registrar']['payments']['publication'] ) . ' ₪ לבקשה בשירות התשלומים הממשלתי).' ),
+			array( 'name' => $w['vat']['he'], 'url' => $w['vat']['url'], 'text' => 'מע"מ ' . $w['vat']['pct'] . '% מ-' . justice_tools_he_date( $w['vat']['from'] ) . '.' ),
+		);
+	}
+	if ( 'teunat-drachim' === $name ) {
+		$c       = $reg['car_accident'];
+		$np      = $c['nonpecuniary'];
+		$nii     = $c['earnings']['nii'][ count( $c['earnings']['nii'] ) - 1 ];
+		$checked = justice_tools_he_date( $c['checked_on'] );
+		return array(
+			array( 'name' => $c['law_he'], 'url' => $c['law_url'], 'text' => 'סעיף 2(ג): אחריות מוחלטת; 4(א)(1): תקרת הכנסה פי ' . $c['earnings']['ceiling_multiple'] . ' מהשכר הממוצע; 4(א)(2): ניכוי מס עד ' . $c['earnings']['tax_cap_pct'] . '%; 4(א)(3) ו-4(ב): הסכום המקסימלי, צמוד למדד; 5: תשלומים תכופים; 6א: מומחה מטעם בית המשפט; 7: מי לא זכאי; 16(א): תקרת שכר הטרחה. נוסח עדכני ל-' . justice_tools_he_date( $c['law_current_to'] ) . ', נבדק ' . $checked . '.' ),
+			array( 'name' => $c['regs_he'], 'url' => $c['regs_url'], 'text' => 'תקנה 2(א)(1): ' . $np['hospital_permille'] . ' פרומיל לכל יום אשפוז; 2(א)(2): אחוז לכל אחוז נכות; 2(ב): עד ' . $np['no_permanent_max_pct'] . '% בלי נכות; 3: אחוז פחות לכל שנה מעל גיל ' . $np['age_from'] . '; 4: ' . $np['death_pct'] . '% במוות.' ),
+			array( 'name' => $c['fees']['rules_he'], 'url' => $c['fees']['rules_url'], 'text' => 'כלל 2: ' . $c['fees']['stages']['judgment']['pct'] . '% מפסק דין; כלל 3: ' . $c['fees']['stages']['settle']['pct'] . '% בפשרה אחרי תביעה; כלל 4: ' . $c['fees']['stages']['none']['pct'] . '% בלי תביעה; כלל 5: מע"מ בנוסף.' ),
+			array( 'name' => $nii['source_he'], 'url' => $nii['url'], 'text' => number_format( (float) $nii['s1'] ) . ' ₪ (סעיף 1) ו-' . number_format( (float) $nii['s2'] ) . ' ₪ (סעיף 2). נבדק ' . $checked . '.' ),
+			array( 'name' => $c['limitation']['he'], 'url' => $c['limitation']['url'], 'text' => 'סעיף 5(1): ' . $c['limitation']['years'] . ' שנים; סעיף 10: הזמן עד גיל 18 לא נספר; סעיף 15א: 7.10.2023 עד 6.4.2024 לא נספרים.' ),
+			array( 'name' => $c['nii_law_he'], 'url' => $c['nii_law_url'], 'text' => 'ניכוי גמלאות הביטוח הלאומי מהפיצויים.' ),
 		);
 	}
 	if ( 'hetel-hashbacha' === $name ) {
@@ -726,7 +873,7 @@ function justice_tools_shortcode( $atts ): string {
 		. '<div class="jtool-next__more">' . $more . '</div></div></div>'
 		. '<details class="jtool-sources" id="' . esc_attr( $id ) . '-sources"><summary>מקורות (נבדקו ב-' . esc_html( justice_tools_he_date( justice_tools_checked_on( $name ) ) ) . ')</summary>' . justice_tools_sources_html( $name ) . '</details>'
 		. '<p class="jtool-foot">מידע כללי, לא ייעוץ משפטי. מה שהקלדתם לא נשמר אצלנו. החישוב נבנה על ידי צוות Jus-Tice.</p>'
-		. '<div class="jtool-sticky" data-show="0"><span>' . esc_html( $tool['sticky'] ) . '</span><strong data-jtool-sticky-figure>' . ( 'count' === ( $tool['sticky_kind'] ?? '' ) ? '<bdi>' . (int) $snap['total'] . '</bdi>' : justice_tools_money( $snap['total'], in_array( $name, array( 'tviot-ktanot', 'hetel-hashbacha' ), true ) ? 0 : 2 ) ) . '</strong><a href="#' . esc_attr( $id ) . '-result">פרטים</a></div>'
+		. '<div class="jtool-sticky" data-show="0"><span>' . esc_html( $tool['sticky'] ) . '</span><strong data-jtool-sticky-figure>' . ( 'count' === ( $tool['sticky_kind'] ?? '' ) ? '<bdi>' . (int) $snap['total'] . '</bdi>' : ( 'pct' === ( $tool['sticky_kind'] ?? '' ) ? '<bdi>' . esc_html( (string) round( (float) $snap['total'], 2 ) ) . '%</bdi>' : justice_tools_money( $snap['total'], in_array( $name, array( 'tviot-ktanot', 'hetel-hashbacha' ), true ) ? 0 : 2 ) ) ) . '</strong><a href="#' . esc_attr( $id ) . '-result">פרטים</a></div>'
 		. '</section>'
 		. '<script type="application/json" id="' . esc_attr( $id ) . '-data">' . wp_json_encode( $data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP ) . '</script>'
 		. justice_tools_webapp_schema( $name, $tool );
@@ -816,8 +963,8 @@ function justice_tools_yerusha_numbers_html( array $y ): string {
 		array( 'הסבים, כשאין ילדים, הורים ואחים', 'בשווה; סב שנפטר: צאצאיו במקומו, אלא אם יש בן זוג וסב אחר חי', $law . 'סעיפים 12 עד 14</a>' ),
 		array( 'ידועים בציבור', 'כמו בן זוג נשוי, אם אף אחד מהם לא היה נשוי לאחר, ובצוואה אין הוראה אחרת', $law . 'סעיף 55</a>' ),
 		array( 'אין יורש', 'המדינה', $law . 'סעיף 17</a>' ),
-		array( 'אגרת בקשה לצו ירושה', justice_tools_money( $y['fees']['order_fee'], 0 ) . ' מ-' . esc_html( justice_tools_he_date( $y['fees']['from'] ) ) . '; <bdi>' . (int) $y['fees']['online_pct'] . '%</bdi> בהגשה מקוונת', $fee . esc_html( $y['fees']['section'] ) . '</a>' ),
-		array( 'הוצאות הפרסום', 'על המבקש, בנוסף לאגרה; מי שפטור מאגרה פטור גם מהן', $regs . esc_html( $y['publication_section'] ) . '</a>' ),
+		array( 'אגרת בקשה לצו ירושה', justice_tools_money( $y['fees']['order_fee'], 0 ) . ' מ-' . esc_html( justice_tools_he_date( $y['fees']['from'] ) ) . '; ' . justice_tools_money( $y['payments']['online_fee'], 0 ) . ' בהגשה מקוונת (<bdi>' . (int) $y['fees']['online_pct'] . '%</bdi>)', $fee . esc_html( $y['fees']['section'] ) . '</a>' ),
+		array( 'הוצאות הפרסום', justice_tools_money( $y['payments']['publication'], 0 ) . ' לבקשה, על המבקש בנוסף לאגרה; מי שפטור מאגרה פטור גם מהן', $regs . esc_html( $y['publication_section'] ) . '</a>' ),
 		array( 'התנגדות לבקשה', esc_html( $y['objection_he'] ), $regs . esc_html( $y['objection_section'] ) . '</a>' ),
 	);
 	$body = '';
@@ -878,9 +1025,113 @@ function justice_tools_hashbacha_numbers_html( array $b ): string {
 		. '<p class="jtool-updated">נבדק מול הנוסח העדכני של התוספת השלישית ב-' . esc_html( justice_tools_he_date( $b['checked_on'] ) ) . '.</p></div>';
 }
 
+/** Wave 4: every official fee on the path of a will, with its item and source. */
+function justice_tools_tzavaa_numbers_html( array $w ): string {
+	$rf   = $w['registrar'];
+	$nf   = $w['notary'];
+	$law  = '<a href="' . esc_url( $w['law_url'] ) . '" target="_blank" rel="noopener">';
+	$fee  = '<a href="' . esc_url( $rf['url'] ) . '" target="_blank" rel="noopener">';
+	$nt   = '<a href="' . esc_url( $nf['url'] ) . '" target="_blank" rel="noopener">';
+	$vat  = ' ועוד מע"מ <bdi>' . (int) $w['vat']['pct'] . '%</bdi>';
+	$rows = array(
+		array( 'צוואה בכתב יד', 'אין אגרה', $law . 'סעיף 19</a>' ),
+		array( 'צוואה בעדים', 'אין אגרה; שני עדים בגירים שלא זוכים בצוואה', $law . 'סעיפים 20, 24 ו-35</a>' ),
+		array( 'צוואה בפני רשם לענייני ירושה', justice_tools_money( $rf['will_before_registrar'], 0 ), $fee . esc_html( $rf['item_will'] ) . '</a>' ),
+		array( 'צוואה בפני נוטריון, חותם ראשון', justice_tools_money( $nf['will_first'], 0 ) . $vat, $nt . 'פרט 4(א)</a>' ),
+		array( 'כל חותם נוסף על אותה צוואה', justice_tools_money( $nf['will_additional'], 0 ) . $vat, $nt . 'פרט 4(ב)</a>' ),
+		array( 'אישור נוסף לאותה צוואה באותו מעמד', justice_tools_money( $nf['will_extra_certificate'], 0 ) . $vat, $nt . 'פרט 4(ג)</a>' ),
+		array( 'תרגום הצוואה בידי הנוטריון', 'מחצית מתעריף התרגום: ' . justice_tools_money( $nf['translate_first100'], 0 ) . ' ל-100 המילים הראשונות, ' . justice_tools_money( $nf['translate_per100_to1000'], 0 ) . ' לכל 100 עד 1,000, ' . justice_tools_money( $nf['translate_per100_above'], 0 ) . ' לכל 100 מעל', $nt . 'פרטים 4(ד) ו-3(א)</a>' ),
+		array( 'נוטריון מחוץ למשרד', justice_tools_money( $nf['outside_first_hour'], 0 ) . ' לשעה הראשונה, ' . justice_tools_money( $nf['outside_half_hour'], 0 ) . ' לכל חצי שעה נוספת, ועוד הוצאות נסיעה', $nt . 'פרט 9</a>' ),
+		array( 'בין 19:00 ל-08:00 או ביום מנוחה', 'תוספת <bdi>' . (int) $nf['night_pct'] . '%</bdi> (לא לשירות מחוץ למשרד)', $nt . 'פרט 10</a>' ),
+		array( 'הפקדת צוואה אצל הרשם', justice_tools_money( $rf['deposit'], 0 ) . '; פטור כשלא הופקדה צוואה קודמת ב-<bdi>' . (int) $rf['deposit_free_years'] . '</bdi> השנים שלפני', $fee . 'פרטים 5 ו-5א</a>' ),
+		array( 'בקשה לצו קיום צוואה (או צו ירושה)', justice_tools_money( $rf['order'], 0 ) . '; ' . justice_tools_money( $rf['payments']['online_fee'], 0 ) . ' בהגשה מקוונת (<bdi>' . (int) $rf['online_pct'] . '%</bdi>)', $fee . 'פרט 1, תקנה 1(א)</a>' ),
+		array( 'בקשה לתיקון או ביטול צו', justice_tools_money( $rf['amend'], 0 ), $fee . esc_html( $rf['item_amend'] ) . '</a>' ),
+		array( 'פרסום הבקשה', justice_tools_money( $rf['payments']['publication'], 0 ) . ' לבקשה, על המבקש', '<a href="' . esc_url( $w['regulations_url'] ) . '" target="_blank" rel="noopener">' . esc_html( $w['publication_section'] ) . '</a>; <a href="' . esc_url( $rf['payments']['url'] ) . '" target="_blank" rel="noopener">שירות התשלומים</a>' ),
+	);
+	$body = '';
+	foreach ( $rows as $r ) {
+		$body .= '<tr><td data-th="מה">' . esc_html( $r[0] ) . '</td><td data-th="כמה">' . $r[1] . '</td><td data-th="מקור">' . $r[2] . '</td></tr>';
+	}
+	return '<div class="jtool-page"><div class="jtool-datawrap"><table class="jtool-datatable"><caption>האגרות והתעריפים בדרך של צוואה, מ-' . esc_html( justice_tools_he_date( $rf['from'] ) ) . '</caption><thead><tr><th scope="col">מה</th><th scope="col">כמה</th><th scope="col">מקור</th></tr></thead><tbody>' . $body . '</tbody></table></div>'
+		. '<p class="jtool-updated">נבדק מול הנוסח העדכני של החוק, תקנות האגרות ותקנות הנוטריונים ב-' . esc_html( justice_tools_he_date( $w['checked_on'] ) ) . '. התעריפים מתעדכנים ב-1 בינואר.</p></div>';
+}
+
+/** Wave 4: the rules of road-accident compensation, each with its section. */
+function justice_tools_teuna_numbers_html( array $c ): string {
+	$np   = $c['nonpecuniary'];
+	$nii  = $c['earnings']['nii'][ count( $c['earnings']['nii'] ) - 1 ];
+	$law  = '<a href="' . esc_url( $c['law_url'] ) . '" target="_blank" rel="noopener">';
+	$regs = '<a href="' . esc_url( $c['regs_url'] ) . '" target="_blank" rel="noopener">';
+	$rul  = '<a href="' . esc_url( $c['fees']['rules_url'] ) . '" target="_blank" rel="noopener">';
+	$lim  = '<a href="' . esc_url( $c['limitation']['url'] ) . '" target="_blank" rel="noopener">';
+	$rows = array(
+		array( 'אשם', 'לא משנה מי אשם: האחריות מוחלטת', $law . 'סעיף 2(ג)</a>' ),
+		array( 'כאב וסבל: ימי אשפוז', '<bdi>' . esc_html( (string) ( $np['hospital_permille'] / 10 ) ) . '%</bdi> מהסכום המקסימלי לכל יום', $regs . 'תקנה 2(א)(1)</a>' ),
+		array( 'כאב וסבל: נכות לצמיתות', '<bdi>' . (int) $np['disability_pct_per_pct'] . '%</bdi> מהסכום המקסימלי לכל אחוז נכות', $regs . 'תקנה 2(א)(2)</a>' ),
+		array( 'הפחתת גיל', '<bdi>' . (int) $np['age_pct_per_year'] . '%</bdi> פחות מחלק הנכות לכל שנה מעל גיל ' . (int) $np['age_from'] . ' ביום התאונה', $regs . 'תקנה 3</a>' ),
+		array( 'בלי נכות ובלי אשפוז', 'סכום מוסכם או פסוק, עד <bdi>' . (int) $np['no_permanent_max_pct'] . '%</bdi> מהסכום המקסימלי', $regs . 'תקנה 2(ב)</a>' ),
+		array( 'מות הנפגע', '<bdi>' . (int) $np['death_pct'] . '%</bdi> מהסכום המקסימלי, לעיזבון', $regs . 'תקנה 4</a>' ),
+		array( 'הסכום המקסימלי', '100,000 לירות, צמוד למדד מיום תחילת החוק; אין מפרסם רשמי לסכום המעודכן', $law . 'סעיפים 4(א)(3) ו-4(ב)</a>' ),
+		array( 'תקרת הכנסה להפסד השתכרות', 'פי <bdi>' . (int) $c['earnings']['ceiling_multiple'] . '</bdi> מהשכר הממוצע במשק (הגבוה מנתוני הלמ"ס והביטוח הלאומי); לפחות ' . justice_tools_money( $c['earnings']['ceiling_multiple'] * min( $nii['s1'], $nii['s2'] ), 0 ) . ' לחודש', $law . 'סעיף 4(א)(1)</a>' ),
+		array( 'השכר הממוצע לפי הביטוח הלאומי', justice_tools_money( $nii['s1'], 0 ) . ' (סעיף 1) ו-' . justice_tools_money( $nii['s2'], 0 ) . ' (סעיף 2), מ-' . esc_html( justice_tools_he_date( $nii['from'] ) ), '<a href="' . esc_url( $nii['url'] ) . '" target="_blank" rel="noopener">ביטוח לאומי</a>' ),
+		array( 'ניכוי מס', 'ההפסד נמדד אחרי מס הכנסה; ההפחתה עד <bdi>' . (int) $c['earnings']['tax_cap_pct'] . '%</bdi>', $law . 'סעיף 4(א)(2)</a>' ),
+		array( 'שכר טרחה בלי תביעה', 'עד <bdi>' . (int) $c['fees']['stages']['none']['pct'] . '%</bdi> מהפיצוי, ועוד מע"מ', $law . 'סעיף 16(א)</a>; ' . $rul . 'כללים 4 ו-5</a>' ),
+		array( 'שכר טרחה בפשרה אחרי תביעה', 'עד <bdi>' . (int) $c['fees']['stages']['settle']['pct'] . '%</bdi>, ועוד מע"מ', $rul . 'כללים 3 ו-5</a>' ),
+		array( 'שכר טרחה בפסק דין', 'עד <bdi>' . (int) $c['fees']['stages']['judgment']['pct'] . '%</bdi>, ועוד מע"מ', $law . 'סעיף 16(א)</a>; ' . $rul . 'כללים 2 ו-5</a>' ),
+		array( 'תשלומים תכופים', '<bdi>' . (int) $c['interim_days'] . '</bdi> ימים מדרישה בכתב', $law . 'סעיף 5(ב)</a>' ),
+		array( 'התיישנות', '<bdi>' . (int) $c['limitation']['years'] . '</bdi> שנים; עד גיל 18 לא נספר; 7.10.2023 עד 6.4.2024 לא נספרים', $lim . 'סעיפים 5(1), 10 ו-15א</a>' ),
+	);
+	$body = '';
+	foreach ( $rows as $r ) {
+		$body .= '<tr><td data-th="מה">' . esc_html( $r[0] ) . '</td><td data-th="הכלל">' . $r[1] . '</td><td data-th="מקור">' . $r[2] . '</td></tr>';
+	}
+	return '<div class="jtool-page"><div class="jtool-datawrap"><table class="jtool-datatable"><caption>פיצויים לנפגעי תאונות דרכים: הכללים שבחוק, בתקנות ובכללי לשכת עורכי הדין</caption><thead><tr><th scope="col">מה</th><th scope="col">הכלל</th><th scope="col">מקור</th></tr></thead><tbody>' . $body . '</tbody></table></div>'
+		. '<p class="jtool-updated">נבדק מול הנוסח העדכני של החוק, התקנות, הכללים, חוק ההתיישנות ונתוני הביטוח הלאומי ב-' . esc_html( justice_tools_he_date( $c['checked_on'] ) ) . '.</p></div>';
+}
+
+/** Wave 4: every divorce fee and clock, with its item and source. */
+function justice_tools_gerushin_numbers_html( array $d ): string {
+	$rb   = $d['rabbinical'];
+	$fc   = $d['family'];
+	$ds   = $d['disputes'];
+	$rl   = '<a href="' . esc_url( $rb['url'] ) . '" target="_blank" rel="noopener">';
+	$fl   = '<a href="' . esc_url( $fc['url'] ) . '" target="_blank" rel="noopener">';
+	$dl   = '<a href="' . esc_url( $ds['url'] ) . '" target="_blank" rel="noopener">';
+	$rows = array(
+		array( 'בקשה ליישוב סכסוך', justice_tools_money( $rb['request'], 0 ) . ' בבית הדין; ' . justice_tools_money( $fc['request'], 0 ) . ' בבית המשפט', $rl . 'פרט 19(טז)</a>; ' . $fl . 'פרט 13</a>' ),
+		array( 'פגישות מהו"ת ביחידת הסיוע', 'עד <bdi>' . (int) $ds['meetings_max'] . '</bdi> פגישות, בלי תשלום, בתוך <bdi>' . (int) $ds['meetings_days'] . '</bdi> ימים (הארכה אחת של <bdi>' . (int) $ds['extend_days'] . '</bdi>)', $dl . 'סעיף 3(ב)</a>' ),
+		array( 'עיכוב הליכים', '<bdi>' . (int) $ds['stay_days'] . '</bdi> ימים מהבקשה, או <bdi>' . (int) $ds['stay_days_extended'] . '</bdi>; אחריו <bdi>' . (int) $ds['claim_days'] . '</bdi> ימים שבהם רק מי שהגיש את הבקשה רשאי לתבוע, ואחר כך גם הצד השני', $dl . 'סעיפים 3(ה) ו-4</a>' ),
+		array( 'הסכם גירושין כפסק דין, בבית הדין', justice_tools_money( $rb['agreement'], 0 ), $rl . 'פרט 4(2)</a>' ),
+		array( 'אישור הסכם בין בני זוג, בבית המשפט', justice_tools_money( $fc['agreement'], 0 ) . ' ועוד פרוטוקול ' . justice_tools_money( $fc['transcript'], 0 ), $fl . 'פרט 6א</a>' ),
+		array( 'תביעת גירושין', justice_tools_money( $rb['divorce'], 0 ) . ' ועוד פרוטוקול ' . justice_tools_money( $rb['transcript_divorce'], 0 ), $rl . 'פרט 4(1)(א)</a>' ),
+		array( 'תביעה רכושית', justice_tools_money( $rb['property'], 0 ) . ' בבית הדין (כרוכה בגירושין); ' . justice_tools_money( $fc['property'], 0 ) . ' בבית המשפט', $rl . 'פרט 4(1)(ב)</a>; ' . $fl . 'פרט 2א</a>' ),
+		array( 'החזקת ילדים', justice_tools_money( $rb['custody'], 0 ) . ' בבית הדין; ' . justice_tools_money( $fc['custody'], 0 ) . ' בבית המשפט', $rl . 'פרט 7</a>; ' . $fl . 'פרט 6ב</a>' ),
+		array( 'מזונות', 'בבית הדין המגיש פטור; ' . justice_tools_money( $fc['support'], 0 ) . ' בבית המשפט', $rl . 'תקנה 14א</a>; ' . $fl . 'פרט 5</a>' ),
+		array( 'בקשה לסידור גט', justice_tools_money( $rb['get_request'], 0 ) . '; ' . justice_tools_money( $rb['get_request_abroad'], 0 ) . ' כשאחד מבני הזוג בחוץ לארץ', $rl . 'פרט 4(3)(א)-(ב)</a>' ),
+		array( 'סידור הגט כששניכם בארץ', 'פטור', $rl . 'פרט 4(3)(ג)</a>' ),
+		array( 'תעודת גירושין', justice_tools_money( $rb['certificate'], 0 ) . ' לכל צד', $rl . 'פרט 4(4)(א)</a>' ),
+		array( 'ערעור לבית הדין הרבני הגדול', justice_tools_money( $rb['appeal'], 0 ), $rl . 'פרט 15(א)</a>' ),
+	);
+	$body = '';
+	foreach ( $rows as $r ) {
+		$body .= '<tr><td data-th="מה">' . esc_html( $r[0] ) . '</td><td data-th="כמה">' . $r[1] . '</td><td data-th="מקור">' . $r[2] . '</td></tr>';
+	}
+	return '<div class="jtool-page"><div class="jtool-datawrap"><table class="jtool-datatable"><caption>אגרות הגירושין והמועדים שבחוק, 2026</caption><thead><tr><th scope="col">מה</th><th scope="col">כמה</th><th scope="col">מקור</th></tr></thead><tbody>' . $body . '</tbody></table></div>'
+		. '<p class="jtool-updated">נבדק מול תקנות הדיינים (אגרות), תקנות בית המשפט לעניני משפחה (אגרות) והחוק להסדר התדיינויות בסכסוכי משפחה ב-' . esc_html( justice_tools_he_date( $d['checked_on'] ) ) . '. ' . esc_html( $rb['indexed_he'] ) . '; ' . esc_html( $fc['indexed_he'] ) . '.</p></div>';
+}
+
 /** Current-numbers table (page standard A5): every row has a value, valid-from date and source. */
 function justice_tools_numbers_html( string $name ): string {
 	$reg = justice_tools_registry();
+	if ( 'gerushin' === $name ) {
+		return justice_tools_gerushin_numbers_html( $reg['divorce_cost'] );
+	}
+	if ( 'tzavaa' === $name ) {
+		return justice_tools_tzavaa_numbers_html( $reg['will_cost'] );
+	}
+	if ( 'teunat-drachim' === $name ) {
+		return justice_tools_teuna_numbers_html( $reg['car_accident'] );
+	}
 	if ( 'yerusha' === $name ) {
 		return justice_tools_yerusha_numbers_html( $reg['yerusha'] );
 	}
@@ -950,7 +1201,7 @@ function justice_tools_numbers_html( string $name ): string {
 
 /** Comparison table (page standard A6). */
 function justice_tools_compare_html( string $name ): string {
-	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha' ), true ) ) {
+	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin' ), true ) ) {
 		$snap = justice_tools_snapshot( $name );
 		return '<div class="jtool-page">' . ( $snap['compare_table'] ?? '' ) . '</div>';
 	}

@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "registry_version": "2026-10-13",
+ "registry_version": "2026-10-14",
  "checked_on": "2026-10-12",
  "note_he": "כל מספר שמוצג בכלים של jus-tice.co.il נקרא מהקובץ הזה בלבד. כל סדרה נבדקה מול המפרסם הרשמי בתאריך checked_on.",
  "cpi": {
@@ -938,6 +938,13 @@
   "objection_he": "שבועיים מיום הפרסום, או יותר אם הרשם קבע",
   "objection_section": "תקנה 17(א)",
   "publication_section": "תקנה 17(ג)",
+  "payments": {
+   "online_fee": 507,
+   "publication": 66,
+   "he": "שירות התשלומים הממשלתי, משרד המשפטים, אגרות לשירותי רשם הירושה",
+   "url": "https://ecom.gov.il/counterspa/home/9/1/inheritanceRegistar?language=he",
+   "checked_on": "2026-10-14"
+  },
   "regulations_he": "תקנות הירושה, התשנ\"ח-1998",
   "regulations_url": "https://www.nevo.co.il/law_html/law00/98588.htm",
   "service_url": "https://www.gov.il/he/service/inheritance_order",
@@ -1154,5 +1161,377 @@
   "recheck_fallback_days": 30,
   "demand_days": 90,
   "demand_section": "סעיף 4(4)(א)"
+ },
+ "will_cost": {
+  "name_he": "עלות צוואה, מהחתימה ועד צו הקיום",
+  "publisher_he": "חוק הירושה, תקנות האגרות של הרשם ותעריף הנוטריונים",
+  "source_name": "תקנות הירושה (אגרות הרשם לעניני ירושה), התשנ\"ח-1998, ותקנות הנוטריונים (שכר שירותים), התשל\"ט-1978, בנוסח מ-1.1.2026",
+  "source_url": "https://www.nevo.co.il/law_html/law00/72181.htm",
+  "checked_on": "2026-10-14",
+  "refresh_every_days": 365,
+  "next_update": "2027-01-01",
+  "law_he": "חוק הירושה, התשכ\"ה-1965",
+  "law_url": "https://www.nevo.co.il/law_html/law00/72178.htm",
+  "sections": {
+   "forms": "סעיף 18",
+   "handwritten": "סעיף 19",
+   "witnesses": "סעיף 20",
+   "deposit": "סעיף 21",
+   "authority": "סעיף 22",
+   "notary": "סעיף 22(ז)",
+   "mutual": "סעיף 8א",
+   "witness_capacity": "סעיף 24",
+   "beneficiary_witness": "סעיף 35",
+   "probate_needed": "סעיף 39",
+   "orders": "סעיף 66",
+   "objection": "סעיף 67",
+   "to_court": "סעיף 67א"
+  },
+  "registrar": {
+   "regulation_he": "תקנות הירושה (אגרות הרשם לעניני ירושה), התשנ\"ח-1998",
+   "url": "https://www.nevo.co.il/law_html/law00/72181.htm",
+   "from": "2026-01-01",
+   "gazette_he": "קובץ התקנות 12149, 25.12.2025",
+   "order": 597,
+   "item_order": "התוספת, פרט 1",
+   "amend": 597,
+   "item_amend": "התוספת, פרט 2",
+   "will_before_registrar": 280,
+   "item_will": "התוספת, פרט 4",
+   "deposit": 126,
+   "item_deposit": "התוספת, פרט 5",
+   "deposit_free_years": 5,
+   "item_deposit_free": "התוספת, פרט 5א",
+   "online_pct": 85,
+   "online_section": "תקנה 1(א)",
+   "online_rule_section": "תקנה 14(ד) לתקנות הירושה",
+   "indexed_he": "מתעדכנות ב-1 בינואר לפי מדד נובמבר (תקנה 2)",
+   "payments": {
+    "online_fee": 507,
+    "publication": 66,
+    "he": "שירות התשלומים הממשלתי, משרד המשפטים, אגרות לשירותי רשם הירושה",
+    "url": "https://ecom.gov.il/counterspa/home/9/1/inheritanceRegistar?language=he",
+    "checked_on": "2026-10-14"
+   }
+  },
+  "notary": {
+   "regulation_he": "תקנות הנוטריונים (שכר שירותים), התשל\"ט-1978",
+   "url": "https://www.nevo.co.il/law_html/law00/90738.htm",
+   "from": "2026-01-01",
+   "gazette_he": "קובץ התקנות 12158, 29.12.2025",
+   "will_first": 293,
+   "will_additional": 147,
+   "will_extra_certificate": 88,
+   "item_will": "פרט 4",
+   "item_will_translate": "פרט 4(ד) ופרט 3(א)",
+   "translate_first100": 251,
+   "translate_per100_to1000": 197,
+   "translate_per100_above": 99,
+   "outside_first_hour": 645,
+   "outside_half_hour": 197,
+   "item_outside": "פרט 9(א)",
+   "night_pct": 50,
+   "item_night": "פרט 10",
+   "foreign_language": 104,
+   "item_foreign": "פרט 12",
+   "signature_first": 197,
+   "signature_additional": 77,
+   "copy_first_page": 77,
+   "copy_more_pages": 13,
+   "life_certificate": 197,
+   "affidavit_first": 200,
+   "affidavit_additional": 80,
+   "law_he": "חוק הנוטריונים, התשל\"ו-1976, סעיף 34(5)",
+   "law_url": "https://www.nevo.co.il/law_html/law00/72998.htm",
+   "indexed_he": "מתעדכן ב-1 בינואר לפי מדד נובמבר (תקנה 4)"
+  },
+  "vat": {
+   "pct": 18,
+   "from": "2025-01-01",
+   "he": "צו מס ערך מוסף (שיעור המס על עסקה ועל יבוא טובין), התשס\"ה-2005, סעיף 1",
+   "url": "https://www.nevo.co.il/law_html/law01/999_481.htm"
+  },
+  "bar": {
+   "rules_he": "כללי לשכת עורכי הדין (התעריף המינימלי המומלץ), התש\"ס-2000",
+   "url": "https://www.nevo.co.il/law_html/law00/4425.htm",
+   "current_to": "2026-01-05",
+   "will": 2161,
+   "mutual": 3159,
+   "deposit_other": 1068,
+   "probate_pct": 1.5,
+   "probate_min": 4281,
+   "objection_add_pct": 25,
+   "items": {
+    "will": "התוספת, פרט 11(3)(א)",
+    "mutual": "פרט 11(3)(ב)",
+    "deposit_other": "פרט 11(3)(ג)",
+    "probate": "פרט 4.א(4)"
+   },
+   "note_he": "המלצה לחברי הלשכה שאינה מחייבת (כלל 2); מע\"מ נוסף על הסכום (כלל 1); מתעדכן ב-1 בינואר (כלל 3)"
+  },
+  "regulations_he": "תקנות הירושה, התשנ\"ח-1998",
+  "regulations_url": "https://www.nevo.co.il/law_html/law00/98588.htm",
+  "objection_days": 14,
+  "objection_section": "תקנה 17(א)",
+  "publication_section": "תקנה 17(ג)",
+  "deposit_section": "תקנה 6",
+  "notary_fixed_he": "שכר הנוטריון קבוע בתקנות: נוטריון שגובה יותר, או פחות בלי טעם מספיק, עובר עבירת משמעת (סעיף 34(5) לחוק הנוטריונים). על השכר נוסף מע\"מ (תקנה 1)",
+  "witness_he": "שני עדים בגירים וכשירים (סעיף 24). הוראה שמזכה עד, את מי שערך את הצוואה או את בן הזוג שלהם, בטלה (סעיף 35)",
+  "handwritten_he": "כל הצוואה בכתב ידכם, עם תאריך בכתב ידכם וחתימה (סעיף 19). מודפסת או בכתב יד של אחר: זו לא צוואה בכתב יד",
+  "deposit_in_person_he": "את הצוואה מפקידים בעצמכם, במשרד הרשם לענייני ירושה, עם המקור ותעודה מזהה (סעיף 21(א), תקנה 6). צוואה בפני רשות שנחתמה בחתימה אלקטרונית מאושרת אפשר להפקיד גם באתר האפוטרופוס הכללי (תקנה 6א). אפשר לקבל את הצוואה בחזרה בכל עת (סעיף 21(ג))",
+  "publication_he": "הודעה על הבקשה מתפרסמת באתר האפוטרופוס הכללי וברשומות, והוצאות הפרסום על המבקש (תקנה 17): 66 ₪ לכל בקשה, לפי שירות התשלומים הממשלתי",
+  "court_he": "הוגשה התנגדות: הבקשה עוברת לבית המשפט לענייני משפחה (סעיף 67א), והאגרות שם לא מחושבות כאן"
+ },
+ "car_accident": {
+  "name_he": "פיצויים לנפגעי תאונות דרכים",
+  "publisher_he": "חוק הפיצויים לנפגעי תאונות דרכים ותקנותיו",
+  "source_name": "חוק פיצויים לנפגעי תאונות דרכים, התשל\"ה-1975 (נוסח עדכני)",
+  "source_url": "https://www.nevo.co.il/law_html/law00/4554.htm",
+  "checked_on": "2026-10-14",
+  "refresh_every_days": 365,
+  "next_update": "2027-01-01",
+  "law_he": "חוק פיצויים לנפגעי תאונות דרכים, התשל\"ה-1975",
+  "law_url": "https://www.nevo.co.il/law_html/law00/4554.htm",
+  "law_from": "1976-09-25",
+  "law_current_to": "2025-08-14",
+  "sections": {
+   "liability": "סעיף 2(ג)",
+   "exclusions": "סעיף 7",
+   "heads": "סעיף 4(א)",
+   "interim": "סעיף 5(ב)",
+   "expert": "סעיף 6א",
+   "other_law": "סעיף 6ב",
+   "only_cause": "סעיף 8(א)",
+   "fee": "סעיף 16(א)",
+   "karnit": "סעיף 12"
+  },
+  "exclusions_he": "לפי סעיף 7 אין זכאות למי שגרם לתאונה במתכוון, למי שנהג ברכב בלי רשות (או נסע בו בידיעה), למי שנהג בלי רישיון נהיגה (חוץ מרישיון שפקע בגלל אגרה שלא שולמה או הגבלה של ההוצאה לפועל), למי שהשתמש ברכב לעבירה מסוג פשע, למי שנהג בלי ביטוח, ולבעל רכב שהרשה לנהוג בו בלי ביטוח",
+  "regs_he": "תקנות הפיצויים לנפגעי תאונות דרכים (חישוב פיצויים בשל נזק שאינו נזק ממון), התשל\"ו-1976",
+  "regs_url": "https://www.nevo.co.il/law_html/law00/4555.htm",
+  "regs_current_to": "2023-09-18",
+  "nonpecuniary": {
+   "max_lira": 100000,
+   "max_section": "סעיף 4(א)(3)",
+   "linkage_section": "סעיף 4(ב)",
+   "hospital_permille": 2,
+   "disability_pct_per_pct": 1,
+   "age_from": 30,
+   "age_pct_per_year": 1,
+   "no_permanent_max_pct": 10,
+   "death_pct": 25,
+   "sections": {
+    "hospital": "תקנה 2(א)(1)",
+    "disability": "תקנה 2(א)(2)",
+    "other": "תקנה 2(ב)",
+    "age": "תקנה 3",
+    "death": "תקנה 4"
+   },
+   "max_he": "הסכום המקסימלי הוא 100,000 לירות, צמוד למדד המחירים לצרכן מיום תחילת החוק או מיום הגדלתו (סעיפים 4(א)(3) ו-4(ב)). אין מפרסם רשמי לסכום המעודכן בשקלים, ולכן הכלי מחשב באחוזים ממנו, ובשקלים רק כשאתם מזינים את הסכום שקיבלתם מבית המשפט או מחברת הביטוח"
+  },
+  "earnings": {
+   "ceiling_multiple": 3,
+   "section": "סעיף 4(א)(1)",
+   "tax_cap_pct": 25,
+   "tax_section": "סעיף 4(א)(2)",
+   "nii": [
+    {
+     "from": "2026-01-01",
+     "s1": 13566,
+     "s2": 13769,
+     "url": "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%D7%A9%D7%9B%D7%A8%20%D7%9E%D7%9E%D7%95%D7%A6%D7%A2.aspx",
+     "source_he": "המוסד לביטוח לאומי, שכר ממוצע לפי סעיפים 1 ו-2 לחוק הביטוח הלאומי, מ-1.1.2026"
+    }
+   ],
+   "cbs_he": "נתון הלמ\"ס לא נבדק (האתר חוסם קריאה אוטומטית), ולכן התקרה מוצגת כ\"לפחות\""
+  },
+  "fees": {
+   "rules_he": "כללי לשכת עורכי הדין (תעריף מקסימלי לשכר טרחה בטיפול בתביעות לפי חוק פיצויים לנפגעי תאונות דרכים), התשל\"ז-1977",
+   "rules_url": "https://www.nevo.co.il/law_html/law00/4407.htm",
+   "stages": {
+    "none": {
+     "pct": 8,
+     "section": "סעיף 16(א); כלל 4",
+     "he": "בלי תביעה בבית המשפט"
+    },
+    "settle": {
+     "pct": 11,
+     "section": "כלל 3",
+     "he": "פשרה אחרי שהוגשה תביעה"
+    },
+    "judgment": {
+     "pct": 13,
+     "section": "סעיף 16(א); כלל 2",
+     "he": "פסק דין"
+    }
+   },
+   "vat_section": "כלל 5",
+   "vat_pct": 18,
+   "vat_he": "צו מס ערך מוסף (שיעור המס על עסקה ועל יבוא טובין), התשס\"ה-2005, סעיף 1",
+   "vat_url": "https://www.nevo.co.il/law_html/law01/999_481.htm",
+   "refund_he": "מי ששילם יותר מהתעריף המקסימלי זכאי להחזר העודף (סעיף 16(א))"
+  },
+  "limitation": {
+   "he": "חוק ההתיישנות, התשי\"ח-1958",
+   "url": "https://www.nevo.co.il/law_html/law00/71809.htm",
+   "years": 7,
+   "section": "סעיף 5(1)",
+   "adult_age": 18,
+   "minor_section": "סעיף 10",
+   "war": {
+    "from": "2023-10-07",
+    "to": "2024-04-06",
+    "section": "סעיף 15א(א)"
+   },
+   "interpretation_he": "חוק הפרשנות, התשמ\"א-1981, סעיף 10(ג)"
+  },
+  "independence_days": [
+   "2025-05-01",
+   "2026-04-22",
+   "2027-05-12"
+  ],
+  "interim_days": 60,
+  "interim_he": "המבטח משלם, כחלק מהפיצויים, הוצאות ריפוי ותשלומים חודשיים למחיה, תוך 60 ימים מקבלת דרישה בכתב (סעיף 5(ב))",
+  "expert_he": "את הנכות הרפואית קובע מומחה שבית המשפט ממנה; הצדדים לא מביאים מומחה משלהם בלי רשות (סעיף 6א)",
+  "nii_he": "תאונה בדרך לעבודה או בעבודה היא גם תאונת עבודה: גמלאות הביטוח הלאומי מנוכות מהפיצויים (סעיף 328א לחוק הביטוח הלאומי)",
+  "nii_law_he": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995, סעיף 328א",
+  "nii_law_url": "https://www.btl.gov.il/Laws1/00_0001_000000.pdf",
+  "karnit_he": "נהג לא ידוע, בלי ביטוח או מבטח בפירוק: התביעה נגד קרנית (סעיף 12)"
+ },
+ "divorce_cost": {
+  "name_he": "עלות גירושין ולוח הזמנים שבחוק",
+  "publisher_he": "תקנות האגרות של בתי הדין הרבניים ושל בית המשפט לענייני משפחה",
+  "source_name": "תקנות הדיינים (אגרות), התשי\"ז-1957, ותקנות בית המשפט לעניני משפחה (אגרות), התשנ\"ו-1995 (נוסח עדכני)",
+  "source_url": "https://www.nevo.co.il/law_html/law00/70297.htm",
+  "checked_on": "2026-10-14",
+  "refresh_every_days": 183,
+  "next_update": "2027-01-01",
+  "scope_he": "הכלי מחשב גירושין של בני זוג יהודים, שהגט שלהם ניתן בבית הדין הרבני. לבני זוג מוסלמים, נוצרים או דרוזים יש בית דין דתי אחר ואגרות אחרות, והכלי לא מחשב אותם",
+  "rabbinical": {
+   "regulation_he": "תקנות הדיינים (אגרות), התשי\"ז-1957",
+   "url": "https://www.nevo.co.il/law_html/law00/70297.htm",
+   "current_to": "2026-01-22",
+   "divorce": 457,
+   "property": 596,
+   "custody": 417,
+   "support": 279,
+   "agreement": 536,
+   "get_request": 326,
+   "get_request_abroad": 457,
+   "certificate": 326,
+   "request": 119,
+   "transcript_divorce": 118,
+   "transcript_other": 88,
+   "appeal": 775,
+   "items": {
+    "divorce": "התוספת הראשונה, פרט 4(1)(א)",
+    "property": "פרט 4(1)(ב)",
+    "custody": "פרט 7",
+    "support_exempt": "פרט 3(א) ותקנה 14א",
+    "agreement": "פרט 4(2)",
+    "get_request": "פרט 4(3)(א)",
+    "get_request_abroad": "פרט 4(3)(ב)",
+    "get_free": "פרט 4(3)(ג)",
+    "get_special": "פרט 4(3)(ח)",
+    "certificate": "פרט 4(4)(א)",
+    "request": "פרט 19(טז)",
+    "transcript_divorce": "התוספת השנייה, פרט 1",
+    "transcript_other": "התוספת השנייה, פרט 2",
+    "appeal": "פרט 15(א)"
+   },
+   "indexed_he": "מתעדכנות ב-1 בינואר לפי מדד נובמבר (תקנה 3ב)"
+  },
+  "family": {
+   "regulation_he": "תקנות בית המשפט לעניני משפחה (אגרות), התשנ\"ו-1995",
+   "url": "https://www.nevo.co.il/law_html/law00/71537.htm",
+   "current_to": "2026-07-01",
+   "property": 601,
+   "support": 283,
+   "custody": 421,
+   "agreement": 541,
+   "request": 120,
+   "transcript": 86,
+   "items": {
+    "property": "התוספת הראשונה, פרט 2א",
+    "support": "פרט 5",
+    "custody": "פרט 6ב",
+    "agreement": "פרט 6א",
+    "request": "פרט 13",
+    "transcript": "התוספת השנייה"
+   },
+   "indexed_he": "מתעדכנות פעמיים בשנה, ב-1 בינואר וב-1 ביולי (תקנה 4(א))"
+  },
+  "disputes": {
+   "law_he": "חוק להסדר התדיינויות בסכסוכי משפחה, התשע\"ה-2014",
+   "url": "https://www.nevo.co.il/law_html/law01/501_151.htm",
+   "regs_url": "https://www.nevo.co.il/law_html/law01/501_431.htm",
+   "meetings_max": 4,
+   "meetings_days": 45,
+   "extend_days": 15,
+   "stay_days": 60,
+   "stay_days_extended": 75,
+   "claim_days": 15,
+   "sections": {
+    "first": "סעיף 3(א)",
+    "meetings": "סעיף 3(ב)(1)",
+    "meetings_days": "סעיף 3(ב)(3)",
+    "stay": "סעיף 3(ה)",
+    "claims": "סעיף 4",
+    "exceptions": "סעיף 2, ההגדרות \"תובענה\" ו\"תובענה בעניין של סכסוך משפחתי\""
+   },
+   "free_he": "פגישות המהו\"ת אינן כרוכות בתשלום (תקנות 2016, טופס 2)",
+   "permanent_he": "החוק קבוע מאז תיקון מס' 3 (8.12.2020): סעיף התפוגה בוטל",
+   "interpretation_he": "חוק הפרשנות, סעיף 10(ג)",
+   "interpretation_url": "https://www.nevo.co.il/law_html/law00/4667.htm"
+  },
+  "property_law": {
+   "law_he": "חוק יחסי ממון בין בני זוג, התשל\"ג-1973",
+   "url": "https://www.nevo.co.il/law_html/law00/72138.htm",
+   "from": "1974-01-01",
+   "sections": {
+    "balance": "סעיף 5(א)",
+    "pension": "סעיף 5(ג)",
+    "early": "סעיף 5א",
+    "debts": "סעיף 6(א)",
+    "half": "סעיף 6(ב)",
+    "deviate": "סעיף 8",
+    "pre1974": "סעיף 14",
+    "agreement": "סעיף 2"
+   },
+   "excluded_he": "נכסים שהיו לכם ערב הנישואין, מתנה או ירושה בתקופת הנישואין, גמלת ביטוח לאומי ופיצוי על נזק גוף או מוות לפי דין, ונכסים שהסכמתם בכתב לא לאזן (סעיף 5(א))"
+  },
+  "bar": {
+   "rules_he": "כללי לשכת עורכי הדין (התעריף המינימלי המומלץ), התש\"ס-2000",
+   "url": "https://www.nevo.co.il/law_html/law00/4425.htm",
+   "current_to": "2026-01-05",
+   "get_consent": 1287,
+   "get_contested": 3173,
+   "custody_agreed": 1287,
+   "custody_opposed": 3008,
+   "agreement_min": 2480,
+   "extra_hearing": 498,
+   "items": {
+    "get_consent": "התוספת, פרט 8(5)",
+    "get_contested": "פרט 8(6)",
+    "custody_agreed": "פרט 8(7)",
+    "custody_opposed": "פרט 8(8)",
+    "agreement": "פרט 8(9)",
+    "property": "פרטים 1 ו-3",
+    "extra_hearing": "פרט 8(15)"
+   },
+   "note_he": "המלצה לחברי הלשכה שאינה מחייבת (כלל 2); מע\"מ נוסף על הסכום (כלל 1); מתעדכן ב-1 בינואר (כלל 3). לכל צד ועורך הדין שלו"
+  },
+  "vat": {
+   "pct": 18,
+   "from": "2025-01-01",
+   "he": "צו מס ערך מוסף (שיעור המס על עסקה ועל יבוא טובין), התשס\"ה-2005, סעיף 1",
+   "url": "https://www.nevo.co.il/law_html/law01/999_481.htm"
+  },
+  "refund_he": "הסתיים ההליך בהסכמה מוקדם: בבית הדין הרבני האגרה קטנה ב-50% לפני שמיעת ראיות וב-25% אחריה (תקנה 12), ובבית המשפט לענייני משפחה משלמים מחצית בפשרה עד קדם המשפט (תקנה 8(ב)). על הבקשה ליישוב סכסוך אין החזר",
+  "meetings_he": "עד 4 פגישות מידע, היכרות ותיאום ביחידת הסיוע, בלי תשלום, בתוך 45 ימים מהבקשה (פעם אחת אפשר להאריך ב-15). עד 60 ימים, או 75, אי אפשר להגיש תביעה (סעיף 3)",
+  "support_he": "בבית הדין הרבני מי שמגיש תביעת מזונות פטור מאגרה; אם בית הדין מחייב את הצד השני בהוצאות, הוא משלם את האגרה (תקנה 14א). בבית המשפט לענייני משפחה האגרה 283 ₪",
+  "get_request_he": "אם מגישים בקשה נפרדת לסידור גט, היא עולה 326 ₪, ו-457 ₪ כשאחד מבני הזוג בחוץ לארץ (פרט 4(3)(א)-(ב))",
+  "abroad_he": "כשמקום המושב של אחד מבני הזוג אינו בישראל, החוק להסדר התדיינויות לא חל (סעיף 4א(1)): אין בקשה ליישוב סכסוך, אין פגישות מהו\"ת ואין עיכוב הליכים",
+  "pause_he": "בספירת 45, 60 ו-75 הימים לא נספרים ראש השנה, יום הכיפורים, י\"ד עד כ\"ב בתשרי ו-י\"ד עד כ\"א בניסן (סעיף 6א(א)(1)); ב-15 הימים להגשת התביעה הם נספרים, אלא אם היום האחרון חל בהם (סעיף 6א(ג))",
+  "pre1974_he": "נישאתם לפני 1.1.1974: הסדר איזון המשאבים לא חל עליכם (סעיף 14 לחוק יחסי ממון), והחלוקה נקבעת לפי הדין שקדם לו. החישוב כאן לא מתאים למקרה שלכם"
  }
 }

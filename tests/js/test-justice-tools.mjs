@@ -20,6 +20,11 @@ import * as RQ from '../../assets/js/tools/rechisha-engine.js';
 import * as RQUI from '../../assets/js/tools/rechisha-ui.js';
 import * as HB from '../../assets/js/tools/hashbacha-engine.js';
 import * as HBUI from '../../assets/js/tools/hashbacha-ui.js';
+import * as TZ from '../../assets/js/tools/tzavaa-engine.js';
+import * as TZUI from '../../assets/js/tools/tzavaa-ui.js';
+import * as TE from '../../assets/js/tools/teuna-engine.js';
+import * as TEUI from '../../assets/js/tools/teuna-ui.js';
+import * as DT from '../../assets/js/tools/dates.js';
 import { encodeState, decodeState, decodeList, parseMoney, csv, ics, isStale, track, ilToday } from '../../assets/js/tools/instrument.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -525,6 +530,72 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!est({ betterment: 0 }).ok && !est({ betterment: 100, share: 120 }).ok, 'zero betterment and a share over 100% are input errors');
 	const hs = HBUI.snapshot(reg);
 	check(hs.result.includes('jt8-strip') && hs.assessment.result.includes('15.11.2026'), 'betterment snapshot: the plan strip, and the assessment example deadline');
+}
+
+/* ---------- Wave 4 (HAD-502): what a will costs (Succession Law; registrar fee regs and notary fee regs from 1.1.2026) ---------- */
+{
+	const w = reg.will_cost;
+	check(w.checked_on === '2026-10-14' && w.registrar.order === 597 && w.registrar.will_before_registrar === 280 && w.registrar.deposit === 126 && w.registrar.deposit_free_years === 5 && w.registrar.online_pct === 85, 'will registry: 597 / 280 / 126, free deposit after 5 years, 85% online (fee regs, items 1, 4, 5, 5א; reg. 1(א))');
+	check(w.notary.will_first === 293 && w.notary.will_additional === 147 && w.notary.outside_first_hour === 645 && w.notary.outside_half_hour === 197 && w.notary.night_pct === 50 && w.vat.pct === 18, 'will registry: notary 293 / 147, away 645 + 197, +50% at night, VAT 18%');
+	const one = TZ.compute(reg, { form: 'notary', people: 1, deposit: true, recent: [false, false], online: true });
+	check(one.ok && one.nowTotal === 345.74 && one.laterTotal === 507.45 && one.total === 853.19, 'notary, one testator: 293 x 1.18 = 345.74 now; first deposit free; 597 x 85% = 507.45 later');
+	check(TZ.compute(reg, { form: 'notary', people: 2, docs: 'one', deposit: false }).nowTotal === 519.2, 'mutual wills in one document: (293 + 147) x 1.18 = 519.20 (item 4(א)-(ב))');
+	check(TZ.compute(reg, { form: 'notary', people: 2, docs: 'two', deposit: false }).nowTotal === 691.48, 'mutual wills in two documents: two first signers, 586 x 1.18 = 691.48');
+	check(TZ.compute(reg, { form: 'registrar', people: 1, deposit: false }).nowTotal === 280 && TZ.compute(reg, { form: 'registrar', people: 2, deposit: false }).nowTotal === 560, 'before the registrar: 280 per will, no VAT (item 4)');
+	check(TZ.compute(reg, { form: 'witnesses', people: 1, deposit: true, recent: [true, false] }).nowTotal === 126, 'witnesses: no fee; a deposit after an earlier one within 5 years: 126 (item 5)');
+	check(TZ.compute(reg, { form: 'handwritten', people: 2, deposit: true, recent: [true, true] }).nowTotal === 252, 'two testators who both deposited within 5 years: 2 x 126');
+	check(TZ.compute(reg, { form: 'handwritten', people: 2, deposit: true, recent: [false, false], online: false }).laterTotal === 1194, 'two probate requests on paper: 2 x 597');
+	check(TZ.translationFee(w.notary, 250) === 645 && TZ.translationFee(w.notary, 1250) === 2321 && TZ.translationFee(w.notary, 100) === 251 && TZ.translationFee(w.notary, 0) === 0, 'translation item 3(א): 251, then 197 per 100 to 1,000, then 99 per 100');
+	check(TZ.compute(reg, { form: 'notary', people: 1, words: 250 }).nowTotal === 726.29, 'a will translated by the notary: (293 + 645 / 2) x 1.18 = 726.29 (item 4(ד))');
+	check(TZ.compute(reg, { form: 'notary', people: 1, night: true }).nowTotal === 518.61, 'at night or on a rest day: 293 x 1.5 x 1.18 = 518.61 (item 10)');
+	check(TZ.outsideFee(w.notary, 1) === 645 && TZ.outsideFee(w.notary, 1.2) === 842 && TZ.outsideFee(w.notary, 1.5) === 842 && TZ.outsideFee(w.notary, 2) === 1039, 'away from the office: 645 for the first hour or part, 197 for each half hour or part (item 9(א))');
+	check(TZ.compute(reg, { form: 'notary', people: 1, outside: true, hours: 1, night: true }).nowTotal === Math.round((293 + 645) * 118) / 100, 'away from the office at night: no 50% on top (item 10 excludes item 9)');
+	check(TZ.compute(reg, { form: 'notary', people: 1, foreign: true }).nowTotal === Math.round((293 + 104) * 118) / 100, 'a certificate in a foreign language other than Arabic or English: +104 (item 12)');
+	check(TZ.compute(reg, { form: 'witnesses', people: 1, lawyer: 2000 }).nowTotal === 2360 && TZ.compute(reg, { form: 'witnesses', people: 1, lawyer: 2000, lawyerVat: false }).nowTotal === 2000, 'a lawyer quote: plus VAT unless it already includes it');
+	check(!TZ.compute(reg, { form: 'notary', lawyer: -5 }).ok && !TZ.compute(reg, { form: 'notary', words: NaN }).ok && !TZ.compute(reg, { form: 'notary', outside: true, hours: '' }).ok, 'negative quote, bad word count and a visit without hours are input errors');
+	const forms = TZ.byForm(reg, { people: 1, deposit: true, recent: [false, false], online: true });
+	check(forms.handwritten.now === 0 && forms.witnesses.now === 0 && forms.registrar.now === 280 && forms.notary.now === 345.74, 'the same will in four forms: 0, 0, 280, 345.74');
+	const ts = TZUI.snapshot(reg);
+	check(ts.total === 345.74 && ts.result.includes('jt11-track') && ts.result.includes('חינם') && ts.method.includes('507.45') && ts.compare_table.includes('519.20'), 'will snapshot: 345.74, the track with the free deposit, 507.45 later, the forms table');
+}
+
+/* ---------- Wave 4: road-accident compensation (1975 law, 1976 regulations, 1977 Bar rules, Limitation Law) ---------- */
+{
+	const ca = reg.car_accident;
+	check(ca.checked_on === '2026-10-14' && ca.nonpecuniary.hospital_permille === 2 && ca.nonpecuniary.age_from === 30 && ca.nonpecuniary.death_pct === 25 && ca.nonpecuniary.no_permanent_max_pct === 10, 'car registry: 2 permille a day, 1% a year over 30, 25% on death, up to 10% with no disability');
+	check(ca.fees.stages.none.pct === 8 && ca.fees.stages.settle.pct === 11 && ca.fees.stages.judgment.pct === 13 && ca.fees.vat_pct === 18, 'car registry: fee caps 8 / 11 / 13% plus VAT 18% (s.16(א); rules 2-5)');
+	check(ca.earnings.nii[0].s1 === 13566 && ca.earnings.nii[0].s2 === 13769 && ca.earnings.ceiling_multiple === 3 && ca.earnings.tax_cap_pct === 25, 'car registry: NII average wage 13,566 / 13,769 from 1.1.2026; ceiling x3; tax cut at most 25%');
+	const base = { disability: 20, days: 5, age: 40, accident: '2025-03-10', amount: 150000, stage: 'none', today: '2026-10-14' };
+	const r = TE.compute(reg, base);
+	check(r.ok && r.np.pct === 19 && r.np.parts.find((p) => p.key === 'disability').pct === 18 && r.np.parts.find((p) => p.key === 'hospital').pct === 1, '20% disability at 40 and 5 hospital days: 18% + 1% = 19% of the maximum (regs 2(א), 3)');
+	check(TE.compute(reg, Object.assign({}, base, { age: 30 })).np.pct === 21 && TE.compute(reg, Object.assign({}, base, { age: 31 })).np.pct === 20.8 && TE.compute(reg, Object.assign({}, base, { age: 25 })).np.pct === 21, 'the age cut starts above 30: 1% of the disability part per full year');
+	const cap = TE.compute(reg, Object.assign({}, base, { disability: 100, age: 30, days: 10 }));
+	check(cap.np.pct === 100 && cap.flags.some((f) => f.code === 'np_cap'), 'never above the maximum (s.4(א)(3)): 100% + 10 days stops at 100%');
+	check(TE.compute(reg, Object.assign({}, base, { death: true })).np.pct === 25, 'death: 25% of the maximum to the estate (reg. 4)');
+	const other = TE.compute(reg, Object.assign({}, base, { disability: 0, days: 0 }));
+	check(other.ok && other.np.kind === 'other' && other.np.pct === null && other.flags.some((f) => f.code === 'np_other'), 'no disability and no hospital days: up to 10%, agreed or awarded (reg. 2(ב)), not computed');
+	check(TE.compute(reg, Object.assign({}, base, { max: 200000 })).npAmount === 38000, 'with a maximum the person entered: 19% x 200,000 = 38,000');
+	check(r.fees.none.withVat === 14160 && r.fees.none.net === 135840 && r.fees.settle.withVat === 19470 && r.fees.settle.net === 130530 && r.fees.judgment.withVat === 23010 && r.fees.judgment.net === 126990, 'fee caps on 150,000 with VAT: 14,160 / 19,470 / 23,010; net 135,840 / 130,530 / 126,990');
+	check(r.lim.deadline === '2032-03-10' && r.lim.added === 0, 'limitation: 7 years from 10.3.2025 -> 10.3.2032');
+	const war = TE.limitation(ca, '2020-01-15', null);
+	check(war.added === 183 && war.deadline === '2027-07-18' && war.rolled, 'a period running in the war: +183 days (7.10.2023-6.4.2024, s.15א(א)) -> Saturday 17.7.2027 -> 18.7.2027');
+	const inside = TE.limitation(ca, '2023-12-01', null);
+	check(inside.added === 128 && inside.deadline === '2031-04-09' && inside.rolled, 'an accident inside the war window: the 128 days from it to 6.4.2024 are not counted; 8.4.2031 is 15 Nisan -> 9.4.2031');
+	check(TE.limitation(ca, '2016-05-01', null).added === 0 && TE.limitation(ca, '2016-05-01', null).deadline === '2023-05-01', 'a period that ended before 7.10.2023: no extension');
+	const minor = TE.limitation(ca, '2020-01-01', '2010-06-04');
+	check(minor.minor && minor.start === '2028-06-04' && minor.deadline === '2035-06-04', 'a minor: the 7 years start at 18 (Limitation Law s.10)');
+	check(TE.compute(reg, Object.assign({}, base, { age: 12 })).flags.some((f) => f.code === 'minor_birth'), 'a minor without a birth date: a flag asks for it');
+	const e = TE.compute(reg, Object.assign({}, base, { income: 12000, months: 4 }));
+	check(e.earnings.ceilingAtLeast === 40698 && e.earnings.lowPerMonth === 9000 && e.earnings.highPerMonth === 12000 && e.earnings.low === 36000 && e.earnings.high === 48000 && !e.earnings.capped, 'earnings: the ceiling is at least 3 x 13,566 = 40,698; a month off is between 75% and 100% of 12,000');
+	const hi = TE.compute(reg, Object.assign({}, base, { income: 50000 }));
+	check(hi.earnings.capped && hi.earnings.lowPerMonth === 30523.5 && hi.flags.some((f) => f.code === 'ceiling'), 'income above the verified ceiling: flagged; the low bound uses 75% of 40,698');
+	check(TE.compute(reg, Object.assign({}, base, { excluded: ['licence'] })).outOfScope, 's.7: driving without a licence -> may not be entitled (out of scope)');
+	check(!TE.compute(reg, Object.assign({}, base, { accident: '1975-01-01' })).ok && !TE.compute(reg, Object.assign({}, base, { disability: 120 })).ok && !TE.compute(reg, Object.assign({}, base, { age: 40.5 })).ok, 'before 25.9.1976, disability over 100 and a non-whole age are input errors');
+	check(TE.compute(reg, Object.assign({}, base, { work: true })).flags.some((f) => f.code === 'nii'), 'on the way to work: the NII deduction flag (s.328א)');
+	check(TE.compute(reg, Object.assign({}, base, { death: true })).lim === null, 'death: no limitation date computed (the cause arises on the death, s.6)');
+	check(DT.fullYears('2010-06-04', '2028-06-03') === 17 && DT.fullYears('2010-06-04', '2028-06-04') === 18, 'full years: the birthday counts on the day');
+	const cs = TEUI.snapshot(reg);
+	check(cs.total === 19 && cs.result.includes('jt10-bar') && cs.result.includes('10.3.2032') && cs.method.includes('135,840.00') && cs.compare_table.includes('<bdi>18%</bdi>'), 'car snapshot: 19%, the formula bar, the limitation date, the fee and the share table');
 }
 
 if (failures) {

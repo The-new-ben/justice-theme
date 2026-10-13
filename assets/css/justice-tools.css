@@ -371,3 +371,47 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jt6-node { min-width: 76px; }
 }
 @media print { .jt6-chartwrap { break-inside: avoid; } }
+
+/* Wave 4 (HAD-502): will cost, road-accident compensation, divorce cost. Same navy instrument, one picture per tool
+   taken from its subject: a will's route (signing, deposit, probate) as stations on a rail; the regulation's formula
+   as a ruler of 100% of the statutory maximum; a divorce as two lanes (agreement, court) with their statutory clocks.
+   Teal #0B6470 marks what is free or lighter, navy what you pay; no warm accents, white text passes 4.5:1 on both. */
+.jt11-track { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--jtool-space-2); margin: 0 !important; padding: 18px 0 0 !important; list-style: none; }
+.jt11-track::before { content: ""; position: absolute; top: 26px; inset-inline: 12% 12%; height: 2px; background: repeating-linear-gradient(90deg, #9FB4CB 0 8px, transparent 8px 14px); }
+.jtool .jt11-track li::before { content: none; }
+.jt11-st { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 22px 8px 10px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: #fff; text-align: center; }
+.jt11-st::after { content: ""; position: absolute; top: -9px; inset-inline-start: calc(50% - 9px); width: 18px; height: 18px; border-radius: 50%; background: var(--jtool-verdict); border: 3px solid #fff; box-shadow: 0 0 0 1.5px var(--jtool-verdict); }
+.jt11-st--free::after { background: #fff; box-shadow: 0 0 0 1.5px #0B6470; }
+.jt11-st--off { opacity: 0.6; }
+.jt11-st--off::after { background: #fff; box-shadow: 0 0 0 1.5px #9FB4CB; }
+.jt11-st__when { font: 700 0.8rem/1.2 var(--jtool-font); color: var(--jtool-muted); }
+.jt11-st__what { font: 800 0.95rem/1.3 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jt11-st__amt { font: 800 1.15rem/1.2 var(--jtool-font); color: var(--jtool-verdict-deep); font-variant-numeric: tabular-nums; }
+.jt11-st--free .jt11-st__amt { color: #0B6470; }
+.jt11-st__note { font-size: 0.8125rem; color: var(--jtool-muted); }
+.jtool .jt11-list { margin: 0 !important; padding: var(--jtool-space-3) var(--jtool-space-5) var(--jtool-space-4) var(--jtool-space-4) !important; display: flex; flex-direction: column; gap: var(--jtool-space-2); }
+.jtool .jt11-list li { font-size: 0.95rem !important; line-height: 1.6 !important; color: var(--jtool-ink) !important; }
+
+.jt10-formula { padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt10-formula__h { margin: 0 0 6px !important; font: 700 0.875rem/1.3 var(--jtool-font) !important; color: var(--jtool-muted) !important; }
+.jt10-bar { position: relative; display: flex; height: 30px; border-radius: 6px; overflow: hidden; border: 1px solid #9FB4CB; background: #fff repeating-linear-gradient(90deg, transparent 0 calc(10% - 1px), #D9E3EC calc(10% - 1px) 10%); }
+.jt10-seg { display: flex; align-items: center; justify-content: center; min-width: 0; overflow: hidden; white-space: nowrap; color: #fff; font: 800 0.8rem/1 var(--jtool-font); }
+.jt10-seg b { font-weight: 800; padding: 0 4px; }
+.jt10-seg--disability { background: #14477D; }
+.jt10-seg--hospital { background: #0B6470; }
+.jt10-seg--cut { background: repeating-linear-gradient(135deg, #7FA3CB 0 5px, #E3ECF6 5px 10px); }
+.jtool .jt10-formula__legend { display: flex; flex-wrap: wrap; gap: 14px; margin: 8px 0 0 !important; font-size: 0.8125rem !important; color: var(--jtool-muted) !important; }
+.jt10-formula__legend span { display: inline-flex; align-items: center; gap: 6px; }
+.jt10-k { display: inline-block; width: 14px; height: 10px; border-radius: 3px; border: 1px solid #9FB4CB; }
+.jt10-k--disability { background: #14477D; }
+.jt10-k--hospital { background: #0B6470; }
+.jt10-k--cut { background: repeating-linear-gradient(135deg, #7FA3CB 0 3px, #E3ECF6 3px 6px); }
+.jt10-fees { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 600px) {
+	.jt11-track { grid-template-columns: 1fr; padding-top: 0 !important; gap: 12px; }
+	.jt11-track::before { top: 0; bottom: 0; inset-inline: auto; inset-inline-start: 18px; width: 2px; height: auto; background: repeating-linear-gradient(180deg, #9FB4CB 0 8px, transparent 8px 14px); }
+	.jt11-st { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: baseline; padding: 10px 12px 10px 12px; padding-inline-start: 40px; text-align: start; }
+	.jt11-st::after { top: calc(50% - 9px); inset-inline-start: 10px; }
+	.jt10-fees { grid-template-columns: 1fr; }
+}
+@media print { .jt11-track, .jt10-formula { break-inside: avoid; } }

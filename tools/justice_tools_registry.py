@@ -486,6 +486,152 @@ def build_betterment(checked_on: str) -> dict:
     }
 
 
+
+def build_will_cost(checked_on: str) -> dict:
+    """What a will costs, from signing to the probate order (wave 4, HAD-502). The forms and the path are the
+    Succession Law (ss.8א, 18-24, 35, 39, 66-67א, current text read on checked_on); the registrar's fees are the
+    1998 fee regulations as updated on 1.1.2026 (Kovetz HaTakanot 12149, 25.12.2025); the notary's fees are the
+    notary fee regulations as updated on 1.1.2026 (Kovetz HaTakanot 12158, 29.12.2025), plus VAT (reg. 1) at the
+    rate of the 2005 VAT order (18% from 1.1.2025). The publication of a probate request has no official amount
+    (Succession Regulations reg. 17(ג)), so the tool names it and never prices it."""
+    law = "https://www.nevo.co.il/law_html/law00/72178.htm"
+    fees = "https://www.nevo.co.il/law_html/law00/72181.htm"
+    notary = "https://www.nevo.co.il/law_html/law00/90738.htm"
+    regs = "https://www.nevo.co.il/law_html/law00/98588.htm"
+    return {
+        "name_he": "עלות צוואה, מהחתימה ועד צו הקיום",
+        "publisher_he": "חוק הירושה, תקנות האגרות של הרשם ותעריף הנוטריונים",
+        "source_name": "תקנות הירושה (אגרות הרשם לעניני ירושה), התשנ\"ח-1998, ותקנות הנוטריונים (שכר שירותים), התשל\"ט-1978, בנוסח מ-1.1.2026",
+        "source_url": fees,
+        "checked_on": checked_on,
+        "refresh_every_days": 365,
+        "next_update": "2027-01-01",
+        "law_he": "חוק הירושה, התשכ\"ה-1965",
+        "law_url": law,
+        "sections": {
+            "forms": "סעיף 18", "handwritten": "סעיף 19", "witnesses": "סעיף 20", "deposit": "סעיף 21",
+            "authority": "סעיף 22", "notary": "סעיף 22(ז)", "mutual": "סעיף 8א", "witness_capacity": "סעיף 24",
+            "beneficiary_witness": "סעיף 35", "probate_needed": "סעיף 39", "orders": "סעיף 66", "objection": "סעיף 67",
+            "to_court": "סעיף 67א",
+        },
+        "registrar": {
+            "regulation_he": "תקנות הירושה (אגרות הרשם לעניני ירושה), התשנ\"ח-1998",
+            "url": fees, "from": "2026-01-01", "gazette_he": "קובץ התקנות 12149, 25.12.2025",
+            "order": 597, "item_order": "התוספת, פרט 1",
+            "amend": 597, "item_amend": "התוספת, פרט 2",
+            "will_before_registrar": 280, "item_will": "התוספת, פרט 4",
+            "deposit": 126, "item_deposit": "התוספת, פרט 5",
+            "deposit_free_years": 5, "item_deposit_free": "התוספת, פרט 5א",
+            "online_pct": 85, "online_section": "תקנה 1(א)", "online_rule_section": "תקנה 14(ד) לתקנות הירושה",
+            "indexed_he": "מתעדכנות ב-1 בינואר לפי מדד נובמבר (תקנה 2)",
+        },
+        "notary": {
+            "regulation_he": "תקנות הנוטריונים (שכר שירותים), התשל\"ט-1978",
+            "url": notary, "from": "2026-01-01", "gazette_he": "קובץ התקנות 12158, 29.12.2025",
+            "will_first": 293, "will_additional": 147, "will_extra_certificate": 88, "item_will": "פרט 4",
+            "item_will_translate": "פרט 4(ד) ופרט 3(א)",
+            "translate_first100": 251, "translate_per100_to1000": 197, "translate_per100_above": 99,
+            "outside_first_hour": 645, "outside_half_hour": 197, "item_outside": "פרט 9(א)",
+            "night_pct": 50, "item_night": "פרט 10",
+            "foreign_language": 104, "item_foreign": "פרט 12",
+            "signature_first": 197, "signature_additional": 77, "copy_first_page": 77, "copy_more_pages": 13,
+            "life_certificate": 197, "affidavit_first": 200, "affidavit_additional": 80,
+            "law_he": "חוק הנוטריונים, התשל\"ו-1976, סעיף 34(5)",
+            "law_url": "https://www.nevo.co.il/law_html/law00/72998.htm",
+            "indexed_he": "מתעדכן ב-1 בינואר לפי מדד נובמבר (תקנה 4)",
+        },
+        "vat": {"pct": 18, "from": "2025-01-01", "he": "צו מס ערך מוסף (שיעור המס על עסקה ועל יבוא טובין), התשס\"ה-2005, סעיף 1",
+                "url": "https://www.nevo.co.il/law_html/law01/999_481.htm"},
+        "regulations_he": "תקנות הירושה, התשנ\"ח-1998",
+        "regulations_url": regs,
+        "objection_days": 14, "objection_section": "תקנה 17(א)", "publication_section": "תקנה 17(ג)",
+        "deposit_section": "תקנה 6",
+        "notary_fixed_he": "שכר הנוטריון קבוע בתקנות: נוטריון שגובה יותר, או פחות בלי טעם מספיק, עובר עבירת משמעת "
+                           "(סעיף 34(5) לחוק הנוטריונים). על השכר נוסף מע\"מ (תקנה 1)",
+        "witness_he": "שני עדים בגירים וכשירים (סעיף 24). הוראה שמזכה עד, את מי שערך את הצוואה או את בן הזוג שלהם, "
+                      "בטלה (סעיף 35)",
+        "handwritten_he": "כל הצוואה בכתב ידכם, עם תאריך בכתב ידכם וחתימה (סעיף 19). מודפסת או בכתב יד של אחר: זו "
+                          "לא צוואה בכתב יד",
+        "deposit_in_person_he": "את הצוואה מפקידים בעצמכם, במשרד הרשם לענייני ירושה, עם המקור ותעודה מזהה (סעיף 21(א), "
+                                "תקנה 6). צוואה בפני רשות שנחתמה בחתימה אלקטרונית מאושרת אפשר להפקיד גם באתר האפוטרופוס "
+                                "הכללי (תקנה 6א). אפשר לקבל את הצוואה בחזרה בכל עת (סעיף 21(ג))",
+        "publication_he": "הודעה על הבקשה מתפרסמת באתר האפוטרופוס הכללי וברשומות, והוצאות הפרסום על המבקש (תקנה 17). "
+                          "לסכום אין מקור רשמי, ולכן הוא לא מחושב כאן",
+        "court_he": "הוגשה התנגדות: הבקשה עוברת לבית המשפט לענייני משפחה (סעיף 67א), והאגרות שם לא מחושבות כאן",
+    }
+
+
+def build_car_accident(checked_on: str) -> dict:
+    """Road-accident compensation (wave 4, HAD-502): the Road Accident Victims Compensation Law, 1975 (current to
+    14.8.2025), the 1976 non-pecuniary regulations (current to 18.9.2023), the 1977 Bar rules on the maximum fee, the
+    Limitation Law (current to 21.7.2026) and the National Insurance average wage from 1.1.2026, all read on checked_on.
+    The statutory maximum for pain and suffering has no official publisher of its current amount: the tool works in
+    shares of it and never states it in shekels on its own. The CBS average wage was not readable (bot wall), so the
+    earnings ceiling is stated as at least three times the National Insurance figure."""
+    law = "https://www.nevo.co.il/law_html/law00/4554.htm"
+    regs = "https://www.nevo.co.il/law_html/law00/4555.htm"
+    rules = "https://www.nevo.co.il/law_html/law00/4407.htm"
+    lim = "https://www.nevo.co.il/law_html/law00/71809.htm"
+    return {
+        "name_he": "פיצויים לנפגעי תאונות דרכים",
+        "publisher_he": "חוק הפיצויים לנפגעי תאונות דרכים ותקנותיו",
+        "source_name": "חוק פיצויים לנפגעי תאונות דרכים, התשל\"ה-1975 (נוסח עדכני)",
+        "source_url": law,
+        "checked_on": checked_on,
+        "refresh_every_days": 365,
+        "next_update": "2027-01-01",
+        "law_he": "חוק פיצויים לנפגעי תאונות דרכים, התשל\"ה-1975",
+        "law_url": law, "law_from": "1976-09-25", "law_current_to": "2025-08-14",
+        "sections": {"liability": "סעיף 2(ג)", "exclusions": "סעיף 7", "heads": "סעיף 4(א)", "interim": "סעיף 5(ב)",
+                     "expert": "סעיף 6א", "other_law": "סעיף 6ב", "only_cause": "סעיף 8(א)", "fee": "סעיף 16(א)", "karnit": "סעיף 12"},
+        "exclusions_he": "לפי סעיף 7 אין זכאות למי שגרם לתאונה במתכוון, למי שנהג ברכב בלי רשות (או נסע בו בידיעה), "
+                         "למי שנהג בלי רישיון נהיגה (חוץ מרישיון שפקע בגלל אגרה שלא שולמה או הגבלה של ההוצאה לפועל), "
+                         "למי שהשתמש ברכב לעבירה מסוג פשע, למי שנהג בלי ביטוח, ולבעל רכב שהרשה לנהוג בו בלי ביטוח",
+        "regs_he": "תקנות הפיצויים לנפגעי תאונות דרכים (חישוב פיצויים בשל נזק שאינו נזק ממון), התשל\"ו-1976",
+        "regs_url": regs, "regs_current_to": "2023-09-18",
+        "nonpecuniary": {
+            "max_lira": 100000, "max_section": "סעיף 4(א)(3)", "linkage_section": "סעיף 4(ב)",
+            "hospital_permille": 2, "disability_pct_per_pct": 1, "age_from": 30, "age_pct_per_year": 1,
+            "no_permanent_max_pct": 10, "death_pct": 25,
+            "sections": {"hospital": "תקנה 2(א)(1)", "disability": "תקנה 2(א)(2)", "other": "תקנה 2(ב)", "age": "תקנה 3", "death": "תקנה 4"},
+            "max_he": "הסכום המקסימלי הוא 100,000 לירות, צמוד למדד המחירים לצרכן מיום תחילת החוק או מיום הגדלתו (סעיפים "
+                      "4(א)(3) ו-4(ב)). אין מפרסם רשמי לסכום המעודכן בשקלים, ולכן הכלי מחשב באחוזים ממנו, ובשקלים רק "
+                      "כשאתם מזינים את הסכום שקיבלתם מבית המשפט או מחברת הביטוח",
+        },
+        "earnings": {
+            "ceiling_multiple": 3, "section": "סעיף 4(א)(1)", "tax_cap_pct": 25, "tax_section": "סעיף 4(א)(2)",
+            "nii": [{"from": "2026-01-01", "s1": 13566, "s2": 13769,
+                     "url": "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%D7%A9%D7%9B%D7%A8%20%D7%9E%D7%9E%D7%95%D7%A6%D7%A2.aspx",
+                     "source_he": "המוסד לביטוח לאומי, שכר ממוצע לפי סעיפים 1 ו-2 לחוק הביטוח הלאומי, מ-1.1.2026"}],
+            "cbs_he": "נתון הלמ\"ס לא נבדק (האתר חוסם קריאה אוטומטית), ולכן התקרה מוצגת כ\"לפחות\"",
+        },
+        "fees": {
+            "rules_he": "כללי לשכת עורכי הדין (תעריף מקסימלי לשכר טרחה בטיפול בתביעות לפי חוק פיצויים לנפגעי תאונות דרכים), התשל\"ז-1977",
+            "rules_url": rules,
+            "stages": {"none": {"pct": 8, "section": "סעיף 16(א); כלל 4", "he": "בלי תביעה בבית המשפט"},
+                       "settle": {"pct": 11, "section": "כלל 3", "he": "פשרה אחרי שהוגשה תביעה"},
+                       "judgment": {"pct": 13, "section": "סעיף 16(א); כלל 2", "he": "פסק דין"}},
+            "vat_section": "כלל 5", "vat_pct": 18,
+            "vat_he": "צו מס ערך מוסף (שיעור המס על עסקה ועל יבוא טובין), התשס\"ה-2005, סעיף 1",
+            "vat_url": "https://www.nevo.co.il/law_html/law01/999_481.htm",
+            "refund_he": "מי ששילם יותר מהתעריף המקסימלי זכאי להחזר העודף (סעיף 16(א))",
+        },
+        "limitation": {
+            "he": "חוק ההתיישנות, התשי\"ח-1958", "url": lim, "years": 7, "section": "סעיף 5(1)", "adult_age": 18,
+            "minor_section": "סעיף 10", "war": {"from": "2023-10-07", "to": "2024-04-06", "section": "סעיף 15א(א)"},
+            "interpretation_he": "חוק הפרשנות, התשמ\"א-1981, סעיף 10(ג)",
+        },
+        "independence_days": ["2025-05-01", "2026-04-22", "2027-05-12"],
+        "interim_days": 60,
+        "interim_he": "המבטח משלם, כחלק מהפיצויים, הוצאות ריפוי ותשלומים חודשיים למחיה, תוך 60 ימים מקבלת דרישה בכתב (סעיף 5(ב))",
+        "expert_he": "את הנכות הרפואית קובע מומחה שבית המשפט ממנה; הצדדים לא מביאים מומחה משלהם בלי רשות (סעיף 6א)",
+        "nii_he": "תאונה בדרך לעבודה או בעבודה היא גם תאונת עבודה: גמלאות הביטוח הלאומי מנוכות מהפיצויים "
+                  "(סעיף 328א לחוק הביטוח הלאומי)",
+        "nii_law_he": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995, סעיף 328א",
+        "nii_law_url": "https://www.btl.gov.il/Laws1/00_0001_000000.pdf",
+        "karnit_he": "נהג לא ידוע, בלי ביטוח או מבטח בפירוק: התביעה נגד קרנית (סעיף 12)",
+    }
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--checked-on", required=True)
@@ -496,8 +642,11 @@ def main() -> int:
     parser.add_argument("--base", help="existing registry: keep its CPI, interest, minimum-wage, havraa and small-claims "
                                          "datasets and its checked_on, and rebuild only the wave-3 datasets (HAD-498)")
     parser.add_argument("--wave3-checked-on", help="the day the wave-3 sources were read (default: --checked-on)")
+    parser.add_argument("--wave4-checked-on", help="the day the wave-4 sources were read (HAD-502); when given, the will-cost, "
+                                                   "road-accident and divorce-cost datasets are built too")
     args = parser.parse_args()
     wave3_day = args.wave3_checked_on or args.checked_on
+    wave4_day = args.wave4_checked_on
     if args.base:
         base = json.loads(Path(args.base).read_text(encoding="utf-8"))
         registry = {key: base[key] for key in ("schema", "registry_version", "checked_on", "note_he", "cpi", "interest",
@@ -506,6 +655,7 @@ def main() -> int:
         registry["yerusha"] = build_yerusha(wave3_day)
         registry["purchase_tax"] = build_purchase_tax(wave3_day)
         registry["betterment"] = build_betterment(wave3_day)
+        add_wave4(registry, wave4_day)
         write_registry(registry, args.out)
         return 0
 
@@ -533,8 +683,20 @@ def main() -> int:
         "purchase_tax": build_purchase_tax(wave3_day),
         "betterment": build_betterment(wave3_day),
     }
+    add_wave4(registry, wave4_day)
     write_registry(registry, args.out)
     return 0
+
+
+def add_wave4(registry: dict, day: str | None) -> None:
+    """Wave 4 (HAD-502): the will-cost, road-accident and divorce-cost datasets, each with its own checked_on."""
+    if not day:
+        return
+    registry["registry_version"] = day
+    registry["will_cost"] = build_will_cost(day)
+    registry["car_accident"] = build_car_accident(day)
+    if "build_divorce_cost" in globals():
+        registry["divorce_cost"] = build_divorce_cost(day)
 
 
 def write_registry(registry: dict, out: str) -> None:

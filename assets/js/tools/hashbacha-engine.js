@@ -48,15 +48,32 @@ export function parseDate(text) {
  * Statutory rest days (Law and Administration Ordinance s.18א(א)): Saturday, 1-2 Tishri (Rosh Hashana), 10 Tishri
  * (Yom Kippur), 15 and 22 Tishri (Sukkot, Shemini Atzeret), 15 and 21 Nisan (Pesach), 6 Sivan (Shavuot).
  * Interpretation Law s.10(ג): a period whose last days are rest days ends on the next day that is not one.
- * Hebrew dates from Intl (ca-hebrew); without it, Saturday only. Independence Day (a statutory sabbath whose date
- * moves) comes from the registry's dated list (extra).
+ * Hebrew dates from Intl (ca-hebrew); without it, Saturday only. Independence Day (a statutory sabbath) is 5 Iyar,
+ * moved to the Thursday before when it falls on Friday or Saturday and to Tuesday when it falls on Monday; the rule
+ * reproduces the official dates kept in the registry (extra), which are also honoured as given.
  */
 const REST_HEBREW = { Tishri: [1, 2, 10, 15, 22], Nisan: [15, 21], Sivan: [6] };
 let hebrewFmt = null;
 try { hebrewFmt = new Intl.DateTimeFormat('en-u-ca-hebrew', { timeZone: 'UTC', month: 'long', day: 'numeric' }); } catch (e) { hebrewFmt = null; }
+const independenceCache = {};
+export function independenceDay(year) {
+	if (!hebrewFmt) { return null; }
+	if (year in independenceCache) { return independenceCache[year]; }
+	let out = null;
+	for (let t = Date.UTC(year, 3, 1); t < Date.UTC(year, 5, 1); t += 86400000) {
+		const parts = hebrewFmt.formatToParts(new Date(t));
+		if ((parts.find((p) => p.type === 'month') || {}).value === 'Iyar' && Number((parts.find((p) => p.type === 'day') || {}).value) === 5) {
+			const shift = { 5: -1, 6: -2, 1: 1 }[new Date(t).getUTCDay()] || 0;
+			out = new Date(t + shift * 86400000).toISOString().slice(0, 10);
+			break;
+		}
+	}
+	independenceCache[year] = out;
+	return out;
+}
 export function isRestDay(iso, extra = []) {
 	const d = new Date(`${iso}T00:00:00Z`);
-	if (d.getUTCDay() === 6 || (extra || []).includes(iso)) { return true; }
+	if (d.getUTCDay() === 6 || (extra || []).includes(iso) || independenceDay(d.getUTCFullYear()) === iso) { return true; }
 	if (!hebrewFmt) { return false; }
 	const parts = hebrewFmt.formatToParts(d);
 	const month = (parts.find((p) => p.type === 'month') || {}).value;

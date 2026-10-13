@@ -147,6 +147,11 @@ export function compute(registry, input) {
 	// The current area is required for the deferral, 0 for a new home; never assumed (review, PR 124).
 	if (ownHome && areaBlank) { errors.push({ field: 'areaBefore', he: 'שטח הדירה היום, במ"ר (0 אם זו בנייה חדשה)' }); }
 	if (ownHome && !areaBlank && !(areaBefore >= 0 && areaBefore < areaAfter)) { errors.push({ field: 'areaBefore', he: 'שטח הדירה לפני הבנייה צריך להיות קטן מהשטח אחריה' }); }
+	// s.19(ג1): a storage room of up to 20 m2 counts as part of the dwelling; its interplay with the 140 m2 ceiling is
+	// for the assessment (review, PR 124).
+	if (ownHome && input.storage && !errors.length) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'storage', he: `מחסן אחד לכל דירה, עד ${b.storage_max_sqm} מ"ר, נחשב חלק מדירת המגורים לעניין הפטור (${b.storage_section}). איך המחסן משתלב בתקרה של ${b.residence_max_sqm} מ"ר נקבע בשומה, ולכן הכלי לא מחשב היתר שכולל מחסן: בדקו בוועדה המקומית או עם שמאי.` }] };
+	}
 	// s.19(ב): further exemptions the tool does not check one by one (review, PR 124).
 	if (input.otherExempt && !errors.length) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'otherExempt', he: 'סעיף 19(ב) לתוספת השלישית פוטר מהיטל גם, בין היתר: מגורים בשכונת שיקום שהממשלה הכריזה עליה או באזור שיקום (פסקאות (1)-(3)), מוסדות ציבור (4), בנייה בסיוע משרד הבינוי והשיכון (5), בעלים שהחזיקו 10 שנים לפחות ובונים למגורים שלהם או של קרוב (6), התאמות נגישות (7) ודרך ציבורית (8). הכלי לא בודק את הפטורים האלה: בדקו בוועדה המקומית או עם שמאי.' }] };

@@ -328,6 +328,11 @@ function compute(registry, input) {
 	// The current area is required for the deferral, 0 for a new home; never assumed (review, PR 124).
 	if (ownHome && areaBlank) { errors.push({ field: 'areaBefore', he: 'שטח הדירה היום, במ"ר (0 אם זו בנייה חדשה)' }); }
 	if (ownHome && !areaBlank && !(areaBefore >= 0 && areaBefore < areaAfter)) { errors.push({ field: 'areaBefore', he: 'שטח הדירה לפני הבנייה צריך להיות קטן מהשטח אחריה' }); }
+	// s.19(ג1): a storage room of up to 20 m2 counts as part of the dwelling; its interplay with the 140 m2 ceiling is
+	// for the assessment (review, PR 124).
+	if (ownHome && input.storage && !errors.length) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'storage', he: `מחסן אחד לכל דירה, עד ${b.storage_max_sqm} מ"ר, נחשב חלק מדירת המגורים לעניין הפטור (${b.storage_section}). איך המחסן משתלב בתקרה של ${b.residence_max_sqm} מ"ר נקבע בשומה, ולכן הכלי לא מחשב היתר שכולל מחסן: בדקו בוועדה המקומית או עם שמאי.` }] };
+	}
 	// s.19(ב): further exemptions the tool does not check one by one (review, PR 124).
 	if (input.otherExempt && !errors.length) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'otherExempt', he: 'סעיף 19(ב) לתוספת השלישית פוטר מהיטל גם, בין היתר: מגורים בשכונת שיקום שהממשלה הכריזה עליה או באזור שיקום (פסקאות (1)-(3)), מוסדות ציבור (4), בנייה בסיוע משרד הבינוי והשיכון (5), בעלים שהחזיקו 10 שנים לפחות ובונים למגורים שלהם או של קרוב (6), התאמות נגישות (7) ודרך ציבורית (8). הכלי לא בודק את הפטורים האלה: בדקו בוועדה המקומית או עם שמאי.' }] };
@@ -494,7 +499,7 @@ function renderForm(reg, input) {
 		+ `<fieldset class="jtool-field"><legend>מתי זה קורה</legend><div class="jtool-chips">${EVENTS.map((k) => chip('evt', k, EVENT_LABEL[k], (input.event || 'sale') === k)).join('')}</div></fieldset>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-real">איזה חלק מהזכויות אתם מממשים עכשיו</label><div class="jtool-input"><input id="${P}-real" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.realized ?? 100)}" aria-describedby="${P}-real-h ${P}-realized-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-hint" id="${P}-real-h">מוכרים או בונים רק חלק מהזכויות? משלמים עכשיו את החלק היחסי (${esc(b.partial_section)})</p><p class="jtool-error" id="${P}-realized-e" role="alert"></p></div>`
 		+ `<div data-if-event="sale"${(input.event || 'sale') === 'sale' ? '' : ' hidden'}><div class="jtool-chips">${chip('s4', '1', `מוכרים דירת מגורים שנבנתה או הורחבה למגורינו, או שאפשר להרחיב לפי תוכנית, וגרנו בה ${b.residence_sale_years} שנים לפחות מגמר הבנייה`, input.sale4, 'checkbox')}</div></div>`
-		+ `<div data-if-event="permit"${input.event === 'permit' ? '' : ' hidden'}><div class="jtool-chips">${chip('home', '1', 'בונים או מרחיבים דירה למגורים שלי או של קרוב', input.ownHome, 'checkbox')}</div>`
+		+ `<div data-if-event="permit"${input.event === 'permit' ? '' : ' hidden'}><div class="jtool-chips">${chip('home', '1', 'בונים או מרחיבים דירה למגורים שלי או של קרוב', input.ownHome, 'checkbox')}</div><div class="jtool-chips" data-if-home${input.ownHome ? '' : ' hidden'} style="margin-top:8px">${chip('stor', '1', `ההיתר כולל גם מחסן (עד ${b.storage_max_sqm} מ"ר)`, input.storage, 'checkbox')}</div>`
 		+ `<div class="jtool-row" data-if-home${input.ownHome ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-field"><label class="jtool-label" for="${P}-ab">שטח הדירה היום</label><div class="jtool-input"><input id="${P}-ab" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.areaBefore ?? '')}" aria-describedby="${P}-areaBefore-e"><span class="jtool-input__suffix" aria-hidden="true">מ"ר</span></div><p class="jtool-error" id="${P}-areaBefore-e" role="alert"></p></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-aa">שטח הדירה אחרי הבנייה</label><div class="jtool-input"><input id="${P}-aa" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.areaAfter ?? '')}" aria-describedby="${P}-areaAfter-h ${P}-areaAfter-e"><span class="jtool-input__suffix" aria-hidden="true">מ"ר</span></div><p class="jtool-hint" id="${P}-areaAfter-h">עד ${b.residence_max_sqm} מ"ר אחרי הבנייה: לא משלמים בהיתר (${esc(b.residence_section)})</p><p class="jtool-error" id="${P}-areaAfter-e" role="alert"></p></div></div></div>`
 		+ `</div>`
@@ -648,7 +653,7 @@ function readForm(root) {
 	const num = (id) => { const v = val(`#${P}-${id}`).trim(); return v === '' ? '' : Number(v.replace(/,/g, '')); };
 	return {
 		mode, betterment: parseMoney(val(`#${P}-bet`)), share: num('share'), plan: checked('plan') || 'regular', event: checked('evt') || 'sale',
-		ownHome: Boolean(checked('home')), areaBefore: num('ab'), areaAfter: num('aa'), realized: num('real'), seismicPct: num('seis'), pinuiRate: checked('prt') || 'quarter', localQ: checked('lq') || 'quarter', mamadPlan: Boolean(checked('mpl')), otherExempt: Boolean(checked('oex')), sale4: Boolean(checked('s4')), tamaBeyond: val(`#${P}-tama`).trim() === '' ? '' : parseMoney(val(`#${P}-tama`)),
+		ownHome: Boolean(checked('home')), areaBefore: num('ab'), areaAfter: num('aa'), realized: num('real'), seismicPct: num('seis'), pinuiRate: checked('prt') || 'quarter', localQ: checked('lq') || 'quarter', mamadPlan: Boolean(checked('mpl')), otherExempt: Boolean(checked('oex')), storage: Boolean(checked('stor')), sale4: Boolean(checked('s4')), tamaBeyond: val(`#${P}-tama`).trim() === '' ? '' : parseMoney(val(`#${P}-tama`)),
 		mamadBeyond: val(`#${P}-mamx`).trim() === '' ? '' : parseMoney(val(`#${P}-mamx`)),
 	};
 }
@@ -657,13 +662,13 @@ const PL = { regular: 'r', pinui: 'p', seismic: 's', tama38: 't', mamad: 'm' };
 const EV = { sale: 's', permit: 'p', use: 'u' };
 const stateOf = (i) => (i.mode === 'assessment'
 	? encodeState({ k: 'a', l: i.levy, d: i.received, y: i.mine, j: i.kind === 'schedule' ? 's' : '' })
-	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond, x: i.mamadBeyond, q: i.realized === 100 ? '' : i.realized, w: i.sale4 ? 1 : '', z: i.seismicPct === 100 || i.seismicPct === '' ? '' : i.seismicPct, r: { half: 'h', none: 'n' }[i.pinuiRate] || '', v: { eighth: 'e', none: 'n' }[i.localQ] || '', m: i.mamadPlan ? 1 : '', g: i.otherExempt ? 1 : '' }));
-const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't', 'x', 'q', 'w', 'z', 'r', 'v', 'm', 'g'];
+	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond, x: i.mamadBeyond, q: i.realized === 100 ? '' : i.realized, w: i.sale4 ? 1 : '', z: i.seismicPct === 100 || i.seismicPct === '' ? '' : i.seismicPct, r: { half: 'h', none: 'n' }[i.pinuiRate] || '', v: { eighth: 'e', none: 'n' }[i.localQ] || '', m: i.mamadPlan ? 1 : '', g: i.otherExempt ? 1 : '', u: i.storage ? 1 : '' }));
+const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't', 'x', 'q', 'w', 'z', 'r', 'v', 'm', 'g', 'u'];
 function inputOf(s) {
 	if (s.k === 'a' && s.l) { return { mode: 'assessment', levy: Number(s.l), received: s.d || '', mine: s.y === undefined ? '' : Number(s.y), kind: s.j === 's' ? 'schedule' : 'plan' }; }
 	if (s.k === 'e' && s.b) {
 		const back = (map, v, d) => Object.keys(map).find((k) => map[k] === v) || d;
-		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t), mamadBeyond: s.x === undefined ? '' : Number(s.x), realized: s.q === undefined ? 100 : Number(s.q), sale4: s.w === '1', seismicPct: s.z === undefined ? 100 : Number(s.z), pinuiRate: { h: 'half', n: 'none' }[s.r] || 'quarter', localQ: { e: 'eighth', n: 'none' }[s.v] || 'quarter', mamadPlan: s.m === '1', otherExempt: s.g === '1' };
+		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t), mamadBeyond: s.x === undefined ? '' : Number(s.x), realized: s.q === undefined ? 100 : Number(s.q), sale4: s.w === '1', seismicPct: s.z === undefined ? 100 : Number(s.z), pinuiRate: { h: 'half', n: 'none' }[s.r] || 'quarter', localQ: { e: 'eighth', n: 'none' }[s.v] || 'quarter', mamadPlan: s.m === '1', otherExempt: s.g === '1', storage: s.u === '1' };
 	}
 	return null;
 }

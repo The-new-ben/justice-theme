@@ -468,6 +468,8 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(est({ betterment: 800000, share: 50, plan: 'regular' }).levy === 200000, 's.3 + s.11(א): half of a 50% share of 800,000 = 200,000');
 	check(est({ betterment: 800000, plan: 'pinui' }).levy === 200000, 's.3א(א): a quarter in pinui-binui');
 	{
+		const st = est({ betterment: 600000, event: 'permit', ownHome: true, areaBefore: 140, areaAfter: 160, storage: true });
+		check(!st.ok && st.outOfScope && /19\(ג1\)/.test(st.errors[0].he), 's.19(ג1): a permit with a storage room is answered out of scope (review, PR 124)');
 		const ox = est({ betterment: 800000, otherExempt: true });
 		check(!ox.ok && ox.outOfScope && /שכונת שיקום/.test(ox.errors[0].he), 's.19(ב): other exemptions (rehabilitation neighbourhood and more) are screened, not computed (review, PR 124)');
 	}

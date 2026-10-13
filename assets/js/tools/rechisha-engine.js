@@ -172,6 +172,10 @@ export function compute(registry, input) {
 	if (input.reliefUsed && track === 'oleh') {
 		return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: 'הטבת העולה ניתנת פעם אחת בלבד (תקנה 12א(ב)). כבר קיבלתם אותה: בחרו "דירה יחידה" או "דירה נוספת".' }] };
 	}
+	// Reg. 11(א): the disability relief is for the person's own housing ("לשם שיכונם") (review, PR 124).
+	if (input.notForHousing && track === 'disabled') {
+		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: 'ההטבה לנכה, לעיוור, לנפגע או לבן משפחה של חייל שנספה ניתנת רק כשהדירה נקנית לשם שיכונו (תקנה 11(א)). דירה להשקעה: בחרו "דירה יחידה" או "דירה נוספת".' }] };
+	}
 	if (input.reliefUsed && track === 'disabled') {
 		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: 'החיוב ב-0.5% לנכה, לעיוור, לנפגע או לבן משפחה של חייל שנספה ניתן לאדם פעמיים בלבד (תקנה 11(א)). כבר קיבלתם אותו פעמיים: בחרו "דירה יחידה" או "דירה נוספת".' }] };
 	}
@@ -231,7 +235,7 @@ export function compute(registry, input) {
 		flags.push({ code: 'disabled_sole', he: pt.tracks.disabled.sole_he });
 	}
 	if (track === 'additional' || track === 'single' || track === 'replacement') {
-		flags.push({ code: 'third', he: 'יש לכם חלק של שליש או פחות בדירה אחרת (למשל מירושה)? הוא לא נספר, והדירה עדיין יחידה (סעיף 9(ג1ג)(4)(א)).', soft: true });
+		flags.push({ code: 'third', he: 'יש לכם חלק של שליש או פחות בדירה אחרת, או עד מחצית בדירה שקיבלתם בירושה? היא לא נספרת, והדירה עדיין יחידה (סעיף 9(ג1ג)(4)(א), בהפניה לסעיף 49ג(3)).', soft: true });
 	}
 
 	const declare = addDays(on, pt.declare_days);

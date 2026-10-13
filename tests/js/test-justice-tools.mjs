@@ -315,6 +315,9 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		const q = YE.compute(reg, { spouse: 'married', mother: true, children: 1, childLines: [2] });
 		check(q.ok && q.question && eq(shares({ spouse: 'married', mother: true, children: 1, childLines: [2] }), { spouse: '1/2', 'child-1': '1/4', 'childline-1': '1/4' }) && q.flags.some((f) => f.code === 'rep_children_question'), 's.14(א) end with a predeceased child: that line is a legal question, not split (review, PR 124)');
 		check(!YE.compute(reg, { spouse: 'married', children: 1, childLines: [2] }).question, 'no parent or grandparent alive: grandchildren represent as usual');
+		const pm = YE.compute(reg, { spouse: 'partner', partnerFree: false, children: 2 });
+		check(pm.ok && pm.spouse === 'none' && pm.flags.some((f) => f.code === 'partner_married') && eq(shares({ spouse: 'partner', partnerFree: false, children: 2 }), { 'child-1': '1/2', 'child-2': '1/2' }), 's.55: a partner married to another at the death does not inherit (review, PR 124)');
+		check(YE.compute(reg, { spouse: 'partner', children: 2 }).spouse === 'partner', 's.55: by default the partner condition is taken as met (the box is ticked)');
 		const ad = YE.compute(reg, { spouse: 'none', mother: true, adopted: true });
 		check(ad.ok && ad.flags.some((f) => f.code === 'adopted') && ad.path.some((p) => p.rule === reg.yerusha.sections.adopted), 's.16: an adopted deceased, the parents entered are the adoptive side and the rule is stated (review, PR 124)');
 	}
@@ -390,6 +393,11 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		const nd = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled', nonResident: true });
 		const na = RQ.compute(reg, { price: 1500000, date: '2026-10-13', track: 'additional', nonResident: true });
 		check(!nr.ok && nr.outOfScope && nd.ok && nd.tax === 10000 && na.ok && na.tax === 120000, 's.9(ג1ג)(2): a non-resident gets no single-home brackets; additional 8% = 120,000 on 1.5M (review, PR 124)');
+	}
+	{
+		const nh = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled', notForHousing: true });
+		check(!nh.ok && nh.outOfScope && /שיכונו/.test(nh.errors[0].he), 'reg. 11(א): the disability relief only for the person\'s own housing (review, PR 124)');
+		check(/מחצית/.test(reg.purchase_tax.share_ignored_he), 's.49ג(3): an inherited home is ignored up to a half');
 	}
 	check(dl('2025-06-01', { contractor: true, delivery: '2026-07-01' }) === '2027-09-01', 'contractor: each window extended first; 1.6.27 + 3 months beats 1.7.27 from delivery (review, PR 124)');
 	check(dl('2025-06-01', { contractor: true, delivery: '2025-07-01' }) === '2027-09-01', 'instruction 2/2016 s.2.1: contractor, the later of 12 months from delivery and 24 from purchase (1.6.27), then +3 months (review, PR 124)');

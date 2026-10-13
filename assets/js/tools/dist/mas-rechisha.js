@@ -353,6 +353,10 @@ function compute(registry, input) {
 	if (input.reliefUsed && track === 'oleh') {
 		return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: 'הטבת העולה ניתנת פעם אחת בלבד (תקנה 12א(ב)). כבר קיבלתם אותה: בחרו "דירה יחידה" או "דירה נוספת".' }] };
 	}
+	// Reg. 11(א): the disability relief is for the person's own housing ("לשם שיכונם") (review, PR 124).
+	if (input.notForHousing && track === 'disabled') {
+		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: 'ההטבה לנכה, לעיוור, לנפגע או לבן משפחה של חייל שנספה ניתנת רק כשהדירה נקנית לשם שיכונו (תקנה 11(א)). דירה להשקעה: בחרו "דירה יחידה" או "דירה נוספת".' }] };
+	}
 	if (input.reliefUsed && track === 'disabled') {
 		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: 'החיוב ב-0.5% לנכה, לעיוור, לנפגע או לבן משפחה של חייל שנספה ניתן לאדם פעמיים בלבד (תקנה 11(א)). כבר קיבלתם אותו פעמיים: בחרו "דירה יחידה" או "דירה נוספת".' }] };
 	}
@@ -412,7 +416,7 @@ function compute(registry, input) {
 		flags.push({ code: 'disabled_sole', he: pt.tracks.disabled.sole_he });
 	}
 	if (track === 'additional' || track === 'single' || track === 'replacement') {
-		flags.push({ code: 'third', he: 'יש לכם חלק של שליש או פחות בדירה אחרת (למשל מירושה)? הוא לא נספר, והדירה עדיין יחידה (סעיף 9(ג1ג)(4)(א)).', soft: true });
+		flags.push({ code: 'third', he: 'יש לכם חלק של שליש או פחות בדירה אחרת, או עד מחצית בדירה שקיבלתם בירושה? היא לא נספרת, והדירה עדיין יחידה (סעיף 9(ג1ג)(4)(א), בהפניה לסעיף 49ג(3)).', soft: true });
 	}
 
 	const declare = addDays(on, pt.declare_days);
@@ -475,7 +479,7 @@ function renderForm(reg, input) {
 		+ `<p class="jtool-hint">${esc(pt.couple_he)}. ${esc(pt.share_ignored_he)}. ${esc(pt.resident_he)}.</p></fieldset>`
 		+ `<div data-if-track="replacement"${t === 'replacement' ? '' : ' hidden'}><div class="jtool-chips">${chip('ctr', '1', 'קונים מקבלן', input.contractor, 'checkbox')}</div>`
 		+ `<div class="jtool-field" style="margin-top:8px" data-if-contractor${input.contractor ? '' : ' hidden'}><label class="jtool-label" for="${P}-dlv">מועד המסירה לפי החוזה</label><input id="${P}-dlv" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.delivery || ''))}" placeholder="לדוגמה: 31.12.2027" aria-describedby="${P}-delivery-e"><p class="jtool-error" id="${P}-delivery-e" role="alert"></p></div></div>`
-		+ `<div data-if-track="disabled oleh"${t === 'disabled' || t === 'oleh' ? '' : ' hidden'}><div class="jtool-chips">${chip('dot', '1', 'יש לי עוד דירה, והיא לא נמכרת כחלופית', input.otherHome, 'checkbox')}${chip('used', '1', 'כבר קיבלתי את ההטבה (עולה: פעם אחת; נכה: פעמיים)', input.reliefUsed, 'checkbox')}</div><p class="jtool-hint">הטבת עולה: רק בדירה יחידה או חלופית (תקנה 12א(א)). נכה: ${esc(pt.tracks.disabled.sole_he)}</p></div>`
+		+ `<div data-if-track="disabled oleh"${t === 'disabled' || t === 'oleh' ? '' : ' hidden'}><div class="jtool-chips">${chip('dot', '1', 'יש לי עוד דירה, והיא לא נמכרת כחלופית', input.otherHome, 'checkbox')}${chip('used', '1', 'כבר קיבלתי את ההטבה (עולה: פעם אחת; נכה: פעמיים)', input.reliefUsed, 'checkbox')}</div><div class="jtool-chips" data-if-track="disabled"${t === 'disabled' ? '' : ' hidden'} style="margin-top:8px">${chip('nfh', '1', 'הדירה לא נקנית למגורים שלי (להשקעה)', input.notForHousing, 'checkbox')}</div><p class="jtool-hint">הטבת עולה: רק בדירה יחידה או חלופית (תקנה 12א(א)). נכה: ${esc(pt.tracks.disabled.sole_he)}</p></div>`
 		+ `<div class="jtool-field" data-if-track="oleh"${t === 'oleh' ? '' : ' hidden'}><label class="jtool-label" for="${P}-aly">תאריך העלייה</label><input id="${P}-aly" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.aliyah || ''))}" placeholder="לדוגמה: 1.5.2024" aria-describedby="${P}-aliyah-e"><p class="jtool-error" id="${P}-aliyah-e" role="alert"></p></div>`
 		+ `<details class="jtool-more"${input.lawyerPct || input.brokerPct || input.other ? ' open' : ''}><summary>כל עלויות הקנייה, לא רק המס</summary>`
 		+ `<div class="jtool-row" style="margin-top:8px"><div class="jtool-field"><label class="jtool-label" for="${P}-law">שכר טרחת עורך הדין</label><div class="jtool-input"><input id="${P}-law" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.lawyerPct ?? '')}" placeholder="לפי ההצעה שקיבלתם" aria-describedby="${P}-lawyer-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-lawyer-e" role="alert"></p></div>`
@@ -626,17 +630,18 @@ function readForm(root) {
 		otherHome: Boolean(root.querySelector(`input[name="${P}-dot"]:checked`)),
 		reliefUsed: Boolean(root.querySelector(`input[name="${P}-used"]:checked`)),
 		nonResident: Boolean(root.querySelector(`input[name="${P}-nr"]:checked`)),
+		notForHousing: Boolean(root.querySelector(`input[name="${P}-nfh"]:checked`)),
 		lawyerPct: pct('law'), brokerPct: pct('brk'), other: val(`#${P}-oth`).trim() === '' ? 0 : parseMoney(val(`#${P}-oth`)),
 		comparePrice: parseMoney(val(`#${P}-cmp`)),
 	};
 }
 
 const TR = { single: 's', replacement: 'r', additional: 'a', oleh: 'o', disabled: 'd' };
-const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.otherHome ? 1 : '', u: i.reliefUsed ? 1 : '', n: i.nonResident ? 1 : '' });
-const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x', 'u', 'n'];
+const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.otherHome ? 1 : '', u: i.reliefUsed ? 1 : '', n: i.nonResident ? 1 : '', h: i.notForHousing ? 1 : '' });
+const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x', 'u', 'n', 'h'];
 function inputOf(s) {
 	if (!s.p) { return null; }
-	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, otherHome: s.x === '1', reliefUsed: s.u === '1', nonResident: s.n === '1' };
+	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, otherHome: s.x === '1', reliefUsed: s.u === '1', nonResident: s.n === '1', notForHousing: s.h === '1' };
 }
 
 function mount(root, reg) {

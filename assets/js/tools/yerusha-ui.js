@@ -48,6 +48,7 @@ export function renderForm(reg, input) {
 	const sibLines = input.siblingLines || [];
 	const hasSib = input.siblingsFull || input.siblingsFather || input.siblingsMother || sibLines.length;
 	return `<fieldset class="jtool-field"><legend>בן או בת זוג במות המוריש</legend><div class="jtool-chips">${Object.entries(SPOUSE).map(([k, v]) => chip('sp', k, v, (input.spouse || 'none') === k)).join('')}</div>`
+		+ `<div class="jtool-chips" data-if-partner${input.spouse === 'partner' ? '' : ' hidden'}>${chip('pfree', '1', 'אף אחד מאיתנו לא היה נשוי לאדם אחר במות המוריש', input.partnerFree !== false, 'checkbox')}</div>`
 		+ `<div class="jtool-chips" data-if-spouse${input.spouse === 'none' ? ' hidden' : ''}>${chip('apt', '1', `נשואים ${reg.yerusha.spouse_apartment_min_years} שנים ויותר וגרו יחד בדירה שבעיזבון`, input.spouseApartment, 'checkbox')}</div></fieldset>`
 		+ `<div class="jtool-row">${stepper('kids', 'ילדים בחיים', input.children, `כולל ילדים מאומצים, מקשר קודם או מחוץ לנישואין (${reg.yerusha.sections.born}), וילד שנולד עד 300 יום אחרי המוות (${reg.yerusha.sections.posthumous})`)}`
 		+ `<fieldset class="jtool-field"><legend>הורים בחיים</legend><div class="jtool-chips">${chip('mom', '1', 'אמא', input.mother, 'checkbox')}${chip('dad', '1', 'אבא', input.father, 'checkbox')}${chip('adp', '1', 'המוריש/ה אומץ/ה (ההורים: המאמצים)', input.adopted, 'checkbox')}</div></fieldset></div>`
@@ -217,7 +218,7 @@ function readForm(root) {
 	const money0 = (id) => { const v = val(`#${P}-${id}`).trim(); return v === '' ? '' : parseMoney(v); };
 	return {
 		spouse: (root.querySelector(`input[name="${P}-sp"]:checked`) || {}).value || 'none',
-		spouseApartment: on('apt'), children: n('kids'), mother: on('mom'), father: on('dad'), adopted: on('adp'),
+		spouseApartment: on('apt'), partnerFree: on('pfree'), children: n('kids'), mother: on('mom'), father: on('dad'), adopted: on('adp'),
 		childLines: Array.from(root.querySelectorAll('[data-line="child"] [data-line-kids]')).map((i) => (i.value.trim() === '' ? 0 : Number(i.value))),
 		siblingsFull: n('sibf'), siblingsFather: n('sibd'), siblingsMother: n('sibm'),
 		siblingLines: Array.from(root.querySelectorAll('[data-line="sib"]')).map((row) => ({ side: (row.querySelector('[data-line-side]') || {}).value || 'full', kids: Number((row.querySelector('[data-line-kids]') || {}).value || 0) })),
@@ -232,15 +233,15 @@ const stateOf = (i) => encodeState({
 	s: SP[i.spouse] || 'n', a: i.spouseApartment ? 1 : '', c: i.children || '', g: (i.childLines || []).join('.'),
 	m: i.mother ? 1 : '', f: i.father ? 1 : '', b: i.siblingsFull || '', x: i.siblingsFather || '', y: i.siblingsMother || '',
 	l: (i.siblingLines || []).map((l) => `${SIDE[l.side] || 'b'}${l.kids}`).join('.'), r: i.grandparents || '', o: i.grandOthersNone ? 1 : '', u: i.otherRelatives ? 1 : '',
-	h: i.apartment || '', t: i.other || '', d: i.adopted ? 1 : '',
+	h: i.apartment || '', t: i.other || '', d: i.adopted ? 1 : '', q: i.spouse === 'partner' && i.partnerFree === false ? 1 : '',
 });
-const KEYS = ['s', 'a', 'c', 'g', 'm', 'f', 'b', 'x', 'y', 'l', 'r', 'o', 'u', 'h', 't', 'd'];
+const KEYS = ['s', 'a', 'c', 'g', 'm', 'f', 'b', 'x', 'y', 'l', 'r', 'o', 'u', 'h', 't', 'd', 'q'];
 function inputOf(s) {
 	if (!s.s) { return null; }
 	const side = Object.fromEntries(Object.entries(SIDE).map(([k, v]) => [v, k]));
 	return {
 		spouse: Object.keys(SP).find((k) => SP[k] === s.s) || 'none', spouseApartment: s.a === '1', children: Number(s.c) || 0,
-		childLines: s.g ? s.g.split('.').map(Number) : [], mother: s.m === '1', father: s.f === '1', adopted: s.d === '1',
+		childLines: s.g ? s.g.split('.').map(Number) : [], mother: s.m === '1', father: s.f === '1', adopted: s.d === '1', partnerFree: s.q !== '1',
 		siblingsFull: Number(s.b) || 0, siblingsFather: Number(s.x) || 0, siblingsMother: Number(s.y) || 0,
 		siblingLines: s.l ? s.l.split('.').map((t) => ({ side: side[t.charAt(0)] || 'full', kids: Number(t.slice(1)) || 0 })) : [],
 		grandparents: Number(s.r) || 0, grandOthersNone: s.o === '1', otherRelatives: s.u === '1',
@@ -279,6 +280,7 @@ export function mount(root, reg) {
 	const syncVisibility = () => {
 		const sp = (root.querySelector(`input[name="${P}-sp"]:checked`) || {}).value || 'none';
 		form.querySelectorAll('[data-if-spouse]').forEach((el) => { el.hidden = sp === 'none'; });
+		form.querySelectorAll('[data-if-partner]').forEach((el) => { el.hidden = sp !== 'partner'; });
 	};
 	const run = (input, opts = {}) => {
 		const r = compute(reg, input);

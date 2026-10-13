@@ -70,9 +70,14 @@ export function compute(registry, input) {
 	if (other !== null && !(other >= 0 && other < 1e11)) { errors.push({ field: 'other', he: 'שווי שאר העיזבון צריך להיות מספר חיובי' }); }
 	if (errors.length) { return { ok: false, errors }; }
 
-	const spouse = ['married', 'partner'].includes(input.spouse) ? input.spouse : 'none';
+	// s.55: a partner only if neither was married to another person at the death (review, PR 124).
+	const partnerBarred = input.spouse === 'partner' && input.partnerFree === false;
+	const spouse = ['married', 'partner'].includes(input.spouse) && !partnerBarred ? input.spouse : 'none';
 	const S = y.sections;
 	const flags = [];
+	if (partnerBarred) {
+		flags.push({ code: 'partner_married', he: 'סעיף 55 חל רק כשבשעת המוות אף אחד מבני הזוג לא היה נשוי לאדם אחר. אחד מכם היה נשוי לאחר, ולכן בן הזוג לא יורש מכוח הסעיף הזה, והחלוקה כאן בלעדיו.' });
+	}
 	const path = [];
 	const heirs = []; // { key, label, group, share: [n,d] of the rest, apt: [n,d] of the apartment, rule }
 

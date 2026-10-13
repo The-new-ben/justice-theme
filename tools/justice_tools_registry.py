@@ -818,7 +818,8 @@ def add_wave4(registry: dict, day: str | None) -> None:
     """Wave 4 (HAD-502): the will-cost, road-accident and divorce-cost datasets, each with its own checked_on."""
     if not day:
         return
-    registry["registry_version"] = day
+    # The version is the latest refresh of any dataset, never moved backward by an older wave-4 day (review, PR 126).
+    registry["registry_version"] = max(registry["registry_version"], day)
     registry["will_cost"] = build_will_cost(day)
     registry["car_accident"] = build_car_accident(day)
     registry["divorce_cost"] = build_divorce_cost(day)

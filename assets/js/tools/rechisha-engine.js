@@ -102,12 +102,21 @@ export function replacementDeadline(pt, purchase, opts = {}) {
 	const r = pt.replacement;
 	let start = purchase;
 	let months = null;
+	let via = 'purchase';
+	const w = r.windows.find((x) => purchase >= x.from && (x.to === null || purchase <= x.to));
 	if (opts.contractor) {
 		if (!opts.delivery) { return { ok: false, reason: 'delivery' }; }
-		start = opts.delivery;
-		months = r.contractor_months;
+		// The later of 12 months from delivery and the ordinary window from the purchase (instruction 2/2016, s.2.1).
+		const byDelivery = addMonths(opts.delivery, r.contractor_months);
+		const ordinary = w ? addMonths(purchase, w.months) : null;
+		if (ordinary && ordinary > byDelivery) {
+			months = w.months;
+		} else {
+			start = opts.delivery;
+			months = r.contractor_months;
+			via = 'delivery';
+		}
 	} else {
-		const w = r.windows.find((x) => purchase >= x.from && (x.to === null || purchase <= x.to));
 		if (!w) { return { ok: false, reason: 'before', from: r.windows[0].from }; }
 		months = w.months;
 	}
@@ -121,12 +130,12 @@ export function replacementDeadline(pt, purchase, opts = {}) {
 		deadline = plus > r.war.floor ? plus : r.war.floor;
 		extended = true;
 	}
-	return { ok: true, start, months, original, deadline, extended, contractor: Boolean(opts.contractor) };
+	return { ok: true, start, months, original, deadline, extended, contractor: Boolean(opts.contractor), via };
 }
 
 /**
  * input = { price, date (purchase day), track, contractor, delivery, aliyah (oleh: the aliyah day),
- *           disabledOther (disability track: the buyer has another home that is not being replaced),
+ *           otherHome (oleh and disability tracks: the buyer has another home that is not being replaced),
  *           lawyerPct, brokerPct, other, vat: true (fees plus VAT) }
  */
 export function compute(registry, input) {
@@ -154,15 +163,25 @@ export function compute(registry, input) {
 	if (errors.length) { return { ok: false, errors }; }
 
 	const flags = [];
+	const notSole = Boolean(input.otherHome);
 	if (track === 'oleh') {
 		const o = pt.tracks.oleh;
+		// Reg. 12א(א) applies only when s.9(ג1ג)(2)(א) or (ב) holds: a sole home or a replacement (review, PR 124).
+		if (notSole) {
+			return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: 'הטבת העולה חלה רק כשהדירה יחידה או חלופית (תקנה 12א(א), בהפניה לסעיף 9(ג1ג)(2)(א)-(ב)). יש לכם עוד דירה שלא נמכרת כחלופית: בחרו "דירה נוספת".' }] };
+		}
 		const first = addMonths(aliyah, -12 * o.years_before);
 		const last = addMonths(aliyah, 12 * o.years_after);
+		// An apartment bought under construction, with the seller bound to finish it: the construction time is not
+		// counted in the year before aliyah, up to 3 years from purchase to first entry, with a certificate given
+		// within a year of the purchase (reg. 12א(א)). The tool does not compute that case.
+		if (on < first && addMonths(on, 36) >= aliyah) {
+			return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: `רכישה יותר משנה לפני העלייה. בדירה שנקנתה בבנייה, עם התחייבות המוכר לסיים אותה, תקופת הבנייה לא נספרת בשנה הזאת, בתנאי שעברו לא יותר משלוש שנים מהרכישה עד הכניסה הראשונה לישראל ושאחד האישורים שבתקנה 12(א)(1) ניתן בתוך שנה מהרכישה (תקנה 12א(א)). הכלי לא מחשב את המקרה הזה: בדקו בסימולטור של רשות המסים.` }] };
+		}
 		if (on < first || on > last) {
 			return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: `הטבת העולה חלה ברכישה מ-${rqDate(first)} עד ${rqDate(last)} (שנה לפני העלייה ועד 7 שנים אחריה, תקנה 12(ב)). רכישה ב-${rqDate(on)} לא בתוך החלון${on > last ? ', אלא אם תקופת שירות חובה מאריכה אותו' : ''}: בחרו דירה יחידה או נוספת.` }] };
 		}
 	}
-	const notSole = Boolean(input.disabledOther);
 	const main = taxFor(pt, track, price, on, { notSole });
 	if (main.refused) {
 		const why = ({
@@ -181,7 +200,7 @@ export function compute(registry, input) {
 	const scenarios = {};
 	for (const t of ['single', 'additional', 'oleh', 'disabled']) {
 		const r = taxFor(pt, t, price, on, { notSole });
-		scenarios[t] = r.refused ? null : r.tax;
+		scenarios[t] = r.refused || (t === 'oleh' && notSole) ? null : r.tax;
 	}
 
 	let replacement = null;

@@ -1031,6 +1031,8 @@
     }
    ],
    "contractor_months": 12,
+   "contractor_later_he": "ברכישה מקבלן: 12 חודשים מהמסירה, או התקופה הרגילה מיום הרכישה, לפי המאוחר (הוראת ביצוע 2/2016, סעיף 2.1)",
+   "contractor_later_url": "https://www.gov.il/BlobFolder/policy/real-estate-tax-inst-02-2016/he/Policy_realEstateTaxationInst_hor02-2016.pdf",
    "war": {
     "from": "2026-02-28",
     "to": "2026-05-31",

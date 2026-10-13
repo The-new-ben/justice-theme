@@ -363,7 +363,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(tax('oleh', 20183566).refused === 'oleh_cap', 'oleh relief not above 20,183,565 NIS (reg. 12א(ג))');
 	check(tax('disabled', 2400000).tax === 2106.28 && tax('disabled', 3000000).tax === 15000, 'disability track (reg. 11(א)): 0.5% from 1,978,745 to 2,500,000; above it 0.5% on all');
 	{
-		const other = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled', disabledOther: true });
+		const other = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled', otherHome: true });
 		const sole = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled' });
 		check(other.ok && other.tax === 10000 && other.flat, 'reg. 11(א): a disabled buyer with another home pays 0.5% on all, 10,000 on 2,000,000 (review, PR 124)');
 		check(sole.ok && sole.tax === 106.28 && sole.flags.some((f) => f.code === 'disabled_sole'), 'reg. 11(א): the brackets for a sole home, with the condition stated');
@@ -374,6 +374,15 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(dl('2025-04-30') === '2027-01-31', 'instruction 2/2026 example 2: bought 30.4.25 -> 31.10.26 -> 31.1.27');
 	check(dl('2025-06-01') === '2027-09-01', 'instruction 2/2026 example 3: bought 1.6.25, 24 months -> 1.6.27 -> 1.9.27');
 	check(dl('2024-06-01', { contractor: true, delivery: '2025-12-31' }) === '2027-03-31', 'instruction 2/2026 example 4: contractor, delivered 31.12.25 -> 31.12.26 -> 31.3.27');
+	check(dl('2025-06-01', { contractor: true, delivery: '2025-07-01' }) === '2027-09-01', 'instruction 2/2016 s.2.1: contractor, the later of 12 months from delivery and 24 from purchase (1.6.27), then +3 months (review, PR 124)');
+	{
+		const o1 = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2026-01-01', otherHome: true });
+		check(!o1.ok && o1.outOfScope && /12א\(א\)/.test(o1.errors[0].he), 'reg. 12א(א): an oleh with another home gets no relief (review, PR 124)');
+		const o2 = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2028-06-01' });
+		check(!o2.ok && o2.outOfScope && /בבנייה/.test(o2.errors[0].he), 'reg. 12א(א): bought 1-3 years before aliyah, the construction-time exception is named, not computed');
+		const o3 = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2030-06-01' });
+		check(!o3.ok && o3.outOfScope && !/בבנייה/.test(o3.errors[0].he), 'more than 3 years before aliyah: outside the window');
+	}
 	check(dl('2023-06-01') === '2024-12-01' && dl('2026-06-15') === '2028-06-15', 'no extension for a window outside 28.2.2026-31.5.2026');
 	const r = RQ.compute(reg, { price: 2650000, date: '2026-10-13', track: 'single', lawyerPct: 0.5, brokerPct: 2 });
 	check(r.ok && near(r.lawyer, 15635) && near(r.broker, 62540) && near(r.total, 106213.33), 'full cost: lawyer 0.5% + 18% VAT = 15,635; broker 2% + VAT = 62,540; total 106,213.33');

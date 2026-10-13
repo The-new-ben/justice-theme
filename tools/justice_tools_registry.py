@@ -407,6 +407,10 @@ def build_purchase_tax(checked_on: str) -> dict:
             # Months to sell the previous only home, by the day the new one was bought (instruction 2/2026, note 2).
             "windows": [{"from": "2023-06-01", "to": "2025-05-31", "months": 18}, {"from": "2025-06-01", "to": None, "months": 24}],
             "contractor_months": 12,
+            # A contractor purchase may use the later of 12 months from delivery and the ordinary window from the
+            # purchase day (Tax Authority instruction 2/2016, s.2.1: "לפי המאוחר").
+            "contractor_later_he": "ברכישה מקבלן: 12 חודשים מהמסירה, או התקופה הרגילה מיום הרכישה, לפי המאוחר (הוראת ביצוע 2/2016, סעיף 2.1)",
+            "contractor_later_url": "https://www.gov.il/BlobFolder/policy/real-estate-tax-inst-02-2016/he/Policy_realEstateTaxationInst_hor02-2016.pdf",
             "war": {"from": "2026-02-28", "to": "2026-05-31", "add_months": 3, "floor": "2026-08-31",
                     "law_he": "חוק הארכת תקופות ודחיית מועדים (הוראת שעה - חרבות ברזל) (תיקון), התשפ\"ו-2026, סעיף 3א (ספר החוקים 3507, 26.3.2026)",
                     "source_he": "רשות המסים, הוראת ביצוע מיסוי מקרקעין 2/2026, 30.3.2026", "url": inst2},

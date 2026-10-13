@@ -283,12 +283,21 @@ function replacementDeadline(pt, purchase, opts = {}) {
 	const r = pt.replacement;
 	let start = purchase;
 	let months = null;
+	let via = 'purchase';
+	const w = r.windows.find((x) => purchase >= x.from && (x.to === null || purchase <= x.to));
 	if (opts.contractor) {
 		if (!opts.delivery) { return { ok: false, reason: 'delivery' }; }
-		start = opts.delivery;
-		months = r.contractor_months;
+		// The later of 12 months from delivery and the ordinary window from the purchase (instruction 2/2016, s.2.1).
+		const byDelivery = addMonths(opts.delivery, r.contractor_months);
+		const ordinary = w ? addMonths(purchase, w.months) : null;
+		if (ordinary && ordinary > byDelivery) {
+			months = w.months;
+		} else {
+			start = opts.delivery;
+			months = r.contractor_months;
+			via = 'delivery';
+		}
 	} else {
-		const w = r.windows.find((x) => purchase >= x.from && (x.to === null || purchase <= x.to));
 		if (!w) { return { ok: false, reason: 'before', from: r.windows[0].from }; }
 		months = w.months;
 	}
@@ -302,12 +311,12 @@ function replacementDeadline(pt, purchase, opts = {}) {
 		deadline = plus > r.war.floor ? plus : r.war.floor;
 		extended = true;
 	}
-	return { ok: true, start, months, original, deadline, extended, contractor: Boolean(opts.contractor) };
+	return { ok: true, start, months, original, deadline, extended, contractor: Boolean(opts.contractor), via };
 }
 
 /**
  * input = { price, date (purchase day), track, contractor, delivery, aliyah (oleh: the aliyah day),
- *           disabledOther (disability track: the buyer has another home that is not being replaced),
+ *           otherHome (oleh and disability tracks: the buyer has another home that is not being replaced),
  *           lawyerPct, brokerPct, other, vat: true (fees plus VAT) }
  */
 function compute(registry, input) {
@@ -335,15 +344,25 @@ function compute(registry, input) {
 	if (errors.length) { return { ok: false, errors }; }
 
 	const flags = [];
+	const notSole = Boolean(input.otherHome);
 	if (track === 'oleh') {
 		const o = pt.tracks.oleh;
+		// Reg. 12א(א) applies only when s.9(ג1ג)(2)(א) or (ב) holds: a sole home or a replacement (review, PR 124).
+		if (notSole) {
+			return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: 'הטבת העולה חלה רק כשהדירה יחידה או חלופית (תקנה 12א(א), בהפניה לסעיף 9(ג1ג)(2)(א)-(ב)). יש לכם עוד דירה שלא נמכרת כחלופית: בחרו "דירה נוספת".' }] };
+		}
 		const first = addMonths(aliyah, -12 * o.years_before);
 		const last = addMonths(aliyah, 12 * o.years_after);
+		// An apartment bought under construction, with the seller bound to finish it: the construction time is not
+		// counted in the year before aliyah, up to 3 years from purchase to first entry, with a certificate given
+		// within a year of the purchase (reg. 12א(א)). The tool does not compute that case.
+		if (on < first && addMonths(on, 36) >= aliyah) {
+			return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: `רכישה יותר משנה לפני העלייה. בדירה שנקנתה בבנייה, עם התחייבות המוכר לסיים אותה, תקופת הבנייה לא נספרת בשנה הזאת, בתנאי שעברו לא יותר משלוש שנים מהרכישה עד הכניסה הראשונה לישראל ושאחד האישורים שבתקנה 12(א)(1) ניתן בתוך שנה מהרכישה (תקנה 12א(א)). הכלי לא מחשב את המקרה הזה: בדקו בסימולטור של רשות המסים.` }] };
+		}
 		if (on < first || on > last) {
 			return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: `הטבת העולה חלה ברכישה מ-${rqDate(first)} עד ${rqDate(last)} (שנה לפני העלייה ועד 7 שנים אחריה, תקנה 12(ב)). רכישה ב-${rqDate(on)} לא בתוך החלון${on > last ? ', אלא אם תקופת שירות חובה מאריכה אותו' : ''}: בחרו דירה יחידה או נוספת.` }] };
 		}
 	}
-	const notSole = Boolean(input.disabledOther);
 	const main = taxFor(pt, track, price, on, { notSole });
 	if (main.refused) {
 		const why = ({
@@ -362,7 +381,7 @@ function compute(registry, input) {
 	const scenarios = {};
 	for (const t of ['single', 'additional', 'oleh', 'disabled']) {
 		const r = taxFor(pt, t, price, on, { notSole });
-		scenarios[t] = r.refused ? null : r.tax;
+		scenarios[t] = r.refused || (t === 'oleh' && notSole) ? null : r.tax;
 	}
 
 	let replacement = null;
@@ -444,7 +463,7 @@ function renderForm(reg, input) {
 		+ `<p class="jtool-hint">${esc(pt.couple_he)}. ${esc(pt.share_ignored_he)}. ${esc(pt.resident_he)}.</p></fieldset>`
 		+ `<div data-if-track="replacement"${t === 'replacement' ? '' : ' hidden'}><div class="jtool-chips">${chip('ctr', '1', 'קונים מקבלן', input.contractor, 'checkbox')}</div>`
 		+ `<div class="jtool-field" style="margin-top:8px" data-if-contractor${input.contractor ? '' : ' hidden'}><label class="jtool-label" for="${P}-dlv">מועד המסירה לפי החוזה</label><input id="${P}-dlv" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.delivery || ''))}" placeholder="לדוגמה: 31.12.2027" aria-describedby="${P}-delivery-e"><p class="jtool-error" id="${P}-delivery-e" role="alert"></p></div></div>`
-		+ `<div data-if-track="disabled"${t === 'disabled' ? '' : ' hidden'}><div class="jtool-chips">${chip('dot', '1', 'יש לי עוד דירה, והיא לא נמכרת כחלופית', input.disabledOther, 'checkbox')}</div><p class="jtool-hint">${esc(pt.tracks.disabled.sole_he)}</p></div>`
+		+ `<div data-if-track="disabled oleh"${t === 'disabled' || t === 'oleh' ? '' : ' hidden'}><div class="jtool-chips">${chip('dot', '1', 'יש לי עוד דירה, והיא לא נמכרת כחלופית', input.otherHome, 'checkbox')}</div><p class="jtool-hint">הטבת עולה: רק בדירה יחידה או חלופית (תקנה 12א(א)). נכה: ${esc(pt.tracks.disabled.sole_he)}</p></div>`
 		+ `<div class="jtool-field" data-if-track="oleh"${t === 'oleh' ? '' : ' hidden'}><label class="jtool-label" for="${P}-aly">תאריך העלייה</label><input id="${P}-aly" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.aliyah || ''))}" placeholder="לדוגמה: 1.5.2024" aria-describedby="${P}-aliyah-e"><p class="jtool-error" id="${P}-aliyah-e" role="alert"></p></div>`
 		+ `<details class="jtool-more"${input.lawyerPct || input.brokerPct || input.other ? ' open' : ''}><summary>כל עלויות הקנייה, לא רק המס</summary>`
 		+ `<div class="jtool-row" style="margin-top:8px"><div class="jtool-field"><label class="jtool-label" for="${P}-law">שכר טרחת עורך הדין</label><div class="jtool-input"><input id="${P}-law" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.lawyerPct ?? '')}" placeholder="לפי ההצעה שקיבלתם" aria-describedby="${P}-lawyer-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-lawyer-e" role="alert"></p></div>`
@@ -498,7 +517,7 @@ function deadlines(reg, r) {
 	];
 	if (r.replacement && r.replacement.ok) {
 		const rp = r.replacement;
-		out.push({ date: rp.deadline, what: `למכור את הדירה הקודמת (${rp.contractor ? `${rp.months} חודשים מהמסירה` : `${rp.months} חודשים מהרכישה`}${rp.extended ? `; הוארך בגלל המלחמה מ-${isoToHe(rp.original)}` : ''})`, rule: rp.extended ? 'הוראת ביצוע 2/2026' : pt.replacement.section, href: rp.extended ? pt.replacement.war.url : pt.law_url });
+		out.push({ date: rp.deadline, what: `למכור את הדירה הקודמת (${rp.contractor && rp.via === 'delivery' ? `${rp.months} חודשים מהמסירה` : rp.contractor ? `${rp.months} חודשים מהרכישה, מאוחר מ-12 חודשים מהמסירה` : `${rp.months} חודשים מהרכישה`}${rp.extended ? `; הוארך בגלל המלחמה מ-${isoToHe(rp.original)}` : ''})`, rule: rp.extended ? 'הוראת ביצוע 2/2026' : pt.replacement.section, href: rp.extended ? pt.replacement.war.url : pt.law_url });
 	}
 	return out.sort((a, b) => (a.date < b.date ? -1 : 1));
 }
@@ -592,18 +611,18 @@ function readForm(root) {
 		price: parseMoney(val(`#${P}-price`)), date: toIso(val(`#${P}-date`)),
 		track: (root.querySelector(`input[name="${P}-trk"]:checked`) || {}).value || 'single',
 		contractor: Boolean(root.querySelector(`input[name="${P}-ctr"]:checked`)), delivery: toIso(val(`#${P}-dlv`)), aliyah: toIso(val(`#${P}-aly`)),
-		disabledOther: Boolean(root.querySelector(`input[name="${P}-dot"]:checked`)),
+		otherHome: Boolean(root.querySelector(`input[name="${P}-dot"]:checked`)),
 		lawyerPct: pct('law'), brokerPct: pct('brk'), other: val(`#${P}-oth`).trim() === '' ? 0 : parseMoney(val(`#${P}-oth`)),
 		comparePrice: parseMoney(val(`#${P}-cmp`)),
 	};
 }
 
 const TR = { single: 's', replacement: 'r', additional: 'a', oleh: 'o', disabled: 'd' };
-const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.disabledOther ? 1 : '' });
+const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.otherHome ? 1 : '' });
 const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x'];
 function inputOf(s) {
 	if (!s.p) { return null; }
-	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, disabledOther: s.x === '1' };
+	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, otherHome: s.x === '1' };
 }
 
 function mount(root, reg) {
@@ -639,7 +658,7 @@ function mount(root, reg) {
 	};
 	const sync = () => {
 		const t = (root.querySelector(`input[name="${P}-trk"]:checked`) || {}).value || 'single';
-		form.querySelectorAll('[data-if-track]').forEach((el) => { el.hidden = el.getAttribute('data-if-track') !== t; });
+		form.querySelectorAll('[data-if-track]').forEach((el) => { el.hidden = !(el.getAttribute('data-if-track') || '').split(' ').includes(t); });
 		const c = Boolean(root.querySelector(`input[name="${P}-ctr"]:checked`));
 		form.querySelectorAll('[data-if-contractor]').forEach((el) => { el.hidden = !c; });
 	};

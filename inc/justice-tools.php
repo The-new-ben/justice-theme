@@ -492,6 +492,7 @@ function justice_tools_sources( string $name ): array {
 			array( 'name' => $pt['law_he'], 'url' => $pt['law_url'], 'text' => 'סעיף 9(ג1ג)(2)-(4): דירה יחידה, חלופית, תושב, רוכש אחד, חלק של שליש; 9(ג1ו): דירה נוספת; 73(ג): הצהרה תוך ' . $pt['declare_days'] . ' יום; 90א: תשלום תוך ' . $pt['pay_days'] . ' יום; 94(א): הצמדה וריבית.' ),
 			array( 'name' => $pt['regulations_he'], 'url' => $pt['regulations_url'], 'text' => 'תקנה 12א: עולה (0%, 0.5%, פעם אחת, עד ' . number_format( (float) $pt['tracks']['oleh']['max_value'] ) . ' ₪); תקנה 11(א): נכה (0.5% עד ' . number_format( (float) $pt['tracks']['disabled']['cap'] ) . ' ₪, פעמיים).' ),
 			array( 'name' => $r['war']['source_he'], 'url' => $r['war']['url'], 'text' => $r['war']['law_he'] . ': תקופה שנוגעת ב-' . justice_tools_he_date( $r['war']['from'] ) . ' עד ' . justice_tools_he_date( $r['war']['to'] ) . ' מוארכת ב-' . $r['war']['add_months'] . ' חודשים, ולפחות עד ' . justice_tools_he_date( $r['war']['floor'] ) . '; 18 חודשים לרכישה עד 31.5.2025, 24 חודשים מ-1.6.2025.' ),
+			array( 'name' => 'רשות המסים, הוראת ביצוע מיסוי מקרקעין 2/2016', 'url' => $r['contractor_later_url'], 'text' => $r['contractor_later_he'] . '.' ),
 			array( 'name' => $pt['vat_he'], 'url' => $pt['vat_url'], 'text' => 'מע"מ ' . $pt['vat_pct'] . '% על שכר טרחה ודמי תיווך, מ-' . justice_tools_he_date( $pt['vat_from'] ) . '.' ),
 		);
 	}

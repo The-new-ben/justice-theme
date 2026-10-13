@@ -25,6 +25,8 @@ import * as TZUI from '../../assets/js/tools/tzavaa-ui.js';
 import * as TE from '../../assets/js/tools/teuna-engine.js';
 import * as TEUI from '../../assets/js/tools/teuna-ui.js';
 import * as DT from '../../assets/js/tools/dates.js';
+import * as GE from '../../assets/js/tools/gerushin-engine.js';
+import * as GEUI from '../../assets/js/tools/gerushin-ui.js';
 import { encodeState, decodeState, decodeList, parseMoney, csv, ics, isStale, track, ilToday } from '../../assets/js/tools/instrument.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -596,6 +598,74 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(DT.fullYears('2010-06-04', '2028-06-03') === 17 && DT.fullYears('2010-06-04', '2028-06-04') === 18, 'full years: the birthday counts on the day');
 	const cs = TEUI.snapshot(reg);
 	check(cs.total === 19 && cs.result.includes('jt10-bar') && cs.result.includes('10.3.2032') && cs.method.includes('135,840.00') && cs.compare_table.includes('<bdi>18%</bdi>'), 'car snapshot: 19%, the formula bar, the limitation date, the fee and the share table');
+}
+
+/* ---------- Wave 4: what a divorce costs (Dayanim fee regs, Family Court fee regs, Disputes Settlement Law, Property Relations Law) ---------- */
+{
+	const dc = reg.divorce_cost;
+	check(dc.checked_on === '2026-10-14' && dc.rabbinical.divorce === 457 && dc.rabbinical.property === 596 && dc.rabbinical.agreement === 536 && dc.rabbinical.certificate === 326 && dc.rabbinical.request === 119 && dc.rabbinical.custody === 417, 'divorce registry: rabbinical 457 / 596 / 536 / 326 / 119 / 417 (Dayanim fee regs, current to 22.1.2026)');
+	check(dc.family.property === 601 && dc.family.support === 283 && dc.family.custody === 421 && dc.family.agreement === 541 && dc.family.request === 120 && dc.family.transcript === 86, 'divorce registry: family court 601 / 283 / 421 / 541 / 120, transcript 86 (current to 1.7.2026)');
+	check(dc.disputes.meetings_max === 4 && dc.disputes.meetings_days === 45 && dc.disputes.extend_days === 15 && dc.disputes.stay_days === 60 && dc.disputes.stay_days_extended === 75 && dc.disputes.claim_days === 15, 'disputes law: 4 meetings in 45 days (+15), 60 or 75 days stay, claims within 15 days');
+	check(dc.bar.get_consent === 1287 && dc.bar.get_contested === 3173 && dc.bar.agreement_min === 2480 && dc.bar.custody_opposed === 3008, 'Bar recommended minimum (non-binding): 1,287 / 3,173 / 2,480 / 3,008');
+	const agree = GE.compute(reg, { route: 'agree', forum: 'rabbinical', children: true, property: true });
+	check(agree.ok && agree.total === 1188 && !agree.lines.some((l) => l.key === 'request') && agree.clock === null, 'by consent in the rabbinical court: 536 + 2 x 326 = 1,188; no dispute-settlement request (s.2 definitions)');
+	check(agree.bar.total === 3767 && agree.bar.withVat === 4445.06, 'by consent, with a lawyer: at least 1,287 (get, item 8(5)) + 2,480 (the agreement, item 8(9)) = 3,767 before VAT, 4,445.06 with VAT 18%');
+	check(GE.compute(reg, { route: 'agree' }).bar.total === 3767, 'by consent without children: at least 1,287 + 2,480 = 3,767 before VAT (items 8(5), 8(9))');
+	const agreeFam = GE.compute(reg, { route: 'agree', forum: 'family' });
+	check(agreeFam.total === 541 + 86 + 326 + 652 && agreeFam.byWho.family === 627 && agreeFam.byWho.rabbinical === 978, 'agreement approved in the family court: 541 + 86 there; get request 326 + certificates 652 in the rabbinical court');
+	check(GE.compute(reg, { route: 'agree', forum: 'family', abroad: true }).lines.find((l) => l.key === 'get_request').amount === 457, 'one spouse abroad: the get request is 457 (item 4(3)(ב))');
+	check(GE.compute(reg, { route: 'mediate', forum: 'rabbinical' }).total === 119 + 536 + 652, 'mediation then agreement: 119 + 536 + 652');
+	const c0 = GE.compute(reg, { route: 'court', forum: 'rabbinical' });
+	check(c0.total === 1346 && c0.lines.some((l) => l.key === 'divorce_tr' && l.amount === 118), 'contested, no children, no property: 119 + 457 + 118 + 652 = 1,346');
+	const c1 = GE.compute(reg, { route: 'court', forum: 'rabbinical', children: true, property: true });
+	check(c1.total === 2535 && c1.lines.find((l) => l.key === 'support').amount === 0 && c1.flags.some((f) => f.code === 'support'), 'contested in the rabbinical court with children and property: 2,535; the maintenance filer is exempt (reg. 14א)');
+	const c2 = GE.compute(reg, { route: 'court', forum: 'family', children: true, property: true });
+	check(c2.total === 2910 && c2.byWho.family === 120 + 601 + 86 + 421 + 86 + 283 + 86, 'contested with property and children in the family court: 2,910, of which 1,683 there');
+	check(c2.bar.total === 3173 + 3008 && c2.bar.lines.some((l) => l.amount === null), 'contested with a lawyer: 3,173 + 3,008, and the property claim by value (no number)');
+	const clk = GE.compute(reg, { route: 'court', start: '2026-11-01' }).clock;
+	check(clk.meetingsBy === '2026-12-16' && clk.stayEnds === '2026-12-31' && clk.claimsBy === '2027-01-15', 'the clock from 1.11.2026: meetings by 16.12.2026, stay to 31.12.2026, claims by 15.1.2027');
+	const ext = GE.compute(reg, { route: 'mediate', start: '2026-11-01', extended: true }).clock;
+	check(ext.meetingsBy === '2026-12-31' && ext.stayEnds === '2027-01-15' && ext.claimsBy === '2027-01-30', 'extended meetings: 60 days, a stay of 75, claims 15 days after');
+	const bal = GE.compute(reg, { route: 'agree', balance: { a: { assets: 1200000, excluded: 300000, debts: 100000 }, b: { assets: 500000, excluded: 0, debts: 0 } } });
+	check(bal.balance.a.net === 800000 && bal.balance.b.net === 500000 && bal.balance.payer === 'a' && bal.balance.pay === 150000, 'balance of resources: (800,000 - 500,000) / 2 = 150,000 from A to B (ss.5, 6(א)-(ב))');
+	check(GE.compute(reg, { route: 'agree', balance: { a: { assets: 100, excluded: 0 }, b: { assets: 100 } } }).balance.payer === null, 'equal nets: no payment');
+	check(!GE.compute(reg, { route: 'agree', balance: { a: { assets: 100, excluded: 200 }, b: {} } }).ok, 'excluded above all assets is an input error');
+	check(GE.compute(reg, { route: 'agree', before1974: true, balance: { a: { assets: 100 }, b: {} } }).flags.some((f) => f.code === 'pre1974'), 'married before 1.1.1974: the balance regime does not apply (s.14)');
+	check(GE.compute(reg, { route: 'agree', notJewish: true }).outOfScope, 'a couple that is not Jewish: out of scope (another religious court, other fees)');
+	const routes = GE.byRoute(reg, { forum: 'rabbinical', children: true, property: true });
+	check(routes.agree.total === 1188 && routes.mediate.total === 1307 && routes.court.total === 2535, 'one family, three routes: 1,188 / 1,307 / 2,535');
+	const gs = GEUI.snapshot(reg);
+	check(gs.total === 1188 && gs.result.includes('jt9-lanes') && gs.result.includes('3,767') && gs.compare_table.includes('2,910') && gs.method.includes('536'), 'divorce snapshot: 1,188, the two lanes, the lawyer minimum, the routes table');
+}
+
+/* ---------- Wave 4: the Bar's recommended minimum as a reference in the will tool (non-binding, before VAT) ---------- */
+{
+	const b = reg.will_cost.bar;
+	check(b.will === 2161 && b.mutual === 3159 && b.deposit_other === 1068 && b.probate_pct === 1.5 && b.probate_min === 4281 && b.objection_add_pct === 25, 'will registry, Bar tariff: 2,161 / 3,159 / 1,068; probate 1.5% of the estate, at least 4,281 (items 11(3), 4.א(4))');
+	const one = TZ.compute(reg, { form: 'notary', people: 1, barRef: true });
+	check(one.bar.make === 2161 && one.bar.probateEach === 4281 && one.bar.total === 6442 && one.bar.withVat === 7601.56 && one.bar.shown, 'one testator, no estate value: drafting 2,161 + probate 4,281 = 6,442 before VAT');
+	check(TZ.compute(reg, { form: 'notary', people: 1, barRef: true, estate: 1000000 }).bar.probateEach === 15000, 'an estate of 1,000,000: 1.5% = 15,000 for the probate request');
+	check(TZ.compute(reg, { form: 'notary', people: 1, barRef: true, estate: 100000 }).bar.probateEach === 4281, 'a small estate: the minimum, 4,281');
+	check(TZ.compute(reg, { form: 'notary', people: 2, barRef: true }).bar.total === 3159 + 2 * 4281, 'mutual wills: 3,159 for both, and a probate request for each estate');
+	check(!TZ.compute(reg, { form: 'notary', estate: -1 }).ok, 'a negative estate value is an input error');
+	check(TZUI.snapshot(reg).details.includes('2,161') && TZUI.snapshot(reg).result.includes('4,281'), 'will snapshot: the Bar reference in the result and the details');
+}
+
+/* ---------- Wave 4: the divorce clock skips the holiday days of s.6א, and the law does not apply abroad (s.4א(1)) ---------- */
+{
+	const dc = reg.divorce_cost;
+	check(DT.isFamilyPause('2026-09-12') && DT.isFamilyPause('2026-09-13') && DT.isFamilyPause('2026-09-21') && DT.isFamilyPause('2026-09-25') && DT.isFamilyPause('2026-10-03') && !DT.isFamilyPause('2026-10-04') && !DT.isFamilyPause('2026-09-24'), 's.6א(א)(1): 1-2 Tishri, 10 Tishri and 14-22 Tishri 5787 (12.9, 13.9, 21.9, 25.9-3.10.2026) are not counted');
+	check(DT.isFamilyPause('2027-04-21') && DT.isFamilyPause('2027-04-28') && !DT.isFamilyPause('2027-04-29'), 's.6א(א)(1): 14-21 Nisan 5787 (21.4-28.4.2027)');
+	const autumn = GE.clock(dc, '2026-09-01', false);
+	check(autumn.meetingsBy === '2026-10-28' && autumn.stayEnds === '2026-11-12' && autumn.claimsBy === '2026-11-27' && autumn.paused, 'a request on 1.9.2026: 12 holiday days are not counted -> meetings by 28.10, stay to 12.11, claims by 27.11.2026');
+	const spring = GE.clock(dc, '2027-03-20', false);
+	check(spring.meetingsBy === '2027-05-12' && spring.stayEnds === '2027-05-27', 'a request on 20.3.2027: the 8 Pesach days are not counted');
+	const lastDay = GE.clock(dc, '2026-07-15', false);
+	check(lastDay.stayEnds === '2026-09-15' && lastDay.claimsBy === '2026-10-10', 'request on 15.7.2026: the stay ends 15.9 (Rosh Hashana not counted); 15 days would end on 30.9 (19 Tishri), so the holidays are not counted and the claims run to 10.10.2026 (s.6א(ג))');
+	check(GE.compute(reg, { route: 'court', start: '2026-09-01' }).flags.some((f) => f.code === 'pause'), 'a clock that crosses the holidays carries the s.6א flag');
+	const abroad = GE.compute(reg, { route: 'court', forum: 'rabbinical', abroad: true });
+	check(abroad.ok && abroad.clock === null && !abroad.lines.some((l) => l.key === 'request') && abroad.flags.some((f) => f.code === 'abroad') && abroad.lines.some((l) => l.key === 'get_request' && l.amount === 457), 'a spouse domiciled abroad: no dispute-settlement request or clock (s.4א(1)); the get request 457 (item 4(3)(ב))');
+	check(GEUI.renderResult(reg, abroad).includes('סעיף 4א(1)'), 'the lanes say why there is no request when a spouse lives abroad');
 }
 
 if (failures) {

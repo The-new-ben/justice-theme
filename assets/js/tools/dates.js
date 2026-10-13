@@ -85,3 +85,27 @@ export function offRestDays(iso, extra = []) {
 	for (let i = 0; i < 7 && isRestDay(out, extra); i += 1) { out = addDays(out, 1); }
 	return out;
 }
+
+/**
+ * Family Disputes Settlement Law s.6א(א)(1): for requests in the family courts and the rabbinical courts, these days
+ * are not counted: the two days of Rosh Hashana, Yom Kippur, 14-22 Tishri and 14-21 Nisan.
+ */
+export function isFamilyPause(iso) {
+	if (!hebrewFmt) { return false; }
+	const parts = hebrewFmt.formatToParts(new Date(`${iso}T00:00:00Z`));
+	const month = (parts.find((p) => p.type === 'month') || {}).value;
+	const day = Number((parts.find((p) => p.type === 'day') || {}).value);
+	if (month === 'Tishri') { return day === 1 || day === 2 || day === 10 || (day >= 14 && day <= 22); }
+	if (month === 'Nisan') { return day >= 14 && day <= 21; }
+	return false;
+}
+/** n days after a day, not counting the days a predicate excludes. */
+export function addCountedDays(iso, n, skip) {
+	let day = iso;
+	let counted = 0;
+	for (let guard = 0; counted < n && guard < n + 400; guard += 1) {
+		day = addDays(day, 1);
+		if (!skip(day)) { counted += 1; }
+	}
+	return day;
+}

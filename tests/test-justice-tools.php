@@ -332,6 +332,22 @@ check( false !== strpos( $sec( array( 'name' => 'tzavaa', 'part' => 'updated' ) 
 $index4 = $jt_shortcodes['justice_tools_index']();
 check( false !== strpos( $index4, '/depositing-testament-registrar/' ) && false !== strpos( $index4, '/israel-road-accident-compensation-law/' ), 'hub cards include the wave-4 tools' );
 
+$d4 = $reg4['divorce_cost'];
+check( '2026-10-14' === $d4['checked_on'] && 536 === $d4['rabbinical']['agreement'] && 457 === $d4['rabbinical']['divorce'] && 601 === $d4['family']['property'] && 60 === $d4['disputes']['stay_days'], 'divorce registry: 536 / 457 / 601, a 60-day stay' );
+check( 0 === strpos( (string) $d4['source_url'], 'https://' ) && $d4['refresh_every_days'] > 0 && ! empty( $d4['next_update'] ), 'divorce dataset carries an https source, a refresh period and the next update' );
+$g4t = $h4( array( 'name' => 'gerushin' ) );
+check( false !== strpos( $g4t, 'class="jtool-answer"' ) && false !== strpos( $g4t, '<bdi>536</bdi>' ) && false !== strpos( $g4t, '<bdi>119</bdi>' ) && false !== strpos( $g4t, '<bdi>601</bdi>' ), 'divorce answer box: 536, 119 and 601 from the registry' );
+check( false !== strpos( $g4t, '1,188' ) && false !== strpos( $g4t, 'jt9-lanes' ) && false !== strpos( $g4t, '3,767' ), 'divorce example in the server HTML: 1,188 in fees, the lanes, the lawyer minimum' );
+check( false !== strpos( $g4t, 'jtool-btn--primary" href="https://jus-tice.com/#/simulation' ) && false !== strpos( $g4t, 'purpose=mediation' ), 'divorce: the mediation rehearsal is the primary next step' );
+check( 1 === substr_count( $g4t, '"@type":"WebApplication"' ) && false === strpos( $g4t, 'FAQPage' ) && false === stripos( $g4t, 'noindex' ) && false === stripos( $g4t, 'maya' ) && false === strpos( $g4t, 'רוטנברג' ) && false === strpos( $g4t, '<form' ), 'gerushin: one WebApplication, no FAQPage, no noindex, no Maya, no form gate' );
+check( 1 === preg_match( '#<script type="application/json" id="jtool-gerushin-data">(.*?)</script>#s', $g4t, $mm ) && count( json_decode( $mm[1], true ) ) === 2 && isset( $jt_enqueued['justice-tool-gerushin'] ), 'gerushin: its own dataset only, bundle enqueued' );
+$card4 = substr( $g4t, (int) strpos( $g4t, '<section class="jtool"' ) );
+check( false === stripos( substr( $card4, 0, (int) strpos( $card4, '</section>' ) ), '<h2' ) && false !== strpos( $g4t, 'אגרות בית הדין ובית המשפט 2026 · נבדק 14.10.2026' ), 'gerushin: no <h2> in the card; the stamp' );
+$ng = $sec( array( 'name' => 'gerushin', 'part' => 'numbers' ) );
+check( false !== strpos( $ng, 'פרט 4(2)' ) && false !== strpos( $ng, 'פרט 4(3)(ג)' ) && false !== strpos( $ng, 'סעיפים 3(ה) ו-4' ) && false !== strpos( $ng, 'תקנה 14א' ), 'divorce numbers: the agreement, the free get, the clocks, the maintenance exemption' );
+check( false !== strpos( $sec( array( 'name' => 'gerushin', 'part' => 'compare' ) ), '2,910' ), 'divorce compare table from the engine' );
+check( false !== strpos( $jt_shortcodes['justice_tools_index'](), '/opening-divorce-file-rabbinical/' ), 'hub cards include the divorce tool' );
+
 if ( $failures ) {
 	fwrite( STDERR, "justice tools: {$failures} failure(s)\n" );
 	exit( 1 );

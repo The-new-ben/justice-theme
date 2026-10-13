@@ -13,7 +13,7 @@ import {
 export const TOOL_ID = 'tzavaa';
 const P = 'jt11';
 
-export const EXAMPLE = { form: 'notary', people: 1, docs: 'one', deposit: true, recent: [false, false], words: 0, foreign: false, night: false, outside: false, hours: '', lawyer: '', lawyerVat: true, online: true };
+export const EXAMPLE = { form: 'notary', people: 1, docs: 'one', deposit: true, recent: [false, false], words: 0, foreign: false, night: false, outside: false, hours: '', lawyer: '', lawyerVat: true, online: true, barRef: true, estate: '' };
 
 const FORM_LABEL = { notary: 'בפני נוטריון', registrar: 'בפני רשם לענייני ירושה', witnesses: 'בעדים', handwritten: 'בכתב יד' };
 const FORM_LONG = { notary: 'בפני נוטריון (צוואה בפני רשות)', registrar: 'בפני רשם לענייני ירושה', witnesses: 'בפני שני עדים', handwritten: 'בכתב ידכם' };
@@ -45,7 +45,9 @@ export function renderForm(reg, input) {
 		+ `<details class="jtool-more"${input.lawyer ? ' open' : ''}><summary>יש לכם הצעת מחיר מעורך דין?</summary>`
 		+ `<div class="jtool-field" style="margin-top:8px"><label class="jtool-label" for="${P}-law">שכר הטרחה לפי ההצעה</label><div class="jtool-input jtool-input--money"><input id="${P}-law" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.lawyer ? money(input.lawyer, 0) : '')}" placeholder="לפי ההצעה שקיבלתם" aria-describedby="${P}-lawyer-e"><span class="jtool-input__suffix" aria-hidden="true">₪</span></div><p class="jtool-error" id="${P}-lawyer-e" role="alert"></p></div>`
 		+ `<div class="jtool-chips" style="margin-top:8px">${chip('lvi', '1', 'הסכום כבר כולל מע"מ', input.lawyerVat === false, 'checkbox')}</div>`
-		+ `<p class="jtool-hint">לשכר טרחה על צוואה אין תעריף רשמי. הכלי מוסיף את מה שהזנתם, ולא ממליץ על מחיר.</p></details>`
+		+ `<div class="jtool-chips" style="margin-top:8px">${chip('bar', '1', 'להציג את התעריף המינימלי המומלץ של לשכת עורכי הדין', input.barRef, 'checkbox')}</div>`
+		+ `<div class="jtool-field" style="margin-top:8px" data-if-bar${input.barRef ? '' : ' hidden'}><label class="jtool-label" for="${P}-est">שווי העיזבון בערך (לבקשה לצו קיום בידי עורך דין)</label><div class="jtool-input jtool-input--money"><input id="${P}-est" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.estate ? money(input.estate, 0) : '')}" placeholder="לא חובה" aria-describedby="${P}-estate-e"><span class="jtool-input__suffix" aria-hidden="true">₪</span></div><p class="jtool-error" id="${P}-estate-e" role="alert"></p></div>`
+		+ `<p class="jtool-hint">${esc(wc.bar.note_he)}. אין תעריף מחייב לשכר טרחה על צוואה; הכלי מוסיף את ההצעה שהזנתם, ולא ממליץ על מחיר.</p></details>`
 		+ `<fieldset class="jtool-field"><legend>אחרי הפטירה: הבקשה לצו קיום</legend><div class="jtool-chips">${chip('onl', '1', 'הגשה מקוונת', input.online !== false)}${chip('onl', '0', 'הגשה רגילה', input.online === false)}</div></fieldset>`;
 }
 
@@ -86,6 +88,7 @@ export function renderResult(reg, r, opts = {}) {
 		+ `<strong class="jtool-verdict__figure">${ils(r.nowTotal)}</strong>`
 		+ `<p class="jtool-verdict__sentence">${esc(verdictSentence(reg, r))}</p>`
 		+ `<p class="jtool-scope">כל הדרך, מהחתימה ועד צו הקיום: <strong>${ils(r.total)}</strong>${r.now.some((l) => l.quote) ? ', כולל שכר הטרחה שהזנתם' : ''}.</p>`
+		+ (r.bar.shown ? `<p class="jtool-scope">עם עורך דין, לפי התעריף המינימלי המומלץ של הלשכה (לא מחייב): עריכת ${r.people === 2 ? 'שתי הצוואות ההדדיות' : 'הצוואה'} לפחות <strong>${ils(r.bar.make, 0)}</strong>, ובקשה לצו קיום לפחות <strong>${ils(r.bar.probateEach, r.bar.probateEach % 1 ? 2 : 0)}</strong>${r.people === 2 ? ' לכל עיזבון' : ''}, ועוד מע"מ.</p>` : '')
 		+ `</div>`
 		+ trackHtml(reg, r)
 		+ (flags.length ? `<ul class="jtool-flags">${flags.map((f) => `<li>${esc(f.he)}</li>`).join('')}</ul>` : '');
@@ -106,6 +109,20 @@ export function renderDetails(reg, r) {
 	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-forms-h">אותה צוואה, ארבע צורות</h3></div><div class="jt7-scns">`
 		+ FORMS.map((k) => { const v = forms[k]; const here = k === r.form; return `<div class="jt7-scn${here ? ' jt7-scn--here' : ''}"><p>${esc(FORM_LABEL[k])}${here ? ' (אתם)' : ''}</p><strong>${v ? (v.now ? ils(v.now, v.now % 1 ? 2 : 0) : 'חינם') : '—'}</strong><small>${v ? `היום; ועוד ${nis(v.later)} אחרי הפטירה` : ''}</small></div>`; }).join('')
 		+ `</div><p class="jt7-scns__note">אגרות ותעריפים בלבד, בלי שכר טרחה ובלי תוספות. צוואה בכתב יד או בעדים: אין אגרה, אבל קל יותר לתקוף אותה כשהיא לא נעשתה כדין (סעיפים 19, 20 ו-25).</p></div>`;
+	// The lawyer reference.
+	if (r.bar.shown) {
+		const bar = wc.bar;
+		const rows2 = [
+			[r.people === 2 ? 'עריכת שתי צוואות הדדיות' : 'עריכת צוואה רגילה', r.bar.make, r.people === 2 ? bar.items.mutual : bar.items.will],
+			[`בקשה לצו קיום בלי התנגדות: ${bar.probate_pct}% מערך העיזבון${r.bar.estate === null ? '' : ` (${nis(r.bar.estate)})`}, לא פחות מ-${nis(bar.probate_min)}${r.people === 2 ? ', לכל עיזבון' : ''}`, r.bar.probateEach, bar.items.probate],
+			['הפקדת צוואה שערך מישהו אחר', bar.deposit_other, bar.items.deposit_other],
+		];
+		out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-bar-h">עורך דין: התעריף המינימלי המומלץ</h3></div>`
+			+ `<div class="jtool-scroll" role="region" aria-labelledby="${P}-bar-h" tabindex="0"><table class="jtool-table"><thead><tr><th scope="col">השירות</th><th scope="col">לפני מע"מ</th><th scope="col">הכלל</th></tr></thead><tbody>`
+			+ rows2.map(([t, v, s2]) => `<tr><td data-th="השירות">${esc(t)}</td><td data-th="לפני מע&quot;מ">${ils(v, v % 1 ? 2 : 0)}</td><td data-th="הכלל">${cite(s2, bar.url)}</td></tr>`).join('')
+			+ `<tr class="jtool-table__total"><td data-th="השירות">עריכה וצו קיום, לפחות</td><td data-th="לפני מע&quot;מ">${ils(r.bar.total, r.bar.total % 1 ? 2 : 0)}</td><td data-th="הכלל">עם מע"מ ${r.vatPct}%: ${esc(nis(r.bar.withVat))}</td></tr></tbody>`
+			+ `<caption>${esc(bar.note_he)}. בהתנגדות, התעריף לצו הקיום גבוה ב-${bar.objection_add_pct}%.</caption></table></div></div>`;
+	}
 	// What to bring.
 	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-chk-h">מה לוקחים איתכם</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="copy-list">העתקת הרשימה</button></div></div>`
 		+ `<ul class="jt11-list">${checklist(reg, r).map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>`;
@@ -171,20 +188,21 @@ function readForm(root) {
 		deposit: on('dep'), recent: [on('rc0'), on('rc1')],
 		words: num('words'), hours: num('hours'), outside: on('out'), night: on('ngt'), foreign: on('frn'),
 		lawyer: law === '' ? '' : parseMoney(law), lawyerVat: !on('lvi'),
+		barRef: on('bar'), estate: val(`#${P}-est`).trim() === '' ? '' : parseMoney(val(`#${P}-est`)),
 		online: ((root.querySelector(`input[name="${P}-onl"]:checked`) || {}).value || '1') === '1',
 	};
 }
 
 const FM = { notary: 'n', registrar: 'r', witnesses: 'w', handwritten: 'h' };
-const stateOf = (i) => encodeState({ f: FM[i.form] || 'n', p: i.people === 2 ? 2 : '', d: i.docs === 'two' ? 2 : '', x: i.deposit ? '' : 0, a: i.recent && i.recent[0] ? 1 : '', b: i.recent && i.recent[1] ? 1 : '', w: i.words || '', o: i.outside ? i.hours || 1 : '', n: i.night ? 1 : '', g: i.foreign ? 1 : '', l: i.lawyer || '', v: i.lawyerVat === false ? 1 : '', k: i.online === false ? 0 : '' });
-const KEYS = ['f', 'p', 'd', 'x', 'a', 'b', 'w', 'o', 'n', 'g', 'l', 'v', 'k'];
+const stateOf = (i) => encodeState({ f: FM[i.form] || 'n', p: i.people === 2 ? 2 : '', d: i.docs === 'two' ? 2 : '', x: i.deposit ? '' : 0, a: i.recent && i.recent[0] ? 1 : '', b: i.recent && i.recent[1] ? 1 : '', w: i.words || '', o: i.outside ? i.hours || 1 : '', n: i.night ? 1 : '', g: i.foreign ? 1 : '', l: i.lawyer || '', v: i.lawyerVat === false ? 1 : '', k: i.online === false ? 0 : '', r: i.barRef ? '' : 0, e: i.estate || '' });
+const KEYS = ['f', 'p', 'd', 'x', 'a', 'b', 'w', 'o', 'n', 'g', 'l', 'v', 'k', 'r', 'e'];
 function inputOf(s) {
 	if (!s.f) { return null; }
 	return {
 		form: Object.keys(FM).find((k) => FM[k] === s.f) || 'notary', people: s.p === '2' ? 2 : 1, docs: s.d === '2' ? 'two' : 'one',
 		deposit: s.x !== '0', recent: [s.a === '1', s.b === '1'], words: s.w ? Number(s.w) : 0,
 		outside: Boolean(s.o), hours: s.o ? Number(s.o) : '', night: s.n === '1', foreign: s.g === '1',
-		lawyer: s.l ? Number(s.l) : '', lawyerVat: s.v !== '1', online: s.k !== '0',
+		lawyer: s.l ? Number(s.l) : '', lawyerVat: s.v !== '1', online: s.k !== '0', barRef: s.r !== '0', estate: s.e ? Number(s.e) : '',
 	};
 }
 
@@ -207,7 +225,7 @@ export function mount(root, reg) {
 		root.querySelectorAll('.jtool-error').forEach((e) => { e.textContent = ''; });
 		root.querySelectorAll('[aria-invalid]').forEach((e) => e.removeAttribute('aria-invalid'));
 		if (r.ok) { return; }
-		const ids = { lawyer: 'law', words: 'words', hours: 'hours' };
+		const ids = { lawyer: 'law', words: 'words', hours: 'hours', estate: 'est' };
 		for (const e of r.errors) {
 			const box = root.querySelector(`#${P}-${e.field}-e`);
 			if (box) { box.textContent = e.he; }
@@ -222,6 +240,7 @@ export function mount(root, reg) {
 		form.querySelectorAll('[data-if-two]:not([data-if-form])').forEach((el) => { el.hidden = !two; });
 		form.querySelectorAll('[data-if-deposit]').forEach((el) => { el.hidden = !root.querySelector(`input[name="${P}-dep"]:checked`); });
 		form.querySelectorAll('[data-if-outside]').forEach((el) => { el.hidden = !root.querySelector(`input[name="${P}-out"]:checked`); });
+		form.querySelectorAll('[data-if-bar]').forEach((el) => { el.hidden = !root.querySelector(`input[name="${P}-bar"]:checked`); });
 	};
 	const run = (input, opts = {}) => {
 		const r = compute(reg, input);

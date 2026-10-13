@@ -31,6 +31,7 @@ const TOOLS = {
 	// Wave 4 (HAD-502): dates.js is the calendar shared by the wave-4 engines.
 	tzavaa: ['instrument.js', 'tzavaa-engine.js', 'tzavaa-ui.js'],
 	'teunat-drachim': ['instrument.js', 'dates.js', 'teuna-engine.js', 'teuna-ui.js'],
+	gerushin: ['instrument.js', 'dates.js', 'gerushin-engine.js', 'gerushin-ui.js'],
 };
 
 function strip(code) {
@@ -68,6 +69,7 @@ const w3r = await import(pathToFileURL(join(SRC, 'rechisha-ui.js')).href);
 const w3h = await import(pathToFileURL(join(SRC, 'hashbacha-ui.js')).href);
 const w4w = await import(pathToFileURL(join(SRC, 'tzavaa-ui.js')).href);
 const w4c = await import(pathToFileURL(join(SRC, 'teuna-ui.js')).href);
+const w4d = await import(pathToFileURL(join(SRC, 'gerushin-ui.js')).href);
 const snapshots = {
 	registry_version: registry.registry_version,
 	hatzmada: t04.snapshot(registry),
@@ -79,6 +81,7 @@ const snapshots = {
 	'hetel-hashbacha': w3h.snapshot(registry),
 	tzavaa: w4w.snapshot(registry),
 	'teunat-drachim': w4c.snapshot(registry),
+	gerushin: w4d.snapshot(registry),
 };
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 

@@ -21,6 +21,7 @@
  *   [justice_tool name="hetel-hashbacha"]                wave 3: betterment levy (/betterment-levy-israel/)
  *   [justice_tool name="tzavaa"]                         wave 4: what a will costs, signing to probate (/depositing-testament-registrar/)
  *   [justice_tool name="teunat-drachim"]                 wave 4: road-accident compensation (/israel-road-accident-compensation-law/)
+ *   [justice_tool name="gerushin"]                       wave 4: what a divorce costs, and the law's clocks (/opening-divorce-file-rabbinical/)
  *   [justice_tool_section name="hatzmada" part="method"]  part: method | numbers | compare | sources | updated
  *                                                         (add mode="fee" for the fee-only page's method)
  *   [justice_tools_index]                                 hub cards with the data stamp
@@ -231,6 +232,24 @@ function justice_tools_catalog(): array {
 			'sticky'      => 'כאב וסבל',
 			'sticky_kind' => 'pct',
 		),
+		// Not on /divorce-costs-2025/ (Adv. Maya Rotenberg's reviewed page, and in the HAD-447 cluster plan): on the
+		// rabbinical-court file page, which the head phrase "פתיחת תיק גירושין" reaches (HAD-502).
+		'gerushin'        => array(
+			'name'      => 'מחשבון עלות גירושין',
+			'title'     => 'כמה עולה גירושין: אגרות, עורך דין והמועדים שבחוק',
+			'promise'   => 'בהסכמה, דרך יחידת הסיוע או במחלוקת: כל אגרה בבית הדין הרבני ובבית המשפט, התעריף המינימלי לעורך דין, המועדים, ומי משלם למי באיזון המשאבים.',
+			'question'  => 'כמה עולה להתגרש, ומה ההבדל בין הסכמה למחלוקת?',
+			'page'      => '/opening-divorce-file-rabbinical/',
+			'category'  => 'LegalApplication',
+			'data'      => array( 'registry_version', 'divorce_cost' ),
+			'dataset'   => 'divorce_cost',
+			'next_text' => 'הצעד הבא: לתרגל את הגישור ואת השיחה על ההסכם, לפני הפגישה ביחידת הסיוע',
+			'primary'   => array( 'label' => 'לתרגל את הגישור', 'rehearse' => true ),
+			'rehearse'  => array( 'label' => 'לתרגל את הגישור', 'topic' => 'divorce', 'purpose' => 'mediation' ),
+			'more'      => array( array( 'label' => 'אגרות בית הדין הרבני', 'path' => '/fees-rabbinical-courts/' ), array( 'label' => 'הסכם גירושין: מה כולל', 'path' => '/divorce-agreement/' ) ),
+			'lawyer'    => array( 'label' => 'עורך דין לבית הדין הרבני', 'path' => '/practice-areas/rabbinical-court/' ),
+			'sticky'    => 'אגרות',
+		),
 	);
 }
 
@@ -427,6 +446,16 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 			. 'לא משנה מי אשם בתאונה (סעיף 2(ג)), והתביעה מתיישנת <bdi>' . (int) $c['limitation']['years'] . '</bdi> שנים מיום התאונה. נבדק ' . esc_html( justice_tools_he_date( $c['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
+	if ( 'gerushin' === $name && ! empty( $reg['divorce_cost'] ) ) {
+		$d    = $reg['divorce_cost'];
+		$rb   = $d['rabbinical'];
+		$fc   = $d['family'];
+		$ds   = $d['disputes'];
+		$text = '<strong>כמה עולה גירושין</strong> באגרות: בהסכמה, בבית הדין הרבני, ' . justice_tools_money( $rb['agreement'], 0 ) . ' כדי לתת להסכם תוקף של פסק דין, סידור הגט בלי אגרה כששני בני הזוג בארץ, ו-' . justice_tools_money( $rb['certificate'], 0 ) . ' לתעודת גירושין לכל צד. '
+			. 'במחלוקת: בקשה ליישוב סכסוך ' . justice_tools_money( $rb['request'], 0 ) . ' (' . justice_tools_money( $fc['request'], 0 ) . ' בבית המשפט לענייני משפחה), תביעת גירושין ' . justice_tools_money( $rb['divorce'], 0 ) . ', ותביעה רכושית ' . justice_tools_money( $rb['property'], 0 ) . ' בבית הדין או ' . justice_tools_money( $fc['property'], 0 ) . ' בבית המשפט. '
+			. 'לפני תביעה: עד <bdi>' . (int) $ds['meetings_max'] . '</bdi> פגישות ביחידת הסיוע בלי תשלום, ו-<bdi>' . (int) $ds['stay_days'] . '</bdi> ימים שבהם אי אפשר לתבוע. נבדק ' . esc_html( justice_tools_he_date( $d['checked_on'] ) ) . '.';
+		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+	}
 	if ( 'havraa' === $name && ! empty( $reg['havraa'] ) ) {
 		$hv     = $reg['havraa'];
 		$latest = justice_tools_havraa_latest( $hv );
@@ -508,6 +537,9 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 	if ( 'hetel-hashbacha' === $name ) {
 		return 'התוספת השלישית · נבדק ' . justice_tools_he_date( $reg['betterment']['checked_on'] ?? '' );
 	}
+	if ( 'gerushin' === $name ) {
+		return 'אגרות בית הדין ובית המשפט 2026 · נבדק ' . justice_tools_he_date( $reg['divorce_cost']['checked_on'] ?? '' );
+	}
 	if ( 'tzavaa' === $name ) {
 		$w = $reg['will_cost'] ?? array();
 		return 'אגרות ותעריף נוטריונים מ-' . justice_tools_he_date( $w['registrar']['from'] ?? '' ) . ' · נבדק ' . justice_tools_he_date( $w['checked_on'] ?? '' );
@@ -567,6 +599,20 @@ function justice_tools_sources( string $name ): array {
 			array( 'name' => $r['war']['source_he'], 'url' => $r['war']['url'], 'text' => $r['war']['law_he'] . ': תקופה שנוגעת ב-' . justice_tools_he_date( $r['war']['from'] ) . ' עד ' . justice_tools_he_date( $r['war']['to'] ) . ' מוארכת ב-' . $r['war']['add_months'] . ' חודשים, ולפחות עד ' . justice_tools_he_date( $r['war']['floor'] ) . '; 18 חודשים לרכישה עד 31.5.2025, 24 חודשים מ-1.6.2025.' ),
 			array( 'name' => 'רשות המסים, הוראת ביצוע מיסוי מקרקעין 2/2016', 'url' => $r['contractor_later_url'], 'text' => $r['contractor_later_he'] . '.' ),
 			array( 'name' => $pt['vat_he'], 'url' => $pt['vat_url'], 'text' => 'מע"מ ' . $pt['vat_pct'] . '% על שכר טרחה ודמי תיווך, מ-' . justice_tools_he_date( $pt['vat_from'] ) . '.' ),
+		);
+	}
+	if ( 'gerushin' === $name ) {
+		$d       = $reg['divorce_cost'];
+		$rb      = $d['rabbinical'];
+		$fc      = $d['family'];
+		$ds      = $d['disputes'];
+		$checked = justice_tools_he_date( $d['checked_on'] );
+		return array(
+			array( 'name' => $rb['regulation_he'], 'url' => $rb['url'], 'text' => 'התוספת הראשונה: גירושין ' . number_format( (float) $rb['divorce'] ) . ' ₪ (4(1)(א)), רכוש ' . number_format( (float) $rb['property'] ) . ' ₪ (4(1)(ב)), הסכם כפסק דין ' . number_format( (float) $rb['agreement'] ) . ' ₪ (4(2)), סידור גט פטור (4(3)(ג)), תעודה ' . number_format( (float) $rb['certificate'] ) . ' ₪ (4(4)(א)), ילדים ' . number_format( (float) $rb['custody'] ) . ' ₪ (7), יישוב סכסוך ' . number_format( (float) $rb['request'] ) . ' ₪ (19(טז)); מזונות: המגיש פטור (תקנה 14א); הפחתה בסיום מוקדם (תקנה 12). נוסח עדכני ל-' . justice_tools_he_date( $rb['current_to'] ) . ', נבדק ' . $checked . '.' ),
+			array( 'name' => $fc['regulation_he'], 'url' => $fc['url'], 'text' => 'רכוש בין בני זוג ' . number_format( (float) $fc['property'] ) . ' ₪ (2א), מזונות ' . number_format( (float) $fc['support'] ) . ' ₪ (5), אישור הסכם ' . number_format( (float) $fc['agreement'] ) . ' ₪ (6א), ילדים ' . number_format( (float) $fc['custody'] ) . ' ₪ (6ב), יישוב סכסוך ' . number_format( (float) $fc['request'] ) . ' ₪ (13), פרוטוקול ' . number_format( (float) $fc['transcript'] ) . ' ₪; מחצית בפשרה עד קדם המשפט (תקנה 8(ב)). נוסח עדכני ל-' . justice_tools_he_date( $fc['current_to'] ) . '.' ),
+			array( 'name' => $ds['law_he'], 'url' => $ds['url'], 'text' => 'סעיף 3(א): בקשה ליישוב סכסוך קודם לתביעה; 3(ב): עד ' . $ds['meetings_max'] . ' פגישות מהו"ת בתוך ' . $ds['meetings_days'] . ' ימים (הארכה של ' . $ds['extend_days'] . '); 3(ה): ' . $ds['stay_days'] . ' או ' . $ds['stay_days_extended'] . ' ימים בלי תביעות; 4: תביעה בתוך ' . $ds['claim_days'] . ' ימים. ' . $ds['permanent_he'] . '.' ),
+			array( 'name' => $d['property_law']['law_he'], 'url' => $d['property_law']['url'], 'text' => 'סעיף 5: מחצית שווי הנכסים, בלי ' . $d['property_law']['excluded_he'] . '; 5(ג): כולל פנסיה וחסכונות; 6: ניכוי חובות ומחצית ההפרש; 5א: איזון מוקדם; 8: יחס אחר; 14: לא לנישאים לפני 1.1.1974.' ),
+			array( 'name' => $d['bar']['rules_he'], 'url' => $d['bar']['url'], 'text' => 'פרט 8: גט בהסכמה ' . number_format( (float) $d['bar']['get_consent'] ) . ' ₪, גט בלי הסכמה ' . number_format( (float) $d['bar']['get_contested'] ) . ' ₪, החזקת ילדים ' . number_format( (float) $d['bar']['custody_agreed'] ) . ' או ' . number_format( (float) $d['bar']['custody_opposed'] ) . ' ₪, הסכם לפסק הגט לפחות ' . number_format( (float) $d['bar']['agreement_min'] ) . ' ₪. ' . $d['bar']['note_he'] . '.' ),
 		);
 	}
 	if ( 'tzavaa' === $name ) {
@@ -1041,9 +1087,43 @@ function justice_tools_teuna_numbers_html( array $c ): string {
 		. '<p class="jtool-updated">נבדק מול הנוסח העדכני של החוק, התקנות, הכללים, חוק ההתיישנות ונתוני הביטוח הלאומי ב-' . esc_html( justice_tools_he_date( $c['checked_on'] ) ) . '.</p></div>';
 }
 
+/** Wave 4: every divorce fee and clock, with its item and source. */
+function justice_tools_gerushin_numbers_html( array $d ): string {
+	$rb   = $d['rabbinical'];
+	$fc   = $d['family'];
+	$ds   = $d['disputes'];
+	$rl   = '<a href="' . esc_url( $rb['url'] ) . '" target="_blank" rel="noopener">';
+	$fl   = '<a href="' . esc_url( $fc['url'] ) . '" target="_blank" rel="noopener">';
+	$dl   = '<a href="' . esc_url( $ds['url'] ) . '" target="_blank" rel="noopener">';
+	$rows = array(
+		array( 'בקשה ליישוב סכסוך', justice_tools_money( $rb['request'], 0 ) . ' בבית הדין; ' . justice_tools_money( $fc['request'], 0 ) . ' בבית המשפט', $rl . 'פרט 19(טז)</a>; ' . $fl . 'פרט 13</a>' ),
+		array( 'פגישות מהו"ת ביחידת הסיוע', 'עד <bdi>' . (int) $ds['meetings_max'] . '</bdi> פגישות, בלי תשלום, בתוך <bdi>' . (int) $ds['meetings_days'] . '</bdi> ימים (הארכה אחת של <bdi>' . (int) $ds['extend_days'] . '</bdi>)', $dl . 'סעיף 3(ב)</a>' ),
+		array( 'עיכוב הליכים', '<bdi>' . (int) $ds['stay_days'] . '</bdi> ימים מהבקשה, או <bdi>' . (int) $ds['stay_days_extended'] . '</bdi>; אחריו תביעה בתוך <bdi>' . (int) $ds['claim_days'] . '</bdi> ימים', $dl . 'סעיפים 3(ה) ו-4</a>' ),
+		array( 'הסכם גירושין כפסק דין, בבית הדין', justice_tools_money( $rb['agreement'], 0 ), $rl . 'פרט 4(2)</a>' ),
+		array( 'אישור הסכם בין בני זוג, בבית המשפט', justice_tools_money( $fc['agreement'], 0 ) . ' ועוד פרוטוקול ' . justice_tools_money( $fc['transcript'], 0 ), $fl . 'פרט 6א</a>' ),
+		array( 'תביעת גירושין', justice_tools_money( $rb['divorce'], 0 ) . ' ועוד פרוטוקול ' . justice_tools_money( $rb['transcript_divorce'], 0 ), $rl . 'פרט 4(1)(א)</a>' ),
+		array( 'תביעה רכושית', justice_tools_money( $rb['property'], 0 ) . ' בבית הדין (כרוכה בגירושין); ' . justice_tools_money( $fc['property'], 0 ) . ' בבית המשפט', $rl . 'פרט 4(1)(ב)</a>; ' . $fl . 'פרט 2א</a>' ),
+		array( 'החזקת ילדים', justice_tools_money( $rb['custody'], 0 ) . ' בבית הדין; ' . justice_tools_money( $fc['custody'], 0 ) . ' בבית המשפט', $rl . 'פרט 7</a>; ' . $fl . 'פרט 6ב</a>' ),
+		array( 'מזונות', 'בבית הדין המגיש פטור; ' . justice_tools_money( $fc['support'], 0 ) . ' בבית המשפט', $rl . 'תקנה 14א</a>; ' . $fl . 'פרט 5</a>' ),
+		array( 'בקשה לסידור גט', justice_tools_money( $rb['get_request'], 0 ) . '; ' . justice_tools_money( $rb['get_request_abroad'], 0 ) . ' כשאחד מבני הזוג בחוץ לארץ', $rl . 'פרט 4(3)(א)-(ב)</a>' ),
+		array( 'סידור הגט כששניכם בארץ', 'פטור', $rl . 'פרט 4(3)(ג)</a>' ),
+		array( 'תעודת גירושין', justice_tools_money( $rb['certificate'], 0 ) . ' לכל צד', $rl . 'פרט 4(4)(א)</a>' ),
+		array( 'ערעור לבית הדין הרבני הגדול', justice_tools_money( $rb['appeal'], 0 ), $rl . 'פרט 15(א)</a>' ),
+	);
+	$body = '';
+	foreach ( $rows as $r ) {
+		$body .= '<tr><td data-th="מה">' . esc_html( $r[0] ) . '</td><td data-th="כמה">' . $r[1] . '</td><td data-th="מקור">' . $r[2] . '</td></tr>';
+	}
+	return '<div class="jtool-page"><div class="jtool-datawrap"><table class="jtool-datatable"><caption>אגרות הגירושין והמועדים שבחוק, 2026</caption><thead><tr><th scope="col">מה</th><th scope="col">כמה</th><th scope="col">מקור</th></tr></thead><tbody>' . $body . '</tbody></table></div>'
+		. '<p class="jtool-updated">נבדק מול תקנות הדיינים (אגרות), תקנות בית המשפט לעניני משפחה (אגרות) והחוק להסדר התדיינויות בסכסוכי משפחה ב-' . esc_html( justice_tools_he_date( $d['checked_on'] ) ) . '. ' . esc_html( $rb['indexed_he'] ) . '; ' . esc_html( $fc['indexed_he'] ) . '.</p></div>';
+}
+
 /** Current-numbers table (page standard A5): every row has a value, valid-from date and source. */
 function justice_tools_numbers_html( string $name ): string {
 	$reg = justice_tools_registry();
+	if ( 'gerushin' === $name ) {
+		return justice_tools_gerushin_numbers_html( $reg['divorce_cost'] );
+	}
 	if ( 'tzavaa' === $name ) {
 		return justice_tools_tzavaa_numbers_html( $reg['will_cost'] );
 	}

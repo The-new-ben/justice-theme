@@ -42,7 +42,8 @@ export function outsideFee(nf, hours) {
  *           recent ([bool, bool]: that testator deposited an earlier will in the last 5 years),
  *           words (notary: words in each will, when the notary translates it), foreign (notary: certificate in a
  *           language other than Arabic or English), night (notary: 19:00-08:00 or a rest day), outside (notary comes
- *           to you), hours (time away from the office), lawyer (a quote in NIS, before VAT), online (probate filed online) }
+ *           to you), hours (time away from the office), lawyer (a quote in NIS, before VAT), online (probate filed online),
+ *           barRef (show the Bar's recommended minimum), estate (the estate's value, for the probate reference) }
  */
 export function compute(registry, input) {
 	const wc = registry.will_cost;
@@ -114,8 +115,18 @@ export function compute(registry, input) {
 	const later = [{ key: 'probate', he: `בקשה לצו קיום צוואה${online ? `, בהגשה מקוונת (${rf.online_pct}% מהאגרה)` : ', בהגשה רגילה'}${people === 2 ? ', לכל אחד מהמצווים' : ''}`, amount: r2(probateEach * people), unit: probateEach, count: people, section: online ? `${rf.item_order}; ${rf.online_section}` : rf.item_order, url: rf.url }];
 	const laterTotal = r2(later.reduce((a, l) => a + l.amount, 0));
 
+	// 5. The Bar's recommended minimum (non-binding, before VAT), as a reference for a lawyer's quote: drafting the
+	// will (item 11(3)(א)-(ב)) and the probate request (item 4.א(4): 1.5% of the estate, at least the minimum).
+	const bar = wc.bar;
+	const estate = input.estate === '' || input.estate === undefined || input.estate === null ? null : Number(input.estate);
+	if (estate !== null && !(estate >= 0 && estate < 1e11)) { return { ok: false, errors: [{ field: 'estate', he: 'שווי העיזבון: מספר חיובי' }] }; }
+	const barMake = people === 2 ? bar.mutual : bar.will;
+	const barProbateEach = estate !== null ? Math.max(r2(estate * bar.probate_pct / 100), bar.probate_min) : bar.probate_min;
+	const barTotal = r2(barMake + barProbateEach * people);
+	const barRef = { make: barMake, probateEach: barProbateEach, estate, total: barTotal, withVat: r2(barTotal * (100 + vatPct) / 100), shown: Boolean(input.barRef) };
+
 	return {
-		ok: true, form, people, docs, vatPct, now, nowTotal, vatOnly, later, laterTotal, total: r2(nowTotal + laterTotal),
+		ok: true, form, people, docs, vatPct, now, nowTotal, vatOnly, later, laterTotal, total: r2(nowTotal + laterTotal), bar: barRef,
 		probateEach, online, flags,
 		deposit: Boolean(input.deposit),
 		free: now.filter((l) => l.amount === 0).length,

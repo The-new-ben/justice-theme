@@ -542,6 +542,15 @@ def build_will_cost(checked_on: str) -> dict:
         },
         "vat": {"pct": 18, "from": "2025-01-01", "he": "צו מס ערך מוסף (שיעור המס על עסקה ועל יבוא טובין), התשס\"ה-2005, סעיף 1",
                 "url": "https://www.nevo.co.il/law_html/law01/999_481.htm"},
+        # The Israel Bar's recommended minimum tariff (2000 rules, current to 5.1.2026): a non-binding recommendation
+        # (rule 2), before VAT (rule 1), indexed each 1 January (rule 3). Shown as a reference, never as a price.
+        "bar": {
+            "rules_he": "כללי לשכת עורכי הדין (התעריף המינימלי המומלץ), התש\"ס-2000", "url": "https://www.nevo.co.il/law_html/law00/4425.htm",
+            "current_to": "2026-01-05", "will": 2161, "mutual": 3159, "deposit_other": 1068,
+            "probate_pct": 1.5, "probate_min": 4281, "objection_add_pct": 25,
+            "items": {"will": "התוספת, פרט 11(3)(א)", "mutual": "פרט 11(3)(ב)", "deposit_other": "פרט 11(3)(ג)", "probate": "פרט 4.א(4)"},
+            "note_he": "המלצה לחברי הלשכה שאינה מחייבת (כלל 2); מע\"מ נוסף על הסכום (כלל 1); מתעדכן ב-1 בינואר (כלל 3)",
+        },
         "regulations_he": "תקנות הירושה, התשנ\"ח-1998",
         "regulations_url": regs,
         "objection_days": 14, "objection_section": "תקנה 17(א)", "publication_section": "תקנה 17(ג)",
@@ -632,6 +641,91 @@ def build_car_accident(checked_on: str) -> dict:
         "karnit_he": "נהג לא ידוע, בלי ביטוח או מבטח בפירוק: התביעה נגד קרנית (סעיף 12)",
     }
 
+def build_divorce_cost(checked_on: str) -> dict:
+    """What a divorce costs (wave 4, HAD-502), for a Jewish couple whose get is given in the rabbinical court: the
+    Dayanim (Fees) Regulations 1957 (current to 22.1.2026), the Family Court (Fees) Regulations 1995 (current to
+    1.7.2026), the Family Disputes Settlement Law 2014 and its 2016 regulations, the Spouses Property Relations Law
+    1973, and the Israel Bar's recommended minimum tariff (2000 rules, current to 5.1.2026; non-binding, before
+    VAT), all read on checked_on. No duration of a contested case is stated: the law sets none."""
+    rab = "https://www.nevo.co.il/law_html/law00/70297.htm"
+    fam = "https://www.nevo.co.il/law_html/law00/71537.htm"
+    disp = "https://www.nevo.co.il/law_html/law01/501_151.htm"
+    prop = "https://www.nevo.co.il/law_html/law00/72138.htm"
+    bar = "https://www.nevo.co.il/law_html/law00/4425.htm"
+    return {
+        "name_he": "עלות גירושין ולוח הזמנים שבחוק",
+        "publisher_he": "תקנות האגרות של בתי הדין הרבניים ושל בית המשפט לענייני משפחה",
+        "source_name": "תקנות הדיינים (אגרות), התשי\"ז-1957, ותקנות בית המשפט לעניני משפחה (אגרות), התשנ\"ו-1995 (נוסח עדכני)",
+        "source_url": rab,
+        "checked_on": checked_on,
+        "refresh_every_days": 183,
+        "next_update": "2027-01-01",
+        "scope_he": "הכלי מחשב גירושין של בני זוג יהודים, שהגט שלהם ניתן בבית הדין הרבני. לבני זוג מוסלמים, נוצרים או "
+                    "דרוזים יש בית דין דתי אחר ואגרות אחרות, והכלי לא מחשב אותם",
+        "rabbinical": {
+            "regulation_he": "תקנות הדיינים (אגרות), התשי\"ז-1957", "url": rab, "current_to": "2026-01-22",
+            "divorce": 457, "property": 596, "custody": 417, "support": 279, "agreement": 536,
+            "get_request": 326, "get_request_abroad": 457, "certificate": 326, "request": 119,
+            "transcript_divorce": 118, "transcript_other": 88, "appeal": 775,
+            "items": {
+                "divorce": "התוספת הראשונה, פרט 4(1)(א)", "property": "פרט 4(1)(ב)", "custody": "פרט 7",
+                "support_exempt": "פרט 3(א) ותקנה 14א", "agreement": "פרט 4(2)", "get_request": "פרט 4(3)(א)",
+                "get_request_abroad": "פרט 4(3)(ב)", "get_free": "פרט 4(3)(ג)", "get_special": "פרט 4(3)(ח)",
+                "certificate": "פרט 4(4)(א)", "request": "פרט 19(טז)",
+                "transcript_divorce": "התוספת השנייה, פרט 1", "transcript_other": "התוספת השנייה, פרט 2", "appeal": "פרט 15(א)",
+            },
+            "indexed_he": "מתעדכנות ב-1 בינואר לפי מדד נובמבר (תקנה 3ב)",
+        },
+        "family": {
+            "regulation_he": "תקנות בית המשפט לעניני משפחה (אגרות), התשנ\"ו-1995", "url": fam, "current_to": "2026-07-01",
+            "property": 601, "support": 283, "custody": 421, "agreement": 541, "request": 120, "transcript": 86,
+            "items": {"property": "התוספת הראשונה, פרט 2א", "support": "פרט 5", "custody": "פרט 6ב", "agreement": "פרט 6א",
+                      "request": "פרט 13", "transcript": "התוספת השנייה"},
+            "indexed_he": "מתעדכנות פעמיים בשנה, ב-1 בינואר וב-1 ביולי (תקנה 4(א))",
+        },
+        "disputes": {
+            "law_he": "חוק להסדר התדיינויות בסכסוכי משפחה, התשע\"ה-2014", "url": disp,
+            "regs_url": "https://www.nevo.co.il/law_html/law01/501_431.htm",
+            "meetings_max": 4, "meetings_days": 45, "extend_days": 15, "stay_days": 60, "stay_days_extended": 75, "claim_days": 15,
+            "sections": {"first": "סעיף 3(א)", "meetings": "סעיף 3(ב)(1)", "meetings_days": "סעיף 3(ב)(3)", "stay": "סעיף 3(ה)",
+                         "claims": "סעיף 4", "exceptions": "סעיף 2, ההגדרות \"תובענה\" ו\"תובענה בעניין של סכסוך משפחתי\""},
+            "free_he": "פגישות המהו\"ת אינן כרוכות בתשלום (תקנות 2016, טופס 2)",
+            "permanent_he": "החוק קבוע מאז תיקון מס' 3 (8.12.2020): סעיף התפוגה בוטל",
+        },
+        "property_law": {
+            "law_he": "חוק יחסי ממון בין בני זוג, התשל\"ג-1973", "url": prop, "from": "1974-01-01",
+            "sections": {"balance": "סעיף 5(א)", "pension": "סעיף 5(ג)", "early": "סעיף 5א", "debts": "סעיף 6(א)",
+                         "half": "סעיף 6(ב)", "deviate": "סעיף 8", "pre1974": "סעיף 14", "agreement": "סעיף 2"},
+            "excluded_he": "נכסים שהיו לכם ערב הנישואין, מתנה או ירושה בתקופת הנישואין, גמלת ביטוח לאומי ופיצוי על נזק גוף "
+                           "או מוות לפי דין, ונכסים שהסכמתם בכתב לא לאזן (סעיף 5(א))",
+        },
+        "bar": {
+            "rules_he": "כללי לשכת עורכי הדין (התעריף המינימלי המומלץ), התש\"ס-2000", "url": bar, "current_to": "2026-01-05",
+            "get_consent": 1287, "get_contested": 3173, "custody_agreed": 1287, "custody_opposed": 3008, "agreement_min": 2480,
+            "extra_hearing": 498,
+            "items": {"get_consent": "התוספת, פרט 8(5)", "get_contested": "פרט 8(6)", "custody_agreed": "פרט 8(7)",
+                      "custody_opposed": "פרט 8(8)", "agreement": "פרט 8(9)", "property": "פרטים 1 ו-3", "extra_hearing": "פרט 8(15)"},
+            "note_he": "המלצה לחברי הלשכה שאינה מחייבת (כלל 2); מע\"מ נוסף על הסכום (כלל 1); מתעדכן ב-1 בינואר (כלל 3). "
+                       "לכל צד ועורך הדין שלו",
+        },
+        "vat": {"pct": 18, "from": "2025-01-01", "he": "צו מס ערך מוסף (שיעור המס על עסקה ועל יבוא טובין), התשס\"ה-2005, סעיף 1",
+                "url": "https://www.nevo.co.il/law_html/law01/999_481.htm"},
+        "refund_he": "הסתיים ההליך בהסכמה מוקדם: בבית הדין הרבני האגרה קטנה ב-50% לפני שמיעת ראיות וב-25% אחריה (תקנה 12), "
+                     "ובבית המשפט לענייני משפחה משלמים מחצית בפשרה עד קדם המשפט (תקנה 8(ב)). על הבקשה ליישוב סכסוך אין החזר",
+        "meetings_he": "עד 4 פגישות מידע, היכרות ותיאום ביחידת הסיוע, בלי תשלום, בתוך 45 ימים מהבקשה (פעם אחת אפשר להאריך "
+                       "ב-15). עד 60 ימים, או 75, אי אפשר להגיש תביעה (סעיף 3)",
+        "support_he": "בבית הדין הרבני מי שמגיש תביעת מזונות פטור מאגרה; אם בית הדין מחייב את הצד השני בהוצאות, הוא משלם "
+                      "את האגרה (תקנה 14א). בבית המשפט לענייני משפחה האגרה 283 ₪",
+        "get_request_he": "אם מגישים בקשה נפרדת לסידור גט, היא עולה 326 ₪, ו-457 ₪ כשאחד מבני הזוג בחוץ לארץ (פרט 4(3)(א)-(ב))",
+        "abroad_he": "כשמקום המושב של אחד מבני הזוג אינו בישראל, החוק להסדר התדיינויות לא חל (סעיף 4א(1)): אין בקשה "
+                     "ליישוב סכסוך, אין פגישות מהו\"ת ואין עיכוב הליכים",
+        "pause_he": "בספירת 45, 60 ו-75 הימים לא נספרים ראש השנה, יום הכיפורים, י\"ד עד כ\"ב בתשרי ו-י\"ד עד כ\"א בניסן "
+                    "(סעיף 6א(א)(1)); ב-15 הימים להגשת התביעה הם נספרים, אלא אם היום האחרון חל בהם (סעיף 6א(ג))",
+        "pre1974_he": "נישאתם לפני 1.1.1974: הסדר איזון המשאבים לא חל עליכם (סעיף 14 לחוק יחסי ממון), והחלוקה נקבעת לפי "
+                      "הדין שקדם לו. החישוב כאן לא מתאים למקרה שלכם",
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--checked-on", required=True)
@@ -695,8 +789,7 @@ def add_wave4(registry: dict, day: str | None) -> None:
     registry["registry_version"] = day
     registry["will_cost"] = build_will_cost(day)
     registry["car_accident"] = build_car_accident(day)
-    if "build_divorce_cost" in globals():
-        registry["divorce_cost"] = build_divorce_cost(day)
+    registry["divorce_cost"] = build_divorce_cost(day)
 
 
 def write_registry(registry: dict, out: str) -> None:

@@ -277,6 +277,30 @@ function offRestDays(iso, extra = []) {
 	return out;
 }
 
+/**
+ * Family Disputes Settlement Law s.6א(א)(1): for requests in the family courts and the rabbinical courts, these days
+ * are not counted: the two days of Rosh Hashana, Yom Kippur, 14-22 Tishri and 14-21 Nisan.
+ */
+function isFamilyPause(iso) {
+	if (!hebrewFmt) { return false; }
+	const parts = hebrewFmt.formatToParts(new Date(`${iso}T00:00:00Z`));
+	const month = (parts.find((p) => p.type === 'month') || {}).value;
+	const day = Number((parts.find((p) => p.type === 'day') || {}).value);
+	if (month === 'Tishri') { return day === 1 || day === 2 || day === 10 || (day >= 14 && day <= 22); }
+	if (month === 'Nisan') { return day >= 14 && day <= 21; }
+	return false;
+}
+/** n days after a day, not counting the days a predicate excludes. */
+function addCountedDays(iso, n, skip) {
+	let day = iso;
+	let counted = 0;
+	for (let guard = 0; counted < n && guard < n + 400; guard += 1) {
+		day = addDays(day, 1);
+		if (!skip(day)) { counted += 1; }
+	}
+	return day;
+}
+
 /* ---- teuna-engine.js ---- */
 /**
  * Road-accident compensation (wave 4, HAD-502): Road Accident Victims Compensation Law, 1975, and its regulations.
@@ -523,7 +547,8 @@ function formulaBar(reg, r) {
 	const seg = np.parts.map((p) => {
 		const w = Math.max(1.2, p.pct);
 		const cut = p.key === 'disability' && p.ageCut ? Math.max(0.6, p.raw - p.pct) : 0;
-		return `<span class="jt10-seg jt10-seg--${p.key}" style="width:${w.toFixed(2)}%"><b>${esc(p.key === 'hospital' ? 'אשפוז' : 'נכות')}</b></span>${cut ? `<span class="jt10-seg jt10-seg--cut" style="width:${cut.toFixed(2)}%" aria-hidden="true"></span>` : ''}`;
+		// A label only where it fits; the legend names every colour.
+		return `<span class="jt10-seg jt10-seg--${p.key}" style="width:${w.toFixed(2)}%">${w >= 7 ? `<b>${esc(p.key === 'hospital' ? 'אשפוז' : 'נכות')}</b>` : ''}</span>${cut ? `<span class="jt10-seg jt10-seg--cut" style="width:${cut.toFixed(2)}%" aria-hidden="true"></span>` : ''}`;
 	}).join('');
 	return `<div class="jt10-formula"><p class="jt10-formula__h">מתוך 100% של הסכום המקסימלי</p><div class="jt10-bar" role="img" aria-label="${esc(`${pctTxt(np.pct)} מהסכום המקסימלי`)}">${seg}</div>`
 		+ `<p class="jt10-formula__legend"><span><i class="jt10-k jt10-k--disability"></i>נכות</span><span><i class="jt10-k jt10-k--hospital"></i>אשפוז</span>${np.ageCut ? '<span><i class="jt10-k jt10-k--cut"></i>הפחתת גיל</span>' : ''}</p></div>`;

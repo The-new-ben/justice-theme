@@ -78,7 +78,8 @@ function formulaBar(reg, r) {
 	const seg = np.parts.map((p) => {
 		const w = Math.max(1.2, p.pct);
 		const cut = p.key === 'disability' && p.ageCut ? Math.max(0.6, p.raw - p.pct) : 0;
-		return `<span class="jt10-seg jt10-seg--${p.key}" style="width:${w.toFixed(2)}%"><b>${esc(p.key === 'hospital' ? 'אשפוז' : 'נכות')}</b></span>${cut ? `<span class="jt10-seg jt10-seg--cut" style="width:${cut.toFixed(2)}%" aria-hidden="true"></span>` : ''}`;
+		// A label only where it fits; the legend names every colour.
+		return `<span class="jt10-seg jt10-seg--${p.key}" style="width:${w.toFixed(2)}%">${w >= 7 ? `<b>${esc(p.key === 'hospital' ? 'אשפוז' : 'נכות')}</b>` : ''}</span>${cut ? `<span class="jt10-seg jt10-seg--cut" style="width:${cut.toFixed(2)}%" aria-hidden="true"></span>` : ''}`;
 	}).join('');
 	return `<div class="jt10-formula"><p class="jt10-formula__h">מתוך 100% של הסכום המקסימלי</p><div class="jt10-bar" role="img" aria-label="${esc(`${pctTxt(np.pct)} מהסכום המקסימלי`)}">${seg}</div>`
 		+ `<p class="jt10-formula__legend"><span><i class="jt10-k jt10-k--disability"></i>נכות</span><span><i class="jt10-k jt10-k--hospital"></i>אשפוז</span>${np.ageCut ? '<span><i class="jt10-k jt10-k--cut"></i>הפחתת גיל</span>' : ''}</p></div>`;

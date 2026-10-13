@@ -250,14 +250,22 @@ function byBrackets(brackets, value) {
 
 const TRACKS = ['single', 'replacement', 'additional', 'oleh', 'disabled'];
 
-/** Tax for one track on one day. A day outside the track's verified period returns { refused }. */
-function taxFor(pt, track, value, on) {
+/**
+ * Tax for one track on one day. A day outside the track's verified period returns { refused }.
+ * opts.notSole (disability track): the buyer has another home and this is not a replacement, so reg. 11(א)
+ * charges its flat 0.5% on the whole value instead of the brackets.
+ */
+function taxFor(pt, track, value, on, opts = {}) {
 	const key = track === 'replacement' ? 'single' : track;
 	const t = pt.tracks[key];
 	if (!t) { return { refused: 'track' }; }
 	if (on < t.from) { return { refused: 'before', from: t.from }; }
 	if (on > t.to) { return { refused: 'after', to: t.to }; }
 	if (key === 'oleh' && value > t.max_value) { return { refused: 'oleh_cap', cap: t.max_value }; }
+	if (key === 'disabled' && opts.notSole) {
+		const flat = t.flat_not_sole;
+		return { tax: Math.round(value * flat) / 100, lines: [{ from: 0, to: value, part: value, rate: flat, tax: Math.round(value * flat) / 100 }], flat: true, notSole: true, section: t.section, track: key };
+	}
 	if (key === 'disabled' && value > t.cap) {
 		return { tax: Math.round(value * t.flat_above_cap) / 100, lines: [{ from: 0, to: value, part: value, rate: t.flat_above_cap, tax: Math.round(value * t.flat_above_cap) / 100 }], flat: true, section: t.section, track: key };
 	}
@@ -299,6 +307,7 @@ function replacementDeadline(pt, purchase, opts = {}) {
 
 /**
  * input = { price, date (purchase day), track, contractor, delivery, aliyah (oleh: the aliyah day),
+ *           disabledOther (disability track: the buyer has another home that is not being replaced),
  *           lawyerPct, brokerPct, other, vat: true (fees plus VAT) }
  */
 function compute(registry, input) {
@@ -334,7 +343,8 @@ function compute(registry, input) {
 			return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: `הטבת העולה חלה ברכישה מ-${rqDate(first)} עד ${rqDate(last)} (שנה לפני העלייה ועד 7 שנים אחריה, תקנה 12(ב)). רכישה ב-${rqDate(on)} לא בתוך החלון${on > last ? ', אלא אם תקופת שירות חובה מאריכה אותו' : ''}: בחרו דירה יחידה או נוספת.` }] };
 		}
 	}
-	const main = taxFor(pt, track, price, on);
+	const notSole = Boolean(input.disabledOther);
+	const main = taxFor(pt, track, price, on, { notSole });
 	if (main.refused) {
 		const why = ({
 			before: () => `הכלי מחשב רכישות מ-${rqDate(main.from)}. לרכישה מוקדמת יותר: הסימולטור של רשות המסים.`,
@@ -351,7 +361,7 @@ function compute(registry, input) {
 	// The other tracks on the same price and day, for the side-by-side compare (each "if it applies to you").
 	const scenarios = {};
 	for (const t of ['single', 'additional', 'oleh', 'disabled']) {
-		const r = taxFor(pt, t, price, on);
+		const r = taxFor(pt, t, price, on, { notSole });
 		scenarios[t] = r.refused ? null : r.tax;
 	}
 
@@ -367,7 +377,10 @@ function compute(registry, input) {
 	if (track === 'oleh') {
 		flags.push({ code: 'oleh_once', he: 'הטבת עולה ניתנת פעם אחת, ורק כשהדירה יחידה או חלופית (תקנה 12א). שירות חובה לא נספר בשבע השנים.' });
 	}
-	if (track === 'disabled') { flags.push({ code: 'disabled', he: 'המסלול לנכים, עיוורים, נפגעים ובני משפחה של חיילים שנספו (תקנה 11(א)): לכל אדם פעמיים בלבד, לפי ההגדרות שבתקנה.' }); }
+	if (track === 'disabled') {
+		flags.push({ code: 'disabled', he: 'המסלול לנכים, עיוורים, נפגעים ובני משפחה של חיילים שנספו (תקנה 11(א)): לכל אדם פעמיים בלבד, לפי ההגדרות שבתקנה.' });
+		flags.push({ code: 'disabled_sole', he: pt.tracks.disabled.sole_he });
+	}
 	if (track === 'additional' || track === 'single' || track === 'replacement') {
 		flags.push({ code: 'third', he: 'יש לכם חלק של שליש או פחות בדירה אחרת (למשל מירושה)? הוא לא נספר, והדירה עדיין יחידה (סעיף 9(ג1ג)(4)(א)).', soft: true });
 	}
@@ -431,6 +444,7 @@ function renderForm(reg, input) {
 		+ `<p class="jtool-hint">${esc(pt.couple_he)}. ${esc(pt.share_ignored_he)}. ${esc(pt.resident_he)}.</p></fieldset>`
 		+ `<div data-if-track="replacement"${t === 'replacement' ? '' : ' hidden'}><div class="jtool-chips">${chip('ctr', '1', 'קונים מקבלן', input.contractor, 'checkbox')}</div>`
 		+ `<div class="jtool-field" style="margin-top:8px" data-if-contractor${input.contractor ? '' : ' hidden'}><label class="jtool-label" for="${P}-dlv">מועד המסירה לפי החוזה</label><input id="${P}-dlv" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.delivery || ''))}" placeholder="לדוגמה: 31.12.2027" aria-describedby="${P}-delivery-e"><p class="jtool-error" id="${P}-delivery-e" role="alert"></p></div></div>`
+		+ `<div data-if-track="disabled"${t === 'disabled' ? '' : ' hidden'}><div class="jtool-chips">${chip('dot', '1', 'יש לי עוד דירה, והיא לא נמכרת כחלופית', input.disabledOther, 'checkbox')}</div><p class="jtool-hint">${esc(pt.tracks.disabled.sole_he)}</p></div>`
 		+ `<div class="jtool-field" data-if-track="oleh"${t === 'oleh' ? '' : ' hidden'}><label class="jtool-label" for="${P}-aly">תאריך העלייה</label><input id="${P}-aly" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.aliyah || ''))}" placeholder="לדוגמה: 1.5.2024" aria-describedby="${P}-aliyah-e"><p class="jtool-error" id="${P}-aliyah-e" role="alert"></p></div>`
 		+ `<details class="jtool-more"${input.lawyerPct || input.brokerPct || input.other ? ' open' : ''}><summary>כל עלויות הקנייה, לא רק המס</summary>`
 		+ `<div class="jtool-row" style="margin-top:8px"><div class="jtool-field"><label class="jtool-label" for="${P}-law">שכר טרחת עורך הדין</label><div class="jtool-input"><input id="${P}-law" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.lawyerPct ?? '')}" placeholder="לפי ההצעה שקיבלתם" aria-describedby="${P}-lawyer-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-lawyer-e" role="alert"></p></div>`
@@ -578,17 +592,18 @@ function readForm(root) {
 		price: parseMoney(val(`#${P}-price`)), date: toIso(val(`#${P}-date`)),
 		track: (root.querySelector(`input[name="${P}-trk"]:checked`) || {}).value || 'single',
 		contractor: Boolean(root.querySelector(`input[name="${P}-ctr"]:checked`)), delivery: toIso(val(`#${P}-dlv`)), aliyah: toIso(val(`#${P}-aly`)),
+		disabledOther: Boolean(root.querySelector(`input[name="${P}-dot"]:checked`)),
 		lawyerPct: pct('law'), brokerPct: pct('brk'), other: val(`#${P}-oth`).trim() === '' ? 0 : parseMoney(val(`#${P}-oth`)),
 		comparePrice: parseMoney(val(`#${P}-cmp`)),
 	};
 }
 
 const TR = { single: 's', replacement: 'r', additional: 'a', oleh: 'o', disabled: 'd' };
-const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '' });
-const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o'];
+const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.disabledOther ? 1 : '' });
+const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x'];
 function inputOf(s) {
 	if (!s.p) { return null; }
-	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0 };
+	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, disabledOther: s.x === '1' };
 }
 
 function mount(root, reg) {

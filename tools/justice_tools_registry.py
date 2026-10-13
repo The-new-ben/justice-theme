@@ -396,6 +396,10 @@ def build_purchase_tax(checked_on: str) -> dict:
                      "source_he": "תקנות מס רכישה, תקנה 12א (מ-15.8.2024), בהפניה לסכומי סעיף 9(ג1ג)(3); הוראת ביצוע 1/2026, סעיף 2(ג)", "url": regs},
             "disabled": {"from": "2024-01-16", "to": "2028-01-15", "section": "תקנה 11(א)",
                          "brackets": [[1978745, 0], [2500000, 0.5]], "cap": 2500000, "flat_above_cap": 0.5, "times": 2,
+                         # Reg. 11(א) opening words: 0.5% on the whole value, and the brackets only when one of
+                         # s.9(ג1ג)(2)(א)-(ג) holds (a sole home, or a replacement home).
+                         "flat_not_sole": 0.5,
+                         "sole_he": "המדרגות 0% ו-0.5% חלות רק כשהדירה יחידה או חלופית (סעיף 9(ג1ג)(2)); אחרת 0.5% על כל השווי (תקנה 11(א))",
                          "source_he": "תקנות מס רכישה, תקנה 11(א)(1)-(2)", "url": regs},
         },
         "replacement": {

@@ -69,14 +69,22 @@ export function byBrackets(brackets, value) {
 
 export const TRACKS = ['single', 'replacement', 'additional', 'oleh', 'disabled'];
 
-/** Tax for one track on one day. A day outside the track's verified period returns { refused }. */
-export function taxFor(pt, track, value, on) {
+/**
+ * Tax for one track on one day. A day outside the track's verified period returns { refused }.
+ * opts.notSole (disability track): the buyer has another home and this is not a replacement, so reg. 11(א)
+ * charges its flat 0.5% on the whole value instead of the brackets.
+ */
+export function taxFor(pt, track, value, on, opts = {}) {
 	const key = track === 'replacement' ? 'single' : track;
 	const t = pt.tracks[key];
 	if (!t) { return { refused: 'track' }; }
 	if (on < t.from) { return { refused: 'before', from: t.from }; }
 	if (on > t.to) { return { refused: 'after', to: t.to }; }
 	if (key === 'oleh' && value > t.max_value) { return { refused: 'oleh_cap', cap: t.max_value }; }
+	if (key === 'disabled' && opts.notSole) {
+		const flat = t.flat_not_sole;
+		return { tax: Math.round(value * flat) / 100, lines: [{ from: 0, to: value, part: value, rate: flat, tax: Math.round(value * flat) / 100 }], flat: true, notSole: true, section: t.section, track: key };
+	}
 	if (key === 'disabled' && value > t.cap) {
 		return { tax: Math.round(value * t.flat_above_cap) / 100, lines: [{ from: 0, to: value, part: value, rate: t.flat_above_cap, tax: Math.round(value * t.flat_above_cap) / 100 }], flat: true, section: t.section, track: key };
 	}
@@ -118,6 +126,7 @@ export function replacementDeadline(pt, purchase, opts = {}) {
 
 /**
  * input = { price, date (purchase day), track, contractor, delivery, aliyah (oleh: the aliyah day),
+ *           disabledOther (disability track: the buyer has another home that is not being replaced),
  *           lawyerPct, brokerPct, other, vat: true (fees plus VAT) }
  */
 export function compute(registry, input) {
@@ -153,7 +162,8 @@ export function compute(registry, input) {
 			return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: `הטבת העולה חלה ברכישה מ-${rqDate(first)} עד ${rqDate(last)} (שנה לפני העלייה ועד 7 שנים אחריה, תקנה 12(ב)). רכישה ב-${rqDate(on)} לא בתוך החלון${on > last ? ', אלא אם תקופת שירות חובה מאריכה אותו' : ''}: בחרו דירה יחידה או נוספת.` }] };
 		}
 	}
-	const main = taxFor(pt, track, price, on);
+	const notSole = Boolean(input.disabledOther);
+	const main = taxFor(pt, track, price, on, { notSole });
 	if (main.refused) {
 		const why = ({
 			before: () => `הכלי מחשב רכישות מ-${rqDate(main.from)}. לרכישה מוקדמת יותר: הסימולטור של רשות המסים.`,
@@ -170,7 +180,7 @@ export function compute(registry, input) {
 	// The other tracks on the same price and day, for the side-by-side compare (each "if it applies to you").
 	const scenarios = {};
 	for (const t of ['single', 'additional', 'oleh', 'disabled']) {
-		const r = taxFor(pt, t, price, on);
+		const r = taxFor(pt, t, price, on, { notSole });
 		scenarios[t] = r.refused ? null : r.tax;
 	}
 
@@ -186,7 +196,10 @@ export function compute(registry, input) {
 	if (track === 'oleh') {
 		flags.push({ code: 'oleh_once', he: 'הטבת עולה ניתנת פעם אחת, ורק כשהדירה יחידה או חלופית (תקנה 12א). שירות חובה לא נספר בשבע השנים.' });
 	}
-	if (track === 'disabled') { flags.push({ code: 'disabled', he: 'המסלול לנכים, עיוורים, נפגעים ובני משפחה של חיילים שנספו (תקנה 11(א)): לכל אדם פעמיים בלבד, לפי ההגדרות שבתקנה.' }); }
+	if (track === 'disabled') {
+		flags.push({ code: 'disabled', he: 'המסלול לנכים, עיוורים, נפגעים ובני משפחה של חיילים שנספו (תקנה 11(א)): לכל אדם פעמיים בלבד, לפי ההגדרות שבתקנה.' });
+		flags.push({ code: 'disabled_sole', he: pt.tracks.disabled.sole_he });
+	}
 	if (track === 'additional' || track === 'single' || track === 'replacement') {
 		flags.push({ code: 'third', he: 'יש לכם חלק של שליש או פחות בדירה אחרת (למשל מירושה)? הוא לא נספר, והדירה עדיין יחידה (סעיף 9(ג1ג)(4)(א)).', soft: true });
 	}

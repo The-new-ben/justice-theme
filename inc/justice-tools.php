@@ -839,6 +839,7 @@ function justice_tools_rechisha_numbers_html( array $pt ): string {
 			$low   = null === $b[0] ? $low : $b[0];
 		}
 		if ( 'disabled' === $key ) {
+			$rows .= '<tr><td data-th="חלק השווי">יש לרוכש עוד דירה (לא חלופית)</td><td data-th="שיעור"><bdi>' . esc_html( (string) $t['flat_not_sole'] ) . '%</bdi> על כל השווי</td><td data-th="בתוקף">' . esc_html( justice_tools_he_date( $t['from'] ) ) . ' עד ' . esc_html( justice_tools_he_date( $t['to'] ) ) . '</td><td data-th="מקור"><a href="' . esc_url( $t['url'] ) . '" target="_blank" rel="noopener">תקנה 11(א)</a></td></tr>';
 			$rows .= '<tr><td data-th="חלק השווי">שווי מעל ' . justice_tools_money( $t['cap'], 0 ) . '</td><td data-th="שיעור"><bdi>' . esc_html( (string) $t['flat_above_cap'] ) . '%</bdi> על כל השווי</td><td data-th="בתוקף">' . esc_html( justice_tools_he_date( $t['from'] ) ) . ' עד ' . esc_html( justice_tools_he_date( $t['to'] ) ) . '</td><td data-th="מקור"><a href="' . esc_url( $t['url'] ) . '" target="_blank" rel="noopener">תקנה 11(א)(2)</a></td></tr>';
 		}
 		if ( 'oleh' === $key ) {

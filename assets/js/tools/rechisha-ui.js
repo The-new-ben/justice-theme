@@ -48,6 +48,7 @@ export function renderForm(reg, input) {
 		+ `<p class="jtool-hint">${esc(pt.couple_he)}. ${esc(pt.share_ignored_he)}. ${esc(pt.resident_he)}.</p></fieldset>`
 		+ `<div data-if-track="replacement"${t === 'replacement' ? '' : ' hidden'}><div class="jtool-chips">${chip('ctr', '1', 'קונים מקבלן', input.contractor, 'checkbox')}</div>`
 		+ `<div class="jtool-field" style="margin-top:8px" data-if-contractor${input.contractor ? '' : ' hidden'}><label class="jtool-label" for="${P}-dlv">מועד המסירה לפי החוזה</label><input id="${P}-dlv" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.delivery || ''))}" placeholder="לדוגמה: 31.12.2027" aria-describedby="${P}-delivery-e"><p class="jtool-error" id="${P}-delivery-e" role="alert"></p></div></div>`
+		+ `<div data-if-track="disabled"${t === 'disabled' ? '' : ' hidden'}><div class="jtool-chips">${chip('dot', '1', 'יש לי עוד דירה, והיא לא נמכרת כחלופית', input.disabledOther, 'checkbox')}</div><p class="jtool-hint">${esc(pt.tracks.disabled.sole_he)}</p></div>`
 		+ `<div class="jtool-field" data-if-track="oleh"${t === 'oleh' ? '' : ' hidden'}><label class="jtool-label" for="${P}-aly">תאריך העלייה</label><input id="${P}-aly" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.aliyah || ''))}" placeholder="לדוגמה: 1.5.2024" aria-describedby="${P}-aliyah-e"><p class="jtool-error" id="${P}-aliyah-e" role="alert"></p></div>`
 		+ `<details class="jtool-more"${input.lawyerPct || input.brokerPct || input.other ? ' open' : ''}><summary>כל עלויות הקנייה, לא רק המס</summary>`
 		+ `<div class="jtool-row" style="margin-top:8px"><div class="jtool-field"><label class="jtool-label" for="${P}-law">שכר טרחת עורך הדין</label><div class="jtool-input"><input id="${P}-law" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.lawyerPct ?? '')}" placeholder="לפי ההצעה שקיבלתם" aria-describedby="${P}-lawyer-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-lawyer-e" role="alert"></p></div>`
@@ -195,17 +196,18 @@ function readForm(root) {
 		price: parseMoney(val(`#${P}-price`)), date: toIso(val(`#${P}-date`)),
 		track: (root.querySelector(`input[name="${P}-trk"]:checked`) || {}).value || 'single',
 		contractor: Boolean(root.querySelector(`input[name="${P}-ctr"]:checked`)), delivery: toIso(val(`#${P}-dlv`)), aliyah: toIso(val(`#${P}-aly`)),
+		disabledOther: Boolean(root.querySelector(`input[name="${P}-dot"]:checked`)),
 		lawyerPct: pct('law'), brokerPct: pct('brk'), other: val(`#${P}-oth`).trim() === '' ? 0 : parseMoney(val(`#${P}-oth`)),
 		comparePrice: parseMoney(val(`#${P}-cmp`)),
 	};
 }
 
 const TR = { single: 's', replacement: 'r', additional: 'a', oleh: 'o', disabled: 'd' };
-const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '' });
-const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o'];
+const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.disabledOther ? 1 : '' });
+const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x'];
 function inputOf(s) {
 	if (!s.p) { return null; }
-	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0 };
+	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, disabledOther: s.x === '1' };
 }
 
 export function mount(root, reg) {

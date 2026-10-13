@@ -752,6 +752,13 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(rows[2].what.includes('עבר ליום שאחריו') && rows[2].what.includes('סעיף 10(ג)'), 'the deadlines table says when an end moved off a rest day');
 }
 
+/* ---------- Review fixes (PR 126, Codex pass 10) ---------- */
+{
+	const hiddenClock = (input) => /data-if-clock hidden/.test(GEUI.renderForm(reg, Object.assign({}, GEUI.EXAMPLE, input)));
+	check(hiddenClock({ route: 'court', abroad: true }), 'the clock inputs are hidden when a spouse lives abroad (s.4א(1); review, PR 126)');
+	check(hiddenClock({ route: 'agree' }) && !hiddenClock({ route: 'court', abroad: false }), 'hidden on the agreement route, shown for a contested route in Israel');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

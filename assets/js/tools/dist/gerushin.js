@@ -549,7 +549,7 @@ function renderForm(reg, input) {
 		+ `<fieldset class="jtool-field"><legend data-forum-legend>${route === 'court' ? 'איפה נדונים הרכוש והילדים' : 'איפה מאשרים את ההסכם'}</legend><div class="jtool-chips">${chip('forum', 'rabbinical', FORUM_LABEL.rabbinical, input.forum !== 'family')}${chip('forum', 'family', FORUM_LABEL.family, input.forum === 'family')}</div>`
 		+ `<p class="jtool-hint">הגט עצמו ניתן תמיד בבית הדין הרבני. רכוש וילדים אפשר לכרוך בתביעת הגירושין שם, או להגיש לבית המשפט לענייני משפחה.</p></fieldset>`
 		+ `<fieldset class="jtool-field"><legend>מה צריך להסדיר</legend><div class="jtool-chips">${chip('kids', '1', 'ילדים מתחת לגיל 18', input.children, 'checkbox')}${chip('prop', '1', 'רכוש לחלוקה', input.property, 'checkbox')}${chip('abr', '1', 'אחד מאיתנו גר בחוץ לארץ', input.abroad, 'checkbox')}</div></fieldset>`
-		+ `<div class="jtool-row" data-if-clock${route === 'agree' ? ' hidden' : ''}><div class="jtool-field"><label class="jtool-label" for="${P}-start">יום הגשת הבקשה ליישוב סכסוך</label><input id="${P}-start" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.start || ''))}" placeholder="לדוגמה: 1.11.2026" aria-describedby="${P}-start-e"><p class="jtool-error" id="${P}-start-e" role="alert"></p></div>`
+		+ `<div class="jtool-row" data-if-clock${route === 'agree' || input.abroad ? ' hidden' : ''}><div class="jtool-field"><label class="jtool-label" for="${P}-start">יום הגשת הבקשה ליישוב סכסוך</label><input id="${P}-start" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.start || ''))}" placeholder="לדוגמה: 1.11.2026" aria-describedby="${P}-start-e"><p class="jtool-error" id="${P}-start-e" role="alert"></p></div>`
 		+ `<div class="jtool-field" style="justify-content:flex-end"><div class="jtool-chips">${chip('ext', '1', 'יחידת הסיוע האריכה את הפגישות', input.extended, 'checkbox')}</div></div></div>`
 		+ `<details class="jtool-more"${input.balance ? ' open' : ''}><summary>איזון משאבים: מי משלם למי</summary>`
 		+ `<p class="jtool-hint" style="margin-top:8px">כל הנכסים שעל שם כל אחד, כולל דירה, חסכונות, קרן השתלמות ופנסיה (סעיף 5(ג)). בשורה השנייה: מה שלא מאזנים: ${esc(dc.property_law.excluded_he)}.</p>`
@@ -771,7 +771,10 @@ function mount(root, reg) {
 	};
 	const sync = () => {
 		const route = (root.querySelector(`input[name="${P}-route"]:checked`) || {}).value || 'agree';
-		form.querySelectorAll('[data-if-clock]').forEach((el) => { el.hidden = route === 'agree'; });
+		// No statutory clock on the agreement route or when a spouse lives abroad (s.4א(1)): its inputs hide too, so
+		// nothing on screen is silently ignored (review, PR 126).
+		const abroad = Boolean(root.querySelector(`input[name="${P}-abr"]:checked`));
+		form.querySelectorAll('[data-if-clock]').forEach((el) => { el.hidden = route === 'agree' || abroad; });
 		const lg = form.querySelector('[data-forum-legend]');
 		if (lg) { lg.textContent = route === 'court' ? 'איפה נדונים הרכוש והילדים' : 'איפה מאשרים את ההסכם'; }
 	};

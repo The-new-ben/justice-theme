@@ -765,7 +765,8 @@ def main() -> int:
         base = json.loads(Path(args.base).read_text(encoding="utf-8"))
         registry = {key: base[key] for key in ("schema", "registry_version", "checked_on", "note_he", "cpi", "interest",
                                                "min_wage", "havraa", "small_claims")}
-        registry["registry_version"] = wave3_day
+        # The version is the latest refresh of any dataset kept or rebuilt (review, PR 126).
+        registry["registry_version"] = max(base["registry_version"], wave3_day)
         registry["yerusha"] = build_yerusha(wave3_day)
         registry["purchase_tax"] = build_purchase_tax(wave3_day)
         registry["betterment"] = build_betterment(wave3_day)
@@ -774,8 +775,6 @@ def main() -> int:
         kept = [key for key in WAVE4_KEYS if key in base]
         for key in kept:
             registry[key] = base[key]
-        if kept and not wave4_day:
-            registry["registry_version"] = max(registry["registry_version"], base["registry_version"])
         add_wave4(registry, wave4_day)
         write_registry(registry, args.out)
         return 0

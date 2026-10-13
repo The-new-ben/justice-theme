@@ -361,7 +361,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	}
 	check(!YE.compute(reg, { children: -1 }).ok && !YE.compute(reg, { childLines: [1.5] }).ok, 'negative or fractional counts are input errors');
 	const fee = YE.compute(reg, { spouse: 'married', children: 1 }).fee;
-	check(fee.fee === 597 && near(fee.online, 507.45), 'registrar fee 597 NIS from 1.1.2026; 85% online = 507.45 (fee regulations, reg. 1(א))');
+	check(fee.fee === 597 && fee.online === 507 && fee.publication === 66, 'registrar fee 597 NIS from 1.1.2026; online 507 and publication 66 as charged by the government payments service (review, PR 126)');
 	const snap = YUI.snapshot(reg);
 	check(snap.sentence.includes('1/2') && snap.details.includes('597') && snap.details.includes('jt6-chart'), 'yerusha snapshot: sentence, the cost of the order and the family chart');
 	check(snap.details.includes('תקנה 17(ג)') && snap.details.includes('הוצאות הפרסום'), 'review fix (PR 124): the order cost names the publication expense the applicant also pays');
@@ -540,13 +540,15 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(w.checked_on === '2026-10-14' && w.registrar.order === 597 && w.registrar.will_before_registrar === 280 && w.registrar.deposit === 126 && w.registrar.deposit_free_years === 5 && w.registrar.online_pct === 85, 'will registry: 597 / 280 / 126, free deposit after 5 years, 85% online (fee regs, items 1, 4, 5, 5א; reg. 1(א))');
 	check(w.notary.will_first === 293 && w.notary.will_additional === 147 && w.notary.outside_first_hour === 645 && w.notary.outside_half_hour === 197 && w.notary.night_pct === 50 && w.vat.pct === 18, 'will registry: notary 293 / 147, away 645 + 197, +50% at night, VAT 18%');
 	const one = TZ.compute(reg, { form: 'notary', people: 1, deposit: true, recent: [false, false], online: true });
-	check(one.ok && one.nowTotal === 345.74 && one.laterTotal === 507.45 && one.total === 853.19, 'notary, one testator: 293 x 1.18 = 345.74 now; first deposit free; 597 x 85% = 507.45 later');
+	check(one.ok && one.nowTotal === 345.74 && one.laterTotal === 573 && one.total === 918.74, 'notary, one testator: 293 x 1.18 = 345.74 now; first deposit free; later 507 online + 66 publication = 573 (review, PR 126)');
+	const two = TZ.compute(reg, { form: 'notary', people: 2, docs: 'one', deposit: false, online: false });
+	check(two.ok && two.laterTotal === 2 * (597 + 66), 'mutual wills filed on paper: a request and a publication for each estate, 2 x (597 + 66)');
 	check(TZ.compute(reg, { form: 'notary', people: 2, docs: 'one', deposit: false }).nowTotal === 519.2, 'mutual wills in one document: (293 + 147) x 1.18 = 519.20 (item 4(א)-(ב))');
 	check(TZ.compute(reg, { form: 'notary', people: 2, docs: 'two', deposit: false }).nowTotal === 691.48, 'mutual wills in two documents: two first signers, 586 x 1.18 = 691.48');
 	check(TZ.compute(reg, { form: 'registrar', people: 1, deposit: false }).nowTotal === 280 && TZ.compute(reg, { form: 'registrar', people: 2, deposit: false }).nowTotal === 560, 'before the registrar: 280 per will, no VAT (item 4)');
 	check(TZ.compute(reg, { form: 'witnesses', people: 1, deposit: true, recent: [true, false] }).nowTotal === 126, 'witnesses: no fee; a deposit after an earlier one within 5 years: 126 (item 5)');
 	check(TZ.compute(reg, { form: 'handwritten', people: 2, deposit: true, recent: [true, true] }).nowTotal === 252, 'two testators who both deposited within 5 years: 2 x 126');
-	check(TZ.compute(reg, { form: 'handwritten', people: 2, deposit: true, recent: [false, false], online: false }).laterTotal === 1194, 'two probate requests on paper: 2 x 597');
+	check(TZ.compute(reg, { form: 'handwritten', people: 2, deposit: true, recent: [false, false], online: false }).laterTotal === 1326, 'two probate requests on paper, each with its publication: 2 x (597 + 66) = 1,326');
 	check(TZ.translationFee(w.notary, 250) === 645 && TZ.translationFee(w.notary, 1250) === 2321 && TZ.translationFee(w.notary, 100) === 251 && TZ.translationFee(w.notary, 0) === 0, 'translation item 3(א): 251, then 197 per 100 to 1,000, then 99 per 100');
 	check(TZ.compute(reg, { form: 'notary', people: 1, words: 250 }).nowTotal === 726.29, 'a will translated by the notary: (293 + 645 / 2) x 1.18 = 726.29 (item 4(ד))');
 	check(TZ.compute(reg, { form: 'notary', people: 1, night: true }).nowTotal === 518.61, 'at night or on a rest day: 293 x 1.5 x 1.18 = 518.61 (item 10)');
@@ -558,7 +560,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const forms = TZ.byForm(reg, { people: 1, deposit: true, recent: [false, false], online: true });
 	check(forms.handwritten.now === 0 && forms.witnesses.now === 0 && forms.registrar.now === 280 && forms.notary.now === 345.74, 'the same will in four forms: 0, 0, 280, 345.74');
 	const ts = TZUI.snapshot(reg);
-	check(ts.total === 345.74 && ts.result.includes('jt11-track') && ts.result.includes('חינם') && ts.method.includes('507.45') && ts.compare_table.includes('519.20'), 'will snapshot: 345.74, the track with the free deposit, 507.45 later, the forms table');
+	check(ts.total === 345.74 && ts.result.includes('jt11-track') && ts.result.includes('חינם') && ts.method.includes('507') && !ts.method.includes('507.45') && ts.method.includes('66') && ts.compare_table.includes('519.20'), 'will snapshot: 345.74, the track with the free deposit, 507 + 66 later, the forms table');
 }
 
 /* ---------- Wave 4: road-accident compensation (1975 law, 1976 regulations, 1977 Bar rules, Limitation Law) ---------- */

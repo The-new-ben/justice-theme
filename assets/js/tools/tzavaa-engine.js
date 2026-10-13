@@ -10,9 +10,10 @@
  *  - Mutual wills (s.8א): two wills, in one document or in two.
  *  - Deposit with the registrar (s.21, s.22(ה)): item 5 of the fee regulations, free when the testator deposited
  *    no earlier will in the 5 years before (item 5א).
- *  - After death: a request for a probate order (s.39, s.66), item 1, 85% when filed online (reg. 1(א)); the
- *    publication is on the applicant with no official amount (Succession Regulations reg. 17(ג)), so it is named
- *    and never priced; an objection moves the request to the family court (s.67א), whose fees are not computed.
+ *  - After death: a request for a probate order (s.39, s.66), item 1, or the reduced fee when filed online (reg.
+ *    1(א): 85%, charged as 507 by the government payments service), plus the publication expenses of each request
+ *    (Succession Regulations reg. 17(ג); 66, same service); an objection moves the request to the family court
+ *    (s.67א), whose fees are not computed.
  */
 
 export const FORMS = ['handwritten', 'witnesses', 'registrar', 'notary'];
@@ -111,8 +112,15 @@ export function compute(registry, input) {
 
 	// 4. After death: the heirs ask for a probate order, one request for each testator.
 	const online = input.online !== false;
-	const probateEach = online ? r2(rf.order * rf.online_pct / 100) : rf.order;
-	const later = [{ key: 'probate', he: `בקשה לצו קיום צוואה${online ? `, בהגשה מקוונת (${rf.online_pct}% מהאגרה)` : ', בהגשה רגילה'}${people === 2 ? ', לכל אחד מהמצווים' : ''}`, amount: r2(probateEach * people), unit: probateEach, count: people, section: online ? `${rf.item_order}; ${rf.online_section}` : rf.item_order, url: rf.url }];
+	// The amounts charged, not 597 x 85% = 507.45: the government payments service charges 507 online, and 66 for the
+	// publication of each request (review, PR 126).
+	const pay = rf.payments;
+	const probateEach = online ? pay.online_fee : rf.order;
+	const each = people === 2 ? ', לכל אחד מהמצווים' : '';
+	const later = [
+		{ key: 'probate', he: `בקשה לצו קיום צוואה${online ? `, בהגשה מקוונת (אגרה מופחתת, ${rf.online_pct}%)` : ', בהגשה רגילה'}${each}`, amount: r2(probateEach * people), unit: probateEach, count: people, section: online ? `${rf.online_section}; שירות התשלומים` : rf.item_order, url: online ? pay.url : rf.url },
+		{ key: 'publication', he: `הוצאות פרסום הבקשה באתר האפוטרופוס הכללי וברשומות${each}`, amount: r2(pay.publication * people), unit: pay.publication, count: people, section: `${wc.publication_section}; שירות התשלומים`, url: pay.url },
+	];
 	const laterTotal = r2(later.reduce((a, l) => a + l.amount, 0));
 
 	// 5. The Bar's recommended minimum (non-binding, before VAT), as a reference for a lawyer's quote: drafting the

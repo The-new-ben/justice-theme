@@ -306,6 +306,18 @@ def build_small_claims(checked_on: str) -> dict:
     }
 
 
+# The government payments service of the Ministry of Justice (Registrar of Inheritance) lists what is charged: the
+# reduced fee for an online request (reg. 1(א): 85% of item 1, charged in whole shekels) and the publication expenses of
+# each request (Succession Regulations reg. 17(ג); the regulations give no amount). Read on the date below.
+REGISTRAR_PAYMENTS = {
+    "online_fee": 507,
+    "publication": 66,
+    "he": "שירות התשלומים הממשלתי, משרד המשפטים, אגרות לשירותי רשם הירושה",
+    "url": "https://ecom.gov.il/counterspa/home/9/1/inheritanceRegistar?language=he",
+    "checked_on": "2026-10-14",
+}
+
+
 def build_yerusha(checked_on: str) -> dict:
     """Intestate succession (wave 3, HAD-498): who inherits what when there is no will. The shares are the
     law's own fractions (Succession Law ss.10-17, 55), read on checked_on in the consolidated text; the
@@ -344,9 +356,10 @@ def build_yerusha(checked_on: str) -> dict:
         "objection_days": 14,
         "objection_he": "שבועיים מיום הפרסום, או יותר אם הרשם קבע",
         "objection_section": "תקנה 17(א)",
-        # The publication is paid on top of the fee (reg. 17(ג)); its amount is not in the regulations and was not
-        # found in an official source on checked_on, so the tools say it exists and give no number.
+        # The publication is paid on top of the fee (reg. 17(ג)); the regulations give no amount, the government payments
+        # service charges it per request (REGISTRAR_PAYMENTS, with its own checked_on).
         "publication_section": "תקנה 17(ג)",
+        "payments": dict(REGISTRAR_PAYMENTS),
         "regulations_he": "תקנות הירושה, התשנ\"ח-1998",
         "regulations_url": "https://www.nevo.co.il/law_html/law00/98588.htm",
         "service_url": "https://www.gov.il/he/service/inheritance_order",
@@ -494,8 +507,8 @@ def build_will_cost(checked_on: str) -> dict:
     Succession Law (ss.8א, 18-24, 35, 39, 66-67א, current text read on checked_on); the registrar's fees are the
     1998 fee regulations as updated on 1.1.2026 (Kovetz HaTakanot 12149, 25.12.2025); the notary's fees are the
     notary fee regulations as updated on 1.1.2026 (Kovetz HaTakanot 12158, 29.12.2025), plus VAT (reg. 1) at the
-    rate of the 2005 VAT order (18% from 1.1.2025). The publication of a probate request has no official amount
-    (Succession Regulations reg. 17(ג)), so the tool names it and never prices it."""
+    rate of the 2005 VAT order (18% from 1.1.2025). The reduced online fee and the publication expenses of a probate
+    request are the amounts charged by the government payments service (REGISTRAR_PAYMENTS)."""
     law = "https://www.nevo.co.il/law_html/law00/72178.htm"
     fees = "https://www.nevo.co.il/law_html/law00/72181.htm"
     notary = "https://www.nevo.co.il/law_html/law00/90738.htm"
@@ -526,6 +539,7 @@ def build_will_cost(checked_on: str) -> dict:
             "deposit_free_years": 5, "item_deposit_free": "התוספת, פרט 5א",
             "online_pct": 85, "online_section": "תקנה 1(א)", "online_rule_section": "תקנה 14(ד) לתקנות הירושה",
             "indexed_he": "מתעדכנות ב-1 בינואר לפי מדד נובמבר (תקנה 2)",
+            "payments": dict(REGISTRAR_PAYMENTS),
         },
         "notary": {
             "regulation_he": "תקנות הנוטריונים (שכר שירותים), התשל\"ט-1978",
@@ -566,8 +580,8 @@ def build_will_cost(checked_on: str) -> dict:
         "deposit_in_person_he": "את הצוואה מפקידים בעצמכם, במשרד הרשם לענייני ירושה, עם המקור ותעודה מזהה (סעיף 21(א), "
                                 "תקנה 6). צוואה בפני רשות שנחתמה בחתימה אלקטרונית מאושרת אפשר להפקיד גם באתר האפוטרופוס "
                                 "הכללי (תקנה 6א). אפשר לקבל את הצוואה בחזרה בכל עת (סעיף 21(ג))",
-        "publication_he": "הודעה על הבקשה מתפרסמת באתר האפוטרופוס הכללי וברשומות, והוצאות הפרסום על המבקש (תקנה 17). "
-                          "לסכום אין מקור רשמי, ולכן הוא לא מחושב כאן",
+        "publication_he": "הודעה על הבקשה מתפרסמת באתר האפוטרופוס הכללי וברשומות, והוצאות הפרסום על המבקש (תקנה 17): "
+                          f"{REGISTRAR_PAYMENTS['publication']} ₪ לכל בקשה, לפי שירות התשלומים הממשלתי",
         "court_he": "הוגשה התנגדות: הבקשה עוברת לבית המשפט לענייני משפחה (סעיף 67א), והאגרות שם לא מחושבות כאן",
     }
 

@@ -436,8 +436,9 @@ function compute(registry, input) {
 	if (line === 'state') { path.push({ rule: S.state, he: 'אין בן זוג ואין קרובים שהחוק מונה: המדינה יורשת.' }); }
 	if (line === 'unknown') { path.push({ rule: S.heirs, he: 'אין בן זוג, ילדים, הורים, אחים או סבים, אבל יש דודים או בני דודים: הם יורשים כצאצאי הסבים. הכלי לא מחלק את הדור הזה.' }); }
 
-	// The registrar's fee: 85% when the request is filed online (reg. 1(א)).
-	const fee = { fee: y.fees.order_fee, online: Math.round(y.fees.order_fee * y.fees.online_pct) / 100, from: y.fees.from };
+	// The registrar's fee: the reduced fee when the request is filed online (reg. 1(א), 85%), as charged by the government
+	// payments service (507, not 507.45), and the publication expenses of the request (review, PR 126).
+	const fee = { fee: y.fees.order_fee, online: y.payments.online_fee, publication: y.payments.publication, from: y.fees.from };
 	return { ok: true, spouse, spouseCase, spouseApt, line, heirs, flags, path, fee, apartment, other, unresolved: heirs.some((h) => h.unresolved), question: heirs.some((h) => h.unresolved && h.gen === 'children'), state: line === 'state', unknown: line === 'unknown' };
 }
 
@@ -596,9 +597,9 @@ function renderDetails(reg, r, compareR, input) {
 	// The order and its cost: the registrar's fee (85% online), the objection window, the war exemption.
 	out += `<div class="jtool-tablewrap" id="${P}-order-h"><div class="jtool-tablewrap__head"><h3>צו ירושה: כמה עולה ומתי</h3></div><ol class="jtool-steps">`
 		+ `<li>מגישים בקשה לצו ירושה לרשם לענייני ירושה, אפשר באינטרנט.${cite('שירות הבקשה', y.service_url)}</li>`
-		+ `<li>האגרה ב-${new Date(`${r.fee.from}T00:00:00Z`).getUTCFullYear()}: ${ils(r.fee.fee, 0)}, ובהגשה מקוונת ${y.fees.online_pct}% ממנה, ${ils(r.fee.online)}. מתעדכנת ב-1 בינואר.${cite(y.fees.section, y.fees.url)}</li>`
+		+ `<li>האגרה ב-${new Date(`${r.fee.from}T00:00:00Z`).getUTCFullYear()}: ${ils(r.fee.fee, 0)}, ובהגשה מקוונת אגרה מופחתת (${y.fees.online_pct}%), ${ils(r.fee.online, 0)}. מתעדכנת ב-1 בינואר.${cite(y.fees.section, y.fees.url)}${cite('שירות התשלומים', y.payments.url)}</li>`
 		+ `<li>הבקשה מתפרסמת, ומי שרוצה להתנגד מגיש התנגדות בתוך ${esc(y.objection_he)}.${cite(y.objection_section, y.regulations_url)}</li>`
-		+ `<li>על האגרה נוספות הוצאות הפרסום, שגם הן על המבקש. הסכום לא קבוע בתקנות, ולכן לא נכלל כאן.${cite(y.publication_section, y.regulations_url)}</li>`
+		+ `<li>על האגרה נוספות הוצאות פרסום של ${ils(r.fee.publication, 0)} לבקשה, שגם הן על המבקש.${cite(y.publication_section, y.regulations_url)}${cite('שירות התשלומים', y.payments.url)}</li>`
 		+ `<li>בן זוג, ילד, הורה או אח של מי שנפטר עקב פעולות איבה או בשירות צבאי פטורים מהאגרה, וגם מהוצאות הפרסום.${cite(y.fees.exempt_section, y.fees.url)}</li></ol></div>`;
 	if (compareR && compareR.ok) {
 		out += `<div class="jtool-compare" data-compare><h3>מה אם: ${r.spouse === 'none' ? 'היה בן זוג' : 'לא היה בן זוג'}</h3><div data-compare-out>${renderCompareOut(r, compareR)}</div></div>`;

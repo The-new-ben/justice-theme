@@ -76,7 +76,9 @@ function lanes(reg, r) {
 		['בקשה ליישוב סכסוך', c ? dateOr(c.start, 0) : 'יום 0'],
 		[`עד ${d.meetings_max} פגישות מהו"ת`, c ? `עד ${dateOr(c.meetingsBy, c.meetingsDays)}` : `עד יום ${d.meetings_days}`],
 		['סוף עיכוב ההליכים', c ? dateOr(c.stayEnds, c.stayDays) : `יום ${d.stay_days}`],
-		['הגשת תביעות', c ? `עד ${dateOr(c.claimsBy, c.stayDays + c.claimDays)}` : `תוך ${d.claim_days} ימים`],
+		// s.4: a priority window for the spouse who filed the request, then the other spouse may file too; never a
+		// deadline after which claims are barred (review, PR 126).
+		['מי שהגיש את הבקשה תובע ראשון', c ? `עד ${dateOr(c.claimsBy, c.stayDays + c.claimDays)}, ואז גם הצד השני` : `${d.claim_days} ימים, ואז גם הצד השני`],
 		['דיונים ופסק דין', 'החוק לא קובע משך'],
 	];
 	const lane = (key, title, steps, on) => `<div class="jt9-lane${on ? ' jt9-lane--on' : ''}"><p class="jt9-lane__h">${esc(title)}${on ? ' (אתם)' : ''}</p><ol>${steps.map(([t, s]) => `<li><span class="jt9-lane__t">${esc(t)}</span><span class="jt9-lane__s">${s}</span></li>`).join('')}</ol></div>`;
@@ -149,7 +151,7 @@ export function deadlines(reg, r) {
 	return [
 		{ date: c.meetingsBy, what: `עד ${d.meetings_max} פגישות מידע, היכרות ותיאום ביחידת הסיוע, בלי תשלום${c.extended ? ' (אחרי הארכה של 15 ימים)' : ''}`, rule: `${d.sections.meetings}, ${d.sections.meetings_days}` },
 		{ date: c.stayEnds, what: `סוף עיכוב ההליכים: עד אז אי אפשר להגיש תביעה (${c.stayDays} ימים)`, rule: d.sections.stay },
-		{ date: c.claimsBy, what: `הגשת התביעות, בתוך ${c.claimDays} ימים מסוף העיכוב`, rule: d.sections.claims },
+		{ date: c.claimsBy, what: `סוף ${c.claimDays} הימים שבהם רק מי שהגיש את הבקשה ליישוב סכסוך רשאי לתבוע, בכל ערכאה מוסמכת; אחר כך גם הצד השני רשאי לתבוע בעניינים שלא נתבעו`, rule: d.sections.claims },
 	];
 }
 

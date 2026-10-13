@@ -154,9 +154,9 @@ export function renderDetails(reg, r, compareR, input) {
 	// The order and its cost: the registrar's fee (85% online), the objection window, the war exemption.
 	out += `<div class="jtool-tablewrap" id="${P}-order-h"><div class="jtool-tablewrap__head"><h3>צו ירושה: כמה עולה ומתי</h3></div><ol class="jtool-steps">`
 		+ `<li>מגישים בקשה לצו ירושה לרשם לענייני ירושה, אפשר באינטרנט.${cite('שירות הבקשה', y.service_url)}</li>`
-		+ `<li>האגרה ב-${new Date(`${r.fee.from}T00:00:00Z`).getUTCFullYear()}: ${ils(r.fee.fee, 0)}, ובהגשה מקוונת ${y.fees.online_pct}% ממנה, ${ils(r.fee.online)}. מתעדכנת ב-1 בינואר.${cite(y.fees.section, y.fees.url)}</li>`
+		+ `<li>האגרה ב-${new Date(`${r.fee.from}T00:00:00Z`).getUTCFullYear()}: ${ils(r.fee.fee, 0)}, ובהגשה מקוונת אגרה מופחתת (${y.fees.online_pct}%), ${ils(r.fee.online, 0)}. מתעדכנת ב-1 בינואר.${cite(y.fees.section, y.fees.url)}${cite('שירות התשלומים', y.payments.url)}</li>`
 		+ `<li>הבקשה מתפרסמת, ומי שרוצה להתנגד מגיש התנגדות בתוך ${esc(y.objection_he)}.${cite(y.objection_section, y.regulations_url)}</li>`
-		+ `<li>על האגרה נוספות הוצאות הפרסום, שגם הן על המבקש. הסכום לא קבוע בתקנות, ולכן לא נכלל כאן.${cite(y.publication_section, y.regulations_url)}</li>`
+		+ `<li>על האגרה נוספות הוצאות פרסום של ${ils(r.fee.publication, 0)} לבקשה, שגם הן על המבקש.${cite(y.publication_section, y.regulations_url)}${cite('שירות התשלומים', y.payments.url)}</li>`
 		+ `<li>בן זוג, ילד, הורה או אח של מי שנפטר עקב פעולות איבה או בשירות צבאי פטורים מהאגרה, וגם מהוצאות הפרסום.${cite(y.fees.exempt_section, y.fees.url)}</li></ol></div>`;
 	if (compareR && compareR.ok) {
 		out += `<div class="jtool-compare" data-compare><h3>מה אם: ${r.spouse === 'none' ? 'היה בן זוג' : 'לא היה בן זוג'}</h3><div data-compare-out>${renderCompareOut(r, compareR)}</div></div>`;

@@ -245,8 +245,9 @@ export function compute(registry, input) {
 	if (line === 'state') { path.push({ rule: S.state, he: 'אין בן זוג ואין קרובים שהחוק מונה: המדינה יורשת.' }); }
 	if (line === 'unknown') { path.push({ rule: S.heirs, he: 'אין בן זוג, ילדים, הורים, אחים או סבים, אבל יש דודים או בני דודים: הם יורשים כצאצאי הסבים. הכלי לא מחלק את הדור הזה.' }); }
 
-	// The registrar's fee: 85% when the request is filed online (reg. 1(א)).
-	const fee = { fee: y.fees.order_fee, online: Math.round(y.fees.order_fee * y.fees.online_pct) / 100, from: y.fees.from };
+	// The registrar's fee: the reduced fee when the request is filed online (reg. 1(א), 85%), as charged by the government
+	// payments service (507, not 507.45), and the publication expenses of the request (review, PR 126).
+	const fee = { fee: y.fees.order_fee, online: y.payments.online_fee, publication: y.payments.publication, from: y.fees.from };
 	return { ok: true, spouse, spouseCase, spouseApt, line, heirs, flags, path, fee, apartment, other, unresolved: heirs.some((h) => h.unresolved), question: heirs.some((h) => h.unresolved && h.gen === 'children'), state: line === 'state', unknown: line === 'unknown' };
 }
 

@@ -306,7 +306,7 @@ foreach ( array( $w4, $c4 ) as $ds ) {
 $h4  = $jt_shortcodes['justice_tool'];
 $w4t = $h4( array( 'name' => 'tzavaa' ) );
 check( false !== strpos( $w4t, 'class="jtool-answer"' ) && false !== strpos( $w4t, '<bdi>280</bdi>' ) && false !== strpos( $w4t, '<bdi>293</bdi>' ) && false !== strpos( $w4t, '<bdi>126</bdi>' ) && false !== strpos( $w4t, '<bdi>597</bdi>' ), 'will answer box: 280, 293, 126 and 597 from the registry' );
-check( false !== strpos( $w4t, '345.74' ) && false !== strpos( $w4t, 'jt11-track' ) && false !== strpos( $w4t, '507.45' ), 'will example in the server HTML: 345.74 now, the track, 507.45 later' );
+check( false !== strpos( $w4t, '345.74' ) && false !== strpos( $w4t, 'jt11-track' ) && false !== strpos( $w4t, '918.74' ) && false === strpos( $w4t, '507.45' ), 'will example in the server HTML: 345.74 now, the track, 918.74 to the probate order (507 + 66 later)' );
 check( false !== strpos( $w4t, 'data-act="print"' ) && false !== strpos( $w4t, 'purpose=mediation' ), 'will: print is the primary step, the family rehearsal a secondary link' );
 check( false !== strpos( $w4t, 'אגרות ותעריף נוטריונים מ-1.1.2026 · נבדק 14.10.2026' ), 'will stamp: tariffs from 1.1.2026, checked 14.10.2026' );
 $c4t = $h4( array( 'name' => 'teunat-drachim' ) );

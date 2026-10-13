@@ -201,9 +201,10 @@ function isStale(checkedOn, refreshDays, now = new Date()) {
  *  - Mutual wills (s.8א): two wills, in one document or in two.
  *  - Deposit with the registrar (s.21, s.22(ה)): item 5 of the fee regulations, free when the testator deposited
  *    no earlier will in the 5 years before (item 5א).
- *  - After death: a request for a probate order (s.39, s.66), item 1, 85% when filed online (reg. 1(א)); the
- *    publication is on the applicant with no official amount (Succession Regulations reg. 17(ג)), so it is named
- *    and never priced; an objection moves the request to the family court (s.67א), whose fees are not computed.
+ *  - After death: a request for a probate order (s.39, s.66), item 1, or the reduced fee when filed online (reg.
+ *    1(א): 85%, charged as 507 by the government payments service), plus the publication expenses of each request
+ *    (Succession Regulations reg. 17(ג); 66, same service); an objection moves the request to the family court
+ *    (s.67א), whose fees are not computed.
  */
 
 const FORMS = ['handwritten', 'witnesses', 'registrar', 'notary'];
@@ -302,8 +303,15 @@ function compute(registry, input) {
 
 	// 4. After death: the heirs ask for a probate order, one request for each testator.
 	const online = input.online !== false;
-	const probateEach = online ? r2(rf.order * rf.online_pct / 100) : rf.order;
-	const later = [{ key: 'probate', he: `בקשה לצו קיום צוואה${online ? `, בהגשה מקוונת (${rf.online_pct}% מהאגרה)` : ', בהגשה רגילה'}${people === 2 ? ', לכל אחד מהמצווים' : ''}`, amount: r2(probateEach * people), unit: probateEach, count: people, section: online ? `${rf.item_order}; ${rf.online_section}` : rf.item_order, url: rf.url }];
+	// The amounts charged, not 597 x 85% = 507.45: the government payments service charges 507 online, and 66 for the
+	// publication of each request (review, PR 126).
+	const pay = rf.payments;
+	const probateEach = online ? pay.online_fee : rf.order;
+	const each = people === 2 ? ', לכל אחד מהמצווים' : '';
+	const later = [
+		{ key: 'probate', he: `בקשה לצו קיום צוואה${online ? `, בהגשה מקוונת (אגרה מופחתת, ${rf.online_pct}%)` : ', בהגשה רגילה'}${each}`, amount: r2(probateEach * people), unit: probateEach, count: people, section: online ? `${rf.online_section}; שירות התשלומים` : rf.item_order, url: online ? pay.url : rf.url },
+		{ key: 'publication', he: `הוצאות פרסום הבקשה באתר האפוטרופוס הכללי וברשומות${each}`, amount: r2(pay.publication * people), unit: pay.publication, count: people, section: `${wc.publication_section}; שירות התשלומים`, url: pay.url },
+	];
 	const laterTotal = r2(later.reduce((a, l) => a + l.amount, 0));
 
 	// 5. The Bar's recommended minimum (non-binding, before VAT), as a reference for a lawyer's quote: drafting the
@@ -395,7 +403,7 @@ function verdictSentence(reg, r) {
 	const dep = r.deposit ? r.now.filter((l) => l.key.startsWith('deposit')).reduce((a, l) => a + l.amount, 0) : null;
 	return `צוואה ${FORM_LABEL[r.form]} ${who}: ${makeTxt}.`
 		+ (dep === null ? '' : dep === 0 ? ' ההפקדה אצל הרשם: חינם.' : ` ההפקדה אצל הרשם: ${nis(dep)}.`)
-		+ ` אחרי הפטירה: צו קיום צוואה ${nis(r.probateEach)}${r.online ? ' בהגשה מקוונת' : ''}${r.people === 2 ? ' לכל אחד' : ''}, ועוד הוצאות פרסום (${wc.publication_section}).`;
+		+ ` אחרי הפטירה: צו קיום צוואה ${nis(r.probateEach)}${r.online ? ' בהגשה מקוונת' : ''}${r.people === 2 ? ' לכל אחד' : ''}, ועוד ${nis(wc.registrar.payments.publication)} הוצאות פרסום${r.people === 2 ? ' לכל בקשה' : ''}.`;
 }
 
 /** The track: signing, deposit, probate, each a station with its cost. */
@@ -405,7 +413,7 @@ function trackHtml(reg, r) {
 	const stations = [
 		{ when: 'היום', what: 'החתימה', amount: sum((k) => !k.startsWith('deposit')), note: r.form === 'notary' ? 'כולל מע"מ' : r.form === 'registrar' ? 'אגרה' : 'אין אגרה' },
 		{ when: 'היום', what: 'ההפקדה', amount: r.deposit ? sum((k) => k.startsWith('deposit')) : null, note: r.deposit ? 'אצל הרשם' : 'לא בחרתם' },
-		{ when: 'אחרי הפטירה', what: 'צו קיום', amount: r.laterTotal, note: r.online ? 'מקוון, 85%' : 'הגשה רגילה' },
+		{ when: 'אחרי הפטירה', what: 'צו קיום', amount: r.laterTotal, note: r.online ? 'מקוון, כולל פרסום' : 'רגיל, כולל פרסום' },
 	];
 	return `<ol class="jt11-track" aria-label="העלויות לפי שלבים">${stations.map((s) => `<li class="jt11-st${s.amount === 0 ? ' jt11-st--free' : ''}${s.amount === null ? ' jt11-st--off' : ''}">`
 		+ `<span class="jt11-st__when">${esc(s.when)}</span><span class="jt11-st__what">${esc(s.what)}</span>`
@@ -436,7 +444,6 @@ function renderDetails(reg, r) {
 	let out = `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-cost-h">כמה, על מה, ולפי איזה סעיף</h3></div>`
 		+ `<div class="jtool-scroll" role="region" aria-labelledby="${P}-cost-h" tabindex="0"><table class="jtool-table"><thead><tr><th scope="col">מה</th><th scope="col">סכום</th><th scope="col">הכלל</th></tr></thead><tbody>`
 		+ rows.map(([what, v, rule, href, vat]) => `<tr><td data-th="מה">${esc(what)}${vat ? ` (כולל מע"מ ${r.vatPct}%)` : ''}</td><td data-th="סכום">${v === 0 ? 'חינם' : ils(v)}</td><td data-th="הכלל">${rule ? cite(rule, href) : '—'}</td></tr>`).join('')
-		+ `<tr><td data-th="מה">פרסום הבקשה באתר האפוטרופוס הכללי וברשומות</td><td data-th="סכום">על המבקש, בלי סכום רשמי</td><td data-th="הכלל">${cite(wc.publication_section, wc.regulations_url)}</td></tr>`
 		+ `<tr class="jtool-table__total"><td data-th="מה">סך הכול, מהחתימה ועד צו הקיום</td><td data-th="סכום">${ils(r.total)}</td><td data-th="הכלל">${r.vatOnly ? `מתוכו מע"מ ${ils(r.vatOnly)}` : '—'}</td></tr></tbody>`
 		+ `<caption>אגרות הרשם ותעריף הנוטריונים מ-${isoToHe(wc.registrar.from)}; מתעדכנים כל 1 בינואר. ${esc(wc.court_he)}.</caption></table></div></div>`;
 	// The same choices in each form, side by side.
@@ -502,8 +509,9 @@ function snapshot(reg) {
 		method: `<ol><li>אישור צוואה בפני נוטריון, חותם ראשון: ${money(make.amount, 0)} ₪${cite(nf.item_will, nf.url)}</li>`
 			+ `<li>מע"מ ${r.vatPct}%: ${money(make.amount, 0)} × ${(100 + r.vatPct) / 100} = ${money(r.nowTotal)} ₪${cite('תקנה 1', nf.url)}</li>`
 			+ `<li>הפקדה אצל הרשם, בלי הפקדה קודמת ב-5 השנים האחרונות: פטור${cite(reg.will_cost.registrar.item_deposit_free, reg.will_cost.registrar.url)}</li>`
-			+ `<li>אחרי הפטירה, בקשה מקוונת לצו קיום: ${money(reg.will_cost.registrar.order, 0)} × ${reg.will_cost.registrar.online_pct}% = ${money(r.probateEach)} ₪${cite(reg.will_cost.registrar.online_section, reg.will_cost.registrar.url)}</li>`
-			+ `<li>סך הכול: ${money(r.total)} ₪, ועוד הוצאות הפרסום, שאין להן סכום רשמי.</li></ol>`,
+			+ `<li>אחרי הפטירה, בקשה מקוונת לצו קיום: אגרה מופחתת של ${reg.will_cost.registrar.online_pct}% מ-${money(reg.will_cost.registrar.order, 0)} ₪, שנגבית ${money(r.probateEach, 0)} ₪${cite(reg.will_cost.registrar.online_section, reg.will_cost.registrar.url)}${cite('שירות התשלומים', reg.will_cost.registrar.payments.url)}</li>`
+			+ `<li>הוצאות פרסום הבקשה: ${money(reg.will_cost.registrar.payments.publication, 0)} ₪${cite(reg.will_cost.publication_section, reg.will_cost.regulations_url)}${cite('שירות התשלומים', reg.will_cost.registrar.payments.url)}</li>`
+			+ `<li>סך הכול, מהחתימה ועד צו הקיום: ${money(r.total)} ₪.</li></ol>`,
 		compare_table: formsTable(reg),
 		sentence: verdictSentence(reg, r),
 	};

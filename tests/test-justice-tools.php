@@ -246,6 +246,53 @@ check( false !== strpos( $sec( array( 'name' => 'tviot-ktanot', 'part' => 'metho
 $index = $jt_shortcodes['justice_tools_index']();
 check( false !== strpos( $index, '/havraa-pay-calculator/' ) && false !== strpos( $index, '/small-claims-court-israel/' ) && false !== strpos( $index, '/small-claims-fee-calculator/' ), 'hub cards include T03, T05 and the fee-only page' );
 
+/* ---------- Wave 3 (HAD-498): registry values read on 13.10.2026, and the server HTML ---------- */
+$reg3 = justice_tools_registry();
+$y3   = $reg3['yerusha'];
+check( '2026-10-13' === $y3['checked_on'] && array( 1, 2 ) === $y3['spouse_half'] && array( 2, 3 ) === $y3['spouse_two_thirds'] && 3 === $y3['spouse_apartment_min_years'], 'yerusha registry: s.11 fractions and the 3-year apartment rule' );
+check( 597 === $y3['fees']['order_fee'] && 85 === $y3['fees']['online_pct'] && '2026-01-01' === $y3['fees']['from'] && 14 === $y3['objection_days'], 'yerusha registry: fee 597 NIS from 1.1.2026, 85% online, objection two weeks (reg. 17(א))' );
+$pt3 = $reg3['purchase_tax'];
+check( array( array( 1978745, 0 ), array( 2347040, 3.5 ), array( 6055070, 5 ), array( 20183565, 8 ), array( null, 10 ) ) === $pt3['tracks']['single']['brackets'], 'purchase tax registry: the single-home brackets of instruction 1/2025' );
+check( '2028-01-15' === $pt3['tracks']['single']['to'] && '2026-12-31' === $pt3['tracks']['additional']['to'] && '2024-01-16' === $pt3['tracks']['single']['from'], 'purchase tax registry: frozen to 15.1.2028; additional-home rule to 31.12.2026' );
+check( 18 === $pt3['vat_pct'] && 30 === $pt3['declare_days'] && 60 === $pt3['pay_days'] && 12 === $pt3['replacement']['contractor_months'] && '2026-08-31' === $pt3['replacement']['war']['floor'], 'purchase tax registry: VAT 18%, 30/60 days, contractor 12 months, war floor 31.8.2026' );
+$b3 = $reg3['betterment'];
+check( array( 1, 2 ) === $b3['rates']['regular']['rate'] && array( 1, 4 ) === $b3['rates']['pinui']['rate'] && 140 === $b3['residence_max_sqm'] && 4 === $b3['residence_sale_years'] && 45 === $b3['appeal_days'] && 90000 === $b3['recheck_max'], 'betterment registry: 1/2, 1/4, 140 m2, 4 years, 45 days, 90,000 NIS' );
+foreach ( array( $y3, $pt3, $b3 ) as $ds ) {
+	check( 0 === strpos( (string) $ds['source_url'], 'https://' ) && '2026-10-13' === $ds['checked_on'] && $ds['refresh_every_days'] > 0, 'wave-3 dataset carries an https source, the check date and a refresh period: ' . $ds['name_he'] );
+}
+
+$w3y = $h3( array( 'name' => 'yerusha' ) );
+check( false !== strpos( $w3y, 'class="jtool-answer"' ) && false !== strpos( $w3y, 'חצי אם יש ילדים או הורה' ) && false !== strpos( $w3y, 'שני שלישים' ) && false !== strpos( $w3y, '<bdi>597</bdi>' ), 'yerusha answer box: half, two thirds and the 597 NIS fee from the registry' );
+check( false !== strpos( $w3y, '3 יורשים' ) && false !== strpos( $w3y, 'jt6-chart' ) && false !== strpos( $w3y, '1,500,000' ), 'yerusha example in the server HTML: 3 heirs, the family chart, 1,500,000 to the spouse' );
+check( false !== strpos( $w3y, 'jtool-btn--primary" href="https://jus-tice.com/#/simulation' ) && false !== strpos( $w3y, 'purpose=mediation' ), 'yerusha: the primary next step is the heirs mediation rehearsal' );
+check( false !== strpos( $w3y, 'נבדקו ב-13.10.2026' ) && false !== strpos( $w3y, '"dateModified":"2026-10-13"' ), 'yerusha: sources and schema carry its own check date' );
+check( false !== strpos( $w3y, '<strong data-jtool-sticky-figure><bdi>3</bdi></strong>' ), 'yerusha sticky bar shows a count, not shekels' );
+$w3r = $h3( array( 'name' => 'mas-rechisha' ) );
+check( false !== strpos( $w3r, '28,038.33' ) && false !== strpos( $w3r, 'jt7-ladder' ) && false !== strpos( $w3r, '212,000' ) && false !== strpos( $w3r, '106,213.33' ), 'purchase tax example in the server HTML: 28,038.33, the ladder, 212,000 as additional, 106,213.33 all-in' );
+check( false !== strpos( $w3r, 'data-act="ics"' ) && false !== strpos( $w3r, 'purpose=mediation' ) && false === strpos( $w3r, 'jtool-btn--primary" href="https://jus-tice.com' ), 'purchase tax: the calendar is the primary step, the negotiation rehearsal a secondary link (conversion 2)' );
+check( false !== strpos( $w3r, 'מדרגות עד 15.1.2028 · נבדק 13.10.2026' ), 'purchase tax stamp: valid to 15.1.2028, checked 13.10.2026' );
+$w3h = $h3( array( 'name' => 'hetel-hashbacha' ) );
+check( false !== strpos( $w3h, '200,000' ) && false !== strpos( $w3h, 'jt8-strip' ) && false !== strpos( $w3h, 'סעיף 3' ), 'betterment example in the server HTML: 200,000 with the plan strip and s.3' );
+check( false !== strpos( $w3h, 'purpose=court_rehearsal' ) && false !== strpos( $w3h, 'לתרגל את הדיון בוועדת הערר' ), 'betterment: the appeals-committee rehearsal is the primary next step' );
+foreach ( array( 'yerusha' => $w3y, 'mas-rechisha' => $w3r, 'hetel-hashbacha' => $w3h ) as $nm => $html ) {
+	check( 1 === substr_count( $html, '"@type":"WebApplication"' ) && false === strpos( $html, 'FAQPage' ) && false === stripos( $html, 'aggregateRating' ), $nm . ': one WebApplication, no FAQPage, no rating' );
+	$card = substr( $html, (int) strpos( $html, '<section class="jtool"' ) );
+	check( false === stripos( substr( $card, 0, (int) strpos( $card, '</section>' ) ), '<h2' ), $nm . ': no <h2> inside the tool card (HAD-487)' );
+	check( false === stripos( $html, 'noindex' ) && false === stripos( $html, 'maya' ) && false === strpos( $html, 'רוטנברג' ) && false === strpos( $html, '<form' ), $nm . ': no noindex, no Maya card, no form gate' );
+	check( isset( $jt_enqueued[ 'justice-tool-' . $nm ] ), $nm . ': bundle enqueued' );
+	check( 1 === preg_match( '#<script type="application/json" id="jtool-' . preg_quote( $nm, '#' ) . '-data">(.*?)</script>#s', $html, $mm ) && count( json_decode( $mm[1], true ) ) === 2, $nm . ': the data island carries only its own dataset' );
+}
+$ny = $sec( array( 'name' => 'yerusha', 'part' => 'numbers' ) );
+check( false !== strpos( $ny, 'סעיף 11(א)(2)' ) && false !== strpos( $ny, 'סעיף 55' ) && false !== strpos( $ny, 'תקנה 17(א)' ), 'yerusha numbers: every rule with its section' );
+$nr = $sec( array( 'name' => 'mas-rechisha', 'part' => 'numbers' ) );
+check( false !== strpos( $nr, '20,183,565' ) && false !== strpos( $nr, 'תקנה 12א' ) && false !== strpos( $nr, 'תקנה 11(א)(2)' ) && false !== strpos( $nr, '31.12.2026' ), 'purchase tax numbers: every track with its period' );
+$nh = $sec( array( 'name' => 'hetel-hashbacha', 'part' => 'numbers' ) );
+check( false !== strpos( $nh, 'סעיף 19(ג)(1)' ) && false !== strpos( $nh, '90,000' ) && false !== strpos( $nh, 'סעיף 14(ב)(1)' ), 'betterment numbers: the deferral, the re-examination ceiling and the decisive appraiser' );
+check( false !== strpos( $sec( array( 'name' => 'mas-rechisha', 'part' => 'compare' ) ), '353,886.23' ) && false !== strpos( $sec( array( 'name' => 'yerusha', 'part' => 'compare' ) ), 'רק בן זוג' ) && false !== strpos( $sec( array( 'name' => 'hetel-hashbacha', 'part' => 'compare' ) ), '750,000' ), 'wave-3 compare tables from the engines' );
+check( false !== strpos( $sec( array( 'name' => 'yerusha', 'part' => 'updated' ) ), '13.10.2026' ) && false !== strpos( $sec( array( 'name' => 'havraa', 'part' => 'updated' ) ), '12.10.2026' ), 'the updated line uses each tool own check date' );
+$index3 = $jt_shortcodes['justice_tools_index']();
+check( false !== strpos( $index3, '/inheritance/' ) && false !== strpos( $index3, '/acquisition-tax-brackets-2026/' ) && false !== strpos( $index3, '/betterment-levy-israel/' ), 'hub cards include the three wave-3 tools' );
+
 if ( $failures ) {
 	fwrite( STDERR, "justice tools: {$failures} failure(s)\n" );
 	exit( 1 );

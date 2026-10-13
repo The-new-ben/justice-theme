@@ -16,10 +16,16 @@ Sources
                             2025 havraa laws (Sefer HaChukim 3180, 3384): see build_havraa()
   Small claims (T05)        gov.il fee guide (Courts Authority), the 1976 procedure regulations and the
                             Courts Law: see build_small_claims()
+  Wave 3 (HAD-498)          Succession Law and the registrar's fee regulations (build_yerusha), the Land
+                            Taxation Law, the purchase-tax regulations and the Tax Authority's instructions
+                            1/2025 and 2/2026 (build_purchase_tax), the Third Schedule to the Planning and
+                            Building Law (build_betterment)
 
 Usage
   python tools/justice_tools_registry.py --checked-on 2026-10-12 \
       --cpi-json cpi.json --rates-dir ga/ --minwage-html btl.html --out assets/data/justice-tools-registry.json
+  python tools/justice_tools_registry.py --checked-on 2026-10-13 --base assets/data/justice-tools-registry.json \
+      --out assets/data/justice-tools-registry.json        (wave 3 only: keeps the other datasets as they are)
 
 Every input can be a saved file (so a reviewer can rebuild the exact registry from the files
 attached to the PR) or omitted to fetch live. The script never estimates a missing value: a
@@ -298,6 +304,150 @@ def build_small_claims(checked_on: str) -> dict:
     }
 
 
+def build_yerusha(checked_on: str) -> dict:
+    """Intestate succession (wave 3, HAD-498): who inherits what when there is no will. The shares are the
+    law's own fractions (Succession Law ss.10-17, 55), read on checked_on in the consolidated text; the
+    registrar's fee and the objection window come from the 1998 fee regulations (current to 1.1.2026) and
+    the 1998 Succession Regulations. Nothing here is estimated."""
+    law = "https://www.nevo.co.il/law_html/law00/72178.htm"
+    return {
+        "name_he": "ירושה על פי דין",
+        "publisher_he": "חוק הירושה ותקנותיו",
+        "source_name": "חוק הירושה, התשכ\"ה-1965 (נוסח עדכני)",
+        "source_url": law,
+        "checked_on": checked_on,
+        "refresh_every_days": 365,
+        "next_update": "2027-01-01",
+        "law_he": "חוק הירושה, התשכ\"ה-1965",
+        "law_url": law,
+        "law_current_to": "2025-01-01",
+        # s.11(א): the spouse's part of the rest of the estate, as [numerator, denominator].
+        "spouse_half": [1, 2],
+        "spouse_two_thirds": [2, 3],
+        "spouse_apartment_min_years": 3,
+        "sections": {
+            "heirs": "סעיף 10", "spouse": "סעיף 11(א)", "spouse_all": "סעיף 11(ב)", "spouse_deduct": "סעיף 11(ג)",
+            "order": "סעיף 12", "equal": "סעיף 13", "represent": "סעיף 14", "renounce": "סעיף 15",
+            "adopted": "סעיף 16", "state": "סעיף 17", "cohabit": "סעיף 55", "born": "סעיף 3(ג)",
+        },
+        "fees": {
+            "order_fee": 597, "from": "2026-01-01", "online_pct": 85,
+            "regulation_he": "תקנות הירושה (אגרות הרשם לעניני ירושה), התשנ\"ח-1998",
+            "section": "תקנה 1(א) והתוספת, פרט 1",
+            "exempt_section": "תקנה 4(5)",
+            "url": "https://www.nevo.co.il/law_html/law00/72181.htm",
+            "current_to": "2026-01-01",
+            "indexed_he": "מתעדכנת ב-1 בינואר לפי המדד (תקנה 2)",
+        },
+        "objection_days": 14,
+        "objection_he": "שבועיים מיום הפרסום, או יותר אם הרשם קבע",
+        "objection_section": "תקנה 17(א)",
+        "regulations_he": "תקנות הירושה, התשנ\"ח-1998",
+        "regulations_url": "https://www.nevo.co.il/law_html/law00/98588.htm",
+        "service_url": "https://www.gov.il/he/service/inheritance_order",
+        "service_he": "האפוטרופוס הכללי, בקשה למתן צו ירושה לרשם לענייני ירושה",
+    }
+
+
+def build_purchase_tax(checked_on: str) -> dict:
+    """Purchase tax on a home (wave 3, HAD-498). The brackets are in the law (s.9(ג1ג)(3), s.9(ג1ו)) and in
+    the Tax Authority's execution instruction 1/2025, which states they stay frozen (single home) until
+    15.1.2028 and that the 8%/10% rule for an additional home runs to 31.12.2026. The oleh and disability
+    tracks are purchase-tax regulations 12א and 11(א); the replacement-home windows and the war extension
+    are s.9(ג1ג)(2)(ב) and instruction 2/2026. VAT for the full-cost panel: the 2005 VAT rate order."""
+    law = "https://www.nevo.co.il/law_html/law01/276_002.htm"
+    regs = "https://www.nevo.co.il/law_html/law01/276_019.htm"
+    inst1 = "https://www.gov.il/BlobFolder/policy/inst-01-2025-3/he/realestate_inst-01-2025-3.pdf"
+    inst2 = "https://www.gov.il/BlobFolder/policy/inst-02-2026-1/he/realestate_inst-02-2026.pdf"
+    inst24 = "https://www.gov.il/BlobFolder/policy/reinst-02-2024/he/realestate_reinst-02-2024.pdf"
+    return {
+        "name_he": "מס רכישה על דירת מגורים",
+        "publisher_he": "רשות המסים",
+        "source_name": "רשות המסים, הוראת ביצוע מיסוי מקרקעין 1/2025: עדכון הסכומים והקפאתם",
+        "source_url": inst1,
+        "simulator_url": "https://www.misim.gov.il/svsimurechisha/",
+        "checked_on": checked_on,
+        "refresh_every_days": 92,
+        "next_update": "2027-01-01",
+        "law_he": "חוק מיסוי מקרקעין (שבח ורכישה), התשכ\"ג-1963",
+        "law_url": law,
+        "regulations_he": "תקנות מיסוי מקרקעין (שבח ורכישה) (מס רכישה), התשל\"ה-1974",
+        "regulations_url": regs,
+        # Each track: brackets as [upper limit of the bracket (None = no limit), rate %], valid from-to (inclusive).
+        "tracks": {
+            "single": {"from": "2024-01-16", "to": "2028-01-15", "section": "סעיף 9(ג1ג)(3)",
+                       "brackets": [[1978745, 0], [2347040, 3.5], [6055070, 5], [20183565, 8], [None, 10]],
+                       "source_he": "הוראות ביצוע 2/2024 (מ-16.1.2024) ו-1/2025, סעיף 2(א): המדרגות קפואות עד 15.1.2028",
+                       "url": inst1, "url_2024": inst24},
+            "additional": {"from": "2024-01-16", "to": "2026-12-31", "section": "סעיף 9(ג1ו)",
+                           "brackets": [[6055070, 8], [None, 10]],
+                           "source_he": "הוראת ביצוע 1/2025, סעיף 2(ב): הוראת השעה הוארכה עד 31.12.2026 (ק\"ת 11633, 25.12.2024)",
+                           "url": inst1},
+            "oleh": {"from": "2024-08-15", "to": "2028-01-15", "section": "תקנה 12א",
+                     "brackets": [[1978745, 0], [6055070, 0.5], [20183565, 8]], "max_value": 20183565,
+                     "years_before": 1, "years_after": 7, "times": 1,
+                     "source_he": "תקנות מס רכישה, תקנה 12א (מ-15.8.2024), בהפניה לסכומי סעיף 9(ג1ג)(3)", "url": regs},
+            "disabled": {"from": "2024-01-16", "to": "2028-01-15", "section": "תקנה 11(א)",
+                         "brackets": [[1978745, 0], [2500000, 0.5]], "cap": 2500000, "flat_above_cap": 0.5, "times": 2,
+                         "source_he": "תקנות מס רכישה, תקנה 11(א)(1)-(2)", "url": regs},
+        },
+        "replacement": {
+            "section": "סעיף 9(ג1ג)(2)(ב)",
+            # Months to sell the previous only home, by the day the new one was bought (instruction 2/2026, note 2).
+            "windows": [{"from": "2023-06-01", "to": "2025-05-31", "months": 18}, {"from": "2025-06-01", "to": None, "months": 24}],
+            "contractor_months": 12,
+            "war": {"from": "2026-02-28", "to": "2026-05-31", "add_months": 3, "floor": "2026-08-31",
+                    "law_he": "חוק הארכת תקופות ודחיית מועדים (הוראת שעה - חרבות ברזל) (תיקון), התשפ\"ו-2026, סעיף 3א (ספר החוקים 3507, 26.3.2026)",
+                    "source_he": "רשות המסים, הוראת ביצוע מיסוי מקרקעין 2/2026, 30.3.2026", "url": inst2},
+        },
+        "share_ignored_he": "דירה נוספת שחלקכם בה אינו עולה על שליש לא נספרת (סעיף 9(ג1ג)(4)(א) וסעיף 49ג(3))",
+        "share_ignored_max": [1, 3],
+        "couple_he": "בני זוג וילדיהם מתחת לגיל 18 הם רוכש אחד (סעיף 9(ג1ג)(4)(ג))",
+        "resident_he": "המדרגות של דירה יחידה הן ליחיד תושב ישראל, כולל מי שנעשה תושב בתוך שנתיים מהרכישה (סעיף 9(ג1ג)(2) ו-(4)(ב))",
+        "declare_days": 30, "declare_section": "סעיף 73(ג)",
+        "pay_days": 60, "pay_section": "סעיף 90א", "late_section": "סעיף 94(א)",
+        "vat_pct": 18, "vat_from": "2025-01-01",
+        "vat_he": "צו מס ערך מוסף (שיעור המס על עסקה ועל יבוא טובין), התשס\"ה-2005, סעיף 1",
+        "vat_url": "https://www.nevo.co.il/law_html/law01/999_481.htm",
+    }
+
+
+def build_betterment(checked_on: str) -> dict:
+    """Betterment levy (wave 3, HAD-498): the Third Schedule to the Planning and Building Law, read on
+    checked_on in the consolidated text: the rate (s.3, 3א), payment at realisation (s.7), the residence
+    deferral (s.19(ג)), the exemptions the tool uses (s.19(ב)(9), (10), (10א)) and the appeal routes and
+    periods (s.14)."""
+    law = "https://www.nevo.co.il/law_html/law01/044_001.htm"
+    return {
+        "name_he": "היטל השבחה",
+        "publisher_he": "חוק התכנון והבניה, התוספת השלישית",
+        "source_name": "חוק התכנון והבניה, התשכ\"ה-1965, התוספת השלישית (נוסח עדכני)",
+        "source_url": law,
+        "checked_on": checked_on,
+        "refresh_every_days": 365,
+        "law_he": "חוק התכנון והבניה, התשכ\"ה-1965, התוספת השלישית",
+        "law_url": law,
+        # Rates as [numerator, denominator] of the betterment.
+        "rates": {
+            "regular": {"rate": [1, 2], "section": "סעיף 3"},
+            "pinui": {"rate": [1, 4], "section": "סעיף 3א(א)",
+                      "local_he": "הרשות המקומית רשאית לקבוע באזור מסוים מחצית, רבע או פטור (סעיף 3א(ב))"},
+            "seismic": {"rate": [1, 4], "section": "סעיף 19(ב)(10א)(א)"},
+            "tama38": {"rate": [0, 1], "section": "סעיף 19(ב)(10)(א)", "beyond_rate": [1, 4], "beyond_floors": 2.5},
+            "mamad": {"rate": [0, 1], "section": "סעיף 19(ב)(9)"},
+        },
+        "residence_max_sqm": 140, "residence_section": "סעיף 19(ג)(1)",
+        "residence_sale_years": 4, "residence_sale_section": "סעיף 19(ג)(2)",
+        "storage_max_sqm": 20, "storage_section": "סעיף 19(ג1)",
+        "pay_section": "סעיף 7(א)", "partial_section": "סעיף 7(ב)", "partners_section": "סעיף 11(א)",
+        "linkage_section": "סעיף 9", "interest_section": "סעיף 15",
+        "appeal_days": 45, "appeal_section": "סעיף 14(א)", "schedule_appeal_years": 1,
+        "appraiser_section": "סעיף 14(ב)(1)", "appraiser_appeal_days": 45, "appraiser_appeal_section": "סעיף 14(ב)(4)",
+        "recheck_max": 90000, "recheck_section": "סעיף 14(ב1)", "recheck_decide_days": 14, "recheck_reply_days": 21,
+        "demand_days": 90, "demand_section": "סעיף 4(4)(א)",
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--checked-on", required=True)
@@ -305,7 +455,21 @@ def main() -> int:
     parser.add_argument("--rates-dir", help="folder with ga-hist-<id>.xlsx files saved from ga.mof.gov.il")
     parser.add_argument("--minwage-html")
     parser.add_argument("--out", required=True)
+    parser.add_argument("--base", help="existing registry: keep its CPI, interest, minimum-wage, havraa and small-claims "
+                                         "datasets and its checked_on, and rebuild only the wave-3 datasets (HAD-498)")
+    parser.add_argument("--wave3-checked-on", help="the day the wave-3 sources were read (default: --checked-on)")
     args = parser.parse_args()
+    wave3_day = args.wave3_checked_on or args.checked_on
+    if args.base:
+        base = json.loads(Path(args.base).read_text(encoding="utf-8"))
+        registry = {key: base[key] for key in ("schema", "registry_version", "checked_on", "note_he", "cpi", "interest",
+                                               "min_wage", "havraa", "small_claims")}
+        registry["registry_version"] = wave3_day
+        registry["yerusha"] = build_yerusha(wave3_day)
+        registry["purchase_tax"] = build_purchase_tax(wave3_day)
+        registry["betterment"] = build_betterment(wave3_day)
+        write_registry(registry, args.out)
+        return 0
 
     cpi_raw = json.loads(Path(args.cpi_json).read_text(encoding="utf-8")) if args.cpi_json else json.loads(fetch(CBS_PRICE))
     histories = {}
@@ -327,7 +491,15 @@ def main() -> int:
         "min_wage": build_minwage(page, args.checked_on),
         "havraa": build_havraa(args.checked_on),
         "small_claims": build_small_claims(args.checked_on),
+        "yerusha": build_yerusha(wave3_day),
+        "purchase_tax": build_purchase_tax(wave3_day),
+        "betterment": build_betterment(wave3_day),
     }
+    write_registry(registry, args.out)
+    return 0
+
+
+def write_registry(registry: dict, out: str) -> None:
     text = json.dumps(registry, ensure_ascii=False, indent=1)
     # One CPI month per line ("YYYY-MM", value) and one rate row per line keep reviews readable.
     text = re.sub(r'\[\n\s*("\d{4}-\d{2}"),\n\s*([\d.]+)\n\s*\]', r'[\1, \2]', text)
@@ -335,11 +507,13 @@ def main() -> int:
     # One havraa seniority band per line: [first work year, last work year, days].
     text = re.sub(r'\[\n\s*(\d+),\n\s*(\d+|null),\n\s*(\d+)\n\s*\]', r'[\1, \2, \3]', text)
     # LF on every platform: CI rejects CRLF (git diff --check), and Windows would otherwise write CRLF.
-    with open(args.out, "w", encoding="utf-8", newline="\n") as handle:
+    # Wave 3: one purchase-tax bracket per line ([upper limit or null, rate %]) and one fraction per line.
+    text = re.sub(r'\[\n\s*(\d+|null),\n\s*([\d.]+)\n\s*\]', r'[\1, \2]', text)
+    with open(out, "w", encoding="utf-8", newline="\n") as handle:
         handle.write(text + "\n")
-    print(f"wrote {args.out}: CPI to {registry['cpi']['latest_month']}, "
-          f"{len(registry['interest']['linked'])} interest quarters, {len(registry['min_wage']['rows'])} minimum-wage rows")
-    return 0
+    print(f"wrote {out}: CPI to {registry['cpi']['latest_month']}, "
+          f"{len(registry['interest']['linked'])} interest quarters, {len(registry['min_wage']['rows'])} minimum-wage rows, "
+          f"wave 3 checked {registry['purchase_tax']['checked_on']}")
 
 
 if __name__ == "__main__":

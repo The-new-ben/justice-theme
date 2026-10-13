@@ -106,7 +106,7 @@ export function renderResult(reg, r, opts = {}) {
 			+ `<strong class="jtool-verdict__figure">עד <bdi>${isoToHe(r.appealBy)}</bdi></strong>`
 			+ `<p class="jtool-verdict__sentence">${esc(verdictSentence(reg, r))}</p></div>`
 			+ (r.flags.length ? `<ul class="jtool-flags">${r.flags.map((f) => `<li>${esc(f.he)}</li>`).join('')}</ul>` : '')
-			+ `<details class="jtool-path" open><summary>שלוש דרכים להשיג, לפי הסעיף</summary><ul class="jtool-conds">${routesList(reg, r)}</ul></details>`;
+			+ `<details class="jtool-path" open><summary>${r.routes.length === 3 ? 'שלוש' : 'שתי'} דרכים להשיג, לפי הסעיף</summary><ul class="jtool-conds">${routesList(reg, r)}</ul></details>`;
 	}
 	return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true"><p class="jtool-state ${r.levy === 0 ? 'jtool-state--ok' : 'jtool-state--info'}">${r.levy === 0 ? '✓ פטור' : `${esc(PLAN_LABEL[r.plan])}: ${r.beyond !== null ? 'פטור חלקי' : `${r.rate[0]}/${r.rate[1]}`}`}</p>`
 		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}היטל השבחה ${r.share < 100 ? `על ${r.share}% מ-` : 'על '}${esc(nis(r.betterment))} השבחה</p>`

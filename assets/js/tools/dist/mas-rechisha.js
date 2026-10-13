@@ -315,6 +315,7 @@ function replacementDeadline(pt, purchase, opts = {}) {
  *           otherHome (oleh and disability tracks: the buyer has another home that is not being replaced),
  *           reliefUsed (oleh: the relief was already used once, reg. 12א(ב); disability: twice, reg. 11(א)),
  *           nonResident (the buyer is not an individual Israeli resident: no single-home brackets, s.9(ג1ג)(2)),
+ *           groupPrev (replacement: the previous home was bought in a purchasing group whose construction was delayed),
  *           lawyerPct, brokerPct, other, vat: true (fees plus VAT) }
  */
 function compute(registry, input) {
@@ -345,6 +346,10 @@ function compute(registry, input) {
 	const nonResident = Boolean(input.nonResident);
 	// The disability brackets need s.9(ג1ג)(2), which is for an individual Israeli resident; otherwise the flat 0.5%.
 	const notSole = Boolean(input.otherHome) || nonResident;
+	// s.9(ג1ג)(2)(ב1): a previous home bought in a purchasing group, delayed, has its own window (review, PR 124).
+	if (track === 'replacement' && input.groupPrev) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: 'הדירה הקודמת נרכשה בקבוצת רכישה ובנייתה התעכבה: יש לה חלון משלה, מכירה עד 18 חודשים מגמר בנייתה, בתנאים שבסעיף 9(ג1ג)(2)(ב1) (הוראת ביצוע 2/2026, סעיף 2.1.1.2). הכלי לא מחשב את המקרה הזה: בדקו בסימולטור של רשות המסים.' }] };
+	}
 	// The single-home brackets (and so the replacement track) are for an individual Israeli resident (review, PR 124).
 	if (nonResident && (track === 'single' || track === 'replacement')) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: `${pt.resident_he}. בחרו "דירה נוספת".` }] };
@@ -478,7 +483,7 @@ function renderForm(reg, input) {
 		+ `<fieldset class="jtool-field"><legend>מי קונה</legend><div class="jtool-chips">${TRACKS.map((k) => chip('trk', k, TRACK_LONG[k], t === k)).join('')}</div>`
 		+ `<div class="jtool-chips" style="margin-top:8px">${chip('nr', '1', 'הרוכש אינו תושב ישראל', input.nonResident, 'checkbox')}</div>`
 		+ `<p class="jtool-hint">${esc(pt.couple_he)}. ${esc(pt.share_ignored_he)}. ${esc(pt.resident_he)}.</p></fieldset>`
-		+ `<div data-if-track="replacement"${t === 'replacement' ? '' : ' hidden'}><div class="jtool-chips">${chip('ctr', '1', 'קונים מקבלן', input.contractor, 'checkbox')}</div>`
+		+ `<div data-if-track="replacement"${t === 'replacement' ? '' : ' hidden'}><div class="jtool-chips">${chip('ctr', '1', 'קונים מקבלן', input.contractor, 'checkbox')}${chip('grp', '1', 'הדירה הקודמת נקנתה בקבוצת רכישה ובנייתה התעכבה', input.groupPrev, 'checkbox')}</div>`
 		+ `<div class="jtool-field" style="margin-top:8px" data-if-contractor${input.contractor ? '' : ' hidden'}><label class="jtool-label" for="${P}-dlv">מועד המסירה לפי החוזה</label><input id="${P}-dlv" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.delivery || ''))}" placeholder="לדוגמה: 31.12.2027" aria-describedby="${P}-delivery-e"><p class="jtool-error" id="${P}-delivery-e" role="alert"></p></div></div>`
 		+ `<div data-if-track="disabled oleh"${t === 'disabled' || t === 'oleh' ? '' : ' hidden'}><div class="jtool-chips">${chip('dot', '1', 'יש לי עוד דירה, והיא לא נמכרת כחלופית', input.otherHome, 'checkbox')}${chip('used', '1', 'כבר קיבלתי את ההטבה (עולה: פעם אחת; נכה: פעמיים)', input.reliefUsed, 'checkbox')}</div><div class="jtool-chips" data-if-track="disabled"${t === 'disabled' ? '' : ' hidden'} style="margin-top:8px">${chip('nfh', '1', 'הדירה לא נקנית למגורים שלי (להשקעה)', input.notForHousing, 'checkbox')}</div><p class="jtool-hint">הטבת עולה: רק בדירה יחידה או חלופית (תקנה 12א(א)). נכה: ${esc(pt.tracks.disabled.sole_he)}</p></div>`
 		+ `<div class="jtool-field" data-if-track="oleh"${t === 'oleh' ? '' : ' hidden'}><label class="jtool-label" for="${P}-aly">תאריך העלייה</label><input id="${P}-aly" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.aliyah || ''))}" placeholder="לדוגמה: 1.5.2024" aria-describedby="${P}-aliyah-e"><p class="jtool-error" id="${P}-aliyah-e" role="alert"></p></div>`
@@ -632,17 +637,18 @@ function readForm(root) {
 		reliefUsed: Boolean(root.querySelector(`input[name="${P}-used"]:checked`)),
 		nonResident: Boolean(root.querySelector(`input[name="${P}-nr"]:checked`)),
 		notForHousing: Boolean(root.querySelector(`input[name="${P}-nfh"]:checked`)),
+		groupPrev: Boolean(root.querySelector(`input[name="${P}-grp"]:checked`)),
 		lawyerPct: pct('law'), brokerPct: pct('brk'), other: val(`#${P}-oth`).trim() === '' ? 0 : parseMoney(val(`#${P}-oth`)),
 		comparePrice: parseMoney(val(`#${P}-cmp`)),
 	};
 }
 
 const TR = { single: 's', replacement: 'r', additional: 'a', oleh: 'o', disabled: 'd' };
-const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.otherHome ? 1 : '', u: i.reliefUsed ? 1 : '', n: i.nonResident ? 1 : '', h: i.notForHousing ? 1 : '' });
-const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x', 'u', 'n', 'h'];
+const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.otherHome ? 1 : '', u: i.reliefUsed ? 1 : '', n: i.nonResident ? 1 : '', h: i.notForHousing ? 1 : '', g: i.groupPrev ? 1 : '' });
+const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x', 'u', 'n', 'h', 'g'];
 function inputOf(s) {
 	if (!s.p) { return null; }
-	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, otherHome: s.x === '1', reliefUsed: s.u === '1', nonResident: s.n === '1', notForHousing: s.h === '1' };
+	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, otherHome: s.x === '1', reliefUsed: s.u === '1', nonResident: s.n === '1', notForHousing: s.h === '1', groupPrev: s.g === '1' };
 }
 
 function mount(root, reg) {

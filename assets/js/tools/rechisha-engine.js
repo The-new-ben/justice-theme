@@ -134,6 +134,7 @@ export function replacementDeadline(pt, purchase, opts = {}) {
  *           otherHome (oleh and disability tracks: the buyer has another home that is not being replaced),
  *           reliefUsed (oleh: the relief was already used once, reg. 12א(ב); disability: twice, reg. 11(א)),
  *           nonResident (the buyer is not an individual Israeli resident: no single-home brackets, s.9(ג1ג)(2)),
+ *           groupPrev (replacement: the previous home was bought in a purchasing group whose construction was delayed),
  *           lawyerPct, brokerPct, other, vat: true (fees plus VAT) }
  */
 export function compute(registry, input) {
@@ -164,6 +165,10 @@ export function compute(registry, input) {
 	const nonResident = Boolean(input.nonResident);
 	// The disability brackets need s.9(ג1ג)(2), which is for an individual Israeli resident; otherwise the flat 0.5%.
 	const notSole = Boolean(input.otherHome) || nonResident;
+	// s.9(ג1ג)(2)(ב1): a previous home bought in a purchasing group, delayed, has its own window (review, PR 124).
+	if (track === 'replacement' && input.groupPrev) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: 'הדירה הקודמת נרכשה בקבוצת רכישה ובנייתה התעכבה: יש לה חלון משלה, מכירה עד 18 חודשים מגמר בנייתה, בתנאים שבסעיף 9(ג1ג)(2)(ב1) (הוראת ביצוע 2/2026, סעיף 2.1.1.2). הכלי לא מחשב את המקרה הזה: בדקו בסימולטור של רשות המסים.' }] };
+	}
 	// The single-home brackets (and so the replacement track) are for an individual Israeli resident (review, PR 124).
 	if (nonResident && (track === 'single' || track === 'replacement')) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: `${pt.resident_he}. בחרו "דירה נוספת".` }] };

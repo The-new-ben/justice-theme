@@ -461,6 +461,8 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(est({ betterment: 800000, plan: 'pinui' }).levy === 200000, 's.3א(א): a quarter in pinui-binui');
 	check(est({ betterment: 800000, plan: 'mamad', event: 'permit' }).levy === 0, 's.19(ב)(9)(א): no levy on building a protected space, with the permit');
 	check(!est({ betterment: 800000, plan: 'mamad', event: 'sale' }).ok && est({ betterment: 800000, plan: 'mamad', event: 'sale', mamadPlan: true }).levy === 0, 's.19(ב)(9)(ב): on a sale only a mamad-purpose plan is exempt (review, PR 124)');
+	check(!est({ betterment: 600000, event: 'permit', ownHome: true, areaAfter: 160 }).ok && est({ betterment: 600000, event: 'permit', ownHome: true, areaBefore: 0, areaAfter: 160 }).ok, 'own-home deferral: the current area is required, 0 allowed for new building (review, PR 124)');
+	check(YUI.compareFor({ spouse: 'partner', partnerMarried: 'survivor', children: 1 }).spouse === 'married', 'a barred partner: the what-if adds a married spouse (review, PR 124)');
 	check(YE.compute(reg, { spouse: 'married', children: 2 }).flags.some((f) => f.code === 'vesting'), 'shares vest at the death; an heir who died later passes his share on (review, PR 124)');
 	{
 		const s4 = est({ betterment: 800000, sale4: true });

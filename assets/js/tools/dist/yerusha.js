@@ -608,7 +608,12 @@ function renderCompareOut(r, c) {
 		+ `<p class="jtool-delta" aria-live="polite">${r.spouse === 'none' ? 'בן זוג נוטל חצי או שני שלישים, ולפעמים הכול (סעיף 11).' : 'בלי בן זוג, הקרובים מקבלים את כל העיזבון לפי סדר העדיפות (סעיף 12).'}</p>`;
 }
 
-function compareFor(input) { return Object.assign({}, input, { spouse: input.spouse === 'none' ? 'married' : 'none', spouseApartment: false }); }
+function compareFor(input) {
+	// From the normalised status: a partner barred by s.55 counts as no spouse, so the comparison adds a married one.
+	const barred = input.spouse === 'partner' && (input.partnerFree === false || ['survivor', 'deceased'].includes(input.partnerMarried));
+	const now = barred ? 'none' : (input.spouse || 'none');
+	return Object.assign({}, input, { spouse: now === 'none' ? 'married' : 'none', partnerMarried: 'none', partnerFree: true, spouseApartment: false });
+}
 
 function tableText(r) {
 	return r.heirs.map((h) => `${h.label}: ${fracText(h.share)} (${pctText(h)})${h.amount !== null ? `, ${money(h.amount, h.amount % 1 ? 2 : 0)} ₪` : ''}`).join('\n');

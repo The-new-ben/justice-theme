@@ -278,10 +278,13 @@ function compute(registry, input) {
 	if (!(betterment > 0 && betterment < 1e11)) { errors.push({ field: 'betterment', he: 'ההשבחה (עליית השווי) צריכה להיות גדולה מ-0' }); }
 	if (!(share > 0 && share <= 100)) { errors.push({ field: 'share', he: 'החלק שלכם בנכס: יותר מ-0 ועד 100 אחוז' }); }
 	const areaAfter = input.areaAfter === '' || input.areaAfter === undefined || input.areaAfter === null ? null : Number(input.areaAfter);
-	const areaBefore = input.areaBefore === '' || input.areaBefore === undefined || input.areaBefore === null ? 0 : Number(input.areaBefore);
+	const areaBlank = input.areaBefore === '' || input.areaBefore === undefined || input.areaBefore === null;
+	const areaBefore = areaBlank ? 0 : Number(input.areaBefore);
 	const ownHome = Boolean(input.ownHome) && event === 'permit';
 	if (ownHome && !(areaAfter > 0 && areaAfter < 10000)) { errors.push({ field: 'areaAfter', he: 'שטח הדירה אחרי הבנייה, במ"ר' }); }
-	if (ownHome && !(areaBefore >= 0 && areaBefore < areaAfter)) { errors.push({ field: 'areaBefore', he: 'שטח הדירה לפני הבנייה צריך להיות קטן מהשטח אחריה' }); }
+	// The current area is required for the deferral, 0 for a new home; never assumed (review, PR 124).
+	if (ownHome && areaBlank) { errors.push({ field: 'areaBefore', he: 'שטח הדירה היום, במ"ר (0 אם זו בנייה חדשה)' }); }
+	if (ownHome && !areaBlank && !(areaBefore >= 0 && areaBefore < areaAfter)) { errors.push({ field: 'areaBefore', he: 'שטח הדירה לפני הבנייה צריך להיות קטן מהשטח אחריה' }); }
 	// s.19(ב)(9): the building exemption (א) is realised with the permit; on a sale or a use, only a plan whose main
 	// purpose is mamad provisions (ב) is exempt (review, PR 124).
 	if (plan === 'mamad' && event !== 'permit' && !input.mamadPlan && !errors.length) {

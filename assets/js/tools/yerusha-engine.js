@@ -71,6 +71,10 @@ export function compute(registry, input) {
 	if (errors.length) { return { ok: false, errors }; }
 	// s.14 reaches every generation; the tool models one (grandchildren, nephews and nieces) (review, PR 124).
 	// s.137: the law of the deceased's domicile at death applies (review, PR 124).
+	// ss.6, 15: a renunciation changes the split (review, PR 124).
+	if (input.renounce) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'renounce', he: 'יורש שמסתלק מחלקו נחשב כאילו לא היה יורש מלכתחילה (סעיף 6(ב)). אם הסתלק שלא לטובת בן הזוג, ילד או אח של המוריש, חלקו מתווסף לשאר היורשים לפי חלקיהם (סעיף 15); אם הסתלק לטובת אחד מהם, החלק עובר אליו. הכלי לא מחשב הסתלקות: בדקו עם עורך דין או ברשם לענייני ירושה.' }] };
+	}
 	if (input.abroad) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'abroad', he: 'על הירושה חל הדין של מקום מושבו של המוריש בשעת מותו (סעיף 137), חוץ מהחריגים שבסעיפים 138 עד 140. מרכז החיים היה מחוץ לישראל, ולכן ייתכן שחל דין זר גם על נכסים בישראל, ונדרשת חוות דעת על הדין הזר. הכלי מחשב לפי חוק הירושה הישראלי בלבד.' }] };
 	}

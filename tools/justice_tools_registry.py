@@ -464,6 +464,9 @@ def build_betterment(checked_on: str) -> dict:
                                  "השטח הנוסף לממ\"ד לפי סעיף 151(ג)(2), בתנאים שבסעיף 19(ב)(9)(ג). השבחה משטח אחר, גם באותו "
                                  "היתר, חייבת בהיטל הרגיל של מחצית (סעיף 3)"},
         },
+        # s.19(ב2)(1): for the quarter in TAMA 38 (beyond 2.5 floors) and seismic plans, the local authority may set
+        # no levy or an eighth for permits in its area.
+        "local_q_rates": {"eighth": [1, 8], "none": [0, 1]}, "local_q_section": "סעיף 19(ב2)(1)",
         "residence_max_sqm": 140, "residence_section": "סעיף 19(ג)(1)",
         "residence_sale_years": 4, "residence_sale_section": "סעיף 19(ג)(2)",
         "storage_max_sqm": 20, "storage_section": "סעיף 19(ג1)",

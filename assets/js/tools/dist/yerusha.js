@@ -252,6 +252,10 @@ function compute(registry, input) {
 	if (errors.length) { return { ok: false, errors }; }
 	// s.14 reaches every generation; the tool models one (grandchildren, nephews and nieces) (review, PR 124).
 	// s.137: the law of the deceased's domicile at death applies (review, PR 124).
+	// ss.6, 15: a renunciation changes the split (review, PR 124).
+	if (input.renounce) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'renounce', he: 'יורש שמסתלק מחלקו נחשב כאילו לא היה יורש מלכתחילה (סעיף 6(ב)). אם הסתלק שלא לטובת בן הזוג, ילד או אח של המוריש, חלקו מתווסף לשאר היורשים לפי חלקיהם (סעיף 15); אם הסתלק לטובת אחד מהם, החלק עובר אליו. הכלי לא מחשב הסתלקות: בדקו עם עורך דין או ברשם לענייני ירושה.' }] };
+	}
 	if (input.abroad) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'abroad', he: 'על הירושה חל הדין של מקום מושבו של המוריש בשעת מותו (סעיף 137), חוץ מהחריגים שבסעיפים 138 עד 140. מרכז החיים היה מחוץ לישראל, ולכן ייתכן שחל דין זר גם על נכסים בישראל, ונדרשת חוות דעת על הדין הזר. הכלי מחשב לפי חוק הירושה הישראלי בלבד.' }] };
 	}
@@ -486,7 +490,7 @@ function renderForm(reg, input) {
 		+ `<fieldset class="jtool-field" data-if-partner${input.spouse === 'partner' ? '' : ' hidden'}><legend>במות המוריש, מישהו מבני הזוג היה נשוי לאדם אחר? (סעיף 55)</legend><div class="jtool-chips">${chip('pm', 'none', 'אף אחד', pmOf(input) === 'none')}${chip('pm', 'survivor', 'בן הזוג שנשאר', pmOf(input) === 'survivor')}${chip('pm', 'deceased', 'המוריש', pmOf(input) === 'deceased')}</div></fieldset>`
 		+ `<div class="jtool-chips" data-if-spouse${input.spouse === 'none' ? ' hidden' : ''}>${chip('apt', '1', `נשואים ${reg.yerusha.spouse_apartment_min_years} שנים ויותר וגרו יחד בדירה שבעיזבון`, input.spouseApartment, 'checkbox')}</div></fieldset>`
 		+ `<div class="jtool-row">${stepper('kids', 'ילדים בחיים', input.children, `כולל ילדים מאומצים, מקשר קודם או מחוץ לנישואין (${reg.yerusha.sections.born}), וילד שנולד עד 300 יום אחרי המוות (${reg.yerusha.sections.posthumous})`)}`
-		+ `<div class="jtool-chips">${chip('abr', '1', 'מרכז החיים של המוריש היה מחוץ לישראל', input.abroad, 'checkbox')}</div>`
+		+ `<div class="jtool-chips">${chip('abr', '1', 'מרכז החיים של המוריש היה מחוץ לישראל', input.abroad, 'checkbox')}${chip('ren', '1', 'אחד היורשים מסתלק מחלקו', input.renounce, 'checkbox')}</div>`
 		+ `<fieldset class="jtool-field"><legend>הורים בחיים</legend><div class="jtool-chips">${chip('mom', '1', 'אמא', input.mother, 'checkbox')}${chip('dad', '1', 'אבא', input.father, 'checkbox')}${chip('adp', '1', 'המוריש/ה אומץ/ה (ההורים: המאמצים)', input.adopted, 'checkbox')}</div></fieldset></div>`
 		+ `<div class="jtool-field"><span class="jtool-label" id="${P}-cl-l">ילד שנפטר לפני המוריש והשאיר ילדים</span><ul class="jtool-rep" aria-labelledby="${P}-cl-l" data-lines="child">${childLines.map((k, i) => lineRow('child', k, i)).join('')}</ul><button class="jtool-linkbtn" type="button" data-add-line="child">+ הוספה</button><div class="jtool-chips" style="margin-top:8px">${chip('deep', '1', 'גם נכד או אחיין נפטר לפני המוריש והשאיר ילדים', input.deeper, 'checkbox')}</div><p class="jtool-error" id="${P}-childLines-e" role="alert"></p></div>`
 		+ `<details class="jtool-more"${hasSib ? ' open' : ''}><summary>אחים ואחיות (חשוב כשאין ילדים)</summary>`
@@ -657,7 +661,7 @@ function readForm(root) {
 	const money0 = (id) => { const v = val(`#${P}-${id}`).trim(); return v === '' ? '' : parseMoney(v); };
 	return {
 		spouse: (root.querySelector(`input[name="${P}-sp"]:checked`) || {}).value || 'none',
-		spouseApartment: on('apt'), partnerMarried: (root.querySelector(`input[name="${P}-pm"]:checked`) || {}).value || 'none', deeper: on('deep'), abroad: on('abr'), children: n('kids'), mother: on('mom'), father: on('dad'), adopted: on('adp'),
+		spouseApartment: on('apt'), partnerMarried: (root.querySelector(`input[name="${P}-pm"]:checked`) || {}).value || 'none', deeper: on('deep'), abroad: on('abr'), renounce: on('ren'), children: n('kids'), mother: on('mom'), father: on('dad'), adopted: on('adp'),
 		childLines: Array.from(root.querySelectorAll('[data-line="child"] [data-line-kids]')).map((i) => (i.value.trim() === '' ? 0 : Number(i.value))),
 		siblingsFull: n('sibf'), siblingsFather: n('sibd'), siblingsMother: n('sibm'),
 		siblingLines: Array.from(root.querySelectorAll('[data-line="sib"]')).map((row) => ({ side: (row.querySelector('[data-line-side]') || {}).value || 'full', kids: Number((row.querySelector('[data-line-kids]') || {}).value || 0) })),
@@ -672,15 +676,15 @@ const stateOf = (i) => encodeState({
 	s: SP[i.spouse] || 'n', a: i.spouseApartment ? 1 : '', c: i.children || '', g: (i.childLines || []).join('.'),
 	m: i.mother ? 1 : '', f: i.father ? 1 : '', b: i.siblingsFull || '', x: i.siblingsFather || '', y: i.siblingsMother || '',
 	l: (i.siblingLines || []).map((l) => `${SIDE[l.side] || 'b'}${l.kids}`).join('.'), r: i.grandparents || '', o: i.grandOthersNone ? 1 : '', u: i.otherRelatives ? 1 : '',
-	h: i.apartment || '', t: i.other || '', d: i.adopted ? 1 : '', q: i.spouse === 'partner' ? ({ survivor: 's', deceased: 'd' }[pmOf(i)] || '') : '', e: i.deeper ? 1 : '', w: i.abroad ? 1 : '',
+	h: i.apartment || '', t: i.other || '', d: i.adopted ? 1 : '', q: i.spouse === 'partner' ? ({ survivor: 's', deceased: 'd' }[pmOf(i)] || '') : '', e: i.deeper ? 1 : '', w: i.abroad ? 1 : '', k: i.renounce ? 1 : '',
 });
-const KEYS = ['s', 'a', 'c', 'g', 'm', 'f', 'b', 'x', 'y', 'l', 'r', 'o', 'u', 'h', 't', 'd', 'q', 'e', 'w'];
+const KEYS = ['s', 'a', 'c', 'g', 'm', 'f', 'b', 'x', 'y', 'l', 'r', 'o', 'u', 'h', 't', 'd', 'q', 'e', 'w', 'k'];
 function inputOf(s) {
 	if (!s.s) { return null; }
 	const side = Object.fromEntries(Object.entries(SIDE).map(([k, v]) => [v, k]));
 	return {
 		spouse: Object.keys(SP).find((k) => SP[k] === s.s) || 'none', spouseApartment: s.a === '1', children: Number(s.c) || 0,
-		childLines: s.g ? s.g.split('.').map(Number) : [], mother: s.m === '1', father: s.f === '1', adopted: s.d === '1', partnerMarried: { s: 'survivor', d: 'deceased', 1: 'survivor' }[s.q] || 'none', deeper: s.e === '1', abroad: s.w === '1',
+		childLines: s.g ? s.g.split('.').map(Number) : [], mother: s.m === '1', father: s.f === '1', adopted: s.d === '1', partnerMarried: { s: 'survivor', d: 'deceased', 1: 'survivor' }[s.q] || 'none', deeper: s.e === '1', abroad: s.w === '1', renounce: s.k === '1',
 		siblingsFull: Number(s.b) || 0, siblingsFather: Number(s.x) || 0, siblingsMother: Number(s.y) || 0,
 		siblingLines: s.l ? s.l.split('.').map((t) => ({ side: side[t.charAt(0)] || 'full', kids: Number(t.slice(1)) || 0 })) : [],
 		grandparents: Number(s.r) || 0, grandOthersNone: s.o === '1', otherRelatives: s.u === '1',

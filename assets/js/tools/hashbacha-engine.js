@@ -53,6 +53,8 @@ const r2 = (n) => Math.round(n * 100) / 100;
  *   betterment: the rise in value from the plan (the appraiser's "after" minus "before"), in NIS.
  *   tamaBeyond: TAMA 38 only, the part of the betterment that comes from area beyond 2.5 extended floors.
  *   mamadBeyond: mamad only, the part of the betterment that comes from area beyond the exempt protected space.
+ *   localQ: TAMA 38 and seismic only, the local rate for the quarter part (s.19(ב2)(1)): 'eighth', 'none', or the
+ *   statutory quarter (default).
  *   pinuiRate: urban renewal only, the rate the local authority set for the area: 'quarter' (the statutory default,
  *   s.3א(א)), 'half' or 'none' (s.3א(ב)).
  *   seismicPct: seismic only, the percent of the betterment the quarter applies to (default 100, s.19(ב)(10א)(א));
@@ -116,13 +118,16 @@ export function compute(registry, input) {
 	const R = b.rates[plan];
 	let levyFull;
 	let beyond = null;
+	const lq = (plan === 'tama38' || plan === 'seismic') && b.local_q_rates ? b.local_q_rates[input.localQ] || null : null;
 	const lines = [];
 	if (share < 100) { lines.push({ code: 'share', he: `החלק שלכם: ${share}% מההשבחה`, section: b.partners_section, value: yours }); }
 	if (plan === 'tama38') {
 		beyond = r2(tamaBeyond * share / 100);
-		levyFull = r2(beyond * R.beyond_rate[0] / R.beyond_rate[1]);
+		const tq = lq || R.beyond_rate;
+		levyFull = r2(beyond * tq[0] / tq[1]);
 		lines.push({ code: 'tama', he: 'היתר לפי תמ"א 38: פטור, חוץ מרבע ההשבחה שמקורה בשטח שמעבר ל-2.5 קומות טיפוסיות מורחבות', section: R.section, value: levyFull });
-		if (beyond > 0 && R.local_he) { flags.push({ code: 'tama_local', he: R.local_he }); }
+		if (lq) { lines.push({ code: 'local_q', he: `השיעור שקבעה הרשות המקומית לחלק הזה: ${lq[0] === 0 ? 'פטור' : `${lq[0]}/${lq[1]}`}`, section: b.local_q_section, value: levyFull }); }
+		if (beyond > 0 && R.local_he && !lq) { flags.push({ code: 'tama_local', he: R.local_he }); }
 	} else if (plan === 'mamad') {
 		beyond = r2(mamadBeyond * share / 100);
 		levyFull = r2(beyond * R.beyond_rate[0] / R.beyond_rate[1]);
@@ -136,17 +141,21 @@ export function compute(registry, input) {
 	} else if (plan === 'seismic' && seismicPct < 100) {
 		const qPart = r2(yours * seismicPct / 100);
 		const rest = r2(yours - qPart);
-		const qLevy = r2(qPart * R.rate[0] / R.rate[1]);
+		const sq = lq || R.rate;
+		const qLevy = r2(qPart * sq[0] / sq[1]);
 		const restLevy = r2(rest * R.rest_rate[0] / R.rest_rate[1]);
 		levyFull = r2(qLevy + restLevy);
-		lines.push({ code: 'seismic_quarter', he: `רבע על ${seismicPct}% מההשבחה (${qPart.toLocaleString('en-US')} ₪)`, section: R.rest_section, value: qLevy });
+		lines.push({ code: 'seismic_quarter', he: `${lq ? (lq[0] === 0 ? 'פטור' : `${lq[0]}/${lq[1]}`) : 'רבע'} על ${seismicPct}% מההשבחה (${qPart.toLocaleString('en-US')} ₪)`, section: lq ? b.local_q_section : R.rest_section, value: qLevy });
 		lines.push({ code: 'seismic_rest', he: `מחצית על היתרה (${rest.toLocaleString('en-US')} ₪)`, section: R.rest_section, value: restLevy });
+	} else if (plan === 'seismic' && lq) {
+		levyFull = r2(yours * lq[0] / lq[1]);
+		lines.push({ code: 'local_q', he: `השיעור שקבעה הרשות המקומית: ${lq[0] === 0 ? 'פטור' : `${lq[0]}/${lq[1]} מההשבחה`}`, section: b.local_q_section, value: levyFull });
 	} else {
 		levyFull = r2(yours * R.rate[0] / R.rate[1]);
 		lines.push({ code: 'rate', he: `שיעור ההיטל: ${R.rate[0] === 0 ? 'פטור' : `${R.rate[0]}/${R.rate[1]} מההשבחה`}`, section: R.section, value: levyFull });
 	}
 	if (plan === 'pinui' && !['half', 'none'].includes(input.pinuiRate)) { flags.push({ code: 'pinui_local', he: R.local_he }); }
-	if (plan === 'seismic' && R.local_he) { flags.push({ code: 'seismic_local', he: R.local_he }); }
+	if (plan === 'seismic' && R.local_he && !lq) { flags.push({ code: 'seismic_local', he: R.local_he }); }
 
 	// The home-for-the-family deferral (s.19(ג)(1)): up to 140 m2 after the work, no payment at the permit.
 	let due = levyFull;
@@ -170,7 +179,7 @@ export function compute(registry, input) {
 	const timing = { sale: 'במכירה, לפני רישום ההעברה', permit: 'כשמקבלים את היתר הבנייה', use: 'כשמתחילים את השימוש שההקלה או השימוש החורג מתירים' }[event];
 	return {
 		ok: true, mode: 'estimate', betterment: r2(betterment), share, yours, plan, event, realized, levy: levyFull, due, deferred, lines, flags, timing,
-		beyond, rate: plan === 'pinui' && ['half', 'none'].includes(input.pinuiRate) ? R.local_rates[input.pinuiRate] : (R.beyond_rate || R.rate), mixed: plan === 'seismic' && seismicPct < 100, seismicPct,
+		beyond, rate: plan === 'pinui' && ['half', 'none'].includes(input.pinuiRate) ? R.local_rates[input.pinuiRate] : (lq && !(plan === 'seismic' && seismicPct < 100) ? lq : (R.beyond_rate || R.rate)), qRate: lq || (plan === 'seismic' ? R.rate : null), mixed: plan === 'seismic' && seismicPct < 100, seismicPct,
 	};
 }
 

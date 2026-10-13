@@ -234,6 +234,8 @@ const r2 = (n) => Math.round(n * 100) / 100;
  *   betterment: the rise in value from the plan (the appraiser's "after" minus "before"), in NIS.
  *   tamaBeyond: TAMA 38 only, the part of the betterment that comes from area beyond 2.5 extended floors.
  *   mamadBeyond: mamad only, the part of the betterment that comes from area beyond the exempt protected space.
+ *   localQ: TAMA 38 and seismic only, the local rate for the quarter part (s.19(ב2)(1)): 'eighth', 'none', or the
+ *   statutory quarter (default).
  *   pinuiRate: urban renewal only, the rate the local authority set for the area: 'quarter' (the statutory default,
  *   s.3א(א)), 'half' or 'none' (s.3א(ב)).
  *   seismicPct: seismic only, the percent of the betterment the quarter applies to (default 100, s.19(ב)(10א)(א));
@@ -297,13 +299,16 @@ function compute(registry, input) {
 	const R = b.rates[plan];
 	let levyFull;
 	let beyond = null;
+	const lq = (plan === 'tama38' || plan === 'seismic') && b.local_q_rates ? b.local_q_rates[input.localQ] || null : null;
 	const lines = [];
 	if (share < 100) { lines.push({ code: 'share', he: `החלק שלכם: ${share}% מההשבחה`, section: b.partners_section, value: yours }); }
 	if (plan === 'tama38') {
 		beyond = r2(tamaBeyond * share / 100);
-		levyFull = r2(beyond * R.beyond_rate[0] / R.beyond_rate[1]);
+		const tq = lq || R.beyond_rate;
+		levyFull = r2(beyond * tq[0] / tq[1]);
 		lines.push({ code: 'tama', he: 'היתר לפי תמ"א 38: פטור, חוץ מרבע ההשבחה שמקורה בשטח שמעבר ל-2.5 קומות טיפוסיות מורחבות', section: R.section, value: levyFull });
-		if (beyond > 0 && R.local_he) { flags.push({ code: 'tama_local', he: R.local_he }); }
+		if (lq) { lines.push({ code: 'local_q', he: `השיעור שקבעה הרשות המקומית לחלק הזה: ${lq[0] === 0 ? 'פטור' : `${lq[0]}/${lq[1]}`}`, section: b.local_q_section, value: levyFull }); }
+		if (beyond > 0 && R.local_he && !lq) { flags.push({ code: 'tama_local', he: R.local_he }); }
 	} else if (plan === 'mamad') {
 		beyond = r2(mamadBeyond * share / 100);
 		levyFull = r2(beyond * R.beyond_rate[0] / R.beyond_rate[1]);
@@ -317,17 +322,21 @@ function compute(registry, input) {
 	} else if (plan === 'seismic' && seismicPct < 100) {
 		const qPart = r2(yours * seismicPct / 100);
 		const rest = r2(yours - qPart);
-		const qLevy = r2(qPart * R.rate[0] / R.rate[1]);
+		const sq = lq || R.rate;
+		const qLevy = r2(qPart * sq[0] / sq[1]);
 		const restLevy = r2(rest * R.rest_rate[0] / R.rest_rate[1]);
 		levyFull = r2(qLevy + restLevy);
-		lines.push({ code: 'seismic_quarter', he: `רבע על ${seismicPct}% מההשבחה (${qPart.toLocaleString('en-US')} ₪)`, section: R.rest_section, value: qLevy });
+		lines.push({ code: 'seismic_quarter', he: `${lq ? (lq[0] === 0 ? 'פטור' : `${lq[0]}/${lq[1]}`) : 'רבע'} על ${seismicPct}% מההשבחה (${qPart.toLocaleString('en-US')} ₪)`, section: lq ? b.local_q_section : R.rest_section, value: qLevy });
 		lines.push({ code: 'seismic_rest', he: `מחצית על היתרה (${rest.toLocaleString('en-US')} ₪)`, section: R.rest_section, value: restLevy });
+	} else if (plan === 'seismic' && lq) {
+		levyFull = r2(yours * lq[0] / lq[1]);
+		lines.push({ code: 'local_q', he: `השיעור שקבעה הרשות המקומית: ${lq[0] === 0 ? 'פטור' : `${lq[0]}/${lq[1]} מההשבחה`}`, section: b.local_q_section, value: levyFull });
 	} else {
 		levyFull = r2(yours * R.rate[0] / R.rate[1]);
 		lines.push({ code: 'rate', he: `שיעור ההיטל: ${R.rate[0] === 0 ? 'פטור' : `${R.rate[0]}/${R.rate[1]} מההשבחה`}`, section: R.section, value: levyFull });
 	}
 	if (plan === 'pinui' && !['half', 'none'].includes(input.pinuiRate)) { flags.push({ code: 'pinui_local', he: R.local_he }); }
-	if (plan === 'seismic' && R.local_he) { flags.push({ code: 'seismic_local', he: R.local_he }); }
+	if (plan === 'seismic' && R.local_he && !lq) { flags.push({ code: 'seismic_local', he: R.local_he }); }
 
 	// The home-for-the-family deferral (s.19(ג)(1)): up to 140 m2 after the work, no payment at the permit.
 	let due = levyFull;
@@ -351,7 +360,7 @@ function compute(registry, input) {
 	const timing = { sale: 'במכירה, לפני רישום ההעברה', permit: 'כשמקבלים את היתר הבנייה', use: 'כשמתחילים את השימוש שההקלה או השימוש החורג מתירים' }[event];
 	return {
 		ok: true, mode: 'estimate', betterment: r2(betterment), share, yours, plan, event, realized, levy: levyFull, due, deferred, lines, flags, timing,
-		beyond, rate: plan === 'pinui' && ['half', 'none'].includes(input.pinuiRate) ? R.local_rates[input.pinuiRate] : (R.beyond_rate || R.rate), mixed: plan === 'seismic' && seismicPct < 100, seismicPct,
+		beyond, rate: plan === 'pinui' && ['half', 'none'].includes(input.pinuiRate) ? R.local_rates[input.pinuiRate] : (lq && !(plan === 'seismic' && seismicPct < 100) ? lq : (R.beyond_rate || R.rate)), qRate: lq || (plan === 'seismic' ? R.rate : null), mixed: plan === 'seismic' && seismicPct < 100, seismicPct,
 	};
 }
 
@@ -416,6 +425,7 @@ function renderForm(reg, input) {
 		+ `<div class="jtool-row">${moneyField('bet', 'בכמה עלה שווי הנכס בגלל התוכנית', input.betterment, 'ההשבחה: השווי אחרי פחות השווי לפני, לפי שמאי', 'לדוגמה: 800,000')}`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-share">החלק שלכם בנכס</label><div class="jtool-input"><input id="${P}-share" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.share ?? 100)}" aria-describedby="${P}-share-h ${P}-share-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-hint" id="${P}-share-h">שותפים משלמים לפי החלק (${esc(b.partners_section)})</p><p class="jtool-error" id="${P}-share-e" role="alert"></p></div></div>`
 		+ `<fieldset class="jtool-field"><legend>מה גרם לעליית השווי</legend><div class="jtool-chips">${PLANS.map((k) => chip('plan', k, PLAN_LABEL[k], (input.plan || 'regular') === k)).join('')}</div></fieldset>`
+		+ `<fieldset class="jtool-field" data-if-plan="tama38 seismic"${input.plan === 'tama38' || input.plan === 'seismic' ? '' : ' hidden'}><legend>השיעור שקבעה הרשות המקומית לחלק של הרבע (${esc(b.local_q_section)})</legend><div class="jtool-chips">${chip('lq', 'quarter', 'לא קבעה אחרת: רבע', !['eighth', 'none'].includes(input.localQ))}${chip('lq', 'eighth', 'שמינית', input.localQ === 'eighth')}${chip('lq', 'none', 'פטור', input.localQ === 'none')}</div></fieldset>`
 		+ `<fieldset class="jtool-field" data-if-plan="pinui"${input.plan === 'pinui' ? '' : ' hidden'}><legend>השיעור שקבעה הרשות המקומית לאזור (${esc(b.rates.pinui.local_section)})</legend><div class="jtool-chips">${chip('prt', 'quarter', 'לא קבעה אחרת: רבע', !['half', 'none'].includes(input.pinuiRate))}${chip('prt', 'half', 'מחצית', input.pinuiRate === 'half')}${chip('prt', 'none', 'פטור', input.pinuiRate === 'none')}</div><p class="jtool-hint">בדקו בוועדה המקומית אם התקבלה החלטה לאזור שלכם</p></fieldset>`
 		+ `<div data-if-plan="tama38"${input.plan === 'tama38' ? '' : ' hidden'}>${moneyField('tama', 'החלק מההשבחה שמקורו בשטח מעבר ל-2.5 קומות', input.tamaBeyond, 'עליו בלבד היטל של רבע (סעיף 19(ב)(10)(א))', '0 אם אין')}</div>`
 		+ `<div class="jtool-field" data-if-plan="seismic"${input.plan === 'seismic' ? '' : ' hidden'}><label class="jtool-label" for="${P}-seis">החלק מההשבחה שחל עליו רבע</label><div class="jtool-input"><input id="${P}-seis" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.seismicPct ?? 100)}" aria-describedby="${P}-seis-h ${P}-seismicPct-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-hint" id="${P}-seis-h">100% בתוכנית לעמידות מפני רעידות אדמה במגרש עצמו (סעיף 19(ב)(10א)(א)). במגרש אחר, או בתוכנית שמותנית בחיזוק: רבע רק על החלק היחסי, והשאר מחצית (סעיף 19(ב)(10א)(ב)-(ג))</p><p class="jtool-error" id="${P}-seismicPct-e" role="alert"></p></div>`
@@ -445,7 +455,7 @@ function verdictSentence(reg, r) {
 	if (r.levy === 0) { return `${PLAN_LABEL[r.plan]}: אין היטל השבחה על החלק הזה (${r.plan === 'pinui' && r.rate[0] === 0 ? reg.betterment.rates.pinui.local_section : reg.betterment.rates[r.plan].section}).`; }
 	const part = { tama38: 'שמקורו בשטח שמעבר ל-2.5 קומות', mamad: 'שמקורו בשטח שאינו פטור' }[r.plan];
 	const base = r.mixed
-		? `היטל השבחה של ${nis(r.levy)}: רבע על ${r.seismicPct}% מההשבחה ${r.share < 100 ? 'שלכם' : `של ${nis(r.betterment)}`}, ומחצית על השאר.`
+		? `היטל השבחה של ${nis(r.levy)}: ${r.qRate && r.qRate[1] !== 4 ? (r.qRate[0] === 0 ? 'פטור' : `${r.qRate[0]}/${r.qRate[1]}`) : 'רבע'} על ${r.seismicPct}% מההשבחה ${r.share < 100 ? 'שלכם' : `של ${nis(r.betterment)}`}, ומחצית על השאר.`
 		: part && r.beyond !== null
 		? `היטל השבחה של ${nis(r.levy)}: ${r.rate[0]}/${r.rate[1]} מהחלק ${part} (${nis(r.beyond)}). השאר פטור.`
 		: `היטל השבחה של ${nis(r.levy)}: ${r.rate[0]}/${r.rate[1]} מההשבחה ${r.share < 100 ? `שלכם (${r.share}% מ-${nis(r.betterment)})` : `של ${nis(r.betterment)}`}.`;
@@ -577,7 +587,7 @@ function readForm(root) {
 	const num = (id) => { const v = val(`#${P}-${id}`).trim(); return v === '' ? '' : Number(v.replace(/,/g, '')); };
 	return {
 		mode, betterment: parseMoney(val(`#${P}-bet`)), share: num('share'), plan: checked('plan') || 'regular', event: checked('evt') || 'sale',
-		ownHome: Boolean(checked('home')), areaBefore: num('ab'), areaAfter: num('aa'), realized: num('real'), seismicPct: num('seis'), pinuiRate: checked('prt') || 'quarter', sale4: Boolean(checked('s4')), tamaBeyond: val(`#${P}-tama`).trim() === '' ? '' : parseMoney(val(`#${P}-tama`)),
+		ownHome: Boolean(checked('home')), areaBefore: num('ab'), areaAfter: num('aa'), realized: num('real'), seismicPct: num('seis'), pinuiRate: checked('prt') || 'quarter', localQ: checked('lq') || 'quarter', sale4: Boolean(checked('s4')), tamaBeyond: val(`#${P}-tama`).trim() === '' ? '' : parseMoney(val(`#${P}-tama`)),
 		mamadBeyond: val(`#${P}-mamx`).trim() === '' ? '' : parseMoney(val(`#${P}-mamx`)),
 	};
 }
@@ -586,13 +596,13 @@ const PL = { regular: 'r', pinui: 'p', seismic: 's', tama38: 't', mamad: 'm' };
 const EV = { sale: 's', permit: 'p', use: 'u' };
 const stateOf = (i) => (i.mode === 'assessment'
 	? encodeState({ k: 'a', l: i.levy, d: i.received, y: i.mine, j: i.kind === 'schedule' ? 's' : '' })
-	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond, x: i.mamadBeyond, q: i.realized === 100 ? '' : i.realized, w: i.sale4 ? 1 : '', z: i.seismicPct === 100 || i.seismicPct === '' ? '' : i.seismicPct, r: { half: 'h', none: 'n' }[i.pinuiRate] || '' }));
-const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't', 'x', 'q', 'w', 'z', 'r'];
+	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond, x: i.mamadBeyond, q: i.realized === 100 ? '' : i.realized, w: i.sale4 ? 1 : '', z: i.seismicPct === 100 || i.seismicPct === '' ? '' : i.seismicPct, r: { half: 'h', none: 'n' }[i.pinuiRate] || '', v: { eighth: 'e', none: 'n' }[i.localQ] || '' }));
+const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't', 'x', 'q', 'w', 'z', 'r', 'v'];
 function inputOf(s) {
 	if (s.k === 'a' && s.l) { return { mode: 'assessment', levy: Number(s.l), received: s.d || '', mine: s.y === undefined ? '' : Number(s.y), kind: s.j === 's' ? 'schedule' : 'plan' }; }
 	if (s.k === 'e' && s.b) {
 		const back = (map, v, d) => Object.keys(map).find((k) => map[k] === v) || d;
-		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t), mamadBeyond: s.x === undefined ? '' : Number(s.x), realized: s.q === undefined ? 100 : Number(s.q), sale4: s.w === '1', seismicPct: s.z === undefined ? 100 : Number(s.z), pinuiRate: { h: 'half', n: 'none' }[s.r] || 'quarter' };
+		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t), mamadBeyond: s.x === undefined ? '' : Number(s.x), realized: s.q === undefined ? 100 : Number(s.q), sale4: s.w === '1', seismicPct: s.z === undefined ? 100 : Number(s.z), pinuiRate: { h: 'half', n: 'none' }[s.r] || 'quarter', localQ: { e: 'eighth', n: 'none' }[s.v] || 'quarter' };
 	}
 	return null;
 }
@@ -631,7 +641,7 @@ function mount(root, reg) {
 		form.querySelectorAll('[data-mode-estimate]').forEach((el) => { el.hidden = mode !== 'estimate'; });
 		form.querySelectorAll('[data-mode-assessment]').forEach((el) => { el.hidden = mode !== 'assessment'; });
 		const plan = (root.querySelector(`input[name="${P}-plan"]:checked`) || {}).value;
-		form.querySelectorAll('[data-if-plan]').forEach((el) => { el.hidden = el.getAttribute('data-if-plan') !== plan; });
+		form.querySelectorAll('[data-if-plan]').forEach((el) => { el.hidden = !(el.getAttribute('data-if-plan') || '').split(' ').includes(plan); });
 		const evt = (root.querySelector(`input[name="${P}-evt"]:checked`) || {}).value;
 		form.querySelectorAll('[data-if-event]').forEach((el) => { el.hidden = el.getAttribute('data-if-event') !== evt; });
 		const home = Boolean(root.querySelector(`input[name="${P}-home"]:checked`));

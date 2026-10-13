@@ -129,6 +129,10 @@ export function compute(registry, input) {
 	// The current area is required for the deferral, 0 for a new home; never assumed (review, PR 124).
 	if (ownHome && areaBlank) { errors.push({ field: 'areaBefore', he: 'שטח הדירה היום, במ"ר (0 אם זו בנייה חדשה)' }); }
 	if (ownHome && !areaBlank && !(areaBefore >= 0 && areaBefore < areaAfter)) { errors.push({ field: 'areaBefore', he: 'שטח הדירה לפני הבנייה צריך להיות קטן מהשטח אחריה' }); }
+	// s.19(ב): further exemptions the tool does not check one by one (review, PR 124).
+	if (input.otherExempt && !errors.length) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'otherExempt', he: 'סעיף 19(ב) לתוספת השלישית פוטר מהיטל גם, בין היתר: מגורים בשכונת שיקום שהממשלה הכריזה עליה או באזור שיקום (פסקאות (1)-(3)), מוסדות ציבור (4), בנייה בסיוע משרד הבינוי והשיכון (5), בעלים שהחזיקו 10 שנים לפחות ובונים למגורים שלהם או של קרוב (6), התאמות נגישות (7) ודרך ציבורית (8). הכלי לא בודק את הפטורים האלה: בדקו בוועדה המקומית או עם שמאי.' }] };
+	}
 	// s.19(ב)(10), (10א): the TAMA 38 exemption and the seismic quarter are for betterment from receiving a building
 	// permit (review, PR 124).
 	if ((plan === 'tama38' || plan === 'seismic') && event !== 'permit' && !errors.length) {

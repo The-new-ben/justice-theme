@@ -464,6 +464,10 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const est = (i) => HB.compute(reg, Object.assign({ mode: 'estimate', share: 100, event: 'sale' }, i));
 	check(est({ betterment: 800000, share: 50, plan: 'regular' }).levy === 200000, 's.3 + s.11(א): half of a 50% share of 800,000 = 200,000');
 	check(est({ betterment: 800000, plan: 'pinui' }).levy === 200000, 's.3א(א): a quarter in pinui-binui');
+	{
+		const ox = est({ betterment: 800000, otherExempt: true });
+		check(!ox.ok && ox.outOfScope && /שכונת שיקום/.test(ox.errors[0].he), 's.19(ב): other exemptions (rehabilitation neighbourhood and more) are screened, not computed (review, PR 124)');
+	}
 	check(est({ betterment: 800000, plan: 'mamad', event: 'permit' }).levy === 0, 's.19(ב)(9)(א): no levy on building a protected space, with the permit');
 	check(!est({ betterment: 800000, plan: 'mamad', event: 'sale' }).ok && est({ betterment: 800000, plan: 'mamad', event: 'sale', mamadPlan: true }).levy === 0, 's.19(ב)(9)(ב): on a sale only a mamad-purpose plan is exempt (review, PR 124)');
 	check(!est({ betterment: 600000, event: 'permit', ownHome: true, areaAfter: 160 }).ok && est({ betterment: 600000, event: 'permit', ownHome: true, areaBefore: 0, areaAfter: 160 }).ok, 'own-home deferral: the current area is required, 0 allowed for new building (review, PR 124)');

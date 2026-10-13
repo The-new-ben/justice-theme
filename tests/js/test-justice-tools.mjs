@@ -398,6 +398,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		const nh = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled', notForHousing: true });
 		check(!nh.ok && nh.outOfScope && /שיכונו/.test(nh.errors[0].he), 'reg. 11(א): the disability relief only for the person\'s own housing (review, PR 124)');
 		check(/מחצית/.test(reg.purchase_tax.share_ignored_he), 's.49ג(3): an inherited home is ignored up to a half');
+		check(/תושב חוזר ותיק/.test(reg.purchase_tax.resident_he), 's.9(ג1ג)(4)(ב): the two-year rule names first-time and veteran returning residents (review, PR 124)');
 		const late = { price: 2000000, date: '2024-01-16', track: 'replacement', today: '2026-10-13' };
 		const l1 = RQ.compute(reg, late);
 		check(!l1.ok && l1.outOfScope && /עבר/.test(l1.errors[0].he) && RQ.compute(reg, Object.assign({ priorSold: true }, late)).ok, 'replacement deadline passed: the single-home result needs "sold in time" (review, PR 124)');

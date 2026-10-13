@@ -229,7 +229,7 @@ export function compute(registry, input) {
 	let replacement = null;
 	if (track === 'replacement') {
 		replacement = replacementDeadline(pt, on, { contractor: Boolean(input.contractor), delivery });
-		if (!replacement.ok && replacement.reason === 'delivery') { flags.push({ code: 'delivery', he: 'ברכישה מקבלן, 12 החודשים נספרים מיום מסירת הדירה החדשה. הזינו את מועד המסירה לפי ההסכם.' }); }
+		if (!replacement.ok && replacement.reason === 'delivery') { flags.push({ code: 'delivery', he: 'ברכישה מקבלן, 12 החודשים נספרים מיום המסירה לפי ההסכם, ואם המסירה התעכבה בנסיבות שאינן בשליטתכם, מיום המסירה בפועל (סעיף 9(ג1ג)(2)(ב)). הזינו את המועד.' }); }
 		if (!replacement.ok && replacement.reason === 'before') { flags.push({ code: 'replacement_before', he: `חלון המכירה מחושב כאן לרכישות מ-${rqDate(replacement.from)}.` }); }
 		// The deadline has passed: the single-home rates hold only if the previous home was sold in time (review, PR 124).
 		if (replacement.ok && input.today && replacement.deadline < input.today && !input.priorSold) {

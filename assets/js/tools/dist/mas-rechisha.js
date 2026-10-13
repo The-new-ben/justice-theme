@@ -336,10 +336,13 @@ function compute(registry, input) {
 	if (!(lawyerPct >= 0 && lawyerPct <= 10)) { errors.push({ field: 'lawyer', he: 'שכר טרחת עורך הדין באחוזים: 0 עד 10' }); }
 	if (!(brokerPct >= 0 && brokerPct <= 10)) { errors.push({ field: 'broker', he: 'דמי התיווך באחוזים: 0 עד 10' }); }
 	if (!(other >= 0 && other < 1e8)) { errors.push({ field: 'other', he: 'עלויות אחרות: מספר חיובי' }); }
-	const delivery = input.delivery ? parseDate(input.delivery) : null;
-	if (input.delivery && !delivery) { errors.push({ field: 'delivery', he: 'מועד המסירה לא תקין' }); }
-	const aliyah = input.aliyah ? parseDate(input.aliyah) : null;
-	if (input.aliyah && !aliyah) { errors.push({ field: 'aliyah', he: 'תאריך העלייה לא תקין' }); }
+	// Each date is read only where its track uses it, so a hidden field never blocks another track (review, PR 124).
+	const usesDelivery = track === 'replacement' && Boolean(input.contractor);
+	const delivery = usesDelivery && input.delivery ? parseDate(input.delivery) : null;
+	if (usesDelivery && input.delivery && !delivery) { errors.push({ field: 'delivery', he: 'מועד המסירה לא תקין' }); }
+	if (usesDelivery && !input.delivery) { errors.push({ field: 'delivery', he: 'ברכישה מקבלן צריך את מועד המסירה: לפי החוזה, או בפועל אם המסירה התעכבה שלא בשליטתכם. ממנו נספרים 12 החודשים (סעיף 9(ג1ג)(2)(ב)).' }); }
+	const aliyah = track === 'oleh' && input.aliyah ? parseDate(input.aliyah) : null;
+	if (track === 'oleh' && input.aliyah && !aliyah) { errors.push({ field: 'aliyah', he: 'תאריך העלייה לא תקין' }); }
 	// The oleh relief applies only within its window, so it is never computed without the aliyah day (review, PR 124).
 	if (track === 'oleh' && !input.aliyah) { errors.push({ field: 'aliyah', he: 'בהטבת עולה צריך את תאריך העלייה: ההטבה חלה רק ברכישה משנה לפניה ועד 7 שנים אחריה' }); }
 	if (errors.length) { return { ok: false, errors }; }

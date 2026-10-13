@@ -248,6 +248,9 @@ function byBrackets(brackets, value) {
 	return { tax: Math.round(tax) / 100, lines };
 }
 
+/** Saturday -> Sunday (Interpretation Law s.10(ג)); holidays are not modelled. */
+function offSaturday(iso) { return new Date(`${iso}T00:00:00Z`).getUTCDay() === 6 ? addDays(iso, 1) : iso; }
+
 const TRACKS = ['single', 'replacement', 'additional', 'oleh', 'disabled'];
 
 /**
@@ -307,7 +310,10 @@ function replacementDeadline(pt, purchase, opts = {}) {
 		if (!w) { return { ok: false, reason: 'before', from: r.windows[0].from }; }
 		chosen = windowOf(purchase, w.months, 'purchase');
 	}
-	return Object.assign({ ok: true, contractor: Boolean(opts.contractor) }, chosen);
+	// Interpretation Law s.10(ג): a period that ends on a rest day ends on the next day (Saturday modelled; holidays
+	// named in the note) (review, PR 124).
+	const rolled = offSaturday(chosen.deadline);
+	return Object.assign({ ok: true, contractor: Boolean(opts.contractor) }, chosen, { deadline: rolled, restRolled: rolled !== chosen.deadline });
 }
 
 /**
@@ -401,10 +407,14 @@ function compute(registry, input) {
 	// VAT by the rate in force on the purchase day (17% from 1.10.2015, 18% from 1.1.2025) (review, PR 124).
 	// VAT at the fee's tax point: the box says whether the fees were paid before the current rate; without it, the
 	// purchase day decides (review, PR 124).
-	const feesBefore = input.feesBefore === undefined || input.feesBefore === null ? on < pt.vat_from : Boolean(input.feesBefore);
-	const vat = input.vat === false ? 0 : (pt.vat_prior && feesBefore ? pt.vat_prior.pct : pt.vat_pct);
-	const lawyer = Math.round(price * lawyerPct * (100 + vat) / 100) / 100;
-	const broker = Math.round(price * brokerPct * (100 + vat) / 100) / 100;
+	// Per fee, at its own tax point (review, PR 124): lawyerBefore / brokerBefore, else feesBefore, else the purchase day.
+	const before = (v) => (v === undefined || v === null ? (input.feesBefore === undefined || input.feesBefore === null ? on < pt.vat_from : Boolean(input.feesBefore)) : Boolean(v));
+	const rateOf = (b) => (input.vat === false ? 0 : (pt.vat_prior && b ? pt.vat_prior.pct : pt.vat_pct));
+	const vatLawyer = rateOf(before(input.lawyerBefore));
+	const vatBroker = rateOf(before(input.brokerBefore));
+	const vat = vatLawyer;
+	const lawyer = Math.round(price * lawyerPct * (100 + vatLawyer) / 100) / 100;
+	const broker = Math.round(price * brokerPct * (100 + vatBroker) / 100) / 100;
 	const total = Math.round((main.tax + lawyer + broker + other) * 100) / 100;
 
 	// The other tracks on the same price and day, for the side-by-side compare (each "if it applies to you").
@@ -438,12 +448,12 @@ function compute(registry, input) {
 		flags.push({ code: 'third', he: 'יש לכם חלק של שליש או פחות בדירה אחרת, או עד מחצית בדירה שקיבלתם בירושה? היא לא נספרת, והדירה עדיין יחידה (סעיף 9(ג1ג)(4)(א), בהפניה לסעיף 49ג(3)).', soft: true });
 	}
 
-	const declare = addDays(on, pt.declare_days);
-	const pay = addDays(on, pt.pay_days);
+	const declare = offSaturday(addDays(on, pt.declare_days));
+	const pay = offSaturday(addDays(on, pt.pay_days));
 	return {
 		ok: true, track, price, on, tax: main.tax, lines: main.lines, flat: Boolean(main.flat), section: main.section,
 		effective: price ? Math.round(main.tax / price * 10000) / 100 : 0,
-		lawyer, broker, other, vat, total, scenarios, replacement, flags, declare, pay,
+		lawyer, broker, other, vat, vatLawyer, vatBroker, total, scenarios, replacement, flags, declare, pay,
 	};
 }
 
@@ -513,7 +523,7 @@ function renderForm(reg, input) {
 		+ `<div class="jtool-row" style="margin-top:8px"><div class="jtool-field"><label class="jtool-label" for="${P}-law">שכר טרחת עורך הדין</label><div class="jtool-input"><input id="${P}-law" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.lawyerPct ?? '')}" placeholder="לפי ההצעה שקיבלתם" aria-describedby="${P}-lawyer-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-lawyer-e" role="alert"></p></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-brk">דמי תיווך</label><div class="jtool-input"><input id="${P}-brk" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.brokerPct ?? '')}" placeholder="0 אם אין מתווך" aria-describedby="${P}-broker-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-broker-e" role="alert"></p></div></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-oth">עוד עלויות (שמאי, בדק בית, יועץ משכנתא)</label><div class="jtool-input jtool-input--money"><input id="${P}-oth" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.other ? money(input.other, 0) : '')}" placeholder="0" aria-describedby="${P}-other-e"><span class="jtool-input__suffix" aria-hidden="true">₪</span></div><p class="jtool-error" id="${P}-other-e" role="alert"></p></div>`
-		+ `<div class="jtool-chips" style="margin-top:8px">${chip('v17', '1', `שכר הטרחה ודמי התיווך שולמו לפני ${isoToHe(pt.vat_from)} (מע"מ ${pt.vat_prior ? pt.vat_prior.pct : pt.vat_pct}%)`, input.feesBefore ?? (Boolean(input.date) && input.date < pt.vat_from), 'checkbox')}</div>`
+		+ `<div class="jtool-chips" style="margin-top:8px">${chip('v17l', '1', `שכר עורך הדין שולם לפני ${isoToHe(pt.vat_from)} (מע"מ ${pt.vat_prior ? pt.vat_prior.pct : pt.vat_pct}%)`, input.lawyerBefore ?? input.feesBefore ?? (Boolean(input.date) && input.date < pt.vat_from), 'checkbox')}${chip('v17b', '1', `דמי התיווך שולמו לפני ${isoToHe(pt.vat_from)}`, input.brokerBefore ?? input.feesBefore ?? (Boolean(input.date) && input.date < pt.vat_from), 'checkbox')}</div>`
 		+ `<p class="jtool-hint">על שכר הטרחה ודמי התיווך נוסף מע"מ לפי מועד התשלום: ${pt.vat_pct}% מ-${isoToHe(pt.vat_from)}${pt.vat_prior ? `, ${pt.vat_prior.pct}% לפני כן` : ''}. האחוזים הם שלכם, לפי ההצעות שקיבלתם; הכלי לא ממליץ על מחיר.</p></details>`;
 }
 
@@ -557,7 +567,7 @@ function renderResult(reg, r, opts = {}) {
 function deadlines(reg, r) {
 	const pt = reg.purchase_tax;
 	const out = [
-		{ date: r.declare, what: `הצהרה לרשות המסים (${pt.declare_days} יום מהרכישה)`, rule: pt.declare_section, href: pt.law_url },
+		{ date: r.declare, what: `הצהרה לרשות המסים (${pt.declare_days} יום מהרכישה; ${pt.rest_day_he})`, rule: pt.declare_section, href: pt.law_url },
 		{ date: r.pay, what: `תשלום המס (${pt.pay_days} יום מהרכישה). אחר כך מתווספים הפרשי הצמדה וריבית`, rule: `${pt.pay_section}, ${pt.late_section}`, href: pt.law_url },
 	];
 	if (r.replacement && r.replacement.ok) {
@@ -581,8 +591,8 @@ function renderDetails(reg, r, compareR, opts = {}) {
 	// The full cost on top of the price.
 	const rows = [
 		['מס רכישה', r.tax, `${r.section}`, r.track === 'oleh' || r.track === 'disabled' ? pt.regulations_url : pt.law_url],
-		r.lawyer ? [`שכר טרחת עורך דין, כולל מע"מ ${r.vat}%`, r.lawyer, 'מע"מ: צו שיעור המס, סעיף 1', pt.vat_url] : null,
-		r.broker ? [`דמי תיווך, כולל מע"מ ${r.vat}%`, r.broker, 'מע"מ: צו שיעור המס, סעיף 1', pt.vat_url] : null,
+		r.lawyer ? [`שכר טרחת עורך דין, כולל מע"מ ${r.vatLawyer}%`, r.lawyer, 'מע"מ: צו שיעור המס, סעיף 1', pt.vat_url] : null,
+		r.broker ? [`דמי תיווך, כולל מע"מ ${r.vatBroker}%`, r.broker, 'מע"מ: צו שיעור המס, סעיף 1', pt.vat_url] : null,
 		r.other ? ['עלויות נוספות שהזנתם', r.other, '', ''] : null,
 	].filter(Boolean);
 	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-cost-h">כמה כסף צריך מעבר למחיר</h3></div>`
@@ -661,7 +671,8 @@ function readForm(root) {
 		nonResident: Boolean(root.querySelector(`input[name="${P}-nr"]:checked`)),
 		notForHousing: Boolean(root.querySelector(`input[name="${P}-nfh"]:checked`)),
 		groupPrev: Boolean(root.querySelector(`input[name="${P}-grp"]:checked`)),
-		feesBefore: Boolean(root.querySelector(`input[name="${P}-v17"]:checked`)),
+		lawyerBefore: Boolean(root.querySelector(`input[name="${P}-v17l"]:checked`)),
+		brokerBefore: Boolean(root.querySelector(`input[name="${P}-v17b"]:checked`)),
 		priorSold: Boolean(root.querySelector(`input[name="${P}-sold"]:checked`)),
 		lawyerPct: pct('law'), brokerPct: pct('brk'), other: val(`#${P}-oth`).trim() === '' ? 0 : parseMoney(val(`#${P}-oth`)),
 		comparePrice: parseMoney(val(`#${P}-cmp`)),
@@ -669,11 +680,11 @@ function readForm(root) {
 }
 
 const TR = { single: 's', replacement: 'r', additional: 'a', oleh: 'o', disabled: 'd' };
-const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.otherHome ? 1 : '', u: i.reliefUsed ? 1 : '', n: i.nonResident ? 1 : '', h: i.notForHousing ? 1 : '', g: i.groupPrev ? 1 : '', s: i.priorSold ? 1 : '', f: i.feesBefore ? 1 : '' });
-const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x', 'u', 'n', 'h', 'g', 's', 'f'];
+const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.otherHome ? 1 : '', u: i.reliefUsed ? 1 : '', n: i.nonResident ? 1 : '', h: i.notForHousing ? 1 : '', g: i.groupPrev ? 1 : '', s: i.priorSold ? 1 : '', f: i.lawyerBefore ? 1 : '', k: i.brokerBefore ? 1 : '' });
+const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x', 'u', 'n', 'h', 'g', 's', 'f', 'k'];
 function inputOf(s) {
 	if (!s.p) { return null; }
-	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, otherHome: s.x === '1', reliefUsed: s.u === '1', nonResident: s.n === '1', notForHousing: s.h === '1', groupPrev: s.g === '1', priorSold: s.s === '1', feesBefore: s.f === '1' };
+	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, otherHome: s.x === '1', reliefUsed: s.u === '1', nonResident: s.n === '1', notForHousing: s.h === '1', groupPrev: s.g === '1', priorSold: s.s === '1', lawyerBefore: s.f === '1', brokerBefore: s.k === '1' };
 }
 
 function mount(root, reg) {

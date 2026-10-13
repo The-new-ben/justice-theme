@@ -67,6 +67,9 @@ export function byBrackets(brackets, value) {
 	return { tax: Math.round(tax) / 100, lines };
 }
 
+/** Saturday -> Sunday (Interpretation Law s.10(ג)); holidays are not modelled. */
+export function offSaturday(iso) { return new Date(`${iso}T00:00:00Z`).getUTCDay() === 6 ? addDays(iso, 1) : iso; }
+
 export const TRACKS = ['single', 'replacement', 'additional', 'oleh', 'disabled'];
 
 /**
@@ -126,7 +129,10 @@ export function replacementDeadline(pt, purchase, opts = {}) {
 		if (!w) { return { ok: false, reason: 'before', from: r.windows[0].from }; }
 		chosen = windowOf(purchase, w.months, 'purchase');
 	}
-	return Object.assign({ ok: true, contractor: Boolean(opts.contractor) }, chosen);
+	// Interpretation Law s.10(ג): a period that ends on a rest day ends on the next day (Saturday modelled; holidays
+	// named in the note) (review, PR 124).
+	const rolled = offSaturday(chosen.deadline);
+	return Object.assign({ ok: true, contractor: Boolean(opts.contractor) }, chosen, { deadline: rolled, restRolled: rolled !== chosen.deadline });
 }
 
 /**
@@ -220,10 +226,14 @@ export function compute(registry, input) {
 	// VAT by the rate in force on the purchase day (17% from 1.10.2015, 18% from 1.1.2025) (review, PR 124).
 	// VAT at the fee's tax point: the box says whether the fees were paid before the current rate; without it, the
 	// purchase day decides (review, PR 124).
-	const feesBefore = input.feesBefore === undefined || input.feesBefore === null ? on < pt.vat_from : Boolean(input.feesBefore);
-	const vat = input.vat === false ? 0 : (pt.vat_prior && feesBefore ? pt.vat_prior.pct : pt.vat_pct);
-	const lawyer = Math.round(price * lawyerPct * (100 + vat) / 100) / 100;
-	const broker = Math.round(price * brokerPct * (100 + vat) / 100) / 100;
+	// Per fee, at its own tax point (review, PR 124): lawyerBefore / brokerBefore, else feesBefore, else the purchase day.
+	const before = (v) => (v === undefined || v === null ? (input.feesBefore === undefined || input.feesBefore === null ? on < pt.vat_from : Boolean(input.feesBefore)) : Boolean(v));
+	const rateOf = (b) => (input.vat === false ? 0 : (pt.vat_prior && b ? pt.vat_prior.pct : pt.vat_pct));
+	const vatLawyer = rateOf(before(input.lawyerBefore));
+	const vatBroker = rateOf(before(input.brokerBefore));
+	const vat = vatLawyer;
+	const lawyer = Math.round(price * lawyerPct * (100 + vatLawyer) / 100) / 100;
+	const broker = Math.round(price * brokerPct * (100 + vatBroker) / 100) / 100;
 	const total = Math.round((main.tax + lawyer + broker + other) * 100) / 100;
 
 	// The other tracks on the same price and day, for the side-by-side compare (each "if it applies to you").
@@ -257,12 +267,12 @@ export function compute(registry, input) {
 		flags.push({ code: 'third', he: 'יש לכם חלק של שליש או פחות בדירה אחרת, או עד מחצית בדירה שקיבלתם בירושה? היא לא נספרת, והדירה עדיין יחידה (סעיף 9(ג1ג)(4)(א), בהפניה לסעיף 49ג(3)).', soft: true });
 	}
 
-	const declare = addDays(on, pt.declare_days);
-	const pay = addDays(on, pt.pay_days);
+	const declare = offSaturday(addDays(on, pt.declare_days));
+	const pay = offSaturday(addDays(on, pt.pay_days));
 	return {
 		ok: true, track, price, on, tax: main.tax, lines: main.lines, flat: Boolean(main.flat), section: main.section,
 		effective: price ? Math.round(main.tax / price * 10000) / 100 : 0,
-		lawyer, broker, other, vat, total, scenarios, replacement, flags, declare, pay,
+		lawyer, broker, other, vat, vatLawyer, vatBroker, total, scenarios, replacement, flags, declare, pay,
 	};
 }
 

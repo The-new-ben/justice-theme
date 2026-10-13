@@ -419,6 +419,8 @@ def build_purchase_tax(checked_on: str) -> dict:
         "share_ignored_max": [1, 3], "share_ignored_inherited_max": [1, 2],
         "couple_he": "בני זוג וילדיהם מתחת לגיל 18 הם רוכש אחד (סעיף 9(ג1ג)(4)(ג))",
         "resident_he": "המדרגות של דירה יחידה הן ליחיד תושב ישראל, כולל מי שבתוך שנתיים מהרכישה נעשה תושב ישראל לראשונה או תושב חוזר ותיק (סעיף 9(ג1ג)(2) ו-(4)(ב)); מי שאינו תושב משלם כמו על דירה נוספת",
+        # Interpretation Law 1981 s.10(ג): rest days that are the last days of a period are not counted.
+        "rest_day_he": "מועד שחל בשבת עובר ליום ראשון, ומועד שחל בחג עובר ליום שאחריו (חוק הפרשנות, סעיף 10(ג))",
         "declare_days": 30, "declare_section": "סעיף 73(ג)",
         "pay_days": 60, "pay_section": "סעיף 90א", "late_section": "סעיף 94(א)",
         "vat_pct": 18, "vat_from": "2025-01-01", "vat_prior": {"pct": 17, "from": "2015-10-01"},

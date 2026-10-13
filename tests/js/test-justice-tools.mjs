@@ -419,6 +419,9 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		const v24 = RQ.compute(reg, { price: 2000000, date: '2024-06-01', track: 'single', lawyerPct: 1 });
 		const v26 = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'single', lawyerPct: 1 });
 		check(v24.vat === 17 && v24.lawyer === 23400 && v26.vat === 18 && v26.lawyer === 23600, 'VAT by the purchase day: 17% before 1.1.2025, 18% after (review, PR 124)');
+		const vb = RQ.compute(reg, { price: 2000000, date: '2024-06-01', track: 'single', lawyerPct: 1, brokerPct: 1, lawyerBefore: true, brokerBefore: false });
+		check(vb.vatLawyer === 17 && vb.vatBroker === 18 && vb.lawyer === 23400 && vb.broker === 23600, 'VAT per fee at its own tax point (review, PR 124)');
+		check(RQ.offSaturday('2027-06-05') === '2027-06-06' && RQ.offSaturday('2027-06-06') === '2027-06-06', 'Interpretation Law s.10(ג): a Saturday deadline moves to Sunday (review, PR 124)');
 		check(RQ.compute(reg, { price: 2000000, date: '2024-06-01', track: 'single', lawyerPct: 1, feesBefore: false }).vat === 18, 'VAT at the fee tax point: fees paid after 1.1.2025 on a 2024 purchase -> 18% (review, PR 124)');
 		check(/151\(ג\)\(2\)/.test(reg.betterment.rates.mamad.area_he), 's.19(ב)(9)(ג): the mamad rule names the Amendment 163 additional area');
 	}
@@ -435,7 +438,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(dl('2023-06-01') === '2024-12-01' && dl('2026-06-15') === '2028-06-15', 'no extension for a window outside 28.2.2026-31.5.2026');
 	const r = RQ.compute(reg, { price: 2650000, date: '2026-10-13', track: 'single', lawyerPct: 0.5, brokerPct: 2 });
 	check(r.ok && near(r.lawyer, 15635) && near(r.broker, 62540) && near(r.total, 106213.33), 'full cost: lawyer 0.5% + 18% VAT = 15,635; broker 2% + VAT = 62,540; total 106,213.33');
-	check(r.declare === '2026-11-12' && r.pay === '2026-12-12', 'declaration in 30 days (s.73(ג)), payment in 60 days (s.90א)');
+	check(r.declare === '2026-11-12' && r.pay === '2026-12-13', 'declaration in 30 days (s.73(ג)), payment in 60 days (s.90א): 12.12.2026 is a Saturday, so 13.12 (Interpretation Law s.10(ג))');
 	const rr = RQ.compute(reg, { price: 2650000, date: '2026-10-13', track: 'replacement' });
 	check(rr.ok && rr.replacement.deadline === '2028-10-13' && rr.flags.some((f) => f.code === 'at_stake'), 'replacement: sell the previous home by 13.10.2028; the difference at stake is shown');
 	check(!RQ.compute(reg, { price: 0, date: '2026-10-13' }).ok && !RQ.compute(reg, { price: 100, date: '31.2.2026' }).ok, 'zero price and impossible dates are input errors');

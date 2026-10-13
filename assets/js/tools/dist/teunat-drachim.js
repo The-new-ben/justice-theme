@@ -407,7 +407,10 @@ function compute(registry, input) {
 	}
 	if (!accident) { errors.push({ field: 'accident', he: 'יום התאונה לא תקין. לדוגמה: 10.3.2025' }); }
 	if (input.birth && minorAge && !birth) { errors.push({ field: 'birth', he: 'תאריך הלידה לא תקין' }); }
-	if (birth && accident && birth > accident) { errors.push({ field: 'birth', he: 'תאריך הלידה אחרי יום התאונה' }); }
+	if (birth && accident && birth > accident) { errors.push({ field: 'birth', he: 'תאריך הלידה אחרי יום התאונה' }); } else if (birth && accident && fullYears(birth, accident) !== age) {
+		// Both fields describe the age on the accident day; a contradiction is an error, never a silent choice (review, PR 126).
+		errors.push({ field: 'birth', he: `לפי תאריך הלידה, הגיל ביום התאונה היה ${fullYears(birth, accident)}, ולא ${age}. תקנו אחד מהשניים.` });
+	}
 	if (accident && input.today && accident > input.today) { errors.push({ field: 'accident', he: 'יום התאונה אחרי היום' }); }
 	if (accident && accident < ca.law_from) { errors.push({ field: 'accident', he: `החוק חל על תאונות מ-${heDate(ca.law_from)} (סעיף 23(א))` }); }
 	if (max !== null && !(max > 0 && max < 1e8)) { errors.push({ field: 'max', he: 'הסכום המקסימלי: מספר חיובי' }); }
@@ -705,6 +708,7 @@ function mount(root, reg) {
 	const saveKey = `jtool-${TOOL_ID}`;
 	let started = false;
 	let timer = null;
+	let shownDeath = Boolean(root.querySelector(`input[name="${P}-dth"]:checked`));
 	track('tool_view', { tool_id: TOOL_ID });
 	if (isStale(ca.checked_on, ca.refresh_every_days) || (ca.next_update && today >= ca.next_update)) {
 		const stamp = root.querySelector('.jtool-stamp');
@@ -730,10 +734,14 @@ function mount(root, reg) {
 		form.querySelectorAll('[data-if-dead]').forEach((el) => { el.hidden = !death; });
 		const a = (root.querySelector(`#${P}-age`) || {}).value;
 		form.querySelectorAll('[data-if-minor]').forEach((el) => { el.hidden = a === '' || a === undefined || !(Number(a) < ca.limitation.adult_age); });
-		// One accident day, whichever field is on screen.
-		const src = root.querySelector(death ? `#${P}-acc` : `#${P}-acc2`);
-		const dst = root.querySelector(death ? `#${P}-acc2` : `#${P}-acc`);
-		if (src && dst && src.value && !dst.value) { dst.value = src.value; }
+		// One accident day: when the death box changes, the field that was on screen hands its value to the one that now
+		// is, always, so the date read is the date seen (review, PR 126).
+		if (death !== shownDeath) {
+			const src = root.querySelector(shownDeath ? `#${P}-acc2` : `#${P}-acc`);
+			const dst = root.querySelector(death ? `#${P}-acc2` : `#${P}-acc`);
+			if (src && dst) { dst.value = src.value; }
+			shownDeath = death;
+		}
 	};
 	const run = (input, opts = {}) => {
 		const r = compute(reg, Object.assign({ today }, input));
@@ -753,6 +761,7 @@ function mount(root, reg) {
 	const fromHash = inputOf(decodeState(window.location.hash, KEYS));
 	if (fromHash) {
 		form.innerHTML = renderForm(reg, fromHash);
+		shownDeath = Boolean(fromHash.death);
 		const note = root.querySelector('[data-jtool-shared]');
 		if (note) { note.hidden = false; }
 		run(fromHash, { silent: true });
@@ -792,7 +801,7 @@ function mount(root, reg) {
 			toast(root, 'נשמר במכשיר הזה בלבד. אפשר למחוק בכל רגע.');
 		} else if (act === 'restore') {
 			const s = inputOf(decodeState(store.get(saveKey) || '', KEYS));
-			if (s) { form.innerHTML = renderForm(reg, s); sync(); run(s); }
+			if (s) { form.innerHTML = renderForm(reg, s); shownDeath = Boolean(s.death); sync(); run(s); }
 		} else if (act === 'clear') {
 			store.clear(saveKey);
 			toast(root, 'נמחק מהמכשיר.');

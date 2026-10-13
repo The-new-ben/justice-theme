@@ -20,7 +20,7 @@
  *    and not counting 7.10.2023-6.4.2024 for a period still running then; a last day on a rest day moves to the next day
  *    (Interpretation Law s.10(ג)).
  */
-import { addDays, addYears, daysBetween, parseDate, offRestDays } from './dates.js';
+import { addDays, addYears, daysBetween, parseDate, offRestDays, fullYears } from './dates.js';
 
 const r2 = (n) => Math.round(n * 100) / 100;
 const r4 = (n) => Math.round(n * 10000) / 10000;
@@ -104,7 +104,10 @@ export function compute(registry, input) {
 	}
 	if (!accident) { errors.push({ field: 'accident', he: 'יום התאונה לא תקין. לדוגמה: 10.3.2025' }); }
 	if (input.birth && minorAge && !birth) { errors.push({ field: 'birth', he: 'תאריך הלידה לא תקין' }); }
-	if (birth && accident && birth > accident) { errors.push({ field: 'birth', he: 'תאריך הלידה אחרי יום התאונה' }); }
+	if (birth && accident && birth > accident) { errors.push({ field: 'birth', he: 'תאריך הלידה אחרי יום התאונה' }); } else if (birth && accident && fullYears(birth, accident) !== age) {
+		// Both fields describe the age on the accident day; a contradiction is an error, never a silent choice (review, PR 126).
+		errors.push({ field: 'birth', he: `לפי תאריך הלידה, הגיל ביום התאונה היה ${fullYears(birth, accident)}, ולא ${age}. תקנו אחד מהשניים.` });
+	}
 	if (accident && input.today && accident > input.today) { errors.push({ field: 'accident', he: 'יום התאונה אחרי היום' }); }
 	if (accident && accident < ca.law_from) { errors.push({ field: 'accident', he: `החוק חל על תאונות מ-${heDate(ca.law_from)} (סעיף 23(א))` }); }
 	if (max !== null && !(max > 0 && max < 1e8)) { errors.push({ field: 'max', he: 'הסכום המקסימלי: מספר חיובי' }); }

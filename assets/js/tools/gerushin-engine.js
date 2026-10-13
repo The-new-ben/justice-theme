@@ -67,9 +67,11 @@ export function compute(registry, input) {
 	const forum = input.forum === 'family' ? 'family' : 'rabbinical';
 	const certificates = input.certificates === undefined || input.certificates === '' ? 2 : Number(input.certificates);
 	if (!(Number.isInteger(certificates) && certificates >= 0 && certificates <= 2)) { errors.push({ field: 'certificates', he: 'תעודות גירושין: 0, 1 או 2' }); }
-	// The filing day must be a real calendar day: 31.2.2026 is an error, never 3.3.2026 (review, PR 126).
-	const startIso = input.start ? parseDate(input.start) : null;
-	if (input.start && !startIso) { errors.push({ field: 'start', he: 'יום הגשת הבקשה לא תקין. לדוגמה: 1.11.2026' }); }
+	// The filing day must be a real calendar day: 31.2.2026 is an error, never 3.3.2026 (review, PR 126). It is read only
+	// where the statutory clock applies, so a value left in the hidden field never blocks the agreement route.
+	const clockApplies = route !== 'agree' && !input.abroad;
+	const startIso = clockApplies && input.start ? parseDate(input.start) : null;
+	if (clockApplies && input.start && !startIso) { errors.push({ field: 'start', he: 'יום הגשת הבקשה לא תקין. לדוגמה: 1.11.2026' }); }
 	if (input.notJewish) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'route', he: dc.scope_he }] };
 	}
@@ -106,7 +108,7 @@ export function compute(registry, input) {
 
 	// 1. The dispute-settlement request: the mediate and court routes (not a divorce by consent, not an agreement), and
 	// not when a party's domicile is abroad: the law does not apply to that proceeding (s.4א(1)).
-	const lawApplies = route !== 'agree' && !input.abroad;
+	const lawApplies = clockApplies;
 	if (lawApplies) {
 		if (forum === 'family') { F('request', 'בקשה ליישוב סכסוך בבית המשפט לענייני משפחה', fc.request, fc.items.request); } else { R('request', 'בקשה ליישוב סכסוך בבית הדין הרבני', rb.request, rb.items.request); }
 	}

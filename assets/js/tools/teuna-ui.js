@@ -232,6 +232,7 @@ export function mount(root, reg) {
 	const saveKey = `jtool-${TOOL_ID}`;
 	let started = false;
 	let timer = null;
+	let shownDeath = Boolean(root.querySelector(`input[name="${P}-dth"]:checked`));
 	track('tool_view', { tool_id: TOOL_ID });
 	if (isStale(ca.checked_on, ca.refresh_every_days) || (ca.next_update && today >= ca.next_update)) {
 		const stamp = root.querySelector('.jtool-stamp');
@@ -257,10 +258,14 @@ export function mount(root, reg) {
 		form.querySelectorAll('[data-if-dead]').forEach((el) => { el.hidden = !death; });
 		const a = (root.querySelector(`#${P}-age`) || {}).value;
 		form.querySelectorAll('[data-if-minor]').forEach((el) => { el.hidden = a === '' || a === undefined || !(Number(a) < ca.limitation.adult_age); });
-		// One accident day, whichever field is on screen.
-		const src = root.querySelector(death ? `#${P}-acc` : `#${P}-acc2`);
-		const dst = root.querySelector(death ? `#${P}-acc2` : `#${P}-acc`);
-		if (src && dst && src.value && !dst.value) { dst.value = src.value; }
+		// One accident day: when the death box changes, the field that was on screen hands its value to the one that now
+		// is, always, so the date read is the date seen (review, PR 126).
+		if (death !== shownDeath) {
+			const src = root.querySelector(shownDeath ? `#${P}-acc2` : `#${P}-acc`);
+			const dst = root.querySelector(death ? `#${P}-acc2` : `#${P}-acc`);
+			if (src && dst) { dst.value = src.value; }
+			shownDeath = death;
+		}
 	};
 	const run = (input, opts = {}) => {
 		const r = compute(reg, Object.assign({ today }, input));
@@ -280,6 +285,7 @@ export function mount(root, reg) {
 	const fromHash = inputOf(decodeState(window.location.hash, KEYS));
 	if (fromHash) {
 		form.innerHTML = renderForm(reg, fromHash);
+		shownDeath = Boolean(fromHash.death);
 		const note = root.querySelector('[data-jtool-shared]');
 		if (note) { note.hidden = false; }
 		run(fromHash, { silent: true });
@@ -319,7 +325,7 @@ export function mount(root, reg) {
 			toast(root, 'נשמר במכשיר הזה בלבד. אפשר למחוק בכל רגע.');
 		} else if (act === 'restore') {
 			const s = inputOf(decodeState(store.get(saveKey) || '', KEYS));
-			if (s) { form.innerHTML = renderForm(reg, s); sync(); run(s); }
+			if (s) { form.innerHTML = renderForm(reg, s); shownDeath = Boolean(s.death); sync(); run(s); }
 		} else if (act === 'clear') {
 			store.clear(saveKey);
 			toast(root, 'נמחק מהמכשיר.');

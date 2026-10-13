@@ -749,6 +749,13 @@ def main() -> int:
         registry["yerusha"] = build_yerusha(wave3_day)
         registry["purchase_tax"] = build_purchase_tax(wave3_day)
         registry["betterment"] = build_betterment(wave3_day)
+        # Keep the wave-4 datasets of the base when they are not rebuilt (review, PR 126): a refresh of another wave never
+        # drops a live tool's data.
+        kept = [key for key in WAVE4_KEYS if key in base]
+        for key in kept:
+            registry[key] = base[key]
+        if kept and not wave4_day:
+            registry["registry_version"] = max(registry["registry_version"], base["registry_version"])
         add_wave4(registry, wave4_day)
         write_registry(registry, args.out)
         return 0
@@ -780,6 +787,9 @@ def main() -> int:
     add_wave4(registry, wave4_day)
     write_registry(registry, args.out)
     return 0
+
+
+WAVE4_KEYS = ("will_cost", "car_accident", "divorce_cost")
 
 
 def add_wave4(registry: dict, day: str | None) -> None:

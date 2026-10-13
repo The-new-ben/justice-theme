@@ -682,6 +682,15 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(GEUI.renderResult(reg, GE.compute(reg, { route: 'agree' })).includes('class="jt9-lanes" role="group"'), 'the lanes are a labelled group (axe: aria-prohibited-attr)');
 }
 
+/* ---------- Review fixes (PR 126, Codex pass 2) ---------- */
+{
+	check(GE.compute(reg, { route: 'agree', start: '2026-02-31' }).ok, 'the agreement route ignores a bad filing day left in the hidden field (review, PR 126)');
+	check(GE.compute(reg, { route: 'court', abroad: true, start: '2026-02-31' }).ok, 'no clock abroad, so a hidden filing day does not block either');
+	const bad = TE.compute(reg, { disability: 10, days: 0, age: 15, accident: '2025-01-01', birth: '2000-01-01' });
+	check(!bad.ok && bad.errors.some((e) => e.field === 'birth'), 'a birth date that contradicts the age on the accident day is an error (review, PR 126)');
+	check(TE.compute(reg, { disability: 10, days: 0, age: 14, accident: '2025-01-01', birth: '2010-06-04' }).ok, 'a matching birth date passes (14 on 1.1.2025)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

@@ -291,7 +291,7 @@ check( false !== strpos( $nh, 'סעיף 19(ג)(1)' ) && false !== strpos( $nh, '
 check( false !== strpos( $sec( array( 'name' => 'mas-rechisha', 'part' => 'compare' ) ), '353,886.23' ) && false !== strpos( $sec( array( 'name' => 'yerusha', 'part' => 'compare' ) ), 'רק בן זוג' ) && false !== strpos( $sec( array( 'name' => 'hetel-hashbacha', 'part' => 'compare' ) ), '750,000' ), 'wave-3 compare tables from the engines' );
 check( false !== strpos( $sec( array( 'name' => 'yerusha', 'part' => 'updated' ) ), '13.10.2026' ) && false !== strpos( $sec( array( 'name' => 'havraa', 'part' => 'updated' ) ), '12.10.2026' ), 'the updated line uses each tool own check date' );
 $index3 = $jt_shortcodes['justice_tools_index']();
-check( false !== strpos( $index3, '/inheritance/' ) && false !== strpos( $index3, '/acquisition-tax-brackets-2026/' ) && false !== strpos( $index3, '/betterment-levy-israel/' ), 'hub cards include the three wave-3 tools' );
+check( false !== strpos( $index3, '/succession-law-israel/' ) && false === strpos( $index3, 'href="' . home_url( '/inheritance/' ) . '"' ) && false !== strpos( $index3, '/acquisition-tax-brackets-2026/' ) && false !== strpos( $index3, '/betterment-levy-israel/' ), 'hub cards include the three wave-3 tools' );
 
 if ( $failures ) {
 	fwrite( STDERR, "justice tools: {$failures} failure(s)\n" );

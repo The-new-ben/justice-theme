@@ -50,22 +50,25 @@ export function renderForm(reg, input) {
 		+ `<div data-if-plan="tama38"${input.plan === 'tama38' ? '' : ' hidden'}>${moneyField('tama', 'החלק מההשבחה שמקורו בשטח מעבר ל-2.5 קומות', input.tamaBeyond, 'עליו בלבד היטל של רבע (סעיף 19(ב)(10)(א))', '0 אם אין')}</div>`
 		+ `<div data-if-plan="mamad"${input.plan === 'mamad' ? '' : ' hidden'}>${moneyField('mamx', 'החלק מההשבחה שמקורו בשטח נוסף, מעבר לממ"ד', input.mamadBeyond, 'רק ממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית פטור (סעיף 19(ב)(9)). על שטח נוסף: היטל רגיל של מחצית (סעיף 3)', '0 אם אין')}</div>`
 		+ `<fieldset class="jtool-field"><legend>מתי זה קורה</legend><div class="jtool-chips">${EVENTS.map((k) => chip('evt', k, EVENT_LABEL[k], (input.event || 'sale') === k)).join('')}</div></fieldset>`
+		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-real">איזה חלק מהזכויות אתם מממשים עכשיו</label><div class="jtool-input"><input id="${P}-real" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.realized ?? 100)}" aria-describedby="${P}-real-h ${P}-realized-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-hint" id="${P}-real-h">מוכרים או בונים רק חלק מהזכויות? משלמים עכשיו את החלק היחסי (${esc(b.partial_section)})</p><p class="jtool-error" id="${P}-realized-e" role="alert"></p></div>`
 		+ `<div data-if-event="permit"${input.event === 'permit' ? '' : ' hidden'}><div class="jtool-chips">${chip('home', '1', 'בונים או מרחיבים דירה למגורים שלי או של קרוב', input.ownHome, 'checkbox')}</div>`
 		+ `<div class="jtool-row" data-if-home${input.ownHome ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-field"><label class="jtool-label" for="${P}-ab">שטח הדירה היום</label><div class="jtool-input"><input id="${P}-ab" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.areaBefore ?? '')}" aria-describedby="${P}-areaBefore-e"><span class="jtool-input__suffix" aria-hidden="true">מ"ר</span></div><p class="jtool-error" id="${P}-areaBefore-e" role="alert"></p></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-aa">שטח הדירה אחרי הבנייה</label><div class="jtool-input"><input id="${P}-aa" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.areaAfter ?? '')}" aria-describedby="${P}-areaAfter-h ${P}-areaAfter-e"><span class="jtool-input__suffix" aria-hidden="true">מ"ר</span></div><p class="jtool-hint" id="${P}-areaAfter-h">עד ${b.residence_max_sqm} מ"ר אחרי הבנייה: לא משלמים בהיתר (${esc(b.residence_section)})</p><p class="jtool-error" id="${P}-areaAfter-e" role="alert"></p></div></div></div>`
 		+ `</div>`
 		+ `<div data-mode-assessment${est ? ' hidden' : ''}>`
+		+ `<fieldset class="jtool-field"><legend>סוג השומה</legend><div class="jtool-chips">${chip('kind', 'plan', 'שומה עליי (מימוש)', input.kind !== 'schedule')}${chip('kind', 'schedule', 'לוח שומה לכל התוכנית', input.kind === 'schedule')}</div></fieldset>`
 		+ `<div class="jtool-row">${moneyField('levy', 'סכום ההיטל בשומה של הוועדה', input.levy, '', 'לדוגמה: 84,000')}`
-		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-rcv">מתי קיבלתם את השומה</label><input id="${P}-rcv" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.received || ''))}" placeholder="לדוגמה: 1.10.2026" aria-describedby="${P}-received-e"><p class="jtool-error" id="${P}-received-e" role="alert"></p></div></div>`
-		+ `<div class="jtool-row">${moneyField('mine', 'ההיטל לפי שמאי מטעמכם (לא חובה)', input.mine, 'כדי לראות כמה אפשר לחסוך', '')}`
-		+ `<fieldset class="jtool-field"><legend>סוג השומה</legend><div class="jtool-chips">${chip('kind', 'plan', 'שומה עליי (מימוש)', input.kind !== 'schedule')}${chip('kind', 'schedule', 'לוח שומה לכל התוכנית', input.kind === 'schedule')}</div></fieldset></div>`
+		+ `<div class="jtool-field"><label class="jtool-label" id="${P}-rcv-l" for="${P}-rcv">${dateLabel(input.kind)}</label><input id="${P}-rcv" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.received || ''))}" placeholder="לדוגמה: 1.10.2026" aria-describedby="${P}-rcv-h ${P}-received-e"><p class="jtool-hint" id="${P}-rcv-h">שומה: ${b.appeal_days} ימים מהיום שהגיעה אליכם. לוח שומה: שנה מהיום שהוצג (${esc(b.appeal_section)})</p><p class="jtool-error" id="${P}-received-e" role="alert"></p></div></div>`
+		+ `${moneyField('mine', 'ההיטל לפי שמאי מטעמכם (לא חובה)', input.mine, 'כדי לראות כמה אפשר לחסוך', '')}`
 		+ `</div>`;
 }
+
+const dateLabel = (kind) => (kind === 'schedule' ? 'מתי הוצג לוח השומה' : 'מתי קיבלתם את השומה');
 
 export function verdictSentence(reg, r) {
 	if (!r.ok) { return ''; }
 	if (r.mode === 'assessment') {
-		return `אפשר להשיג על השומה עד ${isoToHe(r.appealBy)}${r.recheck && !r.schedule ? `, ובהיטל של עד ${money(reg.betterment.recheck_max, 0)} ₪ גם לבקש מהוועדה לבחון מחדש` : ''}.${r.saving ? ` לפי השמאי שלכם, ההפרש: ${nis(r.saving)}.` : ''}`;
+		return `אפשר להשיג על השומה עד ${isoToHe(r.appealBy)}${r.recheck ? `, ובחיוב של עד ${money(reg.betterment.recheck_max, 0)} ₪, כשחולקים רק על הסכום, גם לבקש מהוועדה לבחון מחדש` : ''}.${r.saving ? ` לפי השמאי שלכם, ההפרש: ${nis(r.saving)}.` : ''}`;
 	}
 	if (r.levy === 0) { return `${PLAN_LABEL[r.plan]}: אין היטל השבחה על החלק הזה (${reg.betterment.rates[r.plan].section}).`; }
 	const part = { tama38: 'שמקורו בשטח שמעבר ל-2.5 קומות', mamad: 'שמקורו בשטח נוסף, מעבר לממ"ד' }[r.plan];
@@ -95,7 +98,7 @@ export function renderResult(reg, r, opts = {}) {
 		const state = left < 0 ? '<p class="jtool-state jtool-state--danger">✕ המועד עבר. יושב ראש ועדת הערר רשאי להאריך מטעמים מיוחדים</p>'
 			: left <= 10 ? `<p class="jtool-state jtool-state--warn">! נשארו ${left} ימים</p>` : `<p class="jtool-state jtool-state--ok">✓ יש זמן: ${left} ימים</p>`;
 		return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true">${state}`
-			+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}שומה של ${esc(nis(r.levy))} שהתקבלה ב-${isoToHe(r.received)}</p>`
+			+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}${r.schedule ? `לוח שומה עם היטל של ${esc(nis(r.levy))}, שהוצג ב-` : `שומה של ${esc(nis(r.levy))} שהתקבלה ב-`}${isoToHe(r.received)}</p>`
 			+ `<strong class="jtool-verdict__figure">עד <bdi>${isoToHe(r.appealBy)}</bdi></strong>`
 			+ `<p class="jtool-verdict__sentence">${esc(verdictSentence(reg, r))}</p></div>`
 			+ (r.flags.length ? `<ul class="jtool-flags">${r.flags.map((f) => `<li>${esc(f.he)}</li>`).join('')}</ul>` : '')
@@ -114,7 +117,7 @@ export function renderResult(reg, r, opts = {}) {
 function routesList(reg, r) {
 	const b = reg.betterment;
 	const items = [];
-	if (r.recheck && !r.schedule) { items.push(`<li class="jtool-cond jtool-cond--yes"><span class="jtool-cond__mark" aria-hidden="true">1</span><span><strong>בקשה לבחינה מחדש בוועדה</strong>: בהיטל של עד ${money(b.recheck_max, 0)} ₪, עם שומה של שמאי מטעמכם, עד ${isoToHe(r.appealBy)}. השמאי של הוועדה מחליט תוך ${b.recheck_decide_days} ימים.${lawCite(reg, b.recheck_section)}</span></li>`); }
+	if (r.recheck) { items.push(`<li class="jtool-cond jtool-cond--yes"><span class="jtool-cond__mark" aria-hidden="true">1</span><span><strong>בקשה לבחינה מחדש בוועדה</strong>: רק כשחולקים על הסכום ולא על עצם החיוב, בחיוב של עד ${money(b.recheck_max, 0)} ₪, עם שומה של שמאי מטעמכם, עד ${isoToHe(r.appealBy)}. שמאי הוועדה מחליט תוך ${b.recheck_decide_days} ימים. אם הוא מפחית, הוא שולח שומה מתוקנת ואתם מודיעים תוך ${b.recheck_reply_days} ימים אם אתם מסכימים; השומה המוסכמת עוברת לשמאי הממשלתי הראשי, שרשאי לא לאשר אותה תוך ${b.recheck_chief_days} ימים. לא הפחית, לא החליט בזמן, לא הסכמתם או שהשומה לא אושרה: יש ${b.recheck_fallback_days} ימים לערר או לשמאי מכריע. אחרי ${b.recheck_decide_days} הימים, ערר או בקשה לשמאי מכריע סוגרים את הבקשה.${lawCite(reg, b.recheck_section)}</span></li>`); }
 	items.push(`<li class="jtool-cond jtool-cond--yes"><span class="jtool-cond__mark" aria-hidden="true">${items.length + 1}</span><span><strong>שמאי מכריע</strong>: כשהמחלוקת רק על הסכום, פונים ליושב ראש מועצת שמאי המקרקעין עד ${isoToHe(r.appealBy)}. על החלטתו אפשר לערור תוך ${b.appraiser_appeal_days} ימים.${lawCite(reg, b.appraiser_section)}</span></li>`);
 	items.push(`<li class="jtool-cond jtool-cond--yes"><span class="jtool-cond__mark" aria-hidden="true">${items.length + 1}</span><span><strong>ערר לוועדת הערר לפיצויים ולהיטל השבחה</strong>: גם כשחולקים על עצם החיוב, עד ${isoToHe(r.appealBy)}${r.schedule ? ' (שנה מהצגת לוח השומה)' : ` (${b.appeal_days} ימים)`}.${lawCite(reg, b.appeal_section)}</span></li>`);
 	return items.join('');
@@ -125,7 +128,7 @@ export function renderDetails(reg, r, compareR) {
 	const b = reg.betterment;
 	if (r.mode === 'assessment') {
 		let out = `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-dl-h">המועד שלכם</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="ics">הוספה ליומן (.ics)</button></div></div>`
-			+ `<ol class="jtool-steps"><li>קיבלתם את השומה: <bdi>${isoToHe(r.received)}</bdi></li><li>המועד האחרון להשגה בכל אחת מהדרכים: <strong><bdi>${isoToHe(r.appealBy)}</bdi></strong>${lawCite(reg, b.appeal_section)}</li><li>מכירה או מימוש אחר לא יירשמו בטאבו בלי אישור שההיטל שולם או שניתנה ערובה לתשלומו.${lawCite(reg, 'סעיף 10(א)')}</li></ol></div>`;
+			+ `<ol class="jtool-steps"><li>${r.schedule ? 'לוח השומה הוצג' : 'קיבלתם את השומה'}: <bdi>${isoToHe(r.received)}</bdi></li><li>המועד האחרון להשגה בכל אחת מהדרכים: <strong><bdi>${isoToHe(r.appealBy)}</bdi></strong>${lawCite(reg, b.appeal_section)}</li><li>מכירה או מימוש אחר לא יירשמו בטאבו בלי אישור שההיטל שולם או שניתנה ערובה לתשלומו.${lawCite(reg, 'סעיף 10(א)')}</li></ol></div>`;
 		if (r.mine !== null) {
 			out += `<div class="jtool-compare"><h3>כמה אפשר לחסוך</h3><div class="jtool-compare__grid"><div class="jtool-compare__col"><p>א. לפי שומת הוועדה</p><strong>${ils(r.levy, 0)}</strong></div><div class="jtool-compare__col jtool-compare__col--b"><p>ב. לפי השמאי שלכם</p><strong>${ils(r.mine, 0)}</strong></div></div>`
 				+ `<p class="jtool-delta">ההפרש: ${ils(r.saving || 0, 0)}. מול זה: שכר השמאי ועורך הדין, והזמן.</p></div>`;
@@ -197,7 +200,7 @@ function readForm(root) {
 	const num = (id) => { const v = val(`#${P}-${id}`).trim(); return v === '' ? '' : Number(v.replace(/,/g, '')); };
 	return {
 		mode, betterment: parseMoney(val(`#${P}-bet`)), share: num('share'), plan: checked('plan') || 'regular', event: checked('evt') || 'sale',
-		ownHome: Boolean(checked('home')), areaBefore: num('ab'), areaAfter: num('aa'), tamaBeyond: val(`#${P}-tama`).trim() === '' ? '' : parseMoney(val(`#${P}-tama`)),
+		ownHome: Boolean(checked('home')), areaBefore: num('ab'), areaAfter: num('aa'), realized: num('real'), tamaBeyond: val(`#${P}-tama`).trim() === '' ? '' : parseMoney(val(`#${P}-tama`)),
 		mamadBeyond: val(`#${P}-mamx`).trim() === '' ? '' : parseMoney(val(`#${P}-mamx`)),
 	};
 }
@@ -206,13 +209,13 @@ const PL = { regular: 'r', pinui: 'p', seismic: 's', tama38: 't', mamad: 'm' };
 const EV = { sale: 's', permit: 'p', use: 'u' };
 const stateOf = (i) => (i.mode === 'assessment'
 	? encodeState({ k: 'a', l: i.levy, d: i.received, y: i.mine, j: i.kind === 'schedule' ? 's' : '' })
-	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond, x: i.mamadBeyond }));
-const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't', 'x'];
+	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond, x: i.mamadBeyond, q: i.realized === 100 ? '' : i.realized }));
+const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't', 'x', 'q'];
 function inputOf(s) {
 	if (s.k === 'a' && s.l) { return { mode: 'assessment', levy: Number(s.l), received: s.d || '', mine: s.y === undefined ? '' : Number(s.y), kind: s.j === 's' ? 'schedule' : 'plan' }; }
 	if (s.k === 'e' && s.b) {
 		const back = (map, v, d) => Object.keys(map).find((k) => map[k] === v) || d;
-		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t), mamadBeyond: s.x === undefined ? '' : Number(s.x) };
+		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t), mamadBeyond: s.x === undefined ? '' : Number(s.x), realized: s.q === undefined ? 100 : Number(s.q) };
 	}
 	return null;
 }
@@ -237,7 +240,7 @@ export function mount(root, reg) {
 		root.querySelectorAll('.jtool-error').forEach((e) => { e.textContent = ''; });
 		root.querySelectorAll('[aria-invalid]').forEach((e) => e.removeAttribute('aria-invalid'));
 		if (r.ok) { return; }
-		const ids = { betterment: 'bet', share: 'share', tamaBeyond: 'tama', mamadBeyond: 'mamx', areaBefore: 'ab', areaAfter: 'aa', levy: 'levy', received: 'rcv', mine: 'mine' };
+		const ids = { betterment: 'bet', share: 'share', tamaBeyond: 'tama', mamadBeyond: 'mamx', realized: 'real', areaBefore: 'ab', areaAfter: 'aa', levy: 'levy', received: 'rcv', mine: 'mine' };
 		const boxes = { betterment: 'bet', tamaBeyond: 'tama', mamadBeyond: 'mamx' };
 		for (const e of r.errors) {
 			const box = root.querySelector(`#${P}-${boxes[e.field] || e.field}-e`);
@@ -256,6 +259,8 @@ export function mount(root, reg) {
 		form.querySelectorAll('[data-if-event]').forEach((el) => { el.hidden = el.getAttribute('data-if-event') !== evt; });
 		const home = Boolean(root.querySelector(`input[name="${P}-home"]:checked`));
 		form.querySelectorAll('[data-if-home]').forEach((el) => { el.hidden = !home; });
+		const lab = form.querySelector(`#${P}-rcv-l`);
+		if (lab) { lab.textContent = dateLabel((root.querySelector(`input[name="${P}-kind"]:checked`) || {}).value); }
 	};
 	const run = (input, opts = {}) => {
 		const r = compute(reg, input);

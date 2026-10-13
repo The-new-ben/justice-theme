@@ -408,7 +408,16 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const a = HB.compute(reg, { mode: 'assessment', levy: 84000, received: '2026-10-01', mine: 52000 });
 	check(a.ok && a.appealBy === '2026-11-15' && a.recheck && a.saving === 32000 && a.routes.length === 3, 's.14(א)/(ב)/(ב1): 45 days to 15.11.2026, three routes under 90,000, saving 32,000');
 	check(HB.compute(reg, { mode: 'assessment', levy: 95000, received: '2026-10-01' }).routes.length === 2, 'above 90,000: no re-examination route');
-	check(HB.compute(reg, { mode: 'assessment', levy: 95000, received: '2026-10-01', kind: 'schedule' }).appealBy === '2027-10-01', 'a valuation schedule: a year to appeal');
+	check(HB.compute(reg, { mode: 'assessment', levy: 95000, received: '2026-10-01', kind: 'schedule' }).appealBy === '2027-10-01', 'a valuation schedule: a year from its display to appeal');
+	{
+		const s = HB.compute(reg, { mode: 'assessment', levy: 84000, received: '2026-10-01', kind: 'schedule' });
+		check(s.ok && s.routes.some((x) => x.code === 'recheck'), 's.14(ב1)(1): re-examination is open for a schedule of up to 90,000 too (review, PR 124)');
+		const half = est({ betterment: 800000, realized: 50 });
+		check(half.levy === 400000 && half.due === 200000 && half.deferred === 200000, 's.7(ב): realising half the rights pays half now (review, PR 124)');
+		check(!est({ betterment: 800000, realized: 0 }).ok && !est({ betterment: 800000, realized: 120 }).ok, 'realised share must be above 0 and up to 100');
+		const both = est({ betterment: 800000, event: 'permit', ownHome: true, areaBefore: 100, areaAfter: 160, realized: 50 });
+		check(both.due === 66666.67 && both.deferred === 333333.33, 'the residence deferral and partial realisation combine');
+	}
 	check(!est({ betterment: 0 }).ok && !est({ betterment: 100, share: 120 }).ok, 'zero betterment and a share over 100% are input errors');
 	const hs = HBUI.snapshot(reg);
 	check(hs.result.includes('jt8-strip') && hs.assessment.result.includes('15.11.2026'), 'betterment snapshot: the plan strip, and the assessment example deadline');

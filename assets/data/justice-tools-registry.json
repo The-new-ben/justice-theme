@@ -1113,6 +1113,8 @@
   "recheck_section": "סעיף 14(ב1)",
   "recheck_decide_days": 14,
   "recheck_reply_days": 21,
+  "recheck_chief_days": 21,
+  "recheck_fallback_days": 30,
   "demand_days": 90,
   "demand_section": "סעיף 4(4)(א)"
  }

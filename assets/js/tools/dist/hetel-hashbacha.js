@@ -196,9 +196,12 @@ function isStale(checkedOn, refreshDays, now = new Date()) {
  *  - s.19(ג)(1): building or extending a home for the holder or a relative is not a realisation if the home
  *    is no more than 140 m2 after it; above that, the levy is paid pro rata on the extra area.
  *    s.19(ג)(2): selling such a home is not a realisation after 4 years of living in it.
- *  - s.14(א): appeal to the appeals committee within 45 days of the assessment; s.14(ב): a decisive appraiser
- *    on the amount only, within the same days, and his decision appealable within 45 days; s.14(ב1): an
- *    assessment of up to 90,000 NIS can first be sent back to the committee with an appraiser's opinion.
+ *  - s.14(א): appeal to the appeals committee within 45 days of the day the assessment reached the payer, or within
+ *    a year of the DISPLAY of a valuation schedule (s.5); s.14(ב): a decisive appraiser on the amount only, within
+ *    the same days, and his decision appealable within 45 days; s.14(ב1): a charge of up to 90,000 NIS (an
+ *    assessment or a schedule), disputed on the amount only, can first be sent back to the committee with an
+ *    appraiser's opinion; a reduction is an agreed assessment the payer accepts within 21 days and the chief
+ *    government appraiser may refuse within 21 days; if it fails, 30 days to appeal or ask for a decisive appraiser.
  */
 
 const DAY = 86400000;
@@ -230,8 +233,10 @@ const r2 = (n) => Math.round(n * 100) / 100;
  *   betterment: the rise in value from the plan (the appraiser's "after" minus "before"), in NIS.
  *   tamaBeyond: TAMA 38 only, the part of the betterment that comes from area beyond 2.5 extended floors.
  *   mamadBeyond: mamad only, the part of the betterment that comes from area beyond the exempt protected space.
+ *   realized: the percent of the rights realised now (s.7(ב): partial realisation pays pro rata); default 100.
  * Mode "assessment" ({ mode: 'assessment', levy, received, mine, kind: 'plan'|'schedule' })
- *   levy: the levy in the committee's assessment; received: the day it reached you; mine: your appraiser's levy.
+ *   levy: the levy in the committee's assessment; received: the day it reached you, or for a valuation schedule
+ *   the day the schedule was displayed (s.14(א)); mine: your appraiser's levy.
  */
 function compute(registry, input) {
 	const b = registry.betterment;
@@ -242,7 +247,7 @@ function compute(registry, input) {
 		const received = parseDate(input.received);
 		const mine = input.mine === '' || input.mine === undefined || input.mine === null ? null : Number(input.mine);
 		if (!(levy > 0 && levy < 1e10)) { errors.push({ field: 'levy', he: 'סכום ההיטל בשומה צריך להיות גדול מ-0' }); }
-		if (!received) { errors.push({ field: 'received', he: 'מתי קיבלתם את השומה? לדוגמה: 1.10.2026' }); }
+		if (!received) { errors.push({ field: 'received', he: input.kind === 'schedule' ? 'מתי הוצג לוח השומה? לדוגמה: 1.10.2026' : 'מתי קיבלתם את השומה? לדוגמה: 1.10.2026' }); }
 		if (mine !== null && !(mine >= 0 && mine < 1e10)) { errors.push({ field: 'mine', he: 'ההיטל לפי השמאי שלכם: מספר 0 או יותר' }); }
 		if (errors.length) { return { ok: false, errors }; }
 		const schedule = input.kind === 'schedule';
@@ -250,7 +255,7 @@ function compute(registry, input) {
 		const recheck = levy <= b.recheck_max;
 		const saving = mine === null ? null : r2(Math.max(0, levy - mine));
 		const routes = [];
-		if (recheck && !schedule) { routes.push({ code: 'recheck', by: appealBy, section: b.recheck_section }); }
+		if (recheck) { routes.push({ code: 'recheck', by: appealBy, section: b.recheck_section }); }
 		routes.push({ code: 'appraiser', by: appealBy, section: b.appraiser_section });
 		routes.push({ code: 'appeal', by: appealBy, section: b.appeal_section });
 		if (mine !== null && mine > levy) { flags.push({ code: 'mine_higher', he: 'ההיטל לפי השמאי שלכם גבוה מזה שבשומה. אין כאן מה להשיג על הסכום.' }); }
@@ -268,6 +273,8 @@ function compute(registry, input) {
 	const ownHome = Boolean(input.ownHome) && event === 'permit';
 	if (ownHome && !(areaAfter > 0 && areaAfter < 10000)) { errors.push({ field: 'areaAfter', he: 'שטח הדירה אחרי הבנייה, במ"ר' }); }
 	if (ownHome && !(areaBefore >= 0 && areaBefore < areaAfter)) { errors.push({ field: 'areaBefore', he: 'שטח הדירה לפני הבנייה צריך להיות קטן מהשטח אחריה' }); }
+	const realized = input.realized === '' || input.realized === undefined || input.realized === null ? 100 : Number(input.realized);
+	if (!(realized > 0 && realized <= 100)) { errors.push({ field: 'realized', he: 'החלק מהזכויות שאתם מממשים עכשיו: יותר מ-0 ועד 100 אחוז' }); }
 	const tamaBeyond = input.tamaBeyond === '' || input.tamaBeyond === undefined || input.tamaBeyond === null ? 0 : Number(input.tamaBeyond);
 	if (plan === 'tama38' && !(tamaBeyond >= 0 && tamaBeyond <= betterment)) { errors.push({ field: 'tamaBeyond', he: 'החלק שמעבר ל-2.5 קומות לא יכול לעלות על כל ההשבחה' }); }
 	const mamadBeyond = input.mamadBeyond === '' || input.mamadBeyond === undefined || input.mamadBeyond === null ? 0 : Number(input.mamadBeyond);
@@ -299,20 +306,27 @@ function compute(registry, input) {
 	if (plan === 'seismic' && R.local_he) { flags.push({ code: 'seismic_local', he: R.local_he }); }
 
 	// The home-for-the-family deferral (s.19(ג)(1)): up to 140 m2 after the work, no payment at the permit.
-	let deferred = 0;
 	let due = levyFull;
+	let payFactor = 1;
 	if (ownHome) {
 		const added = areaAfter - areaBefore;
 		const over = Math.max(0, areaAfter - b.residence_max_sqm);
 		const payShare = added > 0 ? Math.min(1, over / added) : 0;
-		due = r2(levyFull * payShare);
-		deferred = r2(levyFull - due);
+		payFactor = payShare;
+		due = r2(levyFull * payFactor);
 		lines.push({ code: 'home', he: over > 0 ? `הדירה תהיה ${areaAfter} מ"ר, ${over} מ"ר מעל ${b.residence_max_sqm}: משלמים עכשיו רק על החלק היחסי שמעל (${Math.round(payShare * 1000) / 10}% מהתוספת)` : `הדירה תהיה ${areaAfter} מ"ר, לא יותר מ-${b.residence_max_sqm}: הבנייה למגורים שלכם או של קרוב לא נחשבת מימוש, ולא משלמים עכשיו`, section: b.residence_section, value: due });
 		flags.push({ code: 'home_later', he: `הפטור הזה דוחה את התשלום, ולא מוחק אותו: מכירה בתוך ${b.residence_sale_years} שנים מגמר הבנייה עלולה להיחשב מימוש (${b.residence_sale_section}).` });
 	}
+	// Partial realisation (s.7(ב)): pay now in proportion to the rights realised; the rest at the next realisation.
+	if (realized < 100) {
+		payFactor *= realized / 100;
+		due = r2(levyFull * payFactor);
+		lines.push({ code: 'partial', he: `מממשים עכשיו ${realized}% מהזכויות: משלמים את החלק היחסי, והשאר כשתממשו את היתר`, section: b.partial_section, value: due });
+	}
+	const deferred = r2(levyFull - due);
 	const timing = { sale: 'במכירה, לפני רישום ההעברה', permit: 'כשמקבלים את היתר הבנייה', use: 'כשמתחילים את השימוש שההקלה או השימוש החורג מתירים' }[event];
 	return {
-		ok: true, mode: 'estimate', betterment: r2(betterment), share, yours, plan, event, levy: levyFull, due, deferred, lines, flags, timing,
+		ok: true, mode: 'estimate', betterment: r2(betterment), share, yours, plan, event, realized, levy: levyFull, due, deferred, lines, flags, timing,
 		beyond, rate: R.beyond_rate || R.rate,
 	};
 }
@@ -372,22 +386,25 @@ function renderForm(reg, input) {
 		+ `<div data-if-plan="tama38"${input.plan === 'tama38' ? '' : ' hidden'}>${moneyField('tama', 'החלק מההשבחה שמקורו בשטח מעבר ל-2.5 קומות', input.tamaBeyond, 'עליו בלבד היטל של רבע (סעיף 19(ב)(10)(א))', '0 אם אין')}</div>`
 		+ `<div data-if-plan="mamad"${input.plan === 'mamad' ? '' : ' hidden'}>${moneyField('mamx', 'החלק מההשבחה שמקורו בשטח נוסף, מעבר לממ"ד', input.mamadBeyond, 'רק ממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית פטור (סעיף 19(ב)(9)). על שטח נוסף: היטל רגיל של מחצית (סעיף 3)', '0 אם אין')}</div>`
 		+ `<fieldset class="jtool-field"><legend>מתי זה קורה</legend><div class="jtool-chips">${EVENTS.map((k) => chip('evt', k, EVENT_LABEL[k], (input.event || 'sale') === k)).join('')}</div></fieldset>`
+		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-real">איזה חלק מהזכויות אתם מממשים עכשיו</label><div class="jtool-input"><input id="${P}-real" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.realized ?? 100)}" aria-describedby="${P}-real-h ${P}-realized-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-hint" id="${P}-real-h">מוכרים או בונים רק חלק מהזכויות? משלמים עכשיו את החלק היחסי (${esc(b.partial_section)})</p><p class="jtool-error" id="${P}-realized-e" role="alert"></p></div>`
 		+ `<div data-if-event="permit"${input.event === 'permit' ? '' : ' hidden'}><div class="jtool-chips">${chip('home', '1', 'בונים או מרחיבים דירה למגורים שלי או של קרוב', input.ownHome, 'checkbox')}</div>`
 		+ `<div class="jtool-row" data-if-home${input.ownHome ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-field"><label class="jtool-label" for="${P}-ab">שטח הדירה היום</label><div class="jtool-input"><input id="${P}-ab" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.areaBefore ?? '')}" aria-describedby="${P}-areaBefore-e"><span class="jtool-input__suffix" aria-hidden="true">מ"ר</span></div><p class="jtool-error" id="${P}-areaBefore-e" role="alert"></p></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-aa">שטח הדירה אחרי הבנייה</label><div class="jtool-input"><input id="${P}-aa" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.areaAfter ?? '')}" aria-describedby="${P}-areaAfter-h ${P}-areaAfter-e"><span class="jtool-input__suffix" aria-hidden="true">מ"ר</span></div><p class="jtool-hint" id="${P}-areaAfter-h">עד ${b.residence_max_sqm} מ"ר אחרי הבנייה: לא משלמים בהיתר (${esc(b.residence_section)})</p><p class="jtool-error" id="${P}-areaAfter-e" role="alert"></p></div></div></div>`
 		+ `</div>`
 		+ `<div data-mode-assessment${est ? ' hidden' : ''}>`
+		+ `<fieldset class="jtool-field"><legend>סוג השומה</legend><div class="jtool-chips">${chip('kind', 'plan', 'שומה עליי (מימוש)', input.kind !== 'schedule')}${chip('kind', 'schedule', 'לוח שומה לכל התוכנית', input.kind === 'schedule')}</div></fieldset>`
 		+ `<div class="jtool-row">${moneyField('levy', 'סכום ההיטל בשומה של הוועדה', input.levy, '', 'לדוגמה: 84,000')}`
-		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-rcv">מתי קיבלתם את השומה</label><input id="${P}-rcv" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.received || ''))}" placeholder="לדוגמה: 1.10.2026" aria-describedby="${P}-received-e"><p class="jtool-error" id="${P}-received-e" role="alert"></p></div></div>`
-		+ `<div class="jtool-row">${moneyField('mine', 'ההיטל לפי שמאי מטעמכם (לא חובה)', input.mine, 'כדי לראות כמה אפשר לחסוך', '')}`
-		+ `<fieldset class="jtool-field"><legend>סוג השומה</legend><div class="jtool-chips">${chip('kind', 'plan', 'שומה עליי (מימוש)', input.kind !== 'schedule')}${chip('kind', 'schedule', 'לוח שומה לכל התוכנית', input.kind === 'schedule')}</div></fieldset></div>`
+		+ `<div class="jtool-field"><label class="jtool-label" id="${P}-rcv-l" for="${P}-rcv">${dateLabel(input.kind)}</label><input id="${P}-rcv" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.received || ''))}" placeholder="לדוגמה: 1.10.2026" aria-describedby="${P}-rcv-h ${P}-received-e"><p class="jtool-hint" id="${P}-rcv-h">שומה: ${b.appeal_days} ימים מהיום שהגיעה אליכם. לוח שומה: שנה מהיום שהוצג (${esc(b.appeal_section)})</p><p class="jtool-error" id="${P}-received-e" role="alert"></p></div></div>`
+		+ `${moneyField('mine', 'ההיטל לפי שמאי מטעמכם (לא חובה)', input.mine, 'כדי לראות כמה אפשר לחסוך', '')}`
 		+ `</div>`;
 }
+
+const dateLabel = (kind) => (kind === 'schedule' ? 'מתי הוצג לוח השומה' : 'מתי קיבלתם את השומה');
 
 function verdictSentence(reg, r) {
 	if (!r.ok) { return ''; }
 	if (r.mode === 'assessment') {
-		return `אפשר להשיג על השומה עד ${isoToHe(r.appealBy)}${r.recheck && !r.schedule ? `, ובהיטל של עד ${money(reg.betterment.recheck_max, 0)} ₪ גם לבקש מהוועדה לבחון מחדש` : ''}.${r.saving ? ` לפי השמאי שלכם, ההפרש: ${nis(r.saving)}.` : ''}`;
+		return `אפשר להשיג על השומה עד ${isoToHe(r.appealBy)}${r.recheck ? `, ובחיוב של עד ${money(reg.betterment.recheck_max, 0)} ₪, כשחולקים רק על הסכום, גם לבקש מהוועדה לבחון מחדש` : ''}.${r.saving ? ` לפי השמאי שלכם, ההפרש: ${nis(r.saving)}.` : ''}`;
 	}
 	if (r.levy === 0) { return `${PLAN_LABEL[r.plan]}: אין היטל השבחה על החלק הזה (${reg.betterment.rates[r.plan].section}).`; }
 	const part = { tama38: 'שמקורו בשטח שמעבר ל-2.5 קומות', mamad: 'שמקורו בשטח נוסף, מעבר לממ"ד' }[r.plan];
@@ -417,7 +434,7 @@ function renderResult(reg, r, opts = {}) {
 		const state = left < 0 ? '<p class="jtool-state jtool-state--danger">✕ המועד עבר. יושב ראש ועדת הערר רשאי להאריך מטעמים מיוחדים</p>'
 			: left <= 10 ? `<p class="jtool-state jtool-state--warn">! נשארו ${left} ימים</p>` : `<p class="jtool-state jtool-state--ok">✓ יש זמן: ${left} ימים</p>`;
 		return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true">${state}`
-			+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}שומה של ${esc(nis(r.levy))} שהתקבלה ב-${isoToHe(r.received)}</p>`
+			+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}${r.schedule ? `לוח שומה עם היטל של ${esc(nis(r.levy))}, שהוצג ב-` : `שומה של ${esc(nis(r.levy))} שהתקבלה ב-`}${isoToHe(r.received)}</p>`
 			+ `<strong class="jtool-verdict__figure">עד <bdi>${isoToHe(r.appealBy)}</bdi></strong>`
 			+ `<p class="jtool-verdict__sentence">${esc(verdictSentence(reg, r))}</p></div>`
 			+ (r.flags.length ? `<ul class="jtool-flags">${r.flags.map((f) => `<li>${esc(f.he)}</li>`).join('')}</ul>` : '')
@@ -436,7 +453,7 @@ function renderResult(reg, r, opts = {}) {
 function routesList(reg, r) {
 	const b = reg.betterment;
 	const items = [];
-	if (r.recheck && !r.schedule) { items.push(`<li class="jtool-cond jtool-cond--yes"><span class="jtool-cond__mark" aria-hidden="true">1</span><span><strong>בקשה לבחינה מחדש בוועדה</strong>: בהיטל של עד ${money(b.recheck_max, 0)} ₪, עם שומה של שמאי מטעמכם, עד ${isoToHe(r.appealBy)}. השמאי של הוועדה מחליט תוך ${b.recheck_decide_days} ימים.${lawCite(reg, b.recheck_section)}</span></li>`); }
+	if (r.recheck) { items.push(`<li class="jtool-cond jtool-cond--yes"><span class="jtool-cond__mark" aria-hidden="true">1</span><span><strong>בקשה לבחינה מחדש בוועדה</strong>: רק כשחולקים על הסכום ולא על עצם החיוב, בחיוב של עד ${money(b.recheck_max, 0)} ₪, עם שומה של שמאי מטעמכם, עד ${isoToHe(r.appealBy)}. שמאי הוועדה מחליט תוך ${b.recheck_decide_days} ימים. אם הוא מפחית, הוא שולח שומה מתוקנת ואתם מודיעים תוך ${b.recheck_reply_days} ימים אם אתם מסכימים; השומה המוסכמת עוברת לשמאי הממשלתי הראשי, שרשאי לא לאשר אותה תוך ${b.recheck_chief_days} ימים. לא הפחית, לא החליט בזמן, לא הסכמתם או שהשומה לא אושרה: יש ${b.recheck_fallback_days} ימים לערר או לשמאי מכריע. אחרי ${b.recheck_decide_days} הימים, ערר או בקשה לשמאי מכריע סוגרים את הבקשה.${lawCite(reg, b.recheck_section)}</span></li>`); }
 	items.push(`<li class="jtool-cond jtool-cond--yes"><span class="jtool-cond__mark" aria-hidden="true">${items.length + 1}</span><span><strong>שמאי מכריע</strong>: כשהמחלוקת רק על הסכום, פונים ליושב ראש מועצת שמאי המקרקעין עד ${isoToHe(r.appealBy)}. על החלטתו אפשר לערור תוך ${b.appraiser_appeal_days} ימים.${lawCite(reg, b.appraiser_section)}</span></li>`);
 	items.push(`<li class="jtool-cond jtool-cond--yes"><span class="jtool-cond__mark" aria-hidden="true">${items.length + 1}</span><span><strong>ערר לוועדת הערר לפיצויים ולהיטל השבחה</strong>: גם כשחולקים על עצם החיוב, עד ${isoToHe(r.appealBy)}${r.schedule ? ' (שנה מהצגת לוח השומה)' : ` (${b.appeal_days} ימים)`}.${lawCite(reg, b.appeal_section)}</span></li>`);
 	return items.join('');
@@ -447,7 +464,7 @@ function renderDetails(reg, r, compareR) {
 	const b = reg.betterment;
 	if (r.mode === 'assessment') {
 		let out = `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-dl-h">המועד שלכם</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="ics">הוספה ליומן (.ics)</button></div></div>`
-			+ `<ol class="jtool-steps"><li>קיבלתם את השומה: <bdi>${isoToHe(r.received)}</bdi></li><li>המועד האחרון להשגה בכל אחת מהדרכים: <strong><bdi>${isoToHe(r.appealBy)}</bdi></strong>${lawCite(reg, b.appeal_section)}</li><li>מכירה או מימוש אחר לא יירשמו בטאבו בלי אישור שההיטל שולם או שניתנה ערובה לתשלומו.${lawCite(reg, 'סעיף 10(א)')}</li></ol></div>`;
+			+ `<ol class="jtool-steps"><li>${r.schedule ? 'לוח השומה הוצג' : 'קיבלתם את השומה'}: <bdi>${isoToHe(r.received)}</bdi></li><li>המועד האחרון להשגה בכל אחת מהדרכים: <strong><bdi>${isoToHe(r.appealBy)}</bdi></strong>${lawCite(reg, b.appeal_section)}</li><li>מכירה או מימוש אחר לא יירשמו בטאבו בלי אישור שההיטל שולם או שניתנה ערובה לתשלומו.${lawCite(reg, 'סעיף 10(א)')}</li></ol></div>`;
 		if (r.mine !== null) {
 			out += `<div class="jtool-compare"><h3>כמה אפשר לחסוך</h3><div class="jtool-compare__grid"><div class="jtool-compare__col"><p>א. לפי שומת הוועדה</p><strong>${ils(r.levy, 0)}</strong></div><div class="jtool-compare__col jtool-compare__col--b"><p>ב. לפי השמאי שלכם</p><strong>${ils(r.mine, 0)}</strong></div></div>`
 				+ `<p class="jtool-delta">ההפרש: ${ils(r.saving || 0, 0)}. מול זה: שכר השמאי ועורך הדין, והזמן.</p></div>`;
@@ -519,7 +536,7 @@ function readForm(root) {
 	const num = (id) => { const v = val(`#${P}-${id}`).trim(); return v === '' ? '' : Number(v.replace(/,/g, '')); };
 	return {
 		mode, betterment: parseMoney(val(`#${P}-bet`)), share: num('share'), plan: checked('plan') || 'regular', event: checked('evt') || 'sale',
-		ownHome: Boolean(checked('home')), areaBefore: num('ab'), areaAfter: num('aa'), tamaBeyond: val(`#${P}-tama`).trim() === '' ? '' : parseMoney(val(`#${P}-tama`)),
+		ownHome: Boolean(checked('home')), areaBefore: num('ab'), areaAfter: num('aa'), realized: num('real'), tamaBeyond: val(`#${P}-tama`).trim() === '' ? '' : parseMoney(val(`#${P}-tama`)),
 		mamadBeyond: val(`#${P}-mamx`).trim() === '' ? '' : parseMoney(val(`#${P}-mamx`)),
 	};
 }
@@ -528,13 +545,13 @@ const PL = { regular: 'r', pinui: 'p', seismic: 's', tama38: 't', mamad: 'm' };
 const EV = { sale: 's', permit: 'p', use: 'u' };
 const stateOf = (i) => (i.mode === 'assessment'
 	? encodeState({ k: 'a', l: i.levy, d: i.received, y: i.mine, j: i.kind === 'schedule' ? 's' : '' })
-	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond, x: i.mamadBeyond }));
-const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't', 'x'];
+	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond, x: i.mamadBeyond, q: i.realized === 100 ? '' : i.realized }));
+const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't', 'x', 'q'];
 function inputOf(s) {
 	if (s.k === 'a' && s.l) { return { mode: 'assessment', levy: Number(s.l), received: s.d || '', mine: s.y === undefined ? '' : Number(s.y), kind: s.j === 's' ? 'schedule' : 'plan' }; }
 	if (s.k === 'e' && s.b) {
 		const back = (map, v, d) => Object.keys(map).find((k) => map[k] === v) || d;
-		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t), mamadBeyond: s.x === undefined ? '' : Number(s.x) };
+		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t), mamadBeyond: s.x === undefined ? '' : Number(s.x), realized: s.q === undefined ? 100 : Number(s.q) };
 	}
 	return null;
 }
@@ -559,7 +576,7 @@ function mount(root, reg) {
 		root.querySelectorAll('.jtool-error').forEach((e) => { e.textContent = ''; });
 		root.querySelectorAll('[aria-invalid]').forEach((e) => e.removeAttribute('aria-invalid'));
 		if (r.ok) { return; }
-		const ids = { betterment: 'bet', share: 'share', tamaBeyond: 'tama', mamadBeyond: 'mamx', areaBefore: 'ab', areaAfter: 'aa', levy: 'levy', received: 'rcv', mine: 'mine' };
+		const ids = { betterment: 'bet', share: 'share', tamaBeyond: 'tama', mamadBeyond: 'mamx', realized: 'real', areaBefore: 'ab', areaAfter: 'aa', levy: 'levy', received: 'rcv', mine: 'mine' };
 		const boxes = { betterment: 'bet', tamaBeyond: 'tama', mamadBeyond: 'mamx' };
 		for (const e of r.errors) {
 			const box = root.querySelector(`#${P}-${boxes[e.field] || e.field}-e`);
@@ -578,6 +595,8 @@ function mount(root, reg) {
 		form.querySelectorAll('[data-if-event]').forEach((el) => { el.hidden = el.getAttribute('data-if-event') !== evt; });
 		const home = Boolean(root.querySelector(`input[name="${P}-home"]:checked`));
 		form.querySelectorAll('[data-if-home]').forEach((el) => { el.hidden = !home; });
+		const lab = form.querySelector(`#${P}-rcv-l`);
+		if (lab) { lab.textContent = dateLabel((root.querySelector(`input[name="${P}-kind"]:checked`) || {}).value); }
 	};
 	const run = (input, opts = {}) => {
 		const r = compute(reg, input);

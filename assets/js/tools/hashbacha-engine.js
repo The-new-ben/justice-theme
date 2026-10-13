@@ -15,9 +15,12 @@
  *  - s.19(ג)(1): building or extending a home for the holder or a relative is not a realisation if the home
  *    is no more than 140 m2 after it; above that, the levy is paid pro rata on the extra area.
  *    s.19(ג)(2): selling such a home is not a realisation after 4 years of living in it.
- *  - s.14(א): appeal to the appeals committee within 45 days of the assessment; s.14(ב): a decisive appraiser
- *    on the amount only, within the same days, and his decision appealable within 45 days; s.14(ב1): an
- *    assessment of up to 90,000 NIS can first be sent back to the committee with an appraiser's opinion.
+ *  - s.14(א): appeal to the appeals committee within 45 days of the day the assessment reached the payer, or within
+ *    a year of the DISPLAY of a valuation schedule (s.5); s.14(ב): a decisive appraiser on the amount only, within
+ *    the same days, and his decision appealable within 45 days; s.14(ב1): a charge of up to 90,000 NIS (an
+ *    assessment or a schedule), disputed on the amount only, can first be sent back to the committee with an
+ *    appraiser's opinion; a reduction is an agreed assessment the payer accepts within 21 days and the chief
+ *    government appraiser may refuse within 21 days; if it fails, 30 days to appeal or ask for a decisive appraiser.
  */
 
 const DAY = 86400000;
@@ -49,8 +52,10 @@ const r2 = (n) => Math.round(n * 100) / 100;
  *   betterment: the rise in value from the plan (the appraiser's "after" minus "before"), in NIS.
  *   tamaBeyond: TAMA 38 only, the part of the betterment that comes from area beyond 2.5 extended floors.
  *   mamadBeyond: mamad only, the part of the betterment that comes from area beyond the exempt protected space.
+ *   realized: the percent of the rights realised now (s.7(ב): partial realisation pays pro rata); default 100.
  * Mode "assessment" ({ mode: 'assessment', levy, received, mine, kind: 'plan'|'schedule' })
- *   levy: the levy in the committee's assessment; received: the day it reached you; mine: your appraiser's levy.
+ *   levy: the levy in the committee's assessment; received: the day it reached you, or for a valuation schedule
+ *   the day the schedule was displayed (s.14(א)); mine: your appraiser's levy.
  */
 export function compute(registry, input) {
 	const b = registry.betterment;
@@ -61,7 +66,7 @@ export function compute(registry, input) {
 		const received = parseDate(input.received);
 		const mine = input.mine === '' || input.mine === undefined || input.mine === null ? null : Number(input.mine);
 		if (!(levy > 0 && levy < 1e10)) { errors.push({ field: 'levy', he: 'סכום ההיטל בשומה צריך להיות גדול מ-0' }); }
-		if (!received) { errors.push({ field: 'received', he: 'מתי קיבלתם את השומה? לדוגמה: 1.10.2026' }); }
+		if (!received) { errors.push({ field: 'received', he: input.kind === 'schedule' ? 'מתי הוצג לוח השומה? לדוגמה: 1.10.2026' : 'מתי קיבלתם את השומה? לדוגמה: 1.10.2026' }); }
 		if (mine !== null && !(mine >= 0 && mine < 1e10)) { errors.push({ field: 'mine', he: 'ההיטל לפי השמאי שלכם: מספר 0 או יותר' }); }
 		if (errors.length) { return { ok: false, errors }; }
 		const schedule = input.kind === 'schedule';
@@ -69,7 +74,7 @@ export function compute(registry, input) {
 		const recheck = levy <= b.recheck_max;
 		const saving = mine === null ? null : r2(Math.max(0, levy - mine));
 		const routes = [];
-		if (recheck && !schedule) { routes.push({ code: 'recheck', by: appealBy, section: b.recheck_section }); }
+		if (recheck) { routes.push({ code: 'recheck', by: appealBy, section: b.recheck_section }); }
 		routes.push({ code: 'appraiser', by: appealBy, section: b.appraiser_section });
 		routes.push({ code: 'appeal', by: appealBy, section: b.appeal_section });
 		if (mine !== null && mine > levy) { flags.push({ code: 'mine_higher', he: 'ההיטל לפי השמאי שלכם גבוה מזה שבשומה. אין כאן מה להשיג על הסכום.' }); }
@@ -87,6 +92,8 @@ export function compute(registry, input) {
 	const ownHome = Boolean(input.ownHome) && event === 'permit';
 	if (ownHome && !(areaAfter > 0 && areaAfter < 10000)) { errors.push({ field: 'areaAfter', he: 'שטח הדירה אחרי הבנייה, במ"ר' }); }
 	if (ownHome && !(areaBefore >= 0 && areaBefore < areaAfter)) { errors.push({ field: 'areaBefore', he: 'שטח הדירה לפני הבנייה צריך להיות קטן מהשטח אחריה' }); }
+	const realized = input.realized === '' || input.realized === undefined || input.realized === null ? 100 : Number(input.realized);
+	if (!(realized > 0 && realized <= 100)) { errors.push({ field: 'realized', he: 'החלק מהזכויות שאתם מממשים עכשיו: יותר מ-0 ועד 100 אחוז' }); }
 	const tamaBeyond = input.tamaBeyond === '' || input.tamaBeyond === undefined || input.tamaBeyond === null ? 0 : Number(input.tamaBeyond);
 	if (plan === 'tama38' && !(tamaBeyond >= 0 && tamaBeyond <= betterment)) { errors.push({ field: 'tamaBeyond', he: 'החלק שמעבר ל-2.5 קומות לא יכול לעלות על כל ההשבחה' }); }
 	const mamadBeyond = input.mamadBeyond === '' || input.mamadBeyond === undefined || input.mamadBeyond === null ? 0 : Number(input.mamadBeyond);
@@ -118,20 +125,27 @@ export function compute(registry, input) {
 	if (plan === 'seismic' && R.local_he) { flags.push({ code: 'seismic_local', he: R.local_he }); }
 
 	// The home-for-the-family deferral (s.19(ג)(1)): up to 140 m2 after the work, no payment at the permit.
-	let deferred = 0;
 	let due = levyFull;
+	let payFactor = 1;
 	if (ownHome) {
 		const added = areaAfter - areaBefore;
 		const over = Math.max(0, areaAfter - b.residence_max_sqm);
 		const payShare = added > 0 ? Math.min(1, over / added) : 0;
-		due = r2(levyFull * payShare);
-		deferred = r2(levyFull - due);
+		payFactor = payShare;
+		due = r2(levyFull * payFactor);
 		lines.push({ code: 'home', he: over > 0 ? `הדירה תהיה ${areaAfter} מ"ר, ${over} מ"ר מעל ${b.residence_max_sqm}: משלמים עכשיו רק על החלק היחסי שמעל (${Math.round(payShare * 1000) / 10}% מהתוספת)` : `הדירה תהיה ${areaAfter} מ"ר, לא יותר מ-${b.residence_max_sqm}: הבנייה למגורים שלכם או של קרוב לא נחשבת מימוש, ולא משלמים עכשיו`, section: b.residence_section, value: due });
 		flags.push({ code: 'home_later', he: `הפטור הזה דוחה את התשלום, ולא מוחק אותו: מכירה בתוך ${b.residence_sale_years} שנים מגמר הבנייה עלולה להיחשב מימוש (${b.residence_sale_section}).` });
 	}
+	// Partial realisation (s.7(ב)): pay now in proportion to the rights realised; the rest at the next realisation.
+	if (realized < 100) {
+		payFactor *= realized / 100;
+		due = r2(levyFull * payFactor);
+		lines.push({ code: 'partial', he: `מממשים עכשיו ${realized}% מהזכויות: משלמים את החלק היחסי, והשאר כשתממשו את היתר`, section: b.partial_section, value: due });
+	}
+	const deferred = r2(levyFull - due);
 	const timing = { sale: 'במכירה, לפני רישום ההעברה', permit: 'כשמקבלים את היתר הבנייה', use: 'כשמתחילים את השימוש שההקלה או השימוש החורג מתירים' }[event];
 	return {
-		ok: true, mode: 'estimate', betterment: r2(betterment), share, yours, plan, event, levy: levyFull, due, deferred, lines, flags, timing,
+		ok: true, mode: 'estimate', betterment: r2(betterment), share, yours, plan, event, realized, levy: levyFull, due, deferred, lines, flags, timing,
 		beyond, rate: R.beyond_rate || R.rate,
 	};
 }

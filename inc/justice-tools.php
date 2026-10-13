@@ -360,7 +360,7 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 		$b    = $reg['betterment'];
 		$text = '<strong>היטל השבחה</strong> הוא ' . esc_html( justice_tools_fraction_he( $b['rates']['regular']['rate'] ) ) . ' מעליית השווי שנגרמה מתוכנית, מהקלה או משימוש חורג (' . esc_html( $b['rates']['regular']['section'] ) . ' לתוספת השלישית), ו' . esc_html( justice_tools_fraction_he( $b['rates']['pinui']['rate'] ) ) . ' בפינוי ובינוי למגורים. '
 			. 'משלמים לכל המאוחר במימוש: מכירה, היתר בנייה או תחילת שימוש. '
-			. 'על שומה אפשר להשיג תוך <bdi>' . (int) $b['appeal_days'] . '</bdi> ימים, ובהיטל של עד ' . justice_tools_money( $b['recheck_max'], 0 ) . ' גם לבקש מהוועדה לבחון מחדש. '
+			. 'על שומה אפשר להשיג תוך <bdi>' . (int) $b['appeal_days'] . '</bdi> ימים (על לוח שומה: שנה מהצגתו), ובחיוב של עד ' . justice_tools_money( $b['recheck_max'], 0 ) . ', כשחולקים רק על הסכום, גם לבקש מהוועדה לבחון מחדש. '
 			. 'נבדק ' . esc_html( justice_tools_he_date( $b['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
@@ -861,9 +861,10 @@ function justice_tools_hashbacha_numbers_html( array $b ): string {
 		array( 'בנייה או הרחבה למגורים שלכם או של קרוב', 'לא משלמים בהיתר עד <bdi>' . (int) $b['residence_max_sqm'] . '</bdi> מ"ר אחרי הבנייה; מעל, באופן יחסי', $b['residence_section'] ),
 		array( 'מכירת דירה כזאת', 'לא מימוש אחרי <bdi>' . (int) $b['residence_sale_years'] . '</bdi> שנות מגורים מגמר הבנייה', $b['residence_sale_section'] ),
 		array( 'מתי משלמים', 'לכל המאוחר במימוש: היתר, מכירה או שימוש', $b['pay_section'] ),
-		array( 'ערר על שומה', '<bdi>' . (int) $b['appeal_days'] . '</bdi> ימים מהיום שהשומה הגיעה אליכם; על לוח שומה: שנה', $b['appeal_section'] ),
+		array( 'ערר על שומה', '<bdi>' . (int) $b['appeal_days'] . '</bdi> ימים מהיום שהשומה הגיעה אליכם; על לוח שומה: שנה מהיום שהוצג', $b['appeal_section'] ),
 		array( 'שמאי מכריע', 'על הסכום בלבד, באותם ימים; על החלטתו ערר תוך <bdi>' . (int) $b['appraiser_appeal_days'] . '</bdi> ימים', $b['appraiser_section'] . ', ' . $b['appraiser_appeal_section'] ),
-		array( 'בחינה מחדש בוועדה', 'בהיטל של עד ' . justice_tools_money( $b['recheck_max'], 0 ) . ', עם שומת שמאי; החלטה תוך <bdi>' . (int) $b['recheck_decide_days'] . '</bdi> ימים', $b['recheck_section'] ),
+		array( 'בחינה מחדש בוועדה', 'רק על הסכום, בחיוב של עד ' . justice_tools_money( $b['recheck_max'], 0 ) . ', עם שומת שמאי; החלטה תוך <bdi>' . (int) $b['recheck_decide_days'] . '</bdi> ימים. הפחתה היא שומה מוסכמת: מסכימים תוך <bdi>' . (int) $b['recheck_reply_days'] . '</bdi> ימים, והשמאי הממשלתי הראשי רשאי לא לאשר תוך <bdi>' . (int) $b['recheck_chief_days'] . '</bdi> ימים', $b['recheck_section'] ),
+		array( 'מימוש חלקי', 'משלמים עכשיו את החלק היחסי, והשאר במימוש הבא', $b['partial_section'] ),
 	);
 	$body = '';
 	foreach ( $rows as $r ) {

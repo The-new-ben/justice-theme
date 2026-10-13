@@ -460,6 +460,7 @@ def build_betterment(checked_on: str) -> dict:
         "appeal_days": 45, "appeal_section": "סעיף 14(א)", "schedule_appeal_years": 1,
         "appraiser_section": "סעיף 14(ב)(1)", "appraiser_appeal_days": 45, "appraiser_appeal_section": "סעיף 14(ב)(4)",
         "recheck_max": 90000, "recheck_section": "סעיף 14(ב1)", "recheck_decide_days": 14, "recheck_reply_days": 21,
+        "recheck_chief_days": 21, "recheck_fallback_days": 30,
         "demand_days": 90, "demand_section": "סעיף 4(4)(א)",
     }
 

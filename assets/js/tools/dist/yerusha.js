@@ -456,7 +456,7 @@ function renderForm(reg, input) {
 	const hasSib = input.siblingsFull || input.siblingsFather || input.siblingsMother || sibLines.length;
 	return `<fieldset class="jtool-field"><legend>בן או בת זוג במות המוריש</legend><div class="jtool-chips">${Object.entries(SPOUSE).map(([k, v]) => chip('sp', k, v, (input.spouse || 'none') === k)).join('')}</div>`
 		+ `<div class="jtool-chips" data-if-spouse${input.spouse === 'none' ? ' hidden' : ''}>${chip('apt', '1', `נשואים ${reg.yerusha.spouse_apartment_min_years} שנים ויותר וגרו יחד בדירה שבעיזבון`, input.spouseApartment, 'checkbox')}</div></fieldset>`
-		+ `<div class="jtool-row">${stepper('kids', 'ילדים בחיים', input.children, 'כולל ילדים מאומצים ומקשר קודם')}`
+		+ `<div class="jtool-row">${stepper('kids', 'ילדים בחיים', input.children, `כולל ילדים מאומצים, מקשר קודם או מחוץ לנישואין (${reg.yerusha.sections.born}), וילד שנולד עד 300 יום אחרי המוות (${reg.yerusha.sections.posthumous})`)}`
 		+ `<fieldset class="jtool-field"><legend>הורים בחיים</legend><div class="jtool-chips">${chip('mom', '1', 'אמא', input.mother, 'checkbox')}${chip('dad', '1', 'אבא', input.father, 'checkbox')}${chip('adp', '1', 'המוריש/ה אומץ/ה (ההורים: המאמצים)', input.adopted, 'checkbox')}</div></fieldset></div>`
 		+ `<div class="jtool-field"><span class="jtool-label" id="${P}-cl-l">ילד שנפטר לפני המוריש והשאיר ילדים</span><ul class="jtool-rep" aria-labelledby="${P}-cl-l" data-lines="child">${childLines.map((k, i) => lineRow('child', k, i)).join('')}</ul><button class="jtool-linkbtn" type="button" data-add-line="child">+ הוספה</button><p class="jtool-error" id="${P}-childLines-e" role="alert"></p></div>`
 		+ `<details class="jtool-more"${hasSib ? ' open' : ''}><summary>אחים ואחיות (חשוב כשאין ילדים)</summary>`

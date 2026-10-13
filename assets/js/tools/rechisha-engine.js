@@ -133,6 +133,7 @@ export function replacementDeadline(pt, purchase, opts = {}) {
  * input = { price, date (purchase day), track, contractor, delivery, aliyah (oleh: the aliyah day),
  *           otherHome (oleh and disability tracks: the buyer has another home that is not being replaced),
  *           reliefUsed (oleh: the relief was already used once, reg. 12א(ב); disability: twice, reg. 11(א)),
+ *           nonResident (the buyer is not an individual Israeli resident: no single-home brackets, s.9(ג1ג)(2)),
  *           lawyerPct, brokerPct, other, vat: true (fees plus VAT) }
  */
 export function compute(registry, input) {
@@ -160,7 +161,13 @@ export function compute(registry, input) {
 	if (errors.length) { return { ok: false, errors }; }
 
 	const flags = [];
-	const notSole = Boolean(input.otherHome);
+	const nonResident = Boolean(input.nonResident);
+	// The disability brackets need s.9(ג1ג)(2), which is for an individual Israeli resident; otherwise the flat 0.5%.
+	const notSole = Boolean(input.otherHome) || nonResident;
+	// The single-home brackets (and so the replacement track) are for an individual Israeli resident (review, PR 124).
+	if (nonResident && (track === 'single' || track === 'replacement')) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: `${pt.resident_he}. בחרו "דירה נוספת".` }] };
+	}
 	// The reliefs are limited in number (review, PR 124): oleh once (reg. 12א(ב)), disability twice (reg. 11(א)).
 	if (input.reliefUsed && track === 'oleh') {
 		return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: 'הטבת העולה ניתנת פעם אחת בלבד (תקנה 12א(ב)). כבר קיבלתם אותה: בחרו "דירה יחידה" או "דירה נוספת".' }] };
@@ -204,7 +211,7 @@ export function compute(registry, input) {
 	const scenarios = {};
 	for (const t of ['single', 'additional', 'oleh', 'disabled']) {
 		const r = taxFor(pt, t, price, on, { notSole });
-		scenarios[t] = r.refused || (t === 'oleh' && notSole) ? null : r.tax;
+		scenarios[t] = r.refused || (t === 'oleh' && notSole) || (t === 'single' && nonResident) ? null : r.tax;
 	}
 
 	let replacement = null;

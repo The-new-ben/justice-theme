@@ -314,6 +314,7 @@ function replacementDeadline(pt, purchase, opts = {}) {
  * input = { price, date (purchase day), track, contractor, delivery, aliyah (oleh: the aliyah day),
  *           otherHome (oleh and disability tracks: the buyer has another home that is not being replaced),
  *           reliefUsed (oleh: the relief was already used once, reg. 12א(ב); disability: twice, reg. 11(א)),
+ *           nonResident (the buyer is not an individual Israeli resident: no single-home brackets, s.9(ג1ג)(2)),
  *           lawyerPct, brokerPct, other, vat: true (fees plus VAT) }
  */
 function compute(registry, input) {
@@ -341,7 +342,13 @@ function compute(registry, input) {
 	if (errors.length) { return { ok: false, errors }; }
 
 	const flags = [];
-	const notSole = Boolean(input.otherHome);
+	const nonResident = Boolean(input.nonResident);
+	// The disability brackets need s.9(ג1ג)(2), which is for an individual Israeli resident; otherwise the flat 0.5%.
+	const notSole = Boolean(input.otherHome) || nonResident;
+	// The single-home brackets (and so the replacement track) are for an individual Israeli resident (review, PR 124).
+	if (nonResident && (track === 'single' || track === 'replacement')) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: `${pt.resident_he}. בחרו "דירה נוספת".` }] };
+	}
 	// The reliefs are limited in number (review, PR 124): oleh once (reg. 12א(ב)), disability twice (reg. 11(א)).
 	if (input.reliefUsed && track === 'oleh') {
 		return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: 'הטבת העולה ניתנת פעם אחת בלבד (תקנה 12א(ב)). כבר קיבלתם אותה: בחרו "דירה יחידה" או "דירה נוספת".' }] };
@@ -385,7 +392,7 @@ function compute(registry, input) {
 	const scenarios = {};
 	for (const t of ['single', 'additional', 'oleh', 'disabled']) {
 		const r = taxFor(pt, t, price, on, { notSole });
-		scenarios[t] = r.refused || (t === 'oleh' && notSole) ? null : r.tax;
+		scenarios[t] = r.refused || (t === 'oleh' && notSole) || (t === 'single' && nonResident) ? null : r.tax;
 	}
 
 	let replacement = null;
@@ -464,6 +471,7 @@ function renderForm(reg, input) {
 	return `<div class="jtool-row"><div class="jtool-field"><label class="jtool-label" for="${P}-price">מחיר הדירה</label><div class="jtool-input jtool-input--money"><input id="${P}-price" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.price ? money(input.price, 0) : '')}" placeholder="לדוגמה: 2,650,000" aria-describedby="${P}-price-h ${P}-price-e"><span class="jtool-input__suffix" aria-hidden="true">₪</span></div><p class="jtool-hint" id="${P}-price-h">החישוב לדירה שלמה. קונים רק חלק? הזינו את שווי הדירה כולה והכפילו את המס בחלק שלכם (תקנה 2(2)(ב) לתקנות מס רכישה)</p><p class="jtool-error" id="${P}-price-e" role="alert"></p></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-date">יום החתימה</label><input id="${P}-date" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.date || ''))}" placeholder="לדוגמה: 13.10.2026" aria-describedby="${P}-date-e"><p class="jtool-error" id="${P}-date-e" role="alert"></p></div></div>`
 		+ `<fieldset class="jtool-field"><legend>מי קונה</legend><div class="jtool-chips">${TRACKS.map((k) => chip('trk', k, TRACK_LONG[k], t === k)).join('')}</div>`
+		+ `<div class="jtool-chips" style="margin-top:8px">${chip('nr', '1', 'הרוכש אינו תושב ישראל', input.nonResident, 'checkbox')}</div>`
 		+ `<p class="jtool-hint">${esc(pt.couple_he)}. ${esc(pt.share_ignored_he)}. ${esc(pt.resident_he)}.</p></fieldset>`
 		+ `<div data-if-track="replacement"${t === 'replacement' ? '' : ' hidden'}><div class="jtool-chips">${chip('ctr', '1', 'קונים מקבלן', input.contractor, 'checkbox')}</div>`
 		+ `<div class="jtool-field" style="margin-top:8px" data-if-contractor${input.contractor ? '' : ' hidden'}><label class="jtool-label" for="${P}-dlv">מועד המסירה לפי החוזה</label><input id="${P}-dlv" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.delivery || ''))}" placeholder="לדוגמה: 31.12.2027" aria-describedby="${P}-delivery-e"><p class="jtool-error" id="${P}-delivery-e" role="alert"></p></div></div>`
@@ -617,17 +625,18 @@ function readForm(root) {
 		contractor: Boolean(root.querySelector(`input[name="${P}-ctr"]:checked`)), delivery: toIso(val(`#${P}-dlv`)), aliyah: toIso(val(`#${P}-aly`)),
 		otherHome: Boolean(root.querySelector(`input[name="${P}-dot"]:checked`)),
 		reliefUsed: Boolean(root.querySelector(`input[name="${P}-used"]:checked`)),
+		nonResident: Boolean(root.querySelector(`input[name="${P}-nr"]:checked`)),
 		lawyerPct: pct('law'), brokerPct: pct('brk'), other: val(`#${P}-oth`).trim() === '' ? 0 : parseMoney(val(`#${P}-oth`)),
 		comparePrice: parseMoney(val(`#${P}-cmp`)),
 	};
 }
 
 const TR = { single: 's', replacement: 'r', additional: 'a', oleh: 'o', disabled: 'd' };
-const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.otherHome ? 1 : '', u: i.reliefUsed ? 1 : '' });
-const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x', 'u'];
+const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.otherHome ? 1 : '', u: i.reliefUsed ? 1 : '', n: i.nonResident ? 1 : '' });
+const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x', 'u', 'n'];
 function inputOf(s) {
 	if (!s.p) { return null; }
-	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, otherHome: s.x === '1', reliefUsed: s.u === '1' };
+	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, otherHome: s.x === '1', reliefUsed: s.u === '1', nonResident: s.n === '1' };
 }
 
 function mount(root, reg) {

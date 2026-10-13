@@ -328,7 +328,7 @@ def build_yerusha(checked_on: str) -> dict:
         "sections": {
             "heirs": "סעיף 10", "spouse": "סעיף 11(א)", "spouse_all": "סעיף 11(ב)", "spouse_deduct": "סעיף 11(ג)",
             "order": "סעיף 12", "equal": "סעיף 13", "represent": "סעיף 14", "renounce": "סעיף 15",
-            "adopted": "סעיף 16", "state": "סעיף 17", "cohabit": "סעיף 55", "born": "סעיף 3(ג)",
+            "adopted": "סעיף 16", "state": "סעיף 17", "cohabit": "סעיף 55", "born": "סעיף 3(ג)", "posthumous": "סעיף 3(ב)",
         },
         "fees": {
             "order_fee": 597, "from": "2026-01-01", "online_pct": 85,

@@ -385,6 +385,12 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		const u2 = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled', reliefUsed: true });
 		check(!u1.ok && u1.outOfScope && /12א\(ב\)/.test(u1.errors[0].he) && !u2.ok && u2.outOfScope && /פעמיים/.test(u2.errors[0].he), 'reg. 12א(ב) once, reg. 11(א) twice: a spent relief is refused (review, PR 124)');
 	}
+	{
+		const nr = RQ.compute(reg, { price: 1500000, date: '2026-10-13', track: 'single', nonResident: true });
+		const nd = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled', nonResident: true });
+		const na = RQ.compute(reg, { price: 1500000, date: '2026-10-13', track: 'additional', nonResident: true });
+		check(!nr.ok && nr.outOfScope && nd.ok && nd.tax === 10000 && na.ok && na.tax === 120000, 's.9(ג1ג)(2): a non-resident gets no single-home brackets; additional 8% = 120,000 on 1.5M (review, PR 124)');
+	}
 	check(dl('2025-06-01', { contractor: true, delivery: '2026-07-01' }) === '2027-09-01', 'contractor: each window extended first; 1.6.27 + 3 months beats 1.7.27 from delivery (review, PR 124)');
 	check(dl('2025-06-01', { contractor: true, delivery: '2025-07-01' }) === '2027-09-01', 'instruction 2/2016 s.2.1: contractor, the later of 12 months from delivery and 24 from purchase (1.6.27), then +3 months (review, PR 124)');
 	{

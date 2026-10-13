@@ -80,7 +80,11 @@ export function compute(registry, input) {
 	const b = input.balance;
 	const val = (v) => (v === '' || v === undefined || v === null ? 0 : Number(v));
 	// Married before 1.1.1974: the balance regime does not apply (s.14), so no payment figure is shown (review, PR 126).
-	if (!input.before1974 && b && ((b.a && (b.a.assets || b.a.excluded || b.a.debts)) || (b.b && (b.b.assets || b.b.excluded || b.b.debts)))) {
+	// A field counts as entered when it holds anything, even a malformed number (NaN), so a lone bad amount is an error
+	// on its field and never a silently skipped balance (review, PR 126).
+	const entered = (v) => v !== '' && v !== undefined && v !== null;
+	const any = (s) => Boolean(s) && (entered(s.assets) || entered(s.excluded) || entered(s.debts));
+	if (!input.before1974 && b && (any(b.a) || any(b.b))) {
 		const side = (s, key) => {
 			const assets = val(s && s.assets);
 			const excluded = val(s && s.excluded);

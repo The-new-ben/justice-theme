@@ -26,6 +26,8 @@ Usage
       --cpi-json cpi.json --rates-dir ga/ --minwage-html btl.html --out assets/data/justice-tools-registry.json
   python tools/justice_tools_registry.py --checked-on 2026-10-13 --base assets/data/justice-tools-registry.json \
       --out assets/data/justice-tools-registry.json        (wave 3 only: keeps the other datasets as they are)
+  add --wave4-checked-on <day> to rebuild the wave-4 datasets (HAD-502) with the --base refresh; a full rebuild (no
+  --base) always builds them, read on --wave4-checked-on or, when it is not given, on --checked-on
 
 Every input can be a saved file (so a reviewer can rebuild the exact registry from the files
 attached to the PR) or omitted to fetch live. The script never estimates a missing value: a
@@ -784,7 +786,9 @@ def main() -> int:
         "purchase_tax": build_purchase_tax(wave3_day),
         "betterment": build_betterment(wave3_day),
     }
-    add_wave4(registry, wave4_day)
+    # A full rebuild reads every source again, so it always builds the wave-4 datasets: a registry without them would
+    # leave three live tools without data (review, PR 126).
+    add_wave4(registry, wave4_day or args.checked_on)
     write_registry(registry, args.out)
     return 0
 

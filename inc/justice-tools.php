@@ -443,7 +443,7 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 		$fs   = $c['fees']['stages'];
 		$text = '<strong>פיצוי על כאב וסבל בתאונת דרכים</strong> נקבע בנוסחה שבתקנות: <bdi>' . (int) $np['disability_pct_per_pct'] . '%</bdi> מהסכום המקסימלי לכל אחוז נכות לצמיתות, פחות <bdi>' . (int) $np['age_pct_per_year'] . '%</bdi> לכל שנת גיל מעל ' . (int) $np['age_from'] . ', ועוד <bdi>' . esc_html( (string) ( $np['hospital_permille'] / 10 ) ) . '%</bdi> לכל יום אשפוז. '
 			. 'עורך דין יכול לגבות עד <bdi>' . (int) $fs['none']['pct'] . '%</bdi> בלי תביעה, <bdi>' . (int) $fs['settle']['pct'] . '%</bdi> בפשרה אחרי תביעה ו-<bdi>' . (int) $fs['judgment']['pct'] . '%</bdi> בפסק דין, ועוד מע"מ. '
-			. 'לא משנה מי אשם בתאונה (סעיף 2(ג)), והתביעה מתיישנת <bdi>' . (int) $c['limitation']['years'] . '</bdi> שנים מיום התאונה. נבדק ' . esc_html( justice_tools_he_date( $c['checked_on'] ) ) . '.';
+			. 'לא משנה מי אשם בתאונה (סעיף 2(ג)), והתביעה מתיישנת <bdi>' . (int) $c['limitation']['years'] . '</bdi> שנים מיום התאונה, ולמי שהיה קטין ביום התאונה מגיל 18 (סעיפים 5(1) ו-10 לחוק ההתיישנות). נבדק ' . esc_html( justice_tools_he_date( $c['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
 	if ( 'gerushin' === $name && ! empty( $reg['divorce_cost'] ) ) {

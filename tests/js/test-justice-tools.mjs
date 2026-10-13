@@ -717,6 +717,16 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!on.ok && on.errors[0].field === 'estate', 'with the Bar reference on, a bad estate value is still an error');
 }
 
+/* ---------- Review fixes (PR 126, Codex pass 5) ---------- */
+{
+	const lone = GE.compute(reg, { route: 'court', forum: 'family', start: '2026-11-01', balance: { a: { assets: NaN, excluded: '', debts: '' }, b: { assets: '', excluded: '', debts: '' } } });
+	check(!lone.ok && lone.errors.some((e) => e.field === 'a-assets'), 'a lone malformed balance amount is an error on its field (review, PR 126)');
+	const zero = GE.compute(reg, { route: 'court', forum: 'family', start: '2026-11-01', balance: { a: { assets: 0, excluded: '', debts: '' }, b: { assets: '', excluded: '', debts: '' } } });
+	check(zero.ok && zero.balance && zero.balance.pay === 0, 'an entered zero is a balance of zero, not a skipped balance');
+	const none = GE.compute(reg, { route: 'court', forum: 'family', start: '2026-11-01', balance: { a: { assets: '', excluded: '', debts: '' }, b: { assets: '', excluded: '', debts: '' } } });
+	check(none.ok && none.balance === null, 'nothing entered: no balance');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

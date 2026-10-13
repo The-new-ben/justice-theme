@@ -311,6 +311,7 @@ check( false !== strpos( $w4t, 'data-act="print"' ) && false !== strpos( $w4t, '
 check( false !== strpos( $w4t, 'אגרות ותעריף נוטריונים מ-1.1.2026 · נבדק 14.10.2026' ), 'will stamp: tariffs from 1.1.2026, checked 14.10.2026' );
 $c4t = $h4( array( 'name' => 'teunat-drachim' ) );
 check( false !== strpos( $c4t, 'class="jtool-answer"' ) && false !== strpos( $c4t, '<bdi>13%</bdi>' ) && false !== strpos( $c4t, '<bdi>0.2%</bdi>' ) && false !== strpos( $c4t, 'סעיף 2(ג)' ), 'car answer box: the formula, the fee caps and absolute liability' );
+check( false !== strpos( $c4t, 'מגיל 18' ) && false !== strpos( $c4t, 'סעיפים 5(1) ו-10' ), 'car answer box: the limitation rule names the minor exception (review, PR 126)' );
 check( false !== strpos( $c4t, 'jt10-bar' ) && false !== strpos( $c4t, '10.3.2032' ) && false !== strpos( $c4t, '135,840' ), 'car example in the server HTML: the formula bar, the limitation date, the net after the fee' );
 check( false !== strpos( $c4t, '<strong data-jtool-sticky-figure><bdi>19%</bdi></strong>' ), 'car sticky bar shows a share of the maximum, not shekels' );
 check( false !== strpos( $c4t, 'jtool-btn--primary" href="https://jus-tice.com/#/simulation' ) && false !== strpos( $c4t, 'purpose=witness_prep' ), 'car: the witness and expert rehearsal is the primary next step' );

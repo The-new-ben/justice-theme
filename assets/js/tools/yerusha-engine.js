@@ -18,6 +18,9 @@
  *    line is marked as a legal question (unresolved) instead of being split (review, PR 124).
  *  - s.55: partners in a shared household, neither married to another, are treated as if the deceased had
  *    bequeathed the partner what a spouse would inherit, unless the will says otherwise.
+ *  - s.16: an adopted deceased is inherited by the adoptive parents as parents (16(א)) and by the adopters'
+ *    relatives as if heirs (16(ב)); the biological parents, grandparents and their descendants do not inherit
+ *    (16(ג)). With input.adopted, the parents and siblings entered are read as the adoptive side.
  *  - s.17: with no heir at all, the State inherits.
  * The tool models one generation of representation (grandchildren, nephews and nieces); uncles, aunts and
  * cousins are named, not split.
@@ -183,6 +186,9 @@ export function compute(registry, input) {
 		}
 	}
 
+	if (input.adopted) {
+		flags.push({ code: 'adopted', he: 'המוריש אומץ: ההורים המאמצים יורשים אותו כהורים (סעיף 16(א)), וקרובי המאמצים זוכים בעיזבונו כאילו היו יורשים (סעיף 16(ב)). ההורים הביולוגיים, הוריהם וצאצאיהם, כולל אחים ביולוגיים, לא יורשים אותו (סעיף 16(ג)). לכן ההורים, האחים והסבים שהזנתם נקראים כאן כקרובים מצד המאמצים.' });
+	}
 	if (spouse === 'partner') { flags.push({ code: 'partner', he: 'ידועים בציבור: לפי סעיף 55, רואים כאילו המוריש ציווה לבן הזוג את מה שבן זוג נשוי היה יורש, אם שניהם לא היו נשואים לאחר ואם בצוואה אין הוראה אחרת. צריך להוכיח חיי משפחה במשק בית משותף.' }); }
 	if (spouse !== 'none') { flags.push({ code: 'deduct', he: 'מה שמגיע לבן הזוג מכוח הנישואין (למשל כתובה) מנוכה מחלקו בעיזבון, אבל לא מה שמגיע לו לפי חוק יחסי ממון או הסכם ממון (סעיף 11(ג)).' }); }
 
@@ -206,6 +212,7 @@ export function compute(registry, input) {
 	if (line === 'parents') { path.push({ rule: `${S.order}, ${S.equal}`, he: `אין ילדים: ההורים יורשים${spouse !== 'none' ? ' את מה שנשאר אחרי בן הזוג' : ''}, חצי לכל הורה.` }); }
 	if (line === 'parents' && parentsAlive < 2) { path.push({ rule: S.represent, he: 'הורה שנפטר לפני המוריש: ילדיו (האחים של המוריש, כולל אחים חורגים מצדו) באים במקומו, אלא אם יש בן זוג והורה אחר חי.' }); }
 	if (line === 'grandparents') { path.push({ rule: `${S.order}, ${S.equal}`, he: 'אין ילדים, הורים או אחים: הסבים והסבתות יורשים בחלקים שווים.' }); }
+	if (input.adopted && (line === 'parents' || line === 'grandparents')) { path.push({ rule: S.adopted, he: 'המוריש אומץ: ההורים והקרובים כאן הם מצד המאמצים; ההורים הביולוגיים וצאצאיהם לא יורשים.' }); }
 	if (line === 'state') { path.push({ rule: S.state, he: 'אין בן זוג ואין קרובים שהחוק מונה: המדינה יורשת.' }); }
 	if (line === 'unknown') { path.push({ rule: S.heirs, he: 'אין בן זוג, ילדים, הורים, אחים או סבים, אבל יש דודים או בני דודים: הם יורשים כצאצאי הסבים. הכלי לא מחלק את הדור הזה.' }); }
 

@@ -315,6 +315,8 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		const q = YE.compute(reg, { spouse: 'married', mother: true, children: 1, childLines: [2] });
 		check(q.ok && q.question && eq(shares({ spouse: 'married', mother: true, children: 1, childLines: [2] }), { spouse: '1/2', 'child-1': '1/4', 'childline-1': '1/4' }) && q.flags.some((f) => f.code === 'rep_children_question'), 's.14(א) end with a predeceased child: that line is a legal question, not split (review, PR 124)');
 		check(!YE.compute(reg, { spouse: 'married', children: 1, childLines: [2] }).question, 'no parent or grandparent alive: grandchildren represent as usual');
+		const ad = YE.compute(reg, { spouse: 'none', mother: true, adopted: true });
+		check(ad.ok && ad.flags.some((f) => f.code === 'adopted') && ad.path.some((p) => p.rule === reg.yerusha.sections.adopted), 's.16: an adopted deceased, the parents entered are the adoptive side and the rule is stated (review, PR 124)');
 	}
 	check(eq(shares({ siblingsFull: 2, siblingsFather: 1 }), { 'sib-full-1': '5/12', 'sib-full-2': '5/12', 'sib-father-1': '1/6' }), 'both parents died: full siblings take from both halves (5/12), a paternal half sibling only from the father side (1/6)');
 	check(eq(shares({ spouse: 'married', siblingsFull: 2 }), { spouse: '2/3', 'sib-full-1': '1/6', 'sib-full-2': '1/6' }), 's.11(א)(2): spouse 2/3 with siblings only');
@@ -374,6 +376,11 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(dl('2025-04-30') === '2027-01-31', 'instruction 2/2026 example 2: bought 30.4.25 -> 31.10.26 -> 31.1.27');
 	check(dl('2025-06-01') === '2027-09-01', 'instruction 2/2026 example 3: bought 1.6.25, 24 months -> 1.6.27 -> 1.9.27');
 	check(dl('2024-06-01', { contractor: true, delivery: '2025-12-31' }) === '2027-03-31', 'instruction 2/2026 example 4: contractor, delivered 31.12.25 -> 31.12.26 -> 31.3.27');
+	{
+		const u1 = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2026-01-01', reliefUsed: true });
+		const u2 = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled', reliefUsed: true });
+		check(!u1.ok && u1.outOfScope && /12א\(ב\)/.test(u1.errors[0].he) && !u2.ok && u2.outOfScope && /פעמיים/.test(u2.errors[0].he), 'reg. 12א(ב) once, reg. 11(א) twice: a spent relief is refused (review, PR 124)');
+	}
 	check(dl('2025-06-01', { contractor: true, delivery: '2025-07-01' }) === '2027-09-01', 'instruction 2/2016 s.2.1: contractor, the later of 12 months from delivery and 24 from purchase (1.6.27), then +3 months (review, PR 124)');
 	{
 		const o1 = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2026-01-01', otherHome: true });

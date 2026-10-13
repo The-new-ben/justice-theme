@@ -136,6 +136,7 @@ export function replacementDeadline(pt, purchase, opts = {}) {
 /**
  * input = { price, date (purchase day), track, contractor, delivery, aliyah (oleh: the aliyah day),
  *           otherHome (oleh and disability tracks: the buyer has another home that is not being replaced),
+ *           reliefUsed (oleh: the relief was already used once, reg. 12א(ב); disability: twice, reg. 11(א)),
  *           lawyerPct, brokerPct, other, vat: true (fees plus VAT) }
  */
 export function compute(registry, input) {
@@ -164,6 +165,13 @@ export function compute(registry, input) {
 
 	const flags = [];
 	const notSole = Boolean(input.otherHome);
+	// The reliefs are limited in number (review, PR 124): oleh once (reg. 12א(ב)), disability twice (reg. 11(א)).
+	if (input.reliefUsed && track === 'oleh') {
+		return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: 'הטבת העולה ניתנת פעם אחת בלבד (תקנה 12א(ב)). כבר קיבלתם אותה: בחרו "דירה יחידה" או "דירה נוספת".' }] };
+	}
+	if (input.reliefUsed && track === 'disabled') {
+		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: 'החיוב ב-0.5% לנכה, לעיוור, לנפגע או לבן משפחה של חייל שנספה ניתן לאדם פעמיים בלבד (תקנה 11(א)). כבר קיבלתם אותו פעמיים: בחרו "דירה יחידה" או "דירה נוספת".' }] };
+	}
 	if (track === 'oleh') {
 		const o = pt.tracks.oleh;
 		// Reg. 12א(א) applies only when s.9(ג1ג)(2)(א) or (ב) holds: a sole home or a replacement (review, PR 124).

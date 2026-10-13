@@ -1,5 +1,5 @@
 /**
- * Golden tests for the co.il tools engines (HAD-485). Run: node tests/js/test-justice-tools.mjs
+ * Golden tests for the co.il tools engines (HAD-485, HAD-490, HAD-498). Run: node tests/js/test-justice-tools.mjs
  *
  * CBS cases: the official linkage calculator (api.cbs.gov.il/index/data/calculator/120010),
  * queried on 12.10.2026; each case is the exact answer the CBS returned. The engine must
@@ -14,6 +14,12 @@ import * as T02 from '../../assets/js/tools/minwage-engine.js';
 import * as T03 from '../../assets/js/tools/havraa-engine.js';
 import * as T05 from '../../assets/js/tools/tviot-engine.js';
 import * as T05UI from '../../assets/js/tools/tviot-ui.js';
+import * as YE from '../../assets/js/tools/yerusha-engine.js';
+import * as YUI from '../../assets/js/tools/yerusha-ui.js';
+import * as RQ from '../../assets/js/tools/rechisha-engine.js';
+import * as RQUI from '../../assets/js/tools/rechisha-ui.js';
+import * as HB from '../../assets/js/tools/hashbacha-engine.js';
+import * as HBUI from '../../assets/js/tools/hashbacha-ui.js';
 import { encodeState, decodeState, decodeList, parseMoney, csv, ics, isStale, track } from '../../assets/js/tools/instrument.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -297,6 +303,229 @@ check(T05.compute(reg, { mode: 'full', amount: 3000000, on: '2026-10-12' }).foru
 	check(T05UI.renderForm(reg, { mode: 'fee', amount: 39900 }).includes('התקרה מ-1.1.2026: 39,900'), 'the fee page hint names the ceiling with its date');
 }
 check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T05.compute(reg, { mode: 'full', amount: 100, hearingDate: '31.2.2027', on: '2026-10-12' }).ok, 'zero amount and impossible dates are input errors');
+
+/* ---------- Wave 3 (HAD-498): inheritance without a will, Succession Law ss.10-17, 55 ---------- */
+{
+	const shares = (input) => { const r = YE.compute(reg, input); return r.ok ? Object.fromEntries(r.heirs.map((h) => [h.key, YE.fracText(h.share)])) : r; };
+	const eq = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+	check(eq(shares({ spouse: 'married', children: 2 }), { spouse: '1/2', 'child-1': '1/4', 'child-2': '1/4' }), 's.11(א)(1) + s.13: spouse 1/2, two children 1/4 each');
+	check(eq(shares({ spouse: 'married', children: 1, childLines: [2] }), { spouse: '1/2', 'child-1': '1/4', 'grandchild-1-1': '1/8', 'grandchild-1-2': '1/8' }), 's.14(א)-(ב): a child who died first is replaced by his two children, 1/8 each');
+	check(eq(shares({ spouse: 'married', mother: true, siblingsFull: 2 }), { spouse: '1/2', mother: '1/2' }), 's.14(א) end: spouse and a living parent, the siblings do not represent the parent who died');
+	{
+		const q = YE.compute(reg, { spouse: 'married', mother: true, children: 1, childLines: [2] });
+		check(q.ok && q.question && eq(shares({ spouse: 'married', mother: true, children: 1, childLines: [2] }), { spouse: '1/2', 'child-1': '1/4', 'childline-1': '1/4' }) && q.flags.some((f) => f.code === 'rep_children_question'), 's.14(א) end with a predeceased child: that line is a legal question, not split (review, PR 124)');
+		check(!YE.compute(reg, { spouse: 'married', children: 1, childLines: [2] }).question, 'no parent or grandparent alive: grandchildren represent as usual');
+		const pm = YE.compute(reg, { spouse: 'partner', partnerFree: false, children: 2 });
+		check(pm.ok && pm.spouse === 'none' && pm.flags.some((f) => f.code === 'partner_married') && eq(shares({ spouse: 'partner', partnerFree: false, children: 2 }), { 'child-1': '1/2', 'child-2': '1/2' }), 's.55: a partner married to another at the death does not inherit (review, PR 124)');
+		check(YE.compute(reg, { spouse: 'partner', children: 2 }).spouse === 'partner', 's.55: by default the partner condition is taken as met');
+		const pd = YE.compute(reg, { spouse: 'partner', partnerMarried: 'deceased', children: 1 });
+		check(!pd.ok && pd.outOfScope && /סעיף 11/.test(pd.errors[0].he) && YE.compute(reg, { spouse: 'partner', partnerMarried: 'survivor', children: 1 }).spouse === 'none', 's.55: the deceased married elsewhere -> the legal spouse case; the survivor married elsewhere -> no partner (review, PR 124)');
+		const ad = YE.compute(reg, { spouse: 'none', mother: true, adopted: true });
+		check(ad.ok && ad.flags.some((f) => f.code === 'adopted') && ad.path.some((p) => p.rule === reg.yerusha.sections.adopted), 's.16: an adopted deceased, the parents entered are the adoptive side and the rule is stated (review, PR 124)');
+	}
+	check(eq(shares({ siblingsFull: 2, siblingsFather: 1 }), { 'sib-full-1': '5/12', 'sib-full-2': '5/12', 'sib-father-1': '1/6' }), 'both parents died: full siblings take from both halves (5/12), a paternal half sibling only from the father side (1/6)');
+	check(eq(shares({ spouse: 'married', siblingsFull: 2 }), { spouse: '2/3', 'sib-full-1': '1/6', 'sib-full-2': '1/6' }), 's.11(א)(2): spouse 2/3 with siblings only');
+	check(eq(shares({ spouse: 'married', grandparents: 2 }), { spouse: '2/3', 'grand-1': '1/6', 'grand-2': '1/6' }), 's.11(א)(2): spouse 2/3 with grandparents; no representation for the others');
+	check(eq(shares({ spouse: 'married' }), { spouse: '1' }), 's.11(ב): spouse with none of those relatives takes all');
+	check(eq(shares({ spouse: 'none', mother: true, father: true }), { father: '1/2', mother: '1/2' }), 's.13: parents in equal shares');
+	check(eq(shares({ spouse: 'none', mother: true }), { mother: '1' }), 'a parent who died with no other descendants: the other parent takes the whole parents part');
+	{
+		const r = YE.compute(reg, { spouse: 'married', spouseApartment: true, siblingsFull: 2, apartment: 2400000, other: 600000 });
+		check(r.ok && r.spouseApt && r.heirs[0].amount === 2800000 && r.heirs[1].amount === 100000, 's.11(א)(2) proviso: married 3 years and lived there -> the whole apartment + 2/3 of the rest (2,800,000 / 100,000)');
+	}
+	{
+		const r = YE.compute(reg, { spouse: 'partner', spouseApartment: true, siblingsFull: 1 });
+		check(r.ok && !r.spouseApt && r.flags.some((f) => f.code === 'partner_apartment') && r.flags.some((f) => f.code === 'partner'), 's.55: a cohabiting partner gets the spouse shares; the apartment proviso is flagged, not applied');
+	}
+	check(YE.compute(reg, {}).state === true, 's.17: no spouse and no relatives -> the State');
+	{
+		const un = YE.compute(reg, { otherRelatives: true });
+		check(un.ok && un.unknown && un.heirs.length === 1 && un.heirs[0].unresolved && YUI.renderResult(reg, un).includes('דודים ובני דודים') && !YUI.renderResult(reg, un).includes('0 יורשים'), 'only uncles or cousins: an unresolved row, no "0 heirs" (review, PR 124)');
+	}
+	{
+		const r = YE.compute(reg, { grandparents: 2 });
+		const g = r.ok && r.heirs.find((h) => h.key === 'grand-1');
+		check(r.ok && r.unresolved && g && YE.fracText(g.share) === '1/4', 'no spouse, two grandparents alive: each 1/4, the rest flagged to their descendants');
+	}
+	{
+		let total = [0, 1];
+		for (const h of YE.compute(reg, { spouse: 'married', children: 3, childLines: [3, 1] }).heirs) { total = YE.fadd(total, h.share); }
+		check(YE.fracText(total) === '1', 'the shares always add up to the whole estate');
+	}
+	check(!YE.compute(reg, { children: -1 }).ok && !YE.compute(reg, { childLines: [1.5] }).ok, 'negative or fractional counts are input errors');
+	const fee = YE.compute(reg, { spouse: 'married', children: 1 }).fee;
+	check(fee.fee === 597 && near(fee.online, 507.45), 'registrar fee 597 NIS from 1.1.2026; 85% online = 507.45 (fee regulations, reg. 1(א))');
+	const snap = YUI.snapshot(reg);
+	check(snap.sentence.includes('1/2') && snap.details.includes('597') && snap.details.includes('jt6-chart'), 'yerusha snapshot: sentence, the cost of the order and the family chart');
+	check(snap.details.includes('תקנה 17(ג)') && snap.details.includes('הוצאות הפרסום'), 'review fix (PR 124): the order cost names the publication expense the applicant also pays');
+}
+
+/* ---------- Wave 3: purchase tax (Land Taxation Law s.9; Tax Authority instructions 2/2024, 1/2025, 2/2026) ---------- */
+{
+	const pt = reg.purchase_tax;
+	const tax = (trk, price, on = '2026-10-13') => RQ.taxFor(pt, trk, price, on);
+	check(tax('single', 1978745).tax === 0 && tax('single', 1978746).tax === 0.04, 'single home: 0% up to 1,978,745, then 3.5% (1 NIS -> 0.035 -> 0.04)');
+	check(near(tax('single', 2650000).tax, 28038.33), 'single home 2,650,000: 368,295 x 3.5% + 302,960 x 5% = 28,038.33');
+	check(near(tax('single', 8000000).tax, 353886.23), 'single home 8,000,000: four brackets = 353,886.23');
+	check(tax('additional', 2650000).tax === 212000 && near(tax('additional', 8000000).tax, 678898.6), 'additional home: 8% to 6,055,070, 10% above');
+	check(tax('additional', 2650000, '2027-02-10').tax === 212000 && tax('additional', 2650000, '2027-02-11').refused === 'after', 'additional home: 8%/10% through 10.2.2027 (Tax Authority notice, 12.10.2026), refused after, not guessed');
+	check(tax('single', 2650000, '2024-01-15').refused === 'before' && near(tax('single', 2650000, '2024-01-16').tax, 28038.33), 'single home: verified from 16.1.2024 (instruction 2/2024), not before');
+	check(near(tax('oleh', 3000000).tax, 5106.28) && near(tax('oleh', 8000000).tax, 175976.03), 'oleh (reg. 12א): 0%, 0.5% to 6,055,070, then 8%');
+	check(tax('oleh', 20183566).refused === 'oleh_cap', 'oleh relief not above 20,183,565 NIS (reg. 12א(ג))');
+	check(tax('disabled', 2400000).tax === 2106.28 && tax('disabled', 3000000).tax === 15000, 'disability track (reg. 11(א)): 0.5% from 1,978,745 to 2,500,000; above it 0.5% on all');
+	{
+		const other = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled', otherHome: true });
+		const sole = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled' });
+		check(other.ok && other.tax === 10000 && other.flat, 'reg. 11(א): a disabled buyer with another home pays 0.5% on all, 10,000 on 2,000,000 (review, PR 124)');
+		check(sole.ok && sole.tax === 106.28 && sole.flags.some((f) => f.code === 'disabled_sole'), 'reg. 11(א): the brackets for a sole home, with the condition stated');
+	}
+	// The Tax Authority's own examples (instruction 2/2026, s.2.1.1.1.1-4): the sale window and the war extension.
+	const dl = (d, o = {}) => RQ.replacementDeadline(pt, d, o).deadline;
+	check(dl('2024-09-01') === '2026-08-31', 'instruction 2/2026 example 1: bought 1.9.24, 18 months -> 1.3.26 -> extended to 31.8.26');
+	check(dl('2025-04-30') === '2027-01-31', 'instruction 2/2026 example 2: bought 30.4.25 -> 31.10.26 -> 31.1.27');
+	check(dl('2025-06-01') === '2027-09-01', 'instruction 2/2026 example 3: bought 1.6.25, 24 months -> 1.6.27 -> 1.9.27');
+	check(dl('2024-06-01', { contractor: true, delivery: '2025-12-31' }) === '2027-03-31', 'instruction 2/2026 example 4: contractor, delivered 31.12.25 -> 31.12.26 -> 31.3.27');
+	{
+		const u1 = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2026-01-01', reliefUsed: true });
+		const u2 = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled', reliefUsed: true });
+		check(!u1.ok && u1.outOfScope && /12א\(ב\)/.test(u1.errors[0].he) && !u2.ok && u2.outOfScope && /פעמיים/.test(u2.errors[0].he), 'reg. 12א(ב) once, reg. 11(א) twice: a spent relief is refused (review, PR 124)');
+	}
+	{
+		const nr = RQ.compute(reg, { price: 1500000, date: '2026-10-13', track: 'single', nonResident: true });
+		const nd = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled', nonResident: true });
+		const na = RQ.compute(reg, { price: 1500000, date: '2026-10-13', track: 'additional', nonResident: true });
+		check(!nr.ok && nr.outOfScope && nd.ok && nd.tax === 10000 && na.ok && na.tax === 120000, 's.9(ג1ג)(2): a non-resident gets no single-home brackets; additional 8% = 120,000 on 1.5M (review, PR 124)');
+	}
+	{
+		const nh = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled', notForHousing: true });
+		check(!nh.ok && nh.outOfScope && /שיכונו/.test(nh.errors[0].he), 'reg. 11(א): the disability relief only for the person\'s own housing (review, PR 124)');
+		check(/מחצית/.test(reg.purchase_tax.share_ignored_he), 's.49ג(3): an inherited home is ignored up to a half');
+		check(/תושב חוזר ותיק/.test(reg.purchase_tax.resident_he), 's.9(ג1ג)(4)(ב): the two-year rule names first-time and veteran returning residents (review, PR 124)');
+		const late = { price: 2000000, date: '2024-01-16', track: 'replacement', today: '2026-10-13' };
+		const l1 = RQ.compute(reg, late);
+		check(!l1.ok && l1.outOfScope && /עבר/.test(l1.errors[0].he) && RQ.compute(reg, Object.assign({ priorSold: true }, late)).ok, 'replacement deadline passed: the single-home result needs "sold in time" (review, PR 124)');
+		const dp = YE.compute(reg, { spouse: 'married', children: 1, childLines: [2], deeper: true });
+		check(!dp.ok && dp.outOfScope && YUI.renderResult(reg, dp).includes('לא מחלק'), 's.14 beyond one generation: named and stopped (review, PR 124)');
+		check(RQUI.ilToday(new Date('2026-10-13T22:30:00Z')) === '2026-10-14' && HBUI.ilToday(new Date('2026-10-13T12:00:00Z')) === '2026-10-13', 'today is the civil date in Israel, not UTC (review, PR 124)');
+		const nd = RQ.compute(reg, { price: 2000000, date: '2024-01-16', track: 'replacement', contractor: true });
+		check(!nd.ok && !nd.outOfScope && nd.errors[0].field === 'delivery', 'contractor replacement without delivery: an input error, no headline (review, PR 124)');
+		check(RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'single', delivery: 'xx', aliyah: 'yy' }).ok, 'hidden dates of other tracks do not block the result (review, PR 124)');
+		const gp = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'replacement', groupPrev: true });
+		check(!gp.ok && gp.outOfScope && /\(ב1\)/.test(gp.errors[0].he), 's.9(ג1ג)(2)(ב1): a delayed purchasing-group previous home is named, not computed (review, PR 124)');
+		const gr = YE.compute(reg, { grandparents: 2 });
+		check(gr.unresolved && YUI.renderResult(reg, gr).includes('לפחות 2'), 'unresolved groups: the headline says at least N heirs (review, PR 124)');
+		const big = HB.compute(reg, { mode: 'assessment', levy: 120000, received: '2026-10-01', kind: 'plan' });
+		check(HBUI.renderResult(reg, big).includes('שתי דרכים'), 'above 90,000: the heading counts two routes');
+		const v24 = RQ.compute(reg, { price: 2000000, date: '2024-06-01', track: 'single', lawyerPct: 1 });
+		const v26 = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'single', lawyerPct: 1 });
+		check(v24.vat === 17 && v24.lawyer === 23400 && v26.vat === 18 && v26.lawyer === 23600, 'VAT by the purchase day: 17% before 1.1.2025, 18% after (review, PR 124)');
+		const vb = RQ.compute(reg, { price: 2000000, date: '2024-06-01', track: 'single', lawyerPct: 1, brokerPct: 1, lawyerBefore: true, brokerBefore: false });
+		check(vb.vatLawyer === 17 && vb.vatBroker === 18 && vb.lawyer === 23400 && vb.broker === 23600, 'VAT per fee at its own tax point (review, PR 124)');
+		check(RQ.offRestDays('2026-09-21') === '2026-09-22' && RQ.offRestDays('2026-09-12') === '2026-09-14' && HB.offRestDays('2026-11-21') === '2026-11-22', 'rest days (s.18א): Yom Kippur 21.9.2026 -> 22.9; Rosh Hashana on a Saturday 12.9 -> 14.9; a Saturday appeal deadline -> Sunday (review, PR 124)');
+		check(reg.purchase_tax.independence_days.every((d) => RQ.independenceDay(Number(d.slice(0, 4))) === d) && RQ.independenceDay(2024) === '2024-05-14' && HB.independenceDay(2029) === '2029-04-19', 'Independence Day rule reproduces the official 2025-2027 dates; 14.5.2024 (review, PR 124)');
+		check(RQ.compute(reg, { price: 2000000, date: '2024-03-15', track: 'single' }).pay === '2024-05-15' && HB.compute(reg, { mode: 'assessment', levy: 84000, received: '2024-03-30', kind: 'plan' }).appealBy === '2024-05-15', 'Independence Day 14.5.2024 moves the deadlines to 15.5');
+		check(RQ.compute(reg, { price: 2000000, date: '2027-03-13', track: 'single' }).pay === '2027-05-13' && HB.compute(reg, { mode: 'assessment', levy: 84000, received: '2027-03-28', kind: 'plan' }).appealBy === '2027-05-13', 'Independence Day 12.5.2027 (official calendar) moves a deadline to 13.5 (review, PR 124)');
+		check(HB.compute(reg, { mode: 'assessment', levy: 84000, received: '2026-10-07', kind: 'plan' }).appealBy === '2026-11-22', 's.14(א) 45 days ending on Saturday 21.11.2026 -> 22.11 (review, PR 124)');
+		check(RQ.offSaturday('2027-06-05') === '2027-06-06' && RQ.offSaturday('2027-06-06') === '2027-06-06', 'Interpretation Law s.10(ג): a Saturday deadline moves to Sunday (review, PR 124)');
+		check(RQ.compute(reg, { price: 2000000, date: '2024-06-01', track: 'single', lawyerPct: 1, feesBefore: false }).vat === 18, 'VAT at the fee tax point: fees paid after 1.1.2025 on a 2024 purchase -> 18% (review, PR 124)');
+		check(/151\(ג\)\(2\)/.test(reg.betterment.rates.mamad.area_he), 's.19(ב)(9)(ג): the mamad rule names the Amendment 163 additional area');
+	}
+	check(dl('2025-06-01', { contractor: true, delivery: '2026-07-01' }) === '2027-09-01', 'contractor: each window extended first; 1.6.27 + 3 months beats 1.7.27 from delivery (review, PR 124)');
+	check(dl('2025-06-01', { contractor: true, delivery: '2025-07-01' }) === '2027-09-01', 'instruction 2/2016 s.2.1: contractor, the later of 12 months from delivery and 24 from purchase (1.6.27), then +3 months (review, PR 124)');
+	{
+		const o1 = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2026-01-01', otherHome: true });
+		check(!o1.ok && o1.outOfScope && /12א\(א\)/.test(o1.errors[0].he), 'reg. 12א(א): an oleh with another home gets no relief (review, PR 124)');
+		const o2 = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2028-06-01' });
+		check(!o2.ok && o2.outOfScope && /בבנייה/.test(o2.errors[0].he), 'reg. 12א(א): bought 1-3 years before aliyah, the construction-time exception is named, not computed');
+		const o3 = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2030-06-01' });
+		check(!o3.ok && o3.outOfScope && !/בבנייה/.test(o3.errors[0].he), 'more than 3 years before aliyah: outside the window');
+	}
+	check(dl('2023-06-01') === '2024-12-01' && dl('2026-06-15') === '2028-06-15', 'no extension for a window outside 28.2.2026-31.5.2026');
+	const r = RQ.compute(reg, { price: 2650000, date: '2026-10-13', track: 'single', lawyerPct: 0.5, brokerPct: 2 });
+	check(r.ok && near(r.lawyer, 15635) && near(r.broker, 62540) && near(r.total, 106213.33), 'full cost: lawyer 0.5% + 18% VAT = 15,635; broker 2% + VAT = 62,540; total 106,213.33');
+	check(r.declare === '2026-11-12' && r.pay === '2026-12-13', 'declaration in 30 days (s.73(ג)), payment in 60 days (s.90א): 12.12.2026 is a Saturday, so 13.12 (Interpretation Law s.10(ג))');
+	const rr = RQ.compute(reg, { price: 2650000, date: '2026-10-13', track: 'replacement' });
+	check(rr.ok && rr.replacement.deadline === '2028-10-13' && rr.flags.some((f) => f.code === 'at_stake'), 'replacement: sell the previous home by 13.10.2028; the difference at stake is shown');
+	check(!RQ.compute(reg, { price: 0, date: '2026-10-13' }).ok && !RQ.compute(reg, { price: 100, date: '31.2.2026' }).ok, 'zero price and impossible dates are input errors');
+	// Review fix (PR 124): the oleh relief needs the aliyah day and a purchase inside its window.
+	{
+		const noDate = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh' });
+		check(!noDate.ok && noDate.errors[0].field === 'aliyah', 'oleh without an aliyah date: an input error, no preferential tax');
+		const late = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2018-01-01' });
+		check(!late.ok && late.outOfScope && late.errors[0].he.includes('1.1.2025'), 'oleh 8 years after aliyah: outside the window, refused');
+		const early = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2028-01-01' });
+		check(!early.ok && early.outOfScope, 'oleh more than a year before aliyah: refused');
+		const fine = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2024-05-01' });
+		check(fine.ok && near(fine.tax, 5106.28), 'oleh inside the window: 5,106.28');
+	}
+	const rs = RQUI.snapshot(reg);
+	check(rs.details.includes('jt7-scns') && rs.result.includes('jt7-ladder'), 'purchase-tax snapshot: the ladder and the four scenarios');
+}
+
+/* ---------- Wave 3: betterment levy (Planning and Building Law, Third Schedule) ---------- */
+{
+	const est = (i) => HB.compute(reg, Object.assign({ mode: 'estimate', share: 100, event: 'sale' }, i));
+	check(est({ betterment: 800000, share: 50, plan: 'regular' }).levy === 200000, 's.3 + s.11(א): half of a 50% share of 800,000 = 200,000');
+	check(est({ betterment: 800000, plan: 'pinui' }).levy === 200000, 's.3א(א): a quarter in pinui-binui');
+	{
+		const st = est({ betterment: 600000, event: 'permit', ownHome: true, areaBefore: 140, areaAfter: 160, storage: true });
+		check(!st.ok && st.outOfScope && /19\(ג1\)/.test(st.errors[0].he), 's.19(ג1): a permit with a storage room is answered out of scope (review, PR 124)');
+		const ox = est({ betterment: 800000, otherExempt: true });
+		check(!ox.ok && ox.outOfScope && /שכונת שיקום/.test(ox.errors[0].he), 's.19(ב): other exemptions (rehabilitation neighbourhood and more) are screened, not computed (review, PR 124)');
+	}
+	check(est({ betterment: 800000, plan: 'mamad', event: 'permit' }).levy === 0, 's.19(ב)(9)(א): no levy on building a protected space, with the permit');
+	check(!est({ betterment: 800000, plan: 'mamad', event: 'sale' }).ok && est({ betterment: 800000, plan: 'mamad', event: 'sale', mamadPlan: true }).levy === 0, 's.19(ב)(9)(ב): on a sale only a mamad-purpose plan is exempt (review, PR 124)');
+	check(!est({ betterment: 600000, event: 'permit', ownHome: true, areaAfter: 160 }).ok && est({ betterment: 600000, event: 'permit', ownHome: true, areaBefore: 0, areaAfter: 160 }).ok, 'own-home deferral: the current area is required, 0 allowed for new building (review, PR 124)');
+	check(YUI.compareFor({ spouse: 'partner', partnerMarried: 'survivor', children: 1 }).spouse === 'married', 'a barred partner: the what-if adds a married spouse (review, PR 124)');
+	check(YE.compute(reg, { spouse: 'married', children: 2 }).flags.some((f) => f.code === 'vesting'), 'shares vest at the death; an heir who died later passes his share on (review, PR 124)');
+	{
+		const s4 = est({ betterment: 800000, sale4: true });
+		check(!s4.ok && s4.outOfScope && /19\(ג\)\(2\)/.test(s4.errors[0].he), 's.19(ג)(2): a sale after 4 years of living in the home is answered as out of scope, with the section (review, PR 124)');
+		check(est({ betterment: 800000, event: 'permit', sale4: true }).ok, 'the 4-year sale box only matters for a sale');
+	}
+	{
+		const m = est({ betterment: 800000, plan: 'mamad', event: 'permit', mamadBeyond: 100000 });
+		check(m.levy === 50000 && m.beyond === 100000, 's.19(ב)(9) + s.3: area beyond the protected space pays the regular half (review, PR 124)');
+		check(est({ betterment: 800000, plan: 'mamad', event: 'permit' }).flags.some((f) => f.code === 'mamad_area'), 'mamad: the statutory-area limit is always stated');
+		check(est({ betterment: 800000, plan: 'mamad', event: 'permit', share: 50, mamadBeyond: 100000 }).levy === 25000, 'mamad beyond: by the owner\'s share');
+		check(!est({ betterment: 800000, plan: 'mamad', event: 'permit', mamadBeyond: 900000 }).ok, 'mamad beyond cannot exceed the betterment');
+		check(est({ betterment: 800000, plan: 'tama38', event: 'permit', tamaBeyond: 100000 }).flags.some((f) => f.code === 'tama_local'), 's.19(ב2)(1): TAMA 38 beyond 2.5 floors carries the local-reduction warning');
+		check(!est({ betterment: 800000, plan: 'tama38', event: 'permit', tamaBeyond: 0 }).flags.some((f) => f.code === 'tama_local'), 'TAMA 38 with nothing beyond: no local warning');
+		check(est({ betterment: 800000, plan: 'seismic', event: 'permit' }).flags.some((f) => f.code === 'seismic_local'), 's.19(ב2)(1): seismic plans carry the local-reduction warning');
+		check(est({ betterment: 800000, plan: 'pinui', pinuiRate: 'half' }).levy === 400000 && est({ betterment: 800000, plan: 'pinui', pinuiRate: 'none' }).levy === 0 && est({ betterment: 800000, plan: 'pinui' }).levy === 200000, 's.3א(ב): the area rate the local authority set: half, none, or the statutory quarter (review, PR 124)');
+		check(est({ betterment: 800000, share: 100, plan: 'seismic', event: 'permit', localQ: 'eighth' }).levy === 100000 && est({ betterment: 800000, share: 100, plan: 'seismic', event: 'permit', localQ: 'none' }).levy === 0 && est({ betterment: 800000, plan: 'tama38', event: 'permit', tamaBeyond: 100000, localQ: 'eighth' }).levy === 12500, 's.19(ב2)(1): the local eighth or none for seismic and TAMA 38 beyond (review, PR 124)');
+		const dq = YE.compute(reg, { spouse: 'married', children: 2, disqualified: true });
+		check(!dq.ok && dq.outOfScope && /סעיף 5/.test(dq.errors[0].he), 's.5: a disqualified heir stops the split (review, PR 124)');
+		const rn = YE.compute(reg, { spouse: 'married', children: 2, renounce: true });
+		check(!rn.ok && rn.outOfScope && /סעיף 15/.test(rn.errors[0].he), 'ss.6, 15: a renunciation stops the split with the rule (review, PR 124)');
+		const ab = YE.compute(reg, { spouse: 'married', children: 2, abroad: true });
+		check(!ab.ok && ab.outOfScope && /137/.test(ab.errors[0].he), 's.137: a domicile abroad stops the Israeli split (review, PR 124)');
+		check(!est({ betterment: 800000, plan: 'seismic', event: 'sale' }).ok && !est({ betterment: 800000, plan: 'tama38', event: 'sale' }).ok, 's.19(ב)(10), (10א): TAMA 38 and the seismic quarter only with a building permit (review, PR 124)');
+		const sm = est({ betterment: 800000, plan: 'seismic', event: 'permit', seismicPct: 50 });
+		check(sm.levy === 300000 && sm.mixed && HBUI.verdictSentence(reg, sm).includes('רבע על 50%'), 's.19(ב)(10א)(ב)-(ג): half qualifying -> a quarter on half, a half on the rest = 37.5% (review, PR 124)');
+		check(est({ betterment: 800000, plan: 'seismic', event: 'permit' }).levy === 200000, 's.19(ב)(10א)(א): the plan on the lot itself, a quarter on all');
+	}
+	check(est({ betterment: 800000, plan: 'tama38', event: 'permit', tamaBeyond: 100000 }).levy === 25000, 's.19(ב)(10)(א): TAMA 38 exempt except a quarter beyond 2.5 floors');
+	const home = est({ betterment: 600000, plan: 'regular', event: 'permit', ownHome: true, areaBefore: 100, areaAfter: 160 });
+	check(home.levy === 300000 && home.due === 100000 && home.deferred === 200000, 's.19(ג)(1): 100 -> 160 m2, only the 20 m2 above 140 pays now (1/3 of 300,000)');
+	check(est({ betterment: 600000, event: 'permit', ownHome: true, areaBefore: 90, areaAfter: 135 }).due === 0, 'a home of 135 m2 after the work: nothing to pay at the permit');
+	const a = HB.compute(reg, { mode: 'assessment', levy: 84000, received: '2026-10-01', mine: 52000 });
+	check(a.ok && a.appealBy === '2026-11-15' && a.recheck && a.saving === 32000 && a.routes.length === 3, 's.14(א)/(ב)/(ב1): 45 days to 15.11.2026, three routes under 90,000, saving 32,000');
+	check(HB.compute(reg, { mode: 'assessment', levy: 95000, received: '2026-10-01' }).routes.length === 2, 'above 90,000: no re-examination route');
+	check(HB.compute(reg, { mode: 'assessment', levy: 95000, received: '2026-10-01', kind: 'schedule' }).appealBy === '2027-10-01', 'a valuation schedule: a year from its display to appeal');
+	{
+		const s = HB.compute(reg, { mode: 'assessment', levy: 84000, received: '2026-10-01', kind: 'schedule' });
+		check(s.ok && s.routes.some((x) => x.code === 'recheck'), 's.14(ב1)(1): re-examination is open for a schedule of up to 90,000 too (review, PR 124)');
+		const half = est({ betterment: 800000, realized: 50 });
+		check(half.levy === 400000 && half.due === 200000 && half.deferred === 200000, 's.7(ב): realising half the rights pays half now (review, PR 124)');
+		check(!est({ betterment: 800000, realized: 0 }).ok && !est({ betterment: 800000, realized: 120 }).ok, 'realised share must be above 0 and up to 100');
+		const both = est({ betterment: 800000, event: 'permit', ownHome: true, areaBefore: 100, areaAfter: 160, realized: 50 });
+		check(both.due === 66666.67 && both.deferred === 333333.33, 'the residence deferral and partial realisation combine');
+	}
+	check(!est({ betterment: 0 }).ok && !est({ betterment: 100, share: 120 }).ok, 'zero betterment and a share over 100% are input errors');
+	const hs = HBUI.snapshot(reg);
+	check(hs.result.includes('jt8-strip') && hs.assessment.result.includes('15.11.2026'), 'betterment snapshot: the plan strip, and the assessment example deadline');
+}
 
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);

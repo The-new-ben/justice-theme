@@ -309,7 +309,9 @@ function compute(registry, input) {
 	// 5. The Bar's recommended minimum (non-binding, before VAT), as a reference for a lawyer's quote: drafting the
 	// will (item 11(3)(א)-(ב)) and the probate request (item 4.א(4): 1.5% of the estate, at least the minimum).
 	const bar = wc.bar;
-	const estate = input.estate === '' || input.estate === undefined || input.estate === null ? null : Number(input.estate);
+	// The estate value feeds only the optional Bar reference: with the reference off it is neither read nor validated, so
+	// a value left in the hidden field never blocks the calculation (review, PR 126).
+	const estate = !input.barRef || input.estate === '' || input.estate === undefined || input.estate === null ? null : Number(input.estate);
 	if (estate !== null && !(estate >= 0 && estate < 1e11)) { return { ok: false, errors: [{ field: 'estate', he: 'שווי העיזבון: מספר חיובי' }] }; }
 	const barMake = people === 2 ? bar.mutual : bar.will;
 	const barProbateEach = estate !== null ? Math.max(r2(estate * bar.probate_pct / 100), bar.probate_min) : bar.probate_min;
@@ -521,7 +523,7 @@ function readForm(root) {
 		deposit: on('dep'), recent: [on('rc0'), on('rc1')],
 		words: num('words'), hours: num('hours'), outside: on('out'), night: on('ngt'), foreign: on('frn'),
 		lawyer: law === '' ? '' : parseMoney(law), lawyerVat: !on('lvi'),
-		barRef: on('bar'), estate: val(`#${P}-est`).trim() === '' ? '' : parseMoney(val(`#${P}-est`)),
+		barRef: on('bar'), estate: !on('bar') || val(`#${P}-est`).trim() === '' ? '' : parseMoney(val(`#${P}-est`)),
 		online: ((root.querySelector(`input[name="${P}-onl"]:checked`) || {}).value || '1') === '1',
 	};
 }

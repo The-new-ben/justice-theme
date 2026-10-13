@@ -188,7 +188,7 @@ function readForm(root) {
 		deposit: on('dep'), recent: [on('rc0'), on('rc1')],
 		words: num('words'), hours: num('hours'), outside: on('out'), night: on('ngt'), foreign: on('frn'),
 		lawyer: law === '' ? '' : parseMoney(law), lawyerVat: !on('lvi'),
-		barRef: on('bar'), estate: val(`#${P}-est`).trim() === '' ? '' : parseMoney(val(`#${P}-est`)),
+		barRef: on('bar'), estate: !on('bar') || val(`#${P}-est`).trim() === '' ? '' : parseMoney(val(`#${P}-est`)),
 		online: ((root.querySelector(`input[name="${P}-onl"]:checked`) || {}).value || '1') === '1',
 	};
 }

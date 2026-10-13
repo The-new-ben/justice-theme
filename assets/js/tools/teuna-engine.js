@@ -160,7 +160,9 @@ export function compute(registry, input) {
 
 	// 4. Limitation: for the injured person, from the accident (or age 18); a claim by the estate or the dependants
 	// arises on the death (s.6 of the Limitation Law), so no date is computed for it.
-	const lim = input.death ? null : limitation(ca, accident, birth);
+	// A minor's period starts at 18 (s.10), so without the birth date there is no date to give: seven years from the
+	// accident would be too early, and the flag below asks for the birth date instead (review, PR 126).
+	const lim = input.death || (minorAge && !birth) ? null : limitation(ca, accident, birth);
 	if (age !== null && age < ca.limitation.adult_age && !birth && !input.death) {
 		flags.push({ code: 'minor_birth', he: 'הנפגע היה קטין ביום התאונה: הזמן עד גיל 18 לא נספר בהתיישנות (סעיף 10 לחוק ההתיישנות). הזינו תאריך לידה כדי לחשב את המועד.' });
 	}

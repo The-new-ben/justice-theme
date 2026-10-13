@@ -647,7 +647,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(TZ.compute(reg, { form: 'notary', people: 1, barRef: true, estate: 1000000 }).bar.probateEach === 15000, 'an estate of 1,000,000: 1.5% = 15,000 for the probate request');
 	check(TZ.compute(reg, { form: 'notary', people: 1, barRef: true, estate: 100000 }).bar.probateEach === 4281, 'a small estate: the minimum, 4,281');
 	check(TZ.compute(reg, { form: 'notary', people: 2, barRef: true }).bar.total === 3159 + 2 * 4281, 'mutual wills: 3,159 for both, and a probate request for each estate');
-	check(!TZ.compute(reg, { form: 'notary', estate: -1 }).ok, 'a negative estate value is an input error');
+	check(!TZ.compute(reg, { form: 'notary', barRef: true, estate: -1 }).ok, 'a negative estate value is an input error when the Bar reference is on');
 	check(TZUI.snapshot(reg).details.includes('2,161') && TZUI.snapshot(reg).result.includes('4,281'), 'will snapshot: the Bar reference in the result and the details');
 }
 
@@ -702,6 +702,19 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const lastAlive = f.lastIndexOf('<details class="jtool-more" data-if-alive', maxAt);
 	const maxBlock = f.lastIndexOf('<details', maxAt);
 	check(maxAt > 0 && maxBlock !== lastAlive, 'the maximum field stays visible in death mode (it feeds the death formula)');
+}
+
+/* ---------- Review fixes (PR 126, Codex pass 4) ---------- */
+{
+	const kid = TE.compute(reg, { disability: 10, days: 0, age: 12, accident: '2025-01-01' });
+	check(kid.ok && kid.lim === null, 'a minor without a birth date gets no limitation date (review, PR 126)');
+	check(kid.ok && kid.flags.some((f) => f.code === 'minor_birth'), 'and the flag asks for the birth date');
+	const kidB = TE.compute(reg, { disability: 10, days: 0, age: 12, accident: '2025-01-01', birth: '2012-06-04' });
+	check(kidB.ok && kidB.lim && kidB.lim.minor, 'with the birth date the minor deadline is computed from 18');
+	const off = TZ.compute(reg, Object.assign({}, TZUI.EXAMPLE, { barRef: false, estate: -5 }));
+	check(off.ok && off.bar.estate === null, 'with the Bar reference off, a bad estate value in the hidden field is ignored (review, PR 126)');
+	const on = TZ.compute(reg, Object.assign({}, TZUI.EXAMPLE, { barRef: true, estate: -5 }));
+	check(!on.ok && on.errors[0].field === 'estate', 'with the Bar reference on, a bad estate value is still an error');
 }
 
 if (failures) {

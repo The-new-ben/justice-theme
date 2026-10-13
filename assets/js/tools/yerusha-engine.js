@@ -69,6 +69,10 @@ export function compute(registry, input) {
 	if (apartment !== null && !(apartment >= 0 && apartment < 1e11)) { errors.push({ field: 'apartment', he: 'שווי הדירה צריך להיות מספר חיובי' }); }
 	if (other !== null && !(other >= 0 && other < 1e11)) { errors.push({ field: 'other', he: 'שווי שאר העיזבון צריך להיות מספר חיובי' }); }
 	if (errors.length) { return { ok: false, errors }; }
+	// s.14 reaches every generation; the tool models one (grandchildren, nephews and nieces) (review, PR 124).
+	if (input.deeper) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'childLines', he: 'גם נכד או אחיין שנפטרו לפני המוריש והשאירו ילדים באים במקומם (סעיף 14), דור אחרי דור. הכלי מחלק דור אחד של ייצוג בלבד, ולכן לא מחשב את המקרה הזה: בדקו עם עורך דין או ברשם לענייני ירושה.' }] };
+	}
 
 	// s.55: a partner only if neither was married to another person at the death (review, PR 124).
 	const partnerBarred = input.spouse === 'partner' && input.partnerFree === false;

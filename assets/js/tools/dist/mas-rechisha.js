@@ -316,6 +316,8 @@ function replacementDeadline(pt, purchase, opts = {}) {
  *           reliefUsed (oleh: the relief was already used once, reg. 12א(ב); disability: twice, reg. 11(א)),
  *           nonResident (the buyer is not an individual Israeli resident: no single-home brackets, s.9(ג1ג)(2)),
  *           groupPrev (replacement: the previous home was bought in a purchasing group whose construction was delayed),
+ *           today (ISO, the day of the check) and priorSold (replacement: the previous home was sold in time) -
+ *           when the sale deadline has passed, the single-home result needs priorSold,
  *           lawyerPct, brokerPct, other, vat: true (fees plus VAT) }
  */
 function compute(registry, input) {
@@ -410,6 +412,10 @@ function compute(registry, input) {
 		replacement = replacementDeadline(pt, on, { contractor: Boolean(input.contractor), delivery });
 		if (!replacement.ok && replacement.reason === 'delivery') { flags.push({ code: 'delivery', he: 'ברכישה מקבלן, 12 החודשים נספרים מיום מסירת הדירה החדשה. הזינו את מועד המסירה לפי ההסכם.' }); }
 		if (!replacement.ok && replacement.reason === 'before') { flags.push({ code: 'replacement_before', he: `חלון המכירה מחושב כאן לרכישות מ-${rqDate(replacement.from)}.` }); }
+		// The deadline has passed: the single-home rates hold only if the previous home was sold in time (review, PR 124).
+		if (replacement.ok && input.today && replacement.deadline < input.today && !input.priorSold) {
+			return { ok: false, outOfScope: true, errors: [{ field: 'date', he: `המועד למכירת הדירה הקודמת עבר ב-${rqDate(replacement.deadline)}. מכרתם אותה עד אז? סמנו "מכרתי את הדירה הקודמת בזמן". אם לא, המס הוא כמו על דירה נוספת: בחרו "דירה נוספת".` }] };
+		}
 		if (scenarios.additional !== null) {
 			flags.push({ code: 'at_stake', he: `אם הדירה הקודמת לא תימכר בזמן, המס הוא כמו בדירה נוספת: ${rqMoney(scenarios.additional)} ₪, כלומר ${rqMoney(Math.max(0, scenarios.additional - main.tax))} ₪ יותר.` });
 		}
@@ -481,9 +487,9 @@ function renderForm(reg, input) {
 	return `<div class="jtool-row"><div class="jtool-field"><label class="jtool-label" for="${P}-price">מחיר הדירה</label><div class="jtool-input jtool-input--money"><input id="${P}-price" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.price ? money(input.price, 0) : '')}" placeholder="לדוגמה: 2,650,000" aria-describedby="${P}-price-h ${P}-price-e"><span class="jtool-input__suffix" aria-hidden="true">₪</span></div><p class="jtool-hint" id="${P}-price-h">החישוב לדירה שלמה. קונים רק חלק? הזינו את שווי הדירה כולה והכפילו את המס בחלק שלכם (תקנה 2(2)(ב) לתקנות מס רכישה)</p><p class="jtool-error" id="${P}-price-e" role="alert"></p></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-date">יום החתימה</label><input id="${P}-date" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.date || ''))}" placeholder="לדוגמה: 13.10.2026" aria-describedby="${P}-date-e"><p class="jtool-error" id="${P}-date-e" role="alert"></p></div></div>`
 		+ `<fieldset class="jtool-field"><legend>מי קונה</legend><div class="jtool-chips">${TRACKS.map((k) => chip('trk', k, TRACK_LONG[k], t === k)).join('')}</div>`
-		+ `<div class="jtool-chips" style="margin-top:8px">${chip('nr', '1', 'הרוכש אינו תושב ישראל', input.nonResident, 'checkbox')}</div>`
+		+ `<div class="jtool-chips" style="margin-top:8px">${chip('nr', '1', 'הרוכש אינו תושב ישראל, ולא יהיה תושב בתוך שנתיים מהרכישה', input.nonResident, 'checkbox')}</div>`
 		+ `<p class="jtool-hint">${esc(pt.couple_he)}. ${esc(pt.share_ignored_he)}. ${esc(pt.resident_he)}.</p></fieldset>`
-		+ `<div data-if-track="replacement"${t === 'replacement' ? '' : ' hidden'}><div class="jtool-chips">${chip('ctr', '1', 'קונים מקבלן', input.contractor, 'checkbox')}${chip('grp', '1', 'הדירה הקודמת נקנתה בקבוצת רכישה ובנייתה התעכבה', input.groupPrev, 'checkbox')}</div>`
+		+ `<div data-if-track="replacement"${t === 'replacement' ? '' : ' hidden'}><div class="jtool-chips">${chip('ctr', '1', 'קונים מקבלן', input.contractor, 'checkbox')}${chip('grp', '1', 'הדירה הקודמת נקנתה בקבוצת רכישה ובנייתה התעכבה', input.groupPrev, 'checkbox')}${chip('sold', '1', 'מכרתי את הדירה הקודמת בזמן', input.priorSold, 'checkbox')}</div>`
 		+ `<div class="jtool-field" style="margin-top:8px" data-if-contractor${input.contractor ? '' : ' hidden'}><label class="jtool-label" for="${P}-dlv">מועד המסירה לפי החוזה</label><input id="${P}-dlv" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.delivery || ''))}" placeholder="לדוגמה: 31.12.2027" aria-describedby="${P}-delivery-e"><p class="jtool-error" id="${P}-delivery-e" role="alert"></p></div></div>`
 		+ `<div data-if-track="disabled oleh"${t === 'disabled' || t === 'oleh' ? '' : ' hidden'}><div class="jtool-chips">${chip('dot', '1', 'יש לי עוד דירה, והיא לא נמכרת כחלופית', input.otherHome, 'checkbox')}${chip('used', '1', 'כבר קיבלתי את ההטבה (עולה: פעם אחת; נכה: פעמיים)', input.reliefUsed, 'checkbox')}</div><div class="jtool-chips" data-if-track="disabled"${t === 'disabled' ? '' : ' hidden'} style="margin-top:8px">${chip('nfh', '1', 'הדירה לא נקנית למגורים שלי (להשקעה)', input.notForHousing, 'checkbox')}</div><p class="jtool-hint">הטבת עולה: רק בדירה יחידה או חלופית (תקנה 12א(א)). נכה: ${esc(pt.tracks.disabled.sole_he)}</p></div>`
 		+ `<div class="jtool-field" data-if-track="oleh"${t === 'oleh' ? '' : ' hidden'}><label class="jtool-label" for="${P}-aly">תאריך העלייה</label><input id="${P}-aly" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.aliyah || ''))}" placeholder="לדוגמה: 1.5.2024" aria-describedby="${P}-aliyah-e"><p class="jtool-error" id="${P}-aliyah-e" role="alert"></p></div>`
@@ -638,17 +644,18 @@ function readForm(root) {
 		nonResident: Boolean(root.querySelector(`input[name="${P}-nr"]:checked`)),
 		notForHousing: Boolean(root.querySelector(`input[name="${P}-nfh"]:checked`)),
 		groupPrev: Boolean(root.querySelector(`input[name="${P}-grp"]:checked`)),
+		priorSold: Boolean(root.querySelector(`input[name="${P}-sold"]:checked`)),
 		lawyerPct: pct('law'), brokerPct: pct('brk'), other: val(`#${P}-oth`).trim() === '' ? 0 : parseMoney(val(`#${P}-oth`)),
 		comparePrice: parseMoney(val(`#${P}-cmp`)),
 	};
 }
 
 const TR = { single: 's', replacement: 'r', additional: 'a', oleh: 'o', disabled: 'd' };
-const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.otherHome ? 1 : '', u: i.reliefUsed ? 1 : '', n: i.nonResident ? 1 : '', h: i.notForHousing ? 1 : '', g: i.groupPrev ? 1 : '' });
-const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x', 'u', 'n', 'h', 'g'];
+const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.otherHome ? 1 : '', u: i.reliefUsed ? 1 : '', n: i.nonResident ? 1 : '', h: i.notForHousing ? 1 : '', g: i.groupPrev ? 1 : '', s: i.priorSold ? 1 : '' });
+const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x', 'u', 'n', 'h', 'g', 's'];
 function inputOf(s) {
 	if (!s.p) { return null; }
-	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, otherHome: s.x === '1', reliefUsed: s.u === '1', nonResident: s.n === '1', notForHousing: s.h === '1', groupPrev: s.g === '1' };
+	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, otherHome: s.x === '1', reliefUsed: s.u === '1', nonResident: s.n === '1', notForHousing: s.h === '1', groupPrev: s.g === '1', priorSold: s.s === '1' };
 }
 
 function mount(root, reg) {
@@ -689,7 +696,7 @@ function mount(root, reg) {
 		form.querySelectorAll('[data-if-contractor]').forEach((el) => { el.hidden = !c; });
 	};
 	const run = (input, opts = {}) => {
-		const r = compute(reg, input);
+		const r = compute(reg, Object.assign({ today }, input));
 		const c = r.ok ? compute(reg, compareFor(reg, input)) : null;
 		showErrors(r);
 		result.innerHTML = renderResult(reg, r);

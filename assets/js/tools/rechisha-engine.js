@@ -135,6 +135,8 @@ export function replacementDeadline(pt, purchase, opts = {}) {
  *           reliefUsed (oleh: the relief was already used once, reg. 12א(ב); disability: twice, reg. 11(א)),
  *           nonResident (the buyer is not an individual Israeli resident: no single-home brackets, s.9(ג1ג)(2)),
  *           groupPrev (replacement: the previous home was bought in a purchasing group whose construction was delayed),
+ *           today (ISO, the day of the check) and priorSold (replacement: the previous home was sold in time) -
+ *           when the sale deadline has passed, the single-home result needs priorSold,
  *           lawyerPct, brokerPct, other, vat: true (fees plus VAT) }
  */
 export function compute(registry, input) {
@@ -229,6 +231,10 @@ export function compute(registry, input) {
 		replacement = replacementDeadline(pt, on, { contractor: Boolean(input.contractor), delivery });
 		if (!replacement.ok && replacement.reason === 'delivery') { flags.push({ code: 'delivery', he: 'ברכישה מקבלן, 12 החודשים נספרים מיום מסירת הדירה החדשה. הזינו את מועד המסירה לפי ההסכם.' }); }
 		if (!replacement.ok && replacement.reason === 'before') { flags.push({ code: 'replacement_before', he: `חלון המכירה מחושב כאן לרכישות מ-${rqDate(replacement.from)}.` }); }
+		// The deadline has passed: the single-home rates hold only if the previous home was sold in time (review, PR 124).
+		if (replacement.ok && input.today && replacement.deadline < input.today && !input.priorSold) {
+			return { ok: false, outOfScope: true, errors: [{ field: 'date', he: `המועד למכירת הדירה הקודמת עבר ב-${rqDate(replacement.deadline)}. מכרתם אותה עד אז? סמנו "מכרתי את הדירה הקודמת בזמן". אם לא, המס הוא כמו על דירה נוספת: בחרו "דירה נוספת".` }] };
+		}
 		if (scenarios.additional !== null) {
 			flags.push({ code: 'at_stake', he: `אם הדירה הקודמת לא תימכר בזמן, המס הוא כמו בדירה נוספת: ${rqMoney(scenarios.additional)} ₪, כלומר ${rqMoney(Math.max(0, scenarios.additional - main.tax))} ₪ יותר.` });
 		}

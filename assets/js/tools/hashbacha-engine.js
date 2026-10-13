@@ -104,6 +104,11 @@ export function compute(registry, input) {
 	// The current area is required for the deferral, 0 for a new home; never assumed (review, PR 124).
 	if (ownHome && areaBlank) { errors.push({ field: 'areaBefore', he: 'שטח הדירה היום, במ"ר (0 אם זו בנייה חדשה)' }); }
 	if (ownHome && !areaBlank && !(areaBefore >= 0 && areaBefore < areaAfter)) { errors.push({ field: 'areaBefore', he: 'שטח הדירה לפני הבנייה צריך להיות קטן מהשטח אחריה' }); }
+	// s.19(ב)(10), (10א): the TAMA 38 exemption and the seismic quarter are for betterment from receiving a building
+	// permit (review, PR 124).
+	if ((plan === 'tama38' || plan === 'seismic') && event !== 'permit' && !errors.length) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'plan', he: `${plan === 'tama38' ? 'פטור תמ"א 38' : 'השיעור של רבע בתוכנית חיזוק'} חל על השבחה בשל קבלת היתר בנייה (סעיף 19(ב)(${plan === 'tama38' ? '10' : '10א'})). במכירה או בתחילת שימוש בלי היתר כזה, ההיטל הוא לפי הכלל הרגיל: בחרו "תוכנית, הקלה או שימוש חורג", או בדקו עם שמאי.` }] };
+	}
 	// s.19(ב)(9): the building exemption (א) is realised with the permit; on a sale or a use, only a plan whose main
 	// purpose is mamad provisions (ב) is exempt (review, PR 124).
 	if (plan === 'mamad' && event !== 'permit' && !input.mamadPlan && !errors.length) {

@@ -71,23 +71,24 @@ export function byBrackets(brackets, value) {
  * Statutory rest days (Law and Administration Ordinance s.18א(א)): Saturday, 1-2 Tishri (Rosh Hashana), 10 Tishri
  * (Yom Kippur), 15 and 22 Tishri (Sukkot, Shemini Atzeret), 15 and 21 Nisan (Pesach), 6 Sivan (Shavuot).
  * Interpretation Law s.10(ג): a period whose last days are rest days ends on the next day that is not one.
- * Hebrew dates from Intl (ca-hebrew); without it, Saturday only. Independence Day is not modelled.
+ * Hebrew dates from Intl (ca-hebrew); without it, Saturday only. Independence Day (a statutory sabbath whose date
+ * moves) comes from the registry's dated list (extra).
  */
 const REST_HEBREW = { Tishri: [1, 2, 10, 15, 22], Nisan: [15, 21], Sivan: [6] };
 let hebrewFmt = null;
 try { hebrewFmt = new Intl.DateTimeFormat('en-u-ca-hebrew', { timeZone: 'UTC', month: 'long', day: 'numeric' }); } catch (e) { hebrewFmt = null; }
-export function isRestDay(iso) {
+export function isRestDay(iso, extra = []) {
 	const d = new Date(`${iso}T00:00:00Z`);
-	if (d.getUTCDay() === 6) { return true; }
+	if (d.getUTCDay() === 6 || (extra || []).includes(iso)) { return true; }
 	if (!hebrewFmt) { return false; }
 	const parts = hebrewFmt.formatToParts(d);
 	const month = (parts.find((p) => p.type === 'month') || {}).value;
 	const day = Number((parts.find((p) => p.type === 'day') || {}).value);
 	return Boolean(REST_HEBREW[month] && REST_HEBREW[month].includes(day));
 }
-export function offRestDays(iso) {
+export function offRestDays(iso, extra = []) {
 	let out = iso;
-	for (let i = 0; i < 7 && isRestDay(out); i += 1) { out = addDays(out, 1); }
+	for (let i = 0; i < 7 && isRestDay(out, extra); i += 1) { out = addDays(out, 1); }
 	return out;
 }
 export const offSaturday = offRestDays;
@@ -153,7 +154,7 @@ export function replacementDeadline(pt, purchase, opts = {}) {
 	}
 	// Interpretation Law s.10(ג): a period that ends on a rest day ends on the next day (Saturday modelled; holidays
 	// named in the note) (review, PR 124).
-	const rolled = offRestDays(chosen.deadline);
+	const rolled = offRestDays(chosen.deadline, pt.independence_days);
 	return Object.assign({ ok: true, contractor: Boolean(opts.contractor) }, chosen, { deadline: rolled, restRolled: rolled !== chosen.deadline });
 }
 
@@ -289,8 +290,8 @@ export function compute(registry, input) {
 		flags.push({ code: 'third', he: 'יש לכם חלק של שליש או פחות בדירה אחרת, או עד מחצית בדירה שקיבלתם בירושה? היא לא נספרת, והדירה עדיין יחידה (סעיף 9(ג1ג)(4)(א), בהפניה לסעיף 49ג(3)).', soft: true });
 	}
 
-	const declare = offRestDays(addDays(on, pt.declare_days));
-	const pay = offRestDays(addDays(on, pt.pay_days));
+	const declare = offRestDays(addDays(on, pt.declare_days), pt.independence_days);
+	const pay = offRestDays(addDays(on, pt.pay_days), pt.independence_days);
 	return {
 		ok: true, track, price, on, tax: main.tax, lines: main.lines, flat: Boolean(main.flat), section: main.section,
 		effective: price ? Math.round(main.tax / price * 10000) / 100 : 0,

@@ -691,6 +691,19 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(TE.compute(reg, { disability: 10, days: 0, age: 14, accident: '2025-01-01', birth: '2010-06-04' }).ok, 'a matching birth date passes (14 on 1.1.2025)');
 }
 
+/* ---------- Review fixes (PR 126, Codex pass 3) ---------- */
+{
+	const dead = TE.compute(reg, { death: true, accident: '2025-03-10', age: 15, birth: '2000-99-99', income: 'x', months: -4, max: 200000 });
+	check(dead.ok, 'death mode ignores a bad birth date, income and month count left in the hidden living fields (review, PR 126)');
+	check(dead.ok && dead.earnings === null && dead.lim === null, 'death mode shows no earnings of the injured person and no limitation date');
+	check(dead.ok && dead.npAmount === 50000, 'death mode still uses the maximum: 25% of 200,000 is 50,000');
+	const f = TEUI.renderForm(reg, Object.assign({}, TEUI.EXAMPLE, { death: true, max: 200000 }));
+	const maxAt = f.indexOf('-max"');
+	const lastAlive = f.lastIndexOf('<details class="jtool-more" data-if-alive', maxAt);
+	const maxBlock = f.lastIndexOf('<details', maxAt);
+	check(maxAt > 0 && maxBlock !== lastAlive, 'the maximum field stays visible in death mode (it feeds the death formula)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

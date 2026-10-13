@@ -89,13 +89,16 @@ export function compute(registry, input) {
 	const days = num(input.days) ?? 0;
 	const age = num(input.age);
 	const max = num(input.max);
-	const income = num(input.income);
-	const months = num(input.months);
+	// A death claim has no loss of earnings of the injured person and no limitation from the accident: the fields of a
+	// living claimant are ignored, so a value left in them never blocks or changes the death result (review, PR 126).
+	const alive = !input.death;
+	const income = alive ? num(input.income) : null;
+	const months = alive ? num(input.months) : null;
 	const amount = num(input.amount);
 	const accident = parseDate(input.accident);
 	// The birth day matters only for a minor (Limitation Law s.10): for an adult on the accident day it is ignored, so a
 	// value left in a hidden field never moves the deadline (review, PR 126).
-	const minorAge = age !== null && age < ca.limitation.adult_age;
+	const minorAge = alive && age !== null && age < ca.limitation.adult_age;
 	const birth = input.birth && minorAge ? parseDate(input.birth) : null;
 	if (!input.death) {
 		if (!(dis >= 0 && dis <= 100)) { errors.push({ field: 'disability', he: 'אחוזי נכות לצמיתות: 0 עד 100' }); }

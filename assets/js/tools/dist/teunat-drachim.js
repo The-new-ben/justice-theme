@@ -392,13 +392,16 @@ function compute(registry, input) {
 	const days = num(input.days) ?? 0;
 	const age = num(input.age);
 	const max = num(input.max);
-	const income = num(input.income);
-	const months = num(input.months);
+	// A death claim has no loss of earnings of the injured person and no limitation from the accident: the fields of a
+	// living claimant are ignored, so a value left in them never blocks or changes the death result (review, PR 126).
+	const alive = !input.death;
+	const income = alive ? num(input.income) : null;
+	const months = alive ? num(input.months) : null;
 	const amount = num(input.amount);
 	const accident = parseDate(input.accident);
 	// The birth day matters only for a minor (Limitation Law s.10): for an adult on the accident day it is ignored, so a
 	// value left in a hidden field never moves the deadline (review, PR 126).
-	const minorAge = age !== null && age < ca.limitation.adult_age;
+	const minorAge = alive && age !== null && age < ca.limitation.adult_age;
 	const birth = input.birth && minorAge ? parseDate(input.birth) : null;
 	if (!input.death) {
 		if (!(dis >= 0 && dis <= 100)) { errors.push({ field: 'disability', he: 'אחוזי נכות לצמיתות: 0 עד 100' }); }
@@ -527,7 +530,7 @@ function renderForm(reg, input) {
 		+ `<p class="jtool-hint">${esc(ca.fees.refund_he)}. מע"מ ${ca.fees.vat_pct}% נוסף על האחוז (${esc(ca.fees.vat_section)}).</p></details>`
 		+ `<details class="jtool-more" data-if-alive${input.death ? ' hidden' : ''}${input.income ? ' open' : ''}><summary>הפסד השתכרות: התקרה והבסיס</summary>`
 		+ `<div class="jtool-row" style="margin-top:8px">${field('inc', 'הכנסה חודשית לפני התאונה, ברוטו', input.income ? money(input.income, 0) : '', { money: true, suffix: '₪', ph: 'לדוגמה: 12,000' })}${field('mon', 'חודשים שלא עבדתם בכלל', input.months ?? '', { ph: 'לדוגמה: 4' })}</div></details>`
-		+ `<details class="jtool-more" data-if-alive${input.death ? ' hidden' : ''}${input.max ? ' open' : ''}><summary>קיבלתם את הסכום המקסימלי בשקלים?</summary>`
+		+ `<details class="jtool-more"${input.max ? ' open' : ''}><summary>קיבלתם את הסכום המקסימלי בשקלים?</summary>`
 		+ `<div style="margin-top:8px">${field('max', 'הסכום המקסימלי לכאב וסבל, כפי שנמסר לכם', input.max ? money(input.max, 0) : '', { money: true, suffix: '₪', ph: 'מפסק דין או ממכתב המבטח' })}</div>`
 		+ `<p class="jtool-hint">${esc(ca.nonpecuniary.max_he)}.</p></details>`
 		+ `<details class="jtool-more"${excluded.length ? ' open' : ''}><summary>בדיקת זכאות: מי לא מקבל פיצוי (סעיף 7)</summary><div class="jtool-chips" style="margin-top:8px">${EXCLUSIONS.map((x) => chip('ex', x, EXCL_LABEL[x], excluded.includes(x), 'checkbox')).join('')}</div>`
@@ -673,13 +676,15 @@ function readForm(root) {
 	const num = (id) => { const v = val(`#${P}-${id}`).trim().replace(/,/g, '').replace('%', ''); return v === '' ? '' : Number(v); };
 	const moneyOf = (id) => { const v = val(`#${P}-${id}`).trim(); return v === '' ? '' : parseMoney(v); };
 	const death = Boolean(root.querySelector(`input[name="${P}-dth"]:checked`));
+	// Only what is on screen is read: in death mode the living-claim fields are hidden, so they are not read at all, and
+	// a hidden birth-date field is never read either (review, PR 126).
+	const alive = (fn) => (death ? '' : fn());
 	return {
-		disability: num('dis'), days: num('days'), age: num('age'),
-		// A hidden birth-date field is never read (review, PR 126).
-		accident: toIso(val(death ? `#${P}-acc2` : `#${P}-acc`)), birth: (root.querySelector('[data-if-minor]') || {}).hidden ? '' : toIso(val(`#${P}-birth`)), death,
+		disability: alive(() => num('dis')), days: alive(() => num('days')), age: alive(() => num('age')),
+		accident: toIso(val(death ? `#${P}-acc2` : `#${P}-acc`)), birth: death || (root.querySelector('[data-if-minor]') || {}).hidden ? '' : toIso(val(`#${P}-birth`)), death,
 		work: Boolean(root.querySelector(`input[name="${P}-wrk"]:checked`)),
 		amount: moneyOf('amt'), stage: (root.querySelector(`input[name="${P}-stg"]:checked`) || {}).value || 'none',
-		income: moneyOf('inc'), months: num('mon'), max: moneyOf('max'),
+		income: alive(() => moneyOf('inc')), months: alive(() => num('mon')), max: moneyOf('max'),
 		excluded: [...root.querySelectorAll(`input[name="${P}-ex"]:checked`)].map((x) => x.value),
 	};
 }

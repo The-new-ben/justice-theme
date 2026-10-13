@@ -688,7 +688,7 @@ function mount(root, reg) {
 		if (!btn) { return; }
 		const act = btn.getAttribute('data-act');
 		const input = readForm(root);
-		const r = last ? last.r : compute(reg, input);
+		const r = compute(reg, input); // fresh, never a pending debounce (review, PR 124)
 		const link = shareUrl(stateOf(input));
 		if (act === 'ics' && r.ok && r.mode === 'assessment') {
 			download('hetel-hashbacha.ics', 'text/calendar;charset=utf-8', ics([{ date: r.appealBy, summary: 'היטל השבחה: מועד אחרון להשגה על השומה' }], new Date().toISOString()));

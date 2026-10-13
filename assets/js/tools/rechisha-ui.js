@@ -308,7 +308,7 @@ export function mount(root, reg) {
 		if (!b) { return; }
 		const act = b.getAttribute('data-act');
 		const input = readForm(root);
-		const r = last ? last.r : compute(reg, input);
+		const r = compute(reg, Object.assign({ today }, input)); // fresh, never a pending debounce (review, PR 124)
 		const link = shareUrl(stateOf(input));
 		if (act === 'ics' && r.ok) {
 			download('mas-rechisha.ics', 'text/calendar;charset=utf-8', ics(deadlines(reg, r).map((d) => ({ date: d.date, summary: `מס רכישה: ${d.what}` })), new Date().toISOString()));

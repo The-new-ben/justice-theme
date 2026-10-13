@@ -71,6 +71,10 @@ export function compute(registry, input) {
 	if (errors.length) { return { ok: false, errors }; }
 	// s.14 reaches every generation; the tool models one (grandchildren, nephews and nieces) (review, PR 124).
 	// s.137: the law of the deceased's domicile at death applies (review, PR 124).
+	// s.5: a disqualified heir; parts of the section leave the court discretion (review, PR 124).
+	if (input.disqualified) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'disqualified', he: 'מי שגרם למות המוריש במתכוון או באדישות, מי שהורשע בניסיון לגרום למותו, ומי שהעלים, השמיד או זייף את צוואתו, פסולים לרשת (סעיף 5), ולחלק מהמקרים יש בסעיף חריגים ושיקול דעת של בית המשפט. הכלי לא מחשב פסלות: בדקו עם עורך דין.' }] };
+	}
 	// ss.6, 15: a renunciation changes the split (review, PR 124).
 	if (input.renounce) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'renounce', he: 'יורש שמסתלק מחלקו נחשב כאילו לא היה יורש מלכתחילה (סעיף 6(ב)). אם הסתלק שלא לטובת בן הזוג, ילד או אח של המוריש, חלקו מתווסף לשאר היורשים לפי חלקיהם (סעיף 15); אם הסתלק לטובת אחד מהם, החלק עובר אליו. הכלי לא מחשב הסתלקות: בדקו עם עורך דין או ברשם לענייני ירושה.' }] };

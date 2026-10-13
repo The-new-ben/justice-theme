@@ -480,6 +480,8 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		check(est({ betterment: 800000, plan: 'seismic' }).flags.some((f) => f.code === 'seismic_local'), 's.19(ב2)(1): seismic plans carry the local-reduction warning');
 		check(est({ betterment: 800000, plan: 'pinui', pinuiRate: 'half' }).levy === 400000 && est({ betterment: 800000, plan: 'pinui', pinuiRate: 'none' }).levy === 0 && est({ betterment: 800000, plan: 'pinui' }).levy === 200000, 's.3א(ב): the area rate the local authority set: half, none, or the statutory quarter (review, PR 124)');
 		check(est({ betterment: 800000, share: 100, plan: 'seismic', localQ: 'eighth' }).levy === 100000 && est({ betterment: 800000, share: 100, plan: 'seismic', localQ: 'none' }).levy === 0 && est({ betterment: 800000, plan: 'tama38', tamaBeyond: 100000, localQ: 'eighth' }).levy === 12500, 's.19(ב2)(1): the local eighth or none for seismic and TAMA 38 beyond (review, PR 124)');
+		const dq = YE.compute(reg, { spouse: 'married', children: 2, disqualified: true });
+		check(!dq.ok && dq.outOfScope && /סעיף 5/.test(dq.errors[0].he), 's.5: a disqualified heir stops the split (review, PR 124)');
 		const rn = YE.compute(reg, { spouse: 'married', children: 2, renounce: true });
 		check(!rn.ok && rn.outOfScope && /סעיף 15/.test(rn.errors[0].he), 'ss.6, 15: a renunciation stops the split with the rule (review, PR 124)');
 		const ab = YE.compute(reg, { spouse: 'married', children: 2, abroad: true });

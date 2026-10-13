@@ -328,7 +328,7 @@ def build_yerusha(checked_on: str) -> dict:
         "sections": {
             "heirs": "סעיף 10", "spouse": "סעיף 11(א)", "spouse_all": "סעיף 11(ב)", "spouse_deduct": "סעיף 11(ג)",
             "order": "סעיף 12", "equal": "סעיף 13", "represent": "סעיף 14", "renounce": "סעיף 15",
-            "adopted": "סעיף 16", "state": "סעיף 17", "cohabit": "סעיף 55", "born": "סעיף 3(ג)", "posthumous": "סעיף 3(ב)",
+            "adopted": "סעיף 16", "state": "סעיף 17", "cohabit": "סעיף 55", "born": "סעיף 3(ג)", "posthumous": "סעיף 3(ב)", "domicile": "סעיף 137",
         },
         "fees": {
             "order_fee": 597, "from": "2026-01-01", "online_pct": 85,
@@ -445,7 +445,8 @@ def build_betterment(checked_on: str) -> dict:
         # Rates as [numerator, denominator] of the betterment.
         "rates": {
             "regular": {"rate": [1, 2], "section": "סעיף 3"},
-            "pinui": {"rate": [1, 4], "section": "סעיף 3א(א)",
+            "pinui": {"rate": [1, 4], "section": "סעיף 3א(א)", "local_section": "סעיף 3א(ב)",
+                      "local_rates": {"half": [1, 2], "quarter": [1, 4], "none": [0, 1]},
                       "local_he": "הרשות המקומית רשאית לקבוע באזור מסוים מחצית, רבע או פטור (סעיף 3א(ב))"},
             # s.19(ב)(10א)(ב)-(ג): on an "other lot", or under a plan conditioned on strengthening, the quarter
             # applies only to the qualifying part; the rest pays half.

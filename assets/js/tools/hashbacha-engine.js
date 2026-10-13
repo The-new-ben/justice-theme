@@ -53,6 +53,8 @@ const r2 = (n) => Math.round(n * 100) / 100;
  *   betterment: the rise in value from the plan (the appraiser's "after" minus "before"), in NIS.
  *   tamaBeyond: TAMA 38 only, the part of the betterment that comes from area beyond 2.5 extended floors.
  *   mamadBeyond: mamad only, the part of the betterment that comes from area beyond the exempt protected space.
+ *   pinuiRate: urban renewal only, the rate the local authority set for the area: 'quarter' (the statutory default,
+ *   s.3א(א)), 'half' or 'none' (s.3א(ב)).
  *   seismicPct: seismic only, the percent of the betterment the quarter applies to (default 100, s.19(ב)(10א)(א));
  *   below 100 on an "other lot" or under a plan conditioned on strengthening, the rest pays half (10א)(ב)-(ג).
  *   realized: the percent of the rights realised now (s.7(ב): partial realisation pays pro rata); default 100.
@@ -127,6 +129,10 @@ export function compute(registry, input) {
 		lines.push({ code: 'mamad', he: 'ממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית, והשטח הנוסף לממ"ד לפי תיקון 163: פטור', section: R.section, value: 0 });
 		if (beyond > 0) { lines.push({ code: 'mamad_beyond', he: `השבחה משטח שאינו פטור (${beyond.toLocaleString('en-US')} ₪): ההיטל הרגיל, ${R.beyond_rate[0]}/${R.beyond_rate[1]}`, section: R.beyond_section, value: levyFull }); }
 		flags.push({ code: 'mamad_area', he: R.area_he });
+	} else if (plan === 'pinui' && ['half', 'none'].includes(input.pinuiRate)) {
+		const pr = R.local_rates[input.pinuiRate];
+		levyFull = r2(yours * pr[0] / pr[1]);
+		lines.push({ code: 'pinui_local', he: `שיעור ההיטל שקבעה הרשות המקומית לאזור: ${pr[0] === 0 ? 'פטור' : `${pr[0]}/${pr[1]} מההשבחה`}`, section: R.local_section, value: levyFull });
 	} else if (plan === 'seismic' && seismicPct < 100) {
 		const qPart = r2(yours * seismicPct / 100);
 		const rest = r2(yours - qPart);
@@ -139,7 +145,7 @@ export function compute(registry, input) {
 		levyFull = r2(yours * R.rate[0] / R.rate[1]);
 		lines.push({ code: 'rate', he: `שיעור ההיטל: ${R.rate[0] === 0 ? 'פטור' : `${R.rate[0]}/${R.rate[1]} מההשבחה`}`, section: R.section, value: levyFull });
 	}
-	if (plan === 'pinui') { flags.push({ code: 'pinui_local', he: R.local_he }); }
+	if (plan === 'pinui' && !['half', 'none'].includes(input.pinuiRate)) { flags.push({ code: 'pinui_local', he: R.local_he }); }
 	if (plan === 'seismic' && R.local_he) { flags.push({ code: 'seismic_local', he: R.local_he }); }
 
 	// The home-for-the-family deferral (s.19(ג)(1)): up to 140 m2 after the work, no payment at the permit.
@@ -164,7 +170,7 @@ export function compute(registry, input) {
 	const timing = { sale: 'במכירה, לפני רישום ההעברה', permit: 'כשמקבלים את היתר הבנייה', use: 'כשמתחילים את השימוש שההקלה או השימוש החורג מתירים' }[event];
 	return {
 		ok: true, mode: 'estimate', betterment: r2(betterment), share, yours, plan, event, realized, levy: levyFull, due, deferred, lines, flags, timing,
-		beyond, rate: R.beyond_rate || R.rate, mixed: plan === 'seismic' && seismicPct < 100, seismicPct,
+		beyond, rate: plan === 'pinui' && ['half', 'none'].includes(input.pinuiRate) ? R.local_rates[input.pinuiRate] : (R.beyond_rate || R.rate), mixed: plan === 'seismic' && seismicPct < 100, seismicPct,
 	};
 }
 

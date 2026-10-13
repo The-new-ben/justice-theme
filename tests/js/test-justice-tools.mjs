@@ -474,6 +474,9 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		check(est({ betterment: 800000, plan: 'tama38', tamaBeyond: 100000 }).flags.some((f) => f.code === 'tama_local'), 's.19(ב2)(1): TAMA 38 beyond 2.5 floors carries the local-reduction warning');
 		check(!est({ betterment: 800000, plan: 'tama38', tamaBeyond: 0 }).flags.some((f) => f.code === 'tama_local'), 'TAMA 38 with nothing beyond: no local warning');
 		check(est({ betterment: 800000, plan: 'seismic' }).flags.some((f) => f.code === 'seismic_local'), 's.19(ב2)(1): seismic plans carry the local-reduction warning');
+		check(est({ betterment: 800000, plan: 'pinui', pinuiRate: 'half' }).levy === 400000 && est({ betterment: 800000, plan: 'pinui', pinuiRate: 'none' }).levy === 0 && est({ betterment: 800000, plan: 'pinui' }).levy === 200000, 's.3א(ב): the area rate the local authority set: half, none, or the statutory quarter (review, PR 124)');
+		const ab = YE.compute(reg, { spouse: 'married', children: 2, abroad: true });
+		check(!ab.ok && ab.outOfScope && /137/.test(ab.errors[0].he), 's.137: a domicile abroad stops the Israeli split (review, PR 124)');
 		const sm = est({ betterment: 800000, plan: 'seismic', seismicPct: 50 });
 		check(sm.levy === 300000 && sm.mixed && HBUI.verdictSentence(reg, sm).includes('רבע על 50%'), 's.19(ב)(10א)(ב)-(ג): half qualifying -> a quarter on half, a half on the rest = 37.5% (review, PR 124)');
 		check(est({ betterment: 800000, plan: 'seismic' }).levy === 200000, 's.19(ב)(10א)(א): the plan on the lot itself, a quarter on all');

@@ -56,6 +56,7 @@ export function renderForm(reg, input) {
 		+ `<div class="jtool-row">${moneyField('bet', 'בכמה עלה שווי הנכס בגלל התוכנית', input.betterment, 'ההשבחה: השווי אחרי פחות השווי לפני, לפי שמאי', 'לדוגמה: 800,000')}`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-share">החלק שלכם בנכס</label><div class="jtool-input"><input id="${P}-share" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.share ?? 100)}" aria-describedby="${P}-share-h ${P}-share-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-hint" id="${P}-share-h">שותפים משלמים לפי החלק (${esc(b.partners_section)})</p><p class="jtool-error" id="${P}-share-e" role="alert"></p></div></div>`
 		+ `<fieldset class="jtool-field"><legend>מה גרם לעליית השווי</legend><div class="jtool-chips">${PLANS.map((k) => chip('plan', k, PLAN_LABEL[k], (input.plan || 'regular') === k)).join('')}</div></fieldset>`
+		+ `<fieldset class="jtool-field" data-if-plan="pinui"${input.plan === 'pinui' ? '' : ' hidden'}><legend>השיעור שקבעה הרשות המקומית לאזור (${esc(b.rates.pinui.local_section)})</legend><div class="jtool-chips">${chip('prt', 'quarter', 'לא קבעה אחרת: רבע', !['half', 'none'].includes(input.pinuiRate))}${chip('prt', 'half', 'מחצית', input.pinuiRate === 'half')}${chip('prt', 'none', 'פטור', input.pinuiRate === 'none')}</div><p class="jtool-hint">בדקו בוועדה המקומית אם התקבלה החלטה לאזור שלכם</p></fieldset>`
 		+ `<div data-if-plan="tama38"${input.plan === 'tama38' ? '' : ' hidden'}>${moneyField('tama', 'החלק מההשבחה שמקורו בשטח מעבר ל-2.5 קומות', input.tamaBeyond, 'עליו בלבד היטל של רבע (סעיף 19(ב)(10)(א))', '0 אם אין')}</div>`
 		+ `<div class="jtool-field" data-if-plan="seismic"${input.plan === 'seismic' ? '' : ' hidden'}><label class="jtool-label" for="${P}-seis">החלק מההשבחה שחל עליו רבע</label><div class="jtool-input"><input id="${P}-seis" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.seismicPct ?? 100)}" aria-describedby="${P}-seis-h ${P}-seismicPct-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-hint" id="${P}-seis-h">100% בתוכנית לעמידות מפני רעידות אדמה במגרש עצמו (סעיף 19(ב)(10א)(א)). במגרש אחר, או בתוכנית שמותנית בחיזוק: רבע רק על החלק היחסי, והשאר מחצית (סעיף 19(ב)(10א)(ב)-(ג))</p><p class="jtool-error" id="${P}-seismicPct-e" role="alert"></p></div>`
 		+ `<div data-if-plan="mamad"${input.plan === 'mamad' ? '' : ' hidden'}>${moneyField('mamx', 'החלק מההשבחה שמקורו בשטח שאינו פטור', input.mamadBeyond, 'פטורים: הממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית, והשטח הנוסף לממ"ד לפי סעיף 151(ג)(2) בתנאי סעיף 19(ב)(9)(ג). על שטח אחר: היטל רגיל של מחצית (סעיף 3)', '0 אם אין')}</div>`
@@ -81,7 +82,7 @@ export function verdictSentence(reg, r) {
 	if (r.mode === 'assessment') {
 		return `אפשר להשיג על השומה עד ${isoToHe(r.appealBy)}${r.recheck ? `, ובחיוב של עד ${money(reg.betterment.recheck_max, 0)} ₪, כשחולקים רק על הסכום, גם לבקש מהוועדה לבחון מחדש` : ''}.${r.saving ? ` לפי השמאי שלכם, ההפרש: ${nis(r.saving)}.` : ''}`;
 	}
-	if (r.levy === 0) { return `${PLAN_LABEL[r.plan]}: אין היטל השבחה על החלק הזה (${reg.betterment.rates[r.plan].section}).`; }
+	if (r.levy === 0) { return `${PLAN_LABEL[r.plan]}: אין היטל השבחה על החלק הזה (${r.plan === 'pinui' && r.rate[0] === 0 ? reg.betterment.rates.pinui.local_section : reg.betterment.rates[r.plan].section}).`; }
 	const part = { tama38: 'שמקורו בשטח שמעבר ל-2.5 קומות', mamad: 'שמקורו בשטח שאינו פטור' }[r.plan];
 	const base = r.mixed
 		? `היטל השבחה של ${nis(r.levy)}: רבע על ${r.seismicPct}% מההשבחה ${r.share < 100 ? 'שלכם' : `של ${nis(r.betterment)}`}, ומחצית על השאר.`
@@ -216,7 +217,7 @@ function readForm(root) {
 	const num = (id) => { const v = val(`#${P}-${id}`).trim(); return v === '' ? '' : Number(v.replace(/,/g, '')); };
 	return {
 		mode, betterment: parseMoney(val(`#${P}-bet`)), share: num('share'), plan: checked('plan') || 'regular', event: checked('evt') || 'sale',
-		ownHome: Boolean(checked('home')), areaBefore: num('ab'), areaAfter: num('aa'), realized: num('real'), seismicPct: num('seis'), sale4: Boolean(checked('s4')), tamaBeyond: val(`#${P}-tama`).trim() === '' ? '' : parseMoney(val(`#${P}-tama`)),
+		ownHome: Boolean(checked('home')), areaBefore: num('ab'), areaAfter: num('aa'), realized: num('real'), seismicPct: num('seis'), pinuiRate: checked('prt') || 'quarter', sale4: Boolean(checked('s4')), tamaBeyond: val(`#${P}-tama`).trim() === '' ? '' : parseMoney(val(`#${P}-tama`)),
 		mamadBeyond: val(`#${P}-mamx`).trim() === '' ? '' : parseMoney(val(`#${P}-mamx`)),
 	};
 }
@@ -225,13 +226,13 @@ const PL = { regular: 'r', pinui: 'p', seismic: 's', tama38: 't', mamad: 'm' };
 const EV = { sale: 's', permit: 'p', use: 'u' };
 const stateOf = (i) => (i.mode === 'assessment'
 	? encodeState({ k: 'a', l: i.levy, d: i.received, y: i.mine, j: i.kind === 'schedule' ? 's' : '' })
-	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond, x: i.mamadBeyond, q: i.realized === 100 ? '' : i.realized, w: i.sale4 ? 1 : '', z: i.seismicPct === 100 || i.seismicPct === '' ? '' : i.seismicPct }));
-const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't', 'x', 'q', 'w', 'z'];
+	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond, x: i.mamadBeyond, q: i.realized === 100 ? '' : i.realized, w: i.sale4 ? 1 : '', z: i.seismicPct === 100 || i.seismicPct === '' ? '' : i.seismicPct, r: { half: 'h', none: 'n' }[i.pinuiRate] || '' }));
+const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't', 'x', 'q', 'w', 'z', 'r'];
 function inputOf(s) {
 	if (s.k === 'a' && s.l) { return { mode: 'assessment', levy: Number(s.l), received: s.d || '', mine: s.y === undefined ? '' : Number(s.y), kind: s.j === 's' ? 'schedule' : 'plan' }; }
 	if (s.k === 'e' && s.b) {
 		const back = (map, v, d) => Object.keys(map).find((k) => map[k] === v) || d;
-		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t), mamadBeyond: s.x === undefined ? '' : Number(s.x), realized: s.q === undefined ? 100 : Number(s.q), sale4: s.w === '1', seismicPct: s.z === undefined ? 100 : Number(s.z) };
+		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t), mamadBeyond: s.x === undefined ? '' : Number(s.x), realized: s.q === undefined ? 100 : Number(s.q), sale4: s.w === '1', seismicPct: s.z === undefined ? 100 : Number(s.z), pinuiRate: { h: 'half', n: 'none' }[s.r] || 'quarter' };
 	}
 	return null;
 }

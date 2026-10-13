@@ -920,7 +920,8 @@
    "state": "סעיף 17",
    "cohabit": "סעיף 55",
    "born": "סעיף 3(ג)",
-   "posthumous": "סעיף 3(ב)"
+   "posthumous": "סעיף 3(ב)",
+   "domicile": "סעיף 137"
   },
   "fees": {
    "order_fee": 597,
@@ -1080,6 +1081,12 @@
    "pinui": {
     "rate": [1, 4],
     "section": "סעיף 3א(א)",
+    "local_section": "סעיף 3א(ב)",
+    "local_rates": {
+     "half": [1, 2],
+     "quarter": [1, 4],
+     "none": [0, 1]
+    },
     "local_he": "הרשות המקומית רשאית לקבוע באזור מסוים מחצית, רבע או פטור (סעיף 3א(ב))"
    },
    "seismic": {

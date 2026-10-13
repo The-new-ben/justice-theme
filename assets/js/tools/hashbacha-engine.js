@@ -101,6 +101,11 @@ export function compute(registry, input) {
 	const ownHome = Boolean(input.ownHome) && event === 'permit';
 	if (ownHome && !(areaAfter > 0 && areaAfter < 10000)) { errors.push({ field: 'areaAfter', he: 'שטח הדירה אחרי הבנייה, במ"ר' }); }
 	if (ownHome && !(areaBefore >= 0 && areaBefore < areaAfter)) { errors.push({ field: 'areaBefore', he: 'שטח הדירה לפני הבנייה צריך להיות קטן מהשטח אחריה' }); }
+	// s.19(ב)(9): the building exemption (א) is realised with the permit; on a sale or a use, only a plan whose main
+	// purpose is mamad provisions (ב) is exempt (review, PR 124).
+	if (plan === 'mamad' && event !== 'permit' && !input.mamadPlan && !errors.length) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'mamadPlan', he: 'בבניית ממ"ד הפטור חל כשבונים בהיתר (סעיף 19(ב)(9)(א)). במכירה או בתחילת שימוש, הפטור חל רק כשההשבחה נובעת מתוכנית שמטרתה העיקרית הוראות לבניית ממ"ד או שיפורי מיגון (סעיף 19(ב)(9)(ב)). אם זה המצב, סמנו זאת; אחרת בחרו "תוכנית, הקלה או שימוש חורג".' }] };
+	}
 	if (event === 'sale' && input.sale4 && !errors.length) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'sale4', he: `מכירת דירת מגורים שנבנתה או הורחבה למגורים שלכם או של קרוב (או שאפשר להרחיב לפי תוכנית), אחרי שגרתם בה ${b.residence_sale_years} שנים לפחות מגמר הבנייה ועד המכירה, אינה מימוש, ולא משלמים עליה היטל (${b.residence_sale_section}). על איזה חלק מההשבחה הפטור חל נקבע בשומה, ולכן הכלי לא מחשב כאן סכום: בקשו מהוועדה המקומית שומה או אישור.` }] };
 	}

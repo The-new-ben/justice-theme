@@ -459,18 +459,20 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const est = (i) => HB.compute(reg, Object.assign({ mode: 'estimate', share: 100, event: 'sale' }, i));
 	check(est({ betterment: 800000, share: 50, plan: 'regular' }).levy === 200000, 's.3 + s.11(א): half of a 50% share of 800,000 = 200,000');
 	check(est({ betterment: 800000, plan: 'pinui' }).levy === 200000, 's.3א(א): a quarter in pinui-binui');
-	check(est({ betterment: 800000, plan: 'mamad' }).levy === 0, 's.19(ב)(9): no levy on a protected space');
+	check(est({ betterment: 800000, plan: 'mamad', event: 'permit' }).levy === 0, 's.19(ב)(9)(א): no levy on building a protected space, with the permit');
+	check(!est({ betterment: 800000, plan: 'mamad', event: 'sale' }).ok && est({ betterment: 800000, plan: 'mamad', event: 'sale', mamadPlan: true }).levy === 0, 's.19(ב)(9)(ב): on a sale only a mamad-purpose plan is exempt (review, PR 124)');
+	check(YE.compute(reg, { spouse: 'married', children: 2 }).flags.some((f) => f.code === 'vesting'), 'shares vest at the death; an heir who died later passes his share on (review, PR 124)');
 	{
 		const s4 = est({ betterment: 800000, sale4: true });
 		check(!s4.ok && s4.outOfScope && /19\(ג\)\(2\)/.test(s4.errors[0].he), 's.19(ג)(2): a sale after 4 years of living in the home is answered as out of scope, with the section (review, PR 124)');
 		check(est({ betterment: 800000, event: 'permit', sale4: true }).ok, 'the 4-year sale box only matters for a sale');
 	}
 	{
-		const m = est({ betterment: 800000, plan: 'mamad', mamadBeyond: 100000 });
+		const m = est({ betterment: 800000, plan: 'mamad', event: 'permit', mamadBeyond: 100000 });
 		check(m.levy === 50000 && m.beyond === 100000, 's.19(ב)(9) + s.3: area beyond the protected space pays the regular half (review, PR 124)');
-		check(est({ betterment: 800000, plan: 'mamad' }).flags.some((f) => f.code === 'mamad_area'), 'mamad: the statutory-area limit is always stated');
-		check(est({ betterment: 800000, plan: 'mamad', share: 50, mamadBeyond: 100000 }).levy === 25000, 'mamad beyond: by the owner\'s share');
-		check(!est({ betterment: 800000, plan: 'mamad', mamadBeyond: 900000 }).ok, 'mamad beyond cannot exceed the betterment');
+		check(est({ betterment: 800000, plan: 'mamad', event: 'permit' }).flags.some((f) => f.code === 'mamad_area'), 'mamad: the statutory-area limit is always stated');
+		check(est({ betterment: 800000, plan: 'mamad', event: 'permit', share: 50, mamadBeyond: 100000 }).levy === 25000, 'mamad beyond: by the owner\'s share');
+		check(!est({ betterment: 800000, plan: 'mamad', event: 'permit', mamadBeyond: 900000 }).ok, 'mamad beyond cannot exceed the betterment');
 		check(est({ betterment: 800000, plan: 'tama38', tamaBeyond: 100000 }).flags.some((f) => f.code === 'tama_local'), 's.19(ב2)(1): TAMA 38 beyond 2.5 floors carries the local-reduction warning');
 		check(!est({ betterment: 800000, plan: 'tama38', tamaBeyond: 0 }).flags.some((f) => f.code === 'tama_local'), 'TAMA 38 with nothing beyond: no local warning');
 		check(est({ betterment: 800000, plan: 'seismic' }).flags.some((f) => f.code === 'seismic_local'), 's.19(ב2)(1): seismic plans carry the local-reduction warning');

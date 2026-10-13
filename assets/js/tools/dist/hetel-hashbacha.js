@@ -282,6 +282,11 @@ function compute(registry, input) {
 	const ownHome = Boolean(input.ownHome) && event === 'permit';
 	if (ownHome && !(areaAfter > 0 && areaAfter < 10000)) { errors.push({ field: 'areaAfter', he: 'שטח הדירה אחרי הבנייה, במ"ר' }); }
 	if (ownHome && !(areaBefore >= 0 && areaBefore < areaAfter)) { errors.push({ field: 'areaBefore', he: 'שטח הדירה לפני הבנייה צריך להיות קטן מהשטח אחריה' }); }
+	// s.19(ב)(9): the building exemption (א) is realised with the permit; on a sale or a use, only a plan whose main
+	// purpose is mamad provisions (ב) is exempt (review, PR 124).
+	if (plan === 'mamad' && event !== 'permit' && !input.mamadPlan && !errors.length) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'mamadPlan', he: 'בבניית ממ"ד הפטור חל כשבונים בהיתר (סעיף 19(ב)(9)(א)). במכירה או בתחילת שימוש, הפטור חל רק כשההשבחה נובעת מתוכנית שמטרתה העיקרית הוראות לבניית ממ"ד או שיפורי מיגון (סעיף 19(ב)(9)(ב)). אם זה המצב, סמנו זאת; אחרת בחרו "תוכנית, הקלה או שימוש חורג".' }] };
+	}
 	if (event === 'sale' && input.sale4 && !errors.length) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'sale4', he: `מכירת דירת מגורים שנבנתה או הורחבה למגורים שלכם או של קרוב (או שאפשר להרחיב לפי תוכנית), אחרי שגרתם בה ${b.residence_sale_years} שנים לפחות מגמר הבנייה ועד המכירה, אינה מימוש, ולא משלמים עליה היטל (${b.residence_sale_section}). על איזה חלק מההשבחה הפטור חל נקבע בשומה, ולכן הכלי לא מחשב כאן סכום: בקשו מהוועדה המקומית שומה או אישור.` }] };
 	}
@@ -429,7 +434,7 @@ function renderForm(reg, input) {
 		+ `<fieldset class="jtool-field" data-if-plan="pinui"${input.plan === 'pinui' ? '' : ' hidden'}><legend>השיעור שקבעה הרשות המקומית לאזור (${esc(b.rates.pinui.local_section)})</legend><div class="jtool-chips">${chip('prt', 'quarter', 'לא קבעה אחרת: רבע', !['half', 'none'].includes(input.pinuiRate))}${chip('prt', 'half', 'מחצית', input.pinuiRate === 'half')}${chip('prt', 'none', 'פטור', input.pinuiRate === 'none')}</div><p class="jtool-hint">בדקו בוועדה המקומית אם התקבלה החלטה לאזור שלכם</p></fieldset>`
 		+ `<div data-if-plan="tama38"${input.plan === 'tama38' ? '' : ' hidden'}>${moneyField('tama', 'החלק מההשבחה שמקורו בשטח מעבר ל-2.5 קומות', input.tamaBeyond, 'עליו בלבד היטל של רבע (סעיף 19(ב)(10)(א))', '0 אם אין')}</div>`
 		+ `<div class="jtool-field" data-if-plan="seismic"${input.plan === 'seismic' ? '' : ' hidden'}><label class="jtool-label" for="${P}-seis">החלק מההשבחה שחל עליו רבע</label><div class="jtool-input"><input id="${P}-seis" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.seismicPct ?? 100)}" aria-describedby="${P}-seis-h ${P}-seismicPct-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-hint" id="${P}-seis-h">100% בתוכנית לעמידות מפני רעידות אדמה במגרש עצמו (סעיף 19(ב)(10א)(א)). במגרש אחר, או בתוכנית שמותנית בחיזוק: רבע רק על החלק היחסי, והשאר מחצית (סעיף 19(ב)(10א)(ב)-(ג))</p><p class="jtool-error" id="${P}-seismicPct-e" role="alert"></p></div>`
-		+ `<div data-if-plan="mamad"${input.plan === 'mamad' ? '' : ' hidden'}>${moneyField('mamx', 'החלק מההשבחה שמקורו בשטח שאינו פטור', input.mamadBeyond, 'פטורים: הממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית, והשטח הנוסף לממ"ד לפי סעיף 151(ג)(2) בתנאי סעיף 19(ב)(9)(ג). על שטח אחר: היטל רגיל של מחצית (סעיף 3)', '0 אם אין')}</div>`
+		+ `<div data-if-plan="mamad"${input.plan === 'mamad' ? '' : ' hidden'}>${moneyField('mamx', 'החלק מההשבחה שמקורו בשטח שאינו פטור', input.mamadBeyond, 'פטורים: הממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית, והשטח הנוסף לממ"ד לפי סעיף 151(ג)(2) בתנאי סעיף 19(ב)(9)(ג). על שטח אחר: היטל רגיל של מחצית (סעיף 3)', '0 אם אין')}<div class="jtool-chips">${chip('mpl', '1', 'ההשבחה נובעת מתוכנית שעיקרה הוראות לממ"ד (נדרש במכירה או בשימוש)', input.mamadPlan, 'checkbox')}</div></div>`
 		+ `<fieldset class="jtool-field"><legend>מתי זה קורה</legend><div class="jtool-chips">${EVENTS.map((k) => chip('evt', k, EVENT_LABEL[k], (input.event || 'sale') === k)).join('')}</div></fieldset>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-real">איזה חלק מהזכויות אתם מממשים עכשיו</label><div class="jtool-input"><input id="${P}-real" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.realized ?? 100)}" aria-describedby="${P}-real-h ${P}-realized-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-hint" id="${P}-real-h">מוכרים או בונים רק חלק מהזכויות? משלמים עכשיו את החלק היחסי (${esc(b.partial_section)})</p><p class="jtool-error" id="${P}-realized-e" role="alert"></p></div>`
 		+ `<div data-if-event="sale"${(input.event || 'sale') === 'sale' ? '' : ' hidden'}><div class="jtool-chips">${chip('s4', '1', `מוכרים דירת מגורים שנבנתה או הורחבה למגורינו, או שאפשר להרחיב לפי תוכנית, וגרנו בה ${b.residence_sale_years} שנים לפחות מגמר הבנייה`, input.sale4, 'checkbox')}</div></div>`
@@ -547,7 +552,7 @@ function compareFor(input) { return Object.assign({}, input, { plan: input.plan 
 /** Page section: the levy on common rises in value, by plan type, from the same engine. */
 function levyTable(reg) {
 	const rows = [200000, 500000, 800000, 1500000, 3000000].map((v) => {
-		const cells = ['regular', 'pinui', 'mamad'].map((p) => { const r = compute(reg, { mode: 'estimate', betterment: v, share: 100, plan: p, event: 'sale' }); return ils(r.levy, 0); });
+		const cells = ['regular', 'pinui', 'mamad'].map((p) => { const r = compute(reg, { mode: 'estimate', betterment: v, share: 100, plan: p, event: p === 'mamad' ? 'permit' : 'sale' }); return ils(r.levy, 0); });
 		return `<tr><td data-th="ההשבחה">${ils(v, 0)}</td><td data-th="תוכנית רגילה (1/2)">${cells[0]}</td><td data-th="פינוי ובינוי (1/4)">${cells[1]}</td><td data-th="ממ&quot;ד בשטח שנקבע (פטור)">${cells[2]}</td></tr>`;
 	}).join('');
 	return `<div class="jtool-datawrap"><table class="jtool-datatable"><caption>היטל ההשבחה לפי עליית השווי וסוג התוכנית, מאותו מנוע. פינוי ובינוי: אלא אם הרשות המקומית קבעה אחרת לאזור. ממ"ד: פטור בשטח שנקבע ובשטח הנוסף לפי תיקון 163; שטח אחר משלם מחצית.</caption><thead><tr><th scope="col">ההשבחה</th><th scope="col">תוכנית רגילה (1/2)</th><th scope="col">פינוי ובינוי (1/4)</th><th scope="col">ממ"ד בשטח שנקבע (פטור)</th></tr></thead><tbody>${rows}</tbody></table></div>`;
@@ -587,7 +592,7 @@ function readForm(root) {
 	const num = (id) => { const v = val(`#${P}-${id}`).trim(); return v === '' ? '' : Number(v.replace(/,/g, '')); };
 	return {
 		mode, betterment: parseMoney(val(`#${P}-bet`)), share: num('share'), plan: checked('plan') || 'regular', event: checked('evt') || 'sale',
-		ownHome: Boolean(checked('home')), areaBefore: num('ab'), areaAfter: num('aa'), realized: num('real'), seismicPct: num('seis'), pinuiRate: checked('prt') || 'quarter', localQ: checked('lq') || 'quarter', sale4: Boolean(checked('s4')), tamaBeyond: val(`#${P}-tama`).trim() === '' ? '' : parseMoney(val(`#${P}-tama`)),
+		ownHome: Boolean(checked('home')), areaBefore: num('ab'), areaAfter: num('aa'), realized: num('real'), seismicPct: num('seis'), pinuiRate: checked('prt') || 'quarter', localQ: checked('lq') || 'quarter', mamadPlan: Boolean(checked('mpl')), sale4: Boolean(checked('s4')), tamaBeyond: val(`#${P}-tama`).trim() === '' ? '' : parseMoney(val(`#${P}-tama`)),
 		mamadBeyond: val(`#${P}-mamx`).trim() === '' ? '' : parseMoney(val(`#${P}-mamx`)),
 	};
 }
@@ -596,13 +601,13 @@ const PL = { regular: 'r', pinui: 'p', seismic: 's', tama38: 't', mamad: 'm' };
 const EV = { sale: 's', permit: 'p', use: 'u' };
 const stateOf = (i) => (i.mode === 'assessment'
 	? encodeState({ k: 'a', l: i.levy, d: i.received, y: i.mine, j: i.kind === 'schedule' ? 's' : '' })
-	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond, x: i.mamadBeyond, q: i.realized === 100 ? '' : i.realized, w: i.sale4 ? 1 : '', z: i.seismicPct === 100 || i.seismicPct === '' ? '' : i.seismicPct, r: { half: 'h', none: 'n' }[i.pinuiRate] || '', v: { eighth: 'e', none: 'n' }[i.localQ] || '' }));
-const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't', 'x', 'q', 'w', 'z', 'r', 'v'];
+	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond, x: i.mamadBeyond, q: i.realized === 100 ? '' : i.realized, w: i.sale4 ? 1 : '', z: i.seismicPct === 100 || i.seismicPct === '' ? '' : i.seismicPct, r: { half: 'h', none: 'n' }[i.pinuiRate] || '', v: { eighth: 'e', none: 'n' }[i.localQ] || '', m: i.mamadPlan ? 1 : '' }));
+const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't', 'x', 'q', 'w', 'z', 'r', 'v', 'm'];
 function inputOf(s) {
 	if (s.k === 'a' && s.l) { return { mode: 'assessment', levy: Number(s.l), received: s.d || '', mine: s.y === undefined ? '' : Number(s.y), kind: s.j === 's' ? 'schedule' : 'plan' }; }
 	if (s.k === 'e' && s.b) {
 		const back = (map, v, d) => Object.keys(map).find((k) => map[k] === v) || d;
-		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t), mamadBeyond: s.x === undefined ? '' : Number(s.x), realized: s.q === undefined ? 100 : Number(s.q), sale4: s.w === '1', seismicPct: s.z === undefined ? 100 : Number(s.z), pinuiRate: { h: 'half', n: 'none' }[s.r] || 'quarter', localQ: { e: 'eighth', n: 'none' }[s.v] || 'quarter' };
+		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t), mamadBeyond: s.x === undefined ? '' : Number(s.x), realized: s.q === undefined ? 100 : Number(s.q), sale4: s.w === '1', seismicPct: s.z === undefined ? 100 : Number(s.z), pinuiRate: { h: 'half', n: 'none' }[s.r] || 'quarter', localQ: { e: 'eighth', n: 'none' }[s.v] || 'quarter', mamadPlan: s.m === '1' };
 	}
 	return null;
 }

@@ -364,6 +364,9 @@ function compute(registry, input) {
 			}
 		} else if (spouse === 'none') {
 			line = input.otherRelatives ? 'unknown' : 'state';
+			if (line === 'unknown') {
+				heirs.push({ key: 'collateral', label: 'צאצאי הסבים (דודים, דודות, בני דודים)', group: 'unresolved', share: rest, apt: rest, rule: S.represent, unresolved: true });
+			}
 		}
 	}
 
@@ -522,7 +525,7 @@ function renderResult(reg, r, opts = {}) {
 			: r.spouse === 'partner' ? '<p class="jtool-state jtool-state--warn">! ידועים בציבור: צריך להוכיח את הקשר</p>'
 				: '<p class="jtool-state jtool-state--ok">✓ החלוקה לפי חוק הירושה</p>';
 	const n = r.heirs.filter((h) => !h.unresolved).length;
-	const figure = r.state ? 'המדינה' : `${n} ${n === 1 ? 'יורש/ת' : 'יורשים'}`;
+	const figure = r.state ? 'המדינה' : r.unknown ? 'דודים ובני דודים' : `${n} ${n === 1 ? 'יורש/ת' : 'יורשים'}`;
 	return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true">${state}`
 		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}${esc(opts.label || 'ירושה על פי דין, בלי צוואה')}</p>`
 		+ `<strong class="jtool-verdict__figure">${esc(figure)}</strong>`
@@ -690,7 +693,7 @@ function mount(root, reg) {
 		showErrors(r);
 		result.innerHTML = renderResult(reg, r);
 		details.innerHTML = renderDetails(reg, r, c, input);
-		if (sticky) { sticky.textContent = r.ok ? `${r.heirs.filter((h) => !h.unresolved).length}` : '—'; }
+		if (sticky) { sticky.textContent = r.ok && !r.unknown ? `${r.heirs.filter((h) => !h.unresolved).length}` : '—'; }
 		last = { r, input };
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: r.line + (r.spouse === 'none' ? '' : '_spouse') }); }
 	};

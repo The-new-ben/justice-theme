@@ -281,37 +281,33 @@ function taxFor(pt, track, value, on, opts = {}) {
 /** The day by which the previous only home must be sold (replacement track), with the war extension. */
 function replacementDeadline(pt, purchase, opts = {}) {
 	const r = pt.replacement;
-	let start = purchase;
-	let months = null;
-	let via = 'purchase';
+	// One window: its end, and the war extension when it touches the second determining period (at least one day):
+	// the later of its end plus three months, or the floor date (s.3א of the extension law, instruction 2/2026 s.2).
+	const windowOf = (start, months, via) => {
+		const original = addMonths(start, months);
+		let deadline = original;
+		let extended = false;
+		if (start <= r.war.to && original >= r.war.from) {
+			const plus = addMonths(original, r.war.add_months);
+			deadline = plus > r.war.floor ? plus : r.war.floor;
+			extended = true;
+		}
+		return { start, months, original, deadline, extended, via };
+	};
 	const w = r.windows.find((x) => purchase >= x.from && (x.to === null || purchase <= x.to));
+	let chosen;
 	if (opts.contractor) {
 		if (!opts.delivery) { return { ok: false, reason: 'delivery' }; }
-		// The later of 12 months from delivery and the ordinary window from the purchase (instruction 2/2016, s.2.1).
-		const byDelivery = addMonths(opts.delivery, r.contractor_months);
-		const ordinary = w ? addMonths(purchase, w.months) : null;
-		if (ordinary && ordinary > byDelivery) {
-			months = w.months;
-		} else {
-			start = opts.delivery;
-			months = r.contractor_months;
-			via = 'delivery';
-		}
+		// The later of 12 months from delivery and the ordinary window from the purchase (instruction 2/2016, s.2.1),
+		// each extended first, so the extension can change which is later (review, PR 124).
+		const byDelivery = windowOf(opts.delivery, r.contractor_months, 'delivery');
+		const ordinary = w ? windowOf(purchase, w.months, 'purchase') : null;
+		chosen = ordinary && ordinary.deadline > byDelivery.deadline ? ordinary : byDelivery;
 	} else {
 		if (!w) { return { ok: false, reason: 'before', from: r.windows[0].from }; }
-		months = w.months;
+		chosen = windowOf(purchase, w.months, 'purchase');
 	}
-	const original = addMonths(start, months);
-	let deadline = original;
-	let extended = false;
-	// A period that touches the second determining period (at least one day) ends at the later of: its end
-	// plus three months, or the floor date (s.3א of the extension law, instruction 2/2026 s.2).
-	if (start <= r.war.to && original >= r.war.from) {
-		const plus = addMonths(original, r.war.add_months);
-		deadline = plus > r.war.floor ? plus : r.war.floor;
-		extended = true;
-	}
-	return { ok: true, start, months, original, deadline, extended, contractor: Boolean(opts.contractor), via };
+	return Object.assign({ ok: true, contractor: Boolean(opts.contractor) }, chosen);
 }
 
 /**

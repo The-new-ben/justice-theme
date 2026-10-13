@@ -334,6 +334,10 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	}
 	check(YE.compute(reg, {}).state === true, 's.17: no spouse and no relatives -> the State');
 	{
+		const un = YE.compute(reg, { otherRelatives: true });
+		check(un.ok && un.unknown && un.heirs.length === 1 && un.heirs[0].unresolved && YUI.renderResult(reg, un).includes('דודים ובני דודים') && !YUI.renderResult(reg, un).includes('0 יורשים'), 'only uncles or cousins: an unresolved row, no "0 heirs" (review, PR 124)');
+	}
+	{
 		const r = YE.compute(reg, { grandparents: 2 });
 		const g = r.ok && r.heirs.find((h) => h.key === 'grand-1');
 		check(r.ok && r.unresolved && g && YE.fracText(g.share) === '1/4', 'no spouse, two grandparents alive: each 1/4, the rest flagged to their descendants');
@@ -381,6 +385,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		const u2 = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled', reliefUsed: true });
 		check(!u1.ok && u1.outOfScope && /12א\(ב\)/.test(u1.errors[0].he) && !u2.ok && u2.outOfScope && /פעמיים/.test(u2.errors[0].he), 'reg. 12א(ב) once, reg. 11(א) twice: a spent relief is refused (review, PR 124)');
 	}
+	check(dl('2025-06-01', { contractor: true, delivery: '2026-07-01' }) === '2027-09-01', 'contractor: each window extended first; 1.6.27 + 3 months beats 1.7.27 from delivery (review, PR 124)');
 	check(dl('2025-06-01', { contractor: true, delivery: '2025-07-01' }) === '2027-09-01', 'instruction 2/2016 s.2.1: contractor, the later of 12 months from delivery and 24 from purchase (1.6.27), then +3 months (review, PR 124)');
 	{
 		const o1 = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2026-01-01', otherHome: true });

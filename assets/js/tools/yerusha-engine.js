@@ -183,6 +183,9 @@ export function compute(registry, input) {
 			}
 		} else if (spouse === 'none') {
 			line = input.otherRelatives ? 'unknown' : 'state';
+			if (line === 'unknown') {
+				heirs.push({ key: 'collateral', label: 'צאצאי הסבים (דודים, דודות, בני דודים)', group: 'unresolved', share: rest, apt: rest, rule: S.represent, unresolved: true });
+			}
 		}
 	}
 

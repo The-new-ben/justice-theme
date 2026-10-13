@@ -342,6 +342,9 @@ def build_yerusha(checked_on: str) -> dict:
         "objection_days": 14,
         "objection_he": "שבועיים מיום הפרסום, או יותר אם הרשם קבע",
         "objection_section": "תקנה 17(א)",
+        # The publication is paid on top of the fee (reg. 17(ג)); its amount is not in the regulations and was not
+        # found in an official source on checked_on, so the tools say it exists and give no number.
+        "publication_section": "תקנה 17(ג)",
         "regulations_he": "תקנות הירושה, התשנ\"ח-1998",
         "regulations_url": "https://www.nevo.co.il/law_html/law00/98588.htm",
         "service_url": "https://www.gov.il/he/service/inheritance_order",
@@ -360,15 +363,17 @@ def build_purchase_tax(checked_on: str) -> dict:
     inst1 = "https://www.gov.il/BlobFolder/policy/inst-01-2025-3/he/realestate_inst-01-2025-3.pdf"
     inst2 = "https://www.gov.il/BlobFolder/policy/inst-02-2026-1/he/realestate_inst-02-2026.pdf"
     inst24 = "https://www.gov.il/BlobFolder/policy/reinst-02-2024/he/realestate_reinst-02-2024.pdf"
+    inst26 = "https://www.gov.il/BlobFolder/policy/inst-01-2026/he/realestate_inst-01-2026.pdf"
+    notice = "https://www.gov.il/he/pages/pa121026-2"
     return {
         "name_he": "מס רכישה על דירת מגורים",
         "publisher_he": "רשות המסים",
-        "source_name": "רשות המסים, הוראת ביצוע מיסוי מקרקעין 1/2025: עדכון הסכומים והקפאתם",
-        "source_url": inst1,
+        "source_name": "רשות המסים, הוראת ביצוע מיסוי מקרקעין 1/2026: עדכון הסכומים והקפאת הסכומים",
+        "source_url": inst26,
         "simulator_url": "https://www.misim.gov.il/svsimurechisha/",
         "checked_on": checked_on,
         "refresh_every_days": 92,
-        "next_update": "2027-01-01",
+        "next_update": "2027-02-11",
         "law_he": "חוק מיסוי מקרקעין (שבח ורכישה), התשכ\"ג-1963",
         "law_url": law,
         "regulations_he": "תקנות מיסוי מקרקעין (שבח ורכישה) (מס רכישה), התשל\"ה-1974",
@@ -377,16 +382,18 @@ def build_purchase_tax(checked_on: str) -> dict:
         "tracks": {
             "single": {"from": "2024-01-16", "to": "2028-01-15", "section": "סעיף 9(ג1ג)(3)",
                        "brackets": [[1978745, 0], [2347040, 3.5], [6055070, 5], [20183565, 8], [None, 10]],
-                       "source_he": "הוראות ביצוע 2/2024 (מ-16.1.2024) ו-1/2025, סעיף 2(א): המדרגות קפואות עד 15.1.2028",
-                       "url": inst1, "url_2024": inst24},
-            "additional": {"from": "2024-01-16", "to": "2026-12-31", "section": "סעיף 9(ג1ו)",
+                       "source_he": "הוראות ביצוע 2/2024 (מ-16.1.2024), 1/2025 ו-1/2026, סעיף 2(א): המדרגות קפואות עד 15.1.2028",
+                       "url": inst26, "url_2024": inst24, "url_2025": inst1},
+            # Extended to 31.12.2026 by order (ק"ת 11633), then to 10.2.2027 inclusive by s.38 of Basic Law: The Knesset
+            # after the Knesset dissolved (Tax Authority notice of 12.10.2026). Also every purchase by a non-resident.
+            "additional": {"from": "2024-01-16", "to": "2027-02-10", "section": "סעיף 9(ג1ו)",
                            "brackets": [[6055070, 8], [None, 10]],
-                           "source_he": "הוראת ביצוע 1/2025, סעיף 2(ב): הוראת השעה הוארכה עד 31.12.2026 (ק\"ת 11633, 25.12.2024)",
-                           "url": inst1},
+                           "source_he": "הודעת רשות המסים מ-12.10.2026: הוראת השעה מוארכת עד 10.2.2027 (כולל) לפי סעיף 38 לחוק יסוד: הכנסת; הוראות ביצוע 1/2025 ו-1/2026, סעיף 2(ב)",
+                           "url": notice, "url_instruction": inst26},
             "oleh": {"from": "2024-08-15", "to": "2028-01-15", "section": "תקנה 12א",
                      "brackets": [[1978745, 0], [6055070, 0.5], [20183565, 8]], "max_value": 20183565,
                      "years_before": 1, "years_after": 7, "times": 1,
-                     "source_he": "תקנות מס רכישה, תקנה 12א (מ-15.8.2024), בהפניה לסכומי סעיף 9(ג1ג)(3)", "url": regs},
+                     "source_he": "תקנות מס רכישה, תקנה 12א (מ-15.8.2024), בהפניה לסכומי סעיף 9(ג1ג)(3); הוראת ביצוע 1/2026, סעיף 2(ג)", "url": regs},
             "disabled": {"from": "2024-01-16", "to": "2028-01-15", "section": "תקנה 11(א)",
                          "brackets": [[1978745, 0], [2500000, 0.5]], "cap": 2500000, "flat_above_cap": 0.5, "times": 2,
                          "source_he": "תקנות מס רכישה, תקנה 11(א)(1)-(2)", "url": regs},
@@ -403,7 +410,7 @@ def build_purchase_tax(checked_on: str) -> dict:
         "share_ignored_he": "דירה נוספת שחלקכם בה אינו עולה על שליש לא נספרת (סעיף 9(ג1ג)(4)(א) וסעיף 49ג(3))",
         "share_ignored_max": [1, 3],
         "couple_he": "בני זוג וילדיהם מתחת לגיל 18 הם רוכש אחד (סעיף 9(ג1ג)(4)(ג))",
-        "resident_he": "המדרגות של דירה יחידה הן ליחיד תושב ישראל, כולל מי שנעשה תושב בתוך שנתיים מהרכישה (סעיף 9(ג1ג)(2) ו-(4)(ב))",
+        "resident_he": "המדרגות של דירה יחידה הן ליחיד תושב ישראל, כולל מי שנעשה תושב בתוך שנתיים מהרכישה (סעיף 9(ג1ג)(2) ו-(4)(ב)); מי שאינו תושב משלם כמו על דירה נוספת",
         "declare_days": 30, "declare_section": "סעיף 73(ג)",
         "pay_days": 60, "pay_section": "סעיף 90א", "late_section": "סעיף 94(א)",
         "vat_pct": 18, "vat_from": "2025-01-01",

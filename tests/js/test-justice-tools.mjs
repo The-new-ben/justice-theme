@@ -341,6 +341,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(fee.fee === 597 && near(fee.online, 507.45), 'registrar fee 597 NIS from 1.1.2026; 85% online = 507.45 (fee regulations, reg. 1(א))');
 	const snap = YUI.snapshot(reg);
 	check(snap.sentence.includes('1/2') && snap.details.includes('597') && snap.details.includes('jt6-chart'), 'yerusha snapshot: sentence, the cost of the order and the family chart');
+	check(snap.details.includes('תקנה 17(ג)') && snap.details.includes('הוצאות הפרסום'), 'review fix (PR 124): the order cost names the publication expense the applicant also pays');
 }
 
 /* ---------- Wave 3: purchase tax (Land Taxation Law s.9; Tax Authority instructions 2/2024, 1/2025, 2/2026) ---------- */
@@ -351,7 +352,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(near(tax('single', 2650000).tax, 28038.33), 'single home 2,650,000: 368,295 x 3.5% + 302,960 x 5% = 28,038.33');
 	check(near(tax('single', 8000000).tax, 353886.23), 'single home 8,000,000: four brackets = 353,886.23');
 	check(tax('additional', 2650000).tax === 212000 && near(tax('additional', 8000000).tax, 678898.6), 'additional home: 8% to 6,055,070, 10% above');
-	check(tax('additional', 2650000, '2027-01-01').refused === 'after', 'additional home after 31.12.2026: refused, not guessed');
+	check(tax('additional', 2650000, '2027-02-10').tax === 212000 && tax('additional', 2650000, '2027-02-11').refused === 'after', 'additional home: 8%/10% through 10.2.2027 (Tax Authority notice, 12.10.2026), refused after, not guessed');
 	check(tax('single', 2650000, '2024-01-15').refused === 'before' && near(tax('single', 2650000, '2024-01-16').tax, 28038.33), 'single home: verified from 16.1.2024 (instruction 2/2024), not before');
 	check(near(tax('oleh', 3000000).tax, 5106.28) && near(tax('oleh', 8000000).tax, 175976.03), 'oleh (reg. 12א): 0%, 0.5% to 6,055,070, then 8%');
 	check(tax('oleh', 20183566).refused === 'oleh_cap', 'oleh relief not above 20,183,565 NIS (reg. 12א(ג))');
@@ -369,6 +370,17 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const rr = RQ.compute(reg, { price: 2650000, date: '2026-10-13', track: 'replacement' });
 	check(rr.ok && rr.replacement.deadline === '2028-10-13' && rr.flags.some((f) => f.code === 'at_stake'), 'replacement: sell the previous home by 13.10.2028; the difference at stake is shown');
 	check(!RQ.compute(reg, { price: 0, date: '2026-10-13' }).ok && !RQ.compute(reg, { price: 100, date: '31.2.2026' }).ok, 'zero price and impossible dates are input errors');
+	// Review fix (PR 124): the oleh relief needs the aliyah day and a purchase inside its window.
+	{
+		const noDate = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh' });
+		check(!noDate.ok && noDate.errors[0].field === 'aliyah', 'oleh without an aliyah date: an input error, no preferential tax');
+		const late = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2018-01-01' });
+		check(!late.ok && late.outOfScope && late.errors[0].he.includes('1.1.2025'), 'oleh 8 years after aliyah: outside the window, refused');
+		const early = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2028-01-01' });
+		check(!early.ok && early.outOfScope, 'oleh more than a year before aliyah: refused');
+		const fine = RQ.compute(reg, { price: 3000000, date: '2026-10-13', track: 'oleh', aliyah: '2024-05-01' });
+		check(fine.ok && near(fine.tax, 5106.28), 'oleh inside the window: 5,106.28');
+	}
 	const rs = RQUI.snapshot(reg);
 	check(rs.details.includes('jt7-scns') && rs.result.includes('jt7-ladder'), 'purchase-tax snapshot: the ladder and the four scenarios');
 }

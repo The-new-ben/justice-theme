@@ -336,7 +336,7 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 		$text = '<strong>ירושה על פי דין</strong> חלה כשאין צוואה: בן הזוג נוטל את המיטלטלין של משק הבית ואת המכונית, ומשאר העיזבון '
 			. esc_html( justice_tools_fraction_he( $y['spouse_half'] ) ) . ' אם יש ילדים או הורה, ' . esc_html( justice_tools_fraction_he( $y['spouse_two_thirds'] ) ) . ' אם יש רק אחים או סבים, והכול אם אין אף אחד מהם (סעיף 11 ל' . esc_html( $y['law_he'] ) . '). '
 			. 'הילדים חולקים בשווה, וילד שנפטר לפני המוריש מוחלף בילדיו (סעיפים 13 ו-14). '
-			. 'בקשה לצו ירושה עולה ' . justice_tools_money( $y['fees']['order_fee'], 0 ) . ' ב-' . esc_html( substr( (string) $y['fees']['from'], 0, 4 ) ) . ', ו-<bdi>' . (int) $y['fees']['online_pct'] . '%</bdi> מזה בהגשה מקוונת. '
+			. 'האגרה לבקשה לצו ירושה היא ' . justice_tools_money( $y['fees']['order_fee'], 0 ) . ' ב-' . esc_html( substr( (string) $y['fees']['from'], 0, 4 ) ) . ', ו-<bdi>' . (int) $y['fees']['online_pct'] . '%</bdi> ממנה בהגשה מקוונת, ועליה נוספות הוצאות הפרסום. '
 			. 'נבדק ' . esc_html( justice_tools_he_date( $y['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
@@ -477,7 +477,7 @@ function justice_tools_sources( string $name ): array {
 		return array(
 			array( 'name' => $y['law_he'], 'url' => $y['law_url'], 'text' => 'סעיף 10: מי יורש; 11: בן הזוג (המיטלטלין, חצי, שני שלישים, הדירה אחרי 3 שנות נישואין, הכול); 12: סדר העדיפות; 13: חלקים שווים; 14: ילדים במקום מי שנפטר; 17: המדינה; 55: ידועים בציבור. נוסח עדכני ל-' . justice_tools_he_date( $y['law_current_to'] ) . ', נבדק ' . $checked . '.' ),
 			array( 'name' => $y['fees']['regulation_he'], 'url' => $y['fees']['url'], 'text' => $y['fees']['section'] . ': ' . number_format( (float) $y['fees']['order_fee'] ) . ' ₪ לבקשה לצו ירושה מ-' . justice_tools_he_date( $y['fees']['from'] ) . ', ' . $y['fees']['online_pct'] . '% בהגשה מקוונת; ' . $y['fees']['exempt_section'] . ': פטור לבני משפחה של מי שנפטר עקב פעולות איבה או בשירות צבאי. נוסח עדכני ל-' . justice_tools_he_date( $y['fees']['current_to'] ) . '.' ),
-			array( 'name' => $y['regulations_he'], 'url' => $y['regulations_url'], 'text' => $y['objection_section'] . ': פרסום הבקשה והתנגדות בתוך ' . $y['objection_he'] . '.' ),
+			array( 'name' => $y['regulations_he'], 'url' => $y['regulations_url'], 'text' => $y['objection_section'] . ': פרסום הבקשה והתנגדות בתוך ' . $y['objection_he'] . '; ' . $y['publication_section'] . ': הוצאות הפרסום על המבקש, חוץ ממי שפטור מאגרה.' ),
 			array( 'name' => $y['service_he'], 'url' => $y['service_url'], 'text' => 'הגשה מקוונת של בקשה לצו ירושה, ובקשה משולבת לרישום בטאבו. נבדק ' . $checked . '.' ),
 		);
 	}
@@ -486,8 +486,9 @@ function justice_tools_sources( string $name ): array {
 		$checked = justice_tools_he_date( $pt['checked_on'] );
 		$r       = $pt['replacement'];
 		return array(
-			array( 'name' => $pt['source_name'], 'url' => $pt['source_url'], 'text' => 'מדרגות דירה יחידה ' . justice_tools_he_date( $pt['tracks']['single']['from'] ) . ' עד ' . justice_tools_he_date( $pt['tracks']['single']['to'] ) . '; דירה נוספת 8% ו-10% עד ' . justice_tools_he_date( $pt['tracks']['additional']['to'] ) . '. נבדק ' . $checked . '.' ),
-			array( 'name' => 'רשות המסים, הוראת ביצוע מיסוי מקרקעין 2/2024', 'url' => $pt['tracks']['single']['url_2024'], 'text' => 'אותן מדרגות מ-16.1.2024.' ),
+			array( 'name' => $pt['source_name'], 'url' => $pt['source_url'], 'text' => 'מדרגות דירה יחידה ' . justice_tools_he_date( $pt['tracks']['single']['from'] ) . ' עד ' . justice_tools_he_date( $pt['tracks']['single']['to'] ) . '; עולה, תקנה 12א. נבדק ' . $checked . '.' ),
+			array( 'name' => 'רשות המסים, הודעה לציבור מ-12.10.2026: הארכת הוראת השעה למס רכישה על דירה נוספת', 'url' => $pt['tracks']['additional']['url'], 'text' => '8% עד 6,055,070 ₪ ו-10% מעל, ברכישות עד ' . justice_tools_he_date( $pt['tracks']['additional']['to'] ) . ' (כולל), לפי סעיף 38 לחוק יסוד: הכנסת; גם לכל רוכש שאינו יחיד תושב ישראל.' ),
+			array( 'name' => 'רשות המסים, הוראות ביצוע מיסוי מקרקעין 2/2024 ו-1/2025', 'url' => $pt['tracks']['single']['url_2025'], 'text' => 'אותן מדרגות מ-16.1.2024, והקפאתן עד 15.1.2028.' ),
 			array( 'name' => $pt['law_he'], 'url' => $pt['law_url'], 'text' => 'סעיף 9(ג1ג)(2)-(4): דירה יחידה, חלופית, תושב, רוכש אחד, חלק של שליש; 9(ג1ו): דירה נוספת; 73(ג): הצהרה תוך ' . $pt['declare_days'] . ' יום; 90א: תשלום תוך ' . $pt['pay_days'] . ' יום; 94(א): הצמדה וריבית.' ),
 			array( 'name' => $pt['regulations_he'], 'url' => $pt['regulations_url'], 'text' => 'תקנה 12א: עולה (0%, 0.5%, פעם אחת, עד ' . number_format( (float) $pt['tracks']['oleh']['max_value'] ) . ' ₪); תקנה 11(א): נכה (0.5% עד ' . number_format( (float) $pt['tracks']['disabled']['cap'] ) . ' ₪, פעמיים).' ),
 			array( 'name' => $r['war']['source_he'], 'url' => $r['war']['url'], 'text' => $r['war']['law_he'] . ': תקופה שנוגעת ב-' . justice_tools_he_date( $r['war']['from'] ) . ' עד ' . justice_tools_he_date( $r['war']['to'] ) . ' מוארכת ב-' . $r['war']['add_months'] . ' חודשים, ולפחות עד ' . justice_tools_he_date( $r['war']['floor'] ) . '; 18 חודשים לרכישה עד 31.5.2025, 24 חודשים מ-1.6.2025.' ),
@@ -813,6 +814,7 @@ function justice_tools_yerusha_numbers_html( array $y ): string {
 		array( 'ידועים בציבור', 'כמו בן זוג נשוי, אם אף אחד מהם לא היה נשוי לאחר, ובצוואה אין הוראה אחרת', $law . 'סעיף 55</a>' ),
 		array( 'אין יורש', 'המדינה', $law . 'סעיף 17</a>' ),
 		array( 'אגרת בקשה לצו ירושה', justice_tools_money( $y['fees']['order_fee'], 0 ) . ' מ-' . esc_html( justice_tools_he_date( $y['fees']['from'] ) ) . '; <bdi>' . (int) $y['fees']['online_pct'] . '%</bdi> בהגשה מקוונת', $fee . esc_html( $y['fees']['section'] ) . '</a>' ),
+		array( 'הוצאות הפרסום', 'על המבקש, בנוסף לאגרה; מי שפטור מאגרה פטור גם מהן', $regs . esc_html( $y['publication_section'] ) . '</a>' ),
 		array( 'התנגדות לבקשה', esc_html( $y['objection_he'] ), $regs . esc_html( $y['objection_section'] ) . '</a>' ),
 	);
 	$body = '';

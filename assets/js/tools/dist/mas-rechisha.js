@@ -321,9 +321,19 @@ function compute(registry, input) {
 	if (input.delivery && !delivery) { errors.push({ field: 'delivery', he: 'מועד המסירה לא תקין' }); }
 	const aliyah = input.aliyah ? parseDate(input.aliyah) : null;
 	if (input.aliyah && !aliyah) { errors.push({ field: 'aliyah', he: 'תאריך העלייה לא תקין' }); }
+	// The oleh relief applies only within its window, so it is never computed without the aliyah day (review, PR 124).
+	if (track === 'oleh' && !input.aliyah) { errors.push({ field: 'aliyah', he: 'בהטבת עולה צריך את תאריך העלייה: ההטבה חלה רק ברכישה משנה לפניה ועד 7 שנים אחריה' }); }
 	if (errors.length) { return { ok: false, errors }; }
 
 	const flags = [];
+	if (track === 'oleh') {
+		const o = pt.tracks.oleh;
+		const first = addMonths(aliyah, -12 * o.years_before);
+		const last = addMonths(aliyah, 12 * o.years_after);
+		if (on < first || on > last) {
+			return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: `הטבת העולה חלה ברכישה מ-${rqDate(first)} עד ${rqDate(last)} (שנה לפני העלייה ועד 7 שנים אחריה, תקנה 12(ב)). רכישה ב-${rqDate(on)} לא בתוך החלון${on > last ? ', אלא אם תקופת שירות חובה מאריכה אותו' : ''}: בחרו דירה יחידה או נוספת.` }] };
+		}
+	}
 	const main = taxFor(pt, track, price, on);
 	if (main.refused) {
 		const why = ({
@@ -338,7 +348,7 @@ function compute(registry, input) {
 	const broker = Math.round(price * brokerPct * (100 + vat) / 100) / 100;
 	const total = Math.round((main.tax + lawyer + broker + other) * 100) / 100;
 
-	// The other tracks on the same price and day, for the side-by-side compare.
+	// The other tracks on the same price and day, for the side-by-side compare (each "if it applies to you").
 	const scenarios = {};
 	for (const t of ['single', 'additional', 'oleh', 'disabled']) {
 		const r = taxFor(pt, t, price, on);
@@ -355,13 +365,7 @@ function compute(registry, input) {
 		}
 	}
 	if (track === 'oleh') {
-		const o = pt.tracks.oleh;
-		if (aliyah) {
-			const first = addMonths(aliyah, -12 * o.years_before);
-			const last = addMonths(aliyah, 12 * o.years_after);
-			if (on < first || on > last) { flags.push({ code: 'oleh_window', he: `ההטבה לעולה חלה ברכישה משנה לפני העלייה ועד 7 שנים אחריה (${rqDate(first)} עד ${rqDate(last)}), בלי לספור שירות חובה. תאריך הרכישה מחוץ לחלון.` }); }
-		}
-		flags.push({ code: 'oleh_once', he: 'הטבת עולה ניתנת פעם אחת, ורק כשהדירה יחידה או חלופית (תקנה 12א).' });
+		flags.push({ code: 'oleh_once', he: 'הטבת עולה ניתנת פעם אחת, ורק כשהדירה יחידה או חלופית (תקנה 12א). שירות חובה לא נספר בשבע השנים.' });
 	}
 	if (track === 'disabled') { flags.push({ code: 'disabled', he: 'המסלול לנכים, עיוורים, נפגעים ובני משפחה של חיילים שנספו (תקנה 11(א)): לכל אדם פעמיים בלבד, לפי ההגדרות שבתקנה.' }); }
 	if (track === 'additional' || track === 'single' || track === 'replacement') {
@@ -424,7 +428,7 @@ function renderForm(reg, input) {
 	return `<div class="jtool-row"><div class="jtool-field"><label class="jtool-label" for="${P}-price">מחיר הדירה</label><div class="jtool-input jtool-input--money"><input id="${P}-price" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.price ? money(input.price, 0) : '')}" placeholder="לדוגמה: 2,650,000" aria-describedby="${P}-price-h ${P}-price-e"><span class="jtool-input__suffix" aria-hidden="true">₪</span></div><p class="jtool-hint" id="${P}-price-h">קונים חלק? הזינו את שווי החלק שלכם</p><p class="jtool-error" id="${P}-price-e" role="alert"></p></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-date">יום החתימה</label><input id="${P}-date" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.date || ''))}" placeholder="לדוגמה: 13.10.2026" aria-describedby="${P}-date-e"><p class="jtool-error" id="${P}-date-e" role="alert"></p></div></div>`
 		+ `<fieldset class="jtool-field"><legend>מי קונה</legend><div class="jtool-chips">${TRACKS.map((k) => chip('trk', k, TRACK_LONG[k], t === k)).join('')}</div>`
-		+ `<p class="jtool-hint">${esc(pt.couple_he)}. ${esc(pt.share_ignored_he)}.</p></fieldset>`
+		+ `<p class="jtool-hint">${esc(pt.couple_he)}. ${esc(pt.share_ignored_he)}. ${esc(pt.resident_he)}.</p></fieldset>`
 		+ `<div data-if-track="replacement"${t === 'replacement' ? '' : ' hidden'}><div class="jtool-chips">${chip('ctr', '1', 'קונים מקבלן', input.contractor, 'checkbox')}</div>`
 		+ `<div class="jtool-field" style="margin-top:8px" data-if-contractor${input.contractor ? '' : ' hidden'}><label class="jtool-label" for="${P}-dlv">מועד המסירה לפי החוזה</label><input id="${P}-dlv" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.delivery || ''))}" placeholder="לדוגמה: 31.12.2027" aria-describedby="${P}-delivery-e"><p class="jtool-error" id="${P}-delivery-e" role="alert"></p></div></div>`
 		+ `<div class="jtool-field" data-if-track="oleh"${t === 'oleh' ? '' : ' hidden'}><label class="jtool-label" for="${P}-aly">תאריך העלייה</label><input id="${P}-aly" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.aliyah || ''))}" placeholder="לדוגמה: 1.5.2024" aria-describedby="${P}-aliyah-e"><p class="jtool-error" id="${P}-aliyah-e" role="alert"></p></div>`
@@ -492,7 +496,7 @@ function renderDetails(reg, r, compareR, opts = {}) {
 	const cards = ['single', 'additional', 'oleh', 'disabled'].map((k) => {
 		const v = r.scenarios[k];
 		const here = k === r.track || (k === 'single' && r.track === 'replacement');
-		return `<div class="jt7-scn${here ? ' jt7-scn--here' : ''}"><p>${esc(TRACK_LABEL[k])}${here ? ' (אתם)' : ''}</p><strong>${v === null ? '—' : ils(v, v % 1 ? 2 : 0)}</strong><small>${v === null ? 'לא חל ביום הזה' : `${(Math.round(v / r.price * 10000) / 100)}% מהמחיר`}</small></div>`;
+		return `<div class="jt7-scn${here ? ' jt7-scn--here' : ''}"><p>${esc(TRACK_LABEL[k])}${here ? ' (אתם)' : k === 'oleh' || k === 'disabled' ? ' (אם זכאים)' : ''}</p><strong>${v === null ? '—' : ils(v, v % 1 ? 2 : 0)}</strong><small>${v === null ? 'לא חל ביום הזה' : `${(Math.round(v / r.price * 10000) / 100)}% מהמחיר`}</small></div>`;
 	}).join('');
 	let out = `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-scn-h">אותה דירה, ארבעה מצבים</h3></div><div class="jt7-scns">${cards}</div>`
 		+ `<p class="jt7-scns__note">דירה נוספת: ${esc(pt.tracks.additional.source_he)}. עולה ונכה: ההטבה בתנאים שבתקנות.</p></div>`;

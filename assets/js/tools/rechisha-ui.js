@@ -45,7 +45,7 @@ export function renderForm(reg, input) {
 	return `<div class="jtool-row"><div class="jtool-field"><label class="jtool-label" for="${P}-price">מחיר הדירה</label><div class="jtool-input jtool-input--money"><input id="${P}-price" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.price ? money(input.price, 0) : '')}" placeholder="לדוגמה: 2,650,000" aria-describedby="${P}-price-h ${P}-price-e"><span class="jtool-input__suffix" aria-hidden="true">₪</span></div><p class="jtool-hint" id="${P}-price-h">קונים חלק? הזינו את שווי החלק שלכם</p><p class="jtool-error" id="${P}-price-e" role="alert"></p></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-date">יום החתימה</label><input id="${P}-date" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.date || ''))}" placeholder="לדוגמה: 13.10.2026" aria-describedby="${P}-date-e"><p class="jtool-error" id="${P}-date-e" role="alert"></p></div></div>`
 		+ `<fieldset class="jtool-field"><legend>מי קונה</legend><div class="jtool-chips">${TRACKS.map((k) => chip('trk', k, TRACK_LONG[k], t === k)).join('')}</div>`
-		+ `<p class="jtool-hint">${esc(pt.couple_he)}. ${esc(pt.share_ignored_he)}.</p></fieldset>`
+		+ `<p class="jtool-hint">${esc(pt.couple_he)}. ${esc(pt.share_ignored_he)}. ${esc(pt.resident_he)}.</p></fieldset>`
 		+ `<div data-if-track="replacement"${t === 'replacement' ? '' : ' hidden'}><div class="jtool-chips">${chip('ctr', '1', 'קונים מקבלן', input.contractor, 'checkbox')}</div>`
 		+ `<div class="jtool-field" style="margin-top:8px" data-if-contractor${input.contractor ? '' : ' hidden'}><label class="jtool-label" for="${P}-dlv">מועד המסירה לפי החוזה</label><input id="${P}-dlv" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.delivery || ''))}" placeholder="לדוגמה: 31.12.2027" aria-describedby="${P}-delivery-e"><p class="jtool-error" id="${P}-delivery-e" role="alert"></p></div></div>`
 		+ `<div class="jtool-field" data-if-track="oleh"${t === 'oleh' ? '' : ' hidden'}><label class="jtool-label" for="${P}-aly">תאריך העלייה</label><input id="${P}-aly" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.aliyah || ''))}" placeholder="לדוגמה: 1.5.2024" aria-describedby="${P}-aliyah-e"><p class="jtool-error" id="${P}-aliyah-e" role="alert"></p></div>`
@@ -113,7 +113,7 @@ export function renderDetails(reg, r, compareR, opts = {}) {
 	const cards = ['single', 'additional', 'oleh', 'disabled'].map((k) => {
 		const v = r.scenarios[k];
 		const here = k === r.track || (k === 'single' && r.track === 'replacement');
-		return `<div class="jt7-scn${here ? ' jt7-scn--here' : ''}"><p>${esc(TRACK_LABEL[k])}${here ? ' (אתם)' : ''}</p><strong>${v === null ? '—' : ils(v, v % 1 ? 2 : 0)}</strong><small>${v === null ? 'לא חל ביום הזה' : `${(Math.round(v / r.price * 10000) / 100)}% מהמחיר`}</small></div>`;
+		return `<div class="jt7-scn${here ? ' jt7-scn--here' : ''}"><p>${esc(TRACK_LABEL[k])}${here ? ' (אתם)' : k === 'oleh' || k === 'disabled' ? ' (אם זכאים)' : ''}</p><strong>${v === null ? '—' : ils(v, v % 1 ? 2 : 0)}</strong><small>${v === null ? 'לא חל ביום הזה' : `${(Math.round(v / r.price * 10000) / 100)}% מהמחיר`}</small></div>`;
 	}).join('');
 	let out = `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-scn-h">אותה דירה, ארבעה מצבים</h3></div><div class="jt7-scns">${cards}</div>`
 		+ `<p class="jt7-scns__note">דירה נוספת: ${esc(pt.tracks.additional.source_he)}. עולה ונכה: ההטבה בתנאים שבתקנות.</p></div>`;

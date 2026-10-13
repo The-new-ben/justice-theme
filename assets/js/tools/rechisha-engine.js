@@ -140,9 +140,19 @@ export function compute(registry, input) {
 	if (input.delivery && !delivery) { errors.push({ field: 'delivery', he: 'מועד המסירה לא תקין' }); }
 	const aliyah = input.aliyah ? parseDate(input.aliyah) : null;
 	if (input.aliyah && !aliyah) { errors.push({ field: 'aliyah', he: 'תאריך העלייה לא תקין' }); }
+	// The oleh relief applies only within its window, so it is never computed without the aliyah day (review, PR 124).
+	if (track === 'oleh' && !input.aliyah) { errors.push({ field: 'aliyah', he: 'בהטבת עולה צריך את תאריך העלייה: ההטבה חלה רק ברכישה משנה לפניה ועד 7 שנים אחריה' }); }
 	if (errors.length) { return { ok: false, errors }; }
 
 	const flags = [];
+	if (track === 'oleh') {
+		const o = pt.tracks.oleh;
+		const first = addMonths(aliyah, -12 * o.years_before);
+		const last = addMonths(aliyah, 12 * o.years_after);
+		if (on < first || on > last) {
+			return { ok: false, outOfScope: true, errors: [{ field: 'aliyah', he: `הטבת העולה חלה ברכישה מ-${rqDate(first)} עד ${rqDate(last)} (שנה לפני העלייה ועד 7 שנים אחריה, תקנה 12(ב)). רכישה ב-${rqDate(on)} לא בתוך החלון${on > last ? ', אלא אם תקופת שירות חובה מאריכה אותו' : ''}: בחרו דירה יחידה או נוספת.` }] };
+		}
+	}
 	const main = taxFor(pt, track, price, on);
 	if (main.refused) {
 		const why = ({
@@ -157,7 +167,7 @@ export function compute(registry, input) {
 	const broker = Math.round(price * brokerPct * (100 + vat) / 100) / 100;
 	const total = Math.round((main.tax + lawyer + broker + other) * 100) / 100;
 
-	// The other tracks on the same price and day, for the side-by-side compare.
+	// The other tracks on the same price and day, for the side-by-side compare (each "if it applies to you").
 	const scenarios = {};
 	for (const t of ['single', 'additional', 'oleh', 'disabled']) {
 		const r = taxFor(pt, t, price, on);
@@ -174,13 +184,7 @@ export function compute(registry, input) {
 		}
 	}
 	if (track === 'oleh') {
-		const o = pt.tracks.oleh;
-		if (aliyah) {
-			const first = addMonths(aliyah, -12 * o.years_before);
-			const last = addMonths(aliyah, 12 * o.years_after);
-			if (on < first || on > last) { flags.push({ code: 'oleh_window', he: `ההטבה לעולה חלה ברכישה משנה לפני העלייה ועד 7 שנים אחריה (${rqDate(first)} עד ${rqDate(last)}), בלי לספור שירות חובה. תאריך הרכישה מחוץ לחלון.` }); }
-		}
-		flags.push({ code: 'oleh_once', he: 'הטבת עולה ניתנת פעם אחת, ורק כשהדירה יחידה או חלופית (תקנה 12א).' });
+		flags.push({ code: 'oleh_once', he: 'הטבת עולה ניתנת פעם אחת, ורק כשהדירה יחידה או חלופית (תקנה 12א). שירות חובה לא נספר בשבע השנים.' });
 	}
 	if (track === 'disabled') { flags.push({ code: 'disabled', he: 'המסלול לנכים, עיוורים, נפגעים ובני משפחה של חיילים שנספו (תקנה 11(א)): לכל אדם פעמיים בלבד, לפי ההגדרות שבתקנה.' }); }
 	if (track === 'additional' || track === 'single' || track === 'replacement') {

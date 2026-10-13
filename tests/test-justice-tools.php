@@ -253,7 +253,7 @@ check( '2026-10-13' === $y3['checked_on'] && array( 1, 2 ) === $y3['spouse_half'
 check( 597 === $y3['fees']['order_fee'] && 85 === $y3['fees']['online_pct'] && '2026-01-01' === $y3['fees']['from'] && 14 === $y3['objection_days'], 'yerusha registry: fee 597 NIS from 1.1.2026, 85% online, objection two weeks (reg. 17(א))' );
 $pt3 = $reg3['purchase_tax'];
 check( array( array( 1978745, 0 ), array( 2347040, 3.5 ), array( 6055070, 5 ), array( 20183565, 8 ), array( null, 10 ) ) === $pt3['tracks']['single']['brackets'], 'purchase tax registry: the single-home brackets of instruction 1/2025' );
-check( '2028-01-15' === $pt3['tracks']['single']['to'] && '2026-12-31' === $pt3['tracks']['additional']['to'] && '2024-01-16' === $pt3['tracks']['single']['from'], 'purchase tax registry: frozen to 15.1.2028; additional-home rule to 31.12.2026' );
+check( '2028-01-15' === $pt3['tracks']['single']['to'] && '2027-02-10' === $pt3['tracks']['additional']['to'] && '2024-01-16' === $pt3['tracks']['single']['from'], 'purchase tax registry: frozen to 15.1.2028; additional-home rule to 10.2.2027 (Tax Authority notice, 12.10.2026)' );
 check( 18 === $pt3['vat_pct'] && 30 === $pt3['declare_days'] && 60 === $pt3['pay_days'] && 12 === $pt3['replacement']['contractor_months'] && '2026-08-31' === $pt3['replacement']['war']['floor'], 'purchase tax registry: VAT 18%, 30/60 days, contractor 12 months, war floor 31.8.2026' );
 $b3 = $reg3['betterment'];
 check( array( 1, 2 ) === $b3['rates']['regular']['rate'] && array( 1, 4 ) === $b3['rates']['pinui']['rate'] && 140 === $b3['residence_max_sqm'] && 4 === $b3['residence_sale_years'] && 45 === $b3['appeal_days'] && 90000 === $b3['recheck_max'], 'betterment registry: 1/2, 1/4, 140 m2, 4 years, 45 days, 90,000 NIS' );
@@ -283,9 +283,9 @@ foreach ( array( 'yerusha' => $w3y, 'mas-rechisha' => $w3r, 'hetel-hashbacha' =>
 	check( 1 === preg_match( '#<script type="application/json" id="jtool-' . preg_quote( $nm, '#' ) . '-data">(.*?)</script>#s', $html, $mm ) && count( json_decode( $mm[1], true ) ) === 2, $nm . ': the data island carries only its own dataset' );
 }
 $ny = $sec( array( 'name' => 'yerusha', 'part' => 'numbers' ) );
-check( false !== strpos( $ny, 'סעיף 11(א)(2)' ) && false !== strpos( $ny, 'סעיף 55' ) && false !== strpos( $ny, 'תקנה 17(א)' ), 'yerusha numbers: every rule with its section' );
+check( false !== strpos( $ny, 'סעיף 11(א)(2)' ) && false !== strpos( $ny, 'סעיף 55' ) && false !== strpos( $ny, 'תקנה 17(א)' ) && false !== strpos( $ny, 'תקנה 17(ג)' ), 'yerusha numbers: every rule with its section, the publication expense included' );
 $nr = $sec( array( 'name' => 'mas-rechisha', 'part' => 'numbers' ) );
-check( false !== strpos( $nr, '20,183,565' ) && false !== strpos( $nr, 'תקנה 12א' ) && false !== strpos( $nr, 'תקנה 11(א)(2)' ) && false !== strpos( $nr, '31.12.2026' ), 'purchase tax numbers: every track with its period' );
+check( false !== strpos( $nr, '20,183,565' ) && false !== strpos( $nr, 'תקנה 12א' ) && false !== strpos( $nr, 'תקנה 11(א)(2)' ) && false !== strpos( $nr, '10.2.2027' ), 'purchase tax numbers: every track with its period' );
 $nh = $sec( array( 'name' => 'hetel-hashbacha', 'part' => 'numbers' ) );
 check( false !== strpos( $nh, 'סעיף 19(ג)(1)' ) && false !== strpos( $nh, '90,000' ) && false !== strpos( $nh, 'סעיף 14(ב)(1)' ), 'betterment numbers: the deferral, the re-examination ceiling and the decisive appraiser' );
 check( false !== strpos( $sec( array( 'name' => 'mas-rechisha', 'part' => 'compare' ) ), '353,886.23' ) && false !== strpos( $sec( array( 'name' => 'yerusha', 'part' => 'compare' ) ), 'רק בן זוג' ) && false !== strpos( $sec( array( 'name' => 'hetel-hashbacha', 'part' => 'compare' ) ), '750,000' ), 'wave-3 compare tables from the engines' );

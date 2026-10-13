@@ -422,8 +422,8 @@ def build_purchase_tax(checked_on: str) -> dict:
 def build_betterment(checked_on: str) -> dict:
     """Betterment levy (wave 3, HAD-498): the Third Schedule to the Planning and Building Law, read on
     checked_on in the consolidated text: the rate (s.3, 3א), payment at realisation (s.7), the residence
-    deferral (s.19(ג)), the exemptions the tool uses (s.19(ב)(9), (10), (10א)) and the appeal routes and
-    periods (s.14)."""
+    deferral (s.19(ג)), the exemptions the tool uses (s.19(ב)(9), (10), (10א)), the local reductions of the
+    quarter rate (s.19(ב2)(1)) and the appeal routes and periods (s.14)."""
     law = "https://www.nevo.co.il/law_html/law01/044_001.htm"
     return {
         "name_he": "היטל השבחה",
@@ -439,9 +439,18 @@ def build_betterment(checked_on: str) -> dict:
             "regular": {"rate": [1, 2], "section": "סעיף 3"},
             "pinui": {"rate": [1, 4], "section": "סעיף 3א(א)",
                       "local_he": "הרשות המקומית רשאית לקבוע באזור מסוים מחצית, רבע או פטור (סעיף 3א(ב))"},
-            "seismic": {"rate": [1, 4], "section": "סעיף 19(ב)(10א)(א)"},
-            "tama38": {"rate": [0, 1], "section": "סעיף 19(ב)(10)(א)", "beyond_rate": [1, 4], "beyond_floors": 2.5},
-            "mamad": {"rate": [0, 1], "section": "סעיף 19(ב)(9)"},
+            "seismic": {"rate": [1, 4], "section": "סעיף 19(ב)(10א)(א)",
+                        "local_he": "הרשות המקומית רשאית לקבוע, להיתרים בתחומה, שלא ישולם היטל או שישולם שמינית "
+                                    "ההשבחה במקום רבע (סעיף 19(ב2)(1)). בדקו בוועדה המקומית אם התקבלה החלטה כזאת"},
+            "tama38": {"rate": [0, 1], "section": "סעיף 19(ב)(10)(א)", "beyond_rate": [1, 4], "beyond_floors": 2.5,
+                       "local_he": "על החלק שמעבר ל-2.5 קומות, הרשות המקומית רשאית לקבוע, להיתרים בתחומה, שלא ישולם "
+                                   "היטל או שישולם שמינית ההשבחה במקום רבע (סעיף 19(ב2)(1)). בדקו בוועדה המקומית אם "
+                                   "התקבלה החלטה כזאת"},
+            # s.19(ב)(9)(א): only a protected space within the area set under the Civil Defence Law is exempt;
+            # betterment from any other area, even in the same permit, pays the regular half (s.3).
+            "mamad": {"rate": [0, 1], "section": "סעיף 19(ב)(9)", "beyond_rate": [1, 2], "beyond_section": "סעיף 3",
+                      "area_he": "הפטור רק לממ\"ד בשטח שלא עולה על השטח שנקבע לפי חוק ההתגוננות האזרחית. השבחה "
+                                 "משטח נוסף, גם באותו היתר, חייבת בהיטל הרגיל של מחצית (סעיף 3)"},
         },
         "residence_max_sqm": 140, "residence_section": "סעיף 19(ג)(1)",
         "residence_sale_years": 4, "residence_sale_section": "סעיף 19(ג)(2)",

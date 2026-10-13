@@ -13,7 +13,7 @@ import {
 export const TOOL_ID = 'hetel-hashbacha';
 const P = 'jt8';
 
-export const EXAMPLE = { mode: 'estimate', betterment: 800000, share: 50, plan: 'regular', event: 'sale', ownHome: false, areaBefore: '', areaAfter: '', tamaBeyond: '' };
+export const EXAMPLE = { mode: 'estimate', betterment: 800000, share: 50, plan: 'regular', event: 'sale', ownHome: false, areaBefore: '', areaAfter: '', tamaBeyond: '', mamadBeyond: '' };
 export const EXAMPLE_HOME = { mode: 'estimate', betterment: 600000, share: 100, plan: 'regular', event: 'permit', ownHome: true, areaBefore: 100, areaAfter: 160 };
 export const EXAMPLE_ASSESSMENT = { mode: 'assessment', levy: 84000, received: '2026-10-01', mine: 52000, kind: 'plan' };
 
@@ -48,6 +48,7 @@ export function renderForm(reg, input) {
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-share">החלק שלכם בנכס</label><div class="jtool-input"><input id="${P}-share" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.share ?? 100)}" aria-describedby="${P}-share-h ${P}-share-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-hint" id="${P}-share-h">שותפים משלמים לפי החלק (${esc(b.partners_section)})</p><p class="jtool-error" id="${P}-share-e" role="alert"></p></div></div>`
 		+ `<fieldset class="jtool-field"><legend>מה גרם לעליית השווי</legend><div class="jtool-chips">${PLANS.map((k) => chip('plan', k, PLAN_LABEL[k], (input.plan || 'regular') === k)).join('')}</div></fieldset>`
 		+ `<div data-if-plan="tama38"${input.plan === 'tama38' ? '' : ' hidden'}>${moneyField('tama', 'החלק מההשבחה שמקורו בשטח מעבר ל-2.5 קומות', input.tamaBeyond, 'עליו בלבד היטל של רבע (סעיף 19(ב)(10)(א))', '0 אם אין')}</div>`
+		+ `<div data-if-plan="mamad"${input.plan === 'mamad' ? '' : ' hidden'}>${moneyField('mamx', 'החלק מההשבחה שמקורו בשטח נוסף, מעבר לממ"ד', input.mamadBeyond, 'רק ממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית פטור (סעיף 19(ב)(9)). על שטח נוסף: היטל רגיל של מחצית (סעיף 3)', '0 אם אין')}</div>`
 		+ `<fieldset class="jtool-field"><legend>מתי זה קורה</legend><div class="jtool-chips">${EVENTS.map((k) => chip('evt', k, EVENT_LABEL[k], (input.event || 'sale') === k)).join('')}</div></fieldset>`
 		+ `<div data-if-event="permit"${input.event === 'permit' ? '' : ' hidden'}><div class="jtool-chips">${chip('home', '1', 'בונים או מרחיבים דירה למגורים שלי או של קרוב', input.ownHome, 'checkbox')}</div>`
 		+ `<div class="jtool-row" data-if-home${input.ownHome ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-field"><label class="jtool-label" for="${P}-ab">שטח הדירה היום</label><div class="jtool-input"><input id="${P}-ab" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.areaBefore ?? '')}" aria-describedby="${P}-areaBefore-e"><span class="jtool-input__suffix" aria-hidden="true">מ"ר</span></div><p class="jtool-error" id="${P}-areaBefore-e" role="alert"></p></div>`
@@ -67,7 +68,10 @@ export function verdictSentence(reg, r) {
 		return `אפשר להשיג על השומה עד ${isoToHe(r.appealBy)}${r.recheck && !r.schedule ? `, ובהיטל של עד ${money(reg.betterment.recheck_max, 0)} ₪ גם לבקש מהוועדה לבחון מחדש` : ''}.${r.saving ? ` לפי השמאי שלכם, ההפרש: ${nis(r.saving)}.` : ''}`;
 	}
 	if (r.levy === 0) { return `${PLAN_LABEL[r.plan]}: אין היטל השבחה על החלק הזה (${reg.betterment.rates[r.plan].section}).`; }
-	const base = `היטל השבחה של ${nis(r.levy)}: ${r.rate[0]}/${r.rate[1]} מההשבחה ${r.share < 100 ? `שלכם (${r.share}% מ-${nis(r.betterment)})` : `של ${nis(r.betterment)}`}.`;
+	const part = { tama38: 'שמקורו בשטח שמעבר ל-2.5 קומות', mamad: 'שמקורו בשטח נוסף, מעבר לממ"ד' }[r.plan];
+	const base = part && r.beyond !== null
+		? `היטל השבחה של ${nis(r.levy)}: ${r.rate[0]}/${r.rate[1]} מהחלק ${part} (${nis(r.beyond)}). השאר פטור.`
+		: `היטל השבחה של ${nis(r.levy)}: ${r.rate[0]}/${r.rate[1]} מההשבחה ${r.share < 100 ? `שלכם (${r.share}% מ-${nis(r.betterment)})` : `של ${nis(r.betterment)}`}.`;
 	if (r.deferred > 0) { return `${base} ${r.due > 0 ? `עכשיו משלמים ${nis(r.due)}, ו-${nis(r.deferred)} נדחים` : 'בהיתר לא משלמים: הבנייה למגורים שלכם לא נחשבת מימוש'}.`; }
 	return `${base} משלמים ${r.timing}.`;
 }
@@ -97,7 +101,7 @@ export function renderResult(reg, r, opts = {}) {
 			+ (r.flags.length ? `<ul class="jtool-flags">${r.flags.map((f) => `<li>${esc(f.he)}</li>`).join('')}</ul>` : '')
 			+ `<details class="jtool-path" open><summary>שלוש דרכים להשיג, לפי הסעיף</summary><ul class="jtool-conds">${routesList(reg, r)}</ul></details>`;
 	}
-	return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true"><p class="jtool-state ${r.levy === 0 ? 'jtool-state--ok' : 'jtool-state--info'}">${r.levy === 0 ? '✓ פטור' : `${esc(PLAN_LABEL[r.plan])}: ${r.rate[0]}/${r.rate[1]}`}</p>`
+	return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true"><p class="jtool-state ${r.levy === 0 ? 'jtool-state--ok' : 'jtool-state--info'}">${r.levy === 0 ? '✓ פטור' : `${esc(PLAN_LABEL[r.plan])}: ${r.beyond !== null ? 'פטור חלקי' : `${r.rate[0]}/${r.rate[1]}`}`}</p>`
 		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}היטל השבחה ${r.share < 100 ? `על ${r.share}% מ-` : 'על '}${esc(nis(r.betterment))} השבחה</p>`
 		+ `<strong class="jtool-verdict__figure">${ils(r.deferred > 0 ? r.due : r.levy, (r.deferred > 0 ? r.due : r.levy) % 1 ? 2 : 0)}</strong>`
 		+ strip(reg, r)
@@ -154,9 +158,9 @@ export function compareFor(input) { return Object.assign({}, input, { plan: inpu
 export function levyTable(reg) {
 	const rows = [200000, 500000, 800000, 1500000, 3000000].map((v) => {
 		const cells = ['regular', 'pinui', 'mamad'].map((p) => { const r = compute(reg, { mode: 'estimate', betterment: v, share: 100, plan: p, event: 'sale' }); return ils(r.levy, 0); });
-		return `<tr><td data-th="ההשבחה">${ils(v, 0)}</td><td data-th="תוכנית רגילה (1/2)">${cells[0]}</td><td data-th="פינוי ובינוי (1/4)">${cells[1]}</td><td data-th="ממ&quot;ד (פטור)">${cells[2]}</td></tr>`;
+		return `<tr><td data-th="ההשבחה">${ils(v, 0)}</td><td data-th="תוכנית רגילה (1/2)">${cells[0]}</td><td data-th="פינוי ובינוי (1/4)">${cells[1]}</td><td data-th="ממ&quot;ד בשטח שנקבע (פטור)">${cells[2]}</td></tr>`;
 	}).join('');
-	return `<div class="jtool-datawrap"><table class="jtool-datatable"><caption>היטל ההשבחה לפי עליית השווי וסוג התוכנית, מאותו מנוע. פינוי ובינוי: אלא אם הרשות המקומית קבעה אחרת לאזור.</caption><thead><tr><th scope="col">ההשבחה</th><th scope="col">תוכנית רגילה (1/2)</th><th scope="col">פינוי ובינוי (1/4)</th><th scope="col">ממ"ד (פטור)</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+	return `<div class="jtool-datawrap"><table class="jtool-datatable"><caption>היטל ההשבחה לפי עליית השווי וסוג התוכנית, מאותו מנוע. פינוי ובינוי: אלא אם הרשות המקומית קבעה אחרת לאזור. ממ"ד: רק בשטח שנקבע לפי חוק ההתגוננות האזרחית; שטח נוסף משלם מחצית.</caption><thead><tr><th scope="col">ההשבחה</th><th scope="col">תוכנית רגילה (1/2)</th><th scope="col">פינוי ובינוי (1/4)</th><th scope="col">ממ"ד בשטח שנקבע (פטור)</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 export function snapshot(reg) {
@@ -194,6 +198,7 @@ function readForm(root) {
 	return {
 		mode, betterment: parseMoney(val(`#${P}-bet`)), share: num('share'), plan: checked('plan') || 'regular', event: checked('evt') || 'sale',
 		ownHome: Boolean(checked('home')), areaBefore: num('ab'), areaAfter: num('aa'), tamaBeyond: val(`#${P}-tama`).trim() === '' ? '' : parseMoney(val(`#${P}-tama`)),
+		mamadBeyond: val(`#${P}-mamx`).trim() === '' ? '' : parseMoney(val(`#${P}-mamx`)),
 	};
 }
 
@@ -201,13 +206,13 @@ const PL = { regular: 'r', pinui: 'p', seismic: 's', tama38: 't', mamad: 'm' };
 const EV = { sale: 's', permit: 'p', use: 'u' };
 const stateOf = (i) => (i.mode === 'assessment'
 	? encodeState({ k: 'a', l: i.levy, d: i.received, y: i.mine, j: i.kind === 'schedule' ? 's' : '' })
-	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond }));
-const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't'];
+	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond, x: i.mamadBeyond }));
+const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't', 'x'];
 function inputOf(s) {
 	if (s.k === 'a' && s.l) { return { mode: 'assessment', levy: Number(s.l), received: s.d || '', mine: s.y === undefined ? '' : Number(s.y), kind: s.j === 's' ? 'schedule' : 'plan' }; }
 	if (s.k === 'e' && s.b) {
 		const back = (map, v, d) => Object.keys(map).find((k) => map[k] === v) || d;
-		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t) };
+		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t), mamadBeyond: s.x === undefined ? '' : Number(s.x) };
 	}
 	return null;
 }
@@ -232,8 +237,8 @@ export function mount(root, reg) {
 		root.querySelectorAll('.jtool-error').forEach((e) => { e.textContent = ''; });
 		root.querySelectorAll('[aria-invalid]').forEach((e) => e.removeAttribute('aria-invalid'));
 		if (r.ok) { return; }
-		const ids = { betterment: 'bet', share: 'share', tamaBeyond: 'tama', areaBefore: 'ab', areaAfter: 'aa', levy: 'levy', received: 'rcv', mine: 'mine' };
-		const boxes = { betterment: 'bet', tamaBeyond: 'tama' };
+		const ids = { betterment: 'bet', share: 'share', tamaBeyond: 'tama', mamadBeyond: 'mamx', areaBefore: 'ab', areaAfter: 'aa', levy: 'levy', received: 'rcv', mine: 'mine' };
+		const boxes = { betterment: 'bet', tamaBeyond: 'tama', mamadBeyond: 'mamx' };
 		for (const e of r.errors) {
 			const box = root.querySelector(`#${P}-${boxes[e.field] || e.field}-e`);
 			if (box) { box.textContent = e.he; }

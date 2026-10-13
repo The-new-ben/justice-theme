@@ -391,6 +391,16 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(est({ betterment: 800000, share: 50, plan: 'regular' }).levy === 200000, 's.3 + s.11(א): half of a 50% share of 800,000 = 200,000');
 	check(est({ betterment: 800000, plan: 'pinui' }).levy === 200000, 's.3א(א): a quarter in pinui-binui');
 	check(est({ betterment: 800000, plan: 'mamad' }).levy === 0, 's.19(ב)(9): no levy on a protected space');
+	{
+		const m = est({ betterment: 800000, plan: 'mamad', mamadBeyond: 100000 });
+		check(m.levy === 50000 && m.beyond === 100000, 's.19(ב)(9) + s.3: area beyond the protected space pays the regular half (review, PR 124)');
+		check(est({ betterment: 800000, plan: 'mamad' }).flags.some((f) => f.code === 'mamad_area'), 'mamad: the statutory-area limit is always stated');
+		check(est({ betterment: 800000, plan: 'mamad', share: 50, mamadBeyond: 100000 }).levy === 25000, 'mamad beyond: by the owner\'s share');
+		check(!est({ betterment: 800000, plan: 'mamad', mamadBeyond: 900000 }).ok, 'mamad beyond cannot exceed the betterment');
+		check(est({ betterment: 800000, plan: 'tama38', tamaBeyond: 100000 }).flags.some((f) => f.code === 'tama_local'), 's.19(ב2)(1): TAMA 38 beyond 2.5 floors carries the local-reduction warning');
+		check(!est({ betterment: 800000, plan: 'tama38', tamaBeyond: 0 }).flags.some((f) => f.code === 'tama_local'), 'TAMA 38 with nothing beyond: no local warning');
+		check(est({ betterment: 800000, plan: 'seismic' }).flags.some((f) => f.code === 'seismic_local'), 's.19(ב2)(1): seismic plans carry the local-reduction warning');
+	}
 	check(est({ betterment: 800000, plan: 'tama38', tamaBeyond: 100000 }).levy === 25000, 's.19(ב)(10)(א): TAMA 38 exempt except a quarter beyond 2.5 floors');
 	const home = est({ betterment: 600000, plan: 'regular', event: 'permit', ownHome: true, areaBefore: 100, areaAfter: 160 });
 	check(home.levy === 300000 && home.due === 100000 && home.deferred === 200000, 's.19(ג)(1): 100 -> 160 m2, only the 20 m2 above 140 pays now (1/3 of 300,000)');

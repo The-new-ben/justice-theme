@@ -186,9 +186,11 @@ function isStale(checkedOn, refreshDays, now = new Date()) {
  * and Building Law (התוספת השלישית לחוק התכנון והבניה, התשכ"ה-1965), read in the consolidated text:
  *  - s.3: the levy is half the betterment; s.3א(א): a quarter in an urban-renewal (pinui-binui) plan for
  *    housing, unless the local authority set half, a quarter or none for the area (s.3א(ב)).
- *  - s.19(ב)(9): no levy on a protected space (mamad) within the area the civil-defence law sets;
+ *  - s.19(ב)(9): no levy on a protected space (mamad) within the area the civil-defence law sets; any other
+ *    area in the same permit pays the regular half (s.3), so the tool takes that part separately;
  *    s.19(ב)(10)(א): no levy on a TAMA 38 permit, but a quarter on the part beyond 2.5 extended typical floors;
- *    s.19(ב)(10א)(א): a quarter in a seismic-resilience plan.
+ *    s.19(ב)(10א)(א): a quarter in a seismic-resilience plan. s.19(ב2)(1): for both quarters, the local
+ *    authority may set no levy or an eighth, so the result carries that warning.
  *  - s.7(א): paid no later than the realisation (a permit, a sale, a use); s.7(ב): partial realisation pays pro
  *    rata; s.11(א): co-owners pay by their shares.
  *  - s.19(ג)(1): building or extending a home for the holder or a relative is not a realisation if the home
@@ -227,6 +229,7 @@ const r2 = (n) => Math.round(n * 100) / 100;
  * Mode "estimate" ({ mode: 'estimate', betterment, share, plan, event, ownHome, areaAfter, areaBefore, tamaBeyond })
  *   betterment: the rise in value from the plan (the appraiser's "after" minus "before"), in NIS.
  *   tamaBeyond: TAMA 38 only, the part of the betterment that comes from area beyond 2.5 extended floors.
+ *   mamadBeyond: mamad only, the part of the betterment that comes from area beyond the exempt protected space.
  * Mode "assessment" ({ mode: 'assessment', levy, received, mine, kind: 'plan'|'schedule' })
  *   levy: the levy in the committee's assessment; received: the day it reached you; mine: your appraiser's levy.
  */
@@ -267,22 +270,33 @@ function compute(registry, input) {
 	if (ownHome && !(areaBefore >= 0 && areaBefore < areaAfter)) { errors.push({ field: 'areaBefore', he: 'שטח הדירה לפני הבנייה צריך להיות קטן מהשטח אחריה' }); }
 	const tamaBeyond = input.tamaBeyond === '' || input.tamaBeyond === undefined || input.tamaBeyond === null ? 0 : Number(input.tamaBeyond);
 	if (plan === 'tama38' && !(tamaBeyond >= 0 && tamaBeyond <= betterment)) { errors.push({ field: 'tamaBeyond', he: 'החלק שמעבר ל-2.5 קומות לא יכול לעלות על כל ההשבחה' }); }
+	const mamadBeyond = input.mamadBeyond === '' || input.mamadBeyond === undefined || input.mamadBeyond === null ? 0 : Number(input.mamadBeyond);
+	if (plan === 'mamad' && !(mamadBeyond >= 0 && mamadBeyond <= betterment)) { errors.push({ field: 'mamadBeyond', he: 'החלק שמקורו בשטח נוסף לא יכול לעלות על כל ההשבחה' }); }
 	if (errors.length) { return { ok: false, errors }; }
 
 	const yours = r2(betterment * share / 100);
 	const R = b.rates[plan];
 	let levyFull;
+	let beyond = null;
 	const lines = [];
 	if (share < 100) { lines.push({ code: 'share', he: `החלק שלכם: ${share}% מההשבחה`, section: b.partners_section, value: yours }); }
 	if (plan === 'tama38') {
-		const beyond = r2(tamaBeyond * share / 100);
+		beyond = r2(tamaBeyond * share / 100);
 		levyFull = r2(beyond * R.beyond_rate[0] / R.beyond_rate[1]);
 		lines.push({ code: 'tama', he: 'היתר לפי תמ"א 38: פטור, חוץ מרבע ההשבחה שמקורה בשטח שמעבר ל-2.5 קומות טיפוסיות מורחבות', section: R.section, value: levyFull });
+		if (beyond > 0 && R.local_he) { flags.push({ code: 'tama_local', he: R.local_he }); }
+	} else if (plan === 'mamad') {
+		beyond = r2(mamadBeyond * share / 100);
+		levyFull = r2(beyond * R.beyond_rate[0] / R.beyond_rate[1]);
+		lines.push({ code: 'mamad', he: 'ממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית: פטור', section: R.section, value: 0 });
+		if (beyond > 0) { lines.push({ code: 'mamad_beyond', he: `השבחה משטח נוסף (${beyond.toLocaleString('en-US')} ₪): ההיטל הרגיל, ${R.beyond_rate[0]}/${R.beyond_rate[1]}`, section: R.beyond_section, value: levyFull }); }
+		flags.push({ code: 'mamad_area', he: R.area_he });
 	} else {
 		levyFull = r2(yours * R.rate[0] / R.rate[1]);
 		lines.push({ code: 'rate', he: `שיעור ההיטל: ${R.rate[0] === 0 ? 'פטור' : `${R.rate[0]}/${R.rate[1]} מההשבחה`}`, section: R.section, value: levyFull });
 	}
 	if (plan === 'pinui') { flags.push({ code: 'pinui_local', he: R.local_he }); }
+	if (plan === 'seismic' && R.local_he) { flags.push({ code: 'seismic_local', he: R.local_he }); }
 
 	// The home-for-the-family deferral (s.19(ג)(1)): up to 140 m2 after the work, no payment at the permit.
 	let deferred = 0;
@@ -299,7 +313,7 @@ function compute(registry, input) {
 	const timing = { sale: 'במכירה, לפני רישום ההעברה', permit: 'כשמקבלים את היתר הבנייה', use: 'כשמתחילים את השימוש שההקלה או השימוש החורג מתירים' }[event];
 	return {
 		ok: true, mode: 'estimate', betterment: r2(betterment), share, yours, plan, event, levy: levyFull, due, deferred, lines, flags, timing,
-		rate: plan === 'tama38' ? R.beyond_rate : R.rate,
+		beyond, rate: R.beyond_rate || R.rate,
 	};
 }
 
@@ -321,7 +335,7 @@ function addYearsIso(iso, n) {
 const TOOL_ID = 'hetel-hashbacha';
 const P = 'jt8';
 
-const EXAMPLE = { mode: 'estimate', betterment: 800000, share: 50, plan: 'regular', event: 'sale', ownHome: false, areaBefore: '', areaAfter: '', tamaBeyond: '' };
+const EXAMPLE = { mode: 'estimate', betterment: 800000, share: 50, plan: 'regular', event: 'sale', ownHome: false, areaBefore: '', areaAfter: '', tamaBeyond: '', mamadBeyond: '' };
 const EXAMPLE_HOME = { mode: 'estimate', betterment: 600000, share: 100, plan: 'regular', event: 'permit', ownHome: true, areaBefore: 100, areaAfter: 160 };
 const EXAMPLE_ASSESSMENT = { mode: 'assessment', levy: 84000, received: '2026-10-01', mine: 52000, kind: 'plan' };
 
@@ -356,6 +370,7 @@ function renderForm(reg, input) {
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-share">החלק שלכם בנכס</label><div class="jtool-input"><input id="${P}-share" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.share ?? 100)}" aria-describedby="${P}-share-h ${P}-share-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-hint" id="${P}-share-h">שותפים משלמים לפי החלק (${esc(b.partners_section)})</p><p class="jtool-error" id="${P}-share-e" role="alert"></p></div></div>`
 		+ `<fieldset class="jtool-field"><legend>מה גרם לעליית השווי</legend><div class="jtool-chips">${PLANS.map((k) => chip('plan', k, PLAN_LABEL[k], (input.plan || 'regular') === k)).join('')}</div></fieldset>`
 		+ `<div data-if-plan="tama38"${input.plan === 'tama38' ? '' : ' hidden'}>${moneyField('tama', 'החלק מההשבחה שמקורו בשטח מעבר ל-2.5 קומות', input.tamaBeyond, 'עליו בלבד היטל של רבע (סעיף 19(ב)(10)(א))', '0 אם אין')}</div>`
+		+ `<div data-if-plan="mamad"${input.plan === 'mamad' ? '' : ' hidden'}>${moneyField('mamx', 'החלק מההשבחה שמקורו בשטח נוסף, מעבר לממ"ד', input.mamadBeyond, 'רק ממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית פטור (סעיף 19(ב)(9)). על שטח נוסף: היטל רגיל של מחצית (סעיף 3)', '0 אם אין')}</div>`
 		+ `<fieldset class="jtool-field"><legend>מתי זה קורה</legend><div class="jtool-chips">${EVENTS.map((k) => chip('evt', k, EVENT_LABEL[k], (input.event || 'sale') === k)).join('')}</div></fieldset>`
 		+ `<div data-if-event="permit"${input.event === 'permit' ? '' : ' hidden'}><div class="jtool-chips">${chip('home', '1', 'בונים או מרחיבים דירה למגורים שלי או של קרוב', input.ownHome, 'checkbox')}</div>`
 		+ `<div class="jtool-row" data-if-home${input.ownHome ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-field"><label class="jtool-label" for="${P}-ab">שטח הדירה היום</label><div class="jtool-input"><input id="${P}-ab" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.areaBefore ?? '')}" aria-describedby="${P}-areaBefore-e"><span class="jtool-input__suffix" aria-hidden="true">מ"ר</span></div><p class="jtool-error" id="${P}-areaBefore-e" role="alert"></p></div>`
@@ -375,7 +390,10 @@ function verdictSentence(reg, r) {
 		return `אפשר להשיג על השומה עד ${isoToHe(r.appealBy)}${r.recheck && !r.schedule ? `, ובהיטל של עד ${money(reg.betterment.recheck_max, 0)} ₪ גם לבקש מהוועדה לבחון מחדש` : ''}.${r.saving ? ` לפי השמאי שלכם, ההפרש: ${nis(r.saving)}.` : ''}`;
 	}
 	if (r.levy === 0) { return `${PLAN_LABEL[r.plan]}: אין היטל השבחה על החלק הזה (${reg.betterment.rates[r.plan].section}).`; }
-	const base = `היטל השבחה של ${nis(r.levy)}: ${r.rate[0]}/${r.rate[1]} מההשבחה ${r.share < 100 ? `שלכם (${r.share}% מ-${nis(r.betterment)})` : `של ${nis(r.betterment)}`}.`;
+	const part = { tama38: 'שמקורו בשטח שמעבר ל-2.5 קומות', mamad: 'שמקורו בשטח נוסף, מעבר לממ"ד' }[r.plan];
+	const base = part && r.beyond !== null
+		? `היטל השבחה של ${nis(r.levy)}: ${r.rate[0]}/${r.rate[1]} מהחלק ${part} (${nis(r.beyond)}). השאר פטור.`
+		: `היטל השבחה של ${nis(r.levy)}: ${r.rate[0]}/${r.rate[1]} מההשבחה ${r.share < 100 ? `שלכם (${r.share}% מ-${nis(r.betterment)})` : `של ${nis(r.betterment)}`}.`;
 	if (r.deferred > 0) { return `${base} ${r.due > 0 ? `עכשיו משלמים ${nis(r.due)}, ו-${nis(r.deferred)} נדחים` : 'בהיתר לא משלמים: הבנייה למגורים שלכם לא נחשבת מימוש'}.`; }
 	return `${base} משלמים ${r.timing}.`;
 }
@@ -405,7 +423,7 @@ function renderResult(reg, r, opts = {}) {
 			+ (r.flags.length ? `<ul class="jtool-flags">${r.flags.map((f) => `<li>${esc(f.he)}</li>`).join('')}</ul>` : '')
 			+ `<details class="jtool-path" open><summary>שלוש דרכים להשיג, לפי הסעיף</summary><ul class="jtool-conds">${routesList(reg, r)}</ul></details>`;
 	}
-	return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true"><p class="jtool-state ${r.levy === 0 ? 'jtool-state--ok' : 'jtool-state--info'}">${r.levy === 0 ? '✓ פטור' : `${esc(PLAN_LABEL[r.plan])}: ${r.rate[0]}/${r.rate[1]}`}</p>`
+	return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true"><p class="jtool-state ${r.levy === 0 ? 'jtool-state--ok' : 'jtool-state--info'}">${r.levy === 0 ? '✓ פטור' : `${esc(PLAN_LABEL[r.plan])}: ${r.beyond !== null ? 'פטור חלקי' : `${r.rate[0]}/${r.rate[1]}`}`}</p>`
 		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}היטל השבחה ${r.share < 100 ? `על ${r.share}% מ-` : 'על '}${esc(nis(r.betterment))} השבחה</p>`
 		+ `<strong class="jtool-verdict__figure">${ils(r.deferred > 0 ? r.due : r.levy, (r.deferred > 0 ? r.due : r.levy) % 1 ? 2 : 0)}</strong>`
 		+ strip(reg, r)
@@ -462,9 +480,9 @@ function compareFor(input) { return Object.assign({}, input, { plan: input.plan 
 function levyTable(reg) {
 	const rows = [200000, 500000, 800000, 1500000, 3000000].map((v) => {
 		const cells = ['regular', 'pinui', 'mamad'].map((p) => { const r = compute(reg, { mode: 'estimate', betterment: v, share: 100, plan: p, event: 'sale' }); return ils(r.levy, 0); });
-		return `<tr><td data-th="ההשבחה">${ils(v, 0)}</td><td data-th="תוכנית רגילה (1/2)">${cells[0]}</td><td data-th="פינוי ובינוי (1/4)">${cells[1]}</td><td data-th="ממ&quot;ד (פטור)">${cells[2]}</td></tr>`;
+		return `<tr><td data-th="ההשבחה">${ils(v, 0)}</td><td data-th="תוכנית רגילה (1/2)">${cells[0]}</td><td data-th="פינוי ובינוי (1/4)">${cells[1]}</td><td data-th="ממ&quot;ד בשטח שנקבע (פטור)">${cells[2]}</td></tr>`;
 	}).join('');
-	return `<div class="jtool-datawrap"><table class="jtool-datatable"><caption>היטל ההשבחה לפי עליית השווי וסוג התוכנית, מאותו מנוע. פינוי ובינוי: אלא אם הרשות המקומית קבעה אחרת לאזור.</caption><thead><tr><th scope="col">ההשבחה</th><th scope="col">תוכנית רגילה (1/2)</th><th scope="col">פינוי ובינוי (1/4)</th><th scope="col">ממ"ד (פטור)</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+	return `<div class="jtool-datawrap"><table class="jtool-datatable"><caption>היטל ההשבחה לפי עליית השווי וסוג התוכנית, מאותו מנוע. פינוי ובינוי: אלא אם הרשות המקומית קבעה אחרת לאזור. ממ"ד: רק בשטח שנקבע לפי חוק ההתגוננות האזרחית; שטח נוסף משלם מחצית.</caption><thead><tr><th scope="col">ההשבחה</th><th scope="col">תוכנית רגילה (1/2)</th><th scope="col">פינוי ובינוי (1/4)</th><th scope="col">ממ"ד בשטח שנקבע (פטור)</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function snapshot(reg) {
@@ -502,6 +520,7 @@ function readForm(root) {
 	return {
 		mode, betterment: parseMoney(val(`#${P}-bet`)), share: num('share'), plan: checked('plan') || 'regular', event: checked('evt') || 'sale',
 		ownHome: Boolean(checked('home')), areaBefore: num('ab'), areaAfter: num('aa'), tamaBeyond: val(`#${P}-tama`).trim() === '' ? '' : parseMoney(val(`#${P}-tama`)),
+		mamadBeyond: val(`#${P}-mamx`).trim() === '' ? '' : parseMoney(val(`#${P}-mamx`)),
 	};
 }
 
@@ -509,13 +528,13 @@ const PL = { regular: 'r', pinui: 'p', seismic: 's', tama38: 't', mamad: 'm' };
 const EV = { sale: 's', permit: 'p', use: 'u' };
 const stateOf = (i) => (i.mode === 'assessment'
 	? encodeState({ k: 'a', l: i.levy, d: i.received, y: i.mine, j: i.kind === 'schedule' ? 's' : '' })
-	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond }));
-const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't'];
+	: encodeState({ k: 'e', b: i.betterment, s: i.share, p: PL[i.plan] || 'r', e: EV[i.event] || 's', h: i.ownHome ? 1 : '', o: i.areaBefore, n: i.areaAfter, t: i.tamaBeyond, x: i.mamadBeyond }));
+const KEYS = ['k', 'l', 'd', 'y', 'j', 'b', 's', 'p', 'e', 'h', 'o', 'n', 't', 'x'];
 function inputOf(s) {
 	if (s.k === 'a' && s.l) { return { mode: 'assessment', levy: Number(s.l), received: s.d || '', mine: s.y === undefined ? '' : Number(s.y), kind: s.j === 's' ? 'schedule' : 'plan' }; }
 	if (s.k === 'e' && s.b) {
 		const back = (map, v, d) => Object.keys(map).find((k) => map[k] === v) || d;
-		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t) };
+		return { mode: 'estimate', betterment: Number(s.b), share: s.s === undefined ? 100 : Number(s.s), plan: back(PL, s.p, 'regular'), event: back(EV, s.e, 'sale'), ownHome: s.h === '1', areaBefore: s.o === undefined ? '' : Number(s.o), areaAfter: s.n === undefined ? '' : Number(s.n), tamaBeyond: s.t === undefined ? '' : Number(s.t), mamadBeyond: s.x === undefined ? '' : Number(s.x) };
 	}
 	return null;
 }
@@ -540,8 +559,8 @@ function mount(root, reg) {
 		root.querySelectorAll('.jtool-error').forEach((e) => { e.textContent = ''; });
 		root.querySelectorAll('[aria-invalid]').forEach((e) => e.removeAttribute('aria-invalid'));
 		if (r.ok) { return; }
-		const ids = { betterment: 'bet', share: 'share', tamaBeyond: 'tama', areaBefore: 'ab', areaAfter: 'aa', levy: 'levy', received: 'rcv', mine: 'mine' };
-		const boxes = { betterment: 'bet', tamaBeyond: 'tama' };
+		const ids = { betterment: 'bet', share: 'share', tamaBeyond: 'tama', mamadBeyond: 'mamx', areaBefore: 'ab', areaAfter: 'aa', levy: 'levy', received: 'rcv', mine: 'mine' };
+		const boxes = { betterment: 'bet', tamaBeyond: 'tama', mamadBeyond: 'mamx' };
 		for (const e of r.errors) {
 			const box = root.querySelector(`#${P}-${boxes[e.field] || e.field}-e`);
 			if (box) { box.textContent = e.he; }

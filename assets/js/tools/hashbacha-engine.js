@@ -5,9 +5,11 @@
  * and Building Law (התוספת השלישית לחוק התכנון והבניה, התשכ"ה-1965), read in the consolidated text:
  *  - s.3: the levy is half the betterment; s.3א(א): a quarter in an urban-renewal (pinui-binui) plan for
  *    housing, unless the local authority set half, a quarter or none for the area (s.3א(ב)).
- *  - s.19(ב)(9): no levy on a protected space (mamad) within the area the civil-defence law sets;
+ *  - s.19(ב)(9): no levy on a protected space (mamad) within the area the civil-defence law sets; any other
+ *    area in the same permit pays the regular half (s.3), so the tool takes that part separately;
  *    s.19(ב)(10)(א): no levy on a TAMA 38 permit, but a quarter on the part beyond 2.5 extended typical floors;
- *    s.19(ב)(10א)(א): a quarter in a seismic-resilience plan.
+ *    s.19(ב)(10א)(א): a quarter in a seismic-resilience plan. s.19(ב2)(1): for both quarters, the local
+ *    authority may set no levy or an eighth, so the result carries that warning.
  *  - s.7(א): paid no later than the realisation (a permit, a sale, a use); s.7(ב): partial realisation pays pro
  *    rata; s.11(א): co-owners pay by their shares.
  *  - s.19(ג)(1): building or extending a home for the holder or a relative is not a realisation if the home
@@ -46,6 +48,7 @@ const r2 = (n) => Math.round(n * 100) / 100;
  * Mode "estimate" ({ mode: 'estimate', betterment, share, plan, event, ownHome, areaAfter, areaBefore, tamaBeyond })
  *   betterment: the rise in value from the plan (the appraiser's "after" minus "before"), in NIS.
  *   tamaBeyond: TAMA 38 only, the part of the betterment that comes from area beyond 2.5 extended floors.
+ *   mamadBeyond: mamad only, the part of the betterment that comes from area beyond the exempt protected space.
  * Mode "assessment" ({ mode: 'assessment', levy, received, mine, kind: 'plan'|'schedule' })
  *   levy: the levy in the committee's assessment; received: the day it reached you; mine: your appraiser's levy.
  */
@@ -86,22 +89,33 @@ export function compute(registry, input) {
 	if (ownHome && !(areaBefore >= 0 && areaBefore < areaAfter)) { errors.push({ field: 'areaBefore', he: 'שטח הדירה לפני הבנייה צריך להיות קטן מהשטח אחריה' }); }
 	const tamaBeyond = input.tamaBeyond === '' || input.tamaBeyond === undefined || input.tamaBeyond === null ? 0 : Number(input.tamaBeyond);
 	if (plan === 'tama38' && !(tamaBeyond >= 0 && tamaBeyond <= betterment)) { errors.push({ field: 'tamaBeyond', he: 'החלק שמעבר ל-2.5 קומות לא יכול לעלות על כל ההשבחה' }); }
+	const mamadBeyond = input.mamadBeyond === '' || input.mamadBeyond === undefined || input.mamadBeyond === null ? 0 : Number(input.mamadBeyond);
+	if (plan === 'mamad' && !(mamadBeyond >= 0 && mamadBeyond <= betterment)) { errors.push({ field: 'mamadBeyond', he: 'החלק שמקורו בשטח נוסף לא יכול לעלות על כל ההשבחה' }); }
 	if (errors.length) { return { ok: false, errors }; }
 
 	const yours = r2(betterment * share / 100);
 	const R = b.rates[plan];
 	let levyFull;
+	let beyond = null;
 	const lines = [];
 	if (share < 100) { lines.push({ code: 'share', he: `החלק שלכם: ${share}% מההשבחה`, section: b.partners_section, value: yours }); }
 	if (plan === 'tama38') {
-		const beyond = r2(tamaBeyond * share / 100);
+		beyond = r2(tamaBeyond * share / 100);
 		levyFull = r2(beyond * R.beyond_rate[0] / R.beyond_rate[1]);
 		lines.push({ code: 'tama', he: 'היתר לפי תמ"א 38: פטור, חוץ מרבע ההשבחה שמקורה בשטח שמעבר ל-2.5 קומות טיפוסיות מורחבות', section: R.section, value: levyFull });
+		if (beyond > 0 && R.local_he) { flags.push({ code: 'tama_local', he: R.local_he }); }
+	} else if (plan === 'mamad') {
+		beyond = r2(mamadBeyond * share / 100);
+		levyFull = r2(beyond * R.beyond_rate[0] / R.beyond_rate[1]);
+		lines.push({ code: 'mamad', he: 'ממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית: פטור', section: R.section, value: 0 });
+		if (beyond > 0) { lines.push({ code: 'mamad_beyond', he: `השבחה משטח נוסף (${beyond.toLocaleString('en-US')} ₪): ההיטל הרגיל, ${R.beyond_rate[0]}/${R.beyond_rate[1]}`, section: R.beyond_section, value: levyFull }); }
+		flags.push({ code: 'mamad_area', he: R.area_he });
 	} else {
 		levyFull = r2(yours * R.rate[0] / R.rate[1]);
 		lines.push({ code: 'rate', he: `שיעור ההיטל: ${R.rate[0] === 0 ? 'פטור' : `${R.rate[0]}/${R.rate[1]} מההשבחה`}`, section: R.section, value: levyFull });
 	}
 	if (plan === 'pinui') { flags.push({ code: 'pinui_local', he: R.local_he }); }
+	if (plan === 'seismic' && R.local_he) { flags.push({ code: 'seismic_local', he: R.local_he }); }
 
 	// The home-for-the-family deferral (s.19(ג)(1)): up to 140 m2 after the work, no payment at the permit.
 	let deferred = 0;
@@ -118,7 +132,7 @@ export function compute(registry, input) {
 	const timing = { sale: 'במכירה, לפני רישום ההעברה', permit: 'כשמקבלים את היתר הבנייה', use: 'כשמתחילים את השימוש שההקלה או השימוש החורג מתירים' }[event];
 	return {
 		ok: true, mode: 'estimate', betterment: r2(betterment), share, yours, plan, event, levy: levyFull, due, deferred, lines, flags, timing,
-		rate: plan === 'tama38' ? R.beyond_rate : R.rate,
+		beyond, rate: R.beyond_rate || R.rate,
 	};
 }
 

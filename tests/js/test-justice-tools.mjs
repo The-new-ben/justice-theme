@@ -421,6 +421,8 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		check(v24.vat === 17 && v24.lawyer === 23400 && v26.vat === 18 && v26.lawyer === 23600, 'VAT by the purchase day: 17% before 1.1.2025, 18% after (review, PR 124)');
 		const vb = RQ.compute(reg, { price: 2000000, date: '2024-06-01', track: 'single', lawyerPct: 1, brokerPct: 1, lawyerBefore: true, brokerBefore: false });
 		check(vb.vatLawyer === 17 && vb.vatBroker === 18 && vb.lawyer === 23400 && vb.broker === 23600, 'VAT per fee at its own tax point (review, PR 124)');
+		check(RQ.offRestDays('2026-09-21') === '2026-09-22' && RQ.offRestDays('2026-09-12') === '2026-09-14' && HB.offRestDays('2026-11-21') === '2026-11-22', 'rest days (s.18א): Yom Kippur 21.9.2026 -> 22.9; Rosh Hashana on a Saturday 12.9 -> 14.9; a Saturday appeal deadline -> Sunday (review, PR 124)');
+		check(HB.compute(reg, { mode: 'assessment', levy: 84000, received: '2026-10-07', kind: 'plan' }).appealBy === '2026-11-22', 's.14(א) 45 days ending on Saturday 21.11.2026 -> 22.11 (review, PR 124)');
 		check(RQ.offSaturday('2027-06-05') === '2027-06-06' && RQ.offSaturday('2027-06-06') === '2027-06-06', 'Interpretation Law s.10(ג): a Saturday deadline moves to Sunday (review, PR 124)');
 		check(RQ.compute(reg, { price: 2000000, date: '2024-06-01', track: 'single', lawyerPct: 1, feesBefore: false }).vat === 18, 'VAT at the fee tax point: fees paid after 1.1.2025 on a 2024 purchase -> 18% (review, PR 124)');
 		check(/151\(ג\)\(2\)/.test(reg.betterment.rates.mamad.area_he), 's.19(ב)(9)(ג): the mamad rule names the Amendment 163 additional area');

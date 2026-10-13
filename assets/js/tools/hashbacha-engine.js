@@ -44,6 +44,30 @@ export function parseDate(text) {
 	return isoOf(t);
 }
 
+/**
+ * Statutory rest days (Law and Administration Ordinance s.18א(א)): Saturday, 1-2 Tishri (Rosh Hashana), 10 Tishri
+ * (Yom Kippur), 15 and 22 Tishri (Sukkot, Shemini Atzeret), 15 and 21 Nisan (Pesach), 6 Sivan (Shavuot).
+ * Interpretation Law s.10(ג): a period whose last days are rest days ends on the next day that is not one.
+ * Hebrew dates from Intl (ca-hebrew); without it, Saturday only. Independence Day is not modelled.
+ */
+const REST_HEBREW = { Tishri: [1, 2, 10, 15, 22], Nisan: [15, 21], Sivan: [6] };
+let hebrewFmt = null;
+try { hebrewFmt = new Intl.DateTimeFormat('en-u-ca-hebrew', { timeZone: 'UTC', month: 'long', day: 'numeric' }); } catch (e) { hebrewFmt = null; }
+export function isRestDay(iso) {
+	const d = new Date(`${iso}T00:00:00Z`);
+	if (d.getUTCDay() === 6) { return true; }
+	if (!hebrewFmt) { return false; }
+	const parts = hebrewFmt.formatToParts(d);
+	const month = (parts.find((p) => p.type === 'month') || {}).value;
+	const day = Number((parts.find((p) => p.type === 'day') || {}).value);
+	return Boolean(REST_HEBREW[month] && REST_HEBREW[month].includes(day));
+}
+export function offRestDays(iso) {
+	let out = iso;
+	for (let i = 0; i < 7 && isRestDay(out); i += 1) { out = addDays(out, 1); }
+	return out;
+}
+
 export const PLANS = ['regular', 'pinui', 'seismic', 'tama38', 'mamad'];
 export const EVENTS = ['sale', 'permit', 'use'];
 const r2 = (n) => Math.round(n * 100) / 100;
@@ -79,7 +103,8 @@ export function compute(registry, input) {
 		if (mine !== null && !(mine >= 0 && mine < 1e10)) { errors.push({ field: 'mine', he: 'ההיטל לפי השמאי שלכם: מספר 0 או יותר' }); }
 		if (errors.length) { return { ok: false, errors }; }
 		const schedule = input.kind === 'schedule';
-		const appealBy = schedule ? addYearsIso(received, b.schedule_appeal_years) : addDays(received, b.appeal_days);
+		// Interpretation Law s.10(ג): a period ending on a rest day ends on the next day (review, PR 124).
+		const appealBy = offRestDays(schedule ? addYearsIso(received, b.schedule_appeal_years) : addDays(received, b.appeal_days));
 		const recheck = levy <= b.recheck_max;
 		const saving = mine === null ? null : r2(Math.max(0, levy - mine));
 		const routes = [];

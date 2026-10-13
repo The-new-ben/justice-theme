@@ -25,27 +25,34 @@
  *  - Lawyers: only the Israel Bar's recommended minimum tariff (2000 rules, current to 5.1.2026), which is a
  *    non-binding recommendation (rule 2) before VAT (rule 1). The tool shows it as a reference, never as a price.
  */
-import { addDays, addCountedDays, isFamilyPause, parseDate } from './dates.js';
+import { addDays, addCountedDays, isFamilyPause, offRestDays, parseDate } from './dates.js';
 
 export const ROUTES = ['agree', 'mediate', 'court'];
 const r2 = (n) => Math.round(n * 100) / 100;
 
 /**
  * The statutory clock of a dispute-settlement request, from the day it is filed. The 45/60/75 days do not count the
- * holiday days of s.6א(א)(1); the 15 days to file a claim (s.4) count them, unless the last day falls on one (s.6א(ג)).
+ * holiday days of s.6א(א)(1); the 15 days of s.4 count them, unless the last day falls on one (s.6א(ג)). Then the
+ * Interpretation Law s.10(ג): rest days count in a period unless they are its last days, so an end that falls on a
+ * Saturday or a holiday moves to the next working day, and the 15 days run from the moved end of the stay.
  */
 export function clock(dc, start, extended) {
 	const d = dc.disputes;
 	const meetings = d.meetings_days + (extended ? d.extend_days : 0);
 	const stay = extended ? d.stay_days_extended : d.stay_days;
-	const stayEnds = addCountedDays(start, stay, isFamilyPause);
+	const meetingsRaw = addCountedDays(start, meetings, isFamilyPause);
+	const stayRaw = addCountedDays(start, stay, isFamilyPause);
+	const meetingsBy = offRestDays(meetingsRaw);
+	const stayEnds = offRestDays(stayRaw);
 	// s.6א(ג): the holiday days count in the 15 days, unless the last day falls on one; then they do not count (s.6א(א)).
-	let claimsBy = addDays(stayEnds, d.claim_days);
-	if (isFamilyPause(claimsBy)) { claimsBy = addCountedDays(stayEnds, d.claim_days, isFamilyPause); }
-	const meetingsBy = addCountedDays(start, meetings, isFamilyPause);
+	let claimsRaw = addDays(stayEnds, d.claim_days);
+	if (isFamilyPause(claimsRaw)) { claimsRaw = addCountedDays(stayEnds, d.claim_days, isFamilyPause); }
+	const claimsBy = offRestDays(claimsRaw);
 	return {
 		start, extended: Boolean(extended), meetingsBy, stayEnds, claimsBy,
-		paused: meetingsBy !== addDays(start, meetings) || stayEnds !== addDays(start, stay),
+		paused: meetingsRaw !== addDays(start, meetings) || stayRaw !== addDays(start, stay),
+		// Ends moved off a rest day (review, PR 126).
+		rolled: { meetings: meetingsBy !== meetingsRaw, stay: stayEnds !== stayRaw, claims: claimsBy !== claimsRaw },
 		meetingsDays: meetings, stayDays: stay, claimDays: d.claim_days, meetings: d.meetings_max,
 	};
 }

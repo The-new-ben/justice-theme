@@ -148,10 +148,12 @@ export function deadlines(reg, r) {
 	const d = reg.divorce_cost.disputes;
 	const c = r.clock;
 	if (!c) { return []; }
+	// An end moved off a Saturday or a holiday says so, with the rule (Interpretation Law s.10(ג); review, PR 126).
+	const moved = (k) => (c.rolled && c.rolled[k] ? `; היום האחרון חל ביום מנוחה ועבר ליום שאחריו (${d.interpretation_he})` : '');
 	return [
-		{ date: c.meetingsBy, what: `עד ${d.meetings_max} פגישות מידע, היכרות ותיאום ביחידת הסיוע, בלי תשלום${c.extended ? ' (אחרי הארכה של 15 ימים)' : ''}`, rule: `${d.sections.meetings}, ${d.sections.meetings_days}` },
-		{ date: c.stayEnds, what: `סוף עיכוב ההליכים: עד אז אי אפשר להגיש תביעה (${c.stayDays} ימים)`, rule: d.sections.stay },
-		{ date: c.claimsBy, what: `סוף ${c.claimDays} הימים שבהם רק מי שהגיש את הבקשה ליישוב סכסוך רשאי לתבוע, בכל ערכאה מוסמכת; אחר כך גם הצד השני רשאי לתבוע בעניינים שלא נתבעו`, rule: d.sections.claims },
+		{ date: c.meetingsBy, what: `עד ${d.meetings_max} פגישות מידע, היכרות ותיאום ביחידת הסיוע, בלי תשלום${c.extended ? ' (אחרי הארכה של 15 ימים)' : ''}${moved('meetings')}`, rule: `${d.sections.meetings}, ${d.sections.meetings_days}` },
+		{ date: c.stayEnds, what: `סוף עיכוב ההליכים: עד אז אי אפשר להגיש תביעה (${c.stayDays} ימים)${moved('stay')}`, rule: d.sections.stay },
+		{ date: c.claimsBy, what: `סוף ${c.claimDays} הימים שבהם רק מי שהגיש את הבקשה ליישוב סכסוך רשאי לתבוע, בכל ערכאה מוסמכת; אחר כך גם הצד השני רשאי לתבוע בעניינים שלא נתבעו${moved('claims')}`, rule: d.sections.claims },
 	];
 }
 

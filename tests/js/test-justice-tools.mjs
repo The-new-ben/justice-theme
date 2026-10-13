@@ -627,7 +627,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const clk = GE.compute(reg, { route: 'court', start: '2026-11-01' }).clock;
 	check(clk.meetingsBy === '2026-12-16' && clk.stayEnds === '2026-12-31' && clk.claimsBy === '2027-01-15', 'the clock from 1.11.2026: meetings by 16.12.2026, stay to 31.12.2026, claims by 15.1.2027');
 	const ext = GE.compute(reg, { route: 'mediate', start: '2026-11-01', extended: true }).clock;
-	check(ext.meetingsBy === '2026-12-31' && ext.stayEnds === '2027-01-15' && ext.claimsBy === '2027-01-30', 'extended meetings: 60 days, a stay of 75, claims 15 days after');
+	check(ext.meetingsBy === '2026-12-31' && ext.stayEnds === '2027-01-15' && ext.claimsBy === '2027-01-31' && ext.rolled.claims, 'extended meetings: 60 days, a stay of 75; the 15 days would end on Saturday 30.1.2027, so they run to Sunday 31.1 (Interpretation Law s.10(ג); review, PR 126)');
 	const bal = GE.compute(reg, { route: 'agree', balance: { a: { assets: 1200000, excluded: 300000, debts: 100000 }, b: { assets: 500000, excluded: 0, debts: 0 } } });
 	check(bal.balance.a.net === 800000 && bal.balance.b.net === 500000 && bal.balance.payer === 'a' && bal.balance.pay === 150000, 'balance of resources: (800,000 - 500,000) / 2 = 150,000 from A to B (ss.5, 6(א)-(ב))');
 	check(GE.compute(reg, { route: 'agree', balance: { a: { assets: 100, excluded: 0 }, b: { assets: 100 } } }).balance.payer === null, 'equal nets: no payment');
@@ -661,9 +661,9 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const autumn = GE.clock(dc, '2026-09-01', false);
 	check(autumn.meetingsBy === '2026-10-28' && autumn.stayEnds === '2026-11-12' && autumn.claimsBy === '2026-11-27' && autumn.paused, 'a request on 1.9.2026: 12 holiday days are not counted -> meetings by 28.10, stay to 12.11, claims by 27.11.2026');
 	const spring = GE.clock(dc, '2027-03-20', false);
-	check(spring.meetingsBy === '2027-05-12' && spring.stayEnds === '2027-05-27', 'a request on 20.3.2027: the 8 Pesach days are not counted');
+	check(spring.meetingsBy === '2027-05-13' && spring.rolled.meetings && spring.stayEnds === '2027-05-27', 'a request on 20.3.2027: the 8 Pesach days are not counted; the meetings period would end on Independence Day 12.5.2027, so it runs to 13.5 (s.10(ג))');
 	const lastDay = GE.clock(dc, '2026-07-15', false);
-	check(lastDay.stayEnds === '2026-09-15' && lastDay.claimsBy === '2026-10-10', 'request on 15.7.2026: the stay ends 15.9 (Rosh Hashana not counted); 15 days would end on 30.9 (19 Tishri), so the holidays are not counted and the claims run to 10.10.2026 (s.6א(ג))');
+	check(lastDay.stayEnds === '2026-09-15' && lastDay.claimsBy === '2026-10-11', 'request on 15.7.2026: the stay ends 15.9 (Rosh Hashana not counted); 15 days would end on 30.9 (19 Tishri), so the holidays are not counted (s.6א(ג)) and the window runs to Saturday 10.10, moved to Sunday 11.10.2026 (s.10(ג))');
 	check(GE.compute(reg, { route: 'court', start: '2026-09-01' }).flags.some((f) => f.code === 'pause'), 'a clock that crosses the holidays carries the s.6א flag');
 	const abroad = GE.compute(reg, { route: 'court', forum: 'rabbinical', abroad: true });
 	check(abroad.ok && abroad.clock === null && !abroad.lines.some((l) => l.key === 'request') && abroad.flags.some((f) => f.code === 'abroad') && abroad.lines.some((l) => l.key === 'get_request' && l.amount === 457), 'a spouse domiciled abroad: no dispute-settlement request or clock (s.4א(1)); the get request 457 (item 4(3)(ב))');
@@ -736,6 +736,20 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(rows[0].date === '' && rows[0].what.includes('מגיל 18') && !rows[0].what.includes('העיזבון'), 'a minor without a birth date gets the minor no-date row, not the death row (review, PR 126)');
 	const dead = TE.compute(reg, { death: true, accident: '2025-01-01' });
 	check(TEUI.deadlines(reg, dead)[0].what.includes('העיזבון'), 'a death claim keeps the estate and dependants row');
+}
+
+/* ---------- Review fixes (PR 126, Codex pass 8) ---------- */
+{
+	const jan = GE.clock(reg.divorce_cost, '2026-01-05', false);
+	check(jan.claimsBy === '2026-03-22' && jan.rolled.claims, 'a request on 5.1.2026: the 15 days would end on Saturday 21.3.2026, so they run to Sunday 22.3 (Interpretation Law s.10(ג); review, PR 126)');
+	for (const s of ['2026-01-05', '2026-11-01', '2027-03-20', '2026-07-15', '2026-09-01']) {
+		for (const ext of [false, true]) {
+			const c = GE.clock(reg.divorce_cost, s, ext);
+			check(![c.meetingsBy, c.stayEnds, c.claimsBy].some((x) => DT.isRestDay(x)), `no clock end on a rest day (${s}${ext ? ', extended' : ''})`);
+		}
+	}
+	const rows = GEUI.deadlines(reg, { clock: GE.clock(reg.divorce_cost, '2026-01-05', false) });
+	check(rows[2].what.includes('עבר ליום שאחריו') && rows[2].what.includes('סעיף 10(ג)'), 'the deadlines table says when an end moved off a rest day');
 }
 
 if (failures) {

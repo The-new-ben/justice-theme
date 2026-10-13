@@ -707,6 +707,10 @@ def build_divorce_cost(checked_on: str) -> dict:
                          "claims": "סעיף 4", "exceptions": "סעיף 2, ההגדרות \"תובענה\" ו\"תובענה בעניין של סכסוך משפחתי\""},
             "free_he": "פגישות המהו\"ת אינן כרוכות בתשלום (תקנות 2016, טופס 2)",
             "permanent_he": "החוק קבוע מאז תיקון מס' 3 (8.12.2020): סעיף התפוגה בוטל",
+            # Interpretation Law s.10(ג) (Nevo 4667, current to 18.9.2023): rest days count in a period unless they are
+            # its last days, so a last day on a rest day moves to the next day.
+            "interpretation_he": "חוק הפרשנות, סעיף 10(ג)",
+            "interpretation_url": "https://www.nevo.co.il/law_html/law00/4667.htm",
         },
         "property_law": {
             "law_he": "חוק יחסי ממון בין בני זוג, התשל\"ג-1973", "url": prop, "from": "1974-01-01",

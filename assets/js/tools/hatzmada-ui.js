@@ -8,7 +8,7 @@
 import { compute, heMonth } from './hatzmada-engine.js';
 import {
 	esc, ils, num, pct, money, amount, parseMoney, isoToHe, encodeState, decodeState, decodeList, csv,
-	track, download, copyText, toast, shareUrl, whatsappUrl, store, stickyBar, isStale,
+	track, download, copyText, toast, shareUrl, whatsappUrl, store, stickyBar, isStale, ilToday,
 } from './instrument.js';
 
 export const TOOL_ID = 'hatzmada';
@@ -253,18 +253,12 @@ function inputFromState(s) {
 	};
 }
 
-function todayIso() {
-	const d = new Date();
-	return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-}
-
 export function mount(root, reg) {
 	const form = root.querySelector('[data-jtool-form]');
 	const result = root.querySelector('[data-jtool-result]');
 	const details = root.querySelector('[data-jtool-details]');
 	const sticky = root.querySelector('[data-jtool-sticky-figure]');
 	let compareMode = otherMode(EXAMPLE.mode);
-	let last = null;
 	let started = false;
 	let timer = null;
 	track('tool_view', { tool_id: TOOL_ID });
@@ -295,7 +289,6 @@ export function mount(root, reg) {
 		result.innerHTML = renderResult(reg, r, input);
 		details.innerHTML = renderDetails(reg, r, c, compareMode);
 		if (sticky) { sticky.innerHTML = r.ok ? ils(r.total) : '—'; }
-		last = { r, input };
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: r.flags.length ? 'attention' : r.mode }); }
 		if (!r.ok && r.outOfScope) { track('tool_out_of_scope', { tool_id: TOOL_ID }); }
 	};
@@ -338,7 +331,7 @@ export function mount(root, reg) {
 			form.querySelector('[data-add]').focus();
 			run(readForm(root));
 		} else if (t.hasAttribute('data-today')) {
-			form.querySelector(`#${P}-to`).value = isoToHe(todayIso());
+			form.querySelector(`#${P}-to`).value = isoToHe(ilToday());
 			schedule();
 		}
 	});
@@ -352,8 +345,11 @@ export function mount(root, reg) {
 		}
 	});
 
+	// Wave 4 (HAD-502): a click while the 160 ms debounce is pending runs it now, so the screen and the export agree,
+	// and every action computes what the form holds now, never the last debounced result.
+	const flush = () => { if (timer) { clearTimeout(timer); timer = null; run(readForm(root), { silent: true }); } };
 	const csvText = () => {
-		const r = last ? last.r : compute(reg, readForm(root));
+		const r = compute(reg, readForm(root));
 		if (!r.ok) { return null; }
 		const head = ['מתאריך', 'עד תאריך', 'ימים', 'יתרה בפתיחה', 'מדד', 'הפרשי הצמדה', 'שיעור שנתי', 'ריבית', 'אירוע', 'יתרה בסגירה'];
 		const body = tableRows(r).map((t) => [t.from, t.to, t.days, t.open.toFixed(2), t.index, t.linkage.toFixed(2), t.rate === null ? '' : `${t.rate}%`, t.interest.toFixed(2), t.event, t.close.toFixed(2)]);
@@ -366,8 +362,9 @@ export function mount(root, reg) {
 		const b = ev.target.closest('[data-act]');
 		if (!b) { return; }
 		const act = b.getAttribute('data-act');
+		flush();
 		const input = readForm(root);
-		const r = last ? last.r : compute(reg, input);
+		const r = compute(reg, input);
 		const link = shareUrl(stateFromInput(input));
 		if (act === 'csv') {
 			const text = csvText();

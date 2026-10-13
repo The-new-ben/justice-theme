@@ -38,6 +38,16 @@ function parseMoney(text) {
 	return Number(raw) * mult;
 }
 
+/** Today's civil date in Israel (YYYY-MM-DD): never the UTC date or the device's own zone (wave 3 review, PR 124;
+ * shared by every tool from wave 4, HAD-502). */
+function ilToday(now = new Date()) {
+	try {
+		return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jerusalem', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+	} catch (e) {
+		return now.toISOString().slice(0, 10);
+	}
+}
+
 function isoToHe(iso) {
 	if (!iso) { return ''; }
 	const [y, m, d] = iso.split('-').map(Number);
@@ -601,7 +611,7 @@ function mount(root, reg) {
 	const result = root.querySelector('[data-jtool-result]');
 	const details = root.querySelector('[data-jtool-details]');
 	const sticky = root.querySelector('[data-jtool-sticky-figure]');
-	const today = new Date().toISOString().slice(0, 10);
+	const today = ilToday(); // the Israel civil date, not UTC (HAD-502)
 	const sc = reg.small_claims;
 	const saveKey = `jtool-${TOOL_ID}-${mode}`;
 	let last = null;
@@ -670,8 +680,10 @@ function mount(root, reg) {
 		const b = ev.target.closest('[data-act]');
 		if (!b) { return; }
 		const act = b.getAttribute('data-act');
+		// Wave 4 (HAD-502): run a pending debounce now and act on a fresh compute, never the last debounced result.
+		if (timer) { clearTimeout(timer); timer = null; run(readForm(root, mode), { silent: true }); }
 		const input = readForm(root, mode);
-		const r = last ? last.r : compute(reg, Object.assign({}, input, { on: today }));
+		const r = compute(reg, Object.assign({}, input, { on: today }));
 		const link = shareUrl(stateOf(input));
 		if (act === 'ics' && r.ok && r.dates && r.dates.length) {
 			const events = r.dates.filter((d) => !d.past).map((d) => ({ date: d.date, summary: `תביעה קטנה: ${DATE_TEXT[d.rule](reg)[0]}` }));

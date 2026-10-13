@@ -310,9 +310,16 @@ function justice_tools_sc_ceiling( array $sc ): array {
 	return $rows ? $rows[ count( $rows ) - 1 ] : array( 'from' => '', 'amount' => 0 );
 }
 
-/** Today's date (Y-m-d). Tests pin it with the JUSTICE_TOOLS_TODAY constant. */
+/** Today's civil date in Israel (Y-m-d), not the UTC date (HAD-502). Tests pin it with the JUSTICE_TOOLS_TODAY constant. */
 function justice_tools_today(): string {
-	return defined( 'JUSTICE_TOOLS_TODAY' ) ? (string) JUSTICE_TOOLS_TODAY : gmdate( 'Y-m-d' );
+	if ( defined( 'JUSTICE_TOOLS_TODAY' ) ) {
+		return (string) JUSTICE_TOOLS_TODAY;
+	}
+	try {
+		return ( new DateTimeImmutable( 'now', new DateTimeZone( 'Asia/Jerusalem' ) ) )->format( 'Y-m-d' );
+	} catch ( Exception $e ) {
+		return gmdate( 'Y-m-d' );
+	}
 }
 
 /** True once the registry's next_update date has come with no newer ceiling row (the ceiling is re-indexed each 1 January). */

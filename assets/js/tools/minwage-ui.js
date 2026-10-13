@@ -224,7 +224,6 @@ export function mount(root, reg) {
 	const result = root.querySelector('[data-jtool-result]');
 	const details = root.querySelector('[data-jtool-details]');
 	const sticky = root.querySelector('[data-jtool-sticky-figure]');
-	let last = null;
 	let started = false;
 	let timer = null;
 	track('tool_view', { tool_id: TOOL_ID });
@@ -253,7 +252,6 @@ export function mount(root, reg) {
 		result.innerHTML = renderResult(reg, r, input);
 		details.innerHTML = renderDetails(reg, r, input, c, cmp ? cmp.label : null);
 		if (sticky) { sticky.innerHTML = r.ok ? ils(r.gapTotal) : '—'; }
-		last = { r, input };
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: r.state === 'ok' ? 'at_or_above' : 'below_minimum' }); }
 		if (!r.ok && r.outOfScope) { track('tool_out_of_scope', { tool_id: TOOL_ID }); }
 	};
@@ -280,8 +278,10 @@ export function mount(root, reg) {
 		const b = ev.target.closest('[data-act]');
 		if (!b) { return; }
 		const act = b.getAttribute('data-act');
+		// Wave 4 (HAD-502): run a pending debounce now and act on a fresh compute, never the last debounced result.
+		if (timer) { clearTimeout(timer); timer = null; run(readForm(root), { silent: true }); }
 		const input = readForm(root);
-		const r = last ? last.r : compute(reg, input);
+		const r = compute(reg, input);
 		const link = shareUrl(stateOf(input));
 		if (act === 'csv' && r.ok) {
 			const head = ['חודש', 'מינימום לחודש', 'מינימום לשעה', 'בתוקף מ', 'מגיע', 'שולם', 'פער'];

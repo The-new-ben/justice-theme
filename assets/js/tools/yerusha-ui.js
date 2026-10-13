@@ -8,6 +8,7 @@ import { compute, fracText } from './yerusha-engine.js';
 import {
 	esc, ils, money, parseMoney, isoToHe, encodeState, decodeState,
 	track, copyText, toast, shareUrl, whatsappUrl, store, stickyBar, isStale,
+	ilToday,
 } from './instrument.js';
 
 export const TOOL_ID = 'yerusha';
@@ -23,15 +24,6 @@ const SPOUSE = { married: 'נשוי/אה', partner: 'ידועים בציבור',
 function cite(text, href) { return ` <a class="jtool-cite" href="${esc(href)}" target="_blank" rel="noopener">${esc(text)}</a>`; }
 const lawCite = (reg, text) => cite(text, reg.yerusha.law_url);
 const pctText = (h) => `${(Math.round(h.pct * 100) / 100).toLocaleString('en-US', { maximumFractionDigits: 2 })}%`;
-
-/** Today's civil date in Israel (YYYY-MM-DD), not the UTC date (review, PR 124). */
-export function ilToday(now = new Date()) {
-	try {
-		return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jerusalem', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
-	} catch (e) {
-		return now.toISOString().slice(0, 10);
-	}
-}
 
 const pmOf = (i) => (['survivor', 'deceased'].includes(i.partnerMarried) ? i.partnerMarried : i.partnerFree === false ? 'survivor' : 'none');
 

@@ -8,6 +8,7 @@ import { compute, PLANS, EVENTS } from './hashbacha-engine.js';
 import {
 	esc, ils, money, parseMoney, isoToHe, encodeState, decodeState, ics,
 	track, download, copyText, toast, shareUrl, whatsappUrl, store, stickyBar, isStale,
+	ilToday,
 } from './instrument.js';
 
 export const TOOL_ID = 'hetel-hashbacha';
@@ -33,15 +34,6 @@ function toIso(text) {
 	if (!m) { return raw; }
 	let y = +m[3]; if (y < 100) { y += 2000; }
 	return `${y}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
-}
-
-/** Today's civil date in Israel (YYYY-MM-DD), not the UTC date (review, PR 124). */
-export function ilToday(now = new Date()) {
-	try {
-		return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jerusalem', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
-	} catch (e) {
-		return now.toISOString().slice(0, 10);
-	}
 }
 
 /* ---------------- Pure renderers ---------------- */

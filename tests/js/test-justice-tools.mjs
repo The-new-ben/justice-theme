@@ -20,7 +20,7 @@ import * as RQ from '../../assets/js/tools/rechisha-engine.js';
 import * as RQUI from '../../assets/js/tools/rechisha-ui.js';
 import * as HB from '../../assets/js/tools/hashbacha-engine.js';
 import * as HBUI from '../../assets/js/tools/hashbacha-ui.js';
-import { encodeState, decodeState, decodeList, parseMoney, csv, ics, isStale, track } from '../../assets/js/tools/instrument.js';
+import { encodeState, decodeState, decodeList, parseMoney, csv, ics, isStale, track, ilToday } from '../../assets/js/tools/instrument.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const reg = JSON.parse(readFileSync(join(ROOT, 'assets/data/justice-tools-registry.json'), 'utf8'));
@@ -406,7 +406,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		check(!l1.ok && l1.outOfScope && /עבר/.test(l1.errors[0].he) && RQ.compute(reg, Object.assign({ priorSold: true }, late)).ok, 'replacement deadline passed: the single-home result needs "sold in time" (review, PR 124)');
 		const dp = YE.compute(reg, { spouse: 'married', children: 1, childLines: [2], deeper: true });
 		check(!dp.ok && dp.outOfScope && YUI.renderResult(reg, dp).includes('לא מחלק'), 's.14 beyond one generation: named and stopped (review, PR 124)');
-		check(RQUI.ilToday(new Date('2026-10-13T22:30:00Z')) === '2026-10-14' && HBUI.ilToday(new Date('2026-10-13T12:00:00Z')) === '2026-10-13', 'today is the civil date in Israel, not UTC (review, PR 124)');
+		check(ilToday(new Date('2026-10-13T22:30:00Z')) === '2026-10-14' && ilToday(new Date('2026-10-13T12:00:00Z')) === '2026-10-13', 'today is the civil date in Israel, not UTC (review, PR 124)');
 		const nd = RQ.compute(reg, { price: 2000000, date: '2024-01-16', track: 'replacement', contractor: true });
 		check(!nd.ok && !nd.outOfScope && nd.errors[0].field === 'delivery', 'contractor replacement without delivery: an input error, no headline (review, PR 124)');
 		check(RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'single', delivery: 'xx', aliyah: 'yy' }).ok, 'hidden dates of other tracks do not block the result (review, PR 124)');

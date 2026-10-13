@@ -38,6 +38,16 @@ function parseMoney(text) {
 	return Number(raw) * mult;
 }
 
+/** Today's civil date in Israel (YYYY-MM-DD): never the UTC date or the device's own zone (wave 3 review, PR 124;
+ * shared by every tool from wave 4, HAD-502). */
+function ilToday(now = new Date()) {
+	try {
+		return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jerusalem', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+	} catch (e) {
+		return now.toISOString().slice(0, 10);
+	}
+}
+
 function isoToHe(iso) {
 	if (!iso) { return ''; }
 	const [y, m, d] = iso.split('-').map(Number);
@@ -467,15 +477,6 @@ function toIso(text) {
 	if (!m) { return raw; }
 	let y = +m[3]; if (y < 100) { y += 2000; }
 	return `${y}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
-}
-
-/** Today's civil date in Israel (YYYY-MM-DD), not the UTC date (review, PR 124). */
-function ilToday(now = new Date()) {
-	try {
-		return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jerusalem', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
-	} catch (e) {
-		return now.toISOString().slice(0, 10);
-	}
 }
 
 /* ---------------- Pure renderers ---------------- */

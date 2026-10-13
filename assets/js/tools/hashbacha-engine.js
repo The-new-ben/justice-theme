@@ -53,6 +53,8 @@ const r2 = (n) => Math.round(n * 100) / 100;
  *   betterment: the rise in value from the plan (the appraiser's "after" minus "before"), in NIS.
  *   tamaBeyond: TAMA 38 only, the part of the betterment that comes from area beyond 2.5 extended floors.
  *   mamadBeyond: mamad only, the part of the betterment that comes from area beyond the exempt protected space.
+ *   seismicPct: seismic only, the percent of the betterment the quarter applies to (default 100, s.19(ב)(10א)(א));
+ *   below 100 on an "other lot" or under a plan conditioned on strengthening, the rest pays half (10א)(ב)-(ג).
  *   realized: the percent of the rights realised now (s.7(ב): partial realisation pays pro rata); default 100.
  *   sale4: a sale of a home built or extended for the family and lived in 4+ years from completion (s.19(ג)(2)):
  *   not a realisation; the scope of that exemption depends on the assessment, so the tool answers out of scope.
@@ -103,6 +105,8 @@ export function compute(registry, input) {
 	const tamaBeyond = input.tamaBeyond === '' || input.tamaBeyond === undefined || input.tamaBeyond === null ? 0 : Number(input.tamaBeyond);
 	if (plan === 'tama38' && !(tamaBeyond >= 0 && tamaBeyond <= betterment)) { errors.push({ field: 'tamaBeyond', he: 'החלק שמעבר ל-2.5 קומות לא יכול לעלות על כל ההשבחה' }); }
 	const mamadBeyond = input.mamadBeyond === '' || input.mamadBeyond === undefined || input.mamadBeyond === null ? 0 : Number(input.mamadBeyond);
+	const seismicPct = input.seismicPct === '' || input.seismicPct === undefined || input.seismicPct === null ? 100 : Number(input.seismicPct);
+	if (plan === 'seismic' && !(seismicPct >= 0 && seismicPct <= 100)) { errors.push({ field: 'seismicPct', he: 'החלק שחל עליו רבע: 0 עד 100 אחוז' }); }
 	if (plan === 'mamad' && !(mamadBeyond >= 0 && mamadBeyond <= betterment)) { errors.push({ field: 'mamadBeyond', he: 'החלק שמקורו בשטח נוסף לא יכול לעלות על כל ההשבחה' }); }
 	if (errors.length) { return { ok: false, errors }; }
 
@@ -123,6 +127,14 @@ export function compute(registry, input) {
 		lines.push({ code: 'mamad', he: 'ממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית, והשטח הנוסף לממ"ד לפי תיקון 163: פטור', section: R.section, value: 0 });
 		if (beyond > 0) { lines.push({ code: 'mamad_beyond', he: `השבחה משטח שאינו פטור (${beyond.toLocaleString('en-US')} ₪): ההיטל הרגיל, ${R.beyond_rate[0]}/${R.beyond_rate[1]}`, section: R.beyond_section, value: levyFull }); }
 		flags.push({ code: 'mamad_area', he: R.area_he });
+	} else if (plan === 'seismic' && seismicPct < 100) {
+		const qPart = r2(yours * seismicPct / 100);
+		const rest = r2(yours - qPart);
+		const qLevy = r2(qPart * R.rate[0] / R.rate[1]);
+		const restLevy = r2(rest * R.rest_rate[0] / R.rest_rate[1]);
+		levyFull = r2(qLevy + restLevy);
+		lines.push({ code: 'seismic_quarter', he: `רבע על ${seismicPct}% מההשבחה (${qPart.toLocaleString('en-US')} ₪)`, section: R.rest_section, value: qLevy });
+		lines.push({ code: 'seismic_rest', he: `מחצית על היתרה (${rest.toLocaleString('en-US')} ₪)`, section: R.rest_section, value: restLevy });
 	} else {
 		levyFull = r2(yours * R.rate[0] / R.rate[1]);
 		lines.push({ code: 'rate', he: `שיעור ההיטל: ${R.rate[0] === 0 ? 'פטור' : `${R.rate[0]}/${R.rate[1]} מההשבחה`}`, section: R.section, value: levyFull });
@@ -152,7 +164,7 @@ export function compute(registry, input) {
 	const timing = { sale: 'במכירה, לפני רישום ההעברה', permit: 'כשמקבלים את היתר הבנייה', use: 'כשמתחילים את השימוש שההקלה או השימוש החורג מתירים' }[event];
 	return {
 		ok: true, mode: 'estimate', betterment: r2(betterment), share, yours, plan, event, realized, levy: levyFull, due, deferred, lines, flags, timing,
-		beyond, rate: R.beyond_rate || R.rate,
+		beyond, rate: R.beyond_rate || R.rate, mixed: plan === 'seismic' && seismicPct < 100, seismicPct,
 	};
 }
 

@@ -467,6 +467,9 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		check(est({ betterment: 800000, plan: 'tama38', tamaBeyond: 100000 }).flags.some((f) => f.code === 'tama_local'), 's.19(ב2)(1): TAMA 38 beyond 2.5 floors carries the local-reduction warning');
 		check(!est({ betterment: 800000, plan: 'tama38', tamaBeyond: 0 }).flags.some((f) => f.code === 'tama_local'), 'TAMA 38 with nothing beyond: no local warning');
 		check(est({ betterment: 800000, plan: 'seismic' }).flags.some((f) => f.code === 'seismic_local'), 's.19(ב2)(1): seismic plans carry the local-reduction warning');
+		const sm = est({ betterment: 800000, plan: 'seismic', seismicPct: 50 });
+		check(sm.levy === 300000 && sm.mixed && HBUI.verdictSentence(reg, sm).includes('רבע על 50%'), 's.19(ב)(10א)(ב)-(ג): half qualifying -> a quarter on half, a half on the rest = 37.5% (review, PR 124)');
+		check(est({ betterment: 800000, plan: 'seismic' }).levy === 200000, 's.19(ב)(10א)(א): the plan on the lot itself, a quarter on all');
 	}
 	check(est({ betterment: 800000, plan: 'tama38', tamaBeyond: 100000 }).levy === 25000, 's.19(ב)(10)(א): TAMA 38 exempt except a quarter beyond 2.5 floors');
 	const home = est({ betterment: 600000, plan: 'regular', event: 'permit', ownHome: true, areaBefore: 100, areaAfter: 160 });

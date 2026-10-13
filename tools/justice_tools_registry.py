@@ -447,7 +447,9 @@ def build_betterment(checked_on: str) -> dict:
             "regular": {"rate": [1, 2], "section": "סעיף 3"},
             "pinui": {"rate": [1, 4], "section": "סעיף 3א(א)",
                       "local_he": "הרשות המקומית רשאית לקבוע באזור מסוים מחצית, רבע או פטור (סעיף 3א(ב))"},
-            "seismic": {"rate": [1, 4], "section": "סעיף 19(ב)(10א)(א)",
+            # s.19(ב)(10א)(ב)-(ג): on an "other lot", or under a plan conditioned on strengthening, the quarter
+            # applies only to the qualifying part; the rest pays half.
+            "seismic": {"rate": [1, 4], "section": "סעיף 19(ב)(10א)(א)", "rest_rate": [1, 2], "rest_section": "סעיף 19(ב)(10א)(ב)-(ג)",
                         "local_he": "הרשות המקומית רשאית לקבוע, להיתרים בתחומה, שלא ישולם היטל או שישולם שמינית "
                                     "ההשבחה במקום רבע (סעיף 19(ב2)(1)). בדקו בוועדה המקומית אם התקבלה החלטה כזאת"},
             "tama38": {"rate": [0, 1], "section": "סעיף 19(ב)(10)(א)", "beyond_rate": [1, 4], "beyond_floors": 2.5,

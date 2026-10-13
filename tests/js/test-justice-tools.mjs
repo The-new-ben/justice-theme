@@ -729,6 +729,15 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(none.ok && none.balance === null, 'nothing entered: no balance');
 }
 
+/* ---------- Review fixes (PR 126, Codex pass 7) ---------- */
+{
+	const kid = TE.compute(reg, { disability: 10, days: 0, age: 12, accident: '2025-01-01' });
+	const rows = TEUI.deadlines(reg, kid);
+	check(rows[0].date === '' && rows[0].what.includes('מגיל 18') && !rows[0].what.includes('העיזבון'), 'a minor without a birth date gets the minor no-date row, not the death row (review, PR 126)');
+	const dead = TE.compute(reg, { death: true, accident: '2025-01-01' });
+	check(TEUI.deadlines(reg, dead)[0].what.includes('העיזבון'), 'a death claim keeps the estate and dependants row');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

@@ -634,7 +634,10 @@ function deadlines(reg, r) {
 	const ca = reg.car_accident;
 	const lim = ca.limitation;
 	const out = r.lim ? [{ date: r.lim.deadline, what: `התיישנות: ${lim.years} שנים${r.lim.minor ? ' מגיל 18' : ' מיום התאונה'}${r.lim.added ? `, ועוד ${r.lim.added} ימים שלא נספרים (7.10.2023 עד 6.4.2024)` : ''}${r.lim.rolled ? '; היום האחרון חל ביום מנוחה ועבר ליום שאחריו' : ''}`, rule: r.lim.added ? `${lim.section}, ${lim.war.section}` : lim.section, href: lim.url }]
-		: [{ date: '', what: `תביעת העיזבון או התלויים: ${lim.years} שנים מהיום שבו נולדה העילה`, rule: `${lim.section}; סעיף 6`, href: lim.url }];
+		// No date: either a death claim (the estate's or the dependants' claim arises on the death), or a minor whose
+		// birth date is missing, whose period starts at 18; each gets its own row (review, PR 126).
+		: r.death ? [{ date: '', what: `תביעת העיזבון או התלויים: ${lim.years} שנים מהיום שבו נולדה העילה`, rule: `${lim.section}; סעיף 6`, href: lim.url }]
+			: [{ date: '', what: `התיישנות לקטין: ${lim.years} שנים מגיל 18. הזינו את תאריך הלידה כדי לחשב את התאריך`, rule: `${lim.section}, ${lim.minor_section}`, href: lim.url }];
 	out.push({ date: '', what: `תשלומים תכופים (הוצאות ריפוי ומחיה): ${ca.interim_days} ימים מקבלת דרישה בכתב אצל המבטח`, rule: ca.sections.interim, href: ca.law_url });
 	return out;
 }

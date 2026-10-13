@@ -193,8 +193,10 @@ function isStale(checkedOn, refreshDays, now = new Date()) {
  *    apartment and two thirds of the rest. s.11(ב): with none of those relatives, the spouse takes it all.
  *  - s.12: children come before parents, parents before grandparents. s.13: equal shares within a class.
  *  - s.14(א)-(ב): the children of a relative who died first inherit in his place, equally; except when the
- *    deceased left a spouse and parents or grandparents (here read, as the line in which it matters: a
- *    living parent then takes the whole parents' part, and living grandparents the whole grandparents' part).
+ *    deceased left a spouse and parents or grandparents. In the parents' and grandparents' lines: a living
+ *    parent then takes the whole parents' part, and living grandparents the whole grandparents' part. Whether
+ *    the exception also bars the children of a predeceased CHILD is not settled by the text alone, so that
+ *    line is marked as a legal question (unresolved) instead of being split (review, PR 124).
  *  - s.55: partners in a shared household, neither married to another, are treated as if the deceased had
  *    bequeathed the partner what a spouse would inherit, unless the will says otherwise.
  *  - s.17: with no heir at all, the State inherits.
@@ -299,9 +301,18 @@ function compute(registry, input) {
 			const stirpes = children + kidLines.length;
 			const each = fdiv(rest, stirpes);
 			for (let i = 0; i < children; i += 1) { add(`child-${i + 1}`, `ילד/ה ${i + 1}`, 'children', each, S.equal); }
+			// s.14(א), end: with a spouse and a parent or grandparent alive, the representation provisions do not apply.
+			const repQuestion = spouse !== 'none' && (parentsAlive > 0 || grand > 0) && kidLines.length > 0;
 			kidLines.forEach((k, i) => {
+				if (repQuestion) {
+					heirs.push({ key: `childline-${i + 1}`, label: `ילדי ילד/ה שנפטר/ה ${i + 1}: שאלה משפטית`, group: 'unresolved', gen: 'children', share: each, apt: each, rule: S.represent, unresolved: true });
+					return;
+				}
 				for (let j = 0; j < k; j += 1) { add(`grandchild-${i + 1}-${j + 1}`, `נכד/ה ${j + 1} (מילד שנפטר ${i + 1})`, 'children', fdiv(each, k), S.represent); }
 			});
+			if (repQuestion) {
+				flags.push({ code: 'rep_children_question', he: 'סעיף 14(א) קובע שהוראות הייצוג לא חלות כשהמוריש הניח בן זוג וגם הורה, סב או סבתא. אם זה חל גם על ילדים של ילד שנפטר, הם לא יורשים במקומו וחלקו עובר לשאר היורשים; אם לא, הם יורשים את חלקו בשווה. הלשון לבדה לא מכריעה, ולכן הכלי לא חילק את החלק הזה: בדקו עם עורך דין.' });
+			}
 		} else if (hasParentsLine) {
 			line = 'parents';
 			// With a spouse and a living parent, there is no representation in the parents' line (s.14(א), end).
@@ -381,7 +392,7 @@ function compute(registry, input) {
 
 	// The registrar's fee: 85% when the request is filed online (reg. 1(א)).
 	const fee = { fee: y.fees.order_fee, online: Math.round(y.fees.order_fee * y.fees.online_pct) / 100, from: y.fees.from };
-	return { ok: true, spouse, spouseCase, spouseApt, line, heirs, flags, path, fee, apartment, other, unresolved: heirs.some((h) => h.unresolved), state: line === 'state', unknown: line === 'unknown' };
+	return { ok: true, spouse, spouseCase, spouseApt, line, heirs, flags, path, fee, apartment, other, unresolved: heirs.some((h) => h.unresolved), question: heirs.some((h) => h.unresolved && h.gen === 'children'), state: line === 'state', unknown: line === 'unknown' };
 }
 
 /** "1/6" style label, with the percent. */
@@ -466,7 +477,7 @@ function describe(r) {
 		const noun = k.startsWith('grandchild') ? 'נכדים' : k.startsWith('child') ? 'ילדים' : k.startsWith('sibline') ? 'אחיינים' : k.startsWith('sib') ? 'אחים' : k.startsWith('grand') ? 'סבים' : 'יורשים';
 		return g.length > 1 ? `ל-${g.length} ${noun} ${f} לכל אחד` : `ל${g[0].label} ${f}`;
 	});
-	return `בלי צוואה, העיזבון מתחלק כך: ${parts.join('; ')}.${r.unresolved ? ' חלק מהעיזבון עובר לדור שהכלי לא מחלק.' : ''}`;
+	return `בלי צוואה, העיזבון מתחלק כך: ${parts.join('; ')}.${r.question ? ' החלק של ילד שנפטר תלוי בשאלה משפטית (סעיף 14(א)).' : r.unresolved ? ' חלק מהעיזבון עובר לדור שהכלי לא מחלק.' : ''}`;
 }
 
 /** The share bar: one segment per heir, in the order of the table. Hidden from screen readers (the table says it). */
@@ -487,9 +498,9 @@ function familyChart(r, input) {
 	const center = [node('המוריש/ה', null, ' jt6-node--self')];
 	if (r.spouse !== 'none') { center.unshift(node(r.spouse === 'married' ? 'בן/בת הזוג' : 'ידוע/ה בציבור', find('spouse'))); }
 	rows.push(`<div class="jt6-gen jt6-gen--center" data-gen="self">${center.join('')}${sibs.map((h) => node(h.label, h)).join('')}</div>`);
-	const kids = r.heirs.filter((h) => h.group === 'children');
-	if (kids.length) { rows.push(`<div class="jt6-gen" data-gen="children">${kids.map((h) => node(h.label, h)).join('')}</div>`); }
-	const grand = r.heirs.filter((h) => h.group === 'grandparents' || h.group === 'unresolved');
+	const kids = r.heirs.filter((h) => h.group === 'children' || h.gen === 'children');
+	if (kids.length) { rows.push(`<div class="jt6-gen" data-gen="children">${kids.map((h) => node(h.label, h, h.unresolved ? ' jt6-node--open' : '')).join('')}</div>`); }
+	const grand = r.heirs.filter((h) => h.group === 'grandparents' || (h.group === 'unresolved' && h.gen !== 'children'));
 	if (grand.length) { rows.unshift(`<div class="jt6-gen" data-gen="grand">${grand.map((h) => node(h.label, h, h.unresolved ? ' jt6-node--open' : '')).join('')}</div>`); }
 	return `<div class="jt6-chart" aria-hidden="true">${rows.join('')}</div>`;
 }
@@ -499,6 +510,7 @@ function renderResult(reg, r, opts = {}) {
 		return `<div class="jtool-verdict" data-jtool-live aria-live="polite"><p class="jtool-state jtool-state--danger">✕ צריך לתקן את הקלט</p><p class="jtool-verdict__sentence">${r.errors.map((e) => esc(e.he)).join(' ')}</p></div>`;
 	}
 	const state = r.state ? '<p class="jtool-state jtool-state--info">המדינה יורשת</p>'
+		: r.question ? '<p class="jtool-state jtool-state--warn">! חלק מהחלוקה תלוי בשאלה משפטית (סעיף 14(א))</p>'
 		: r.unknown || r.unresolved ? '<p class="jtool-state jtool-state--warn">! חלק מהחלוקה תלוי בדור שהכלי לא מחלק</p>'
 			: r.spouse === 'partner' ? '<p class="jtool-state jtool-state--warn">! ידועים בציבור: צריך להוכיח את הקשר</p>'
 				: '<p class="jtool-state jtool-state--ok">✓ החלוקה לפי חוק הירושה</p>';

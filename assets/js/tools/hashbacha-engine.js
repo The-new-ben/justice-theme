@@ -53,6 +53,8 @@ const r2 = (n) => Math.round(n * 100) / 100;
  *   tamaBeyond: TAMA 38 only, the part of the betterment that comes from area beyond 2.5 extended floors.
  *   mamadBeyond: mamad only, the part of the betterment that comes from area beyond the exempt protected space.
  *   realized: the percent of the rights realised now (s.7(ב): partial realisation pays pro rata); default 100.
+ *   sale4: a sale of a home built or extended for the family and lived in 4+ years from completion (s.19(ג)(2)):
+ *   not a realisation; the scope of that exemption depends on the assessment, so the tool answers out of scope.
  * Mode "assessment" ({ mode: 'assessment', levy, received, mine, kind: 'plan'|'schedule' })
  *   levy: the levy in the committee's assessment; received: the day it reached you, or for a valuation schedule
  *   the day the schedule was displayed (s.14(א)); mine: your appraiser's levy.
@@ -92,6 +94,9 @@ export function compute(registry, input) {
 	const ownHome = Boolean(input.ownHome) && event === 'permit';
 	if (ownHome && !(areaAfter > 0 && areaAfter < 10000)) { errors.push({ field: 'areaAfter', he: 'שטח הדירה אחרי הבנייה, במ"ר' }); }
 	if (ownHome && !(areaBefore >= 0 && areaBefore < areaAfter)) { errors.push({ field: 'areaBefore', he: 'שטח הדירה לפני הבנייה צריך להיות קטן מהשטח אחריה' }); }
+	if (event === 'sale' && input.sale4 && !errors.length) {
+		return { ok: false, outOfScope: true, errors: [{ field: 'sale4', he: `מכירת דירת מגורים שנבנתה או הורחבה למגורים שלכם או של קרוב (או שאפשר להרחיב לפי תוכנית), אחרי שגרתם בה ${b.residence_sale_years} שנים לפחות מגמר הבנייה ועד המכירה, אינה מימוש, ולא משלמים עליה היטל (${b.residence_sale_section}). על איזה חלק מההשבחה הפטור חל נקבע בשומה, ולכן הכלי לא מחשב כאן סכום: בקשו מהוועדה המקומית שומה או אישור.` }] };
+	}
 	const realized = input.realized === '' || input.realized === undefined || input.realized === null ? 100 : Number(input.realized);
 	if (!(realized > 0 && realized <= 100)) { errors.push({ field: 'realized', he: 'החלק מהזכויות שאתם מממשים עכשיו: יותר מ-0 ועד 100 אחוז' }); }
 	const tamaBeyond = input.tamaBeyond === '' || input.tamaBeyond === undefined || input.tamaBeyond === null ? 0 : Number(input.tamaBeyond);

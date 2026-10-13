@@ -12,8 +12,10 @@
  *    apartment and two thirds of the rest. s.11(ב): with none of those relatives, the spouse takes it all.
  *  - s.12: children come before parents, parents before grandparents. s.13: equal shares within a class.
  *  - s.14(א)-(ב): the children of a relative who died first inherit in his place, equally; except when the
- *    deceased left a spouse and parents or grandparents (here read, as the line in which it matters: a
- *    living parent then takes the whole parents' part, and living grandparents the whole grandparents' part).
+ *    deceased left a spouse and parents or grandparents. In the parents' and grandparents' lines: a living
+ *    parent then takes the whole parents' part, and living grandparents the whole grandparents' part. Whether
+ *    the exception also bars the children of a predeceased CHILD is not settled by the text alone, so that
+ *    line is marked as a legal question (unresolved) instead of being split (review, PR 124).
  *  - s.55: partners in a shared household, neither married to another, are treated as if the deceased had
  *    bequeathed the partner what a spouse would inherit, unless the will says otherwise.
  *  - s.17: with no heir at all, the State inherits.
@@ -118,9 +120,18 @@ export function compute(registry, input) {
 			const stirpes = children + kidLines.length;
 			const each = fdiv(rest, stirpes);
 			for (let i = 0; i < children; i += 1) { add(`child-${i + 1}`, `ילד/ה ${i + 1}`, 'children', each, S.equal); }
+			// s.14(א), end: with a spouse and a parent or grandparent alive, the representation provisions do not apply.
+			const repQuestion = spouse !== 'none' && (parentsAlive > 0 || grand > 0) && kidLines.length > 0;
 			kidLines.forEach((k, i) => {
+				if (repQuestion) {
+					heirs.push({ key: `childline-${i + 1}`, label: `ילדי ילד/ה שנפטר/ה ${i + 1}: שאלה משפטית`, group: 'unresolved', gen: 'children', share: each, apt: each, rule: S.represent, unresolved: true });
+					return;
+				}
 				for (let j = 0; j < k; j += 1) { add(`grandchild-${i + 1}-${j + 1}`, `נכד/ה ${j + 1} (מילד שנפטר ${i + 1})`, 'children', fdiv(each, k), S.represent); }
 			});
+			if (repQuestion) {
+				flags.push({ code: 'rep_children_question', he: 'סעיף 14(א) קובע שהוראות הייצוג לא חלות כשהמוריש הניח בן זוג וגם הורה, סב או סבתא. אם זה חל גם על ילדים של ילד שנפטר, הם לא יורשים במקומו וחלקו עובר לשאר היורשים; אם לא, הם יורשים את חלקו בשווה. הלשון לבדה לא מכריעה, ולכן הכלי לא חילק את החלק הזה: בדקו עם עורך דין.' });
+			}
 		} else if (hasParentsLine) {
 			line = 'parents';
 			// With a spouse and a living parent, there is no representation in the parents' line (s.14(א), end).
@@ -200,7 +211,7 @@ export function compute(registry, input) {
 
 	// The registrar's fee: 85% when the request is filed online (reg. 1(א)).
 	const fee = { fee: y.fees.order_fee, online: Math.round(y.fees.order_fee * y.fees.online_pct) / 100, from: y.fees.from };
-	return { ok: true, spouse, spouseCase, spouseApt, line, heirs, flags, path, fee, apartment, other, unresolved: heirs.some((h) => h.unresolved), state: line === 'state', unknown: line === 'unknown' };
+	return { ok: true, spouse, spouseCase, spouseApt, line, heirs, flags, path, fee, apartment, other, unresolved: heirs.some((h) => h.unresolved), question: heirs.some((h) => h.unresolved && h.gen === 'children'), state: line === 'state', unknown: line === 'unknown' };
 }
 
 /** "1/6" style label, with the percent. */

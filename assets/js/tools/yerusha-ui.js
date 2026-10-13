@@ -80,7 +80,7 @@ export function describe(r) {
 		const noun = k.startsWith('grandchild') ? 'נכדים' : k.startsWith('child') ? 'ילדים' : k.startsWith('sibline') ? 'אחיינים' : k.startsWith('sib') ? 'אחים' : k.startsWith('grand') ? 'סבים' : 'יורשים';
 		return g.length > 1 ? `ל-${g.length} ${noun} ${f} לכל אחד` : `ל${g[0].label} ${f}`;
 	});
-	return `בלי צוואה, העיזבון מתחלק כך: ${parts.join('; ')}.${r.unresolved ? ' חלק מהעיזבון עובר לדור שהכלי לא מחלק.' : ''}`;
+	return `בלי צוואה, העיזבון מתחלק כך: ${parts.join('; ')}.${r.question ? ' החלק של ילד שנפטר תלוי בשאלה משפטית (סעיף 14(א)).' : r.unresolved ? ' חלק מהעיזבון עובר לדור שהכלי לא מחלק.' : ''}`;
 }
 
 /** The share bar: one segment per heir, in the order of the table. Hidden from screen readers (the table says it). */
@@ -101,9 +101,9 @@ function familyChart(r, input) {
 	const center = [node('המוריש/ה', null, ' jt6-node--self')];
 	if (r.spouse !== 'none') { center.unshift(node(r.spouse === 'married' ? 'בן/בת הזוג' : 'ידוע/ה בציבור', find('spouse'))); }
 	rows.push(`<div class="jt6-gen jt6-gen--center" data-gen="self">${center.join('')}${sibs.map((h) => node(h.label, h)).join('')}</div>`);
-	const kids = r.heirs.filter((h) => h.group === 'children');
-	if (kids.length) { rows.push(`<div class="jt6-gen" data-gen="children">${kids.map((h) => node(h.label, h)).join('')}</div>`); }
-	const grand = r.heirs.filter((h) => h.group === 'grandparents' || h.group === 'unresolved');
+	const kids = r.heirs.filter((h) => h.group === 'children' || h.gen === 'children');
+	if (kids.length) { rows.push(`<div class="jt6-gen" data-gen="children">${kids.map((h) => node(h.label, h, h.unresolved ? ' jt6-node--open' : '')).join('')}</div>`); }
+	const grand = r.heirs.filter((h) => h.group === 'grandparents' || (h.group === 'unresolved' && h.gen !== 'children'));
 	if (grand.length) { rows.unshift(`<div class="jt6-gen" data-gen="grand">${grand.map((h) => node(h.label, h, h.unresolved ? ' jt6-node--open' : '')).join('')}</div>`); }
 	return `<div class="jt6-chart" aria-hidden="true">${rows.join('')}</div>`;
 }
@@ -113,6 +113,7 @@ export function renderResult(reg, r, opts = {}) {
 		return `<div class="jtool-verdict" data-jtool-live aria-live="polite"><p class="jtool-state jtool-state--danger">✕ צריך לתקן את הקלט</p><p class="jtool-verdict__sentence">${r.errors.map((e) => esc(e.he)).join(' ')}</p></div>`;
 	}
 	const state = r.state ? '<p class="jtool-state jtool-state--info">המדינה יורשת</p>'
+		: r.question ? '<p class="jtool-state jtool-state--warn">! חלק מהחלוקה תלוי בשאלה משפטית (סעיף 14(א))</p>'
 		: r.unknown || r.unresolved ? '<p class="jtool-state jtool-state--warn">! חלק מהחלוקה תלוי בדור שהכלי לא מחלק</p>'
 			: r.spouse === 'partner' ? '<p class="jtool-state jtool-state--warn">! ידועים בציבור: צריך להוכיח את הקשר</p>'
 				: '<p class="jtool-state jtool-state--ok">✓ החלוקה לפי חוק הירושה</p>';

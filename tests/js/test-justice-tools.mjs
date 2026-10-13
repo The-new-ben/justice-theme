@@ -317,7 +317,9 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		check(!YE.compute(reg, { spouse: 'married', children: 1, childLines: [2] }).question, 'no parent or grandparent alive: grandchildren represent as usual');
 		const pm = YE.compute(reg, { spouse: 'partner', partnerFree: false, children: 2 });
 		check(pm.ok && pm.spouse === 'none' && pm.flags.some((f) => f.code === 'partner_married') && eq(shares({ spouse: 'partner', partnerFree: false, children: 2 }), { 'child-1': '1/2', 'child-2': '1/2' }), 's.55: a partner married to another at the death does not inherit (review, PR 124)');
-		check(YE.compute(reg, { spouse: 'partner', children: 2 }).spouse === 'partner', 's.55: by default the partner condition is taken as met (the box is ticked)');
+		check(YE.compute(reg, { spouse: 'partner', children: 2 }).spouse === 'partner', 's.55: by default the partner condition is taken as met');
+		const pd = YE.compute(reg, { spouse: 'partner', partnerMarried: 'deceased', children: 1 });
+		check(!pd.ok && pd.outOfScope && /סעיף 11/.test(pd.errors[0].he) && YE.compute(reg, { spouse: 'partner', partnerMarried: 'survivor', children: 1 }).spouse === 'none', 's.55: the deceased married elsewhere -> the legal spouse case; the survivor married elsewhere -> no partner (review, PR 124)');
 		const ad = YE.compute(reg, { spouse: 'none', mother: true, adopted: true });
 		check(ad.ok && ad.flags.some((f) => f.code === 'adopted') && ad.path.some((p) => p.rule === reg.yerusha.sections.adopted), 's.16: an adopted deceased, the parents entered are the adoptive side and the rule is stated (review, PR 124)');
 	}
@@ -417,6 +419,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		const v24 = RQ.compute(reg, { price: 2000000, date: '2024-06-01', track: 'single', lawyerPct: 1 });
 		const v26 = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'single', lawyerPct: 1 });
 		check(v24.vat === 17 && v24.lawyer === 23400 && v26.vat === 18 && v26.lawyer === 23600, 'VAT by the purchase day: 17% before 1.1.2025, 18% after (review, PR 124)');
+		check(RQ.compute(reg, { price: 2000000, date: '2024-06-01', track: 'single', lawyerPct: 1, feesBefore: false }).vat === 18, 'VAT at the fee tax point: fees paid after 1.1.2025 on a 2024 purchase -> 18% (review, PR 124)');
 		check(/151\(ג\)\(2\)/.test(reg.betterment.rates.mamad.area_he), 's.19(ב)(9)(ג): the mamad rule names the Amendment 163 additional area');
 	}
 	check(dl('2025-06-01', { contractor: true, delivery: '2026-07-01' }) === '2027-09-01', 'contractor: each window extended first; 1.6.27 + 3 months beats 1.7.27 from delivery (review, PR 124)');

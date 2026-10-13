@@ -312,7 +312,8 @@ function replacementDeadline(pt, purchase, opts = {}) {
 
 /**
  * input = { price, date (purchase day), track, contractor, delivery, aliyah (oleh: the aliyah day),
- *           otherHome (oleh and disability tracks: the buyer has another home that is not being replaced),
+ *           otherHome (oleh and disability tracks: the buyer has another home that is not, or was not, sold by the
+ *           replacement deadline), feesBefore (VAT: the fees were paid before the current rate; default by purchase day),
  *           reliefUsed (oleh: the relief was already used once, reg. 12א(ב); disability: twice, reg. 11(א)),
  *           nonResident (the buyer is not an individual Israeli resident: no single-home brackets, s.9(ג1ג)(2)),
  *           groupPrev (replacement: the previous home was bought in a purchasing group whose construction was delayed),
@@ -398,7 +399,10 @@ function compute(registry, input) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: why }] };
 	}
 	// VAT by the rate in force on the purchase day (17% from 1.10.2015, 18% from 1.1.2025) (review, PR 124).
-	const vat = input.vat === false ? 0 : (pt.vat_prior && on < pt.vat_from ? pt.vat_prior.pct : pt.vat_pct);
+	// VAT at the fee's tax point: the box says whether the fees were paid before the current rate; without it, the
+	// purchase day decides (review, PR 124).
+	const feesBefore = input.feesBefore === undefined || input.feesBefore === null ? on < pt.vat_from : Boolean(input.feesBefore);
+	const vat = input.vat === false ? 0 : (pt.vat_prior && feesBefore ? pt.vat_prior.pct : pt.vat_pct);
 	const lawyer = Math.round(price * lawyerPct * (100 + vat) / 100) / 100;
 	const broker = Math.round(price * brokerPct * (100 + vat) / 100) / 100;
 	const total = Math.round((main.tax + lawyer + broker + other) * 100) / 100;
@@ -503,13 +507,14 @@ function renderForm(reg, input) {
 		+ `<p class="jtool-hint">${esc(pt.couple_he)}. ${esc(pt.share_ignored_he)}. ${esc(pt.resident_he)}.</p></fieldset>`
 		+ `<div data-if-track="replacement"${t === 'replacement' ? '' : ' hidden'}><div class="jtool-chips">${chip('ctr', '1', 'קונים מקבלן', input.contractor, 'checkbox')}${chip('grp', '1', 'הדירה הקודמת נקנתה בקבוצת רכישה ובנייתה התעכבה', input.groupPrev, 'checkbox')}${chip('sold', '1', 'מכרתי את הדירה הקודמת בזמן', input.priorSold, 'checkbox')}</div>`
 		+ `<div class="jtool-field" style="margin-top:8px" data-if-contractor${input.contractor ? '' : ' hidden'}><label class="jtool-label" for="${P}-dlv">מועד המסירה: לפי החוזה, או בפועל אם המסירה התעכבה שלא בשליטתכם</label><input id="${P}-dlv" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.delivery || ''))}" placeholder="לדוגמה: 31.12.2027" aria-describedby="${P}-delivery-e"><p class="jtool-error" id="${P}-delivery-e" role="alert"></p></div></div>`
-		+ `<div data-if-track="disabled oleh"${t === 'disabled' || t === 'oleh' ? '' : ' hidden'}><div class="jtool-chips">${chip('dot', '1', 'יש לי עוד דירה, והיא לא נמכרת כחלופית', input.otherHome, 'checkbox')}${chip('used', '1', 'כבר קיבלתי את ההטבה (עולה: פעם אחת; נכה: פעמיים)', input.reliefUsed, 'checkbox')}</div><div class="jtool-chips" data-if-track="disabled"${t === 'disabled' ? '' : ' hidden'} style="margin-top:8px">${chip('nfh', '1', 'הדירה לא נקנית למגורים שלי (להשקעה)', input.notForHousing, 'checkbox')}</div><p class="jtool-hint">הטבת עולה: רק בדירה יחידה או חלופית (תקנה 12א(א)). נכה: ${esc(pt.tracks.disabled.sole_he)}</p></div>`
+		+ `<div data-if-track="disabled oleh"${t === 'disabled' || t === 'oleh' ? '' : ' hidden'}><div class="jtool-chips">${chip('dot', '1', 'יש לי עוד דירה, ולא אמכור אותה (או לא מכרתי אותה) עד המועד לדירה חלופית', input.otherHome, 'checkbox')}${chip('used', '1', 'כבר קיבלתי את ההטבה (עולה: פעם אחת; נכה: פעמיים)', input.reliefUsed, 'checkbox')}</div><div class="jtool-chips" data-if-track="disabled"${t === 'disabled' ? '' : ' hidden'} style="margin-top:8px">${chip('nfh', '1', 'הדירה לא נקנית למגורים שלי (להשקעה)', input.notForHousing, 'checkbox')}</div><p class="jtool-hint">הטבת עולה: רק בדירה יחידה או חלופית (תקנה 12א(א)). נכה: ${esc(pt.tracks.disabled.sole_he)}. דירה חלופית: הקודמת נמכרת תוך 18 או 24 חודשים מהרכישה (מקבלן: 12 חודשים מהמסירה, לפי המאוחר), עם הארכת המלחמה; את המועד המדויק מראה המסלול "דירה חלופית"</p></div>`
 		+ `<div class="jtool-field" data-if-track="oleh"${t === 'oleh' ? '' : ' hidden'}><label class="jtool-label" for="${P}-aly">תאריך העלייה</label><input id="${P}-aly" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(input.aliyah || ''))}" placeholder="לדוגמה: 1.5.2024" aria-describedby="${P}-aliyah-e"><p class="jtool-error" id="${P}-aliyah-e" role="alert"></p></div>`
 		+ `<details class="jtool-more"${input.lawyerPct || input.brokerPct || input.other ? ' open' : ''}><summary>כל עלויות הקנייה, לא רק המס</summary>`
 		+ `<div class="jtool-row" style="margin-top:8px"><div class="jtool-field"><label class="jtool-label" for="${P}-law">שכר טרחת עורך הדין</label><div class="jtool-input"><input id="${P}-law" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.lawyerPct ?? '')}" placeholder="לפי ההצעה שקיבלתם" aria-describedby="${P}-lawyer-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-lawyer-e" role="alert"></p></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-brk">דמי תיווך</label><div class="jtool-input"><input id="${P}-brk" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.brokerPct ?? '')}" placeholder="0 אם אין מתווך" aria-describedby="${P}-broker-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-broker-e" role="alert"></p></div></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-oth">עוד עלויות (שמאי, בדק בית, יועץ משכנתא)</label><div class="jtool-input jtool-input--money"><input id="${P}-oth" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.other ? money(input.other, 0) : '')}" placeholder="0" aria-describedby="${P}-other-e"><span class="jtool-input__suffix" aria-hidden="true">₪</span></div><p class="jtool-error" id="${P}-other-e" role="alert"></p></div>`
-		+ `<p class="jtool-hint">על שכר הטרחה ודמי התיווך נוסף מע"מ לפי יום החתימה: ${pt.vat_pct}% מ-${isoToHe(pt.vat_from)}${pt.vat_prior ? `, ${pt.vat_prior.pct}% לפני כן` : ''}. האחוזים הם שלכם, לפי ההצעות שקיבלתם; הכלי לא ממליץ על מחיר.</p></details>`;
+		+ `<div class="jtool-chips" style="margin-top:8px">${chip('v17', '1', `שכר הטרחה ודמי התיווך שולמו לפני ${isoToHe(pt.vat_from)} (מע"מ ${pt.vat_prior ? pt.vat_prior.pct : pt.vat_pct}%)`, input.feesBefore ?? (Boolean(input.date) && input.date < pt.vat_from), 'checkbox')}</div>`
+		+ `<p class="jtool-hint">על שכר הטרחה ודמי התיווך נוסף מע"מ לפי מועד התשלום: ${pt.vat_pct}% מ-${isoToHe(pt.vat_from)}${pt.vat_prior ? `, ${pt.vat_prior.pct}% לפני כן` : ''}. האחוזים הם שלכם, לפי ההצעות שקיבלתם; הכלי לא ממליץ על מחיר.</p></details>`;
 }
 
 function verdictSentence(reg, r) {
@@ -656,6 +661,7 @@ function readForm(root) {
 		nonResident: Boolean(root.querySelector(`input[name="${P}-nr"]:checked`)),
 		notForHousing: Boolean(root.querySelector(`input[name="${P}-nfh"]:checked`)),
 		groupPrev: Boolean(root.querySelector(`input[name="${P}-grp"]:checked`)),
+		feesBefore: Boolean(root.querySelector(`input[name="${P}-v17"]:checked`)),
 		priorSold: Boolean(root.querySelector(`input[name="${P}-sold"]:checked`)),
 		lawyerPct: pct('law'), brokerPct: pct('brk'), other: val(`#${P}-oth`).trim() === '' ? 0 : parseMoney(val(`#${P}-oth`)),
 		comparePrice: parseMoney(val(`#${P}-cmp`)),
@@ -663,11 +669,11 @@ function readForm(root) {
 }
 
 const TR = { single: 's', replacement: 'r', additional: 'a', oleh: 'o', disabled: 'd' };
-const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.otherHome ? 1 : '', u: i.reliefUsed ? 1 : '', n: i.nonResident ? 1 : '', h: i.notForHousing ? 1 : '', g: i.groupPrev ? 1 : '', s: i.priorSold ? 1 : '' });
-const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x', 'u', 'n', 'h', 'g', 's'];
+const stateOf = (i) => encodeState({ p: i.price, d: i.date, t: TR[i.track] || 's', c: i.contractor ? 1 : '', v: i.delivery, a: i.aliyah, l: i.lawyerPct, b: i.brokerPct, o: i.other || '', x: i.otherHome ? 1 : '', u: i.reliefUsed ? 1 : '', n: i.nonResident ? 1 : '', h: i.notForHousing ? 1 : '', g: i.groupPrev ? 1 : '', s: i.priorSold ? 1 : '', f: i.feesBefore ? 1 : '' });
+const KEYS = ['p', 'd', 't', 'c', 'v', 'a', 'l', 'b', 'o', 'x', 'u', 'n', 'h', 'g', 's', 'f'];
 function inputOf(s) {
 	if (!s.p) { return null; }
-	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, otherHome: s.x === '1', reliefUsed: s.u === '1', nonResident: s.n === '1', notForHousing: s.h === '1', groupPrev: s.g === '1', priorSold: s.s === '1' };
+	return { price: Number(s.p), date: s.d || '', track: Object.keys(TR).find((k) => TR[k] === s.t) || 'single', contractor: s.c === '1', delivery: s.v || '', aliyah: s.a || '', lawyerPct: s.l === undefined ? '' : Number(s.l), brokerPct: s.b === undefined ? '' : Number(s.b), other: Number(s.o) || 0, otherHome: s.x === '1', reliefUsed: s.u === '1', nonResident: s.n === '1', notForHousing: s.h === '1', groupPrev: s.g === '1', priorSold: s.s === '1', feesBefore: s.f === '1' };
 }
 
 function mount(root, reg) {

@@ -131,7 +131,8 @@ export function replacementDeadline(pt, purchase, opts = {}) {
 
 /**
  * input = { price, date (purchase day), track, contractor, delivery, aliyah (oleh: the aliyah day),
- *           otherHome (oleh and disability tracks: the buyer has another home that is not being replaced),
+ *           otherHome (oleh and disability tracks: the buyer has another home that is not, or was not, sold by the
+ *           replacement deadline), feesBefore (VAT: the fees were paid before the current rate; default by purchase day),
  *           reliefUsed (oleh: the relief was already used once, reg. 12א(ב); disability: twice, reg. 11(א)),
  *           nonResident (the buyer is not an individual Israeli resident: no single-home brackets, s.9(ג1ג)(2)),
  *           groupPrev (replacement: the previous home was bought in a purchasing group whose construction was delayed),
@@ -217,7 +218,10 @@ export function compute(registry, input) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: why }] };
 	}
 	// VAT by the rate in force on the purchase day (17% from 1.10.2015, 18% from 1.1.2025) (review, PR 124).
-	const vat = input.vat === false ? 0 : (pt.vat_prior && on < pt.vat_from ? pt.vat_prior.pct : pt.vat_pct);
+	// VAT at the fee's tax point: the box says whether the fees were paid before the current rate; without it, the
+	// purchase day decides (review, PR 124).
+	const feesBefore = input.feesBefore === undefined || input.feesBefore === null ? on < pt.vat_from : Boolean(input.feesBefore);
+	const vat = input.vat === false ? 0 : (pt.vat_prior && feesBefore ? pt.vat_prior.pct : pt.vat_pct);
 	const lawyer = Math.round(price * lawyerPct * (100 + vat) / 100) / 100;
 	const broker = Math.round(price * brokerPct * (100 + vat) / 100) / 100;
 	const total = Math.round((main.tax + lawyer + broker + other) * 100) / 100;

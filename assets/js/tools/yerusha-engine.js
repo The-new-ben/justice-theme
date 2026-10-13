@@ -74,13 +74,17 @@ export function compute(registry, input) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'childLines', he: 'גם נכד או אחיין שנפטרו לפני המוריש והשאירו ילדים באים במקומם (סעיף 14), דור אחרי דור. הכלי מחלק דור אחד של ייצוג בלבד, ולכן לא מחשב את המקרה הזה: בדקו עם עורך דין או ברשם לענייני ירושה.' }] };
 	}
 
-	// s.55: a partner only if neither was married to another person at the death (review, PR 124).
-	const partnerBarred = input.spouse === 'partner' && input.partnerFree === false;
+	// s.55: a partner only if neither was married to another person at the death (review, PR 124). If the deceased
+	// was the one married to another, the legal spouse inherits under s.11: that is the "married" case.
+	if (input.spouse === 'partner' && input.partnerMarried === 'deceased') {
+		return { ok: false, outOfScope: true, errors: [{ field: 'spouse', he: 'המוריש היה נשוי לאדם אחר: בן או בת הזוג הנשואים יורשים לפי סעיף 11, ובן הזוג הידוע בציבור לא יורש מכוח סעיף 55. כדי לחשב את חלק בן הזוג הנשוי, בחרו "נשוי/אה".' }] };
+	}
+	const partnerBarred = input.spouse === 'partner' && (input.partnerFree === false || input.partnerMarried === 'survivor');
 	const spouse = ['married', 'partner'].includes(input.spouse) && !partnerBarred ? input.spouse : 'none';
 	const S = y.sections;
 	const flags = [];
 	if (partnerBarred) {
-		flags.push({ code: 'partner_married', he: 'סעיף 55 חל רק כשבשעת המוות אף אחד מבני הזוג לא היה נשוי לאדם אחר. אחד מכם היה נשוי לאחר, ולכן בן הזוג לא יורש מכוח הסעיף הזה, והחלוקה כאן בלעדיו.' });
+		flags.push({ code: 'partner_married', he: 'סעיף 55 חל רק כשבשעת המוות אף אחד מבני הזוג לא היה נשוי לאדם אחר. בן הזוג שנשאר היה נשוי לאחר, ולכן הוא לא יורש מכוח הסעיף הזה, והחלוקה כאן בלעדיו.' });
 	}
 	const path = [];
 	const heirs = []; // { key, label, group, share: [n,d] of the rest, apt: [n,d] of the apartment, rule }

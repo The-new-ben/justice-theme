@@ -5,8 +5,9 @@
  * and Building Law (התוספת השלישית לחוק התכנון והבניה, התשכ"ה-1965), read in the consolidated text:
  *  - s.3: the levy is half the betterment; s.3א(א): a quarter in an urban-renewal (pinui-binui) plan for
  *    housing, unless the local authority set half, a quarter or none for the area (s.3א(ב)).
- *  - s.19(ב)(9): no levy on a protected space (mamad) within the area the civil-defence law sets; any other
- *    area in the same permit pays the regular half (s.3), so the tool takes that part separately;
+ *  - s.19(ב)(9): no levy on a protected space (mamad) within the area the civil-defence law sets, and since
+ *    Amendment 163 (2025) on the additional area under s.151(ג)(2), under the conditions of s.19(ב)(9)(ג); any
+ *    other area in the same permit pays the regular half (s.3), so the tool takes that part separately;
  *    s.19(ב)(10)(א): no levy on a TAMA 38 permit, but a quarter on the part beyond 2.5 extended typical floors;
  *    s.19(ב)(10א)(א): a quarter in a seismic-resilience plan. s.19(ב2)(1): for both quarters, the local
  *    authority may set no levy or an eighth, so the result carries that warning.
@@ -119,8 +120,8 @@ export function compute(registry, input) {
 	} else if (plan === 'mamad') {
 		beyond = r2(mamadBeyond * share / 100);
 		levyFull = r2(beyond * R.beyond_rate[0] / R.beyond_rate[1]);
-		lines.push({ code: 'mamad', he: 'ממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית: פטור', section: R.section, value: 0 });
-		if (beyond > 0) { lines.push({ code: 'mamad_beyond', he: `השבחה משטח נוסף (${beyond.toLocaleString('en-US')} ₪): ההיטל הרגיל, ${R.beyond_rate[0]}/${R.beyond_rate[1]}`, section: R.beyond_section, value: levyFull }); }
+		lines.push({ code: 'mamad', he: 'ממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית, והשטח הנוסף לממ"ד לפי תיקון 163: פטור', section: R.section, value: 0 });
+		if (beyond > 0) { lines.push({ code: 'mamad_beyond', he: `השבחה משטח שאינו פטור (${beyond.toLocaleString('en-US')} ₪): ההיטל הרגיל, ${R.beyond_rate[0]}/${R.beyond_rate[1]}`, section: R.beyond_section, value: levyFull }); }
 		flags.push({ code: 'mamad_area', he: R.area_he });
 	} else {
 		levyFull = r2(yours * R.rate[0] / R.rate[1]);

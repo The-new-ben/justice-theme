@@ -387,7 +387,8 @@ function compute(registry, input) {
 		}[main.refused] || (() => 'מחוץ לתחום של הכלי'))();
 		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: why }] };
 	}
-	const vat = input.vat === false ? 0 : pt.vat_pct;
+	// VAT by the rate in force on the purchase day (17% from 1.10.2015, 18% from 1.1.2025) (review, PR 124).
+	const vat = input.vat === false ? 0 : (pt.vat_prior && on < pt.vat_from ? pt.vat_prior.pct : pt.vat_pct);
 	const lawyer = Math.round(price * lawyerPct * (100 + vat) / 100) / 100;
 	const broker = Math.round(price * brokerPct * (100 + vat) / 100) / 100;
 	const total = Math.round((main.tax + lawyer + broker + other) * 100) / 100;
@@ -485,7 +486,7 @@ function renderForm(reg, input) {
 		+ `<div class="jtool-row" style="margin-top:8px"><div class="jtool-field"><label class="jtool-label" for="${P}-law">שכר טרחת עורך הדין</label><div class="jtool-input"><input id="${P}-law" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.lawyerPct ?? '')}" placeholder="לפי ההצעה שקיבלתם" aria-describedby="${P}-lawyer-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-lawyer-e" role="alert"></p></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-brk">דמי תיווך</label><div class="jtool-input"><input id="${P}-brk" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.brokerPct ?? '')}" placeholder="0 אם אין מתווך" aria-describedby="${P}-broker-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-broker-e" role="alert"></p></div></div>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-oth">עוד עלויות (שמאי, בדק בית, יועץ משכנתא)</label><div class="jtool-input jtool-input--money"><input id="${P}-oth" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.other ? money(input.other, 0) : '')}" placeholder="0" aria-describedby="${P}-other-e"><span class="jtool-input__suffix" aria-hidden="true">₪</span></div><p class="jtool-error" id="${P}-other-e" role="alert"></p></div>`
-		+ `<p class="jtool-hint">על שכר הטרחה ודמי התיווך נוסף מע"מ ${pt.vat_pct}% (מ-${isoToHe(pt.vat_from)}). האחוזים הם שלכם, לפי ההצעות שקיבלתם; הכלי לא ממליץ על מחיר.</p></details>`;
+		+ `<p class="jtool-hint">על שכר הטרחה ודמי התיווך נוסף מע"מ לפי יום החתימה: ${pt.vat_pct}% מ-${isoToHe(pt.vat_from)}${pt.vat_prior ? `, ${pt.vat_prior.pct}% לפני כן` : ''}. האחוזים הם שלכם, לפי ההצעות שקיבלתם; הכלי לא ממליץ על מחיר.</p></details>`;
 }
 
 function verdictSentence(reg, r) {

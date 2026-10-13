@@ -398,6 +398,10 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		const nh = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'disabled', notForHousing: true });
 		check(!nh.ok && nh.outOfScope && /שיכונו/.test(nh.errors[0].he), 'reg. 11(א): the disability relief only for the person\'s own housing (review, PR 124)');
 		check(/מחצית/.test(reg.purchase_tax.share_ignored_he), 's.49ג(3): an inherited home is ignored up to a half');
+		const v24 = RQ.compute(reg, { price: 2000000, date: '2024-06-01', track: 'single', lawyerPct: 1 });
+		const v26 = RQ.compute(reg, { price: 2000000, date: '2026-10-13', track: 'single', lawyerPct: 1 });
+		check(v24.vat === 17 && v24.lawyer === 23400 && v26.vat === 18 && v26.lawyer === 23600, 'VAT by the purchase day: 17% before 1.1.2025, 18% after (review, PR 124)');
+		check(/151\(ג\)\(2\)/.test(reg.betterment.rates.mamad.area_he), 's.19(ב)(9)(ג): the mamad rule names the Amendment 163 additional area');
 	}
 	check(dl('2025-06-01', { contractor: true, delivery: '2026-07-01' }) === '2027-09-01', 'contractor: each window extended first; 1.6.27 + 3 months beats 1.7.27 from delivery (review, PR 124)');
 	check(dl('2025-06-01', { contractor: true, delivery: '2025-07-01' }) === '2027-09-01', 'instruction 2/2016 s.2.1: contractor, the later of 12 months from delivery and 24 from purchase (1.6.27), then +3 months (review, PR 124)');

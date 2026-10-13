@@ -206,7 +206,8 @@ export function compute(registry, input) {
 		}[main.refused] || (() => 'מחוץ לתחום של הכלי'))();
 		return { ok: false, outOfScope: true, errors: [{ field: 'date', he: why }] };
 	}
-	const vat = input.vat === false ? 0 : pt.vat_pct;
+	// VAT by the rate in force on the purchase day (17% from 1.10.2015, 18% from 1.1.2025) (review, PR 124).
+	const vat = input.vat === false ? 0 : (pt.vat_prior && on < pt.vat_from ? pt.vat_prior.pct : pt.vat_pct);
 	const lawyer = Math.round(price * lawyerPct * (100 + vat) / 100) / 100;
 	const broker = Math.round(price * brokerPct * (100 + vat) / 100) / 100;
 	const total = Math.round((main.tax + lawyer + broker + other) * 100) / 100;

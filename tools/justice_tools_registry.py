@@ -421,7 +421,7 @@ def build_purchase_tax(checked_on: str) -> dict:
         "resident_he": "המדרגות של דירה יחידה הן ליחיד תושב ישראל, כולל מי שנעשה תושב בתוך שנתיים מהרכישה (סעיף 9(ג1ג)(2) ו-(4)(ב)); מי שאינו תושב משלם כמו על דירה נוספת",
         "declare_days": 30, "declare_section": "סעיף 73(ג)",
         "pay_days": 60, "pay_section": "סעיף 90א", "late_section": "סעיף 94(א)",
-        "vat_pct": 18, "vat_from": "2025-01-01",
+        "vat_pct": 18, "vat_from": "2025-01-01", "vat_prior": {"pct": 17, "from": "2015-10-01"},
         "vat_he": "צו מס ערך מוסף (שיעור המס על עסקה ועל יבוא טובין), התשס\"ה-2005, סעיף 1",
         "vat_url": "https://www.nevo.co.il/law_html/law01/999_481.htm",
     }
@@ -457,8 +457,9 @@ def build_betterment(checked_on: str) -> dict:
             # s.19(ב)(9)(א): only a protected space within the area set under the Civil Defence Law is exempt;
             # betterment from any other area, even in the same permit, pays the regular half (s.3).
             "mamad": {"rate": [0, 1], "section": "סעיף 19(ב)(9)", "beyond_rate": [1, 2], "beyond_section": "סעיף 3",
-                      "area_he": "הפטור רק לממ\"ד בשטח שלא עולה על השטח שנקבע לפי חוק ההתגוננות האזרחית. השבחה "
-                                 "משטח נוסף, גם באותו היתר, חייבת בהיטל הרגיל של מחצית (סעיף 3)"},
+                      "area_he": "הפטור חל על ממ\"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית, ומאז תיקון 163 (2025) גם על "
+                                 "השטח הנוסף לממ\"ד לפי סעיף 151(ג)(2), בתנאים שבסעיף 19(ב)(9)(ג). השבחה משטח אחר, גם באותו "
+                                 "היתר, חייבת בהיטל הרגיל של מחצית (סעיף 3)"},
         },
         "residence_max_sqm": 140, "residence_section": "סעיף 19(ג)(1)",
         "residence_sale_years": 4, "residence_sale_section": "סעיף 19(ג)(2)",

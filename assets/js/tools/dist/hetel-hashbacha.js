@@ -186,8 +186,9 @@ function isStale(checkedOn, refreshDays, now = new Date()) {
  * and Building Law (התוספת השלישית לחוק התכנון והבניה, התשכ"ה-1965), read in the consolidated text:
  *  - s.3: the levy is half the betterment; s.3א(א): a quarter in an urban-renewal (pinui-binui) plan for
  *    housing, unless the local authority set half, a quarter or none for the area (s.3א(ב)).
- *  - s.19(ב)(9): no levy on a protected space (mamad) within the area the civil-defence law sets; any other
- *    area in the same permit pays the regular half (s.3), so the tool takes that part separately;
+ *  - s.19(ב)(9): no levy on a protected space (mamad) within the area the civil-defence law sets, and since
+ *    Amendment 163 (2025) on the additional area under s.151(ג)(2), under the conditions of s.19(ב)(9)(ג); any
+ *    other area in the same permit pays the regular half (s.3), so the tool takes that part separately;
  *    s.19(ב)(10)(א): no levy on a TAMA 38 permit, but a quarter on the part beyond 2.5 extended typical floors;
  *    s.19(ב)(10א)(א): a quarter in a seismic-resilience plan. s.19(ב2)(1): for both quarters, the local
  *    authority may set no levy or an eighth, so the result carries that warning.
@@ -300,8 +301,8 @@ function compute(registry, input) {
 	} else if (plan === 'mamad') {
 		beyond = r2(mamadBeyond * share / 100);
 		levyFull = r2(beyond * R.beyond_rate[0] / R.beyond_rate[1]);
-		lines.push({ code: 'mamad', he: 'ממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית: פטור', section: R.section, value: 0 });
-		if (beyond > 0) { lines.push({ code: 'mamad_beyond', he: `השבחה משטח נוסף (${beyond.toLocaleString('en-US')} ₪): ההיטל הרגיל, ${R.beyond_rate[0]}/${R.beyond_rate[1]}`, section: R.beyond_section, value: levyFull }); }
+		lines.push({ code: 'mamad', he: 'ממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית, והשטח הנוסף לממ"ד לפי תיקון 163: פטור', section: R.section, value: 0 });
+		if (beyond > 0) { lines.push({ code: 'mamad_beyond', he: `השבחה משטח שאינו פטור (${beyond.toLocaleString('en-US')} ₪): ההיטל הרגיל, ${R.beyond_rate[0]}/${R.beyond_rate[1]}`, section: R.beyond_section, value: levyFull }); }
 		flags.push({ code: 'mamad_area', he: R.area_he });
 	} else {
 		levyFull = r2(yours * R.rate[0] / R.rate[1]);
@@ -389,7 +390,7 @@ function renderForm(reg, input) {
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-share">החלק שלכם בנכס</label><div class="jtool-input"><input id="${P}-share" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.share ?? 100)}" aria-describedby="${P}-share-h ${P}-share-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-hint" id="${P}-share-h">שותפים משלמים לפי החלק (${esc(b.partners_section)})</p><p class="jtool-error" id="${P}-share-e" role="alert"></p></div></div>`
 		+ `<fieldset class="jtool-field"><legend>מה גרם לעליית השווי</legend><div class="jtool-chips">${PLANS.map((k) => chip('plan', k, PLAN_LABEL[k], (input.plan || 'regular') === k)).join('')}</div></fieldset>`
 		+ `<div data-if-plan="tama38"${input.plan === 'tama38' ? '' : ' hidden'}>${moneyField('tama', 'החלק מההשבחה שמקורו בשטח מעבר ל-2.5 קומות', input.tamaBeyond, 'עליו בלבד היטל של רבע (סעיף 19(ב)(10)(א))', '0 אם אין')}</div>`
-		+ `<div data-if-plan="mamad"${input.plan === 'mamad' ? '' : ' hidden'}>${moneyField('mamx', 'החלק מההשבחה שמקורו בשטח נוסף, מעבר לממ"ד', input.mamadBeyond, 'רק ממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית פטור (סעיף 19(ב)(9)). על שטח נוסף: היטל רגיל של מחצית (סעיף 3)', '0 אם אין')}</div>`
+		+ `<div data-if-plan="mamad"${input.plan === 'mamad' ? '' : ' hidden'}>${moneyField('mamx', 'החלק מההשבחה שמקורו בשטח שאינו פטור', input.mamadBeyond, 'פטורים: הממ"ד בשטח שנקבע לפי חוק ההתגוננות האזרחית, והשטח הנוסף לממ"ד לפי סעיף 151(ג)(2) בתנאי סעיף 19(ב)(9)(ג). על שטח אחר: היטל רגיל של מחצית (סעיף 3)', '0 אם אין')}</div>`
 		+ `<fieldset class="jtool-field"><legend>מתי זה קורה</legend><div class="jtool-chips">${EVENTS.map((k) => chip('evt', k, EVENT_LABEL[k], (input.event || 'sale') === k)).join('')}</div></fieldset>`
 		+ `<div class="jtool-field"><label class="jtool-label" for="${P}-real">איזה חלק מהזכויות אתם מממשים עכשיו</label><div class="jtool-input"><input id="${P}-real" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.realized ?? 100)}" aria-describedby="${P}-real-h ${P}-realized-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-hint" id="${P}-real-h">מוכרים או בונים רק חלק מהזכויות? משלמים עכשיו את החלק היחסי (${esc(b.partial_section)})</p><p class="jtool-error" id="${P}-realized-e" role="alert"></p></div>`
 		+ `<div data-if-event="sale"${(input.event || 'sale') === 'sale' ? '' : ' hidden'}><div class="jtool-chips">${chip('s4', '1', `מוכרים דירה שנבנתה או הורחבה למגורינו, וגרנו בה ${b.residence_sale_years} שנים לפחות מגמר הבנייה`, input.sale4, 'checkbox')}</div></div>`
@@ -413,7 +414,7 @@ function verdictSentence(reg, r) {
 		return `אפשר להשיג על השומה עד ${isoToHe(r.appealBy)}${r.recheck ? `, ובחיוב של עד ${money(reg.betterment.recheck_max, 0)} ₪, כשחולקים רק על הסכום, גם לבקש מהוועדה לבחון מחדש` : ''}.${r.saving ? ` לפי השמאי שלכם, ההפרש: ${nis(r.saving)}.` : ''}`;
 	}
 	if (r.levy === 0) { return `${PLAN_LABEL[r.plan]}: אין היטל השבחה על החלק הזה (${reg.betterment.rates[r.plan].section}).`; }
-	const part = { tama38: 'שמקורו בשטח שמעבר ל-2.5 קומות', mamad: 'שמקורו בשטח נוסף, מעבר לממ"ד' }[r.plan];
+	const part = { tama38: 'שמקורו בשטח שמעבר ל-2.5 קומות', mamad: 'שמקורו בשטח שאינו פטור' }[r.plan];
 	const base = part && r.beyond !== null
 		? `היטל השבחה של ${nis(r.levy)}: ${r.rate[0]}/${r.rate[1]} מהחלק ${part} (${nis(r.beyond)}). השאר פטור.`
 		: `היטל השבחה של ${nis(r.levy)}: ${r.rate[0]}/${r.rate[1]} מההשבחה ${r.share < 100 ? `שלכם (${r.share}% מ-${nis(r.betterment)})` : `של ${nis(r.betterment)}`}.`;
@@ -508,7 +509,7 @@ function levyTable(reg) {
 		const cells = ['regular', 'pinui', 'mamad'].map((p) => { const r = compute(reg, { mode: 'estimate', betterment: v, share: 100, plan: p, event: 'sale' }); return ils(r.levy, 0); });
 		return `<tr><td data-th="ההשבחה">${ils(v, 0)}</td><td data-th="תוכנית רגילה (1/2)">${cells[0]}</td><td data-th="פינוי ובינוי (1/4)">${cells[1]}</td><td data-th="ממ&quot;ד בשטח שנקבע (פטור)">${cells[2]}</td></tr>`;
 	}).join('');
-	return `<div class="jtool-datawrap"><table class="jtool-datatable"><caption>היטל ההשבחה לפי עליית השווי וסוג התוכנית, מאותו מנוע. פינוי ובינוי: אלא אם הרשות המקומית קבעה אחרת לאזור. ממ"ד: רק בשטח שנקבע לפי חוק ההתגוננות האזרחית; שטח נוסף משלם מחצית.</caption><thead><tr><th scope="col">ההשבחה</th><th scope="col">תוכנית רגילה (1/2)</th><th scope="col">פינוי ובינוי (1/4)</th><th scope="col">ממ"ד בשטח שנקבע (פטור)</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+	return `<div class="jtool-datawrap"><table class="jtool-datatable"><caption>היטל ההשבחה לפי עליית השווי וסוג התוכנית, מאותו מנוע. פינוי ובינוי: אלא אם הרשות המקומית קבעה אחרת לאזור. ממ"ד: פטור בשטח שנקבע ובשטח הנוסף לפי תיקון 163; שטח אחר משלם מחצית.</caption><thead><tr><th scope="col">ההשבחה</th><th scope="col">תוכנית רגילה (1/2)</th><th scope="col">פינוי ובינוי (1/4)</th><th scope="col">ממ"ד בשטח שנקבע (פטור)</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function snapshot(reg) {

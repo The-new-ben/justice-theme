@@ -859,7 +859,7 @@ function justice_tools_hashbacha_numbers_html( array $b ): string {
 		array( 'פינוי ובינוי למגורים', esc_html( justice_tools_fraction_he( $b['rates']['pinui']['rate'] ) ) . ' מההשבחה, אלא אם הרשות קבעה אחרת לאזור', $b['rates']['pinui']['section'] . ' ו-3א(ב)' ),
 		array( 'היתר לפי תמ"א 38', 'פטור; רבע על השטח שמעבר ל-2.5 קומות טיפוסיות מורחבות, אלא אם הרשות המקומית קבעה פטור או שמינית', $b['rates']['tama38']['section'] . ' ו-19(ב2)(1)' ),
 		array( 'תוכנית חיזוק מפני רעידות אדמה', esc_html( justice_tools_fraction_he( $b['rates']['seismic']['rate'] ) ) . ' מההשבחה, אלא אם הרשות המקומית קבעה פטור או שמינית', $b['rates']['seismic']['section'] . ' ו-19(ב2)(1)' ),
-		array( 'ממ"ד', 'פטור עד השטח שנקבע לפי חוק ההתגוננות האזרחית; על שטח נוסף, ההיטל הרגיל', $b['rates']['mamad']['section'] ),
+		array( 'ממ"ד', 'פטור בשטח שנקבע לפי חוק ההתגוננות האזרחית, ומ-2025 גם בשטח הנוסף לפי סעיף 151(ג)(2) בתנאים; על שטח אחר, ההיטל הרגיל', $b['rates']['mamad']['section'] . ' ו-(9)(ג)' ),
 		array( 'בנייה או הרחבה למגורים שלכם או של קרוב', 'לא משלמים בהיתר עד <bdi>' . (int) $b['residence_max_sqm'] . '</bdi> מ"ר אחרי הבנייה; מעל, באופן יחסי', $b['residence_section'] ),
 		array( 'מכירת דירה כזאת', 'לא מימוש אחרי <bdi>' . (int) $b['residence_sale_years'] . '</bdi> שנות מגורים מגמר הבנייה', $b['residence_sale_section'] ),
 		array( 'מתי משלמים', 'לכל המאוחר במימוש: היתר, מכירה או שימוש', $b['pay_section'] ),

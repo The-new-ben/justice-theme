@@ -370,6 +370,9 @@ function compute(registry, input) {
 	const forum = input.forum === 'family' ? 'family' : 'rabbinical';
 	const certificates = input.certificates === undefined || input.certificates === '' ? 2 : Number(input.certificates);
 	if (!(Number.isInteger(certificates) && certificates >= 0 && certificates <= 2)) { errors.push({ field: 'certificates', he: 'תעודות גירושין: 0, 1 או 2' }); }
+	// The filing day must be a real calendar day: 31.2.2026 is an error, never 3.3.2026 (review, PR 126).
+	const startIso = input.start ? parseDate(input.start) : null;
+	if (input.start && !startIso) { errors.push({ field: 'start', he: 'יום הגשת הבקשה לא תקין. לדוגמה: 1.11.2026' }); }
 	if (input.notJewish) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'route', he: dc.scope_he }] };
 	}
@@ -377,7 +380,8 @@ function compute(registry, input) {
 	let balance = null;
 	const b = input.balance;
 	const val = (v) => (v === '' || v === undefined || v === null ? 0 : Number(v));
-	if (b && ((b.a && (b.a.assets || b.a.excluded || b.a.debts)) || (b.b && (b.b.assets || b.b.excluded || b.b.debts)))) {
+	// Married before 1.1.1974: the balance regime does not apply (s.14), so no payment figure is shown (review, PR 126).
+	if (!input.before1974 && b && ((b.a && (b.a.assets || b.a.excluded || b.a.debts)) || (b.b && (b.b.assets || b.b.excluded || b.b.debts)))) {
 		const side = (s, key) => {
 			const assets = val(s && s.assets);
 			const excluded = val(s && s.excluded);
@@ -392,7 +396,7 @@ function compute(registry, input) {
 		const B = side(b.b, 'b');
 		if (!errors.length) {
 			const diff = r2(A.net - B.net);
-			balance = { a: A, b: B, diff, pay: r2(Math.abs(diff) / 2), payer: diff > 0 ? 'a' : diff < 0 ? 'b' : null, before1974: Boolean(input.before1974) };
+			balance = { a: A, b: B, diff, pay: r2(Math.abs(diff) / 2), payer: diff > 0 ? 'a' : diff < 0 ? 'b' : null };
 		}
 	}
 	if (errors.length) { return { ok: false, errors }; }
@@ -445,10 +449,10 @@ function compute(registry, input) {
 	if (route === 'agree' && forum === 'rabbinical') { flags.push({ code: 'get_request', he: dc.get_request_he }); }
 	if (lawApplies) { flags.push({ code: 'meetings', he: dc.meetings_he }); }
 	if (route !== 'agree' && input.abroad) { flags.push({ code: 'abroad', he: dc.abroad_he }); }
-	const clk0 = lawApplies ? clock(dc, input.start || dc.checked_on, input.extended) : null;
+	const clk0 = lawApplies ? clock(dc, startIso || dc.checked_on, input.extended) : null;
 	if (clk0 && clk0.paused) { flags.push({ code: 'pause', he: dc.pause_he }); }
 	if (input.children && route === 'court' && forum === 'rabbinical') { flags.push({ code: 'support', he: dc.support_he }); }
-	if (balance && balance.before1974) { flags.push({ code: 'pre1974', he: dc.pre1974_he }); }
+	if (input.before1974) { flags.push({ code: 'pre1974', he: dc.pre1974_he }); }
 
 	const total = r2(lines.reduce((a, l) => a + l.amount, 0));
 	const byWho = { rabbinical: r2(lines.filter((l) => l.who === 'rabbinical').reduce((a, l) => a + l.amount, 0)), family: r2(lines.filter((l) => l.who === 'family').reduce((a, l) => a + l.amount, 0)) };
@@ -568,7 +572,7 @@ function lanes(reg, r) {
 		['דיונים ופסק דין', 'החוק לא קובע משך'],
 	];
 	const lane = (key, title, steps, on) => `<div class="jt9-lane${on ? ' jt9-lane--on' : ''}"><p class="jt9-lane__h">${esc(title)}${on ? ' (אתם)' : ''}</p><ol>${steps.map(([t, s]) => `<li><span class="jt9-lane__t">${esc(t)}</span><span class="jt9-lane__s">${s}</span></li>`).join('')}</ol></div>`;
-	return `<div class="jt9-lanes" aria-label="הדרך לגירושין, לפי החוק">${lane('agree', 'בהסכמה', agreeSteps, r.route === 'agree')}${lane('court', r.route === 'mediate' ? 'יישוב סכסוך' : 'במחלוקת', courtSteps, r.route !== 'agree')}</div>`;
+	return `<div class="jt9-lanes" role="group" aria-label="הדרך לגירושין, לפי החוק">${lane('agree', 'בהסכמה', agreeSteps, r.route === 'agree')}${lane('court', r.route === 'mediate' ? 'יישוב סכסוך' : 'במחלוקת', courtSteps, r.route !== 'agree')}</div>`;
 }
 
 function renderResult(reg, r, opts = {}) {
@@ -755,9 +759,8 @@ function mount(root, reg) {
 		if (lg) { lg.textContent = route === 'court' ? 'איפה נדונים הרכוש והילדים' : 'איפה מאשרים את ההסכם'; }
 	};
 	const run = (input, opts = {}) => {
-		const start = input.start || today;
-		const bad = input.start && !/^\d{4}-\d{2}-\d{2}$/.test(input.start);
-		const r = bad ? { ok: false, errors: [{ field: 'start', he: 'התאריך לא תקין. לדוגמה: 1.11.2026' }] } : compute(reg, Object.assign({}, input, { start }));
+		// The engine validates the day itself (a real calendar day); an empty field counts from today.
+		const r = compute(reg, Object.assign({}, input, { start: input.start || today }));
 		showErrors(r);
 		result.innerHTML = renderResult(reg, r);
 		details.innerHTML = renderDetails(reg, r, { today });

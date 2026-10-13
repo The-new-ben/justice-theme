@@ -199,7 +199,8 @@ function readForm(root) {
 	const death = Boolean(root.querySelector(`input[name="${P}-dth"]:checked`));
 	return {
 		disability: num('dis'), days: num('days'), age: num('age'),
-		accident: toIso(val(death ? `#${P}-acc2` : `#${P}-acc`)), birth: toIso(val(`#${P}-birth`)), death,
+		// A hidden birth-date field is never read (review, PR 126).
+		accident: toIso(val(death ? `#${P}-acc2` : `#${P}-acc`)), birth: (root.querySelector('[data-if-minor]') || {}).hidden ? '' : toIso(val(`#${P}-birth`)), death,
 		work: Boolean(root.querySelector(`input[name="${P}-wrk"]:checked`)),
 		amount: moneyOf('amt'), stage: (root.querySelector(`input[name="${P}-stg"]:checked`) || {}).value || 'none',
 		income: moneyOf('inc'), months: num('mon'), max: moneyOf('max'),

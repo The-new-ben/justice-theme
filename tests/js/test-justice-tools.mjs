@@ -668,6 +668,20 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(GEUI.renderResult(reg, abroad).includes('סעיף 4א(1)'), 'the lanes say why there is no request when a spouse lives abroad');
 }
 
+/* ---------- Review fixes (PR 126, Codex pass 1) ---------- */
+{
+	const adult = TE.compute(reg, { disability: 10, days: 0, age: 20, accident: '2025-01-01', birth: '2010-01-01' });
+	check(adult.ok && !adult.lim.minor && adult.lim.deadline === '2032-01-01', 'an adult on the accident day: a birth date left over is ignored, 7 years from the accident (review, PR 126)');
+	const minor = TE.compute(reg, { disability: 10, days: 0, age: 15, accident: '2025-01-01', birth: '2010-01-01' });
+	check(minor.ok && minor.lim.minor && minor.lim.deadline === '2035-01-01', 'a minor: the birth date starts the 7 years at 18');
+	check(!TE.compute(reg, { disability: 10, days: 0, age: 15, accident: '2025-01-01', birth: '2026-01-01' }).ok, 'a birth date after the accident is an input error');
+	const pre = GE.compute(reg, { route: 'agree', before1974: true, balance: { a: { assets: 900000 }, b: { assets: 100000 } } });
+	check(pre.ok && pre.balance === null && pre.flags.some((f) => f.code === 'pre1974') && !GEUI.renderResult(reg, pre).includes('משלם ל'), 'married before 1.1.1974: no balance figure at all, only the s.14 note (review, PR 126)');
+	check(!GE.compute(reg, { route: 'court', start: '2026-02-31' }).ok && GE.compute(reg, { route: 'court', start: '2026-02-31' }).errors[0].field === 'start', 'an impossible filing day (31.2.2026) is an input error, not 3.3.2026 (review, PR 126)');
+	check(GE.compute(reg, { route: 'court', start: '1.11.2026' }).clock.meetingsBy === '2026-12-16', 'the filing day may be typed as 1.11.2026');
+	check(GEUI.renderResult(reg, GE.compute(reg, { route: 'agree' })).includes('class="jt9-lanes" role="group"'), 'the lanes are a labelled group (axe: aria-prohibited-attr)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

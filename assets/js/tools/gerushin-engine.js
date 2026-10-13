@@ -25,7 +25,7 @@
  *  - Lawyers: only the Israel Bar's recommended minimum tariff (2000 rules, current to 5.1.2026), which is a
  *    non-binding recommendation (rule 2) before VAT (rule 1). The tool shows it as a reference, never as a price.
  */
-import { addDays, addCountedDays, isFamilyPause } from './dates.js';
+import { addDays, addCountedDays, isFamilyPause, parseDate } from './dates.js';
 
 export const ROUTES = ['agree', 'mediate', 'court'];
 const r2 = (n) => Math.round(n * 100) / 100;
@@ -67,6 +67,9 @@ export function compute(registry, input) {
 	const forum = input.forum === 'family' ? 'family' : 'rabbinical';
 	const certificates = input.certificates === undefined || input.certificates === '' ? 2 : Number(input.certificates);
 	if (!(Number.isInteger(certificates) && certificates >= 0 && certificates <= 2)) { errors.push({ field: 'certificates', he: 'תעודות גירושין: 0, 1 או 2' }); }
+	// The filing day must be a real calendar day: 31.2.2026 is an error, never 3.3.2026 (review, PR 126).
+	const startIso = input.start ? parseDate(input.start) : null;
+	if (input.start && !startIso) { errors.push({ field: 'start', he: 'יום הגשת הבקשה לא תקין. לדוגמה: 1.11.2026' }); }
 	if (input.notJewish) {
 		return { ok: false, outOfScope: true, errors: [{ field: 'route', he: dc.scope_he }] };
 	}
@@ -74,7 +77,8 @@ export function compute(registry, input) {
 	let balance = null;
 	const b = input.balance;
 	const val = (v) => (v === '' || v === undefined || v === null ? 0 : Number(v));
-	if (b && ((b.a && (b.a.assets || b.a.excluded || b.a.debts)) || (b.b && (b.b.assets || b.b.excluded || b.b.debts)))) {
+	// Married before 1.1.1974: the balance regime does not apply (s.14), so no payment figure is shown (review, PR 126).
+	if (!input.before1974 && b && ((b.a && (b.a.assets || b.a.excluded || b.a.debts)) || (b.b && (b.b.assets || b.b.excluded || b.b.debts)))) {
 		const side = (s, key) => {
 			const assets = val(s && s.assets);
 			const excluded = val(s && s.excluded);
@@ -89,7 +93,7 @@ export function compute(registry, input) {
 		const B = side(b.b, 'b');
 		if (!errors.length) {
 			const diff = r2(A.net - B.net);
-			balance = { a: A, b: B, diff, pay: r2(Math.abs(diff) / 2), payer: diff > 0 ? 'a' : diff < 0 ? 'b' : null, before1974: Boolean(input.before1974) };
+			balance = { a: A, b: B, diff, pay: r2(Math.abs(diff) / 2), payer: diff > 0 ? 'a' : diff < 0 ? 'b' : null };
 		}
 	}
 	if (errors.length) { return { ok: false, errors }; }
@@ -142,10 +146,10 @@ export function compute(registry, input) {
 	if (route === 'agree' && forum === 'rabbinical') { flags.push({ code: 'get_request', he: dc.get_request_he }); }
 	if (lawApplies) { flags.push({ code: 'meetings', he: dc.meetings_he }); }
 	if (route !== 'agree' && input.abroad) { flags.push({ code: 'abroad', he: dc.abroad_he }); }
-	const clk0 = lawApplies ? clock(dc, input.start || dc.checked_on, input.extended) : null;
+	const clk0 = lawApplies ? clock(dc, startIso || dc.checked_on, input.extended) : null;
 	if (clk0 && clk0.paused) { flags.push({ code: 'pause', he: dc.pause_he }); }
 	if (input.children && route === 'court' && forum === 'rabbinical') { flags.push({ code: 'support', he: dc.support_he }); }
-	if (balance && balance.before1974) { flags.push({ code: 'pre1974', he: dc.pre1974_he }); }
+	if (input.before1974) { flags.push({ code: 'pre1974', he: dc.pre1974_he }); }
 
 	const total = r2(lines.reduce((a, l) => a + l.amount, 0));
 	const byWho = { rabbinical: r2(lines.filter((l) => l.who === 'rabbinical').reduce((a, l) => a + l.amount, 0)), family: r2(lines.filter((l) => l.who === 'family').reduce((a, l) => a + l.amount, 0)) };

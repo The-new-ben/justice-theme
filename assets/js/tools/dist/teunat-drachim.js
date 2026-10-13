@@ -396,14 +396,18 @@ function compute(registry, input) {
 	const months = num(input.months);
 	const amount = num(input.amount);
 	const accident = parseDate(input.accident);
-	const birth = input.birth ? parseDate(input.birth) : null;
+	// The birth day matters only for a minor (Limitation Law s.10): for an adult on the accident day it is ignored, so a
+	// value left in a hidden field never moves the deadline (review, PR 126).
+	const minorAge = age !== null && age < ca.limitation.adult_age;
+	const birth = input.birth && minorAge ? parseDate(input.birth) : null;
 	if (!input.death) {
 		if (!(dis >= 0 && dis <= 100)) { errors.push({ field: 'disability', he: 'אחוזי נכות לצמיתות: 0 עד 100' }); }
 		if (!(days >= 0 && days <= 3650 && Number.isInteger(days))) { errors.push({ field: 'days', he: 'ימי אשפוז: מספר שלם, 0 ומעלה' }); }
 		if (age === null || !(age >= 0 && age <= 120 && Number.isInteger(age))) { errors.push({ field: 'age', he: 'הגיל ביום התאונה, בשנים שלמות: 0 עד 120' }); }
 	}
 	if (!accident) { errors.push({ field: 'accident', he: 'יום התאונה לא תקין. לדוגמה: 10.3.2025' }); }
-	if (input.birth && !birth) { errors.push({ field: 'birth', he: 'תאריך הלידה לא תקין' }); }
+	if (input.birth && minorAge && !birth) { errors.push({ field: 'birth', he: 'תאריך הלידה לא תקין' }); }
+	if (birth && accident && birth > accident) { errors.push({ field: 'birth', he: 'תאריך הלידה אחרי יום התאונה' }); }
 	if (accident && input.today && accident > input.today) { errors.push({ field: 'accident', he: 'יום התאונה אחרי היום' }); }
 	if (accident && accident < ca.law_from) { errors.push({ field: 'accident', he: `החוק חל על תאונות מ-${heDate(ca.law_from)} (סעיף 23(א))` }); }
 	if (max !== null && !(max > 0 && max < 1e8)) { errors.push({ field: 'max', he: 'הסכום המקסימלי: מספר חיובי' }); }
@@ -668,7 +672,8 @@ function readForm(root) {
 	const death = Boolean(root.querySelector(`input[name="${P}-dth"]:checked`));
 	return {
 		disability: num('dis'), days: num('days'), age: num('age'),
-		accident: toIso(val(death ? `#${P}-acc2` : `#${P}-acc`)), birth: toIso(val(`#${P}-birth`)), death,
+		// A hidden birth-date field is never read (review, PR 126).
+		accident: toIso(val(death ? `#${P}-acc2` : `#${P}-acc`)), birth: (root.querySelector('[data-if-minor]') || {}).hidden ? '' : toIso(val(`#${P}-birth`)), death,
 		work: Boolean(root.querySelector(`input[name="${P}-wrk"]:checked`)),
 		amount: moneyOf('amt'), stage: (root.querySelector(`input[name="${P}-stg"]:checked`) || {}).value || 'none',
 		income: moneyOf('inc'), months: num('mon'), max: moneyOf('max'),

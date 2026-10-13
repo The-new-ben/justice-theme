@@ -80,7 +80,7 @@ function lanes(reg, r) {
 		['דיונים ופסק דין', 'החוק לא קובע משך'],
 	];
 	const lane = (key, title, steps, on) => `<div class="jt9-lane${on ? ' jt9-lane--on' : ''}"><p class="jt9-lane__h">${esc(title)}${on ? ' (אתם)' : ''}</p><ol>${steps.map(([t, s]) => `<li><span class="jt9-lane__t">${esc(t)}</span><span class="jt9-lane__s">${s}</span></li>`).join('')}</ol></div>`;
-	return `<div class="jt9-lanes" aria-label="הדרך לגירושין, לפי החוק">${lane('agree', 'בהסכמה', agreeSteps, r.route === 'agree')}${lane('court', r.route === 'mediate' ? 'יישוב סכסוך' : 'במחלוקת', courtSteps, r.route !== 'agree')}</div>`;
+	return `<div class="jt9-lanes" role="group" aria-label="הדרך לגירושין, לפי החוק">${lane('agree', 'בהסכמה', agreeSteps, r.route === 'agree')}${lane('court', r.route === 'mediate' ? 'יישוב סכסוך' : 'במחלוקת', courtSteps, r.route !== 'agree')}</div>`;
 }
 
 export function renderResult(reg, r, opts = {}) {
@@ -267,9 +267,8 @@ export function mount(root, reg) {
 		if (lg) { lg.textContent = route === 'court' ? 'איפה נדונים הרכוש והילדים' : 'איפה מאשרים את ההסכם'; }
 	};
 	const run = (input, opts = {}) => {
-		const start = input.start || today;
-		const bad = input.start && !/^\d{4}-\d{2}-\d{2}$/.test(input.start);
-		const r = bad ? { ok: false, errors: [{ field: 'start', he: 'התאריך לא תקין. לדוגמה: 1.11.2026' }] } : compute(reg, Object.assign({}, input, { start }));
+		// The engine validates the day itself (a real calendar day); an empty field counts from today.
+		const r = compute(reg, Object.assign({}, input, { start: input.start || today }));
 		showErrors(r);
 		result.innerHTML = renderResult(reg, r);
 		details.innerHTML = renderDetails(reg, r, { today });

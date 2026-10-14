@@ -401,6 +401,7 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(!noUnits.ok && noUnits.errors.some((e) => e.field === 'opt-0-units'), 'an option with a price and dates but no units: an error, never dropped');
 	const cryNoUnits = IZ.computeBalance(reg, { marriage: '2015-01-01', breakDate: '2022-07-01', items: [], crypto: [{ owner: 'b', units: '', priceBreak: 60000, priceToday: 100000 }] });
 	check(!cryNoUnits.ok, 'crypto prices with no units: an error, never dropped');
+	check(!IZ.computeBalance(reg, { marriage: '2015-01-01', breakDate: '2022-07-01', items: [], options: [{ owner: 'a', strike: 25 }] }).ok && IZ.computeBalance(reg, { marriage: '2015-01-01', breakDate: '2022-07-01', items: [{ kind: 'savings', owner: 'a', value: 1000 }], options: [{ owner: 'a', strike: 0 }] }).ok, 'a strike alone makes an incomplete option; the RSU default 0 alone does not (Codex pass 16)');
 	const w = (timing, wedding) => MM.draftMamon(reg, { timing, route: timing === 'during' ? 'court' : 'notary', regime: 'separate', wedding, today: '2026-10-14' }).ok;
 	check(!w('during', '2027-05-12') && w('during', '2019-06-20') && !w('before', '2019-06-20') && w('before', '2027-05-12'), 'the wedding date fits the stage: past after the wedding, future before it');
 }

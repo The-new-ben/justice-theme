@@ -478,7 +478,8 @@ function computeBalance(registry, input) {
 		if (fEntered(it.atMarriage) && fEntered(it.value) && Number(it.atMarriage) > Number(it.value)) { errors.push({ field: `item-${i}-atMarriage`, he: 'הסכום ביום הנישואין גבוה מהשווי היום' }); }
 		if (fEntered(it.activeGain) && !(Number(it.activeGain) >= 0 && Number(it.activeGain) <= fVal(it.value))) { errors.push({ field: `item-${i}-activeGain`, he: 'עליית הערך האקטיבית: בין 0 לשווי הנכס' }); }
 	});
-	const opts = (input.options || []).filter((g) => g && ['units', 'price', 'grant', 'vestStart', 'vestEnd', 'tranches'].some((f) => fEntered(g[f])));
+	// A strike of 0 alone is the RSU default and says nothing; any other entered field makes it a holding to validate.
+	const opts = (input.options || []).filter((g) => g && (['units', 'price', 'grant', 'vestStart', 'vestEnd', 'tranches'].some((f) => fEntered(g[f])) || (fEntered(g.strike) && Number(g.strike) !== 0)));
 	opts.forEach((g, i) => {
 		for (const f of ['units', 'price', 'strike', 'tranches']) {
 			if (fEntered(g[f]) && !(Number(g[f]) >= 0 && Number(g[f]) < 1e11)) { errors.push({ field: `opt-${i}-${f}`, he: 'מספר חיובי' }); }
@@ -964,7 +965,7 @@ function readModel(root) {
 		cryptoAt: (root.querySelector(`input[name="${P}-cat"]:checked`) || {}).value || 'today',
 		home: { value: m$('h-value'), mortgage: m$('h-mort'), owner: val('h-owner') || 'joint', source: val('h-source'), activeGain: m$('h-active') },
 		a: side('a'), b: side('b'), others,
-		options: [units, m$('op-price'), d$('op-grant'), d$('op-vs'), d$('op-ve'), n$('op-tr')].every((x) => x === '') ? [] : [{ owner: val('op-owner') || 'a', units, price: m$('op-price'), strike: m$('op-strike') === '' ? 0 : m$('op-strike'), grant: d$('op-grant'), vestStart: d$('op-vs'), vestEnd: d$('op-ve'), tranches: n$('op-tr') }],
+		options: [units, m$('op-price'), d$('op-grant'), d$('op-vs'), d$('op-ve'), n$('op-tr')].every((x) => x === '') && [0, ''].includes(m$('op-strike')) ? [] : [{ owner: val('op-owner') || 'a', units, price: m$('op-price'), strike: m$('op-strike') === '' ? 0 : m$('op-strike'), grant: d$('op-grant'), vestStart: d$('op-vs'), vestEnd: d$('op-ve'), tranches: n$('op-tr') }],
 		crypto: [cunits, m$('cr-pb'), m$('cr-pt')].every((x) => x === '') ? [] : [{ owner: val('cr-owner') || 'b', units: cunits, priceBreak: m$('cr-pb'), priceToday: m$('cr-pt'), where: val('cr-where') || 'exchange' }],
 	};
 }

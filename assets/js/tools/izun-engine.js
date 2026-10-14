@@ -148,7 +148,8 @@ export function computeBalance(registry, input) {
 		if (fEntered(it.atMarriage) && fEntered(it.value) && Number(it.atMarriage) > Number(it.value)) { errors.push({ field: `item-${i}-atMarriage`, he: 'הסכום ביום הנישואין גבוה מהשווי היום' }); }
 		if (fEntered(it.activeGain) && !(Number(it.activeGain) >= 0 && Number(it.activeGain) <= fVal(it.value))) { errors.push({ field: `item-${i}-activeGain`, he: 'עליית הערך האקטיבית: בין 0 לשווי הנכס' }); }
 	});
-	const opts = (input.options || []).filter((g) => g && ['units', 'price', 'grant', 'vestStart', 'vestEnd', 'tranches'].some((f) => fEntered(g[f])));
+	// A strike of 0 alone is the RSU default and says nothing; any other entered field makes it a holding to validate.
+	const opts = (input.options || []).filter((g) => g && (['units', 'price', 'grant', 'vestStart', 'vestEnd', 'tranches'].some((f) => fEntered(g[f])) || (fEntered(g.strike) && Number(g.strike) !== 0)));
 	opts.forEach((g, i) => {
 		for (const f of ['units', 'price', 'strike', 'tranches']) {
 			if (fEntered(g[f]) && !(Number(g[f]) >= 0 && Number(g[f]) < 1e11)) { errors.push({ field: `opt-${i}-${f}`, he: 'מספר חיובי' }); }

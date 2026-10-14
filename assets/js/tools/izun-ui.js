@@ -321,7 +321,7 @@ function readModel(root) {
 		cryptoAt: (root.querySelector(`input[name="${P}-cat"]:checked`) || {}).value || 'today',
 		home: { value: m$('h-value'), mortgage: m$('h-mort'), owner: val('h-owner') || 'joint', source: val('h-source'), activeGain: m$('h-active') },
 		a: side('a'), b: side('b'), others,
-		options: [units, m$('op-price'), d$('op-grant'), d$('op-vs'), d$('op-ve'), n$('op-tr')].every((x) => x === '') ? [] : [{ owner: val('op-owner') || 'a', units, price: m$('op-price'), strike: m$('op-strike') === '' ? 0 : m$('op-strike'), grant: d$('op-grant'), vestStart: d$('op-vs'), vestEnd: d$('op-ve'), tranches: n$('op-tr') }],
+		options: [units, m$('op-price'), d$('op-grant'), d$('op-vs'), d$('op-ve'), n$('op-tr')].every((x) => x === '') && [0, ''].includes(m$('op-strike')) ? [] : [{ owner: val('op-owner') || 'a', units, price: m$('op-price'), strike: m$('op-strike') === '' ? 0 : m$('op-strike'), grant: d$('op-grant'), vestStart: d$('op-vs'), vestEnd: d$('op-ve'), tranches: n$('op-tr') }],
 		crypto: [cunits, m$('cr-pb'), m$('cr-pt')].every((x) => x === '') ? [] : [{ owner: val('cr-owner') || 'b', units: cunits, priceBreak: m$('cr-pb'), priceToday: m$('cr-pt'), where: val('cr-where') || 'exchange' }],
 	};
 }

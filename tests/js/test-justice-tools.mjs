@@ -906,6 +906,26 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(chip.includes(reg.rent_contract.protected_law_url) && reg.rent_contract.protected_law_url.includes('71616'), 'the protected-tenancy chip links to the Tenant Protection Law (review, PR 128)');
 }
 
+/* ---------- Wave 5: the Tax Authority's own self-assessment simulator (misim.gov.il, run on 14.10.2026) ---------- */
+{
+	// A qualifying home (not the only one) bought 1.6.2010 for 1,200,000 with 60,000 costs, sold 1.9.2026 for 2,600,000
+	// with 30,000 costs. The simulator's tax screen: real gain to the transition 206,766.21 at 0%, after it 730,153.05
+	// at 25%, inflationary amount 0, tax 182,538.26.
+	const r = SH.compute(reg, { status: 'qualified', buyDate: '2010-06-01', buyPrice: 1200000, buyCosts: 60000, saleDate: '2026-09-01', salePrice: 2600000, saleCosts: 30000 });
+	check(r.ok && r.path === 'linear' && near(r.linear.parts[0].gain, 206766.21, 0.011) && near(r.linear.parts[1].gain, 730153.05, 0.011) && near(r.tax, 182538.26, 0.005) && r.inflTaxable === 0, 'the Tax Authority simulator, to the agora: 206,766.21 exempt, 730,153.05 at 25%, tax 182,538.26');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 2) ---------- */
+{
+	const office = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', residential: false }));
+	check(office.path === 'regular' && office.tax === office.regular.tax && office.scen.exempt === null && office.scen.linear === null && office.flags.some((f) => f.code === 'not_residential'), 'a home not used mainly for residence: no single-home exemption and no linear rule (s.49(א); review, PR 128)');
+	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single' })).path === 'exempt', 'confirmed residential use keeps the exemption');
+	const quit = PE.compute(reg, { salary: 10000, start: '2018-01-01', end: '2026-09-30', reason: 'resign', s14: 'partial' });
+	const quitHtml = PEUI.renderResult(reg, quit) + PEUI.renderDetails(reg, quit);
+	check(quit.fundUnknown && quitHtml.includes('מה שנצבר') && !/מהקופה[^<]*<\/td><td[^>]*>[^<]*0 ₪/.test(quitHtml), 'an ordinary resignation with s.14: the fund is shown as what accumulated and belongs to the worker, never as 0 (review, PR 128)');
+	check(!PE.compute(reg, PEUI.EXAMPLE).fundUnknown, 'with a right to severance the share of the fund is computed');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

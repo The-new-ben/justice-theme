@@ -143,6 +143,8 @@ export function compute(registry, input) {
 		coveredYears = from > end ? 0 : serviceSpan(from, end).years;
 	}
 	const fundReplaces = entitled ? r2(base * coveredYears * s14Pct / 100) : 0;
+	// Without a right to severance the fund is still the worker's; its balance is unknown here, never zero (review, PR 128).
+	const fundUnknown = !entitled && s14 !== 'none';
 	const employer = r2(severance - fundReplaces);
 	if (s14 !== 'none') { add('info', 's14', `לפי סעיף 14 הכספים בקופה באים במקום ${s14Pct}% מהפיצויים בעד התקופה שבה הופרשו, ושייכים לכם בכל מקרה. אם ההפרשות היו משכר נמוך מהשכר האמיתי, על ההפרש מגיעה השלמה (סעיף 3 לאישור הכללי).`, 'סעיף 14'); }
 
@@ -180,7 +182,7 @@ export function compute(registry, input) {
 
 	return {
 		ok: true, payType, monthly, base, floored, hourly, hours, jobPct, start, end, span, reason, reasonRow, entitled, yearOk, conditional,
-		severance, s14, s14Pct, s14From, coveredYears, fundReplaces, employer,
+		severance, s14, s14Pct, s14From, coveredYears, fundReplaces, fundUnknown, employer,
 		notice, workedToNotice, noticeDate, noticeEnd, short, inLieu, noticeMode,
 		exempt, taxable, exemptCap, ceilingTotal, perYear, deadlines, flags, mwRow,
 	};

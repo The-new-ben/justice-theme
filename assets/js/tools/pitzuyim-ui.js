@@ -101,7 +101,7 @@ export function renderResult(reg, r, opts = {}) {
 		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}פיצויי פיטורים לפי החוק</p>`
 		+ `<strong class="jtool-verdict__figure">${ilsn(r.severance)}</strong>`
 		+ `<p class="jtool-verdict__sentence">${esc(verdictSentence(reg, r))}</p>`
-		+ `<dl class="jtool-breakdown"><div><dt>המעסיק משלם</dt><dd>${ilsn(r.employer)}</dd></div>${r.s14 !== 'none' && r.entitled ? `<div><dt>במקום זה, מהקופה</dt><dd>${ilsn(r.fundReplaces)}</dd></div>` : ''}<div><dt>הודעה מוקדמת</dt><dd>${esc(noticeText(r.notice))}</dd></div><div><dt>פטור ממס</dt><dd>${ilsn(r.exempt)}</dd></div></dl></div>`
+		+ `<dl class="jtool-breakdown"><div><dt>המעסיק משלם</dt><dd>${ilsn(r.employer)}</dd></div>${r.s14 !== 'none' && r.entitled ? `<div><dt>במקום זה, מהקופה</dt><dd>${ilsn(r.fundReplaces)}</dd></div>` : ''}${r.fundUnknown ? '<div><dt>בקופה (סעיף 14)</dt><dd>מה שנצבר, שלכם</dd></div>' : ''}<div><dt>הודעה מוקדמת</dt><dd>${esc(noticeText(r.notice))}</dd></div><div><dt>פטור ממס</dt><dd>${ilsn(r.exempt)}</dd></div></dl></div>`
 		+ ruler(r) + timeline(reg, r)
 		+ (flags.length ? `<ul class="jtool-flags">${flags.map((f) => `<li><strong aria-hidden="true">${MARK[f.level]}</strong> ${esc(f.he)}</li>`).join('')}</ul>` : '');
 }
@@ -131,8 +131,8 @@ export function renderDetails(reg, r) {
 		['פיצויי פיטורים', ilsn(r.severance), r.entitled ? `חודש לכל שנה${cite('סעיף 12(א)', sv.law_url)}${r.conditional ? cite('סעיף 3: פיטורים סמוך לסוף השנה', sv.law_url) : ''}${r.payType === 'hourly' ? cite('תקנות 1983', sv.wage_regs_url) : ''}` : `אין זכות${cite(r.yearOk ? 'סעיף 1(א): פיטורים' : 'סעיף 1(א): שנת עבודה', sv.law_url)}`],
 	];
 	if (r.s14 !== 'none') {
-		rows.push([`מהקופה, במקום ${r.s14Pct}%`, ilsn(r.fundReplaces), `${cite('סעיף 14', sv.law_url)}${cite('האישור הכללי', sv.approval.url)}`]);
-		rows.push(['השלמה מהמעסיק', ilsn(r.employer), 'ההפרש']);
+		rows.push([r.fundUnknown ? 'בקופה, לפי סעיף 14' : `מהקופה, במקום ${r.s14Pct}%`, r.fundUnknown ? 'מה שנצבר (לפי הדוח השנתי), שייך לכם' : ilsn(r.fundReplaces), `${cite('סעיף 14', sv.law_url)}${cite('האישור הכללי', sv.approval.url)}`]);
+		rows.push(['השלמה מהמעסיק', ilsn(r.employer), r.fundUnknown ? 'אין: אין זכות לפיצויים מהמעסיק' : 'ההפרש']);
 	}
 	rows.push(['הודעה מוקדמת', `${esc(noticeText(r.notice))}${r.inLieu !== null ? ` (${nis(r.inLieu)} אם משלמים במקום עבודה${r.notice.month ? '' : ', לפי 30 ימים בחודש'})` : ''}`, cite(`${r.notice.section} לחוק הודעה מוקדמת`, sv.notice.url)]);
 	rows.push(['פטור ממס', ilsn(r.exempt), `משכורת חודש לשנה, עד ${money(sv.tax.ceiling, 0)} ₪ לשנה ב-${sv.tax.year}${cite(sv.tax.section, sv.tax.law_url)}${cite('לוח העזר 2026', sv.tax.source_url)}`]);

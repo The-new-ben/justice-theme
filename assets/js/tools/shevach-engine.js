@@ -75,7 +75,8 @@ function taxLinear(sv, realGain, shares) {
 
 /**
  * input = { status ('single'|'qualified'|'other'), buyDate, buyPrice, buyCosts, improve, improveDate, saleDate, salePrice,
- *           saleCosts, mortgage, priorExempt (an exempt single-home sale in the 18 months before), rented, offPlan (bought
+ *           saleCosts, mortgage, priorExempt (an exempt single-home sale in the 18 months before), rented, residential
+ *           (confirmed mainly residential use, s.49(א); default true), offPlan (bought
  *           before it was built), dwellingDate (the day it became a dwelling) }
  */
 export function compute(registry, input) {
@@ -149,13 +150,17 @@ export function compute(registry, input) {
 	const regular = taxRegular(sv, realGain, shares, inflTaxable);
 	const lin = buyDate < d.transition ? taxLinear(sv, realGain, shares) : null;
 	const held = (dwellingDate || buyDate) <= addMonths(saleDate, -sv.single.hold_months);
-	const singleOk = status === 'single' && held && !input.priorExempt;
-	let path = status === 'other' ? 'regular' : (lin ? 'linear' : 'regular');
+	// Both reliefs need a qualifying dwelling (s.49(א): mainly residential use in 4/5 of the period or the last 4 years;
+	// empty counts). The person confirms it; without it the sale is taxed as any other right (review, PR 128).
+	const residential = status !== 'other' && input.residential !== false;
+	if (status !== 'other' && !residential) { add('bad', 'not_residential', 'הדירה לא שימשה בעיקר למגורים: אין פטור לדירה יחידה ואין חישוב לינארי (סעיף 49(א)). החישוב הרגיל.', 'סעיף 49(א)'); }
+	const singleOk = status === 'single' && residential && held && !input.priorExempt;
+	let path = !residential ? 'regular' : (lin ? 'linear' : 'regular');
 	let tax = path === 'linear' ? lin.tax : regular.tax;
 	let exemptShare = 0;
 	if (status === 'single') {
-		if (!held) { add('bad', 'held', `הדירה בבעלותכם פחות מ-${sv.single.hold_months} חודשים מאז שהיתה לדירת מגורים: אין פטור לדירה יחידה (${sv.single.section}). החישוב כדירת מגורים חייבת.`, sv.single.section); }
-		if (input.priorExempt) { add('bad', 'prior', `מכרתם דירה אחרת בפטור כזה ב-${sv.single.gap_months} החודשים שלפני: אין פטור נוסף (${sv.single.section}). החישוב כדירת מגורים חייבת.`, sv.single.section); }
+		if (residential && !held) { add('bad', 'held', `הדירה בבעלותכם פחות מ-${sv.single.hold_months} חודשים מאז שהיתה לדירת מגורים: אין פטור לדירה יחידה (${sv.single.section}). החישוב כדירת מגורים חייבת.`, sv.single.section); }
+		if (residential && input.priorExempt) { add('bad', 'prior', `מכרתם דירה אחרת בפטור כזה ב-${sv.single.gap_months} החודשים שלפני: אין פטור נוסף (${sv.single.section}). החישוב כדירת מגורים חייבת.`, sv.single.section); }
 	}
 	if (singleOk) {
 		if (salePrice <= sv.single.ceiling) {
@@ -181,7 +186,7 @@ export function compute(registry, input) {
 	];
 	const scen = {
 		exempt: singleOk && gain > 0 ? tax : null,
-		linear: lin ? lin.tax : null,
+		linear: lin && residential ? lin.tax : null,
 		regular: regular.tax,
 	};
 	return {

@@ -17,7 +17,7 @@
  *    the end-of-work certificate within 14 days (Advance Notice Law s.8(ב)); limitation 7 years.
  */
 
-import { addDays, addMonths, parseDate, daysBetween } from './dates.js';
+import { addDays, addMonths, parseDate, daysBetween, offRestDays } from './dates.js';
 
 const r2 = (n) => Math.round(n * 100) / 100;
 const blank = (v) => v === '' || v === undefined || v === null;
@@ -291,10 +291,11 @@ export function compute(registry, input) {
 	const late = sv.late;
 	const deadlines = [
 		{ key: 'due', date: end, he: 'המועד לתשלום הפיצויים: יום סיום יחסי העבודה', section: `${late.section}(א)(1)`, url: late.url },
-		{ key: 'grace', date: addDays(end, late.grace_days), he: `היום ה-${late.grace_days}: עד אז אין פיצוי הלנה`, section: `${late.section}(ב)`, url: late.url },
-		{ key: 'twenty', date: addDays(end, late.linkage_to_day), he: `מהיום ה-${late.grace_days + 1} ועד ה-${late.linkage_to_day}: הפרשי הצמדה; אחרי היום ה-${late.linkage_to_day}: עוד ${late.monthly_pct}% לכל חודש של איחור (בית הדין רשאי להפחית)`, section: `${late.section}(ב)`, url: late.url },
-		{ key: 'cert', date: addDays(end, sv.notice.cert_days), he: `אישור בכתב על תחילת העבודה וסיומה: לכל המאוחר ${sv.notice.cert_days} ימים מהיום האחרון; בקשה בכתב מקדימה את המועד ל-${sv.notice.cert_request_days} ימים ממנה`, section: 'סעיף 8(ב) לחוק הודעה מוקדמת', url: sv.notice.url },
-		{ key: 'limit', date: addMonths(end, 12 * sv.limitation.years), he: `התיישנות תביעה לפיצויים: ${sv.limitation.years} שנים`, section: `${sv.limitation.section} לחוק ההתיישנות`, url: sv.limitation.url },
+		// A period that ends on a rest day runs to the next day (Interpretation Law s.10(ג)) (review, PR 128).
+		{ key: 'grace', date: offRestDays(addDays(end, late.grace_days)), he: `היום ה-${late.grace_days}: עד אז אין פיצוי הלנה`, section: `${late.section}(ב)`, url: late.url },
+		{ key: 'twenty', date: offRestDays(addDays(end, late.linkage_to_day)), he: `מהיום ה-${late.grace_days + 1} ועד ה-${late.linkage_to_day}: הפרשי הצמדה; אחרי היום ה-${late.linkage_to_day}: עוד ${late.monthly_pct}% לכל חודש של איחור (בית הדין רשאי להפחית)`, section: `${late.section}(ב)`, url: late.url },
+		{ key: 'cert', date: offRestDays(addDays(end, sv.notice.cert_days)), he: `אישור בכתב על תחילת העבודה וסיומה: לכל המאוחר ${sv.notice.cert_days} ימים מהיום האחרון; בקשה בכתב מקדימה את המועד ל-${sv.notice.cert_request_days} ימים ממנה`, section: 'סעיף 8(ב) לחוק הודעה מוקדמת', url: sv.notice.url },
+		{ key: 'limit', date: offRestDays(addMonths(end, 12 * sv.limitation.years)), he: `התיישנות תביעה לפיצויים: ${sv.limitation.years} שנים`, section: `${sv.limitation.section} לחוק ההתיישנות`, url: sv.limitation.url },
 	].filter((d) => entitled || d.key === 'cert'); // no severance due: only the certificate (review, PR 128)
 
 	return {

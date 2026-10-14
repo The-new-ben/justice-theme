@@ -252,13 +252,15 @@ export function compute(registry, input) {
 		{ key: 'declare', date: rest(addDays(saleDate, dl.declare_days)), he: `הצהרה למיסוי מקרקעין (מוכר וקונה), ${dl.declare_days} ימים מיום המכירה`, section: dl.declare_section },
 		{ key: 'pay', date: rest(addDays(saleDate, dl.pay_days)), he: `תשלום המס לפי השומה העצמית, ${dl.pay_days} ימים מיום המכירה`, section: dl.pay_section },
 	];
+	const depMissing = needDep && blank(input.depreciation);
 	const scen = {
 		exempt: singleOk && gain > 0 ? tax : null,
-		linear: lin && residential ? lin.tax : null,
-		regular: regular.tax,
+		// Without the depreciation of a rented home, the taxable alternatives are not shown (review, PR 128).
+		linear: lin && residential && !depMissing ? lin.tax : null,
+		regular: depMissing ? null : regular.tax,
 	};
 	return {
-		ok: true, status, path, buyDate, saleDate, buyPrice, salePrice, buyCosts, improve, improveDate, saleCosts, mortgage, dep,
+		ok: true, status, path, buyDate, saleDate, buyPrice, salePrice, buyCosts, improve, improveDate, saleCosts, mortgage, dep, depMissing,
 		balance, gain, adjusted, inflationary, realGain, inflTaxable, shares, regular, linear: lin, exemptShare, held, singleOk,
 		tax, net, effective: gain > 0 ? tax / gain : 0, deadlines, flags, kBuy, kSale, scen,
 	};

@@ -1372,6 +1372,15 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(RE.contractText(reg.rent_contract, late, false).includes('בחודש הלועזי שלפני החודש שבו מתחיל'), 'a pay day after the start day: each payment falls in the month before its rental month, still in advance (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 42) ---------- */
+{
+	const ex = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, rented: true }));
+	check(ex.ok && ex.path === 'exempt' && ex.scen.linear === null && ex.scen.regular === null && SHUI.renderDetails(reg, ex).includes('הזינו את הפחת כדי לחשב'), 'an exempt rented home without depreciation shows no taxable alternatives (review, PR 128)');
+	const oct = PE.compute(reg, { salary: 10000, start: '2020-01-01', end: '2026-10-31', reason: 'fired' });
+	const cert = oct.deadlines.find((d) => d.key === 'cert');
+	check(cert.date === '2026-11-15', 'a certificate deadline on Saturday 14.11.2026 moves to Sunday 15.11 (Interpretation Law s.10(ג); review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

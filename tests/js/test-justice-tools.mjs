@@ -1241,10 +1241,19 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!/data-if-rented hidden/.test(SHUI.renderForm(reg, shop)), 'the depreciation field shows for a non-residential right');
 	const shortAsIs = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', asIs: true }));
 	const txt = RE.contractText(reg.rent_contract, shortAsIs, false);
-	check(shortAsIs.bad === 0 && shortAsIs.flags.find((f) => f.code === 'as_is').level === 'info' && txt.includes('חוץ מפגם שהיה ידוע למשכיר ולא גילה'), 'outside the chapter an "as is" term is written as agreed, within the s.8 limit (review, PR 128)');
+	check(shortAsIs.bad === 0 && shortAsIs.flags.find((f) => f.code === 'as_is').level === 'info' && txt.includes('ידע עליהם או היה עליו לדעת עליהם'), 'outside the chapter an "as is" term is written as agreed, within the s.8 limit (review, PR 128)');
 	check(RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { relative: true, asIs: true })).flags.find((f) => f.code === 'as_is').level === 'bad', 'between relatives it stays void (s.25ו by s.25יד(1))');
 	const dec = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { end: '2027-12-20' }));
 	check(dec.exempt === null && dec.taxNote === 'year', 'an end on 20.12.2027 may be paid in 2028: no split with the 2025-2027 ceiling (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 26) ---------- */
+{
+	const ret = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'retire', groundOk: true }));
+	const ltr = PEUI.letter(reg, ret);
+	check(ret.retireCredit && ret.s14 !== 'none' && !ltr.includes('28,840') && ltr.includes('סעיף 11(ה)') && !PEUI.verdictSentence(reg, ret).includes('28,840'), 'retirement with s.14: the letter and sentence ask for the completion less other fund money, never a fixed figure (s.11(ה); review, PR 128)');
+	const shortAsIs = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', asIs: true }));
+	check(RE.contractText(reg.rent_contract, shortAsIs, false).includes('היה עליו לדעת') && shortAsIs.flags.find((f) => f.code === 'as_is').he.includes('היה עליו לדעת'), 'the "as is" clause keeps defects the landlord knew or should have known (s.8; review, PR 128)');
 }
 
 if (failures) {

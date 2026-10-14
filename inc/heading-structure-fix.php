@@ -115,6 +115,27 @@ function justice_theme_restore_heading_spine( $content ) {
 	}
 	$original = $content;
 
+	// HAD-502: on an article that opens with a tool, the tool's answer box is two or three sentences above
+	// the form, and its bold lead is part of that answer, not a section title. Promoting it put a 141 px
+	// heading between the page title and the form. The boxes are set aside here and put back unchanged.
+	$answer_boxes = array();
+	if ( function_exists( 'justice_tools_article_opens_with_tool' ) && justice_tools_article_opens_with_tool( (int) get_the_ID() ) ) {
+		$set_aside = preg_replace_callback(
+			'/<div class="jtool-answer">.*?<\/div>/su',
+			static function ( array $m ) use ( &$answer_boxes ) {
+				$key                  = '<!--jt-tool-answer-' . count( $answer_boxes ) . '-->';
+				$answer_boxes[ $key ] = $m[0];
+				return $key;
+			},
+			$content
+		);
+		if ( is_string( $set_aside ) ) {
+			$content = $set_aside;
+		} else {
+			$answer_boxes = array();
+		}
+	}
+
 	$promoted = 0;
 
 	// Pattern A2, checked first because it is the least ambiguous shape there
@@ -186,8 +207,8 @@ function justice_theme_restore_heading_spine( $content ) {
 	// 53,000 word page that is a real possibility, and silently shipping null
 	// would blank the article.
 	if ( null === $result || '' === $result ) {
-		return $content;
+		return $answer_boxes ? strtr( $content, $answer_boxes ) : $content;
 	}
-	return $result;
+	return $answer_boxes ? strtr( $result, $answer_boxes ) : $result;
 }
 add_filter( 'the_content', 'justice_theme_restore_heading_spine', 11 );

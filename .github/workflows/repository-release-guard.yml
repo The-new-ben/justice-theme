@@ -37,6 +37,7 @@ jobs:
           node tools/build-justice-tools.mjs --check
           node tests/js/test-justice-tools.mjs
           php tests/test-justice-tools.php
+          php tests/test-article-tool-first-layout.php
           python3 -m py_compile tools/justice_tools_registry.py
 
       - name: Enforce append-only release ZIPs

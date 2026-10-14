@@ -1300,3 +1300,41 @@ function justice_tools_index_shortcode(): string {
 	return '<div class="jtool-page jtool-cards">' . $cards . '</div>';
 }
 add_shortcode( 'justice_tools_index', 'justice_tools_index_shortcode' );
+
+/**
+ * True when a post body opens with the instrument of a known tool ([justice_tool name="..."]).
+ * Whitespace, &nbsp;, HTML or block-editor comments and empty paragraphs before it do not count;
+ * [justice_tool_section] is not the instrument and does not count either.
+ *
+ * @param string $content Raw post content.
+ * @return bool
+ */
+function justice_tools_content_leads_with_tool( string $content ): bool {
+	$head = preg_replace( '/^(?:\s|&nbsp;|\x{00A0}|<!--.*?-->|<p>(?:\s|&nbsp;|\x{00A0})*<\/p>)+/su', '', $content );
+	if ( ! is_string( $head ) || ! preg_match( '/^(?:<p>\s*)?\[justice_tool\s[^\]]*\bname=["\']?([a-z-]+)/u', $head, $m ) ) {
+		return false;
+	}
+	return isset( justice_tools_catalog()[ $m[1] ] );
+}
+
+/**
+ * An article (post type "articles") whose body opens with a tool gets the compact layout in
+ * single-articles.php (HAD-502): no featured image above the content, the page-style header,
+ * the article column at the width the tool was built for, and the answer box kept as one short
+ * paragraph. Measured on /israel-road-accident-compensation-law/ at 1280x900: the form started at
+ * 1,708 px (header to 630 px, a 384 px image, a 323 px answer box in a 576 px column).
+ *
+ * Articles with a named topic reviewer (Maya Rotenberg on family law) are left exactly as they are.
+ *
+ * @param int $post_id Post ID.
+ * @return bool
+ */
+function justice_tools_article_opens_with_tool( int $post_id ): bool {
+	if ( $post_id <= 0 || 'articles' !== get_post_type( $post_id ) ) {
+		return false;
+	}
+	if ( ! justice_tools_content_leads_with_tool( (string) get_post_field( 'post_content', $post_id ) ) ) {
+		return false;
+	}
+	return ! ( function_exists( 'justice_theme_article_reviewer_expert_only' ) && null !== justice_theme_article_reviewer_expert_only( $post_id ) );
+}

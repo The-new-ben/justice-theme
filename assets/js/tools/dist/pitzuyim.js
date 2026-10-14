@@ -434,8 +434,9 @@ function compute(registry, input) {
 	if (monthlyChange && prevSalary !== null && !(prevSalary > 0 && prevSalary < 1e7)) { errors.push({ field: 'prevSalary', he: 'השכר לפני השינוי: מספר חיובי או ריק' }); }
 	// A wage worker's service before 1.8.1983 earns two weeks a year (s.12(א)); the tool does not split it (review, PR 128).
 	if (payType === 'hourly' && start && start < sv.wage_regs_from) { errors.push({ field: 'start', he: 'לעובד לפי שעה או יום, תקופת העבודה שלפני 1.8.1983 מזכה בשכר שבועיים לשנה בלבד (סעיף 12(א)). את החישוב לתקופה כזאת המחשבון לא עושה; פנו לעורך דין או לרואה חשבון.' }); }
-	const noticeDate = blank(input.noticeDate) ? null : parseDate(input.noticeDate);
-	if (!blank(input.noticeDate) && !noticeDate) { errors.push({ field: 'noticeDate', he: 'יום מסירת ההודעה: תאריך מלא' }); }
+	// With no notice given, a date left in the field is ignored (review, PR 128).
+	const noticeDate = blank(input.noticeDate) || input.noticeMode === 'none' ? null : parseDate(input.noticeDate);
+	if (!blank(input.noticeDate) && input.noticeMode !== 'none' && !noticeDate) { errors.push({ field: 'noticeDate', he: 'יום מסירת ההודעה: תאריך מלא' }); }
 	if (noticeDate && end && start && (noticeDate > end || noticeDate < start)) { errors.push({ field: 'noticeDate', he: 'ההודעה ניתנה בין יום התחילה ליום העבודה האחרון' }); }
 	if (errors.length) { return { ok: false, errors }; }
 
@@ -474,7 +475,7 @@ function compute(registry, input) {
 	const prevBase = !change ? base : cut ? (hourlyChange ? r2(prevHourly * prevHours) : prevSalary) : reg7;
 	const pctNow = payType === 'hourly' ? 100 : jobPct;
 	const periods = change
-		? [{ from: start, to: addDays(changeDate, -1), salary: prevBase, pct: payType === 'hourly' ? 100 : prevPct }, { from: changeDate, to: end, salary: base, pct: pctNow }]
+		? [{ from: start, to: addDays(changeDate, -1), salary: prevBase, pct: payType === 'hourly' ? (100 * prevHours) / hours : prevPct }, { from: changeDate, to: end, salary: base, pct: pctNow }]
 		: [{ from: start, to: end, salary: base, pct: pctNow }];
 	const yearsOf = (a, b) => (a > b ? 0 : serviceSpan(a, b).years);
 	// Uncounted unpaid leave shortens the service the amount is computed on, spread over the periods in proportion.
@@ -545,7 +546,9 @@ function compute(registry, input) {
 	// work, the full-time years count on the full-time salary (s.9(7א)(ד)). Pay cuts (reg. 8) do not change it (review,
 	// PR 128).
 	// Every earlier period with a higher scope than the final one counts on the final salary for that scope (Form 161).
-	const exemptCap = taxKnown ? r2(periods.reduce((t, p) => t + Math.min(p.pct > pctNow ? r2(fte * Math.min(p.pct, 100) / 100) : base, tax.ceiling) * yearsOf(p.from, p.to), 0)) : null;
+	// For a wage worker the scope is the hours relative to the final hours, on the final rate (review, PR 128).
+	const capRef = payType === 'hourly' ? base : fte;
+	const exemptCap = taxKnown ? r2(periods.reduce((t, p) => t + Math.min(p.pct > pctNow ? r2(capRef * p.pct / 100) : base, tax.ceiling) * yearsOf(p.from, p.to), 0)) : null;
 	const exempt = !taxKnown ? null : withFund ? exemptCap : Math.min(severance, exemptCap);
 	const taxable = !taxKnown || withFund ? null : r2(severance - exempt);
 	const taxNote = !taxKnown ? 'year' : withFund ? 'fund' : '';
@@ -622,16 +625,18 @@ function renderForm(reg, input) {
 	const dateField = (id, label, value, ph) => `<div class="jtool-field"><label class="jtool-label" for="${P}-${id}">${esc(label)}</label><input id="${P}-${id}" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(value || ''))}" placeholder="${esc(ph)}" aria-describedby="${P}-${id}-e"><p class="jtool-error" id="${P}-${id}-e" role="alert"></p></div>`;
 	const moneyField = (id, label, value, ph, suffix = '₪') => `<div class="jtool-field"><label class="jtool-label" for="${P}-${id}">${esc(label)}</label><div class="jtool-input jtool-input--money"><input id="${P}-${id}" type="text" inputmode="decimal" autocomplete="off" value="${esc(value === '' || value === undefined || value === null ? '' : money(value, value % 1 ? 2 : 0))}" placeholder="${esc(ph)}" aria-describedby="${P}-${id}-e"><span class="jtool-input__suffix" aria-hidden="true">${esc(suffix)}</span></div><p class="jtool-error" id="${P}-${id}-e" role="alert"></p></div>`;
 	const hourly = input.payType === 'hourly';
-	const resign = input.reason !== 'fired';
-	const why = RESIGN_CODES.includes(input.reason) ? input.reason : 'plain';
+	// A fixed term that ended is its own ending, not a resignation (review, PR 128).
+	const kind = input.reason === 'fired' ? 'fired' : input.reason === 'term' ? 'term' : 'resign';
+	const resign = kind === 'resign';
+	const why = RESIGN_CODES.includes(input.reason) && input.reason !== 'term' ? input.reason : 'plain';
 	const s14 = input.s14 || 'none';
 	return `<fieldset class="jtool-field"><legend>איך משולם השכר</legend><div class="jtool-chips">${chip('pt', 'monthly', 'משכורת חודשית', !hourly)}${chip('pt', 'hourly', 'לפי שעה או יום', hourly)}</div></fieldset>`
 		+ `<div data-if-pay="monthly"${hourly ? ' hidden' : ''}>${moneyField('sal', 'השכר החודשי האחרון (שכר יסוד ותוספות קבועות)', input.salary, 'לדוגמה: 12,000')}</div>`
 		+ `<div class="jtool-row" data-if-pay="hourly"${hourly ? '' : ' hidden'}>${moneyField('hr', 'שכר לשעה', input.hourly, 'לדוגמה: 45')}${moneyField('hrs', 'ממוצע שעות בחודש', input.hours, 'לדוגמה: 160', 'שעות')}</div>`
 		+ `<div class="jtool-row">${dateField('start', 'יום תחילת העבודה', input.start, 'לדוגמה: 1.3.2018')}${dateField('end', 'יום העבודה האחרון', input.end, 'לדוגמה: 30.9.2026')}</div>`
-		+ `<fieldset class="jtool-field"><legend>איך העבודה הסתיימה</legend><div class="jtool-chips">${chip('rk', 'fired', 'פוטרתי', !resign)}${chip('rk', 'resign', 'התפטרתי', resign)}</div>`
-		+ `<div class="jtool-chips" data-if-resign${resign ? '' : ' hidden'} style="margin-top:8px" role="group" aria-label="סיבת ההתפטרות">${chip('rw', 'plain', 'התפטרות רגילה', why === 'plain')}${RESIGN_CODES.map((k) => chip('rw', k, REASON_LABEL[k], why === k)).join('')}</div>`
-		+ `<p class="jtool-hint">התפטרות מהסיבות האלה נחשבת לפיטורים (סעיפים 6, 7, 8, 9 ו-11 לחוק פיצויי פיטורים).</p></fieldset>`
+		+ `<fieldset class="jtool-field"><legend>איך העבודה הסתיימה</legend><div class="jtool-chips">${chip('rk', 'fired', 'פוטרתי', kind === 'fired')}${chip('rk', 'resign', 'התפטרתי', resign)}${chip('rk', 'term', 'חוזה לתקופה קצובה הסתיים ולא חודש', kind === 'term')}</div>`
+		+ `<div class="jtool-chips" data-if-resign${resign ? '' : ' hidden'} style="margin-top:8px" role="group" aria-label="סיבת ההתפטרות">${chip('rw', 'plain', 'התפטרות רגילה', why === 'plain')}${RESIGN_CODES.filter((k) => k !== 'term').map((k) => chip('rw', k, REASON_LABEL[k], why === k)).join('')}</div>`
+		+ `<p class="jtool-hint">התפטרות מהסיבות האלה נחשבת לפיטורים (סעיפים 6, 7, 8 ו-11 לחוק פיצויי פיטורים), וכך גם חוזה לתקופה קצובה שלא חודש (סעיף 9).</p></fieldset>`
 		+ `<fieldset class="jtool-field"><legend>הפרשות לפנסיה במקום פיצויים (סעיף 14)</legend><div class="jtool-chips">${['none', 'partial', 'full', 'custom'].map((k) => chip('s14', k, S14_LABEL[k], s14 === k)).join('')}</div>`
 		+ `<div class="jtool-row" data-if-s14${s14 === 'none' ? ' hidden' : ''} style="margin-top:8px"><div class="jtool-field" data-if-custom${s14 === 'custom' ? '' : ' hidden'}><label class="jtool-label" for="${P}-s14p">אחוז הכיסוי לפי ההסכם</label><div class="jtool-input"><input id="${P}-s14p" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.s14Pct ?? '')}" placeholder="לדוגמה: 72" aria-describedby="${P}-s14Pct-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-s14Pct-e" role="alert"></p></div>${dateField('s14f', 'מתי התחילו ההפרשות (ריק = מתחילת העבודה)', input.s14From, 'לא חובה')}</div>`
 		+ `<p class="jtool-hint">ברוב התלושים כתוב "סעיף 14". הפרשה של 6% לפיצויים בלי השלמה של 2⅓% מכסה 72%; הפרשה של 8⅓% מכסה 100% (${esc(sv.approval.he)}).</p></fieldset>`
@@ -806,7 +811,7 @@ function readForm(root) {
 	return {
 		payType: radio('pt', 'monthly'), salary: m('sal'), hourly: m('hr'), hours: m('hrs'), jobPct: m('job'),
 		start: toIso(val(`#${P}-start`)), end: toIso(val(`#${P}-end`)),
-		reason: kind === 'fired' ? 'fired' : (why === 'plain' ? 'resign' : why),
+		reason: kind === 'fired' ? 'fired' : kind === 'term' ? 'term' : (why === 'plain' || why === 'term' ? 'resign' : why),
 		s14: radio('s14', 'none'), s14Pct: m('s14p'), s14From: toIso(val(`#${P}-s14f`)),
 		noticeDate: toIso(val(`#${P}-nd`)), noticeMode: radio('nm', 'worked'),
 		change: Boolean(root.querySelector(`input[name="${P}-chg"]:checked`)),
@@ -862,7 +867,7 @@ function mount(root, reg) {
 		const pt = (root.querySelector(`input[name="${P}-pt"]:checked`) || {}).value || 'monthly';
 		form.querySelectorAll('[data-if-pay]').forEach((el) => { el.hidden = el.getAttribute('data-if-pay') !== pt; });
 		const rk = (root.querySelector(`input[name="${P}-rk"]:checked`) || {}).value || 'fired';
-		form.querySelectorAll('[data-if-resign]').forEach((el) => { el.hidden = rk === 'fired'; });
+		form.querySelectorAll('[data-if-resign]').forEach((el) => { el.hidden = rk !== 'resign'; });
 		const s14 = (root.querySelector(`input[name="${P}-s14"]:checked`) || {}).value || 'none';
 		form.querySelectorAll('[data-if-s14]').forEach((el) => { el.hidden = s14 === 'none'; });
 		form.querySelectorAll('[data-if-custom]').forEach((el) => { el.hidden = s14 !== 'custom'; });

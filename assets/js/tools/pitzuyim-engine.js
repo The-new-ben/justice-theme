@@ -131,8 +131,9 @@ export function compute(registry, input) {
 	if (monthlyChange && prevSalary !== null && !(prevSalary > 0 && prevSalary < 1e7)) { errors.push({ field: 'prevSalary', he: 'השכר לפני השינוי: מספר חיובי או ריק' }); }
 	// A wage worker's service before 1.8.1983 earns two weeks a year (s.12(א)); the tool does not split it (review, PR 128).
 	if (payType === 'hourly' && start && start < sv.wage_regs_from) { errors.push({ field: 'start', he: 'לעובד לפי שעה או יום, תקופת העבודה שלפני 1.8.1983 מזכה בשכר שבועיים לשנה בלבד (סעיף 12(א)). את החישוב לתקופה כזאת המחשבון לא עושה; פנו לעורך דין או לרואה חשבון.' }); }
-	const noticeDate = blank(input.noticeDate) ? null : parseDate(input.noticeDate);
-	if (!blank(input.noticeDate) && !noticeDate) { errors.push({ field: 'noticeDate', he: 'יום מסירת ההודעה: תאריך מלא' }); }
+	// With no notice given, a date left in the field is ignored (review, PR 128).
+	const noticeDate = blank(input.noticeDate) || input.noticeMode === 'none' ? null : parseDate(input.noticeDate);
+	if (!blank(input.noticeDate) && input.noticeMode !== 'none' && !noticeDate) { errors.push({ field: 'noticeDate', he: 'יום מסירת ההודעה: תאריך מלא' }); }
 	if (noticeDate && end && start && (noticeDate > end || noticeDate < start)) { errors.push({ field: 'noticeDate', he: 'ההודעה ניתנה בין יום התחילה ליום העבודה האחרון' }); }
 	if (errors.length) { return { ok: false, errors }; }
 
@@ -171,7 +172,7 @@ export function compute(registry, input) {
 	const prevBase = !change ? base : cut ? (hourlyChange ? r2(prevHourly * prevHours) : prevSalary) : reg7;
 	const pctNow = payType === 'hourly' ? 100 : jobPct;
 	const periods = change
-		? [{ from: start, to: addDays(changeDate, -1), salary: prevBase, pct: payType === 'hourly' ? 100 : prevPct }, { from: changeDate, to: end, salary: base, pct: pctNow }]
+		? [{ from: start, to: addDays(changeDate, -1), salary: prevBase, pct: payType === 'hourly' ? (100 * prevHours) / hours : prevPct }, { from: changeDate, to: end, salary: base, pct: pctNow }]
 		: [{ from: start, to: end, salary: base, pct: pctNow }];
 	const yearsOf = (a, b) => (a > b ? 0 : serviceSpan(a, b).years);
 	// Uncounted unpaid leave shortens the service the amount is computed on, spread over the periods in proportion.
@@ -242,7 +243,9 @@ export function compute(registry, input) {
 	// work, the full-time years count on the full-time salary (s.9(7א)(ד)). Pay cuts (reg. 8) do not change it (review,
 	// PR 128).
 	// Every earlier period with a higher scope than the final one counts on the final salary for that scope (Form 161).
-	const exemptCap = taxKnown ? r2(periods.reduce((t, p) => t + Math.min(p.pct > pctNow ? r2(fte * Math.min(p.pct, 100) / 100) : base, tax.ceiling) * yearsOf(p.from, p.to), 0)) : null;
+	// For a wage worker the scope is the hours relative to the final hours, on the final rate (review, PR 128).
+	const capRef = payType === 'hourly' ? base : fte;
+	const exemptCap = taxKnown ? r2(periods.reduce((t, p) => t + Math.min(p.pct > pctNow ? r2(capRef * p.pct / 100) : base, tax.ceiling) * yearsOf(p.from, p.to), 0)) : null;
 	const exempt = !taxKnown ? null : withFund ? exemptCap : Math.min(severance, exemptCap);
 	const taxable = !taxKnown || withFund ? null : r2(severance - exempt);
 	const taxNote = !taxKnown ? 'year' : withFund ? 'fund' : '';

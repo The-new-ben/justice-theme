@@ -1135,6 +1135,16 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!tooLong.ok && tooLong.errors.some((e) => e.field === 'unpaidExcess'), 'unpaid leave longer than the whole service is an input error, never a silent 0 (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 15) ---------- */
+{
+	const hr = PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 80, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevHours: 160 });
+	check(hr.ok && hr.severance === 12000 && hr.exempt === 12000 && hr.taxable === 0, 'hourly, a year at 160 hours then a year at 80 at 50: 12,000, all exempt (the higher earlier hours count; Form 161; review, PR 128)');
+	const stale = PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2026-03-31', reason: 'fired', noticeMode: 'none', noticeDate: '2025-11-01' });
+	check(stale.ok && stale.notice.month && stale.noticeDate === null && PEUI.letter(reg, stale).includes('חודש'), 'with no notice given, a stale notice date is ignored: a month after a year (review, PR 128)');
+	const f = PEUI.renderForm(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'term' }));
+	check(/name="jt13-rk" value="term" checked/.test(f) && !/name="jt13-rw" value="term"/.test(f) && /data-if-resign hidden/.test(f), 'a fixed term that ended is its own ending choice, not under resignation (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

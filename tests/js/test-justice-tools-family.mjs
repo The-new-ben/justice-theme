@@ -337,6 +337,17 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(back.home.value === 0 && IZ.computeBalance(reg, IZUI.toInput(back)).ok, 'balance link: a 0 home value with a mortgage survives and still computes');
 }
 
+/* ---------- Review fixes (PR 130, Codex pass 9) ---------- */
+{
+	const gainOnly = IZ.computeBalance(reg, IZUI.toInput(Object.assign({}, IZUI.EXAMPLE, { home: { value: '', mortgage: '', owner: 'a', source: 'premarital', activeGain: 500000 } })));
+	check(!gainOnly.ok, 'an active gain with no home value: an error, never a result without the home');
+	check(!MM.draftMamon(reg, { timing: 'before', route: 'notary', regime: 'separate', wedding: '31.2.2027' }).ok && MM.draftMamon(reg, { timing: 'before', route: 'notary', regime: 'separate', wedding: '2027-05-12' }).ok, 'a malformed wedding date is an input error');
+	const hkKeys = ['o', 'r', 'a', 'k', 'c', 'p', 'n', 'h', 'f', 's', 'q'];
+	const zeroTotals = Object.assign({}, HKUI.EXAMPLE, { property: { home: 'none', aAssets: 0, bAssets: '', aDebts: '', bDebts: '', pension: false } });
+	const back = HKUI.modelOf(decodeState(`#s=${HKUI.stateOf(zeroTotals)}`, hkKeys));
+	check(back.property.aAssets === 0 && back.property.bAssets === '', 'agreement link: a 0 property total stays 0, a blank stays blank');
+}
+
 /* ---------- The server snapshots: the same renderers, the sticky figure, no <h2> in a card ---------- */
 for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MMUI], ['heskem-gerushin', HKUI]]) {
 	const s = ui.snapshot(reg);

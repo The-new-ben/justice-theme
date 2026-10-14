@@ -17,7 +17,7 @@
  *    the family court has jurisdiction over them (Family Court Law s.1(2)).
  * Fees: the notary's item 11(א)-(ב) plus VAT, the family court's item 6א, the rabbinical court's item 4(2).
  */
-import { fEntered, fR2 } from './family-common.js';
+import { fEntered, fR2, fIsIso } from './family-common.js';
 
 export const MM_TIMINGS = ['before', 'during', 'cohab'];
 export const MM_ROUTES = ['notary', 'registrar', 'court', 'rabbinical'];
@@ -74,6 +74,7 @@ export function draftMamon(registry, input) {
 	// The residence clause exists only for a home of one spouse; a hidden field never blocks the draft (review, PR 130).
 	if (['a', 'b'].includes(input.home) && !(Number.isInteger(residence) && residence >= 0 && residence <= 36)) { errors.push({ field: 'residenceMonths', he: 'חודשי מגורים אחרי פרידה: 0 עד 36' }); }
 	if (fEntered(input.copies) && !(Number.isInteger(Number(input.copies)) && Number(input.copies) >= 1 && Number(input.copies) <= 50)) { errors.push({ field: 'copies', he: 'מספר עותקים: מספר שלם, 1 ומעלה' }); }
+	if (fEntered(input.wedding) && !fIsIso(input.wedding)) { errors.push({ field: 'wedding', he: 'תאריך החתונה לא תקין. לדוגמה: 12.5.2027' }); }
 	for (const [k, list] of [['assetsA', input.assetsA], ['assetsB', input.assetsB]]) {
 		(list || []).forEach((x, i) => { if (x && fEntered(x.value) && !(Number(x.value) >= 0 && Number(x.value) < 1e11)) { errors.push({ field: `${k}-${i}`, he: 'שווי: מספר חיובי' }); } });
 	}

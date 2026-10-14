@@ -466,7 +466,7 @@ function computeBalance(registry, input) {
 	for (const k of ['filed', 'apart']) {
 		if (fEntered(input[k]) && !fIsIso(input[k])) { errors.push({ field: k, he: 'תאריך לא תקין. לדוגמה: 1.3.2026' }); }
 	}
-	const items = (input.items || []).filter((it) => it && (fEntered(it.value) || fEntered(it.mortgage) || fEntered(it.atMarriage)));
+	const items = (input.items || []).filter((it) => it && (fEntered(it.value) || fEntered(it.mortgage) || fEntered(it.atMarriage) || fEntered(it.activeGain)));
 	items.forEach((it, i) => {
 		for (const f of ['value', 'mortgage', 'atMarriage']) {
 			if (fEntered(it[f]) && !(Number(it[f]) >= 0 && Number(it[f]) < 1e11)) { errors.push({ field: `item-${i}-${f}`, he: 'סכום: מספר חיובי' }); }
@@ -682,7 +682,7 @@ const v0 = (x) => (x === '' || x === undefined || x === null ? '' : x);
 function toInput(m) {
 	const items = [];
 	const h = m.home || {};
-	if (v0(h.value) !== '' || v0(h.mortgage) !== '') {
+	if (v0(h.value) !== '' || v0(h.mortgage) !== '' || (h.source === 'premarital' && v0(h.activeGain) !== '')) {
 		items.push({ kind: 'home', main: true, owner: h.owner || 'joint', value: h.value, mortgage: h.mortgage, exclude: h.source || '', activeGain: h.source === 'premarital' ? h.activeGain : '', label: 'דירת המגורים' });
 	}
 	for (const o of ['a', 'b']) {

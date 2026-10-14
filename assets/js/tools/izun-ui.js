@@ -40,7 +40,7 @@ const v0 = (x) => (x === '' || x === undefined || x === null ? '' : x);
 export function toInput(m) {
 	const items = [];
 	const h = m.home || {};
-	if (v0(h.value) !== '' || v0(h.mortgage) !== '') {
+	if (v0(h.value) !== '' || v0(h.mortgage) !== '' || (h.source === 'premarital' && v0(h.activeGain) !== '')) {
 		items.push({ kind: 'home', main: true, owner: h.owner || 'joint', value: h.value, mortgage: h.mortgage, exclude: h.source || '', activeGain: h.source === 'premarital' ? h.activeGain : '', label: 'דירת המגורים' });
 	}
 	for (const o of ['a', 'b']) {

@@ -404,6 +404,7 @@ function draftMamon(registry, input) {
 	// The residence clause exists only for a home of one spouse; a hidden field never blocks the draft (review, PR 130).
 	if (['a', 'b'].includes(input.home) && !(Number.isInteger(residence) && residence >= 0 && residence <= 36)) { errors.push({ field: 'residenceMonths', he: 'חודשי מגורים אחרי פרידה: 0 עד 36' }); }
 	if (fEntered(input.copies) && !(Number.isInteger(Number(input.copies)) && Number(input.copies) >= 1 && Number(input.copies) <= 50)) { errors.push({ field: 'copies', he: 'מספר עותקים: מספר שלם, 1 ומעלה' }); }
+	if (fEntered(input.wedding) && !fIsIso(input.wedding)) { errors.push({ field: 'wedding', he: 'תאריך החתונה לא תקין. לדוגמה: 12.5.2027' }); }
 	for (const [k, list] of [['assetsA', input.assetsA], ['assetsB', input.assetsB]]) {
 		(list || []).forEach((x, i) => { if (x && fEntered(x.value) && !(Number(x.value) >= 0 && Number(x.value) < 1e11)) { errors.push({ field: `${k}-${i}`, he: 'שווי: מספר חיובי' }); } });
 	}
@@ -747,7 +748,7 @@ function readModel(root) {
 		homeAddress: val('addr'), residenceMonths: num('res'), gradePct: num('gp'), gradeCap: num('gc'),
 		pension: checked('pe') || 'law', business: checked('b') || 'none', businessGrowth: checked('bg') || 'separate',
 		fruits: on('fr'), jointAccount: on('ja'), second: on('sc'), household: checked('hh') || 'equal',
-		names: { a: val('na'), b: val('nb') }, wedding: wd === '' ? '' : (parseDate(wd) || ''), copies: val('cp') === '' ? 1 : num('cp'),
+		names: { a: val('na'), b: val('nb') }, wedding: wd === '' ? '' : (parseDate(wd) || wd), copies: val('cp') === '' ? 1 : num('cp'),
 		assetsA: rows('a'), assetsB: rows('b'),
 	};
 }

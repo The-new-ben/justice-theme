@@ -136,7 +136,7 @@ export function computeBalance(registry, input) {
 	for (const k of ['filed', 'apart']) {
 		if (fEntered(input[k]) && !fIsIso(input[k])) { errors.push({ field: k, he: 'תאריך לא תקין. לדוגמה: 1.3.2026' }); }
 	}
-	const items = (input.items || []).filter((it) => it && (fEntered(it.value) || fEntered(it.mortgage) || fEntered(it.atMarriage)));
+	const items = (input.items || []).filter((it) => it && (fEntered(it.value) || fEntered(it.mortgage) || fEntered(it.atMarriage) || fEntered(it.activeGain)));
 	items.forEach((it, i) => {
 		for (const f of ['value', 'mortgage', 'atMarriage']) {
 			if (fEntered(it[f]) && !(Number(it[f]) >= 0 && Number(it[f]) < 1e11)) { errors.push({ field: `item-${i}-${f}`, he: 'סכום: מספר חיובי' }); }

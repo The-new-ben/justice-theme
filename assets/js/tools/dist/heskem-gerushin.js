@@ -770,7 +770,7 @@ function computeBalance(registry, input) {
 	for (const k of ['filed', 'apart']) {
 		if (fEntered(input[k]) && !fIsIso(input[k])) { errors.push({ field: k, he: 'תאריך לא תקין. לדוגמה: 1.3.2026' }); }
 	}
-	const items = (input.items || []).filter((it) => it && (fEntered(it.value) || fEntered(it.mortgage) || fEntered(it.atMarriage)));
+	const items = (input.items || []).filter((it) => it && (fEntered(it.value) || fEntered(it.mortgage) || fEntered(it.atMarriage) || fEntered(it.activeGain)));
 	items.forEach((it, i) => {
 		for (const f of ['value', 'mortgage', 'atMarriage']) {
 			if (fEntered(it[f]) && !(Number(it[f]) >= 0 && Number(it[f]) < 1e11)) { errors.push({ field: `item-${i}-${f}`, he: 'סכום: מספר חיובי' }); }
@@ -1526,7 +1526,7 @@ const stateOf = (m) => encodeState({
 	o: m.onlyPlan ? 1 : '', r: m.route === 'rabbinical' ? 'r' : '', a: m.parentA === 'אמא' ? 'm' : '', k: (m.children || []).map((b) => [String(b).replace(/-/g, ''), 0]),
 	c: m.custody, p: m.pattern, n: m.pattern === 'custom' ? [[m.custom.join('.'), 0]] : '', h: m.holidays === 'split' ? 's' : '', f: m.firstA === false ? 0 : '',
 	s: [[m.support.incomeA || 0, m.support.incomeB || 0], [m.support.housingA || 0, m.support.housingB || 0], [ov(m.support.amount), { A: 1, B: 2 }[m.support.payer] || 0]],
-	q: [[{ none: 0, sell: 1, a_keeps: 2, b_keeps: 3 }[m.property.home] || 0, m.property.pension ? 1 : 0], [ov(m.property.homeValue), m.property.mortgage || 0], [m.property.aAssets || 0, m.property.bAssets || 0], [m.property.aDebts || 0, m.property.bDebts || 0]],
+	q: [[{ none: 0, sell: 1, a_keeps: 2, b_keeps: 3 }[m.property.home] || 0, m.property.pension ? 1 : 0], [ov(m.property.homeValue), m.property.mortgage || 0], [ov(m.property.aAssets), ov(m.property.bAssets)], [ov(m.property.aDebts), ov(m.property.bDebts)]],
 });
 const KEYS = ['o', 'r', 'a', 'k', 'c', 'p', 'n', 'h', 'f', 's', 'q'];
 const ymd = (x) => (/^\d{8}$/.test(x) ? `${x.slice(0, 4)}-${x.slice(4, 6)}-${x.slice(6, 8)}` : '');
@@ -1541,7 +1541,7 @@ function modelOf(s) {
 		custody: ['joint', 'mother', 'father'].includes(s.c) ? s.c : 'joint', pattern: HR_PATTERNS[s.p] || s.p === 'custom' ? s.p : 'weekends_mid',
 		custom: s.n ? String(pairs(s.n)[0][0]).split('.').filter(Boolean).map(Number) : [], holidays: s.h === 's' ? 'split' : 'alternate', firstA: s.f !== '0',
 		support: { incomeA: z(sp[0] && sp[0][0]), incomeB: z(sp[0] && sp[0][1]), housingA: z(sp[1] && sp[1][0]), housingB: z(sp[1] && sp[1][1]), amount: zo(sp[2] && sp[2][0]), payer: ['', 'A', 'B'][Number(sp[2] && sp[2][1]) || 0], payDay: 10 },
-		property: { home: ['none', 'sell', 'a_keeps', 'b_keeps'][Number(q[0] && q[0][0]) || 0], pension: Boolean(q[0] && q[0][1] === '1'), homeValue: zo(q[1] && q[1][0]), mortgage: z(q[1] && q[1][1]), aAssets: z(q[2] && q[2][0]), bAssets: z(q[2] && q[2][1]), aDebts: z(q[3] && q[3][0]), bDebts: z(q[3] && q[3][1]) },
+		property: { home: ['none', 'sell', 'a_keeps', 'b_keeps'][Number(q[0] && q[0][0]) || 0], pension: Boolean(q[0] && q[0][1] === '1'), homeValue: zo(q[1] && q[1][0]), mortgage: z(q[1] && q[1][1]), aAssets: zo(q[2] && q[2][0]), bAssets: zo(q[2] && q[2][1]), aDebts: zo(q[3] && q[3][0]), bDebts: zo(q[3] && q[3][1]) },
 		names: { a: '', b: '' },
 	};
 }

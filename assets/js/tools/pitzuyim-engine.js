@@ -278,7 +278,7 @@ export function compute(registry, input) {
 		ok: true, payType, monthly, base, floored, hourly, hours, jobPct, start, end, span, reason, reasonRow, entitled, yearOk, conditional,
 		severance, s14, s14Pct, s14From, coveredYears, coveredSev, fundReplaces, fundUnknown, employer,
 		change, changeDate, prevPct, prevSalary, prevHours, prevHourly, prevBase, cut, periods, taxNote, unpaidExcess, countedYears,
-		groundOk, nearClaim: input.nearClaim === true, noticeInput: input.noticeDate || '',
+		groundOk, nearClaim: input.nearClaim === true,
 		notice, workedToNotice, noticeDate, noticeEnd, short, inLieu, noticeMode,
 		exempt, taxable, exemptCap, ceilingTotal, perYear, deadlines, flags, mwRow,
 	};

@@ -526,9 +526,12 @@ function compute(registry, input) {
 	if (path !== 'exempt' && path !== 'loss' && buyDate >= sv.dates.start && buyDate <= sv.transition_reduction_to) {
 		return { ok: false, errors: [{ field: 'buyDate', he: 'רכישה בין 7.11.2001 ל-31.12.2003: על מכירה חייבת יש הפחתה במס לפי הוראת מעבר, בתנאים. את ההפחתה המחשבון לא מחשב; השתמשו בסימולטור של רשות המסים.' }] };
 	}
-	// Any inherited dwelling: the heir's own holding period and the s.49ב(5) facts are not asked here (review, PR 128).
-	if (input.inherited && status !== 'other') {
-		return { ok: false, errors: [{ field: 'inherited', he: 'דירה שקיבלתם בירושה עשויה להיות פטורה לפי סעיף 49ב(5): כשאתם בן הזוג של המוריש, צאצא שלו או בן זוג של צאצא, למוריש היתה רק דירה אחת, והוא היה פטור אילו מכר אותה בעצמו. את התנאים האלה המחשבון לא בודק; השתמשו בסימולטור של רשות המסים.' }] };
+	// Any inherited right: the heir's holding period, the carried-over basis and (for a dwelling) the s.49ב(5) facts are
+	// not asked here (review, PR 128).
+	if (input.inherited) {
+		return { ok: false, errors: [{ field: 'inherited', he: status === 'other'
+			? 'נכס שקיבלתם בירושה: יום הרכישה ושווי הרכישה נקבעים בדרך כלל לפי המוריש, לא לפי יום הירושה. את זה המחשבון לא מחשב; השתמשו בסימולטור של רשות המסים.'
+			: 'דירה שקיבלתם בירושה עשויה להיות פטורה לפי סעיף 49ב(5): כשאתם בן הזוג של המוריש, צאצא שלו או בן זוג של צאצא, למוריש היתה רק דירה אחת, והוא היה פטור אילו מכר אותה בעצמו; ויום הרכישה ושוויה נקבעים בדרך כלל לפי המוריש. את התנאים האלה המחשבון לא בודק; השתמשו בסימולטור של רשות המסים.' }] };
 	}
 	if (rented && blank(input.depreciation) && path !== 'exempt') {
 		return { ok: false, errors: [{ field: 'depreciation', he: 'הדירה הושכרה: הזינו את הפחת שנוכה או שהיה ניתן לנכות בשנות ההשכרה (סעיף 47). הפחת מקטין את שווי הרכישה ומגדיל את השבח; את הסכום מחשבים רואה החשבון או השומה. בלי הסכום אין הערכה.' }] };
@@ -595,7 +598,8 @@ function renderForm(reg, input) {
 	const st = STATUSES.includes(input.status) ? input.status : 'single';
 	return `<fieldset class="jtool-field"><legend>מה נמכר</legend><div class="jtool-chips">${STATUSES.map((k) => chip('st', k, STATUS_LONG[k], st === k)).join('')}</div>`
 		+ `<p class="jtool-hint" data-if-status="single"${st === 'single' ? '' : ' hidden'}>${esc(sv.single_he)}.</p>`
-		+ `<div data-if-home${st === 'other' ? ' hidden' : ''} style="margin-top:8px"><div class="jtool-chips">${chip('res', '1', 'הדירה שימשה בעיקר למגורים (גם בהשכרה, גם כשעמדה ריקה)', input.residential !== false, 'checkbox')}${chip('br', '1', 'במחיר יש גם זכויות בנייה נוספות שלא נוצלו', input.buildingRights, 'checkbox')}${chip('inh', '1', 'קיבלתי את הדירה בירושה', input.inherited, 'checkbox')}</div><p class="jtool-error" id="${P}-rights-e" role="alert"></p><p class="jtool-error" id="${P}-inherited-e" role="alert"></p></div>`
+		+ `<div data-if-home${st === 'other' ? ' hidden' : ''} style="margin-top:8px"><div class="jtool-chips">${chip('res', '1', 'הדירה שימשה בעיקר למגורים (גם בהשכרה, גם כשעמדה ריקה)', input.residential !== false, 'checkbox')}${chip('br', '1', 'במחיר יש גם זכויות בנייה נוספות שלא נוצלו', input.buildingRights, 'checkbox')}</div><p class="jtool-error" id="${P}-rights-e" role="alert"></p></div>`
+		+ `<div class="jtool-chips" style="margin-top:8px">${chip('inh', '1', 'קיבלתי את הנכס בירושה', input.inherited, 'checkbox')}</div><p class="jtool-error" id="${P}-inherited-e" role="alert"></p>`
 		+ `<div data-if-status="single"${st === 'single' ? '' : ' hidden'}><div class="jtool-chips" style="margin-top:8px">${chip('fm', '1', 'גם לבן או לבת הזוג ולילדים מתחת ל-18 אין דירת מגורים אחרת שנספרת (סעיף 49ג)', input.family, 'checkbox')}</div><p class="jtool-hint">${esc(sv.seller_he)}. ${esc(sv.family_he)}.</p>`
 
 		+ `<fieldset class="jtool-field" style="margin-top:8px"><legend>תושבות המוכר</legend><div class="jtool-chips">${chip('rs', 'il', 'תושב/ת ישראל', input.resident !== 'foreign')}${chip('rs', 'foreign', 'תושב/ת חוץ', input.resident === 'foreign')}</div>`

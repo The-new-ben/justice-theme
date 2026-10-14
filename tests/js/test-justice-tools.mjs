@@ -1197,6 +1197,17 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(near.nearClaim && PE.byArrangement(reg, { salary: 10000, start: '2025-01-01', end: '2025-09-30', reason: 'fired', nearClaim: near.nearClaim }).none.employer === 7500, 'and a claimed s.3 dismissal');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 21) ---------- */
+{
+	const health = reg.severance.reasons.find((x) => x.code === 'health');
+	check(health.conditions_he.includes('סיבה מספקת') && health.conditions_he.includes('תקנה 11') && health.conditions_he.includes('הורה של בן הזוג'), 'the health ground states the sufficient-reason test and the reg. 11 family list (review, PR 128)');
+	check(['worse', 'retire', 'parent', 'move'].every((c) => reg.severance.reasons.find((x) => x.code === c).conditions_he), 'every confirmable ground has its conditions');
+	const f = PEUI.renderForm(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'health' }));
+	check(/data-ground-hint="health">[^<]*סיבה מספקת/.test(f), 'the form shows them for the chosen ground');
+	const shop = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', inherited: true }));
+	check(!shop.ok && shop.errors.some((e) => e.field === 'inherited' && e.he.includes('לפי המוריש')) && /name="jt14-inh"/.test(SHUI.renderForm(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other' }))), 'an inherited non-residential right is refused too, and the question shows for every status (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

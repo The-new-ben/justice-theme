@@ -215,6 +215,10 @@ for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MM
 	check(typeof s.sticky === 'string' && s.sticky.length > 0 && s.sticky !== '—', `${name}: the snapshot carries the sticky figure`);
 	check(typeof s.numbers === 'string' && s.numbers.includes('jtool-datatable') && s.numbers.includes('jtool-cite'), `${name}: the numbers table, each row with its source`);
 	check(!/<h2/i.test(s.form + s.result + s.details), `${name}: no <h2> inside the card (HAD-487)`);
+	for (const part of [s, ...Object.values(s).filter((v) => v && typeof v === 'object' && v.form)]) {
+		const ids = (part.form + part.result + part.details).match(/ id="[^"]+"/g) || [];
+		check(new Set(ids).size === ids.length, `${name}: every id in the card is unique (axe duplicate-id-aria)`);
+	}
 	const labels = (s.form.match(/<(label|legend|summary)[^>]*>[\s\S]*?<\/\1>/g) || []).join(' ');
 	check(labels.length > 0 && !/20\d\d/.test(labels.replace(/1\.1\.1974/g, '')), `${name}: no year in the form labels`);
 }

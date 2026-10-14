@@ -198,7 +198,7 @@ export function renderDetails(reg, m, r) {
 		+ `<li>${esc(d.late_he)}.${cite('סעיף 11', cs.law.url)}</li>`
 		+ `<li>${esc(d.interim_he)}.${cite('סעיף 10', cs.law.url)} ${esc(d.from_filing_he)}.</li>`
 		+ `<li>${esc(cs.rabbinical_he)}.${cite('תיק 1163727/2', cs.rabbinical_url)}</li></ol></div>`;
-	out += needsTable(reg, `${P}-nd-h`);
+	out += needsTable(reg, `${P}-cases-h`);
 	return out;
 }
 

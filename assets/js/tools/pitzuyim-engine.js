@@ -161,7 +161,10 @@ export function compute(registry, input) {
 	// the right unless the employer proves otherwise. The tool treats the last two months of the year as "shortly before"
 	// and computes the proportional amount as a conditional entitlement (review, PR 128).
 	// A fixed term not renewed counts as a dismissal (s.9), so the presumption covers it too (review, PR 128).
-	const nearYear = !yearOk && span.months >= sv.min_months - 2 && (reason === 'fired' || reason === 'term');
+	// "Shortly before" is a question of fact: the last two months are taken as such, and an earlier dismissal counts when
+	// the person says it was close to the year's end and meant to avoid severance (review, PR 128).
+	const dismissed = reason === 'fired' || reason === 'term';
+	const nearYear = !yearOk && dismissed && (span.months >= sv.min_months - 2 || input.nearClaim === true);
 	const conditional = nearYear;
 	const entitled = (yearOk || nearYear) && entitledByReason;
 	// The periods of work and the salary of each: reg. 7 (a change of scope: the last salary, proportional to the scope of
@@ -185,6 +188,7 @@ export function compute(registry, input) {
 	const scopeText = (p, h) => (payType === 'hourly' ? `${h} שעות בחודש` : `${p}% משרה`);
 	if (change) { add('info', 'change', `חושב לפי שתי תקופות (${cut ? 'תקנה 8: הפחתת שכר' : 'תקנה 7: שינוי בהיקף המשרה'}): עד ${heDay(periods[0].to)} לפי ${Math.round(prevBase).toLocaleString('en-US')} ₪ לחודש (${scopeText(prevPct, prevHours)}), ומ-${heDay(changeDate)} לפי ${Math.round(base).toLocaleString('en-US')} ₪ (${scopeText(jobPct, hours)}).`, cut ? 'תקנה 8' : 'תקנה 7'); }
 	if (unpaidExcess > 0) { add('info', 'leave', `${unpaidExcess} ימי חופשה ללא תשלום, מעבר ל-14 בשנת עבודה, לא נספרים בחישוב הפיצויים (תקנה 10(3)): התקופה לחישוב ${countedYears.toFixed(2)} שנים במקום ${span.years.toFixed(2)}. חופשת לידה שמשולמים עליה דמי לידה נספרת.`, 'תקנה 10(3)'); }
+	if (!yearOk && !nearYear && dismissed) { add('info', 'near_year_ask', 'אם הפיטורים היו סמוך לסוף השנה הראשונה, החוק מניח שנעשו כדי לחמוק מפיצויים (סעיף 3). אם זה המצב, סמנו זאת בטופס, והסכום יחושב בכפוף לכך.', 'סעיף 3'); }
 	if (!yearOk && !nearYear) { add('bad', 'under_year', `עבדתם פחות משנה (${span.months} חודשים ו-${span.days} ימים): אין זכות לפיצויי פיטורים לפי החוק (סעיף 1(א)). ההודעה המוקדמת מגיעה בכל מקרה.`, 'סעיף 1(א)'); }
 	if (nearYear) { add('warn', 'near_year', `פוטרתם אחרי ${span.months} חודשים, סמוך לסוף השנה הראשונה: חזקה שהפיטורים נעשו כדי לחמוק מפיצויים, והם לא פוגעים בזכות אלא אם המעסיק יוכיח אחרת (סעיף 3). הסכום כאן יחסי לתקופה שעבדתם.`, 'סעיף 3'); }
 	if (reason === 'resign') { add('info', 'resign', 'בהתפטרות רגילה אין זכות לפיצויים מהמעסיק. כספים שהופרשו לפיצויים לפי סעיף 14 שייכים לכם גם בהתפטרות.', 'סעיף 14'); }

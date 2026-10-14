@@ -282,8 +282,12 @@ export function mount(root, reg) {
 		result.innerHTML = renderResult(reg, r);
 		details.innerHTML = renderDetails(reg, r);
 		const capHint = form.querySelector('[data-jt12-cap]');
-		if (capHint && r.ok) { capHint.textContent = `מזומן, ערבות בנקאית וערבות מחברת ביטוח: יחד עד ${nis(r.cap.cap)} (סעיף 25י(ב)).`; }
-		if (sticky) { sticky.innerHTML = r.ok ? ils(r.cap.cap, 0) : '—'; }
+		// Where the cap does not bind, neither the hint nor the sticky bar presents it as a limit (review, PR 128).
+		if (capHint && r.ok) { capHint.textContent = r.free ? `התקרה של חוזה רגיל, ${nis(r.cap.cap)} (סעיף 25י(ב)), לא מחייבת בחוזה הזה; הערובות נכתבות כפי שסוכמו.` : `מזומן, ערבות בנקאית וערבות מחברת ביטוח: יחד עד ${nis(r.cap.cap)} (סעיף 25י(ב)).`; }
+		if (sticky) {
+			sticky.innerHTML = r.ok ? ils(r.free ? r.counted : r.cap.cap, 0) : '—';
+			if (sticky.previousElementSibling) { sticky.previousElementSibling.textContent = r.ok && r.free ? 'ערובות בחוזה' : 'תקרת ערובה'; }
+		}
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: r.bad ? 'fixed' : 'clean' }); }
 	};
 	const schedule = () => {

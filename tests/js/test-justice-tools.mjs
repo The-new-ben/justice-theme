@@ -1157,6 +1157,17 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(rel.flags.find((f) => f.code === 'relative').he.includes('כפי שסוכם') && !rel.flags.find((f) => f.code === 'relative').he.includes('שומר עליהן'), 'the relative note matches the lease written as agreed (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 17) ---------- */
+{
+	const f = PEUI.renderForm(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'term' }));
+	check(f.includes('ולא הוצע לי לחדש אותו 3 חודשים לפני הסוף') && f.includes('סעיף 9'), 'the fixed-term choice states the s.9 condition: no renewal offer 3 months before the end (review, PR 128)');
+	const nine = PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2025-09-30', reason: 'fired' });
+	check(nine.ok && !nine.entitled && nine.flags.some((f2) => f2.code === 'near_year_ask'), 'a dismissal after 9 months: the s.3 question is raised, not closed by a cutoff');
+	const claimed = PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2025-09-30', reason: 'fired', nearClaim: true });
+	check(claimed.entitled && claimed.conditional && claimed.severance === 7500, 'when the person says it was close to the year end, the amount is computed under s.3 (review, PR 128)');
+	check(PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2025-09-30', reason: 'resign', nearClaim: true }).entitled === false, 's.3 is for dismissals only');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

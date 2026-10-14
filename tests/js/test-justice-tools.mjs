@@ -1280,6 +1280,12 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!m.ok && m.errors.some((e) => e.field === 'misconduct' && e.he.includes('16 ו-17')) && PEUI.renderForm(reg, PEUI.EXAMPLE).includes('id="jt13-misconduct-e"'), 'a disciplinary dismissal declines a definitive result (ss.16-17; review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 30) ---------- */
+{
+	const com = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'none', commission: 3000 }));
+	check(com.ok && com.base === 15000 && com.severance === Math.round(15000 * 103 / 12 * 100) / 100 && PEUI.renderForm(reg, PEUI.EXAMPLE).includes('id="jt13-com"'), 'average commissions over 12 months are added to the salary (reg. 9; review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

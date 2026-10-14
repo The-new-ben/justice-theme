@@ -96,6 +96,9 @@ export function compute(registry, input) {
 		monthly = Number(input.salary);
 		if (!(monthly > 0 && monthly < 1e7)) { errors.push({ field: 'salary', he: 'השכר החודשי האחרון: מספר חיובי' }); }
 	}
+	// Commissions or output-based pay count at their average over the 12 months before the end (reg. 9) (review, PR 128).
+	const commission = blank(input.commission) ? 0 : Number(input.commission);
+	if (!(Number.isFinite(commission) && commission >= 0 && commission < 1e7)) { errors.push({ field: 'commission', he: 'ממוצע העמלות: מספר חיובי, 0 או ריק' }); } else if (commission > 0 && Number.isFinite(monthly)) { monthly = r2(monthly + commission); }
 	const jobPct = blank(input.jobPct) ? 100 : Number(input.jobPct);
 	if (!(jobPct > 0 && jobPct <= 100)) { errors.push({ field: 'jobPct', he: 'היקף המשרה: 1% עד 100%' }); }
 	const s14 = ['full', 'partial', 'custom'].includes(input.s14) ? input.s14 : 'none';

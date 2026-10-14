@@ -471,13 +471,17 @@ function compute(registry, input) {
 	if (short && noticeMode !== 'none') { add('warn', 'short_notice', `ההודעה ניתנה ב-${heDay(noticeDate)}, ותקופת ההודעה שבחוק מסתיימת ב-${heDay(noticeEnd)}: חסרים ${short} ימים עד היום האחרון שהזנתם. ${resigned ? 'עובד שהפסיק לעבוד לפני סוף ההודעה חייב למעסיק את השכר הרגיל בעד הימים החסרים (סעיף 7(ב)), אלא אם המעסיק ויתר עליהם (סעיף 6(ב)).' : 'עליהם מגיע פיצוי בגובה השכר הרגיל (סעיף 7(א)).'}`, resigned ? 'סעיף 7(ב)' : 'סעיף 7(א)'); }
 
 	// Tax: one month's last salary per year, never above the ceiling per year (s.9(7א)(א)).
+	// The ceiling is the one of the tax year of the grant: the registry holds 2025-2027 (frozen at 13,750); for an end of
+	// work in another year the tool gives no tax split (review, PR 128).
 	const tax = sv.tax;
+	const taxKnown = end >= tax.from && end <= tax.to;
 	const perYear = Math.min(base, tax.ceiling);
-	const exemptCap = r2(perYear * span.years);
-	const exempt = Math.min(severance, exemptCap);
-	const taxable = r2(severance - exempt);
-	const ceilingTotal = r2(tax.ceiling * span.years);
-	if (taxable > 0 && base < tax.ceiling) { add('info', 'commissioner', `מעל משכורת חודש לכל שנה, פקיד השומה רשאי לפטור עוד, עד ${tax.ceiling.toLocaleString('en-US')} ₪ לכל שנת עבודה (${ceilingTotal.toLocaleString('en-US')} ₪ אצלכם).`, tax.section); }
+	const exemptCap = taxKnown ? r2(perYear * span.years) : null;
+	const exempt = taxKnown ? Math.min(severance, exemptCap) : null;
+	const taxable = taxKnown ? r2(severance - exempt) : null;
+	const ceilingTotal = taxKnown ? r2(tax.ceiling * span.years) : null;
+	if (!taxKnown && severance > 0) { add('info', 'tax_year', `תקרת הפטור ממס נקבעת לפי שנת המס שבה משולם המענק. במחשבון יש את התקרה של ${tax.from.slice(0, 4)} עד ${tax.to.slice(0, 4)} (${tax.ceiling.toLocaleString('en-US')} ₪ לשנת עבודה); לסיום עבודה ב-${end.slice(0, 4)} בדקו את התקרה בלוח העזר של רשות המסים לאותה שנה. החלק הפטור לא חושב.`, tax.section); }
+	if (taxKnown && taxable > 0 && base < tax.ceiling) { add('info', 'commissioner', `מעל משכורת חודש לכל שנה, פקיד השומה רשאי לפטור עוד, עד ${tax.ceiling.toLocaleString('en-US')} ₪ לכל שנת עבודה (${ceilingTotal.toLocaleString('en-US')} ₪ אצלכם).`, tax.section); }
 
 	// Deadlines (Wage Protection Law s.20; Advance Notice Law s.8(ב); Limitation Law s.5(1)).
 	const late = sv.late;
@@ -573,7 +577,7 @@ function verdictSentence(reg, r) {
 	const parts = [`${nis(r.base)} × ${spanText(r.span)} = ${nis(r.severance)}.`];
 	if (r.s14 !== 'none') { parts.push(`הקופה מכסה ${r.s14Pct}% מהתקופה שבה הופרש (${nis(r.fundReplaces)} לפי החישוב, ובפועל מה שנצבר), והמעסיק משלים ${nis(r.employer)}.`); }
 	parts.push(`הודעה מוקדמת: ${noticeText(r.notice)}.`);
-	parts.push(r.taxable > 0 ? `פטור ממס עד ${nis(r.exempt)}; ${nis(r.taxable)} חייבים במס.` : 'כל הסכום פטור ממס.');
+	if (r.exempt === null) { parts.push('החלק הפטור ממס לא חושב: תקרת הפטור לשנה זו אינה במחשבון.'); } else { parts.push(r.taxable > 0 ? `פטור ממס עד ${nis(r.exempt)}; ${nis(r.taxable)} חייבים במס.` : 'כל הסכום פטור ממס.'); }
 	return parts.join(' ');
 }
 
@@ -607,7 +611,7 @@ function renderResult(reg, r, opts = {}) {
 		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}פיצויי פיטורים לפי החוק</p>`
 		+ `<strong class="jtool-verdict__figure">${ilsn(r.severance)}</strong>`
 		+ `<p class="jtool-verdict__sentence">${esc(verdictSentence(reg, r))}</p>`
-		+ `<dl class="jtool-breakdown"><div><dt>המעסיק משלם</dt><dd>${ilsn(r.employer)}</dd></div>${r.s14 !== 'none' && r.entitled ? `<div><dt>במקום זה, מהקופה</dt><dd>${ilsn(r.fundReplaces)}</dd></div>` : ''}${r.fundUnknown ? '<div><dt>בקופה (סעיף 14)</dt><dd>מה שנצבר, שלכם</dd></div>' : ''}<div><dt>הודעה מוקדמת</dt><dd>${esc(noticeText(r.notice))}</dd></div><div><dt>פטור ממס</dt><dd>${ilsn(r.exempt)}</dd></div></dl></div>`
+		+ `<dl class="jtool-breakdown"><div><dt>המעסיק משלם</dt><dd>${ilsn(r.employer)}</dd></div>${r.s14 !== 'none' && r.entitled ? `<div><dt>במקום זה, מהקופה</dt><dd>${ilsn(r.fundReplaces)}</dd></div>` : ''}${r.fundUnknown ? '<div><dt>בקופה (סעיף 14)</dt><dd>מה שנצבר, שלכם</dd></div>' : ''}<div><dt>הודעה מוקדמת</dt><dd>${esc(noticeText(r.notice))}</dd></div><div><dt>פטור ממס</dt><dd>${r.exempt === null ? 'לא חושב' : ilsn(r.exempt)}</dd></div></dl></div>`
 		+ ruler(r) + timeline(reg, r)
 		+ (flags.length ? `<ul class="jtool-flags">${flags.map((f) => `<li><strong aria-hidden="true">${MARK[f.level]}</strong> ${esc(f.he)}</li>`).join('')}</ul>` : '');
 }
@@ -642,8 +646,12 @@ function renderDetails(reg, r) {
 		rows.push(['השלמה מהמעסיק', ilsn(r.employer), r.fundUnknown ? 'אין: אין זכות לפיצויים מהמעסיק' : 'ההפרש']);
 	}
 	rows.push(['הודעה מוקדמת', `${esc(noticeText(r.notice))}${r.inLieu !== null ? ` (${nis(r.inLieu)} אם משלמים במקום עבודה${r.notice.month ? '' : ', לפי 30 ימים בחודש'})` : ''}`, cite(`${r.notice.section} לחוק הודעה מוקדמת`, sv.notice.url)]);
-	rows.push(['פטור ממס', ilsn(r.exempt), `משכורת חודש לשנה, עד ${money(sv.tax.ceiling, 0)} ₪ לשנה ב-${sv.tax.year}${cite(sv.tax.section, sv.tax.law_url)}${cite('לוח העזר 2026', sv.tax.source_url)}`]);
-	rows.push(['חייב במס', ilsn(r.taxable), r.taxable ? 'לפי מדרגות המס' : '—']);
+	if (r.exempt === null) {
+		rows.push(['פטור ממס', 'לא חושב', `התקרה של ${esc(sv.tax.from.slice(0, 4))} עד ${esc(sv.tax.to.slice(0, 4))} בלבד (${money(sv.tax.ceiling, 0)} ₪ לשנה)${cite(sv.tax.section, sv.tax.law_url)}`]);
+	} else {
+		rows.push(['פטור ממס', ilsn(r.exempt), `משכורת חודש לשנה, עד ${money(sv.tax.ceiling, 0)} ₪ לשנה ב-${sv.tax.year}${cite(sv.tax.section, sv.tax.law_url)}${cite('לוח העזר 2026', sv.tax.source_url)}`]);
+		rows.push(['חייב במס', ilsn(r.taxable), r.taxable ? 'לפי מדרגות המס' : '—']);
+	}
 	let out = `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-calc-h">כמה, על מה, ולפי איזה סעיף</h3></div>`
 		+ `<div class="jtool-scroll" role="region" aria-labelledby="${P}-calc-h" tabindex="0"><table class="jtool-table"><thead><tr><th scope="col">מה</th><th scope="col">סכום</th><th scope="col">הכלל</th></tr></thead><tbody>`
 		+ rows.map(([a, b, c]) => `<tr><td data-th="מה">${esc(a)}</td><td data-th="סכום">${b}</td><td data-th="הכלל">${c}</td></tr>`).join('')

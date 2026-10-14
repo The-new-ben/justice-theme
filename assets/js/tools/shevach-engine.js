@@ -79,7 +79,10 @@ function taxLinear(sv, realGain, shares) {
  *           saleCosts, mortgage, priorExempt (an exempt single-home sale in the 18 months before), rented, residential
  *           (confirmed mainly residential use, s.49(א); default true), offPlan (bought
  *           before it was built), dwellingDate (the day it became a dwelling), gift (received as a gift, s.49ו),
- *           giftLived + livedFrom (lived in it permanently as owner, from that day), giftMinor (received before 18) }
+ *           giftLived + livedFrom (lived in it permanently as owner, from that day), giftMinor (received before 18),
+ *           family (confirmed: no other dwelling for the spouse or children under 18, s.49(ב)), resident ('il' |
+ *           'foreign'), foreignNoHome (a foreign tax authority's certificate of no dwelling there, s.49א(א)),
+ *           depreciation (on a rented home: the depreciation deducted or deductible, s.47) }
  */
 export function compute(registry, input) {
 	const sv = registry.shevach;
@@ -109,6 +112,12 @@ export function compute(registry, input) {
 	if (buyDate && cpi.knownMonth(buyDate) < cpi.first) { errors.push({ field: 'buyDate', he: 'רכישה לפני 16.3.1990: המחשבון לא מחזיק מדד ישן יותר. לרכישה כזאת השתמשו בסימולטור של רשות המסים.' }); }
 	if (!(buyPrice > 0 && buyPrice < 1e10)) { errors.push({ field: 'buyPrice', he: 'מחיר הרכישה: מספר חיובי' }); }
 	if (!(salePrice > 0 && salePrice < 1e10)) { errors.push({ field: 'salePrice', he: 'מחיר המכירה: מספר חיובי' }); }
+	// Depreciation on a rented home reduces the acquisition value (s.47); without it no estimate is given for a taxable
+	// sale (review, PR 128).
+	const rented = Boolean(input.rented);
+	const dep = rented ? amt('depreciation') : 0;
+	if (rented && !(Number.isFinite(dep) && dep >= 0 && dep < 1e10)) { errors.push({ field: 'depreciation', he: 'הפחת: מספר חיובי, 0 או ריק' }); }
+	if (rented && Number.isFinite(dep) && buyPrice > 0 && dep >= buyPrice) { errors.push({ field: 'depreciation', he: 'הפחת קטן ממחיר הרכישה' }); }
 	for (const k of ['buyCosts', 'improve', 'saleCosts', 'mortgage']) {
 		const v = amt(k);
 		if (!(Number.isFinite(v) && v >= 0 && v < 1e10)) { errors.push({ field: k, he: 'סכום: מספר חיובי או ריק' }); }
@@ -134,7 +143,7 @@ export function compute(registry, input) {
 	if (cpi.knownMonth(saleDate) > cpi.latest) { add('warn', 'index_ahead', `המדד הידוע ביום המכירה עוד לא פורסם: החישוב לפי המדד האחרון שפורסם (${Number(cpi.latest.slice(5))}.${cpi.latest.slice(0, 4)}). השומה תהיה לפי המדד שיהיה ידוע ביום המכירה.`, 'סעיף 47'); }
 	const kBuy = known(buyDate);
 	const ratio = (k) => cpi.chained(kSale) / cpi.chained(k);
-	const acq = buyPrice + buyCosts;
+	const acq = buyPrice + buyCosts - dep;
 	const balance = r2(acq + improve + saleCosts);
 	const gain = r2(salePrice - balance);
 	const adjusted = r2(acq * ratio(kBuy) + (improve ? improve * ratio(known(improveDate)) : 0) + saleCosts);
@@ -169,7 +178,11 @@ export function compute(registry, input) {
 	const coolFrom = gift ? (giftLived && livedFrom > buyDate ? livedFrom : buyDate) : null;
 	const coolEnd = gift ? addMonths(coolFrom, giftLived ? sv.gift.lived_months : sv.gift.other_months) : null;
 	const giftOk = !gift || saleDate >= coolEnd;
-	const singleOk = status === 'single' && residential && held && !input.priorExempt && giftOk;
+	// The family unit is one seller (s.49(ב)); a foreign resident needs the certificate of no dwelling abroad (s.49א(א)).
+	const familyOk = input.family === true;
+	const foreign = input.resident === 'foreign';
+	const residentOk = !foreign || input.foreignNoHome === true;
+	const singleOk = status === 'single' && residential && held && !input.priorExempt && giftOk && familyOk && residentOk;
 	let path = !residential ? 'regular' : (lin ? 'linear' : 'regular');
 	let tax = path === 'linear' ? lin.tax : regular.tax;
 	let exemptShare = 0;
@@ -177,6 +190,8 @@ export function compute(registry, input) {
 		if (residential && !held) { add('bad', 'held', `הדירה בבעלותכם פחות מ-${sv.single.hold_months} חודשים מאז שהיתה לדירת מגורים: אין פטור לדירה יחידה (${sv.single.section}). החישוב כדירת מגורים חייבת.`, sv.single.section); }
 		if (residential && !giftOk) { add('bad', 'gift_cooling', `קיבלתם את הדירה במתנה: הפטור לדירה יחידה ניתן רק ${giftLived ? `${sv.gift.lived_months / 12} שנים מהיום שהתחלתם לגור בה דרך קבע כבעלים` : `${sv.gift.other_months / 12} שנים מהיום שקיבלתם אותה`}, כלומר במכירה מ-${heIso(coolEnd)} (סעיף 49ו(א)(${giftLived ? 2 : 1})). עד אז החישוב כדירת מגורים חייבת.`, sv.gift.section); }
 		if (residential && gift && giftOk) { add('ok', 'gift_cooled', `דירה שהתקבלה במתנה: תקופת הצינון הסתיימה (${heIso(coolEnd)}), והפטור אפשרי (סעיף 49ו(א)).`, sv.gift.section); }
+		if (residential && !familyOk) { add('bad', 'family', `לא אישרתם שגם לבן או לבת הזוג ולילדים מתחת ל-18 אין דירת מגורים אחרת: הם ואתם מוכר אחד (${sv.family_section}). סמנו את האישור כדי לקבל את הפטור; עד אז החישוב כדירת מגורים חייבת.`, sv.family_section); }
+		if (residential && !residentOk) { add('bad', 'foreign', `${sv.foreign.he}. בלי האישור החישוב כדירת מגורים חייבת.`, sv.foreign.section); }
 		if (residential && input.priorExempt) { add('bad', 'prior', `מכרתם דירה אחרת בפטור כזה ב-${sv.single.gap_months} החודשים שלפני: אין פטור נוסף (${sv.single.section}). החישוב כדירת מגורים חייבת.`, sv.single.section); }
 	}
 	if (singleOk) {
@@ -192,7 +207,10 @@ export function compute(registry, input) {
 	if (gain <= 0) { path = 'loss'; tax = 0; add('info', 'loss', 'אין שבח: מחיר המכירה לא עולה על מחיר הרכישה וההוצאות, ולכן אין מס שבח. את ההצהרה מגישים בכל מקרה (סעיף 73).', 'סעיף 47'); }
 	if (tax > 0 && salePrice > sv.surtax.threshold) { add('warn', 'surtax', `מכירה חייבת במס של דירה ביותר מ-${sv.surtax.threshold.toLocaleString('en-US')} ₪: השבח הריאלי נכנס להכנסה החייבת במס יסף (${sv.surtax.section}): ${sv.surtax.rate}% על ההכנסה שמעל ${sv.surtax.income_threshold.toLocaleString('en-US')} ₪ בשנה, ועוד ${sv.surtax.capital_rate}% על הכנסה ממקורות הוניים. המחשבון לא מחשב את מס היסף.`, sv.surtax.section); }
 	if (path === 'regular' && shares.pre2001 > 0 && realGain > 0) { add('info', 'marginal', `על החלק שעד 7.11.2001 חל השיעור הגבוה בסעיף 121 (${sv.rates.pre2001}%), ועל החלק עד 31.12.2011 עד ${sv.rates.mid}%. מוכר שהכנסתו נמוכה יכול לבקש שיעור נמוך יותר (סעיף 48א(ב)(2)).`, 'סעיף 48א(ב1)'); }
-	if (input.rented) { add('info', 'depreciation', `${sv.depreciation_he}.`, 'סעיף 47'); }
+	if (rented && dep > 0) { add('info', 'depreciation', `${sv.depreciation_he}: ${Math.round(dep).toLocaleString('en-US')} ₪.`, sv.depreciation_section); }
+	if (rented && blank(input.depreciation) && path !== 'exempt') {
+		return { ok: false, errors: [{ field: 'depreciation', he: 'הדירה הושכרה: הזינו את הפחת שנוכה או שהיה ניתן לנכות בשנות ההשכרה (סעיף 47). הפחת מקטין את שווי הרכישה ומגדיל את השבח; את הסכום מחשבים רואה החשבון או השומה. בלי הסכום אין הערכה.' }] };
+	}
 
 	const net = r2(salePrice - tax - saleCosts - mortgage);
 	const rest = (iso) => offRestDays(iso, sv.independence_days);
@@ -207,7 +225,7 @@ export function compute(registry, input) {
 		regular: regular.tax,
 	};
 	return {
-		ok: true, status, path, buyDate, saleDate, buyPrice, salePrice, buyCosts, improve, improveDate, saleCosts, mortgage,
+		ok: true, status, path, buyDate, saleDate, buyPrice, salePrice, buyCosts, improve, improveDate, saleCosts, mortgage, dep,
 		balance, gain, adjusted, inflationary, realGain, inflTaxable, shares, regular, linear: lin, exemptShare, held, singleOk,
 		tax, net, effective: gain > 0 ? tax / gain : 0, deadlines, flags, kBuy, kSale, scen,
 	};

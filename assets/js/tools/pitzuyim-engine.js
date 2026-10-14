@@ -168,13 +168,17 @@ export function compute(registry, input) {
 	if (short && noticeMode !== 'none') { add('warn', 'short_notice', `ההודעה ניתנה ב-${heDay(noticeDate)}, ותקופת ההודעה שבחוק מסתיימת ב-${heDay(noticeEnd)}: חסרים ${short} ימים עד היום האחרון שהזנתם. ${resigned ? 'עובד שהפסיק לעבוד לפני סוף ההודעה חייב למעסיק את השכר הרגיל בעד הימים החסרים (סעיף 7(ב)), אלא אם המעסיק ויתר עליהם (סעיף 6(ב)).' : 'עליהם מגיע פיצוי בגובה השכר הרגיל (סעיף 7(א)).'}`, resigned ? 'סעיף 7(ב)' : 'סעיף 7(א)'); }
 
 	// Tax: one month's last salary per year, never above the ceiling per year (s.9(7א)(א)).
+	// The ceiling is the one of the tax year of the grant: the registry holds 2025-2027 (frozen at 13,750); for an end of
+	// work in another year the tool gives no tax split (review, PR 128).
 	const tax = sv.tax;
+	const taxKnown = end >= tax.from && end <= tax.to;
 	const perYear = Math.min(base, tax.ceiling);
-	const exemptCap = r2(perYear * span.years);
-	const exempt = Math.min(severance, exemptCap);
-	const taxable = r2(severance - exempt);
-	const ceilingTotal = r2(tax.ceiling * span.years);
-	if (taxable > 0 && base < tax.ceiling) { add('info', 'commissioner', `מעל משכורת חודש לכל שנה, פקיד השומה רשאי לפטור עוד, עד ${tax.ceiling.toLocaleString('en-US')} ₪ לכל שנת עבודה (${ceilingTotal.toLocaleString('en-US')} ₪ אצלכם).`, tax.section); }
+	const exemptCap = taxKnown ? r2(perYear * span.years) : null;
+	const exempt = taxKnown ? Math.min(severance, exemptCap) : null;
+	const taxable = taxKnown ? r2(severance - exempt) : null;
+	const ceilingTotal = taxKnown ? r2(tax.ceiling * span.years) : null;
+	if (!taxKnown && severance > 0) { add('info', 'tax_year', `תקרת הפטור ממס נקבעת לפי שנת המס שבה משולם המענק. במחשבון יש את התקרה של ${tax.from.slice(0, 4)} עד ${tax.to.slice(0, 4)} (${tax.ceiling.toLocaleString('en-US')} ₪ לשנת עבודה); לסיום עבודה ב-${end.slice(0, 4)} בדקו את התקרה בלוח העזר של רשות המסים לאותה שנה. החלק הפטור לא חושב.`, tax.section); }
+	if (taxKnown && taxable > 0 && base < tax.ceiling) { add('info', 'commissioner', `מעל משכורת חודש לכל שנה, פקיד השומה רשאי לפטור עוד, עד ${tax.ceiling.toLocaleString('en-US')} ₪ לכל שנת עבודה (${ceilingTotal.toLocaleString('en-US')} ₪ אצלכם).`, tax.section); }
 
 	// Deadlines (Wage Protection Law s.20; Advance Notice Law s.8(ב); Limitation Law s.5(1)).
 	const late = sv.late;

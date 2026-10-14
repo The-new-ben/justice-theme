@@ -903,7 +903,8 @@ def build_severance(checked_on: str) -> dict:
                    "url": "https://www.nevo.co.il/law_html/law00/71704.htm", "current_to": "2023-09-18",
                    "monthly": {"first_months": 6, "base_days": 6, "per_month": 2.5},
                    "wage": {"y2_base": 14, "y3_base": 21}, "cert_days": 14, "cert_request_days": 7},
-        "tax": {"ceiling": 13750, "year": 2026, "section": "סעיף 9(7א)(א)",
+        # The ceiling holds for grants in 2025-2027 (frozen); another year's ceiling is not in the tool (review, PR 128).
+        "tax": {"ceiling": 13750, "year": 2026, "from": "2025-01-01", "to": "2027-12-31", "section": "סעיף 9(7א)(א)",
                 "law_he": "פקודת מס הכנסה [נוסח חדש]", "law_url": "https://www.nevo.co.il/law_html/law00/84255.htm",
                 "source_he": "רשות המסים, לוח עזר לחישוב מס הכנסה ממשכורת לחודש ינואר 2026 ואילך, פרק ג",
                 "source_url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/"
@@ -980,10 +981,21 @@ def build_shevach(checked_on: str) -> dict:
         "single_he": "הדירה היחידה שלכם בישראל ובאזור, בבעלותכם 18 חודשים לפחות מאז שהיתה לדירת מגורים, ולא מכרתם דירה אחרת "
                      "בפטור כזה ב-18 החודשים שלפני (סעיף 49ב(2)). דירה נוספת לא נספרת אם נקנתה כתחליף ב-24 החודשים "
                      "שלפני המכירה, או שחלקכם בה עד שליש, ובירושה עד מחצית (סעיף 49ג)",
-        "seller_he": "המחשבון הוא ליחיד תושב ישראל שמוכר את כל זכויותיו בדירה; מוכר ובן זוגו וילדיהם עד גיל 18 הם מוכר אחד "
+        "seller_he": "המחשבון הוא ליחיד שמוכר את כל זכויותיו בדירה; מוכר ובן זוגו (למעט בן זוג שגר דרך קבע בנפרד) "
+                     "וילדיהם עד גיל 18 (למעט ילד נשוי) הם מוכר אחד, ולכן גם לבן הזוג ולילדים אסור שתהיה דירה אחרת "
                      "(סעיף 49(ב))",
-        "depreciation_he": "בדירה שהושכרה, הפחת שהיה ניתן לנכות לפי סעיף 21 לפקודה מופחת משווי הרכישה ומגדיל את השבח (סעיף "
-                           "47, \"יתרת שווי רכישה\"); המחשבון לא מחשב פחת",
+        "family_section": "סעיף 49(ב)",
+        # s.49א(א): a foreign resident is exempt only with no dwelling in the country of residence, and is treated as
+        # having one until that country's tax authority certifies otherwise (review, PR 128).
+        "foreign": {"section": "סעיף 49א(א)",
+                    "he": "תושב חוץ זכאי לפטור לדירה יחידה רק אם אין לו דירת מגורים במדינה שבה הוא תושב, ורואים אותו כבעל "
+                          "דירה שם כל עוד לא המציא אישור משלטונות המס באותה מדינה שאין לו דירה כזאת (סעיף 49א(א))"},
+        # s.47: "יתרת שווי רכישה" is after deducting depreciation ("פחת": the amounts deductible under s.21 of the
+        # Ordinance), and the inflationary amount is computed on that balance; the separate "פחת מתואם" was repealed.
+        "depreciation_he": "בדירה שהושכרה, הפחת שנוכה או שהיה ניתן לנכות לפי סעיף 21 לפקודה מופחת משווי הרכישה ומגדיל את "
+                           "השבח (סעיף 47, \"יתרת שווי רכישה\" ו\"פחת\"). את סכום הפחת קובעים רואה החשבון או "
+                           "השומה; המחשבון מנכה את הסכום שהזנתם",
+        "depreciation_section": "סעיף 47",
         "simulator_url": "https://www.misim.gov.il/svtsvazmitnew/FrmHadrachaRashit.aspx",
         "service_url": "https://www.gov.il/he/service/real_estate_selfshuma",
         "cpi_from": "1990-01",

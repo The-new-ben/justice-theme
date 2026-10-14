@@ -867,10 +867,10 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const ex = SH.compute(reg, SHUI.EXAMPLE);
 	check(ex.ok && ex.path === 'linear' && near(ex.inflationary, 383957.59, 0.011) && near(ex.shares.linear, 1310 / 5966, 1e-9) && near(ex.tax, ex.realGain * (1 - 1310 / 5966) * 0.25, 0.011), 'example: a qualifying home bought 1.6.2010: the real gain up to 1.1.2014 (1,310 of 5,966 days) is exempt, the rest at 25% (s.48א(ב2))');
 	check(ex.regular.tax > ex.tax && ex.net === Math.round((2600000 - ex.tax - 30000) * 100) / 100, 'the linear rule beats the regular one; the net is the price less the tax and the sale costs');
-	const single = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single' }));
+	const single = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true }));
 	check(single.path === 'exempt' && single.tax === 0, 'the only home, held 18 months, under the ceiling: exempt (s.49ב(2))');
-	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', buyDate: '2025-06-01', buyPrice: 2000000 })).flags.some((f) => f.code === 'held') && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', priorExempt: true })).path === 'linear', 'held under 18 months, or an exempt sale in the 18 months before: no single-home exemption');
-	const big = SH.compute(reg, { status: 'single', buyDate: '2015-01-01', buyPrice: 3000000, saleDate: '2026-09-01', salePrice: 6000000 });
+	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, buyDate: '2025-06-01', buyPrice: 2000000 })).flags.some((f) => f.code === 'held') && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, priorExempt: true })).path === 'linear', 'held under 18 months, or an exempt sale in the 18 months before: no single-home exemption');
+	const big = SH.compute(reg, { status: 'single', family: true, buyDate: '2015-01-01', buyPrice: 3000000, saleDate: '2026-09-01', salePrice: 6000000 });
 	check(big.path === 'partial' && near(big.exemptShare, 5008000 / 6000000, 1e-12) && near(big.tax, big.regular.tax * (1 - 5008000 / 6000000), 0.011) && big.flags.some((f) => f.code === 'surtax') && big.flags.some((f) => f.code === 'ceiling'), 'above the ceiling: the share above 5,008,000 is taxed (s.49א(א1)); above 5,385,285 the surtax is flagged');
 	check(SH.compute(reg, { status: 'qualified', buyDate: '2016-01-01', buyPrice: 2000000, saleDate: '2026-09-01', salePrice: 1900000 }).path === 'loss', 'a sale under the purchase price: no gain, no tax');
 	check(!SH.compute(reg, { status: 'other', buyDate: '1990-02-01', buyPrice: 100000, saleDate: '2026-09-01', salePrice: 900000 }).ok, 'a purchase before the registry\'s index (16.3.1990) is refused, never guessed');
@@ -887,7 +887,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 {
 	check(RE.compute(reg, { rent: 6000, months: 12, guarantors: 0, guarantorMax: 'abc' }).ok && !RE.compute(reg, { rent: 6000, months: 12, guarantors: 1, guarantorMax: -5 }).ok, 'the guarantee ceiling is read only with guarantors: a stale value in the hidden field never blocks the lease');
 	check(RE.compute(reg, { rent: 6000, months: 12, option: 'none', optionMonths: 'x', optionPct: 'y' }).ok, 'the option fields are ignored when there is no option');
-	const big = SH.compute(reg, { status: 'single', buyDate: '2015-01-01', buyPrice: 3000000, saleDate: '2026-09-01', salePrice: 6000000 });
+	const big = SH.compute(reg, { status: 'single', family: true, buyDate: '2015-01-01', buyPrice: 3000000, saleDate: '2026-09-01', salePrice: 6000000 });
 	check(big.scen.exempt === big.tax && big.scen.exempt > 0 && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'qualified' })).scen.exempt === null, 'the single-home card shows the partial tax above the ceiling, and nothing when the home is not the only one');
 	check(PE.compute(reg, { payType: 'monthly', salary: 9000, hourly: 'x', hours: 'y', start: '2020-01-01', end: '2026-09-30', s14: 'none', s14Pct: 'z', s14From: 'bad' }).ok, 'severance: hidden hourly and section-14 fields never block a monthly calculation');
 	check(SH.compute(reg, { status: 'qualified', buyDate: '2010-06-01', buyPrice: 1200000, saleDate: '2026-09-01', salePrice: 2600000, improve: '', improveDate: 'junk' }).ok, 'capital gains: the improvement date is read only with an improvement');
@@ -895,8 +895,8 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 
 /* ---------- Review fixes (PR 128, Codex pass 1) ---------- */
 {
-	check(!SH.compute(reg, { status: 'single', buyDate: '2015-01-01', buyPrice: 2000000, saleDate: '2023-06-01', salePrice: 4900000 }).ok && !SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { saleDate: '2028-01-02' })).ok && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { saleDate: '2025-01-01' })).ok, 'a sale outside 1.1.2025-31.12.2027 is refused: the 5,008,000 ceiling and the rates are for that period only (review, PR 128)');
-	const plan = { status: 'single', buyDate: '2020-01-01', buyPrice: 1500000, saleDate: '2026-09-01', salePrice: 2500000, offPlan: true };
+	check(!SH.compute(reg, { status: 'single', family: true, buyDate: '2015-01-01', buyPrice: 2000000, saleDate: '2023-06-01', salePrice: 4900000 }).ok && !SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { saleDate: '2028-01-02' })).ok && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { saleDate: '2025-01-01' })).ok, 'a sale outside 1.1.2025-31.12.2027 is refused: the 5,008,000 ceiling and the rates are for that period only (review, PR 128)');
+	const plan = { status: 'single', family: true, buyDate: '2020-01-01', buyPrice: 1500000, saleDate: '2026-09-01', salePrice: 2500000, offPlan: true };
 	check(!SH.compute(reg, plan).ok && SH.compute(reg, Object.assign({}, plan, { dwellingDate: '2025-12-01' })).flags.some((f) => f.code === 'held') && SH.compute(reg, Object.assign({}, plan, { dwellingDate: '2024-12-01' })).path === 'exempt', 'off-plan: the 18 months run from the day the home became a dwelling, which must be given (s.49ב(2); review, PR 128)');
 	check(SH.compute(reg, Object.assign({}, plan, { status: 'qualified', offPlan: true, dwellingDate: '' })).ok, 'the delivery date is asked only for the single-home exemption');
 	const near = PE.compute(reg, { salary: 10000, start: '2025-11-01', end: '2026-09-30' });
@@ -917,9 +917,9 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 
 /* ---------- Review fixes (PR 128, Codex pass 2) ---------- */
 {
-	const office = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', residential: false }));
+	const office = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, residential: false }));
 	check(office.path === 'regular' && office.tax === office.regular.tax && office.scen.exempt === null && office.scen.linear === null && office.flags.some((f) => f.code === 'not_residential'), 'a home not used mainly for residence: no single-home exemption and no linear rule (s.49(א); review, PR 128)');
-	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single' })).path === 'exempt', 'confirmed residential use keeps the exemption');
+	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true })).path === 'exempt', 'confirmed residential use keeps the exemption');
 	const quit = PE.compute(reg, { salary: 10000, start: '2018-01-01', end: '2026-09-30', reason: 'resign', s14: 'partial' });
 	const quitHtml = PEUI.renderResult(reg, quit) + PEUI.renderDetails(reg, quit);
 	check(quit.fundUnknown && quitHtml.includes('מה שנצבר') && !/מהקופה[^<]*<\/td><td[^>]*>[^<]*0 ₪/.test(quitHtml), 'an ordinary resignation with s.14: the fund is shown as what accumulated and belongs to the worker, never as 0 (review, PR 128)');
@@ -944,7 +944,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(PEUI.renderForm(reg, PEUI.EXAMPLE).includes('לא ניתנה הודעה') && !PEUI.renderForm(reg, PEUI.EXAMPLE).includes('לא קיבלתי הודעה'), 'the no-notice chip reads for both directions');
 
 	// A gift (s.49ו): the single-home exemption waits 4 years from the gift, or 3 years from moving in as owner.
-	const g = Object.assign({}, SHUI.EXAMPLE, { status: 'single', buyDate: '2023-03-01', buyPrice: 1500000, buyCosts: 0, saleDate: '2026-10-01', salePrice: 1900000, saleCosts: 0, gift: true });
+	const g = Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, buyDate: '2023-03-01', buyPrice: 1500000, buyCosts: 0, saleDate: '2026-10-01', salePrice: 1900000, saleCosts: 0, gift: true });
 	const cold = SH.compute(reg, g);
 	check(cold.ok && cold.path !== 'exempt' && cold.tax > 0 && cold.scen.exempt === null && cold.flags.some((f) => f.code === 'gift_cooling' && f.he.includes('1.3.2027') && f.section === 'סעיף 49ו'), 'a gift received 1.3.2023 and sold 1.10.2026 without living there: no exemption before 1.3.2027 (s.49ו(א)(1); review, PR 128)');
 	const lived = SH.compute(reg, Object.assign({}, g, { giftLived: true, livedFrom: '2023-06-01' }));
@@ -959,6 +959,35 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(SH.compute(reg, Object.assign({}, g, { gift: false })).path === 'exempt' && SH.compute(reg, Object.assign({}, g, { status: 'qualified' })).flags.every((f) => !f.code.startsWith('gift')), 'without a gift, or for a second home, the gift rule does not apply');
 	check(SH.compute(reg, Object.assign({}, g, { saleDate: '2027-03-01' })).path === 'exempt', 'a sale on 1.3.2027, four years from the gift, is exempt');
 	check(reg.shevach.gift.other_months === 48 && reg.shevach.gift.lived_months === 36 && reg.shevach.gift.section === 'סעיף 49ו', 'the registry holds the s.49ו periods');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 4) ---------- */
+{
+	// Depreciation on a rented home (s.47): required for a taxable sale, it lowers the acquisition value.
+	const base = Object.assign({}, SHUI.EXAMPLE, { rented: true });
+	const missing = SH.compute(reg, base);
+	check(!missing.ok && missing.errors[0].field === 'depreciation' && missing.errors[0].he.includes('סעיף 47'), 'a rented home sold with tax and no depreciation: no estimate, the field is asked for (s.47; review, PR 128)');
+	const plain = SH.compute(reg, SHUI.EXAMPLE);
+	const dep = SH.compute(reg, Object.assign({}, base, { depreciation: 100000 }));
+	check(dep.ok && Math.abs(dep.gain - plain.gain - 100000) < 0.01 && dep.realGain > plain.realGain + 100000 && dep.tax > plain.tax && dep.flags.some((f) => f.code === 'depreciation'), 'depreciation of 100,000 adds 100,000 to the gain and more than that to the real gain (the balance is indexed after it)');
+	check(SH.compute(reg, Object.assign({}, base, { depreciation: 0 })).tax === plain.tax, 'a depreciation of 0 entered is accepted as given');
+	check(SH.compute(reg, Object.assign({}, base, { status: 'single', family: true })).path === 'exempt', 'a fully exempt single home needs no depreciation figure');
+	check(SHUI.renderDetails(reg, dep).includes('פחת בשנות ההשכרה') && SHUI.renderForm(reg, base).includes('id="jt14-dep"') && !/data-if-rented hidden/.test(SHUI.renderForm(reg, base)), 'the depreciation field shows when the home was rented, and the table shows the deduction');
+	// The family unit is one seller (s.49(ב)); a foreign resident needs the certificate of no home abroad (s.49א(א)).
+	const one = Object.assign({}, SHUI.EXAMPLE, { status: 'single' });
+	const unconfirmed = SH.compute(reg, Object.assign({}, one, { family: false }));
+	check(unconfirmed.path !== 'exempt' && unconfirmed.scen.exempt === null && unconfirmed.flags.some((f) => f.code === 'family' && f.section === 'סעיף 49(ב)'), 'the single-home exemption waits for the family-unit confirmation (s.49(ב); review, PR 128)');
+	check(SH.compute(reg, Object.assign({}, one, { family: true })).path === 'exempt', 'confirmed: exempt');
+	const abroad = SH.compute(reg, Object.assign({}, one, { family: true, resident: 'foreign' }));
+	check(abroad.path !== 'exempt' && abroad.flags.some((f) => f.code === 'foreign' && f.section === 'סעיף 49א(א)'), 'a foreign resident without the certificate of no home abroad: no exemption (s.49א(א); review, PR 128)');
+	check(SH.compute(reg, Object.assign({}, one, { family: true, resident: 'foreign', foreignNoHome: true })).path === 'exempt', 'with the certificate: exempt');
+	const f1 = SHUI.renderForm(reg, one);
+	check(f1.includes('name="jt14-fm"') && f1.includes('תושבות המוכר') && f1.includes('name="jt14-rs"') && f1.includes(reg.shevach.seller_he), 'the single-home block asks for the family unit and the residency, and shows the one-seller rule');
+	// Severance: the tax ceiling is the one of the grant's year; only 2025-2027 is held.
+	const old = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { start: '2015-03-01', end: '2023-09-30' }));
+	const oldHtml = PEUI.renderResult(reg, old) + PEUI.renderDetails(reg, old) + PEUI.verdictSentence(reg, old);
+	check(old.ok && old.exempt === null && old.taxable === null && old.flags.some((f) => f.code === 'tax_year') && oldHtml.includes('לא חושב') && !/NaN|null|undefined/.test(oldHtml), 'a dismissal in 2023: no tax split with the 2025-2027 ceiling, said plainly (review, PR 128)');
+	check(PE.compute(reg, PEUI.EXAMPLE).exempt === 103000 && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { end: '2027-12-31' })).exempt !== null && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { end: '2028-01-01' })).exempt === null, 'the ceiling applies to an end of work from 1.1.2025 to 31.12.2027 only');
 }
 
 if (failures) {

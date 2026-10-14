@@ -985,6 +985,13 @@ def build_shevach(checked_on: str) -> dict:
                      "וילדיהם עד גיל 18 (למעט ילד נשוי) הם מוכר אחד, ולכן גם לבן הזוג ולילדים אסור שתהיה דירה אחרת "
                      "(סעיף 49(ב))",
         "family_section": "סעיף 49(ב)",
+        # s.49ג (current text): dwellings that do not count against the seller (the whole family unit, s.49(ב)) (review,
+        # PR 128).
+        "family_he": "לא נספרות דירה שנקנתה כתחליף ב-24 החודשים שלפני המכירה, דירה בשכירות מוגנת מלפני 1.1.1997, חלק של "
+                     "עד שליש בדירה (בדירה שהתקבלה בירושה: עד מחצית), ודירה שהתקבלה בירושה מבן זוג, מהורה או מסב "
+                     "(או מהורה של בן הזוג), כשלמוריש היתה רק דירה אחת (סעיף 49ג)",
+        # s.49ז: a price affected by additional building rights splits the exemption; the tool does not compute it.
+        "rights_section": "סעיף 49ז",
         # s.49א(א): a foreign resident is exempt only with no dwelling in the country of residence, and is treated as
         # having one until that country's tax authority certifies otherwise (review, PR 128).
         "foreign": {"section": "סעיף 49א(א)",

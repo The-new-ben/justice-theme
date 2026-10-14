@@ -1029,6 +1029,19 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!late.ok && late.errors.some((e) => e.field === 's14From'), 'a s.14 start after the last day is an input error, not a silent zero (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 7) ---------- */
+{
+	const one = Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true });
+	const f = SHUI.renderForm(reg, one);
+	check(f.includes('שנספרת (סעיף 49ג)') && f.includes(reg.shevach.family_he) && reg.shevach.family_he.includes('עד שליש'), 'the family confirmation counts only dwellings s.49ג does not exclude, and lists the exclusions (review, PR 128)');
+	const rights = SH.compute(reg, Object.assign({}, one, { buildingRights: true }));
+	check(!rights.ok && rights.errors.some((e) => e.field === 'rights' && e.he.includes('סעיף 49ז')) && f.includes('id="jt14-rights-e"') && f.includes('name="jt14-br"'), 'a price with additional building rights on the single-home path is refused (s.49ז; review, PR 128)');
+	check(SH.compute(reg, Object.assign({}, one, { status: 'qualified', buildingRights: true })).ok, 'the s.49ז screen is for the single-home exemption only');
+	const quit = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'resign' }));
+	check(!quit.entitled && quit.deadlines.length === 1 && quit.deadlines[0].key === 'cert' && !PEUI.renderResult(reg, quit).includes('הפיצויים צריכים להיות בחשבון'), 'no severance due: only the employment certificate deadline, no payment clock (review, PR 128)');
+	check(PE.compute(reg, PEUI.EXAMPLE).deadlines.length === 5, 'with severance due all five deadlines stay');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

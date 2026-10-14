@@ -529,7 +529,7 @@ function compute(registry, input) {
 		{ key: 'twenty', date: addDays(end, late.linkage_to_day), he: `מהיום ה-${late.grace_days + 1} ועד ה-${late.linkage_to_day}: הפרשי הצמדה; אחרי היום ה-${late.linkage_to_day}: עוד ${late.monthly_pct}% לכל חודש של איחור (בית הדין רשאי להפחית)`, section: `${late.section}(ב)`, url: late.url },
 		{ key: 'cert', date: addDays(end, sv.notice.cert_days), he: `אישור בכתב על תחילת העבודה וסיומה: עד ${sv.notice.cert_days} ימים מהיום האחרון, או ${sv.notice.cert_request_days} ימים מבקשה בכתב, המוקדם`, section: 'סעיף 8(ב) לחוק הודעה מוקדמת', url: sv.notice.url },
 		{ key: 'limit', date: addMonths(end, 12 * sv.limitation.years), he: `התיישנות תביעה לפיצויים: ${sv.limitation.years} שנים`, section: `${sv.limitation.section} לחוק ההתיישנות`, url: sv.limitation.url },
-	];
+	].filter((d) => entitled || d.key === 'cert'); // no severance due: only the certificate (review, PR 128)
 
 	return {
 		ok: true, payType, monthly, base, floored, hourly, hours, jobPct, start, end, span, reason, reasonRow, entitled, yearOk, conditional,

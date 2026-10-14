@@ -98,6 +98,9 @@ check( 2 === substr_count( $tpl, 'class="eeat-reviewed-footer"' ), 'template: bo
 /* ---------- LegalService on the owner page ---------- */
 $map = justice_theme_practice_area_service_map();
 check( isset( $map['divorce-lawyer'] ) && 'דיני משפחה וגירושין' === $map['divorce-lawyer']['label'], 'LegalService serviceType on /divorce-lawyer/' );
+check( false === ( $map['divorce-lawyer']['collection'] ?? true ) && true === ( $map['criminal-defense-attorney']['collection'] ?? true ), 'no CollectionPage from the divorce slug (its lawyers come from the family-law term); other pillars keep theirs' );
+$schema_src = (string) file_get_contents( dirname( __DIR__ ) . '/inc/schema.php' );
+check( false !== strpos( $schema_src, 'false === ( $practice_map[ $current_slug ][\'collection\'] ?? true )' ), 'the CollectionPage builder honours the flag' );
 
 /* ---------- Release blocks ---------- */
 $dir   = dirname( __DIR__ ) . '/.content-drafts/divorce-head-term/';

@@ -212,7 +212,9 @@ function justice_theme_practice_area_service_map() {
 	return array(
 		'criminal-defense-attorney'                    => array( 'label' => 'משפט פלילי', 'en' => 'Criminal Law' ),
 		// HAD-532: the divorce head term is owned by /divorce-lawyer/; the guide slug below 301s there, so it never rendered.
-		'divorce-lawyer'                               => array( 'label' => 'דיני משפחה וגירושין', 'en' => 'Family Law' ),
+		// LegalService only: its lawyer list comes from the family-law term through the landing template, so a
+		// CollectionPage built from this slug would describe lawyers the page does not show ('collection' => false).
+		'divorce-lawyer'                               => array( 'label' => 'דיני משפחה וגירושין', 'en' => 'Family Law', 'collection' => false ),
 		'lawyer-divorce-guide-proceedings-costs-rights' => array( 'label' => 'דיני משפחה וגירושין', 'en' => 'Family Law' ),
 		'family-law'                                   => array( 'label' => 'דיני משפחה', 'en' => 'Family Law' ),
 		'real-estate-attorney'                         => array( 'label' => 'דיני מקרקעין', 'en' => 'Real Estate Law' ),
@@ -334,7 +336,7 @@ function justice_theme_collection_page_schema() {
 	}
 
 	$practice_map = justice_theme_practice_area_service_map();
-	if ( ! isset( $practice_map[ $current_slug ] ) ) {
+	if ( ! isset( $practice_map[ $current_slug ] ) || false === ( $practice_map[ $current_slug ]['collection'] ?? true ) ) {
 		return;
 	}
 

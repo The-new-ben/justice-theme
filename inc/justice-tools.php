@@ -252,6 +252,23 @@ function justice_tools_catalog(): array {
 			'more'      => array( array( 'label' => 'אגרות בית הדין הרבני', 'path' => '/fees-rabbinical-courts/' ), array( 'label' => 'הסכם גירושין: מה כולל', 'path' => '/divorce-agreement/' ) ),
 			'lawyer'    => array( 'label' => 'עורך דין לבית הדין הרבני', 'path' => '/practice-areas/rabbinical-court/' ),
 			'sticky'    => 'אגרות',
+			'modes'     => array(
+				// HAD-532: the head term "עורך דין גירושין" (1,300 a month, DataForSEO 14.10.2026) is owned by /divorce-lawyer/.
+				// Same instrument, read from the lawyer's side: the bar's minimum tariff per stage first, then the fees.
+				// The price owner stays /divorce-costs-2025/; this mode links to it and does not repeat its guide.
+				'lawyer' => array(
+					'name'        => 'מחשבון עלות עורך דין גירושין',
+					'title'       => 'כמה יעלה עורך דין גירושין, ומה עוד משלמים בדרך',
+					'promise'     => 'בוחרים מסלול, בהסכמה או במחלוקת, ומקבלים את התעריף המינימלי של לשכת עורכי הדין לכל שירות, כל אגרה בבית הדין ובבית המשפט, והמועדים שבחוק.',
+					'question'    => 'כמה עולה עורך דין גירושין?',
+					'page'        => '/divorce-lawyer/',
+					'next_text'   => 'הצעד הבא: לתרגל את הגישור ואת השיחה על ההסכם, לפני הפגישה הראשונה עם עורך הדין',
+					'more'        => array( array( 'label' => 'עלויות גירושין ושכר טרחה', 'path' => '/divorce-costs-2025/' ), array( 'label' => 'פתיחת תיק גירושין: אגרות ומועדים', 'path' => '/opening-divorce-file-rabbinical/' ) ),
+					'lawyer'      => array( 'label' => 'עורכי דין לענייני משפחה לפי עיר', 'path' => '/lawyers/?area=family-law' ),
+					'sticky'      => 'אגרות',
+					'shares_form' => true,
+				),
+			),
 		),
 		// Wave 5 (HAD-504): picked by demand (GSC 90 days and DataForSEO, 14.10.2026); each on the page that owns its words.
 		'chozeh-schirut'  => array(
@@ -348,7 +365,8 @@ function justice_tools_catalog(): array {
 			'primary'   => array( 'label' => 'לתרגל את הדיון ברכוש', 'rehearse' => true ),
 			'rehearse'  => array( 'label' => 'לתרגל את הדיון ברכוש', 'topic' => 'family-law', 'purpose' => 'court_rehearsal' ),
 			'more'      => array( array( 'label' => 'חלוקת רכוש בגירושין', 'path' => '/divorce-property-division/' ), array( 'label' => 'עלות הגירושין והמועדים', 'path' => '/opening-divorce-file-rabbinical/' ) ),
-			'lawyer'    => array( 'label' => 'עורך דין לענייני משפחה', 'path' => '/family-law/' ),
+			// HAD-532: a property split or a divorce agreement is a divorce lawyer's file; the one contextual head-term link on the page.
+			'lawyer'    => array( 'label' => 'עורך דין גירושין', 'path' => '/divorce-lawyer/' ),
 			'sticky'    => 'תשלום איזון',
 			'modes'     => array(
 				'hon' => array(
@@ -390,7 +408,8 @@ function justice_tools_catalog(): array {
 			'primary'   => array( 'label' => 'לתרגל את הגישור על ההסכם', 'rehearse' => true ),
 			'rehearse'  => array( 'label' => 'לתרגל את הגישור על ההסכם', 'topic' => 'divorce', 'purpose' => 'mediation' ),
 			'more'      => array( array( 'label' => 'כמה עולה הגירושין', 'path' => '/opening-divorce-file-rabbinical/' ), array( 'label' => 'מחשבון מזונות ילדים', 'path' => '/child-support/' ) ),
-			'lawyer'    => array( 'label' => 'עורך דין לענייני משפחה', 'path' => '/family-law/' ),
+			// HAD-532: a property split or a divorce agreement is a divorce lawyer's file; the one contextual head-term link on the page.
+			'lawyer'    => array( 'label' => 'עורך דין גירושין', 'path' => '/divorce-lawyer/' ),
 			'sticky'    => 'מזונות בטיוטה',
 			'modes'     => array(
 				'horut' => array(
@@ -403,6 +422,8 @@ function justice_tools_catalog(): array {
 					'primary'   => array( 'label' => 'לתרגל את השיחה על הסדרי השהות', 'rehearse' => true ),
 					'more'      => array( array( 'label' => 'מחשבון מזונות ילדים', 'path' => '/child-support/' ), array( 'label' => 'הסכם גירושין מלא', 'path' => '/divorce-agreement/' ) ),
 					'sticky'    => 'לילות',
+					// Parenting time is not only divorce (separated parents, never married): keeps the family-law pillar.
+					'lawyer'    => array( 'label' => 'עורך דין לענייני משפחה', 'path' => '/family-law/' ),
 				),
 			),
 		),
@@ -440,7 +461,11 @@ function justice_tools_tool( string $name, string $mode = '' ): array {
 function justice_tools_snapshot( string $name, string $mode = '' ): array {
 	$snap = justice_tools_snapshots()[ $name ] ?? array();
 	if ( '' !== $mode ) {
-		return isset( $snap[ $mode ] ) && is_array( $snap[ $mode ] ) ? $snap[ $mode ] : array();
+		if ( isset( $snap[ $mode ] ) && is_array( $snap[ $mode ] ) ) {
+			return $snap[ $mode ];
+		}
+		// A mode that only re-frames the same instrument (gerushin "lawyer", HAD-532) reuses the tool's own snapshot.
+		return ! empty( justice_tools_catalog()[ $name ]['modes'][ $mode ]['shares_form'] ) ? $snap : array();
 	}
 	return $snap;
 }
@@ -630,6 +655,15 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 		$rb   = $d['rabbinical'];
 		$fc   = $d['family'];
 		$ds   = $d['disputes'];
+		if ( 'lawyer' === $mode && ! empty( $d['bar'] ) ) {
+			// HAD-532: the head-term answer. Who the lawyer is, where the case runs, the bar's minimum per service with
+			// its item, the free mediation-unit meetings. Every number from the dated registry, each with its source.
+			$bar  = $d['bar'];
+			$text = '<strong>עורך דין גירושין</strong> מייצג את אחד מבני הזוג: מנסח הסכם גירושין ומביא אותו לאישור, או מנהל את התביעות על ילדים, מזונות ורכוש בבית המשפט לענייני משפחה או בבית הדין הרבני. גט בין יהודים ניתן רק בבית הדין הרבני. '
+				. 'התעריף המינימלי המומלץ של לשכת עורכי הדין, לכל צד ולפני מע"מ: ' . justice_tools_money( $bar['get_consent'], 0 ) . ' לסידור גט בהסכמה (' . esc_html( $bar['items']['get_consent'] ) . '), ' . justice_tools_money( $bar['get_contested'], 0 ) . ' לתביעה לגט בלי הסכמה (' . esc_html( $bar['items']['get_contested'] ) . ') ולא פחות מ-' . justice_tools_money( $bar['agreement_min'], 0 ) . ' לעריכת הסכם לפסק הגט (' . esc_html( $bar['items']['agreement'] ) . '). זו המלצה שאינה מחייבת, ושכר הטרחה נקבע בהסכם עם עורך הדין. '
+				. 'לפני תביעה במחלוקת: עד <bdi>' . (int) $ds['meetings_max'] . '</bdi> פגישות ביחידת הסיוע בלי תשלום (' . esc_html( $ds['sections']['meetings'] ) . ' ל' . esc_html( $ds['law_he'] ) . '). נבדק ' . esc_html( justice_tools_he_date( $d['checked_on'] ) ) . '.';
+			return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+		}
 		$text = '<strong>כמה עולה גירושין</strong> באגרות: בהסכמה, בבית הדין הרבני, ' . justice_tools_money( $rb['agreement'], 0 ) . ' כדי לתת להסכם תוקף של פסק דין, סידור הגט בלי אגרה כששני בני הזוג בארץ, ו-' . justice_tools_money( $rb['certificate'], 0 ) . ' לתעודת גירושין לכל צד. '
 			. 'במחלוקת: בקשה ליישוב סכסוך ' . justice_tools_money( $rb['request'], 0 ) . ' (' . justice_tools_money( $fc['request'], 0 ) . ' בבית המשפט לענייני משפחה), תביעת גירושין ' . justice_tools_money( $rb['divorce'], 0 ) . ', ותביעה רכושית ' . justice_tools_money( $rb['property'], 0 ) . ' בבית הדין או ' . justice_tools_money( $fc['property'], 0 ) . ' בבית המשפט. '
 			. 'לפני תביעה: עד <bdi>' . (int) $ds['meetings_max'] . '</bdi> פגישות ביחידת הסיוע בלי תשלום, ו-<bdi>' . (int) $ds['stay_days'] . '</bdi> ימים שבהם אי אפשר לתבוע. נבדק ' . esc_html( justice_tools_he_date( $d['checked_on'] ) ) . '.';
@@ -735,6 +769,9 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 		return 'התוספת השלישית · נבדק ' . justice_tools_he_date( $reg['betterment']['checked_on'] ?? '' );
 	}
 	if ( 'gerushin' === $name ) {
+		if ( 'lawyer' === $mode ) {
+			return 'תעריף לשכת עורכי הדין והאגרות · נבדק ' . justice_tools_he_date( $reg['divorce_cost']['checked_on'] ?? '' );
+		}
 		return 'אגרות בית הדין ובית המשפט 2026 · נבדק ' . justice_tools_he_date( $reg['divorce_cost']['checked_on'] ?? '' );
 	}
 	if ( 'tzavaa' === $name ) {

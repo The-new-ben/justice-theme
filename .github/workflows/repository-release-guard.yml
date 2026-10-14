@@ -41,6 +41,7 @@ jobs:
           python3 -m py_compile tools/justice_tools_registry.py
           node tests/js/test-justice-tools-family.mjs
           php tests/test-justice-tools-family.php
+          php tests/test-divorce-head-term.php
           python3 -m py_compile tools/justice_tools_family.py
 
       - name: Enforce append-only release ZIPs

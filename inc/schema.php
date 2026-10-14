@@ -158,6 +158,12 @@ function justice_theme_faq_schema() {
 		return;
 	}
 
+	// A reviewed pillar page gets its FAQPage from inc/pillar-faq-schema.php; two FAQPage blocks for one FAQ is a
+	// schema error (HAD-532, the /divorce-lawyer/ FAQ).
+	if ( is_page() && '' !== (string) get_post_meta( (int) get_queried_object_id(), 'pillar_body_from_draft', true ) ) {
+		return;
+	}
+
 	// Extract FAQ section: everything after "שאלות נפוצות" heading.
 	$faq_start = strpos( $content, 'שאלות נפוצות' );
 	if ( false === $faq_start ) {
@@ -205,6 +211,10 @@ add_action( 'wp_head', 'justice_theme_faq_schema', 21 );
 function justice_theme_practice_area_service_map() {
 	return array(
 		'criminal-defense-attorney'                    => array( 'label' => 'משפט פלילי', 'en' => 'Criminal Law' ),
+		// HAD-532: the divorce head term is owned by /divorce-lawyer/; the guide slug below 301s there, so it never rendered.
+		// LegalService only: its lawyer list comes from the family-law term through the landing template, so a
+		// CollectionPage built from this slug would describe lawyers the page does not show ('collection' => false).
+		'divorce-lawyer'                               => array( 'label' => 'דיני משפחה וגירושין', 'en' => 'Family Law', 'collection' => false ),
 		'lawyer-divorce-guide-proceedings-costs-rights' => array( 'label' => 'דיני משפחה וגירושין', 'en' => 'Family Law' ),
 		'family-law'                                   => array( 'label' => 'דיני משפחה', 'en' => 'Family Law' ),
 		'real-estate-attorney'                         => array( 'label' => 'דיני מקרקעין', 'en' => 'Real Estate Law' ),
@@ -326,7 +336,7 @@ function justice_theme_collection_page_schema() {
 	}
 
 	$practice_map = justice_theme_practice_area_service_map();
-	if ( ! isset( $practice_map[ $current_slug ] ) ) {
+	if ( ! isset( $practice_map[ $current_slug ] ) || false === ( $practice_map[ $current_slug ]['collection'] ?? true ) ) {
 		return;
 	}
 

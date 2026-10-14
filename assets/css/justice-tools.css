@@ -597,7 +597,9 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jt12-pop { display: none !important; }
 	.jt12-docwrap .jtool-actions { display: none !important; }
 	.jt12-meter, .jt13-ruler, .jt14-strip, .jt12-cl { break-inside: avoid; }
+}
 
+/*
  * Family wave (HAD-506): child support after בע"מ 919/15, property balancing, the prenup draft, and the divorce
  * agreement with its parenting plan. Same navy instrument, one picture per tool from its subject, in two inks only:
  * navy = parent or spouse A, teal = parent or spouse B (or the share of time). No warm colours.

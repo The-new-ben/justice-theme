@@ -272,6 +272,21 @@ for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MM
 	check(s.numbers.includes(`${Math.min(...years)}-${Math.max(...years)}`), 'the years of the needs judgments come from the registry');
 }
 
+/* ---------- The stylesheet: one broken brace drops every rule after it ---------- */
+{
+	const css = readFileSync(join(ROOT, 'assets/css/justice-tools.css'), 'utf8');
+	const bare = css.replace(/\/\*[\s\S]*?\*\//g, '');
+	let depth = 0;
+	let low = 0;
+	for (const ch of bare) { if (ch === '{') { depth += 1; } else if (ch === '}') { depth -= 1; low = Math.min(low, depth); } }
+	check(depth === 0 && low === 0 && (css.match(/\/\*/g) || []).length === (css.match(/\*\//g) || []).length, 'justice-tools.css: braces and comments balanced (a merge once dropped a closing brace)');
+	for (const cls of ['.jt16-shares', '.jt16-strip', '.jt17-beam', '.jt18-gates', '.jt19-cal', '.jtool-simstrip']) {
+		const at = bare.indexOf(`${cls} `);
+		const before = bare.slice(0, Math.max(0, at));
+		check(at > 0 && (before.match(/{/g) || []).length === (before.match(/}/g) || []).length, `justice-tools.css: ${cls} is styled at the top level, not swallowed by an open block`);
+	}
+}
+
 if (failures) {
 	console.error(`justice family tools: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

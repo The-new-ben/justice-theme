@@ -1013,6 +1013,22 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(full.employer === 0 && !PEUI.letter(reg, full).includes('מגיעים לי פיצויי פיטורים של') && PEUI.renderDetails(reg, full).includes('תלוי במה שנצבר בקופה'), 'full s.14: the employer owes 0, and the tax line depends on the fund');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 6) ---------- */
+{
+	const paid = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { noticeDate: '2026-09-15', noticeMode: 'paid' }));
+	check(paid.short > 0 && !paid.flags.some((f) => f.code === 'short_notice') && paid.flags.some((f) => f.code === 'paid_notice' && f.section === 'סעיף 6') && !PEUI.letter(reg, paid).includes('ימים לפני המועד'), 'notice paid instead of work: no shortfall claimed and none in the letter, only a check that the pay covered the period (review, PR 128)');
+	const worked = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { noticeDate: '2026-09-15', noticeMode: 'worked' }));
+	check(worked.flags.some((f) => f.code === 'short_notice') && PEUI.letter(reg, worked).includes('ימים לפני המועד'), 'a worked notice that ended early: the shortfall is claimed');
+	const cutPay = PE.compute(reg, { salary: 8000, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevSalary: 10000 });
+	check(cutPay.severance === 18000 && cutPay.exempt === 16000 && cutPay.taxable === 2000, 'after a pay cut the exempt ceiling is the final salary x the service: 8,000 x 2 = 16,000, so 2,000 is taxable (s.9(7א)(א); review, PR 128)');
+	const down = PE.compute(reg, { salary: 5000, jobPct: 50, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevPct: 100 });
+	check(down.exempt === 15000, 'final salary part-time: the full-time year counts on the full-time salary (s.9(7א)(ד))');
+	const up = PE.compute(reg, { salary: 10000, start: '2024-07-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevPct: 50 });
+	check(up.severance === 12500 && up.exempt === 12500, 'after a raise in scope the ceiling (10,000 x 1.5 = 15,000) covers the 12,500');
+	const late = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14From: '2027-01-01' }));
+	check(!late.ok && late.errors.some((e) => e.field === 's14From'), 'a s.14 start after the last day is an input error, not a silent zero (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

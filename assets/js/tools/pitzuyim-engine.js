@@ -101,6 +101,7 @@ export function compute(registry, input) {
 	if (s14 === 'custom' && !(s14Pct > 0 && s14Pct <= 100)) { errors.push({ field: 's14Pct', he: 'שיעור הכיסוי לפי ההסכם: 1% עד 100%' }); }
 	const s14From = s14 === 'none' || blank(input.s14From) ? start : parseDate(input.s14From);
 	if (s14 !== 'none' && !blank(input.s14From) && !s14From) { errors.push({ field: 's14From', he: 'תחילת ההפרשות לפי סעיף 14: תאריך מלא' }); }
+	if (s14 !== 'none' && s14From && end && s14From > end) { errors.push({ field: 's14From', he: 'תחילת ההפרשות לפי סעיף 14 לפני היום האחרון בעבודה' }); }
 	// One change of scope or pay (calculation regulations 7 and 8): each period on its own salary. More than one change is
 	// not computed (review, PR 128).
 	const change = payType === 'monthly' && Boolean(input.change);
@@ -193,7 +194,10 @@ export function compute(registry, input) {
 	if (noticeMode === 'none') {
 		if (resigned) { add('warn', 'no_notice', `התפטרתם בלי הודעה מוקדמת: החוק מחייב את העובד לשלם למעסיק פיצוי בגובה השכר הרגיל לתקופת ההודעה (סעיף 7(ב))${amt}, והמעסיק עשוי לקזז אותו.`, 'סעיף 7(ב)'); } else { add('warn', 'no_notice', `לא ניתנה הודעה מוקדמת: המעסיק משלם פיצוי בגובה השכר הרגיל לתקופת ההודעה (סעיף 7(א))${amt}.`, 'סעיף 7(א)'); }
 	}
-	if (short && noticeMode !== 'none') { add('warn', 'short_notice', `ההודעה ניתנה ב-${heDay(noticeDate)}, ותקופת ההודעה שבחוק מסתיימת ב-${heDay(noticeEnd)}: חסרים ${short} ימים עד היום האחרון שהזנתם. ${resigned ? 'עובד שהפסיק לעבוד לפני סוף ההודעה חייב למעסיק את השכר הרגיל בעד הימים החסרים (סעיף 7(ב)), אלא אם המעסיק ויתר עליהם (סעיף 6(ב)).' : 'עליהם מגיע פיצוי בגובה השכר הרגיל (סעיף 7(א)).'}`, resigned ? 'סעיף 7(ב)' : 'סעיף 7(א)'); }
+	// A shortfall is claimed only when the notice was worked; when it was paid instead of work, the payment should cover
+	// the days to the end of the statutory period (s.6), which the tool cannot see (review, PR 128).
+	if (short && noticeMode === 'paid') { add('info', 'paid_notice', `שילמו לכם במקום עבודה בתקופת ההודעה: התשלום צריך לכסות את השכר הרגיל עד ${heDay(noticeEnd)}, סוף התקופה שבחוק (סעיף 6). בדקו בתלוש שכולם שולמו.`, 'סעיף 6'); }
+	if (short && noticeMode === 'worked') { add('warn', 'short_notice', `ההודעה ניתנה ב-${heDay(noticeDate)}, ותקופת ההודעה שבחוק מסתיימת ב-${heDay(noticeEnd)}: חסרים ${short} ימים עד היום האחרון שהזנתם. ${resigned ? 'עובד שהפסיק לעבוד לפני סוף ההודעה חייב למעסיק את השכר הרגיל בעד הימים החסרים (סעיף 7(ב)), אלא אם המעסיק ויתר עליהם (סעיף 6(ב)).' : 'עליהם מגיע פיצוי בגובה השכר הרגיל (סעיף 7(א)).'}`, resigned ? 'סעיף 7(ב)' : 'סעיף 7(א)'); }
 
 	// Tax: one month's last salary per year, never above the ceiling per year (s.9(7א)(א)).
 	// The ceiling is the one of the tax year of the grant: the registry holds 2025-2027 (frozen at 13,750); for an end of
@@ -203,7 +207,10 @@ export function compute(registry, input) {
 	const taxKnown = end >= tax.from && end <= tax.to;
 	const perYear = Math.min(base, tax.ceiling);
 	const withFund = entitled && s14 !== 'none';
-	const exemptCap = taxKnown ? r2(periods.reduce((t, p) => t + Math.min(p.salary, tax.ceiling) * yearsOf(p.from, p.to), 0)) : null;
+	// The ceiling is the final monthly salary times the whole service (s.9(7א)(א)); when the final salary was for part-time
+	// work, the full-time years count on the full-time salary (s.9(7א)(ד)). Pay cuts (reg. 8) do not change it (review,
+	// PR 128).
+	const exemptCap = taxKnown ? r2(periods.reduce((t, p) => t + Math.min(p.pct >= 100 && jobPct < 100 ? fte : base, tax.ceiling) * yearsOf(p.from, p.to), 0)) : null;
 	const exempt = !taxKnown ? null : withFund ? exemptCap : Math.min(severance, exemptCap);
 	const taxable = !taxKnown || withFund ? null : r2(severance - exempt);
 	const taxNote = !taxKnown ? 'year' : withFund ? 'fund' : '';

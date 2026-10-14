@@ -1,0 +1,59 @@
+<!--
+  Tools wave 5 (HAD-504), release step for https://jus-tice.co.il/online-rent-agreement/ (post 12626, type "articles").
+  NOT placed by this PR: the editor (or the release agent) pastes this after the theme release that ships the tool.
+
+  1. Replace the whole current body ("חוזה שכירות אונליין..." paragraph + [justice_rent_gen]) with the block below.
+     The body opens with the shortcode, so the article gets the compact tool-first layout (PR 127).
+     Why replace the old wizard: the justice-ops [justice_rent_gen] lease delivers the flat "as is" with the tenant
+     waiving defect claims, asks a 3-month bank guarantee plus guarantors plus a 40,000 note as a fixed default, puts
+     every payment on the tenant and lets him leave only with a replacement "to the landlord's satisfaction". Parts of
+     that run against ss.25ה-25ו, 25ט(ב), 25יג and 25יד of the Rental and Borrowing Law. Leave the plugin file in
+     place (justice-ops release is separate); only the shortcode leaves this page.
+  2. The FAQ block goes at the very end (the FAQPage builder in inc/schema.php reads every h3 + p after "שאלות נפוצות").
+  3. Yoast (title <= 60, meta <= 155), proposal:
+     Title (58): חוזה שכירות בלתי מוגנת להורדה חינם, לפי החוק | Jus-Tice
+     Meta (150): חוזה שכירות בלתי מוגנת מלא, חינם ובלי הרשמה: כל סעיף עם הסעיף בחוק, בדיקה של הערובה (עד 3 חודשים), התיקונים והתשלומים, והעתקה להדפסה.
+     H1 unchanged. Slug unchanged (no new URL).
+  4. Simulation link: the same URL the theme builds (justice_theme_article_simulation_url('real-estate', 'mediation')).
+  Owner rules 14.10.2026 applied: no year in the title (Search Console shows year words on fewer than 1% of this
+  page's impressions; DataForSEO lists no year variant with volume); the opening paragraph answers directly, every
+  number with its section; the simulation strip sits right after it with one CTA, and the old lower teaser is gone.
+-->
+<p>[justice_tool name="chozeh-schirut"]</p>
+
+<p>חוזה שכירות בלתי מוגנת לדירה נערך בכתב ומפרט את הדירה, הציוד, הפגמים הידועים, התשלומים, הערובות ותנאי היציאה (סעיפים 25ב ו-25ג ל<a href="https://www.nevo.co.il/law_html/law00/5149.htm" target="_blank" rel="noopener">חוק השכירות והשאילה</a>). ערובה שעולה כסף לשוכר מוגבלת לנמוך מבין שכר הדירה לשליש מהתקופה ושלושה חודשי שכירות (סעיף 25י(ב)), והיא חוזרת תוך 60 ימים מהשבת הדירה (סעיף 25י(ה)). ביטוח המבנה ודמי התיווך של המשכיר אינם על השוכר (סעיף 25ט(ב)), ליקוי מתקנים תוך 30 ימים, ודחוף תוך 3 (סעיף 25ח(ב)), ותניה שגורעת מזכויות השוכר בטלה (סעיף 25יד). החוזה שלמעלה חינם ובלי הרשמה: כל סעיף בו נשען על הסעיף שלו בחוק, ודרישה שהחוק מבטל מוחלפת בנוסח החוקי. מעתיקים, ממלאים מספרי תעודת זהות בכתב יד, וחותמים בשני עותקים.</p>
+
+<div class="jtool-simstrip"><p><strong>לפני שחותמים:</strong> תתרגלו את השיחה עם בעל הדירה על הפיקדון והסעיפים. בעל הדירה בסימולציה מתמקח ומתנגד; הדמויות הן AI.</p><a class="jtool-simstrip__cta" href="https://jus-tice.com/#/simulation?entry=role&amp;audience=guest&amp;lang=he&amp;purpose=mediation&amp;topic=real-estate">לתרגול השיחה</a></div>
+
+<h2>כמה ערובה מותר לבקש בחוזה שכירות</h2>
+<p>[justice_tool_section name="chozeh-schirut" part="method"]</p>
+
+<h2>תקרת הערובה לפי שכר דירה ותקופה</h2>
+<p>[justice_tool_section name="chozeh-schirut" part="compare"]</p>
+
+<h2>חוזה שכירות למגורים: מה החוק קובע</h2>
+<p>[justice_tool_section name="chozeh-schirut" part="numbers"]</p>
+
+<h2>מקורות</h2>
+<p>[justice_tool_section name="chozeh-schirut" part="sources"]</p>
+<p>[justice_tool_section name="chozeh-schirut" part="updated"]</p>
+
+<h2>שאלות נפוצות</h2>
+<h3>איפה מורידים חוזה שכירות בלתי מוגנת בחינם?</h3>
+<p>כאן, בלי הרשמה: ממלאים את התנאים, והחוזה המלא נבנה על המסך ומועתק למסמך או מודפס. "בלתי מוגנת" פירושו שחוק הגנת הדייר לא חל, כי לא שולמו דמי מפתח, והחוזה כולל הצהרה על כך. על כל חוזה שכירות למגורים חל סימן ו' לחוק השכירות והשאילה (סעיפים 25א עד 25טו), ואי אפשר לוותר עליו לרעת השוכר (סעיף 25יד).</p>
+<h3>מה חייב להיות בחוזה שכירות לפי החוק?</h3>
+<p>החוזה נערך בכתב, נחתם בידי שני הצדדים, וכל צד מקבל עותק חתום (סעיף 25ב). לפי התוספת השנייה הוא כולל: כתובת הדירה, שמות הצדדים, תעודות זהות ומענים, תיאור הדירה, הריהוט והחלקים הצמודים (חניה, מחסן), התקופה, האופציה ותנאיה וזכות הביטול, דמי השכירות, המועד ודרך התשלום, תשלומים נוספים על השוכר, ופגמים שאינם קלי ערך שהמשכיר יודע עליהם (סעיף 25ג).</p>
+<h3>כמה פיקדון או ערבות מותר לבקש מהשוכר?</h3>
+<p>ערובות שעולות כסף לשוכר, מזומן, ערבות בנקאית, ומאז מרץ 2026 גם ערבות מחברת ביטוח או מבעל רישיון אשראי, מוגבלות יחד לנמוך מבין שכר הדירה לשליש מתקופת השכירות ושלושה חודשי שכירות (סעיף 25י(ב)). בשכר דירה של 6,000 ₪ לחודש בחוזה לשנה: 18,000 ₪; בחוזה לחצי שנה: 12,000 ₪. המשכיר מחזיר את הערובה, עם הפירות, תוך 60 ימים מהשבת הדירה (סעיף 25י(ה)).</p>
+<h3>מותר לבקש גם שטר חוב וערבים?</h3>
+<p>כן. שטר חוב וערבות אישית לא עולים לשוכר כסף, ולכן הם לא נספרים בתקרה. אבל כל ערובה, גם הן, אפשר לממש רק אם השוכר לא שילם שכר דירה או תשלום שוטף, לא תיקן נזק שבאחריותו או לא פינה את הדירה, ורק עד גובה החוב, ואחרי הודעה מראש שמאפשרת לתקן (סעיף 25י(ג)-(ד)).</p>
+<h3>מי מתקן תקלות בדירה שכורה, ותוך כמה זמן?</h3>
+<p>המשכיר מתקן על חשבונו כל ליקוי שאינו קל ערך, תוך זמן סביר ולא יאוחר מ-30 ימים מהדרישה, ותקלה שלא מאפשרת לגור בדירה תוך 3 ימים (סעיף 25ח(ב)). השוכר מתקן רק נזק שנגרם משימוש בלתי סביר (סעיף 25ח(א)). לא תיקן המשכיר בזמן, השוכר רשאי לתקן ולקבל החזר, או להפחית משכר הדירה עד לתיקון (סעיף 25ח(ג) וסעיף 9).</p>
+<h3>השוכר משלם ביטוח מבנה או דמי תיווך?</h3>
+<p>לא. השוכר משלם שכר דירה, ארנונה, מים, חשמל, גז וועד בית לאחזקה שוטפת (סעיף 25ט(א)). הוא לא משלם ביטוח מבנה, דמי תיווך למתווך שעבד בשביל המשכיר, וקנייה או השבחה של מערכות קבועות כמו דוד או מזגן, חוץ משיפור שהוא ביקש (סעיף 25ט(ב)). סעיף בחוזה שמטיל עליו אותם לא תקף (סעיף 25יד).</p>
+<h3>איך מאריכים חוזה שכירות?</h3>
+<p>אם בחוזה יש אופציה לשוכר, הוא מודיע עליה לכל המאוחר 60 ימים לפני סוף התקופה. אופציה של המשכיר תקפה רק עם תנאים שנקבעו בחוזה מראש, והוא מודיע לפחות 90 ימים לפני הסוף. בכל מקרה המשכיר מודיע זמן סביר לפני הסוף אם הוא רוצה להאריך ובאילו תנאים (סעיף 25יב). בלי אופציה, ההארכה היא הסכם חדש בכתב.</p>
+<h3>אפשר לצאת מחוזה שכירות לפני הזמן?</h3>
+<p>רק אם החוזה נותן זכות כזאת. זכות ביטול בלי הפרה שניתנה רק למשכיר בטלה, אלא אם גם לשוכר יש זכות כזאת; ההודעה: המשכיר 90 ימים מראש לפחות, השוכר 60 ימים (סעיף 25יג). אם אין זכות ביטול, השוכר יכול להציע שוכר חלופי, והמשכיר לא יסרב מטעמים בלתי סבירים (סעיף 22).</p>
+<h3>מותר להשכיר את הדירה בשכירות משנה?</h3>
+<p>רק בהסכמת המשכיר, מראש ובכתב. סירוב מטעמים בלתי סבירים מאפשר לשוכר לעשות את העסקה גם בלי הסכמה (סעיף 22). בשכירות משנה של עד עשר שנים, חובת התיקונים נשארת על בעל הדירה, וגם השוכר הראשי לא משלם את מה שאסור לגבות משוכר (סעיף 25טו(ג)).</p>

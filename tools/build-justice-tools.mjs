@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Build the co.il tools (HAD-485 wave 1, HAD-490 wave 2, HAD-498 wave 3, HAD-502 wave 4) from their ES-module sources.
+ * Build the co.il tools (HAD-485 wave 1, HAD-490 wave 2, HAD-498 wave 3, HAD-502 wave 4, HAD-504 wave 5) from their ES-module sources.
  *
  *   node tools/build-justice-tools.mjs          write the bundles and the server snapshots
  *   node tools/build-justice-tools.mjs --check  fail when a committed file is out of date (CI)
@@ -32,6 +32,10 @@ const TOOLS = {
 	tzavaa: ['instrument.js', 'tzavaa-engine.js', 'tzavaa-ui.js'],
 	'teunat-drachim': ['instrument.js', 'dates.js', 'teuna-engine.js', 'teuna-ui.js'],
 	gerushin: ['instrument.js', 'dates.js', 'gerushin-engine.js', 'gerushin-ui.js'],
+	// Wave 5 (HAD-504): a rental-contract generator, severance and notice, capital gains on a home.
+	'chozeh-schirut': ['instrument.js', 'dates.js', 'schirut-engine.js', 'schirut-ui.js'],
+	pitzuyim: ['instrument.js', 'dates.js', 'pitzuyim-engine.js', 'pitzuyim-ui.js'],
+	'mas-shevach': ['instrument.js', 'dates.js', 'shevach-engine.js', 'shevach-ui.js'],
 };
 
 function strip(code) {
@@ -70,6 +74,9 @@ const w3h = await import(pathToFileURL(join(SRC, 'hashbacha-ui.js')).href);
 const w4w = await import(pathToFileURL(join(SRC, 'tzavaa-ui.js')).href);
 const w4c = await import(pathToFileURL(join(SRC, 'teuna-ui.js')).href);
 const w4d = await import(pathToFileURL(join(SRC, 'gerushin-ui.js')).href);
+const w5r = await import(pathToFileURL(join(SRC, 'schirut-ui.js')).href);
+const w5p = await import(pathToFileURL(join(SRC, 'pitzuyim-ui.js')).href);
+const w5s = await import(pathToFileURL(join(SRC, 'shevach-ui.js')).href);
 const snapshots = {
 	registry_version: registry.registry_version,
 	hatzmada: t04.snapshot(registry),
@@ -82,6 +89,9 @@ const snapshots = {
 	tzavaa: w4w.snapshot(registry),
 	'teunat-drachim': w4c.snapshot(registry),
 	gerushin: w4d.snapshot(registry),
+	'chozeh-schirut': w5r.snapshot(registry),
+	pitzuyim: w5p.snapshot(registry),
+	'mas-shevach': w5s.snapshot(registry),
 };
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 

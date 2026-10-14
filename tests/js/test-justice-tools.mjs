@@ -1,5 +1,5 @@
 /**
- * Golden tests for the co.il tools engines (HAD-485, HAD-490, HAD-498). Run: node tests/js/test-justice-tools.mjs
+ * Golden tests for the co.il tools engines (HAD-485, HAD-490, HAD-498, HAD-502, HAD-504). Run: node tests/js/test-justice-tools.mjs
  *
  * CBS cases: the official linkage calculator (api.cbs.gov.il/index/data/calculator/120010),
  * queried on 12.10.2026; each case is the exact answer the CBS returned. The engine must
@@ -27,6 +27,12 @@ import * as TEUI from '../../assets/js/tools/teuna-ui.js';
 import * as DT from '../../assets/js/tools/dates.js';
 import * as GE from '../../assets/js/tools/gerushin-engine.js';
 import * as GEUI from '../../assets/js/tools/gerushin-ui.js';
+import * as RE from '../../assets/js/tools/schirut-engine.js';
+import * as REUI from '../../assets/js/tools/schirut-ui.js';
+import * as PE from '../../assets/js/tools/pitzuyim-engine.js';
+import * as PEUI from '../../assets/js/tools/pitzuyim-ui.js';
+import * as SH from '../../assets/js/tools/shevach-engine.js';
+import * as SHUI from '../../assets/js/tools/shevach-ui.js';
 import { encodeState, decodeState, decodeList, parseMoney, csv, ics, isStale, track, ilToday } from '../../assets/js/tools/instrument.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -757,6 +763,637 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const hiddenClock = (input) => /data-if-clock hidden/.test(GEUI.renderForm(reg, Object.assign({}, GEUI.EXAMPLE, input)));
 	check(hiddenClock({ route: 'court', abroad: true }), 'the clock inputs are hidden when a spouse lives abroad (s.4א(1); review, PR 126)');
 	check(hiddenClock({ route: 'agree' }) && !hiddenClock({ route: 'court', abroad: false }), 'hidden on the agreement route, shown for a contested route in Israel');
+}
+
+/* ---------- Wave 5 (HAD-504): the residential lease (Rental and Borrowing Law ss.25א-25טו, current to 30.9.2026) ---------- */
+{
+	const rc = reg.rent_contract;
+	check(rc.checked_on === '2026-10-14' && rc.law_current_to === '2026-09-30' && rc.deposit.months === 3 && rc.deposit.term_share.join('/') === '1/3' && rc.deposit.return_days === 60, 'lease registry: the cap of s.25י(ב) (3 months, a third of the term), return in 60 days, read 14.10.2026 on the text current to 30.9.2026');
+	check(rc.repairs.days === 30 && rc.repairs.urgent_days === 3 && rc.option.landlord_days === 90 && rc.option.tenant_days === 60 && rc.exit.landlord_days === 90 && rc.exit.tenant_days === 60 && rc.scope.rent_cap === 20000, 'lease registry: repairs 30/3 (s.25ח(ב)), options 90/60 (s.25יב), cancellation 90/60 (s.25יג), scope 20,000 (s.25טו(א)(4))');
+	check(rc.amend_2026.gazette_he.includes('3510') && rc.amend_2026.url.includes('25_lsr_12224370'), 'lease registry: the March 2026 amendment of s.25י (Sefer HaChukim 3510) is recorded with its official PDF');
+	const c1 = RE.depositCap(rc, 6000, 12);
+	check(c1.byTerm === 24000 && c1.byMonths === 18000 && c1.cap === 18000 && c1.binding === 'months', 'cap: 6,000 a month for 12 months: the lower of 24,000 (a third of the term) and 18,000 (3 months) = 18,000');
+	const c2 = RE.depositCap(rc, 6000, 6);
+	check(c2.cap === 12000 && c2.binding === 'term', 'cap: a 6-month lease: a third of the term (12,000) is the lower limit');
+	check(RE.depositCap(rc, 4500, 9).cap === 13500, 'cap: 4,500 for 9 months: both limits are 13,500');
+	const over = RE.compute(reg, { rent: 6000, months: 12, start: '2026-11-01', cash: 30000 });
+	const overText = RE.contractText(rc, over);
+	check(over.ok && over.flags.some((f) => f.code === 'deposit_over' && f.level === 'bad') && over.sec.cash === 18000 && overText.includes('18,000 ₪') && !overText.includes('30,000'), 'a 30,000 cash deposit on 6,000 a month: flagged, and the lease carries 18,000, never 30,000');
+	const mix = RE.compute(reg, { rent: 6000, months: 12, cash: 10000, bank: 10000 });
+	check(mix.sec.cash + mix.sec.bank === 18000 && mix.sec.cash === 9000, 'cash and a bank guarantee over the cap are scaled together to the cap');
+	check(RE.compute(reg, { rent: 6000, months: 12, other: 20000 }).flags.some((f) => f.code === 'deposit_over'), 'a guarantee from an insurer or a credit licensee counts in the cap (2026 amendment)');
+	const notes = RE.compute(reg, { rent: 6000, months: 12, bank: 18000, note: 40000, guarantors: 2 });
+	check(!notes.flags.some((f) => f.code === 'deposit_over') && notes.flags.some((f) => f.code === 'not_counted') && RE.contractText(rc, notes).includes('נספח ב'), 'a promissory note and guarantors cost the tenant nothing: outside the cap, and the guarantee appendix is added');
+	const bad = RE.compute(reg, { rent: 6000, months: 12, bank: 18000, forbidden: { insurance: true, broker: true, systems: true }, asIs: true, exit: 'landlord', returnDays: 90, repairDays: 45, urgentDays: 7 });
+	const badText = RE.contractText(rc, bad);
+	check(bad.bad === 8 && ['pay_insurance', 'pay_broker', 'pay_systems', 'as_is', 'exit_landlord', 'return_late', 'repair_late'].every((k) => bad.flags.some((f) => f.code === k)), 'the check flags building insurance, the landlord\'s broker, fixed systems, "as is", a landlord-only exit and late deadlines (ss.25ט(ב), 25ו, 25יג, 25י(ה), 25ח(ב))');
+	check(bad.flags.some((f) => f.code === 'urgent_late') && !RE.compute(reg, { rent: 6000, months: 12, returnDays: 90 }).flags.some((f) => f.code === 'return_late') && !badText.includes('כמות שהיא') && badText.includes('לא יאוחר מ-30 ימים') && badText.includes('לא יאוחר מ-3 ימים') && badText.includes('בתוך 60 ימים') && badText.includes('אין לצדדים זכות לבטל'), 'the lease never carries a void clause: 30 and 3 days for repairs, 60 days for the deposit, no landlord-only exit, no "as is"');
+	check(badText.includes('השוכר לא יישא בביטוח המבנה') && !/ישלם השוכר[^\n]*ביטוח המבנה/.test(badText), 'the lease says the tenant does not pay the building insurance, even when the landlord asked');
+	const exits = RE.compute(reg, { rent: 6000, months: 12, exit: 'both', exitLandlordDays: 30, exitTenantDays: 90 });
+	check(exits.flags.some((f) => f.code === 'exit_landlord_days') && exits.flags.some((f) => f.code === 'exit_tenant_days') && RE.contractText(rc, exits).includes('המשכיר בהודעה בכתב 90 ימים') && RE.contractText(rc, exits).includes('והשוכר בהודעה בכתב 60 ימים'), 'mutual cancellation: the landlord at least 90 days, the tenant 60 at most (s.25יג(ב), s.25יד)');
+	const opts = RE.compute(reg, { rent: 6000, months: 12, option: 'both', optionMonths: 12, optionPct: 5, optTenantDays: 90, optLandlordDays: 30 });
+	const optText = RE.contractText(rc, opts);
+	check(opts.optionRent === 6300 && opts.flags.some((f) => f.code === 'opt_tenant_days') && opts.flags.some((f) => f.code === 'opt_landlord_days') && optText.includes('6,300 ₪') && optText.includes('לא יאוחר מ-60 ימים לפני') && optText.includes('לא יאוחר מ-90 ימים לפני'), 'options: rent set in advance (6,300), the tenant notifies up to 60 days before, the landlord at least 90 (s.25יב(ב)-(ג))');
+	check(RE.compute(reg, { rent: 6000, months: 3 }).flags.some((f) => f.code === 'short') && !RE.compute(reg, { rent: 6000, months: 3, option: 'tenant', optionMonths: 3 }).flags.some((f) => f.code === 'short'), 'a lease of up to 3 months without an option is outside the part (s.25טו(א)(2)); with an option it is not');
+	check(RE.compute(reg, { rent: 25000, months: 12 }).flags.some((f) => f.code === 'rent_cap' && f.level === 'warn') && RE.compute(reg, { rent: 6000, months: 12, relative: true }).flags.some((f) => f.code === 'relative'), 'rent above 20,000 is flagged for a check (the indexed amount is not published); a relative tenant is noted (s.25טו(ב))');
+	const ex = RE.compute(reg, { rent: 6000, months: 12, start: '2026-11-01' });
+	check(ex.end === '2027-10-31' && ex.clauses.length === 15 && ex.clauses.every((c) => c.cites.length > 0), 'a 12-month lease from 1.11.2026 ends on 31.10.2027; 15 clauses, every one with its sections');
+	check(RE.contractText(rc, ex, true).includes('[סעיף 25ב; סעיף 25ג]') && !RE.contractText(rc, ex).includes('[סעיף'), 'the copy with sources carries them; the clean copy does not');
+	check(ex.schedule.map((s) => s.state).join(',') === 'hand,hand,list,filled,filled,filled,declared', 'the Second Schedule check: address and parties to fill by hand, the furniture list, the defects declaration');
+	check(Object.values(rc.cites).every((t) => t.length > 20) && ['25ב', '25ח(ב)', '25י(ב)', '25יג', 'guarantee'].every((k) => rc.cites[k]), 'every section chip has the text of its section');
+	const share = REUI.shareState(Object.assign({}, REUI.EXAMPLE, { landlord: 'משה כהן', tenant: 'דנה לוי', address: 'הרצל 5', city: 'חיפה', defects: 'רטיבות', furniture: 'מקרר' }));
+	check(!/משה|דנה|הרצל|חיפה|רטיבות|מקרר/.test(share) && share.includes('r6000'), 'privacy: the share link carries the terms only, never names, the address, defects or furniture');
+	const rs = REUI.snapshot(reg);
+	check(rs.total === 18000 && rs.result.includes('jt12-meter') && rs.result.includes('jtool-state--ok') && rs.details.includes('jt12-cite') && rs.details.includes('6,180') && rs.compare_table.includes('13,500') && rs.method.includes('24,000'), 'lease snapshot: the 18,000 cap and meter, a clean check, section chips, the option rent 6,180, the cap table');
+}
+
+/* ---------- Wave 5: severance pay, section 14, the advance notice, the tax ceiling and the deadlines ---------- */
+{
+	const sv = reg.severance;
+	check(sv.checked_on === '2026-10-14' && sv.tax.ceiling === 13750 && sv.tax.year === 2026 && sv.approval.partial_pct === 72 && sv.approval.full_pct === 100 && sv.late.grace_days === 15 && sv.late.monthly_pct === 20 && sv.notice.cert_days === 14, 'severance registry: the 2026 tax ceiling 13,750 per year, s.14 at 72% / 100%, late after 15 days, +20% a month, the certificate in 14 days');
+	const span = PE.serviceSpan('2018-03-01', '2026-09-30');
+	check(span.months === 103 && span.days === 0 && near(span.years, 103 / 12, 1e-9), '1.3.2018 to 30.9.2026 is 8 years and 7 months (103 months)');
+	const ex = PE.compute(reg, PEUI.EXAMPLE);
+	check(ex.ok && ex.severance === 103000 && ex.coveredSev === 103000 && ex.fundReplaces === 74160 && ex.employer === 28840 && ex.notice.month && ex.exempt === 103000 && ex.taxable === null && ex.taxNote === 'fund', 'example: 12,000 x 8 7/12 = 103,000; s.14 on 72%: the fund stands for 72%, the employer adds 28,840; a month notice; exempt up to 103,000 (the taxable part depends on the fund)');
+	check(PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'none' })).employer === 103000 && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'full' })).employer === 0, 'no s.14: the employer pays 103,000; s.14 at 100%: the fund replaces it all');
+	const from20 = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14From: '2020-01-01' }));
+	check(near(from20.coveredYears, 6.75, 1e-9) && from20.fundReplaces === 58320 && from20.employer === 44680, 's.14 from 1.1.2020 only: 6.75 years x 12,000 x 72% = 58,320 replaced, 44,680 from the employer');
+	const short = PE.compute(reg, { salary: 10000, start: '2026-01-01', end: '2026-09-30' });
+	check(!short.entitled && short.severance === 0 && short.flags.some((f) => f.code === 'under_year') && short.notice.days === 13.5, 'under a year: no severance (s.1(א)); after 9 months a monthly employee gets 6 + 2.5 x 3 = 13.5 days of notice (s.3(2))');
+	check(PE.compute(reg, { salary: 10000, start: '2025-11-01', end: '2026-09-30' }).flags.some((f) => f.code === 'near_year'), 'a dismissal after 11 months: the s.3 presumption is flagged');
+	const resign = PE.compute(reg, { salary: 10000, start: '2018-01-01', end: '2026-09-30', reason: 'resign', s14: 'partial' });
+	check(!resign.entitled && resign.employer === 0 && resign.flags.some((f) => f.code === 'resign'), 'an ordinary resignation: nothing from the employer; the s.14 fund stays the worker\'s');
+	const worse = PE.compute(reg, { salary: 10000, start: '2018-01-01', end: '2026-09-30', reason: 'worse', groundOk: true });
+	check(worse.entitled && worse.severance > 0 && worse.flags.some((f) => f.code === 'resign_as_fired' && f.section === 'סעיף 11(א)'), 'a resignation for worse conditions, confirmed, counts as a dismissal (s.11(א))');
+	const hourly = PE.compute(reg, { payType: 'hourly', hourly: 45, hours: 160, start: '2020-01-01', end: '2025-12-31' });
+	check(hourly.base === 7200 && hourly.severance === 43200 && !hourly.floored, 'a wage-paid employee: 45 x 160 = 7,200 a month, 6 years = 43,200 (1983 regulations)');
+	const low = PE.compute(reg, { payType: 'hourly', hourly: 30, hours: 160, start: '2020-01-01', end: '2026-09-30' });
+	check(low.floored && low.base === 5664 && low.flags.some((f) => f.code === 'min_wage'), 'below the minimum wage: computed on 35.40 x 160 = 5,664 (s.13ב)');
+	check(PE.compute(reg, { salary: 5000, start: '2020-01-01', end: '2026-09-30' }).base === 6443.85 && !PE.compute(reg, { salary: 5000, jobPct: 50, start: '2020-01-01', end: '2026-09-30' }).floored, 'a monthly salary below the minimum is floored to 6,443.85; at a 50% job it is not');
+	const nd = (pt, m) => PE.noticeDays(sv, pt, m);
+	check(nd('monthly', 1).days === 1 && nd('monthly', 6).days === 6 && nd('monthly', 7).days === 8.5 && nd('monthly', 11).days === 18.5 && nd('monthly', 12).month, 'notice for a monthly salary: 1 day a month, then 6 + 2.5 a month, a month after a year (s.3)');
+	check(nd('hourly', 11).days === 11 && nd('hourly', 12).days === 14 && nd('hourly', 14).days === 15 && nd('hourly', 24).days === 21 && nd('hourly', 26).days === 22 && nd('hourly', 36).month, 'notice for a wage: 1 a month in year 1, 14 + 1 per 2 months in year 2, 21 + 1 per 2 months in year 3, then a month (s.4)');
+	const late = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { noticeDate: '2026-09-15' }));
+	check(late.noticeEnd === '2026-10-15' && late.short === 15 && late.flags.some((f) => f.code === 'short_notice'), 'notice given 15.9.2026 ends 15.10.2026 (Interpretation Law s.10(ב)); a last day of 30.9 leaves 15 days to compensate (s.7(א))');
+	check(PE.monthLater('2026-01-31') === '2026-02-28' && PE.monthLater('2026-04-30') === '2026-05-30', 'a month after 31.1 is 28.2, after 30.4 is 30.5 (s.10(ב))');
+	const rich = PE.compute(reg, { salary: 20000, start: '2016-10-01', end: '2026-09-30' });
+	check(rich.exempt === 137500 && rich.taxable === 62500 && !rich.flags.some((f) => f.code === 'commissioner'), 'tax: 20,000 x 10 years: exempt up to 13,750 a year = 137,500, taxable 62,500 (s.9(7א)(א))');
+	const mid = PE.compute(reg, { salary: 10000, start: '2016-10-01', end: '2026-09-30' });
+	check(mid.exempt === 100000 && mid.taxable === 0, 'tax: 10,000 x 10 years: one month per year, all exempt');
+	const dls = Object.fromEntries(ex.deadlines.map((d) => [d.key, d.date]));
+	check(dls.due === '2026-09-30' && dls.grace === '2026-10-15' && dls.twenty === '2026-10-30' && dls.cert === '2026-10-14' && dls.limit === '2033-09-30', 'deadlines: due on the last day, late after 15 days, +20% after 30, the certificate in 14 days, limitation 7 years');
+	check(PEUI.letter(reg, ex).includes('103,000') && PEUI.letter(reg, ex).includes('סעיף 20') && PEUI.letter(reg, ex).includes('28,840'), 'the letter to the employer states the sum, the s.14 top-up and the late-payment rule');
+	const ps = PEUI.snapshot(reg);
+	check(ps.total === 103000 && ps.result.includes('jt13-ruler') && ps.result.includes('jt13-time') && ps.details.includes('data-act="ics"') && ps.compare_table.includes('8½ ימים'), 'severance snapshot: the ruler, the payment timeline, the .ics, the notice table');
+}
+
+/* ---------- Wave 5: capital gains tax on a home (Land Taxation Law; Tax Authority instruction 1/2026; CBS index) ---------- */
+{
+	const sh = reg.shevach;
+	check(sh.checked_on === '2026-10-14' && sh.single.ceiling === 5008000 && sh.single.ceiling_to === '2027-12-31' && sh.surtax.threshold === 5385285 && sh.rates.post2012 === 25 && sh.rates.mid === 20 && sh.rates.pre2001 === 47 && sh.rates.inflation === 10, 'capital-gains registry: ceiling 5,008,000 to 31.12.2027, surtax line 5,385,285 (instruction 1/2026), rates 25 / 20 / 47 / 10');
+	// CBS linkage calculator (api.cbs.gov.il/index/data/calculator/120010), read on 14.10.2026: the indexed purchase value.
+	const cbs = [
+		[{ buyDate: '2010-06-01', buyPrice: 1200000, buyCosts: 60000, saleDate: '2026-09-01', salePrice: 2600000 }, 1633080.74],
+		[{ buyDate: '2010-06-01', buyPrice: 1200000, buyCosts: 60000, saleDate: '2026-10-01', salePrice: 2600000 }, 1643957.59],
+		[{ buyDate: '1992-05-10', buyPrice: 300000, saleDate: '2026-09-01', salePrice: 3000000 }, 909961.17],
+		[{ buyDate: '2015-01-01', buyPrice: 3000000, saleDate: '2026-09-01', salePrice: 6000000 }, 3589361.83],
+	];
+	for (const [inp, value] of cbs) {
+		const r = SH.compute(reg, Object.assign({ status: 'other', depreciation: 0 }, inp));
+		check(r.ok && near(r.adjusted, value, 0.011), `CBS linkage from ${inp.buyDate} to ${inp.saleDate}: ${value} (got ${r.adjusted})`);
+	}
+	const old = SH.compute(reg, { status: 'other', depreciation: 0, buyDate: '1992-05-10', buyPrice: 300000, saleDate: '2026-09-01', salePrice: 3000000 });
+	check(near(old.inflTaxable, 53445.85, 0.011) && old.regular.parts.length === 4 && old.regular.parts[0].rate === 47 && old.regular.parts[3].rate === 10, 'a 1992 purchase: the inflation up to 31.12.1993 (CBS: 353,445.85) is taxed at 10%, the real gain in three periods at 47 / 20 / 25%');
+	const ex = SH.compute(reg, SHUI.EXAMPLE);
+	check(ex.ok && ex.path === 'linear' && near(ex.inflationary, 383957.59, 0.011) && near(ex.shares.linear, 1310 / 5966, 1e-9) && near(ex.tax, ex.realGain * (1 - 1310 / 5966) * 0.25, 0.011), 'example: a qualifying home bought 1.6.2010: the real gain up to 1.1.2014 (1,310 of 5,966 days) is exempt, the rest at 25% (s.48א(ב2))');
+	check(ex.regular.tax > ex.tax && ex.net === Math.round((2600000 - ex.tax - 30000) * 100) / 100, 'the linear rule beats the regular one; the net is the price less the tax and the sale costs');
+	const single = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true }));
+	check(single.path === 'exempt' && single.tax === 0, 'the only home, held 18 months, under the ceiling: exempt (s.49ב(2))');
+	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, buyDate: '2025-06-01', buyPrice: 2000000 })).flags.some((f) => f.code === 'held') && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, priorExempt: true })).path === 'linear', 'held under 18 months, or an exempt sale in the 18 months before: no single-home exemption');
+	const big = SH.compute(reg, { status: 'single', family: true, buyDate: '2015-01-01', buyPrice: 3000000, saleDate: '2026-09-01', salePrice: 6000000 });
+	check(big.path === 'partial' && near(big.exemptShare, 5008000 / 6000000, 1e-12) && near(big.tax, big.regular.tax * (1 - 5008000 / 6000000), 0.011) && big.flags.some((f) => f.code === 'surtax') && big.flags.some((f) => f.code === 'ceiling'), 'above the ceiling: the share above 5,008,000 is taxed (s.49א(א1)); above 5,385,285 the surtax is flagged');
+	check(SH.compute(reg, { status: 'qualified', buyDate: '2016-01-01', buyPrice: 2000000, saleDate: '2026-09-01', salePrice: 1900000 }).path === 'loss', 'a sale under the purchase price: no gain, no tax');
+	check(!SH.compute(reg, { status: 'other', buyDate: '1990-02-01', buyPrice: 100000, saleDate: '2026-09-01', salePrice: 900000 }).ok, 'a purchase before the registry\'s index (16.3.1990) is refused, never guessed');
+	const imp = SH.compute(reg, { status: 'other', depreciation: 0, buyDate: '2010-06-01', buyPrice: 1200000, improve: 100000, improveDate: '2015-06-01', saleDate: '2026-09-01', salePrice: 2600000 });
+	check(imp.ok && imp.adjusted > SH.compute(reg, { status: 'other', depreciation: 0, buyDate: '2010-06-01', buyPrice: 1200000, saleDate: '2026-09-01', salePrice: 2600000 }).adjusted + 100000, 'an improvement is indexed from its own day (s.47, "יתרת שווי רכישה מתואמת" (2))');
+	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { saleDate: '2026-12-01' })).flags.some((f) => f.code === 'index_ahead'), 'a sale whose known index is not yet published is flagged');
+	const dl = Object.fromEntries(ex.deadlines.map((d) => [d.key, d.date]));
+	check(dl.declare === '2026-11-01' && dl.pay === '2026-11-30', 'a sale on 1.10.2026: the 30 days end on Saturday 31.10, so the declaration is due 1.11.2026 (Interpretation Law s.10(ג)); payment by 30.11.2026 (s.90א)');
+	const ss = SHUI.snapshot(reg);
+	check(near(ss.total, ex.tax, 0.001) && ss.result.includes('jt14-strip') && ss.details.includes('48א(ב2)') && ss.compare_table.includes('1995') && ss.method.includes('383,957.59'), 'capital-gains snapshot: the strip, the linear section, the years table, the CBS inflation in the method');
+}
+
+/* ---------- Wave 5: hidden fields never block, and the partial exemption is a scenario of its own ---------- */
+{
+	check(RE.compute(reg, { rent: 6000, months: 12, guarantors: 0, guarantorMax: 'abc' }).ok && !RE.compute(reg, { rent: 6000, months: 12, guarantors: 1, guarantorMax: -5 }).ok, 'the guarantee ceiling is read only with guarantors: a stale value in the hidden field never blocks the lease');
+	check(RE.compute(reg, { rent: 6000, months: 12, option: 'none', optionMonths: 'x', optionPct: 'y' }).ok, 'the option fields are ignored when there is no option');
+	const big = SH.compute(reg, { status: 'single', family: true, buyDate: '2015-01-01', buyPrice: 3000000, saleDate: '2026-09-01', salePrice: 6000000 });
+	check(big.scen.exempt === big.tax && big.scen.exempt > 0 && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'qualified' })).scen.exempt === null, 'the single-home card shows the partial tax above the ceiling, and nothing when the home is not the only one');
+	check(PE.compute(reg, { payType: 'monthly', salary: 9000, hourly: 'x', hours: 'y', start: '2020-01-01', end: '2026-09-30', s14: 'none', s14Pct: 'z', s14From: 'bad' }).ok, 'severance: hidden hourly and section-14 fields never block a monthly calculation');
+	check(SH.compute(reg, { status: 'qualified', buyDate: '2010-06-01', buyPrice: 1200000, saleDate: '2026-09-01', salePrice: 2600000, improve: '', improveDate: 'junk' }).ok, 'capital gains: the improvement date is read only with an improvement');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 1) ---------- */
+{
+	check(!SH.compute(reg, { status: 'single', family: true, buyDate: '2015-01-01', buyPrice: 2000000, saleDate: '2023-06-01', salePrice: 4900000 }).ok && !SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { saleDate: '2028-01-02' })).ok && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { saleDate: '2025-01-01' })).ok, 'a sale outside 1.1.2025-31.12.2027 is refused: the 5,008,000 ceiling and the rates are for that period only (review, PR 128)');
+	const plan = { status: 'single', family: true, buyDate: '2020-01-01', buyPrice: 1500000, saleDate: '2026-09-01', salePrice: 2500000, offPlan: true };
+	check(!SH.compute(reg, plan).ok && SH.compute(reg, Object.assign({}, plan, { dwellingDate: '2025-12-01' })).flags.some((f) => f.code === 'held') && SH.compute(reg, Object.assign({}, plan, { dwellingDate: '2024-12-01' })).path === 'exempt', 'off-plan: the 18 months run from the day the home became a dwelling, which must be given (s.49ב(2); review, PR 128)');
+	check(SH.compute(reg, Object.assign({}, plan, { status: 'qualified', offPlan: true, dwellingDate: '' })).ok, 'the delivery date is asked only for the single-home exemption');
+	const near = PE.compute(reg, { salary: 10000, start: '2025-11-01', end: '2026-09-30' });
+	check(near.entitled && near.conditional && near.severance === Math.round(10000 * (11 / 12) * 100) / 100 && !near.flags.some((f) => f.code === 'under_year') && PEUI.renderResult(reg, near).includes('סעיף 3'), 'a dismissal after 11 months: a conditional right under s.3, computed pro rata (review, PR 128)');
+	check(!PE.compute(reg, { salary: 10000, start: '2026-01-01', end: '2026-09-30' }).entitled && PE.compute(reg, { salary: 10000, start: '2025-12-01', end: '2026-09-30' }).conditional && !PE.compute(reg, { salary: 10000, start: '2025-11-01', end: '2026-09-30', reason: 'resign' }).entitled, 'within the last two months of the first year the right is conditional; after 9 months, or on a resignation, there is none');
+	const chip = REUI.renderDetails(reg, RE.compute(reg, { rent: 6000, months: 12 }));
+	check(chip.includes(reg.rent_contract.protected_law_url) && reg.rent_contract.protected_law_url.includes('71616'), 'the protected-tenancy chip links to the Tenant Protection Law (review, PR 128)');
+}
+
+/* ---------- Wave 5: the Tax Authority's own self-assessment simulator (misim.gov.il, run on 14.10.2026) ---------- */
+{
+	// A qualifying home (not the only one) bought 1.6.2010 for 1,200,000 with 60,000 costs, sold 1.9.2026 for 2,600,000
+	// with 30,000 costs. The simulator's tax screen: real gain to the transition 206,766.21 at 0%, after it 730,153.05
+	// at 25%, inflationary amount 0, tax 182,538.26.
+	const r = SH.compute(reg, { status: 'qualified', buyDate: '2010-06-01', buyPrice: 1200000, buyCosts: 60000, saleDate: '2026-09-01', salePrice: 2600000, saleCosts: 30000 });
+	check(r.ok && r.path === 'linear' && near(r.linear.parts[0].gain, 206766.21, 0.011) && near(r.linear.parts[1].gain, 730153.05, 0.011) && near(r.tax, 182538.26, 0.005) && r.inflTaxable === 0, 'the Tax Authority simulator, to the agora: 206,766.21 exempt, 730,153.05 at 25%, tax 182,538.26');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 2) ---------- */
+{
+	const office = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, residential: false, depreciation: 0 }));
+	check(office.path === 'regular' && office.tax === office.regular.tax && office.scen.exempt === null && office.scen.linear === null && office.flags.some((f) => f.code === 'not_residential'), 'a home not used mainly for residence: no single-home exemption and no linear rule (s.49(א); review, PR 128)');
+	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true })).path === 'exempt', 'confirmed residential use keeps the exemption');
+	const quit = PE.compute(reg, { salary: 10000, start: '2018-01-01', end: '2026-09-30', reason: 'resign', s14: 'partial' });
+	const quitHtml = PEUI.renderResult(reg, quit) + PEUI.renderDetails(reg, quit);
+	check(quit.fundUnknown && quitHtml.includes('מה שנצבר') && !/מהקופה[^<]*<\/td><td[^>]*>[^<]*0 ₪/.test(quitHtml), 'an ordinary resignation with s.14: the fund is shown as what accumulated and belongs to the worker, never as 0 (review, PR 128)');
+	check(!PE.compute(reg, PEUI.EXAMPLE).fundUnknown, 'with a right to severance the share of the fund is computed');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 3) ---------- */
+{
+	// Notice runs both ways: a dismissal without notice is owed by the employer (s.7(א)); a resignation without notice is
+	// owed by the worker to the employer (s.7(ב)), and the letter never demands it.
+	for (const reason of ['resign', 'health']) {
+		const q = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason, noticeMode: 'none' }));
+		const f = q.flags.find((x) => x.code === 'no_notice');
+		check(q.ok && f && f.section === 'סעיף 7(ב)' && f.he.includes('למעסיק') && !PEUI.letter(reg, q).includes('7(א)'), `a resignation (${reason}) without notice: the worker owes the employer (s.7(ב)), and the letter does not demand notice pay (review, PR 128)`);
+	}
+	const fired = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { noticeMode: 'none' }));
+	check(fired.flags.find((x) => x.code === 'no_notice').section === 'סעיף 7(א)' && PEUI.letter(reg, fired).includes('סעיף 7(א)'), 'a dismissal without notice: the employer owes it, and the letter asks for it');
+	const shortQuit = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'resign', noticeDate: '2026-09-15' }));
+	const shortFired = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { noticeDate: '2026-09-15' }));
+	check(shortQuit.short > 0 && shortQuit.flags.find((x) => x.code === 'short_notice').section === 'סעיף 7(ב)' && !PEUI.letter(reg, shortQuit).includes('ימים לפני המועד'), 'a short notice on a resignation is owed by the worker (s.7(ב)), not claimed in the letter');
+	check(shortFired.short > 0 && shortFired.flags.find((x) => x.code === 'short_notice').section === 'סעיף 7(א)' && PEUI.letter(reg, shortFired).includes(`${shortFired.short} ימים לפני המועד`), 'a short notice on a dismissal: the letter asks for the missing days');
+	check(PEUI.renderForm(reg, PEUI.EXAMPLE).includes('לא ניתנה הודעה') && !PEUI.renderForm(reg, PEUI.EXAMPLE).includes('לא קיבלתי הודעה'), 'the no-notice chip reads for both directions');
+
+	// A gift (s.49ו): the single-home exemption waits 4 years from the gift, or 3 years from moving in as owner.
+	const g = Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, buyDate: '2023-03-01', buyPrice: 1500000, buyCosts: 0, saleDate: '2026-10-01', salePrice: 1900000, saleCosts: 0, gift: true, giftDate: '2023-03-01' });
+	const cold = SH.compute(reg, g);
+	check(cold.ok && cold.path !== 'exempt' && cold.tax > 0 && cold.scen.exempt === null && cold.flags.some((f) => f.code === 'gift_cooling' && f.he.includes('1.3.2027') && f.section === 'סעיף 49ו'), 'a gift received 1.3.2023 and sold 1.10.2026 without living there: no exemption before 1.3.2027 (s.49ו(א)(1); review, PR 128)');
+	const lived = SH.compute(reg, Object.assign({}, g, { giftLived: true, livedFrom: '2023-06-01' }));
+	check(lived.ok && lived.path === 'exempt' && lived.flags.some((f) => f.code === 'gift_cooled'), 'lived there from 1.6.2023: 3 years end 1.6.2026, so a sale on 1.10.2026 is exempt (s.49ו(א)(2))');
+	const early = SH.compute(reg, Object.assign({}, g, { giftLived: true, livedFrom: '2024-01-01' }));
+	check(early.ok && early.path !== 'exempt' && early.flags.some((f) => f.code === 'gift_cooling' && f.he.includes('1.1.2027')), 'moved in on 1.1.2024: the 3 years end 1.1.2027');
+	const before = SH.compute(reg, Object.assign({}, g, { giftLived: true, livedFrom: '2020-01-01' }));
+	check(before.ok && before.flags.some((f) => f.code === 'gift_cooled' && f.he.includes('1.3.2026')), 'living there before the gift counts from the gift (1.3.2023 + 3 years)');
+	const minor = SH.compute(reg, Object.assign({}, g, { giftMinor: true }));
+	check(!minor.ok && minor.errors.some((e) => e.field === 'gift' && e.he.includes('סעיף 49ו(ב)')) && SHUI.renderForm(reg, Object.assign({}, g, { giftMinor: true })).includes('id="jt14-gift-e"'), 'a gift received before 18 is refused with a pointer to the simulator, on its own error line (s.49ו(ב))');
+	check(!SH.compute(reg, Object.assign({}, g, { giftLived: true, livedFrom: '' })).ok, 'living there needs the day it began');
+	check(SH.compute(reg, Object.assign({}, g, { gift: false })).path === 'exempt' && SH.compute(reg, Object.assign({}, g, { status: 'qualified' })).flags.every((f) => !f.code.startsWith('gift')), 'without a gift, or for a second home, the gift rule does not apply');
+	check(SH.compute(reg, Object.assign({}, g, { saleDate: '2027-03-01' })).path === 'exempt', 'a sale on 1.3.2027, four years from the gift, is exempt');
+	check(reg.shevach.gift.other_months === 48 && reg.shevach.gift.lived_months === 36 && reg.shevach.gift.section === 'סעיף 49ו', 'the registry holds the s.49ו periods');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 4) ---------- */
+{
+	// Depreciation on a rented home (s.47): required for a taxable sale, it lowers the acquisition value.
+	const base = Object.assign({}, SHUI.EXAMPLE, { rented: true });
+	const missing = SH.compute(reg, base);
+	check(!missing.ok && missing.errors[0].field === 'depreciation' && missing.errors[0].he.includes('סעיף 47'), 'a rented home sold with tax and no depreciation: no estimate, the field is asked for (s.47; review, PR 128)');
+	const plain = SH.compute(reg, SHUI.EXAMPLE);
+	const dep = SH.compute(reg, Object.assign({}, base, { depreciation: 100000 }));
+	check(dep.ok && Math.abs(dep.gain - plain.gain - 100000) < 0.01 && dep.realGain > plain.realGain + 100000 && dep.tax > plain.tax && dep.flags.some((f) => f.code === 'depreciation'), 'depreciation of 100,000 adds 100,000 to the gain and more than that to the real gain (the balance is indexed after it)');
+	check(SH.compute(reg, Object.assign({}, base, { depreciation: 0 })).tax === plain.tax, 'a depreciation of 0 entered is accepted as given');
+	check(SH.compute(reg, Object.assign({}, base, { status: 'single', family: true })).path === 'exempt', 'a fully exempt single home needs no depreciation figure');
+	check(SHUI.renderDetails(reg, dep).includes('פחת בשנות ההשכרה') && SHUI.renderForm(reg, base).includes('id="jt14-dep"') && !/data-if-rented hidden/.test(SHUI.renderForm(reg, base)), 'the depreciation field shows when the home was rented, and the table shows the deduction');
+	// The family unit is one seller (s.49(ב)); a foreign resident needs the certificate of no home abroad (s.49א(א)).
+	const one = Object.assign({}, SHUI.EXAMPLE, { status: 'single' });
+	const unconfirmed = SH.compute(reg, Object.assign({}, one, { family: false }));
+	check(unconfirmed.path !== 'exempt' && unconfirmed.scen.exempt === null && unconfirmed.flags.some((f) => f.code === 'family' && f.section === 'סעיף 49(ב)'), 'the single-home exemption waits for the family-unit confirmation (s.49(ב); review, PR 128)');
+	check(SH.compute(reg, Object.assign({}, one, { family: true })).path === 'exempt', 'confirmed: exempt');
+	const abroad = SH.compute(reg, Object.assign({}, one, { family: true, resident: 'foreign' }));
+	check(abroad.path !== 'exempt' && abroad.flags.some((f) => f.code === 'foreign' && f.section === 'סעיף 49א(א)'), 'a foreign resident without the certificate of no home abroad: no exemption (s.49א(א); review, PR 128)');
+	check(SH.compute(reg, Object.assign({}, one, { family: true, resident: 'foreign', foreignNoHome: true })).path === 'exempt', 'with the certificate: exempt');
+	const f1 = SHUI.renderForm(reg, one);
+	check(f1.includes('name="jt14-fm"') && f1.includes('תושבות המוכר') && f1.includes('name="jt14-rs"') && f1.includes(reg.shevach.seller_he), 'the single-home block asks for the family unit and the residency, and shows the one-seller rule');
+	// Severance: the tax ceiling is the one of the grant's year; only 2025-2027 is held.
+	const old = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { start: '2015-03-01', end: '2023-09-30' }));
+	const oldHtml = PEUI.renderResult(reg, old) + PEUI.renderDetails(reg, old) + PEUI.verdictSentence(reg, old);
+	check(old.ok && old.exempt === null && old.taxable === null && old.flags.some((f) => f.code === 'tax_year') && oldHtml.includes('לא חושב') && !/NaN|null|undefined/.test(oldHtml), 'a dismissal in 2023: no tax split with the 2025-2027 ceiling, said plainly (review, PR 128)');
+	check(PE.compute(reg, PEUI.EXAMPLE).exempt === 103000 && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { end: '2027-12-15' })).exempt !== null && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { end: '2028-01-01' })).exempt === null, 'the ceiling applies to an end of work from 1.1.2025 to 31.12.2027 only');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 5) ---------- */
+{
+	// Calculation regulations 7 and 8: one change of scope or pay, each period on its own salary.
+	const up = PE.compute(reg, { salary: 10000, start: '2024-07-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevPct: 50 });
+	check(up.ok && up.severance === 12500 && up.flags.some((f) => f.code === 'change' && f.section === 'תקנה 7'), 'six months at 50% then a year full-time at 10,000: 12,500, not 15,000 (reg. 7; review, PR 128)');
+	const down = PE.compute(reg, { salary: 5000, jobPct: 50, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevPct: 100 });
+	check(down.ok && down.severance === 15000 && down.prevBase === 10000 && down.exempt === 15000, 'a year full-time then a year at 50% on 5,000: the full-time year on the full-time salary, 15,000 (reg. 7; the exempt ceiling per s.9(7א)(ד))');
+	const cutPay = PE.compute(reg, { salary: 8000, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevSalary: 10000 });
+	check(cutPay.ok && cutPay.cut && cutPay.severance === 18000 && cutPay.flags.some((f) => f.code === 'change' && f.section === 'תקנה 8'), 'a pay cut from 10,000 to 8,000: the year before it on 10,000 (reg. 8)');
+	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { change: true, changeDate: '2022-01-01', prevPct: 50, manyChanges: true })).ok && PEUI.renderForm(reg, PEUI.EXAMPLE).includes('id="jt13-change-e"') && PEUI.renderForm(reg, PEUI.EXAMPLE).includes('name="jt13-chg"'), 'more than one change is refused, on its own error line');
+	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { change: true, changeDate: '2017-01-01' })).ok && !PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { change: true, changeDate: '' })).ok, 'the change day must fall inside the work');
+	check(!PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '2020-01-01', end: '2025-12-31', change: true, changeDate: '2022-01-01', prevPct: 50 }).ok, 'an hourly worker states the change in hours, not in percent (pass 8)');
+	const same = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'none', change: true, changeDate: '2022-01-01', prevPct: 100 }));
+	check(same.severance === 103000, 'a "change" with the same scope and no pay cut gives the plain result');
+	// Section 14: the fund's balance is unknown and never shown as an amount (review, PR 128).
+	const ex = PE.compute(reg, PEUI.EXAMPLE);
+	const html = PEUI.renderResult(reg, ex) + PEUI.renderDetails(reg, ex) + PEUI.verdictSentence(reg, ex);
+	const ltr = PEUI.letter(reg, ex);
+	check(!html.includes('74,160') && !ltr.includes('74,160') && html.includes('מה שנצבר') && ltr.includes('כל הכספים שנצברו לפיצויים') && ltr.includes('28,840'), 'with s.14 the fund is "what accumulated", never a computed amount; the letter asks to release it all and pay the 28,840 completion');
+	const full = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'full' }));
+	check(full.employer === 0 && !PEUI.letter(reg, full).includes('מגיעים לי פיצויי פיטורים של') && PEUI.renderDetails(reg, full).includes('תלוי במה שנצבר בקופה'), 'full s.14: the employer owes 0, and the tax line depends on the fund');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 6) ---------- */
+{
+	const paid = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { noticeDate: '2026-09-15', noticeMode: 'paid' }));
+	check(paid.short > 0 && !paid.flags.some((f) => f.code === 'short_notice') && paid.flags.some((f) => f.code === 'paid_notice' && f.section === 'סעיף 6') && !PEUI.letter(reg, paid).includes('ימים לפני המועד'), 'notice paid instead of work: no shortfall claimed and none in the letter, only a check that the pay covered the period (review, PR 128)');
+	const worked = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { noticeDate: '2026-09-15', noticeMode: 'worked' }));
+	check(worked.flags.some((f) => f.code === 'short_notice') && PEUI.letter(reg, worked).includes('ימים לפני המועד'), 'a worked notice that ended early: the shortfall is claimed');
+	const cutPay = PE.compute(reg, { salary: 8000, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevSalary: 10000 });
+	check(cutPay.severance === 18000 && cutPay.exempt === 16000 && cutPay.taxable === 2000, 'after a pay cut the exempt ceiling is the final salary x the service: 8,000 x 2 = 16,000, so 2,000 is taxable (s.9(7א)(א); review, PR 128)');
+	const down = PE.compute(reg, { salary: 5000, jobPct: 50, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevPct: 100 });
+	check(down.exempt === 15000, 'final salary part-time: the full-time year counts on the full-time salary (s.9(7א)(ד))');
+	const up = PE.compute(reg, { salary: 10000, start: '2024-07-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevPct: 50 });
+	check(up.severance === 12500 && up.exempt === 12500, 'after a raise in scope the ceiling (10,000 x 1.5 = 15,000) covers the 12,500');
+	const late = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14From: '2027-01-01' }));
+	check(!late.ok && late.errors.some((e) => e.field === 's14From'), 'a s.14 start after the last day is an input error, not a silent zero (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 7) ---------- */
+{
+	const one = Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true });
+	const f = SHUI.renderForm(reg, one);
+	check(f.includes('שנספרת (סעיף 49ג)') && f.includes(reg.shevach.family_he) && reg.shevach.family_he.includes('עד שליש'), 'the family confirmation counts only dwellings s.49ג does not exclude, and lists the exclusions (review, PR 128)');
+	const rights = SH.compute(reg, Object.assign({}, one, { buildingRights: true }));
+	check(!rights.ok && rights.errors.some((e) => e.field === 'rights' && e.he.includes('סעיף 49ז')) && f.includes('id="jt14-rights-e"') && f.includes('name="jt14-br"'), 'a price with additional building rights on the single-home path is refused (s.49ז; review, PR 128)');
+	check(SH.compute(reg, Object.assign({}, one, { status: 'other', buildingRights: true, depreciation: 0 })).ok, 'the s.49ז screen is for dwellings only (pass 9 extends it to the linear path)');
+	const quit = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'resign' }));
+	check(!quit.entitled && quit.deadlines.length === 1 && quit.deadlines[0].key === 'cert' && !PEUI.renderResult(reg, quit).includes('הפיצויים צריכים להיות בחשבון'), 'no severance due: only the employment certificate deadline, no payment clock (review, PR 128)');
+	check(PE.compute(reg, PEUI.EXAMPLE).deadlines.length === 5, 'with severance due all five deadlines stay');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 8) ---------- */
+{
+	// Unpaid leave above 14 days a year is not counted (reg. 10(3)).
+	const leave = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'none', unpaidExcess: 76 }));
+	check(leave.ok && leave.severance === Math.round(12000 * (103 / 12 - 76 / 365) * 100) / 100 && leave.flags.some((f) => f.code === 'leave' && f.section === 'תקנה 10(3)') && PEUI.verdictSentence(reg, leave).includes('76 ימי חופשה ללא תשלום'), 'a 90-day unpaid leave in one year (76 days above 14): the service is shortened, and the result says so (review, PR 128)');
+	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { unpaidExcess: -3 })).ok && PEUI.renderForm(reg, PEUI.EXAMPLE).includes('id="jt13-ul"'), 'the unpaid-leave field is validated and in the form');
+	// Hourly workers: the scope is the hours (reg. 7 applies correspondingly).
+	const hr = PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevHours: 80 });
+	check(hr.ok && hr.change && hr.prevBase === 4000 && hr.severance === 12000 && hr.flags.some((f) => f.code === 'change' && f.he.includes('80 שעות')), 'an hourly worker from 80 to 160 hours a month at 50: 4,000 x 1 + 8,000 x 1 = 12,000 (review, PR 128)');
+	check(!PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '2024-01-01', end: '2025-12-31', change: true, changeDate: '2025-01-01' }).ok, 'an hourly change needs the earlier hours');
+	const hrCut = PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevHours: 160, prevHourly: 60 });
+	check(hrCut.cut && hrCut.severance === 9600 + 8000, 'an hourly pay cut from 60 to 50: the year before on 60 (reg. 8)');
+	// s.14 on a resignation: the fund's tax split is unknown too.
+	const quit = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'resign' }));
+	check(quit.fundUnknown && quit.taxNote === 'fund' && quit.taxable === null && quit.exempt > 0 && PEUI.renderResult(reg, quit).includes('עד '), 'a resignation with a s.14 fund: exempt up to the ceiling, the taxable part unknown, never 0 / 0 (review, PR 128)');
+	// The rent chapter's scope (s.25טו): outside it a deposit above the cap is not a violation.
+	const shortLease = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', bank: '', cash: 30000, forbidden: { insurance: true } }));
+	check(shortLease.ok && !shortLease.applies && shortLease.bad === 0 && shortLease.sec.cash === 30000 && shortLease.flags.some((f) => f.code === 'deposit_free') && !shortLease.flags.some((f) => f.code === 'deposit_over') && shortLease.flags.find((f) => f.code === 'pay_insurance').level === 'info' && RE.contractText(reg.rent_contract, shortLease, false).includes('30,000'), 'a 3-month lease with no option: the deposit stays as agreed, nothing is called a violation (s.25טו; review, PR 128)');
+	const longLease = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { bank: '', cash: 30000 }));
+	check(longLease.applies && longLease.flags.some((f) => f.code === 'deposit_over' && f.level === 'bad') && longLease.sec.cash === 18000, 'inside the chapter the cap still binds');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 9) ---------- */
+{
+	// Between relatives the s.25יד(2) terms are the parties' (s.25טו(ב)); s.25ו stays (s.25יד(1)).
+	const rel = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { relative: true, returnDays: 90, bank: '', cash: 30000, exit: 'landlord', forbidden: { insurance: true }, asIs: true }));
+	const relText = RE.contractText(reg.rent_contract, rel, false);
+	check(rel.ok && rel.free && rel.lawful.returnDays === 90 && rel.sec.cash === 30000 && rel.exit === 'landlord' && relText.includes('תוך 90 ימים') && relText.includes('30,000') && relText.includes('בהסכמת הצדדים ישא השוכר בביטוח המבנה') && relText.includes('המשכיר רשאי לבטל את החוזה') && !relText.includes('אינן עולות יחד על'), 'between relatives a 90-day return, a 30,000 deposit, a landlord exit and building insurance on the tenant stay as agreed (s.25טו(ב); review, PR 128)');
+	check(rel.bad === 1 && rel.flags.find((f) => f.code === 'as_is').level === 'bad' && ['return_late', 'pay_insurance', 'exit_landlord'].every((c) => rel.flags.find((f) => f.code === c).level === 'info'), 'only the "as is" waiver (s.25ו, kept by s.25יד(1)) is still against the law between relatives');
+	// Above the unindexed 20,000 line the chapter may not apply: protections kept, nothing called a violation.
+	const rich = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { rent: 100000, bank: '', cash: 400000 }));
+	check(rich.ok && rich.bad === 0 && rich.flags.find((f) => f.code === 'deposit_over').level === 'warn' && rich.flags.find((f) => f.code === 'deposit_over').he.includes('25טו(א)(4)'), 'rent above 20,000: the cap is a kept protection with a "may not apply" warning, not a violation (review, PR 128)');
+	// The lease text never contradicts itself: no cap sentence above a kept higher deposit.
+	const shortL = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', bank: '', cash: 30000 }));
+	check(!RE.contractText(reg.rent_contract, shortL, false).includes('אינן עולות יחד על') && !RE.contractText(reg.rent_contract, shortL, false).includes('בכל סתירה יחול החוק'), 'outside the chapter the lease neither states the cap nor says the chapter overrides it');
+	// Capital gains: the building-rights screen covers the linear path too (s.49ז).
+	const q = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { buildingRights: true }));
+	check(!q.ok && q.errors.some((e) => e.field === 'rights') && /data-if-home[^>]*>[\s\S]*name="jt14-br"/.test(SHUI.renderForm(reg, SHUI.EXAMPLE)) && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buildingRights: true, depreciation: 0 })).ok, 'building rights in the price are screened on the linear path too, not for a non-dwelling (s.49ז; review, PR 128)');
+	// Severance: unpaid leave with a change of scope or pay is refused.
+	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { change: true, changeDate: '2022-01-01', prevPct: 50, unpaidExcess: 30 })).ok, 'unpaid leave together with a change: refused, never spread across the periods (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 10) ---------- */
+{
+	const term = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'term', noticeMode: 'none' }));
+	check(term.ok && term.entitled && !term.flags.some((f) => f.code === 'no_notice') && term.flags.some((f) => f.code === 'no_notice_term') && !PEUI.letter(reg, term).includes('7(א)'), 'a fixed term that ended without renewal: no notice debt on the worker, no notice demand (s.9; review, PR 128)');
+	const scopes = PE.compute(reg, { salary: 5000, jobPct: 50, start: '2022-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2024-01-01', prevPct: 80 });
+	check(scopes.ok && scopes.exempt === 26000 && scopes.severance === 26000, 'two years at 80% then two at 50% (10,000 full-time): the ceiling counts the 80% years on 8,000, 26,000 (Form 161; review, PR 128)');
+	const free = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 2, option: 'none', bank: '', cash: 30000 }));
+	const html = REUI.renderResult(reg, free);
+	check(!html.includes('הערובה המרבית שמותר לבקש') && html.includes('הערובות בחוזה') && html.includes('30,000') && html.includes('לא מחייבת כאן') && !REUI.verdictSentence(reg, free).includes('עד 12,000'), 'outside the chapter the result shows the agreed deposit and the cap only as a non-binding reference (review, PR 128)');
+	const rich = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { rent: 100000, bank: '', cash: 400000 }));
+	check(REUI.verdictSentence(reg, rich).startsWith('ייתכן שהסימן לא חל'), 'above the 20,000 line the verdict says the chapter may not apply');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 11) ---------- */
+{
+	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14From: '2020-01-01', unpaidExcess: 30 })).ok && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { unpaidExcess: 30 })).ok, 'unpaid leave with s.14 from a date inside the work is refused; with s.14 from the start it is computed (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 12) ---------- */
+{
+	const term11 = PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2025-11-30', reason: 'term' });
+	check(term11.ok && term11.entitled && term11.conditional && term11.severance > 0, 'a fixed term not renewed after 11 months: the s.3 presumption applies as to a dismissal (review, PR 128)');
+	const old = PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '1980-01-01', end: '2025-12-31', reason: 'fired' });
+	check(!old.ok && old.errors.some((e) => e.field === 'start' && e.he.includes('1.8.1983')), 'an hourly worker who started before 1.8.1983 is refused, never computed at a month a year (s.12(א); review, PR 128)');
+	const cert = PE.compute(reg, PEUI.EXAMPLE).deadlines.find((d) => d.key === 'cert');
+	check(cert.he.includes('לכל המאוחר') && cert.he.includes('בקשה בכתב מקדימה'), 'the certificate date is the latest one, and a written request brings it forward');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 13) ---------- */
+{
+	// The gift day apart from the donor's acquisition: the cooling runs from the gift, the gain from the donor's basis.
+	const g = Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, buyDate: '2012-05-01', buyPrice: 900000, buyCosts: 0, saleDate: '2026-10-01', salePrice: 1900000, saleCosts: 0, gift: true, giftDate: '2024-01-01' });
+	const r1 = SH.compute(reg, g);
+	check(r1.ok && r1.path !== 'exempt' && r1.buyDate === '2012-05-01' && r1.gain === 1000000 && r1.flags.some((f) => f.code === 'gift_cooling' && f.he.includes('1.1.2028')), 'a gift on 1.1.2024 of a home the donor bought in 2012: the cooling runs from the gift (to 1.1.2028), the gain from the donor basis of 2012 (review, PR 128)');
+	check(!SH.compute(reg, Object.assign({}, g, { giftDate: '' })).ok && SHUI.renderForm(reg, g).includes('id="jt14-gd"'), 'a gift needs the day it was received');
+	// Acquisitions 7.11.2001-31.12.2003: no number for a taxable sale (transitional reduction).
+	const t = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buyDate: '2002-06-01' }));
+	check(!t.ok && t.errors.some((e) => e.field === 'buyDate' && e.he.includes('7.11.2001')), 'a taxable sale of a right bought in 2002 is refused (transitional reduction; review, PR 128)');
+	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, buyDate: '2002-06-01' })).path === 'exempt' && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buyDate: '2004-01-01', depreciation: 0 })).ok, 'an exempt sale, or a purchase from 2004, is still computed');
+	// The rental chapter's excluded kinds of dwelling (s.25טו(א)(1)).
+	const hotel = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { excluded: true }));
+	check(!hotel.ok && hotel.errors.some((e) => e.field === 'excl' && e.he.includes('25טו(א)(1)')) && REUI.renderForm(reg, REUI.EXAMPLE).includes('id="jt12-excl-e"'), 'a hotel, hostel, assisted-living, dormitory or protected-tenancy dwelling is screened out (s.25טו(א)(1); review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 14) ---------- */
+{
+	check(SHUI.renderForm(reg, SHUI.EXAMPLE).includes('של נותן המתנה, כי הם עוברים אליכם'), 'the donor-basis guidance shows on every path, next to the acquisition fields (review, PR 128)');
+	const tooLong = PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2025-12-31', reason: 'fired', unpaidExcess: 500 });
+	check(!tooLong.ok && tooLong.errors.some((e) => e.field === 'unpaidExcess'), 'unpaid leave longer than the whole service is an input error, never a silent 0 (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 15) ---------- */
+{
+	const hr = PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 80, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevHours: 160 });
+	check(hr.ok && hr.severance === 12000 && hr.exempt === 12000 && hr.taxable === 0, 'hourly, a year at 160 hours then a year at 80 at 50: 12,000, all exempt (the higher earlier hours count; Form 161; review, PR 128)');
+	const stale = PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2026-03-31', reason: 'fired', noticeMode: 'none', noticeDate: '2025-11-01' });
+	check(stale.ok && stale.notice.month && stale.noticeDate === null && PEUI.letter(reg, stale).includes('חודש'), 'with no notice given, a stale notice date is ignored: a month after a year (review, PR 128)');
+	const f = PEUI.renderForm(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'term' }));
+	check(/name="jt13-rk" value="term" checked/.test(f) && !/name="jt13-rw" value="term"/.test(f) && /data-if-resign hidden/.test(f), 'a fixed term that ended is its own ending choice, not under resignation (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 16) ---------- */
+{
+	const inh = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { inherited: true }));
+	check(!inh.ok && inh.errors.some((e) => e.field === 'inherited' && e.he.includes('49ב(5)')) && SHUI.renderForm(reg, SHUI.EXAMPLE).includes('id="jt14-inherited-e"'), 'an inherited dwelling sold with tax is refused: it may be exempt under s.49ב(5) (review, PR 128)');
+	check(!SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, inherited: true })).ok, 'any inherited dwelling is refused, also when it looks exempt as a single home (the heir holding period; pass 19)');
+	const par = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'parent' }));
+	check(par.ok && !par.entitled && par.flags.some((f) => f.code === 'parent_unconfirmed' && f.he.includes('סעיף 7(ג)')), 'a parent resignation without the s.7 conditions confirmed: no severance computed (review, PR 128)');
+	check(PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'parent', parentOk: true })).entitled && PEUI.renderForm(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'parent' })).includes('name="jt13-po"'), 'confirmed: entitled; the form asks for it');
+	const rel = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { relative: true }));
+	check(rel.flags.find((f) => f.code === 'relative').he.includes('כפי שסוכם') && !rel.flags.find((f) => f.code === 'relative').he.includes('שומר עליהן'), 'the relative note matches the lease written as agreed (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 17) ---------- */
+{
+	const f = PEUI.renderForm(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'term' }));
+	check(f.includes('ולא הוצע לי לחדש אותו 3 חודשים לפני הסוף') && f.includes('סעיף 9'), 'the fixed-term choice states the s.9 condition: no renewal offer 3 months before the end (review, PR 128)');
+	const nine = PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2025-09-30', reason: 'fired' });
+	check(nine.ok && !nine.entitled && nine.flags.some((f2) => f2.code === 'near_year_ask'), 'a dismissal after 9 months: the s.3 question is raised, not closed by a cutoff');
+	const claimed = PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2025-09-30', reason: 'fired', nearClaim: true });
+	check(claimed.entitled && claimed.conditional && claimed.severance === 7500, 'when the person says it was close to the year end, the amount is computed under s.3 (review, PR 128)');
+	check(PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2025-09-30', reason: 'resign', nearClaim: true }).entitled === false, 's.3 is for dismissals only');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 18) ---------- */
+{
+	for (const reason of ['health', 'move', 'worse', 'retire']) {
+		const r = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason }));
+		check(r.ok && !r.entitled && r.flags.some((f) => f.code === 'ground_unconfirmed'), `a resignation for "${reason}" without its conditions confirmed: no severance (review, PR 128)`);
+		check(PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason, groundOk: true })).entitled, `"${reason}" confirmed: entitled`);
+	}
+	const f = PEUI.renderForm(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'move' }));
+	check(f.includes('name="jt13-po"') && f.includes('תקנה 12(ב)') && /data-ground-hint="move">/.test(f), 'the form shows the conditions of the chosen ground and asks to confirm them');
+	const rf = REUI.renderForm(reg, Object.assign({}, REUI.EXAMPLE, { relative: true }));
+	check(rf.includes('סב או סבתא, צאצא או צאצא של בן הזוג') && rf.includes('אינם קרובים לעניין זה'), 'the relative choice lists the s.25טו(ב) relations (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 19) ---------- */
+{
+	const shop = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buyDate: '2015-01-01', buyPrice: 1300000, buyCosts: 0, salePrice: 4000000, saleCosts: 0, depreciation: 0 }));
+	check(shop.ok && shop.tax > 0 && shop.flags.some((f) => f.code === 'surtax' && f.he.includes('בכל מחיר מכירה')), 'a non-residential sale under 5,385,285: the surtax warning still shows (review, PR 128)');
+	check(!SH.compute(reg, SHUI.EXAMPLE).flags.some((f) => f.code === 'surtax'), 'a dwelling under the price line: no surtax warning');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 20) ---------- */
+{
+	const worse = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'worse', groundOk: true, s14: 'none' }));
+	const arr = PE.byArrangement(reg, { payType: worse.payType, salary: worse.monthly, start: worse.start, end: worse.end, reason: worse.reason, groundOk: worse.groundOk });
+	check(worse.entitled && arr.none.employer === 103000 && PEUI.renderDetails(reg, worse).includes('103,000'), 'the three-arrangements cards keep a confirmed ground: the employer pays 103,000 without s.14 (review, PR 128)');
+	const near = PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2025-09-30', reason: 'fired', nearClaim: true });
+	check(near.nearClaim && PE.byArrangement(reg, { salary: 10000, start: '2025-01-01', end: '2025-09-30', reason: 'fired', nearClaim: near.nearClaim }).none.employer === 7500, 'and a claimed s.3 dismissal');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 21) ---------- */
+{
+	const health = reg.severance.reasons.find((x) => x.code === 'health');
+	check(health.conditions_he.includes('סיבה מספקת') && health.conditions_he.includes('תקנה 11') && health.conditions_he.includes('הורה של בן הזוג'), 'the health ground states the sufficient-reason test and the reg. 11 family list (review, PR 128)');
+	check(['worse', 'retire', 'parent', 'move'].every((c) => reg.severance.reasons.find((x) => x.code === c).conditions_he), 'every confirmable ground has its conditions');
+	const f = PEUI.renderForm(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'health' }));
+	check(/data-ground-hint="health">[^<]*סיבה מספקת/.test(f), 'the form shows them for the chosen ground');
+	const shop = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', inherited: true }));
+	check(!shop.ok && shop.errors.some((e) => e.field === 'inherited' && e.he.includes('לפי המוריש')) && /name="jt14-inh"/.test(SHUI.renderForm(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other' }))), 'an inherited non-residential right is refused too, and the question shows for every status (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 22) ---------- */
+{
+	const term = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'term' }));
+	check(!term.flags.some((f) => f.code === 'resign_as_fired') && term.flags.some((f) => f.code === 'term_as_fired' && f.section === 'סעיף 9'), 'a fixed term that ended is described as a dismissal, never as a resignation (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 23) ---------- */
+{
+	const other = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'other_ground' }));
+	check(!other.ok && other.errors.some((e) => e.field === 'reason') && PEUI.renderForm(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'resign' })).includes('value="other_ground"'), 'other statutory grounds (enlistment, a shelter, elected office ...) are offered and decline a definitive result (review, PR 128)');
+	const ret = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'retire', groundOk: true, s14: 'none' }));
+	const html = PEUI.renderResult(reg, ret) + PEUI.renderDetails(reg, ret);
+	check(ret.retireCredit && html.includes('פחות כספי הפיצויים בקופה') && html.includes('סעיף 11(ה)') && PEUI.letter(reg, ret).includes('נזקפים על חשבונם'), 'retirement: fund money for severance is credited even without s.14, and the result and letter say so (s.11(ה); review, PR 128)');
+	const f = SHUI.renderForm(reg, SHUI.EXAMPLE);
+	check(f.includes('הוצאות ששולמו ביום הרכישה') && f.includes('מוצמדת למדד מיום התשלום'), 'expenses are asked by their payment date (s.47; review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 24) ---------- */
+{
+	check(!SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { replacement: true })).ok && SHUI.renderForm(reg, SHUI.EXAMPLE).includes('id="jt14-replacement-e"'), 'a replacement within two homes (s.49ה) is screened (review, PR 128)');
+	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { seasonal: true })).ok && !PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { otherBreaks: true })).ok, 'seasonal work and the other reg. 10 breaks decline a definitive result (review, PR 128)');
+	const pf = PEUI.renderForm(reg, PEUI.EXAMPLE);
+	check(pf.includes('id="jt13-seasonal-e"') && pf.includes('id="jt13-breaks-e"'), 'the severance form asks for both');
+	check(!RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { sublease: true })).ok && REUI.renderForm(reg, REUI.EXAMPLE).includes('id="jt12-sub-e"'), 'a sublease is screened out (s.25טו(ג); review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 25) ---------- */
+{
+	const shop = Object.assign({}, SHUI.EXAMPLE, { status: 'other' });
+	check(!SH.compute(reg, shop).ok && SH.compute(reg, Object.assign({}, shop, { depreciation: 0 })).ok && SH.compute(reg, Object.assign({}, shop, { depreciation: 200000 })).tax > SH.compute(reg, Object.assign({}, shop, { depreciation: 0 })).tax, 'a non-residential right asks for its depreciation (0 for land) and uses it (s.47; review, PR 128)');
+	check(!/data-if-rented hidden/.test(SHUI.renderForm(reg, shop)), 'the depreciation field shows for a non-residential right');
+	const shortAsIs = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', asIs: true }));
+	const txt = RE.contractText(reg.rent_contract, shortAsIs, false);
+	check(shortAsIs.bad === 0 && shortAsIs.flags.find((f) => f.code === 'as_is').level === 'info' && txt.includes('ידע עליהם או היה עליו לדעת עליהם'), 'outside the chapter an "as is" term is written as agreed, within the s.8 limit (review, PR 128)');
+	check(RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { relative: true, asIs: true })).flags.find((f) => f.code === 'as_is').level === 'bad', 'between relatives it stays void (s.25ו by s.25יד(1))');
+	const dec = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { end: '2027-12-20' }));
+	check(dec.exempt === null && dec.taxNote === 'year', 'an end on 20.12.2027 may be paid in 2028: no split with the 2025-2027 ceiling (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 26) ---------- */
+{
+	const ret = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'retire', groundOk: true }));
+	const ltr = PEUI.letter(reg, ret);
+	check(ret.retireCredit && ret.s14 !== 'none' && !ltr.includes('28,840') && ltr.includes('סעיף 11(ה)') && !PEUI.verdictSentence(reg, ret).includes('28,840'), 'retirement with s.14: the letter and sentence ask for the completion less other fund money, never a fixed figure (s.11(ה); review, PR 128)');
+	const shortAsIs = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', asIs: true }));
+	check(RE.contractText(reg.rent_contract, shortAsIs, false).includes('היה עליו לדעת') && shortAsIs.flags.find((f) => f.code === 'as_is').he.includes('היה עליו לדעת'), 'the "as is" clause keeps defects the landlord knew or should have known (s.8; review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 27) ---------- */
+{
+	const lossShop = SH.compute(reg, { status: 'other', buyDate: '2015-01-01', buyPrice: 3000000, saleDate: '2026-09-01', salePrice: 2900000 });
+	check(!lossShop.ok && lossShop.errors.some((e) => e.field === 'depreciation'), 'an apparent loss on a non-residential right still needs the depreciation first (review, PR 128)');
+	const term = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'term', noticeDate: '2026-09-15', noticeMode: 'paid' }));
+	const html = PEUI.renderResult(reg, term) + PEUI.renderDetails(reg, term);
+	check(!term.flags.some((f) => f.code === 'paid_notice') && html.includes('לא נדרשת בדרך כלל') && !PEUI.verdictSentence(reg, term).includes('הודעה מוקדמת: חודש'), 'a fixed term that ended: no notice is presented as owed, paid or not (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 28) ---------- */
+{
+	const old = PE.compute(reg, { payType: 'hourly', hourly: 10, hours: 160, start: '2014-01-01', end: '2017-06-30', reason: 'fired' });
+	const row = PE.minWageOn(reg.min_wage, '2017-06-30');
+	check(old.floored && row.hourly_182 === null && old.base === Math.round(row.hourly_186 * 160 * 100) / 100, 'an hourly job that ended in June 2017 is floored at that row\'s 186-hour rate (review, PR 128)');
+	const table = SHUI.snapshot(reg).compare_table;
+	check(!/<td[^>]*>0 ₪<\/td>/.test(table) && !/>₪0</.test(table), 'the years table computes the non-residential column (no zero from a refused computation; review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 29) ---------- */
+{
+	const m = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { misconduct: true }));
+	check(!m.ok && m.errors.some((e) => e.field === 'misconduct' && e.he.includes('16 ו-17')) && PEUI.renderForm(reg, PEUI.EXAMPLE).includes('id="jt13-misconduct-e"'), 'a disciplinary dismissal declines a definitive result (ss.16-17; review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 30) ---------- */
+{
+	const com = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'none', commission: 3000 }));
+	check(com.ok && com.base === 15000 && com.severance === Math.round(15000 * 103 / 12 * 100) / 100 && PEUI.renderForm(reg, PEUI.EXAMPLE).includes('id="jt13-com"'), 'average commissions over 12 months are added to the salary (reg. 9; review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 31) ---------- */
+{
+	const hr = PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, commission: 4000, start: '2020-01-01', end: '2026-09-30', reason: 'fired', s14: 'none' });
+	const cards = PEUI.renderDetails(reg, hr);
+	const mo = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'none', commission: 3000 }));
+	check(hr.base === 12000 && cards.includes(`${Math.round(hr.severance).toLocaleString('en-US')} ₪`) && PEUI.renderDetails(reg, mo).includes('128,750'), 'the arrangement cards keep the commissions, hourly and monthly, without counting them twice (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 32) ---------- */
+{
+	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'term', misconduct: true })).ok, 'a fixed-term ending with alleged misconduct is screened too (ss.16-17; review, PR 128)');
+	const hc = PE.compute(reg, { payType: 'hourly', hourly: 12.5, hours: 160, commission: 10000, start: '2020-01-01', end: '2026-09-30', reason: 'fired', s14: 'none' });
+	check(hc.ok && !hc.floored && hc.base === 12000, 'hourly pay below the minimum rate but commissions above it: the floor does not erase the commissions (review, PR 128)');
+	const shortAsIs = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', asIs: true }));
+	check(!RE.contractText(reg.rent_contract, shortAsIs, false).includes('כשהיא ראויה ומתאימה למגורים'), 'outside the chapter with "as is" the lease drops the fitness warranty, so it does not contradict itself (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 33) ---------- */
+{
+	const late = PE.compute(reg, { salary: 10000, start: '2016-10-01', end: '2026-09-30', reason: 'fired', s14: 'partial', s14From: '2021-10-01' });
+	const d = PEUI.renderDetails(reg, late);
+	check(late.employer === 64000 && /jt7-scn--here[\s\S]*?64,000/.test(d), 'the card marked as yours keeps the s.14 start date: 64,000 from the employer, as in the main result (review, PR 128)');
+	const shortAsIs = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', asIs: true }));
+	check(RE.contractText(reg.rent_contract, shortAsIs, false).includes('שנוצר אחרי המסירה'), 'outside the chapter with "as is", the repair duty covers defects that arise after delivery (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 34) ---------- */
+{
+	const hc = PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, commission: 4000, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevHours: 160, prevHourly: 80 });
+	check(hc.ok && hc.cut && hc.prevBase === 16800 && hc.base === 12000 && hc.severance === 28800, 'an hourly cut from 80 to 50 with 4,000 commissions: the earlier period on 16,800, not 12,800 (review, PR 128)');
+	const hr = PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevHours: 80 });
+	check(hr.prevBase === 4000, 'without commissions the earlier hours are unchanged');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 35) ---------- */
+{
+	const old = PE.compute(reg, { salary: 100, start: '2005-01-01', end: '2010-06-30', reason: 'fired' });
+	check(!old.ok && old.errors.some((e) => e.field === 'end'), 'an end before the first minimum-wage row is declined, never computed on an unchecked salary (review, PR 128)');
+	const mc = PE.compute(reg, { salary: 8000, commission: 4000, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevSalary: 13000 });
+	check(mc.ok && mc.cut && mc.prevBase === 17000 && mc.severance === 29000, 'a monthly cut from 13,000 to 8,000 with 4,000 commissions: the earlier period on 17,000 (review, PR 128)');
+	const sc = PE.compute(reg, { salary: 5000, jobPct: 50, commission: 1000, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevPct: 100 });
+	check(sc.prevBase === 11000 && sc.severance === 17000, 'a scope change with commissions: the fixed pay scales, the commission stays');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 36) ---------- */
+{
+	const mid = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { start: '2026-11-15', payDay: 1 }));
+	check(RE.contractText(reg.rent_contract, mid, false).includes('התשלום הראשון ישולם במעמד החתימה') && RE.contractText(reg.rent_contract, mid, false).includes('ביום 15 בחודש'), 'a lease from the 15th with payment on the 1st states the first payment and the periods (review, PR 128)');
+	const r2005 = SH.compute(reg, { status: 'other', depreciation: 0, buyDate: '2005-06-01', buyPrice: 1000000, saleDate: '2026-09-01', salePrice: 2500000 });
+	check(r2005.ok && r2005.flags.some((f) => f.code === 'marginal' && f.he.includes('31.12.2011')), 'a purchase in 2005: the 20% slice carries the lower-rate note too (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 37) ---------- */
+{
+	const fl = PE.compute(reg, { salary: 1000, commission: 1000, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevSalary: 10000 });
+	check(fl.ok && fl.floored && fl.cut && fl.prevBase === 11000, 'a floored current pay with a pre-cut salary: the earlier period keeps the commission, 11,000 (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 38) ---------- */
+{
+	const imp = SH.compute(reg, { status: 'other', buyDate: '2010-06-01', buyPrice: 1000000, improve: 1000000, improveDate: '2012-06-01', depreciation: 1200000, saleDate: '2026-09-01', salePrice: 3000000 });
+	check(imp.ok && imp.dep === 1200000, 'depreciation above the purchase price but below the whole basis (with improvements) is accepted (review, PR 128)');
+	const fl = PE.compute(reg, { salary: 3000, commission: 1000, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevPct: 50 });
+	check(fl.ok && fl.floored && Math.abs(fl.prevBase - Math.round(((fl.base - 1000) * 0.5 + 1000) * 100) / 100) < 0.01, 'a floored pay with a scope change: the commission stays apart in the earlier period (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 39) ---------- */
+{
+	const full = SH.compute(reg, { status: 'other', buyDate: '2010-06-01', buyPrice: 1000000, improve: 1000000, improveDate: '2012-06-01', depreciation: 2000000, saleDate: '2026-09-01', salePrice: 3000000 });
+	check(full.ok && full.dep === 2000000 && full.tax > 0 && !SH.compute(reg, { status: 'other', buyDate: '2010-06-01', buyPrice: 1000000, improve: 1000000, improveDate: '2012-06-01', depreciation: 2000001, saleDate: '2026-09-01', salePrice: 3000000 }).ok, 'depreciation equal to the whole basis is accepted, above it is not (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 40) ---------- */
+{
+	const biz = Object.assign({}, SHUI.EXAMPLE, { status: 'qualified', residential: false });
+	check(!SH.compute(reg, biz).ok && SH.compute(reg, Object.assign({}, biz, { depreciation: 500000 })).tax > SH.compute(reg, Object.assign({}, biz, { depreciation: 0 })).tax && !/data-if-rented hidden/.test(SHUI.renderForm(reg, biz)), 'a dwelling used mainly for business asks for its depreciation and uses it (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 41) ---------- */
+{
+	const land = SH.compute(reg, { status: 'single', family: true, buyDate: '2021-01-01', buyPrice: 1000000, saleDate: '2026-09-01', salePrice: 2000000, offPlan: true, dwellingDate: '2026-03-01' });
+	check(land.ok && land.path !== 'exempt' && land.flags.some((f) => f.code === 'held') && SHUI.renderForm(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single' })).includes('מגרש שבניתי עליו'), 'land built on or converted: the 18 months run from the day it became a dwelling (s.49ב(2); review, PR 128)');
+	const late = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { start: '2026-11-15', payDay: 20 }));
+	check(RE.contractText(reg.rent_contract, late, false).includes('בחודש הלועזי שלפני החודש שבו מתחיל'), 'a pay day after the start day: each payment falls in the month before its rental month, still in advance (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 42) ---------- */
+{
+	const ex = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, rented: true }));
+	check(ex.ok && ex.path === 'exempt' && ex.scen.linear === null && ex.scen.regular === null && SHUI.renderDetails(reg, ex).includes('הזינו את הפחת כדי לחשב'), 'an exempt rented home without depreciation shows no taxable alternatives (review, PR 128)');
+	const oct = PE.compute(reg, { salary: 10000, start: '2020-01-01', end: '2026-10-31', reason: 'fired' });
+	const cert = oct.deadlines.find((d) => d.key === 'cert');
+	check(cert.date === '2026-11-15', 'a certificate deadline on Saturday 14.11.2026 moves to Sunday 15.11 (Interpretation Law s.10(ג); review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 43) ---------- */
+{
+	const d = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', asIs: true, defects: 'רטיבות בקיר' }));
+	const txt = RE.contractText(reg.rent_contract, d, false);
+	check(txt.includes('השוכר מקבל את הפגמים האלה כפי שהם') && !txt.includes('אין בכך כדי לפטור את המשכיר מתיקון פגם'), 'outside the chapter with "as is", disclosed defects are accepted as they are, not promised for repair (review, PR 128)');
+	check(RE.contractText(reg.rent_contract, RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { defects: 'רטיבות בקיר' })), false).includes('אין בכך כדי לפטור את המשכיר מתיקון פגם'), 'inside the chapter the landlord still repairs disclosed defects');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 44) ---------- */
+{
+	const feb = SH.compute(reg, { status: 'single', family: true, buyDate: '2024-01-01', buyPrice: 1000000, saleDate: '2026-08-30', salePrice: 2000000, offPlan: true, dwellingDate: '2025-02-28' });
+	check(feb.ok && !feb.held && SH.compute(reg, { status: 'single', family: true, buyDate: '2024-01-01', buyPrice: 1000000, saleDate: '2026-08-31', salePrice: 2000000, offPlan: true, dwellingDate: '2025-02-28' }).held, 'a dwelling from 28.2.2025: 18 months end 31.8.2026, not a day earlier (review, PR 128)');
+	check(RE.contractText(reg.rent_contract, RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { start: '2027-01-31' })), false).includes('ביום האחרון של החודש'), 'a lease from the 31st defines short months (review, PR 128)');
 }
 
 if (failures) {

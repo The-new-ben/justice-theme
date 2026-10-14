@@ -68,8 +68,10 @@ export function minWageOn(mw, day) {
 /**
  * input = { payType ('monthly'|'hourly'), salary, hourly, hours, jobPct, start, end, reason ('fired'|'resign'|one of
  *           RESIGN_CODES), s14 ('none'|'full'|'partial'|'custom'), s14Pct, s14From, noticeDate, noticeMode
- *           ('worked'|'paid'|'none'), change (monthly pay only: the job scope or the pay changed once), changeDate,
- *           prevPct (the scope before), prevSalary (the pay before, when it was cut), manyChanges (more than one) }
+ *           ('worked'|'paid'|'none'), change (the job scope or the pay changed once), changeDate, prevPct and
+ *           prevSalary (monthly: the scope before, the pay before a cut), prevHours and prevHourly (hourly: the hours
+ *           before, the rate before a cut), manyChanges (more than one), unpaidExcess (days of unpaid leave above 14 in
+ *           each work year, summed: reg. 10(3)) }
  */
 export function compute(registry, input) {
 	const sv = registry.severance;
@@ -104,15 +106,24 @@ export function compute(registry, input) {
 	if (s14 !== 'none' && s14From && end && s14From > end) { errors.push({ field: 's14From', he: 'תחילת ההפרשות לפי סעיף 14 לפני היום האחרון בעבודה' }); }
 	// One change of scope or pay (calculation regulations 7 and 8): each period on its own salary. More than one change is
 	// not computed (review, PR 128).
-	const change = payType === 'monthly' && Boolean(input.change);
+	const change = Boolean(input.change);
 	const changeDate = change ? parseDate(input.changeDate) : null;
-	const prevPct = change && !blank(input.prevPct) ? Number(input.prevPct) : jobPct;
-	const prevSalary = change && !blank(input.prevSalary) ? Number(input.prevSalary) : null;
+	const monthlyChange = change && payType === 'monthly';
+	const hourlyChange = change && payType === 'hourly';
+	const prevPct = monthlyChange && !blank(input.prevPct) ? Number(input.prevPct) : jobPct;
+	const prevSalary = monthlyChange && !blank(input.prevSalary) ? Number(input.prevSalary) : null;
+	const prevHours = hourlyChange ? Number(input.prevHours) : null;
+	const prevHourly = hourlyChange && !blank(input.prevHourly) ? Number(input.prevHourly) : null;
+	if (hourlyChange && !(prevHours > 0 && prevHours <= 400)) { errors.push({ field: 'prevHours', he: 'ממוצע השעות בחודש לפני השינוי: 1 עד 400' }); }
+	if (hourlyChange && prevHourly !== null && !(prevHourly > 0 && prevHourly < 10000)) { errors.push({ field: 'prevHourly', he: 'השכר לשעה לפני השינוי: מספר חיובי או ריק' }); }
+	// Unpaid leave above 14 days in a work year is not counted (reg. 10(3)); the person sums the excess of each year.
+	const unpaidExcess = blank(input.unpaidExcess) ? 0 : Number(input.unpaidExcess);
+	if (!(Number.isFinite(unpaidExcess) && unpaidExcess >= 0 && unpaidExcess < 36500)) { errors.push({ field: 'unpaidExcess', he: 'ימי חופשה ללא תשלום: מספר ימים, 0 או ריק' }); }
 	if (change && input.manyChanges) { errors.push({ field: 'change', he: 'יותר משינוי אחד בהיקף המשרה או בשכר: כל תקופה מחושבת לפי ההיקף והשכר שלה (תקנות 7 ו-8 לתקנות החישוב). המחשבון מחשב שינוי אחד בלבד; את החישוב לכמה תקופות עושים לפי התלושים, עם עורך דין או רואה חשבון.' }); }
 	if (change && !changeDate) { errors.push({ field: 'changeDate', he: 'מאיזה יום חל השינוי: תאריך מלא' }); }
 	if (change && changeDate && start && end && (changeDate <= start || changeDate > end)) { errors.push({ field: 'changeDate', he: 'יום השינוי אחרי יום התחילה ועד היום האחרון' }); }
-	if (change && !(prevPct > 0 && prevPct <= 100)) { errors.push({ field: 'prevPct', he: 'היקף המשרה לפני השינוי: 1% עד 100%' }); }
-	if (change && prevSalary !== null && !(prevSalary > 0 && prevSalary < 1e7)) { errors.push({ field: 'prevSalary', he: 'השכר לפני השינוי: מספר חיובי או ריק' }); }
+	if (monthlyChange && !(prevPct > 0 && prevPct <= 100)) { errors.push({ field: 'prevPct', he: 'היקף המשרה לפני השינוי: 1% עד 100%' }); }
+	if (monthlyChange && prevSalary !== null && !(prevSalary > 0 && prevSalary < 1e7)) { errors.push({ field: 'prevSalary', he: 'השכר לפני השינוי: מספר חיובי או ריק' }); }
 	const noticeDate = blank(input.noticeDate) ? null : parseDate(input.noticeDate);
 	if (!blank(input.noticeDate) && !noticeDate) { errors.push({ field: 'noticeDate', he: 'יום מסירת ההודעה: תאריך מלא' }); }
 	if (noticeDate && end && start && (noticeDate > end || noticeDate < start)) { errors.push({ field: 'noticeDate', he: 'ההודעה ניתנה בין יום התחילה ליום העבודה האחרון' }); }
@@ -144,17 +155,25 @@ export function compute(registry, input) {
 	const entitled = (yearOk || nearYear) && entitledByReason;
 	// The periods of work and the salary of each: reg. 7 (a change of scope: the last salary, proportional to the scope of
 	// each period) and reg. 8 (a pay cut: the period before it on the salary before it).
+	// For a wage worker the scope is the hours: the earlier period on the current hourly rate times the earlier hours.
 	const fte = base * 100 / jobPct;
-	const reg7 = r2(fte * prevPct / 100);
-	const cut = change && prevSalary !== null && prevSalary > reg7;
-	const prevBase = change ? (cut ? prevSalary : reg7) : base;
+	const rate = payType === 'hourly' ? base / hours : null;
+	const reg7 = hourlyChange ? r2(rate * prevHours) : r2(fte * prevPct / 100);
+	const cut = hourlyChange ? prevHourly !== null && prevHourly > rate : monthlyChange && prevSalary !== null && prevSalary > reg7;
+	const prevBase = !change ? base : cut ? (hourlyChange ? r2(prevHourly * prevHours) : prevSalary) : reg7;
+	const pctNow = payType === 'hourly' ? 100 : jobPct;
 	const periods = change
-		? [{ from: start, to: addDays(changeDate, -1), salary: prevBase, pct: prevPct }, { from: changeDate, to: end, salary: base, pct: jobPct }]
-		: [{ from: start, to: end, salary: base, pct: jobPct }];
+		? [{ from: start, to: addDays(changeDate, -1), salary: prevBase, pct: payType === 'hourly' ? 100 : prevPct }, { from: changeDate, to: end, salary: base, pct: pctNow }]
+		: [{ from: start, to: end, salary: base, pct: pctNow }];
 	const yearsOf = (a, b) => (a > b ? 0 : serviceSpan(a, b).years);
-	const sevFrom = (from) => periods.reduce((t, p) => t + p.salary * yearsOf(from > p.from ? from : p.from, p.to), 0);
+	// Uncounted unpaid leave shortens the service the amount is computed on, spread over the periods in proportion.
+	const leaveFactor = unpaidExcess > 0 ? Math.max(0, (span.years - unpaidExcess / 365) / span.years) : 1;
+	const countedYears = span.years * leaveFactor;
+	const sevFrom = (from) => periods.reduce((t, p) => t + p.salary * yearsOf(from > p.from ? from : p.from, p.to), 0) * leaveFactor;
 	const severance = entitled ? r2(sevFrom(start)) : 0;
-	if (change) { add('info', 'change', `חושב לפי שתי תקופות (${cut ? 'תקנה 8: הפחתת שכר' : 'תקנה 7: שינוי בהיקף המשרה'}): עד ${heDay(periods[0].to)} לפי ${Math.round(prevBase).toLocaleString('en-US')} ₪ לחודש (${prevPct}% משרה), ומ-${heDay(changeDate)} לפי ${Math.round(base).toLocaleString('en-US')} ₪ (${jobPct}% משרה).`, cut ? 'תקנה 8' : 'תקנה 7'); }
+	const scopeText = (p, h) => (payType === 'hourly' ? `${h} שעות בחודש` : `${p}% משרה`);
+	if (change) { add('info', 'change', `חושב לפי שתי תקופות (${cut ? 'תקנה 8: הפחתת שכר' : 'תקנה 7: שינוי בהיקף המשרה'}): עד ${heDay(periods[0].to)} לפי ${Math.round(prevBase).toLocaleString('en-US')} ₪ לחודש (${scopeText(prevPct, prevHours)}), ומ-${heDay(changeDate)} לפי ${Math.round(base).toLocaleString('en-US')} ₪ (${scopeText(jobPct, hours)}).`, cut ? 'תקנה 8' : 'תקנה 7'); }
+	if (unpaidExcess > 0) { add('info', 'leave', `${unpaidExcess} ימי חופשה ללא תשלום, מעבר ל-14 בשנת עבודה, לא נספרים בחישוב הפיצויים (תקנה 10(3)): התקופה לחישוב ${countedYears.toFixed(2)} שנים במקום ${span.years.toFixed(2)}. חופשת לידה שמשולמים עליה דמי לידה נספרת.`, 'תקנה 10(3)'); }
 	if (!yearOk && !nearYear) { add('bad', 'under_year', `עבדתם פחות משנה (${span.months} חודשים ו-${span.days} ימים): אין זכות לפיצויי פיטורים לפי החוק (סעיף 1(א)). ההודעה המוקדמת מגיעה בכל מקרה.`, 'סעיף 1(א)'); }
 	if (nearYear) { add('warn', 'near_year', `פוטרתם אחרי ${span.months} חודשים, סמוך לסוף השנה הראשונה: חזקה שהפיטורים נעשו כדי לחמוק מפיצויים, והם לא פוגעים בזכות אלא אם המעסיק יוכיח אחרת (סעיף 3). הסכום כאן יחסי לתקופה שעבדתם.`, 'סעיף 3'); }
 	if (reason === 'resign') { add('info', 'resign', 'בהתפטרות רגילה אין זכות לפיצויים מהמעסיק. כספים שהופרשו לפיצויים לפי סעיף 14 שייכים לכם גם בהתפטרות.', 'סעיף 14'); }
@@ -206,7 +225,8 @@ export function compute(registry, input) {
 	const tax = sv.tax;
 	const taxKnown = end >= tax.from && end <= tax.to;
 	const perYear = Math.min(base, tax.ceiling);
-	const withFund = entitled && s14 !== 'none';
+	// A fund exists whenever s.14 applied, also on a resignation: its balance is unknown, so only the ceiling is.
+	const withFund = s14 !== 'none';
 	// The ceiling is the final monthly salary times the whole service (s.9(7א)(א)); when the final salary was for part-time
 	// work, the full-time years count on the full-time salary (s.9(7א)(ד)). Pay cuts (reg. 8) do not change it (review,
 	// PR 128).
@@ -231,7 +251,7 @@ export function compute(registry, input) {
 	return {
 		ok: true, payType, monthly, base, floored, hourly, hours, jobPct, start, end, span, reason, reasonRow, entitled, yearOk, conditional,
 		severance, s14, s14Pct, s14From, coveredYears, coveredSev, fundReplaces, fundUnknown, employer,
-		change, changeDate, prevPct, prevSalary, prevBase, cut, periods, taxNote,
+		change, changeDate, prevPct, prevSalary, prevHours, prevHourly, prevBase, cut, periods, taxNote, unpaidExcess, countedYears,
 		notice, workedToNotice, noticeDate, noticeEnd, short, inLieu, noticeMode,
 		exempt, taxable, exemptCap, ceilingTotal, perYear, deadlines, flags, mwRow,
 	};

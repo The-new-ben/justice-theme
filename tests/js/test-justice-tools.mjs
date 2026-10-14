@@ -1001,7 +1001,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(cutPay.ok && cutPay.cut && cutPay.severance === 18000 && cutPay.flags.some((f) => f.code === 'change' && f.section === 'תקנה 8'), 'a pay cut from 10,000 to 8,000: the year before it on 10,000 (reg. 8)');
 	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { change: true, changeDate: '2022-01-01', prevPct: 50, manyChanges: true })).ok && PEUI.renderForm(reg, PEUI.EXAMPLE).includes('id="jt13-change-e"') && PEUI.renderForm(reg, PEUI.EXAMPLE).includes('name="jt13-chg"'), 'more than one change is refused, on its own error line');
 	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { change: true, changeDate: '2017-01-01' })).ok && !PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { change: true, changeDate: '' })).ok, 'the change day must fall inside the work');
-	check(PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '2020-01-01', end: '2025-12-31', change: true, changeDate: '2022-01-01', prevPct: 50 }).change === false, 'the change block is for a monthly salary only');
+	check(!PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '2020-01-01', end: '2025-12-31', change: true, changeDate: '2022-01-01', prevPct: 50 }).ok, 'an hourly worker states the change in hours, not in percent (pass 8)');
 	const same = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'none', change: true, changeDate: '2022-01-01', prevPct: 100 }));
 	check(same.severance === 103000, 'a "change" with the same scope and no pay cut gives the plain result');
 	// Section 14: the fund's balance is unknown and never shown as an amount (review, PR 128).
@@ -1040,6 +1040,28 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const quit = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'resign' }));
 	check(!quit.entitled && quit.deadlines.length === 1 && quit.deadlines[0].key === 'cert' && !PEUI.renderResult(reg, quit).includes('הפיצויים צריכים להיות בחשבון'), 'no severance due: only the employment certificate deadline, no payment clock (review, PR 128)');
 	check(PE.compute(reg, PEUI.EXAMPLE).deadlines.length === 5, 'with severance due all five deadlines stay');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 8) ---------- */
+{
+	// Unpaid leave above 14 days a year is not counted (reg. 10(3)).
+	const leave = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'none', unpaidExcess: 76 }));
+	check(leave.ok && leave.severance === Math.round(12000 * (103 / 12 - 76 / 365) * 100) / 100 && leave.flags.some((f) => f.code === 'leave' && f.section === 'תקנה 10(3)') && PEUI.verdictSentence(reg, leave).includes('76 ימי חופשה ללא תשלום'), 'a 90-day unpaid leave in one year (76 days above 14): the service is shortened, and the result says so (review, PR 128)');
+	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { unpaidExcess: -3 })).ok && PEUI.renderForm(reg, PEUI.EXAMPLE).includes('id="jt13-ul"'), 'the unpaid-leave field is validated and in the form');
+	// Hourly workers: the scope is the hours (reg. 7 applies correspondingly).
+	const hr = PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevHours: 80 });
+	check(hr.ok && hr.change && hr.prevBase === 4000 && hr.severance === 12000 && hr.flags.some((f) => f.code === 'change' && f.he.includes('80 שעות')), 'an hourly worker from 80 to 160 hours a month at 50: 4,000 x 1 + 8,000 x 1 = 12,000 (review, PR 128)');
+	check(!PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '2024-01-01', end: '2025-12-31', change: true, changeDate: '2025-01-01' }).ok, 'an hourly change needs the earlier hours');
+	const hrCut = PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevHours: 160, prevHourly: 60 });
+	check(hrCut.cut && hrCut.severance === 9600 + 8000, 'an hourly pay cut from 60 to 50: the year before on 60 (reg. 8)');
+	// s.14 on a resignation: the fund's tax split is unknown too.
+	const quit = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'resign' }));
+	check(quit.fundUnknown && quit.taxNote === 'fund' && quit.taxable === null && quit.exempt > 0 && PEUI.renderResult(reg, quit).includes('עד '), 'a resignation with a s.14 fund: exempt up to the ceiling, the taxable part unknown, never 0 / 0 (review, PR 128)');
+	// The rent chapter's scope (s.25טו): outside it a deposit above the cap is not a violation.
+	const shortLease = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', bank: '', cash: 30000, forbidden: { insurance: true } }));
+	check(shortLease.ok && !shortLease.applies && shortLease.bad === 0 && shortLease.sec.cash === 30000 && shortLease.flags.some((f) => f.code === 'deposit_free') && !shortLease.flags.some((f) => f.code === 'deposit_over') && shortLease.flags.find((f) => f.code === 'pay_insurance').level === 'warn' && RE.contractText(reg.rent_contract, shortLease, false).includes('30,000'), 'a 3-month lease with no option: the deposit stays as agreed, nothing is called a violation (s.25טו; review, PR 128)');
+	const longLease = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { bank: '', cash: 30000 }));
+	check(longLease.applies && longLease.flags.some((f) => f.code === 'deposit_over' && f.level === 'bad') && longLease.sec.cash === 18000, 'inside the chapter the cap still binds');
 }
 
 if (failures) {

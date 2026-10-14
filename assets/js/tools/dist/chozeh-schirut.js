@@ -405,7 +405,10 @@ function compute(registry, input) {
 
 	// Security (s.25י).
 	let scale = 1;
-	if (counted > cap.cap + 0.005) {
+	if (!applies && counted > cap.cap + 0.005) {
+		// Outside the chapter (s.25טו) the cap does not bind: the amount stays as agreed, with a note (review, PR 128).
+		add('info', 'deposit_free', `הערובות (${sh(counted)}) מעל מה שמותר בשכירות שהסימן חל עליה (${sh(cap.cap)}), אבל כאן הסימן לא חל בחובה (סעיף 25טו), ולכן הסכום נשאר כפי שסוכם.`, ['25טו', '25י(ב)']);
+	} else if (counted > cap.cap + 0.005) {
 		scale = cap.cap / counted;
 		add('bad', 'deposit_over', `הערובות שעולות כסף לשוכר (${sh(counted)}) גבוהות מהתקרה ב-${sh(counted - cap.cap)}. מותר לבקש עד ${sh(cap.cap)}: הנמוך מבין דמי השכירות לשליש מהתקופה (${sh(cap.byTerm)}) ופי ${rc.deposit.months} מדמי השכירות לחודש (${sh(cap.byMonths)}).`, ['25י(ב)'], sh(counted), sh(cap.cap));
 	} else if (counted > 0) {
@@ -444,6 +447,12 @@ function compute(registry, input) {
 	const defects = String(input.defects || '').trim();
 	if (!defects) { add('info', 'no_defects', 'לא פירטתם פגמים ידועים: החוזה אומר שהמשכיר מצהיר שלא ידוע לו על פגם שאינו קל ערך. אם יש פגם ידוע, כתבו אותו, כי החוק מחייב לפרט אותו בחוזה (התוספת השנייה, פרט 7).', ['25ג']); }
 
+	// Outside the chapter, a term it forbids is not a violation: the lease keeps the protection, said as a choice.
+	if (!applies) {
+		flags.forEach((f) => {
+			if (f.level === 'bad' && f.cites.every((c) => /^25/.test(c))) { f.level = 'warn'; f.he = `הסימן לא חל בחובה על חוזה זה (סעיף 25טו), והחוזה שומר על ההגנה מרצון: ${f.he}`; }
+		});
+	}
 	const end = start ? addDays(addMonths(start, months), -1) : '';
 	const optionRent = r2(rent * (100 + optionPct) / 100);
 	const bad = flags.filter((f) => f.level === 'bad').length;

@@ -926,6 +926,41 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!PE.compute(reg, PEUI.EXAMPLE).fundUnknown, 'with a right to severance the share of the fund is computed');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 3) ---------- */
+{
+	// Notice runs both ways: a dismissal without notice is owed by the employer (s.7(א)); a resignation without notice is
+	// owed by the worker to the employer (s.7(ב)), and the letter never demands it.
+	for (const reason of ['resign', 'health']) {
+		const q = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason, noticeMode: 'none' }));
+		const f = q.flags.find((x) => x.code === 'no_notice');
+		check(q.ok && f && f.section === 'סעיף 7(ב)' && f.he.includes('למעסיק') && !PEUI.letter(reg, q).includes('7(א)'), `a resignation (${reason}) without notice: the worker owes the employer (s.7(ב)), and the letter does not demand notice pay (review, PR 128)`);
+	}
+	const fired = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { noticeMode: 'none' }));
+	check(fired.flags.find((x) => x.code === 'no_notice').section === 'סעיף 7(א)' && PEUI.letter(reg, fired).includes('סעיף 7(א)'), 'a dismissal without notice: the employer owes it, and the letter asks for it');
+	const shortQuit = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'resign', noticeDate: '2026-09-15' }));
+	const shortFired = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { noticeDate: '2026-09-15' }));
+	check(shortQuit.short > 0 && shortQuit.flags.find((x) => x.code === 'short_notice').section === 'סעיף 7(ב)' && !PEUI.letter(reg, shortQuit).includes('ימים לפני המועד'), 'a short notice on a resignation is owed by the worker (s.7(ב)), not claimed in the letter');
+	check(shortFired.short > 0 && shortFired.flags.find((x) => x.code === 'short_notice').section === 'סעיף 7(א)' && PEUI.letter(reg, shortFired).includes(`${shortFired.short} ימים לפני המועד`), 'a short notice on a dismissal: the letter asks for the missing days');
+	check(PEUI.renderForm(reg, PEUI.EXAMPLE).includes('לא ניתנה הודעה') && !PEUI.renderForm(reg, PEUI.EXAMPLE).includes('לא קיבלתי הודעה'), 'the no-notice chip reads for both directions');
+
+	// A gift (s.49ו): the single-home exemption waits 4 years from the gift, or 3 years from moving in as owner.
+	const g = Object.assign({}, SHUI.EXAMPLE, { status: 'single', buyDate: '2023-03-01', buyPrice: 1500000, buyCosts: 0, saleDate: '2026-10-01', salePrice: 1900000, saleCosts: 0, gift: true });
+	const cold = SH.compute(reg, g);
+	check(cold.ok && cold.path !== 'exempt' && cold.tax > 0 && cold.scen.exempt === null && cold.flags.some((f) => f.code === 'gift_cooling' && f.he.includes('1.3.2027') && f.section === 'סעיף 49ו'), 'a gift received 1.3.2023 and sold 1.10.2026 without living there: no exemption before 1.3.2027 (s.49ו(א)(1); review, PR 128)');
+	const lived = SH.compute(reg, Object.assign({}, g, { giftLived: true, livedFrom: '2023-06-01' }));
+	check(lived.ok && lived.path === 'exempt' && lived.flags.some((f) => f.code === 'gift_cooled'), 'lived there from 1.6.2023: 3 years end 1.6.2026, so a sale on 1.10.2026 is exempt (s.49ו(א)(2))');
+	const early = SH.compute(reg, Object.assign({}, g, { giftLived: true, livedFrom: '2024-01-01' }));
+	check(early.ok && early.path !== 'exempt' && early.flags.some((f) => f.code === 'gift_cooling' && f.he.includes('1.1.2027')), 'moved in on 1.1.2024: the 3 years end 1.1.2027');
+	const before = SH.compute(reg, Object.assign({}, g, { giftLived: true, livedFrom: '2020-01-01' }));
+	check(before.ok && before.flags.some((f) => f.code === 'gift_cooled' && f.he.includes('1.3.2026')), 'living there before the gift counts from the gift (1.3.2023 + 3 years)');
+	const minor = SH.compute(reg, Object.assign({}, g, { giftMinor: true }));
+	check(!minor.ok && minor.errors.some((e) => e.field === 'gift' && e.he.includes('סעיף 49ו(ב)')) && SHUI.renderForm(reg, Object.assign({}, g, { giftMinor: true })).includes('id="jt14-gift-e"'), 'a gift received before 18 is refused with a pointer to the simulator, on its own error line (s.49ו(ב))');
+	check(!SH.compute(reg, Object.assign({}, g, { giftLived: true, livedFrom: '' })).ok, 'living there needs the day it began');
+	check(SH.compute(reg, Object.assign({}, g, { gift: false })).path === 'exempt' && SH.compute(reg, Object.assign({}, g, { status: 'qualified' })).flags.every((f) => !f.code.startsWith('gift')), 'without a gift, or for a second home, the gift rule does not apply');
+	check(SH.compute(reg, Object.assign({}, g, { saleDate: '2027-03-01' })).path === 'exempt', 'a sale on 1.3.2027, four years from the gift, is exempt');
+	check(reg.shevach.gift.other_months === 48 && reg.shevach.gift.lived_months === 36 && reg.shevach.gift.section === 'סעיף 49ו', 'the registry holds the s.49ו periods');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

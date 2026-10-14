@@ -325,6 +325,7 @@ function addCountedDays(iso, n, skip) {
 
 const r2 = (n) => Math.round(n * 100) / 100;
 const blank = (v) => v === '' || v === undefined || v === null;
+const heIso = (iso) => iso.split('-').reverse().map(Number).join('.');
 const STATUSES = ['single', 'qualified', 'other'];
 
 /** The CBS index on one chained scale, and the month known on a day (published on the 15th, known from the 16th). */
@@ -380,7 +381,8 @@ function taxLinear(sv, realGain, shares) {
  * input = { status ('single'|'qualified'|'other'), buyDate, buyPrice, buyCosts, improve, improveDate, saleDate, salePrice,
  *           saleCosts, mortgage, priorExempt (an exempt single-home sale in the 18 months before), rented, residential
  *           (confirmed mainly residential use, s.49(א); default true), offPlan (bought
- *           before it was built), dwellingDate (the day it became a dwelling) }
+ *           before it was built), dwellingDate (the day it became a dwelling), gift (received as a gift, s.49ו),
+ *           giftLived + livedFrom (lived in it permanently as owner, from that day), giftMinor (received before 18) }
  */
 function compute(registry, input) {
 	const sv = registry.shevach;
@@ -415,6 +417,14 @@ function compute(registry, input) {
 		if (!(Number.isFinite(v) && v >= 0 && v < 1e10)) { errors.push({ field: k, he: 'סכום: מספר חיובי או ריק' }); }
 	}
 	const improveDate = improve > 0 ? parseDate(input.improveDate) : null;
+	// A gift (s.49ו): the single-home exemption waits for a cooling period. Received before 18, the count starts at 18
+	// (s.49ו(ב)): the tool does not hold the birth date, so that case goes to the simulator (review, PR 128).
+	const gift = status === 'single' && Boolean(input.gift);
+	const giftLived = gift && Boolean(input.giftLived);
+	const livedFrom = giftLived ? parseDate(input.livedFrom) : null;
+	if (gift && input.giftMinor) { errors.push({ field: 'gift', he: `דירה שקיבלתם במתנה לפני גיל ${sv.gift.adult_age}: תקופת הצינון נספרת מהיום שמלאו לכם ${sv.gift.adult_age} (סעיף 49ו(ב)). את המקרה הזה המחשבון לא מחשב; השתמשו בסימולטור של רשות המסים.` }); }
+	if (giftLived && !livedFrom) { errors.push({ field: 'livedFrom', he: 'מתי התחלתם לגור בדירה דרך קבע: תאריך מלא' }); }
+	if (giftLived && livedFrom && saleDate && livedFrom > saleDate) { errors.push({ field: 'livedFrom', he: 'תחילת המגורים לפני יום המכירה' }); }
 	if (improve > 0 && !improveDate) { errors.push({ field: 'improveDate', he: 'מתי שופצה הדירה: תאריך מלא' }); }
 	if (improve > 0 && improveDate && buyDate && saleDate && (improveDate < buyDate || improveDate > saleDate)) { errors.push({ field: 'improveDate', he: 'השיפוץ בין יום הרכישה ליום המכירה' }); }
 	if (errors.length) { return { ok: false, errors }; }
@@ -457,12 +467,19 @@ function compute(registry, input) {
 	// empty counts). The person confirms it; without it the sale is taxed as any other right (review, PR 128).
 	const residential = status !== 'other' && input.residential !== false;
 	if (status !== 'other' && !residential) { add('bad', 'not_residential', 'הדירה לא שימשה בעיקר למגורים: אין פטור לדירה יחידה ואין חישוב לינארי (סעיף 49(א)). החישוב הרגיל.', 'סעיף 49(א)'); }
-	const singleOk = status === 'single' && residential && held && !input.priorExempt;
+	// The gift's cooling period runs from the day the seller became the owner (4 years), or from the day the owner began
+	// to live there permanently (3 years); living there before the gift counts from the gift (s.49ו(א)).
+	const coolFrom = gift ? (giftLived && livedFrom > buyDate ? livedFrom : buyDate) : null;
+	const coolEnd = gift ? addMonths(coolFrom, giftLived ? sv.gift.lived_months : sv.gift.other_months) : null;
+	const giftOk = !gift || saleDate >= coolEnd;
+	const singleOk = status === 'single' && residential && held && !input.priorExempt && giftOk;
 	let path = !residential ? 'regular' : (lin ? 'linear' : 'regular');
 	let tax = path === 'linear' ? lin.tax : regular.tax;
 	let exemptShare = 0;
 	if (status === 'single') {
 		if (residential && !held) { add('bad', 'held', `הדירה בבעלותכם פחות מ-${sv.single.hold_months} חודשים מאז שהיתה לדירת מגורים: אין פטור לדירה יחידה (${sv.single.section}). החישוב כדירת מגורים חייבת.`, sv.single.section); }
+		if (residential && !giftOk) { add('bad', 'gift_cooling', `קיבלתם את הדירה במתנה: הפטור לדירה יחידה ניתן רק ${giftLived ? `${sv.gift.lived_months / 12} שנים מהיום שהתחלתם לגור בה דרך קבע כבעלים` : `${sv.gift.other_months / 12} שנים מהיום שקיבלתם אותה`}, כלומר במכירה מ-${heIso(coolEnd)} (סעיף 49ו(א)(${giftLived ? 2 : 1})). עד אז החישוב כדירת מגורים חייבת.`, sv.gift.section); }
+		if (residential && gift && giftOk) { add('ok', 'gift_cooled', `דירה שהתקבלה במתנה: תקופת הצינון הסתיימה (${heIso(coolEnd)}), והפטור אפשרי (סעיף 49ו(א)).`, sv.gift.section); }
 		if (residential && input.priorExempt) { add('bad', 'prior', `מכרתם דירה אחרת בפטור כזה ב-${sv.single.gap_months} החודשים שלפני: אין פטור נוסף (${sv.single.section}). החישוב כדירת מגורים חייבת.`, sv.single.section); }
 	}
 	if (singleOk) {
@@ -510,7 +527,7 @@ function compute(registry, input) {
 const TOOL_ID = 'mas-shevach';
 const P = 'jt14';
 
-const EXAMPLE = { status: 'qualified', buyDate: '2010-06-01', buyPrice: 1200000, buyCosts: 60000, improve: '', improveDate: '', saleDate: '2026-10-01', salePrice: 2600000, saleCosts: 30000, mortgage: '', priorExempt: false, rented: false, residential: true, offPlan: false, dwellingDate: '' };
+const EXAMPLE = { status: 'qualified', buyDate: '2010-06-01', buyPrice: 1200000, buyCosts: 60000, improve: '', improveDate: '', saleDate: '2026-10-01', salePrice: 2600000, saleCosts: 30000, mortgage: '', priorExempt: false, rented: false, residential: true, offPlan: false, dwellingDate: '', gift: false, giftLived: false, giftMinor: false, livedFrom: '' };
 
 const STATUS_LONG = { single: 'הדירה היחידה שלי', qualified: 'דירה נוספת למגורים (גם מושכרת)', other: 'נכס שאינו דירת מגורים' };
 const PATH_LABEL = { exempt: 'פטור: דירה יחידה', partial: 'פטור חלקי: מעל התקרה', linear: 'החישוב הלינארי המוטב', regular: 'חישוב רגיל', loss: 'אין שבח' };
@@ -543,7 +560,11 @@ function renderForm(reg, input) {
 		+ `<p class="jtool-hint" data-if-status="single"${st === 'single' ? '' : ' hidden'}>${esc(sv.single_he)}.</p>`
 		+ `<div class="jtool-chips" data-if-home${st === 'other' ? ' hidden' : ''} style="margin-top:8px">${chip('res', '1', 'הדירה שימשה בעיקר למגורים (גם בהשכרה, גם כשעמדה ריקה)', input.residential !== false, 'checkbox')}</div>`
 		+ `<div data-if-status="single"${st === 'single' ? '' : ' hidden'}><div class="jtool-chips" style="margin-top:8px">${chip('op', '1', 'קניתי את הדירה לפני שנבנתה (מקבלן)', input.offPlan, 'checkbox')}</div>`
-		+ `<div data-if-offplan${input.offPlan ? '' : ' hidden'} style="margin-top:8px">${dateField('dw', 'מתי הדירה נמסרה לכם (טופס 4 או המסירה)', input.dwellingDate, 'לדוגמה: 1.3.2016')}<p class="jtool-hint">${esc(sv.dwelling_he)}.</p></div></div><p class="jtool-hint" data-if-status="qualified"${st === 'qualified' ? '' : ' hidden'}>${esc(sv.qualified_he)}.</p></fieldset>`
+		+ `<div data-if-offplan${input.offPlan ? '' : ' hidden'} style="margin-top:8px">${dateField('dw', 'מתי הדירה נמסרה לכם (טופס 4 או המסירה)', input.dwellingDate, 'לדוגמה: 1.3.2016')}<p class="jtool-hint">${esc(sv.dwelling_he)}.</p></div>`
+		+ `<div class="jtool-chips" style="margin-top:8px">${chip('gf', '1', `קיבלתי את הדירה במתנה (או ${sv.gift.share_pct}% ממחירה במתנה ב-${sv.gift.share_years} השנים שלפני הקנייה)`, input.gift, 'checkbox')}</div>`
+		+ `<div data-if-gift${input.gift ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-chips">${chip('gl', '1', 'גרתי בה דרך קבע', input.giftLived, 'checkbox')}${chip('gm', '1', `קיבלתי אותה לפני גיל ${sv.gift.adult_age}`, input.giftMinor, 'checkbox')}</div>`
+		+ `<div data-if-giftlived${input.gift && input.giftLived ? '' : ' hidden'} style="margin-top:8px">${dateField('lf', 'מתי התחלתם לגור בה דרך קבע', input.livedFrom, 'לדוגמה: 1.9.2021')}</div>`
+		+ `<p class="jtool-hint">${esc(sv.gift.he)}.</p><p class="jtool-error" id="${P}-gift-e" role="alert"></p></div></div><p class="jtool-hint" data-if-status="qualified"${st === 'qualified' ? '' : ' hidden'}>${esc(sv.qualified_he)}.</p></fieldset>`
 		+ `<div class="jtool-row">${dateField('bd', 'יום הרכישה', input.buyDate, 'לדוגמה: 1.6.2010')}${moneyField('bp', 'מחיר הרכישה', input.buyPrice, 'לדוגמה: 1,200,000')}</div>`
 		+ `<div class="jtool-row">${dateField('sd', 'יום המכירה (חתימת החוזה)', input.saleDate, 'לדוגמה: 1.10.2026')}${moneyField('spr', 'מחיר המכירה', input.salePrice, 'לדוגמה: 2,600,000')}</div>`
 		+ `<details class="jtool-more"${input.buyCosts || input.improve || input.saleCosts ? ' open' : ''}><summary>הוצאות שמנכים מהשבח</summary>`
@@ -699,16 +720,17 @@ function readForm(root) {
 		buyDate: toIso(val(`#${P}-bd`)), buyPrice: m('bp'), saleDate: toIso(val(`#${P}-sd`)), salePrice: m('spr'),
 		buyCosts: m('bc'), saleCosts: m('sc'), improve: m('imp'), improveDate: toIso(val(`#${P}-id`)), mortgage: m('mtg'),
 		priorExempt: on('pe'), rented: on('rn'), residential: on('res'), offPlan: on('op'), dwellingDate: on('op') ? toIso(val(`#${P}-dw`)) : '',
+		gift: on('gf'), giftLived: on('gf') && on('gl'), giftMinor: on('gf') && on('gm'), livedFrom: on('gf') && on('gl') ? toIso(val(`#${P}-lf`)) : '',
 	};
 }
 
 const ST = { single: 's', qualified: 'q', other: 'o' };
-const stateOf = (i) => encodeState({ t: ST[i.status] || 's', a: i.buyDate, b: i.buyPrice || '', c: i.saleDate, d: i.salePrice || '', e: i.buyCosts || '', f: i.saleCosts || '', g: i.improve || '', h: i.improve ? i.improveDate : '', m: i.mortgage || '', p: i.priorExempt ? 1 : '', r: i.rented ? 1 : '', o: i.offPlan ? 1 : '', w: i.offPlan ? i.dwellingDate : '', n: i.residential === false ? 0 : '' });
-const KEYS = ['t', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'm', 'p', 'r', 'o', 'w', 'n'];
+const stateOf = (i) => encodeState({ t: ST[i.status] || 's', a: i.buyDate, b: i.buyPrice || '', c: i.saleDate, d: i.salePrice || '', e: i.buyCosts || '', f: i.saleCosts || '', g: i.improve || '', h: i.improve ? i.improveDate : '', m: i.mortgage || '', p: i.priorExempt ? 1 : '', r: i.rented ? 1 : '', o: i.offPlan ? 1 : '', w: i.offPlan ? i.dwellingDate : '', n: i.residential === false ? 0 : '', v: i.gift ? 1 : '', l: i.gift && i.giftLived ? 1 : '', k: i.gift && i.giftMinor ? 1 : '', j: i.gift && i.giftLived ? i.livedFrom : '' });
+const KEYS = ['t', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'm', 'p', 'r', 'o', 'w', 'n', 'v', 'l', 'k', 'j'];
 function inputOf(s) {
 	if (!s.a || !s.c) { return null; }
 	const n = (v) => (v ? Number(v) : '');
-	return { status: Object.keys(ST).find((k) => ST[k] === s.t) || 'single', buyDate: s.a, buyPrice: n(s.b), saleDate: s.c, salePrice: n(s.d), buyCosts: n(s.e), saleCosts: n(s.f), improve: n(s.g), improveDate: s.h || '', mortgage: n(s.m), priorExempt: s.p === '1', rented: s.r === '1', offPlan: s.o === '1', dwellingDate: s.o === '1' ? (s.w || '') : '', residential: s.n !== '0' };
+	return { status: Object.keys(ST).find((k) => ST[k] === s.t) || 'single', buyDate: s.a, buyPrice: n(s.b), saleDate: s.c, salePrice: n(s.d), buyCosts: n(s.e), saleCosts: n(s.f), improve: n(s.g), improveDate: s.h || '', mortgage: n(s.m), priorExempt: s.p === '1', rented: s.r === '1', offPlan: s.o === '1', dwellingDate: s.o === '1' ? (s.w || '') : '', residential: s.n !== '0', gift: s.v === '1', giftLived: s.v === '1' && s.l === '1', giftMinor: s.v === '1' && s.k === '1', livedFrom: s.v === '1' && s.l === '1' ? (s.j || '') : '' };
 }
 
 function mount(root, reg) {
@@ -726,7 +748,7 @@ function mount(root, reg) {
 		const stamp = root.querySelector('.jtool-stamp');
 		if (stamp) { stamp.classList.add('jtool-stamp--stale'); stamp.insertAdjacentText('beforeend', ' · ייתכן שהסכומים התעדכנו'); }
 	}
-	const ids = { buyDate: 'bd', buyPrice: 'bp', saleDate: 'sd', salePrice: 'spr', buyCosts: 'bc', saleCosts: 'sc', improve: 'imp', improveDate: 'id', mortgage: 'mtg', dwellingDate: 'dw' };
+	const ids = { buyDate: 'bd', buyPrice: 'bp', saleDate: 'sd', salePrice: 'spr', buyCosts: 'bc', saleCosts: 'sc', improve: 'imp', improveDate: 'id', mortgage: 'mtg', dwellingDate: 'dw', livedFrom: 'lf' };
 	const showErrors = (r) => {
 		root.querySelectorAll('.jtool-error').forEach((e) => { e.textContent = ''; });
 		root.querySelectorAll('[aria-invalid]').forEach((e) => e.removeAttribute('aria-invalid'));
@@ -744,6 +766,9 @@ function mount(root, reg) {
 		form.querySelectorAll('[data-if-status]').forEach((el) => { el.hidden = el.getAttribute('data-if-status') !== st; });
 		form.querySelectorAll('[data-if-home]').forEach((el) => { el.hidden = st === 'other'; });
 		form.querySelectorAll('[data-if-offplan]').forEach((el) => { el.hidden = !root.querySelector(`input[name="${P}-op"]:checked`); });
+		const gf = Boolean(root.querySelector(`input[name="${P}-gf"]:checked`));
+		form.querySelectorAll('[data-if-gift]').forEach((el) => { el.hidden = !gf; });
+		form.querySelectorAll('[data-if-giftlived]').forEach((el) => { el.hidden = !(gf && root.querySelector(`input[name="${P}-gl"]:checked`)); });
 		const imp = (root.querySelector(`#${P}-imp`) || {}).value || '';
 		form.querySelectorAll('[data-if-improve]').forEach((el) => { el.hidden = imp.trim() === '' || parseMoney(imp) === 0; });
 	};

@@ -957,6 +957,15 @@ def build_shevach(checked_on: str) -> dict:
         "single": {"ceiling": 5008000, "ceiling_from": "2025-01-01", "ceiling_to": "2027-12-31", "hold_months": 18,
                    "gap_months": 18, "section": "סעיף 49ב(2)", "ceiling_section": "סעיף 49א(א1)",
                    "exceptions_section": "סעיף 49ג", "url": inst26},
+        # s.49ו (current text, amendment 76): a home received as a gift is exempt only after a cooling period: 4 years
+        # from the day the seller became its owner, or 3 years from the day the owner began to live in it permanently;
+        # for a gift received before 18, the count starts at 18 (s.49ו(ב)); 50% of the price given within the 3 years
+        # before the purchase counts as a gift (s.49ו(ג)(1)) (review, PR 128).
+        "gift": {"section": "סעיף 49ו", "other_months": 48, "lived_months": 36, "adult_age": 18, "share_pct": 50,
+                 "share_years": 3, "url": law,
+                 "he": "דירה שקיבלתם במתנה פטורה רק אחרי תקופת צינון: 4 שנים מהיום שנעשיתם בעליה, או 3 שנים מהיום "
+                       "שהתחלתם לגור בה דרך קבע כבעלים (סעיף 49ו(א)). קבלת 50% לפחות ממחיר הדירה במתנה, ב-3 השנים "
+                       "שלפני הקנייה, נחשבת כמתנה (סעיף 49ו(ג)(1))"},
         "surtax": {"threshold": 5385285, "section": "סעיף 121ב(ה) לפקודת מס הכנסה", "rate": 3, "capital_rate": 2,
                    "income_threshold": 721560, "url": booklet},
         "deadlines": {"declare_days": 30, "declare_section": "סעיף 73(א)", "pay_days": 60, "pay_section": "סעיף 90א",

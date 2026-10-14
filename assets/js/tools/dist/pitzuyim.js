@@ -461,8 +461,14 @@ function compute(registry, input) {
 	const short = noticeDate && end < noticeEnd ? daysBetween(end, noticeEnd) : 0;
 	const inLieu = payType === 'monthly' ? (notice.month ? base : r2(base * notice.days / 30)) : null;
 	const noticeMode = ['paid', 'none'].includes(input.noticeMode) ? input.noticeMode : 'worked';
-	if (noticeMode === 'none') { add('warn', 'no_notice', `לא ניתנה הודעה מוקדמת: המעסיק משלם פיצוי בגובה השכר הרגיל לתקופת ההודעה (סעיף 7(א))${inLieu !== null ? `, כאן ${Math.round(inLieu).toLocaleString('en-US')} ₪` : ''}.`, 'סעיף 7(א)'); }
-	if (short && noticeMode !== 'none') { add('warn', 'short_notice', `ההודעה ניתנה ב-${heDay(noticeDate)}, ותקופת ההודעה שבחוק מסתיימת ב-${heDay(noticeEnd)}: חסרים ${short} ימים עד היום האחרון שהזנתם, ועליהם מגיע פיצוי בגובה השכר הרגיל (סעיף 7(א)).`, 'סעיף 7(א)'); }
+	// Who owes whom depends on who ended the work: the employer who dismissed without notice pays (s.7(א)); a worker who
+	// resigned and stopped working without notice owes the employer the same sum (s.7(ב)) (review, PR 128).
+	const resigned = reason !== 'fired';
+	const amt = inLieu !== null ? `, כאן ${Math.round(inLieu).toLocaleString('en-US')} ₪` : '';
+	if (noticeMode === 'none') {
+		if (resigned) { add('warn', 'no_notice', `התפטרתם בלי הודעה מוקדמת: החוק מחייב את העובד לשלם למעסיק פיצוי בגובה השכר הרגיל לתקופת ההודעה (סעיף 7(ב))${amt}, והמעסיק עשוי לקזז אותו.`, 'סעיף 7(ב)'); } else { add('warn', 'no_notice', `לא ניתנה הודעה מוקדמת: המעסיק משלם פיצוי בגובה השכר הרגיל לתקופת ההודעה (סעיף 7(א))${amt}.`, 'סעיף 7(א)'); }
+	}
+	if (short && noticeMode !== 'none') { add('warn', 'short_notice', `ההודעה ניתנה ב-${heDay(noticeDate)}, ותקופת ההודעה שבחוק מסתיימת ב-${heDay(noticeEnd)}: חסרים ${short} ימים עד היום האחרון שהזנתם. ${resigned ? 'עובד שהפסיק לעבוד לפני סוף ההודעה חייב למעסיק את השכר הרגיל בעד הימים החסרים (סעיף 7(ב)), אלא אם המעסיק ויתר עליהם (סעיף 6(ב)).' : 'עליהם מגיע פיצוי בגובה השכר הרגיל (סעיף 7(א)).'}`, resigned ? 'סעיף 7(ב)' : 'סעיף 7(א)'); }
 
 	// Tax: one month's last salary per year, never above the ceiling per year (s.9(7א)(א)).
 	const tax = sv.tax;
@@ -555,7 +561,7 @@ function renderForm(reg, input) {
 		+ `<div class="jtool-row" data-if-s14${s14 === 'none' ? ' hidden' : ''} style="margin-top:8px"><div class="jtool-field" data-if-custom${s14 === 'custom' ? '' : ' hidden'}><label class="jtool-label" for="${P}-s14p">אחוז הכיסוי לפי ההסכם</label><div class="jtool-input"><input id="${P}-s14p" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.s14Pct ?? '')}" placeholder="לדוגמה: 72" aria-describedby="${P}-s14Pct-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-s14Pct-e" role="alert"></p></div>${dateField('s14f', 'מתי התחילו ההפרשות (ריק = מתחילת העבודה)', input.s14From, 'לא חובה')}</div>`
 		+ `<p class="jtool-hint">ברוב התלושים כתוב "סעיף 14". הפרשה של 6% לפיצויים בלי השלמה של 2⅓% מכסה 72%; הפרשה של 8⅓% מכסה 100% (${esc(sv.approval.he)}).</p></fieldset>`
 		+ `<details class="jtool-more"${input.noticeDate || (input.noticeMode && input.noticeMode !== 'worked') ? ' open' : ''}><summary>ההודעה המוקדמת</summary>`
-		+ `<div class="jtool-row" style="margin-top:8px">${dateField('nd', 'יום מסירת ההודעה בכתב', input.noticeDate, 'לא חובה')}<div class="jtool-field"><span class="jtool-label">מה קרה בתקופת ההודעה</span><div class="jtool-chips">${chip('nm', 'worked', 'עבדתי', (input.noticeMode || 'worked') === 'worked')}${chip('nm', 'paid', 'שילמו בלי עבודה', input.noticeMode === 'paid')}${chip('nm', 'none', 'לא קיבלתי הודעה', input.noticeMode === 'none')}</div></div></div></details>`
+		+ `<div class="jtool-row" style="margin-top:8px">${dateField('nd', 'יום מסירת ההודעה בכתב', input.noticeDate, 'לא חובה')}<div class="jtool-field"><span class="jtool-label">מה קרה בתקופת ההודעה</span><div class="jtool-chips">${chip('nm', 'worked', 'עבדתי', (input.noticeMode || 'worked') === 'worked')}${chip('nm', 'paid', 'שילמו בלי עבודה', input.noticeMode === 'paid')}${chip('nm', 'none', 'לא ניתנה הודעה', input.noticeMode === 'none')}</div></div></div></details>`
 		+ `<details class="jtool-more"${input.jobPct ? ' open' : ''}><summary>היקף משרה (לבדיקת שכר המינימום)</summary><div class="jtool-field" style="margin-top:8px"><label class="jtool-label" for="${P}-job">אחוז משרה</label><div class="jtool-input"><input id="${P}-job" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.jobPct ?? '')}" placeholder="100" aria-describedby="${P}-jobPct-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-jobPct-e" role="alert"></p></div></details>`;
 }
 
@@ -615,7 +621,8 @@ function letter(reg, r) {
 	const lines = ['לכבוד', '__________ (המעסיק)', '', 'הנדון: תשלום פיצויי פיטורים והודעה מוקדמת', '',
 		`עבדתי אצלכם מיום ${isoToHe(r.start)} עד יום ${isoToHe(r.end)} (${spanText(r.span)}), ושכרי האחרון היה ${nis(r.base)} לחודש.`,
 		r.entitled ? `לפי סעיף 12 לחוק פיצויי פיטורים, התשכ"ג-1963, מגיעים לי פיצויי פיטורים של ${nis(r.severance)}${r.s14 !== 'none' ? `. מתוכם ${r.s14Pct}% בעד התקופה שבה הופרשו כספים לפיצויים מכוסים בקופה (סעיף 14), ואני מבקש לשחרר לי את הכספים ולשלם לי את ההשלמה של ${nis(r.employer)}` : ''}.` : null,
-		r.noticeMode === 'none' ? `לא ניתנה לי הודעה מוקדמת כחוק (${noticeText(r.notice)}), ולכן מגיע לי פיצוי בגובה השכר הרגיל לתקופה זו (סעיף 7(א) לחוק הודעה מוקדמת לפיטורים ולהתפטרות).` : null,
+		r.noticeMode === 'none' && r.reason === 'fired' ? `לא ניתנה לי הודעה מוקדמת כחוק (${noticeText(r.notice)}), ולכן מגיע לי פיצוי בגובה השכר הרגיל לתקופה זו (סעיף 7(א) לחוק הודעה מוקדמת לפיטורים ולהתפטרות).` : null,
+		r.short && r.noticeMode !== 'none' && r.reason === 'fired' ? `ההודעה המוקדמת שקיבלתי הסתיימה ${r.short} ימים לפני המועד שבחוק (${noticeText(r.notice)}), ולכן מגיע לי השכר הרגיל בעד ימים אלה (סעיפים 6 ו-7(א) לחוק הודעה מוקדמת לפיטורים ולהתפטרות).` : null,
 		r.entitled ? `המועד לתשלום הפיצויים הוא יום סיום העבודה. פיצויים שלא שולמו תוך ${sv.late.grace_days} ימים מולנים, ואחרי היום ה-${sv.late.linkage_to_day} נוסף פיצוי הלנה של ${sv.late.monthly_pct}% לכל חודש (סעיף 20 לחוק הגנת השכר, התשי"ח-1958).` : null,
 		'כמו כן אבקש אישור בכתב על תקופת העבודה (סעיף 8 לחוק הודעה מוקדמת) וטופס 161.', '',
 		'בכבוד רב,', '__________'];

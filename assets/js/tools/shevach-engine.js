@@ -22,6 +22,7 @@ import { addDays, addMonths, parseDate, daysBetween, offRestDays } from './dates
 
 const r2 = (n) => Math.round(n * 100) / 100;
 const blank = (v) => v === '' || v === undefined || v === null;
+const heIso = (iso) => iso.split('-').reverse().map(Number).join('.');
 export const STATUSES = ['single', 'qualified', 'other'];
 
 /** The CBS index on one chained scale, and the month known on a day (published on the 15th, known from the 16th). */
@@ -77,7 +78,8 @@ function taxLinear(sv, realGain, shares) {
  * input = { status ('single'|'qualified'|'other'), buyDate, buyPrice, buyCosts, improve, improveDate, saleDate, salePrice,
  *           saleCosts, mortgage, priorExempt (an exempt single-home sale in the 18 months before), rented, residential
  *           (confirmed mainly residential use, s.49(א); default true), offPlan (bought
- *           before it was built), dwellingDate (the day it became a dwelling) }
+ *           before it was built), dwellingDate (the day it became a dwelling), gift (received as a gift, s.49ו),
+ *           giftLived + livedFrom (lived in it permanently as owner, from that day), giftMinor (received before 18) }
  */
 export function compute(registry, input) {
 	const sv = registry.shevach;
@@ -112,6 +114,14 @@ export function compute(registry, input) {
 		if (!(Number.isFinite(v) && v >= 0 && v < 1e10)) { errors.push({ field: k, he: 'סכום: מספר חיובי או ריק' }); }
 	}
 	const improveDate = improve > 0 ? parseDate(input.improveDate) : null;
+	// A gift (s.49ו): the single-home exemption waits for a cooling period. Received before 18, the count starts at 18
+	// (s.49ו(ב)): the tool does not hold the birth date, so that case goes to the simulator (review, PR 128).
+	const gift = status === 'single' && Boolean(input.gift);
+	const giftLived = gift && Boolean(input.giftLived);
+	const livedFrom = giftLived ? parseDate(input.livedFrom) : null;
+	if (gift && input.giftMinor) { errors.push({ field: 'gift', he: `דירה שקיבלתם במתנה לפני גיל ${sv.gift.adult_age}: תקופת הצינון נספרת מהיום שמלאו לכם ${sv.gift.adult_age} (סעיף 49ו(ב)). את המקרה הזה המחשבון לא מחשב; השתמשו בסימולטור של רשות המסים.` }); }
+	if (giftLived && !livedFrom) { errors.push({ field: 'livedFrom', he: 'מתי התחלתם לגור בדירה דרך קבע: תאריך מלא' }); }
+	if (giftLived && livedFrom && saleDate && livedFrom > saleDate) { errors.push({ field: 'livedFrom', he: 'תחילת המגורים לפני יום המכירה' }); }
 	if (improve > 0 && !improveDate) { errors.push({ field: 'improveDate', he: 'מתי שופצה הדירה: תאריך מלא' }); }
 	if (improve > 0 && improveDate && buyDate && saleDate && (improveDate < buyDate || improveDate > saleDate)) { errors.push({ field: 'improveDate', he: 'השיפוץ בין יום הרכישה ליום המכירה' }); }
 	if (errors.length) { return { ok: false, errors }; }
@@ -154,12 +164,19 @@ export function compute(registry, input) {
 	// empty counts). The person confirms it; without it the sale is taxed as any other right (review, PR 128).
 	const residential = status !== 'other' && input.residential !== false;
 	if (status !== 'other' && !residential) { add('bad', 'not_residential', 'הדירה לא שימשה בעיקר למגורים: אין פטור לדירה יחידה ואין חישוב לינארי (סעיף 49(א)). החישוב הרגיל.', 'סעיף 49(א)'); }
-	const singleOk = status === 'single' && residential && held && !input.priorExempt;
+	// The gift's cooling period runs from the day the seller became the owner (4 years), or from the day the owner began
+	// to live there permanently (3 years); living there before the gift counts from the gift (s.49ו(א)).
+	const coolFrom = gift ? (giftLived && livedFrom > buyDate ? livedFrom : buyDate) : null;
+	const coolEnd = gift ? addMonths(coolFrom, giftLived ? sv.gift.lived_months : sv.gift.other_months) : null;
+	const giftOk = !gift || saleDate >= coolEnd;
+	const singleOk = status === 'single' && residential && held && !input.priorExempt && giftOk;
 	let path = !residential ? 'regular' : (lin ? 'linear' : 'regular');
 	let tax = path === 'linear' ? lin.tax : regular.tax;
 	let exemptShare = 0;
 	if (status === 'single') {
 		if (residential && !held) { add('bad', 'held', `הדירה בבעלותכם פחות מ-${sv.single.hold_months} חודשים מאז שהיתה לדירת מגורים: אין פטור לדירה יחידה (${sv.single.section}). החישוב כדירת מגורים חייבת.`, sv.single.section); }
+		if (residential && !giftOk) { add('bad', 'gift_cooling', `קיבלתם את הדירה במתנה: הפטור לדירה יחידה ניתן רק ${giftLived ? `${sv.gift.lived_months / 12} שנים מהיום שהתחלתם לגור בה דרך קבע כבעלים` : `${sv.gift.other_months / 12} שנים מהיום שקיבלתם אותה`}, כלומר במכירה מ-${heIso(coolEnd)} (סעיף 49ו(א)(${giftLived ? 2 : 1})). עד אז החישוב כדירת מגורים חייבת.`, sv.gift.section); }
+		if (residential && gift && giftOk) { add('ok', 'gift_cooled', `דירה שהתקבלה במתנה: תקופת הצינון הסתיימה (${heIso(coolEnd)}), והפטור אפשרי (סעיף 49ו(א)).`, sv.gift.section); }
 		if (residential && input.priorExempt) { add('bad', 'prior', `מכרתם דירה אחרת בפטור כזה ב-${sv.single.gap_months} החודשים שלפני: אין פטור נוסף (${sv.single.section}). החישוב כדירת מגורים חייבת.`, sv.single.section); }
 	}
 	if (singleOk) {

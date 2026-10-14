@@ -158,8 +158,14 @@ export function compute(registry, input) {
 	const short = noticeDate && end < noticeEnd ? daysBetween(end, noticeEnd) : 0;
 	const inLieu = payType === 'monthly' ? (notice.month ? base : r2(base * notice.days / 30)) : null;
 	const noticeMode = ['paid', 'none'].includes(input.noticeMode) ? input.noticeMode : 'worked';
-	if (noticeMode === 'none') { add('warn', 'no_notice', `לא ניתנה הודעה מוקדמת: המעסיק משלם פיצוי בגובה השכר הרגיל לתקופת ההודעה (סעיף 7(א))${inLieu !== null ? `, כאן ${Math.round(inLieu).toLocaleString('en-US')} ₪` : ''}.`, 'סעיף 7(א)'); }
-	if (short && noticeMode !== 'none') { add('warn', 'short_notice', `ההודעה ניתנה ב-${heDay(noticeDate)}, ותקופת ההודעה שבחוק מסתיימת ב-${heDay(noticeEnd)}: חסרים ${short} ימים עד היום האחרון שהזנתם, ועליהם מגיע פיצוי בגובה השכר הרגיל (סעיף 7(א)).`, 'סעיף 7(א)'); }
+	// Who owes whom depends on who ended the work: the employer who dismissed without notice pays (s.7(א)); a worker who
+	// resigned and stopped working without notice owes the employer the same sum (s.7(ב)) (review, PR 128).
+	const resigned = reason !== 'fired';
+	const amt = inLieu !== null ? `, כאן ${Math.round(inLieu).toLocaleString('en-US')} ₪` : '';
+	if (noticeMode === 'none') {
+		if (resigned) { add('warn', 'no_notice', `התפטרתם בלי הודעה מוקדמת: החוק מחייב את העובד לשלם למעסיק פיצוי בגובה השכר הרגיל לתקופת ההודעה (סעיף 7(ב))${amt}, והמעסיק עשוי לקזז אותו.`, 'סעיף 7(ב)'); } else { add('warn', 'no_notice', `לא ניתנה הודעה מוקדמת: המעסיק משלם פיצוי בגובה השכר הרגיל לתקופת ההודעה (סעיף 7(א))${amt}.`, 'סעיף 7(א)'); }
+	}
+	if (short && noticeMode !== 'none') { add('warn', 'short_notice', `ההודעה ניתנה ב-${heDay(noticeDate)}, ותקופת ההודעה שבחוק מסתיימת ב-${heDay(noticeEnd)}: חסרים ${short} ימים עד היום האחרון שהזנתם. ${resigned ? 'עובד שהפסיק לעבוד לפני סוף ההודעה חייב למעסיק את השכר הרגיל בעד הימים החסרים (סעיף 7(ב)), אלא אם המעסיק ויתר עליהם (סעיף 6(ב)).' : 'עליהם מגיע פיצוי בגובה השכר הרגיל (סעיף 7(א)).'}`, resigned ? 'סעיף 7(ב)' : 'סעיף 7(א)'); }
 
 	// Tax: one month's last salary per year, never above the ceiling per year (s.9(7א)(א)).
 	const tax = sv.tax;

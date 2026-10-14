@@ -1815,6 +1815,16 @@
    "exceptions_section": "סעיף 49ג",
    "url": "https://www.gov.il/BlobFolder/policy/inst-01-2026/he/realestate_inst-01-2026.pdf"
   },
+  "gift": {
+   "section": "סעיף 49ו",
+   "other_months": 48,
+   "lived_months": 36,
+   "adult_age": 18,
+   "share_pct": 50,
+   "share_years": 3,
+   "url": "https://www.nevo.co.il/law_html/law01/276_002.htm",
+   "he": "דירה שקיבלתם במתנה פטורה רק אחרי תקופת צינון: 4 שנים מהיום שנעשיתם בעליה, או 3 שנים מהיום שהתחלתם לגור בה דרך קבע כבעלים (סעיף 49ו(א)). קבלת 50% לפחות ממחיר הדירה במתנה, ב-3 השנים שלפני הקנייה, נחשבת כמתנה (סעיף 49ו(ג)(1))"
+  },
   "surtax": {
    "threshold": 5385285,
    "section": "סעיף 121ב(ה) לפקודת מס הכנסה",

@@ -473,6 +473,7 @@ function computeBalance(registry, input) {
 		}
 		if (!IZ_KINDS.includes(it.kind)) { errors.push({ field: `item-${i}-kind`, he: 'סוג נכס לא מוכר' }); }
 		if (!['a', 'b', 'joint'].includes(it.owner)) { errors.push({ field: `item-${i}-owner`, he: 'על שם מי הנכס' }); }
+		if (it.kind === 'home' && fEntered(it.mortgage) && !fEntered(it.value)) { errors.push({ field: `item-${i}-value`, he: 'הזנתם משכנתא בלי שווי הדירה: בלי השווי אי אפשר לאזן' }); }
 		if (fEntered(it.atMarriage) && !fEntered(it.value) && it.kind !== 'home') { errors.push({ field: `item-${i}-value`, he: 'חסר השווי היום: בלי השווי אי אפשר לחשב את החלק שנצבר בנישואין' }); }
 		if (fEntered(it.atMarriage) && fEntered(it.value) && Number(it.atMarriage) > Number(it.value)) { errors.push({ field: `item-${i}-atMarriage`, he: 'הסכום ביום הנישואין גבוה מהשווי היום' }); }
 		if (fEntered(it.activeGain) && !(Number(it.activeGain) >= 0 && Number(it.activeGain) <= fVal(it.value))) { errors.push({ field: `item-${i}-activeGain`, he: 'עליית הערך האקטיבית: בין 0 לשווי הנכס' }); }
@@ -488,6 +489,7 @@ function computeBalance(registry, input) {
 		if (fIsIso(g.vestStart) && fIsIso(g.vestEnd) && g.vestEnd < g.vestStart) { errors.push({ field: `opt-${i}-vestEnd`, he: 'סוף ההבשלה לפני תחילתה' }); }
 		if (fIsIso(g.grant) && fIsIso(g.vestStart) && g.vestStart < g.grant) { errors.push({ field: `opt-${i}-vestStart`, he: 'ההבשלה מתחילה לפני ההענקה' }); }
 		if (!['a', 'b'].includes(g.owner)) { errors.push({ field: `opt-${i}-owner`, he: 'למי הוענקו' }); }
+		if (fEntered(g.tranches) && !(Number.isInteger(Number(g.tranches)) && Number(g.tranches) >= 1 && Number(g.tranches) <= 120)) { errors.push({ field: `opt-${i}-tranches`, he: 'מספר המנות: מספר שלם, 1 ומעלה' }); }
 		if (!fEntered(g.price)) { errors.push({ field: `opt-${i}-price`, he: 'מחיר ליחידה היום: בלי מחיר אי אפשר להעריך את האופציות' }); }
 	});
 	const cry = (input.crypto || []).filter((c) => c && fEntered(c.units));
@@ -961,7 +963,7 @@ function readModel(root) {
 		cryptoAt: (root.querySelector(`input[name="${P}-cat"]:checked`) || {}).value || 'today',
 		home: { value: m$('h-value'), mortgage: m$('h-mort'), owner: val('h-owner') || 'joint', source: val('h-source'), activeGain: m$('h-active') },
 		a: side('a'), b: side('b'), others,
-		options: units === '' ? [] : [{ owner: val('op-owner') || 'a', units, price: m$('op-price'), strike: m$('op-strike') === '' ? 0 : m$('op-strike'), grant: d$('op-grant'), vestStart: d$('op-vs'), vestEnd: d$('op-ve'), tranches: n$('op-tr') || 1 }],
+		options: units === '' ? [] : [{ owner: val('op-owner') || 'a', units, price: m$('op-price'), strike: m$('op-strike') === '' ? 0 : m$('op-strike'), grant: d$('op-grant'), vestStart: d$('op-vs'), vestEnd: d$('op-ve'), tranches: n$('op-tr') }],
 		crypto: cunits === '' ? [] : [{ owner: val('cr-owner') || 'b', units: cunits, priceBreak: m$('cr-pb'), priceToday: m$('cr-pt'), where: val('cr-where') || 'exchange' }],
 	};
 }

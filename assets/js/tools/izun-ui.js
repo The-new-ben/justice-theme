@@ -321,7 +321,7 @@ function readModel(root) {
 		cryptoAt: (root.querySelector(`input[name="${P}-cat"]:checked`) || {}).value || 'today',
 		home: { value: m$('h-value'), mortgage: m$('h-mort'), owner: val('h-owner') || 'joint', source: val('h-source'), activeGain: m$('h-active') },
 		a: side('a'), b: side('b'), others,
-		options: units === '' ? [] : [{ owner: val('op-owner') || 'a', units, price: m$('op-price'), strike: m$('op-strike') === '' ? 0 : m$('op-strike'), grant: d$('op-grant'), vestStart: d$('op-vs'), vestEnd: d$('op-ve'), tranches: n$('op-tr') || 1 }],
+		options: units === '' ? [] : [{ owner: val('op-owner') || 'a', units, price: m$('op-price'), strike: m$('op-strike') === '' ? 0 : m$('op-strike'), grant: d$('op-grant'), vestStart: d$('op-vs'), vestEnd: d$('op-ve'), tranches: n$('op-tr') }],
 		crypto: cunits === '' ? [] : [{ owner: val('cr-owner') || 'b', units: cunits, priceBreak: m$('cr-pb'), priceToday: m$('cr-pt'), where: val('cr-where') || 'exchange' }],
 	};
 }

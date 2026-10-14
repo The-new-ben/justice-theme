@@ -210,7 +210,7 @@ export const stateOf = (m) => encodeState({
 const KEYS = ['o', 'r', 'a', 'k', 'c', 'p', 'n', 'h', 'f', 's', 'q'];
 const ymd = (x) => (/^\d{8}$/.test(x) ? `${x.slice(0, 4)}-${x.slice(4, 6)}-${x.slice(6, 8)}` : '');
 export function modelOf(s) {
-	if (!s.k) { return null; }
+	if (!s.k && !s.q) { return null; }
 	const pairs = (t) => String(t || '').split('~').filter(Boolean).map((x) => x.split('_'));
 	const z = (x) => (x === undefined || x === '' || x === '0' ? '' : Number(x));
 	const zo = (x) => (x === undefined || x === '' || x === '-1' ? '' : Number(x));

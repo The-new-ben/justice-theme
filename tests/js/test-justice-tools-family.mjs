@@ -315,6 +315,18 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(!MM.draftMamon(reg, { timing: 'before', route: 'court', regime: 'separate', home: 'a', residenceMonths: 99 }).ok, 'with a home of one spouse, the residence period is checked');
 }
 
+/* ---------- Review fixes (PR 130, Codex pass 7) ---------- */
+{
+	const hkKeys = ['o', 'r', 'a', 'k', 'c', 'p', 'n', 'h', 'f', 's', 'q'];
+	const childless = Object.assign({}, HKUI.EXAMPLE, { children: [], property: Object.assign({}, HKUI.EXAMPLE.property, { home: 'sell' }) });
+	const back = HKUI.modelOf(decodeState(`#s=${HKUI.stateOf(childless)}`, hkKeys));
+	check(back !== null && back.children.length === 0 && back.property.home === 'sell', 'a childless agreement restores from its link');
+	const mOnly = IZ.computeBalance(reg, { marriage: '2010-01-01', breakDate: '2025-01-01', items: [{ kind: 'home', owner: 'a', mortgage: 600000 }] });
+	check(!mOnly.ok && mOnly.errors.some((e) => e.field === 'item-0-value'), 'a mortgage with no home value: an error, never a debt against a zero home');
+	const tr = (t) => IZ.computeBalance(reg, { marriage: '2015-01-01', breakDate: '2022-07-01', items: [], options: [{ owner: 'a', units: 400, price: 100, strike: 0, grant: '2020-01-01', vestStart: '2020-01-01', vestEnd: '2024-01-01', tranches: t }] });
+	check(!tr(0).ok && !tr(1.5).ok && !tr(Number.NaN).ok && tr(4).ok && tr('').ok, 'tranches: a whole number from 1, or blank for one; 0, 1.5 and text are errors');
+}
+
 /* ---------- The server snapshots: the same renderers, the sticky figure, no <h2> in a card ---------- */
 for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MMUI], ['heskem-gerushin', HKUI]]) {
 	const s = ui.snapshot(reg);

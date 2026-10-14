@@ -1364,6 +1364,14 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!SH.compute(reg, biz).ok && SH.compute(reg, Object.assign({}, biz, { depreciation: 500000 })).tax > SH.compute(reg, Object.assign({}, biz, { depreciation: 0 })).tax && !/data-if-rented hidden/.test(SHUI.renderForm(reg, biz)), 'a dwelling used mainly for business asks for its depreciation and uses it (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 41) ---------- */
+{
+	const land = SH.compute(reg, { status: 'single', family: true, buyDate: '2021-01-01', buyPrice: 1000000, saleDate: '2026-09-01', salePrice: 2000000, offPlan: true, dwellingDate: '2026-03-01' });
+	check(land.ok && land.path !== 'exempt' && land.flags.some((f) => f.code === 'held') && SHUI.renderForm(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single' })).includes('מגרש שבניתי עליו'), 'land built on or converted: the 18 months run from the day it became a dwelling (s.49ב(2); review, PR 128)');
+	const late = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { start: '2026-11-15', payDay: 20 }));
+	check(RE.contractText(reg.rent_contract, late, false).includes('בחודש הלועזי שלפני החודש שבו מתחיל'), 'a pay day after the start day: each payment falls in the month before its rental month, still in advance (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

@@ -410,7 +410,7 @@ function compute(registry, input) {
 	// s.49ב(2) counts 18 months from the day the home became a dwelling: for a home bought before it was built, that day.
 	const offPlan = status === 'single' && Boolean(input.offPlan);
 	const dwellingDate = offPlan ? parseDate(input.dwellingDate) : null;
-	if (offPlan && !dwellingDate) { errors.push({ field: 'dwellingDate', he: 'דירה שנקנתה לפני שנבנתה: מתי היא נמסרה לכם ונעשתה לדירת מגורים (טופס 4 או המסירה)' }); }
+	if (offPlan && !dwellingDate) { errors.push({ field: 'dwellingDate', he: 'נכס שלא היה דירת מגורים כשנקנה: מתי הוא נעשה דירת מגורים (מסירה, טופס 4 או סיום ההסבה)' }); }
 	if (offPlan && dwellingDate && buyDate && saleDate && (dwellingDate < buyDate || dwellingDate > saleDate)) { errors.push({ field: 'dwellingDate', he: 'יום המסירה בין יום הרכישה ליום המכירה' }); }
 	if (buyDate && cpi.knownMonth(buyDate) < cpi.first) { errors.push({ field: 'buyDate', he: 'רכישה לפני 16.3.1990: המחשבון לא מחזיק מדד ישן יותר. לרכישה כזאת השתמשו בסימולטור של רשות המסים.' }); }
 	if (!(buyPrice > 0 && buyPrice < 1e10)) { errors.push({ field: 'buyPrice', he: 'מחיר הרכישה: מספר חיובי' }); }
@@ -615,8 +615,8 @@ function renderForm(reg, input) {
 
 		+ `<fieldset class="jtool-field" style="margin-top:8px"><legend>תושבות המוכר</legend><div class="jtool-chips">${chip('rs', 'il', 'תושב/ת ישראל', input.resident !== 'foreign')}${chip('rs', 'foreign', 'תושב/ת חוץ', input.resident === 'foreign')}</div>`
 		+ `<div data-if-foreign${input.resident === 'foreign' ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-chips">${chip('fh', '1', 'יש לי אישור מרשות המס במדינת המושב שאין לי שם דירת מגורים', input.foreignNoHome, 'checkbox')}</div><p class="jtool-hint">${esc(sv.foreign.he)}.</p></div></fieldset>`
-		+ `<div class="jtool-chips" style="margin-top:8px">${chip('op', '1', 'קניתי את הדירה לפני שנבנתה (מקבלן)', input.offPlan, 'checkbox')}</div>`
-		+ `<div data-if-offplan${input.offPlan ? '' : ' hidden'} style="margin-top:8px">${dateField('dw', 'מתי הדירה נמסרה לכם (טופס 4 או המסירה)', input.dwellingDate, 'לדוגמה: 1.3.2016')}<p class="jtool-hint">${esc(sv.dwelling_he)}.</p></div>`
+		+ `<div class="jtool-chips" style="margin-top:8px">${chip('op', '1', 'כשקניתי, זו עוד לא היתה דירת מגורים (קנייה מקבלן לפני הבנייה, מגרש שבניתי עליו, או נכס שהסבתי לדירה)', input.offPlan, 'checkbox')}</div>`
+		+ `<div data-if-offplan${input.offPlan ? '' : ' hidden'} style="margin-top:8px">${dateField('dw', 'מתי הנכס נעשה דירת מגורים (מסירה, טופס 4 או סיום ההסבה)', input.dwellingDate, 'לדוגמה: 1.3.2016')}<p class="jtool-hint">${esc(sv.dwelling_he)}.</p></div>`
 		+ `<div class="jtool-chips" style="margin-top:8px">${chip('gf', '1', `קיבלתי את הדירה במתנה (או ${sv.gift.share_pct}% ממחירה במתנה ב-${sv.gift.share_years} השנים שלפני הקנייה)`, input.gift, 'checkbox')}</div>`
 		+ `<div data-if-gift${input.gift ? '' : ' hidden'} style="margin-top:8px">${dateField('gd', 'מתי קיבלתם את הדירה במתנה', input.giftDate, 'לדוגמה: 1.3.2023')}<p class="jtool-hint">אם המתנה היתה מקרוב ופטורה ממס, הזינו למעלה ביום הרכישה ובמחיר הרכישה את היום והמחיר של נותן המתנה; תקופת הצינון נספרת מיום קבלת המתנה.</p><div class="jtool-chips">${chip('gl', '1', 'גרתי בה דרך קבע', input.giftLived, 'checkbox')}${chip('gm', '1', `קיבלתי אותה לפני גיל ${sv.gift.adult_age}`, input.giftMinor, 'checkbox')}</div>`
 		+ `<div data-if-giftlived${input.gift && input.giftLived ? '' : ' hidden'} style="margin-top:8px">${dateField('lf', 'מתי התחלתם לגור בה דרך קבע', input.livedFrom, 'לדוגמה: 1.9.2021')}</div>`

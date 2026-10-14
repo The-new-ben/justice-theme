@@ -107,7 +107,7 @@ export function compute(registry, input) {
 	// s.49ב(2) counts 18 months from the day the home became a dwelling: for a home bought before it was built, that day.
 	const offPlan = status === 'single' && Boolean(input.offPlan);
 	const dwellingDate = offPlan ? parseDate(input.dwellingDate) : null;
-	if (offPlan && !dwellingDate) { errors.push({ field: 'dwellingDate', he: 'דירה שנקנתה לפני שנבנתה: מתי היא נמסרה לכם ונעשתה לדירת מגורים (טופס 4 או המסירה)' }); }
+	if (offPlan && !dwellingDate) { errors.push({ field: 'dwellingDate', he: 'נכס שלא היה דירת מגורים כשנקנה: מתי הוא נעשה דירת מגורים (מסירה, טופס 4 או סיום ההסבה)' }); }
 	if (offPlan && dwellingDate && buyDate && saleDate && (dwellingDate < buyDate || dwellingDate > saleDate)) { errors.push({ field: 'dwellingDate', he: 'יום המסירה בין יום הרכישה ליום המכירה' }); }
 	if (buyDate && cpi.knownMonth(buyDate) < cpi.first) { errors.push({ field: 'buyDate', he: 'רכישה לפני 16.3.1990: המחשבון לא מחזיק מדד ישן יותר. לרכישה כזאת השתמשו בסימולטור של רשות המסים.' }); }
 	if (!(buyPrice > 0 && buyPrice < 1e10)) { errors.push({ field: 'buyPrice', he: 'מחיר הרכישה: מספר חיובי' }); }

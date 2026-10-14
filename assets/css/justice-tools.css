@@ -433,3 +433,12 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jt9-lanes, .jt9-cols { grid-template-columns: 1fr; }
 }
 @media print { .jt9-lanes { break-inside: avoid; } }
+
+/*
+ * An article that opens with a tool (HAD-502, single-articles.php adds .single-article--tool-first) is laid out
+ * like the tool pages. With no sidebar, the article grid still reserved its 320 px sidebar track, so the tool
+ * sat in a 576 px column with a 244 px form; here the column takes the full row. The answer box starts right
+ * under the header, as on the tool pages, instead of 48 px below it. Layout only.
+ */
+.single-article--tool-first .single-article__layout { padding-block-start: 0; }
+.single-article--tool-first .single-article__layout--no-sidebar { grid-template-columns: minmax(0, 1fr); }

@@ -55,16 +55,53 @@ while ( have_posts() ) :
 		$layout_classes[]  = 'single-article__layout--no-sidebar';
 		$sidebar_classes[] = 'single-article__sidebar--duplicate-cta-only';
 	}
+
+	// HAD-502: an article whose body opens with a tool gets the compact layout (no top image, the
+	// page-style header, the full column). Every other article keeps the layout below unchanged.
+	$tool_first          = function_exists( 'justice_tools_article_opens_with_tool' ) && justice_tools_article_opens_with_tool( (int) get_the_ID() );
+	$article_classes     = $tool_first ? 'single-article premium-card single-article--tool-first' : 'single-article premium-card';
+	$primary_term_label  = $primary_term ? trim( str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ', 'ותאונות' ), array( '', '', '', '' ), $primary_term->name ) ) : '';
+	$article_attribution = function_exists( 'justice_theme_article_visible_attribution' )
+		? justice_theme_article_visible_attribution( get_the_ID() )
+		: array(
+			'label' => __( 'נערך על ידי', 'justice-theme' ),
+			'name'  => get_bloginfo( 'name' ),
+			'url'   => home_url( '/' ),
+		);
 	?>
 
-<article <?php post_class( 'single-article premium-card' ); ?> style="background: var(--jt-surface); border: none; box-shadow: none;">
+<article <?php post_class( $article_classes ); ?> style="background: var(--jt-surface); border: none; box-shadow: none;">
+		<?php if ( $tool_first ) : ?>
+		<header class="single-article__header">
+			<div class="container container--narrow">
+				<h1 class="single-article__title"><?php the_title(); ?></h1>
+				<div class="single-article__meta">
+					<span class="single-article__author">
+						<?php echo esc_html( $article_attribution['label'] ); ?>
+						<a href="<?php echo esc_url( $article_attribution['url'] ); ?>"><?php echo esc_html( $article_attribution['name'] ); ?></a>
+					</span>
+					<?php if ( $primary_term ) : ?>
+						<a href="<?php echo esc_url( justice_theme_public_term_link( $primary_term ) ); ?>"><?php echo esc_html( $primary_term_label ); ?></a>
+					<?php endif; ?>
+					<time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
+					<span>
+						<?php
+						printf(
+							/* translators: %s: modified date. */
+							esc_html__( 'עודכן: %s', 'justice-theme' ),
+							esc_html( get_the_modified_date() )
+						);
+						?>
+					</span>
+				</div>
+			</div>
+		</header>
+		<?php else : ?>
 		<header class="single-article__header glass-panel" style="max-width: 900px; margin: 40px auto 3rem; padding: 3rem 2rem; text-align: center; border-radius: var(--jt-radius-lg);">
 			<div class="container container--narrow">
-				<?php if ( $primary_term ) : 
-					$clean_name = str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ', 'ותאונות' ), array( '', '', '', '' ), $primary_term->name );
-				?>
+				<?php if ( $primary_term ) : ?>
 					<a class="single-article__term" href="<?php echo esc_url( justice_theme_public_term_link( $primary_term ) ); ?>" style="display: inline-block; margin-bottom: 1.2rem; font-size: 0.95rem; background: rgba(95, 126, 168, 0.1); color: var(--jt-accent); padding: 0.4rem 1.2rem; border-radius: 50px; font-weight: 800; text-decoration: none;">
-						<?php echo esc_html( trim( $clean_name ) ); ?>
+						<?php echo esc_html( $primary_term_label ); ?>
 					</a>
 				<?php endif; ?>
 
@@ -72,15 +109,6 @@ while ( have_posts() ) :
 					<?php the_title(); ?>
 				</h1>
 
-				<?php
-				$article_attribution = function_exists( 'justice_theme_article_visible_attribution' )
-					? justice_theme_article_visible_attribution( get_the_ID() )
-					: array(
-						'label' => __( 'נערך על ידי', 'justice-theme' ),
-						'name'  => get_bloginfo( 'name' ),
-						'url'   => home_url( '/' ),
-					);
-				?>
 				<div class="single-article__author" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.8rem; font-size: 1rem; color: var(--jt-primary-deep); font-weight: 700;">
 					<span aria-hidden="true" style="font-size: 1.2rem;">&#9878;</span>
 					<span>
@@ -110,6 +138,7 @@ while ( have_posts() ) :
 				</div>
 			</div>
 		</header>
+		<?php endif; ?>
 
 		<?php if ( apply_filters( 'justice_theme_show_article_intent_panel', false, get_the_ID() ) ) : ?>
 		<section class="article-intent-panel" aria-label="<?php esc_attr_e( 'מה חשוב להבין לפני קריאת המדריך', 'justice-theme' ); ?>">
@@ -160,7 +189,7 @@ while ( have_posts() ) :
 		<div class="<?php echo esc_attr( implode( ' ', $layout_classes ) ); ?>">
 			
 			<div class="single-article__main">
-				<?php if ( has_post_thumbnail() ) : ?>
+				<?php if ( has_post_thumbnail() && ! $tool_first ) : ?>
 					<figure class="single-article__image" style="border-radius: var(--radius-md); overflow: hidden; margin-bottom: 3rem; box-shadow: var(--shadow-soft);">
 						<?php the_post_thumbnail( 'justice-hero', array( 'style' => 'width: 100%; height: auto;' ) ); ?>
 					</figure>

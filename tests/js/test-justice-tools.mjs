@@ -1097,6 +1097,11 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(REUI.verdictSentence(reg, rich).startsWith('ייתכן שהסימן לא חל'), 'above the 20,000 line the verdict says the chapter may not apply');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 11) ---------- */
+{
+	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14From: '2020-01-01', unpaidExcess: 30 })).ok && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { unpaidExcess: 30 })).ok, 'unpaid leave with s.14 from a date inside the work is refused; with s.14 from the start it is computed (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

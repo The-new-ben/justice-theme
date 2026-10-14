@@ -422,6 +422,7 @@ function compute(registry, input) {
 	// Unpaid leave above 14 days in a work year is not counted (reg. 10(3)); the person sums the excess of each year.
 	const unpaidExcess = blank(input.unpaidExcess) ? 0 : Number(input.unpaidExcess);
 	if (!(Number.isFinite(unpaidExcess) && unpaidExcess >= 0 && unpaidExcess < 36500)) { errors.push({ field: 'unpaidExcess', he: 'ימי חופשה ללא תשלום: מספר ימים, 0 או ריק' }); }
+	if (start && end && end >= start && unpaidExcess > 0 && unpaidExcess >= daysBetween(start, addDays(end, 1))) { errors.push({ field: 'unpaidExcess', he: 'ימי החופשה ללא תשלום ארוכים מתקופת העבודה כולה: בדקו את המספר' }); }
 	// The leave belongs to one of the periods; with a change the tool would have to know which (review, PR 128).
 	// Likewise with s.14 from a date inside the work: the leave may fall before or after the deposits began.
 	if (unpaidExcess > 0 && s14 !== 'none' && s14From && start && s14From > start) { errors.push({ field: 'unpaidExcess', he: 'חופשה ללא תשלום יחד עם הפרשות לפי סעיף 14 שהתחילו באמצע העבודה: הימים מנוכים מהתקופה שבה היו, לפני ההפרשות או אחריהן. את השילוב המחשבון לא מחשב; חשבו כל תקופה בנפרד, או פנו לעורך דין.' }); }

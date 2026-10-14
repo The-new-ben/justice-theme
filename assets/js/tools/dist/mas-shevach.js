@@ -601,6 +601,7 @@ function renderForm(reg, input) {
 		+ `<div data-if-giftlived${input.gift && input.giftLived ? '' : ' hidden'} style="margin-top:8px">${dateField('lf', 'מתי התחלתם לגור בה דרך קבע', input.livedFrom, 'לדוגמה: 1.9.2021')}</div>`
 		+ `<p class="jtool-hint">${esc(sv.gift.he)}.</p><p class="jtool-error" id="${P}-gift-e" role="alert"></p></div></div><p class="jtool-hint" data-if-status="qualified"${st === 'qualified' ? '' : ' hidden'}>${esc(sv.qualified_he)}.</p></fieldset>`
 		+ `<div class="jtool-row">${dateField('bd', 'יום הרכישה', input.buyDate, 'לדוגמה: 1.6.2010')}${moneyField('bp', 'מחיר הרכישה', input.buyPrice, 'לדוגמה: 1,200,000')}</div>`
+		+ `<p class="jtool-hint">קיבלתם את הנכס במתנה מקרוב שהיתה פטורה ממס? הזינו כאן את יום הרכישה ומחיר הרכישה של נותן המתנה, כי הם עוברים אליכם.</p>`
 		+ `<div class="jtool-row">${dateField('sd', 'יום המכירה (חתימת החוזה)', input.saleDate, 'לדוגמה: 1.10.2026')}${moneyField('spr', 'מחיר המכירה', input.salePrice, 'לדוגמה: 2,600,000')}</div>`
 		+ `<details class="jtool-more"${input.buyCosts || input.improve || input.saleCosts ? ' open' : ''}><summary>הוצאות שמנכים מהשבח</summary>`
 		+ `<div class="jtool-row" style="margin-top:8px">${moneyField('bc', 'הוצאות ברכישה', input.buyCosts, '0', 'מס רכישה, עורך דין, תיווך (עד 2%), שמאי')}${moneyField('sc', 'הוצאות במכירה', input.saleCosts, '0', 'עורך דין, תיווך (עד 2%), שמאי')}</div>`

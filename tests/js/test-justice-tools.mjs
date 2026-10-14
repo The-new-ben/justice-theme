@@ -1128,6 +1128,13 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!hotel.ok && hotel.errors.some((e) => e.field === 'excl' && e.he.includes('25טו(א)(1)')) && REUI.renderForm(reg, REUI.EXAMPLE).includes('id="jt12-excl-e"'), 'a hotel, hostel, assisted-living, dormitory or protected-tenancy dwelling is screened out (s.25טו(א)(1); review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 14) ---------- */
+{
+	check(SHUI.renderForm(reg, SHUI.EXAMPLE).includes('של נותן המתנה, כי הם עוברים אליכם'), 'the donor-basis guidance shows on every path, next to the acquisition fields (review, PR 128)');
+	const tooLong = PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2025-12-31', reason: 'fired', unpaidExcess: 500 });
+	check(!tooLong.ok && tooLong.errors.some((e) => e.field === 'unpaidExcess'), 'unpaid leave longer than the whole service is an input error, never a silent 0 (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

@@ -252,7 +252,9 @@ export function compute(registry, input) {
 	// work in another year the tool gives no tax split (review, PR 128).
 	// With s.14 the grant is the fund's balance plus the completion, so only the exempt ceiling is known (taxNote 'fund').
 	const tax = sv.tax;
-	const taxKnown = end >= tax.from && end <= tax.to;
+	// The grant may lawfully be paid up to 15 days after the end (Wage Protection Law s.20); if that can cross into a year
+	// outside the window, the split is not given (review, PR 128).
+	const taxKnown = end >= tax.from && addDays(end, sv.late.grace_days) <= tax.to;
 	const perYear = Math.min(base, tax.ceiling);
 	// A fund exists whenever s.14 applied, also on a resignation: its balance is unknown, so only the ceiling is.
 	const withFund = s14 !== 'none';

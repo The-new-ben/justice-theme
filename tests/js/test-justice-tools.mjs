@@ -859,10 +859,10 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		[{ buyDate: '2015-01-01', buyPrice: 3000000, saleDate: '2026-09-01', salePrice: 6000000 }, 3589361.83],
 	];
 	for (const [inp, value] of cbs) {
-		const r = SH.compute(reg, Object.assign({ status: 'other' }, inp));
+		const r = SH.compute(reg, Object.assign({ status: 'other', depreciation: 0 }, inp));
 		check(r.ok && near(r.adjusted, value, 0.011), `CBS linkage from ${inp.buyDate} to ${inp.saleDate}: ${value} (got ${r.adjusted})`);
 	}
-	const old = SH.compute(reg, { status: 'other', buyDate: '1992-05-10', buyPrice: 300000, saleDate: '2026-09-01', salePrice: 3000000 });
+	const old = SH.compute(reg, { status: 'other', depreciation: 0, buyDate: '1992-05-10', buyPrice: 300000, saleDate: '2026-09-01', salePrice: 3000000 });
 	check(near(old.inflTaxable, 53445.85, 0.011) && old.regular.parts.length === 4 && old.regular.parts[0].rate === 47 && old.regular.parts[3].rate === 10, 'a 1992 purchase: the inflation up to 31.12.1993 (CBS: 353,445.85) is taxed at 10%, the real gain in three periods at 47 / 20 / 25%');
 	const ex = SH.compute(reg, SHUI.EXAMPLE);
 	check(ex.ok && ex.path === 'linear' && near(ex.inflationary, 383957.59, 0.011) && near(ex.shares.linear, 1310 / 5966, 1e-9) && near(ex.tax, ex.realGain * (1 - 1310 / 5966) * 0.25, 0.011), 'example: a qualifying home bought 1.6.2010: the real gain up to 1.1.2014 (1,310 of 5,966 days) is exempt, the rest at 25% (s.48א(ב2))');
@@ -874,8 +874,8 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(big.path === 'partial' && near(big.exemptShare, 5008000 / 6000000, 1e-12) && near(big.tax, big.regular.tax * (1 - 5008000 / 6000000), 0.011) && big.flags.some((f) => f.code === 'surtax') && big.flags.some((f) => f.code === 'ceiling'), 'above the ceiling: the share above 5,008,000 is taxed (s.49א(א1)); above 5,385,285 the surtax is flagged');
 	check(SH.compute(reg, { status: 'qualified', buyDate: '2016-01-01', buyPrice: 2000000, saleDate: '2026-09-01', salePrice: 1900000 }).path === 'loss', 'a sale under the purchase price: no gain, no tax');
 	check(!SH.compute(reg, { status: 'other', buyDate: '1990-02-01', buyPrice: 100000, saleDate: '2026-09-01', salePrice: 900000 }).ok, 'a purchase before the registry\'s index (16.3.1990) is refused, never guessed');
-	const imp = SH.compute(reg, { status: 'other', buyDate: '2010-06-01', buyPrice: 1200000, improve: 100000, improveDate: '2015-06-01', saleDate: '2026-09-01', salePrice: 2600000 });
-	check(imp.ok && imp.adjusted > SH.compute(reg, { status: 'other', buyDate: '2010-06-01', buyPrice: 1200000, saleDate: '2026-09-01', salePrice: 2600000 }).adjusted + 100000, 'an improvement is indexed from its own day (s.47, "יתרת שווי רכישה מתואמת" (2))');
+	const imp = SH.compute(reg, { status: 'other', depreciation: 0, buyDate: '2010-06-01', buyPrice: 1200000, improve: 100000, improveDate: '2015-06-01', saleDate: '2026-09-01', salePrice: 2600000 });
+	check(imp.ok && imp.adjusted > SH.compute(reg, { status: 'other', depreciation: 0, buyDate: '2010-06-01', buyPrice: 1200000, saleDate: '2026-09-01', salePrice: 2600000 }).adjusted + 100000, 'an improvement is indexed from its own day (s.47, "יתרת שווי רכישה מתואמת" (2))');
 	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { saleDate: '2026-12-01' })).flags.some((f) => f.code === 'index_ahead'), 'a sale whose known index is not yet published is flagged');
 	const dl = Object.fromEntries(ex.deadlines.map((d) => [d.key, d.date]));
 	check(dl.declare === '2026-11-01' && dl.pay === '2026-11-30', 'a sale on 1.10.2026: the 30 days end on Saturday 31.10, so the declaration is due 1.11.2026 (Interpretation Law s.10(ג)); payment by 30.11.2026 (s.90א)');
@@ -987,7 +987,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const old = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { start: '2015-03-01', end: '2023-09-30' }));
 	const oldHtml = PEUI.renderResult(reg, old) + PEUI.renderDetails(reg, old) + PEUI.verdictSentence(reg, old);
 	check(old.ok && old.exempt === null && old.taxable === null && old.flags.some((f) => f.code === 'tax_year') && oldHtml.includes('לא חושב') && !/NaN|null|undefined/.test(oldHtml), 'a dismissal in 2023: no tax split with the 2025-2027 ceiling, said plainly (review, PR 128)');
-	check(PE.compute(reg, PEUI.EXAMPLE).exempt === 103000 && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { end: '2027-12-31' })).exempt !== null && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { end: '2028-01-01' })).exempt === null, 'the ceiling applies to an end of work from 1.1.2025 to 31.12.2027 only');
+	check(PE.compute(reg, PEUI.EXAMPLE).exempt === 103000 && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { end: '2027-12-15' })).exempt !== null && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { end: '2028-01-01' })).exempt === null, 'the ceiling applies to an end of work from 1.1.2025 to 31.12.2027 only');
 }
 
 /* ---------- Review fixes (PR 128, Codex pass 5) ---------- */
@@ -1036,7 +1036,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(f.includes('שנספרת (סעיף 49ג)') && f.includes(reg.shevach.family_he) && reg.shevach.family_he.includes('עד שליש'), 'the family confirmation counts only dwellings s.49ג does not exclude, and lists the exclusions (review, PR 128)');
 	const rights = SH.compute(reg, Object.assign({}, one, { buildingRights: true }));
 	check(!rights.ok && rights.errors.some((e) => e.field === 'rights' && e.he.includes('סעיף 49ז')) && f.includes('id="jt14-rights-e"') && f.includes('name="jt14-br"'), 'a price with additional building rights on the single-home path is refused (s.49ז; review, PR 128)');
-	check(SH.compute(reg, Object.assign({}, one, { status: 'other', buildingRights: true })).ok, 'the s.49ז screen is for dwellings only (pass 9 extends it to the linear path)');
+	check(SH.compute(reg, Object.assign({}, one, { status: 'other', buildingRights: true, depreciation: 0 })).ok, 'the s.49ז screen is for dwellings only (pass 9 extends it to the linear path)');
 	const quit = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'resign' }));
 	check(!quit.entitled && quit.deadlines.length === 1 && quit.deadlines[0].key === 'cert' && !PEUI.renderResult(reg, quit).includes('הפיצויים צריכים להיות בחשבון'), 'no severance due: only the employment certificate deadline, no payment clock (review, PR 128)');
 	check(PE.compute(reg, PEUI.EXAMPLE).deadlines.length === 5, 'with severance due all five deadlines stay');
@@ -1079,7 +1079,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!RE.contractText(reg.rent_contract, shortL, false).includes('אינן עולות יחד על') && !RE.contractText(reg.rent_contract, shortL, false).includes('בכל סתירה יחול החוק'), 'outside the chapter the lease neither states the cap nor says the chapter overrides it');
 	// Capital gains: the building-rights screen covers the linear path too (s.49ז).
 	const q = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { buildingRights: true }));
-	check(!q.ok && q.errors.some((e) => e.field === 'rights') && /data-if-home[^>]*>[\s\S]*name="jt14-br"/.test(SHUI.renderForm(reg, SHUI.EXAMPLE)) && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buildingRights: true })).ok, 'building rights in the price are screened on the linear path too, not for a non-dwelling (s.49ז; review, PR 128)');
+	check(!q.ok && q.errors.some((e) => e.field === 'rights') && /data-if-home[^>]*>[\s\S]*name="jt14-br"/.test(SHUI.renderForm(reg, SHUI.EXAMPLE)) && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buildingRights: true, depreciation: 0 })).ok, 'building rights in the price are screened on the linear path too, not for a non-dwelling (s.49ז; review, PR 128)');
 	// Severance: unpaid leave with a change of scope or pay is refused.
 	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { change: true, changeDate: '2022-01-01', prevPct: 50, unpaidExcess: 30 })).ok, 'unpaid leave together with a change: refused, never spread across the periods (review, PR 128)');
 }
@@ -1122,7 +1122,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	// Acquisitions 7.11.2001-31.12.2003: no number for a taxable sale (transitional reduction).
 	const t = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buyDate: '2002-06-01' }));
 	check(!t.ok && t.errors.some((e) => e.field === 'buyDate' && e.he.includes('7.11.2001')), 'a taxable sale of a right bought in 2002 is refused (transitional reduction; review, PR 128)');
-	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, buyDate: '2002-06-01' })).path === 'exempt' && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buyDate: '2004-01-01' })).ok, 'an exempt sale, or a purchase from 2004, is still computed');
+	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, buyDate: '2002-06-01' })).path === 'exempt' && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buyDate: '2004-01-01', depreciation: 0 })).ok, 'an exempt sale, or a purchase from 2004, is still computed');
 	// The rental chapter's excluded kinds of dwelling (s.25טו(א)(1)).
 	const hotel = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { excluded: true }));
 	check(!hotel.ok && hotel.errors.some((e) => e.field === 'excl' && e.he.includes('25טו(א)(1)')) && REUI.renderForm(reg, REUI.EXAMPLE).includes('id="jt12-excl-e"'), 'a hotel, hostel, assisted-living, dormitory or protected-tenancy dwelling is screened out (s.25טו(א)(1); review, PR 128)');
@@ -1183,7 +1183,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 
 /* ---------- Review fixes (PR 128, Codex pass 19) ---------- */
 {
-	const shop = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buyDate: '2015-01-01', buyPrice: 1300000, buyCosts: 0, salePrice: 4000000, saleCosts: 0 }));
+	const shop = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buyDate: '2015-01-01', buyPrice: 1300000, buyCosts: 0, salePrice: 4000000, saleCosts: 0, depreciation: 0 }));
 	check(shop.ok && shop.tax > 0 && shop.flags.some((f) => f.code === 'surtax' && f.he.includes('בכל מחיר מכירה')), 'a non-residential sale under 5,385,285: the surtax warning still shows (review, PR 128)');
 	check(!SH.compute(reg, SHUI.EXAMPLE).flags.some((f) => f.code === 'surtax'), 'a dwelling under the price line: no surtax warning');
 }
@@ -1232,6 +1232,19 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const pf = PEUI.renderForm(reg, PEUI.EXAMPLE);
 	check(pf.includes('id="jt13-seasonal-e"') && pf.includes('id="jt13-breaks-e"'), 'the severance form asks for both');
 	check(!RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { sublease: true })).ok && REUI.renderForm(reg, REUI.EXAMPLE).includes('id="jt12-sub-e"'), 'a sublease is screened out (s.25טו(ג); review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 25) ---------- */
+{
+	const shop = Object.assign({}, SHUI.EXAMPLE, { status: 'other' });
+	check(!SH.compute(reg, shop).ok && SH.compute(reg, Object.assign({}, shop, { depreciation: 0 })).ok && SH.compute(reg, Object.assign({}, shop, { depreciation: 200000 })).tax > SH.compute(reg, Object.assign({}, shop, { depreciation: 0 })).tax, 'a non-residential right asks for its depreciation (0 for land) and uses it (s.47; review, PR 128)');
+	check(!/data-if-rented hidden/.test(SHUI.renderForm(reg, shop)), 'the depreciation field shows for a non-residential right');
+	const shortAsIs = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', asIs: true }));
+	const txt = RE.contractText(reg.rent_contract, shortAsIs, false);
+	check(shortAsIs.bad === 0 && shortAsIs.flags.find((f) => f.code === 'as_is').level === 'info' && txt.includes('חוץ מפגם שהיה ידוע למשכיר ולא גילה'), 'outside the chapter an "as is" term is written as agreed, within the s.8 limit (review, PR 128)');
+	check(RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { relative: true, asIs: true })).flags.find((f) => f.code === 'as_is').level === 'bad', 'between relatives it stays void (s.25ו by s.25יד(1))');
+	const dec = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { end: '2027-12-20' }));
+	check(dec.exempt === null && dec.taxNote === 'year', 'an end on 20.12.2027 may be paid in 2028: no split with the 2025-2027 ceiling (review, PR 128)');
 }
 
 if (failures) {

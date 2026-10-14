@@ -145,6 +145,36 @@ foreach ( array( '/child-support/', '/resource-balancing/', '/prenuptial-agreeme
 	check( false !== strpos( $index, 'https://jus-tice.co.il' . $p ), "hub card: {$p}" );
 }
 
+/* ---------- The page drafts (.content-drafts/family-tools/, pasted at release) ---------- */
+$expert = '<p class="jt-expert-line">מומחית לדיני משפחה באתר: <a href="/lawyers/advocate-maya-rotenberg/">עו״ד מאיה רוטנברג</a>, שהכרטיס שלה מופיע בעמוד.</p>';
+foreach ( glob( dirname( __DIR__ ) . '/.content-drafts/family-tools/*.html' ) as $file ) {
+	$slug  = basename( $file, '.html' );
+	$draft = (string) file_get_contents( $file );
+	$body  = (string) preg_replace( '/<!--.*?-->/s', '', $draft );
+	preg_match_all( '/\[(justice_tool_section|justice_tool)((?:\s+[a-z_]+="[^"]*")*)\s*\]/', $body, $codes, PREG_SET_ORDER );
+	check( count( $codes ) > 0, "draft {$slug}: it uses the tool shortcodes" );
+	foreach ( $codes as $c ) {
+		preg_match_all( '/([a-z_]+)="([^"]*)"/', $c[2], $pairs, PREG_SET_ORDER );
+		$atts = array_column( $pairs, 2, 1 );
+		$ok   = isset( justice_tools_catalog()[ $atts['name'] ?? '' ] ) && ( '' === ( $atts['mode'] ?? '' ) || isset( justice_tools_catalog()[ $atts['name'] ]['modes'][ $atts['mode'] ] ) );
+		if ( 'justice_tool_section' === $c[1] ) {
+			$ok = $ok && '' !== $sec( $atts );
+		}
+		check( $ok, "draft {$slug}: {$c[0]} is a real tool, mode and part" );
+	}
+	check( 0 === preg_match( '#<h[1-3][^>]*>[^<]*20\d\d#u', $body ), "draft {$slug}: no year in a heading" );
+	check( false === strpos( $body, 'נבדק על ידי' ) && false === strpos( $body, 'נבדק מקצועית' ), "draft {$slug}: no reviewed-by wording" );
+	if ( false !== strpos( $slug, '.section' ) ) {
+		continue;
+	}
+	$strip = strpos( $body, 'class="jtool-simstrip"' );
+	check( false !== $strip && $strip < strpos( $body, '<h2>' ) && 1 === substr_count( $body, 'jtool-simstrip__cta' ) && 1 === substr_count( $body, 'jus-tice.com/#/simulation' ) && false !== strpos( $body, 'data-hadmaia-article-entry=' ), "draft {$slug}: one simulation strip before the first h2, one CTA, no second card" );
+	check( 1 === substr_count( $body, $expert ), "draft {$slug}: the expert line, worded as an introduction" );
+	check( 1 === preg_match( '/Title \(\d+\): ([^\n]+)/u', $draft, $t ) && 0 === preg_match( '/20\d\d/', $t[1] ), "draft {$slug}: a proposed title without a year" );
+	$faq = explode( '<h2>שאלות נפוצות</h2>', $body );
+	check( 2 === count( $faq ) && preg_match_all( '#<h3>[^<]+</h3>\s*<p>#u', $faq[1] ) >= 6, "draft {$slug}: six or more FAQ pairs in the h3 + p shape" );
+}
+
 if ( $failures ) {
 	fwrite( STDERR, "justice family tools: {$failures} failure(s)\n" );
 	exit( 1 );

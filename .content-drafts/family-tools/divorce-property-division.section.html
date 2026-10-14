@@ -1,0 +1,61 @@
+<!--
+  Family-law tools (HAD-506), release step for https://jus-tice.co.il/divorce-property-division/ (WordPress page 19215,
+  already on the Legal pillar template with Maya's card grid). Draft written 14.10.2026 (IL time from `date`).
+  This is a SECTION, not a page body. One instrument per page: never the full [justice_tool] here.
+
+  WHERE IT GOES: insert the block below right after the end of the section <h2>מהו איזון משאבים?</h2> (its two
+  paragraphs, the second ends "...שמאי, רואה חשבון או מומחה עסקי.</p>"), that is immediately BEFORE
+  <h2>אילו נכסים נכנסים לבדיקה?</h2>. The "בעמוד הזה" table of contents is inserted at render time by a TOC plugin
+  outside the theme (see the HAD-487 note in inc/justice-tools.php), so the new h2 appears in it by itself; if the
+  saved body does carry a hand-made TOC list, add the item "איזון משאבים: הכללים בטבלה" between "מהו איזון משאבים?"
+  and "אילו נכסים נכנסים לבדיקה?". Do not add another simulation card: the page already has one.
+
+  STATEMENTS IN THE CURRENT BODY THAT CONTRADICT THE REGISTRY OR THE EVIDENCE (fix in the same release, Ben's page,
+  no Maya line on it):
+  1. "מהו איזון משאבים?" p1: "מנגנון לחלוקת שווי הרכוש המשותף בין בני זוג בעת פקיעת הנישואין או פירוק הקשר".
+     Wrong twice: under the law there is no joint ownership during the marriage and no presumption of sharing (s.4;
+     בע"מ 1398/11 para. 14), and the arrangement is tied to marriage (dissolution or death, s.5(א); בע"מ 5620/24
+     para. 20), not to "פירוק הקשר" of cohabitants. Fix: "איזון משאבים הוא ההסדר שבו כל אחד מבני הזוג זכאי, עם
+     התרת הנישואין או מות בן הזוג, למחצית שווי הנכסים שנצברו בנישואין, כשאין הסכם ממון שקובע אחרת (סעיפים 3(א)
+     ו-5(א) לחוק יחסי ממון)."
+  2. "תקציר" p2: "לפי כל-זכות, ... בדרך כלל עוסק בחלוקה שווה של רכוש שמוגדר משותף". Unofficial source and the same
+     "רכוש משותף" error. Fix: cite the law (s.5(א)) instead of Kol-Zchut; "מחצית שווי הנכסים שנצברו בנישואין".
+  3. "ירושות, מתנות ופיצויים": "לעיתים הן מוחרגות". The law excludes them by default (s.5(א)(1)); they enter only if
+     specific sharing is proven (בע"מ 5620/24 paras. 25, 37). Same section: "פיצוי על נזק גוף, פיצויי פיטורים,
+     מענקים ... עשויים לעורר שאלות שונות" puts opposites together: bodily-injury compensation is excluded
+     (s.5(א)(2)); severance pay in a fund (פיצויי פרישה) is included (s.5(ג)). Fix both sentences accordingly.
+  4. FAQ "האם פנסיה מתחלקת בגירושין?": "לעיתים כן". Wrong: future pension rights are part of the balance by law,
+     the part accrued since the marriage (s.5(ג), 5(א)(1)). Fix: "כן. זכויות פנסיה נכנסות לאיזון, רק החלק שנצבר
+     מיום הנישואין (סעיף 5(ג)); הקופה מעבירה את החלק שנפסק לחשבון נפרד, עד מחצית היתרה במועד הפירוד (החוק
+     לחלוקת חיסכון פנסיוני, סעיפים 3(2) ו-6)." The two pension sections also never mention that law; add one line.
+  5. "חובות בגירושין": "השאלה האם חוב הוא משותף תלויה בנסיבות: מתי נוצר, למה שימש, האם היה לטובת התא המשפחתי".
+     That is the pre-law sharing test. Under the law: marriage creates no liability for the other's debts (s.4);
+     each side deducts his or her own debts, except debts tied to an excluded asset (s.6(א)); no general sharing of
+     personal debts, specific sharing can be proven (ע"א 6839/19 para. 16). Fix the paragraph.
+  6. FAQ "האם דירה שרשומה על שם אחד הצדדים יכולה להתחלק?": "ייתכן, תלוי בנסיבות". Understates: a home bought during
+     the marriage is balanced whatever the registration (s.5(א), s.9). Only a pre-marital, gift or inherited home
+     needs specific sharing with "דבר מה נוסף" (בע"מ 1398/11 paras. 14, 17; factors in בע"מ 5620/24 para. 25).
+  7. "דירה שנרכשה לפני הנישואין" list: "האם נולדו ילדים והדירה שימשה בית משפחתי לאורך זמן" reads as if long family
+     use is enough. בע"מ 1398/11 para. 17: a long marriage alone is not enough, "דבר מה נוסף" is required; length of
+     residence is one factor among several (5620/24 para. 25). Add that sentence.
+  8. "הברחת נכסים וחוסר שקיפות": "לפי הרשות השופטת, קיימים סעדים זמניים ... בתקופה שבה מתנהל הליך יישוב סכסוך".
+     No source in the evidence; replace with the law: orders to give information, a guarantee, consent-required
+     acts and a registry note (s.11), and an asset removed to defeat the balance counted as still held (s.7).
+  9. "מועד הקרע ולמה הוא חשוב": no rule given. Add: usually the day the couple stopped running a joint purse
+     (תלה"מ (משפחה ירושלים) 23952-08-19 para. 30, first instance); the law itself speaks of the value at the
+     balancing date and allows an earlier date (s.8(3)).
+  10. "דירת מגורים ופירוק שיתוף" and FAQ "האם חייבים למכור את דירת המגורים?": missing the rule that a sale for the
+      balance is delayed until a suitable home is found for the minor children and the parent holding them (s.6א).
+  Internal drafting notes are visible to readers and should go (not legal errors, but they read as unfinished):
+  "במערכת Jus-Tice, טופס הליד צריך לשאול:" with its list and the next paragraph; "בסקירת SERP ראשונית, ...";
+  "זה מקום חשוב להוסיף בעתיד כלי "מפת מקור הכסף" ..."; "לכן תפקיד המאמר הוא לא לתת נוסחה ..."; "אתר Jus-Tice לא
+  צריך להחליף מומחים ..."; "חשוב להסביר למשתמש מי עושה מה" and "הניסוח צריך להיות זהיר ..."; "אין לקבוע במאמר
+  כלל גורף. צריך להסביר ..."; the whole section "איך לא לערבב רכוש עם ילדים ומזונות" ("מבחינת תוכן ו-SEO"); the
+  section "תוכן המשך מומלץ לאשכול רכוש" (five of its six links point back to this same page under invented slugs);
+  "כדי להפוך את העמוד לכלי עבודה, צריך לחלק את המשתמשים למסלולים"; the empty headings "שלב 5: משא ומתן או הליך"
+  and "מסלול מומחה". Also the FAQ heading is "FAQ ראשוני": the FAQPage builder looks for "שאלות נפוצות"; rename it.
+-->
+<h2>איזון משאבים: הכללים בטבלה</h2>
+<p>כל אחד מבני הזוג זכאי למחצית שווי הנכסים שנצברו בנישואין, אחרי ניכוי החובות; מי שנכסיו שווים יותר משלם לשני מחצית ההפרש (סעיפים 5(א) ו-6 לחוק יחסי ממון). הטבלה מרכזת את הכללים, כל שורה עם הסעיף או פסק הדין.</p>
+<p>[justice_tool_section name="izun" part="numbers"]</p>
+<p>לחישוב לפי הנכסים שלכם, עם הסעיף לכל נכס: <a href="/resource-balancing/">מחשבון איזון משאבים</a>.</p>

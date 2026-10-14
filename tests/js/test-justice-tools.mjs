@@ -1294,6 +1294,15 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(hr.base === 12000 && cards.includes(`${Math.round(hr.severance).toLocaleString('en-US')} ₪`) && PEUI.renderDetails(reg, mo).includes('128,750'), 'the arrangement cards keep the commissions, hourly and monthly, without counting them twice (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 32) ---------- */
+{
+	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'term', misconduct: true })).ok, 'a fixed-term ending with alleged misconduct is screened too (ss.16-17; review, PR 128)');
+	const hc = PE.compute(reg, { payType: 'hourly', hourly: 12.5, hours: 160, commission: 10000, start: '2020-01-01', end: '2026-09-30', reason: 'fired', s14: 'none' });
+	check(hc.ok && !hc.floored && hc.base === 12000, 'hourly pay below the minimum rate but commissions above it: the floor does not erase the commissions (review, PR 128)');
+	const shortAsIs = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', asIs: true }));
+	check(!RE.contractText(reg.rent_contract, shortAsIs, false).includes('כשהיא ראויה ומתאימה למגורים'), 'outside the chapter with "as is" the lease drops the fitness warranty, so it does not contradict itself (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

@@ -442,7 +442,7 @@ function compute(registry, input) {
 	// shelter, an elected office, ...) each have their own conditions; the tool does not check them (review, PR 128).
 	// A dismissal for serious misconduct may lose severance in whole or part by a collective agreement (s.16) or a ruling
 	// of the labour court (s.17); the tool does not judge that (review, PR 128).
-	if (input.misconduct && input.reason !== 'resign' && !RESIGN_CODES.includes(input.reason)) { errors.push({ field: 'misconduct', he: 'פיטורים בנסיבות משמעתיות חמורות: לפי הסכם קיבוצי, או בהחלטת בית הדין לעבודה בענף שאין בו הסכם, אפשר לשלול את הפיצויים כולם או חלקם (סעיפים 16 ו-17). את זה המחשבון לא קובע; פנו לעורך דין.' }); }
+	if (input.misconduct && (input.reason === 'fired' || input.reason === 'term' || blank(input.reason))) { errors.push({ field: 'misconduct', he: 'פיטורים בנסיבות משמעתיות חמורות: לפי הסכם קיבוצי, או בהחלטת בית הדין לעבודה בענף שאין בו הסכם, אפשר לשלול את הפיצויים כולם או חלקם (סעיפים 16 ו-17). את זה המחשבון לא קובע; פנו לעורך דין.' }); }
 	if (input.seasonal) { errors.push({ field: 'seasonal', he: 'לעובד עונתי הזכות לפיצויים והתקופה שלהם נקבעות לפי עונות העבודה (סעיף 1 לחוק פיצויי פיטורים), לא לפי שנה רצופה. את החישוב הזה המחשבון לא עושה; פנו לעורך דין או למדריך של משרד העבודה.' }); }
 	if (input.otherBreaks) { errors.push({ field: 'breaks', he: 'הפסקות נוספות שלא נספרות בחישוב (שירות צבאי, שירות חלקי מעל 120 יום, מחלה או תאונה בלי תשלום מעבר לימי המחלה, ועוד בתקנה 10): את ניכוין המחשבון לא מחשב; חשבו לפי התקופות, או פנו לעורך דין.' }); }
 	if (input.reason === 'other_ground') { errors.push({ field: 'reason', he: 'התפטרות מסיבה אחרת שהחוק רואה כפיטורים (למשל גיוס לשירות סדיר, שירות לאומי או אזרחי, שהייה במקלט לנשים מוכות, בחירה לראש רשות מקומית, עבודה עונתית, סעיף 11(ב)-(ו) ועוד): לכל סיבה תנאים משלה. את התנאים האלה המחשבון לא בודק; פנו לעורך דין או למדריך של משרד העבודה.' }); }
@@ -472,7 +472,8 @@ function compute(registry, input) {
 		if (payType === 'monthly' && monthly < floorMonthly - 0.005) { base = floorMonthly; floored = true; }
 		// Rows before April 2018 hold the hourly rate on a 186-hour month (review, PR 128).
 		const mwHour = mwRow.hourly_182 ?? mwRow.hourly_186;
-		if (payType === 'hourly' && mwHour && hourly < mwHour - 0.0001) { base = r2(mwHour * hours); floored = true; }
+		// The floor applies to the whole pay, commissions included (review, PR 128).
+		if (payType === 'hourly' && mwHour && monthly < r2(mwHour * hours) - 0.005) { base = r2(mwHour * hours); floored = true; }
 		if (floored) { add('warn', 'min_wage', `השכר שהזנתם נמוך משכר המינימום (${payType === 'hourly' ? `${mwHour} ₪ לשעה` : `${mwRow.monthly.toLocaleString('en-US')} ₪ לחודש במשרה מלאה`}, מ-${heDay(mwRow.from)}). הפיצויים מחושבים לפי שכר המינימום (סעיף 13ב), וגם על ההפרש בשכר עצמו אפשר לתבוע.`, 'סעיף 13ב'); }
 	}
 	const yearOk = span.months >= sv.min_months;

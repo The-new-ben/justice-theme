@@ -1,0 +1,138 @@
+post_id,path,type,title,current_terms,proposed_terms,action,topic,card_after_code_release
+11847,/women-lawyer-vs-men-divorce-lawyer/,articles,עורכת דין גירושין: מתי לבחור עורכת דין למשפחה | Jus-Tice,(none),family-law (68) + divorce (392),add terms (keep existing),divorce,only after this term step
+19212,/divorce-mediation/,page,"גישור גירושין: מתי זה נכון, איך מתכוננים ומה חשוב לבדוק | Jus-Tice",(none),family-law (68),add terms (keep existing),mediation,only after this term step
+20213,/divorce-agreement/,page,"הסכם גירושין | מדריך מלא: מה כולל, עלות ואיך עושים | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),divorce,only after this term step
+19214,/child-custody/,page,"משמורת ילדים בישראל: זכויות הורים, טובת הילד וההליך | Jus-Tice",(none),family-law (68) + child-custody (634),add terms (keep existing),custody,only after this term step
+20289,/divorce-women-rights-israel/,page,"זכויות האישה בגירושין | רכוש, מזונות, פנסיה | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,only after this term step
+19213,/child-support/,page,מחשבון מזונות ילדים: הלכת 919/15 + מדריך מלא | Jus-Tice,(none),family-law (68) + child-support (635),add terms (keep existing),child-support,only after this term step
+20275,/cohabiting-couples-rights/,page,"זכויות ידועים בציבור | מה מגיע, מה לא ואיך מוכיחים | Jus-Tice",(none),family-law (68),add terms (keep existing),cohabitation,only after this term step
+19217,/family-dispute-resolution/,page,יישוב סכסוך במשפחה: מה קורה לפני תביעה ומה צריך להכין | Jus-Tice,(none),family-law (68),add terms (keep existing),mediation,only after this term step
+19315,/domestic-violence/,articles,"אלימות במשפחה | צו הגנה, זכויות, עונשים והגנה משפטית",family-law|criminal-law,primary: family-law (68),set Yoast primary practice-area = family-law (68),violence,only after this term step
+19215,/divorce-property-division/,page,"חלוקת רכוש בגירושין: נכסים, חובות, דירה, פנסיה ועסק משפחתי | Jus-Tic",(none),family-law (68) + divorce (392),add terms (keep existing),property,only after this term step
+20344,/adoption-israel-guide/,page,"אימוץ ילדים בישראל | תנאים, הליך ומה צריך לדעת | Jus-Tice",(none),family-law (68),add terms (keep existing),adoption,only after this term step
+19211,/consensual-divorce/,page,גירושין בהסכמה: ההליך שלב אחר שלב | Jus-Tice,(none),family-law (68) + divorce (392),add terms (keep existing),divorce,only after this term step
+20412,/divorce-statistics-israel/,page,גירושין בישראל: נתונים ומספרים 2025 | Jus-Tice,(none),family-law (68) + divorce (392),add terms (keep existing),divorce,only after this term step
+20332,/child-abduction-hague/,page,"חטיפת ילדים לחו""ל | אמנת האג, זכויות, מה עושים | Jus-Tice",(none),family-law (68) + child-custody (634),add terms (keep existing),custody,only after this term step
+8633,/parental-alienation-damages16820-11-19/,articles,"תביעת נזיקין בגין ניכור הורי(תמ""ש 16820-11-19) | Jus-Tice.co.il",(none),family-court-rulings (651),add terms (keep existing),custody,only after this term step
+20247,/alimony-israel/,page,"מזונות אישה | זכאות, חישוב ותביעה | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,only after this term step
+20354,/divorce-pension-split/,page,"חלוקת פנסיה בגירושין | כיצד מחשבים, מה מגיע | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),property,only after this term step
+20351,/restraining-order-violation/,page,"הפרת צו הגנה: מה קורה, עונש, מה עושים",(none),family-law (68),add terms (keep existing),violence,only after this term step
+20359,/divorce-spousal-support/,page,"מזונות אישה בגירושין | מתי מגיע, כמה, כמה זמן | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,only after this term step
+8494,/protection-order-petition-family-61185-11-22/,articles,"צו הגנה למניעת אלימות במשפחה: ה""ט 61185-11-22",(none),family-court-rulings (651),add terms (keep existing),violence,only after this term step
+20282,/restraining-order-israel/,page,"צו הגנה בישראל: מה זה, מי מגיש ואיך",(none),family-law (68),add terms (keep existing),violence,only after this term step
+20341,/surrogacy-israel/,page,"פונדקאות בישראל | הליך, זכויות ומה השתנה | Jus-Tice",(none),family-law (68),add terms (keep existing),adoption,only after this term step
+20270,/family-law-tel-aviv/,page,"עורך דין משפחה תל אביב | גירושין, משמורת, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,only after this term step
+20420,/divorce-financial-planning/,page,"תכנון פיננסי בגירושין | נכסים, מס, חובות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),divorce,only after this term step
+7101,/verdict-custody-37049-07-18/,articles,משמורת בלעדית לאם ושיתופיות יחסית באיזון משאבים: 37049-07-18,(none),family-court-rulings (651),add terms (keep existing),custody,only after this term step
+24539,/refusal-of-get/,page,"סרבנות גט: סנקציות, צווי הגבלה ומזונות מעוכבת | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,only after this term step
+6698,/verdict-judge-lawsuit-custody-64033-06-21/,articles,"השופט ארז שני: משמורת וזמני שהות שווים לאב, 64033-06-21",(none),family-court-rulings (651),add terms (keep existing),custody,only after this term step
+20307,/custody-modification-israel/,page,בקשה לשינוי הסדרי שהות: שלבי ההליך והמסמכים | Jus-Tice,(none),family-law (68) + child-custody (634),add terms (keep existing),custody,only after this term step
+20316,/guardianship-israel/,page,"אפוטרופסות בישראל | מינוי, תהליך ומה כולל | Jus-Tice",(none),family-law (68),add terms (keep existing),adoption,only after this term step
+20419,/child-welfare-law-israel/,page,"חוק הנוער (טיפול והשגחה) | ילדים בסיכון, פקיד סעד | Jus-Tice",(none),family-law (68),add terms (keep existing),family,only after this term step
+6784,/judge-decision-lawsuit-property-witness-divorce/,articles,מועד הקרע בגירושין לאיזון משאבים: השופטת אורית בן דור ליבל,(none),family-court-rulings (651),add terms (keep existing),property,only after this term step
+6760,/divorce-agreement-judge-partnership-house-residence-15293-03-20/,articles,פירוק שותפות בבית מגורים בניגוד להסכם גירושין: 15293-03-20,(none),family-court-rulings (651),add terms (keep existing),divorce,only after this term step
+20336,/mediation-israel/,page,"גישור בישראל | מה זה, מתי עוזר ואיך עובד | Jus-Tice",(none),family-law (68),add terms (keep existing),mediation,only after this term step
+20388,/guardianship-adult-israel/,page,"אפוטרופסות על בגיר | נכות, קשיש, הליך | Jus-Tice",(none),family-law (68),add terms (keep existing),adoption,only after this term step
+20444,/property-division-divorce/,page,"חלוקת רכוש בגירושין | חוק, שיטות, מה מגיע | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),property,only after this term step
+24514,/directory-family-courts/,page,בתי המשפט לענייני משפחה: הרשימה המלאה לפי מחוז | Jus-Tice,(none),family-law (68),add terms (keep existing),family,only after this term step
+20393,/divorce-children-emotional/,page,"גירושין והשפעה על ילדים | כיצד להגן, מה לעשות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),divorce,only after this term step
+20268,/divorce-mediation-guide/,page,"גישור גירושין | מה זה, כמה עולה ומתי זה עובד | Jus-Tice",(none),family-law (68),add terms (keep existing),mediation,only after this term step
+8492,/land-registration-verdict-procedure-family-28997-05-16/,articles,"פס""ד הסדר רישום מקרקעין בסכסוך משפחה (תמ""ש 28997-05-16) | Jus-Tice.co.",(none),family-court-rulings (651),add terms (keep existing),family,only after this term step
+6768,/judge-decision-alimony-57290-01-22/,articles,"השופט סארי ג'יוסי: חובת הנמקה במזונות זמניים, 57290-01-22",(none),family-court-rulings (651),add terms (keep existing),spousal,only after this term step
+6943,/protection-order-judge-decision-family-40857-03-22/,articles,"השופט אריאל ממן: צו הגנה למניעת אלימות במשפחה, 40857-03-22",(none),family-court-rulings (651),add terms (keep existing),violence,only after this term step
+20317,/domestic-violence-israel/,page,"אלימות במשפחה בישראל | זכויות, דיווח ועורך דין | Jus-Tice",(none),family-law (68),add terms (keep existing),violence,only after this term step
+20383,/divorce-custody-agreement/,page,"הסכם משמורת ילדים | מה כולל, כיצד כותבים | Jus-Tice",(none),family-law (68) + child-custody (634),add terms (keep existing),custody,only after this term step
+7103,/family-court-ruling-7679-12-21-custody-rights/,articles,"צו להשבת קטינים למקום מגוריהם הקודם: תלה""מ 7679-12-21",(none),family-court-rulings (651),add terms (keep existing),custody,only after this term step
+20319,/divorce-financial-disclosure/,page,"גילוי נכסים בגירושין | חובה, הסתרה ועונשים | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),divorce,only after this term step
+6839,/dissolution-partnership-verdict-divorce-rights-property-compensation/,articles,"גירושין: פסק דין הצהרתי, פירוק שיתוף ופיצוי משווה",(none),family-law (68) + divorce (392),add terms (keep existing),property,only after this term step
+7262,/lawyer-rabbinical-court-law-ownership-fraud-house/,articles,חיסיון עורך דין-לקוח מול חובתו לבית הדין בחשש לרמייה,(none),family-law (68) + rabbinical-court (640),add terms (keep existing),rabbinical,only after this term step
+24533,/mador-spousal-housing/,page,מדור: רכיב הדיור בתביעת מזונות | Jus-Tice,(none),family-law (68) + divorce (392),add terms (keep existing),spousal,only after this term step
+24523,/arrangements-family-disputes-law/,page,חוק להסדר התדיינויות: מה חובה לפני תביעת משפחה | Jus-Tice,(none),family-law (68),add terms (keep existing),mediation,only after this term step
+24494,/dispute-resolution-request/,page,"בקשה ליישוב סכסוך: אגרה, עיכוב הליכים ופגישות מהות | Jus-Tice",(none),family-law (68),add terms (keep existing),mediation,only after this term step
+8252,/divorce-rights-law-pension/,articles,זכויות פנסיוניות מהוונות בגירושין לפי חוק חלוקת חיסכון,(none),family-law (68) + divorce (392),add terms (keep existing),property,only after this term step
+7027,/parental-alienation-decision-petition-custody-20158-01-22/,articles,"ניכור הורי: משמורת זמנית לאם והעברת הקטין, 20158-01-22",(none),family-court-rulings (651),add terms (keep existing),custody,only after this term step
+9288,/18744-11-18/,articles,"ביהמ""ש לענייני משפחה פ""ת, ש' אפרת ונקרט: פס""ד בשאלת זכויותיו של יורש ש",inheritance-law|court-rulings,family-court-rulings (651),add terms (keep existing),family,only after this term step
+8338,/authority-9267-12-21/,articles,"חלוקת זמני שהות:  מינוי מתאם הורי עם סמכויות הכרעה (תלה""מ 9267-12-21)",court-rulings,family-court-rulings (651),add terms (keep existing),custody,only after this term step
+24503,/abroad-civil-marriage-registration/,page,"רישום נישואין אזרחיים מחו""ל: אפוסטיל, יוטה והתרה | Jus-Tice",(none),family-law (68),add terms (keep existing),family,only after this term step
+24500,/adopting-child-israel/,page,"אימוץ ילד בישראל: תנאים, שלבים ומשך ההליך | Jus-Tice",(none),family-law (68),add terms (keep existing),adoption,only after this term step
+24507,/agrot-family-court/,page,אגרות בית משפט לענייני משפחה 2026: כל הסכומים | Jus-Tice,(none),family-law (68),add terms (keep existing),family,only after this term step
+24519,/aid-family-cases/,page,עורך דין חינם מהמדינה בתיק משפחה: מי זכאי | Jus-Tice,(none),family-law (68),add terms (keep existing),family,only after this term step
+7025,/alimony-38131-07-21/,articles,"מזונות ילד מאב שאינו ממצה את כושר השתכרותו: עמ""ש 38131-07-21",(none),family-court-rulings (651),add terms (keep existing),child-support,only after this term step
+24496,/arranging-get-procedure/,page,"סידור גט: אגרות, מסמכים ותעודת גירושין | Jus-Tice",(none),family-law (68) + rabbinical-court (640),add terms (keep existing),rabbinical,only after this term step
+24518,/bituach-leumi-alimony/,page,"מזונות מביטוח לאומי: סכומים, זכאות והגשה | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,only after this term step
+24525,/capacity-guardianship-law/,page,"חוק הכשרות המשפטית: הורים, קטינים ואפוטרופסות | Jus-Tice",(none),family-law (68),add terms (keep existing),adoption,only after this term step
+20283,/child-custody-guide/,page,"הסדרי שהות עם ילדים: קביעה, חלוקת זמנים ויישום | Jus-Tice",(none),family-law (68) + child-custody (634),add terms (keep existing),custody,only after this term step
+24526,/children-adoption-law/,page,חוק אימוץ ילדים: מי רשאי לאמץ ובאילו תנאים | Jus-Tice,(none),family-law (68),add terms (keep existing),adoption,only after this term step
+6691,/common-law-couple-status-private-marriage-israel/,articles,"חזקת בני זוג כנשואים ותוקף נישואין פרטיים: פס""ד רבני",(none),family-law (68),add terms (keep existing),cohabitation,only after this term step
+6756,/common-law-spouses-inheritance-order-request-57474-06-19/,articles,ידועים בציבור:דחיית בקשה להתנגדות לצו ירושה על ידי אישה הטוענת להיותה,(none),family-court-rulings (651),add terms (keep existing),cohabitation,only after this term step
+25284,/enactment-family-court-1995/,page,חוק בית המשפט לענייני משפחה 1995 בענייני ירושה | Jus-Tice,(none),family-law (68),add terms (keep existing),family,only after this term step
+24501,/establishing-paternity/,page,"תביעת אבהות: בדיקה גנטית, סמכות ומועדי ערעור | Jus-Tice",(none),family-law (68),add terms (keep existing),adoption,only after this term step
+24506,/fees-rabbinical-courts/,page,אגרות בית הדין הרבני 2026: כל הסכומים | Jus-Tice,(none),family-law (68) + rabbinical-court (640),add terms (keep existing),rabbinical,only after this term step
+24531,/gett-jewish-divorce/,page,"גט: מה זה, איך הוא ניתן ומה קורה בסירוב | Jus-Tice",(none),family-law (68) + rabbinical-court (640),add terms (keep existing),rabbinical,only after this term step
+24513,/great-rabbinical-court/,page,"בית הדין הרבני הגדול: ערעורים, כתובת ואגרות | Jus-Tice",(none),family-law (68) + rabbinical-court (640),add terms (keep existing),rabbinical,only after this term step
+24528,/jurisdiction-rabbinical-courts-law/,page,חוק שיפוט בתי דין רבניים: סמכות ייחודית וכריכה | Jus-Tice,(none),family-law (68) + rabbinical-court (640),add terms (keep existing),rabbinical,only after this term step
+8391,/law-family-58854-11-22/,articles,"צו למניעת אלימות במשפחה נגד הבעל: ה""ט 58854-11-22",(none),family-court-rulings (651),add terms (keep existing),violence,only after this term step
+25280,/maintenance-estate-dependents/,page,מזונות מן העיזבון לפי פרק רביעי לחוק הירושה | Jus-Tice,(none),family-law (68) + divorce (392),add terms (keep existing),spousal,only after this term step
+24497,/marriage-dissolution-mixed-couples/,page,התרת נישואין: ההליך לזוגות מעורבים וחסרי דת | Jus-Tice,(none),family-law (68),add terms (keep existing),family,only after this term step
+24537,/minors-guardianship/,page,אפוטרופסות על קטינים: מה היא כוללת ומה בגירושין | Jus-Tice,(none),family-law (68),add terms (keep existing),adoption,only after this term step
+24499,/motion-temporary-alimony/,page,"בקשה למזונות זמניים: מועדים, מסמכים ואגרה | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,only after this term step
+25265,/mutual-spouses-testament/,page,"צוואה הדדית לפי סעיף 8א: הסתמכות, ביטול והשבה | Jus-Tice",(none),family-law (68),add terms (keep existing),family,only after this term step
+24516,/official-guardian/,page,האפוטרופוס הכללי: תפקידים ומתי פונים | Jus-Tice,(none),family-law (68),add terms (keep existing),adoption,only after this term step
+24493,/opening-divorce-file-rabbinical/,page,פתיחת תיק גירושין: כמה עולה ומחשבון אגרות 2026 | Jus-Tice,(none),family-law (68) + rabbinical-court (640),add terms (keep existing),rabbinical,only after this term step
+24536,/parenting-time-arrangements/,page,הסדרי שהות: איך נקבעים ומה עולה לפתוח תיק | Jus-Tice,(none),family-law (68) + child-custody (634),add terms (keep existing),custody,only after this term step
+25270,/parents-siblings-grandparents-circles/,page,"מעגלי הקרבה בחוק הירושה: הורים, אחים, סבים ודודים | Jus-Tice",(none),family-law (68),add terms (keep existing),family,only after this term step
+24527,/prevention-family-violence-law/,page,חוק למניעת אלימות במשפחה: צווי הגנה ותוקפם | Jus-Tice,(none),family-law (68),add terms (keep existing),violence,only after this term step
+25277,/rabbinate-tribunal-consent-estate/,page,בית הדין הרבני בירושה: סמכות בהסכמה לפי סעיף 155 | Jus-Tice,(none),family-law (68) + rabbinical-court (640),add terms (keep existing),rabbinical,only after this term step
+25254,/referral-file-family-court/,page,מתי תיק ירושה עובר מהרשם לבית המשפט למשפחה | Jus-Tice,(none),family-law (68),add terms (keep existing),family,only after this term step
+24512,/regional-rabbinical-courts/,page,"בתי הדין הרבניים: כתובות, טלפון ושעות קבלה | Jus-Tice",(none),family-law (68) + rabbinical-court (640),add terms (keep existing),rabbinical,only after this term step
+24521,/religious-council-marriage-registration/,page,רישום נישואין במועצה הדתית: מסמכים ומועדים | Jus-Tice,(none),family-law (68),add terms (keep existing),family,only after this term step
+25275,/reporting-administrator-general-custodian/,page,"האפוטרופוס הכללי ומנהלי עיזבון: פרטה, שומה ודוחות | Jus-Tice",(none),family-law (68),add terms (keep existing),adoption,only after this term step
+24534,/resource-balancing/,page,איזון משאבים: איך מתחלק הרכוש בגירושין | Jus-Tice,(none),family-law (68) + divorce (392),add terms (keep existing),property,only after this term step
+24524,/statute-family-court/,page,חוק בית המשפט לענייני משפחה: סמכויות והגדרות | Jus-Tice,(none),family-law (68),add terms (keep existing),family,only after this term step
+24532,/temporary-alimony/,page,"מזונות זמניים: הגדרה, מועדים ועד מתי משולמים | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,only after this term step
+25272,/unmarried-partners-quasi-testament/,page,ידועים בציבור בירושה: מעין צוואה לפי סעיף 55 | Jus-Tice,(none),family-law (68),add terms (keep existing),cohabitation,only after this term step
+24509,/wedding-registration-fee/,page,"אגרת רישום נישואין ברבנות 2026: 844 ש""ח ומי מקבל הנחה | Jus-Tice",(none),family-law (68),add terms (keep existing),family,only after this term step
+6786,/womens-rights-domestic-violence-israel-law/,articles,"אלימות כלפי נשים – הזכות של האישה שהאיש יניח לה לנפשה. הזכות להגיד ""לא",(none),family-law (68),add terms (keep existing),violence,only after this term step
+24538,/yeduim-batzibur/,page,"ידועים בציבור: זכויות, ירושה וההבדל מנשואים | Jus-Tice",(none),family-law (68),add terms (keep existing),cohabitation,only after this term step
+24530,/ketubah/,page,כתובה,(none),family-law (68) + rabbinical-court (640),add terms (keep existing),rabbinical,only after this term step
+24510,/appeals-court-fees/,page,אגרת ערעור בענייני משפחה,(none),family-law (68),add terms (keep existing),family,only after this term step
+24498,/order-protection-request/,page,בקשה לצו הגנה,(none),family-law (68),add terms (keep existing),violence,only after this term step
+24495,/settlement-agreement-approval/,page,אישור הסכם גירושין בבית המשפט או בבית הדין,(none),family-law (68) + divorce (392),add terms (keep existing),divorce,only after this term step
+9004,/15443-09-20/,articles,"ביהמ""ש לענייני משפחה ירושלים, השופטת אורית בן דור ליבל: פס""ד בעניין תב",real-estate|court-rulings,family-court-rulings (651),add terms (keep existing),family,only after this term step
+8613,/8773-11-22/,articles,תביעה רכושית גירושין: החלטה בעניין תביעה לתשלום הכנסות שכירות מנכסים מ,court-rulings,family-court-rulings (651),add terms (keep existing),property,only after this term step
+20246,/prenuptial-agreement/,page,"הסכם ממון לפני נישואים | מה כולל, עלות ותהליך | Jus-Tice",(none),family-law (68) + prenuptial-agreement (656),add terms (keep existing),prenup,yes
+1224,/prenup-attorney/,articles,"עורך דין הסכם ממון: לפני נישואין, ידועים בציבור ודירה | Jus-Tice",(none),family-law (68) + prenuptial-agreement (656),add terms (keep existing),prenup,yes
+20302,/prenuptial-agreement-guide/,page,"הסכם קדם נישואין | מה כולל, מתי כדאי ועלות | Jus-Tice",(none),family-law (68) + prenuptial-agreement (656),add terms (keep existing),prenup,yes
+21329,/family-lawyer-tel-aviv/,page,עורך דין דיני משפחה וגירושין בתל אביב | Jus-Tice,(none),family-law (68) + divorce (392),add terms (keep existing),divorce,yes
+20353,/family-law-petah-tikva/,page,עורך דין גירושין ומשפחה בפתח תקווה: מחירים ומזונות | Jus-Tice,(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+8362,/prenuptial-agreement-verdict-judge-cancellation-validity-27071-11-19/,articles,"השופטת אורית בן דור ליבל: פס""ד בתובענה לביטול הסכם ממון שאושר וקיבל תו",(none),family-law (68) + prenuptial-agreement (656),add terms (keep existing),prenup,yes
+20368,/family-law-ashdod/,page,"עורך דין משפחה אשדוד: גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20358,/family-law-rehovot/,page,עורך דין גירושין ומשפחה ברחובות: מחירים ומזונות | Jus-Tice,(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+24522,/matrimonial-property-law/,page,חוק יחסי ממון: איזון משאבים והסכם ממון | Jus-Tice,(none),family-law (68) + prenuptial-agreement (656),add terms (keep existing),prenup,yes
+20311,/family-law-beer-sheva/,page,"עורך דין משפחה באר שבע | גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20424,/family-law-hadera/,page,"עורך דין משפחה חדרה: גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20280,/family-law-haifa/,page,"עורך דין משפחה חיפה | גירושין, מזונות, משמורת | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20392,/family-law-modiin/,page,"עורך דין משפחה מודיעין: גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20445,/family-law-ashkelon/,page,"עורך דין משפחה אשקלון: גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20510,/family-law-givatayim/,page,"עורך דין משפחה גבעתיים | גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20399,/family-law-herzliya/,page,"עורך דין משפחה הרצליה: גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20362,/prenuptial-agreement-cost/,page,כמה עולה הסכם קדם נישואין | מחירים ומה כולל | Jus-Tice,(none),family-law (68) + prenuptial-agreement (656),add terms (keep existing),prenup,yes
+20403,/family-law-kfar-saba/,page,"עורך דין משפחה כפר סבא: גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20479,/family-law-carmiel/,page,"עורך דין משפחה כרמיאל: גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20418,/family-law-raanana/,page,"עורך דין משפחה רעננה: גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+10346,/decision30452-07-20/,articles,השופטת עפרה גיא: תביעה רכושית לפירוק שיתוף (חלוקת רכוש גירושין הסכם ממ,(none),family-court-rulings (651),add terms (keep existing),prenup,yes
+20342,/family-law-netanya/,page,"עורך דין משפחה נתניה | גירושין, מזונות, ייצוג | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+10371,/decision53041-12-20a/,articles,"ביהמ""ש לענייני משפחה חדרה, השופטת יפעת שקדי שץ: פס""ד עניינים רכושיים,",(none),family-court-rulings (651),add terms (keep existing),property,yes
+20296,/family-law-rishon-lezion/,page,"עורך דין משפחה ראשון לציון | גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+12141,/decision22328-09-20/,articles,פירוק שיתוף בדירה מלפני הנישואין בלי הסכם ממון: 22328-09-20,(none),family-court-rulings (651),add terms (keep existing),prenup,yes
+20433,/family-law-lod/,page,"עורך דין משפחה לוד: גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20499,/family-law-eilat/,page,"עורך דין משפחה אילת: גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20375,/family-law-bnei-brak/,page,"עורך דין משפחה בני ברק | גט, מזונות, גירושין חרדי | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20469,/family-law-kiryat-gat/,page,"עורך דין משפחה קריית גת: גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20474,/family-law-ramle/,page,"עורך דין משפחה רמלה: גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20504,/family-law-statistics-2025/,page,"נתוני דיני משפחה ישראל 2025 | גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20484,/family-law-beit-shemesh/,page,"עורך דין משפחה בית שמש | גירושין, גט, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20454,/family-law-rosh-haayin/,page,"עורך דין משפחה ראש העין: גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+20494,/family-law-tiberias/,page,"עורך דין משפחה טבריה: גירושין, מזונות | Jus-Tice",(none),family-law (68) + divorce (392),add terms (keep existing),spousal,yes
+8358,/rights-law-process-34613-02-22/,articles,בירור זכויות בת זוג מכוח חוק יחסי ממון למרות שבת הזוג לא צורפה כצד להל,(none),family-law (68),add terms (keep existing),family,yes
+term 656,(taxonomy),term,prenuptial-agreement (הסכם ממון),parent: criminal-law (170),parent: family-law (68),term parent fix,prenup,code maps the slug already

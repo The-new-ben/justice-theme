@@ -431,6 +431,8 @@ function compute(registry, input) {
 	if (change && changeDate && start && end && (changeDate <= start || changeDate > end)) { errors.push({ field: 'changeDate', he: 'יום השינוי אחרי יום התחילה ועד היום האחרון' }); }
 	if (monthlyChange && !(prevPct > 0 && prevPct <= 100)) { errors.push({ field: 'prevPct', he: 'היקף המשרה לפני השינוי: 1% עד 100%' }); }
 	if (monthlyChange && prevSalary !== null && !(prevSalary > 0 && prevSalary < 1e7)) { errors.push({ field: 'prevSalary', he: 'השכר לפני השינוי: מספר חיובי או ריק' }); }
+	// A wage worker's service before 1.8.1983 earns two weeks a year (s.12(א)); the tool does not split it (review, PR 128).
+	if (payType === 'hourly' && start && start < sv.wage_regs_from) { errors.push({ field: 'start', he: 'לעובד לפי שעה או יום, תקופת העבודה שלפני 1.8.1983 מזכה בשכר שבועיים לשנה בלבד (סעיף 12(א)). את החישוב לתקופה כזאת המחשבון לא עושה; פנו לעורך דין או לרואה חשבון.' }); }
 	const noticeDate = blank(input.noticeDate) ? null : parseDate(input.noticeDate);
 	if (!blank(input.noticeDate) && !noticeDate) { errors.push({ field: 'noticeDate', he: 'יום מסירת ההודעה: תאריך מלא' }); }
 	if (noticeDate && end && start && (noticeDate > end || noticeDate < start)) { errors.push({ field: 'noticeDate', he: 'ההודעה ניתנה בין יום התחילה ליום העבודה האחרון' }); }
@@ -457,7 +459,8 @@ function compute(registry, input) {
 	// s.3: a dismissal shortly before the end of the first year is presumed made to dodge severance and does not impair
 	// the right unless the employer proves otherwise. The tool treats the last two months of the year as "shortly before"
 	// and computes the proportional amount as a conditional entitlement (review, PR 128).
-	const nearYear = !yearOk && span.months >= sv.min_months - 2 && reason === 'fired';
+	// A fixed term not renewed counts as a dismissal (s.9), so the presumption covers it too (review, PR 128).
+	const nearYear = !yearOk && span.months >= sv.min_months - 2 && (reason === 'fired' || reason === 'term');
 	const conditional = nearYear;
 	const entitled = (yearOk || nearYear) && entitledByReason;
 	// The periods of work and the salary of each: reg. 7 (a change of scope: the last salary, proportional to the scope of
@@ -485,7 +488,7 @@ function compute(registry, input) {
 	if (nearYear) { add('warn', 'near_year', `פוטרתם אחרי ${span.months} חודשים, סמוך לסוף השנה הראשונה: חזקה שהפיטורים נעשו כדי לחמוק מפיצויים, והם לא פוגעים בזכות אלא אם המעסיק יוכיח אחרת (סעיף 3). הסכום כאן יחסי לתקופה שעבדתם.`, 'סעיף 3'); }
 	if (reason === 'resign') { add('info', 'resign', 'בהתפטרות רגילה אין זכות לפיצויים מהמעסיק. כספים שהופרשו לפיצויים לפי סעיף 14 שייכים לכם גם בהתפטרות.', 'סעיף 14'); }
 	if (reasonRow) { add('info', 'resign_as_fired', `התפטרות שדינה כפיטורים: ${reasonRow.he} (${reasonRow.section}). בתביעה מוכיחים את הנסיבות, ובחלק מהמקרים צריך להודיע למעסיק מראש על הסיבה.`, reasonRow.section); }
-	if (payType === 'hourly' && start < sv.wage_regs_from) { add('warn', 'pre_1983', 'לעובד בשכר, תקופת עבודה שלפני 1.8.1983 מזכה בשכר שבועיים לשנה בלבד (סעיף 12(א)); המחשבון מחשב חודש לכל שנה.', 'סעיף 12(א)'); }
+
 
 	// Section 14.
 	let coveredYears = 0;
@@ -555,7 +558,7 @@ function compute(registry, input) {
 		{ key: 'due', date: end, he: 'המועד לתשלום הפיצויים: יום סיום יחסי העבודה', section: `${late.section}(א)(1)`, url: late.url },
 		{ key: 'grace', date: addDays(end, late.grace_days), he: `היום ה-${late.grace_days}: עד אז אין פיצוי הלנה`, section: `${late.section}(ב)`, url: late.url },
 		{ key: 'twenty', date: addDays(end, late.linkage_to_day), he: `מהיום ה-${late.grace_days + 1} ועד ה-${late.linkage_to_day}: הפרשי הצמדה; אחרי היום ה-${late.linkage_to_day}: עוד ${late.monthly_pct}% לכל חודש של איחור (בית הדין רשאי להפחית)`, section: `${late.section}(ב)`, url: late.url },
-		{ key: 'cert', date: addDays(end, sv.notice.cert_days), he: `אישור בכתב על תחילת העבודה וסיומה: עד ${sv.notice.cert_days} ימים מהיום האחרון, או ${sv.notice.cert_request_days} ימים מבקשה בכתב, המוקדם`, section: 'סעיף 8(ב) לחוק הודעה מוקדמת', url: sv.notice.url },
+		{ key: 'cert', date: addDays(end, sv.notice.cert_days), he: `אישור בכתב על תחילת העבודה וסיומה: לכל המאוחר ${sv.notice.cert_days} ימים מהיום האחרון; בקשה בכתב מקדימה את המועד ל-${sv.notice.cert_request_days} ימים ממנה`, section: 'סעיף 8(ב) לחוק הודעה מוקדמת', url: sv.notice.url },
 		{ key: 'limit', date: addMonths(end, 12 * sv.limitation.years), he: `התיישנות תביעה לפיצויים: ${sv.limitation.years} שנים`, section: `${sv.limitation.section} לחוק ההתיישנות`, url: sv.limitation.url },
 	].filter((d) => entitled || d.key === 'cert'); // no severance due: only the certificate (review, PR 128)
 

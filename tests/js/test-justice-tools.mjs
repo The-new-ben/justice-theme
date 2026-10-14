@@ -1102,6 +1102,16 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14From: '2020-01-01', unpaidExcess: 30 })).ok && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { unpaidExcess: 30 })).ok, 'unpaid leave with s.14 from a date inside the work is refused; with s.14 from the start it is computed (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 12) ---------- */
+{
+	const term11 = PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2025-11-30', reason: 'term' });
+	check(term11.ok && term11.entitled && term11.conditional && term11.severance > 0, 'a fixed term not renewed after 11 months: the s.3 presumption applies as to a dismissal (review, PR 128)');
+	const old = PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '1980-01-01', end: '2025-12-31', reason: 'fired' });
+	check(!old.ok && old.errors.some((e) => e.field === 'start' && e.he.includes('1.8.1983')), 'an hourly worker who started before 1.8.1983 is refused, never computed at a month a year (s.12(א); review, PR 128)');
+	const cert = PE.compute(reg, PEUI.EXAMPLE).deadlines.find((d) => d.key === 'cert');
+	check(cert.he.includes('לכל המאוחר') && cert.he.includes('בקשה בכתב מקדימה'), 'the certificate date is the latest one, and a written request brings it forward');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

@@ -944,7 +944,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(PEUI.renderForm(reg, PEUI.EXAMPLE).includes('לא ניתנה הודעה') && !PEUI.renderForm(reg, PEUI.EXAMPLE).includes('לא קיבלתי הודעה'), 'the no-notice chip reads for both directions');
 
 	// A gift (s.49ו): the single-home exemption waits 4 years from the gift, or 3 years from moving in as owner.
-	const g = Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, buyDate: '2023-03-01', buyPrice: 1500000, buyCosts: 0, saleDate: '2026-10-01', salePrice: 1900000, saleCosts: 0, gift: true });
+	const g = Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, buyDate: '2023-03-01', buyPrice: 1500000, buyCosts: 0, saleDate: '2026-10-01', salePrice: 1900000, saleCosts: 0, gift: true, giftDate: '2023-03-01' });
 	const cold = SH.compute(reg, g);
 	check(cold.ok && cold.path !== 'exempt' && cold.tax > 0 && cold.scen.exempt === null && cold.flags.some((f) => f.code === 'gift_cooling' && f.he.includes('1.3.2027') && f.section === 'סעיף 49ו'), 'a gift received 1.3.2023 and sold 1.10.2026 without living there: no exemption before 1.3.2027 (s.49ו(א)(1); review, PR 128)');
 	const lived = SH.compute(reg, Object.assign({}, g, { giftLived: true, livedFrom: '2023-06-01' }));
@@ -1110,6 +1110,22 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!old.ok && old.errors.some((e) => e.field === 'start' && e.he.includes('1.8.1983')), 'an hourly worker who started before 1.8.1983 is refused, never computed at a month a year (s.12(א); review, PR 128)');
 	const cert = PE.compute(reg, PEUI.EXAMPLE).deadlines.find((d) => d.key === 'cert');
 	check(cert.he.includes('לכל המאוחר') && cert.he.includes('בקשה בכתב מקדימה'), 'the certificate date is the latest one, and a written request brings it forward');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 13) ---------- */
+{
+	// The gift day apart from the donor's acquisition: the cooling runs from the gift, the gain from the donor's basis.
+	const g = Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, buyDate: '2012-05-01', buyPrice: 900000, buyCosts: 0, saleDate: '2026-10-01', salePrice: 1900000, saleCosts: 0, gift: true, giftDate: '2024-01-01' });
+	const r1 = SH.compute(reg, g);
+	check(r1.ok && r1.path !== 'exempt' && r1.buyDate === '2012-05-01' && r1.gain === 1000000 && r1.flags.some((f) => f.code === 'gift_cooling' && f.he.includes('1.1.2028')), 'a gift on 1.1.2024 of a home the donor bought in 2012: the cooling runs from the gift (to 1.1.2028), the gain from the donor basis of 2012 (review, PR 128)');
+	check(!SH.compute(reg, Object.assign({}, g, { giftDate: '' })).ok && SHUI.renderForm(reg, g).includes('id="jt14-gd"'), 'a gift needs the day it was received');
+	// Acquisitions 7.11.2001-31.12.2003: no number for a taxable sale (transitional reduction).
+	const t = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buyDate: '2002-06-01' }));
+	check(!t.ok && t.errors.some((e) => e.field === 'buyDate' && e.he.includes('7.11.2001')), 'a taxable sale of a right bought in 2002 is refused (transitional reduction; review, PR 128)');
+	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, buyDate: '2002-06-01' })).path === 'exempt' && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buyDate: '2004-01-01' })).ok, 'an exempt sale, or a purchase from 2004, is still computed');
+	// The rental chapter's excluded kinds of dwelling (s.25טו(א)(1)).
+	const hotel = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { excluded: true }));
+	check(!hotel.ok && hotel.errors.some((e) => e.field === 'excl' && e.he.includes('25טו(א)(1)')) && REUI.renderForm(reg, REUI.EXAMPLE).includes('id="jt12-excl-e"'), 'a hotel, hostel, assisted-living, dormitory or protected-tenancy dwelling is screened out (s.25טו(א)(1); review, PR 128)');
 }
 
 if (failures) {

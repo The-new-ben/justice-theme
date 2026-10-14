@@ -12,7 +12,7 @@ import {
 export const TOOL_ID = 'mas-shevach';
 const P = 'jt14';
 
-export const EXAMPLE = { status: 'qualified', buyDate: '2010-06-01', buyPrice: 1200000, buyCosts: 60000, improve: '', improveDate: '', saleDate: '2026-10-01', salePrice: 2600000, saleCosts: 30000, mortgage: '', priorExempt: false, rented: false, residential: true, offPlan: false, dwellingDate: '', gift: false, giftLived: false, giftMinor: false, livedFrom: '', family: false, resident: 'il', foreignNoHome: false, depreciation: '', buildingRights: false };
+export const EXAMPLE = { status: 'qualified', buyDate: '2010-06-01', buyPrice: 1200000, buyCosts: 60000, improve: '', improveDate: '', saleDate: '2026-10-01', salePrice: 2600000, saleCosts: 30000, mortgage: '', priorExempt: false, rented: false, residential: true, offPlan: false, dwellingDate: '', gift: false, giftDate: '', giftLived: false, giftMinor: false, livedFrom: '', family: false, resident: 'il', foreignNoHome: false, depreciation: '', buildingRights: false };
 
 const STATUS_LONG = { single: 'הדירה היחידה שלי', qualified: 'דירה נוספת למגורים (גם מושכרת)', other: 'נכס שאינו דירת מגורים' };
 const PATH_LABEL = { exempt: 'פטור: דירה יחידה', partial: 'פטור חלקי: מעל התקרה', linear: 'החישוב הלינארי המוטב', regular: 'חישוב רגיל', loss: 'אין שבח' };
@@ -51,7 +51,7 @@ export function renderForm(reg, input) {
 		+ `<div class="jtool-chips" style="margin-top:8px">${chip('op', '1', 'קניתי את הדירה לפני שנבנתה (מקבלן)', input.offPlan, 'checkbox')}</div>`
 		+ `<div data-if-offplan${input.offPlan ? '' : ' hidden'} style="margin-top:8px">${dateField('dw', 'מתי הדירה נמסרה לכם (טופס 4 או המסירה)', input.dwellingDate, 'לדוגמה: 1.3.2016')}<p class="jtool-hint">${esc(sv.dwelling_he)}.</p></div>`
 		+ `<div class="jtool-chips" style="margin-top:8px">${chip('gf', '1', `קיבלתי את הדירה במתנה (או ${sv.gift.share_pct}% ממחירה במתנה ב-${sv.gift.share_years} השנים שלפני הקנייה)`, input.gift, 'checkbox')}</div>`
-		+ `<div data-if-gift${input.gift ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-chips">${chip('gl', '1', 'גרתי בה דרך קבע', input.giftLived, 'checkbox')}${chip('gm', '1', `קיבלתי אותה לפני גיל ${sv.gift.adult_age}`, input.giftMinor, 'checkbox')}</div>`
+		+ `<div data-if-gift${input.gift ? '' : ' hidden'} style="margin-top:8px">${dateField('gd', 'מתי קיבלתם את הדירה במתנה', input.giftDate, 'לדוגמה: 1.3.2023')}<p class="jtool-hint">אם המתנה היתה מקרוב ופטורה ממס, הזינו למעלה ביום הרכישה ובמחיר הרכישה את היום והמחיר של נותן המתנה; תקופת הצינון נספרת מיום קבלת המתנה.</p><div class="jtool-chips">${chip('gl', '1', 'גרתי בה דרך קבע', input.giftLived, 'checkbox')}${chip('gm', '1', `קיבלתי אותה לפני גיל ${sv.gift.adult_age}`, input.giftMinor, 'checkbox')}</div>`
 		+ `<div data-if-giftlived${input.gift && input.giftLived ? '' : ' hidden'} style="margin-top:8px">${dateField('lf', 'מתי התחלתם לגור בה דרך קבע', input.livedFrom, 'לדוגמה: 1.9.2021')}</div>`
 		+ `<p class="jtool-hint">${esc(sv.gift.he)}.</p><p class="jtool-error" id="${P}-gift-e" role="alert"></p></div></div><p class="jtool-hint" data-if-status="qualified"${st === 'qualified' ? '' : ' hidden'}>${esc(sv.qualified_he)}.</p></fieldset>`
 		+ `<div class="jtool-row">${dateField('bd', 'יום הרכישה', input.buyDate, 'לדוגמה: 1.6.2010')}${moneyField('bp', 'מחיר הרכישה', input.buyPrice, 'לדוגמה: 1,200,000')}</div>`
@@ -214,17 +214,17 @@ function readForm(root) {
 		family: on('fm'), resident: (root.querySelector(`input[name="${P}-rs"]:checked`) || {}).value === 'foreign' ? 'foreign' : 'il',
 		foreignNoHome: (root.querySelector(`input[name="${P}-rs"]:checked`) || {}).value === 'foreign' && on('fh'), depreciation: on('rn') ? m('dep') : '',
 		buildingRights: on('br'),
-		gift: on('gf'), giftLived: on('gf') && on('gl'), giftMinor: on('gf') && on('gm'), livedFrom: on('gf') && on('gl') ? toIso(val(`#${P}-lf`)) : '',
+		gift: on('gf'), giftDate: on('gf') ? toIso(val(`#${P}-gd`)) : '', giftLived: on('gf') && on('gl'), giftMinor: on('gf') && on('gm'), livedFrom: on('gf') && on('gl') ? toIso(val(`#${P}-lf`)) : '',
 	};
 }
 
 const ST = { single: 's', qualified: 'q', other: 'o' };
-const stateOf = (i) => encodeState({ t: ST[i.status] || 's', a: i.buyDate, b: i.buyPrice || '', c: i.saleDate, d: i.salePrice || '', e: i.buyCosts || '', f: i.saleCosts || '', g: i.improve || '', h: i.improve ? i.improveDate : '', m: i.mortgage || '', p: i.priorExempt ? 1 : '', r: i.rented ? 1 : '', o: i.offPlan ? 1 : '', w: i.offPlan ? i.dwellingDate : '', n: i.residential === false ? 0 : '', v: i.gift ? 1 : '', l: i.gift && i.giftLived ? 1 : '', k: i.gift && i.giftMinor ? 1 : '', j: i.gift && i.giftLived ? i.livedFrom : '', x: i.family ? 1 : '', y: i.resident === 'foreign' ? 'f' : '', z: i.resident === 'foreign' && i.foreignNoHome ? 1 : '', q: i.rented && i.depreciation !== '' && i.depreciation !== undefined ? i.depreciation : '', u: i.buildingRights ? 1 : '' });
-const KEYS = ['t', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'm', 'p', 'r', 'o', 'w', 'n', 'v', 'l', 'k', 'j', 'x', 'y', 'z', 'q', 'u'];
+const stateOf = (i) => encodeState({ t: ST[i.status] || 's', a: i.buyDate, b: i.buyPrice || '', c: i.saleDate, d: i.salePrice || '', e: i.buyCosts || '', f: i.saleCosts || '', g: i.improve || '', h: i.improve ? i.improveDate : '', m: i.mortgage || '', p: i.priorExempt ? 1 : '', r: i.rented ? 1 : '', o: i.offPlan ? 1 : '', w: i.offPlan ? i.dwellingDate : '', n: i.residential === false ? 0 : '', v: i.gift ? 1 : '', l: i.gift && i.giftLived ? 1 : '', k: i.gift && i.giftMinor ? 1 : '', j: i.gift && i.giftLived ? i.livedFrom : '', x: i.family ? 1 : '', y: i.resident === 'foreign' ? 'f' : '', z: i.resident === 'foreign' && i.foreignNoHome ? 1 : '', q: i.rented && i.depreciation !== '' && i.depreciation !== undefined ? i.depreciation : '', u: i.buildingRights ? 1 : '', G: i.gift ? i.giftDate : '' });
+const KEYS = ['t', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'm', 'p', 'r', 'o', 'w', 'n', 'v', 'l', 'k', 'j', 'x', 'y', 'z', 'q', 'u', 'G'];
 function inputOf(s) {
 	if (!s.a || !s.c) { return null; }
 	const n = (v) => (v ? Number(v) : '');
-	return { status: Object.keys(ST).find((k) => ST[k] === s.t) || 'single', buyDate: s.a, buyPrice: n(s.b), saleDate: s.c, salePrice: n(s.d), buyCosts: n(s.e), saleCosts: n(s.f), improve: n(s.g), improveDate: s.h || '', mortgage: n(s.m), priorExempt: s.p === '1', rented: s.r === '1', offPlan: s.o === '1', dwellingDate: s.o === '1' ? (s.w || '') : '', residential: s.n !== '0', gift: s.v === '1', giftLived: s.v === '1' && s.l === '1', giftMinor: s.v === '1' && s.k === '1', livedFrom: s.v === '1' && s.l === '1' ? (s.j || '') : '', family: s.x === '1', resident: s.y === 'f' ? 'foreign' : 'il', foreignNoHome: s.y === 'f' && s.z === '1', depreciation: s.r === '1' && s.q !== undefined && s.q !== '' ? Number(s.q) : '', buildingRights: s.u === '1' };
+	return { status: Object.keys(ST).find((k) => ST[k] === s.t) || 'single', buyDate: s.a, buyPrice: n(s.b), saleDate: s.c, salePrice: n(s.d), buyCosts: n(s.e), saleCosts: n(s.f), improve: n(s.g), improveDate: s.h || '', mortgage: n(s.m), priorExempt: s.p === '1', rented: s.r === '1', offPlan: s.o === '1', dwellingDate: s.o === '1' ? (s.w || '') : '', residential: s.n !== '0', gift: s.v === '1', giftLived: s.v === '1' && s.l === '1', giftMinor: s.v === '1' && s.k === '1', livedFrom: s.v === '1' && s.l === '1' ? (s.j || '') : '', family: s.x === '1', resident: s.y === 'f' ? 'foreign' : 'il', foreignNoHome: s.y === 'f' && s.z === '1', depreciation: s.r === '1' && s.q !== undefined && s.q !== '' ? Number(s.q) : '', buildingRights: s.u === '1', giftDate: s.v === '1' ? (s.G || '') : '' };
 }
 
 export function mount(root, reg) {
@@ -242,7 +242,7 @@ export function mount(root, reg) {
 		const stamp = root.querySelector('.jtool-stamp');
 		if (stamp) { stamp.classList.add('jtool-stamp--stale'); stamp.insertAdjacentText('beforeend', ' · ייתכן שהסכומים התעדכנו'); }
 	}
-	const ids = { buyDate: 'bd', buyPrice: 'bp', saleDate: 'sd', salePrice: 'spr', buyCosts: 'bc', saleCosts: 'sc', improve: 'imp', improveDate: 'id', mortgage: 'mtg', dwellingDate: 'dw', livedFrom: 'lf', depreciation: 'dep' };
+	const ids = { buyDate: 'bd', buyPrice: 'bp', saleDate: 'sd', salePrice: 'spr', buyCosts: 'bc', saleCosts: 'sc', improve: 'imp', improveDate: 'id', mortgage: 'mtg', dwellingDate: 'dw', livedFrom: 'lf', depreciation: 'dep', giftDate: 'gd' };
 	const showErrors = (r) => {
 		root.querySelectorAll('.jtool-error').forEach((e) => { e.textContent = ''; });
 		root.querySelectorAll('[aria-invalid]').forEach((e) => e.removeAttribute('aria-invalid'));

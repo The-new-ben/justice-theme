@@ -431,6 +431,11 @@ function compute(registry, input) {
 	const gift = status === 'single' && Boolean(input.gift);
 	const giftLived = gift && Boolean(input.giftLived);
 	const livedFrom = giftLived ? parseDate(input.livedFrom) : null;
+	// The gift day is the seller's own (the cooling period runs from it); the acquisition day and price in the main
+	// fields are the donor's when the gift was exempt (continuity), so the two are asked apart (review, PR 128).
+	const giftDate = gift ? parseDate(input.giftDate) : null;
+	if (gift && !giftDate) { errors.push({ field: 'giftDate', he: 'מתי קיבלתם את הדירה במתנה: תאריך מלא' }); }
+	if (gift && giftDate && buyDate && saleDate && (giftDate < buyDate || giftDate >= saleDate)) { errors.push({ field: 'giftDate', he: 'יום קבלת המתנה בין יום הרכישה (של נותן המתנה) ליום המכירה' }); }
 	if (gift && input.giftMinor) { errors.push({ field: 'gift', he: `דירה שקיבלתם במתנה לפני גיל ${sv.gift.adult_age}: תקופת הצינון נספרת מהיום שמלאו לכם ${sv.gift.adult_age} (סעיף 49ו(ב)). את המקרה הזה המחשבון לא מחשב; השתמשו בסימולטור של רשות המסים.` }); }
 	if (giftLived && !livedFrom) { errors.push({ field: 'livedFrom', he: 'מתי התחלתם לגור בדירה דרך קבע: תאריך מלא' }); }
 	if (giftLived && livedFrom && saleDate && livedFrom > saleDate) { errors.push({ field: 'livedFrom', he: 'תחילת המגורים לפני יום המכירה' }); }
@@ -481,7 +486,7 @@ function compute(registry, input) {
 	if (status !== 'other' && !residential) { add('bad', 'not_residential', 'הדירה לא שימשה בעיקר למגורים: אין פטור לדירה יחידה ואין חישוב לינארי (סעיף 49(א)). החישוב הרגיל.', 'סעיף 49(א)'); }
 	// The gift's cooling period runs from the day the seller became the owner (4 years), or from the day the owner began
 	// to live there permanently (3 years); living there before the gift counts from the gift (s.49ו(א)).
-	const coolFrom = gift ? (giftLived && livedFrom > buyDate ? livedFrom : buyDate) : null;
+	const coolFrom = gift ? (giftLived && livedFrom > giftDate ? livedFrom : giftDate) : null;
 	const coolEnd = gift ? addMonths(coolFrom, giftLived ? sv.gift.lived_months : sv.gift.other_months) : null;
 	const giftOk = !gift || saleDate >= coolEnd;
 	// The family unit is one seller (s.49(ב)); a foreign resident needs the certificate of no dwelling abroad (s.49א(א)).
@@ -514,6 +519,11 @@ function compute(registry, input) {
 	if (tax > 0 && salePrice > sv.surtax.threshold) { add('warn', 'surtax', `מכירה חייבת במס של דירה ביותר מ-${sv.surtax.threshold.toLocaleString('en-US')} ₪: השבח הריאלי נכנס להכנסה החייבת במס יסף (${sv.surtax.section}): ${sv.surtax.rate}% על ההכנסה שמעל ${sv.surtax.income_threshold.toLocaleString('en-US')} ₪ בשנה, ועוד ${sv.surtax.capital_rate}% על הכנסה ממקורות הוניים. המחשבון לא מחשב את מס היסף.`, sv.surtax.section); }
 	if (path === 'regular' && shares.pre2001 > 0 && realGain > 0) { add('info', 'marginal', `על החלק שעד 7.11.2001 חל השיעור הגבוה בסעיף 121 (${sv.rates.pre2001}%), ועל החלק עד 31.12.2011 עד ${sv.rates.mid}%. מוכר שהכנסתו נמוכה יכול לבקש שיעור נמוך יותר (סעיף 48א(ב)(2)).`, 'סעיף 48א(ב1)'); }
 	if (rented && dep > 0) { add('info', 'depreciation', `${sv.depreciation_he}: ${Math.round(dep).toLocaleString('en-US')} ₪.`, sv.depreciation_section); }
+	// Acquisitions from 7.11.2001 to 31.12.2003 carry a transitional reduction with its own conditions; the tool does not
+	// apply it, so a taxable sale of such a right gets no number (review, PR 128).
+	if (path !== 'exempt' && path !== 'loss' && buyDate >= sv.dates.start && buyDate <= sv.transition_reduction_to) {
+		return { ok: false, errors: [{ field: 'buyDate', he: 'רכישה בין 7.11.2001 ל-31.12.2003: על מכירה חייבת יש הפחתה במס לפי הוראת מעבר, בתנאים. את ההפחתה המחשבון לא מחשב; השתמשו בסימולטור של רשות המסים.' }] };
+	}
 	if (rented && blank(input.depreciation) && path !== 'exempt') {
 		return { ok: false, errors: [{ field: 'depreciation', he: 'הדירה הושכרה: הזינו את הפחת שנוכה או שהיה ניתן לנכות בשנות ההשכרה (סעיף 47). הפחת מקטין את שווי הרכישה ומגדיל את השבח; את הסכום מחשבים רואה החשבון או השומה. בלי הסכום אין הערכה.' }] };
 	}
@@ -548,7 +558,7 @@ function compute(registry, input) {
 const TOOL_ID = 'mas-shevach';
 const P = 'jt14';
 
-const EXAMPLE = { status: 'qualified', buyDate: '2010-06-01', buyPrice: 1200000, buyCosts: 60000, improve: '', improveDate: '', saleDate: '2026-10-01', salePrice: 2600000, saleCosts: 30000, mortgage: '', priorExempt: false, rented: false, residential: true, offPlan: false, dwellingDate: '', gift: false, giftLived: false, giftMinor: false, livedFrom: '', family: false, resident: 'il', foreignNoHome: false, depreciation: '', buildingRights: false };
+const EXAMPLE = { status: 'qualified', buyDate: '2010-06-01', buyPrice: 1200000, buyCosts: 60000, improve: '', improveDate: '', saleDate: '2026-10-01', salePrice: 2600000, saleCosts: 30000, mortgage: '', priorExempt: false, rented: false, residential: true, offPlan: false, dwellingDate: '', gift: false, giftDate: '', giftLived: false, giftMinor: false, livedFrom: '', family: false, resident: 'il', foreignNoHome: false, depreciation: '', buildingRights: false };
 
 const STATUS_LONG = { single: 'הדירה היחידה שלי', qualified: 'דירה נוספת למגורים (גם מושכרת)', other: 'נכס שאינו דירת מגורים' };
 const PATH_LABEL = { exempt: 'פטור: דירה יחידה', partial: 'פטור חלקי: מעל התקרה', linear: 'החישוב הלינארי המוטב', regular: 'חישוב רגיל', loss: 'אין שבח' };
@@ -587,7 +597,7 @@ function renderForm(reg, input) {
 		+ `<div class="jtool-chips" style="margin-top:8px">${chip('op', '1', 'קניתי את הדירה לפני שנבנתה (מקבלן)', input.offPlan, 'checkbox')}</div>`
 		+ `<div data-if-offplan${input.offPlan ? '' : ' hidden'} style="margin-top:8px">${dateField('dw', 'מתי הדירה נמסרה לכם (טופס 4 או המסירה)', input.dwellingDate, 'לדוגמה: 1.3.2016')}<p class="jtool-hint">${esc(sv.dwelling_he)}.</p></div>`
 		+ `<div class="jtool-chips" style="margin-top:8px">${chip('gf', '1', `קיבלתי את הדירה במתנה (או ${sv.gift.share_pct}% ממחירה במתנה ב-${sv.gift.share_years} השנים שלפני הקנייה)`, input.gift, 'checkbox')}</div>`
-		+ `<div data-if-gift${input.gift ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-chips">${chip('gl', '1', 'גרתי בה דרך קבע', input.giftLived, 'checkbox')}${chip('gm', '1', `קיבלתי אותה לפני גיל ${sv.gift.adult_age}`, input.giftMinor, 'checkbox')}</div>`
+		+ `<div data-if-gift${input.gift ? '' : ' hidden'} style="margin-top:8px">${dateField('gd', 'מתי קיבלתם את הדירה במתנה', input.giftDate, 'לדוגמה: 1.3.2023')}<p class="jtool-hint">אם המתנה היתה מקרוב ופטורה ממס, הזינו למעלה ביום הרכישה ובמחיר הרכישה את היום והמחיר של נותן המתנה; תקופת הצינון נספרת מיום קבלת המתנה.</p><div class="jtool-chips">${chip('gl', '1', 'גרתי בה דרך קבע', input.giftLived, 'checkbox')}${chip('gm', '1', `קיבלתי אותה לפני גיל ${sv.gift.adult_age}`, input.giftMinor, 'checkbox')}</div>`
 		+ `<div data-if-giftlived${input.gift && input.giftLived ? '' : ' hidden'} style="margin-top:8px">${dateField('lf', 'מתי התחלתם לגור בה דרך קבע', input.livedFrom, 'לדוגמה: 1.9.2021')}</div>`
 		+ `<p class="jtool-hint">${esc(sv.gift.he)}.</p><p class="jtool-error" id="${P}-gift-e" role="alert"></p></div></div><p class="jtool-hint" data-if-status="qualified"${st === 'qualified' ? '' : ' hidden'}>${esc(sv.qualified_he)}.</p></fieldset>`
 		+ `<div class="jtool-row">${dateField('bd', 'יום הרכישה', input.buyDate, 'לדוגמה: 1.6.2010')}${moneyField('bp', 'מחיר הרכישה', input.buyPrice, 'לדוגמה: 1,200,000')}</div>`
@@ -750,17 +760,17 @@ function readForm(root) {
 		family: on('fm'), resident: (root.querySelector(`input[name="${P}-rs"]:checked`) || {}).value === 'foreign' ? 'foreign' : 'il',
 		foreignNoHome: (root.querySelector(`input[name="${P}-rs"]:checked`) || {}).value === 'foreign' && on('fh'), depreciation: on('rn') ? m('dep') : '',
 		buildingRights: on('br'),
-		gift: on('gf'), giftLived: on('gf') && on('gl'), giftMinor: on('gf') && on('gm'), livedFrom: on('gf') && on('gl') ? toIso(val(`#${P}-lf`)) : '',
+		gift: on('gf'), giftDate: on('gf') ? toIso(val(`#${P}-gd`)) : '', giftLived: on('gf') && on('gl'), giftMinor: on('gf') && on('gm'), livedFrom: on('gf') && on('gl') ? toIso(val(`#${P}-lf`)) : '',
 	};
 }
 
 const ST = { single: 's', qualified: 'q', other: 'o' };
-const stateOf = (i) => encodeState({ t: ST[i.status] || 's', a: i.buyDate, b: i.buyPrice || '', c: i.saleDate, d: i.salePrice || '', e: i.buyCosts || '', f: i.saleCosts || '', g: i.improve || '', h: i.improve ? i.improveDate : '', m: i.mortgage || '', p: i.priorExempt ? 1 : '', r: i.rented ? 1 : '', o: i.offPlan ? 1 : '', w: i.offPlan ? i.dwellingDate : '', n: i.residential === false ? 0 : '', v: i.gift ? 1 : '', l: i.gift && i.giftLived ? 1 : '', k: i.gift && i.giftMinor ? 1 : '', j: i.gift && i.giftLived ? i.livedFrom : '', x: i.family ? 1 : '', y: i.resident === 'foreign' ? 'f' : '', z: i.resident === 'foreign' && i.foreignNoHome ? 1 : '', q: i.rented && i.depreciation !== '' && i.depreciation !== undefined ? i.depreciation : '', u: i.buildingRights ? 1 : '' });
-const KEYS = ['t', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'm', 'p', 'r', 'o', 'w', 'n', 'v', 'l', 'k', 'j', 'x', 'y', 'z', 'q', 'u'];
+const stateOf = (i) => encodeState({ t: ST[i.status] || 's', a: i.buyDate, b: i.buyPrice || '', c: i.saleDate, d: i.salePrice || '', e: i.buyCosts || '', f: i.saleCosts || '', g: i.improve || '', h: i.improve ? i.improveDate : '', m: i.mortgage || '', p: i.priorExempt ? 1 : '', r: i.rented ? 1 : '', o: i.offPlan ? 1 : '', w: i.offPlan ? i.dwellingDate : '', n: i.residential === false ? 0 : '', v: i.gift ? 1 : '', l: i.gift && i.giftLived ? 1 : '', k: i.gift && i.giftMinor ? 1 : '', j: i.gift && i.giftLived ? i.livedFrom : '', x: i.family ? 1 : '', y: i.resident === 'foreign' ? 'f' : '', z: i.resident === 'foreign' && i.foreignNoHome ? 1 : '', q: i.rented && i.depreciation !== '' && i.depreciation !== undefined ? i.depreciation : '', u: i.buildingRights ? 1 : '', G: i.gift ? i.giftDate : '' });
+const KEYS = ['t', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'm', 'p', 'r', 'o', 'w', 'n', 'v', 'l', 'k', 'j', 'x', 'y', 'z', 'q', 'u', 'G'];
 function inputOf(s) {
 	if (!s.a || !s.c) { return null; }
 	const n = (v) => (v ? Number(v) : '');
-	return { status: Object.keys(ST).find((k) => ST[k] === s.t) || 'single', buyDate: s.a, buyPrice: n(s.b), saleDate: s.c, salePrice: n(s.d), buyCosts: n(s.e), saleCosts: n(s.f), improve: n(s.g), improveDate: s.h || '', mortgage: n(s.m), priorExempt: s.p === '1', rented: s.r === '1', offPlan: s.o === '1', dwellingDate: s.o === '1' ? (s.w || '') : '', residential: s.n !== '0', gift: s.v === '1', giftLived: s.v === '1' && s.l === '1', giftMinor: s.v === '1' && s.k === '1', livedFrom: s.v === '1' && s.l === '1' ? (s.j || '') : '', family: s.x === '1', resident: s.y === 'f' ? 'foreign' : 'il', foreignNoHome: s.y === 'f' && s.z === '1', depreciation: s.r === '1' && s.q !== undefined && s.q !== '' ? Number(s.q) : '', buildingRights: s.u === '1' };
+	return { status: Object.keys(ST).find((k) => ST[k] === s.t) || 'single', buyDate: s.a, buyPrice: n(s.b), saleDate: s.c, salePrice: n(s.d), buyCosts: n(s.e), saleCosts: n(s.f), improve: n(s.g), improveDate: s.h || '', mortgage: n(s.m), priorExempt: s.p === '1', rented: s.r === '1', offPlan: s.o === '1', dwellingDate: s.o === '1' ? (s.w || '') : '', residential: s.n !== '0', gift: s.v === '1', giftLived: s.v === '1' && s.l === '1', giftMinor: s.v === '1' && s.k === '1', livedFrom: s.v === '1' && s.l === '1' ? (s.j || '') : '', family: s.x === '1', resident: s.y === 'f' ? 'foreign' : 'il', foreignNoHome: s.y === 'f' && s.z === '1', depreciation: s.r === '1' && s.q !== undefined && s.q !== '' ? Number(s.q) : '', buildingRights: s.u === '1', giftDate: s.v === '1' ? (s.G || '') : '' };
 }
 
 function mount(root, reg) {
@@ -778,7 +788,7 @@ function mount(root, reg) {
 		const stamp = root.querySelector('.jtool-stamp');
 		if (stamp) { stamp.classList.add('jtool-stamp--stale'); stamp.insertAdjacentText('beforeend', ' · ייתכן שהסכומים התעדכנו'); }
 	}
-	const ids = { buyDate: 'bd', buyPrice: 'bp', saleDate: 'sd', salePrice: 'spr', buyCosts: 'bc', saleCosts: 'sc', improve: 'imp', improveDate: 'id', mortgage: 'mtg', dwellingDate: 'dw', livedFrom: 'lf', depreciation: 'dep' };
+	const ids = { buyDate: 'bd', buyPrice: 'bp', saleDate: 'sd', salePrice: 'spr', buyCosts: 'bc', saleCosts: 'sc', improve: 'imp', improveDate: 'id', mortgage: 'mtg', dwellingDate: 'dw', livedFrom: 'lf', depreciation: 'dep', giftDate: 'gd' };
 	const showErrors = (r) => {
 		root.querySelectorAll('.jtool-error').forEach((e) => { e.textContent = ''; });
 		root.querySelectorAll('[aria-invalid]').forEach((e) => e.removeAttribute('aria-invalid'));

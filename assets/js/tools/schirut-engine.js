@@ -81,6 +81,9 @@ export function compute(registry, input) {
 	if (option !== 'none' && !(Number.isInteger(optionMonths) && optionMonths >= 1 && optionMonths <= 120)) { errors.push({ field: 'optionMonths', he: 'תקופת האופציה בחודשים: 1 עד 120' }); }
 	const optionPct = option === 'none' ? 0 : numOr(input.optionPct, 0);
 	if (!(isNum(optionPct) && optionPct >= -50 && optionPct <= 100)) { errors.push({ field: 'optionPct', he: 'שינוי בדמי השכירות באופציה: מ-50%- עד 100%' }); }
+	// Dwellings the chapter excludes by kind (s.25טו(א)(1)): a hotel or holiday flat, a hostel, assisted living, student
+	// or worker housing, a protected tenancy. Their own rules apply; this lease is not for them (review, PR 128).
+	if (input.excluded) { errors.push({ field: 'excl', he: 'על דירה בבית מלון או לנופש, במעון, בדיור מוגן, במעונות לסטודנטים או לעובדים, או בשכירות מוגנת, הסימן על שכירות למגורים לא חל (סעיף 25טו(א)(1)), ויש לה כללים אחרים. החוזה כאן לא מתאים לה; פנו לעורך דין.' }); }
 	if (errors.length) { return { ok: false, errors }; }
 
 	const exitChoice = ['tenant', 'both', 'landlord'].includes(input.exit) ? input.exit : 'none';

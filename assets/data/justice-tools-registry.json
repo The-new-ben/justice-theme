@@ -1806,6 +1806,7 @@
   "top_rate_url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2026.pdf",
   "sale_from": "2025-01-01",
   "sale_to": "2027-12-31",
+  "transition_reduction_to": "2003-12-31",
   "single": {
    "ceiling": 5008000,
    "ceiling_from": "2025-01-01",

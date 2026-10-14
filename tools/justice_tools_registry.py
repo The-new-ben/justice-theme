@@ -955,6 +955,8 @@ def build_shevach(checked_on: str) -> dict:
         # The tool computes sales inside the period its amounts hold for (the ceiling of instruction 1/2026); other sale
         # days go to the Tax Authority's simulator (review, PR 128).
         "sale_from": "2025-01-01", "sale_to": "2027-12-31",
+        # Acquisitions in this window carry a transitional tax reduction the tool does not compute (review, PR 128).
+        "transition_reduction_to": "2003-12-31",
         "single": {"ceiling": 5008000, "ceiling_from": "2025-01-01", "ceiling_to": "2027-12-31", "hold_months": 18,
                    "gap_months": 18, "section": "סעיף 49ב(2)", "ceiling_section": "סעיף 49א(א1)",
                    "exceptions_section": "סעיף 49ג", "url": inst26},

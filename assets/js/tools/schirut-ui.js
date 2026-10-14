@@ -21,7 +21,7 @@ export const EXAMPLE = {
 	cash: 0, bank: 18000, other: 0, note: 0, guarantors: 0, guarantorMax: '',
 	returnDays: '', repairDays: '', urgentDays: '', optTenantDays: '', optLandlordDays: '', exitTenantDays: '', exitLandlordDays: '',
 	pays: { arnona: true, water: true, power: true, gas: true, vaad: true }, forbidden: { insurance: false, broker: false, systems: false },
-	asIs: false, parking: false, storage: false, pets: 'ask', smoking: false, relative: false,
+	asIs: false, parking: false, storage: false, pets: 'ask', smoking: false, relative: false, excluded: false,
 	furniture: '', defects: '', landlord: '', tenant: '', address: '', city: '',
 };
 
@@ -88,6 +88,7 @@ export function renderForm(reg, input) {
 		+ area('fur', 'ריהוט ואבזרים (נספח א\')', input.furniture, 'שורה לכל פריט: מקרר, מזגן בסלון, ארון בחדר השינה')
 		+ area('def', 'פגמים שהמשכיר יודע עליהם', input.defects, 'לדוגמה: רטיבות בקיר חדר השירות')
 		+ `<p class="jtool-hint">שמות, כתובת, ריהוט ופגמים לא נכנסים לקישור השיתוף ולא נשמרים במכשיר. מספרי תעודת הזהות ממלאים בכתב יד בחתימה.</p></details>`
+		+ `<div class="jtool-chips">${chip('excl', '1', 'הדירה בבית מלון או לנופש, במעון, בדיור מוגן, במעונות סטודנטים או עובדים, או בשכירות מוגנת', input.excluded, 'checkbox')}</div><p class="jtool-error" id="${P}-excl-e" role="alert"></p>`
 		+ `<details class="jtool-more"${['returnDays', 'repairDays', 'urgentDays', 'optTenantDays', 'optLandlordDays', 'exitTenantDays', 'exitLandlordDays'].some((k) => input[k] !== '' && input[k] !== undefined) || input.relative ? ' open' : ''}><summary>מועדים שהמשכיר ביקש לשנות</summary>`
 		+ `<p class="jtool-hint" style="margin-top:8px">ריק = מה שהחוק קובע. הזינו מה שהמשכיר מציע, והבדיקה תגיד אם זה חוקי.</p>`
 		+ `<div class="jtool-row">${numField('rd', 'ימים לתיקון ליקוי', input.repairDays, String(rc.repairs.days))}${numField('ud', 'ימים לתיקון דחוף', input.urgentDays, String(rc.repairs.urgent_days))}</div>`
@@ -210,7 +211,7 @@ function readForm(root) {
 		option: radio('op', 'none'), optionMonths: n('om'), optionPct: n('opct'), exit: radio('ex', 'none'), replacement: on('rep'),
 		cash: m('cash'), bank: m('bank'), other: m('other'), note: m('note'), guarantors: Number(radio('gn', '0')), guarantorMax: m('gmax'),
 		returnDays: n('ret'), repairDays: n('rd'), urgentDays: n('ud'), optTenantDays: n('otd'), optLandlordDays: n('old'), exitTenantDays: n('etd'), exitLandlordDays: n('eld'),
-		pays, forbidden, asIs: on('asis'), parking: on('pk'), storage: on('st'), pets: radio('pet', 'ask'), smoking: on('smk'), relative: on('rel'),
+		pays, forbidden, asIs: on('asis'), parking: on('pk'), storage: on('st'), pets: radio('pet', 'ask'), smoking: on('smk'), relative: on('rel'), excluded: on('excl'),
 		furniture: val(`#${P}-fur`), defects: val(`#${P}-def`), landlord: val(`#${P}-ll`), tenant: val(`#${P}-tn`), address: val(`#${P}-adr`), city: val(`#${P}-city`),
 	};
 }
@@ -224,9 +225,9 @@ export const shareState = (i) => encodeState({
 	o: OP[i.option] || 'n', q: i.option !== 'none' ? i.optionMonths : '', u: i.option !== 'none' ? i.optionPct : '', e: OP[i.exit] || 'n', x: i.replacement === false ? 0 : '',
 	c: i.cash || '', b: i.bank || '', g: i.other || '', h: i.note || '', k: i.guarantors || '', M: i.guarantorMax || '',
 	y: i.returnDays, f: i.repairDays, z: i.urgentDays, A: i.optTenantDays, B: i.optLandlordDays, C: i.exitTenantDays, D: i.exitLandlordDays,
-	P: bits(i.pays || {}, PAYS), F: bits(i.forbidden || {}, FORBIDDEN), a: i.asIs ? 1 : '', v: i.parking ? 1 : '', w: i.storage ? 1 : '', j: i.pets === 'yes' ? 'y' : i.pets === 'no' ? 'n' : '', n: i.smoking ? 1 : '', l: i.relative ? 1 : '',
+	P: bits(i.pays || {}, PAYS), F: bits(i.forbidden || {}, FORBIDDEN), a: i.asIs ? 1 : '', v: i.parking ? 1 : '', w: i.storage ? 1 : '', j: i.pets === 'yes' ? 'y' : i.pets === 'no' ? 'n' : '', n: i.smoking ? 1 : '', l: i.relative ? 1 : '', X: i.excluded ? 1 : '',
 });
-const KEYS = ['r', 'm', 's', 'd', 'p', 'i', 'o', 'q', 'u', 'e', 'x', 'c', 'b', 'g', 'h', 'k', 'M', 'y', 'f', 'z', 'A', 'B', 'C', 'D', 'P', 'F', 'a', 'v', 'w', 'j', 'n', 'l'];
+const KEYS = ['r', 'm', 's', 'd', 'p', 'i', 'o', 'q', 'u', 'e', 'x', 'c', 'b', 'g', 'h', 'k', 'M', 'y', 'f', 'z', 'A', 'B', 'C', 'D', 'P', 'F', 'a', 'v', 'w', 'j', 'n', 'l', 'X'];
 function inputOf(s) {
 	if (!s.r) { return null; }
 	const back = (map, v, d) => Object.keys(map).find((k) => map[k] === v) || d;
@@ -238,7 +239,7 @@ function inputOf(s) {
 		cash: num(s.c), bank: num(s.b), other: num(s.g), note: num(s.h), guarantors: s.k ? Number(s.k) : 0, guarantorMax: num(s.M),
 		returnDays: num(s.y), repairDays: num(s.f), urgentDays: num(s.z), optTenantDays: num(s.A), optLandlordDays: num(s.B), exitTenantDays: num(s.C), exitLandlordDays: num(s.D),
 		pays: fromBits(s.P, PAYS), forbidden: s.F ? fromBits(s.F, FORBIDDEN) : { insurance: false, broker: false, systems: false },
-		asIs: s.a === '1', parking: s.v === '1', storage: s.w === '1', pets: s.j === 'y' ? 'yes' : s.j === 'n' ? 'no' : 'ask', smoking: s.n === '1', relative: s.l === '1',
+		asIs: s.a === '1', parking: s.v === '1', storage: s.w === '1', pets: s.j === 'y' ? 'yes' : s.j === 'n' ? 'no' : 'ask', smoking: s.n === '1', relative: s.l === '1', excluded: s.X === '1',
 		furniture: '', defects: '', landlord: '', tenant: '', address: '', city: '',
 	});
 }

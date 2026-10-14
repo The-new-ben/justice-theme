@@ -128,6 +128,11 @@ export function compute(registry, input) {
 	const gift = status === 'single' && Boolean(input.gift);
 	const giftLived = gift && Boolean(input.giftLived);
 	const livedFrom = giftLived ? parseDate(input.livedFrom) : null;
+	// The gift day is the seller's own (the cooling period runs from it); the acquisition day and price in the main
+	// fields are the donor's when the gift was exempt (continuity), so the two are asked apart (review, PR 128).
+	const giftDate = gift ? parseDate(input.giftDate) : null;
+	if (gift && !giftDate) { errors.push({ field: 'giftDate', he: 'מתי קיבלתם את הדירה במתנה: תאריך מלא' }); }
+	if (gift && giftDate && buyDate && saleDate && (giftDate < buyDate || giftDate >= saleDate)) { errors.push({ field: 'giftDate', he: 'יום קבלת המתנה בין יום הרכישה (של נותן המתנה) ליום המכירה' }); }
 	if (gift && input.giftMinor) { errors.push({ field: 'gift', he: `דירה שקיבלתם במתנה לפני גיל ${sv.gift.adult_age}: תקופת הצינון נספרת מהיום שמלאו לכם ${sv.gift.adult_age} (סעיף 49ו(ב)). את המקרה הזה המחשבון לא מחשב; השתמשו בסימולטור של רשות המסים.` }); }
 	if (giftLived && !livedFrom) { errors.push({ field: 'livedFrom', he: 'מתי התחלתם לגור בדירה דרך קבע: תאריך מלא' }); }
 	if (giftLived && livedFrom && saleDate && livedFrom > saleDate) { errors.push({ field: 'livedFrom', he: 'תחילת המגורים לפני יום המכירה' }); }
@@ -178,7 +183,7 @@ export function compute(registry, input) {
 	if (status !== 'other' && !residential) { add('bad', 'not_residential', 'הדירה לא שימשה בעיקר למגורים: אין פטור לדירה יחידה ואין חישוב לינארי (סעיף 49(א)). החישוב הרגיל.', 'סעיף 49(א)'); }
 	// The gift's cooling period runs from the day the seller became the owner (4 years), or from the day the owner began
 	// to live there permanently (3 years); living there before the gift counts from the gift (s.49ו(א)).
-	const coolFrom = gift ? (giftLived && livedFrom > buyDate ? livedFrom : buyDate) : null;
+	const coolFrom = gift ? (giftLived && livedFrom > giftDate ? livedFrom : giftDate) : null;
 	const coolEnd = gift ? addMonths(coolFrom, giftLived ? sv.gift.lived_months : sv.gift.other_months) : null;
 	const giftOk = !gift || saleDate >= coolEnd;
 	// The family unit is one seller (s.49(ב)); a foreign resident needs the certificate of no dwelling abroad (s.49א(א)).
@@ -211,6 +216,11 @@ export function compute(registry, input) {
 	if (tax > 0 && salePrice > sv.surtax.threshold) { add('warn', 'surtax', `מכירה חייבת במס של דירה ביותר מ-${sv.surtax.threshold.toLocaleString('en-US')} ₪: השבח הריאלי נכנס להכנסה החייבת במס יסף (${sv.surtax.section}): ${sv.surtax.rate}% על ההכנסה שמעל ${sv.surtax.income_threshold.toLocaleString('en-US')} ₪ בשנה, ועוד ${sv.surtax.capital_rate}% על הכנסה ממקורות הוניים. המחשבון לא מחשב את מס היסף.`, sv.surtax.section); }
 	if (path === 'regular' && shares.pre2001 > 0 && realGain > 0) { add('info', 'marginal', `על החלק שעד 7.11.2001 חל השיעור הגבוה בסעיף 121 (${sv.rates.pre2001}%), ועל החלק עד 31.12.2011 עד ${sv.rates.mid}%. מוכר שהכנסתו נמוכה יכול לבקש שיעור נמוך יותר (סעיף 48א(ב)(2)).`, 'סעיף 48א(ב1)'); }
 	if (rented && dep > 0) { add('info', 'depreciation', `${sv.depreciation_he}: ${Math.round(dep).toLocaleString('en-US')} ₪.`, sv.depreciation_section); }
+	// Acquisitions from 7.11.2001 to 31.12.2003 carry a transitional reduction with its own conditions; the tool does not
+	// apply it, so a taxable sale of such a right gets no number (review, PR 128).
+	if (path !== 'exempt' && path !== 'loss' && buyDate >= sv.dates.start && buyDate <= sv.transition_reduction_to) {
+		return { ok: false, errors: [{ field: 'buyDate', he: 'רכישה בין 7.11.2001 ל-31.12.2003: על מכירה חייבת יש הפחתה במס לפי הוראת מעבר, בתנאים. את ההפחתה המחשבון לא מחשב; השתמשו בסימולטור של רשות המסים.' }] };
+	}
 	if (rented && blank(input.depreciation) && path !== 'exempt') {
 		return { ok: false, errors: [{ field: 'depreciation', he: 'הדירה הושכרה: הזינו את הפחת שנוכה או שהיה ניתן לנכות בשנות ההשכרה (סעיף 47). הפחת מקטין את שווי הרכישה ומגדיל את השבח; את הסכום מחשבים רואה החשבון או השומה. בלי הסכום אין הערכה.' }] };
 	}

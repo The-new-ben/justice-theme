@@ -1149,7 +1149,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 {
 	const inh = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { inherited: true }));
 	check(!inh.ok && inh.errors.some((e) => e.field === 'inherited' && e.he.includes('49ב(5)')) && SHUI.renderForm(reg, SHUI.EXAMPLE).includes('id="jt14-inherited-e"'), 'an inherited dwelling sold with tax is refused: it may be exempt under s.49ב(5) (review, PR 128)');
-	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, inherited: true })).path === 'exempt', 'an inherited home that is exempt as a single home is still computed');
+	check(!SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, inherited: true })).ok, 'any inherited dwelling is refused, also when it looks exempt as a single home (the heir holding period; pass 19)');
 	const par = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'parent' }));
 	check(par.ok && !par.entitled && par.flags.some((f) => f.code === 'parent_unconfirmed' && f.he.includes('סעיף 7(ג)')), 'a parent resignation without the s.7 conditions confirmed: no severance computed (review, PR 128)');
 	check(PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'parent', parentOk: true })).entitled && PEUI.renderForm(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'parent' })).includes('name="jt13-po"'), 'confirmed: entitled; the form asks for it');
@@ -1179,6 +1179,13 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(f.includes('name="jt13-po"') && f.includes('תקנה 12(ב)') && /data-ground-hint="move">/.test(f), 'the form shows the conditions of the chosen ground and asks to confirm them');
 	const rf = REUI.renderForm(reg, Object.assign({}, REUI.EXAMPLE, { relative: true }));
 	check(rf.includes('סב או סבתא, צאצא או צאצא של בן הזוג') && rf.includes('אינם קרובים לעניין זה'), 'the relative choice lists the s.25טו(ב) relations (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 19) ---------- */
+{
+	const shop = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buyDate: '2015-01-01', buyPrice: 1300000, buyCosts: 0, salePrice: 4000000, saleCosts: 0 }));
+	check(shop.ok && shop.tax > 0 && shop.flags.some((f) => f.code === 'surtax' && f.he.includes('בכל מחיר מכירה')), 'a non-residential sale under 5,385,285: the surtax warning still shows (review, PR 128)');
+	check(!SH.compute(reg, SHUI.EXAMPLE).flags.some((f) => f.code === 'surtax'), 'a dwelling under the price line: no surtax warning');
 }
 
 if (failures) {

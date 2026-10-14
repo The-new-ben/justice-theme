@@ -516,7 +516,9 @@ function compute(registry, input) {
 		}
 	}
 	if (gain <= 0) { path = 'loss'; tax = 0; add('info', 'loss', 'אין שבח: מחיר המכירה לא עולה על מחיר הרכישה וההוצאות, ולכן אין מס שבח. את ההצהרה מגישים בכל מקרה (סעיף 73).', 'סעיף 47'); }
-	if (tax > 0 && salePrice > sv.surtax.threshold) { add('warn', 'surtax', `מכירה חייבת במס של דירה ביותר מ-${sv.surtax.threshold.toLocaleString('en-US')} ₪: השבח הריאלי נכנס להכנסה החייבת במס יסף (${sv.surtax.section}): ${sv.surtax.rate}% על ההכנסה שמעל ${sv.surtax.income_threshold.toLocaleString('en-US')} ₪ בשנה, ועוד ${sv.surtax.capital_rate}% על הכנסה ממקורות הוניים. המחשבון לא מחשב את מס היסף.`, sv.surtax.section); }
+	// Non-residential real gain enters the surtax base at any sale price; the price line is for a dwelling (review, PR 128).
+	if (tax > 0 && status === 'other' && realGain > 0) { add('warn', 'surtax', `מכירה חייבת של נכס שאינו דירת מגורים: השבח הריאלי נכנס להכנסה החייבת במס יסף בכל מחיר מכירה (${sv.surtax.section}): ${sv.surtax.rate}% על ההכנסה שמעל ${sv.surtax.income_threshold.toLocaleString('en-US')} ₪ בשנה, ועוד ${sv.surtax.capital_rate}% על הכנסה ממקורות הוניים. המחשבון לא מחשב את מס היסף, ולכן מה שנשאר ביד עשוי להיות נמוך יותר.`, sv.surtax.section); }
+	if (tax > 0 && status !== 'other' && salePrice > sv.surtax.threshold) { add('warn', 'surtax', `מכירה חייבת במס של דירה ביותר מ-${sv.surtax.threshold.toLocaleString('en-US')} ₪: השבח הריאלי נכנס להכנסה החייבת במס יסף (${sv.surtax.section}): ${sv.surtax.rate}% על ההכנסה שמעל ${sv.surtax.income_threshold.toLocaleString('en-US')} ₪ בשנה, ועוד ${sv.surtax.capital_rate}% על הכנסה ממקורות הוניים. המחשבון לא מחשב את מס היסף.`, sv.surtax.section); }
 	if (path === 'regular' && shares.pre2001 > 0 && realGain > 0) { add('info', 'marginal', `על החלק שעד 7.11.2001 חל השיעור הגבוה בסעיף 121 (${sv.rates.pre2001}%), ועל החלק עד 31.12.2011 עד ${sv.rates.mid}%. מוכר שהכנסתו נמוכה יכול לבקש שיעור נמוך יותר (סעיף 48א(ב)(2)).`, 'סעיף 48א(ב1)'); }
 	if (rented && dep > 0) { add('info', 'depreciation', `${sv.depreciation_he}: ${Math.round(dep).toLocaleString('en-US')} ₪.`, sv.depreciation_section); }
 	// Acquisitions from 7.11.2001 to 31.12.2003 carry a transitional reduction with its own conditions; the tool does not
@@ -524,7 +526,8 @@ function compute(registry, input) {
 	if (path !== 'exempt' && path !== 'loss' && buyDate >= sv.dates.start && buyDate <= sv.transition_reduction_to) {
 		return { ok: false, errors: [{ field: 'buyDate', he: 'רכישה בין 7.11.2001 ל-31.12.2003: על מכירה חייבת יש הפחתה במס לפי הוראת מעבר, בתנאים. את ההפחתה המחשבון לא מחשב; השתמשו בסימולטור של רשות המסים.' }] };
 	}
-	if (input.inherited && status !== 'other' && path !== 'exempt') {
+	// Any inherited dwelling: the heir's own holding period and the s.49ב(5) facts are not asked here (review, PR 128).
+	if (input.inherited && status !== 'other') {
 		return { ok: false, errors: [{ field: 'inherited', he: 'דירה שקיבלתם בירושה עשויה להיות פטורה לפי סעיף 49ב(5): כשאתם בן הזוג של המוריש, צאצא שלו או בן זוג של צאצא, למוריש היתה רק דירה אחת, והוא היה פטור אילו מכר אותה בעצמו. את התנאים האלה המחשבון לא בודק; השתמשו בסימולטור של רשות המסים.' }] };
 	}
 	if (rented && blank(input.depreciation) && path !== 'exempt') {

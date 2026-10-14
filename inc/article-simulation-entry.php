@@ -132,7 +132,9 @@ function justice_theme_article_simulation_entry( string $content ): string {
 	if ( is_admin() || is_feed() || ! is_singular( array( 'post', 'page', 'articles' ) ) || ! is_main_query()
 		|| $post_id !== (int) get_queried_object_id()
 		|| ! function_exists( 'justice_theme_new_look_active' ) || ! justice_theme_new_look_active()
-		|| false !== strpos( $content, 'data-hadmaia-article-entry' ) ) { return $content; }
+		|| false !== strpos( $content, 'data-hadmaia-article-entry' )
+		// A tool page already carries its own one-button strip (jtool-simstrip, tools wave 5): one way in, not two (HAD-504).
+		|| false !== strpos( $content, 'jtool-simstrip' ) ) { return $content; }
 	$topic = justice_theme_article_simulation_topic( $post_id );
 	if ( ! $topic ) { return $content; }
 	$w = justice_theme_article_simulation_world( $topic );

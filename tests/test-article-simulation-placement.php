@@ -162,4 +162,8 @@ check( 200 === words_before_card( $out ), 'empty paragraphs add no words, got ' 
 $jt['slug'] = 'divorce-lawyer';
 check( str_starts_with( justice_theme_article_simulation_entry( '' ), '<aside class="l3-article-simulation l3-simcard"' ), 'empty body: card appended' );
 
+// 14. A page that already carries the tool's own simulation strip gets no second card (HAD-504).
+$strip = p( 120 ) . '<div class="jtool-simstrip"><a class="jtool-simstrip__cta" href="#">לתרגל</a></div>' . p( 200 );
+check( $strip === justice_theme_article_simulation_entry( $strip ), 'tool strip present: no second simulation card' );
+
 echo $checks . " article simulation placement checks passed\n";

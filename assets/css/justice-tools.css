@@ -612,6 +612,7 @@ a.jtool-cite:hover { text-decoration: underline; }
 .jtool .jtool-cite, .jtool-page .jtool-cite { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
 /* The article look indents every list in .entry-content; a repeating row list is a form part, not a list. */
 .jtool ul.jtool-rep { margin: 0 !important; padding: 0 !important; }
+.jtool ul.jtool-flags { padding: 0 !important; }
 .jt16-kid { grid-template-columns: minmax(0, 1fr) 44px; }
 .jt16-shares { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
 .jt16-share { display: grid; grid-template-columns: minmax(0, 11em) minmax(0, 1fr) 3.4em; gap: 10px; align-items: center; margin: 0 0 8px; font-size: 0.9rem; color: var(--jtool-ink); }

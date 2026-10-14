@@ -1320,6 +1320,16 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(hr.prevBase === 4000, 'without commissions the earlier hours are unchanged');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 35) ---------- */
+{
+	const old = PE.compute(reg, { salary: 100, start: '2005-01-01', end: '2010-06-30', reason: 'fired' });
+	check(!old.ok && old.errors.some((e) => e.field === 'end'), 'an end before the first minimum-wage row is declined, never computed on an unchecked salary (review, PR 128)');
+	const mc = PE.compute(reg, { salary: 8000, commission: 4000, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevSalary: 13000 });
+	check(mc.ok && mc.cut && mc.prevBase === 17000 && mc.severance === 29000, 'a monthly cut from 13,000 to 8,000 with 4,000 commissions: the earlier period on 17,000 (review, PR 128)');
+	const sc = PE.compute(reg, { salary: 5000, jobPct: 50, commission: 1000, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevPct: 100 });
+	check(sc.prevBase === 11000 && sc.severance === 17000, 'a scope change with commissions: the fixed pay scales, the commission stays');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

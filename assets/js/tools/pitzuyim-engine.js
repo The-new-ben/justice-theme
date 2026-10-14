@@ -162,6 +162,7 @@ export function compute(registry, input) {
 
 	// The salary the severance is computed on: never below the minimum wage for the job's share (s.13ב).
 	const mwRow = minWageOn(mw, end);
+	if (!mwRow) { return { ok: false, errors: [{ field: 'end', he: `סיום עבודה לפני ${heDay(mw.rows[0].from)}: שכר המינימום של אותה תקופה לא נמצא במחשבון, ולכן אי אפשר לבדוק את רצפת השכר (סעיף 13ב). את החישוב לתקופה כזאת עושים לפי התלושים, עם עורך דין או רואה חשבון.` }] }; }
 	let base = monthly;
 	let floored = false;
 	if (mwRow) {
@@ -187,13 +188,14 @@ export function compute(registry, input) {
 	// The periods of work and the salary of each: reg. 7 (a change of scope: the last salary, proportional to the scope of
 	// each period) and reg. 8 (a pay cut: the period before it on the salary before it).
 	// For a wage worker the scope is the hours: the earlier period on the current hourly rate times the earlier hours.
-	const fte = base * 100 / jobPct;
-	// The hourly wage rate apart from the commission average, which is added to each period (review, PR 128).
-	const comm = payType === 'hourly' && !floored ? commission : 0;
+	// The commission average is kept apart from the fixed pay and added to each period as it is (review, PR 128): the
+	// fixed pay scales with the scope (reg. 7) or is the pre-cut pay (reg. 8).
+	const comm = !floored ? commission : 0;
+	const fte = (base - comm) * 100 / jobPct;
 	const rate = payType === 'hourly' ? (base - comm) / hours : null;
-	const reg7 = hourlyChange ? r2(rate * prevHours + comm) : r2(fte * prevPct / 100);
-	const cut = hourlyChange ? prevHourly !== null && prevHourly > rate : monthlyChange && prevSalary !== null && prevSalary > reg7;
-	const prevBase = !change ? base : cut ? (hourlyChange ? r2(prevHourly * prevHours + comm) : prevSalary) : reg7;
+	const reg7 = hourlyChange ? r2(rate * prevHours + comm) : r2(fte * prevPct / 100 + comm);
+	const cut = hourlyChange ? prevHourly !== null && prevHourly > rate : monthlyChange && prevSalary !== null && prevSalary + comm > reg7;
+	const prevBase = !change ? base : cut ? (hourlyChange ? r2(prevHourly * prevHours + comm) : r2(prevSalary + comm)) : reg7;
 	const pctNow = payType === 'hourly' ? 100 : jobPct;
 	const periods = change
 		? [{ from: start, to: addDays(changeDate, -1), salary: prevBase, pct: payType === 'hourly' ? (100 * prevHours) / hours : prevPct }, { from: changeDate, to: end, salary: base, pct: pctNow }]
@@ -274,8 +276,8 @@ export function compute(registry, input) {
 	// PR 128).
 	// Every earlier period with a higher scope than the final one counts on the final salary for that scope (Form 161).
 	// For a wage worker the scope is the hours relative to the final hours, on the final rate (review, PR 128).
-	const capRef = payType === 'hourly' ? base : fte;
-	const exemptCap = taxKnown ? r2(periods.reduce((t, p) => t + Math.min(p.pct > pctNow ? r2(capRef * p.pct / 100) : base, tax.ceiling) * yearsOf(p.from, p.to), 0)) : null;
+	const capRef = payType === 'hourly' ? base - comm : fte;
+	const exemptCap = taxKnown ? r2(periods.reduce((t, p) => t + Math.min(p.pct > pctNow ? r2(capRef * p.pct / 100 + comm) : base, tax.ceiling) * yearsOf(p.from, p.to), 0)) : null;
 	const exempt = !taxKnown ? null : withFund ? exemptCap : Math.min(severance, exemptCap);
 	const taxable = !taxKnown || withFund ? null : r2(severance - exempt);
 	const taxNote = !taxKnown ? 'year' : withFund ? 'fund' : '';

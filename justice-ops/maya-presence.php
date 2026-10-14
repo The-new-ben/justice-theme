@@ -360,25 +360,35 @@ function justice_maya_context(): array {
 		return $none;
 	}
 
-	$settings  = justice_cards_settings();
-	$lawyer_id = 0;
-	// Only the first card is always placed (a second one depends on length and the FAQ anchor),
-	// so her graph and line apply only when she is the first card of the page.
-	$lawyers = justice_cards_lawyers( $terms, (int) $settings['max'] );
-	if (
-		$lawyers
-		&& function_exists( 'justice_lawyer_owner_is_maya_profile' )
-		&& justice_lawyer_owner_is_maya_profile( (int) $lawyers[0]->ID )
-	) {
-		$lawyer_id = (int) $lawyers[0]->ID;
-	}
-	if ( ! $lawyer_id || ! (int) $settings['enabled'] ) {
+	$settings = justice_cards_settings();
+	if ( ! (int) $settings['enabled'] ) {
 		$cache[ $post_id ] = $none;
 		return $none;
+	}
+	// Her slot among the page's cards. Only the first card is always placed (a second one depends
+	// on length and the FAQ anchor), so her graph and line apply only in the first slot; her
+	// styles are printed whenever her card can be placed at all.
+	$slot      = -1;
+	$lawyer_id = 0;
+	foreach ( array_values( justice_cards_lawyers( $terms, (int) $settings['max'] ) ) as $i => $lawyer ) {
+		if ( function_exists( 'justice_lawyer_owner_is_maya_profile' ) && justice_lawyer_owner_is_maya_profile( (int) $lawyer->ID ) ) {
+			$slot      = (int) $i;
+			$lawyer_id = (int) $lawyer->ID;
+			break;
+		}
+	}
+	if ( $slot < 0 ) {
+		$cache[ $post_id ] = $none;
+		return $none;
+	}
+	if ( $slot > 0 ) {
+		$cache[ $post_id ] = array( 'applies' => false, 'styles' => true );
+		return $cache[ $post_id ];
 	}
 
 	$cache[ $post_id ] = array(
 		'applies'     => true,
+		'styles'      => true,
 		'post_id'     => $post_id,
 		'lawyer_id'   => $lawyer_id,
 		'topic'       => justice_maya_post_topic( $post_id ),
@@ -919,15 +929,17 @@ function justice_maya_schema( array $ctx ): array {
 	);
 }
 
-/** Print the graph and the card styles in the head of a page that carries her card. */
+/** Print the card styles where her card can be placed, and her graph where she holds the first card. */
 function justice_maya_head(): void {
 	$ctx = justice_maya_context();
-	if ( empty( $ctx['applies'] ) ) {
+	if ( empty( $ctx['styles'] ) ) {
 		return;
 	}
-	$json = wp_json_encode( justice_maya_schema( $ctx ), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP );
-	if ( is_string( $json ) && '' !== $json ) {
-		echo '<script type="application/ld+json" id="jt-maya-presence-schema">' . $json . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput
+	if ( ! empty( $ctx['applies'] ) ) {
+		$json = wp_json_encode( justice_maya_schema( $ctx ), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP );
+		if ( is_string( $json ) && '' !== $json ) {
+			echo '<script type="application/ld+json" id="jt-maya-presence-schema">' . $json . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput
+		}
 	}
 	echo justice_maya_css(); // phpcs:ignore WordPress.Security.EscapeOutput
 }

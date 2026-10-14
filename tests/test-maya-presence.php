@@ -524,6 +524,11 @@ jt_maya_assert( '2026-10-20' === $schema['@graph'][0]['lastReviewed'] && isset( 
 $jt_rival = true;
 jt_set_page( array( 'id' => 711, 'type' => 'page', 'slug' => 'child-support', 'title' => 'מזונות ילדים', 'terms' => array( 'child-support' ) ) );
 jt_maya_assert( false === justice_maya_context()['applies'], 'her graph applies although another lawyer holds the first (always placed) card' );
+jt_maya_assert( true === justice_maya_context()['styles'], 'her styles are not printed when her card can take the second slot' );
+ob_start();
+justice_maya_head();
+$second = (string) ob_get_clean();
+jt_maya_assert( false !== strpos( $second, 'id="jt-maya-card-css"' ) && false === strpos( $second, 'jt-maya-presence-schema' ), 'second-slot page: styles without the graph expected' );
 $jt_rival = false;
 jt_set_page( array( 'id' => 712, 'type' => 'page', 'slug' => 'child-support', 'title' => 'מזונות ילדים', 'terms' => array( 'child-support' ) ) );
 jt_maya_assert( true === justice_maya_context()['applies'], 'her graph does not apply when she holds the first card' );

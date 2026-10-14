@@ -470,7 +470,7 @@ function compute(registry, input) {
 		parking: Boolean(input.parking), storage: Boolean(input.storage), pets: ['yes', 'no'].includes(input.pets) ? input.pets : 'ask', smoking: Boolean(input.smoking),
 		defects, furniture: String(input.furniture || '').trim(),
 		names: { landlord: String(input.landlord || '').trim(), tenant: String(input.tenant || '').trim(), address: String(input.address || '').trim(), city: String(input.city || '').trim() },
-		flags, bad, applies, free, relative,
+		flags, bad, applies, free, relative, uncertain,
 	};
 	r.clauses = clauses(rc, r);
 	r.schedule = scheduleCheck(rc, r);
@@ -705,7 +705,12 @@ function renderForm(reg, input) {
 function verdictSentence(reg, r) {
 	if (!r.ok) { return ''; }
 	const rc = reg.rent_contract;
-	return `שכר דירה של ${nis(r.rent)} ל-${r.months} חודשים: ערובה שעולה כסף לשוכר עד ${nis(r.cap.cap)} (הנמוך מבין ${nis(r.cap.byTerm)} לשליש מהתקופה ו-${nis(r.cap.byMonths)} לשלושה חודשים).`
+	if (r.free) {
+		// Where the parties set the terms, the cap and the deadlines are not binding and are not presented as such.
+		return `שכר דירה של ${nis(r.rent)} ל-${r.months} חודשים. ${r.applies ? 'בין קרובים מותר להתנות על רוב ההגנות (סעיף 25טו(ב))' : 'הסימן לא חל על חוזה זה (סעיף 25טו(א))'}: תקרת הערובה (${nis(r.cap.cap)} בחוזה רגיל), מועדי התיקון וההחזר והתשלומים לא מחייבים, והחוזה כתוב כפי שסוכם${r.counted ? `, עם ערובות של ${nis(r.counted)}` : ''}.`
+			+ (r.bad ? ` ${r.bad === 1 ? 'דרישה אחת' : `${r.bad} דרישות`} בכל זאת נגד החוק, ובחוזה הן מתוקנות.` : '');
+	}
+	return `${r.uncertain ? `ייתכן שהסימן לא חל, כי שכר הדירה מעל ${nis(rc.scope.rent_cap)} (סעיף 25טו(א)(4)); החוזה שומר על ההגנות בכל זאת. ` : ''}שכר דירה של ${nis(r.rent)} ל-${r.months} חודשים: ערובה שעולה כסף לשוכר עד ${nis(r.cap.cap)} (הנמוך מבין ${nis(r.cap.byTerm)} לשליש מהתקופה ו-${nis(r.cap.byMonths)} לשלושה חודשים).`
 		+ ` תיקון ליקוי עד ${rc.repairs.days} ימים, דחוף עד ${rc.repairs.urgent_days}; הערובה חוזרת תוך ${rc.deposit.return_days} ימים.`
 		+ (r.bad ? ` ${r.bad === 1 ? 'דרישה אחת' : `${r.bad} דרישות`} מהמשכיר נגד החוק, ובחוזה הן מתוקנות.` : ' אין בחוזה סעיף נגד החוק.');
 }
@@ -715,12 +720,13 @@ function meter(reg, r) {
 	const top = Math.max(r.cap.byTerm, r.cap.byMonths, r.counted, 1);
 	const w = (v) => `${Math.max(0.5, (v / top) * 100).toFixed(2)}%`;
 	const over = r.counted > r.cap.cap + 0.005;
-	return `<div class="jt12-meter" role="img" aria-label="${esc(`תקרת הערובה ${nis(r.cap.cap)}; התבקשו ${nis(r.counted)}`)}">`
-		+ `<p class="jt12-meter__h">כמה ערובה מותר לבקש (סעיף 25י(ב))</p>`
+	const capWord = r.free ? 'התקרה בחוזה רגיל (לא מחייבת כאן)' : 'התקרה';
+	return `<div class="jt12-meter" role="img" aria-label="${esc(`${capWord} ${nis(r.cap.cap)}; התבקשו ${nis(r.counted)}`)}">`
+		+ `<p class="jt12-meter__h">${r.free ? 'הערובה מול התקרה של חוזה רגיל, לידיעה (סעיף 25י(ב))' : 'כמה ערובה מותר לבקש (סעיף 25י(ב))'}</p>`
 		+ `<div class="jt12-meter__row${r.cap.binding === 'term' ? ' jt12-meter__row--cap' : ''}"><span>שליש מהתקופה</span><span class="jt12-meter__bar"><i style="width:${w(r.cap.byTerm)}"></i></span><strong>${ils(r.cap.byTerm, 0)}</strong></div>`
 		+ `<div class="jt12-meter__row${r.cap.binding === 'months' ? ' jt12-meter__row--cap' : ''}"><span>${reg.rent_contract.deposit.months} חודשי שכירות</span><span class="jt12-meter__bar"><i style="width:${w(r.cap.byMonths)}"></i></span><strong>${ils(r.cap.byMonths, 0)}</strong></div>`
 		+ `<div class="jt12-meter__row jt12-meter__row--asked${over ? ' jt12-meter__row--over' : ''}"><span>מה שהתבקש</span><span class="jt12-meter__bar"><i style="width:${w(Math.min(r.counted, r.cap.cap))}"></i>${over ? `<b style="width:${w(r.counted - r.cap.cap)}"></b>` : ''}</span><strong>${ils(r.counted, 0)}</strong></div>`
-		+ `<p class="jt12-meter__legend"><span><i class="jt12-k jt12-k--cap"></i>התקרה: ${ils(r.cap.cap, 0)}</span>${over ? `<span><i class="jt12-k jt12-k--over"></i>מעל התקרה: ${ils(r.counted - r.cap.cap, 0)}</span>` : ''}<span>שטר חוב וערבים לא נספרים</span></p></div>`;
+		+ `<p class="jt12-meter__legend"><span><i class="jt12-k jt12-k--cap"></i>${capWord}: ${ils(r.cap.cap, 0)}</span>${over ? `<span><i class="jt12-k jt12-k--over"></i>מעל התקרה: ${ils(r.counted - r.cap.cap, 0)}</span>` : ''}<span>שטר חוב וערבים לא נספרים</span></p></div>`;
 }
 
 function checkList(r) {
@@ -736,9 +742,9 @@ function renderResult(reg, r, opts = {}) {
 			+ `<p class="jtool-verdict__sentence">${r.errors.map((e) => esc(e.he)).join(' ')}</p></div>`;
 	}
 	return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true">`
-		+ (r.bad ? `<p class="jtool-state jtool-state--danger">✕ ${r.bad === 1 ? 'דרישה אחת נגד החוק: תוקנה בחוזה' : `${r.bad} דרישות נגד החוק: תוקנו בחוזה`}</p>` : '<p class="jtool-state jtool-state--ok">✓ החוזה עומד בחוק השכירות ההוגנת</p>')
-		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}הערובה המרבית שמותר לבקש</p>`
-		+ `<strong class="jtool-verdict__figure">${ils(r.cap.cap, 0)}</strong>`
+		+ (r.bad ? `<p class="jtool-state jtool-state--danger">✕ ${r.bad === 1 ? 'דרישה אחת נגד החוק: תוקנה בחוזה' : `${r.bad} דרישות נגד החוק: תוקנו בחוזה`}</p>` : r.free ? `<p class="jtool-state jtool-state--info">${r.applies ? 'בין קרובים: התנאים כפי שסוכמו' : 'הסימן לא חל: התנאים כפי שסוכמו'}</p>` : '<p class="jtool-state jtool-state--ok">✓ החוזה עומד בחוק השכירות ההוגנת</p>')
+		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}${r.free ? 'הערובות בחוזה' : 'הערובה המרבית שמותר לבקש'}</p>`
+		+ `<strong class="jtool-verdict__figure">${ils(r.free ? r.counted : r.cap.cap, 0)}</strong>`
 		+ `<p class="jtool-verdict__sentence">${esc(verdictSentence(reg, r))}</p>`
 		+ `<p class="jtool-scope">החוזה המלא למטה: ${r.clauses.length} סעיפים${r.guarantors ? ' ושני נספחים' : ' ונספח ציוד'}, כל סעיף עם הסעיף בחוק שעליו הוא נשען.</p></div>`
 		+ meter(reg, r)

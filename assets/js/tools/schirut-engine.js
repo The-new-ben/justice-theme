@@ -167,7 +167,7 @@ export function compute(registry, input) {
 		parking: Boolean(input.parking), storage: Boolean(input.storage), pets: ['yes', 'no'].includes(input.pets) ? input.pets : 'ask', smoking: Boolean(input.smoking),
 		defects, furniture: String(input.furniture || '').trim(),
 		names: { landlord: String(input.landlord || '').trim(), tenant: String(input.tenant || '').trim(), address: String(input.address || '').trim(), city: String(input.city || '').trim() },
-		flags, bad, applies, free, relative,
+		flags, bad, applies, free, relative, uncertain,
 	};
 	r.clauses = clauses(rc, r);
 	r.schedule = scheduleCheck(rc, r);

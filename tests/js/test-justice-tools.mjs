@@ -1084,6 +1084,19 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { change: true, changeDate: '2022-01-01', prevPct: 50, unpaidExcess: 30 })).ok, 'unpaid leave together with a change: refused, never spread across the periods (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 10) ---------- */
+{
+	const term = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'term', noticeMode: 'none' }));
+	check(term.ok && term.entitled && !term.flags.some((f) => f.code === 'no_notice') && term.flags.some((f) => f.code === 'no_notice_term') && !PEUI.letter(reg, term).includes('7(א)'), 'a fixed term that ended without renewal: no notice debt on the worker, no notice demand (s.9; review, PR 128)');
+	const scopes = PE.compute(reg, { salary: 5000, jobPct: 50, start: '2022-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2024-01-01', prevPct: 80 });
+	check(scopes.ok && scopes.exempt === 26000 && scopes.severance === 26000, 'two years at 80% then two at 50% (10,000 full-time): the ceiling counts the 80% years on 8,000, 26,000 (Form 161; review, PR 128)');
+	const free = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 2, option: 'none', bank: '', cash: 30000 }));
+	const html = REUI.renderResult(reg, free);
+	check(!html.includes('הערובה המרבית שמותר לבקש') && html.includes('הערובות בחוזה') && html.includes('30,000') && html.includes('לא מחייבת כאן') && !REUI.verdictSentence(reg, free).includes('עד 12,000'), 'outside the chapter the result shows the agreed deposit and the cap only as a non-binding reference (review, PR 128)');
+	const rich = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { rent: 100000, bank: '', cash: 400000 }));
+	check(REUI.verdictSentence(reg, rich).startsWith('ייתכן שהסימן לא חל'), 'above the 20,000 line the verdict says the chapter may not apply');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

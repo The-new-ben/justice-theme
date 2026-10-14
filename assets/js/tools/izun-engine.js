@@ -134,7 +134,7 @@ export function computeBalance(registry, input) {
 	if (fIsIso(marriage) && fIsIso(breakDate) && breakDate <= marriage) { errors.push({ field: 'breakDate', he: 'מועד הקרע צריך לבוא אחרי הנישואין' }); }
 	if (fIsIso(marriage) && marriage < pb.from) { return { ok: false, outOfScope: true, errors: [{ field: 'marriage', he: pb.pre1974_he }] }; }
 	for (const k of ['filed', 'apart']) {
-		if (fEntered(input[k]) && !fIsIso(input[k])) { errors.push({ field: k, he: 'תאריך לא תקין. לדוגמה: 1.3.2026' }); }
+		if (fEntered(input[k]) && !fIsIso(input[k])) { errors.push({ field: k, he: 'תאריך לא תקין. לדוגמה: 1.3.2026' }); } else if (fIsIso(input[k]) && fIsIso(marriage) && input[k] < marriage) { errors.push({ field: k, he: 'התאריך לפני הנישואין' }); }
 	}
 	const items = (input.items || []).filter((it) => it && (fEntered(it.value) || fEntered(it.mortgage) || fEntered(it.atMarriage) || fEntered(it.activeGain)));
 	items.forEach((it, i) => {

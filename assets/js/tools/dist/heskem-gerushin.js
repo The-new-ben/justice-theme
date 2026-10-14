@@ -768,7 +768,7 @@ function computeBalance(registry, input) {
 	if (fIsIso(marriage) && fIsIso(breakDate) && breakDate <= marriage) { errors.push({ field: 'breakDate', he: 'מועד הקרע צריך לבוא אחרי הנישואין' }); }
 	if (fIsIso(marriage) && marriage < pb.from) { return { ok: false, outOfScope: true, errors: [{ field: 'marriage', he: pb.pre1974_he }] }; }
 	for (const k of ['filed', 'apart']) {
-		if (fEntered(input[k]) && !fIsIso(input[k])) { errors.push({ field: k, he: 'תאריך לא תקין. לדוגמה: 1.3.2026' }); }
+		if (fEntered(input[k]) && !fIsIso(input[k])) { errors.push({ field: k, he: 'תאריך לא תקין. לדוגמה: 1.3.2026' }); } else if (fIsIso(input[k]) && fIsIso(marriage) && input[k] < marriage) { errors.push({ field: k, he: 'התאריך לפני הנישואין' }); }
 	}
 	const items = (input.items || []).filter((it) => it && (fEntered(it.value) || fEntered(it.mortgage) || fEntered(it.atMarriage) || fEntered(it.activeGain)));
 	items.forEach((it, i) => {
@@ -1227,6 +1227,14 @@ function draftAgreement(registry, input) {
 			items.push(`${hkBlank} ישלם ל${hkBlank} מזונות לילדים בסך ${hkBlank} ש"ח לחודש, ב-10 בכל חודש.`);
 		}
 		items.push(`סכום המזונות צמוד למדד המחירים לצרכן, ויעודכן כל ${Number(sIn.every) || registry.child_support.indexation.every_months} חודשים לפי המדד הידוע ביום העדכון; המדד הבסיסי הוא המדד הידוע ביום אישור ההסכם.`);
+		if (!agreed && support && support.ok && payer && support.periods.length > 1) {
+			const steps = support.periods.slice(1).map((x) => (x.payer === payer
+				? `מ-${hkDate(x.from)}: ${hkMoney(fR10((x.low + x.high) / 2))} לחודש`
+				: `מ-${hkDate(x.from)}: ההורים יחשבו את הסכום מחדש`));
+			items.push(`הסכום משתנה כשילד מגיע לגיל 6, 15 או 18: ${steps.join('; ')}. הסכומים לפני ההצמדה למדד.`);
+		} else if (agreed && amount > 0 && births.length > 1) {
+			items.push(`הסכום מתחלק בשווה בין הילדים, ${hkMoney(fR10(amount / births.length))} לכל ילד, והתשלום עבור כל ילד מסתיים כשהוא מגיע לגיל 18 או מסיים את התיכון, לפי המאוחר.`);
+		}
 		items.push('המזונות ישולמו עד שכל ילד ימלא 18 שנים או יסיים את התיכון, לפי המאוחר. על התקופה של שירות חובה יסכימו ההורים בכתב, ובהיעדר הסכמה יכריע בית המשפט.');
 		if (support && support.ok) {
 			items.push(`הוצאות חינוך מיוחדות, חוגים, טיפולים רפואיים שאינם בסל הבריאות, טיפולי שיניים ומשקפיים יתחלקו בין ההורים לפי חלקם בהכנסות: ${Math.round(support.ratio.income * 100)}% על ${doc(parentA)} ו-${100 - Math.round(support.ratio.income * 100)}% על ${doc(parentB)}.`);

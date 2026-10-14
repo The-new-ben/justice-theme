@@ -348,6 +348,20 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(back.property.aAssets === 0 && back.property.bAssets === '', 'agreement link: a 0 property total stays 0, a blank stays blank');
 }
 
+/* ---------- Review fixes (PR 130, Codex pass 10) ---------- */
+{
+	const base = { route: 'family', from: '2026-10-14', parentA: 'אבא', pattern: 'weekends_2mid', holidays: 'alternate' };
+	const two = HK.draftAgreement(reg, Object.assign({}, base, { children: ['2009-01-01', '2018-01-01'], support: { incomeA: 15000, incomeB: 9000, housingA: 4000, housingB: 5000 } }));
+	const step = two.support.periods[1];
+	check(two.ok && two.text.includes(`מ-${step.from.split('-').reverse().map(Number).join('.')}:`) && two.text.includes('הסכום משתנה כשילד מגיע לגיל 6, 15 או 18'), 'the draft steps the amount down on the dates the engine changes it');
+	const agreed = HK.draftAgreement(reg, Object.assign({}, base, { children: ['2009-01-01', '2018-01-01'], support: { amount: 3000 } }));
+	check(agreed.ok && agreed.text.includes('1,500 ש"ח לכל ילד'), 'an agreed amount for two children: 1,500 per child, ending child by child');
+	const early = IZ.computeBalance(reg, { marriage: '2020-01-01', breakDate: '2025-01-01', filed: '2010-01-01', items: [{ kind: 'savings', owner: 'a', value: 1000 }] });
+	check(!early.ok && early.errors.some((e) => e.field === 'filed'), 'a claim dated before the marriage is an input error');
+	const g = (fruits) => MM.draftMamon(reg, { timing: 'before', route: 'notary', regime: 'graded', home: 'a', fruits }).text;
+	check(g(true) !== g(false), 'the fruits choice changes the graded agreement');
+}
+
 /* ---------- The server snapshots: the same renderers, the sticky figure, no <h2> in a card ---------- */
 for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MMUI], ['heskem-gerushin', HKUI]]) {
 	const s = ui.snapshot(reg);

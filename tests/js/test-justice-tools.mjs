@@ -1145,6 +1145,18 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(/name="jt13-rk" value="term" checked/.test(f) && !/name="jt13-rw" value="term"/.test(f) && /data-if-resign hidden/.test(f), 'a fixed term that ended is its own ending choice, not under resignation (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 16) ---------- */
+{
+	const inh = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { inherited: true }));
+	check(!inh.ok && inh.errors.some((e) => e.field === 'inherited' && e.he.includes('49ב(5)')) && SHUI.renderForm(reg, SHUI.EXAMPLE).includes('id="jt14-inherited-e"'), 'an inherited dwelling sold with tax is refused: it may be exempt under s.49ב(5) (review, PR 128)');
+	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, inherited: true })).path === 'exempt', 'an inherited home that is exempt as a single home is still computed');
+	const par = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'parent' }));
+	check(par.ok && !par.entitled && par.flags.some((f) => f.code === 'parent_unconfirmed' && f.he.includes('סעיף 7(ג)')), 'a parent resignation without the s.7 conditions confirmed: no severance computed (review, PR 128)');
+	check(PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'parent', parentOk: true })).entitled && PEUI.renderForm(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'parent' })).includes('name="jt13-po"'), 'confirmed: entitled; the form asks for it');
+	const rel = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { relative: true }));
+	check(rel.flags.find((f) => f.code === 'relative').he.includes('כפי שסוכם') && !rel.flags.find((f) => f.code === 'relative').he.includes('שומר עליהן'), 'the relative note matches the lease written as agreed (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

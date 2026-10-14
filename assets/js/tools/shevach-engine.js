@@ -221,6 +221,9 @@ export function compute(registry, input) {
 	if (path !== 'exempt' && path !== 'loss' && buyDate >= sv.dates.start && buyDate <= sv.transition_reduction_to) {
 		return { ok: false, errors: [{ field: 'buyDate', he: 'רכישה בין 7.11.2001 ל-31.12.2003: על מכירה חייבת יש הפחתה במס לפי הוראת מעבר, בתנאים. את ההפחתה המחשבון לא מחשב; השתמשו בסימולטור של רשות המסים.' }] };
 	}
+	if (input.inherited && status !== 'other' && path !== 'exempt') {
+		return { ok: false, errors: [{ field: 'inherited', he: 'דירה שקיבלתם בירושה עשויה להיות פטורה לפי סעיף 49ב(5): כשאתם בן הזוג של המוריש, צאצא שלו או בן זוג של צאצא, למוריש היתה רק דירה אחת, והוא היה פטור אילו מכר אותה בעצמו. את התנאים האלה המחשבון לא בודק; השתמשו בסימולטור של רשות המסים.' }] };
+	}
 	if (rented && blank(input.depreciation) && path !== 'exempt') {
 		return { ok: false, errors: [{ field: 'depreciation', he: 'הדירה הושכרה: הזינו את הפחת שנוכה או שהיה ניתן לנכות בשנות ההשכרה (סעיף 47). הפחת מקטין את שווי הרכישה ומגדיל את השבח; את הסכום מחשבים רואה החשבון או השומה. בלי הסכום אין הערכה.' }] };
 	}

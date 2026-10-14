@@ -12,7 +12,7 @@ import {
 export const TOOL_ID = 'pitzuyim';
 const P = 'jt13';
 
-export const EXAMPLE = { payType: 'monthly', salary: 12000, hourly: '', hours: '', jobPct: '', start: '2018-03-01', end: '2026-09-30', reason: 'fired', s14: 'partial', s14Pct: '', s14From: '', noticeDate: '', noticeMode: 'worked', change: false, changeDate: '', prevPct: '', prevSalary: '', prevHours: '', prevHourly: '', manyChanges: false, unpaidExcess: '' };
+export const EXAMPLE = { payType: 'monthly', salary: 12000, hourly: '', hours: '', jobPct: '', start: '2018-03-01', end: '2026-09-30', reason: 'fired', s14: 'partial', s14Pct: '', s14From: '', noticeDate: '', noticeMode: 'worked', change: false, changeDate: '', prevPct: '', prevSalary: '', prevHours: '', prevHourly: '', manyChanges: false, unpaidExcess: '', parentOk: false };
 
 const S14_LABEL = { none: 'אין סעיף 14', partial: 'סעיף 14 על 72%', full: 'סעיף 14 מלא (100%)', custom: 'אחוז אחר לפי ההסכם' };
 const REASON_LABEL = { health: 'בריאות', parent: 'הורות (9 חודשים)', move: 'מעבר דירה', term: 'חוזה שלא חודש', worse: 'הרעת תנאים', retire: 'גיל פרישה' };
@@ -52,6 +52,7 @@ export function renderForm(reg, input) {
 		+ `<div class="jtool-row">${dateField('start', 'יום תחילת העבודה', input.start, 'לדוגמה: 1.3.2018')}${dateField('end', 'יום העבודה האחרון', input.end, 'לדוגמה: 30.9.2026')}</div>`
 		+ `<fieldset class="jtool-field"><legend>איך העבודה הסתיימה</legend><div class="jtool-chips">${chip('rk', 'fired', 'פוטרתי', kind === 'fired')}${chip('rk', 'resign', 'התפטרתי', resign)}${chip('rk', 'term', 'חוזה לתקופה קצובה הסתיים ולא חודש', kind === 'term')}</div>`
 		+ `<div class="jtool-chips" data-if-resign${resign ? '' : ' hidden'} style="margin-top:8px" role="group" aria-label="סיבת ההתפטרות">${chip('rw', 'plain', 'התפטרות רגילה', why === 'plain')}${RESIGN_CODES.filter((k) => k !== 'term').map((k) => chip('rw', k, REASON_LABEL[k], why === k)).join('')}</div>`
+		+ `<div data-if-parent${input.reason === 'parent' ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-chips">${chip('po', '1', 'תנאי סעיף 7 מתקיימים אצלי', input.parentOk, 'checkbox')}</div><p class="jtool-hint">${esc((sv.reasons.find((x) => x.code === 'parent') || {}).conditions_he || '')}.</p></div>`
 		+ `<p class="jtool-hint">התפטרות מהסיבות האלה נחשבת לפיטורים (סעיפים 6, 7, 8 ו-11 לחוק פיצויי פיטורים), וכך גם חוזה לתקופה קצובה שלא חודש (סעיף 9).</p></fieldset>`
 		+ `<fieldset class="jtool-field"><legend>הפרשות לפנסיה במקום פיצויים (סעיף 14)</legend><div class="jtool-chips">${['none', 'partial', 'full', 'custom'].map((k) => chip('s14', k, S14_LABEL[k], s14 === k)).join('')}</div>`
 		+ `<div class="jtool-row" data-if-s14${s14 === 'none' ? ' hidden' : ''} style="margin-top:8px"><div class="jtool-field" data-if-custom${s14 === 'custom' ? '' : ' hidden'}><label class="jtool-label" for="${P}-s14p">אחוז הכיסוי לפי ההסכם</label><div class="jtool-input"><input id="${P}-s14p" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.s14Pct ?? '')}" placeholder="לדוגמה: 72" aria-describedby="${P}-s14Pct-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-s14Pct-e" role="alert"></p></div>${dateField('s14f', 'מתי התחילו ההפרשות (ריק = מתחילת העבודה)', input.s14From, 'לא חובה')}</div>`
@@ -228,6 +229,7 @@ function readForm(root) {
 		payType: radio('pt', 'monthly'), salary: m('sal'), hourly: m('hr'), hours: m('hrs'), jobPct: m('job'),
 		start: toIso(val(`#${P}-start`)), end: toIso(val(`#${P}-end`)),
 		reason: kind === 'fired' ? 'fired' : kind === 'term' ? 'term' : (why === 'plain' || why === 'term' ? 'resign' : why),
+		parentOk: kind === 'resign' && why === 'parent' && Boolean(root.querySelector(`input[name="${P}-po"]:checked`)),
 		s14: radio('s14', 'none'), s14Pct: m('s14p'), s14From: toIso(val(`#${P}-s14f`)),
 		noticeDate: toIso(val(`#${P}-nd`)), noticeMode: radio('nm', 'worked'),
 		change: Boolean(root.querySelector(`input[name="${P}-chg"]:checked`)),
@@ -239,8 +241,8 @@ function readForm(root) {
 const RS = { fired: 'f', resign: 'r', health: 'h', parent: 'p', move: 'm', term: 't', worse: 'w', retire: 'x' };
 const S14 = { none: 'n', partial: 'p', full: 'f', custom: 'c' };
 const NM = { worked: 'w', paid: 'p', none: 'n' };
-const stateOf = (i) => encodeState({ t: i.payType === 'hourly' ? 'h' : '', w: i.salary || '', h: i.hourly || '', o: i.hours || '', j: i.jobPct || '', s: i.start, e: i.end, r: RS[i.reason] || 'f', f: S14[i.s14] || 'n', p: i.s14Pct || '', d: i.s14From || '', n: i.noticeDate || '', m: NM[i.noticeMode] || 'w', c: i.change ? 1 : '', a: i.change ? i.changeDate : '', b: i.change ? i.prevPct : '', g: i.change ? i.prevSalary : '', k: i.change && i.manyChanges ? 1 : '', x: i.change ? i.prevHours : '', y: i.change ? i.prevHourly : '', u: i.unpaidExcess || '' });
-const KEYS = ['t', 'w', 'h', 'o', 'j', 's', 'e', 'r', 'f', 'p', 'd', 'n', 'm', 'c', 'a', 'b', 'g', 'k', 'x', 'y', 'u'];
+const stateOf = (i) => encodeState({ t: i.payType === 'hourly' ? 'h' : '', w: i.salary || '', h: i.hourly || '', o: i.hours || '', j: i.jobPct || '', s: i.start, e: i.end, r: RS[i.reason] || 'f', f: S14[i.s14] || 'n', p: i.s14Pct || '', d: i.s14From || '', n: i.noticeDate || '', m: NM[i.noticeMode] || 'w', c: i.change ? 1 : '', a: i.change ? i.changeDate : '', b: i.change ? i.prevPct : '', g: i.change ? i.prevSalary : '', k: i.change && i.manyChanges ? 1 : '', x: i.change ? i.prevHours : '', y: i.change ? i.prevHourly : '', u: i.unpaidExcess || '', z: i.reason === 'parent' && i.parentOk ? 1 : '' });
+const KEYS = ['t', 'w', 'h', 'o', 'j', 's', 'e', 'r', 'f', 'p', 'd', 'n', 'm', 'c', 'a', 'b', 'g', 'k', 'x', 'y', 'u', 'z'];
 function inputOf(s) {
 	if (!s.s || !s.e) { return null; }
 	const back = (map, v, d) => Object.keys(map).find((k) => map[k] === v) || d;
@@ -248,7 +250,7 @@ function inputOf(s) {
 		payType: s.t === 'h' ? 'hourly' : 'monthly', salary: s.w ? Number(s.w) : '', hourly: s.h ? Number(s.h) : '', hours: s.o ? Number(s.o) : '', jobPct: s.j ? Number(s.j) : '',
 		start: s.s, end: s.e, reason: back(RS, s.r, 'fired'), s14: back(S14, s.f, 'none'), s14Pct: s.p ? Number(s.p) : '', s14From: s.d || '', noticeDate: s.n || '', noticeMode: back(NM, s.m, 'worked'),
 		change: s.c === '1', changeDate: s.c === '1' ? (s.a || '') : '', prevPct: s.c === '1' && s.b ? Number(s.b) : '', prevSalary: s.c === '1' && s.g ? Number(s.g) : '', manyChanges: s.c === '1' && s.k === '1',
-		prevHours: s.c === '1' && s.x ? Number(s.x) : '', prevHourly: s.c === '1' && s.y ? Number(s.y) : '', unpaidExcess: s.u ? Number(s.u) : '',
+		prevHours: s.c === '1' && s.x ? Number(s.x) : '', prevHourly: s.c === '1' && s.y ? Number(s.y) : '', unpaidExcess: s.u ? Number(s.u) : '', parentOk: s.z === '1',
 	};
 }
 
@@ -284,6 +286,8 @@ export function mount(root, reg) {
 		form.querySelectorAll('[data-if-pay]').forEach((el) => { el.hidden = el.getAttribute('data-if-pay') !== pt; });
 		const rk = (root.querySelector(`input[name="${P}-rk"]:checked`) || {}).value || 'fired';
 		form.querySelectorAll('[data-if-resign]').forEach((el) => { el.hidden = rk !== 'resign'; });
+		const rw = (root.querySelector(`input[name="${P}-rw"]:checked`) || {}).value || 'plain';
+		form.querySelectorAll('[data-if-parent]').forEach((el) => { el.hidden = !(rk === 'resign' && rw === 'parent'); });
 		const s14 = (root.querySelector(`input[name="${P}-s14"]:checked`) || {}).value || 'none';
 		form.querySelectorAll('[data-if-s14]').forEach((el) => { el.hidden = s14 === 'none'; });
 		form.querySelectorAll('[data-if-custom]').forEach((el) => { el.hidden = s14 !== 'custom'; });

@@ -98,14 +98,14 @@ export function compute(registry, input) {
 
 	// Scope (s.25טו): the part may not apply at all.
 	const applies = !((months <= rc.scope.short_months && option === 'none') || (months > rc.scope.long_years * 12 && !['both', 'landlord'].includes(exitChoice)));
-	if (months <= rc.scope.short_months && option === 'none') { add('info', 'short', `שכירות של עד ${rc.scope.short_months} חודשים בלי ברירת הארכה: סימן החוזה למגורים לא חל בחובה (סעיף 25טו(א)(2)). החוזה כאן כתוב לפי ההגנות שבחוק בכל זאת.`, ['25טו']); }
+	if (months <= rc.scope.short_months && option === 'none') { add('info', 'short', `שכירות של עד ${rc.scope.short_months} חודשים בלי ברירת הארכה: סימן החוזה למגורים לא חל בחובה (סעיף 25טו(א)(2)). החוזה כתוב כפי שסוכם, וההגנות שבחוק מוצגות כאן לידיעה.`, ['25טו']); }
 	if (months > rc.scope.long_years * 12 && !['both', 'landlord'].includes(exitChoice)) { add('info', 'long', `שכירות של יותר מ-${rc.scope.long_years} שנים בלי זכות ביטול מוקדם למשכיר: הסימן לא חל בחובה (סעיף 25טו(א)(3)).`, ['25טו']); }
 	if (rent > rc.scope.rent_cap) { add('warn', 'rent_cap', `שכר דירה של יותר מ-${sh(rc.scope.rent_cap)} לחודש: ייתכן שהסימן לא חל (סעיף 25טו(א)(4)). ${rc.scope.rent_cap_he}.`, ['25טו']); }
 	const relative = Boolean(input.relative);
 	const free = !applies || relative;
 	const freeWhy = !applies ? 'הסימן לא חל על חוזה זה (סעיף 25טו(א))' : 'בין קרובים מותר להתנות על ההגנה הזאת (סעיף 25טו(ב))';
 	const uncertain = applies && !relative && rent > rc.scope.rent_cap;
-	if (input.relative) { add('info', 'relative', 'השוכר קרוב משפחה של המשכיר: מותר להתנות על ההגנות של סעיף 25יד(2) (סעיף 25טו(ב)). החוזה כאן שומר עליהן בכל זאת.', ['25טו']); }
+	if (input.relative) { add('info', 'relative', 'השוכר קרוב משפחה של המשכיר: מותר להתנות על ההגנות של סעיף 25יד(2) (סעיף 25טו(ב)), והחוזה כתוב כפי שסוכם. רק החובה למסור דירה ראויה למגורים (סעיף 25ו) נשארת (סעיף 25יד(1)).', ['25טו']); }
 
 	// Security (s.25י).
 	let scale = 1;

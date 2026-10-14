@@ -140,7 +140,9 @@ export function compute(registry, input) {
 	const span = serviceSpan(start, end);
 	const reason = input.reason === 'resign' || RESIGN_CODES.includes(input.reason) ? input.reason : 'fired';
 	const reasonRow = sv.reasons.find((x) => x.code === reason) || null;
-	const entitledByReason = reason !== 'resign';
+	// A parent's resignation counts as a dismissal only under the s.7 conditions, which the person confirms (review, PR 128).
+	const parentOk = reason !== 'parent' || input.parentOk === true;
+	const entitledByReason = reason !== 'resign' && parentOk;
 	const flags = [];
 	const add = (level, code, he, section) => flags.push({ level, code, he, section: section || '' });
 
@@ -186,7 +188,8 @@ export function compute(registry, input) {
 	if (!yearOk && !nearYear) { add('bad', 'under_year', `עבדתם פחות משנה (${span.months} חודשים ו-${span.days} ימים): אין זכות לפיצויי פיטורים לפי החוק (סעיף 1(א)). ההודעה המוקדמת מגיעה בכל מקרה.`, 'סעיף 1(א)'); }
 	if (nearYear) { add('warn', 'near_year', `פוטרתם אחרי ${span.months} חודשים, סמוך לסוף השנה הראשונה: חזקה שהפיטורים נעשו כדי לחמוק מפיצויים, והם לא פוגעים בזכות אלא אם המעסיק יוכיח אחרת (סעיף 3). הסכום כאן יחסי לתקופה שעבדתם.`, 'סעיף 3'); }
 	if (reason === 'resign') { add('info', 'resign', 'בהתפטרות רגילה אין זכות לפיצויים מהמעסיק. כספים שהופרשו לפיצויים לפי סעיף 14 שייכים לכם גם בהתפטרות.', 'סעיף 14'); }
-	if (reasonRow) { add('info', 'resign_as_fired', `התפטרות שדינה כפיטורים: ${reasonRow.he} (${reasonRow.section}). בתביעה מוכיחים את הנסיבות, ובחלק מהמקרים צריך להודיע למעסיק מראש על הסיבה.`, reasonRow.section); }
+	if (!parentOk) { add('bad', 'parent_unconfirmed', `התפטרות של הורה נחשבת לפיטורים רק בתנאי סעיף 7: ${reasonRow.conditions_he}. סמנו שהתנאים מתקיימים כדי לחשב פיצויים.`, 'סעיף 7'); }
+	if (reasonRow && parentOk) { add('info', 'resign_as_fired', `התפטרות שדינה כפיטורים: ${reasonRow.he} (${reasonRow.section}). בתביעה מוכיחים את הנסיבות, ובחלק מהמקרים צריך להודיע למעסיק מראש על הסיבה.`, reasonRow.section); }
 
 
 	// Section 14.

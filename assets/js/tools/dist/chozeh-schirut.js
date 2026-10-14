@@ -703,7 +703,7 @@ function renderForm(reg, input) {
 		+ `<div class="jtool-row">${numField('rd', 'ימים לתיקון ליקוי', input.repairDays, String(rc.repairs.days))}${numField('ud', 'ימים לתיקון דחוף', input.urgentDays, String(rc.repairs.urgent_days))}</div>`
 		+ `<div class="jtool-row">${numField('ret', 'ימים להחזרת הערובה', input.returnDays, String(rc.deposit.return_days))}${numField('otd', 'השוכר מודיע על האופציה, ימים לפני הסוף', input.optTenantDays, String(rc.option.tenant_days))}</div>`
 		+ `<div class="jtool-row">${numField('old', 'המשכיר מודיע על האופציה שלו, ימים לפני', input.optLandlordDays, String(rc.option.landlord_days))}${numField('etd', 'הודעת יציאה של השוכר, ימים מראש', input.exitTenantDays, String(rc.exit.tenant_days))}</div>`
-		+ `<div class="jtool-row">${numField('eld', 'הודעת יציאה של המשכיר, ימים מראש', input.exitLandlordDays, String(rc.exit.landlord_days))}<div class="jtool-field"><span class="jtool-label">קרבה</span><div class="jtool-chips">${chip('rel', '1', 'השוכר קרוב משפחה של המשכיר', input.relative, 'checkbox')}</div></div></div></details>`;
+		+ `<div class="jtool-row">${numField('eld', 'הודעת יציאה של המשכיר, ימים מראש', input.exitLandlordDays, String(rc.exit.landlord_days))}<div class="jtool-field"><span class="jtool-label">קרבה (סעיף 25טו(ב); דוד, דודה או בן דוד אינם קרובים לעניין זה)</span><div class="jtool-chips">${chip('rel', '1', 'השוכר קרוב של המשכיר: בן זוג, אח או אחות, הורה, סב או סבתא, צאצא או צאצא של בן הזוג, או בן זוג של אחד מאלה', input.relative, 'checkbox')}</div></div></div></details>`;
 }
 
 function verdictSentence(reg, r) {

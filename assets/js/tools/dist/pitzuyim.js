@@ -444,8 +444,11 @@ function compute(registry, input) {
 	const reason = input.reason === 'resign' || RESIGN_CODES.includes(input.reason) ? input.reason : 'fired';
 	const reasonRow = sv.reasons.find((x) => x.code === reason) || null;
 	// A parent's resignation counts as a dismissal only under the s.7 conditions, which the person confirms (review, PR 128).
-	const parentOk = reason !== 'parent' || input.parentOk === true;
-	const entitledByReason = reason !== 'resign' && parentOk;
+	// Every resignation the law treats as a dismissal (ss.6-8, 11) depends on facts the person confirms; a fixed term (s.9)
+	// is confirmed by its own choice (review, PR 128).
+	const ground = RESIGN_CODES.includes(reason) && reason !== 'term';
+	const groundOk = !ground || input.groundOk === true || (reason === 'parent' && input.parentOk === true);
+	const entitledByReason = reason !== 'resign' && groundOk;
 	const flags = [];
 	const add = (level, code, he, section) => flags.push({ level, code, he, section: section || '' });
 
@@ -495,8 +498,9 @@ function compute(registry, input) {
 	if (!yearOk && !nearYear) { add('bad', 'under_year', `עבדתם פחות משנה (${span.months} חודשים ו-${span.days} ימים): אין זכות לפיצויי פיטורים לפי החוק (סעיף 1(א)). ההודעה המוקדמת מגיעה בכל מקרה.`, 'סעיף 1(א)'); }
 	if (nearYear) { add('warn', 'near_year', `פוטרתם אחרי ${span.months} חודשים, סמוך לסוף השנה הראשונה: חזקה שהפיטורים נעשו כדי לחמוק מפיצויים, והם לא פוגעים בזכות אלא אם המעסיק יוכיח אחרת (סעיף 3). הסכום כאן יחסי לתקופה שעבדתם.`, 'סעיף 3'); }
 	if (reason === 'resign') { add('info', 'resign', 'בהתפטרות רגילה אין זכות לפיצויים מהמעסיק. כספים שהופרשו לפיצויים לפי סעיף 14 שייכים לכם גם בהתפטרות.', 'סעיף 14'); }
-	if (!parentOk) { add('bad', 'parent_unconfirmed', `התפטרות של הורה נחשבת לפיטורים רק בתנאי סעיף 7: ${reasonRow.conditions_he}. סמנו שהתנאים מתקיימים כדי לחשב פיצויים.`, 'סעיף 7'); }
-	if (reasonRow && parentOk) { add('info', 'resign_as_fired', `התפטרות שדינה כפיטורים: ${reasonRow.he} (${reasonRow.section}). בתביעה מוכיחים את הנסיבות, ובחלק מהמקרים צריך להודיע למעסיק מראש על הסיבה.`, reasonRow.section); }
+	if (!groundOk && reason === 'parent') { add('bad', 'parent_unconfirmed', `התפטרות של הורה נחשבת לפיטורים רק בתנאי סעיף 7: ${reasonRow.conditions_he}. סמנו שהתנאים מתקיימים כדי לחשב פיצויים.`, 'סעיף 7'); }
+	if (!groundOk && reason !== 'parent') { add('bad', 'ground_unconfirmed', `התפטרות נחשבת לפיטורים רק כשמתקיימים התנאים של ${reasonRow.section}: ${reasonRow.conditions_he || reasonRow.he}. בתביעה מוכיחים אותם. סמנו שהם מתקיימים כדי לחשב פיצויים.`, reasonRow.section); }
+	if (reasonRow && groundOk) { add('info', 'resign_as_fired', `התפטרות שדינה כפיטורים: ${reasonRow.he} (${reasonRow.section}). בתביעה מוכיחים את הנסיבות, ובחלק מהמקרים צריך להודיע למעסיק מראש על הסיבה.`, reasonRow.section); }
 
 
 	// Section 14.
@@ -603,7 +607,7 @@ function byArrangement(registry, input) {
 const TOOL_ID = 'pitzuyim';
 const P = 'jt13';
 
-const EXAMPLE = { payType: 'monthly', salary: 12000, hourly: '', hours: '', jobPct: '', start: '2018-03-01', end: '2026-09-30', reason: 'fired', s14: 'partial', s14Pct: '', s14From: '', noticeDate: '', noticeMode: 'worked', change: false, changeDate: '', prevPct: '', prevSalary: '', prevHours: '', prevHourly: '', manyChanges: false, unpaidExcess: '', parentOk: false, nearClaim: false };
+const EXAMPLE = { payType: 'monthly', salary: 12000, hourly: '', hours: '', jobPct: '', start: '2018-03-01', end: '2026-09-30', reason: 'fired', s14: 'partial', s14Pct: '', s14From: '', noticeDate: '', noticeMode: 'worked', change: false, changeDate: '', prevPct: '', prevSalary: '', prevHours: '', prevHourly: '', manyChanges: false, unpaidExcess: '', groundOk: false, nearClaim: false };
 
 const S14_LABEL = { none: 'אין סעיף 14', partial: 'סעיף 14 על 72%', full: 'סעיף 14 מלא (100%)', custom: 'אחוז אחר לפי ההסכם' };
 const REASON_LABEL = { health: 'בריאות', parent: 'הורות (9 חודשים)', move: 'מעבר דירה', term: 'חוזה שלא חודש', worse: 'הרעת תנאים', retire: 'גיל פרישה' };
@@ -645,7 +649,8 @@ function renderForm(reg, input) {
 		+ `<p class="jtool-hint" data-if-term${kind === 'term' ? '' : ' hidden'}>אם המעסיק הציע לחדש את החוזה לפחות 3 חודשים לפני סופו וסירבתם, זו התפטרות ולא פיטורים (סעיף 9): בחרו "התפטרתי".</p>`
 		+ `<div class="jtool-chips" data-if-dismissal${kind === 'resign' ? ' hidden' : ''} style="margin-top:8px">${chip('ny', '1', 'עבדתי פחות משנה, והפיטורים היו סמוך לסוף השנה הראשונה (סעיף 3)', input.nearClaim, 'checkbox')}</div>`
 		+ `<div class="jtool-chips" data-if-resign${resign ? '' : ' hidden'} style="margin-top:8px" role="group" aria-label="סיבת ההתפטרות">${chip('rw', 'plain', 'התפטרות רגילה', why === 'plain')}${RESIGN_CODES.filter((k) => k !== 'term').map((k) => chip('rw', k, REASON_LABEL[k], why === k)).join('')}</div>`
-		+ `<div data-if-parent${input.reason === 'parent' ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-chips">${chip('po', '1', 'תנאי סעיף 7 מתקיימים אצלי', input.parentOk, 'checkbox')}</div><p class="jtool-hint">${esc((sv.reasons.find((x) => x.code === 'parent') || {}).conditions_he || '')}.</p></div>`
+		+ `<div data-if-ground${resign && why !== 'plain' ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-chips">${chip('po', '1', 'התנאים של הסיבה הזאת מתקיימים אצלי', input.groundOk || input.parentOk, 'checkbox')}</div>`
+		+ sv.reasons.filter((x) => x.code !== 'term').map((x) => `<p class="jtool-hint" data-ground-hint="${x.code}"${why === x.code ? '' : ' hidden'}>${esc(x.section)}: ${esc(x.conditions_he || x.he)}.</p>`).join('') + '</div>'
 		+ `<p class="jtool-hint">התפטרות מהסיבות האלה נחשבת לפיטורים (סעיפים 6, 7, 8 ו-11 לחוק פיצויי פיטורים), וכך גם חוזה לתקופה קצובה שלא חודש (סעיף 9).</p></fieldset>`
 		+ `<fieldset class="jtool-field"><legend>הפרשות לפנסיה במקום פיצויים (סעיף 14)</legend><div class="jtool-chips">${['none', 'partial', 'full', 'custom'].map((k) => chip('s14', k, S14_LABEL[k], s14 === k)).join('')}</div>`
 		+ `<div class="jtool-row" data-if-s14${s14 === 'none' ? ' hidden' : ''} style="margin-top:8px"><div class="jtool-field" data-if-custom${s14 === 'custom' ? '' : ' hidden'}><label class="jtool-label" for="${P}-s14p">אחוז הכיסוי לפי ההסכם</label><div class="jtool-input"><input id="${P}-s14p" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.s14Pct ?? '')}" placeholder="לדוגמה: 72" aria-describedby="${P}-s14Pct-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-s14Pct-e" role="alert"></p></div>${dateField('s14f', 'מתי התחילו ההפרשות (ריק = מתחילת העבודה)', input.s14From, 'לא חובה')}</div>`
@@ -822,7 +827,7 @@ function readForm(root) {
 		payType: radio('pt', 'monthly'), salary: m('sal'), hourly: m('hr'), hours: m('hrs'), jobPct: m('job'),
 		start: toIso(val(`#${P}-start`)), end: toIso(val(`#${P}-end`)),
 		reason: kind === 'fired' ? 'fired' : kind === 'term' ? 'term' : (why === 'plain' || why === 'term' ? 'resign' : why),
-		parentOk: kind === 'resign' && why === 'parent' && Boolean(root.querySelector(`input[name="${P}-po"]:checked`)),
+		groundOk: kind === 'resign' && why !== 'plain' && Boolean(root.querySelector(`input[name="${P}-po"]:checked`)),
 		nearClaim: kind !== 'resign' && Boolean(root.querySelector(`input[name="${P}-ny"]:checked`)),
 		s14: radio('s14', 'none'), s14Pct: m('s14p'), s14From: toIso(val(`#${P}-s14f`)),
 		noticeDate: toIso(val(`#${P}-nd`)), noticeMode: radio('nm', 'worked'),
@@ -835,7 +840,7 @@ function readForm(root) {
 const RS = { fired: 'f', resign: 'r', health: 'h', parent: 'p', move: 'm', term: 't', worse: 'w', retire: 'x' };
 const S14 = { none: 'n', partial: 'p', full: 'f', custom: 'c' };
 const NM = { worked: 'w', paid: 'p', none: 'n' };
-const stateOf = (i) => encodeState({ t: i.payType === 'hourly' ? 'h' : '', w: i.salary || '', h: i.hourly || '', o: i.hours || '', j: i.jobPct || '', s: i.start, e: i.end, r: RS[i.reason] || 'f', f: S14[i.s14] || 'n', p: i.s14Pct || '', d: i.s14From || '', n: i.noticeDate || '', m: NM[i.noticeMode] || 'w', c: i.change ? 1 : '', a: i.change ? i.changeDate : '', b: i.change ? i.prevPct : '', g: i.change ? i.prevSalary : '', k: i.change && i.manyChanges ? 1 : '', x: i.change ? i.prevHours : '', y: i.change ? i.prevHourly : '', u: i.unpaidExcess || '', z: i.reason === 'parent' && i.parentOk ? 1 : '', q: i.nearClaim ? 1 : '' });
+const stateOf = (i) => encodeState({ t: i.payType === 'hourly' ? 'h' : '', w: i.salary || '', h: i.hourly || '', o: i.hours || '', j: i.jobPct || '', s: i.start, e: i.end, r: RS[i.reason] || 'f', f: S14[i.s14] || 'n', p: i.s14Pct || '', d: i.s14From || '', n: i.noticeDate || '', m: NM[i.noticeMode] || 'w', c: i.change ? 1 : '', a: i.change ? i.changeDate : '', b: i.change ? i.prevPct : '', g: i.change ? i.prevSalary : '', k: i.change && i.manyChanges ? 1 : '', x: i.change ? i.prevHours : '', y: i.change ? i.prevHourly : '', u: i.unpaidExcess || '', z: i.groundOk || i.parentOk ? 1 : '', q: i.nearClaim ? 1 : '' });
 const KEYS = ['t', 'w', 'h', 'o', 'j', 's', 'e', 'r', 'f', 'p', 'd', 'n', 'm', 'c', 'a', 'b', 'g', 'k', 'x', 'y', 'u', 'z', 'q'];
 function inputOf(s) {
 	if (!s.s || !s.e) { return null; }
@@ -844,7 +849,7 @@ function inputOf(s) {
 		payType: s.t === 'h' ? 'hourly' : 'monthly', salary: s.w ? Number(s.w) : '', hourly: s.h ? Number(s.h) : '', hours: s.o ? Number(s.o) : '', jobPct: s.j ? Number(s.j) : '',
 		start: s.s, end: s.e, reason: back(RS, s.r, 'fired'), s14: back(S14, s.f, 'none'), s14Pct: s.p ? Number(s.p) : '', s14From: s.d || '', noticeDate: s.n || '', noticeMode: back(NM, s.m, 'worked'),
 		change: s.c === '1', changeDate: s.c === '1' ? (s.a || '') : '', prevPct: s.c === '1' && s.b ? Number(s.b) : '', prevSalary: s.c === '1' && s.g ? Number(s.g) : '', manyChanges: s.c === '1' && s.k === '1',
-		prevHours: s.c === '1' && s.x ? Number(s.x) : '', prevHourly: s.c === '1' && s.y ? Number(s.y) : '', unpaidExcess: s.u ? Number(s.u) : '', parentOk: s.z === '1', nearClaim: s.q === '1',
+		prevHours: s.c === '1' && s.x ? Number(s.x) : '', prevHourly: s.c === '1' && s.y ? Number(s.y) : '', unpaidExcess: s.u ? Number(s.u) : '', groundOk: s.z === '1', nearClaim: s.q === '1',
 	};
 }
 
@@ -883,7 +888,8 @@ function mount(root, reg) {
 		form.querySelectorAll('[data-if-term]').forEach((el) => { el.hidden = rk !== 'term'; });
 		form.querySelectorAll('[data-if-dismissal]').forEach((el) => { el.hidden = rk === 'resign'; });
 		const rw = (root.querySelector(`input[name="${P}-rw"]:checked`) || {}).value || 'plain';
-		form.querySelectorAll('[data-if-parent]').forEach((el) => { el.hidden = !(rk === 'resign' && rw === 'parent'); });
+		form.querySelectorAll('[data-if-ground]').forEach((el) => { el.hidden = !(rk === 'resign' && rw !== 'plain'); });
+		form.querySelectorAll('[data-ground-hint]').forEach((el) => { el.hidden = el.getAttribute('data-ground-hint') !== rw; });
 		const s14 = (root.querySelector(`input[name="${P}-s14"]:checked`) || {}).value || 'none';
 		form.querySelectorAll('[data-if-s14]').forEach((el) => { el.hidden = s14 === 'none'; });
 		form.querySelectorAll('[data-if-custom]').forEach((el) => { el.hidden = s14 !== 'custom'; });

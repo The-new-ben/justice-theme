@@ -823,8 +823,8 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(PE.compute(reg, { salary: 10000, start: '2025-11-01', end: '2026-09-30' }).flags.some((f) => f.code === 'near_year'), 'a dismissal after 11 months: the s.3 presumption is flagged');
 	const resign = PE.compute(reg, { salary: 10000, start: '2018-01-01', end: '2026-09-30', reason: 'resign', s14: 'partial' });
 	check(!resign.entitled && resign.employer === 0 && resign.flags.some((f) => f.code === 'resign'), 'an ordinary resignation: nothing from the employer; the s.14 fund stays the worker\'s');
-	const worse = PE.compute(reg, { salary: 10000, start: '2018-01-01', end: '2026-09-30', reason: 'worse' });
-	check(worse.entitled && worse.severance > 0 && worse.flags.some((f) => f.code === 'resign_as_fired' && f.section === 'סעיף 11(א)'), 'a resignation for worse conditions counts as a dismissal (s.11(א))');
+	const worse = PE.compute(reg, { salary: 10000, start: '2018-01-01', end: '2026-09-30', reason: 'worse', groundOk: true });
+	check(worse.entitled && worse.severance > 0 && worse.flags.some((f) => f.code === 'resign_as_fired' && f.section === 'סעיף 11(א)'), 'a resignation for worse conditions, confirmed, counts as a dismissal (s.11(א))');
 	const hourly = PE.compute(reg, { payType: 'hourly', hourly: 45, hours: 160, start: '2020-01-01', end: '2025-12-31' });
 	check(hourly.base === 7200 && hourly.severance === 43200 && !hourly.floored, 'a wage-paid employee: 45 x 160 = 7,200 a month, 6 years = 43,200 (1983 regulations)');
 	const low = PE.compute(reg, { payType: 'hourly', hourly: 30, hours: 160, start: '2020-01-01', end: '2026-09-30' });
@@ -1166,6 +1166,19 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const claimed = PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2025-09-30', reason: 'fired', nearClaim: true });
 	check(claimed.entitled && claimed.conditional && claimed.severance === 7500, 'when the person says it was close to the year end, the amount is computed under s.3 (review, PR 128)');
 	check(PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2025-09-30', reason: 'resign', nearClaim: true }).entitled === false, 's.3 is for dismissals only');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 18) ---------- */
+{
+	for (const reason of ['health', 'move', 'worse', 'retire']) {
+		const r = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason }));
+		check(r.ok && !r.entitled && r.flags.some((f) => f.code === 'ground_unconfirmed'), `a resignation for "${reason}" without its conditions confirmed: no severance (review, PR 128)`);
+		check(PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason, groundOk: true })).entitled, `"${reason}" confirmed: entitled`);
+	}
+	const f = PEUI.renderForm(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'move' }));
+	check(f.includes('name="jt13-po"') && f.includes('תקנה 12(ב)') && /data-ground-hint="move">/.test(f), 'the form shows the conditions of the chosen ground and asks to confirm them');
+	const rf = REUI.renderForm(reg, Object.assign({}, REUI.EXAMPLE, { relative: true }));
+	check(rf.includes('סב או סבתא, צאצא או צאצא של בן הזוג') && rf.includes('אינם קרובים לעניין זה'), 'the relative choice lists the s.25טו(ב) relations (review, PR 128)');
 }
 
 if (failures) {

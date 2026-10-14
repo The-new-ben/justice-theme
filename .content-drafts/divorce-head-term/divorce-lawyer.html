@@ -1,0 +1,55 @@
+<!--
+  Divorce-lawyer head term (HAD-532), release step for https://jus-tice.co.il/divorce-lawyer/ (post 7274, type "page",
+  practice-landing template, Adv. Maya Rotenberg's featured card and reviewed-by line).
+  NOT placed by this PR. Order: the theme release that ships this PR first (the shortcode mode, the hero line, the
+  truthful reviewed-by line, the LegalService mapping), then this content step. Save a revision before the edit.
+
+  1. BLOCK A goes at the very top of post_content, before the paragraph that opens "קיבלתם בקשה ליישוב סכסוך".
+     It renders the answer box (first sentence "עורך דין גירושין מייצג...") and the instrument. Nothing else moves.
+  2. BLOCK B goes right before the heading <h2>מקורות והבהרה משפטית</h2>. FAQPage schema comes from the existing
+     builder in inc/schema.php (h2 with "שאלות נפוצות", then h3 + one p each). One <p> per answer: the pillar builder
+     (inc/pillar-faq-schema.php) joins consecutive <p> tags into the last answer.
+  3. Do not change any other paragraph: the body, the route table, the eight questions, the legal-aid section and
+     the sources are Maya's reviewed text. Her card and profile are rendered by justice-ops and are not touched.
+  4. After the theme release the bottom line reads "הטקסט במדריך נבדק על ידי עו"ד מאיה רוטנברג. המחשבון והתשובה
+     שמעליו והשאלות הנפוצות: צוות Jus-Tice, מול המקורות שמצוינים בהם." (the class jt-team-block on BLOCK B and the
+     shortcode in BLOCK A switch it on). Check it on the live page.
+  5. Yoast, restoring the 2.8.2026 release contract (justice-ops/family-content-release.php) that the live title drifted from:
+     Title (54): עורך דין גירושין: בחירת ייצוג לפי מצב והליך | Jus-Tice
+     Meta (131): עורך דין גירושין: מה הוא עושה, איזה ניסיון לבדוק, התעריף המינימלי של הלשכה לכל שירות, מחשבון לפי המסלול שלכם ושאלות לפגישה הראשונה.
+     Why: the live title "עורך דין גירושין מומלץ | מחיר, שכר טרחה והשוואת משרדים" promises a ranking and a price list
+     the body itself sends to /the-recommended-family-lawyers/ and /divorce-costs-2025/; Search Console 90 days shows
+     those two pages and this one splitting "עורך דין גירושין מומלץ" and the price phrases. No year in the title.
+  6. Yoast > llms.txt: add /divorce-lawyer/ to the selected pages (the live llms.txt lists /family-law/ and
+     /divorce-agreement/ but not the head-term page).
+  7. Purge /divorce-lawyer/ (Varnish + CDN), then check at 1280 and 390: the answer box under the hero, the tool
+     working, the FAQ above the sources, Maya's card and the mediation room still on the page, one FAQPage and one
+     WebApplication in the source, HTTP 200.
+-->
+<!-- BLOCK A: top of post_content -->
+<!-- wp:shortcode -->
+[justice_tool name="gerushin" mode="lawyer"]
+<!-- /wp:shortcode -->
+
+<!-- BLOCK B: before <h2>מקורות והבהרה משפטית</h2> -->
+<!-- wp:html -->
+<section class="jt-team-block jt-head-faq">
+<h2>שאלות נפוצות על עורך דין גירושין</h2>
+<h3>איך בוחרים עורך דין גירושין?</h3>
+<p>בודקים חמישה דברים: שהשם מופיע במאגר עורכי הדין של לשכת עורכי הדין עם רישיון בתוקף; ניסיון בסוג המחלוקת שלכם ובערכאה שבה התיק יתנהל, בית המשפט לענייני משפחה או בית הדין הרבני; מי מטפל בתיק ביום יום ומי מופיע בדיונים; הסכם שכר טרחה בכתב לפי שלבים, עם מה שאינו כלול בו (אגרות, שמאי, אקטואר); וזמינות לבקשה דחופה כמו צו הגנה או עיכוב יציאה מהארץ. השאלות לפגישה הראשונה מופיעות למעלה, בפרק על ייפוי הכוח, ורשימת הבדיקות המלאה: <a href="/experienced-family-law-attorney/">איך לבחור עורך דין לענייני משפחה</a>.</p>
+<h3>כמה עולה עורך דין גירושין?</h3>
+<p>שכר הטרחה נקבע בהסכם בכתב עם עורך הדין. לשכת עורכי הדין מפרסמת תעריף מינימלי מומלץ שאינו מחייב, לכל שירות בנפרד: סידור גט בהסכמה, תביעה לגט בלי הסכמה ועריכת הסכם לפסק הגט. המחשבון בראש העמוד מחשב אותו לפי המסלול שלכם, ואת כל ההוצאות, כולל אגרות, מומחים ומע"מ, מפרט המדריך <a href="/divorce-costs-2025/">עלויות גירושין ושכר טרחה</a>.</p>
+<h3>האם חייבים עורך דין כדי להתגרש?</h3>
+<p>לא. החוק אינו מחייב ייצוג, ובני זוג שהסכימו על הכול יכולים להגיש בעצמם בקשה לאישור הסכם גירושין לבית המשפט לענייני משפחה או לבית הדין הרבני. הסיכון הוא הסכם שנחתם בלי בדיקה ומשאיר פתוחים מזונות, פנסיה, דירה או הסדרי שהות. מה חייב להופיע בהסכם: <a href="/free-divorce-agreement-template/">הסכם גירושין, דוגמה וסעיפי חובה</a>.</p>
+<h3>עורך דין גירושין או עורכת דין גירושין: מה עדיף?</h3>
+<p>המין של עורך הדין אינו משנה את הדין ואת סיכויי התיק. מה שקובע הוא ניסיון בסוג המחלוקת, היכרות עם הערכאה ומי יטפל בתיק בפועל. מתי ההעדפה בכל זאת משנה ללקוח, ואיך בודקים אותה: <a href="/women-lawyer-vs-men-divorce-lawyer/">עורכת דין גירושין, מתי לבחור ואיך</a>.</p>
+<h3>יש עורך דין לגירושין בחינם?</h3>
+<p>למי שזכאי, כן. הסיוע המשפטי במשרד המשפטים מטפל בגירושין, מזונות, משמורת וחלוקת רכוש, בכפוף לתנאי זכאות כלכליים ולבחינת הבקשה. פגישות המידע ביחידת הסיוע שליד בית המשפט ובית הדין אינן בתשלום. מי זכאי ואיך מגישים: <a href="/legal-aid-israel/">סיוע משפטי בישראל</a>.</p>
+<h3>בבית הדין הרבני או בבית המשפט לענייני משפחה?</h3>
+<p>גט בין יהודים ניתן רק בבית הדין הרבני (סעיף 1 לחוק שיפוט בתי דין רבניים (נישואין וגירושין)). רכוש, מזונות והסדרי שהות יכולים להתברר בבית המשפט לענייני משפחה או בבית הדין, לפי הערכאה שבה נפתח ההליך, כריכתם לתביעת הגירושין והחלטות שכבר ניתנו, כמו שמוסבר למעלה בפרק על "מי מגיש ראשון". הצעד הראשון בבית הדין: <a href="/opening-divorce-file-rabbinical/">פתיחת תיק גירושין בבית הדין הרבני</a>.</p>
+<h3>מה ההבדל בין עורך דין גירושין למגשר?</h3>
+<p>מגשר אינו מייצג אף צד: הוא מנהל שיחה בין שניכם עד להסכם. עורך דין גירושין מייצג רק אתכם ובודק שההסכם שומר על הזכויות שלכם לפני החתימה. רבים משלבים: גישור עד להסכם, ובדיקה של עורך דין לכל צד לפני האישור. <a href="/divorce-mediation/">גישור גירושין: איך התהליך עובד</a>.</p>
+<h3>איך מוצאים עורך דין גירושין בעיר שלי?</h3>
+<p>הדין זהה בכל הארץ. מה שמשתנה הוא בית המשפט או בית הדין האזורי שבו התיק יתנהל, ולכן כדאי לשאול כמה תיקים עורך הדין מנהל שם. מדריכים לפי עיר: <a href="/family-lawyer-tel-aviv/">עורך דין גירושין בתל אביב</a>, <a href="/family-law-petah-tikva/">פתח תקווה</a>, <a href="/family-law-rishon-lezion/">ראשון לציון</a>, <a href="/family-law-haifa/">חיפה</a>, <a href="/family-law-beer-sheva/">באר שבע</a>, <a href="/family-law-netanya/">נתניה</a>, <a href="/family-law-ashdod/">אשדוד</a>, <a href="/family-law-herzliya/">הרצליה</a>, <a href="/family-law-rehovot/">רחובות</a> ו<a href="/family-law-modiin/">מודיעין</a>.</p>
+</section>
+<!-- /wp:html -->

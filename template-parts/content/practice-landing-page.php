@@ -318,7 +318,18 @@ if ( post_type_exists( 'articles' ) ) {
 	<?php if ( ! empty( $config['reviewed_by'] ) ) : ?>
 		<section class="legal-pillar-reviewed section">
 			<div class="container">
+				<?php
+				// HAD-532: the reviewer's line covers what she reviewed. A tool or a team-written block in the body is
+				// credited to the Jus-Tice team, never folded into her review (truth gate; the HAD-498 rule).
+				$justice_team_parts = function_exists( 'justice_theme_practice_landing_team_parts' ) && $page_id > 0
+					? justice_theme_practice_landing_team_parts( (string) get_post_field( 'post_content', $page_id ) )
+					: array();
+				?>
+				<?php if ( empty( $justice_team_parts ) ) : ?>
 				<p class="eeat-reviewed-footer"><strong>התוכן בעמוד נבדק על ידי <?php echo esc_html( $config['reviewed_by'] ); ?></strong></p>
+				<?php else : ?>
+				<p class="eeat-reviewed-footer"><strong>הטקסט במדריך נבדק על ידי <?php echo esc_html( $config['reviewed_by'] ); ?>.</strong> <?php echo esc_html( implode( ' ו', $justice_team_parts ) ); ?>: צוות Jus-Tice, מול המקורות שמצוינים בהם.</p>
+				<?php endif; ?>
 				<?php
 				$justice_reviewer_schema = array(
 					'@context' => 'https://schema.org',

@@ -28,7 +28,10 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 			'title'          => 'עורך דין גירושין',
 			'display_title'  => 'עורך דין גירושין',
 			'keyword'        => 'עורך דין גירושין',
-			'summary'        => 'איך בוחרים עורך דין גירושין מומלץ: השוואת משרדים, מחירים ושכר טרחה, שאלות לפגישה ראשונה ומדריכי עומק על הסכם גירושין, מזונות ומשמורת.',
+			// HAD-532: the hero line now says what the body says (the body: "not a ranking and not a price list"). The old line
+			// promised "מומלץ" and "השוואת משרדים, מחירים", the two intents GSC shows owned by /the-recommended-family-lawyers/
+			// and /divorce-costs-2025/, and split the head term with them.
+			'summary'        => 'עורך דין גירושין: איך בוחרים ייצוג לפי ההליך שלכם, התעריף המינימלי של לשכת עורכי הדין, מה לשאול בפגישה הראשונה, ומדריכי עומק על הסכם גירושין, מזונות ומשמורת.',
 			'hide_signals'   => true,
 			'show_map'       => true,
 			'quick_path'     => array(
@@ -211,6 +214,28 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 	);
 
 	return $configs[ $slug ] ?? null;
+}
+
+/**
+ * The parts of a practice landing page that the Jus-Tice team wrote, not the named reviewer (HAD-532).
+ *
+ * The bottom line "התוכן בעמוד נבדק על ידי ..." may cover only what that lawyer reviewed (CLAUDE.md truth gate;
+ * the HAD-498 rule: a lawyer's review must not appear to cover a calculator she did not review). When the page body
+ * holds a tool shortcode or a block with the class jt-team-block, the line narrows to the guide text and names
+ * the team for the rest.
+ *
+ * @param string $content Raw post_content of the landing page.
+ * @return string[] Hebrew labels, in page order; empty when the reviewer covers the whole page.
+ */
+function justice_theme_practice_landing_team_parts( string $content ): array {
+	$parts = array();
+	if ( false !== strpos( $content, '[justice_tool ' ) ) {
+		$parts[] = 'המחשבון והתשובה שמעליו';
+	}
+	if ( false !== strpos( $content, 'jt-team-block' ) ) {
+		$parts[] = 'השאלות הנפוצות';
+	}
+	return $parts;
 }
 
 /**

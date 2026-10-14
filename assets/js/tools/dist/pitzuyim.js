@@ -437,6 +437,8 @@ function compute(registry, input) {
 	// With no notice given, a date left in the field is ignored (review, PR 128).
 	// Other grounds the law deems a dismissal (s.11(ב)-(ו) and more: seasonal work, enlistment or national service, a
 	// shelter, an elected office, ...) each have their own conditions; the tool does not check them (review, PR 128).
+	if (input.seasonal) { errors.push({ field: 'seasonal', he: 'לעובד עונתי הזכות לפיצויים והתקופה שלהם נקבעות לפי עונות העבודה (סעיף 1 לחוק פיצויי פיטורים), לא לפי שנה רצופה. את החישוב הזה המחשבון לא עושה; פנו לעורך דין או למדריך של משרד העבודה.' }); }
+	if (input.otherBreaks) { errors.push({ field: 'breaks', he: 'הפסקות נוספות שלא נספרות בחישוב (שירות צבאי, שירות חלקי מעל 120 יום, מחלה או תאונה בלי תשלום מעבר לימי המחלה, ועוד בתקנה 10): את ניכוין המחשבון לא מחשב; חשבו לפי התקופות, או פנו לעורך דין.' }); }
 	if (input.reason === 'other_ground') { errors.push({ field: 'reason', he: 'התפטרות מסיבה אחרת שהחוק רואה כפיטורים (למשל גיוס לשירות סדיר, שירות לאומי או אזרחי, שהייה במקלט לנשים מוכות, בחירה לראש רשות מקומית, עבודה עונתית, סעיף 11(ב)-(ו) ועוד): לכל סיבה תנאים משלה. את התנאים האלה המחשבון לא בודק; פנו לעורך דין או למדריך של משרד העבודה.' }); }
 	const noticeDate = blank(input.noticeDate) || input.noticeMode === 'none' ? null : parseDate(input.noticeDate);
 	if (!blank(input.noticeDate) && input.noticeMode !== 'none' && !noticeDate) { errors.push({ field: 'noticeDate', he: 'יום מסירת ההודעה: תאריך מלא' }); }
@@ -614,7 +616,7 @@ function byArrangement(registry, input) {
 const TOOL_ID = 'pitzuyim';
 const P = 'jt13';
 
-const EXAMPLE = { payType: 'monthly', salary: 12000, hourly: '', hours: '', jobPct: '', start: '2018-03-01', end: '2026-09-30', reason: 'fired', s14: 'partial', s14Pct: '', s14From: '', noticeDate: '', noticeMode: 'worked', change: false, changeDate: '', prevPct: '', prevSalary: '', prevHours: '', prevHourly: '', manyChanges: false, unpaidExcess: '', groundOk: false, nearClaim: false };
+const EXAMPLE = { payType: 'monthly', salary: 12000, hourly: '', hours: '', jobPct: '', start: '2018-03-01', end: '2026-09-30', reason: 'fired', s14: 'partial', s14Pct: '', s14From: '', noticeDate: '', noticeMode: 'worked', change: false, changeDate: '', prevPct: '', prevSalary: '', prevHours: '', prevHourly: '', manyChanges: false, unpaidExcess: '', groundOk: false, nearClaim: false, seasonal: false, otherBreaks: false };
 
 const S14_LABEL = { none: 'אין סעיף 14', partial: 'סעיף 14 על 72%', full: 'סעיף 14 מלא (100%)', custom: 'אחוז אחר לפי ההסכם' };
 const REASON_LABEL = { health: 'בריאות', parent: 'הורות (9 חודשים)', move: 'מעבר דירה', term: 'חוזה שלא חודש', worse: 'הרעת תנאים', retire: 'גיל פרישה' };
@@ -655,6 +657,7 @@ function renderForm(reg, input) {
 		+ `<fieldset class="jtool-field"><legend>איך העבודה הסתיימה</legend><div class="jtool-chips">${chip('rk', 'fired', 'פוטרתי', kind === 'fired')}${chip('rk', 'resign', 'התפטרתי', resign)}${chip('rk', 'term', 'חוזה לתקופה קצובה הסתיים, ולא הוצע לי לחדש אותו 3 חודשים לפני הסוף', kind === 'term')}</div>`
 		+ `<p class="jtool-hint" data-if-term${kind === 'term' ? '' : ' hidden'}>אם המעסיק הציע לחדש את החוזה לפחות 3 חודשים לפני סופו וסירבתם, זו התפטרות ולא פיטורים (סעיף 9): בחרו "התפטרתי".</p>`
 		+ `<div class="jtool-chips" data-if-dismissal${kind === 'resign' ? ' hidden' : ''} style="margin-top:8px">${chip('ny', '1', 'עבדתי פחות משנה, והפיטורים היו סמוך לסוף השנה הראשונה (סעיף 3)', input.nearClaim, 'checkbox')}</div>`
+		+ `<div class="jtool-chips" style="margin-top:8px">${chip('sea', '1', 'עבדתי בעבודה עונתית', input.seasonal, 'checkbox')}</div><p class="jtool-error" id="${P}-seasonal-e" role="alert"></p>`
 		+ `<div class="jtool-chips" data-if-resign${resign ? '' : ' hidden'} style="margin-top:8px" role="group" aria-label="סיבת ההתפטרות">${chip('rw', 'plain', 'התפטרות רגילה', why === 'plain')}${RESIGN_CODES.filter((k) => k !== 'term').map((k) => chip('rw', k, REASON_LABEL[k], why === k)).join('')}</div>`
 		+ `<div data-if-ground${resign && why !== 'plain' ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-chips">${chip('po', '1', 'התנאים של הסיבה הזאת מתקיימים אצלי', input.groundOk || input.parentOk, 'checkbox')}</div>`
 		+ sv.reasons.filter((x) => x.code !== 'term').map((x) => `<p class="jtool-hint" data-ground-hint="${x.code}"${why === x.code ? '' : ' hidden'}>${esc(x.section)}: ${esc(x.conditions_he || x.he)}.</p>`).join('') + '</div>'
@@ -672,7 +675,8 @@ function renderForm(reg, input) {
 		+ `<div data-if-pay="monthly"${hourly ? ' hidden' : ''}>${moneyField('ps', 'השכר לפני השינוי, אם השכר הופחת', input.prevSalary, 'לא חובה')}</div><div data-if-pay="hourly"${hourly ? '' : ' hidden'}>${moneyField('phr', 'השכר לשעה לפני השינוי, אם הופחת', input.prevHourly, 'לא חובה')}</div>`
 		+ `<div class="jtool-chips">${chip('many', '1', 'היה יותר משינוי אחד', input.manyChanges, 'checkbox')}</div>`
 		+ `<p class="jtool-hint">כל תקופה מחושבת לפי היקף המשרה שלה, על השכר האחרון (תקנה 7); לעובד לפי שעה, לפי השעות של אותה תקופה. אם השכר הופחת, התקופה שלפני ההפחתה לפי השכר שלפניה (תקנה 8).</p><p class="jtool-error" id="${P}-change-e" role="alert"></p></div>`
-		+ `<div style="margin-top:8px">${moneyField('ul', 'ימי חופשה ללא תשלום מעבר ל-14 בכל שנת עבודה (סך הכול)', input.unpaidExcess, '0', 'ימים')}<p class="jtool-hint">בכל שנת עבודה סופרים רק את הימים שמעבר ל-14, ומחברים. לדוגמה: חופשה ללא תשלום של 90 ימים בשנה אחת היא 76 ימים. חופשת לידה עם דמי לידה לא נכנסת (תקנה 10(3)).</p></div></details>`;
+		+ `<div style="margin-top:8px">${moneyField('ul', 'ימי חופשה ללא תשלום מעבר ל-14 בכל שנת עבודה (סך הכול)', input.unpaidExcess, '0', 'ימים')}<p class="jtool-hint">בכל שנת עבודה סופרים רק את הימים שמעבר ל-14, ומחברים. לדוגמה: חופשה ללא תשלום של 90 ימים בשנה אחת היא 76 ימים. חופשת לידה עם דמי לידה לא נכנסת (תקנה 10(3)).</p>`
+		+ `<div class="jtool-chips">${chip('brk', '1', 'היו הפסקות אחרות שלא נספרות (שירות צבאי, מחלה או תאונה בלי תשלום, תקנה 10)', input.otherBreaks, 'checkbox')}</div><p class="jtool-error" id="${P}-breaks-e" role="alert"></p></div></details>`;
 }
 
 function verdictSentence(reg, r) {
@@ -839,6 +843,7 @@ function readForm(root) {
 		reason: kind === 'fired' ? 'fired' : kind === 'term' ? 'term' : (why === 'plain' || why === 'term' ? 'resign' : why === 'other_ground' ? 'other_ground' : why),
 		groundOk: kind === 'resign' && why !== 'plain' && why !== 'other_ground' && Boolean(root.querySelector(`input[name="${P}-po"]:checked`)),
 		nearClaim: kind !== 'resign' && Boolean(root.querySelector(`input[name="${P}-ny"]:checked`)),
+		seasonal: Boolean(root.querySelector(`input[name="${P}-sea"]:checked`)), otherBreaks: Boolean(root.querySelector(`input[name="${P}-brk"]:checked`)),
 		s14: radio('s14', 'none'), s14Pct: m('s14p'), s14From: toIso(val(`#${P}-s14f`)),
 		noticeDate: toIso(val(`#${P}-nd`)), noticeMode: radio('nm', 'worked'),
 		change: Boolean(root.querySelector(`input[name="${P}-chg"]:checked`)),
@@ -850,8 +855,8 @@ function readForm(root) {
 const RS = { fired: 'f', resign: 'r', health: 'h', parent: 'p', move: 'm', term: 't', worse: 'w', retire: 'x', other_ground: 'g' };
 const S14 = { none: 'n', partial: 'p', full: 'f', custom: 'c' };
 const NM = { worked: 'w', paid: 'p', none: 'n' };
-const stateOf = (i) => encodeState({ t: i.payType === 'hourly' ? 'h' : '', w: i.salary || '', h: i.hourly || '', o: i.hours || '', j: i.jobPct || '', s: i.start, e: i.end, r: RS[i.reason] || 'f', f: S14[i.s14] || 'n', p: i.s14Pct || '', d: i.s14From || '', n: i.noticeDate || '', m: NM[i.noticeMode] || 'w', c: i.change ? 1 : '', a: i.change ? i.changeDate : '', b: i.change ? i.prevPct : '', g: i.change ? i.prevSalary : '', k: i.change && i.manyChanges ? 1 : '', x: i.change ? i.prevHours : '', y: i.change ? i.prevHourly : '', u: i.unpaidExcess || '', z: i.groundOk || i.parentOk ? 1 : '', q: i.nearClaim ? 1 : '' });
-const KEYS = ['t', 'w', 'h', 'o', 'j', 's', 'e', 'r', 'f', 'p', 'd', 'n', 'm', 'c', 'a', 'b', 'g', 'k', 'x', 'y', 'u', 'z', 'q'];
+const stateOf = (i) => encodeState({ t: i.payType === 'hourly' ? 'h' : '', w: i.salary || '', h: i.hourly || '', o: i.hours || '', j: i.jobPct || '', s: i.start, e: i.end, r: RS[i.reason] || 'f', f: S14[i.s14] || 'n', p: i.s14Pct || '', d: i.s14From || '', n: i.noticeDate || '', m: NM[i.noticeMode] || 'w', c: i.change ? 1 : '', a: i.change ? i.changeDate : '', b: i.change ? i.prevPct : '', g: i.change ? i.prevSalary : '', k: i.change && i.manyChanges ? 1 : '', x: i.change ? i.prevHours : '', y: i.change ? i.prevHourly : '', u: i.unpaidExcess || '', z: i.groundOk || i.parentOk ? 1 : '', q: i.nearClaim ? 1 : '', v: i.seasonal ? 1 : '', i: i.otherBreaks ? 1 : '' });
+const KEYS = ['t', 'w', 'h', 'o', 'j', 's', 'e', 'r', 'f', 'p', 'd', 'n', 'm', 'c', 'a', 'b', 'g', 'k', 'x', 'y', 'u', 'z', 'q', 'v', 'i'];
 function inputOf(s) {
 	if (!s.s || !s.e) { return null; }
 	const back = (map, v, d) => Object.keys(map).find((k) => map[k] === v) || d;
@@ -859,7 +864,7 @@ function inputOf(s) {
 		payType: s.t === 'h' ? 'hourly' : 'monthly', salary: s.w ? Number(s.w) : '', hourly: s.h ? Number(s.h) : '', hours: s.o ? Number(s.o) : '', jobPct: s.j ? Number(s.j) : '',
 		start: s.s, end: s.e, reason: back(RS, s.r, 'fired'), s14: back(S14, s.f, 'none'), s14Pct: s.p ? Number(s.p) : '', s14From: s.d || '', noticeDate: s.n || '', noticeMode: back(NM, s.m, 'worked'),
 		change: s.c === '1', changeDate: s.c === '1' ? (s.a || '') : '', prevPct: s.c === '1' && s.b ? Number(s.b) : '', prevSalary: s.c === '1' && s.g ? Number(s.g) : '', manyChanges: s.c === '1' && s.k === '1',
-		prevHours: s.c === '1' && s.x ? Number(s.x) : '', prevHourly: s.c === '1' && s.y ? Number(s.y) : '', unpaidExcess: s.u ? Number(s.u) : '', groundOk: s.z === '1', nearClaim: s.q === '1',
+		prevHours: s.c === '1' && s.x ? Number(s.x) : '', prevHourly: s.c === '1' && s.y ? Number(s.y) : '', unpaidExcess: s.u ? Number(s.u) : '', groundOk: s.z === '1', nearClaim: s.q === '1', seasonal: s.v === '1', otherBreaks: s.i === '1',
 	};
 }
 

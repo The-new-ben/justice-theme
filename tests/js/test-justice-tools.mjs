@@ -1225,6 +1225,15 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(f.includes('הוצאות ששולמו ביום הרכישה') && f.includes('מוצמדת למדד מיום התשלום'), 'expenses are asked by their payment date (s.47; review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 24) ---------- */
+{
+	check(!SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { replacement: true })).ok && SHUI.renderForm(reg, SHUI.EXAMPLE).includes('id="jt14-replacement-e"'), 'a replacement within two homes (s.49ה) is screened (review, PR 128)');
+	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { seasonal: true })).ok && !PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { otherBreaks: true })).ok, 'seasonal work and the other reg. 10 breaks decline a definitive result (review, PR 128)');
+	const pf = PEUI.renderForm(reg, PEUI.EXAMPLE);
+	check(pf.includes('id="jt13-seasonal-e"') && pf.includes('id="jt13-breaks-e"'), 'the severance form asks for both');
+	check(!RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { sublease: true })).ok && REUI.renderForm(reg, REUI.EXAMPLE).includes('id="jt12-sub-e"'), 'a sublease is screened out (s.25טו(ג); review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

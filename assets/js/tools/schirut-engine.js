@@ -83,6 +83,7 @@ export function compute(registry, input) {
 	if (!(isNum(optionPct) && optionPct >= -50 && optionPct <= 100)) { errors.push({ field: 'optionPct', he: 'שינוי בדמי השכירות באופציה: מ-50%- עד 100%' }); }
 	// Dwellings the chapter excludes by kind (s.25טו(א)(1)): a hotel or holiday flat, a hostel, assisted living, student
 	// or worker housing, a protected tenancy. Their own rules apply; this lease is not for them (review, PR 128).
+	if (input.sublease) { errors.push({ field: 'sub', he: 'בשכירות משנה חובות התיקון נשארות על המשכיר המקורי ולא על השוכר הראשי (סעיף 25טו(ג)). החוזה כאן הוא בין המשכיר לשוכר ואינו מתאים לשכירות משנה; פנו לעורך דין.' }); }
 	if (input.excluded) { errors.push({ field: 'excl', he: 'על דירה בבית מלון או לנופש, במעון, בדיור מוגן, במעונות לסטודנטים או לעובדים, או בשכירות מוגנת, הסימן על שכירות למגורים לא חל (סעיף 25טו(א)(1)), ויש לה כללים אחרים. החוזה כאן לא מתאים לה; פנו לעורך דין.' }); }
 	if (errors.length) { return { ok: false, errors }; }
 

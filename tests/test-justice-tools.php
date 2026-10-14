@@ -349,6 +349,70 @@ check( false !== strpos( $ng, 'פרט 4(2)' ) && false !== strpos( $ng, 'פרט 
 check( false !== strpos( $sec( array( 'name' => 'gerushin', 'part' => 'compare' ) ), '2,910' ), 'divorce compare table from the engine' );
 check( false !== strpos( $jt_shortcodes['justice_tools_index'](), '/opening-divorce-file-rabbinical/' ), 'hub cards include the divorce tool' );
 
+/* ---------- Wave 5 (HAD-504): registry values read on 14.10.2026, and the server HTML ---------- */
+$reg5 = justice_tools_registry();
+$rc5  = $reg5['rent_contract'];
+$sv5  = $reg5['severance'];
+$sh5  = $reg5['shevach'];
+check( '2026-10-14' === $rc5['checked_on'] && 3 === $rc5['deposit']['months'] && 60 === $rc5['deposit']['return_days'] && 30 === $rc5['repairs']['days'] && 3 === $rc5['repairs']['urgent_days'] && '2026-09-30' === $rc5['law_current_to'], 'lease registry: 3 months, 60 days, repairs 30/3, the law current to 30.9.2026' );
+check( 13750 === $sv5['tax']['ceiling'] && 2026 === $sv5['tax']['year'] && 72 === $sv5['approval']['partial_pct'] && 20 === $sv5['late']['monthly_pct'], 'severance registry: 13,750 in 2026, 72%, +20% a month' );
+check( 5008000 === $sh5['single']['ceiling'] && '2027-12-31' === $sh5['single']['ceiling_to'] && 5385285 === $sh5['surtax']['threshold'] && 25 === $sh5['rates']['post2012'], 'capital-gains registry: 5,008,000 to 31.12.2027, surtax line 5,385,285, 25%' );
+foreach ( array( $rc5, $sv5, $sh5 ) as $ds ) {
+	check( 0 === strpos( (string) $ds['source_url'], 'https://' ) && '2026-10-14' === $ds['checked_on'] && $ds['refresh_every_days'] > 0 && ! empty( $ds['next_update'] ), 'wave-5 dataset carries an https source, the check date, a refresh period and the next update: ' . $ds['name_he'] );
+}
+$h5 = $jt_shortcodes['justice_tool'];
+$r5 = $h5( array( 'name' => 'chozeh-schirut' ) );
+check( false !== strpos( $r5, 'class="jtool-answer"' ) && false !== strpos( $r5, '18,000' ) && false !== strpos( $r5, '<bdi>60</bdi>' ) && false !== strpos( $r5, '<bdi>30</bdi>' ), 'lease answer box: the cap example, 60 days, 30 days, from the registry' );
+check( false !== strpos( $r5, 'jt12-meter' ) && false !== strpos( $r5, 'jt12-doc' ) && false !== strpos( $r5, 'jt12-cite' ) && false !== strpos( $r5, 'סעיף 25י(ב)' ) && false !== strpos( $r5, 'שכירות שאינה מוגנת' ), 'lease in the server HTML: the meter, the whole lease with its section chips (crawlers read the lease)' );
+check( false !== strpos( $r5, 'jtool-btn--primary" href="https://jus-tice.com/#/simulation' ) && false !== strpos( $r5, 'purpose=mediation' ), 'lease: the rehearsal of the talk with the landlord is the primary next step' );
+check( false !== strpos( $r5, 'חוק השכירות, נוסח ל-30.9.2026 · נבדק 14.10.2026' ), 'lease stamp: the text date and the check date' );
+$p5 = $h5( array( 'name' => 'pitzuyim' ) );
+check( false !== strpos( $p5, 'class="jtool-answer"' ) && false !== strpos( $p5, '<bdi>72%</bdi>' ) && false !== strpos( $p5, '13,750' ), 'severance answer box: s.14 at 72% and the 2026 ceiling' );
+check( false !== strpos( $p5, '103,000' ) && false !== strpos( $p5, 'jt13-ruler' ) && false !== strpos( $p5, '28,840' ) && false !== strpos( $p5, 'purpose=mediation' ), 'severance example in the server HTML: 103,000, the ruler, the employer top-up; the employment rehearsal' );
+check( false !== strpos( $p5, 'תקרת פטור 13,750 ₪ ב-2026 · נבדק 14.10.2026' ), 'severance stamp' );
+$s5 = $h5( array( 'name' => 'mas-shevach' ) );
+check( false !== strpos( $s5, 'class="jtool-answer"' ) && false !== strpos( $s5, '<bdi>25%</bdi>' ) && false !== strpos( $s5, '5,008,000' ) && false !== strpos( $s5, '<bdi>30</bdi>' ), 'capital-gains answer box: 25%, the ceiling, 30 days' );
+check( false !== strpos( $s5, 'jt14-strip' ) && false !== strpos( $s5, '383,957.59' ) && false !== strpos( $s5, 'data-act="ics"' ) && false !== strpos( $s5, 'purpose=court_rehearsal' ), 'capital-gains example in the server HTML: the strip, the CBS inflation, the .ics primary, the objection rehearsal as a secondary link' );
+check( false !== strpos( $s5, 'תקרת פטור 5,008,000 ₪ עד 31.12.2027 · נבדק 14.10.2026' ), 'capital-gains stamp' );
+foreach ( array( 'chozeh-schirut' => array( $r5, 2 ), 'pitzuyim' => array( $p5, 3 ), 'mas-shevach' => array( $s5, 3 ) ) as $nm => $pair ) {
+	list( $html, $sets ) = $pair;
+	check( 1 === substr_count( $html, '"@type":"WebApplication"' ) && false === strpos( $html, 'FAQPage' ) && false === stripos( $html, 'aggregateRating' ), $nm . ': one WebApplication, no FAQPage, no rating' );
+	$card = substr( $html, (int) strpos( $html, '<section class="jtool"' ) );
+	check( false === stripos( substr( $card, 0, (int) strpos( $card, '</section>' ) ), '<h2' ), $nm . ': no <h2> inside the tool card (HAD-487)' );
+	check( false === stripos( $html, 'noindex' ) && false === stripos( $html, 'maya' ) && false === strpos( $html, 'רוטנברג' ) && false === strpos( $html, '<form' ), $nm . ': no noindex, no Maya card, no form gate' );
+	check( isset( $jt_enqueued[ 'justice-tool-' . $nm ] ), $nm . ': bundle enqueued' );
+	check( 1 === preg_match( '#<script type="application/json" id="jtool-' . preg_quote( $nm, '#' ) . '-data">(.*?)</script>#s', $html, $mm ) && count( json_decode( $mm[1], true ) ) === $sets, $nm . ': the data island carries only its own datasets' );
+	check( false !== strpos( $html, '"dateModified":"2026-10-14"' ) && false !== strpos( $html, 'נבדקו ב-14.10.2026' ), $nm . ': schema and sources carry its own check date' );
+	check( false === strpos( $html, 'download="' ) && false === strpos( $html, '.docx' ), $nm . ': no download links: copy, print and .ics are made in the browser' );
+}
+$sec5 = $jt_shortcodes['justice_tool_section'];
+$nr5  = $sec5( array( 'name' => 'chozeh-schirut', 'part' => 'numbers' ) );
+check( false !== strpos( $nr5, 'סעיף 25י(ב)' ) && false !== strpos( $nr5, 'סעיף 25טו' ) && false !== strpos( $nr5, 'ביטוח המבנה' ), 'lease numbers: the cap, the scope, what the tenant does not pay' );
+$np5 = $sec5( array( 'name' => 'pitzuyim', 'part' => 'numbers' ) );
+check( false !== strpos( $np5, 'סעיף 13ב' ) && false !== strpos( $np5, '13,750' ) && false !== strpos( $np5, 'סעיף 8(ב)' ), 'severance numbers: the floor, the ceiling, the certificate' );
+$ns5 = $sec5( array( 'name' => 'mas-shevach', 'part' => 'numbers' ) );
+check( false !== strpos( $ns5, 'סעיף 48א(ב2)' ) && false !== strpos( $ns5, '5,385,285' ) && false !== strpos( $ns5, 'סעיף 90א' ), 'capital-gains numbers: the linear rule, the surtax line, the payment' );
+check( false !== strpos( $sec5( array( 'name' => 'chozeh-schirut', 'part' => 'compare' ) ), '13,500' ) && false !== strpos( $sec5( array( 'name' => 'pitzuyim', 'part' => 'compare' ) ), '8½' ) && false !== strpos( $sec5( array( 'name' => 'mas-shevach', 'part' => 'compare' ) ), '1995' ), 'wave-5 compare tables from the engines' );
+check( false !== strpos( $sec5( array( 'name' => 'pitzuyim', 'part' => 'updated' ) ), '14.10.2026' ), 'the updated line uses the wave-5 check date' );
+$index5 = $jt_shortcodes['justice_tools_index']();
+check( false !== strpos( $index5, '/online-rent-agreement/' ) && false !== strpos( $index5, '/severance-pay-calculator/' ) && false !== strpos( $index5, '/land-appreciation-tax/' ), 'hub cards include the wave-5 tools' );
+check( justice_tools_content_leads_with_tool( '[justice_tool name="chozeh-schirut"]' ) && justice_tools_content_leads_with_tool( '<p>[justice_tool name="mas-shevach"]</p>' ), 'an article that opens with a wave-5 tool gets the tool-first layout (PR 127)' );
+
+// Owner rules of 14.10.2026 (HAD-504): every number in the answer box carries its section; the page blocks put the
+// simulation strip right after the opening paragraph, with one CTA, and keep the year out of the proposed titles.
+check( false !== strpos( $r5, 'סעיף 25י(ב)' ) && false !== strpos( $r5, 'סעיף 25י(ה)' ) && false !== strpos( $r5, 'סעיף 25ח(ב)' ), 'lease answer box: each number with its section' );
+check( false !== strpos( $p5, 'האישור הכללי' ) && false !== strpos( $p5, 'סעיף 3 לחוק הודעה מוקדמת' ) && false !== strpos( $p5, 'סעיף 9(7א)(א) לפקודה' ), 'severance answer box: each number with its source' );
+check( false !== strpos( $s5, 'סעיף 48א(ב)(1)' ) && false !== strpos( $s5, 'סעיף 73(א)' ) && false !== strpos( $s5, 'סעיף 90א' ), 'capital-gains answer box: each number with its section' );
+foreach ( array( 'online-rent-agreement', 'severance-pay-calculator', 'land-appreciation-tax' ) as $slug5 ) {
+	$draft5 = (string) file_get_contents( dirname( __DIR__ ) . '/.content-drafts/tools-wave-5/' . $slug5 . '.html' );
+	$body5  = substr( $draft5, (int) strpos( $draft5, '-->' ) );
+	$strip5 = strpos( $body5, 'class="jtool-simstrip"' );
+	$p1     = strpos( $body5, '</p>', (int) strpos( $body5, '[justice_tool name=' ) + 30 );
+	check( false !== $strip5 && false !== $p1 && $strip5 < strpos( $body5, '<h2>' ) && 1 === substr_count( $body5, 'jtool-simstrip__cta' ) && 1 === substr_count( $body5, 'jus-tice.com/#/simulation' ), 'draft ' . $slug5 . ': the simulation strip right after the opening paragraph, one CTA, no second teaser' );
+	check( 1 === preg_match( '/Title \(\d+\): ([^\n]+)/u', $draft5, $t5 ) && false === strpos( $t5[1], '2026' ) && false === strpos( $t5[1], '2025' ), 'draft ' . $slug5 . ': no year in the proposed title' );
+	check( false === strpos( $body5, '<p>המחשבון' ) && false === strpos( $body5, '<p>החוזה למעלה' ), 'draft ' . $slug5 . ': the opening answers, it does not describe the tool' );
+}
+
 if ( $failures ) {
 	fwrite( STDERR, "justice tools: {$failures} failure(s)\n" );
 	exit( 1 );

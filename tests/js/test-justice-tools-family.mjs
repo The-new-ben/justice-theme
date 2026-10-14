@@ -270,6 +270,24 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(!noPrice.ok && noPrice.errors.some((e) => e.field === 'opt-0-price'), 'options with no price: an error, never a zero value');
 }
 
+/* ---------- Review fixes (PR 130, Codex pass 3) ---------- */
+{
+	const plan = (kids) => HK.draftAgreement(reg, { onlyPlan: true, from: '2026-10-14', children: kids, pattern: 'two_two_five', holidays: 'split' });
+	check(!plan(['not-a-date']).ok && !plan(['2030-01-01']).ok && plan(['2019-03-01']).ok, 'a parenting plan alone still rejects a bad or future birth date');
+	const bad = MZ.mzNii(reg, { children: 1, judgment: Number.NaN });
+	check(bad.ok === false && bad.errors[0].field === 'judgment' && MZ.mzNii(reg, { children: 1, judgment: -5 }).ok === false, 'a malformed or negative judgment is an input error, never the full table amount');
+	check(MZ.mzNii(reg, { children: 1, judgment: '' }).amount === 3478, 'no judgment entered: the table amount');
+	const hkKeys = ['o', 'r', 'a', 'k', 'c', 'p', 'n', 'h', 'f', 's', 'q'];
+	const zeroHome = Object.assign({}, HKUI.EXAMPLE, { property: Object.assign({}, HKUI.EXAMPLE.property, { home: 'a_keeps', homeValue: 0 }) });
+	const hkBack = HKUI.modelOf(decodeState(`#s=${HKUI.stateOf(zeroHome)}`, hkKeys));
+	const blankHome = HKUI.modelOf(decodeState(`#s=${HKUI.stateOf(Object.assign({}, zeroHome, { property: Object.assign({}, zeroHome.property, { homeValue: '' }) }))}`, hkKeys));
+	check(hkBack.property.homeValue === 0 && blankHome.property.homeValue === '', 'agreement link: a 0 home value stays 0, a blank stays blank');
+	const izKeys = ['m', 'k', 'f', 's', 'q', 't', 'c', 'h', 'a', 'b', 'o', 'x', 'e'];
+	const zeroPrice = Object.assign({}, IZUI.EXAMPLE, { options: [Object.assign({}, IZUI.EXAMPLE.options[0], { price: 0 })], crypto: [Object.assign({}, IZUI.EXAMPLE.crypto[0], { priceBreak: 0 })] });
+	const izBack = IZUI.modelOf(decodeState(`#s=${IZUI.stateOf(zeroPrice)}`, izKeys));
+	check(izBack.options[0].price === 0 && izBack.crypto[0].priceBreak === 0 && IZ.computeBalance(reg, IZUI.toInput(izBack)).ok, 'balance link: a 0 option or crypto price stays 0 and still computes');
+}
+
 /* ---------- The server snapshots: the same renderers, the sticky figure, no <h2> in a card ---------- */
 for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MMUI], ['heskem-gerushin', HKUI]]) {
 	const s = ui.snapshot(reg);

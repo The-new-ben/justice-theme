@@ -610,7 +610,11 @@ function mzNii(registry, input) {
 	const over = Boolean(input.over55) && row.over55 !== null;
 	const cap = over ? row.cap_over55 : row.cap_under55;
 	const table = row[over ? 'over55' : 'under55'];
-	const judged = fEnteredNum(input.judgment);
+	const jRaw = input.judgment;
+	if (!(jRaw === '' || jRaw === undefined || jRaw === null) && !(Number(jRaw) >= 0 && Number(jRaw) < 1e8)) {
+		return { ok: false, key: '', row: null, amount: 0, table: 0, cap: 0, lower: false, errors: [{ field: 'judgment', he: 'הסכום שבפסק הדין: מספר חיובי' }] };
+	}
+	const judged = fEnteredNum(jRaw);
 	return { ok: true, key, row, amount: judged === null ? table : Math.min(table, judged), table, cap, lower: judged !== null && judged < table };
 }
 function fEnteredNum(v) { return v === '' || v === undefined || v === null || !(Number(v) >= 0) ? null : Number(v); }
@@ -1112,6 +1116,9 @@ function draftAgreement(registry, input) {
 	// Child support from the support engine, with the plan's nights (parent A = the "other" parent of the plan).
 	const only = Boolean(input.onlyPlan);
 	if (only && !births.length) { errors.push({ field: 'children', he: 'צריך לפחות ילד אחד עם תאריך לידה' }); }
+	births.forEach((b, i) => {
+		if (!fIsIso(b)) { errors.push({ field: `child-${i}`, he: 'תאריך לידה לא תקין. לדוגמה: 1.3.2019' }); } else if (b > from) { errors.push({ field: `child-${i}`, he: 'תאריך הלידה אחרי היום' }); }
+	});
 	const sIn = input.support || {};
 	const agreed = fEntered(sIn.amount);
 	let support = null;
@@ -1123,7 +1130,7 @@ function draftAgreement(registry, input) {
 		// An agreed amount needs no estimate: missing incomes only block the draft when the tool has to compute the amount.
 		if (!support.ok) {
 			const rest = agreed ? support.errors.filter((e) => !(e.field === 'incomeA' && /הכנסה/.test(e.he))) : support.errors;
-			rest.forEach((e) => errors.push({ field: `support-${e.field}`, he: e.he }));
+			rest.filter((e) => !/^child-/.test(e.field)).forEach((e) => errors.push({ field: `support-${e.field}`, he: e.he }));
 			support = null;
 		}
 	}
@@ -1499,7 +1506,7 @@ const stateOf = (m) => encodeState({
 	o: m.onlyPlan ? 1 : '', r: m.route === 'rabbinical' ? 'r' : '', a: m.parentA === 'אמא' ? 'm' : '', k: (m.children || []).map((b) => [String(b).replace(/-/g, ''), 0]),
 	c: m.custody, p: m.pattern, n: m.pattern === 'custom' ? [[m.custom.join('.'), 0]] : '', h: m.holidays === 'split' ? 's' : '', f: m.firstA === false ? 0 : '',
 	s: [[m.support.incomeA || 0, m.support.incomeB || 0], [m.support.housingA || 0, m.support.housingB || 0], [ov(m.support.amount), { A: 1, B: 2 }[m.support.payer] || 0]],
-	q: [[{ none: 0, sell: 1, a_keeps: 2, b_keeps: 3 }[m.property.home] || 0, m.property.pension ? 1 : 0], [m.property.homeValue || 0, m.property.mortgage || 0], [m.property.aAssets || 0, m.property.bAssets || 0], [m.property.aDebts || 0, m.property.bDebts || 0]],
+	q: [[{ none: 0, sell: 1, a_keeps: 2, b_keeps: 3 }[m.property.home] || 0, m.property.pension ? 1 : 0], [ov(m.property.homeValue), m.property.mortgage || 0], [m.property.aAssets || 0, m.property.bAssets || 0], [m.property.aDebts || 0, m.property.bDebts || 0]],
 });
 const KEYS = ['o', 'r', 'a', 'k', 'c', 'p', 'n', 'h', 'f', 's', 'q'];
 const ymd = (x) => (/^\d{8}$/.test(x) ? `${x.slice(0, 4)}-${x.slice(4, 6)}-${x.slice(6, 8)}` : '');
@@ -1514,7 +1521,7 @@ function modelOf(s) {
 		custody: ['joint', 'mother', 'father'].includes(s.c) ? s.c : 'joint', pattern: HR_PATTERNS[s.p] || s.p === 'custom' ? s.p : 'weekends_mid',
 		custom: s.n ? String(pairs(s.n)[0][0]).split('.').filter(Boolean).map(Number) : [], holidays: s.h === 's' ? 'split' : 'alternate', firstA: s.f !== '0',
 		support: { incomeA: z(sp[0] && sp[0][0]), incomeB: z(sp[0] && sp[0][1]), housingA: z(sp[1] && sp[1][0]), housingB: z(sp[1] && sp[1][1]), amount: zo(sp[2] && sp[2][0]), payer: ['', 'A', 'B'][Number(sp[2] && sp[2][1]) || 0], payDay: 10 },
-		property: { home: ['none', 'sell', 'a_keeps', 'b_keeps'][Number(q[0] && q[0][0]) || 0], pension: Boolean(q[0] && q[0][1] === '1'), homeValue: z(q[1] && q[1][0]), mortgage: z(q[1] && q[1][1]), aAssets: z(q[2] && q[2][0]), bAssets: z(q[2] && q[2][1]), aDebts: z(q[3] && q[3][0]), bDebts: z(q[3] && q[3][1]) },
+		property: { home: ['none', 'sell', 'a_keeps', 'b_keeps'][Number(q[0] && q[0][0]) || 0], pension: Boolean(q[0] && q[0][1] === '1'), homeValue: zo(q[1] && q[1][0]), mortgage: z(q[1] && q[1][1]), aAssets: z(q[2] && q[2][0]), bAssets: z(q[2] && q[2][1]), aDebts: z(q[3] && q[3][0]), bDebts: z(q[3] && q[3][1]) },
 		names: { a: '', b: '' },
 	};
 }

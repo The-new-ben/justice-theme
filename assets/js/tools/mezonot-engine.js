@@ -280,7 +280,11 @@ export function mzNii(registry, input) {
 	const over = Boolean(input.over55) && row.over55 !== null;
 	const cap = over ? row.cap_over55 : row.cap_under55;
 	const table = row[over ? 'over55' : 'under55'];
-	const judged = fEnteredNum(input.judgment);
+	const jRaw = input.judgment;
+	if (!(jRaw === '' || jRaw === undefined || jRaw === null) && !(Number(jRaw) >= 0 && Number(jRaw) < 1e8)) {
+		return { ok: false, key: '', row: null, amount: 0, table: 0, cap: 0, lower: false, errors: [{ field: 'judgment', he: 'הסכום שבפסק הדין: מספר חיובי' }] };
+	}
+	const judged = fEnteredNum(jRaw);
 	return { ok: true, key, row, amount: judged === null ? table : Math.min(table, judged), table, cap, lower: judged !== null && judged < table };
 }
 function fEnteredNum(v) { return v === '' || v === undefined || v === null || !(Number(v) >= 0) ? null : Number(v); }

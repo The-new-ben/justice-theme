@@ -16,7 +16,7 @@
  *  - Pensions are split through the fund by the Pension Split Law 2014.
  * No law sets a schedule; the patterns are labelled templates.
  */
-import { fEntered, fR10 } from './family-common.js';
+import { fEntered, fR10, fIsIso } from './family-common.js';
 import { computeSupport } from './mezonot-engine.js';
 import { computeBalance } from './izun-engine.js';
 import { hrPlan, HR_PATTERNS, HR_DAYS } from './horut-engine.js';
@@ -49,6 +49,9 @@ export function draftAgreement(registry, input) {
 	// Child support from the support engine, with the plan's nights (parent A = the "other" parent of the plan).
 	const only = Boolean(input.onlyPlan);
 	if (only && !births.length) { errors.push({ field: 'children', he: 'צריך לפחות ילד אחד עם תאריך לידה' }); }
+	births.forEach((b, i) => {
+		if (!fIsIso(b)) { errors.push({ field: `child-${i}`, he: 'תאריך לידה לא תקין. לדוגמה: 1.3.2019' }); } else if (b > from) { errors.push({ field: `child-${i}`, he: 'תאריך הלידה אחרי היום' }); }
+	});
 	const sIn = input.support || {};
 	const agreed = fEntered(sIn.amount);
 	let support = null;
@@ -60,7 +63,7 @@ export function draftAgreement(registry, input) {
 		// An agreed amount needs no estimate: missing incomes only block the draft when the tool has to compute the amount.
 		if (!support.ok) {
 			const rest = agreed ? support.errors.filter((e) => !(e.field === 'incomeA' && /הכנסה/.test(e.he))) : support.errors;
-			rest.forEach((e) => errors.push({ field: `support-${e.field}`, he: e.he }));
+			rest.filter((e) => !/^child-/.test(e.field)).forEach((e) => errors.push({ field: `support-${e.field}`, he: e.he }));
 			support = null;
 		}
 	}

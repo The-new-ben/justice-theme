@@ -610,7 +610,11 @@ function mzNii(registry, input) {
 	const over = Boolean(input.over55) && row.over55 !== null;
 	const cap = over ? row.cap_over55 : row.cap_under55;
 	const table = row[over ? 'over55' : 'under55'];
-	const judged = fEnteredNum(input.judgment);
+	const jRaw = input.judgment;
+	if (!(jRaw === '' || jRaw === undefined || jRaw === null) && !(Number(jRaw) >= 0 && Number(jRaw) < 1e8)) {
+		return { ok: false, key: '', row: null, amount: 0, table: 0, cap: 0, lower: false, errors: [{ field: 'judgment', he: 'הסכום שבפסק הדין: מספר חיובי' }] };
+	}
+	const judged = fEnteredNum(jRaw);
 	return { ok: true, key, row, amount: judged === null ? table : Math.min(table, judged), table, cap, lower: judged !== null && judged < table };
 }
 function fEnteredNum(v) { return v === '' || v === undefined || v === null || !(Number(v) >= 0) ? null : Number(v); }
@@ -734,6 +738,7 @@ function renderResult(reg, m, r, opts = {}) {
 	}
 	if (m.mode === 'nii') {
 		const x = r;
+		if (!x.ok && x.key !== 'none') { return errorBox(x.errors); }
 		if (!x.ok) { return `<div class="jtool-verdict" data-jtool-live aria-live="polite"><p class="jtool-state jtool-state--info">אין זכאות לפי מה שסימנתם</p><p class="jtool-verdict__sentence">${x.errors.map((e) => esc(e.he)).join(' ')}.</p></div>`; }
 		return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true"><p class="jtool-state jtool-state--ok">✓ לפי סכומי הביטוח הלאומי מ-${esc(isoToHe(cs.nii.from))}</p>`
 			+ `<p class="jtool-verdict__label">${esc(x.row.he)}${m.nii && m.nii.over55 ? ', מגיל 55' : ''}</p><strong class="jtool-verdict__figure">${ils(x.amount, 0)}</strong>`
@@ -1077,7 +1082,7 @@ function mount(root, reg) {
 		const m = readModel(root, model);
 		const r = run(m, { silent: true });
 		const link = shareUrl(stateOf(m));
-		const sentence = m.mode === 'madad' ? madadSentence(r) : m.mode === 'nii' ? (r.ok === false ? 'לפי מה שסימנתם, אין תשלום מהביטוח הלאומי.' : `הביטוח הלאומי משלם עד ${nis(r.table)} לחודש (${r.row.he}).`) : verdictSentence(reg, r, m);
+		const sentence = m.mode === 'madad' ? madadSentence(r) : m.mode === 'nii' ? (r.ok === false ? (r.key === 'none' ? 'לפי מה שסימנתם, אין תשלום מהביטוח הלאומי.' : '') : `הביטוח הלאומי משלם עד ${nis(r.table)} לחודש (${r.row.he}).`) : verdictSentence(reg, r, m);
 		if (act === 'ics' && m.mode === 'madad' && r.ok) {
 			download('mezonot-madad.ics', 'text/calendar;charset=utf-8', ics([{ date: r.next, summary: 'מזונות: עדכון הסכום למדד', description: `הסכום עכשיו ${money(r.current, 2)} ש"ח. חשבו מחדש ב-jus-tice.co.il.` }], new Date().toISOString()));
 			track('tool_download', { tool_id: TOOL_ID, type: 'ics' });

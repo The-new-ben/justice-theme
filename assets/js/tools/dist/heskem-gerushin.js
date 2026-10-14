@@ -1369,7 +1369,7 @@ function renderDetails(reg, m, d) {
 	const da = reg.divorce_agreement;
 	const r = da.routes[d.route];
 	return (d.kids ? holidaysTable(m, d) : '')
-		+ `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-doc-h">הטיוטה</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="copydoc">העתקה</button><button class="jtool-btn" type="button" data-act="print">הדפסה / PDF</button></div></div><pre class="jtool-letter jt18-doc" aria-labelledby="${P}-doc-h" tabindex="0">${esc(d.text)}</pre></div>`
+		+ `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-doc-h">הטיוטה</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="copydoc">העתקה</button><button class="jtool-btn" type="button" data-act="print">הדפסה / PDF</button></div></div><pre class="jtool-letter jt18-doc" role="region" aria-labelledby="${P}-doc-h" tabindex="0">${esc(d.text)}</pre></div>`
 		+ `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3>האישור: ${esc(r.he)}</h3></div><ol class="jtool-steps">${d.steps.map((s) => `<li>${esc(s)}</li>`).join('')}<li>אגרה: ${esc(nis(r.fee))}${cite(r.fee_item, r.fee_url)}; ${esc(da.no_request_he)}.${cite('סעיף 2', da.disputes_url)}</li></ol></div>`
 		+ `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3>מה לבדוק עם עורך דין לפני החתימה</h3></div><ul class="jtool-notes">${d.lawyer.map((s) => `<li>${esc(s)}</li>`).join('')}</ul></div>`;
 }

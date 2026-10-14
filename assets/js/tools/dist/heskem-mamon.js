@@ -657,7 +657,7 @@ function renderDetails(reg, d) {
 	const r = pn.routes[d.route];
 	const c = d.cost;
 	return `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-doc-h">הטיוטה</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="copydoc">העתקה</button><button class="jtool-btn" type="button" data-act="print">הדפסה / PDF</button></div></div>`
-		+ `<pre class="jtool-letter jt18-doc" aria-labelledby="${P}-doc-h" tabindex="0">${esc(d.text)}</pre></div>`
+		+ `<pre class="jtool-letter jt18-doc" role="region" aria-labelledby="${P}-doc-h" tabindex="0">${esc(d.text)}</pre></div>`
 		+ `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-route-h">האישור: ${esc(r.he)}</h3></div><ol class="jtool-steps">${d.steps.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>`
 		+ (c.known ? `<div class="jtool-scroll" role="region" aria-labelledby="${P}-route-h" tabindex="0"><table class="jtool-table"><thead><tr><th scope="col">מה</th><th scope="col">סכום</th><th scope="col">הכלל</th></tr></thead><tbody>`
 			+ `<tr><td data-th="מה">${esc(d.route === 'notary' ? 'אימות הסכם הממון' : 'אגרת אישור ההסכם')}</td><td data-th="סכום">${ils(c.fee, 0)}</td><td data-th="הכלל">${cite(c.item, c.url)}</td></tr>`

@@ -372,6 +372,15 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(!MM.draftMamon(reg, { timing: 'before', route: 'notary', regime: 'graded', home: 'none' }).ok && !MM.draftMamon(reg, { timing: 'before', route: 'notary', regime: 'graded', home: 'joint_new' }).ok, 'a graded agreement needs a home of one spouse');
 }
 
+/* ---------- Review fixes (PR 130, Codex pass 12) ---------- */
+{
+	check(MM.draftMamon(reg, { timing: 'during', route: 'court', regime: 'separate', wedding: '2019-06-20' }).text.includes('נשואים זה לזה מיום 20.6.2019'), 'after the wedding, the entered wedding date is in the recital');
+	const izKeys = ['m', 'k', 'f', 's', 'q', 't', 'c', 'h', 'a', 'b', 'o', 'x', 'e'];
+	const zeroBiz = Object.assign({}, IZUI.EXAMPLE, { others: [{ owner: 'a', kind: 'business', value: 0, exclude: '' }] });
+	const back = IZUI.modelOf(decodeState(`#s=${IZUI.stateOf(zeroBiz)}`, izKeys));
+	check(back.others.length === 1 && back.others[0].value === 0 && IZ.computeBalance(reg, IZUI.toInput(back)).flags.some((f) => f.code === 'business'), 'balance link: a 0-valued extra asset survives with its warning');
+}
+
 /* ---------- The server snapshots: the same renderers, the sticky figure, no <h2> in a card ---------- */
 for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MMUI], ['heskem-gerushin', HKUI]]) {
 	const s = ui.snapshot(reg);

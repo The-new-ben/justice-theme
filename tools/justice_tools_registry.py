@@ -33,6 +33,8 @@ Usage
   add --wave4-checked-on <day> to rebuild the wave-4 datasets (HAD-502) with the --base refresh; a full rebuild (no
   --base) always builds them, read on --wave4-checked-on or, when it is not given, on --checked-on
   add --wave5-checked-on <day> the same way for the wave-5 datasets (HAD-504: rent_contract, severance, shevach)
+  add --family-checked-on <day> to rebuild the family-law datasets (HAD-506, tools/justice_tools_family.py) the same way;
+  a --base refresh without it keeps them as they are
 
 Every input can be a saved file (so a reviewer can rebuild the exact registry from the files
 attached to the PR) or omitted to fetch live. The script never estimates a missing value: a
@@ -1061,6 +1063,8 @@ def main() -> int:
                                                    "contract, severance and capital-gains datasets are built too")
     parser.add_argument("--wave4-checked-on", help="the day the wave-4 sources were read (HAD-502); when given, the will-cost, "
                                                    "road-accident and divorce-cost datasets are built too")
+    parser.add_argument("--family-checked-on", help="the day the family-law sources were read (HAD-506); when given, the child-"
+                                                    "support, property-balance, prenup and divorce-agreement datasets are built")
     args = parser.parse_args()
     wave3_day = args.wave3_checked_on or args.checked_on
     wave4_day = args.wave4_checked_on
@@ -1085,6 +1089,11 @@ def main() -> int:
             if key in base:
                 registry[key] = base[key]
         add_wave5(registry, wave5_day)
+        # The family datasets (HAD-506) are kept the same way unless rebuilt.
+        for key in FAMILY_KEYS:
+            if key in base:
+                registry[key] = base[key]
+        add_family(registry, args.family_checked_on)
         write_registry(registry, args.out)
         return 0
 
@@ -1116,6 +1125,7 @@ def main() -> int:
     # leave three live tools without data (review, PR 126).
     add_wave4(registry, wave4_day or args.checked_on)
     add_wave5(registry, wave5_day or args.checked_on)
+    add_family(registry, args.family_checked_on or args.checked_on)
     write_registry(registry, args.out)
     return 0
 
@@ -1132,6 +1142,21 @@ def add_wave4(registry: dict, day: str | None) -> None:
     registry["will_cost"] = build_will_cost(day)
     registry["car_accident"] = build_car_accident(day)
     registry["divorce_cost"] = build_divorce_cost(day)
+
+
+FAMILY_KEYS = ("child_support", "property_balance", "prenup", "divorce_agreement")
+
+
+def add_family(registry: dict, day: str | None) -> None:
+    """Family law (HAD-506): the datasets of tools/justice_tools_family.py, each with its own checked_on."""
+    if not day:
+        return
+    import justice_tools_family as fam  # tools/ is the script's own folder
+    registry["registry_version"] = max(registry["registry_version"], day)
+    registry["child_support"] = fam.build_child_support(day)
+    registry["property_balance"] = fam.build_property_balance(day)
+    registry["prenup"] = fam.build_prenup(day)
+    registry["divorce_agreement"] = fam.build_divorce_agreement(day)
 
 
 def write_registry(registry: dict, out: str) -> None:

@@ -1,0 +1,39 @@
+<!--
+  HAD-506 release step for https://jus-tice.co.il/bituach-leumi-alimony/ (post 24518, type "page"). A SECTION, not a
+  full body: the rest of the page stays.
+
+  1. Template: switch from the default template to "Legal pillar" (page-legal-pillar.php) and set the post meta
+     pillar_lawyer_area = family-law. That shows the lawyer-card grid with Maya Rotenberg's card. Do not edit her card.
+  2. Where it goes: insert the block below right after the paragraph under <h2>מי זכאי</h2> (the paragraph that ends
+     "הסכום שנפסק בפסק הדין או הסכום הקבוע בתקנות.") and before <h2>איך מגישים</h2>.
+     Then delete the last sentence of that "מי זכאי" paragraph ("הביטוח הלאומי משלם את הנמוך מבין שניים: ...") because
+     the new section says it with the section of the law.
+  3. Amounts in the current body, checked against the registry child_support.nii (from 1.1.2026, btl.gov.il):
+     - All the payment amounts match: 2,076 / 3,478 / 4,049 (under 55), 2,596 / 4,250 / 5,289 (55 and over),
+       2,434 (child with a guardian). The income figures 3,652 / 8,912 / 9,864 also match. No wrong number.
+     - WRONG MEANING: "מבחן הכנסה מעבודה בלי פגיעה בקצבה: עד 3,652 ... 8,912 ... 9,864" (בקצרה, bullet 4) and
+       "הכנסה מעבודה עד 3,652 ... אינה פוגעת בקצבה" (last sentence under "מה קורה עם החוב של החייב"). National
+       Insurance says these are the income up to which she can still get a payment, FULL OR PARTIAL ("כמה תוכלי
+       להרוויח ועדיין לקבל קצבה (מלאה או חלקית)"; FACTS B-03..B-08 note). Delete both; the table replaces them.
+     - Replace by the table: "בקצרה" bullets 2, 3 and 4 (the amounts and the income caps, sourced to Kol-Zchut, a
+       secondary source). They are incomplete: no income caps for 55 and over (6,115 / 10,773 / 12,504), no
+       remarried / cohabiting rows (2,434 / 3,569), no second child with a guardian (3,569) or each further child
+       (1,038), no 123 ₪ health deduction for a woman who does not work.
+     - The opening "אלה הסכומים והתנאים המעודכנים לשנת 2026": year in the opening paragraph (owner year rule). Suggest
+       "אלה הסכומים והתנאים העדכניים, עם קישור למקור הרשמי."
+     - Yoast meta today: "עד 4,049 ש"ח לאישה עם שני ילדים": misleading, a woman of 55 or over with 2 or more children
+       gets 5,289 ₪. Proposal (139): כשהחייב לא משלם, ביטוח לאומי משלם את הנמוך מבין פסק הדין והתקנות: 4,049 ש"ח לאישה עם 2 ילדים עד גיל 55, 5,289 מגיל 55. זכאות, הכנסות והגשה.
+     - Not amounts, but not in our evidence files, so unverified (leave for the page's own review): "ילד זכאי ... אחרי
+       גיל 18 אם אינו מסוגל לכלכל את עצמו" (National Insurance says only "in some cases, by a court decision", FACTS
+       B-15), "גובה ממנו את החוב בתוך 45 יום", "אם נגבה מהחייב יותר ... ההפרש מועבר אליה", form 5400 and its
+       attachments. The one-year retroactivity sentence lacks its condition (no payment from the debtor and no
+       execution proceedings in that year, FACTS B-14).
+  4. The nii part's income column reads as btl.gov.il words it (an allowance, full or partial, up to that income);
+     fixed in PR 130, commit 38d81d97, before any release.
+  5. The page keeps its injected simulation aside (no strip is added by this section), its sources list and its
+     "מידע נוסף בנושא" links.
+-->
+<h2>כמה משלם הביטוח הלאומי, לפי המשפחה</h2>
+<p>הביטוח הלאומי משלם סכום חודשי שנקבע בתקנות לפי הרכב המשפחה ולפי גיל מקבלת הקצבה, עד 55 או 55 ומעלה, ולא לפי גיל הילדים. לדוגמה, מ-1.1.2026 אישה עם 2 ילדים או יותר שטרם מלאו לה 55 מקבלת עד 4,049 ₪, ומגיל 55 עד 5,289 ₪. אלה הסכומים לכל הרכב משפחה:</p>
+<p>[justice_tool_section name="mezonot" part="nii"]</p>
+<p>הביטוח הלאומי משלם את הסכום שבפסק הדין או את הסכום שבתקנות, הנמוך מביניהם (סעיף 3 ל<a href="https://www.nevo.co.il/law_html/Law01/072_002.htm" target="_blank" rel="noopener">חוק המזונות (הבטחת תשלום), התשל"ב-1972</a>). התנאי הבסיסי הוא פסק דין למזונות שאינו משולם, כשהחייב היה תושב ישראל ביום פסק הדין או 24 חודשים לפחות מתוך 48 החודשים שלפניו (סעיף 2(א)). הכנסות מקבלת הקצבה משפיעות על הסכום, ומאישה שאינה עובדת מנוכים 123 ₪ דמי ביטוח בריאות. כמה מזונות נפסקים מלכתחילה, לפי ההכנסות וזמני השהות: <a href="/child-support/">מחשבון מזונות ילדים</a>.</p>

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Build the co.il tools (HAD-485 wave 1, HAD-490 wave 2, HAD-498 wave 3, HAD-502 wave 4, HAD-504 wave 5) from their ES-module sources.
+ * Build the co.il tools (HAD-485 wave 1, HAD-490 wave 2, HAD-498 wave 3, HAD-502 wave 4, HAD-504 wave 5, HAD-506 family
+ * law) from their ES-module sources.
  *
  *   node tools/build-justice-tools.mjs          write the bundles and the server snapshots
  *   node tools/build-justice-tools.mjs --check  fail when a committed file is out of date (CI)
@@ -36,6 +37,12 @@ const TOOLS = {
 	'chozeh-schirut': ['instrument.js', 'dates.js', 'schirut-engine.js', 'schirut-ui.js'],
 	pitzuyim: ['instrument.js', 'dates.js', 'pitzuyim-engine.js', 'pitzuyim-ui.js'],
 	'mas-shevach': ['instrument.js', 'dates.js', 'shevach-engine.js', 'shevach-ui.js'],
+	// Family law (HAD-506): family-common.js holds the helpers the family engines share. The agreement generator bundles
+	// the child-support and balancing engines, so its clauses carry the same numbers as those tools.
+	mezonot: ['instrument.js', 'dates.js', 'family-common.js', 'mezonot-engine.js', 'mezonot-ui.js'],
+	izun: ['instrument.js', 'dates.js', 'family-common.js', 'izun-engine.js', 'izun-ui.js'],
+	'heskem-mamon': ['instrument.js', 'dates.js', 'family-common.js', 'mamon-engine.js', 'mamon-ui.js'],
+	'heskem-gerushin': ['instrument.js', 'dates.js', 'family-common.js', 'mezonot-engine.js', 'izun-engine.js', 'horut-engine.js', 'heskem-engine.js', 'heskem-ui.js'],
 };
 
 function strip(code) {
@@ -77,6 +84,10 @@ const w4d = await import(pathToFileURL(join(SRC, 'gerushin-ui.js')).href);
 const w5r = await import(pathToFileURL(join(SRC, 'schirut-ui.js')).href);
 const w5p = await import(pathToFileURL(join(SRC, 'pitzuyim-ui.js')).href);
 const w5s = await import(pathToFileURL(join(SRC, 'shevach-ui.js')).href);
+const fmz = await import(pathToFileURL(join(SRC, 'mezonot-ui.js')).href);
+const fiz = await import(pathToFileURL(join(SRC, 'izun-ui.js')).href);
+const fmm = await import(pathToFileURL(join(SRC, 'mamon-ui.js')).href);
+const fhk = await import(pathToFileURL(join(SRC, 'heskem-ui.js')).href);
 const snapshots = {
 	registry_version: registry.registry_version,
 	hatzmada: t04.snapshot(registry),
@@ -92,6 +103,10 @@ const snapshots = {
 	'chozeh-schirut': w5r.snapshot(registry),
 	pitzuyim: w5p.snapshot(registry),
 	'mas-shevach': w5s.snapshot(registry),
+	mezonot: fmz.snapshot(registry),
+	izun: fiz.snapshot(registry),
+	'heskem-mamon': fmm.snapshot(registry),
+	'heskem-gerushin': fhk.snapshot(registry),
 };
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 

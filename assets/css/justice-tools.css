@@ -598,3 +598,102 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jt12-docwrap .jtool-actions { display: none !important; }
 	.jt12-meter, .jt13-ruler, .jt14-strip, .jt12-cl { break-inside: avoid; }
 }
+
+/*
+ * Family wave (HAD-506): child support after בע"מ 919/15, property balancing, the prenup draft, and the divorce
+ * agreement with its parenting plan. Same navy instrument, one picture per tool from its subject, in two inks only:
+ * navy = parent or spouse A, teal = parent or spouse B (or the share of time). No warm colours.
+ * Child support: parent A's two shares (income, nights) on one scale, and the 14-night strip under them.
+ * Property balancing: a balance beam, both balanced nets as bars, the dashed middle both end at.
+ * Prenup: the four gates that can validate the agreement, open, shut or chosen, by the stage you are in.
+ * Divorce agreement: the two-week calendar, night by night; in "custom" every night is a button.
+ */
+/* Long case numbers in a source chip wrap inside a narrow column instead of running past it (360 px). */
+.jtool .jtool-cite, .jtool-page .jtool-cite { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+/* The article look indents every list in .entry-content; a repeating row list is a form part, not a list. */
+.jtool ul.jtool-rep { margin: 0 !important; padding: 0 !important; }
+.jtool ul.jtool-flags { padding: 0 !important; }
+.jt16-kid { grid-template-columns: minmax(0, 1fr) 44px; }
+.jt16-shares { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jt16-share { display: grid; grid-template-columns: minmax(0, 11em) minmax(0, 1fr) 3.4em; gap: 10px; align-items: center; margin: 0 0 8px; font-size: 0.9rem; color: var(--jtool-ink); }
+.jt16-share__l { font-weight: 700; }
+.jt16-share__track { position: relative; display: block; height: 16px; border-radius: 8px; background: var(--jtool-surface-2); box-shadow: inset 0 0 0 1px var(--jtool-border); overflow: hidden; }
+.jt16-share__track::after { content: ""; position: absolute; top: -2px; bottom: -2px; inset-inline-start: 50%; border-inline-start: 2px dashed #6F8091; }
+.jt16-share__fill { display: block; height: 100%; border-radius: 8px; }
+.jt16-share__fill--inc { background: var(--jtool-verdict); }
+.jt16-share__fill--time { background: #0B6470; }
+.jt16-share__v { font-weight: 800; font-variant-numeric: tabular-nums; color: var(--jtool-verdict-deep); text-align: end; }
+.jt16-strip { display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); gap: 3px; margin: 10px 0 6px; }
+.jt16-strip i:nth-child(7) { margin-inline-end: 4px; }
+.jt16-night { display: block; height: 18px; border-radius: 4px; background: #D7EBEE; box-shadow: inset 0 0 0 1px #8FC3CA; }
+.jt16-night--a { background: var(--jtool-verdict); box-shadow: none; }
+.jtool .jt16-shares figcaption { margin: 4px 0 0; font-size: 0.875rem; line-height: 1.5; color: var(--jtool-muted); }
+
+.jt17-home { padding: var(--jtool-space-3); border-radius: var(--jtool-radius-field); background: var(--jtool-surface-2); }
+.jt17-sides { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--jtool-space-3); margin-top: var(--jtool-space-3); }
+.jt17-side { display: flex; flex-direction: column; gap: 6px; padding: var(--jtool-space-3); border-radius: var(--jtool-radius-field); background: var(--jtool-surface-2); border-top: 4px solid var(--jtool-verdict); }
+.jt17-side + .jt17-side { border-top-color: #0B6470; }
+.jt17-acc { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.jt17-acc:has(> .jtool-field:only-child) { grid-template-columns: minmax(0, 1fr); }
+.jt17-other { grid-template-columns: repeat(4, minmax(0, 1fr)) 44px; }
+.jt17-scns { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.jt17-beam { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jt17-beam__bars { display: flex; flex-direction: column; gap: 8px; }
+.jt17-bar { display: grid; grid-template-columns: 4.2em minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 0.9rem; }
+.jt17-bar__who { font-weight: 800; color: var(--jtool-verdict-deep); }
+.jt17-bar__track { position: relative; display: block; height: 22px; border-radius: 6px; background: var(--jtool-surface-2); box-shadow: inset 0 0 0 1px var(--jtool-border); }
+.jt17-bar__fill { display: block; height: 100%; border-radius: 6px; }
+.jt17-bar__fill--a { background: var(--jtool-verdict); }
+.jt17-bar__fill--b { background: #0B6470; }
+.jt17-bar__mid { position: absolute; top: -4px; bottom: -4px; width: 0; border-inline-start: 2px dashed var(--jtool-verdict-deep); }
+.jt17-bar__v { font-weight: 800; font-variant-numeric: tabular-nums; color: var(--jtool-ink); white-space: nowrap; }
+.jtool .jt17-beam figcaption { margin: 8px 0 0; font-size: 0.875rem; line-height: 1.5; color: var(--jtool-muted); }
+
+.jtool ol.jt18-gates { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin: var(--jtool-space-4) 0 0 !important; padding: 0 !important; list-style: none; counter-reset: none; }
+.jtool .jt18-gates > li::before { content: none; }
+.jt18-gate { display: flex; flex-direction: column; gap: 2px; min-height: 76px; padding: 10px 12px; border: 1.5px solid var(--jtool-verdict); border-radius: var(--jtool-radius-field); background: #fff; color: var(--jtool-ink); }
+.jt18-gate__who { font-weight: 800; font-size: 0.95rem; line-height: 1.3; }
+.jt18-gate__law { font-size: 0.8125rem; color: var(--jtool-muted); }
+.jt18-gate__state { margin-top: auto; font-size: 0.8125rem; font-weight: 700; color: var(--jtool-verdict); }
+.jt18-gate--here { background: var(--jtool-verdict-deep); border-color: var(--jtool-verdict-deep); color: #fff; }
+.jt18-gate--here .jt18-gate__law, .jt18-gate--here .jt18-gate__state { color: #DCE8F4; }
+.jt18-gate--shut { border-style: dashed; border-color: #9AA8B6; background: var(--jtool-surface-2); color: var(--jtool-muted); }
+.jt18-gate--shut .jt18-gate__who { text-decoration: line-through; text-decoration-thickness: 1.5px; }
+.jt18-gate--shut .jt18-gate__state { color: var(--jtool-muted); }
+.jt9-cols.jt18-cols { grid-template-columns: minmax(0, 1fr); }
+.jtool pre.jt18-doc { max-height: 560px; overflow: auto; border-top: 1px solid var(--jtool-border); }
+
+.jt19-cal { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jt19-cal__days, .jt19-cal__week { display: grid; grid-template-columns: 4.6em repeat(7, minmax(0, 1fr)); gap: 4px; align-items: center; }
+.jt19-cal__days { margin-bottom: 4px; font-size: 0.8125rem; font-weight: 700; color: var(--jtool-muted); text-align: center; }
+.jt19-cal__week + .jt19-cal__week { margin-top: 4px; }
+.jt19-cal__w { font-size: 0.8125rem; font-weight: 700; color: var(--jtool-muted); }
+.jtool .jt19-night { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 0; border: 0; border-radius: 6px; font: 700 0.875rem/1 var(--jtool-font); }
+.jtool .jt19-night--a { background: var(--jtool-verdict); color: #fff; }
+.jtool .jt19-night--b { background: #D7EBEE; color: #08474F; box-shadow: inset 0 0 0 1px #8FC3CA; }
+.jtool button.jt19-night { cursor: pointer; }
+.jtool button.jt19-night:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt19-cal__legend { display: flex; flex-wrap: wrap; gap: 14px; margin: 10px 0 0 !important; font-size: 0.875rem !important; color: var(--jtool-ink) !important; }
+.jt19-cal__legend span { display: inline-flex; align-items: center; gap: 6px; }
+.jt19-k { display: inline-block; width: 16px; height: 12px; border-radius: 3px; }
+.jt19-k--a { background: var(--jtool-verdict); }
+.jt19-k--b { background: #D7EBEE; box-shadow: inset 0 0 0 1px #8FC3CA; }
+
+@media (max-width: 600px) {
+	.jt16-share { grid-template-columns: minmax(0, 1fr) 3.4em; }
+	.jt16-share__l { grid-column: 1 / -1; }
+	.jt17-sides, .jt17-scns { grid-template-columns: 1fr; }
+	.jt17-other { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.jt17-other .jtool-iconbtn { grid-column: 1 / -1; justify-self: end; }
+	.jt17-bar { grid-template-columns: 2.6em minmax(0, 1fr); }
+	.jt17-bar__v { grid-column: 2; }
+	.jtool ol.jt18-gates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.jt19-cal { padding: var(--jtool-space-2); }
+	.jt19-cal__days, .jt19-cal__week { grid-template-columns: 2.6em repeat(7, minmax(0, 1fr)); gap: 2px; }
+	.jtool .jt19-night { font-size: 0.75rem; }
+}
+@media print {
+	.jt16-shares, .jt17-beam, .jt18-gates, .jt19-cal { break-inside: avoid; }
+	.jt16-night--a, .jt17-bar__fill, .jtool .jt19-night--a, .jt18-gate--here { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+	.jtool pre.jt18-doc { max-height: none; overflow: visible; }
+}

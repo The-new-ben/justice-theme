@@ -1330,6 +1330,14 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(sc.prevBase === 11000 && sc.severance === 17000, 'a scope change with commissions: the fixed pay scales, the commission stays');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 36) ---------- */
+{
+	const mid = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { start: '2026-11-15', payDay: 1 }));
+	check(RE.contractText(reg.rent_contract, mid, false).includes('התשלום הראשון ישולם במעמד החתימה') && RE.contractText(reg.rent_contract, mid, false).includes('ביום 15 בחודש'), 'a lease from the 15th with payment on the 1st states the first payment and the periods (review, PR 128)');
+	const r2005 = SH.compute(reg, { status: 'other', depreciation: 0, buyDate: '2005-06-01', buyPrice: 1000000, saleDate: '2026-09-01', salePrice: 2500000 });
+	check(r2005.ok && r2005.flags.some((f) => f.code === 'marginal' && f.he.includes('31.12.2011')), 'a purchase in 2005: the 20% slice carries the lower-rate note too (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

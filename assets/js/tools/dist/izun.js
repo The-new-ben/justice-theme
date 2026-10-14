@@ -487,6 +487,7 @@ function computeBalance(registry, input) {
 		if (fIsIso(g.vestStart) && fIsIso(g.vestEnd) && g.vestEnd < g.vestStart) { errors.push({ field: `opt-${i}-vestEnd`, he: 'סוף ההבשלה לפני תחילתה' }); }
 		if (fIsIso(g.grant) && fIsIso(g.vestStart) && g.vestStart < g.grant) { errors.push({ field: `opt-${i}-vestStart`, he: 'ההבשלה מתחילה לפני ההענקה' }); }
 		if (!['a', 'b'].includes(g.owner)) { errors.push({ field: `opt-${i}-owner`, he: 'למי הוענקו' }); }
+		if (!fEntered(g.price)) { errors.push({ field: `opt-${i}-price`, he: 'מחיר ליחידה היום: בלי מחיר אי אפשר להעריך את האופציות' }); }
 	});
 	const cry = (input.crypto || []).filter((c) => c && fEntered(c.units));
 	cry.forEach((c, i) => {
@@ -512,11 +513,12 @@ function computeBalance(registry, input) {
 		const v = fVal(it.value);
 		const label = it.label || pb.kinds[it.kind].he;
 		if (it.kind === 'debt') {
-			const linked = Boolean(it.linked);
+			const dEx = IZ_EXCLUDE.includes(it.exclude) && it.exclude ? it.exclude : '';
+			const linked = Boolean(it.linked) || Boolean(dEx);
 			if (!linked) {
 				if (it.owner === 'joint') { side.a.debts += v / 2; side.b.debts += v / 2; } else { side[it.owner].debts += v; }
 			}
-			lines.push({ kind: 'debt', owner: it.owner, label, value: -v, inBalance: !linked, counted: linked ? 0 : -v, why: linked ? pb.why.debt_linked_he : pb.why.debt_he, section: S.debts });
+			lines.push({ kind: 'debt', owner: it.owner, label, value: -v, inBalance: !linked, counted: linked ? 0 : -v, why: dEx ? pb.exclude[dEx].he : linked ? pb.why.debt_linked_he : pb.why.debt_he, section: dEx ? pb.exclude[dEx].section : S.debts });
 			continue;
 		}
 		if (it.kind === 'business') {
@@ -588,9 +590,12 @@ function computeBalance(registry, input) {
 		flags.push({ code: 'crypto', he: pb.flags.crypto_he });
 		if (cryRows.some((c) => c.where === 'wallet')) { flags.push({ code: 'wallet', he: pb.flags.wallet_he }); }
 	}
-	const net = (s) => fR2(s.in - s.debts);
-	const A = { balanced: fR2(side.a.in), excluded: fR2(side.a.out), debts: fR2(side.a.debts), net: net(side.a) };
-	const B = { balanced: fR2(side.b.in), excluded: fR2(side.b.out), debts: fR2(side.b.debts), net: net(side.b) };
+	// Personal debts reduce a spouse's balanced worth to zero at most: the excess is not passed to the other spouse,
+	// since there is no general sharing of personal debts (6839/19, paras. 15-16). rawNet keeps the real figure.
+	const net = (s) => fR2(Math.max(0, s.in - s.debts));
+	const A = { balanced: fR2(side.a.in), excluded: fR2(side.a.out), debts: fR2(side.a.debts), net: net(side.a), rawNet: fR2(side.a.in - side.a.debts) };
+	const B = { balanced: fR2(side.b.in), excluded: fR2(side.b.out), debts: fR2(side.b.debts), net: net(side.b), rawNet: fR2(side.b.in - side.b.debts) };
+	if (A.rawNet < 0 || B.rawNet < 0) { flags.push({ code: 'debts_exceed', he: pb.flags.debts_exceed_he }); }
 	const diff = fR2(A.net - B.net);
 	const pay = fR2(Math.abs(diff) / 2);
 	const payer = diff > 0 ? 'a' : diff < 0 ? 'b' : null;
@@ -687,7 +692,7 @@ function toInput(m) {
 	}
 	for (const x of m.others || []) {
 		if (v0(x.value) === '') { continue; }
-		items.push({ kind: IZ_KINDS.includes(x.kind) ? x.kind : 'other', owner: x.owner, value: x.value, exclude: x.exclude || '', label: x.label || '' });
+		items.push({ kind: IZ_KINDS.includes(x.kind) ? x.kind : 'other', owner: x.owner, value: x.value, exclude: x.exclude || '', linked: x.kind === 'debt' && Boolean(x.exclude), label: x.label || '' });
 	}
 	return {
 		marriage: m.marriage, breakDate: m.breakDate, filed: m.filed, apart: m.apart, before1974: m.before1974,

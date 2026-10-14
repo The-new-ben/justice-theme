@@ -53,7 +53,7 @@ export function toInput(m) {
 	}
 	for (const x of m.others || []) {
 		if (v0(x.value) === '') { continue; }
-		items.push({ kind: IZ_KINDS.includes(x.kind) ? x.kind : 'other', owner: x.owner, value: x.value, exclude: x.exclude || '', label: x.label || '' });
+		items.push({ kind: IZ_KINDS.includes(x.kind) ? x.kind : 'other', owner: x.owner, value: x.value, exclude: x.exclude || '', linked: x.kind === 'debt' && Boolean(x.exclude), label: x.label || '' });
 	}
 	return {
 		marriage: m.marriage, breakDate: m.breakDate, filed: m.filed, apart: m.apart, before1974: m.before1974,

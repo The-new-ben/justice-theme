@@ -1076,7 +1076,7 @@ function mount(root, reg) {
 		const m = readModel(root, model);
 		const r = run(m, { silent: true });
 		const link = shareUrl(stateOf(m));
-		const sentence = m.mode === 'madad' ? madadSentence(r) : m.mode === 'nii' ? `הביטוח הלאומי משלם עד ${nis(r.table)} לחודש (${r.row.he}).` : verdictSentence(reg, r, m);
+		const sentence = m.mode === 'madad' ? madadSentence(r) : m.mode === 'nii' ? (r.ok === false ? 'לפי מה שסימנתם, אין תשלום מהביטוח הלאומי.' : `הביטוח הלאומי משלם עד ${nis(r.table)} לחודש (${r.row.he}).`) : verdictSentence(reg, r, m);
 		if (act === 'ics' && m.mode === 'madad' && r.ok) {
 			download('mezonot-madad.ics', 'text/calendar;charset=utf-8', ics([{ date: r.next, summary: 'מזונות: עדכון הסכום למדד', description: `הסכום עכשיו ${money(r.current, 2)} ש"ח. חשבו מחדש ב-jus-tice.co.il.` }], new Date().toISOString()));
 			track('tool_download', { tool_id: TOOL_ID, type: 'ics' });

@@ -249,6 +249,27 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(two.ok && two.pay === 500000 && two.sharedHome && two.sharedHome.pay === 0, 'shared-home scenario: the inherited flat stays out (A pays 500,000; with sharing, 0, not 400,000)');
 }
 
+/* ---------- Review fixes (PR 130, Codex pass 2) ---------- */
+{
+	const base = { route: 'family', from: '2026-10-14', children: ['2018-05-01'], parentA: 'אבא', pattern: 'weekends_2mid', holidays: 'alternate', support: { amount: 2000 } };
+	const noValue = HK.draftAgreement(reg, Object.assign({}, base, { property: { home: 'a_keeps' } }));
+	check(noValue.ok && noValue.text.includes('תמורת _') && !noValue.text.includes('בלי תמורה'), 'a buyout with no home value leaves the price blank, never "without consideration"');
+	const debtsOnly = HK.draftAgreement(reg, Object.assign({}, base, { property: { aDebts: 40000 } }));
+	check(debtsOnly.ok && debtsOnly.clauses.some((c) => c.title === 'הרכוש') && debtsOnly.balance && debtsOnly.balance.pay === 0 && debtsOnly.balance.flags.some((f) => f.code === 'debts_exceed'), 'debts alone make a property chapter, and a personal debt is not passed to the other spouse (6839/19)');
+	const deep = IZ.computeBalance(reg, { marriage: '2010-01-01', breakDate: '2025-01-01', items: [{ kind: 'savings', owner: 'a', value: 50000 }, { kind: 'debt', owner: 'a', value: 200000 }, { kind: 'savings', owner: 'b', value: 100000 }] });
+	check(deep.ok && deep.a.net === 0 && deep.a.rawNet === -150000 && deep.payer === 'b' && deep.pay === 50000, 'debts above assets count as zero: B pays half of its own 100,000, not half of 250,000');
+	const pensionOnly = HK.draftAgreement(reg, Object.assign({}, base, { property: { pension: true } }));
+	check(pensionOnly.ok && pensionOnly.text.includes('חוק לחלוקת חיסכון פנסיוני'), 'the pension division alone makes a property chapter');
+	const badDate = HK.draftAgreement(reg, Object.assign({}, base, { children: ['2031-01-01'] }));
+	check(!badDate.ok && badDate.errors.some((e) => /אחרי היום/.test(e.he)), 'an agreed amount does not hide a birth date in the future');
+	const exDebt = IZ.computeBalance(reg, { marriage: '2010-01-01', breakDate: '2025-01-01', items: [{ kind: 'savings', owner: 'a', value: 100000 }, { kind: 'debt', owner: 'a', value: 60000, exclude: 'agreed' }] });
+	check(exDebt.ok && exDebt.pay === 50000 && exDebt.lines.find((l) => l.kind === 'debt').counted === 0, 'a debt agreed in writing to be left out is not deducted');
+	const fromUi = IZUI.toInput(Object.assign({}, IZUI.EXAMPLE, { others: [{ owner: 'a', kind: 'debt', value: 60000, exclude: 'agreed' }] }));
+	check(fromUi.items.some((it) => it.kind === 'debt' && it.linked === true), 'the form marks an excluded debt as not deducted');
+	const noPrice = IZ.computeBalance(reg, { marriage: '2015-01-01', breakDate: '2022-07-01', items: [], options: [{ owner: 'a', units: 400, price: '', strike: 0, grant: '2020-01-01', vestStart: '2020-01-01', vestEnd: '2024-01-01', tranches: 4 }] });
+	check(!noPrice.ok && noPrice.errors.some((e) => e.field === 'opt-0-price'), 'options with no price: an error, never a zero value');
+}
+
 /* ---------- The server snapshots: the same renderers, the sticky figure, no <h2> in a card ---------- */
 for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MMUI], ['heskem-gerushin', HKUI]]) {
 	const s = ui.snapshot(reg);

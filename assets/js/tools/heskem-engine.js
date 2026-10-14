@@ -59,14 +59,16 @@ export function draftAgreement(registry, input) {
 		});
 		// An agreed amount needs no estimate: missing incomes only block the draft when the tool has to compute the amount.
 		if (!support.ok) {
-			if (agreed) { support = null; } else { support.errors.forEach((e) => errors.push({ field: `support-${e.field}`, he: e.he })); }
+			const rest = agreed ? support.errors.filter((e) => !(e.field === 'incomeA' && /הכנסה/.test(e.he))) : support.errors;
+			rest.forEach((e) => errors.push({ field: `support-${e.field}`, he: e.he }));
+			support = null;
 		}
 	}
 	if (fEntered(sIn.amount) && !(Number(sIn.amount) >= 0 && Number(sIn.amount) < 1e7)) { errors.push({ field: 'support-amount', he: 'סכום המזונות: מספר חיובי' }); }
 	// Property from the balancing engine: the home, then each side's other balanced assets and debts.
 	const p = input.property || {};
 	let balance = null;
-	if (!only && (['sell', 'a_keeps', 'b_keeps'].includes(p.home) || fEntered(p.aAssets) || fEntered(p.bAssets))) {
+	if (!only && (['sell', 'a_keeps', 'b_keeps'].includes(p.home) || ['aAssets', 'bAssets', 'aDebts', 'bDebts'].some((k) => fEntered(p[k])) || p.pension)) {
 		const items = [];
 		if (fEntered(p.homeValue)) { items.push({ kind: 'home', owner: 'joint', value: p.homeValue, mortgage: p.mortgage }); }
 		if (fEntered(p.aAssets)) { items.push({ kind: 'savings', owner: 'a', value: p.aAssets }); }
@@ -157,9 +159,11 @@ export function draftAgreement(registry, input) {
 		if (p.home === 'a_keeps' || p.home === 'b_keeps') {
 			const k = p.home === 'a_keeps' ? parentA : parentB;
 			const o = k === parentA ? parentB : parentA;
-			const price = buyout && buyout.amount > 0
-				? `תמורת ${hkMoney(buyout.amount)}: מחצית ההון העצמי בדירה (שווי ${hkMoney(Number(p.homeValue))} פחות יתרת משכנתא ${hkMoney(Number(p.mortgage) || 0)}). התמורה תשולם עד ${hkBlank}`
-				: `בלי תמורה, כי יתרת המשכנתא אינה נמוכה משווי הדירה (${hkMoney(Number(p.homeValue) || 0)})`;
+			const price = !buyout
+				? `תמורת ${hkBlank} ש"ח, מחצית ההון העצמי בדירה (השווי פחות יתרת המשכנתא). התמורה תשולם עד ${hkBlank}`
+				: buyout.amount > 0
+					? `תמורת ${hkMoney(buyout.amount)}: מחצית ההון העצמי בדירה (שווי ${hkMoney(Number(p.homeValue))} פחות יתרת משכנתא ${hkMoney(Number(p.mortgage) || 0)}). התמורה תשולם עד ${hkBlank}`
+					: `בלי תמורה, כי יתרת המשכנתא אינה נמוכה משווי הדירה (${hkMoney(Number(p.homeValue))})`;
 			items.push(`${doc(k)} ${verb(k, 'ירכוש', 'תרכוש')} את ${verb(o, 'חלקו של', 'חלקה של')} ${doc(o)} בדירה המשותפת ${price}. ${doc(k)} ${verb(k, 'יקבל', 'תקבל')} על ${verb(k, 'עצמו', 'עצמה')} את יתרת המשכנתא ${verb(k, 'וידאג', 'ותדאג')} לשחרר את ${doc(o)} ממנה מול הבנק, והזכויות יירשמו על שם ${doc(k)} אחרי התשלום.`);
 		}
 		items.push(balance.payer

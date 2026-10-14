@@ -774,6 +774,7 @@ function computeBalance(registry, input) {
 		if (fIsIso(g.vestStart) && fIsIso(g.vestEnd) && g.vestEnd < g.vestStart) { errors.push({ field: `opt-${i}-vestEnd`, he: 'סוף ההבשלה לפני תחילתה' }); }
 		if (fIsIso(g.grant) && fIsIso(g.vestStart) && g.vestStart < g.grant) { errors.push({ field: `opt-${i}-vestStart`, he: 'ההבשלה מתחילה לפני ההענקה' }); }
 		if (!['a', 'b'].includes(g.owner)) { errors.push({ field: `opt-${i}-owner`, he: 'למי הוענקו' }); }
+		if (!fEntered(g.price)) { errors.push({ field: `opt-${i}-price`, he: 'מחיר ליחידה היום: בלי מחיר אי אפשר להעריך את האופציות' }); }
 	});
 	const cry = (input.crypto || []).filter((c) => c && fEntered(c.units));
 	cry.forEach((c, i) => {
@@ -799,11 +800,12 @@ function computeBalance(registry, input) {
 		const v = fVal(it.value);
 		const label = it.label || pb.kinds[it.kind].he;
 		if (it.kind === 'debt') {
-			const linked = Boolean(it.linked);
+			const dEx = IZ_EXCLUDE.includes(it.exclude) && it.exclude ? it.exclude : '';
+			const linked = Boolean(it.linked) || Boolean(dEx);
 			if (!linked) {
 				if (it.owner === 'joint') { side.a.debts += v / 2; side.b.debts += v / 2; } else { side[it.owner].debts += v; }
 			}
-			lines.push({ kind: 'debt', owner: it.owner, label, value: -v, inBalance: !linked, counted: linked ? 0 : -v, why: linked ? pb.why.debt_linked_he : pb.why.debt_he, section: S.debts });
+			lines.push({ kind: 'debt', owner: it.owner, label, value: -v, inBalance: !linked, counted: linked ? 0 : -v, why: dEx ? pb.exclude[dEx].he : linked ? pb.why.debt_linked_he : pb.why.debt_he, section: dEx ? pb.exclude[dEx].section : S.debts });
 			continue;
 		}
 		if (it.kind === 'business') {
@@ -875,9 +877,12 @@ function computeBalance(registry, input) {
 		flags.push({ code: 'crypto', he: pb.flags.crypto_he });
 		if (cryRows.some((c) => c.where === 'wallet')) { flags.push({ code: 'wallet', he: pb.flags.wallet_he }); }
 	}
-	const net = (s) => fR2(s.in - s.debts);
-	const A = { balanced: fR2(side.a.in), excluded: fR2(side.a.out), debts: fR2(side.a.debts), net: net(side.a) };
-	const B = { balanced: fR2(side.b.in), excluded: fR2(side.b.out), debts: fR2(side.b.debts), net: net(side.b) };
+	// Personal debts reduce a spouse's balanced worth to zero at most: the excess is not passed to the other spouse,
+	// since there is no general sharing of personal debts (6839/19, paras. 15-16). rawNet keeps the real figure.
+	const net = (s) => fR2(Math.max(0, s.in - s.debts));
+	const A = { balanced: fR2(side.a.in), excluded: fR2(side.a.out), debts: fR2(side.a.debts), net: net(side.a), rawNet: fR2(side.a.in - side.a.debts) };
+	const B = { balanced: fR2(side.b.in), excluded: fR2(side.b.out), debts: fR2(side.b.debts), net: net(side.b), rawNet: fR2(side.b.in - side.b.debts) };
+	if (A.rawNet < 0 || B.rawNet < 0) { flags.push({ code: 'debts_exceed', he: pb.flags.debts_exceed_he }); }
 	const diff = fR2(A.net - B.net);
 	const pay = fR2(Math.abs(diff) / 2);
 	const payer = diff > 0 ? 'a' : diff < 0 ? 'b' : null;
@@ -1117,14 +1122,16 @@ function draftAgreement(registry, input) {
 		});
 		// An agreed amount needs no estimate: missing incomes only block the draft when the tool has to compute the amount.
 		if (!support.ok) {
-			if (agreed) { support = null; } else { support.errors.forEach((e) => errors.push({ field: `support-${e.field}`, he: e.he })); }
+			const rest = agreed ? support.errors.filter((e) => !(e.field === 'incomeA' && /הכנסה/.test(e.he))) : support.errors;
+			rest.forEach((e) => errors.push({ field: `support-${e.field}`, he: e.he }));
+			support = null;
 		}
 	}
 	if (fEntered(sIn.amount) && !(Number(sIn.amount) >= 0 && Number(sIn.amount) < 1e7)) { errors.push({ field: 'support-amount', he: 'סכום המזונות: מספר חיובי' }); }
 	// Property from the balancing engine: the home, then each side's other balanced assets and debts.
 	const p = input.property || {};
 	let balance = null;
-	if (!only && (['sell', 'a_keeps', 'b_keeps'].includes(p.home) || fEntered(p.aAssets) || fEntered(p.bAssets))) {
+	if (!only && (['sell', 'a_keeps', 'b_keeps'].includes(p.home) || ['aAssets', 'bAssets', 'aDebts', 'bDebts'].some((k) => fEntered(p[k])) || p.pension)) {
 		const items = [];
 		if (fEntered(p.homeValue)) { items.push({ kind: 'home', owner: 'joint', value: p.homeValue, mortgage: p.mortgage }); }
 		if (fEntered(p.aAssets)) { items.push({ kind: 'savings', owner: 'a', value: p.aAssets }); }
@@ -1215,9 +1222,11 @@ function draftAgreement(registry, input) {
 		if (p.home === 'a_keeps' || p.home === 'b_keeps') {
 			const k = p.home === 'a_keeps' ? parentA : parentB;
 			const o = k === parentA ? parentB : parentA;
-			const price = buyout && buyout.amount > 0
-				? `תמורת ${hkMoney(buyout.amount)}: מחצית ההון העצמי בדירה (שווי ${hkMoney(Number(p.homeValue))} פחות יתרת משכנתא ${hkMoney(Number(p.mortgage) || 0)}). התמורה תשולם עד ${hkBlank}`
-				: `בלי תמורה, כי יתרת המשכנתא אינה נמוכה משווי הדירה (${hkMoney(Number(p.homeValue) || 0)})`;
+			const price = !buyout
+				? `תמורת ${hkBlank} ש"ח, מחצית ההון העצמי בדירה (השווי פחות יתרת המשכנתא). התמורה תשולם עד ${hkBlank}`
+				: buyout.amount > 0
+					? `תמורת ${hkMoney(buyout.amount)}: מחצית ההון העצמי בדירה (שווי ${hkMoney(Number(p.homeValue))} פחות יתרת משכנתא ${hkMoney(Number(p.mortgage) || 0)}). התמורה תשולם עד ${hkBlank}`
+					: `בלי תמורה, כי יתרת המשכנתא אינה נמוכה משווי הדירה (${hkMoney(Number(p.homeValue))})`;
 			items.push(`${doc(k)} ${verb(k, 'ירכוש', 'תרכוש')} את ${verb(o, 'חלקו של', 'חלקה של')} ${doc(o)} בדירה המשותפת ${price}. ${doc(k)} ${verb(k, 'יקבל', 'תקבל')} על ${verb(k, 'עצמו', 'עצמה')} את יתרת המשכנתא ${verb(k, 'וידאג', 'ותדאג')} לשחרר את ${doc(o)} ממנה מול הבנק, והזכויות יירשמו על שם ${doc(k)} אחרי התשלום.`);
 		}
 		items.push(balance.payer

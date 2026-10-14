@@ -629,7 +629,7 @@ function renderDetails(reg, r) {
 	}
 	rows.push(['הודעה מוקדמת', `${esc(noticeText(r.notice))}${r.inLieu !== null ? ` (${nis(r.inLieu)} אם משלמים במקום עבודה${r.notice.month ? '' : ', לפי 30 ימים בחודש'})` : ''}`, cite(`${r.notice.section} לחוק הודעה מוקדמת`, sv.notice.url)]);
 	rows.push(['פטור ממס', ilsn(r.exempt), `משכורת חודש לשנה, עד ${money(sv.tax.ceiling, 0)} ₪ לשנה ב-${sv.tax.year}${cite(sv.tax.section, sv.tax.law_url)}${cite('לוח העזר 2026', sv.tax.source_url)}`]);
-	rows.push(['חייב במס', ilsn(r.taxable), r.taxable ? 'לפי מדרגות המס (אפשר לבקש פריסה)' : '—']);
+	rows.push(['חייב במס', ilsn(r.taxable), r.taxable ? 'לפי מדרגות המס' : '—']);
 	let out = `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-calc-h">כמה, על מה, ולפי איזה סעיף</h3></div>`
 		+ `<div class="jtool-scroll" role="region" aria-labelledby="${P}-calc-h" tabindex="0"><table class="jtool-table"><thead><tr><th scope="col">מה</th><th scope="col">סכום</th><th scope="col">הכלל</th></tr></thead><tbody>`
 		+ rows.map(([a, b, c]) => `<tr><td data-th="מה">${esc(a)}</td><td data-th="סכום">${b}</td><td data-th="הכלל">${c}</td></tr>`).join('')

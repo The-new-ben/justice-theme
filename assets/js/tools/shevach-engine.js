@@ -171,7 +171,7 @@ export function compute(registry, input) {
 		{ key: 'pay', date: rest(addDays(saleDate, dl.pay_days)), he: `תשלום המס לפי השומה העצמית, ${dl.pay_days} ימים מיום המכירה`, section: dl.pay_section },
 	];
 	const scen = {
-		exempt: status === 'single' && singleOk && salePrice <= sv.single.ceiling ? 0 : null,
+		exempt: singleOk && gain > 0 ? tax : null,
 		linear: lin ? lin.tax : null,
 		regular: regular.tax,
 	};

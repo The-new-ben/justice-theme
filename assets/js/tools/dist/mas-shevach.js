@@ -474,7 +474,7 @@ function compute(registry, input) {
 		{ key: 'pay', date: rest(addDays(saleDate, dl.pay_days)), he: `תשלום המס לפי השומה העצמית, ${dl.pay_days} ימים מיום המכירה`, section: dl.pay_section },
 	];
 	const scen = {
-		exempt: status === 'single' && singleOk && salePrice <= sv.single.ceiling ? 0 : null,
+		exempt: singleOk && gain > 0 ? tax : null,
 		linear: lin ? lin.tax : null,
 		regular: regular.tax,
 	};
@@ -625,7 +625,7 @@ function renderDetails(reg, r) {
 	// Three ways the same sale is taxed.
 	const scen = [['exempt', 'דירה יחידה', r.scen.exempt], ['linear', 'לינארי מוטב', r.scen.linear], ['regular', 'חישוב רגיל', r.scen.regular]];
 	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-sc-h">אותה מכירה, שלוש דרכים</h3></div><div class="jt7-scns jt14-scns">`
-		+ scen.map(([k, label, v]) => { const here = r.path === k || (r.path === 'partial' && k === 'exempt'); return `<div class="jt7-scn${here ? ' jt7-scn--here' : ''}"><p>${esc(label)}${here ? ' (אתם)' : ''}</p><strong>${v === null ? '—' : ils(v, 0)}</strong><small>${v === null ? (k === 'exempt' ? 'לא חל: לא דירה יחידה, או מעל התקרה' : 'לא חל: נקנתה מ-2014') : k === 'exempt' ? `עד ${money(sv.single.ceiling, 0)} ₪` : k === 'linear' ? 'דירת מגורים שנקנתה לפני 2014' : 'נכס אחר, או בלי ההטבות'}</small></div>`; }).join('')
+		+ scen.map(([k, label, v]) => { const here = r.path === k || (r.path === 'partial' && k === 'exempt'); return `<div class="jt7-scn${here ? ' jt7-scn--here' : ''}"><p>${esc(label)}${here ? ' (אתם)' : ''}</p><strong>${v === null ? '—' : ils(v, 0)}</strong><small>${v === null ? (k === 'exempt' ? 'לא חל: לא דירה יחידה, או בלי 18 חודשי בעלות' : 'לא חל: נקנתה מ-2014') : k === 'exempt' ? (r.path === 'partial' ? `פטור רק עד ${money(sv.single.ceiling, 0)} ₪` : `פטור עד ${money(sv.single.ceiling, 0)} ₪`) : k === 'linear' ? 'דירת מגורים שנקנתה לפני 2014' : 'נכס אחר, או בלי ההטבות'}</small></div>`; }).join('')
 		+ `</div><p class="jt7-scns__note">פטור לדירה יחידה (${esc(sv.single.section)}), החישוב הלינארי המוטב (${esc(rs.linear)}), חישוב רגיל (${esc(rs.post2012)}).</p></div>`;
 	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-net-h">מה נשאר ביד</h3></div><dl class="jtool-breakdown jt14-net"><div><dt>מחיר המכירה</dt><dd>${ils(r.salePrice, 0)}</dd></div><div><dt>מס שבח</dt><dd>−${ilsn(r.tax)}</dd></div><div><dt>הוצאות המכירה</dt><dd>−${ils(r.saleCosts, 0)}</dd></div>${r.mortgage ? `<div><dt>סילוק המשכנתא</dt><dd>−${ils(r.mortgage, 0)}</dd></div>` : ''}<div><dt>נשאר</dt><dd>${ilsn(r.net)}</dd></div></dl></div>`;
 	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-dl-h">המועדים</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="ics">הוספה ליומן (.ics)</button></div></div>`

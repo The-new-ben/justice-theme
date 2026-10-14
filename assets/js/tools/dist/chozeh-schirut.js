@@ -366,12 +366,13 @@ function compute(registry, input) {
 	const start = blank(input.start) ? '' : parseDate(input.start);
 	if (start === null) { errors.push({ field: 'start', he: 'תאריך תחילה לא תקין (לדוגמה 1.11.2026)' }); }
 	const money = {};
-	for (const k of ['cash', 'bank', 'other', 'note', 'guarantorMax']) {
-		money[k] = numOr(input[k], 0);
-		if (!(isNum(money[k]) && money[k] >= 0 && money[k] < 1e8)) { errors.push({ field: k, he: 'סכום: מספר חיובי או ריק' }); }
-	}
 	const guarantors = numOr(input.guarantors, 0);
 	if (!(Number.isInteger(guarantors) && guarantors >= 0 && guarantors <= 3)) { errors.push({ field: 'guarantors', he: 'מספר הערבים: 0 עד 3' }); }
+	// The guarantee ceiling is read only with guarantors: a value left in the hidden field never blocks the lease.
+	for (const k of ['cash', 'bank', 'other', 'note', 'guarantorMax']) {
+		money[k] = k === 'guarantorMax' && !(guarantors > 0) ? 0 : numOr(input[k], 0);
+		if (!(isNum(money[k]) && money[k] >= 0 && money[k] < 1e8)) { errors.push({ field: k, he: 'סכום: מספר חיובי או ריק' }); }
+	}
 	const days = {};
 	const dayFields = { returnDays: rc.deposit.return_days, repairDays: rc.repairs.days, urgentDays: rc.repairs.urgent_days, optTenantDays: rc.option.tenant_days, optLandlordDays: rc.option.landlord_days, exitTenantDays: rc.exit.tenant_days, exitLandlordDays: rc.exit.landlord_days };
 	for (const [k, d] of Object.entries(dayFields)) {

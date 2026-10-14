@@ -883,6 +883,16 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(near(ss.total, ex.tax, 0.001) && ss.result.includes('jt14-strip') && ss.details.includes('48א(ב2)') && ss.compare_table.includes('1995') && ss.method.includes('383,957.59'), 'capital-gains snapshot: the strip, the linear section, the years table, the CBS inflation in the method');
 }
 
+/* ---------- Wave 5: hidden fields never block, and the partial exemption is a scenario of its own ---------- */
+{
+	check(RE.compute(reg, { rent: 6000, months: 12, guarantors: 0, guarantorMax: 'abc' }).ok && !RE.compute(reg, { rent: 6000, months: 12, guarantors: 1, guarantorMax: -5 }).ok, 'the guarantee ceiling is read only with guarantors: a stale value in the hidden field never blocks the lease');
+	check(RE.compute(reg, { rent: 6000, months: 12, option: 'none', optionMonths: 'x', optionPct: 'y' }).ok, 'the option fields are ignored when there is no option');
+	const big = SH.compute(reg, { status: 'single', buyDate: '2015-01-01', buyPrice: 3000000, saleDate: '2026-09-01', salePrice: 6000000 });
+	check(big.scen.exempt === big.tax && big.scen.exempt > 0 && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'qualified' })).scen.exempt === null, 'the single-home card shows the partial tax above the ceiling, and nothing when the home is not the only one');
+	check(PE.compute(reg, { payType: 'monthly', salary: 9000, hourly: 'x', hours: 'y', start: '2020-01-01', end: '2026-09-30', s14: 'none', s14Pct: 'z', s14From: 'bad' }).ok, 'severance: hidden hourly and section-14 fields never block a monthly calculation');
+	check(SH.compute(reg, { status: 'qualified', buyDate: '2010-06-01', buyPrice: 1200000, saleDate: '2026-09-01', salePrice: 2600000, improve: '', improveDate: 'junk' }).ok, 'capital gains: the improvement date is read only with an improvement');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

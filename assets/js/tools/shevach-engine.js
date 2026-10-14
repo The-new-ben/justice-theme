@@ -116,7 +116,9 @@ export function compute(registry, input) {
 	// sale (review, PR 128).
 	// A non-residential right (a shop, an office, a business building) may be depreciable even when never rented.
 	const rented = Boolean(input.rented);
-	const needDep = rented || status === 'other';
+	// A dwelling not used mainly for residence (an office, a business) may be depreciable too (review, PR 128).
+	const bizUse = status !== 'other' && input.residential === false;
+	const needDep = rented || status === 'other' || bizUse;
 	const dep = needDep ? amt('depreciation') : 0;
 	if (needDep && !(Number.isFinite(dep) && dep >= 0 && dep < 1e10)) { errors.push({ field: 'depreciation', he: 'הפחת: מספר חיובי, 0 או ריק' }); }
 	// Depreciation may run on improvements too, so it is checked against the whole basis (review, PR 128).
@@ -236,7 +238,7 @@ export function compute(registry, input) {
 			? 'נכס שקיבלתם בירושה: יום הרכישה ושווי הרכישה נקבעים בדרך כלל לפי המוריש, לא לפי יום הירושה. את זה המחשבון לא מחשב; השתמשו בסימולטור של רשות המסים.'
 			: 'דירה שקיבלתם בירושה עשויה להיות פטורה לפי סעיף 49ב(5): כשאתם בן הזוג של המוריש, צאצא שלו או בן זוג של צאצא, למוריש היתה רק דירה אחת, והוא היה פטור אילו מכר אותה בעצמו; ויום הרכישה ושוויה נקבעים בדרך כלל לפי המוריש. את התנאים האלה המחשבון לא בודק; השתמשו בסימולטור של רשות המסים.' }] };
 	}
-	if (status === 'other' && blank(input.depreciation)) {
+	if ((status === 'other' || bizUse) && blank(input.depreciation)) {
 		return { ok: false, errors: [{ field: 'depreciation', he: 'נכס שאינו דירת מגורים: הזינו את הפחת שנוכה או שהיה ניתן לנכות, אם הנכס הושכר או שימש לעסק (סעיף 47); במגרש או בנכס שלא היה בר פחת, 0. בלי הסכום אין הערכה.' }] };
 	}
 	if (rented && blank(input.depreciation) && path !== 'exempt') {

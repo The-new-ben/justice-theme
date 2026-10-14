@@ -917,7 +917,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 
 /* ---------- Review fixes (PR 128, Codex pass 2) ---------- */
 {
-	const office = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, residential: false }));
+	const office = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true, residential: false, depreciation: 0 }));
 	check(office.path === 'regular' && office.tax === office.regular.tax && office.scen.exempt === null && office.scen.linear === null && office.flags.some((f) => f.code === 'not_residential'), 'a home not used mainly for residence: no single-home exemption and no linear rule (s.49(א); review, PR 128)');
 	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', family: true })).path === 'exempt', 'confirmed residential use keeps the exemption');
 	const quit = PE.compute(reg, { salary: 10000, start: '2018-01-01', end: '2026-09-30', reason: 'resign', s14: 'partial' });
@@ -1356,6 +1356,12 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 {
 	const full = SH.compute(reg, { status: 'other', buyDate: '2010-06-01', buyPrice: 1000000, improve: 1000000, improveDate: '2012-06-01', depreciation: 2000000, saleDate: '2026-09-01', salePrice: 3000000 });
 	check(full.ok && full.dep === 2000000 && full.tax > 0 && !SH.compute(reg, { status: 'other', buyDate: '2010-06-01', buyPrice: 1000000, improve: 1000000, improveDate: '2012-06-01', depreciation: 2000001, saleDate: '2026-09-01', salePrice: 3000000 }).ok, 'depreciation equal to the whole basis is accepted, above it is not (review, PR 128)');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 40) ---------- */
+{
+	const biz = Object.assign({}, SHUI.EXAMPLE, { status: 'qualified', residential: false });
+	check(!SH.compute(reg, biz).ok && SH.compute(reg, Object.assign({}, biz, { depreciation: 500000 })).tax > SH.compute(reg, Object.assign({}, biz, { depreciation: 0 })).tax && !/data-if-rented hidden/.test(SHUI.renderForm(reg, biz)), 'a dwelling used mainly for business asks for its depreciation and uses it (review, PR 128)');
 }
 
 if (failures) {

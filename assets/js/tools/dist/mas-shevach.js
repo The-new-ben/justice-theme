@@ -419,7 +419,9 @@ function compute(registry, input) {
 	// sale (review, PR 128).
 	// A non-residential right (a shop, an office, a business building) may be depreciable even when never rented.
 	const rented = Boolean(input.rented);
-	const needDep = rented || status === 'other';
+	// A dwelling not used mainly for residence (an office, a business) may be depreciable too (review, PR 128).
+	const bizUse = status !== 'other' && input.residential === false;
+	const needDep = rented || status === 'other' || bizUse;
 	const dep = needDep ? amt('depreciation') : 0;
 	if (needDep && !(Number.isFinite(dep) && dep >= 0 && dep < 1e10)) { errors.push({ field: 'depreciation', he: 'הפחת: מספר חיובי, 0 או ריק' }); }
 	// Depreciation may run on improvements too, so it is checked against the whole basis (review, PR 128).
@@ -539,7 +541,7 @@ function compute(registry, input) {
 			? 'נכס שקיבלתם בירושה: יום הרכישה ושווי הרכישה נקבעים בדרך כלל לפי המוריש, לא לפי יום הירושה. את זה המחשבון לא מחשב; השתמשו בסימולטור של רשות המסים.'
 			: 'דירה שקיבלתם בירושה עשויה להיות פטורה לפי סעיף 49ב(5): כשאתם בן הזוג של המוריש, צאצא שלו או בן זוג של צאצא, למוריש היתה רק דירה אחת, והוא היה פטור אילו מכר אותה בעצמו; ויום הרכישה ושוויה נקבעים בדרך כלל לפי המוריש. את התנאים האלה המחשבון לא בודק; השתמשו בסימולטור של רשות המסים.' }] };
 	}
-	if (status === 'other' && blank(input.depreciation)) {
+	if ((status === 'other' || bizUse) && blank(input.depreciation)) {
 		return { ok: false, errors: [{ field: 'depreciation', he: 'נכס שאינו דירת מגורים: הזינו את הפחת שנוכה או שהיה ניתן לנכות, אם הנכס הושכר או שימש לעסק (סעיף 47); במגרש או בנכס שלא היה בר פחת, 0. בלי הסכום אין הערכה.' }] };
 	}
 	if (rented && blank(input.depreciation) && path !== 'exempt') {
@@ -627,10 +629,10 @@ function renderForm(reg, input) {
 		+ `<div class="jtool-row" style="margin-top:8px">${moneyField('bc', 'הוצאות ששולמו ביום הרכישה', input.buyCosts, '0', 'מס רכישה, עורך דין, תיווך (עד 2%), שמאי')}${moneyField('sc', 'הוצאות ששולמו ביום המכירה', input.saleCosts, '0', 'עורך דין, תיווך (עד 2%), שמאי')}</div>`
 		+ `<div class="jtool-row">${moneyField('imp', 'שיפוצים, השבחות והוצאות ששולמו במועד אחר', input.improve, '0', 'לא תיקונים שוטפים')}<div data-if-improve${input.improve ? '' : ' hidden'}>${dateField('id', 'מתי (בערך) שולמו', input.improveDate, 'לדוגמה: 1.6.2015')}</div></div>`
 		+ `<p class="jtool-hint">כל הוצאה מוצמדת למדד מיום התשלום (סעיף 47). הוצאה ששולמה במועד אחר, כמו שכר טרחה או היטל השבחה, נכנסת בשורה שלמעלה עם התאריך שלה; כמה הוצאות במועדים שונים: חשבו אותן כל אחת לפי התאריך, או בסימולטור של רשות המסים.</p></details>`
-		+ `<details class="jtool-more"${input.mortgage || input.priorExempt || input.rented || st === 'other' ? ' open' : ''}><summary>עוד פרטים</summary>`
+		+ `<details class="jtool-more"${input.mortgage || input.priorExempt || input.rented || st === 'other' || input.residential === false ? ' open' : ''}><summary>עוד פרטים</summary>`
 		+ `<div style="margin-top:8px">${moneyField('mtg', 'יתרת משכנתא לסילוק (לחישוב מה נשאר ביד)', input.mortgage, '0')}</div>`
 		+ `<div class="jtool-chips">${chip('pe', '1', 'מכרתי דירה אחרת בפטור כזה ב-18 החודשים שלפני', input.priorExempt, 'checkbox')}${chip('rn', '1', 'הדירה הושכרה', input.rented, 'checkbox')}</div>`
-		+ `<div data-if-rented${input.rented || st === 'other' ? '' : ' hidden'}>${moneyField('dep', 'פחת שנוכה או שהיה ניתן לנכות (בהשכרה או בשימוש לעסק; במגרש 0)', input.depreciation, 'לדוגמה: 40,000', 'הפחת מקטין את שווי הרכישה ומגדיל את השבח (סעיף 47). את הסכום מחשבים רואה החשבון או השומה')}</div></details>`;
+		+ `<div data-if-rented${input.rented || st === 'other' || input.residential === false ? '' : ' hidden'}>${moneyField('dep', 'פחת שנוכה או שהיה ניתן לנכות (בהשכרה או בשימוש לעסק; במגרש 0)', input.depreciation, 'לדוגמה: 40,000', 'הפחת מקטין את שווי הרכישה ומגדיל את השבח (סעיף 47). את הסכום מחשבים רואה החשבון או השומה')}</div></details>`;
 }
 
 function verdictSentence(reg, r) {
@@ -780,19 +782,19 @@ function readForm(root) {
 		buyCosts: m('bc'), saleCosts: m('sc'), improve: m('imp'), improveDate: toIso(val(`#${P}-id`)), mortgage: m('mtg'),
 		priorExempt: on('pe'), rented: on('rn'), residential: on('res'), offPlan: on('op'), dwellingDate: on('op') ? toIso(val(`#${P}-dw`)) : '',
 		family: on('fm'), resident: (root.querySelector(`input[name="${P}-rs"]:checked`) || {}).value === 'foreign' ? 'foreign' : 'il',
-		foreignNoHome: (root.querySelector(`input[name="${P}-rs"]:checked`) || {}).value === 'foreign' && on('fh'), depreciation: on('rn') || ((root.querySelector(`input[name="${P}-st"]:checked`) || {}).value === 'other') ? m('dep') : '',
+		foreignNoHome: (root.querySelector(`input[name="${P}-rs"]:checked`) || {}).value === 'foreign' && on('fh'), depreciation: on('rn') || !on('res') || ((root.querySelector(`input[name="${P}-st"]:checked`) || {}).value === 'other') ? m('dep') : '',
 		buildingRights: on('br'), inherited: on('inh'), replacement: on('rp'),
 		gift: on('gf'), giftDate: on('gf') ? toIso(val(`#${P}-gd`)) : '', giftLived: on('gf') && on('gl'), giftMinor: on('gf') && on('gm'), livedFrom: on('gf') && on('gl') ? toIso(val(`#${P}-lf`)) : '',
 	};
 }
 
 const ST = { single: 's', qualified: 'q', other: 'o' };
-const stateOf = (i) => encodeState({ t: ST[i.status] || 's', a: i.buyDate, b: i.buyPrice || '', c: i.saleDate, d: i.salePrice || '', e: i.buyCosts || '', f: i.saleCosts || '', g: i.improve || '', h: i.improve ? i.improveDate : '', m: i.mortgage || '', p: i.priorExempt ? 1 : '', r: i.rented ? 1 : '', o: i.offPlan ? 1 : '', w: i.offPlan ? i.dwellingDate : '', n: i.residential === false ? 0 : '', v: i.gift ? 1 : '', l: i.gift && i.giftLived ? 1 : '', k: i.gift && i.giftMinor ? 1 : '', j: i.gift && i.giftLived ? i.livedFrom : '', x: i.family ? 1 : '', y: i.resident === 'foreign' ? 'f' : '', z: i.resident === 'foreign' && i.foreignNoHome ? 1 : '', q: (i.rented || i.status === 'other') && i.depreciation !== '' && i.depreciation !== undefined ? i.depreciation : '', u: i.buildingRights ? 1 : '', G: i.gift ? i.giftDate : '', H: i.inherited ? 1 : '', R: i.replacement ? 1 : '' });
+const stateOf = (i) => encodeState({ t: ST[i.status] || 's', a: i.buyDate, b: i.buyPrice || '', c: i.saleDate, d: i.salePrice || '', e: i.buyCosts || '', f: i.saleCosts || '', g: i.improve || '', h: i.improve ? i.improveDate : '', m: i.mortgage || '', p: i.priorExempt ? 1 : '', r: i.rented ? 1 : '', o: i.offPlan ? 1 : '', w: i.offPlan ? i.dwellingDate : '', n: i.residential === false ? 0 : '', v: i.gift ? 1 : '', l: i.gift && i.giftLived ? 1 : '', k: i.gift && i.giftMinor ? 1 : '', j: i.gift && i.giftLived ? i.livedFrom : '', x: i.family ? 1 : '', y: i.resident === 'foreign' ? 'f' : '', z: i.resident === 'foreign' && i.foreignNoHome ? 1 : '', q: (i.rented || i.status === 'other' || i.residential === false) && i.depreciation !== '' && i.depreciation !== undefined ? i.depreciation : '', u: i.buildingRights ? 1 : '', G: i.gift ? i.giftDate : '', H: i.inherited ? 1 : '', R: i.replacement ? 1 : '' });
 const KEYS = ['t', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'm', 'p', 'r', 'o', 'w', 'n', 'v', 'l', 'k', 'j', 'x', 'y', 'z', 'q', 'u', 'G', 'H', 'R'];
 function inputOf(s) {
 	if (!s.a || !s.c) { return null; }
 	const n = (v) => (v ? Number(v) : '');
-	return { status: Object.keys(ST).find((k) => ST[k] === s.t) || 'single', buyDate: s.a, buyPrice: n(s.b), saleDate: s.c, salePrice: n(s.d), buyCosts: n(s.e), saleCosts: n(s.f), improve: n(s.g), improveDate: s.h || '', mortgage: n(s.m), priorExempt: s.p === '1', rented: s.r === '1', offPlan: s.o === '1', dwellingDate: s.o === '1' ? (s.w || '') : '', residential: s.n !== '0', gift: s.v === '1', giftLived: s.v === '1' && s.l === '1', giftMinor: s.v === '1' && s.k === '1', livedFrom: s.v === '1' && s.l === '1' ? (s.j || '') : '', family: s.x === '1', resident: s.y === 'f' ? 'foreign' : 'il', foreignNoHome: s.y === 'f' && s.z === '1', depreciation: (s.r === '1' || s.t === 'o') && s.q !== undefined && s.q !== '' ? Number(s.q) : '', buildingRights: s.u === '1', giftDate: s.v === '1' ? (s.G || '') : '', inherited: s.H === '1', replacement: s.R === '1' };
+	return { status: Object.keys(ST).find((k) => ST[k] === s.t) || 'single', buyDate: s.a, buyPrice: n(s.b), saleDate: s.c, salePrice: n(s.d), buyCosts: n(s.e), saleCosts: n(s.f), improve: n(s.g), improveDate: s.h || '', mortgage: n(s.m), priorExempt: s.p === '1', rented: s.r === '1', offPlan: s.o === '1', dwellingDate: s.o === '1' ? (s.w || '') : '', residential: s.n !== '0', gift: s.v === '1', giftLived: s.v === '1' && s.l === '1', giftMinor: s.v === '1' && s.k === '1', livedFrom: s.v === '1' && s.l === '1' ? (s.j || '') : '', family: s.x === '1', resident: s.y === 'f' ? 'foreign' : 'il', foreignNoHome: s.y === 'f' && s.z === '1', depreciation: (s.r === '1' || s.t === 'o' || s.n === '0') && s.q !== undefined && s.q !== '' ? Number(s.q) : '', buildingRights: s.u === '1', giftDate: s.v === '1' ? (s.G || '') : '', inherited: s.H === '1', replacement: s.R === '1' };
 }
 
 function mount(root, reg) {
@@ -829,7 +831,7 @@ function mount(root, reg) {
 		form.querySelectorAll('[data-if-home]').forEach((el) => { el.hidden = st === 'other'; });
 		form.querySelectorAll('[data-if-offplan]').forEach((el) => { el.hidden = !root.querySelector(`input[name="${P}-op"]:checked`); });
 		form.querySelectorAll('[data-if-foreign]').forEach((el) => { el.hidden = (root.querySelector(`input[name="${P}-rs"]:checked`) || {}).value !== 'foreign'; });
-		form.querySelectorAll('[data-if-rented]').forEach((el) => { el.hidden = !(root.querySelector(`input[name="${P}-rn"]:checked`) || st === 'other'); });
+		form.querySelectorAll('[data-if-rented]').forEach((el) => { el.hidden = !(root.querySelector(`input[name="${P}-rn"]:checked`) || st === 'other' || !root.querySelector(`input[name="${P}-res"]:checked`)); });
 		const gf = Boolean(root.querySelector(`input[name="${P}-gf"]:checked`));
 		form.querySelectorAll('[data-if-gift]').forEach((el) => { el.hidden = !gf; });
 		form.querySelectorAll('[data-if-giftlived]').forEach((el) => { el.hidden = !(gf && root.querySelector(`input[name="${P}-gl"]:checked`)); });

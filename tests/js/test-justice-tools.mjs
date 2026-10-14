@@ -1338,6 +1338,12 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(r2005.ok && r2005.flags.some((f) => f.code === 'marginal' && f.he.includes('31.12.2011')), 'a purchase in 2005: the 20% slice carries the lower-rate note too (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 37) ---------- */
+{
+	const fl = PE.compute(reg, { salary: 1000, commission: 1000, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevSalary: 10000 });
+	check(fl.ok && fl.floored && fl.cut && fl.prevBase === 11000, 'a floored current pay with a pre-cut salary: the earlier period keeps the commission, 11,000 (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

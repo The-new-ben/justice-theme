@@ -497,8 +497,9 @@ function compute(registry, input) {
 	const fte = (base - comm) * 100 / jobPct;
 	const rate = payType === 'hourly' ? (base - comm) / hours : null;
 	const reg7 = hourlyChange ? r2(rate * prevHours + comm) : r2(fte * prevPct / 100 + comm);
-	const cut = hourlyChange ? prevHourly !== null && prevHourly > rate : monthlyChange && prevSalary !== null && prevSalary + comm > reg7;
-	const prevBase = !change ? base : cut ? (hourlyChange ? r2(prevHourly * prevHours + comm) : r2(prevSalary + comm)) : reg7;
+	// A pre-cut period keeps the entered commission average even when today's total was raised to the floor.
+	const cut = hourlyChange ? prevHourly !== null && prevHourly > rate : monthlyChange && prevSalary !== null && prevSalary + commission > reg7;
+	const prevBase = !change ? base : cut ? (hourlyChange ? r2(prevHourly * prevHours + commission) : r2(prevSalary + commission)) : reg7;
 	const pctNow = payType === 'hourly' ? 100 : jobPct;
 	const periods = change
 		? [{ from: start, to: addDays(changeDate, -1), salary: prevBase, pct: payType === 'hourly' ? (100 * prevHours) / hours : prevPct }, { from: changeDate, to: end, salary: base, pct: pctNow }]

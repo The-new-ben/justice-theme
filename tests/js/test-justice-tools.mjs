@@ -1389,6 +1389,13 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(RE.contractText(reg.rent_contract, RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { defects: 'רטיבות בקיר' })), false).includes('אין בכך כדי לפטור את המשכיר מתיקון פגם'), 'inside the chapter the landlord still repairs disclosed defects');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 44) ---------- */
+{
+	const feb = SH.compute(reg, { status: 'single', family: true, buyDate: '2024-01-01', buyPrice: 1000000, saleDate: '2026-08-30', salePrice: 2000000, offPlan: true, dwellingDate: '2025-02-28' });
+	check(feb.ok && !feb.held && SH.compute(reg, { status: 'single', family: true, buyDate: '2024-01-01', buyPrice: 1000000, saleDate: '2026-08-31', salePrice: 2000000, offPlan: true, dwellingDate: '2025-02-28' }).held, 'a dwelling from 28.2.2025: 18 months end 31.8.2026, not a day earlier (review, PR 128)');
+	check(RE.contractText(reg.rent_contract, RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { start: '2027-01-31' })), false).includes('ביום האחרון של החודש'), 'a lease from the 31st defines short months (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

@@ -485,7 +485,8 @@ function compute(registry, input) {
 
 	const regular = taxRegular(sv, realGain, shares, inflTaxable);
 	const lin = buyDate < d.transition ? taxLinear(sv, realGain, shares) : null;
-	const held = (dwellingDate || buyDate) <= addMonths(saleDate, -sv.single.hold_months);
+	// Forward from the day it became a dwelling, so a month-end start is not granted a day early (review, PR 128).
+	const held = addMonths(dwellingDate || buyDate, sv.single.hold_months) <= saleDate;
 	// Both reliefs need a qualifying dwelling (s.49(א): mainly residential use in 4/5 of the period or the last 4 years;
 	// empty counts). The person confirms it; without it the sale is taxed as any other right (review, PR 128).
 	const residential = status !== 'other' && input.residential !== false;

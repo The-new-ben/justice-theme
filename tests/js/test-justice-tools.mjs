@@ -1265,6 +1265,15 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!term.flags.some((f) => f.code === 'paid_notice') && html.includes('לא נדרשת בדרך כלל') && !PEUI.verdictSentence(reg, term).includes('הודעה מוקדמת: חודש'), 'a fixed term that ended: no notice is presented as owed, paid or not (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 28) ---------- */
+{
+	const old = PE.compute(reg, { payType: 'hourly', hourly: 10, hours: 160, start: '2014-01-01', end: '2017-06-30', reason: 'fired' });
+	const row = PE.minWageOn(reg.min_wage, '2017-06-30');
+	check(old.floored && row.hourly_182 === null && old.base === Math.round(row.hourly_186 * 160 * 100) / 100, 'an hourly job that ended in June 2017 is floored at that row\'s 186-hour rate (review, PR 128)');
+	const table = SHUI.snapshot(reg).compare_table;
+	check(!/<td[^>]*>0 ₪<\/td>/.test(table) && !/>₪0</.test(table), 'the years table computes the non-residential column (no zero from a refused computation; review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

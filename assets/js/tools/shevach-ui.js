@@ -176,7 +176,7 @@ export function yearsTable(reg) {
 	const rows = years.map((y) => {
 		const base = { buyDate: `${y}-06-01`, buyPrice: 1000000, saleDate: '2026-10-01', salePrice: 2500000 };
 		const q = compute(reg, Object.assign({ status: 'qualified' }, base));
-		const o = compute(reg, Object.assign({ status: 'other' }, base));
+		const o = compute(reg, Object.assign({ status: 'other', depreciation: 0 }, base)); // the example assumes no depreciation
 		return `<tr><td data-th="שנת הרכישה"><bdi>${y}</bdi></td><td data-th="שבח ריאלי">${ils(q.realGain, 0)}</td><td data-th="דירת מגורים מזכה">${ils(q.tax, 0)}</td><td data-th="בלי הטבת דירת מגורים">${ils(o.tax, 0)}</td></tr>`;
 	}).join('');
 	return `<div class="jtool-datawrap"><table class="jtool-datatable"><caption>מס שבח משוער על דירה שנקנתה ב-1,000,000 ₪ ונמכרת ב-1.10.2026 ב-2,500,000 ₪, בלי הוצאות, לפי שנת הרכישה (לא דירה יחידה)</caption><thead><tr><th scope="col">שנת הרכישה</th><th scope="col">שבח ריאלי</th><th scope="col">דירת מגורים מזכה</th><th scope="col">בלי הטבת דירת מגורים</th></tr></thead><tbody>${rows}</tbody></table></div>`;

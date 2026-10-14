@@ -161,8 +161,10 @@ export function compute(registry, input) {
 	if (mwRow) {
 		const floorMonthly = r2(mwRow.monthly * jobPct / 100);
 		if (payType === 'monthly' && monthly < floorMonthly - 0.005) { base = floorMonthly; floored = true; }
-		if (payType === 'hourly' && hourly < mwRow.hourly_182 - 0.0001) { base = r2(mwRow.hourly_182 * hours); floored = true; }
-		if (floored) { add('warn', 'min_wage', `השכר שהזנתם נמוך משכר המינימום (${payType === 'hourly' ? `${mwRow.hourly_182} ₪ לשעה` : `${mwRow.monthly.toLocaleString('en-US')} ₪ לחודש במשרה מלאה`}, מ-${heDay(mwRow.from)}). הפיצויים מחושבים לפי שכר המינימום (סעיף 13ב), וגם על ההפרש בשכר עצמו אפשר לתבוע.`, 'סעיף 13ב'); }
+		// Rows before April 2018 hold the hourly rate on a 186-hour month (review, PR 128).
+		const mwHour = mwRow.hourly_182 ?? mwRow.hourly_186;
+		if (payType === 'hourly' && mwHour && hourly < mwHour - 0.0001) { base = r2(mwHour * hours); floored = true; }
+		if (floored) { add('warn', 'min_wage', `השכר שהזנתם נמוך משכר המינימום (${payType === 'hourly' ? `${mwHour} ₪ לשעה` : `${mwRow.monthly.toLocaleString('en-US')} ₪ לחודש במשרה מלאה`}, מ-${heDay(mwRow.from)}). הפיצויים מחושבים לפי שכר המינימום (סעיף 13ב), וגם על ההפרש בשכר עצמו אפשר לתבוע.`, 'סעיף 13ב'); }
 	}
 	const yearOk = span.months >= sv.min_months;
 	// s.3: a dismissal shortly before the end of the first year is presumed made to dodge severance and does not impair

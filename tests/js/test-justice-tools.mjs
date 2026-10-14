@@ -1208,6 +1208,12 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!shop.ok && shop.errors.some((e) => e.field === 'inherited' && e.he.includes('לפי המוריש')) && /name="jt14-inh"/.test(SHUI.renderForm(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other' }))), 'an inherited non-residential right is refused too, and the question shows for every status (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 22) ---------- */
+{
+	const term = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'term' }));
+	check(!term.flags.some((f) => f.code === 'resign_as_fired') && term.flags.some((f) => f.code === 'term_as_fired' && f.section === 'סעיף 9'), 'a fixed term that ended is described as a dismissal, never as a resignation (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

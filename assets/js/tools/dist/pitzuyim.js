@@ -500,7 +500,8 @@ function compute(registry, input) {
 	if (reason === 'resign') { add('info', 'resign', 'בהתפטרות רגילה אין זכות לפיצויים מהמעסיק. כספים שהופרשו לפיצויים לפי סעיף 14 שייכים לכם גם בהתפטרות.', 'סעיף 14'); }
 	if (!groundOk && reason === 'parent') { add('bad', 'parent_unconfirmed', `התפטרות של הורה נחשבת לפיטורים רק בתנאי סעיף 7: ${reasonRow.conditions_he}. סמנו שהתנאים מתקיימים כדי לחשב פיצויים.`, 'סעיף 7'); }
 	if (!groundOk && reason !== 'parent') { add('bad', 'ground_unconfirmed', `התפטרות נחשבת לפיטורים רק כשמתקיימים התנאים של ${reasonRow.section}: ${reasonRow.conditions_he || reasonRow.he}. בתביעה מוכיחים אותם. סמנו שהם מתקיימים כדי לחשב פיצויים.`, reasonRow.section); }
-	if (reasonRow && groundOk) { add('info', 'resign_as_fired', `התפטרות שדינה כפיטורים: ${reasonRow.he} (${reasonRow.section}). בתביעה מוכיחים את הנסיבות, ובחלק מהמקרים צריך להודיע למעסיק מראש על הסיבה.`, reasonRow.section); }
+	if (reason === 'term') { add('info', 'term_as_fired', `חוזה לתקופה קצובה שהסתיים בלי הצעה לחדש אותו 3 חודשים לפני הסוף נחשב לפיטורים (${reasonRow.section}).`, reasonRow.section); }
+	if (reasonRow && groundOk && reason !== 'term') { add('info', 'resign_as_fired', `התפטרות שדינה כפיטורים: ${reasonRow.he} (${reasonRow.section}). בתביעה מוכיחים את הנסיבות, ובחלק מהמקרים צריך להודיע למעסיק מראש על הסיבה.`, reasonRow.section); }
 
 
 	// Section 14.

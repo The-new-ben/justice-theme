@@ -1147,6 +1147,10 @@ function draftAgreement(registry, input) {
 	if (fEntered(sIn.amount) && !(Number(sIn.amount) >= 0 && Number(sIn.amount) < 1e7)) { errors.push({ field: 'support-amount', he: 'סכום המזונות: מספר חיובי' }); }
 	// Property from the balancing engine: the home, then each side's other balanced assets and debts.
 	const p = input.property || {};
+	// A home value or a mortgage with no choice of what happens to the home would vanish from the draft: ask for the choice.
+	if (!only && (fEntered(p.homeValue) || fEntered(p.mortgage)) && !['sell', 'a_keeps', 'b_keeps'].includes(p.home)) {
+		errors.push({ field: 'property-home', he: 'הזנתם שווי דירה או משכנתא: בחרו אם מוכרים את הדירה או מי נשאר בה' });
+	}
 	let balance = null;
 	if (!only && (['sell', 'a_keeps', 'b_keeps'].includes(p.home) || ['aAssets', 'bAssets', 'aDebts', 'bDebts'].some((k) => fEntered(p[k])) || p.pension)) {
 		const items = [];

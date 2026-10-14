@@ -304,6 +304,17 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(zzBack.a.severance[0] === 0 && zzBack.a.severance[1] === 0 && IZ.computeBalance(reg, IZUI.toInput(zzBack)).ok, 'balance link: a 0 value today with a 0 on the wedding day survives and still computes (Codex pass 5)');
 }
 
+/* ---------- Review fixes (PR 130, Codex pass 6) ---------- */
+{
+	const base = { route: 'family', from: '2026-10-14', children: ['2018-05-01'], parentA: 'אבא', pattern: 'weekends_2mid', holidays: 'alternate', support: { amount: 2000 } };
+	const noChoice = HK.draftAgreement(reg, Object.assign({}, base, { property: { home: 'none', homeValue: 2000000, mortgage: 500000 } }));
+	check(!noChoice.ok && noChoice.errors.some((e) => e.field === 'property-home'), 'a home value with no choice of sell or keep: an error, never a draft without the home');
+	const copies = (n) => MM.draftMamon(reg, { timing: 'before', route: 'notary', regime: 'separate', copies: n });
+	check(!copies(1.5).ok && !copies(-1).ok && copies(3).ok && copies(3).cost.extra === 148, 'notary copies: a whole number from 1; three copies add 2 x 74');
+	check(MM.draftMamon(reg, { timing: 'before', route: 'court', regime: 'separate', home: 'none', residenceMonths: 99 }).ok, 'a hidden residence period never blocks a draft without a home of one spouse');
+	check(!MM.draftMamon(reg, { timing: 'before', route: 'court', regime: 'separate', home: 'a', residenceMonths: 99 }).ok, 'with a home of one spouse, the residence period is checked');
+}
+
 /* ---------- The server snapshots: the same renderers, the sticky figure, no <h2> in a card ---------- */
 for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MMUI], ['heskem-gerushin', HKUI]]) {
 	const s = ui.snapshot(reg);

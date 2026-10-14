@@ -1381,6 +1381,14 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(cert.date === '2026-11-15', 'a certificate deadline on Saturday 14.11.2026 moves to Sunday 15.11 (Interpretation Law s.10(ג); review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 43) ---------- */
+{
+	const d = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', asIs: true, defects: 'רטיבות בקיר' }));
+	const txt = RE.contractText(reg.rent_contract, d, false);
+	check(txt.includes('השוכר מקבל את הפגמים האלה כפי שהם') && !txt.includes('אין בכך כדי לפטור את המשכיר מתיקון פגם'), 'outside the chapter with "as is", disclosed defects are accepted as they are, not promised for repair (review, PR 128)');
+	check(RE.contractText(reg.rent_contract, RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { defects: 'רטיבות בקיר' })), false).includes('אין בכך כדי לפטור את המשכיר מתיקון פגם'), 'inside the chapter the landlord still repairs disclosed defects');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

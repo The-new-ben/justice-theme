@@ -1256,6 +1256,15 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(RE.contractText(reg.rent_contract, shortAsIs, false).includes('היה עליו לדעת') && shortAsIs.flags.find((f) => f.code === 'as_is').he.includes('היה עליו לדעת'), 'the "as is" clause keeps defects the landlord knew or should have known (s.8; review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 27) ---------- */
+{
+	const lossShop = SH.compute(reg, { status: 'other', buyDate: '2015-01-01', buyPrice: 3000000, saleDate: '2026-09-01', salePrice: 2900000 });
+	check(!lossShop.ok && lossShop.errors.some((e) => e.field === 'depreciation'), 'an apparent loss on a non-residential right still needs the depreciation first (review, PR 128)');
+	const term = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'term', noticeDate: '2026-09-15', noticeMode: 'paid' }));
+	const html = PEUI.renderResult(reg, term) + PEUI.renderDetails(reg, term);
+	check(!term.flags.some((f) => f.code === 'paid_notice') && html.includes('לא נדרשת בדרך כלל') && !PEUI.verdictSentence(reg, term).includes('הודעה מוקדמת: חודש'), 'a fixed term that ended: no notice is presented as owed, paid or not (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

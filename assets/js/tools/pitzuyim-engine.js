@@ -244,7 +244,7 @@ export function compute(registry, input) {
 	}
 	// A shortfall is claimed only when the notice was worked; when it was paid instead of work, the payment should cover
 	// the days to the end of the statutory period (s.6), which the tool cannot see (review, PR 128).
-	if (short && noticeMode === 'paid') { add('info', 'paid_notice', `שילמו לכם במקום עבודה בתקופת ההודעה: התשלום צריך לכסות את השכר הרגיל עד ${heDay(noticeEnd)}, סוף התקופה שבחוק (סעיף 6). בדקו בתלוש שכולם שולמו.`, 'סעיף 6'); }
+	if (short && noticeMode === 'paid' && !fixedTerm) { add('info', 'paid_notice', `שילמו לכם במקום עבודה בתקופת ההודעה: התשלום צריך לכסות את השכר הרגיל עד ${heDay(noticeEnd)}, סוף התקופה שבחוק (סעיף 6). בדקו בתלוש שכולם שולמו.`, 'סעיף 6'); }
 	if (short && noticeMode === 'worked' && !fixedTerm) { add('warn', 'short_notice', `ההודעה ניתנה ב-${heDay(noticeDate)}, ותקופת ההודעה שבחוק מסתיימת ב-${heDay(noticeEnd)}: חסרים ${short} ימים עד היום האחרון שהזנתם. ${resigned ? 'עובד שהפסיק לעבוד לפני סוף ההודעה חייב למעסיק את השכר הרגיל בעד הימים החסרים (סעיף 7(ב)), אלא אם המעסיק ויתר עליהם (סעיף 6(ב)).' : 'עליהם מגיע פיצוי בגובה השכר הרגיל (סעיף 7(א)).'}`, resigned ? 'סעיף 7(ב)' : 'סעיף 7(א)'); }
 
 	// Tax: one month's last salary per year, never above the ceiling per year (s.9(7א)(א)).

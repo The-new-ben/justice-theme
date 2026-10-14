@@ -32,6 +32,8 @@ function toIso(text) {
 }
 const spanText = (s) => `${s.y ? `${s.y} שנים` : ''}${s.y && (s.m || s.days) ? ', ' : ''}${s.m ? `${s.m} חודשים` : ''}${s.m && s.days ? ' ו-' : ''}${s.days ? `${s.days} ימים` : ''}` || '0 ימים';
 const noticeText = (n) => (n.month ? 'חודש' : n.days === 1 ? 'יום אחד' : n.days === 0 ? 'אין (פחות מחודש עבודה)' : `${String(n.days).replace('.5', '½')} ימים`);
+// A fixed term that ended: the end day was known in advance, so no notice is presented as owed (review, PR 128).
+const nText = (r) => (r.reason === 'term' ? 'לא נדרשת בדרך כלל: מועד הסיום ידוע מראש' : noticeText(r.notice));
 
 /* ---------------- Pure renderers ---------------- */
 
@@ -78,13 +80,13 @@ export function renderForm(reg, input) {
 export function verdictSentence(reg, r) {
 	if (!r.ok) { return ''; }
 	if (!r.entitled) {
-		return `${spanText(r.span)} עבודה${r.reason === 'resign' ? ' והתפטרות רגילה' : ''}: אין פיצויי פיטורים מהמעסיק${r.s14 !== 'none' ? ', אבל הכספים שהופרשו לפיצויים בקופה שלכם' : ''}. הודעה מוקדמת: ${noticeText(r.notice)}.`;
+		return `${spanText(r.span)} עבודה${r.reason === 'resign' ? ' והתפטרות רגילה' : ''}: אין פיצויי פיטורים מהמעסיק${r.s14 !== 'none' ? ', אבל הכספים שהופרשו לפיצויים בקופה שלכם' : ''}. הודעה מוקדמת: ${nText(r)}.`;
 	}
 	const parts = [r.change ? `${nis(r.prevBase)} לחודש עד השינוי ו-${nis(r.base)} מאז, על ${spanText(r.span)}: ${nis(r.severance)}.` : r.unpaidExcess ? `${nis(r.base)} × ${money(r.countedYears, 2)} שנים (${spanText(r.span)} בניכוי ${r.unpaidExcess} ימי חופשה ללא תשלום) = ${nis(r.severance)}.` : `${nis(r.base)} × ${spanText(r.span)} = ${nis(r.severance)}.`];
 	if (r.change && r.unpaidExcess) { parts.push(`בניכוי ${r.unpaidExcess} ימי חופשה ללא תשלום (תקנה 10(3)).`); }
 	if (r.s14 !== 'none') { parts.push(`בעד התקופה שבה הופרש לפיצויים, מה שנצבר בקופה בא במקום ${r.s14Pct}% מהפיצויים, והמעסיק משלים ${r.retireCredit ? 'את ההפרש' : nis(r.employer)}.`); }
 	if (r.retireCredit) { parts.push('המעסיק רשאי לזקוף על חשבון הפיצויים כספים שהפריש לפיצויים בקופת גמל (סעיף 11(ה)), ולכן הוא משלם רק את ההפרש.'); }
-	parts.push(`הודעה מוקדמת: ${noticeText(r.notice)}.`);
+	parts.push(`הודעה מוקדמת: ${nText(r)}.`);
 	if (r.taxNote === 'year') { parts.push('החלק הפטור ממס לא חושב: תקרת הפטור לשנה זו אינה במחשבון.'); } else if (r.taxNote === 'fund') { parts.push(`פטור ממס עד ${nis(r.exempt)}; מה שמעבר לזה, לפי מה שנצבר בקופה, חייב במס.`); } else { parts.push(r.taxable > 0 ? `פטור ממס עד ${nis(r.exempt)}; ${nis(r.taxable)} חייבים במס.` : 'כל הסכום פטור ממס.'); }
 	return parts.join(' ');
 }
@@ -119,7 +121,7 @@ export function renderResult(reg, r, opts = {}) {
 		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}פיצויי פיטורים לפי החוק</p>`
 		+ `<strong class="jtool-verdict__figure">${ilsn(r.severance)}</strong>`
 		+ `<p class="jtool-verdict__sentence">${esc(verdictSentence(reg, r))}</p>`
-		+ `<dl class="jtool-breakdown"><div><dt>המעסיק משלם</dt><dd>${r.retireCredit ? 'הפיצויים, פחות כספי הפיצויים בקופה' : ilsn(r.employer)}</dd></div>${r.s14 !== 'none' && r.entitled ? '<div><dt>ועוד, מהקופה</dt><dd>מה שנצבר</dd></div>' : ''}${r.fundUnknown ? '<div><dt>בקופה (סעיף 14)</dt><dd>מה שנצבר, שלכם</dd></div>' : ''}<div><dt>הודעה מוקדמת</dt><dd>${esc(noticeText(r.notice))}</dd></div><div><dt>פטור ממס</dt><dd>${r.exempt === null ? 'לא חושב' : `${r.taxNote === 'fund' ? 'עד ' : ''}${ilsn(r.exempt)}`}</dd></div></dl></div>`
+		+ `<dl class="jtool-breakdown"><div><dt>המעסיק משלם</dt><dd>${r.retireCredit ? 'הפיצויים, פחות כספי הפיצויים בקופה' : ilsn(r.employer)}</dd></div>${r.s14 !== 'none' && r.entitled ? '<div><dt>ועוד, מהקופה</dt><dd>מה שנצבר</dd></div>' : ''}${r.fundUnknown ? '<div><dt>בקופה (סעיף 14)</dt><dd>מה שנצבר, שלכם</dd></div>' : ''}<div><dt>הודעה מוקדמת</dt><dd>${esc(nText(r))}</dd></div><div><dt>פטור ממס</dt><dd>${r.exempt === null ? 'לא חושב' : `${r.taxNote === 'fund' ? 'עד ' : ''}${ilsn(r.exempt)}`}</dd></div></dl></div>`
 		+ ruler(r) + timeline(reg, r)
 		+ (flags.length ? `<ul class="jtool-flags">${flags.map((f) => `<li><strong aria-hidden="true">${MARK[f.level]}</strong> ${esc(f.he)}</li>`).join('')}</ul>` : '');
 }
@@ -158,7 +160,7 @@ export function renderDetails(reg, r) {
 		rows.push(['השלמה מהמעסיק', r.retireCredit ? 'ההפרש' : ilsn(r.employer), r.fundUnknown ? 'אין: אין זכות לפיצויים מהמעסיק' : r.retireCredit ? `גם כספים לפיצויים שלא לפי סעיף 14 נזקפים${cite('סעיף 11(ה)', sv.law_url)}` : 'ההפרש']);
 	}
 	if (r.retireCredit && r.s14 === 'none') { rows.push(['כספי פיצויים בקופת גמל', 'נזקפים על חשבון הפיצויים', `גם בלי סעיף 14${cite('סעיף 11(ה)', sv.law_url)}`]); }
-	rows.push(['הודעה מוקדמת', `${esc(noticeText(r.notice))}${r.inLieu !== null ? ` (${nis(r.inLieu)} אם משלמים במקום עבודה${r.notice.month ? '' : ', לפי 30 ימים בחודש'})` : ''}`, cite(`${r.notice.section} לחוק הודעה מוקדמת`, sv.notice.url)]);
+	rows.push(['הודעה מוקדמת', `${esc(nText(r))}${r.inLieu !== null && r.reason !== 'term' ? ` (${nis(r.inLieu)} אם משלמים במקום עבודה${r.notice.month ? '' : ', לפי 30 ימים בחודש'})` : ''}`, cite(`${r.notice.section} לחוק הודעה מוקדמת`, sv.notice.url)]);
 	if (r.taxNote === 'fund') {
 		rows.push(['פטור ממס', `עד ${ilsn(r.exempt)}`, `משכורת חודש לשנה, עד ${money(sv.tax.ceiling, 0)} ₪ לשנה ב-${sv.tax.year}${cite(sv.tax.section, sv.tax.law_url)}${cite('לוח העזר 2026', sv.tax.source_url)}`]);
 		rows.push(['חייב במס', 'מה שמעבר לפטור', 'תלוי במה שנצבר בקופה']);

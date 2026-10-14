@@ -1352,6 +1352,12 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(fl.ok && fl.floored && Math.abs(fl.prevBase - Math.round(((fl.base - 1000) * 0.5 + 1000) * 100) / 100) < 0.01, 'a floored pay with a scope change: the commission stays apart in the earlier period (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 39) ---------- */
+{
+	const full = SH.compute(reg, { status: 'other', buyDate: '2010-06-01', buyPrice: 1000000, improve: 1000000, improveDate: '2012-06-01', depreciation: 2000000, saleDate: '2026-09-01', salePrice: 3000000 });
+	check(full.ok && full.dep === 2000000 && full.tax > 0 && !SH.compute(reg, { status: 'other', buyDate: '2010-06-01', buyPrice: 1000000, improve: 1000000, improveDate: '2012-06-01', depreciation: 2000001, saleDate: '2026-09-01', salePrice: 3000000 }).ok, 'depreciation equal to the whole basis is accepted, above it is not (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

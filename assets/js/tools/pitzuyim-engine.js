@@ -132,6 +132,9 @@ export function compute(registry, input) {
 	// A wage worker's service before 1.8.1983 earns two weeks a year (s.12(א)); the tool does not split it (review, PR 128).
 	if (payType === 'hourly' && start && start < sv.wage_regs_from) { errors.push({ field: 'start', he: 'לעובד לפי שעה או יום, תקופת העבודה שלפני 1.8.1983 מזכה בשכר שבועיים לשנה בלבד (סעיף 12(א)). את החישוב לתקופה כזאת המחשבון לא עושה; פנו לעורך דין או לרואה חשבון.' }); }
 	// With no notice given, a date left in the field is ignored (review, PR 128).
+	// Other grounds the law deems a dismissal (s.11(ב)-(ו) and more: seasonal work, enlistment or national service, a
+	// shelter, an elected office, ...) each have their own conditions; the tool does not check them (review, PR 128).
+	if (input.reason === 'other_ground') { errors.push({ field: 'reason', he: 'התפטרות מסיבה אחרת שהחוק רואה כפיטורים (למשל גיוס לשירות סדיר, שירות לאומי או אזרחי, שהייה במקלט לנשים מוכות, בחירה לראש רשות מקומית, עבודה עונתית, סעיף 11(ב)-(ו) ועוד): לכל סיבה תנאים משלה. את התנאים האלה המחשבון לא בודק; פנו לעורך דין או למדריך של משרד העבודה.' }); }
 	const noticeDate = blank(input.noticeDate) || input.noticeMode === 'none' ? null : parseDate(input.noticeDate);
 	if (!blank(input.noticeDate) && input.noticeMode !== 'none' && !noticeDate) { errors.push({ field: 'noticeDate', he: 'יום מסירת ההודעה: תאריך מלא' }); }
 	if (noticeDate && end && start && (noticeDate > end || noticeDate < start)) { errors.push({ field: 'noticeDate', he: 'ההודעה ניתנה בין יום התחילה ליום העבודה האחרון' }); }
@@ -280,6 +283,8 @@ export function compute(registry, input) {
 		severance, s14, s14Pct, s14From, coveredYears, coveredSev, fundReplaces, fundUnknown, employer,
 		change, changeDate, prevPct, prevSalary, prevHours, prevHourly, prevBase, cut, periods, taxNote, unpaidExcess, countedYears,
 		groundOk, nearClaim: input.nearClaim === true,
+		// s.11(ה): on retirement the employer may credit provident-fund money meant for severance, even outside s.14.
+		retireCredit: reason === 'retire' && entitled,
 		notice, workedToNotice, noticeDate, noticeEnd, short, inLieu, noticeMode,
 		exempt, taxable, exemptCap, ceilingTotal, perYear, deadlines, flags, mwRow,
 	};

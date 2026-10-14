@@ -59,8 +59,9 @@ export function renderForm(reg, input) {
 		+ `<p class="jtool-hint">קיבלתם את הנכס במתנה מקרוב שהיתה פטורה ממס? הזינו כאן את יום הרכישה ומחיר הרכישה של נותן המתנה, כי הם עוברים אליכם.</p>`
 		+ `<div class="jtool-row">${dateField('sd', 'יום המכירה (חתימת החוזה)', input.saleDate, 'לדוגמה: 1.10.2026')}${moneyField('spr', 'מחיר המכירה', input.salePrice, 'לדוגמה: 2,600,000')}</div>`
 		+ `<details class="jtool-more"${input.buyCosts || input.improve || input.saleCosts ? ' open' : ''}><summary>הוצאות שמנכים מהשבח</summary>`
-		+ `<div class="jtool-row" style="margin-top:8px">${moneyField('bc', 'הוצאות ברכישה', input.buyCosts, '0', 'מס רכישה, עורך דין, תיווך (עד 2%), שמאי')}${moneyField('sc', 'הוצאות במכירה', input.saleCosts, '0', 'עורך דין, תיווך (עד 2%), שמאי')}</div>`
-		+ `<div class="jtool-row">${moneyField('imp', 'שיפוצים והשבחות', input.improve, '0', 'לא תיקונים שוטפים')}<div data-if-improve${input.improve ? '' : ' hidden'}>${dateField('id', 'מתי (בערך) שופצה הדירה', input.improveDate, 'לדוגמה: 1.6.2015')}</div></div></details>`
+		+ `<div class="jtool-row" style="margin-top:8px">${moneyField('bc', 'הוצאות ששולמו ביום הרכישה', input.buyCosts, '0', 'מס רכישה, עורך דין, תיווך (עד 2%), שמאי')}${moneyField('sc', 'הוצאות ששולמו ביום המכירה', input.saleCosts, '0', 'עורך דין, תיווך (עד 2%), שמאי')}</div>`
+		+ `<div class="jtool-row">${moneyField('imp', 'שיפוצים, השבחות והוצאות ששולמו במועד אחר', input.improve, '0', 'לא תיקונים שוטפים')}<div data-if-improve${input.improve ? '' : ' hidden'}>${dateField('id', 'מתי (בערך) שולמו', input.improveDate, 'לדוגמה: 1.6.2015')}</div></div>`
+		+ `<p class="jtool-hint">כל הוצאה מוצמדת למדד מיום התשלום (סעיף 47). הוצאה ששולמה במועד אחר, כמו שכר טרחה או היטל השבחה, נכנסת בשורה שלמעלה עם התאריך שלה; כמה הוצאות במועדים שונים: חשבו אותן כל אחת לפי התאריך, או בסימולטור של רשות המסים.</p></details>`
 		+ `<details class="jtool-more"${input.mortgage || input.priorExempt || input.rented ? ' open' : ''}><summary>עוד פרטים</summary>`
 		+ `<div style="margin-top:8px">${moneyField('mtg', 'יתרת משכנתא לסילוק (לחישוב מה נשאר ביד)', input.mortgage, '0')}</div>`
 		+ `<div class="jtool-chips">${chip('pe', '1', 'מכרתי דירה אחרת בפטור כזה ב-18 החודשים שלפני', input.priorExempt, 'checkbox')}${chip('rn', '1', 'הדירה הושכרה', input.rented, 'checkbox')}</div>`
@@ -134,7 +135,7 @@ export function renderDetails(reg, r) {
 		['מחיר הרכישה והוצאות הרכישה', ils(r.buyPrice + r.buyCosts, 0), cite(sv.deductions.section, law)],
 	];
 	if (r.dep) { rows.push(['פחת בשנות ההשכרה (מופחת משווי הרכישה)', `−${ils(r.dep, 0)}`, cite(sv.depreciation_section, law)]); }
-	if (r.improve) { rows.push([`שיפוצים והשבחות (${isoToHe(r.improveDate)})`, ils(r.improve, 0), cite(sv.deductions.improve_section, law)]); }
+	if (r.improve) { rows.push([`שיפוצים והוצאות במועד אחר (${isoToHe(r.improveDate)})`, ils(r.improve, 0), cite(sv.deductions.improve_section, law)]); }
 	if (r.saleCosts) { rows.push(['הוצאות המכירה', ils(r.saleCosts, 0), cite(`${sv.deductions.lawyer_section}, ${sv.deductions.broker_sell_section}`, law)]); }
 	rows.push(['השבח', ilsn(Math.max(r.gain, 0)), cite('סעיף 47', law)]);
 	if (r.gain > 0) {

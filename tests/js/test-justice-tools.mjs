@@ -1214,6 +1214,17 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!term.flags.some((f) => f.code === 'resign_as_fired') && term.flags.some((f) => f.code === 'term_as_fired' && f.section === 'סעיף 9'), 'a fixed term that ended is described as a dismissal, never as a resignation (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 23) ---------- */
+{
+	const other = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'other_ground' }));
+	check(!other.ok && other.errors.some((e) => e.field === 'reason') && PEUI.renderForm(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'resign' })).includes('value="other_ground"'), 'other statutory grounds (enlistment, a shelter, elected office ...) are offered and decline a definitive result (review, PR 128)');
+	const ret = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'retire', groundOk: true, s14: 'none' }));
+	const html = PEUI.renderResult(reg, ret) + PEUI.renderDetails(reg, ret);
+	check(ret.retireCredit && html.includes('פחות כספי הפיצויים בקופה') && html.includes('סעיף 11(ה)') && PEUI.letter(reg, ret).includes('נזקפים על חשבונם'), 'retirement: fund money for severance is credited even without s.14, and the result and letter say so (s.11(ה); review, PR 128)');
+	const f = SHUI.renderForm(reg, SHUI.EXAMPLE);
+	check(f.includes('הוצאות ששולמו ביום הרכישה') && f.includes('מוצמדת למדד מיום התשלום'), 'expenses are asked by their payment date (s.47; review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

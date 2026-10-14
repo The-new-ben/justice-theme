@@ -435,6 +435,9 @@ function compute(registry, input) {
 	// A wage worker's service before 1.8.1983 earns two weeks a year (s.12(א)); the tool does not split it (review, PR 128).
 	if (payType === 'hourly' && start && start < sv.wage_regs_from) { errors.push({ field: 'start', he: 'לעובד לפי שעה או יום, תקופת העבודה שלפני 1.8.1983 מזכה בשכר שבועיים לשנה בלבד (סעיף 12(א)). את החישוב לתקופה כזאת המחשבון לא עושה; פנו לעורך דין או לרואה חשבון.' }); }
 	// With no notice given, a date left in the field is ignored (review, PR 128).
+	// Other grounds the law deems a dismissal (s.11(ב)-(ו) and more: seasonal work, enlistment or national service, a
+	// shelter, an elected office, ...) each have their own conditions; the tool does not check them (review, PR 128).
+	if (input.reason === 'other_ground') { errors.push({ field: 'reason', he: 'התפטרות מסיבה אחרת שהחוק רואה כפיטורים (למשל גיוס לשירות סדיר, שירות לאומי או אזרחי, שהייה במקלט לנשים מוכות, בחירה לראש רשות מקומית, עבודה עונתית, סעיף 11(ב)-(ו) ועוד): לכל סיבה תנאים משלה. את התנאים האלה המחשבון לא בודק; פנו לעורך דין או למדריך של משרד העבודה.' }); }
 	const noticeDate = blank(input.noticeDate) || input.noticeMode === 'none' ? null : parseDate(input.noticeDate);
 	if (!blank(input.noticeDate) && input.noticeMode !== 'none' && !noticeDate) { errors.push({ field: 'noticeDate', he: 'יום מסירת ההודעה: תאריך מלא' }); }
 	if (noticeDate && end && start && (noticeDate > end || noticeDate < start)) { errors.push({ field: 'noticeDate', he: 'ההודעה ניתנה בין יום התחילה ליום העבודה האחרון' }); }
@@ -583,6 +586,8 @@ function compute(registry, input) {
 		severance, s14, s14Pct, s14From, coveredYears, coveredSev, fundReplaces, fundUnknown, employer,
 		change, changeDate, prevPct, prevSalary, prevHours, prevHourly, prevBase, cut, periods, taxNote, unpaidExcess, countedYears,
 		groundOk, nearClaim: input.nearClaim === true,
+		// s.11(ה): on retirement the employer may credit provident-fund money meant for severance, even outside s.14.
+		retireCredit: reason === 'retire' && entitled,
 		notice, workedToNotice, noticeDate, noticeEnd, short, inLieu, noticeMode,
 		exempt, taxable, exemptCap, ceilingTotal, perYear, deadlines, flags, mwRow,
 	};
@@ -639,9 +644,9 @@ function renderForm(reg, input) {
 	const moneyField = (id, label, value, ph, suffix = '₪') => `<div class="jtool-field"><label class="jtool-label" for="${P}-${id}">${esc(label)}</label><div class="jtool-input jtool-input--money"><input id="${P}-${id}" type="text" inputmode="decimal" autocomplete="off" value="${esc(value === '' || value === undefined || value === null ? '' : money(value, value % 1 ? 2 : 0))}" placeholder="${esc(ph)}" aria-describedby="${P}-${id}-e"><span class="jtool-input__suffix" aria-hidden="true">${esc(suffix)}</span></div><p class="jtool-error" id="${P}-${id}-e" role="alert"></p></div>`;
 	const hourly = input.payType === 'hourly';
 	// A fixed term that ended is its own ending, not a resignation (review, PR 128).
-	const kind = input.reason === 'fired' ? 'fired' : input.reason === 'term' ? 'term' : 'resign';
+	const kind = input.reason === 'fired' ? 'fired' : input.reason === 'term' ? 'term' : 'resign'; // other_ground is a resignation
 	const resign = kind === 'resign';
-	const why = RESIGN_CODES.includes(input.reason) && input.reason !== 'term' ? input.reason : 'plain';
+	const why = (RESIGN_CODES.includes(input.reason) && input.reason !== 'term') || input.reason === 'other_ground' ? input.reason : 'plain';
 	const s14 = input.s14 || 'none';
 	return `<fieldset class="jtool-field"><legend>איך משולם השכר</legend><div class="jtool-chips">${chip('pt', 'monthly', 'משכורת חודשית', !hourly)}${chip('pt', 'hourly', 'לפי שעה או יום', hourly)}</div></fieldset>`
 		+ `<div data-if-pay="monthly"${hourly ? ' hidden' : ''}>${moneyField('sal', 'השכר החודשי האחרון (שכר יסוד ותוספות קבועות)', input.salary, 'לדוגמה: 12,000')}</div>`
@@ -653,6 +658,7 @@ function renderForm(reg, input) {
 		+ `<div class="jtool-chips" data-if-resign${resign ? '' : ' hidden'} style="margin-top:8px" role="group" aria-label="סיבת ההתפטרות">${chip('rw', 'plain', 'התפטרות רגילה', why === 'plain')}${RESIGN_CODES.filter((k) => k !== 'term').map((k) => chip('rw', k, REASON_LABEL[k], why === k)).join('')}</div>`
 		+ `<div data-if-ground${resign && why !== 'plain' ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-chips">${chip('po', '1', 'התנאים של הסיבה הזאת מתקיימים אצלי', input.groundOk || input.parentOk, 'checkbox')}</div>`
 		+ sv.reasons.filter((x) => x.code !== 'term').map((x) => `<p class="jtool-hint" data-ground-hint="${x.code}"${why === x.code ? '' : ' hidden'}>${esc(x.section)}: ${esc(x.conditions_he || x.he)}.</p>`).join('') + '</div>'
+		+ `<div class="jtool-chips" data-if-resign${resign ? '' : ' hidden'} style="margin-top:6px">${chip('rw', 'other_ground', 'סיבה אחרת שבחוק (גיוס, שירות לאומי, מקלט, בחירה לרשות מקומית, עבודה עונתית)', input.reason === 'other_ground')}</div><p class="jtool-error" id="${P}-reason-e" role="alert"></p>`
 		+ `<p class="jtool-hint">התפטרות מהסיבות האלה נחשבת לפיטורים (סעיפים 6, 7, 8 ו-11 לחוק פיצויי פיטורים), וכך גם חוזה לתקופה קצובה שלא חודש (סעיף 9).</p></fieldset>`
 		+ `<fieldset class="jtool-field"><legend>הפרשות לפנסיה במקום פיצויים (סעיף 14)</legend><div class="jtool-chips">${['none', 'partial', 'full', 'custom'].map((k) => chip('s14', k, S14_LABEL[k], s14 === k)).join('')}</div>`
 		+ `<div class="jtool-row" data-if-s14${s14 === 'none' ? ' hidden' : ''} style="margin-top:8px"><div class="jtool-field" data-if-custom${s14 === 'custom' ? '' : ' hidden'}><label class="jtool-label" for="${P}-s14p">אחוז הכיסוי לפי ההסכם</label><div class="jtool-input"><input id="${P}-s14p" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.s14Pct ?? '')}" placeholder="לדוגמה: 72" aria-describedby="${P}-s14Pct-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-s14Pct-e" role="alert"></p></div>${dateField('s14f', 'מתי התחילו ההפרשות (ריק = מתחילת העבודה)', input.s14From, 'לא חובה')}</div>`
@@ -677,6 +683,7 @@ function verdictSentence(reg, r) {
 	const parts = [r.change ? `${nis(r.prevBase)} לחודש עד השינוי ו-${nis(r.base)} מאז, על ${spanText(r.span)}: ${nis(r.severance)}.` : r.unpaidExcess ? `${nis(r.base)} × ${money(r.countedYears, 2)} שנים (${spanText(r.span)} בניכוי ${r.unpaidExcess} ימי חופשה ללא תשלום) = ${nis(r.severance)}.` : `${nis(r.base)} × ${spanText(r.span)} = ${nis(r.severance)}.`];
 	if (r.change && r.unpaidExcess) { parts.push(`בניכוי ${r.unpaidExcess} ימי חופשה ללא תשלום (תקנה 10(3)).`); }
 	if (r.s14 !== 'none') { parts.push(`בעד התקופה שבה הופרש לפיצויים, מה שנצבר בקופה בא במקום ${r.s14Pct}% מהפיצויים, והמעסיק משלים ${nis(r.employer)}.`); }
+	if (r.retireCredit) { parts.push('המעסיק רשאי לזקוף על חשבון הפיצויים כספים שהפריש לפיצויים בקופת גמל (סעיף 11(ה)), ולכן הוא משלם רק את ההפרש.'); }
 	parts.push(`הודעה מוקדמת: ${noticeText(r.notice)}.`);
 	if (r.taxNote === 'year') { parts.push('החלק הפטור ממס לא חושב: תקרת הפטור לשנה זו אינה במחשבון.'); } else if (r.taxNote === 'fund') { parts.push(`פטור ממס עד ${nis(r.exempt)}; מה שמעבר לזה, לפי מה שנצבר בקופה, חייב במס.`); } else { parts.push(r.taxable > 0 ? `פטור ממס עד ${nis(r.exempt)}; ${nis(r.taxable)} חייבים במס.` : 'כל הסכום פטור ממס.'); }
 	return parts.join(' ');
@@ -712,7 +719,7 @@ function renderResult(reg, r, opts = {}) {
 		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}פיצויי פיטורים לפי החוק</p>`
 		+ `<strong class="jtool-verdict__figure">${ilsn(r.severance)}</strong>`
 		+ `<p class="jtool-verdict__sentence">${esc(verdictSentence(reg, r))}</p>`
-		+ `<dl class="jtool-breakdown"><div><dt>המעסיק משלם</dt><dd>${ilsn(r.employer)}</dd></div>${r.s14 !== 'none' && r.entitled ? '<div><dt>ועוד, מהקופה</dt><dd>מה שנצבר</dd></div>' : ''}${r.fundUnknown ? '<div><dt>בקופה (סעיף 14)</dt><dd>מה שנצבר, שלכם</dd></div>' : ''}<div><dt>הודעה מוקדמת</dt><dd>${esc(noticeText(r.notice))}</dd></div><div><dt>פטור ממס</dt><dd>${r.exempt === null ? 'לא חושב' : `${r.taxNote === 'fund' ? 'עד ' : ''}${ilsn(r.exempt)}`}</dd></div></dl></div>`
+		+ `<dl class="jtool-breakdown"><div><dt>המעסיק משלם</dt><dd>${r.retireCredit ? 'הפיצויים, פחות כספי הפיצויים בקופה' : ilsn(r.employer)}</dd></div>${r.s14 !== 'none' && r.entitled ? '<div><dt>ועוד, מהקופה</dt><dd>מה שנצבר</dd></div>' : ''}${r.fundUnknown ? '<div><dt>בקופה (סעיף 14)</dt><dd>מה שנצבר, שלכם</dd></div>' : ''}<div><dt>הודעה מוקדמת</dt><dd>${esc(noticeText(r.notice))}</dd></div><div><dt>פטור ממס</dt><dd>${r.exempt === null ? 'לא חושב' : `${r.taxNote === 'fund' ? 'עד ' : ''}${ilsn(r.exempt)}`}</dd></div></dl></div>`
 		+ ruler(r) + timeline(reg, r)
 		+ (flags.length ? `<ul class="jtool-flags">${flags.map((f) => `<li><strong aria-hidden="true">${MARK[f.level]}</strong> ${esc(f.he)}</li>`).join('')}</ul>` : '');
 }
@@ -727,7 +734,7 @@ function letter(reg, r) {
 		`עבדתי אצלכם מיום ${isoToHe(r.start)} עד יום ${isoToHe(r.end)} (${spanText(r.span)}), ושכרי האחרון היה ${nis(r.base)} לחודש.`,
 		r.entitled ? (r.s14 !== 'none'
 			? `לפי סעיף 12 לחוק פיצויי פיטורים, התשכ"ג-1963, פיצויי הפיטורים לפי שכרי הם ${nis(r.severance)}. בעד התקופה שבה הופרשו כספים לפיצויים, הכספים שנצברו בקופה באים במקום ${r.s14Pct}% מהפיצויים (סעיף 14). אני מבקש לשחרר לי את כל הכספים שנצברו לפיצויים בקופה, ולשלם לי את ההשלמה של ${nis(r.employer)}.`
-			: `לפי סעיף 12 לחוק פיצויי פיטורים, התשכ"ג-1963, מגיעים לי פיצויי פיטורים של ${nis(r.severance)}.`) : null,
+			: `לפי סעיף 12 לחוק פיצויי פיטורים, התשכ"ג-1963, מגיעים לי פיצויי פיטורים של ${nis(r.severance)}.${r.retireCredit ? ' ככל שהפרשתם כספים לפיצויים בקופת גמל, הם נזקפים על חשבונם (סעיף 11(ה)); אבקש לשחרר לי אותם ולשלם לי את ההפרש.' : ''}`) : null,
 		r.noticeMode === 'none' && r.reason === 'fired' ? `לא ניתנה לי הודעה מוקדמת כחוק (${noticeText(r.notice)}), ולכן מגיע לי פיצוי בגובה השכר הרגיל לתקופה זו (סעיף 7(א) לחוק הודעה מוקדמת לפיטורים ולהתפטרות).` : null,
 		r.short && r.noticeMode === 'worked' && r.reason === 'fired' ? `ההודעה המוקדמת שקיבלתי הסתיימה ${r.short} ימים לפני המועד שבחוק (${noticeText(r.notice)}), ולכן מגיע לי השכר הרגיל בעד ימים אלה (סעיפים 6 ו-7(א) לחוק הודעה מוקדמת לפיטורים ולהתפטרות).` : null,
 		r.entitled ? `המועד לתשלום הפיצויים הוא יום סיום העבודה. פיצויים שלא שולמו תוך ${sv.late.grace_days} ימים מולנים, ואחרי היום ה-${sv.late.linkage_to_day} נוסף פיצוי הלנה של ${sv.late.monthly_pct}% לכל חודש (סעיף 20 לחוק הגנת השכר, התשי"ח-1958).` : null,
@@ -748,8 +755,9 @@ function renderDetails(reg, r) {
 	if (r.s14 !== 'none') {
 		if (!r.fundUnknown) { rows.push(['פיצויים בעד תקופת ההפרשות', ilsn(r.coveredSev), cite('סעיף 12(א)', sv.law_url)]); }
 		rows.push([r.fundUnknown ? 'בקופה, לפי סעיף 14' : `מהקופה, במקום ${r.s14Pct}% מהם`, 'מה שנצבר (לפי הדוח השנתי), שייך לכם', `${cite('סעיף 14', sv.law_url)}${cite('האישור הכללי', sv.approval.url)}`]);
-		rows.push(['השלמה מהמעסיק', ilsn(r.employer), r.fundUnknown ? 'אין: אין זכות לפיצויים מהמעסיק' : 'ההפרש']);
+		rows.push(['השלמה מהמעסיק', r.retireCredit ? 'ההפרש' : ilsn(r.employer), r.fundUnknown ? 'אין: אין זכות לפיצויים מהמעסיק' : r.retireCredit ? `גם כספים לפיצויים שלא לפי סעיף 14 נזקפים${cite('סעיף 11(ה)', sv.law_url)}` : 'ההפרש']);
 	}
+	if (r.retireCredit && r.s14 === 'none') { rows.push(['כספי פיצויים בקופת גמל', 'נזקפים על חשבון הפיצויים', `גם בלי סעיף 14${cite('סעיף 11(ה)', sv.law_url)}`]); }
 	rows.push(['הודעה מוקדמת', `${esc(noticeText(r.notice))}${r.inLieu !== null ? ` (${nis(r.inLieu)} אם משלמים במקום עבודה${r.notice.month ? '' : ', לפי 30 ימים בחודש'})` : ''}`, cite(`${r.notice.section} לחוק הודעה מוקדמת`, sv.notice.url)]);
 	if (r.taxNote === 'fund') {
 		rows.push(['פטור ממס', `עד ${ilsn(r.exempt)}`, `משכורת חודש לשנה, עד ${money(sv.tax.ceiling, 0)} ₪ לשנה ב-${sv.tax.year}${cite(sv.tax.section, sv.tax.law_url)}${cite('לוח העזר 2026', sv.tax.source_url)}`]);
@@ -764,7 +772,7 @@ function renderDetails(reg, r) {
 		+ `<div class="jtool-scroll" role="region" aria-labelledby="${P}-calc-h" tabindex="0"><table class="jtool-table"><thead><tr><th scope="col">מה</th><th scope="col">סכום</th><th scope="col">הכלל</th></tr></thead><tbody>`
 		+ rows.map(([a, b, c]) => `<tr><td data-th="מה">${esc(a)}</td><td data-th="סכום">${b}</td><td data-th="הכלל">${c}</td></tr>`).join('')
 		+ `</tbody><caption>הפיצויים על השכר האחרון; לעבודה במשרה חלקית בחלק מהתקופה, כל תקופה לפי חלקיות המשרה בה (תקנה 7). חופשה ללא תשלום מעל 14 ימים בשנה לא נספרת (תקנה 10).</caption></table></div></div>`;
-	if (r.entitled) {
+	if (r.entitled && !r.retireCredit) {
 		const arr = byArrangement(reg, { payType: r.payType, salary: r.monthly, hourly: r.hourly, hours: r.hours, jobPct: r.jobPct, start: r.start, end: r.end, reason: r.reason, change: r.change, changeDate: r.changeDate, prevPct: r.prevPct, prevSalary: r.prevSalary, prevHours: r.prevHours, prevHourly: r.prevHourly, unpaidExcess: r.unpaidExcess, groundOk: r.groundOk, nearClaim: r.nearClaim });
 		out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-arr-h">אותו עובד, שלושה הסדרים</h3></div><div class="jt7-scns jt13-scns">`
 			+ ['none', 'partial', 'full'].map((k) => { const v = arr[k]; const here = k === r.s14; return `<div class="jt7-scn${here ? ' jt7-scn--here' : ''}"><p>${esc(S14_LABEL[k])}${here ? ' (אתם)' : ''}</p><strong>${v ? ils(v.employer, 0) : '—'}</strong><small>${v ? (v.pct ? `המעסיק משלם; ועוד מה שנצבר בקופה, במקום ${v.pct}% מהפיצויים` : 'המעסיק משלם הכול') : ''}</small></div>`; }).join('')
@@ -828,8 +836,8 @@ function readForm(root) {
 	return {
 		payType: radio('pt', 'monthly'), salary: m('sal'), hourly: m('hr'), hours: m('hrs'), jobPct: m('job'),
 		start: toIso(val(`#${P}-start`)), end: toIso(val(`#${P}-end`)),
-		reason: kind === 'fired' ? 'fired' : kind === 'term' ? 'term' : (why === 'plain' || why === 'term' ? 'resign' : why),
-		groundOk: kind === 'resign' && why !== 'plain' && Boolean(root.querySelector(`input[name="${P}-po"]:checked`)),
+		reason: kind === 'fired' ? 'fired' : kind === 'term' ? 'term' : (why === 'plain' || why === 'term' ? 'resign' : why === 'other_ground' ? 'other_ground' : why),
+		groundOk: kind === 'resign' && why !== 'plain' && why !== 'other_ground' && Boolean(root.querySelector(`input[name="${P}-po"]:checked`)),
 		nearClaim: kind !== 'resign' && Boolean(root.querySelector(`input[name="${P}-ny"]:checked`)),
 		s14: radio('s14', 'none'), s14Pct: m('s14p'), s14From: toIso(val(`#${P}-s14f`)),
 		noticeDate: toIso(val(`#${P}-nd`)), noticeMode: radio('nm', 'worked'),
@@ -839,7 +847,7 @@ function readForm(root) {
 	};
 }
 
-const RS = { fired: 'f', resign: 'r', health: 'h', parent: 'p', move: 'm', term: 't', worse: 'w', retire: 'x' };
+const RS = { fired: 'f', resign: 'r', health: 'h', parent: 'p', move: 'm', term: 't', worse: 'w', retire: 'x', other_ground: 'g' };
 const S14 = { none: 'n', partial: 'p', full: 'f', custom: 'c' };
 const NM = { worked: 'w', paid: 'p', none: 'n' };
 const stateOf = (i) => encodeState({ t: i.payType === 'hourly' ? 'h' : '', w: i.salary || '', h: i.hourly || '', o: i.hours || '', j: i.jobPct || '', s: i.start, e: i.end, r: RS[i.reason] || 'f', f: S14[i.s14] || 'n', p: i.s14Pct || '', d: i.s14From || '', n: i.noticeDate || '', m: NM[i.noticeMode] || 'w', c: i.change ? 1 : '', a: i.change ? i.changeDate : '', b: i.change ? i.prevPct : '', g: i.change ? i.prevSalary : '', k: i.change && i.manyChanges ? 1 : '', x: i.change ? i.prevHours : '', y: i.change ? i.prevHourly : '', u: i.unpaidExcess || '', z: i.groundOk || i.parentOk ? 1 : '', q: i.nearClaim ? 1 : '' });
@@ -890,7 +898,7 @@ function mount(root, reg) {
 		form.querySelectorAll('[data-if-term]').forEach((el) => { el.hidden = rk !== 'term'; });
 		form.querySelectorAll('[data-if-dismissal]').forEach((el) => { el.hidden = rk === 'resign'; });
 		const rw = (root.querySelector(`input[name="${P}-rw"]:checked`) || {}).value || 'plain';
-		form.querySelectorAll('[data-if-ground]').forEach((el) => { el.hidden = !(rk === 'resign' && rw !== 'plain'); });
+		form.querySelectorAll('[data-if-ground]').forEach((el) => { el.hidden = !(rk === 'resign' && rw !== 'plain' && rw !== 'other_ground'); });
 		form.querySelectorAll('[data-ground-hint]').forEach((el) => { el.hidden = el.getAttribute('data-ground-hint') !== rw; });
 		const s14 = (root.querySelector(`input[name="${P}-s14"]:checked`) || {}).value || 'none';
 		form.querySelectorAll('[data-if-s14]').forEach((el) => { el.hidden = s14 === 'none'; });

@@ -1,5 +1,5 @@
 /**
- * Golden tests for the co.il tools engines (HAD-485, HAD-490, HAD-498). Run: node tests/js/test-justice-tools.mjs
+ * Golden tests for the co.il tools engines (HAD-485, HAD-490, HAD-498, HAD-502, HAD-504). Run: node tests/js/test-justice-tools.mjs
  *
  * CBS cases: the official linkage calculator (api.cbs.gov.il/index/data/calculator/120010),
  * queried on 12.10.2026; each case is the exact answer the CBS returned. The engine must
@@ -27,6 +27,12 @@ import * as TEUI from '../../assets/js/tools/teuna-ui.js';
 import * as DT from '../../assets/js/tools/dates.js';
 import * as GE from '../../assets/js/tools/gerushin-engine.js';
 import * as GEUI from '../../assets/js/tools/gerushin-ui.js';
+import * as RE from '../../assets/js/tools/schirut-engine.js';
+import * as REUI from '../../assets/js/tools/schirut-ui.js';
+import * as PE from '../../assets/js/tools/pitzuyim-engine.js';
+import * as PEUI from '../../assets/js/tools/pitzuyim-ui.js';
+import * as SH from '../../assets/js/tools/shevach-engine.js';
+import * as SHUI from '../../assets/js/tools/shevach-ui.js';
 import { encodeState, decodeState, decodeList, parseMoney, csv, ics, isStale, track, ilToday } from '../../assets/js/tools/instrument.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -757,6 +763,124 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const hiddenClock = (input) => /data-if-clock hidden/.test(GEUI.renderForm(reg, Object.assign({}, GEUI.EXAMPLE, input)));
 	check(hiddenClock({ route: 'court', abroad: true }), 'the clock inputs are hidden when a spouse lives abroad (s.4א(1); review, PR 126)');
 	check(hiddenClock({ route: 'agree' }) && !hiddenClock({ route: 'court', abroad: false }), 'hidden on the agreement route, shown for a contested route in Israel');
+}
+
+/* ---------- Wave 5 (HAD-504): the residential lease (Rental and Borrowing Law ss.25א-25טו, current to 30.9.2026) ---------- */
+{
+	const rc = reg.rent_contract;
+	check(rc.checked_on === '2026-10-14' && rc.law_current_to === '2026-09-30' && rc.deposit.months === 3 && rc.deposit.term_share.join('/') === '1/3' && rc.deposit.return_days === 60, 'lease registry: the cap of s.25י(ב) (3 months, a third of the term), return in 60 days, read 14.10.2026 on the text current to 30.9.2026');
+	check(rc.repairs.days === 30 && rc.repairs.urgent_days === 3 && rc.option.landlord_days === 90 && rc.option.tenant_days === 60 && rc.exit.landlord_days === 90 && rc.exit.tenant_days === 60 && rc.scope.rent_cap === 20000, 'lease registry: repairs 30/3 (s.25ח(ב)), options 90/60 (s.25יב), cancellation 90/60 (s.25יג), scope 20,000 (s.25טו(א)(4))');
+	check(rc.amend_2026.gazette_he.includes('3510') && rc.amend_2026.url.includes('25_lsr_12224370'), 'lease registry: the March 2026 amendment of s.25י (Sefer HaChukim 3510) is recorded with its official PDF');
+	const c1 = RE.depositCap(rc, 6000, 12);
+	check(c1.byTerm === 24000 && c1.byMonths === 18000 && c1.cap === 18000 && c1.binding === 'months', 'cap: 6,000 a month for 12 months: the lower of 24,000 (a third of the term) and 18,000 (3 months) = 18,000');
+	const c2 = RE.depositCap(rc, 6000, 6);
+	check(c2.cap === 12000 && c2.binding === 'term', 'cap: a 6-month lease: a third of the term (12,000) is the lower limit');
+	check(RE.depositCap(rc, 4500, 9).cap === 13500, 'cap: 4,500 for 9 months: both limits are 13,500');
+	const over = RE.compute(reg, { rent: 6000, months: 12, start: '2026-11-01', cash: 30000 });
+	const overText = RE.contractText(rc, over);
+	check(over.ok && over.flags.some((f) => f.code === 'deposit_over' && f.level === 'bad') && over.sec.cash === 18000 && overText.includes('18,000 ₪') && !overText.includes('30,000'), 'a 30,000 cash deposit on 6,000 a month: flagged, and the lease carries 18,000, never 30,000');
+	const mix = RE.compute(reg, { rent: 6000, months: 12, cash: 10000, bank: 10000 });
+	check(mix.sec.cash + mix.sec.bank === 18000 && mix.sec.cash === 9000, 'cash and a bank guarantee over the cap are scaled together to the cap');
+	check(RE.compute(reg, { rent: 6000, months: 12, other: 20000 }).flags.some((f) => f.code === 'deposit_over'), 'a guarantee from an insurer or a credit licensee counts in the cap (2026 amendment)');
+	const notes = RE.compute(reg, { rent: 6000, months: 12, bank: 18000, note: 40000, guarantors: 2 });
+	check(!notes.flags.some((f) => f.code === 'deposit_over') && notes.flags.some((f) => f.code === 'not_counted') && RE.contractText(rc, notes).includes('נספח ב'), 'a promissory note and guarantors cost the tenant nothing: outside the cap, and the guarantee appendix is added');
+	const bad = RE.compute(reg, { rent: 6000, months: 12, bank: 18000, forbidden: { insurance: true, broker: true, systems: true }, asIs: true, exit: 'landlord', returnDays: 90, repairDays: 45, urgentDays: 7 });
+	const badText = RE.contractText(rc, bad);
+	check(bad.bad === 8 && ['pay_insurance', 'pay_broker', 'pay_systems', 'as_is', 'exit_landlord', 'return_late', 'repair_late'].every((k) => bad.flags.some((f) => f.code === k)), 'the check flags building insurance, the landlord\'s broker, fixed systems, "as is", a landlord-only exit and late deadlines (ss.25ט(ב), 25ו, 25יג, 25י(ה), 25ח(ב))');
+	check(bad.flags.some((f) => f.code === 'urgent_late') && !RE.compute(reg, { rent: 6000, months: 12, returnDays: 90 }).flags.some((f) => f.code === 'return_late') && !badText.includes('כמות שהיא') && badText.includes('לא יאוחר מ-30 ימים') && badText.includes('לא יאוחר מ-3 ימים') && badText.includes('בתוך 60 ימים') && badText.includes('אין לצדדים זכות לבטל'), 'the lease never carries a void clause: 30 and 3 days for repairs, 60 days for the deposit, no landlord-only exit, no "as is"');
+	check(badText.includes('השוכר לא יישא בביטוח המבנה') && !/ישלם השוכר[^\n]*ביטוח המבנה/.test(badText), 'the lease says the tenant does not pay the building insurance, even when the landlord asked');
+	const exits = RE.compute(reg, { rent: 6000, months: 12, exit: 'both', exitLandlordDays: 30, exitTenantDays: 90 });
+	check(exits.flags.some((f) => f.code === 'exit_landlord_days') && exits.flags.some((f) => f.code === 'exit_tenant_days') && RE.contractText(rc, exits).includes('המשכיר בהודעה בכתב 90 ימים') && RE.contractText(rc, exits).includes('והשוכר בהודעה בכתב 60 ימים'), 'mutual cancellation: the landlord at least 90 days, the tenant 60 at most (s.25יג(ב), s.25יד)');
+	const opts = RE.compute(reg, { rent: 6000, months: 12, option: 'both', optionMonths: 12, optionPct: 5, optTenantDays: 90, optLandlordDays: 30 });
+	const optText = RE.contractText(rc, opts);
+	check(opts.optionRent === 6300 && opts.flags.some((f) => f.code === 'opt_tenant_days') && opts.flags.some((f) => f.code === 'opt_landlord_days') && optText.includes('6,300 ₪') && optText.includes('לא יאוחר מ-60 ימים לפני') && optText.includes('לא יאוחר מ-90 ימים לפני'), 'options: rent set in advance (6,300), the tenant notifies up to 60 days before, the landlord at least 90 (s.25יב(ב)-(ג))');
+	check(RE.compute(reg, { rent: 6000, months: 3 }).flags.some((f) => f.code === 'short') && !RE.compute(reg, { rent: 6000, months: 3, option: 'tenant', optionMonths: 3 }).flags.some((f) => f.code === 'short'), 'a lease of up to 3 months without an option is outside the part (s.25טו(א)(2)); with an option it is not');
+	check(RE.compute(reg, { rent: 25000, months: 12 }).flags.some((f) => f.code === 'rent_cap' && f.level === 'warn') && RE.compute(reg, { rent: 6000, months: 12, relative: true }).flags.some((f) => f.code === 'relative'), 'rent above 20,000 is flagged for a check (the indexed amount is not published); a relative tenant is noted (s.25טו(ב))');
+	const ex = RE.compute(reg, { rent: 6000, months: 12, start: '2026-11-01' });
+	check(ex.end === '2027-10-31' && ex.clauses.length === 15 && ex.clauses.every((c) => c.cites.length > 0), 'a 12-month lease from 1.11.2026 ends on 31.10.2027; 15 clauses, every one with its sections');
+	check(RE.contractText(rc, ex, true).includes('[סעיף 25ב; סעיף 25ג]') && !RE.contractText(rc, ex).includes('[סעיף'), 'the copy with sources carries them; the clean copy does not');
+	check(ex.schedule.map((s) => s.state).join(',') === 'hand,hand,list,filled,filled,filled,declared', 'the Second Schedule check: address and parties to fill by hand, the furniture list, the defects declaration');
+	check(Object.values(rc.cites).every((t) => t.length > 20) && ['25ב', '25ח(ב)', '25י(ב)', '25יג', 'guarantee'].every((k) => rc.cites[k]), 'every section chip has the text of its section');
+	const share = REUI.shareState(Object.assign({}, REUI.EXAMPLE, { landlord: 'משה כהן', tenant: 'דנה לוי', address: 'הרצל 5', city: 'חיפה', defects: 'רטיבות', furniture: 'מקרר' }));
+	check(!/משה|דנה|הרצל|חיפה|רטיבות|מקרר/.test(share) && share.includes('r6000'), 'privacy: the share link carries the terms only, never names, the address, defects or furniture');
+	const rs = REUI.snapshot(reg);
+	check(rs.total === 18000 && rs.result.includes('jt12-meter') && rs.result.includes('jtool-state--ok') && rs.details.includes('jt12-cite') && rs.details.includes('6,180') && rs.compare_table.includes('13,500') && rs.method.includes('24,000'), 'lease snapshot: the 18,000 cap and meter, a clean check, section chips, the option rent 6,180, the cap table');
+}
+
+/* ---------- Wave 5: severance pay, section 14, the advance notice, the tax ceiling and the deadlines ---------- */
+{
+	const sv = reg.severance;
+	check(sv.checked_on === '2026-10-14' && sv.tax.ceiling === 13750 && sv.tax.year === 2026 && sv.approval.partial_pct === 72 && sv.approval.full_pct === 100 && sv.late.grace_days === 15 && sv.late.monthly_pct === 20 && sv.notice.cert_days === 14, 'severance registry: the 2026 tax ceiling 13,750 per year, s.14 at 72% / 100%, late after 15 days, +20% a month, the certificate in 14 days');
+	const span = PE.serviceSpan('2018-03-01', '2026-09-30');
+	check(span.months === 103 && span.days === 0 && near(span.years, 103 / 12, 1e-9), '1.3.2018 to 30.9.2026 is 8 years and 7 months (103 months)');
+	const ex = PE.compute(reg, PEUI.EXAMPLE);
+	check(ex.ok && ex.severance === 103000 && ex.fundReplaces === 74160 && ex.employer === 28840 && ex.notice.month && ex.exempt === 103000 && ex.taxable === 0, 'example: 12,000 x 8 7/12 = 103,000; s.14 on 72%: the fund replaces 74,160, the employer adds 28,840; a month notice; all exempt');
+	check(PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'none' })).employer === 103000 && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'full' })).employer === 0, 'no s.14: the employer pays 103,000; s.14 at 100%: the fund replaces it all');
+	const from20 = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14From: '2020-01-01' }));
+	check(near(from20.coveredYears, 6.75, 1e-9) && from20.fundReplaces === 58320 && from20.employer === 44680, 's.14 from 1.1.2020 only: 6.75 years x 12,000 x 72% = 58,320 replaced, 44,680 from the employer');
+	const short = PE.compute(reg, { salary: 10000, start: '2026-01-01', end: '2026-09-30' });
+	check(!short.entitled && short.severance === 0 && short.flags.some((f) => f.code === 'under_year') && short.notice.days === 13.5, 'under a year: no severance (s.1(א)); after 9 months a monthly employee gets 6 + 2.5 x 3 = 13.5 days of notice (s.3(2))');
+	check(PE.compute(reg, { salary: 10000, start: '2025-11-01', end: '2026-09-30' }).flags.some((f) => f.code === 'near_year'), 'a dismissal after 11 months: the s.3 presumption is flagged');
+	const resign = PE.compute(reg, { salary: 10000, start: '2018-01-01', end: '2026-09-30', reason: 'resign', s14: 'partial' });
+	check(!resign.entitled && resign.employer === 0 && resign.flags.some((f) => f.code === 'resign'), 'an ordinary resignation: nothing from the employer; the s.14 fund stays the worker\'s');
+	const worse = PE.compute(reg, { salary: 10000, start: '2018-01-01', end: '2026-09-30', reason: 'worse' });
+	check(worse.entitled && worse.severance > 0 && worse.flags.some((f) => f.code === 'resign_as_fired' && f.section === 'סעיף 11(א)'), 'a resignation for worse conditions counts as a dismissal (s.11(א))');
+	const hourly = PE.compute(reg, { payType: 'hourly', hourly: 45, hours: 160, start: '2020-01-01', end: '2025-12-31' });
+	check(hourly.base === 7200 && hourly.severance === 43200 && !hourly.floored, 'a wage-paid employee: 45 x 160 = 7,200 a month, 6 years = 43,200 (1983 regulations)');
+	const low = PE.compute(reg, { payType: 'hourly', hourly: 30, hours: 160, start: '2020-01-01', end: '2026-09-30' });
+	check(low.floored && low.base === 5664 && low.flags.some((f) => f.code === 'min_wage'), 'below the minimum wage: computed on 35.40 x 160 = 5,664 (s.13ב)');
+	check(PE.compute(reg, { salary: 5000, start: '2020-01-01', end: '2026-09-30' }).base === 6443.85 && !PE.compute(reg, { salary: 5000, jobPct: 50, start: '2020-01-01', end: '2026-09-30' }).floored, 'a monthly salary below the minimum is floored to 6,443.85; at a 50% job it is not');
+	const nd = (pt, m) => PE.noticeDays(sv, pt, m);
+	check(nd('monthly', 1).days === 1 && nd('monthly', 6).days === 6 && nd('monthly', 7).days === 8.5 && nd('monthly', 11).days === 18.5 && nd('monthly', 12).month, 'notice for a monthly salary: 1 day a month, then 6 + 2.5 a month, a month after a year (s.3)');
+	check(nd('hourly', 11).days === 11 && nd('hourly', 12).days === 14 && nd('hourly', 14).days === 15 && nd('hourly', 24).days === 21 && nd('hourly', 26).days === 22 && nd('hourly', 36).month, 'notice for a wage: 1 a month in year 1, 14 + 1 per 2 months in year 2, 21 + 1 per 2 months in year 3, then a month (s.4)');
+	const late = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { noticeDate: '2026-09-15' }));
+	check(late.noticeEnd === '2026-10-15' && late.short === 15 && late.flags.some((f) => f.code === 'short_notice'), 'notice given 15.9.2026 ends 15.10.2026 (Interpretation Law s.10(ב)); a last day of 30.9 leaves 15 days to compensate (s.7(א))');
+	check(PE.monthLater('2026-01-31') === '2026-02-28' && PE.monthLater('2026-04-30') === '2026-05-30', 'a month after 31.1 is 28.2, after 30.4 is 30.5 (s.10(ב))');
+	const rich = PE.compute(reg, { salary: 20000, start: '2016-10-01', end: '2026-09-30' });
+	check(rich.exempt === 137500 && rich.taxable === 62500 && !rich.flags.some((f) => f.code === 'commissioner'), 'tax: 20,000 x 10 years: exempt up to 13,750 a year = 137,500, taxable 62,500 (s.9(7א)(א))');
+	const mid = PE.compute(reg, { salary: 10000, start: '2016-10-01', end: '2026-09-30' });
+	check(mid.exempt === 100000 && mid.taxable === 0, 'tax: 10,000 x 10 years: one month per year, all exempt');
+	const dls = Object.fromEntries(ex.deadlines.map((d) => [d.key, d.date]));
+	check(dls.due === '2026-09-30' && dls.grace === '2026-10-15' && dls.twenty === '2026-10-30' && dls.cert === '2026-10-14' && dls.limit === '2033-09-30', 'deadlines: due on the last day, late after 15 days, +20% after 30, the certificate in 14 days, limitation 7 years');
+	check(PEUI.letter(reg, ex).includes('103,000') && PEUI.letter(reg, ex).includes('סעיף 20') && PEUI.letter(reg, ex).includes('28,840'), 'the letter to the employer states the sum, the s.14 top-up and the late-payment rule');
+	const ps = PEUI.snapshot(reg);
+	check(ps.total === 103000 && ps.result.includes('jt13-ruler') && ps.result.includes('jt13-time') && ps.details.includes('data-act="ics"') && ps.compare_table.includes('8½ ימים'), 'severance snapshot: the ruler, the payment timeline, the .ics, the notice table');
+}
+
+/* ---------- Wave 5: capital gains tax on a home (Land Taxation Law; Tax Authority instruction 1/2026; CBS index) ---------- */
+{
+	const sh = reg.shevach;
+	check(sh.checked_on === '2026-10-14' && sh.single.ceiling === 5008000 && sh.single.ceiling_to === '2027-12-31' && sh.surtax.threshold === 5385285 && sh.rates.post2012 === 25 && sh.rates.mid === 20 && sh.rates.pre2001 === 47 && sh.rates.inflation === 10, 'capital-gains registry: ceiling 5,008,000 to 31.12.2027, surtax line 5,385,285 (instruction 1/2026), rates 25 / 20 / 47 / 10');
+	// CBS linkage calculator (api.cbs.gov.il/index/data/calculator/120010), read on 14.10.2026: the indexed purchase value.
+	const cbs = [
+		[{ buyDate: '2010-06-01', buyPrice: 1200000, buyCosts: 60000, saleDate: '2026-09-01', salePrice: 2600000 }, 1633080.74],
+		[{ buyDate: '2010-06-01', buyPrice: 1200000, buyCosts: 60000, saleDate: '2026-10-01', salePrice: 2600000 }, 1643957.59],
+		[{ buyDate: '1992-05-10', buyPrice: 300000, saleDate: '2026-09-01', salePrice: 3000000 }, 909961.17],
+		[{ buyDate: '2015-01-01', buyPrice: 3000000, saleDate: '2026-09-01', salePrice: 6000000 }, 3589361.83],
+	];
+	for (const [inp, value] of cbs) {
+		const r = SH.compute(reg, Object.assign({ status: 'other' }, inp));
+		check(r.ok && near(r.adjusted, value, 0.011), `CBS linkage from ${inp.buyDate} to ${inp.saleDate}: ${value} (got ${r.adjusted})`);
+	}
+	const old = SH.compute(reg, { status: 'other', buyDate: '1992-05-10', buyPrice: 300000, saleDate: '2026-09-01', salePrice: 3000000 });
+	check(near(old.inflTaxable, 53445.85, 0.011) && old.regular.parts.length === 4 && old.regular.parts[0].rate === 47 && old.regular.parts[3].rate === 10, 'a 1992 purchase: the inflation up to 31.12.1993 (CBS: 353,445.85) is taxed at 10%, the real gain in three periods at 47 / 20 / 25%');
+	const ex = SH.compute(reg, SHUI.EXAMPLE);
+	check(ex.ok && ex.path === 'linear' && near(ex.inflationary, 383957.59, 0.011) && near(ex.shares.linear, 1310 / 5966, 1e-9) && near(ex.tax, ex.realGain * (1 - 1310 / 5966) * 0.25, 0.011), 'example: a qualifying home bought 1.6.2010: the real gain up to 1.1.2014 (1,310 of 5,966 days) is exempt, the rest at 25% (s.48א(ב2))');
+	check(ex.regular.tax > ex.tax && ex.net === Math.round((2600000 - ex.tax - 30000) * 100) / 100, 'the linear rule beats the regular one; the net is the price less the tax and the sale costs');
+	const single = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single' }));
+	check(single.path === 'exempt' && single.tax === 0, 'the only home, held 18 months, under the ceiling: exempt (s.49ב(2))');
+	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', buyDate: '2025-06-01', buyPrice: 2000000 })).flags.some((f) => f.code === 'held') && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'single', priorExempt: true })).path === 'linear', 'held under 18 months, or an exempt sale in the 18 months before: no single-home exemption');
+	const big = SH.compute(reg, { status: 'single', buyDate: '2015-01-01', buyPrice: 3000000, saleDate: '2026-09-01', salePrice: 6000000 });
+	check(big.path === 'partial' && near(big.exemptShare, 5008000 / 6000000, 1e-12) && near(big.tax, big.regular.tax * (1 - 5008000 / 6000000), 0.011) && big.flags.some((f) => f.code === 'surtax') && big.flags.some((f) => f.code === 'ceiling'), 'above the ceiling: the share above 5,008,000 is taxed (s.49א(א1)); above 5,385,285 the surtax is flagged');
+	check(SH.compute(reg, { status: 'qualified', buyDate: '2016-01-01', buyPrice: 2000000, saleDate: '2026-09-01', salePrice: 1900000 }).path === 'loss', 'a sale under the purchase price: no gain, no tax');
+	check(!SH.compute(reg, { status: 'other', buyDate: '1990-02-01', buyPrice: 100000, saleDate: '2026-09-01', salePrice: 900000 }).ok, 'a purchase before the registry\'s index (16.3.1990) is refused, never guessed');
+	const imp = SH.compute(reg, { status: 'other', buyDate: '2010-06-01', buyPrice: 1200000, improve: 100000, improveDate: '2015-06-01', saleDate: '2026-09-01', salePrice: 2600000 });
+	check(imp.ok && imp.adjusted > SH.compute(reg, { status: 'other', buyDate: '2010-06-01', buyPrice: 1200000, saleDate: '2026-09-01', salePrice: 2600000 }).adjusted + 100000, 'an improvement is indexed from its own day (s.47, "יתרת שווי רכישה מתואמת" (2))');
+	check(SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { saleDate: '2026-12-01' })).flags.some((f) => f.code === 'index_ahead'), 'a sale whose known index is not yet published is flagged');
+	const dl = Object.fromEntries(ex.deadlines.map((d) => [d.key, d.date]));
+	check(dl.declare === '2026-11-01' && dl.pay === '2026-11-30', 'a sale on 1.10.2026: the 30 days end on Saturday 31.10, so the declaration is due 1.11.2026 (Interpretation Law s.10(ג)); payment by 30.11.2026 (s.90א)');
+	const ss = SHUI.snapshot(reg);
+	check(near(ss.total, ex.tax, 0.001) && ss.result.includes('jt14-strip') && ss.details.includes('48א(ב2)') && ss.compare_table.includes('1995') && ss.method.includes('383,957.59'), 'capital-gains snapshot: the strip, the linear section, the years table, the CBS inflation in the method');
 }
 
 if (failures) {

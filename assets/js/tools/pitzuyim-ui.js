@@ -1,0 +1,334 @@
+/**
+ * Wave 5 UI: severance pay and the advance notice (HAD-504). The service ruler shows the years of work, the part that
+ * section 14 put in the pension fund and the part the employer still owes; the timeline after it shows the notice and
+ * the payment deadlines of the Wage Protection Law. The table, the letter and the .ics say the same in text.
+ */
+import { compute, byArrangement, RESIGN_CODES } from './pitzuyim-engine.js';
+import {
+	esc, ils, money, parseMoney, isoToHe, encodeState, decodeState, ics,
+	track, download, copyText, toast, shareUrl, whatsappUrl, store, stickyBar, isStale, ilToday,
+} from './instrument.js';
+
+export const TOOL_ID = 'pitzuyim';
+const P = 'jt13';
+
+export const EXAMPLE = { payType: 'monthly', salary: 12000, hourly: '', hours: '', jobPct: '', start: '2018-03-01', end: '2026-09-30', reason: 'fired', s14: 'partial', s14Pct: '', s14From: '', noticeDate: '', noticeMode: 'worked' };
+
+const S14_LABEL = { none: 'אין סעיף 14', partial: 'סעיף 14 על 72%', full: 'סעיף 14 מלא (100%)', custom: 'אחוז אחר לפי ההסכם' };
+const REASON_LABEL = { health: 'בריאות', parent: 'הורות (9 חודשים)', move: 'מעבר דירה', term: 'חוזה שלא חודש', worse: 'הרעת תנאים', retire: 'גיל פרישה' };
+const MARK = { bad: '✕', warn: '!', info: 'i', ok: '✓' };
+const nis = (n) => `${money(n, n % 1 ? 2 : 0)} ₪`;
+const ilsn = (n) => ils(n, Math.round(n * 100) % 100 ? 2 : 0);
+const cite = (text, href) => (href ? ` <a class="jtool-cite" href="${esc(href)}" target="_blank" rel="noopener">${esc(text)}</a>` : '');
+
+function toIso(text) {
+	const raw = String(text || '').trim();
+	let m = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+	if (m) { return `${m[1]}-${m[2].padStart(2, '0')}-${m[3].padStart(2, '0')}`; }
+	m = raw.match(/^(\d{1,2})[./-](\d{1,2})[./-](\d{2,4})$/);
+	if (!m) { return raw; }
+	let y = +m[3]; if (y < 100) { y += 2000; }
+	return `${y}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
+}
+const spanText = (s) => `${s.y ? `${s.y} שנים` : ''}${s.y && (s.m || s.days) ? ', ' : ''}${s.m ? `${s.m} חודשים` : ''}${s.m && s.days ? ' ו-' : ''}${s.days ? `${s.days} ימים` : ''}` || '0 ימים';
+const noticeText = (n) => (n.month ? 'חודש' : n.days === 1 ? 'יום אחד' : n.days === 0 ? 'אין (פחות מחודש עבודה)' : `${String(n.days).replace('.5', '½')} ימים`);
+
+/* ---------------- Pure renderers ---------------- */
+
+export function renderForm(reg, input) {
+	const sv = reg.severance;
+	const chip = (name, value, label, checked, type = 'radio') => `<label class="jtool-chip"><input type="${type}" name="${P}-${name}" value="${value}"${checked ? ' checked' : ''}><span>${esc(label)}</span></label>`;
+	const dateField = (id, label, value, ph) => `<div class="jtool-field"><label class="jtool-label" for="${P}-${id}">${esc(label)}</label><input id="${P}-${id}" type="text" inputmode="numeric" autocomplete="off" value="${esc(isoToHe(value || ''))}" placeholder="${esc(ph)}" aria-describedby="${P}-${id}-e"><p class="jtool-error" id="${P}-${id}-e" role="alert"></p></div>`;
+	const moneyField = (id, label, value, ph, suffix = '₪') => `<div class="jtool-field"><label class="jtool-label" for="${P}-${id}">${esc(label)}</label><div class="jtool-input jtool-input--money"><input id="${P}-${id}" type="text" inputmode="decimal" autocomplete="off" value="${esc(value === '' || value === undefined || value === null ? '' : money(value, value % 1 ? 2 : 0))}" placeholder="${esc(ph)}" aria-describedby="${P}-${id}-e"><span class="jtool-input__suffix" aria-hidden="true">${esc(suffix)}</span></div><p class="jtool-error" id="${P}-${id}-e" role="alert"></p></div>`;
+	const hourly = input.payType === 'hourly';
+	const resign = input.reason !== 'fired';
+	const why = RESIGN_CODES.includes(input.reason) ? input.reason : 'plain';
+	const s14 = input.s14 || 'none';
+	return `<fieldset class="jtool-field"><legend>איך משולם השכר</legend><div class="jtool-chips">${chip('pt', 'monthly', 'משכורת חודשית', !hourly)}${chip('pt', 'hourly', 'לפי שעה או יום', hourly)}</div></fieldset>`
+		+ `<div data-if-pay="monthly"${hourly ? ' hidden' : ''}>${moneyField('sal', 'השכר החודשי האחרון (שכר יסוד ותוספות קבועות)', input.salary, 'לדוגמה: 12,000')}</div>`
+		+ `<div class="jtool-row" data-if-pay="hourly"${hourly ? '' : ' hidden'}>${moneyField('hr', 'שכר לשעה', input.hourly, 'לדוגמה: 45')}${moneyField('hrs', 'ממוצע שעות בחודש', input.hours, 'לדוגמה: 160', 'שעות')}</div>`
+		+ `<div class="jtool-row">${dateField('start', 'יום תחילת העבודה', input.start, 'לדוגמה: 1.3.2018')}${dateField('end', 'יום העבודה האחרון', input.end, 'לדוגמה: 30.9.2026')}</div>`
+		+ `<fieldset class="jtool-field"><legend>איך העבודה הסתיימה</legend><div class="jtool-chips">${chip('rk', 'fired', 'פוטרתי', !resign)}${chip('rk', 'resign', 'התפטרתי', resign)}</div>`
+		+ `<div class="jtool-chips" data-if-resign${resign ? '' : ' hidden'} style="margin-top:8px" role="group" aria-label="סיבת ההתפטרות">${chip('rw', 'plain', 'התפטרות רגילה', why === 'plain')}${RESIGN_CODES.map((k) => chip('rw', k, REASON_LABEL[k], why === k)).join('')}</div>`
+		+ `<p class="jtool-hint">התפטרות מהסיבות האלה נחשבת לפיטורים (סעיפים 6, 7, 8, 9 ו-11 לחוק פיצויי פיטורים).</p></fieldset>`
+		+ `<fieldset class="jtool-field"><legend>הפרשות לפנסיה במקום פיצויים (סעיף 14)</legend><div class="jtool-chips">${['none', 'partial', 'full', 'custom'].map((k) => chip('s14', k, S14_LABEL[k], s14 === k)).join('')}</div>`
+		+ `<div class="jtool-row" data-if-s14${s14 === 'none' ? ' hidden' : ''} style="margin-top:8px"><div class="jtool-field" data-if-custom${s14 === 'custom' ? '' : ' hidden'}><label class="jtool-label" for="${P}-s14p">אחוז הכיסוי לפי ההסכם</label><div class="jtool-input"><input id="${P}-s14p" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.s14Pct ?? '')}" placeholder="לדוגמה: 72" aria-describedby="${P}-s14Pct-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-s14Pct-e" role="alert"></p></div>${dateField('s14f', 'מתי התחילו ההפרשות (ריק = מתחילת העבודה)', input.s14From, 'לא חובה')}</div>`
+		+ `<p class="jtool-hint">ברוב התלושים כתוב "סעיף 14". הפרשה של 6% לפיצויים בלי השלמה של 2⅓% מכסה 72%; הפרשה של 8⅓% מכסה 100% (${esc(sv.approval.he)}).</p></fieldset>`
+		+ `<details class="jtool-more"${input.noticeDate || (input.noticeMode && input.noticeMode !== 'worked') ? ' open' : ''}><summary>ההודעה המוקדמת</summary>`
+		+ `<div class="jtool-row" style="margin-top:8px">${dateField('nd', 'יום מסירת ההודעה בכתב', input.noticeDate, 'לא חובה')}<div class="jtool-field"><span class="jtool-label">מה קרה בתקופת ההודעה</span><div class="jtool-chips">${chip('nm', 'worked', 'עבדתי', (input.noticeMode || 'worked') === 'worked')}${chip('nm', 'paid', 'שילמו בלי עבודה', input.noticeMode === 'paid')}${chip('nm', 'none', 'לא קיבלתי הודעה', input.noticeMode === 'none')}</div></div></div></details>`
+		+ `<details class="jtool-more"${input.jobPct ? ' open' : ''}><summary>היקף משרה (לבדיקת שכר המינימום)</summary><div class="jtool-field" style="margin-top:8px"><label class="jtool-label" for="${P}-job">אחוז משרה</label><div class="jtool-input"><input id="${P}-job" type="text" inputmode="decimal" autocomplete="off" value="${esc(input.jobPct ?? '')}" placeholder="100" aria-describedby="${P}-jobPct-e"><span class="jtool-input__suffix" aria-hidden="true">%</span></div><p class="jtool-error" id="${P}-jobPct-e" role="alert"></p></div></details>`;
+}
+
+export function verdictSentence(reg, r) {
+	if (!r.ok) { return ''; }
+	if (!r.entitled) {
+		return `${spanText(r.span)} עבודה${r.reason === 'resign' ? ' והתפטרות רגילה' : ''}: אין פיצויי פיטורים מהמעסיק${r.s14 !== 'none' ? ', אבל הכספים שהופרשו לפיצויים בקופה שלכם' : ''}. הודעה מוקדמת: ${noticeText(r.notice)}.`;
+	}
+	const parts = [`${nis(r.base)} × ${spanText(r.span)} = ${nis(r.severance)}.`];
+	if (r.s14 !== 'none') { parts.push(`הקופה מכסה ${r.s14Pct}% מהתקופה שבה הופרש (${nis(r.fundReplaces)} לפי החישוב, ובפועל מה שנצבר), והמעסיק משלים ${nis(r.employer)}.`); }
+	parts.push(`הודעה מוקדמת: ${noticeText(r.notice)}.`);
+	parts.push(r.taxable > 0 ? `פטור ממס עד ${nis(r.exempt)}; ${nis(r.taxable)} חייבים במס.` : 'כל הסכום פטור ממס.');
+	return parts.join(' ');
+}
+
+/** The service ruler: one segment per year of work; the part section 14 covers is hatched in teal. */
+function ruler(r) {
+	const years = Math.max(r.span.years, 1 / 12);
+	const ticks = [];
+	for (let y = 1; y < years; y += 1) { ticks.push(`<i class="jt13-tick" style="inset-inline-start:${((y / years) * 100).toFixed(2)}%"></i>`); }
+	const coveredPct = r.entitled && r.s14 !== 'none' ? Math.min(100, (r.coveredYears / years) * 100) : 0;
+	return `<div class="jt13-ruler" role="img" aria-label="${esc(`${spanText(r.span)} עבודה${coveredPct ? `; סעיף 14 על ${r.s14Pct}% מ-${coveredPct.toFixed(0)}% מהתקופה` : ''}`)}">`
+		+ `<p class="jt13-ruler__h">תקופת העבודה: ${esc(spanText(r.span))}</p>`
+		+ `<div class="jt13-ruler__bar"><span class="jt13-ruler__fund" style="width:${coveredPct.toFixed(2)}%;height:${r.s14Pct}%"></span>${ticks.join('')}</div>`
+		+ `<div class="jt13-ruler__ends"><span>${esc(isoToHe(r.start))}</span><span>${esc(isoToHe(r.end))}</span></div>`
+		+ `<p class="jt13-ruler__legend"><span><i class="jt13-k jt13-k--emp"></i>המעסיק משלם</span>${coveredPct ? `<span><i class="jt13-k jt13-k--fund"></i>הקופה במקום ${r.s14Pct}% (סעיף 14)</span>` : ''}</p></div>`;
+}
+
+function timeline(reg, r) {
+	const sv = reg.severance;
+	const dl = r.deadlines.filter((d) => ['due', 'grace', 'twenty', 'cert'].includes(d.key));
+	return `<ol class="jt13-time" aria-label="המועדים אחרי סיום העבודה">${dl.map((d, i) => `<li class="jt13-time__st${i === 0 ? ' jt13-time__st--due' : ''}"><span class="jt13-time__d">${esc(isoToHe(d.date))}</span><span class="jt13-time__t">${esc({ due: 'הפיצויים צריכים להיות בחשבון', grace: `עד היום ה-${sv.late.grace_days}: בלי פיצוי הלנה`, twenty: `אחרי היום ה-${sv.late.linkage_to_day}: עוד ${sv.late.monthly_pct}% לחודש`, cert: 'אישור על תקופת העבודה' }[d.key])}</span></li>`).join('')}</ol>`;
+}
+
+export function renderResult(reg, r, opts = {}) {
+	if (!r.ok) {
+		return `<div class="jtool-verdict" data-jtool-live aria-live="polite"><p class="jtool-state jtool-state--danger">✕ צריך לתקן את הקלט</p>`
+			+ `<p class="jtool-verdict__sentence">${r.errors.map((e) => esc(e.he)).join(' ')}</p></div>`;
+	}
+	const flags = r.flags.filter((f) => f.code !== 's14');
+	return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true">`
+		+ (r.entitled ? '<p class="jtool-state jtool-state--ok">✓ מגיעים פיצויי פיטורים</p>' : '<p class="jtool-state jtool-state--warn">! אין זכות לפיצויים מהמעסיק</p>')
+		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}פיצויי פיטורים לפי החוק</p>`
+		+ `<strong class="jtool-verdict__figure">${ilsn(r.severance)}</strong>`
+		+ `<p class="jtool-verdict__sentence">${esc(verdictSentence(reg, r))}</p>`
+		+ `<dl class="jtool-breakdown"><div><dt>המעסיק משלם</dt><dd>${ilsn(r.employer)}</dd></div>${r.s14 !== 'none' && r.entitled ? `<div><dt>במקום זה, מהקופה</dt><dd>${ilsn(r.fundReplaces)}</dd></div>` : ''}<div><dt>הודעה מוקדמת</dt><dd>${esc(noticeText(r.notice))}</dd></div><div><dt>פטור ממס</dt><dd>${ilsn(r.exempt)}</dd></div></dl></div>`
+		+ ruler(r) + timeline(reg, r)
+		+ (flags.length ? `<ul class="jtool-flags">${flags.map((f) => `<li><strong aria-hidden="true">${MARK[f.level]}</strong> ${esc(f.he)}</li>`).join('')}</ul>` : '');
+}
+
+export function deadlines(reg, r) {
+	return r.ok ? r.deadlines : [];
+}
+
+export function letter(reg, r) {
+	const sv = reg.severance;
+	const lines = ['לכבוד', '__________ (המעסיק)', '', 'הנדון: תשלום פיצויי פיטורים והודעה מוקדמת', '',
+		`עבדתי אצלכם מיום ${isoToHe(r.start)} עד יום ${isoToHe(r.end)} (${spanText(r.span)}), ושכרי האחרון היה ${nis(r.base)} לחודש.`,
+		r.entitled ? `לפי סעיף 12 לחוק פיצויי פיטורים, התשכ"ג-1963, מגיעים לי פיצויי פיטורים של ${nis(r.severance)}${r.s14 !== 'none' ? `. מתוכם ${r.s14Pct}% בעד התקופה שבה הופרשו כספים לפיצויים מכוסים בקופה (סעיף 14), ואני מבקש לשחרר לי את הכספים ולשלם לי את ההשלמה של ${nis(r.employer)}` : ''}.` : null,
+		r.noticeMode === 'none' ? `לא ניתנה לי הודעה מוקדמת כחוק (${noticeText(r.notice)}), ולכן מגיע לי פיצוי בגובה השכר הרגיל לתקופה זו (סעיף 7(א) לחוק הודעה מוקדמת לפיטורים ולהתפטרות).` : null,
+		r.entitled ? `המועד לתשלום הפיצויים הוא יום סיום העבודה. פיצויים שלא שולמו תוך ${sv.late.grace_days} ימים מולנים, ואחרי היום ה-${sv.late.linkage_to_day} נוסף פיצוי הלנה של ${sv.late.monthly_pct}% לכל חודש (סעיף 20 לחוק הגנת השכר, התשי"ח-1958).` : null,
+		'כמו כן אבקש אישור בכתב על תקופת העבודה (סעיף 8 לחוק הודעה מוקדמת) וטופס 161.', '',
+		'בכבוד רב,', '__________'];
+	return lines.filter((x) => x !== null).join(String.fromCharCode(10));
+}
+
+export function renderDetails(reg, r) {
+	if (!r.ok) { return ''; }
+	const sv = reg.severance;
+	const rows = [
+		['השכר לחישוב', ilsn(r.base), r.floored ? `שכר המינימום: ${cite('סעיף 13ב', sv.law_url)}` : `השכר האחרון${cite('תקנה 4', sv.regs_url)}`],
+		['תקופת העבודה', esc(spanText(r.span)), `חלק משנה מזכה באופן יחסי${cite('סעיף 12(א)', sv.law_url)}`],
+		['פיצויי פיטורים', ilsn(r.severance), r.entitled ? `חודש לכל שנה${cite('סעיף 12(א)', sv.law_url)}${r.payType === 'hourly' ? cite('תקנות 1983', sv.wage_regs_url) : ''}` : `אין זכות${cite(r.yearOk ? 'סעיף 1(א): פיטורים' : 'סעיף 1(א): שנת עבודה', sv.law_url)}`],
+	];
+	if (r.s14 !== 'none') {
+		rows.push([`מהקופה, במקום ${r.s14Pct}%`, ilsn(r.fundReplaces), `${cite('סעיף 14', sv.law_url)}${cite('האישור הכללי', sv.approval.url)}`]);
+		rows.push(['השלמה מהמעסיק', ilsn(r.employer), 'ההפרש']);
+	}
+	rows.push(['הודעה מוקדמת', `${esc(noticeText(r.notice))}${r.inLieu !== null ? ` (${nis(r.inLieu)} אם משלמים במקום עבודה${r.notice.month ? '' : ', לפי 30 ימים בחודש'})` : ''}`, cite(`${r.notice.section} לחוק הודעה מוקדמת`, sv.notice.url)]);
+	rows.push(['פטור ממס', ilsn(r.exempt), `משכורת חודש לשנה, עד ${money(sv.tax.ceiling, 0)} ₪ לשנה ב-${sv.tax.year}${cite(sv.tax.section, sv.tax.law_url)}${cite('לוח העזר 2026', sv.tax.source_url)}`]);
+	rows.push(['חייב במס', ilsn(r.taxable), r.taxable ? 'לפי מדרגות המס (אפשר לבקש פריסה)' : '—']);
+	let out = `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-calc-h">כמה, על מה, ולפי איזה סעיף</h3></div>`
+		+ `<div class="jtool-scroll" role="region" aria-labelledby="${P}-calc-h" tabindex="0"><table class="jtool-table"><thead><tr><th scope="col">מה</th><th scope="col">סכום</th><th scope="col">הכלל</th></tr></thead><tbody>`
+		+ rows.map(([a, b, c]) => `<tr><td data-th="מה">${esc(a)}</td><td data-th="סכום">${b}</td><td data-th="הכלל">${c}</td></tr>`).join('')
+		+ `</tbody><caption>הפיצויים על השכר האחרון; לעבודה במשרה חלקית בחלק מהתקופה, כל תקופה לפי חלקיות המשרה בה (תקנה 7). חופשה ללא תשלום מעל 14 ימים בשנה לא נספרת (תקנה 10).</caption></table></div></div>`;
+	if (r.entitled) {
+		const arr = byArrangement(reg, { payType: r.payType, salary: r.monthly, hourly: r.hourly, hours: r.hours, jobPct: r.jobPct, start: r.start, end: r.end, reason: r.reason });
+		out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-arr-h">אותו עובד, שלושה הסדרים</h3></div><div class="jt7-scns jt13-scns">`
+			+ ['none', 'partial', 'full'].map((k) => { const v = arr[k]; const here = k === r.s14; return `<div class="jt7-scn${here ? ' jt7-scn--here' : ''}"><p>${esc(S14_LABEL[k])}${here ? ' (אתם)' : ''}</p><strong>${v ? ils(v.employer, 0) : '—'}</strong><small>${v ? (v.fund ? `המעסיק משלם; ועוד הקופה במקום ${nis(v.fund)}` : 'המעסיק משלם הכול') : ''}</small></div>`; }).join('')
+			+ `</div><p class="jt7-scns__note">הסכום הכולל זהה, ${nis(r.severance)}; ההבדל הוא מי משלם. בסעיף 14 הקופה שלכם גם בהתפטרות, והמעסיק לא משלים את התשואה שלא הושגה.</p></div>`;
+	}
+	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-dl-h">המועדים</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="ics">הוספה ליומן (.ics)</button></div></div>`
+		+ `<div class="jtool-scroll" role="region" aria-labelledby="${P}-dl-h" tabindex="0"><table class="jtool-table"><thead><tr><th scope="col">תאריך</th><th scope="col">מה</th><th scope="col">הכלל</th></tr></thead><tbody>`
+		+ r.deadlines.map((d) => `<tr><td data-th="תאריך">${esc(isoToHe(d.date))}</td><td data-th="מה">${esc(d.he)}</td><td data-th="הכלל">${cite(d.section, d.url)}</td></tr>`).join('')
+		+ `</tbody></table></div></div>`;
+	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-ltr-h">מכתב למעסיק</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="letter">העתקת המכתב</button></div></div><pre class="jtool-letter">${esc(letter(reg, r))}</pre></div>`;
+	return out;
+}
+
+/** Page section: the notice by tenure and pay type, from the same engine. */
+export function noticeTable(reg) {
+	const sv = reg.severance;
+	const points = [1, 3, 6, 7, 9, 11, 12, 18, 24, 30, 36];
+	const label = (m) => (m === 1 ? 'חודש' : m < 12 ? `${m} חודשים` : m === 12 ? 'שנה' : m < 24 ? `שנה ו-${m - 12} חודשים` : m === 24 ? 'שנתיים' : m < 36 ? `שנתיים ו-${m - 24} חודשים` : '3 שנים ומעלה');
+	const rows = points.map((m) => {
+		const a = compute(reg, { payType: 'monthly', salary: 10000, start: '2020-01-01', end: '2030-12-31', noticeDate: monthAdd('2020-01-01', m) });
+		const b = compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '2020-01-01', end: '2030-12-31', noticeDate: monthAdd('2020-01-01', m) });
+		return `<tr><td data-th="ותק ביום ההודעה">${esc(label(m))}</td><td data-th="משכורת חודשית">${esc(noticeText(a.notice))}</td><td data-th="שכר לפי שעה או יום">${esc(noticeText(b.notice))}</td></tr>`;
+	}).join('');
+	return `<div class="jtool-datawrap"><table class="jtool-datatable"><caption>הודעה מוקדמת לפיטורים או להתפטרות לפי ${esc(sv.notice.he)}, סעיפים 3 עד 5</caption><thead><tr><th scope="col">ותק ביום ההודעה</th><th scope="col">משכורת חודשית</th><th scope="col">שכר לפי שעה או יום</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function monthAdd(iso, n) {
+	const [y, m, d] = iso.split('-').map(Number);
+	const t = y * 12 + (m - 1) + n;
+	return `${Math.floor(t / 12)}-${String(t % 12 + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+}
+
+export function snapshot(reg) {
+	const r = compute(reg, EXAMPLE);
+	const sv = reg.severance;
+	return {
+		tool: TOOL_ID,
+		registry_version: reg.registry_version,
+		input: EXAMPLE,
+		total: r.severance,
+		form: renderForm(reg, EXAMPLE),
+		result: renderResult(reg, r, { example: true }),
+		details: renderDetails(reg, r),
+		method: `<ol><li>תקופת העבודה מ-${isoToHe(r.start)} עד ${isoToHe(r.end)}: ${r.span.months} חודשים, ${money(r.span.years, 4)} שנים${cite('סעיף 12(א)', sv.law_url)}</li>`
+			+ `<li>פיצויים: ${money(r.base, 0)} ₪ × ${money(r.span.years, 4)} = ${money(r.severance)} ₪${cite('סעיף 12(א)', sv.law_url)}</li>`
+			+ `<li>סעיף 14 על ${r.s14Pct}%: הקופה במקום ${money(r.fundReplaces)} ₪, והמעסיק משלים ${money(r.employer)} ₪${cite('האישור הכללי', sv.approval.url)}</li>`
+			+ `<li>הודעה מוקדמת אחרי שנה: חודש${cite('סעיף 3(3) לחוק הודעה מוקדמת', sv.notice.url)}</li>`
+			+ `<li>פטור ממס: משכורת חודש לשנה (עד ${money(sv.tax.ceiling, 0)} ₪) × ${money(r.span.years, 4)} = ${money(r.exemptCap)} ₪, ולכן כל הסכום פטור${cite(sv.tax.section, sv.tax.law_url)}</li></ol>`,
+		compare_table: noticeTable(reg),
+		sentence: verdictSentence(reg, r),
+	};
+}
+
+/* ---------------- Browser ---------------- */
+
+function readForm(root) {
+	const val = (sel) => (root.querySelector(sel) || {}).value || '';
+	const radio = (name, d) => (root.querySelector(`input[name="${P}-${name}"]:checked`) || {}).value || d;
+	const m = (id) => { const v = val(`#${P}-${id}`).trim(); return v === '' ? '' : parseMoney(v); };
+	const kind = radio('rk', 'fired');
+	const why = radio('rw', 'plain');
+	return {
+		payType: radio('pt', 'monthly'), salary: m('sal'), hourly: m('hr'), hours: m('hrs'), jobPct: m('job'),
+		start: toIso(val(`#${P}-start`)), end: toIso(val(`#${P}-end`)),
+		reason: kind === 'fired' ? 'fired' : (why === 'plain' ? 'resign' : why),
+		s14: radio('s14', 'none'), s14Pct: m('s14p'), s14From: toIso(val(`#${P}-s14f`)),
+		noticeDate: toIso(val(`#${P}-nd`)), noticeMode: radio('nm', 'worked'),
+	};
+}
+
+const RS = { fired: 'f', resign: 'r', health: 'h', parent: 'p', move: 'm', term: 't', worse: 'w', retire: 'x' };
+const S14 = { none: 'n', partial: 'p', full: 'f', custom: 'c' };
+const NM = { worked: 'w', paid: 'p', none: 'n' };
+const stateOf = (i) => encodeState({ t: i.payType === 'hourly' ? 'h' : '', w: i.salary || '', h: i.hourly || '', o: i.hours || '', j: i.jobPct || '', s: i.start, e: i.end, r: RS[i.reason] || 'f', f: S14[i.s14] || 'n', p: i.s14Pct || '', d: i.s14From || '', n: i.noticeDate || '', m: NM[i.noticeMode] || 'w' });
+const KEYS = ['t', 'w', 'h', 'o', 'j', 's', 'e', 'r', 'f', 'p', 'd', 'n', 'm'];
+function inputOf(s) {
+	if (!s.s || !s.e) { return null; }
+	const back = (map, v, d) => Object.keys(map).find((k) => map[k] === v) || d;
+	return {
+		payType: s.t === 'h' ? 'hourly' : 'monthly', salary: s.w ? Number(s.w) : '', hourly: s.h ? Number(s.h) : '', hours: s.o ? Number(s.o) : '', jobPct: s.j ? Number(s.j) : '',
+		start: s.s, end: s.e, reason: back(RS, s.r, 'fired'), s14: back(S14, s.f, 'none'), s14Pct: s.p ? Number(s.p) : '', s14From: s.d || '', noticeDate: s.n || '', noticeMode: back(NM, s.m, 'worked'),
+	};
+}
+
+export function mount(root, reg) {
+	const form = root.querySelector('[data-jtool-form]');
+	const result = root.querySelector('[data-jtool-result]');
+	const details = root.querySelector('[data-jtool-details]');
+	const sticky = root.querySelector('[data-jtool-sticky-figure]');
+	const sv = reg.severance;
+	const today = ilToday();
+	const saveKey = `jtool-${TOOL_ID}`;
+	let started = false;
+	let timer = null;
+	track('tool_view', { tool_id: TOOL_ID });
+	if (isStale(sv.checked_on, sv.refresh_every_days) || (sv.next_update && today >= sv.next_update)) {
+		const stamp = root.querySelector('.jtool-stamp');
+		if (stamp) { stamp.classList.add('jtool-stamp--stale'); stamp.insertAdjacentText('beforeend', ' · ייתכן שתקרת הפטור התעדכנה'); }
+	}
+	const ids = { salary: 'sal', hourly: 'hr', hours: 'hrs', jobPct: 'job', start: 'start', end: 'end', s14Pct: 's14p', s14From: 's14f', noticeDate: 'nd' };
+	const showErrors = (r) => {
+		root.querySelectorAll('.jtool-error').forEach((e) => { e.textContent = ''; });
+		root.querySelectorAll('[aria-invalid]').forEach((e) => e.removeAttribute('aria-invalid'));
+		if (r.ok) { return; }
+		for (const e of r.errors) {
+			const box = root.querySelector(`#${P}-${ids[e.field] || e.field}-e`) || root.querySelector(`#${P}-${e.field}-e`);
+			if (box) { box.textContent = e.he; }
+			const f = root.querySelector(`#${P}-${ids[e.field] || e.field}`);
+			if (f) { f.setAttribute('aria-invalid', 'true'); }
+		}
+	};
+	const sync = () => {
+		const pt = (root.querySelector(`input[name="${P}-pt"]:checked`) || {}).value || 'monthly';
+		form.querySelectorAll('[data-if-pay]').forEach((el) => { el.hidden = el.getAttribute('data-if-pay') !== pt; });
+		const rk = (root.querySelector(`input[name="${P}-rk"]:checked`) || {}).value || 'fired';
+		form.querySelectorAll('[data-if-resign]').forEach((el) => { el.hidden = rk === 'fired'; });
+		const s14 = (root.querySelector(`input[name="${P}-s14"]:checked`) || {}).value || 'none';
+		form.querySelectorAll('[data-if-s14]').forEach((el) => { el.hidden = s14 === 'none'; });
+		form.querySelectorAll('[data-if-custom]').forEach((el) => { el.hidden = s14 !== 'custom'; });
+	};
+	const run = (input, opts = {}) => {
+		const r = compute(reg, input);
+		showErrors(r);
+		result.innerHTML = renderResult(reg, r);
+		details.innerHTML = renderDetails(reg, r);
+		if (sticky) { sticky.innerHTML = r.ok ? ilsn(r.severance) : '—'; }
+		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: r.entitled ? (r.s14 === 'none' ? 'employer' : 's14') : 'none' }); }
+	};
+	const schedule = () => {
+		if (!started) { started = true; track('tool_start', { tool_id: TOOL_ID }); }
+		sync();
+		clearTimeout(timer);
+		timer = setTimeout(() => { timer = null; run(readForm(root)); }, 160);
+	};
+	const fromHash = inputOf(decodeState(window.location.hash, KEYS));
+	if (fromHash) {
+		form.innerHTML = renderForm(reg, fromHash);
+		const note = root.querySelector('[data-jtool-shared]');
+		if (note) { note.hidden = false; }
+		run(fromHash, { silent: true });
+	}
+	if (store.get(saveKey) && !fromHash) { const nb = root.querySelector('[data-jtool-saved]'); if (nb) { nb.hidden = false; } }
+	form.addEventListener('input', schedule);
+	form.addEventListener('change', schedule);
+	root.addEventListener('click', async (ev) => {
+		const b = ev.target.closest('[data-act]');
+		if (!b) { return; }
+		const act = b.getAttribute('data-act');
+		if (timer) { clearTimeout(timer); timer = null; run(readForm(root), { silent: true }); }
+		const input = readForm(root);
+		const r = compute(reg, input);
+		const link = shareUrl(stateOf(input));
+		if (act === 'ics' && r.ok) {
+			download('pitzuyim.ics', 'text/calendar;charset=utf-8', ics(r.deadlines.filter((d) => d.key !== 'limit').map((d) => ({ date: d.date, summary: `פיצויי פיטורים: ${d.he}` })), new Date().toISOString()));
+			track('tool_download', { tool_id: TOOL_ID, type: 'ics' });
+		} else if (act === 'letter' && r.ok) {
+			const ok = await copyText(letter(reg, r));
+			toast(root, ok ? 'המכתב הועתק.' : 'לא הצלחנו להעתיק.');
+			track('tool_letter', { tool_id: TOOL_ID });
+		} else if (act === 'print') {
+			track('tool_download', { tool_id: TOOL_ID, type: 'print' });
+			window.print();
+		} else if (act === 'link') {
+			const ok = await copyText(link);
+			toast(root, ok ? 'הקישור הועתק. אין בו שמות, תעודת זהות או טלפון.' : link);
+			track('tool_share', { tool_id: TOOL_ID, channel: 'link' });
+		} else if (act === 'whatsapp' && r.ok) {
+			window.open(whatsappUrl(`${verdictSentence(reg, r)} · חושב ב-jus-tice.co.il לפי חוק פיצויי פיטורים ${link}`), '_blank', 'noopener');
+			track('tool_share', { tool_id: TOOL_ID, channel: 'whatsapp' });
+		} else if (act === 'copy' && r.ok) {
+			const ok = await copyText(`${verdictSentence(reg, r)} (חושב ב-jus-tice.co.il, ${isoToHe(sv.checked_on)})`);
+			toast(root, ok ? 'התוצאה הועתקה.' : 'לא הצלחנו להעתיק.');
+			track('tool_share', { tool_id: TOOL_ID, channel: 'copy' });
+		} else if (act === 'rehearse') {
+			track('tool_rehearse_click', { tool_id: TOOL_ID, band: r.ok && r.entitled ? 'entitled' : 'other' });
+		} else if (act === 'save') {
+			store.set(saveKey, stateOf(input));
+			toast(root, 'נשמר במכשיר הזה בלבד. אפשר למחוק בכל רגע.');
+		} else if (act === 'restore') {
+			const s = inputOf(decodeState(store.get(saveKey) || '', KEYS));
+			if (s) { form.innerHTML = renderForm(reg, s); sync(); run(s); }
+		} else if (act === 'clear') {
+			store.clear(saveKey);
+			toast(root, 'נמחק מהמכשיר.');
+		} else if (act === 'lawyer') {
+			track('tool_lawyer_click', { tool_id: TOOL_ID });
+		}
+	});
+	stickyBar(root);
+	root.setAttribute('data-jtool-ready', '1');
+}

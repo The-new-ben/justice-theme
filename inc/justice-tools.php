@@ -22,6 +22,9 @@
  *   [justice_tool name="tzavaa"]                         wave 4: what a will costs, signing to probate (/depositing-testament-registrar/)
  *   [justice_tool name="teunat-drachim"]                 wave 4: road-accident compensation (/israel-road-accident-compensation-law/)
  *   [justice_tool name="gerushin"]                       wave 4: what a divorce costs, and the law's clocks (/opening-divorce-file-rabbinical/)
+ *   [justice_tool name="chozeh-schirut"]                 wave 5: a residential lease under the Fair Rental chapter (/online-rent-agreement/)
+ *   [justice_tool name="pitzuyim"]                       wave 5: severance pay, section 14 and the notice (/severance-pay-calculator/)
+ *   [justice_tool name="mas-shevach"]                    wave 5: capital gains tax on a home, and the net (/land-appreciation-tax/)
  *   [justice_tool_section name="hatzmada" part="method"]  part: method | numbers | compare | sources | updated
  *                                                         (add mode="fee" for the fee-only page's method)
  *   [justice_tools_index]                                 hub cards with the data stamp
@@ -250,6 +253,56 @@ function justice_tools_catalog(): array {
 			'lawyer'    => array( 'label' => 'עורך דין לבית הדין הרבני', 'path' => '/practice-areas/rabbinical-court/' ),
 			'sticky'    => 'אגרות',
 		),
+		// Wave 5 (HAD-504): picked by demand (GSC 90 days and DataForSEO, 14.10.2026); each on the page that owns its words.
+		'chozeh-schirut'  => array(
+			'name'      => 'מחולל חוזה שכירות',
+			'title'     => 'חוזה שכירות לפי חוק השכירות ההוגנת: מחולל ובדיקה',
+			'promise'   => 'עונים על כמה שאלות ומקבלים חוזה שכירות מלא, כל סעיף עם הסעיף בחוק, ובדיקה של כל דרישה מול החוק: ערובה, תיקונים, תשלומים, הארכה ויציאה.',
+			'question'  => 'איך עושים חוזה שכירות שעומד בחוק, וכמה ערובה מותר לבקש?',
+			'page'      => '/online-rent-agreement/',
+			'category'  => 'LegalApplication',
+			'data'      => array( 'registry_version', 'rent_contract' ),
+			'dataset'   => 'rent_contract',
+			'next_text' => 'הצעד הבא: לתרגל את השיחה עם בעל הדירה על הסעיפים, לפני שחותמים',
+			'primary'   => array( 'label' => 'לתרגל את השיחה עם בעל הדירה', 'rehearse' => true ),
+			'rehearse'  => array( 'label' => 'לתרגל את השיחה עם בעל הדירה', 'topic' => 'real-estate', 'purpose' => 'mediation' ),
+			'more'      => array( array( 'label' => 'זכויות שוכר בישראל', 'path' => '/tenant-rights-israel/' ), array( 'label' => 'מה חייב להיות בחוזה שכירות', 'path' => '/rental-agreement-guide/' ) ),
+			'lawyer'    => array( 'label' => 'עורך דין מקרקעין', 'path' => '/real-estate-attorney/' ),
+			'sticky'    => 'תקרת ערובה',
+		),
+		'pitzuyim'        => array(
+			'name'      => 'מחשבון פיצויי פיטורים והודעה מוקדמת',
+			'title'     => 'פיצויי פיטורים והודעה מוקדמת: כמה, ממי ועד מתי',
+			'promise'   => 'שכר כפול ותק, מה הקופה מכסה בסעיף 14 ומה המעסיק משלים, כמה ימי הודעה מוקדמת, כמה פטור ממס, ומכתב למעסיק עם המועדים.',
+			'question'  => 'כמה פיצויי פיטורים והודעה מוקדמת מגיעים לי?',
+			'page'      => '/severance-pay-calculator/',
+			'category'  => 'FinanceApplication',
+			'data'      => array( 'registry_version', 'severance', 'min_wage' ),
+			'dataset'   => 'severance',
+			'next_text' => 'הצעד הבא: לתרגל את השיחה עם המעסיק, לפני השימוע או לפני שמבקשים את הכסף',
+			'primary'   => array( 'label' => 'לתרגל את השיחה עם המעסיק', 'rehearse' => true ),
+			'rehearse'  => array( 'label' => 'לתרגל את השיחה עם המעסיק', 'topic' => 'employment', 'purpose' => 'mediation' ),
+			'more'      => array( array( 'label' => 'מכתב פיטורים והודעה מוקדמת', 'path' => '/notice-of-dismissal/' ), array( 'label' => 'בודק שכר מינימום', 'path' => '/minimum-wage-israel-2025/' ) ),
+			'lawyer'    => array( 'label' => 'עורך דין דיני עבודה', 'path' => '/labor-lawyer/' ),
+			'sticky'    => 'פיצויים',
+		),
+		'mas-shevach'     => array(
+			'name'      => 'מחשבון מס שבח',
+			'title'     => 'מס שבח במכירת דירה: כמה מס, ומה נשאר ביד',
+			'promise'   => 'פטור לדירה יחידה עם התקרה, החישוב הלינארי המוטב, הצמדה למדד כמו במחשבון הלמ"ס, כל תקופה עם השיעור שלה, ומה נשאר אחרי המס וההוצאות.',
+			'question'  => 'כמה מס שבח אשלם על מכירת הדירה?',
+			'page'      => '/land-appreciation-tax/',
+			'category'  => 'FinanceApplication',
+			'data'      => array( 'registry_version', 'shevach', 'cpi' ),
+			'dataset'   => 'shevach',
+			'next_text' => 'הצעד הבא: להכניס ליומן את ההצהרה והתשלום, 30 ו-60 ימים מיום המכירה',
+			'primary'   => array( 'label' => 'הוספת המועדים ליומן', 'act' => 'ics' ),
+			// Conversion to a hearing is low: the rehearsal is a secondary link, as on the purchase-tax tool.
+			'rehearse'  => array( 'label' => 'לתרגל את ההשגה מול מיסוי מקרקעין', 'topic' => 'tax', 'purpose' => 'court_rehearsal' ),
+			'more'      => array( array( 'label' => 'הסימולטור של רשות המסים', 'url' => 'https://www.misim.gov.il/svtsvazmitnew/FrmHadrachaRashit.aspx' ), array( 'label' => 'מחשבון מס רכישה', 'path' => '/acquisition-tax-brackets-2026/' ), array( 'label' => 'מחשבון היטל השבחה', 'path' => '/betterment-levy-israel/' ) ),
+			'lawyer'    => array( 'label' => 'עורך דין מקרקעין', 'path' => '/real-estate-attorney/' ),
+			'sticky'    => 'מס שבח',
+		),
 	);
 }
 
@@ -395,6 +448,29 @@ function justice_tools_sc_fee( array $sc, float $amount ): float {
 /** The 2-3 sentence answer box (page standard A2), every number read from the registry. */
 function justice_tools_answer( string $name, string $mode = '' ): string {
 	$reg = justice_tools_registry();
+	if ( 'chozeh-schirut' === $name && ! empty( $reg['rent_contract'] ) ) {
+		$rc   = $reg['rent_contract'];
+		$snap = justice_tools_snapshot( 'chozeh-schirut' );
+		$text = '<strong>חוזה שכירות לדירה</strong> נערך בכתב ומפרט גם פגמים ידועים (סעיפים 25ב ו-25ג ל' . esc_html( $rc['law_he'] ) . '). '
+			. 'ערובה שעולה כסף לשוכר מוגבלת לנמוך מבין שכר הדירה לשליש מהתקופה ו-<bdi>' . (int) $rc['deposit']['months'] . '</bdi> חודשי שכירות'
+			. ( isset( $snap['input']['rent'] ) ? ' (בשכר דירה של ' . justice_tools_money( $snap['input']['rent'], 0 ) . ' לחודש, לשנה: ' . justice_tools_money( $snap['total'], 0 ) . ')' : '' ) . ', וחוזרת תוך <bdi>' . (int) $rc['deposit']['return_days'] . '</bdi> ימים. '
+			. 'המשכיר מתקן ליקוי תוך <bdi>' . (int) $rc['repairs']['days'] . '</bdi> ימים, דחוף תוך <bdi>' . (int) $rc['repairs']['urgent_days'] . '</bdi>. נבדק ' . esc_html( justice_tools_he_date( $rc['checked_on'] ) ) . '.';
+		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+	}
+	if ( 'pitzuyim' === $name && ! empty( $reg['severance'] ) ) {
+		$sv   = $reg['severance'];
+		$text = '<strong>פיצויי פיטורים</strong> הם משכורת חודש לכל שנת עבודה, וחלק יחסי לחלק משנה, אחרי שנת עבודה אחת (סעיפים 1 ו-12 ל' . esc_html( $sv['law_he'] ) . '). '
+			. 'בסעיף 14 הקופה באה במקום <bdi>' . (int) $sv['approval']['partial_pct'] . '%</bdi> או <bdi>' . (int) $sv['approval']['full_pct'] . '%</bdi> מהפיצויים. הודעה מוקדמת אחרי שנה: חודש. '
+			. 'פטור ממס עד משכורת חודש לשנה, ולא יותר מ-' . justice_tools_money( $sv['tax']['ceiling'], 0 ) . ' לשנה ב-' . (int) $sv['tax']['year'] . '. נבדק ' . esc_html( justice_tools_he_date( $sv['checked_on'] ) ) . '.';
+		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+	}
+	if ( 'mas-shevach' === $name && ! empty( $reg['shevach'] ) ) {
+		$sh   = $reg['shevach'];
+		$text = '<strong>מס שבח</strong> משלמים על הרווח הריאלי ממכירת דירה: <bdi>' . (int) $sh['rates']['post2012'] . '%</bdi> על החלק שמ-2012, ושיעורים אחרים לפני כן. '
+			. 'דירה יחידה שבבעלותכם <bdi>' . (int) $sh['single']['hold_months'] . '</bdi> חודשים פטורה עד ' . justice_tools_money( $sh['single']['ceiling'], 0 ) . ' (סעיפים 49ב(2) ו-49א(א1)), '
+			. 'ובדירת מגורים שנקנתה לפני 2014 החלק שעד 1.1.2014 פטור. מצהירים תוך <bdi>' . (int) $sh['deadlines']['declare_days'] . '</bdi> ימים ומשלמים תוך <bdi>' . (int) $sh['deadlines']['pay_days'] . '</bdi>. נבדק ' . esc_html( justice_tools_he_date( $sh['checked_on'] ) ) . '.';
+		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+	}
 	if ( 'yerusha' === $name && ! empty( $reg['yerusha'] ) ) {
 		$y    = $reg['yerusha'];
 		$text = '<strong>ירושה על פי דין</strong> חלה כשאין צוואה: בן הזוג נוטל את המיטלטלין של משק הבית ואת המכונית, ומשאר העיזבון '
@@ -526,6 +602,18 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 
 function justice_tools_stamp( string $name, string $mode = '' ): string {
 	$reg = justice_tools_registry();
+	if ( 'chozeh-schirut' === $name ) {
+		$rc = $reg['rent_contract'] ?? array();
+		return 'חוק השכירות, נוסח ל-' . justice_tools_he_date( $rc['law_current_to'] ?? '' ) . ' · נבדק ' . justice_tools_he_date( $rc['checked_on'] ?? '' );
+	}
+	if ( 'pitzuyim' === $name ) {
+		$sv = $reg['severance'] ?? array();
+		return 'תקרת פטור ' . number_format( (float) ( $sv['tax']['ceiling'] ?? 0 ) ) . ' ₪ ב-' . ( $sv['tax']['year'] ?? '' ) . ' · נבדק ' . justice_tools_he_date( $sv['checked_on'] ?? '' );
+	}
+	if ( 'mas-shevach' === $name ) {
+		$sh = $reg['shevach'] ?? array();
+		return 'תקרת פטור ' . number_format( (float) ( $sh['single']['ceiling'] ?? 0 ) ) . ' ₪ עד ' . justice_tools_he_date( $sh['single']['ceiling_to'] ?? '' ) . ' · נבדק ' . justice_tools_he_date( $sh['checked_on'] ?? '' );
+	}
 	if ( 'yerusha' === $name ) {
 		$y = $reg['yerusha'] ?? array();
 		return 'חוק הירושה · צו ירושה ' . number_format( (float) ( $y['fees']['order_fee'] ?? 0 ) ) . ' ₪ ב-' . substr( (string) ( $y['fees']['from'] ?? '' ), 0, 4 ) . ' · נבדק ' . justice_tools_he_date( $y['checked_on'] ?? '' );
@@ -576,6 +664,45 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 function justice_tools_sources( string $name ): array {
 	$reg = justice_tools_registry();
 	$checked = justice_tools_he_date( $reg['checked_on'] ?? '' );
+	if ( 'chozeh-schirut' === $name ) {
+		$rc      = $reg['rent_contract'];
+		$checked = justice_tools_he_date( $rc['checked_on'] );
+		return array(
+			array( 'name' => $rc['law_he'], 'url' => $rc['law_url'], 'text' => 'סעיפים 25א עד 25טו (חוזה שכירות למגורים) והתוספות; סעיפים 6 עד 9, 14, 16 עד 22 (חיובי הצדדים). נוסח עדכני ל-' . justice_tools_he_date( $rc['law_current_to'] ) . ', נבדק ' . $checked . '.' ),
+			array( 'name' => $rc['amend_2017']['he'], 'url' => $rc['amend_2017']['url'], 'text' => $rc['amend_2017']['gazette_he'] . ': הוספת סימן ו\' לפרק א\'.' ),
+			array( 'name' => $rc['amend_2026']['he'], 'url' => $rc['amend_2026']['url'], 'text' => $rc['amend_2026']['gazette_he'] . ': ' . $rc['amend_2026']['what_he'] . '.' ),
+			array( 'name' => $rc['guarantee_law_he'], 'url' => $rc['guarantee_law_url'], 'text' => 'ערבות לחיובי השוכר, עד הסכום שבכתב הערבות.' ),
+			array( 'name' => 'הכנסת, מאגר הצעות החוק', 'url' => $rc['bill']['url'], 'text' => $rc['bill']['found_he'] . '.' ),
+		);
+	}
+	if ( 'pitzuyim' === $name ) {
+		$sv      = $reg['severance'];
+		$mw      = $reg['min_wage'];
+		$checked = justice_tools_he_date( $sv['checked_on'] );
+		return array(
+			array( 'name' => $sv['law_he'], 'url' => $sv['law_url'], 'text' => 'סעיף 1: שנת עבודה ופיטורים; 3: פיטורים סמוך לסוף השנה; 6 עד 11: התפטרות שדינה כפיטורים; 12: חודש לכל שנה; 13ב: לא פחות משכר המינימום; 14: קופה במקום פיצויים. נוסח עדכני ל-' . justice_tools_he_date( $sv['law_current_to'] ) . ', נבדק ' . $checked . '.' ),
+			array( 'name' => $sv['regs_he'], 'url' => $sv['regs_url'], 'text' => 'תקנה 4: השכר האחרון; 7: עבודה חלקית; 10: הפסקות שלא נספרות; 12: העתקת מגורים.' ),
+			array( 'name' => $sv['wage_regs_he'], 'url' => $sv['wage_regs_url'], 'text' => 'לעובד בשכר: חודש לכל שנה מ-' . justice_tools_he_date( $sv['wage_regs_from'] ) . '.' ),
+			array( 'name' => $sv['approval']['he'], 'url' => $sv['approval']['url'], 'text' => $sv['approval']['full_he'] . '; ' . $sv['approval']['partial_he'] . ' (' . $sv['approval']['gazette_he'] . ').' ),
+			array( 'name' => $sv['notice']['he'], 'url' => $sv['notice']['url'], 'text' => 'סעיף 3: משכורת חודשית; 4: שכר; 5: גם בהתפטרות; 6: תשלום במקום עבודה; 7: פיצוי כשאין הודעה; 8: אישור על תקופת העבודה.' ),
+			array( 'name' => $sv['late']['he'], 'url' => $sv['late']['url'], 'text' => 'סעיף 20: המועד לתשלום הפיצויים, הלנה אחרי ' . $sv['late']['grace_days'] . ' ימים, ' . $sv['late']['monthly_pct'] . '% לחודש אחרי ' . $sv['late']['linkage_to_day'] . ' ימים.' ),
+			array( 'name' => $sv['tax']['source_he'], 'url' => $sv['tax']['source_url'], 'text' => 'תקרת הפטור למענק פרישה: ' . number_format( (float) $sv['tax']['ceiling'] ) . ' ₪ לכל שנת עבודה ב-' . $sv['tax']['year'] . '. ' . $sv['tax']['frozen_he'] . '.' ),
+			array( 'name' => $sv['tax']['law_he'], 'url' => $sv['tax']['law_url'], 'text' => $sv['tax']['section'] . ': פטור עד משכורת חודש לכל שנה, ולא יותר מהתקרה; המנהל רשאי לפטור עודף.' ),
+			array( 'name' => $mw['source_name'], 'url' => $mw['source_url'], 'text' => 'שכר המינימום לרצפה של סעיף 13ב. נבדק ' . justice_tools_he_date( $mw['checked_on'] ) . '.' ),
+			array( 'name' => $sv['limitation']['he'], 'url' => $sv['limitation']['url'], 'text' => $sv['limitation']['section'] . ': ' . $sv['limitation']['years'] . ' שנים.' ),
+		);
+	}
+	if ( 'mas-shevach' === $name ) {
+		$sh      = $reg['shevach'];
+		$checked = justice_tools_he_date( $sh['checked_on'] );
+		return array(
+			array( 'name' => $sh['law_he'], 'url' => $sh['law_url'], 'text' => 'סעיף 39: ההוצאות; 47: מדד, סכום אינפלציוני, תקופות; 48א: שיעורי המס והחישוב הלינארי; 49 עד 49ג: פטור לדירה יחידה; 73: הצהרה; 87 ו-88: השגה וערר; 90א: תשלום. נבדק ' . $checked . '.' ),
+			array( 'name' => $sh['source_name'], 'url' => $sh['source_url'], 'text' => 'תקרת הפטור ' . number_format( (float) $sh['single']['ceiling'] ) . ' ₪ מ-' . justice_tools_he_date( $sh['single']['ceiling_from'] ) . ' עד ' . justice_tools_he_date( $sh['single']['ceiling_to'] ) . '; מס יסף על מכירת דירה מעל ' . number_format( (float) $sh['surtax']['threshold'] ) . ' ₪.' ),
+			array( 'name' => 'רשות המסים, לוח עזר לחישוב מס הכנסה ממשכורת ל-2026', 'url' => $sh['top_rate_url'], 'text' => 'שיעור המס הגבוה בסעיף 121: ' . $sh['rates']['pre2001'] . '%; מס יסף ' . $sh['surtax']['rate'] . '% מעל ' . number_format( (float) $sh['surtax']['income_threshold'] ) . ' ₪, ועוד ' . $sh['surtax']['capital_rate'] . '% על הכנסה הונית.' ),
+			array( 'name' => $reg['cpi']['source_name'], 'url' => $reg['cpi']['official_calculator_url'], 'text' => 'מדד המחירים לצרכן ומקדמי הקישור, כמו במחשבון ההצמדה של הלמ"ס.' ),
+			array( 'name' => 'רשות המסים, סימולטור מס שבח', 'url' => $sh['simulator_url'], 'text' => 'החישוב הרשמי לשומה העצמית.' ),
+		);
+	}
 	if ( 'yerusha' === $name ) {
 		$y       = $reg['yerusha'];
 		$checked = justice_tools_he_date( $y['checked_on'] );
@@ -873,7 +1000,7 @@ function justice_tools_shortcode( $atts ): string {
 		. '<div class="jtool-next__more">' . $more . '</div></div></div>'
 		. '<details class="jtool-sources" id="' . esc_attr( $id ) . '-sources"><summary>מקורות (נבדקו ב-' . esc_html( justice_tools_he_date( justice_tools_checked_on( $name ) ) ) . ')</summary>' . justice_tools_sources_html( $name ) . '</details>'
 		. '<p class="jtool-foot">מידע כללי, לא ייעוץ משפטי. מה שהקלדתם לא נשמר אצלנו. החישוב נבנה על ידי צוות Jus-Tice.</p>'
-		. '<div class="jtool-sticky" data-show="0"><span>' . esc_html( $tool['sticky'] ) . '</span><strong data-jtool-sticky-figure>' . ( 'count' === ( $tool['sticky_kind'] ?? '' ) ? '<bdi>' . (int) $snap['total'] . '</bdi>' : ( 'pct' === ( $tool['sticky_kind'] ?? '' ) ? '<bdi>' . esc_html( (string) round( (float) $snap['total'], 2 ) ) . '%</bdi>' : justice_tools_money( $snap['total'], in_array( $name, array( 'tviot-ktanot', 'hetel-hashbacha' ), true ) ? 0 : 2 ) ) ) . '</strong><a href="#' . esc_attr( $id ) . '-result">פרטים</a></div>'
+		. '<div class="jtool-sticky" data-show="0"><span>' . esc_html( $tool['sticky'] ) . '</span><strong data-jtool-sticky-figure>' . ( 'count' === ( $tool['sticky_kind'] ?? '' ) ? '<bdi>' . (int) $snap['total'] . '</bdi>' : ( 'pct' === ( $tool['sticky_kind'] ?? '' ) ? '<bdi>' . esc_html( (string) round( (float) $snap['total'], 2 ) ) . '%</bdi>' : justice_tools_money( $snap['total'], in_array( $name, array( 'tviot-ktanot', 'hetel-hashbacha', 'chozeh-schirut' ), true ) ? 0 : 2 ) ) ) . '</strong><a href="#' . esc_attr( $id ) . '-result">פרטים</a></div>'
 		. '</section>'
 		. '<script type="application/json" id="' . esc_attr( $id ) . '-data">' . wp_json_encode( $data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP ) . '</script>'
 		. justice_tools_webapp_schema( $name, $tool );
@@ -1120,9 +1247,95 @@ function justice_tools_gerushin_numbers_html( array $d ): string {
 		. '<p class="jtool-updated">נבדק מול תקנות הדיינים (אגרות), תקנות בית המשפט לעניני משפחה (אגרות) והחוק להסדר התדיינויות בסכסוכי משפחה ב-' . esc_html( justice_tools_he_date( $d['checked_on'] ) ) . '. ' . esc_html( $rb['indexed_he'] ) . '; ' . esc_html( $fc['indexed_he'] ) . '.</p></div>';
 }
 
+/** Wave 5: the rules of a residential lease, each with its section. */
+function justice_tools_schirut_numbers_html( array $rc ): string {
+	$law  = '<a href="' . esc_url( $rc['law_url'] ) . '" target="_blank" rel="noopener">';
+	$rows = array(
+		array( 'ערובה שעולה כסף לשוכר', 'מזומן, ערבות בנקאית וערבות מחברת ביטוח או מבעל רישיון אשראי: יחד עד הנמוך מבין שכר הדירה לשליש מהתקופה ופי <bdi>' . (int) $rc['deposit']['months'] . '</bdi> משכר הדירה לחודש', $law . 'סעיף 25י(ב)</a>' ),
+		array( 'מימוש הערובה', 'רק על שכר דירה שלא שולם, ליקוי שבאחריות השוכר, תשלום שוטף שלא שולם או אי פינוי, אחרי הודעה מראש', $law . 'סעיף 25י(ג)-(ד)</a>' ),
+		array( 'החזרת הערובה', 'תוך <bdi>' . (int) $rc['deposit']['return_days'] . '</bdi> ימים מהשבת הדירה, עם הפירות', $law . 'סעיף 25י(ה)</a>' ),
+		array( 'תיקון ליקוי', 'המשכיר, תוך <bdi>' . (int) $rc['repairs']['days'] . '</bdi> ימים מהדרישה; פגם דחוף תוך <bdi>' . (int) $rc['repairs']['urgent_days'] . '</bdi> ימים; נזק משימוש בלתי סביר: השוכר', $law . 'סעיף 25ח</a>' ),
+		array( 'מה השוכר משלם', esc_html( implode( ', ', $rc['tenant_pays'] ) ), $law . 'סעיף 25ט(א)</a>' ),
+		array( 'מה השוכר לא משלם', esc_html( implode( ', ', $rc['tenant_not'] ) ), $law . 'סעיף 25ט(ב)</a>' ),
+		array( 'אופציה להארכה', 'של המשכיר: הודעה לפחות <bdi>' . (int) $rc['option']['landlord_days'] . '</bdi> ימים לפני הסוף ובתנאים שנקבעו מראש; של השוכר: עד <bdi>' . (int) $rc['option']['tenant_days'] . '</bdi> ימים לפני הסוף', $law . 'סעיף 25יב</a>' ),
+		array( 'ביטול בלי הפרה', 'למשכיר רק אם גם לשוכר; הודעה: המשכיר <bdi>' . (int) $rc['exit']['landlord_days'] . '</bdi> ימים, השוכר <bdi>' . (int) $rc['exit']['tenant_days'] . '</bdi> ימים מראש', $law . 'סעיף 25יג</a>' ),
+		array( 'מכירת הדירה', 'החוזה מחייב את הקונה, והמשכיר מודיע לשוכר בכתב לפני המסירה', $law . 'סעיפים 21(ב) ו-25יא</a>' ),
+		array( 'דירה ראויה למגורים', esc_html( implode( '; ', $rc['unfit'] ) ) . ': אם אחד מאלה, הדירה לא ראויה', $law . 'סעיף 25ו, התוספת הראשונה</a>' ),
+		array( 'מה חייב להיות בחוזה', esc_html( implode( '; ', $rc['schedule2'] ) ), $law . 'סעיף 25ג, התוספת השנייה</a>' ),
+		array( 'מתי הסימן לא חל', 'שכירות עד <bdi>' . (int) $rc['scope']['short_months'] . '</bdi> חודשים בלי אופציה, מעל <bdi>' . (int) $rc['scope']['long_years'] . '</bdi> שנים בלי ביטול למשכיר, שכר דירה מעל ' . justice_tools_money( $rc['scope']['rent_cap'], 0 ) . ' (מתעדכן), מלון, מעונות, שכירות מוגנת', $law . 'סעיף 25טו</a>' ),
+		array( 'ויתור על הזכויות', 'סעיף בחוזה שמרע עם השוכר בעניינים האלה לא תקף, חוץ מבין קרובים', $law . 'סעיפים 25יד ו-25טו(ב)</a>' ),
+	);
+	$body = '';
+	foreach ( $rows as $r ) {
+		$body .= '<tr><td data-th="מה">' . esc_html( $r[0] ) . '</td><td data-th="הכלל">' . $r[1] . '</td><td data-th="מקור">' . $r[2] . '</td></tr>';
+	}
+	return '<div class="jtool-page"><div class="jtool-datawrap"><table class="jtool-datatable"><caption>חוזה שכירות למגורים: הכללים שבחוק השכירות והשאילה</caption><thead><tr><th scope="col">מה</th><th scope="col">הכלל</th><th scope="col">מקור</th></tr></thead><tbody>' . $body . '</tbody></table></div>'
+		. '<p class="jtool-updated">נבדק מול הנוסח העדכני של החוק (ל-' . esc_html( justice_tools_he_date( $rc['law_current_to'] ) ) . ') ומול ספר החוקים ב-' . esc_html( justice_tools_he_date( $rc['checked_on'] ) ) . '. ' . esc_html( $rc['bill']['he'] ) . '.</p></div>';
+}
+
+/** Wave 5: severance, notice and tax, each with its section. */
+function justice_tools_pitzuyim_numbers_html( array $sv ): string {
+	$law  = '<a href="' . esc_url( $sv['law_url'] ) . '" target="_blank" rel="noopener">';
+	$nl   = '<a href="' . esc_url( $sv['notice']['url'] ) . '" target="_blank" rel="noopener">';
+	$rows = array(
+		array( 'מי זכאי', 'מי שעבד שנה ברציפות ופוטר, או התפטר בנסיבות שהחוק רואה כפיטורים', $law . 'סעיפים 1, 6 עד 11</a>' ),
+		array( 'כמה', 'משכורת חודש לכל שנת עבודה, וחלק יחסי לחלק משנה, לפי השכר האחרון', $law . 'סעיף 12(א)</a>' ),
+		array( 'עובד לפי שעה או יום', 'גם חודש לכל שנה, מ-' . esc_html( justice_tools_he_date( $sv['wage_regs_from'] ) ), '<a href="' . esc_url( $sv['wage_regs_url'] ) . '" target="_blank" rel="noopener">תקנות 1983</a>' ),
+		array( 'רצפה', 'לא פחות משכר המינימום לפי היקף המשרה', $law . 'סעיף 13ב</a>' ),
+		array( 'סעיף 14', esc_html( $sv['approval']['full_he'] . '; ' . $sv['approval']['partial_he'] ), '<a href="' . esc_url( $sv['approval']['url'] ) . '" target="_blank" rel="noopener">האישור הכללי</a>' ),
+		array( 'הודעה מוקדמת, משכורת חודשית', 'יום לכל חודש בחצי השנה הראשונה; אחר כך <bdi>' . (int) $sv['notice']['monthly']['base_days'] . '</bdi> ימים ועוד <bdi>2.5</bdi> לכל חודש; אחרי שנה: חודש', $nl . 'סעיף 3</a>' ),
+		array( 'הודעה מוקדמת, שכר לפי שעה או יום', 'יום לכל חודש בשנה הראשונה; בשנה השנייה <bdi>' . (int) $sv['notice']['wage']['y2_base'] . '</bdi> ימים ועוד יום לכל חודשיים; בשלישית <bdi>' . (int) $sv['notice']['wage']['y3_base'] . '</bdi> ועוד יום לכל חודשיים; אחר כך חודש', $nl . 'סעיף 4</a>' ),
+		array( 'פטור ממס', 'עד משכורת חודש לכל שנה, ולא יותר מ-' . justice_tools_money( $sv['tax']['ceiling'], 0 ) . ' לשנה ב-' . (int) $sv['tax']['year'], '<a href="' . esc_url( $sv['tax']['source_url'] ) . '" target="_blank" rel="noopener">רשות המסים</a>; <a href="' . esc_url( $sv['tax']['law_url'] ) . '" target="_blank" rel="noopener">' . esc_html( $sv['tax']['section'] ) . '</a>' ),
+		array( 'מועד התשלום', 'ביום סיום העבודה; מולן אחרי <bdi>' . (int) $sv['late']['grace_days'] . '</bdi> ימים; אחרי <bdi>' . (int) $sv['late']['linkage_to_day'] . '</bdi> ימים עוד <bdi>' . (int) $sv['late']['monthly_pct'] . '%</bdi> לכל חודש', '<a href="' . esc_url( $sv['late']['url'] ) . '" target="_blank" rel="noopener">חוק הגנת השכר, סעיף 20</a>' ),
+		array( 'אישור על תקופת העבודה', 'תוך <bdi>' . (int) $sv['notice']['cert_days'] . '</bdi> ימים מהיום האחרון, או <bdi>' . (int) $sv['notice']['cert_request_days'] . '</bdi> ימים מבקשה בכתב', $nl . 'סעיף 8(ב)</a>' ),
+		array( 'התיישנות', '<bdi>' . (int) $sv['limitation']['years'] . '</bdi> שנים', '<a href="' . esc_url( $sv['limitation']['url'] ) . '" target="_blank" rel="noopener">חוק ההתיישנות, ' . esc_html( $sv['limitation']['section'] ) . '</a>' ),
+	);
+	$body = '';
+	foreach ( $rows as $r ) {
+		$body .= '<tr><td data-th="מה">' . esc_html( $r[0] ) . '</td><td data-th="הכלל">' . $r[1] . '</td><td data-th="מקור">' . $r[2] . '</td></tr>';
+	}
+	return '<div class="jtool-page"><div class="jtool-datawrap"><table class="jtool-datatable"><caption>פיצויי פיטורים והודעה מוקדמת: הכללים והסכומים, ' . (int) $sv['tax']['year'] . '</caption><thead><tr><th scope="col">מה</th><th scope="col">הכלל</th><th scope="col">מקור</th></tr></thead><tbody>' . $body . '</tbody></table></div>'
+		. '<p class="jtool-updated">נבדק מול החוק, התקנות, האישור הכללי ולוח העזר של רשות המסים ב-' . esc_html( justice_tools_he_date( $sv['checked_on'] ) ) . '.</p></div>';
+}
+
+/** Wave 5: the capital-gains rates, exemptions and deadlines, each with its section. */
+function justice_tools_shevach_numbers_html( array $sh ): string {
+	$law  = '<a href="' . esc_url( $sh['law_url'] ) . '" target="_blank" rel="noopener">';
+	$ins  = '<a href="' . esc_url( $sh['source_url'] ) . '" target="_blank" rel="noopener">';
+	$rows = array(
+		array( 'שבח ריאלי מ-1.1.2012', '<bdi>' . (int) $sh['rates']['post2012'] . '%</bdi>', $law . 'סעיף 48א(ב)(1)</a>' ),
+		array( 'שבח ריאלי מ-7.11.2001 עד 31.12.2011', 'עד <bdi>' . (int) $sh['rates']['mid'] . '%</bdi>', $law . 'סעיף 48א(ב1)</a>' ),
+		array( 'שבח ריאלי עד 7.11.2001', 'השיעור הגבוה בסעיף 121: <bdi>' . (int) $sh['rates']['pre2001'] . '%</bdi> ב-2026', $law . 'סעיף 48א(ב1)</a>' ),
+		array( 'אינפלציה שנצברה עד 31.12.1993', '<bdi>' . (int) $sh['rates']['inflation'] . '%</bdi>; אחר כך פטור; בחישוב הלינארי 0%', $law . 'סעיף 48א(ג)</a>' ),
+		array( 'דירת מגורים מזכה שנקנתה לפני 1.1.2014', 'החלק היחסי עד 1.1.2014 פטור, השאר <bdi>' . (int) $sh['rates']['post2012'] . '%</bdi> (החישוב הלינארי המוטב)', $law . 'סעיף 48א(ב2)</a>' ),
+		array( 'דירה יחידה', esc_html( $sh['single_he'] ), $law . 'סעיפים 49ב(2) ו-49ג</a>' ),
+		array( 'תקרת הפטור', justice_tools_money( $sh['single']['ceiling'], 0 ) . ' מ-' . esc_html( justice_tools_he_date( $sh['single']['ceiling_from'] ) ) . ' עד ' . esc_html( justice_tools_he_date( $sh['single']['ceiling_to'] ) ) . '; מעליה החלק היחסי חייב', $law . 'סעיף 49א(א1)</a>; ' . $ins . 'הוראת ביצוע 1/2026</a>' ),
+		array( 'מס יסף', 'מכירת דירה חייבת במס של יותר מ-' . justice_tools_money( $sh['surtax']['threshold'], 0 ) . ': השבח נכנס להכנסה החייבת במס יסף', $ins . 'הוראת ביצוע 1/2026</a>' ),
+		array( 'הוצאות שמנכים', 'מס רכישה, עורך דין, שמאי, שיפוצים; דמי תיווך עד <bdi>' . (int) $sh['deductions']['broker_max_pct'] . '%</bdi> בקנייה ובמכירה', $law . 'סעיף 39</a>' ),
+		array( 'הצהרה', '<bdi>' . (int) $sh['deadlines']['declare_days'] . '</bdi> ימים מיום המכירה', $law . 'סעיף 73(א)</a>' ),
+		array( 'תשלום', '<bdi>' . (int) $sh['deadlines']['pay_days'] . '</bdi> ימים מיום המכירה', $law . 'סעיף 90א</a>' ),
+		array( 'השגה וערר', 'השגה תוך <bdi>' . (int) $sh['deadlines']['objection_days'] . '</bdi> ימים מהשומה; ערר תוך <bdi>' . (int) $sh['deadlines']['appeal_days'] . '</bdi> ימים מההחלטה', $law . 'סעיפים 87 ו-88</a>' ),
+	);
+	$body = '';
+	foreach ( $rows as $r ) {
+		$body .= '<tr><td data-th="מה">' . esc_html( $r[0] ) . '</td><td data-th="הכלל">' . $r[1] . '</td><td data-th="מקור">' . $r[2] . '</td></tr>';
+	}
+	return '<div class="jtool-page"><div class="jtool-datawrap"><table class="jtool-datatable"><caption>מס שבח במכירת דירה ביד יחיד: השיעורים, הפטורים והמועדים</caption><thead><tr><th scope="col">מה</th><th scope="col">הכלל</th><th scope="col">מקור</th></tr></thead><tbody>' . $body . '</tbody></table></div>'
+		. '<p class="jtool-updated">נבדק מול חוק מיסוי מקרקעין, הוראת ביצוע 1/2026 ולוח העזר של רשות המסים ב-' . esc_html( justice_tools_he_date( $sh['checked_on'] ) ) . '.</p></div>';
+}
+
 /** Current-numbers table (page standard A5): every row has a value, valid-from date and source. */
 function justice_tools_numbers_html( string $name ): string {
 	$reg = justice_tools_registry();
+	if ( 'chozeh-schirut' === $name ) {
+		return justice_tools_schirut_numbers_html( $reg['rent_contract'] );
+	}
+	if ( 'pitzuyim' === $name ) {
+		return justice_tools_pitzuyim_numbers_html( $reg['severance'] );
+	}
+	if ( 'mas-shevach' === $name ) {
+		return justice_tools_shevach_numbers_html( $reg['shevach'] );
+	}
 	if ( 'gerushin' === $name ) {
 		return justice_tools_gerushin_numbers_html( $reg['divorce_cost'] );
 	}
@@ -1201,7 +1414,7 @@ function justice_tools_numbers_html( string $name ): string {
 
 /** Comparison table (page standard A6). */
 function justice_tools_compare_html( string $name ): string {
-	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin' ), true ) ) {
+	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach' ), true ) ) {
 		$snap = justice_tools_snapshot( $name );
 		return '<div class="jtool-page">' . ( $snap['compare_table'] ?? '' ) . '</div>';
 	}

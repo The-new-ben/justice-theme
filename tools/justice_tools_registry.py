@@ -20,6 +20,10 @@ Sources
                             Taxation Law, the purchase-tax regulations and the Tax Authority's instructions
                             1/2025 and 2/2026 (build_purchase_tax), the Third Schedule to the Planning and
                             Building Law (build_betterment)
+  Wave 5 (HAD-504)          the Rental and Borrowing Law ss.25א-25טו as amended to 30.9.2026 (build_rent_contract), the
+                            Severance Pay Law, its 1964 and 1983 regulations, the s.14 general approval, the Advance
+                            Notice Law, the Wage Protection Law s.20 and the 2026 tax ceiling (build_severance), the Land
+                            Taxation Law and the Tax Authority's instruction 1/2026 (build_shevach)
 
 Usage
   python tools/justice_tools_registry.py --checked-on 2026-10-12 \
@@ -28,6 +32,7 @@ Usage
       --out assets/data/justice-tools-registry.json        (wave 3 only: keeps the other datasets as they are)
   add --wave4-checked-on <day> to rebuild the wave-4 datasets (HAD-502) with the --base refresh; a full rebuild (no
   --base) always builds them, read on --wave4-checked-on or, when it is not given, on --checked-on
+  add --wave5-checked-on <day> the same way for the wave-5 datasets (HAD-504: rent_contract, severance, shevach)
 
 Every input can be a saved file (so a reviewer can rebuild the exact registry from the files
 attached to the PR) or omitted to fetch live. The script never estimates a missing value: a
@@ -746,6 +751,245 @@ def build_divorce_cost(checked_on: str) -> dict:
     }
 
 
+def build_rent_contract(checked_on: str) -> dict:
+    """A residential lease under the Rental and Borrowing Law, 1971, chapter A, part 6 (ss.25א-25טו, the 2017 Fair
+    Rental amendment), current to 30.9.2026 on Nevo, read on checked_on (wave 5, HAD-504). The March 2026 economic plan
+    law (Sefer HaChukim 3510, s.24) added guarantees from credit, deposit-and-credit, stable-payment licensees and
+    insurers to the securities the cap of s.25י(ב) counts. No bill changing the cap was found in the Knesset bills
+    database on checked_on; the note says the cap may change by law and the tool computes the text in force."""
+    law = "https://www.nevo.co.il/law_html/law00/5149.htm"
+    d = {"months": 3, "term_share": [1, 3], "return_days": 60}
+    rep = {"days": 30, "urgent_days": 3}
+    opt = {"landlord_days": 90, "tenant_days": 60}
+    ext = {"landlord_days": 90, "tenant_days": 60}
+    scope = {"short_months": 3, "long_years": 10, "rent_cap": 20000}
+    cites = {
+        "25א": "בסימן זה \"הדירה המושכרת\" כוללת גם את חלקי הרכוש המשותף הצמודים לה (חניה, מחסן) שהושכרו; \"חוזה שכירות "
+               "למגורים\" הוא חוזה שמקנה זכות שכירות בדירה למטרת מגורים.",
+        "25ב": "החוזה ייערך בכתב וייחתם בידי שני הצדדים, והעתק חתום יימסר לכל אחד מהם; חוזה בעל פה עדיין תקף.",
+        "25ג": "החוזה יכלול לפחות את הפרטים שבתוספת השנייה: כתובת, שמות, תעודות זהות ומענים, תיאור הדירה והריהוט, "
+               "התקופה והברירה להאריך, זכות הביטול, דמי השכירות ומועדם, תשלומים נוספים, ופגמים ידועים.",
+        "25ה": "המשכיר ימסור את הדירה כשהיא מתאימה למגורים; מסירה של דירה שאינה מתאימה היא אי־התאמה.",
+        "25ו": "המשכיר ימסור דירה ראויה למגורים: עם ניקוז, חשמל ותאורה, פתחי אוורור ואור עם דלתות וחלונות ודלת כניסה ננעלת, "
+               "מי שתייה ומחיצה לשירותים, ובלי סיכון בלתי סביר לבטיחות או לבריאות (התוספת הראשונה). מסירה אחרת היא הפרת חוזה.",
+        "25ז": "הדירה תימסר במועד המוסכם, פנויה מכל אדם ונכס (חוץ ממה שהוסכם שיישאר), ועם הוראות תחזוקה ושימוש לדירה "
+               "ולמיתקנים.",
+        "25ח(א)": "השוכר אחראי לליקוי שנגרם משימוש בלתי סביר בדירה, ומתקן אותו על חשבונו.",
+        "25ח(ב)": f"כל ליקוי אחר שאינו קל ערך המשכיר מתקן על חשבונו, בתוך זמן סביר ולא יאוחר מ-{rep['days']} ימים מהדרישה; "
+                  f"פגם שתיקונו דחוף (שאינו מאפשר מגורים סבירים) לא יאוחר מ-{rep['urgent_days']} ימים.",
+        "25ח(ג)": "לא תיקן המשכיר בזמן, השוכר רשאי לתקן ולדרוש החזר הוצאות סבירות, או להפחית מדמי השכירות כל עוד הפגם לא "
+                  "תוקן (סעיף 9(א) ו-(ב)).",
+        "25ט(א)": "השוכר משלם: דמי שכירות, מסים על המחזיק (ארנונה), צריכת מים, חשמל, גז וחימום, ותשלומים לוועד הבית לאחזקה "
+                  "שוטפת.",
+        "25ט(ב)": "השוכר לא יישא בתשלומים אחרים, ובהם: רכישה או השבחה של מערכות ומיתקנים קבועים (חוץ משיפור שביקש), ביטוח "
+                  "מבנה, ותשלומים שהמשכיר חב לצד שלישי, כולל דמי תיווך למתווך שפעל מטעם המשכיר.",
+        "25י(ב)": f"ערובות שכרוכות בהוצאה כספית לשוכר (מזומן, ערבות בנקאית, ערבות מנותן ערבות אחר) לא יעלו יחד על הנמוך "
+                  f"מבין: דמי השכירות לשליש מתקופת השכירות, ופי {d['months']} מדמי השכירות לחודש.",
+        "25י(ג)": "המשכיר רשאי לממש ערובה רק כשהשוכר לא שילם שכר דירה, לא תיקן ליקוי שבאחריותו, לא שילם תשלום שוטף, או לא "
+                  "פינה את הדירה בתום התקופה, ורק עד הסכום שבחוב.",
+        "25י(ד)": "לפני מימוש, המשכיר מודיע זמן סביר מראש ומאפשר לשוכר לתקן.",
+        "25י(ה)": f"בתום השכירות המשכיר מחזיר את הערובה או יתרתה, עם פירותיה, בתוך {d['return_days']} ימים מהשבת הדירה "
+                  "או עד שחובות השוכר נפרעו, לפי המאוחר.",
+        "25יא": "מכר המשכיר את הדירה, הוא מודיע לשוכר בכתב לפני מסירתה לקונה, עם פרטי הקונה ודרכי ההתקשרות; החוזה ממשיך "
+                "לחייב את הקונה (סעיף 21(ב)).",
+        "25יב": f"המשכיר מודיע זמן סביר לפני תום התקופה אם ירצה להאריך ובאילו תנאים. ברירת הארכה של המשכיר: הודעה לא יאוחר "
+                f"מ-{opt['landlord_days']} ימים לפני הסוף, ורק לפי תנאים שנקבעו בחוזה מראש. ברירה של השוכר: הודעה לא יאוחר "
+                f"מ-{opt['tenant_days']} ימים לפני הסוף.",
+        "25יג": f"תניה שמתירה למשכיר לבטל בלי הפרה בטלה, אלא אם גם לשוכר יש זכות כזאת. הודעת ביטול: המשכיר "
+                f"{ext['landlord_days']} ימים מראש לפחות, השוכר {ext['tenant_days']} ימים מראש לפחות.",
+        "25יד": "אין להתנות על חובת דירה ראויה למגורים (סעיף 25ו), ועל הסעיפים 6, 8 עד 10, 15, 21(ב)-(ג), 23 עד 25ה, "
+                "25ח(א)(1), (ב)-(ג) ו-25ט עד 25יג, אלא לטובת השוכר. סעיף חוזה שמרע עם השוכר בעניינים האלה לא תקף.",
+        "25טו": f"הסימן לא חל על מלון ונופש, מעונות ודיור מוגן, דירה בשכירות מוגנת, שכירות עד {scope['short_months']} "
+                f"חודשים בלי ברירת הארכה, שכירות של יותר מ-{scope['long_years']} שנים בלי זכות ביטול מוקדם למשכיר, ושכר דירה "
+                f"של יותר מ-{scope['rent_cap']:,} ₪ לחודש (סכום שמתעדכן ב-1 בינואר). בין קרובים מותר להתנות על סעיף 25יד(2).",
+        "6": "המשכיר מוסר דירה שמתאימה למוסכם; על אי־התאמה חל סעיף 11 לחוק המכר. השוכר לא יוכל להסתמך על אי־התאמה שידע "
+             "עליה בחתימה, או שלא הודיע עליה זמן סביר אחרי שגילה.",
+        "8": "תניה שפוטרת את המשכיר מאחריות לאי־התאמה או לפגם שידע עליהם ולא גילה, בטלה.",
+        "9": "השוכר רשאי לתקן פגם שהמשכיר לא תיקן ולדרוש החזר, או להפחית את דמי השכירות כל עוד לא תוקן; פגם דחוף אפשר "
+             "לתקן בלי דרישה מוקדמת.",
+        "14": "דמי שכירות לתקופות קצובות משולמים בתחילת כל תקופה, באחת הדרכים המקובלות.",
+        "16": "השוכר משתמש בדירה לפי המוסכם (למגורים).",
+        "16א": "השוכר לא יבצע שינויים בדירה בלי הסכמת המשכיר.",
+        "17": "השוכר מאפשר למשכיר לבדוק את הדירה ולתקן בה בכל עת סבירה, אחרי הודעה זמן סביר מראש ובהפרעה מעטה ככל האפשר.",
+        "20": "בסיום התקופה השוכר מחזיר את הדירה פנויה מכל אדם ונכס, חוץ מנכסי המשכיר שמשמשים אותה.",
+        "21": "זכות השכירות עומדת כלפי כל אדם; משכיר שמכר את הדירה, הקונה בא במקומו לכל זכויות וחובות החוזה.",
+        "22": "העברת השכירות או שכירות משנה רק בהסכמת המשכיר, מראש ובכתב; סירוב בלתי סביר מאפשר לשוכר לעשות את העסקה "
+              "בלי הסכמה.",
+        "protected": "חוק הגנת הדייר חל על שכירות מוגנת (בדרך כלל בדמי מפתח). דירה כזאת מחוץ לסימן החוזה למגורים (סעיף "
+                     "25טו(א)(1)(ה)); בחוזה הזה הצדדים מצהירים שאין דמי מפתח ושהשכירות אינה מוגנת.",
+        "guarantee": "ערב אחראי לחיובי השוכר כלפי המשכיר כמו השוכר עצמו, עד הסכום שנקבע בכתב הערבות (חוק הערבות, "
+                     "התשכ\"ז-1967). ערבות אישית ושטר חוב אינם כרוכים בהוצאה כספית לשוכר ולכן אינם נספרים בתקרה של "
+                     "סעיף 25י(ב), אבל מימושם כפוף לסעיף 25י(ג)-(ד).",
+    }
+    return {
+        "name_he": "חוזה שכירות למגורים לפי חוק השכירות והשאילה",
+        "publisher_he": "חוק השכירות והשאילה, סימן ו': חוזה שכירות למגורים",
+        "source_name": "חוק השכירות והשאילה, התשל\"א-1971 (נוסח עדכני ל-30.9.2026)",
+        "source_url": law,
+        "checked_on": checked_on,
+        "refresh_every_days": 92,
+        "next_update": "2027-01-01",
+        "law_he": "חוק השכירות והשאילה, התשל\"א-1971",
+        "law_url": law, "law_current_to": "2026-09-30",
+        "amend_2017": {"he": "חוק השכירות והשאילה (תיקון), התשע\"ז-2017 (\"חוק שכירות הוגנת\")",
+                       "gazette_he": "ס\"ח התשע\"ז, עמ' 1028", "url": "https://fs.knesset.gov.il/20/law/20_lsr_389390.pdf"},
+        "amend_2026": {"he": "חוק התוכנית הכלכלית (תיקוני חקיקה ליישום המדיניות הכלכלית לשנת התקציב 2026), סעיף 24",
+                       "gazette_he": "ס\"ח 3510, 31.3.2026, עמ' 362", "url": "https://fs.knesset.gov.il/25/law/25_lsr_12224370.pdf",
+                       "what_he": "גם ערבות מ\"נותן ערבות אחר\" (בעל רישיון למתן אשראי, לשירותי פיקדון ואשראי או לשירותי "
+                                  "תשלום יציבותי, או מבטח) נספרת בתקרה, כמו ערבות בנקאית ומזומן"},
+        "deposit": dict(d, section="סעיף 25י(ב)", realize_section="סעיף 25י(ג)", notice_section="סעיף 25י(ד)",
+                        return_section="סעיף 25י(ה)"),
+        "repairs": dict(rep, section="סעיף 25ח(ב)", tenant_section="סעיף 25ח(א)", remedy_section="סעיף 25ח(ג)"),
+        "option": dict(opt, section="סעיף 25יב"),
+        "exit": dict(ext, section="סעיף 25יג"),
+        "scope": dict(scope, section="סעיף 25טו(א)",
+                      rent_cap_he="20,000 ₪ לחודש בנוסח החוק, מתעדכן ב-1 בינואר לפי המדד; לא נמצאה הודעה ברשומות על "
+                                  "הסכום המעודכן, ולכן הכלי מסמן כל שכר דירה מעל 20,000 ₪ לבדיקה"),
+        "no_waiver_section": "סעיף 25יד",
+        "tenant_pays": ["דמי השכירות", "ארנונה ומסים אחרים החלים על המחזיק", "מים, חשמל, גז וחימום",
+                        "ועד בית לאחזקה שוטפת"],
+        "tenant_not": ["ביטוח המבנה", "דמי תיווך למתווך שפעל מטעם המשכיר",
+                       "רכישה או השבחה של מערכות ומיתקנים קבועים (דוד, מזגן, מעלית), חוץ משיפור שהשוכר ביקש"],
+        "unfit": ["אין מערכת ניקוז וסילוק שפכים", "אין מערכת חשמל או תאורה",
+                  "אין פתחי אוורור ואור, דלתות וחלונות, או דלת כניסה ננעלת", "אין אספקת מי שתייה",
+                  "אין מחיצה בין השירותים לדירה", "יש סיכון בלתי סביר לבטיחות או לבריאות השוכר"],
+        "schedule2": ["כתובת הדירה", "שמות הצדדים, תעודות זהות ומענים", "תיאור הדירה, הריהוט והאבזרים והחלקים הצמודים",
+                      "התקופה, ברירת ההארכה ותנאיה, וזכות הביטול ותנאיה", "דמי השכירות, המועד ודרך התשלום",
+                      "תשלומים נוספים על השוכר וגובהם", "פגמים וליקויים שאינם קלי ערך הידועים למשכיר"],
+        "bill": {"checked_on": checked_on,
+                 "he": "תקרת הערובה עשויה להשתנות בחקיקה. הכלי מחשב לפי סעיף 25י בנוסחו היום, ויעודכן ביום התחולה של "
+                       "כל שינוי",
+                 "found_he": "במאגר הצעות החוק של הכנסת (נבדק ב-14.10.2026) לא נמצאה הצעה שעברה קריאה ראשונה ומשנה את "
+                             "תקרת הערובה",
+                 "url": "https://main.knesset.gov.il/activity/legislation/laws/pages/lawsuggestionssearch.aspx"},
+        "guarantee_law_he": "חוק הערבות, התשכ\"ז-1967",
+        "guarantee_law_url": "https://www.nevo.co.il/law_html/law00/4521.htm",
+        "protected_law_he": "חוק הגנת הדייר [נוסח משולב], התשל\"ב-1972",
+        "cites": cites,
+    }
+
+
+def build_severance(checked_on: str) -> dict:
+    """Severance pay and advance notice (wave 5, HAD-504): the Severance Pay Law, 1963 (Nevo, current to 30.1.2025), the
+    1964 calculation regulations (current to 18.9.2023), the 1983 regulations on wage-paid employees (Kovetz HaTakanot
+    4513), the 1998 general approval under s.14 (Yalkut HaPirsumim 4659), the Advance Notice Law, 2001 (current to
+    18.9.2023), the Wage Protection Law s.20 (current to 7.11.2025) and the 2026 income-tax ceiling for a retirement
+    grant (13,750 per year of work, s.9(7א)(א); the Tax Authority's 2026 deductions booklet, the amounts frozen for
+    2025-2027). The minimum-wage floor of s.13ב reads the registry's min_wage dataset."""
+    law = "https://www.nevo.co.il/law_html/law00/4566.htm"
+    return {
+        "name_he": "פיצויי פיטורים והודעה מוקדמת",
+        "publisher_he": "חוק פיצויי פיטורים, חוק הודעה מוקדמת ורשות המסים",
+        "source_name": "חוק פיצויי פיטורים, התשכ\"ג-1963 (נוסח עדכני)",
+        "source_url": law,
+        "checked_on": checked_on,
+        "refresh_every_days": 365,
+        "next_update": "2027-01-01",
+        "law_he": "חוק פיצויי פיטורים, התשכ\"ג-1963", "law_url": law, "law_current_to": "2025-01-30",
+        "min_months": 12, "presumption_section": "סעיף 3",
+        "regs_he": "תקנות פיצויי פיטורים (חישוב הפיצויים, והתפטרות שרואים אותה כפיטורים), התשכ\"ד-1964",
+        "regs_url": "https://www.nevo.co.il/law_html/law00/4567.htm", "regs_current_to": "2023-09-18",
+        "wage_regs_he": "תקנות פיצויי פיטורים (שיעורי פיצויי פיטורים לעובד בשכר), התשמ\"ג-1983",
+        "wage_regs_url": "https://www.nevo.co.il/law_html/law00/4569.htm", "wage_regs_from": "1983-08-01",
+        "approval": {"he": "אישור כללי בדבר תשלומי מעבידים לקרן פנסיה ולקופת ביטוח במקום פיצויי פיטורים",
+                     "gazette_he": "י\"פ 4659, 1998", "url": "https://olaw.org.il/yalkut/yalkut-4659.pdf",
+                     "full_pct": 100, "partial_pct": 72,
+                     "full_he": "קרן פנסיה: לפחות 14⅓% מהשכר (או 12% ועוד 2⅓% להשלמת פיצויים): במקום 100% מהפיצויים",
+                     "partial_he": "12% בלי ההשלמה של 2⅓% (כלומר 6% לפיצויים): במקום 72% מהפיצויים בלבד",
+                     "written_he": "הסדר בכתב עם העובד בתוך 3 חודשים מתחילת ההפרשות, עם ויתור המעסיק מראש על החזר "
+                                   "הכספים (סעיף 2 לאישור)"},
+        "notice": {"he": "חוק הודעה מוקדמת לפיטורים ולהתפטרות, התשס\"א-2001",
+                   "url": "https://www.nevo.co.il/law_html/law00/71704.htm", "current_to": "2023-09-18",
+                   "monthly": {"first_months": 6, "base_days": 6, "per_month": 2.5},
+                   "wage": {"y2_base": 14, "y3_base": 21}, "cert_days": 14, "cert_request_days": 7},
+        "tax": {"ceiling": 13750, "year": 2026, "section": "סעיף 9(7א)(א)",
+                "law_he": "פקודת מס הכנסה [נוסח חדש]", "law_url": "https://www.nevo.co.il/law_html/law00/84255.htm",
+                "source_he": "רשות המסים, לוח עזר לחישוב מס הכנסה ממשכורת לחודש ינואר 2026 ואילך, פרק ג",
+                "source_url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/"
+                              "generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2026.pdf",
+                "frozen_he": "הסכומים לא תואמו ב-2025 עד 2027 (חוק ההתייעלות הכלכלית, הקפאת עדכוני מס ומס יסף, התשפ\"ה-2024)"},
+        "late": {"he": "חוק הגנת השכר, התשי\"ח-1958", "url": "https://www.nevo.co.il/law_html/law00/71689.htm",
+                 "current_to": "2025-11-07", "grace_days": 15, "linkage_to_day": 30, "monthly_pct": 20, "section": "סעיף 20"},
+        "limitation": {"he": "חוק ההתיישנות, התשי\"ח-1958", "url": "https://www.nevo.co.il/law_html/law00/71809.htm",
+                       "years": 7, "section": "סעיף 5(1)"},
+        "labor_court_he": "בית הדין האזורי לעבודה",
+        "reasons": [
+            {"code": "health", "section": "סעיף 6", "he": "מצב בריאות שלכם או של בן משפחה (בן זוג, ילד, הורה)"},
+            {"code": "parent", "section": "סעיף 7", "he": "בתוך 9 חודשים מהלידה או מהאימוץ, כדי לטפל בילד"},
+            {"code": "move", "section": "סעיף 8; תקנה 12", "he": "מעבר דירה של 40 ק\"מ לפחות בנסיבות שבתקנות (נישואין, בן זוג שעבר עבודה, גירושין)"},
+            {"code": "term", "section": "סעיף 9", "he": "חוזה לתקופה קצובה שהסתיים בלי הצעה לחדש אותו"},
+            {"code": "worse", "section": "סעיף 11(א)", "he": "הרעה מוחשית בתנאי העבודה, או נסיבות שבהן אין לדרוש להמשיך"},
+            {"code": "retire", "section": "סעיף 11(ה)", "he": "התפטרות אחרי גיל הפרישה"},
+        ],
+    }
+
+
+def build_shevach(checked_on: str) -> dict:
+    """Capital gains tax on the sale of a home by an individual (wave 5, HAD-504): the Land Taxation Law, 1963 (current
+    text, ss.39, 47, 48א, 49, 49א, 49ב, 73, 87, 88, 90א), the Tax Authority's execution instruction 1/2026 (the exemption
+    ceiling 5,008,000 from 1.1.2025 to 31.12.2027 and the surtax line 5,385,285), and the 2026 top income-tax rate (47%)
+    from the Tax Authority's 2026 deductions booklet. Inflation is the registry's CPI series (CBS), on the known-index rule
+    of s.47 ("as last published before the day")."""
+    law = "https://www.nevo.co.il/law_html/law01/276_002.htm"
+    inst26 = "https://www.gov.il/BlobFolder/policy/inst-01-2026/he/realestate_inst-01-2026.pdf"
+    booklet = ("https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/"
+               "generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2026.pdf")
+    return {
+        "name_he": "מס שבח במכירת דירת מגורים",
+        "publisher_he": "חוק מיסוי מקרקעין ורשות המסים",
+        "source_name": "רשות המסים, הוראת ביצוע מיסוי מקרקעין 1/2026: עדכון הסכומים והקפאת הסכומים",
+        "source_url": inst26,
+        "checked_on": checked_on,
+        "refresh_every_days": 92,
+        "next_update": "2027-01-16",
+        "law_he": "חוק מיסוי מקרקעין (שבח ורכישה), התשכ\"ג-1963", "law_url": law,
+        "dates": {"start": "2001-11-07", "change": "2012-01-01", "transition": "2014-01-01", "inflation_end": "1993-12-31"},
+        "rates": {"pre2001": 47, "mid": 20, "post2012": 25, "inflation": 10, "inflation_linear": 0},
+        "rate_sections": {"post2012": "סעיף 48א(ב)(1)", "pre2001": "סעיף 48א(ב1)(1)(א)", "mid": "סעיף 48א(ב1)(1)(ב)",
+                          "linear": "סעיף 48א(ב2)", "inflation": "סעיף 48א(ג)(1)", "inflation_linear": "סעיף 48א(ג)(2)",
+                          "periods": "סעיף 47", "top_slice": "סעיף 48ב"},
+        "top_rate_he": "שיעור המס הגבוה ביותר בסעיף 121 לפקודה ב-2026 (47%), לפי לוח העזר של רשות המסים",
+        "top_rate_url": booklet,
+        "single": {"ceiling": 5008000, "ceiling_from": "2025-01-01", "ceiling_to": "2027-12-31", "hold_months": 18,
+                   "gap_months": 18, "section": "סעיף 49ב(2)", "ceiling_section": "סעיף 49א(א1)",
+                   "exceptions_section": "סעיף 49ג", "url": inst26},
+        "surtax": {"threshold": 5385285, "section": "סעיף 121ב(ה) לפקודת מס הכנסה", "rate": 3, "capital_rate": 2,
+                   "income_threshold": 721560, "url": booklet},
+        "deadlines": {"declare_days": 30, "declare_section": "סעיף 73(א)", "pay_days": 60, "pay_section": "סעיף 90א",
+                      "objection_days": 30, "objection_section": "סעיף 87(א)", "appeal_days": 30, "appeal_section": "סעיף 88"},
+        "deductions": {"section": "סעיף 39", "improve_section": "סעיף 39(1)", "broker_buy_section": "סעיף 39(5)",
+                       "broker_sell_section": "סעיף 39(6)", "lawyer_section": "סעיף 39(7)", "appraiser_section": "סעיף 39(7א)",
+                       "levy_section": "סעיף 39(11)", "broker_max_pct": 2},
+        "qualified_he": "דירת מגורים מזכה: דירה ששימשה בעיקרה למגורים בארבע חמישיות מהתקופה או בארבע השנים שלפני המכירה "
+                        "(סעיף 49(א)); דירה שעמדה ריקה נחשבת לשימוש למגורים",
+        "single_he": "הדירה היחידה שלכם בישראל ובאזור, בבעלותכם 18 חודשים לפחות מאז שהיתה לדירת מגורים, ולא מכרתם דירה אחרת "
+                     "בפטור כזה ב-18 החודשים שלפני (סעיף 49ב(2)). דירה נוספת לא נספרת אם נקנתה כתחליף ב-24 החודשים "
+                     "שלפני המכירה, או שחלקכם בה עד שליש, ובירושה עד מחצית (סעיף 49ג)",
+        "seller_he": "המחשבון הוא ליחיד תושב ישראל שמוכר את כל זכויותיו בדירה; מוכר ובן זוגו וילדיהם עד גיל 18 הם מוכר אחד "
+                     "(סעיף 49(ב))",
+        "depreciation_he": "בדירה שהושכרה, הפחת שהיה ניתן לנכות לפי סעיף 21 לפקודה מופחת משווי הרכישה ומגדיל את השבח (סעיף "
+                           "47, \"יתרת שווי רכישה\"); המחשבון לא מחשב פחת",
+        "simulator_url": "https://www.misim.gov.il/svtsvazmitnew/FrmHadrachaRashit.aspx",
+        "service_url": "https://www.gov.il/he/service/real_estate_selfshuma",
+        "cpi_from": "1990-01",
+        "independence_days": ["2025-05-01", "2026-04-22", "2027-05-12"],
+        "interpretation_he": "חוק הפרשנות, התשמ\"א-1981, סעיף 10(ג)",
+    }
+
+
+WAVE5_KEYS = ("rent_contract", "severance", "shevach")
+
+
+def add_wave5(registry: dict, day: str | None) -> None:
+    """Wave 5 (HAD-504): the rental-contract, severance and capital-gains datasets, each with its own checked_on."""
+    if not day:
+        return
+    registry["registry_version"] = max(registry["registry_version"], day)
+    registry["rent_contract"] = build_rent_contract(day)
+    registry["severance"] = build_severance(day)
+    registry["shevach"] = build_shevach(day)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--checked-on", required=True)
@@ -756,11 +1000,14 @@ def main() -> int:
     parser.add_argument("--base", help="existing registry: keep its CPI, interest, minimum-wage, havraa and small-claims "
                                          "datasets and its checked_on, and rebuild only the wave-3 datasets (HAD-498)")
     parser.add_argument("--wave3-checked-on", help="the day the wave-3 sources were read (default: --checked-on)")
+    parser.add_argument("--wave5-checked-on", help="the day the wave-5 sources were read (HAD-504); when given, the rental-"
+                                                   "contract, severance and capital-gains datasets are built too")
     parser.add_argument("--wave4-checked-on", help="the day the wave-4 sources were read (HAD-502); when given, the will-cost, "
                                                    "road-accident and divorce-cost datasets are built too")
     args = parser.parse_args()
     wave3_day = args.wave3_checked_on or args.checked_on
     wave4_day = args.wave4_checked_on
+    wave5_day = args.wave5_checked_on
     if args.base:
         base = json.loads(Path(args.base).read_text(encoding="utf-8"))
         registry = {key: base[key] for key in ("schema", "registry_version", "checked_on", "note_he", "cpi", "interest",
@@ -776,6 +1023,11 @@ def main() -> int:
         for key in kept:
             registry[key] = base[key]
         add_wave4(registry, wave4_day)
+        # The same for wave 5 (HAD-504): kept from the base unless rebuilt.
+        for key in WAVE5_KEYS:
+            if key in base:
+                registry[key] = base[key]
+        add_wave5(registry, wave5_day)
         write_registry(registry, args.out)
         return 0
 
@@ -806,6 +1058,7 @@ def main() -> int:
     # A full rebuild reads every source again, so it always builds the wave-4 datasets: a registry without them would
     # leave three live tools without data (review, PR 126).
     add_wave4(registry, wave4_day or args.checked_on)
+    add_wave5(registry, wave5_day or args.checked_on)
     write_registry(registry, args.out)
     return 0
 

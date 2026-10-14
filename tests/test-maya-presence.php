@@ -24,6 +24,7 @@ $jt_filters  = array();
 $jt_actions  = array();
 $jt_page     = array( 'id' => 500, 'type' => 'articles', 'slug' => 'joint-custody-shared-parenting', 'title' => 'משמורת משותפת בישראל', 'terms' => array( 'family-law' ), 'primary' => 0, 'meta' => array() );
 $jt_landing  = false;
+$jt_rival    = false;
 $jt_byline   = false;
 $jt_terms_db = array(
 	68  => array( 'slug' => 'family-law', 'parent' => 0 ),
@@ -96,10 +97,13 @@ function get_posts( $args ): array {
 	if ( 'justice_lawyer' !== ( $args['post_type'] ?? '' ) ) {
 		return array();
 	}
+	global $jt_rival;
+	$pool = $jt_rival ? array( 888, 777 ) : array( 777 );
 	if ( isset( $args['post__in'] ) ) {
-		return in_array( 777, array_map( 'intval', (array) $args['post__in'] ), true ) ? array( new WP_Post( 777 ) ) : array();
+		$want = array_map( 'intval', (array) $args['post__in'] );
+		return array_values( array_map( static fn( $id ) => new WP_Post( $id ), array_intersect( $pool, $want ) ) );
 	}
-	return 0 === (int) ( $args['offset'] ?? 0 ) ? array( new WP_Post( 777 ) ) : array();
+	return 0 === (int) ( $args['offset'] ?? 0 ) ? array_map( static fn( $id ) => new WP_Post( $id ), $pool ) : array();
 }
 function get_post( $id ) {
 	global $jt_page;
@@ -126,6 +130,10 @@ function get_post_meta( $id, $key, $single = false ) {
 			'profile_faqs'               => "כמה זמן נמשך הליך גירושין בהסכמה? | תשובה א.\nמה עדיף, גישור או בית משפט? | תשובה ב.\nהאם הסכם ממון משתלם גם לזוגות צעירים? | תשובה ג.\nמה קורה בפגישה הראשונה? | תשובה ד.",
 		);
 		return $meta[ $key ] ?? '';
+	}
+	if ( 888 === (int) $id ) {
+		$rival = array( 'subscription_status' => 'active', 'plan_type' => 'featured', 'priority_score' => '900' );
+		return $rival[ $key ] ?? '';
 	}
 	if ( '_yoast_wpseo_primary_practice-areas' === $key ) {
 		return (string) $jt_page['primary'];
@@ -265,10 +273,10 @@ function justice_enc_word_count( $content ): int {
 }
 // Theme helpers the module reads.
 function justice_theme_lawyer_profile_is_public_approved( $id ): bool {
-	return 777 === (int) $id;
+	return in_array( (int) $id, array( 777, 888 ), true );
 }
 function justice_theme_lawyer_has_public_sponsored_placement( $id ): bool {
-	return 777 === (int) $id;
+	return in_array( (int) $id, array( 777, 888 ), true );
 }
 function justice_lawyer_owner_is_maya_profile( int $id ): bool {
 	return 777 === $id;
@@ -512,6 +520,13 @@ foreach ( array( 'aggregateRating', 'Review', 'ratingValue', 'award' ) as $banne
 jt_set_page( array( 'id' => 709, 'type' => 'page', 'slug' => 'child-support', 'title' => 'מזונות ילדים', 'terms' => array( 'child-support' ), 'meta' => array( 'jt_maya_reviewed_on' => '2026-10-20' ) ) );
 $schema = justice_maya_schema( justice_maya_context() );
 jt_maya_assert( '2026-10-20' === $schema['@graph'][0]['lastReviewed'] && isset( $schema['@graph'][0]['reviewedBy']['@id'] ), 'a recorded review is not in the graph' );
+
+$jt_rival = true;
+jt_set_page( array( 'id' => 711, 'type' => 'page', 'slug' => 'child-support', 'title' => 'מזונות ילדים', 'terms' => array( 'child-support' ) ) );
+jt_maya_assert( false === justice_maya_context()['applies'], 'her graph applies although another lawyer holds the first (always placed) card' );
+$jt_rival = false;
+jt_set_page( array( 'id' => 712, 'type' => 'page', 'slug' => 'child-support', 'title' => 'מזונות ילדים', 'terms' => array( 'child-support' ) ) );
+jt_maya_assert( true === justice_maya_context()['applies'], 'her graph does not apply when she holds the first card' );
 
 // --------------------------------------------------------------------------- 6. styles
 

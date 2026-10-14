@@ -362,11 +362,15 @@ function justice_maya_context(): array {
 
 	$settings  = justice_cards_settings();
 	$lawyer_id = 0;
-	foreach ( justice_cards_lawyers( $terms, (int) $settings['max'] ) as $lawyer ) {
-		if ( function_exists( 'justice_lawyer_owner_is_maya_profile' ) && justice_lawyer_owner_is_maya_profile( (int) $lawyer->ID ) ) {
-			$lawyer_id = (int) $lawyer->ID;
-			break;
-		}
+	// Only the first card is always placed (a second one depends on length and the FAQ anchor),
+	// so her graph and line apply only when she is the first card of the page.
+	$lawyers = justice_cards_lawyers( $terms, (int) $settings['max'] );
+	if (
+		$lawyers
+		&& function_exists( 'justice_lawyer_owner_is_maya_profile' )
+		&& justice_lawyer_owner_is_maya_profile( (int) $lawyers[0]->ID )
+	) {
+		$lawyer_id = (int) $lawyers[0]->ID;
 	}
 	if ( ! $lawyer_id || ! (int) $settings['enabled'] ) {
 		$cache[ $post_id ] = $none;

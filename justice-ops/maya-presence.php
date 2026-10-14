@@ -769,8 +769,6 @@ function justice_maya_card_render( WP_Post $lawyer ): string {
 		. '<div class="jt-maya-card__who">'
 		. '<p class="jt-maya-card__name"><a href="' . esc_url( $urls['minisite'] ) . '">' . esc_html( $name ) . '</a></p>'
 		. '<p class="jt-maya-card__role">עורכת דין ומגשרת בדיני משפחה וגירושין' . ( $city ? ', ' . esc_html( $city ) : '' ) . '.</p>'
-		// Years up front, one figure across the web (Ben 14.10.2026): her office site says 20+ years; Dun's 100 lists the office as founded in 2002.
-		. '<p class="jt-maya-card__years"><strong>מעל 20</strong> שנות ניסיון בדיני משפחה <a class="jt-maya-card__yearsrc" href="' . esc_url( $urls['official_about'] ) . '" rel="sponsored noopener" target="_blank">מקור: אתר המשרד</a> · <a class="jt-maya-card__yearsrc" href="' . esc_url( $urls['duns'] ) . '" rel="noopener" target="_blank">Dun’s 100: המשרד נוסד ב-2002</a></p>'
 		. ( '' !== $tagline ? '<p class="jt-maya-card__tagline">' . esc_html( $tagline ) . '</p>' : '' )
 		. '</div></div>'
 		. '<div class="jt-maya-card__grid">'
@@ -990,7 +988,6 @@ function justice_maya_css(): string {
 %S% .jt-maya-card__name a{color:var(--mc-plum)!important;text-decoration:none}
 %S% .jt-maya-card__name a:hover{text-decoration:underline}
 %S% .jt-maya-card__role{font-size:16.5px;font-weight:700;color:var(--mc-ink)}
-%S% .jt-maya-card__years{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;margin:6px 0 0;font-size:15px;font-weight:700;color:var(--mc-ink)}%S% .jt-maya-card__years strong{font-size:22px;font-weight:800;color:var(--mc-plum);letter-spacing:-.01em}%S% .jt-maya-card__yearsrc{font-size:12.5px;font-weight:600;color:var(--mc-ink-2)!important}
 %S% .jt-maya-card__tagline{font-size:15px;color:var(--mc-ink-2);line-height:1.6}
 %S% .jt-maya-card__grid{display:grid;grid-template-columns:1fr;gap:0 22px;padding:0 20px}
 %S% .jt-maya-card__facts{list-style:none;counter-reset:mcfact;margin:14px 0 0;padding:0}

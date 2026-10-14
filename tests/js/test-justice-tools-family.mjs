@@ -362,6 +362,16 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(g(true) !== g(false), 'the fruits choice changes the graded agreement');
 }
 
+/* ---------- Review fixes (PR 130, Codex pass 11) ---------- */
+{
+	const base = { route: 'family', from: '2026-10-14', parentA: 'אבא', pattern: 'week_week', holidays: 'alternate' };
+	const tie = HK.draftAgreement(reg, Object.assign({}, base, { children: ['2018-01-01'], support: { amount: 1200 } }));
+	check(tie.ok && tie.payer === null && tie.text.includes('ישלם ל_') && tie.flags.some((f) => f.code === 'payer'), 'equal nights and incomes: the payer stays blank and the tool asks for it');
+	const three = HK.draftAgreement(reg, Object.assign({}, base, { pattern: 'weekends', children: ['2012-01-01', '2015-01-01', '2018-01-01'], support: { amount: 1000 } }));
+	check(three.ok && three.text.includes('333 ש"ח לכל ילד, ועוד 1 ש"ח לילד הצעיר'), 'per-child shares add up to the agreed total (333 x 3 + 1)');
+	check(!MM.draftMamon(reg, { timing: 'before', route: 'notary', regime: 'graded', home: 'none' }).ok && !MM.draftMamon(reg, { timing: 'before', route: 'notary', regime: 'graded', home: 'joint_new' }).ok, 'a graded agreement needs a home of one spouse');
+}
+
 /* ---------- The server snapshots: the same renderers, the sticky figure, no <h2> in a card ---------- */
 for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MMUI], ['heskem-gerushin', HKUI]]) {
 	const s = ui.snapshot(reg);

@@ -106,7 +106,7 @@ export function draftAgreement(registry, input) {
 		const iB = Number(sIn.incomeB) || 0;
 		payer = sIn.payer === 'A' || sIn.payer === 'B' ? sIn.payer
 			: support && support.ok && support.payer ? support.payer
-				: plan.nightsA < 7 ? 'A' : plan.nightsA > 7 ? 'B' : (iA >= iB ? 'A' : 'B');
+				: plan.nightsA < 7 ? 'A' : plan.nightsA > 7 ? 'B' : iA > iB ? 'A' : iB > iA ? 'B' : null;
 	} else if (support && support.ok && support.payer) {
 		amount = fR10((support.low + support.high) / 2); payer = support.payer;
 	}
@@ -138,6 +138,8 @@ export function draftAgreement(registry, input) {
 			const pp = parentOf(payer);
 			const pr = parentOf(payer === 'A' ? 'B' : 'A');
 			items.push(`${doc(pp)} ${verb(pp, 'ישלם', 'תשלם')} ${toDoc(pr)} מזונות לילדים בסך ${hkMoney(amount)} לחודש, לכל הילדים יחד, ב-${Number(sIn.payDay) || 10} בכל חודש, מהחודש שאחרי אישור ההסכם.`);
+		} else if (agreed && amount > 0 && !payer) {
+			items.push(`${hkBlank} ישלם ל${hkBlank} מזונות לילדים בסך ${hkMoney(amount)} לחודש, לכל הילדים יחד, ב-${Number(sIn.payDay) || 10} בכל חודש, מהחודש שאחרי אישור ההסכם.`);
 		} else if (!agreed && support && support.ok && !support.payer) {
 			items.push('לפי חלוקת הזמנים וההכנסות, כל הורה יישא בעין בצורכי הילדים כשהם אצלו, ואין ביניהם תשלום מזונות חודשי.');
 		} else {
@@ -150,7 +152,9 @@ export function draftAgreement(registry, input) {
 				: `מ-${hkDate(x.from)}: ההורים יחשבו את הסכום מחדש`));
 			items.push(`הסכום משתנה כשילד מגיע לגיל 6, 15 או 18: ${steps.join('; ')}. הסכומים לפני ההצמדה למדד.`);
 		} else if (agreed && amount > 0 && births.length > 1) {
-			items.push(`הסכום מתחלק בשווה בין הילדים, ${hkMoney(fR10(amount / births.length))} לכל ילד, והתשלום עבור כל ילד מסתיים כשהוא מגיע לגיל 18 או מסיים את התיכון, לפי המאוחר.`);
+			const share = Math.floor(amount / births.length);
+			const rest = Math.round(amount - share * births.length);
+			items.push(`הסכום מתחלק בין הילדים: ${hkMoney(share)} לכל ילד${rest ? `, ועוד ${hkMoney(rest)} לילד הצעיר` : ''}, והתשלום עבור כל ילד מסתיים כשהוא מגיע לגיל 18 או מסיים את התיכון, לפי המאוחר.`);
 		}
 		items.push('המזונות ישולמו עד שכל ילד ימלא 18 שנים או יסיים את התיכון, לפי המאוחר. על התקופה של שירות חובה יסכימו ההורים בכתב, ובהיעדר הסכמה יכריע בית המשפט.');
 		if (support && support.ok) {
@@ -231,7 +235,7 @@ export function draftAgreement(registry, input) {
 		lines.push('');
 	}
 	const r = da.routes[route];
-	const flags = [{ code: 'approval', he: da.s24_he }, { code: 'child', he: da.child_not_bound_he }, { code: 'schedule', he: da.schedule_he }, { code: 'request', he: da.no_request_he }];
+	const flags = [...(agreed && amount > 0 && !payer ? [{ code: 'payer', he: 'הלילות וההכנסות שווים: בחרו בטופס מי משלם את הסכום שסיכמתם, או השלימו את השם בטיוטה' }] : []), { code: 'approval', he: da.s24_he }, { code: 'child', he: da.child_not_bound_he }, { code: 'schedule', he: da.schedule_he }, { code: 'request', he: da.no_request_he }];
 	if (births.some((b) => support && support.ok && support.perChild.some((c) => c.bracket === 'under6'))) { flags.push({ code: 'under6', he: da.s25_he }); }
 	const lawyer = [
 		'הסכום החודשי: הכלי נותן טווח לפי שיטות החישוב בפסיקה, והסכום בהסכם הוא בחירה שלכם. בדקו אותו מול הצרכים בפועל',

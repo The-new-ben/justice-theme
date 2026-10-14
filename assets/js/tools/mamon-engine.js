@@ -67,6 +67,7 @@ export function draftMamon(registry, input) {
 	const gradePct = fEntered(input.gradePct) ? Number(input.gradePct) : 5;
 	const gradeCap = fEntered(input.gradeCap) ? Number(input.gradeCap) : 50;
 	const residence = fEntered(input.residenceMonths) ? Number(input.residenceMonths) : 6;
+	if (regime === 'graded' && !['a', 'b'].includes(input.home)) { errors.push({ field: 'home', he: 'בהסכם מדורג הזכויות בדירה של אחד מכם עוברות בהדרגה: בחרו דירה של צד א\' או של צד ב\'' }); }
 	if (regime === 'graded' && ['a', 'b'].includes(input.home)) {
 		if (!(gradePct > 0 && gradePct <= 50)) { errors.push({ field: 'gradePct', he: 'אחוז לכל שנה: בין 1 ל-50' }); }
 		if (!(gradeCap > 0 && gradeCap <= 50)) { errors.push({ field: 'gradeCap', he: 'התקרה: עד 50%' }); }

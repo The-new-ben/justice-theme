@@ -1286,6 +1286,14 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(com.ok && com.base === 15000 && com.severance === Math.round(15000 * 103 / 12 * 100) / 100 && PEUI.renderForm(reg, PEUI.EXAMPLE).includes('id="jt13-com"'), 'average commissions over 12 months are added to the salary (reg. 9; review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 31) ---------- */
+{
+	const hr = PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, commission: 4000, start: '2020-01-01', end: '2026-09-30', reason: 'fired', s14: 'none' });
+	const cards = PEUI.renderDetails(reg, hr);
+	const mo = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'none', commission: 3000 }));
+	check(hr.base === 12000 && cards.includes(`${Math.round(hr.severance).toLocaleString('en-US')} ₪`) && PEUI.renderDetails(reg, mo).includes('128,750'), 'the arrangement cards keep the commissions, hourly and monthly, without counting them twice (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

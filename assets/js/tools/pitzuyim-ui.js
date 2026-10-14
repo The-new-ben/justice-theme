@@ -33,6 +33,7 @@ function toIso(text) {
 const spanText = (s) => `${s.y ? `${s.y} שנים` : ''}${s.y && (s.m || s.days) ? ', ' : ''}${s.m ? `${s.m} חודשים` : ''}${s.m && s.days ? ' ו-' : ''}${s.days ? `${s.days} ימים` : ''}` || '0 ימים';
 const noticeText = (n) => (n.month ? 'חודש' : n.days === 1 ? 'יום אחד' : n.days === 0 ? 'אין (פחות מחודש עבודה)' : `${String(n.days).replace('.5', '½')} ימים`);
 // A fixed term that ended: the end day was known in advance, so no notice is presented as owed (review, PR 128).
+const r2u = (n) => Math.round(n * 100) / 100;
 const nText = (r) => (r.reason === 'term' ? 'לא נדרשת בדרך כלל: מועד הסיום ידוע מראש' : noticeText(r.notice));
 
 /* ---------------- Pure renderers ---------------- */
@@ -176,7 +177,7 @@ export function renderDetails(reg, r) {
 		+ rows.map(([a, b, c]) => `<tr><td data-th="מה">${esc(a)}</td><td data-th="סכום">${b}</td><td data-th="הכלל">${c}</td></tr>`).join('')
 		+ `</tbody><caption>הפיצויים על השכר האחרון; לעבודה במשרה חלקית בחלק מהתקופה, כל תקופה לפי חלקיות המשרה בה (תקנה 7). חופשה ללא תשלום מעל 14 ימים בשנה לא נספרת (תקנה 10).</caption></table></div></div>`;
 	if (r.entitled && !r.retireCredit) {
-		const arr = byArrangement(reg, { payType: r.payType, salary: r.monthly, hourly: r.hourly, hours: r.hours, jobPct: r.jobPct, start: r.start, end: r.end, reason: r.reason, change: r.change, changeDate: r.changeDate, prevPct: r.prevPct, prevSalary: r.prevSalary, prevHours: r.prevHours, prevHourly: r.prevHourly, unpaidExcess: r.unpaidExcess, groundOk: r.groundOk, nearClaim: r.nearClaim });
+		const arr = byArrangement(reg, { payType: r.payType, salary: r2u(r.monthly - (r.commission || 0)), commission: r.commission, hourly: r.hourly, hours: r.hours, jobPct: r.jobPct, start: r.start, end: r.end, reason: r.reason, change: r.change, changeDate: r.changeDate, prevPct: r.prevPct, prevSalary: r.prevSalary, prevHours: r.prevHours, prevHourly: r.prevHourly, unpaidExcess: r.unpaidExcess, groundOk: r.groundOk, nearClaim: r.nearClaim });
 		out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-arr-h">אותו עובד, שלושה הסדרים</h3></div><div class="jt7-scns jt13-scns">`
 			+ ['none', 'partial', 'full'].map((k) => { const v = arr[k]; const here = k === r.s14; return `<div class="jt7-scn${here ? ' jt7-scn--here' : ''}"><p>${esc(S14_LABEL[k])}${here ? ' (אתם)' : ''}</p><strong>${v ? ils(v.employer, 0) : '—'}</strong><small>${v ? (v.pct ? `המעסיק משלם; ועוד מה שנצבר בקופה, במקום ${v.pct}% מהפיצויים` : 'המעסיק משלם הכול') : ''}</small></div>`; }).join('')
 			+ `</div><p class="jt7-scns__note">בלי סעיף 14 המעסיק משלם ${nis(r.severance)}. עם סעיף 14 הוא משלם פחות, ומהקופה מגיע מה שנצבר בה בפועל: ההפקדות מהשכר של כל חודש, עם התשואה או ההפסד. הקופה שלכם גם בהתפטרות, והמעסיק לא משלים תשואה שלא הושגה.</p></div>`;

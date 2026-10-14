@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Justice Ops
  * Description: Agent-operated delivery channel for jus-tice.co.il: healthcheck, self-updates from the Git repo, and ongoing site behavior shipped as reviewed code with zero manual clicks.
- * Version: 2.37.41
+ * Version: 2.37.43
  * Author: Jus-Tice
  * Update URI: https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'JUSTICE_OPS_VERSION' ) ) {
-	define( 'JUSTICE_OPS_VERSION', '2.37.41' );
+	define( 'JUSTICE_OPS_VERSION', '2.37.43' );
 }
 
 define( 'JUSTICE_OPS_MANIFEST', 'https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops.json' );
@@ -61,6 +61,9 @@ require_once __DIR__ . '/seo-hierarchy.php';
 
 // Sponsored lawyer cards (what advertisers pay for).
 require_once __DIR__ . '/professional-cards.php';
+
+// Maya Rotenberg's presence on family-law pages: her expert card, the top line, her schema (HAD-510).
+require_once __DIR__ . '/maya-presence.php';
 
 // Advertiser registration funnel (/advertise/).
 require_once __DIR__ . '/advertise.php';

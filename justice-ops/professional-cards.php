@@ -78,7 +78,9 @@ function justice_cards_singular_types(): array {
 function justice_cards_family_map(): array {
 	return apply_filters( 'justice_cards_family_map', array(
 		'criminal-law'  => array( 'criminal-law', 'criminal' ),
-		'family'        => array( 'family-law', 'divorce', 'child-support', 'child-custody', 'rabbinical-court', 'family-court' ),
+		// family-court-rulings sits under court-rulings and prenuptial-agreement under criminal-law
+		// in the live term tree, so neither reached the family before HAD-510 (31 rulings had no card).
+		'family'        => array( 'family-law', 'divorce', 'child-support', 'child-custody', 'rabbinical-court', 'family-court', 'family-court-rulings', 'prenuptial-agreement' ),
 		'real-estate'   => array( 'real-estate-law', 'real-estate' ),
 		'labor'         => array( 'israeli-labor-law', 'labor-law' ),
 		'nezikin'       => array( 'personal-injury', 'tort-law' ),
@@ -89,9 +91,70 @@ function justice_cards_family_map(): array {
 }
 
 /**
- * Resolve the family key for the current singular view.
+ * Resolve the family key for the current singular view. Every answer passes the
+ * justice_cards_current_terms filter, which may fill an empty answer (HAD-510: the theme's
+ * family clusters cover pages and articles that carry no practice-area term yet).
  */
 function justice_cards_current_terms(): array {
+	$terms = justice_cards_current_terms_resolved();
+	$post  = function_exists( 'get_the_ID' ) ? (int) get_the_ID() : 0;
+
+	return array_values( (array) apply_filters( 'justice_cards_current_terms', $terms, $post ) );
+}
+
+/**
+ * Yoast's primary practice-area term of a post and its ancestors, as slugs (the term first),
+ * or an empty list. An unlisted child of a family term still decides for that family.
+ *
+ * @return string[]
+ */
+function justice_cards_primary_term_slugs( int $post_id ): array {
+	$primary_id = (int) get_post_meta( $post_id, '_yoast_wpseo_primary_practice-areas', true );
+	if ( $primary_id <= 0 || ! function_exists( 'get_term' ) ) {
+		return array();
+	}
+	$term = get_term( $primary_id, 'practice-areas' );
+	if ( ! $term || is_wp_error( $term ) || ! isset( $term->slug ) ) {
+		return array();
+	}
+	if ( ! isset( $term->term_id ) ) {
+		$term->term_id = $primary_id;
+	}
+
+	return justice_cards_expand_term_slugs( array( $term ) );
+}
+
+/**
+ * A post's own practice-area slugs plus the slugs of their ancestors, so a child term belongs to
+ * its parent's family (a term under family-law is family law).
+ *
+ * @param array $own Terms of the post.
+ * @return string[]
+ */
+function justice_cards_expand_term_slugs( array $own ): array {
+	$slugs = array();
+	foreach ( $own as $term ) {
+		if ( ! is_object( $term ) || ! isset( $term->slug ) ) {
+			continue;
+		}
+		$slugs[] = (string) $term->slug;
+		if ( isset( $term->term_id ) && function_exists( 'get_ancestors' ) ) {
+			foreach ( (array) get_ancestors( (int) $term->term_id, 'practice-areas', 'taxonomy' ) as $ancestor_id ) {
+				$ancestor = get_term( (int) $ancestor_id, 'practice-areas' );
+				if ( $ancestor && ! is_wp_error( $ancestor ) && isset( $ancestor->slug ) ) {
+					$slugs[] = (string) $ancestor->slug;
+				}
+			}
+		}
+	}
+
+	return array_values( array_unique( $slugs ) );
+}
+
+/**
+ * The family resolution itself (see justice_cards_current_terms()).
+ */
+function justice_cards_current_terms_resolved(): array {
 	$map = justice_cards_family_map();
 
 	if ( is_singular( 'justice_term' ) ) {
@@ -126,10 +189,36 @@ function justice_cards_current_terms(): array {
 	if ( $own && ! is_wp_error( $own ) ) {
 		$slugs = wp_list_pluck( $own, 'slug' );
 
-		foreach ( $map as $family_slugs ) {
-			if ( array_intersect( $slugs, $family_slugs ) ) {
-				return $family_slugs;
+		// The editor's primary term decides when the post carries several families: the term
+		// itself first, then its nearest ancestor that belongs to a family.
+		foreach ( justice_cards_primary_term_slugs( (int) get_the_ID() ) as $primary ) {
+			foreach ( $map as $family_slugs ) {
+				if ( in_array( $primary, $family_slugs, true ) ) {
+					return $family_slugs;
+				}
 			}
+		}
+
+		// Otherwise the family that most of the post's terms belong to (each term with its
+		// ancestors); a tie keeps the map order, as before.
+		$best      = array();
+		$best_hits = 0;
+		foreach ( $map as $family_slugs ) {
+			// One vote per assigned term: a term counts for a family when the term or one of its
+			// ancestors belongs to it, so two terms under family-law are two votes, not one.
+			$hits = 0;
+			foreach ( (array) $own as $term ) {
+				if ( array_intersect( justice_cards_expand_term_slugs( array( $term ) ), $family_slugs ) ) {
+					$hits++;
+				}
+			}
+			if ( $hits > $best_hits ) {
+				$best      = $family_slugs;
+				$best_hits = $hits;
+			}
+		}
+		if ( $best ) {
+			return $best;
 		}
 
 		return $slugs;
@@ -575,6 +664,16 @@ function justice_cards_professional_type_label( int $lawyer_id ): string {
  * Render one professional card.
  */
 function justice_cards_render( WP_Post $lawyer ): string {
+	// House card (Maya Rotenberg): her expert card from maya-presence.php (HAD-510). Same slot,
+	// same placement rules, same analytics hooks (jt-procard, data-l, jt-procard__wa/__profile).
+	if (
+		function_exists( 'justice_maya_card_render' )
+		&& function_exists( 'justice_lawyer_owner_is_maya_profile' )
+		&& justice_lawyer_owner_is_maya_profile( (int) $lawyer->ID )
+	) {
+		return justice_maya_card_render( $lawyer );
+	}
+
 	$s      = justice_cards_settings();
 	$pid    = $lawyer->ID;
 	$label  = justice_cards_professional_type_label( $pid );
@@ -724,29 +823,11 @@ function justice_cards_css(): string {
 		. '.jt-procard__wa:active{transform:translateY(0)}'
 		. '@media(max-width:640px){.jt-procard{margin:28px 0;border-radius:18px}.jt-procard__main{gap:13px;padding:15px 14px 6px}.jt-procard__actions{flex-direction:column;padding:12px 14px 15px}.jt-procard__name{font-size:17px}.jt-procard .jt-procard__photo,.jt-procard .jt-procard__photo--initial{width:74px!important;height:74px!important;border-radius:16px!important}.jt-procard__ring{border-radius:19px}}'
 		. '@media(prefers-reduced-motion:reduce){.jt-procard,.jt-procard__wa,.jt-procard__profile,.jt-procard__arrow{transition:none}}'
-		// House reviewer card: new-look v3 palette (paper, deep green, sage), serif name.
-		. '.jt-procard--house{background:#fffefa;border:1px solid rgba(25,43,50,.14);border-radius:12px;box-shadow:0 18px 48px rgba(25,43,50,.08)}'
-		. '.jt-procard--house::before{display:none}'
-		. '.jt-procard--house .jt-procard__ribbon{background:#eef3ee;border-bottom:1px solid rgba(25,43,50,.10);padding:10px 20px}'
-		. '.jt-procard--house .jt-procard__flag{color:#254c43;font-size:13px;gap:8px;letter-spacing:.01em}'
-		. '.jt-procard__verified{font-size:12px;font-weight:600;color:#526064}'
-		. '.jt-procard--house .jt-procard__main{padding:22px 20px 12px;align-items:flex-start;gap:20px}'
-		. '.jt-procard--house .jt-procard__ring{padding:0;border-radius:14px;background:none;box-shadow:0 0 0 3px #fffefa,0 0 0 5px #cdd8ce}'
-		. '.jt-procard--house .jt-procard__photo{border:0}'
-		. '.jt-procard--house .jt-procard__body{gap:8px}'
-		. '.jt-procard--house .jt-procard__name{font-family:"Frank Ruhl Libre","Noto Serif Hebrew",serif;font-weight:700;font-size:24px;line-height:1.2;color:#192b32}'
-		. '.jt-procard__tagline{margin:0;font-size:15px;line-height:1.6;color:#526064}'
-		. '.jt-procard--house .jt-procard__chip,.jt-procard--house .jt-procard__chip--city{background:#f1f4f1;color:#254c43}'
-		. '.jt-procard--house .jt-procard__trustitem{color:#254c43}'
-		. '.jt-procard--house .jt-procard__actions{padding:8px 20px 20px}'
-		. '.jt-procard--house .jt-procard__wa{flex:1.2;background:#254c43;color:#fffefa;box-shadow:none;border-radius:6px}'
-		. '.jt-procard--house .jt-procard__profile{background:#fffefa;color:#254c43;border:1.5px solid #254c43;border-radius:6px}'
-		. '@media(hover:hover){.jt-procard--house .jt-procard__wa:hover{background:#192f2b;box-shadow:none;transform:none}.jt-procard--house .jt-procard__profile:hover{background:#254c43;color:#fffefa;border-color:#254c43}}'
-		. '@media(max-width:640px){.jt-procard--house{border-radius:12px}.jt-procard--house .jt-procard__main{padding:16px 14px 8px;gap:14px}.jt-procard--house .jt-procard__photo{width:88px!important;height:88px!important;border-radius:12px!important}.jt-procard--house .jt-procard__ring{border-radius:12px}.jt-procard--house .jt-procard__name{font-size:21px}.jt-procard--house .jt-procard__tagline{font-size:14px}.jt-procard--house .jt-procard__actions{padding:4px 14px 16px}}'
+		// The house card (Maya Rotenberg) carries its own styles since HAD-510: maya-presence.php
+		// prints them only on pages that render it. The new-look v3 green/paper/serif rules are retired.
 		// Theme link rules (body.jt-look-v3 ... a) outrank the button color and painted the WhatsApp
 		// label in the button's own green (invisible on mobile, found 2026-09-16); pin the CTA colors.
 		. '.jt-procard .jt-procard__actions .jt-procard__wa,.jt-procard .jt-procard__actions .jt-procard__wa:hover,.jt-procard .jt-procard__actions .jt-procard__wa:focus{color:#fff!important}'
-		. '.jt-procard--house .jt-procard__actions .jt-procard__wa,.jt-procard--house .jt-procard__actions .jt-procard__wa:hover,.jt-procard--house .jt-procard__actions .jt-procard__wa:focus{color:#fffefa!important;text-decoration:none!important}'
 		. '.jt-procard .jt-procard__actions .jt-procard__profile{text-decoration:none!important}'
 		. '</style>';
 }
@@ -758,7 +839,9 @@ add_action( 'wp_head', function () {
 
 	$s = justice_cards_settings();
 
-	if ( ! (int) $s['enabled'] ) {
+	// Pages joined the mesh in HAD-510: print the card styles only where a family resolves,
+	// so the hundreds of pages without a card do not carry them.
+	if ( ! (int) $s['enabled'] || ! justice_cards_current_terms() ) {
 		return;
 	}
 

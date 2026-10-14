@@ -103,16 +103,25 @@ function justice_cards_current_terms(): array {
 }
 
 /**
- * Yoast's primary practice-area term of a post, as a slug, or ''.
+ * Yoast's primary practice-area term of a post and its ancestors, as slugs (the term first),
+ * or an empty list. An unlisted child of a family term still decides for that family.
+ *
+ * @return string[]
  */
-function justice_cards_primary_term_slug( int $post_id ): string {
+function justice_cards_primary_term_slugs( int $post_id ): array {
 	$primary_id = (int) get_post_meta( $post_id, '_yoast_wpseo_primary_practice-areas', true );
 	if ( $primary_id <= 0 || ! function_exists( 'get_term' ) ) {
-		return '';
+		return array();
 	}
 	$term = get_term( $primary_id, 'practice-areas' );
+	if ( ! $term || is_wp_error( $term ) || ! isset( $term->slug ) ) {
+		return array();
+	}
+	if ( ! isset( $term->term_id ) ) {
+		$term->term_id = $primary_id;
+	}
 
-	return ( $term && ! is_wp_error( $term ) && isset( $term->slug ) ) ? (string) $term->slug : '';
+	return justice_cards_expand_term_slugs( array( $term ) );
 }
 
 /**
@@ -181,9 +190,9 @@ function justice_cards_current_terms_resolved(): array {
 		$slugs    = wp_list_pluck( $own, 'slug' );
 		$expanded = justice_cards_expand_term_slugs( (array) $own );
 
-		// The editor's primary term decides when the post carries several families.
-		$primary = justice_cards_primary_term_slug( (int) get_the_ID() );
-		if ( '' !== $primary ) {
+		// The editor's primary term decides when the post carries several families: the term
+		// itself first, then its nearest ancestor that belongs to a family.
+		foreach ( justice_cards_primary_term_slugs( (int) get_the_ID() ) as $primary ) {
 			foreach ( $map as $family_slugs ) {
 				if ( in_array( $primary, $family_slugs, true ) ) {
 					return $family_slugs;

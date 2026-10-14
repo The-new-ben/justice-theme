@@ -850,7 +850,8 @@ function renderDetails(reg, r) {
 			+ r.early.map((e) => `<li>אפשר לבקש איזון עוד לפני הגירושין מ-<bdi>${isoToHe(e.date)}</bdi> (${esc(e.key === 'filed' ? 'שנה מפתיחת ההליך' : '9 חודשי פירוד מתוך שנה')}).${cite(e.section, pb.law_url)}</li>`).join('')
 			+ `<li>${esc(pb.break_he)}.${cite('תלה"מ 23952-08-19', caseUrl('jlm_23952'))}</li></ol></div>`;
 	}
-	return out;
+	return out
+		+ `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3>מה לבדוק עם עורך דין</h3></div><ul class="jtool-notes">${reg.property_balance.lawyer_he.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>`;
 }
 
 /** Page section: three families, the same law (the comparison table of the page). */

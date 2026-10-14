@@ -275,6 +275,7 @@ for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MM
 	const s = ui.snapshot(reg);
 	check(typeof s.sticky === 'string' && s.sticky.length > 0 && s.sticky !== '—', `${name}: the snapshot carries the sticky figure`);
 	check(typeof s.numbers === 'string' && s.numbers.includes('jtool-datatable') && s.numbers.includes('jtool-cite'), `${name}: the numbers table, each row with its source`);
+	check(s.details.includes('מה לבדוק עם עורך דין'), `${name}: the result says what to check with a lawyer`);
 	check(!/<h2/i.test(s.form + s.result + s.details), `${name}: no <h2> inside the card (HAD-487)`);
 	for (const part of [s, ...Object.values(s).filter((v) => v && typeof v === 'object' && v.form)]) {
 		const ids = (part.form + part.result + part.details).match(/ id="[^"]+"/g) || [];

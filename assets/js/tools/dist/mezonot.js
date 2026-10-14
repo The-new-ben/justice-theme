@@ -813,6 +813,7 @@ function renderDetails(reg, m, r) {
 		+ `<li>${esc(d.interim_he)}.${cite('סעיף 10', cs.law.url)} ${esc(d.from_filing_he)}.</li>`
 		+ `<li>${esc(cs.rabbinical_he)}.${cite('תיק 1163727/2', cs.rabbinical_url)}</li></ol></div>`;
 	out += needsTable(reg, `${P}-cases-h`);
+	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3>מה לבדוק עם עורך דין</h3></div><ul class="jtool-notes">${cs.lawyer_he.map((s) => `<li>${esc(s)}</li>`).join('')}</ul></div>`;
 	return out;
 }
 

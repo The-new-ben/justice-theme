@@ -75,7 +75,8 @@ function taxLinear(sv, realGain, shares) {
 
 /**
  * input = { status ('single'|'qualified'|'other'), buyDate, buyPrice, buyCosts, improve, improveDate, saleDate, salePrice,
- *           saleCosts, mortgage, priorExempt (an exempt single-home sale in the 18 months before), rented }
+ *           saleCosts, mortgage, priorExempt (an exempt single-home sale in the 18 months before), rented, offPlan (bought
+ *           before it was built), dwellingDate (the day it became a dwelling) }
  */
 export function compute(registry, input) {
 	const sv = registry.shevach;
@@ -94,6 +95,14 @@ export function compute(registry, input) {
 	if (!buyDate) { errors.push({ field: 'buyDate', he: 'יום הרכישה: תאריך מלא, לדוגמה 1.6.2010' }); }
 	if (!saleDate) { errors.push({ field: 'saleDate', he: 'יום המכירה: תאריך מלא' }); }
 	if (buyDate && saleDate && saleDate <= buyDate) { errors.push({ field: 'saleDate', he: 'יום המכירה אחרי יום הרכישה' }); }
+	// Only sales inside the period the registry's amounts hold for (the exemption ceiling of instruction 1/2026): a sale
+	// outside it would use another year's ceiling and rates (review, PR 128).
+	if (saleDate && (saleDate < sv.sale_from || saleDate > sv.sale_to)) { errors.push({ field: 'saleDate', he: `המחשבון מחשב מכירות מ-${sv.sale_from.split('-').reverse().map(Number).join('.')} עד ${sv.sale_to.split('-').reverse().map(Number).join('.')}, לפי הסכומים שבתוקף בהן. למכירה בתאריך אחר השתמשו בסימולטור של רשות המסים.` }); }
+	// s.49ב(2) counts 18 months from the day the home became a dwelling: for a home bought before it was built, that day.
+	const offPlan = status === 'single' && Boolean(input.offPlan);
+	const dwellingDate = offPlan ? parseDate(input.dwellingDate) : null;
+	if (offPlan && !dwellingDate) { errors.push({ field: 'dwellingDate', he: 'דירה שנקנתה לפני שנבנתה: מתי היא נמסרה לכם ונעשתה לדירת מגורים (טופס 4 או המסירה)' }); }
+	if (offPlan && dwellingDate && buyDate && saleDate && (dwellingDate < buyDate || dwellingDate > saleDate)) { errors.push({ field: 'dwellingDate', he: 'יום המסירה בין יום הרכישה ליום המכירה' }); }
 	if (buyDate && cpi.knownMonth(buyDate) < cpi.first) { errors.push({ field: 'buyDate', he: 'רכישה לפני 16.3.1990: המחשבון לא מחזיק מדד ישן יותר. לרכישה כזאת השתמשו בסימולטור של רשות המסים.' }); }
 	if (!(buyPrice > 0 && buyPrice < 1e10)) { errors.push({ field: 'buyPrice', he: 'מחיר הרכישה: מספר חיובי' }); }
 	if (!(salePrice > 0 && salePrice < 1e10)) { errors.push({ field: 'salePrice', he: 'מחיר המכירה: מספר חיובי' }); }
@@ -139,13 +148,13 @@ export function compute(registry, input) {
 
 	const regular = taxRegular(sv, realGain, shares, inflTaxable);
 	const lin = buyDate < d.transition ? taxLinear(sv, realGain, shares) : null;
-	const held = buyDate <= addMonths(saleDate, -sv.single.hold_months);
+	const held = (dwellingDate || buyDate) <= addMonths(saleDate, -sv.single.hold_months);
 	const singleOk = status === 'single' && held && !input.priorExempt;
 	let path = status === 'other' ? 'regular' : (lin ? 'linear' : 'regular');
 	let tax = path === 'linear' ? lin.tax : regular.tax;
 	let exemptShare = 0;
 	if (status === 'single') {
-		if (!held) { add('bad', 'held', `הדירה בבעלותכם פחות מ-${sv.single.hold_months} חודשים: אין פטור לדירה יחידה (${sv.single.section}). החישוב כדירת מגורים חייבת.`, sv.single.section); }
+		if (!held) { add('bad', 'held', `הדירה בבעלותכם פחות מ-${sv.single.hold_months} חודשים מאז שהיתה לדירת מגורים: אין פטור לדירה יחידה (${sv.single.section}). החישוב כדירת מגורים חייבת.`, sv.single.section); }
 		if (input.priorExempt) { add('bad', 'prior', `מכרתם דירה אחרת בפטור כזה ב-${sv.single.gap_months} החודשים שלפני: אין פטור נוסף (${sv.single.section}). החישוב כדירת מגורים חייבת.`, sv.single.section); }
 	}
 	if (singleOk) {

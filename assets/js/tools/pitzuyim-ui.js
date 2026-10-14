@@ -97,7 +97,7 @@ export function renderResult(reg, r, opts = {}) {
 	}
 	const flags = r.flags.filter((f) => f.code !== 's14');
 	return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true">`
-		+ (r.entitled ? '<p class="jtool-state jtool-state--ok">✓ מגיעים פיצויי פיטורים</p>' : '<p class="jtool-state jtool-state--warn">! אין זכות לפיצויים מהמעסיק</p>')
+		+ (r.entitled ? (r.conditional ? '<p class="jtool-state jtool-state--warn">! מגיעים פיצויים, אלא אם המעסיק יוכיח אחרת (סעיף 3)</p>' : '<p class="jtool-state jtool-state--ok">✓ מגיעים פיצויי פיטורים</p>') : '<p class="jtool-state jtool-state--warn">! אין זכות לפיצויים מהמעסיק</p>')
 		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה מחושבת: ' : ''}פיצויי פיטורים לפי החוק</p>`
 		+ `<strong class="jtool-verdict__figure">${ilsn(r.severance)}</strong>`
 		+ `<p class="jtool-verdict__sentence">${esc(verdictSentence(reg, r))}</p>`
@@ -128,7 +128,7 @@ export function renderDetails(reg, r) {
 	const rows = [
 		['השכר לחישוב', ilsn(r.base), r.floored ? `שכר המינימום: ${cite('סעיף 13ב', sv.law_url)}` : `השכר האחרון${cite('תקנה 4', sv.regs_url)}`],
 		['תקופת העבודה', esc(spanText(r.span)), `חלק משנה מזכה באופן יחסי${cite('סעיף 12(א)', sv.law_url)}`],
-		['פיצויי פיטורים', ilsn(r.severance), r.entitled ? `חודש לכל שנה${cite('סעיף 12(א)', sv.law_url)}${r.payType === 'hourly' ? cite('תקנות 1983', sv.wage_regs_url) : ''}` : `אין זכות${cite(r.yearOk ? 'סעיף 1(א): פיטורים' : 'סעיף 1(א): שנת עבודה', sv.law_url)}`],
+		['פיצויי פיטורים', ilsn(r.severance), r.entitled ? `חודש לכל שנה${cite('סעיף 12(א)', sv.law_url)}${r.conditional ? cite('סעיף 3: פיטורים סמוך לסוף השנה', sv.law_url) : ''}${r.payType === 'hourly' ? cite('תקנות 1983', sv.wage_regs_url) : ''}` : `אין זכות${cite(r.yearOk ? 'סעיף 1(א): פיטורים' : 'סעיף 1(א): שנת עבודה', sv.law_url)}`],
 	];
 	if (r.s14 !== 'none') {
 		rows.push([`מהקופה, במקום ${r.s14Pct}%`, ilsn(r.fundReplaces), `${cite('סעיף 14', sv.law_url)}${cite('האישור הכללי', sv.approval.url)}`]);

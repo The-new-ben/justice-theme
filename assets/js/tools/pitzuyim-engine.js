@@ -123,10 +123,15 @@ export function compute(registry, input) {
 		if (floored) { add('warn', 'min_wage', `השכר שהזנתם נמוך משכר המינימום (${payType === 'hourly' ? `${mwRow.hourly_182} ₪ לשעה` : `${mwRow.monthly.toLocaleString('en-US')} ₪ לחודש במשרה מלאה`}, מ-${heDay(mwRow.from)}). הפיצויים מחושבים לפי שכר המינימום (סעיף 13ב), וגם על ההפרש בשכר עצמו אפשר לתבוע.`, 'סעיף 13ב'); }
 	}
 	const yearOk = span.months >= sv.min_months;
-	const entitled = yearOk && entitledByReason;
+	// s.3: a dismissal shortly before the end of the first year is presumed made to dodge severance and does not impair
+	// the right unless the employer proves otherwise. The tool treats the last two months of the year as "shortly before"
+	// and computes the proportional amount as a conditional entitlement (review, PR 128).
+	const nearYear = !yearOk && span.months >= sv.min_months - 2 && reason === 'fired';
+	const conditional = nearYear;
+	const entitled = (yearOk || nearYear) && entitledByReason;
 	const severance = entitled ? r2(base * span.years) : 0;
-	if (!yearOk) { add('bad', 'under_year', `עבדתם פחות משנה (${span.months} חודשים ו-${span.days} ימים): אין זכות לפיצויי פיטורים לפי החוק (סעיף 1(א)). ההודעה המוקדמת מגיעה בכל מקרה.`, 'סעיף 1(א)'); }
-	if (span.months >= 10 && span.months < 12 && reason === 'fired') { add('warn', 'near_year', 'פיטורים סמוך לסוף השנה הראשונה: חזקה שנעשו כדי לחמוק מפיצויים, ואז הם לא פוגעים בזכות, אלא אם המעסיק מוכיח אחרת (סעיף 3).', 'סעיף 3'); }
+	if (!yearOk && !nearYear) { add('bad', 'under_year', `עבדתם פחות משנה (${span.months} חודשים ו-${span.days} ימים): אין זכות לפיצויי פיטורים לפי החוק (סעיף 1(א)). ההודעה המוקדמת מגיעה בכל מקרה.`, 'סעיף 1(א)'); }
+	if (nearYear) { add('warn', 'near_year', `פוטרתם אחרי ${span.months} חודשים, סמוך לסוף השנה הראשונה: חזקה שהפיטורים נעשו כדי לחמוק מפיצויים, והם לא פוגעים בזכות אלא אם המעסיק יוכיח אחרת (סעיף 3). הסכום כאן יחסי לתקופה שעבדתם.`, 'סעיף 3'); }
 	if (reason === 'resign') { add('info', 'resign', 'בהתפטרות רגילה אין זכות לפיצויים מהמעסיק. כספים שהופרשו לפיצויים לפי סעיף 14 שייכים לכם גם בהתפטרות.', 'סעיף 14'); }
 	if (reasonRow) { add('info', 'resign_as_fired', `התפטרות שדינה כפיטורים: ${reasonRow.he} (${reasonRow.section}). בתביעה מוכיחים את הנסיבות, ובחלק מהמקרים צריך להודיע למעסיק מראש על הסיבה.`, reasonRow.section); }
 	if (payType === 'hourly' && start < sv.wage_regs_from) { add('warn', 'pre_1983', 'לעובד בשכר, תקופת עבודה שלפני 1.8.1983 מזכה בשכר שבועיים לשנה בלבד (סעיף 12(א)); המחשבון מחשב חודש לכל שנה.', 'סעיף 12(א)'); }
@@ -174,7 +179,7 @@ export function compute(registry, input) {
 	];
 
 	return {
-		ok: true, payType, monthly, base, floored, hourly, hours, jobPct, start, end, span, reason, reasonRow, entitled, yearOk,
+		ok: true, payType, monthly, base, floored, hourly, hours, jobPct, start, end, span, reason, reasonRow, entitled, yearOk, conditional,
 		severance, s14, s14Pct, s14From, coveredYears, fundReplaces, employer,
 		notice, workedToNotice, noticeDate, noticeEnd, short, inLieu, noticeMode,
 		exempt, taxable, exemptCap, ceilingTotal, perYear, deadlines, flags, mwRow,

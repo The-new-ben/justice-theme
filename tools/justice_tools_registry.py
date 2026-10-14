@@ -865,6 +865,7 @@ def build_rent_contract(checked_on: str) -> dict:
         "guarantee_law_he": "חוק הערבות, התשכ\"ז-1967",
         "guarantee_law_url": "https://www.nevo.co.il/law_html/law00/4521.htm",
         "protected_law_he": "חוק הגנת הדייר [נוסח משולב], התשל\"ב-1972",
+        "protected_law_url": "https://www.nevo.co.il/law_html/law00/71616.htm",
         "cites": cites,
     }
 
@@ -950,6 +951,9 @@ def build_shevach(checked_on: str) -> dict:
                           "periods": "סעיף 47", "top_slice": "סעיף 48ב"},
         "top_rate_he": "שיעור המס הגבוה ביותר בסעיף 121 לפקודה ב-2026 (47%), לפי לוח העזר של רשות המסים",
         "top_rate_url": booklet,
+        # The tool computes sales inside the period its amounts hold for (the ceiling of instruction 1/2026); other sale
+        # days go to the Tax Authority's simulator (review, PR 128).
+        "sale_from": "2025-01-01", "sale_to": "2027-12-31",
         "single": {"ceiling": 5008000, "ceiling_from": "2025-01-01", "ceiling_to": "2027-12-31", "hold_months": 18,
                    "gap_months": 18, "section": "סעיף 49ב(2)", "ceiling_section": "סעיף 49א(א1)",
                    "exceptions_section": "סעיף 49ג", "url": inst26},
@@ -962,6 +966,8 @@ def build_shevach(checked_on: str) -> dict:
                        "levy_section": "סעיף 39(11)", "broker_max_pct": 2},
         "qualified_he": "דירת מגורים מזכה: דירה ששימשה בעיקרה למגורים בארבע חמישיות מהתקופה או בארבע השנים שלפני המכירה "
                         "(סעיף 49(א)); דירה שעמדה ריקה נחשבת לשימוש למגורים",
+        "dwelling_he": "בדירה שנקנתה לפני שנבנתה (מקבלן, על הנייר), 18 החודשים נספרים מהיום שהיתה לדירת מגורים, לא מיום "
+                       "הרכישה (סעיף 49ב(2))",
         "single_he": "הדירה היחידה שלכם בישראל ובאזור, בבעלותכם 18 חודשים לפחות מאז שהיתה לדירת מגורים, ולא מכרתם דירה אחרת "
                      "בפטור כזה ב-18 החודשים שלפני (סעיף 49ב(2)). דירה נוספת לא נספרת אם נקנתה כתחליף ב-24 החודשים "
                      "שלפני המכירה, או שחלקכם בה עד שליש, ובירושה עד מחצית (סעיף 49ג)",

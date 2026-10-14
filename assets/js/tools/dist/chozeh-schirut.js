@@ -632,7 +632,7 @@ function toIso(text) {
 /** A section chip: hover or focus shows the section, a tap pins it (mount() toggles aria-expanded). */
 function citeChip(rc, key, uid) {
 	const text = rc.cites[key] || '';
-	const href = key === 'protected' ? rc.law_url : key === 'guarantee' ? rc.guarantee_law_url : rc.law_url;
+	const href = key === 'protected' ? rc.protected_law_url : key === 'guarantee' ? rc.guarantee_law_url : rc.law_url;
 	const law = key === 'protected' ? rc.protected_law_he : key === 'guarantee' ? rc.guarantee_law_he : rc.law_he;
 	const isSection = !['protected', 'guarantee'].includes(key);
 	return `<span class="jt12-ref"><button type="button" class="jt12-cite${isSection ? ' jt12-cite--sec' : ''}" aria-expanded="false" aria-controls="${uid}"${isSection ? ` aria-label="${esc(citeLabel(key))}"` : ''}>${esc(isSection ? key : citeLabel(key))}</button>`

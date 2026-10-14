@@ -893,6 +893,19 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(SH.compute(reg, { status: 'qualified', buyDate: '2010-06-01', buyPrice: 1200000, saleDate: '2026-09-01', salePrice: 2600000, improve: '', improveDate: 'junk' }).ok, 'capital gains: the improvement date is read only with an improvement');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 1) ---------- */
+{
+	check(!SH.compute(reg, { status: 'single', buyDate: '2015-01-01', buyPrice: 2000000, saleDate: '2023-06-01', salePrice: 4900000 }).ok && !SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { saleDate: '2028-01-02' })).ok && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { saleDate: '2025-01-01' })).ok, 'a sale outside 1.1.2025-31.12.2027 is refused: the 5,008,000 ceiling and the rates are for that period only (review, PR 128)');
+	const plan = { status: 'single', buyDate: '2020-01-01', buyPrice: 1500000, saleDate: '2026-09-01', salePrice: 2500000, offPlan: true };
+	check(!SH.compute(reg, plan).ok && SH.compute(reg, Object.assign({}, plan, { dwellingDate: '2025-12-01' })).flags.some((f) => f.code === 'held') && SH.compute(reg, Object.assign({}, plan, { dwellingDate: '2024-12-01' })).path === 'exempt', 'off-plan: the 18 months run from the day the home became a dwelling, which must be given (s.49ב(2); review, PR 128)');
+	check(SH.compute(reg, Object.assign({}, plan, { status: 'qualified', offPlan: true, dwellingDate: '' })).ok, 'the delivery date is asked only for the single-home exemption');
+	const near = PE.compute(reg, { salary: 10000, start: '2025-11-01', end: '2026-09-30' });
+	check(near.entitled && near.conditional && near.severance === Math.round(10000 * (11 / 12) * 100) / 100 && !near.flags.some((f) => f.code === 'under_year') && PEUI.renderResult(reg, near).includes('סעיף 3'), 'a dismissal after 11 months: a conditional right under s.3, computed pro rata (review, PR 128)');
+	check(!PE.compute(reg, { salary: 10000, start: '2026-01-01', end: '2026-09-30' }).entitled && PE.compute(reg, { salary: 10000, start: '2025-12-01', end: '2026-09-30' }).conditional && !PE.compute(reg, { salary: 10000, start: '2025-11-01', end: '2026-09-30', reason: 'resign' }).entitled, 'within the last two months of the first year the right is conditional; after 9 months, or on a resignation, there is none');
+	const chip = REUI.renderDetails(reg, RE.compute(reg, { rent: 6000, months: 12 }));
+	check(chip.includes(reg.rent_contract.protected_law_url) && reg.rent_contract.protected_law_url.includes('71616'), 'the protected-tenancy chip links to the Tenant Protection Law (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

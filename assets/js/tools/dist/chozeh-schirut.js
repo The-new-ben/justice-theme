@@ -401,13 +401,17 @@ function compute(registry, input) {
 	if (months <= rc.scope.short_months && option === 'none') { add('info', 'short', `שכירות של עד ${rc.scope.short_months} חודשים בלי ברירת הארכה: סימן החוזה למגורים לא חל בחובה (סעיף 25טו(א)(2)). החוזה כאן כתוב לפי ההגנות שבחוק בכל זאת.`, ['25טו']); }
 	if (months > rc.scope.long_years * 12 && !['both', 'landlord'].includes(exitChoice)) { add('info', 'long', `שכירות של יותר מ-${rc.scope.long_years} שנים בלי זכות ביטול מוקדם למשכיר: הסימן לא חל בחובה (סעיף 25טו(א)(3)).`, ['25טו']); }
 	if (rent > rc.scope.rent_cap) { add('warn', 'rent_cap', `שכר דירה של יותר מ-${sh(rc.scope.rent_cap)} לחודש: ייתכן שהסימן לא חל (סעיף 25טו(א)(4)). ${rc.scope.rent_cap_he}.`, ['25טו']); }
+	const relative = Boolean(input.relative);
+	const free = !applies || relative;
+	const freeWhy = !applies ? 'הסימן לא חל על חוזה זה (סעיף 25טו(א))' : 'בין קרובים מותר להתנות על ההגנה הזאת (סעיף 25טו(ב))';
+	const uncertain = applies && !relative && rent > rc.scope.rent_cap;
 	if (input.relative) { add('info', 'relative', 'השוכר קרוב משפחה של המשכיר: מותר להתנות על ההגנות של סעיף 25יד(2) (סעיף 25טו(ב)). החוזה כאן שומר עליהן בכל זאת.', ['25טו']); }
 
 	// Security (s.25י).
 	let scale = 1;
-	if (!applies && counted > cap.cap + 0.005) {
-		// Outside the chapter (s.25טו) the cap does not bind: the amount stays as agreed, with a note (review, PR 128).
-		add('info', 'deposit_free', `הערובות (${sh(counted)}) מעל מה שמותר בשכירות שהסימן חל עליה (${sh(cap.cap)}), אבל כאן הסימן לא חל בחובה (סעיף 25טו), ולכן הסכום נשאר כפי שסוכם.`, ['25טו', '25י(ב)']);
+	if (free && counted > cap.cap + 0.005) {
+		// Where the cap does not bind (s.25טו), the amount stays as agreed, with a note (review, PR 128).
+		add('info', 'deposit_free', `${freeWhy}: הערובות (${sh(counted)}) נשארות כפי שסוכם, אף שבחוזה שהסימן חל עליו בלי ויתור התקרה היא ${sh(cap.cap)}.`, ['25טו', '25י(ב)']);
 	} else if (counted > cap.cap + 0.005) {
 		scale = cap.cap / counted;
 		add('bad', 'deposit_over', `הערובות שעולות כסף לשוכר (${sh(counted)}) גבוהות מהתקרה ב-${sh(counted - cap.cap)}. מותר לבקש עד ${sh(cap.cap)}: הנמוך מבין דמי השכירות לשליש מהתקופה (${sh(cap.byTerm)}) ופי ${rc.deposit.months} מדמי השכירות לחודש (${sh(cap.byMonths)}).`, ['25י(ב)'], sh(counted), sh(cap.cap));
@@ -419,7 +423,7 @@ function compute(registry, input) {
 	const sec = {};
 	['cash', 'bank', 'other'].forEach((k) => { sec[k] = scale < 1 ? Math.floor(money[k] * scale) : money[k]; });
 	sec.note = money.note;
-	const lawful = {
+	const lawful = free ? Object.assign({}, days) : {
 		returnDays: Math.min(days.returnDays, rc.deposit.return_days),
 		repairDays: Math.min(days.repairDays, rc.repairs.days),
 		urgentDays: Math.min(days.urgentDays, rc.repairs.urgent_days),
@@ -439,7 +443,7 @@ function compute(registry, input) {
 
 	// Cancellation (s.25יג) and options (s.25יב).
 	let exit = exitChoice;
-	if (exitChoice === 'landlord') { exit = 'none'; add('bad', 'exit_landlord', 'זכות ביטול למשכיר בלבד בטלה: מותר לתת אותה רק אם גם לשוכר יש זכות כזאת (סעיף 25יג(א)). בחוזה אין זכות ביטול מוקדם.', ['25יג'], 'ביטול למשכיר בלבד', 'בלי ביטול, או לשני הצדדים'); }
+	if (exitChoice === 'landlord') { exit = free ? 'landlord' : 'none'; add('bad', 'exit_landlord', 'זכות ביטול למשכיר בלבד בטלה: מותר לתת אותה רק אם גם לשוכר יש זכות כזאת (סעיף 25יג(א)). בחוזה אין זכות ביטול מוקדם.', ['25יג'], 'ביטול למשכיר בלבד', 'בלי ביטול, או לשני הצדדים'); }
 	if (exit === 'both' && days.exitLandlordDays < rc.exit.landlord_days) { add('bad', 'exit_landlord_days', `הודעת ביטול של המשכיר ${days.exitLandlordDays} ימים מראש: החוק מחייב לפחות ${rc.exit.landlord_days}.`, ['25יג'], `${days.exitLandlordDays} ימים`, `${rc.exit.landlord_days} ימים`); }
 	if (['tenant', 'both'].includes(exit) && days.exitTenantDays > rc.exit.tenant_days) { add('bad', 'exit_tenant_days', `הודעת ביטול של השוכר ${days.exitTenantDays} ימים מראש: החוק דורש ${rc.exit.tenant_days}, ותנאי ארוך יותר מרע עם השוכר (סעיף 25יד).`, ['25יג', '25יד'], `${days.exitTenantDays} ימים`, `${rc.exit.tenant_days} ימים`); }
 	if (['tenant', 'both'].includes(option) && days.optTenantDays > rc.option.tenant_days) { add('bad', 'opt_tenant_days', `השוכר נדרש להודיע על האופציה ${days.optTenantDays} ימים לפני הסוף: החוק מאפשר לו להודיע עד ${rc.option.tenant_days} ימים לפני (סעיף 25יב(ג)).`, ['25יב', '25יד'], `${days.optTenantDays} ימים`, `${rc.option.tenant_days} ימים`); }
@@ -447,12 +451,15 @@ function compute(registry, input) {
 	const defects = String(input.defects || '').trim();
 	if (!defects) { add('info', 'no_defects', 'לא פירטתם פגמים ידועים: החוזה אומר שהמשכיר מצהיר שלא ידוע לו על פגם שאינו קל ערך. אם יש פגם ידוע, כתבו אותו, כי החוק מחייב לפרט אותו בחוזה (התוספת השנייה, פרט 7).', ['25ג']); }
 
-	// Outside the chapter, a term it forbids is not a violation: the lease keeps the protection, said as a choice.
-	if (!applies) {
-		flags.forEach((f) => {
-			if (f.level === 'bad' && f.cites.every((c) => /^25/.test(c))) { f.level = 'warn'; f.he = `הסימן לא חל בחובה על חוזה זה (סעיף 25טו), והחוזה שומר על ההגנה מרצון: ${f.he}`; }
-		});
-	}
+	// Waivable terms (every section cited is in the chapter, and none is s.25ו, which s.25יד(1) keeps for relatives too):
+	// where the parties may set them, the lease takes what was agreed and the flag is a note; above the unindexed rent line
+	// the lease keeps the protection and says the chapter may not apply (review, PR 128).
+	const waivable = (f) => f.cites.every((c) => /^25/.test(c) && !/^25ו/.test(c));
+	flags.forEach((f) => {
+		if (f.level !== 'bad' || !waivable(f)) { return; }
+		if (free) { f.level = 'info'; f.he = `${freeWhy}, והחוזה כתוב כפי שסוכם. לידיעה: ${f.he}`; f.asked = null; f.lawful = null; }
+		else if (uncertain) { f.level = 'warn'; f.he = `ייתכן שהסימן לא חל, כי שכר הדירה מעל ${sh(rc.scope.rent_cap)} (סעיף 25טו(א)(4)); החוזה שומר על ההגנה בכל זאת: ${f.he}`; }
+	});
 	const end = start ? addDays(addMonths(start, months), -1) : '';
 	const optionRent = r2(rent * (100 + optionPct) / 100);
 	const bad = flags.filter((f) => f.level === 'bad').length;
@@ -463,7 +470,7 @@ function compute(registry, input) {
 		parking: Boolean(input.parking), storage: Boolean(input.storage), pets: ['yes', 'no'].includes(input.pets) ? input.pets : 'ask', smoking: Boolean(input.smoking),
 		defects, furniture: String(input.furniture || '').trim(),
 		names: { landlord: String(input.landlord || '').trim(), tenant: String(input.tenant || '').trim(), address: String(input.address || '').trim(), city: String(input.city || '').trim() },
-		flags, bad, applies,
+		flags, bad, applies, free, relative,
 	};
 	r.clauses = clauses(rc, r);
 	r.schedule = scheduleCheck(rc, r);
@@ -520,7 +527,8 @@ function clauses(rc, r) {
 	const payList = PAYS.filter((k) => r.pays[k]).map((k) => PAY_HE[k]);
 	c('תשלומים נוספים', [
 		payList.length ? `בנוסף לדמי השכירות ישלם השוכר, בעד תקופת השכירות בלבד: ${payList.join('; ')}. השוכר יעביר את החשבונות על שמו מיום המסירה.` : 'השוכר אינו משלם תשלומים נוספים על דמי השכירות.',
-		`השוכר לא יישא ב${FORBIDDEN.map((k) => FORBIDDEN_HE[k]).join(', ב')}, חוץ משיפור שהשוכר ביקש בעצמו. תשלומים אלה על המשכיר.`,
+		r.free && FORBIDDEN.some((k) => r.forbidden[k]) ? `בהסכמת הצדדים ישא השוכר ב${FORBIDDEN.filter((k) => r.forbidden[k]).map((k) => FORBIDDEN_HE[k]).join(', ב')}.` : '',
+		FORBIDDEN.some((k) => !(r.free && r.forbidden[k])) ? `השוכר לא יישא ב${FORBIDDEN.filter((k) => !(r.free && r.forbidden[k])).map((k) => FORBIDDEN_HE[k]).join(', ב')}, חוץ משיפור שהשוכר ביקש בעצמו. תשלומים אלה על המשכיר.` : '',
 	], ['25ט(א)', '25ט(ב)', '25ג']);
 	c('תיקונים', [
 		'השוכר אחראי לליקוי שנגרם משימוש בלתי סביר בדירה, ויתקן אותו על חשבונו.',
@@ -540,6 +548,7 @@ function clauses(rc, r) {
 	c('ביטול לפני תום התקופה', [
 		r.exit === 'none' ? `אין לצדדים זכות לבטל את החוזה לפני תום התקופה שלא בשל הפרתו${r.replacement ? ', חוץ מהאמור בסעיף 9 לחוזה' : ''}.` : '',
 		r.exit === 'tenant' ? `השוכר רשאי לבטל את החוזה בכל עת בהודעה בכתב ${r.lawful.exitTenantDays} ימים מראש לפחות. למשכיר אין זכות ביטול שלא בשל הפרה.` : '',
+		r.exit === 'landlord' ? `המשכיר רשאי לבטל את החוזה בכל עת בהודעה בכתב ${r.lawful.exitLandlordDays} ימים מראש לפחות. לשוכר אין זכות ביטול שלא בשל הפרה.` : '',
 		r.exit === 'both' ? `כל צד רשאי לבטל את החוזה שלא בשל הפרתו: המשכיר בהודעה בכתב ${r.lawful.exitLandlordDays} ימים מראש לפחות, והשוכר בהודעה בכתב ${r.lawful.exitTenantDays} ימים מראש לפחות.` : '',
 	], ['25יג', '25ג']);
 	const items = [];
@@ -551,7 +560,7 @@ function clauses(rc, r) {
 	const capped = r2(r.sec.cash + r.sec.bank + r.sec.other);
 	c('ערובות', items.length ? [
 		`להבטחת חיוביו לפי החוזה ימסור השוכר במעמד החתימה: ${items.join('; ')}.`,
-		capped ? `הערובות שכרוכות בהוצאה כספית לשוכר אינן עולות יחד על ${sh(r.cap.cap)}, הנמוך מבין דמי השכירות לשליש מתקופת השכירות (${sh(r.cap.byTerm)}) ופי ${rc.deposit.months} מדמי השכירות לחודש (${sh(r.cap.byMonths)}).` : '',
+		capped && capped <= r.cap.cap + 0.005 ? `הערובות שכרוכות בהוצאה כספית לשוכר אינן עולות יחד על ${sh(r.cap.cap)}, הנמוך מבין דמי השכירות לשליש מתקופת השכירות (${sh(r.cap.byTerm)}) ופי ${rc.deposit.months} מדמי השכירות לחודש (${sh(r.cap.byMonths)}).` : '',
 		'המשכיר רשאי לממש ערובה רק אם השוכר לא שילם דמי שכירות במועד, לא תיקן ליקוי שבאחריותו, לא שילם תשלום שוטף שחל עליו, או לא פינה את הדירה בתום התקופה, ורק עד גובה החוב, ואחרי שהודיע לשוכר זמן סביר מראש ואפשר לו לתקן.',
 		`בתום השכירות יחזיר המשכיר לשוכר את הערובות או את יתרתן, עם פירותיהן, בתוך ${r.lawful.returnDays} ימים מהשבת הדירה לרשותו, או עד שנפרעו חובות השוכר כאמור, לפי המאוחר.`,
 	] : ['השוכר אינו נדרש למסור ערובה.'], ['25י(ב)', '25י(ג)', '25י(ד)', '25י(ה)', 'guarantee']);
@@ -566,7 +575,7 @@ function clauses(rc, r) {
 	], ['protected']);
 	c('הוראות כלליות', [
 		'כל שינוי בחוזה ייעשה בכתב. הודעות יישלחו בכתב למענים שבראש החוזה, או בדואר אלקטרוני שהצדדים יודיעו זה לזה. כל צד קיבל העתק חתום של החוזה.',
-		'אין בחוזה סעיף שגורע מזכויות השוכר לפי סימן ו\' לפרק א\' לחוק השכירות והשאילה, התשל"א-1971; בכל סתירה יחול החוק.',
+		r.free ? (r.applies ? 'הצדדים קרובים כהגדרתם בסעיף 25טו(ב) לחוק השכירות והשאילה, התשל"א-1971, והתנאים שבחוזה סוכמו לפיו; אין בחוזה סעיף שגורע מחובת המשכיר למסור דירה ראויה למגורים (סעיף 25ו).' : '') : 'אין בחוזה סעיף שגורע מזכויות השוכר לפי סימן ו\' לפרק א\' לחוק השכירות והשאילה, התשל"א-1971; בכל סתירה יחול החוק.',
 	], ['25ב', '25יד']);
 	return out;
 }

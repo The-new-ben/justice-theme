@@ -133,7 +133,7 @@ export function compute(registry, input) {
 	if (giftLived && livedFrom && saleDate && livedFrom > saleDate) { errors.push({ field: 'livedFrom', he: 'תחילת המגורים לפני יום המכירה' }); }
 	// Additional building rights in the price (s.49ז): the exemption covers the dwelling's value without them, the rest is
 	// split by a separate computation the tool does not make (review, PR 128).
-	if (status === 'single' && input.buildingRights) { errors.push({ field: 'rights', he: 'מחיר שמושפע מזכויות בנייה נוספות: הפטור חל רק על שווי הדירה בלי הזכויות, ועל השאר יש חישוב נפרד (סעיף 49ז). את הפיצול המחשבון לא מחשב; השתמשו בסימולטור של רשות המסים או בשמאי.' }); }
+	if (status !== 'other' && input.buildingRights) { errors.push({ field: 'rights', he: 'מחיר שמושפע מזכויות בנייה נוספות: הפטור והחישוב הלינארי חלים רק על שווי הדירה בלי הזכויות, ועל השאר יש חישוב נפרד (סעיף 49ז). את הפיצול המחשבון לא מחשב; השתמשו בסימולטור של רשות המסים או בשמאי.' }); }
 	if (improve > 0 && !improveDate) { errors.push({ field: 'improveDate', he: 'מתי שופצה הדירה: תאריך מלא' }); }
 	if (improve > 0 && improveDate && buyDate && saleDate && (improveDate < buyDate || improveDate > saleDate)) { errors.push({ field: 'improveDate', he: 'השיפוץ בין יום הרכישה ליום המכירה' }); }
 	if (errors.length) { return { ok: false, errors }; }

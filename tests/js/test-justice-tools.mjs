@@ -1036,7 +1036,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(f.includes('שנספרת (סעיף 49ג)') && f.includes(reg.shevach.family_he) && reg.shevach.family_he.includes('עד שליש'), 'the family confirmation counts only dwellings s.49ג does not exclude, and lists the exclusions (review, PR 128)');
 	const rights = SH.compute(reg, Object.assign({}, one, { buildingRights: true }));
 	check(!rights.ok && rights.errors.some((e) => e.field === 'rights' && e.he.includes('סעיף 49ז')) && f.includes('id="jt14-rights-e"') && f.includes('name="jt14-br"'), 'a price with additional building rights on the single-home path is refused (s.49ז; review, PR 128)');
-	check(SH.compute(reg, Object.assign({}, one, { status: 'qualified', buildingRights: true })).ok, 'the s.49ז screen is for the single-home exemption only');
+	check(SH.compute(reg, Object.assign({}, one, { status: 'other', buildingRights: true })).ok, 'the s.49ז screen is for dwellings only (pass 9 extends it to the linear path)');
 	const quit = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'resign' }));
 	check(!quit.entitled && quit.deadlines.length === 1 && quit.deadlines[0].key === 'cert' && !PEUI.renderResult(reg, quit).includes('הפיצויים צריכים להיות בחשבון'), 'no severance due: only the employment certificate deadline, no payment clock (review, PR 128)');
 	check(PE.compute(reg, PEUI.EXAMPLE).deadlines.length === 5, 'with severance due all five deadlines stay');
@@ -1059,9 +1059,29 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(quit.fundUnknown && quit.taxNote === 'fund' && quit.taxable === null && quit.exempt > 0 && PEUI.renderResult(reg, quit).includes('עד '), 'a resignation with a s.14 fund: exempt up to the ceiling, the taxable part unknown, never 0 / 0 (review, PR 128)');
 	// The rent chapter's scope (s.25טו): outside it a deposit above the cap is not a violation.
 	const shortLease = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', bank: '', cash: 30000, forbidden: { insurance: true } }));
-	check(shortLease.ok && !shortLease.applies && shortLease.bad === 0 && shortLease.sec.cash === 30000 && shortLease.flags.some((f) => f.code === 'deposit_free') && !shortLease.flags.some((f) => f.code === 'deposit_over') && shortLease.flags.find((f) => f.code === 'pay_insurance').level === 'warn' && RE.contractText(reg.rent_contract, shortLease, false).includes('30,000'), 'a 3-month lease with no option: the deposit stays as agreed, nothing is called a violation (s.25טו; review, PR 128)');
+	check(shortLease.ok && !shortLease.applies && shortLease.bad === 0 && shortLease.sec.cash === 30000 && shortLease.flags.some((f) => f.code === 'deposit_free') && !shortLease.flags.some((f) => f.code === 'deposit_over') && shortLease.flags.find((f) => f.code === 'pay_insurance').level === 'info' && RE.contractText(reg.rent_contract, shortLease, false).includes('30,000'), 'a 3-month lease with no option: the deposit stays as agreed, nothing is called a violation (s.25טו; review, PR 128)');
 	const longLease = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { bank: '', cash: 30000 }));
 	check(longLease.applies && longLease.flags.some((f) => f.code === 'deposit_over' && f.level === 'bad') && longLease.sec.cash === 18000, 'inside the chapter the cap still binds');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 9) ---------- */
+{
+	// Between relatives the s.25יד(2) terms are the parties' (s.25טו(ב)); s.25ו stays (s.25יד(1)).
+	const rel = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { relative: true, returnDays: 90, bank: '', cash: 30000, exit: 'landlord', forbidden: { insurance: true }, asIs: true }));
+	const relText = RE.contractText(reg.rent_contract, rel, false);
+	check(rel.ok && rel.free && rel.lawful.returnDays === 90 && rel.sec.cash === 30000 && rel.exit === 'landlord' && relText.includes('תוך 90 ימים') && relText.includes('30,000') && relText.includes('בהסכמת הצדדים ישא השוכר בביטוח המבנה') && relText.includes('המשכיר רשאי לבטל את החוזה') && !relText.includes('אינן עולות יחד על'), 'between relatives a 90-day return, a 30,000 deposit, a landlord exit and building insurance on the tenant stay as agreed (s.25טו(ב); review, PR 128)');
+	check(rel.bad === 1 && rel.flags.find((f) => f.code === 'as_is').level === 'bad' && ['return_late', 'pay_insurance', 'exit_landlord'].every((c) => rel.flags.find((f) => f.code === c).level === 'info'), 'only the "as is" waiver (s.25ו, kept by s.25יד(1)) is still against the law between relatives');
+	// Above the unindexed 20,000 line the chapter may not apply: protections kept, nothing called a violation.
+	const rich = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { rent: 100000, bank: '', cash: 400000 }));
+	check(rich.ok && rich.bad === 0 && rich.flags.find((f) => f.code === 'deposit_over').level === 'warn' && rich.flags.find((f) => f.code === 'deposit_over').he.includes('25טו(א)(4)'), 'rent above 20,000: the cap is a kept protection with a "may not apply" warning, not a violation (review, PR 128)');
+	// The lease text never contradicts itself: no cap sentence above a kept higher deposit.
+	const shortL = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', bank: '', cash: 30000 }));
+	check(!RE.contractText(reg.rent_contract, shortL, false).includes('אינן עולות יחד על') && !RE.contractText(reg.rent_contract, shortL, false).includes('בכל סתירה יחול החוק'), 'outside the chapter the lease neither states the cap nor says the chapter overrides it');
+	// Capital gains: the building-rights screen covers the linear path too (s.49ז).
+	const q = SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { buildingRights: true }));
+	check(!q.ok && q.errors.some((e) => e.field === 'rights') && /data-if-home[^>]*>[\s\S]*name="jt14-br"/.test(SHUI.renderForm(reg, SHUI.EXAMPLE)) && SH.compute(reg, Object.assign({}, SHUI.EXAMPLE, { status: 'other', buildingRights: true })).ok, 'building rights in the price are screened on the linear path too, not for a non-dwelling (s.49ז; review, PR 128)');
+	// Severance: unpaid leave with a change of scope or pay is refused.
+	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { change: true, changeDate: '2022-01-01', prevPct: 50, unpaidExcess: 30 })).ok, 'unpaid leave together with a change: refused, never spread across the periods (review, PR 128)');
 }
 
 if (failures) {

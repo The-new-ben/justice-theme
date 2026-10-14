@@ -119,6 +119,8 @@ export function compute(registry, input) {
 	// Unpaid leave above 14 days in a work year is not counted (reg. 10(3)); the person sums the excess of each year.
 	const unpaidExcess = blank(input.unpaidExcess) ? 0 : Number(input.unpaidExcess);
 	if (!(Number.isFinite(unpaidExcess) && unpaidExcess >= 0 && unpaidExcess < 36500)) { errors.push({ field: 'unpaidExcess', he: 'ימי חופשה ללא תשלום: מספר ימים, 0 או ריק' }); }
+	// The leave belongs to one of the periods; with a change the tool would have to know which (review, PR 128).
+	if (change && unpaidExcess > 0) { errors.push({ field: 'unpaidExcess', he: 'חופשה ללא תשלום יחד עם שינוי בהיקף המשרה או בשכר: הימים מנוכים מהתקופה שבה היו, לפי השכר שלה. את השילוב המחשבון לא מחשב; חשבו כל תקופה בנפרד, או פנו לעורך דין.' }); }
 	if (change && input.manyChanges) { errors.push({ field: 'change', he: 'יותר משינוי אחד בהיקף המשרה או בשכר: כל תקופה מחושבת לפי ההיקף והשכר שלה (תקנות 7 ו-8 לתקנות החישוב). המחשבון מחשב שינוי אחד בלבד; את החישוב לכמה תקופות עושים לפי התלושים, עם עורך דין או רואה חשבון.' }); }
 	if (change && !changeDate) { errors.push({ field: 'changeDate', he: 'מאיזה יום חל השינוי: תאריך מלא' }); }
 	if (change && changeDate && start && end && (changeDate <= start || changeDate > end)) { errors.push({ field: 'changeDate', he: 'יום השינוי אחרי יום התחילה ועד היום האחרון' }); }

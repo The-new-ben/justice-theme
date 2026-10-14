@@ -43,9 +43,9 @@ export function renderForm(reg, input) {
 	const st = STATUSES.includes(input.status) ? input.status : 'single';
 	return `<fieldset class="jtool-field"><legend>מה נמכר</legend><div class="jtool-chips">${STATUSES.map((k) => chip('st', k, STATUS_LONG[k], st === k)).join('')}</div>`
 		+ `<p class="jtool-hint" data-if-status="single"${st === 'single' ? '' : ' hidden'}>${esc(sv.single_he)}.</p>`
-		+ `<div class="jtool-chips" data-if-home${st === 'other' ? ' hidden' : ''} style="margin-top:8px">${chip('res', '1', 'הדירה שימשה בעיקר למגורים (גם בהשכרה, גם כשעמדה ריקה)', input.residential !== false, 'checkbox')}</div>`
+		+ `<div data-if-home${st === 'other' ? ' hidden' : ''} style="margin-top:8px"><div class="jtool-chips">${chip('res', '1', 'הדירה שימשה בעיקר למגורים (גם בהשכרה, גם כשעמדה ריקה)', input.residential !== false, 'checkbox')}${chip('br', '1', 'במחיר יש גם זכויות בנייה נוספות שלא נוצלו', input.buildingRights, 'checkbox')}</div><p class="jtool-error" id="${P}-rights-e" role="alert"></p></div>`
 		+ `<div data-if-status="single"${st === 'single' ? '' : ' hidden'}><div class="jtool-chips" style="margin-top:8px">${chip('fm', '1', 'גם לבן או לבת הזוג ולילדים מתחת ל-18 אין דירת מגורים אחרת שנספרת (סעיף 49ג)', input.family, 'checkbox')}</div><p class="jtool-hint">${esc(sv.seller_he)}. ${esc(sv.family_he)}.</p>`
-		+ `<div class="jtool-chips" style="margin-top:8px">${chip('br', '1', 'במחיר יש גם זכויות בנייה נוספות שלא נוצלו', input.buildingRights, 'checkbox')}</div><p class="jtool-error" id="${P}-rights-e" role="alert"></p>`
+
 		+ `<fieldset class="jtool-field" style="margin-top:8px"><legend>תושבות המוכר</legend><div class="jtool-chips">${chip('rs', 'il', 'תושב/ת ישראל', input.resident !== 'foreign')}${chip('rs', 'foreign', 'תושב/ת חוץ', input.resident === 'foreign')}</div>`
 		+ `<div data-if-foreign${input.resident === 'foreign' ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-chips">${chip('fh', '1', 'יש לי אישור מרשות המס במדינת המושב שאין לי שם דירת מגורים', input.foreignNoHome, 'checkbox')}</div><p class="jtool-hint">${esc(sv.foreign.he)}.</p></div></fieldset>`
 		+ `<div class="jtool-chips" style="margin-top:8px">${chip('op', '1', 'קניתי את הדירה לפני שנבנתה (מקבלן)', input.offPlan, 'checkbox')}</div>`

@@ -41,7 +41,7 @@ export function toInput(m) {
 	const items = [];
 	const h = m.home || {};
 	if (v0(h.value) !== '' || v0(h.mortgage) !== '') {
-		items.push({ kind: 'home', owner: h.owner || 'joint', value: h.value, mortgage: h.mortgage, exclude: h.source || '', activeGain: h.source === 'premarital' ? h.activeGain : '', label: 'דירת המגורים' });
+		items.push({ kind: 'home', main: true, owner: h.owner || 'joint', value: h.value, mortgage: h.mortgage, exclude: h.source || '', activeGain: h.source === 'premarital' ? h.activeGain : '', label: 'דירת המגורים' });
 	}
 	for (const o of ['a', 'b']) {
 		const s = m[o] || {};
@@ -326,22 +326,24 @@ function readModel(root) {
 }
 
 /* Share link: dates and amounts only, in the fragment. */
-const stateOf = (m) => encodeState({
+const ov = (v) => (v === '' || v === undefined || v === null ? -1 : v);
+export const stateOf = (m) => encodeState({
 	m: m.marriage, k: m.breakDate, f: m.filed, s: m.apart, q: m.before1974 ? 1 : '', t: m.method === 'time' ? '' : m.method, c: m.cryptoAt === 'today' ? '' : 'b',
 	h: [[m.home.value || 0, m.home.mortgage || 0], [{ joint: 0, a: 1, b: 2 }[m.home.owner] || 0, { '': 0, premarital: 1, gift: 2, inheritance: 3 }[m.home.source] || 0], [m.home.activeGain || 0, 0]],
-	a: COLS.map((k) => [m.a[k][0] || 0, m.a[k][1] || 0]), b: COLS.map((k) => [m.b[k][0] || 0, m.b[k][1] || 0]),
+	a: COLS.map((k) => [m.a[k][0] || 0, ov(m.a[k][1])]), b: COLS.map((k) => [m.b[k][0] || 0, ov(m.b[k][1])]),
 	o: m.options.length ? [[{ a: 1, b: 2 }[m.options[0].owner] || 1, m.options[0].units], [m.options[0].price || 0, m.options[0].strike || 0], [(m.options[0].grant || '').replace(/-/g, ''), (m.options[0].vestStart || '').replace(/-/g, '')], [(m.options[0].vestEnd || '').replace(/-/g, ''), m.options[0].tranches || 1]] : '',
 	x: m.crypto.length ? [[{ a: 1, b: 2 }[m.crypto[0].owner] || 2, m.crypto[0].units], [m.crypto[0].priceBreak || 0, m.crypto[0].priceToday || 0], [m.crypto[0].where === 'wallet' ? 1 : 0, 0]] : '',
 	e: m.others.length ? m.others.map((x) => [`${{ a: 1, b: 2, joint: 3 }[x.owner] || 1}${['savings', 'home', 'car', 'business', 'other', 'debt'].indexOf(x.kind) + 1}${['', 'premarital', 'gift', 'inheritance', 'nii', 'agreed'].indexOf(x.exclude || '')}`, x.value || 0]) : '',
 });
 const KEYS = ['m', 'k', 'f', 's', 'q', 't', 'c', 'h', 'a', 'b', 'o', 'x', 'e'];
 const ymd = (x) => (/^\d{8}$/.test(x) ? `${x.slice(0, 4)}-${x.slice(4, 6)}-${x.slice(6, 8)}` : '');
-function modelOf(s) {
+export function modelOf(s) {
 	if (!s.m || !s.k) { return null; }
 	const pairs = (txt) => String(txt || '').split('~').map((p) => p.split('_'));
 	const num = (x) => (x === undefined || x === '' || x === '0' ? '' : Number(x));
 	const h = pairs(s.h);
-	const side = (txt) => { const p = pairs(txt); return Object.fromEntries(COLS.map((k, i) => [k, [num((p[i] || [])[0]), num((p[i] || [])[1])]])); };
+	const zo = (x) => (x === undefined || x === '' || x === '-1' ? '' : Number(x));
+	const side = (txt) => { const p = pairs(txt); return Object.fromEntries(COLS.map((k, i) => [k, [num((p[i] || [])[0]), zo((p[i] || [])[1])]])); };
 	const o = s.o ? pairs(s.o) : null;
 	const x = s.x ? pairs(s.x) : null;
 	return {
@@ -353,6 +355,7 @@ function modelOf(s) {
 		crypto: x ? [{ owner: x[0][0] === '1' ? 'a' : 'b', units: Number(x[0][1]), priceBreak: num(x[1][0]), priceToday: num(x[1][1]), where: x[2][0] === '1' ? 'wallet' : 'exchange' }] : [],
 	};
 }
+
 
 export function mount(root, reg) {
 	const form = root.querySelector('[data-jtool-form]');

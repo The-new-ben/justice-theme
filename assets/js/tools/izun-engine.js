@@ -279,10 +279,16 @@ export function computeBalance(registry, input) {
 	const range = signed.length ? { min: Math.min(...signed), max: Math.max(...signed) } : { min: diff, max: diff };
 	// A home in one name (or excluded as premarital, a gift or an inheritance): the same family if specific sharing in it
 	// were proven, i.e. the home owned half each, outside the balance (1398/11; 5620/24).
+	// Only the family home is the disputed one: the item marked main, or else the first home; any other property keeps
+	// its owner and its exclusion (review, PR 130).
 	let sharedHome = null;
-	const oneName = items.some((it) => it.kind === 'home' && (it.owner !== 'joint' || IZ_EXCLUDE.includes(it.exclude) && it.exclude));
+	const all = input.items || [];
+	let homeAt = all.findIndex((it) => it && it.kind === 'home' && it.main);
+	if (homeAt < 0) { homeAt = all.findIndex((it) => it && it.kind === 'home'); }
+	const disputed = homeAt >= 0 ? all[homeAt] : null;
+	const oneName = Boolean(disputed) && (disputed.owner !== 'joint' || (IZ_EXCLUDE.includes(disputed.exclude) && Boolean(disputed.exclude)));
 	if (oneName && !input._inner) {
-		const alt = computeBalance(registry, Object.assign({}, input, { _inner: true, items: (input.items || []).map((it) => (it && it.kind === 'home' ? Object.assign({}, it, { owner: 'joint', exclude: '', activeGain: '' }) : it)) }));
+		const alt = computeBalance(registry, Object.assign({}, input, { _inner: true, items: all.map((it, i) => (i === homeAt ? Object.assign({}, it, { owner: 'joint', exclude: '', activeGain: '' }) : it)) }));
 		if (alt.ok) { sharedHome = { diff: alt.diff, pay: alt.pay, payer: alt.payer }; flags.push({ code: 'home_shared', he: pb.flags.home_shared_he }); }
 	}
 	if (marriedMonths < 12) { flags.push({ code: 'short', he: pb.flags.short_marriage_he }); }

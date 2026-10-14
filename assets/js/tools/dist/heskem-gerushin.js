@@ -896,10 +896,16 @@ function computeBalance(registry, input) {
 	const range = signed.length ? { min: Math.min(...signed), max: Math.max(...signed) } : { min: diff, max: diff };
 	// A home in one name (or excluded as premarital, a gift or an inheritance): the same family if specific sharing in it
 	// were proven, i.e. the home owned half each, outside the balance (1398/11; 5620/24).
+	// Only the family home is the disputed one: the item marked main, or else the first home; any other property keeps
+	// its owner and its exclusion (review, PR 130).
 	let sharedHome = null;
-	const oneName = items.some((it) => it.kind === 'home' && (it.owner !== 'joint' || IZ_EXCLUDE.includes(it.exclude) && it.exclude));
+	const all = input.items || [];
+	let homeAt = all.findIndex((it) => it && it.kind === 'home' && it.main);
+	if (homeAt < 0) { homeAt = all.findIndex((it) => it && it.kind === 'home'); }
+	const disputed = homeAt >= 0 ? all[homeAt] : null;
+	const oneName = Boolean(disputed) && (disputed.owner !== 'joint' || (IZ_EXCLUDE.includes(disputed.exclude) && Boolean(disputed.exclude)));
 	if (oneName && !input._inner) {
-		const alt = computeBalance(registry, Object.assign({}, input, { _inner: true, items: (input.items || []).map((it) => (it && it.kind === 'home' ? Object.assign({}, it, { owner: 'joint', exclude: '', activeGain: '' }) : it)) }));
+		const alt = computeBalance(registry, Object.assign({}, input, { _inner: true, items: all.map((it, i) => (i === homeAt ? Object.assign({}, it, { owner: 'joint', exclude: '', activeGain: '' }) : it)) }));
 		if (alt.ok) { sharedHome = { diff: alt.diff, pay: alt.pay, payer: alt.payer }; flags.push({ code: 'home_shared', he: pb.flags.home_shared_he }); }
 	}
 	if (marriedMonths < 12) { flags.push({ code: 'short', he: pb.flags.short_marriage_he }); }
@@ -1101,16 +1107,19 @@ function draftAgreement(registry, input) {
 	// Child support from the support engine, with the plan's nights (parent A = the "other" parent of the plan).
 	const only = Boolean(input.onlyPlan);
 	if (only && !births.length) { errors.push({ field: 'children', he: 'צריך לפחות ילד אחד עם תאריך לידה' }); }
+	const sIn = input.support || {};
+	const agreed = fEntered(sIn.amount);
 	let support = null;
 	if (births.length && !only) {
-		const s = input.support || {};
 		support = computeSupport(registry, {
-			incomeA: s.incomeA, incomeB: s.incomeB, housingA: s.housingA, housingB: s.housingB, children: births,
+			incomeA: sIn.incomeA, incomeB: sIn.incomeB, housingA: sIn.housingA, housingB: sIn.housingB, children: births,
 			nightsA: plan.nightsA, father: parentA === 'אבא' ? 'A' : 'B', law: input.law, asOf: from,
 		});
-		if (!support.ok) { support.errors.forEach((e) => errors.push({ field: `support-${e.field}`, he: e.he })); }
+		// An agreed amount needs no estimate: missing incomes only block the draft when the tool has to compute the amount.
+		if (!support.ok) {
+			if (agreed) { support = null; } else { support.errors.forEach((e) => errors.push({ field: `support-${e.field}`, he: e.he })); }
+		}
 	}
-	const sIn = input.support || {};
 	if (fEntered(sIn.amount) && !(Number(sIn.amount) >= 0 && Number(sIn.amount) < 1e7)) { errors.push({ field: 'support-amount', he: 'סכום המזונות: מספר חיובי' }); }
 	// Property from the balancing engine: the home, then each side's other balanced assets and debts.
 	const p = input.property || {};
@@ -1135,10 +1144,19 @@ function draftAgreement(registry, input) {
 	const toDoc = (p) => (kids ? (p === 'אבא' ? 'לאב' : 'לאם') : (p === 'אבא' ? 'לבעל' : 'לאישה'));
 	const verb = (p, m, f) => (p === 'אבא' ? m : f);
 	const parentOf = (x) => hkWho(x, parentA, parentB);
-	// The support figure: the user's amount, or the midpoint of the tool's range, rounded to 10.
+	// The support figure: the user's amount, or the midpoint of the tool's range, rounded to 10. An agreed amount always
+	// has a payer: the one the user chose, else the estimate's payer, else the parent with fewer nights, else the parent
+	// with the higher income (review, PR 130).
 	let amount = null;
 	let payer = null;
-	if (fEntered(sIn.amount)) { amount = Number(sIn.amount); payer = support && support.ok ? support.payer : 'A'; } else if (support && support.ok && support.payer) {
+	if (agreed) {
+		amount = Number(sIn.amount);
+		const iA = Number(sIn.incomeA) || 0;
+		const iB = Number(sIn.incomeB) || 0;
+		payer = sIn.payer === 'A' || sIn.payer === 'B' ? sIn.payer
+			: support && support.ok && support.payer ? support.payer
+				: plan.nightsA < 7 ? 'A' : plan.nightsA > 7 ? 'B' : (iA >= iB ? 'A' : 'B');
+	} else if (support && support.ok && support.payer) {
 		amount = fR10((support.low + support.high) / 2); payer = support.payer;
 	}
 	const kidsLine = births.map((b, i) => `ילד/ה ${i + 1}, ${hkBlank}, יליד/ת ${hkDate(b)}`).join('; ');
@@ -1163,11 +1181,13 @@ function draftAgreement(registry, input) {
 	}
 	if (births.length && !only) {
 		const items = [];
-		if (amount !== null && payer) {
+		if (agreed && amount === 0) {
+			items.push('ההורים הסכימו שאין ביניהם תשלום מזונות חודשי: כל הורה יישא בעין בצורכי הילדים כשהם אצלו.');
+		} else if (amount !== null && payer) {
 			const pp = parentOf(payer);
 			const pr = parentOf(payer === 'A' ? 'B' : 'A');
 			items.push(`${doc(pp)} ${verb(pp, 'ישלם', 'תשלם')} ${toDoc(pr)} מזונות לילדים בסך ${hkMoney(amount)} לחודש, לכל הילדים יחד, ב-${Number(sIn.payDay) || 10} בכל חודש, מהחודש שאחרי אישור ההסכם.`);
-		} else if (support && support.ok && !support.payer) {
+		} else if (!agreed && support && support.ok && !support.payer) {
 			items.push('לפי חלוקת הזמנים וההכנסות, כל הורה יישא בעין בצורכי הילדים כשהם אצלו, ואין ביניהם תשלום מזונות חודשי.');
 		} else {
 			items.push(`${hkBlank} ישלם ל${hkBlank} מזונות לילדים בסך ${hkBlank} ש"ח לחודש, ב-10 בכל חודש.`);
@@ -1182,13 +1202,23 @@ function draftAgreement(registry, input) {
 		items.push('קצבת הילדים של המוסד לביטוח לאומי תשולם להורה שהילדים רשומים אצלו, ותשמש לצורכיהם.');
 		add('מזונות הילדים', items);
 	}
+	// A buyout of the joint home: half the net equity (value less the mortgage), which the balance does not include,
+	// because the balance counts the home as owned half each (review, PR 130).
+	let buyout = null;
+	if (balance && balance.ok && (p.home === 'a_keeps' || p.home === 'b_keeps') && fEntered(p.homeValue)) {
+		const equity = Number(p.homeValue) - (Number(p.mortgage) || 0);
+		buyout = { keeper: p.home === 'a_keeps' ? 'a' : 'b', equity, amount: Math.max(0, Math.round(equity / 2)) };
+	}
 	if (balance && balance.ok) {
 		const items = [];
 		if (p.home === 'sell') { items.push(`הדירה המשותפת תימכר, ומהתמורה, אחרי סילוק המשכנתא ועלויות המכירה, יקבל כל צד מחצית. עד המכירה ${births.length ? 'ההורה שהילדים גרים אצלו יגור בה, בכפוף לסעיף 6א לחוק יחסי ממון' : 'יוסכם בכתב מי גר בה'}.`); }
 		if (p.home === 'a_keeps' || p.home === 'b_keeps') {
 			const k = p.home === 'a_keeps' ? parentA : parentB;
 			const o = k === parentA ? parentB : parentA;
-			items.push(`${doc(k)} ${verb(k, 'ירכוש', 'תרכוש')} את ${verb(o, 'חלקו של', 'חלקה של')} ${doc(o)} בדירה המשותפת, ${verb(k, 'יקבל', 'תקבל')} על ${verb(k, 'עצמו', 'עצמה')} את יתרת המשכנתא ${verb(k, 'וידאג', 'ותדאג')} לשחרר את ${doc(o)} ממנה מול הבנק. התמורה תשולם עד ${hkBlank}, והזכויות יירשמו על שם ${doc(k)} אחרי התשלום.`);
+			const price = buyout && buyout.amount > 0
+				? `תמורת ${hkMoney(buyout.amount)}: מחצית ההון העצמי בדירה (שווי ${hkMoney(Number(p.homeValue))} פחות יתרת משכנתא ${hkMoney(Number(p.mortgage) || 0)}). התמורה תשולם עד ${hkBlank}`
+				: `בלי תמורה, כי יתרת המשכנתא אינה נמוכה משווי הדירה (${hkMoney(Number(p.homeValue) || 0)})`;
+			items.push(`${doc(k)} ${verb(k, 'ירכוש', 'תרכוש')} את ${verb(o, 'חלקו של', 'חלקה של')} ${doc(o)} בדירה המשותפת ${price}. ${doc(k)} ${verb(k, 'יקבל', 'תקבל')} על ${verb(k, 'עצמו', 'עצמה')} את יתרת המשכנתא ${verb(k, 'וידאג', 'ותדאג')} לשחרר את ${doc(o)} ממנה מול הבנק, והזכויות יירשמו על שם ${doc(k)} אחרי התשלום.`);
 		}
 		items.push(balance.payer
 			? `לאיזון המשאבים ${verb(balance.payer === 'a' ? parentA : parentB, 'ישלם', 'תשלם')} ${doc(balance.payer === 'a' ? parentA : parentB)} ${toDoc(balance.payer === 'a' ? parentB : parentA)} ${hkMoney(balance.pay)}, תוך ${Number(p.payDays) || 90} ימים מאישור ההסכם (סעיף 6(ב) לחוק יחסי ממון בין בני זוג).`
@@ -1251,7 +1281,7 @@ function draftAgreement(registry, input) {
 		'מעבר דירה עם הילדים, נסיעות לחו"ל וחינוך דתי או חילוני',
 	];
 	return {
-		ok: true, only, kids: births.length, title, route, plan, parentA, parentB, support, amount, payer, balance, clauses, text: lines.join('\n'),
+		ok: true, only, kids: births.length, title, route, plan, parentA, parentB, support, amount, payer, agreed, balance, buyout, clauses, text: lines.join('\n'),
 		cost: { fee: r.fee, item: r.fee_item, law: r.fee_he, url: r.fee_url }, steps: r.steps_he, flags, lawyer,
 	};
 }
@@ -1321,7 +1351,8 @@ function renderForm(reg, m) {
 		+ (only ? '' : `<fieldset class="jtool-field"><legend>איפה מאשרים</legend><div class="jtool-chips">${chip('rt', 'family', 'בית המשפט לענייני משפחה', m.route !== 'rabbinical')}${chip('rt', 'rabbinical', 'בית הדין הרבני', m.route === 'rabbinical')}</div></fieldset>`
 		+ `<details class="jtool-more" open><summary>מזונות: מהמחשבון של בע"מ 919/15</summary><div class="jtool-row" style="margin-top:8px">${moneyField('ia', "הכנסה נטו, הורה א'", s.incomeA)}${moneyField('ib', "הכנסה נטו, הורה ב'", s.incomeB)}</div>`
 		+ `<div class="jtool-row">${moneyField('ha', "דיור, הורה א'", s.housingA)}${moneyField('hb', "דיור, הורה ב'", s.housingB)}</div>`
-		+ `<div class="jtool-row">${moneyField('am', 'סכום שסיכמתם (לא חובה)', s.amount)}<div></div></div><p class="jtool-hint">בלי סכום, ההסכם יכלול את אמצע הטווח של המחשבון, לפי הלילות שבלוח.</p></details>`
+		+ `<div class="jtool-row">${moneyField('am', 'סכום שסיכמתם (לא חובה)', s.amount)}<div></div></div><p class="jtool-hint">בלי סכום, ההסכם יכלול את אמצע הטווח של המחשבון, לפי הלילות שבלוח. עם סכום, לא צריך את ההכנסות.</p>`
+		+ `<fieldset class="jtool-field"><legend>מי משלם את הסכום שסיכמתם</legend><div class="jtool-chips">${chip('sp', '', 'לפי החישוב', !s.payer)}${chip('sp', 'A', "הורה א'", s.payer === 'A')}${chip('sp', 'B', "הורה ב'", s.payer === 'B')}</div></fieldset></details>`
 		+ `<details class="jtool-more" open><summary>רכוש: מהמחשבון של איזון המשאבים</summary><fieldset class="jtool-field" style="margin-top:8px"><legend>הדירה המשותפת</legend><div class="jtool-chips">${Object.entries(HOME).map(([k, v]) => chip('hm', k, v, (p.home || 'none') === k)).join('')}</div></fieldset>`
 		+ `<div class="jtool-row">${moneyField('hv', 'שווי הדירה', p.homeValue)}${moneyField('mo', 'יתרת המשכנתא', p.mortgage)}</div>`
 		+ `<div class="jtool-row">${moneyField('aa', "שאר הנכסים לאיזון, הורה א'", p.aAssets)}${moneyField('ba', "שאר הנכסים לאיזון, הורה ב'", p.bAssets)}</div>`
@@ -1343,6 +1374,7 @@ function verdictSentence(reg, d) {
 	if (!d.ok) { return ''; }
 	const parts = d.kids ? [`טיוטת ${d.title}: ${d.clauses.length} פרקים ונספח תוכנית הורות`, `${d.plan.nightsA} לילות מתוך 14 אצל ${docName(d.parentA)}`] : [`טיוטת ${d.title}: ${d.clauses.length} פרקים, בלי ילדים`];
 	if (d.amount !== null && d.payer) { parts.push(`מזונות ${nis(d.amount)} לחודש`); }
+	if (d.buyout && d.buyout.amount > 0) { parts.push(`רכישת החלק בדירה ${nis(d.buyout.amount)}`); }
 	if (d.balance && d.balance.ok) { parts.push(d.balance.payer ? `תשלום איזון ${nis(d.balance.pay)}` : 'בלי תשלום איזון'); }
 	return `${parts.join('; ')}. ההסכם טעון אישור${d.only ? ' בית המשפט' : ` ${d.route === 'rabbinical' ? 'בית הדין הרבני' : 'בית המשפט לענייני משפחה'}`}, שבודק שההסדרים לילדים לטובתם.`;
 }
@@ -1446,17 +1478,18 @@ function readModel(root, prev) {
 		onlyPlan: prev.onlyPlan, from: prev.from, custom,
 		route: checked('rt') || 'family', parentA: checked('pa') || 'אבא', children: kids, custody: checked('cu') || 'joint',
 		pattern, holidays: checked('ho') || 'alternate', firstA: on('fa'),
-		support: { incomeA: m$('ia'), incomeB: m$('ib'), housingA: m$('ha'), housingB: m$('hb'), amount: m$('am'), payDay: 10 },
+		support: { incomeA: m$('ia'), incomeB: m$('ib'), housingA: m$('ha'), housingB: m$('hb'), amount: m$('am'), payer: checked('sp') || '', payDay: 10 },
 		property: { home: checked('hm') || 'none', homeValue: m$('hv'), mortgage: m$('mo'), aAssets: m$('aa'), bAssets: m$('ba'), aDebts: m$('ad'), bDebts: m$('bd'), pension: on('pe') },
 		names: { a: val('na'), b: val('nb') },
 	};
 }
 
 /* Share link: choices, birth dates and amounts; never names. */
+const ov = (v) => (v === '' || v === undefined || v === null ? -1 : v);
 const stateOf = (m) => encodeState({
 	o: m.onlyPlan ? 1 : '', r: m.route === 'rabbinical' ? 'r' : '', a: m.parentA === 'אמא' ? 'm' : '', k: (m.children || []).map((b) => [String(b).replace(/-/g, ''), 0]),
 	c: m.custody, p: m.pattern, n: m.pattern === 'custom' ? [[m.custom.join('.'), 0]] : '', h: m.holidays === 'split' ? 's' : '', f: m.firstA === false ? 0 : '',
-	s: [[m.support.incomeA || 0, m.support.incomeB || 0], [m.support.housingA || 0, m.support.housingB || 0], [m.support.amount || 0, 0]],
+	s: [[m.support.incomeA || 0, m.support.incomeB || 0], [m.support.housingA || 0, m.support.housingB || 0], [ov(m.support.amount), { A: 1, B: 2 }[m.support.payer] || 0]],
 	q: [[{ none: 0, sell: 1, a_keeps: 2, b_keeps: 3 }[m.property.home] || 0, m.property.pension ? 1 : 0], [m.property.homeValue || 0, m.property.mortgage || 0], [m.property.aAssets || 0, m.property.bAssets || 0], [m.property.aDebts || 0, m.property.bDebts || 0]],
 });
 const KEYS = ['o', 'r', 'a', 'k', 'c', 'p', 'n', 'h', 'f', 's', 'q'];
@@ -1465,12 +1498,13 @@ function modelOf(s) {
 	if (!s.k) { return null; }
 	const pairs = (t) => String(t || '').split('~').filter(Boolean).map((x) => x.split('_'));
 	const z = (x) => (x === undefined || x === '' || x === '0' ? '' : Number(x));
+	const zo = (x) => (x === undefined || x === '' || x === '-1' ? '' : Number(x));
 	const sp = pairs(s.s); const q = pairs(s.q);
 	return {
 		onlyPlan: s.o === '1', route: s.r === 'r' ? 'rabbinical' : 'family', parentA: s.a === 'm' ? 'אמא' : 'אבא', children: pairs(s.k).map((p) => ymd(p[0])).filter(Boolean),
 		custody: ['joint', 'mother', 'father'].includes(s.c) ? s.c : 'joint', pattern: HR_PATTERNS[s.p] || s.p === 'custom' ? s.p : 'weekends_mid',
 		custom: s.n ? String(pairs(s.n)[0][0]).split('.').filter(Boolean).map(Number) : [], holidays: s.h === 's' ? 'split' : 'alternate', firstA: s.f !== '0',
-		support: { incomeA: z(sp[0] && sp[0][0]), incomeB: z(sp[0] && sp[0][1]), housingA: z(sp[1] && sp[1][0]), housingB: z(sp[1] && sp[1][1]), amount: z(sp[2] && sp[2][0]), payDay: 10 },
+		support: { incomeA: z(sp[0] && sp[0][0]), incomeB: z(sp[0] && sp[0][1]), housingA: z(sp[1] && sp[1][0]), housingB: z(sp[1] && sp[1][1]), amount: zo(sp[2] && sp[2][0]), payer: ['', 'A', 'B'][Number(sp[2] && sp[2][1]) || 0], payDay: 10 },
 		property: { home: ['none', 'sell', 'a_keeps', 'b_keeps'][Number(q[0] && q[0][0]) || 0], pension: Boolean(q[0] && q[0][1] === '1'), homeValue: z(q[1] && q[1][0]), mortgage: z(q[1] && q[1][1]), aAssets: z(q[2] && q[2][0]), bAssets: z(q[2] && q[2][1]), aDebts: z(q[3] && q[3][0]), bDebts: z(q[3] && q[3][1]) },
 		names: { a: '', b: '' },
 	};

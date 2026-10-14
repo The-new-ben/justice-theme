@@ -335,31 +335,35 @@ function readModel(root, prev) {
 
 /* Share link: amounts, dates of birth and choices only; no names. */
 const MODES = { calc: 'c', madad: 'm', nii: 'n' };
-const stateOf = (m) => encodeState({
+/** An override whose blank means "use the default": blank travels as -1, so an explicit 0 (e.g. a 0% housing share) survives. */
+const ov = (v) => (v === '' || v === undefined || v === null ? -1 : v);
+export const stateOf = (m) => encodeState({
 	o: MODES[m.mode] || 'c', p: m.parentA === 'אמא' ? 'm' : '', l: m.law === 'proportional' ? 'p' : '',
 	i: [[m.incomeA || 0, m.incomeB || 0], [m.housingA || 0, m.housingB || 0]], k: (m.children || []).map((b) => [String(b).replace(/-/g, ''), 0]),
-	n: m.nightsA, d: [[m.needsDependent || 0, m.needsIndependent || 0], [m.necessary || 0, m.housingShare || 0]], c: m.central,
+	n: m.nightsA, d: [[ov(m.needsDependent), ov(m.needsIndependent)], [ov(m.necessary), ov(m.housingShare)]], c: m.central,
 	x: [[m.extras.education || 0, m.extras.health || 0], [m.extras.childcare || 0, 0]],
 	a: [[m.madad.amount || 0, String(m.madad.base || '').replace(/-/g, '')], [m.madad.every || 3, 0]],
-	b: [[m.nii.over55 ? 1 : 0, m.nii.remarried ? 1 : 0], [m.nii.judgment || 0, 0]],
+	b: [[m.nii.over55 ? 1 : 0, m.nii.remarried ? 1 : 0], [ov(m.nii.judgment), 0]],
 });
 const KEYS = ['o', 'p', 'l', 'i', 'k', 'n', 'd', 'c', 'x', 'a', 'b'];
 const ymd = (x) => (/^\d{8}$/.test(x) ? `${x.slice(0, 4)}-${x.slice(4, 6)}-${x.slice(6, 8)}` : '');
-function modelOf(s) {
+export function modelOf(s) {
 	if (!s.o || !s.i) { return null; }
 	const pairs = (t) => String(t || '').split('~').filter(Boolean).map((x) => x.split('_'));
 	const z = (x) => (x === undefined || x === '' || x === '0' ? '' : Number(x));
+	const zo = (x) => (x === undefined || x === '' || x === '-1' ? '' : Number(x));
 	const i = pairs(s.i); const d = pairs(s.d); const x = pairs(s.x); const a = pairs(s.a); const b = pairs(s.b);
 	return {
 		mode: Object.keys(MODES).find((k) => MODES[k] === s.o) || 'calc', parentA: s.p === 'm' ? 'אמא' : 'אבא', law: s.l === 'p' ? 'proportional' : 'jewish',
 		incomeA: z(i[0] && i[0][0]), incomeB: z(i[0] && i[0][1]), housingA: z(i[1] && i[1][0]), housingB: z(i[1] && i[1][1]),
 		children: pairs(s.k).map((p) => ymd(p[0])).filter(Boolean), nightsA: s.n === undefined || s.n === '' ? 7 : Number(s.n),
-		needsDependent: z(d[0] && d[0][0]), needsIndependent: z(d[0] && d[0][1]), necessary: z(d[1] && d[1][0]), housingShare: z(d[1] && d[1][1]),
+		needsDependent: zo(d[0] && d[0][0]), needsIndependent: zo(d[0] && d[0][1]), necessary: zo(d[1] && d[1][0]), housingShare: zo(d[1] && d[1][1]),
 		central: s.c === 'A' || s.c === 'B' ? s.c : '', extras: { education: z(x[0] && x[0][0]), health: z(x[0] && x[0][1]), childcare: z(x[1] && x[1][0]) },
 		madad: { amount: z(a[0] && a[0][0]), base: ymd((a[0] && a[0][1]) || ''), every: Number((a[1] && a[1][0]) || 3) },
-		nii: { over55: Boolean(b[0] && b[0][0] === '1'), remarried: Boolean(b[0] && b[0][1] === '1'), judgment: z(b[1] && b[1][0]) },
+		nii: { over55: Boolean(b[0] && b[0][0] === '1'), remarried: Boolean(b[0] && b[0][1] === '1'), judgment: zo(b[1] && b[1][0]) },
 	};
 }
+
 
 export function mount(root, reg) {
 	const form = root.querySelector('[data-jtool-form]');

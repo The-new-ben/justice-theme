@@ -66,7 +66,8 @@ export function renderForm(reg, m) {
 		+ (only ? '' : `<fieldset class="jtool-field"><legend>איפה מאשרים</legend><div class="jtool-chips">${chip('rt', 'family', 'בית המשפט לענייני משפחה', m.route !== 'rabbinical')}${chip('rt', 'rabbinical', 'בית הדין הרבני', m.route === 'rabbinical')}</div></fieldset>`
 		+ `<details class="jtool-more" open><summary>מזונות: מהמחשבון של בע"מ 919/15</summary><div class="jtool-row" style="margin-top:8px">${moneyField('ia', "הכנסה נטו, הורה א'", s.incomeA)}${moneyField('ib', "הכנסה נטו, הורה ב'", s.incomeB)}</div>`
 		+ `<div class="jtool-row">${moneyField('ha', "דיור, הורה א'", s.housingA)}${moneyField('hb', "דיור, הורה ב'", s.housingB)}</div>`
-		+ `<div class="jtool-row">${moneyField('am', 'סכום שסיכמתם (לא חובה)', s.amount)}<div></div></div><p class="jtool-hint">בלי סכום, ההסכם יכלול את אמצע הטווח של המחשבון, לפי הלילות שבלוח.</p></details>`
+		+ `<div class="jtool-row">${moneyField('am', 'סכום שסיכמתם (לא חובה)', s.amount)}<div></div></div><p class="jtool-hint">בלי סכום, ההסכם יכלול את אמצע הטווח של המחשבון, לפי הלילות שבלוח. עם סכום, לא צריך את ההכנסות.</p>`
+		+ `<fieldset class="jtool-field"><legend>מי משלם את הסכום שסיכמתם</legend><div class="jtool-chips">${chip('sp', '', 'לפי החישוב', !s.payer)}${chip('sp', 'A', "הורה א'", s.payer === 'A')}${chip('sp', 'B', "הורה ב'", s.payer === 'B')}</div></fieldset></details>`
 		+ `<details class="jtool-more" open><summary>רכוש: מהמחשבון של איזון המשאבים</summary><fieldset class="jtool-field" style="margin-top:8px"><legend>הדירה המשותפת</legend><div class="jtool-chips">${Object.entries(HOME).map(([k, v]) => chip('hm', k, v, (p.home || 'none') === k)).join('')}</div></fieldset>`
 		+ `<div class="jtool-row">${moneyField('hv', 'שווי הדירה', p.homeValue)}${moneyField('mo', 'יתרת המשכנתא', p.mortgage)}</div>`
 		+ `<div class="jtool-row">${moneyField('aa', "שאר הנכסים לאיזון, הורה א'", p.aAssets)}${moneyField('ba', "שאר הנכסים לאיזון, הורה ב'", p.bAssets)}</div>`
@@ -88,6 +89,7 @@ export function verdictSentence(reg, d) {
 	if (!d.ok) { return ''; }
 	const parts = d.kids ? [`טיוטת ${d.title}: ${d.clauses.length} פרקים ונספח תוכנית הורות`, `${d.plan.nightsA} לילות מתוך 14 אצל ${docName(d.parentA)}`] : [`טיוטת ${d.title}: ${d.clauses.length} פרקים, בלי ילדים`];
 	if (d.amount !== null && d.payer) { parts.push(`מזונות ${nis(d.amount)} לחודש`); }
+	if (d.buyout && d.buyout.amount > 0) { parts.push(`רכישת החלק בדירה ${nis(d.buyout.amount)}`); }
 	if (d.balance && d.balance.ok) { parts.push(d.balance.payer ? `תשלום איזון ${nis(d.balance.pay)}` : 'בלי תשלום איזון'); }
 	return `${parts.join('; ')}. ההסכם טעון אישור${d.only ? ' בית המשפט' : ` ${d.route === 'rabbinical' ? 'בית הדין הרבני' : 'בית המשפט לענייני משפחה'}`}, שבודק שההסדרים לילדים לטובתם.`;
 }
@@ -191,31 +193,33 @@ function readModel(root, prev) {
 		onlyPlan: prev.onlyPlan, from: prev.from, custom,
 		route: checked('rt') || 'family', parentA: checked('pa') || 'אבא', children: kids, custody: checked('cu') || 'joint',
 		pattern, holidays: checked('ho') || 'alternate', firstA: on('fa'),
-		support: { incomeA: m$('ia'), incomeB: m$('ib'), housingA: m$('ha'), housingB: m$('hb'), amount: m$('am'), payDay: 10 },
+		support: { incomeA: m$('ia'), incomeB: m$('ib'), housingA: m$('ha'), housingB: m$('hb'), amount: m$('am'), payer: checked('sp') || '', payDay: 10 },
 		property: { home: checked('hm') || 'none', homeValue: m$('hv'), mortgage: m$('mo'), aAssets: m$('aa'), bAssets: m$('ba'), aDebts: m$('ad'), bDebts: m$('bd'), pension: on('pe') },
 		names: { a: val('na'), b: val('nb') },
 	};
 }
 
 /* Share link: choices, birth dates and amounts; never names. */
-const stateOf = (m) => encodeState({
+const ov = (v) => (v === '' || v === undefined || v === null ? -1 : v);
+export const stateOf = (m) => encodeState({
 	o: m.onlyPlan ? 1 : '', r: m.route === 'rabbinical' ? 'r' : '', a: m.parentA === 'אמא' ? 'm' : '', k: (m.children || []).map((b) => [String(b).replace(/-/g, ''), 0]),
 	c: m.custody, p: m.pattern, n: m.pattern === 'custom' ? [[m.custom.join('.'), 0]] : '', h: m.holidays === 'split' ? 's' : '', f: m.firstA === false ? 0 : '',
-	s: [[m.support.incomeA || 0, m.support.incomeB || 0], [m.support.housingA || 0, m.support.housingB || 0], [m.support.amount || 0, 0]],
+	s: [[m.support.incomeA || 0, m.support.incomeB || 0], [m.support.housingA || 0, m.support.housingB || 0], [ov(m.support.amount), { A: 1, B: 2 }[m.support.payer] || 0]],
 	q: [[{ none: 0, sell: 1, a_keeps: 2, b_keeps: 3 }[m.property.home] || 0, m.property.pension ? 1 : 0], [m.property.homeValue || 0, m.property.mortgage || 0], [m.property.aAssets || 0, m.property.bAssets || 0], [m.property.aDebts || 0, m.property.bDebts || 0]],
 });
 const KEYS = ['o', 'r', 'a', 'k', 'c', 'p', 'n', 'h', 'f', 's', 'q'];
 const ymd = (x) => (/^\d{8}$/.test(x) ? `${x.slice(0, 4)}-${x.slice(4, 6)}-${x.slice(6, 8)}` : '');
-function modelOf(s) {
+export function modelOf(s) {
 	if (!s.k) { return null; }
 	const pairs = (t) => String(t || '').split('~').filter(Boolean).map((x) => x.split('_'));
 	const z = (x) => (x === undefined || x === '' || x === '0' ? '' : Number(x));
+	const zo = (x) => (x === undefined || x === '' || x === '-1' ? '' : Number(x));
 	const sp = pairs(s.s); const q = pairs(s.q);
 	return {
 		onlyPlan: s.o === '1', route: s.r === 'r' ? 'rabbinical' : 'family', parentA: s.a === 'm' ? 'אמא' : 'אבא', children: pairs(s.k).map((p) => ymd(p[0])).filter(Boolean),
 		custody: ['joint', 'mother', 'father'].includes(s.c) ? s.c : 'joint', pattern: HR_PATTERNS[s.p] || s.p === 'custom' ? s.p : 'weekends_mid',
 		custom: s.n ? String(pairs(s.n)[0][0]).split('.').filter(Boolean).map(Number) : [], holidays: s.h === 's' ? 'split' : 'alternate', firstA: s.f !== '0',
-		support: { incomeA: z(sp[0] && sp[0][0]), incomeB: z(sp[0] && sp[0][1]), housingA: z(sp[1] && sp[1][0]), housingB: z(sp[1] && sp[1][1]), amount: z(sp[2] && sp[2][0]), payDay: 10 },
+		support: { incomeA: z(sp[0] && sp[0][0]), incomeB: z(sp[0] && sp[0][1]), housingA: z(sp[1] && sp[1][0]), housingB: z(sp[1] && sp[1][1]), amount: zo(sp[2] && sp[2][0]), payer: ['', 'A', 'B'][Number(sp[2] && sp[2][1]) || 0], payDay: 10 },
 		property: { home: ['none', 'sell', 'a_keeps', 'b_keeps'][Number(q[0] && q[0][0]) || 0], pension: Boolean(q[0] && q[0][1] === '1'), homeValue: z(q[1] && q[1][0]), mortgage: z(q[1] && q[1][1]), aAssets: z(q[2] && q[2][0]), bAssets: z(q[2] && q[2][1]), aDebts: z(q[3] && q[3][0]), bDebts: z(q[3] && q[3][1]) },
 		names: { a: '', b: '' },
 	};

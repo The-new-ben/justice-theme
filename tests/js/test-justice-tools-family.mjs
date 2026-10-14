@@ -24,6 +24,7 @@ import * as HR from '../../assets/js/tools/horut-engine.js';
 import * as HK from '../../assets/js/tools/heskem-engine.js';
 import * as HKUI from '../../assets/js/tools/heskem-ui.js';
 import * as T04 from '../../assets/js/tools/hatzmada-engine.js';
+import { decodeState } from '../../assets/js/tools/instrument.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const reg = JSON.parse(readFileSync(join(ROOT, 'assets/data/justice-tools-registry.json'), 'utf8'));
@@ -207,6 +208,45 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(!HK.draftAgreement(reg, { onlyPlan: true, from: '2026-10-14', children: [] }).ok, 'a parenting plan with no child: an error');
 	const nk = HK.draftAgreement(reg, { from: '2026-10-14', children: [], property: { home: 'a_keeps', homeValue: 2000000, mortgage: 500000 } });
 	check(nk.ok && nk.kids === 0 && nk.text.includes('"הבעל"') && !nk.text.includes('נספח א\'')&& !nk.text.includes('הילדים') && nk.text.includes('חלקה של האישה'), 'no children: husband and wife, no annex, no word about children');
+}
+
+/* ---------- Review fixes (PR 130, Codex pass 1) ---------- */
+{
+	// A shared link keeps an explicit 0 apart from a blank (a 0% housing share is not "the default").
+	const keys = ['o', 'p', 'l', 'i', 'k', 'n', 'd', 'c', 'x', 'a', 'b'];
+	const zero = Object.assign({}, MZUI.EXAMPLE, { housingShare: 0, necessary: '', nii: { over55: false, remarried: false, judgment: 0 } });
+	const back = MZUI.modelOf(decodeState(`#s=${MZUI.stateOf(zero)}`, keys));
+	check(back.housingShare === 0 && back.necessary === '' && back.nii.judgment === 0, 'share link: 0% housing and a 0 judgment survive; a blank stays blank');
+	const r0 = MZ.computeSupport(reg, Object.assign(MZUI.toSupportInput(back), { asOf: '2026-10-14' }));
+	const rz = MZ.computeSupport(reg, Object.assign(MZUI.toSupportInput(zero), { asOf: '2026-10-14' }));
+	check(r0.ok && r0.low === rz.low && r0.high === rz.high && r0.housingShare === 0, 'the shared link gives the same result as the screen');
+	const izKeys = ['m', 'k', 'f', 's', 'q', 't', 'c', 'h', 'a', 'b', 'o', 'x', 'e'];
+	const izBack = IZUI.modelOf(decodeState(`#s=${IZUI.stateOf(IZUI.EXAMPLE)}`, izKeys));
+	const sameSide = (x, y) => Object.keys(y).every((k) => String((x[k] || [])[0] ?? '') === String(y[k][0] ?? '') && String((x[k] || [])[1] ?? '') === String(y[k][1] ?? ''));
+	const zeroAt = Object.assign({}, IZUI.EXAMPLE, { b: Object.assign({}, IZUI.EXAMPLE.b, { pension: [260000, 0] }) });
+	const izZero = IZUI.modelOf(decodeState(`#s=${IZUI.stateOf(zeroAt)}`, izKeys));
+	check(sameSide(izBack.a, IZUI.EXAMPLE.a) && sameSide(izBack.b, IZUI.EXAMPLE.b) && izZero.b.pension[1] === 0 && izBack.a.severance[1] === '', 'balance link: a 0 on the wedding day stays 0, a blank stays blank');
+	// An agreed amount needs no incomes, and keeps its payer when the estimate methods cross zero.
+	const base = { route: 'family', from: '2026-10-14', children: ['2018-05-01'], parentA: 'אבא', pattern: 'weekends_2mid', holidays: 'alternate' };
+	const noInc = HK.draftAgreement(reg, Object.assign({}, base, { support: { amount: 2500 } }));
+	check(noInc.ok && noInc.amount === 2500 && noInc.payer === 'A' && noInc.text.includes('האב ישלם לאם מזונות לילדים בסך 2,500'), 'an agreed amount with no incomes: the draft is made, the parent with fewer nights pays');
+	const cross = HK.draftAgreement(reg, Object.assign({}, base, { pattern: 'two_two_five', support: { incomeA: 5000, incomeB: 6000, housingA: 3000, housingB: 3000, amount: 3000 } }));
+	check(cross.ok && cross.payer && cross.text.includes('3,000') && !cross.text.includes('ואין ביניהם תשלום מזונות חודשי'), 'an agreed 3,000 is never replaced by "no monthly payment" when the methods cross zero');
+	const chosen = HK.draftAgreement(reg, Object.assign({}, base, { support: { amount: 1800, payer: 'B' } }));
+	check(chosen.ok && chosen.payer === 'B' && chosen.text.includes('האם תשלם לאב מזונות לילדים בסך 1,800'), 'the payer the user chose is the payer in the draft');
+	const none = HK.draftAgreement(reg, Object.assign({}, base, { support: { amount: 0 } }));
+	check(none.ok && none.text.includes('הסכימו שאין ביניהם תשלום מזונות חודשי'), 'an agreed 0: no monthly payment, in words');
+	// A buyout of the joint home states its price: half the net equity.
+	const buy = HK.draftAgreement(reg, Object.assign({}, base, { support: { amount: 2000 }, property: { home: 'a_keeps', homeValue: 2000000, mortgage: 500000 } }));
+	check(buy.ok && buy.buyout.amount === 750000 && buy.text.includes('תמורת 750,000') && buy.text.includes('מחצית ההון העצמי'), 'the buyout clause: 750,000 for a 2,000,000 home with 500,000 left on the mortgage');
+	const under = HK.draftAgreement(reg, Object.assign({}, base, { support: { amount: 2000 }, property: { home: 'b_keeps', homeValue: 900000, mortgage: 1000000 } }));
+	check(under.ok && under.buyout.amount === 0 && under.text.includes('בלי תמורה'), 'a home under water: no price, and the reason');
+	// The specific-sharing scenario changes the family home only, never an inherited flat.
+	const two = IZ.computeBalance(reg, { marriage: '2010-01-01', breakDate: '2025-01-01', items: [
+		{ kind: 'home', main: true, owner: 'a', value: 1000000 },
+		{ kind: 'home', owner: 'b', value: 800000, exclude: 'inheritance' },
+	] });
+	check(two.ok && two.pay === 500000 && two.sharedHome && two.sharedHome.pay === 0, 'shared-home scenario: the inherited flat stays out (A pays 500,000; with sharing, 0, not 400,000)');
 }
 
 /* ---------- The server snapshots: the same renderers, the sticky figure, no <h2> in a card ---------- */

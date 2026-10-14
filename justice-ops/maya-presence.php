@@ -53,7 +53,6 @@ function justice_maya_urls(): array {
 		'duns_en'        => 'https://www.duns100.co.il/en/Maya_Rotenberg_Law_Office',
 		'linkedin'       => 'https://il.linkedin.com/in/maya-rotenberg-88035531',
 		'judgment_91915' => 'https://meronlaw.co.il/wp-content/uploads/2023/10/1a801bbb-6429-4d35-a4b1-0cf2ca5a487d.pdf',
-		'rabbinical_case' => 'https://www.calcalist.co.il/local_news/article/h1klmzhst',
 	);
 }
 
@@ -73,24 +72,14 @@ function justice_maya_facts(): array {
 
 	return array(
 		'case-91915' => array(
-			'text'    => 'עורכת הדין שייצגה את האב מהיום הראשון ועד בית המשפט העליון בבע״מ 919/15, התקדים של מזונות ילדים ומשמורת משותפת ששינה את פני דיני המזונות והגירושין בישראל: שני ההורים נושאים יחד במזונות, לפי היכולת וזמני השהות.',
+			'text'    => 'רשומה בכותרת פסק הדין בבע״מ 919/15 של בית המשפט העליון כבאת כוח המבקש, לצד עו״ד זרח רוזנבלום. זה פסק הדין שקבע איך מתחלקים מזונות ילדים בגילי 6 עד 15.',
 			'sources' => array(
 				array( 'label' => 'פסק הדין', 'url' => $u['judgment_91915'] ),
 				array( 'label' => 'פרופיל המקורות', 'url' => $u['profile'] ),
 			),
 			'checked' => '2026-08-02',
 			'topics'  => array( 'all' ),
-			'lead'    => array( 'child-support', 'custody', 'spousal', 'divorce', 'family', 'property', 'prenup', 'mediation' ),
-		),
-		'rabbinical-jurisdiction' => array(
-			'text'    => 'ייצגה בבית הדין הרבני הגדול בתיק תקדימי על סמכות בתי הדין הרבניים לדון במזונות ילדים בהליך גירושין (תיק 1250217/3, 2021), בלב מלחמת הסמכויות בין בית הדין הרבני לבית המשפט לענייני משפחה.',
-			'sources' => array(
-				array( 'label' => 'כלכליסט', 'url' => $u['rabbinical_case'] ),
-				array( 'label' => 'פרופיל המקורות', 'url' => $u['profile'] ),
-			),
-			'checked' => '2026-10-14',
-			'topics'  => array( 'all' ),
-			'lead'    => array( 'rabbinical', 'divorce', 'child-support', 'family' ),
+			'lead'    => array( 'child-support', 'custody', 'spousal' ),
 		),
 		'duns-2026'  => array(
 			'text'    => 'המשרד מופיע בדירוג Dun’s 100 לדיני משפחה וירושה לשנת 2026.',
@@ -756,7 +745,7 @@ function justice_maya_card_render( WP_Post $lawyer ): string {
 		: 'https://wa.me/972525101555?text=' . rawurlencode( $wa_message );
 
 	$photo = function_exists( 'justice_cards_avatar_src' ) ? justice_cards_avatar_src( $pid ) : null;
-	$alt   = $name . ', עורכת דין גירושין ודיני משפחה';
+	$alt   = $name . ', עורכת דין ומגשרת בדיני משפחה וגירושין';
 	if ( $photo ) {
 		$avatar = '<img class="jt-maya-card__photo" src="' . esc_url( $photo['src'] ) . '"'
 			. ( $photo['srcset'] ? ' srcset="' . esc_attr( $photo['srcset'] ) . '"' : '' )
@@ -772,14 +761,14 @@ function justice_maya_card_render( WP_Post $lawyer ): string {
 	$topic_label = $labels[ $topic ] ?? $labels['family'];
 	$id_attr     = 'jt-maya-card-' . $uid;
 
-	return '<aside class="jt-procard jt-procard--house jt-maya-card" id="' . esc_attr( $id_attr ) . '" role="complementary" aria-label="' . esc_attr( 'עורכת דין גירושין ודיני משפחה בנושא ' . $topic_label . ': ' . $name ) . '" data-card-surface="incontent" data-l="' . $pid . '" data-topic="' . esc_attr( $topic ) . '">'
+	return '<aside class="jt-procard jt-procard--house jt-maya-card" id="' . esc_attr( $id_attr ) . '" role="complementary" aria-label="' . esc_attr( 'עורכת דין לדיני משפחה בנושא ' . $topic_label . ': ' . $name ) . '" data-card-surface="incontent" data-l="' . $pid . '" data-topic="' . esc_attr( $topic ) . '">'
 		. '<div class="jt-maya-card__tab"><span class="jt-maya-card__tabfamily">דיני משפחה</span><span class="jt-maya-card__tabtopic">' . esc_html( $topic_label ) . '</span></div>'
 		. '<p class="jt-maya-card__strip"><span>עו״ד בודקת התוכן המשפטי באתר</span><span>פרופיל מאומת' . ( $city ? ' · ' . esc_html( $city ) : '' ) . '</span></p>'
 		. '<div class="jt-maya-card__head">'
 		. '<a class="jt-maya-card__frame" href="' . esc_url( $urls['minisite'] ) . '" tabindex="-1" aria-hidden="true">' . $avatar . '</a>'
 		. '<div class="jt-maya-card__who">'
 		. '<p class="jt-maya-card__name"><a href="' . esc_url( $urls['minisite'] ) . '">' . esc_html( $name ) . '</a></p>'
-		. '<p class="jt-maya-card__role">עורכת דין גירושין ודיני משפחה, מגשרת' . ( $city ? ', ' . esc_html( $city ) : '' ) . '.</p>'
+		. '<p class="jt-maya-card__role">עורכת דין ומגשרת בדיני משפחה וגירושין' . ( $city ? ', ' . esc_html( $city ) : '' ) . '.</p>'
 		// Years up front, one figure across the web (Ben 14.10.2026): her office site says 20+ years; Dun's 100 lists the office as founded in 2002.
 		. '<p class="jt-maya-card__years"><strong>מעל 20</strong> שנות ניסיון בדיני משפחה <a class="jt-maya-card__yearsrc" href="' . esc_url( $urls['official_about'] ) . '" rel="sponsored noopener" target="_blank">מקור: אתר המשרד</a> · <a class="jt-maya-card__yearsrc" href="' . esc_url( $urls['duns'] ) . '" rel="noopener" target="_blank">Dun’s 100: המשרד נוסד ב-2002</a></p>'
 		. ( '' !== $tagline ? '<p class="jt-maya-card__tagline">' . esc_html( $tagline ) . '</p>' : '' )
@@ -817,7 +806,7 @@ function justice_maya_line_html( array $ctx ): string {
 		$lead = 'נבדק על ידי';
 		$tail = '<span class="jt-maya-line__date"> · ' . esc_html( justice_maya_he_date( (string) $ctx['reviewed_on'] ) ) . '</span>';
 	} else {
-		$lead = 'עורכת דין גירושין ודיני משפחה בנושא זה:';
+		$lead = 'עורכת דין לדיני משפחה בנושא זה:';
 		$tail = '';
 	}
 
@@ -873,7 +862,7 @@ function justice_maya_schema( array $ctx ): array {
 	$firm_id   = 'https://rotenberglaw.co.il/#firm';
 	$topic     = (string) ( $ctx['topic'] ?? 'family' );
 	$labels    = justice_maya_topic_labels();
-	$knows     = array( 'עורך דין גירושין', 'גירושין', 'הליך גירושין', 'הסכם גירושין', 'דיני משפחה', 'מזונות ילדים', 'משמורת משותפת', 'חלוקת רכוש', 'הסכם ממון', 'בית הדין הרבני', 'גישור גירושין', 'צוואות וירושות' );
+	$knows     = array( 'דיני משפחה', 'גירושין', 'מזונות ילדים', 'משמורת ילדים', 'חלוקת רכוש', 'הסכם ממון', 'גישור משפחתי', 'צוואות וירושות' );
 	$image     = '';
 	if ( ! empty( $ctx['lawyer_id'] ) && function_exists( 'justice_cards_avatar_src' ) ) {
 		$photo = justice_cards_avatar_src( (int) $ctx['lawyer_id'] );
@@ -886,8 +875,8 @@ function justice_maya_schema( array $ctx ): array {
 		'name'            => 'מאיה רוטנברג',
 		'alternateName'   => array( 'עו״ד מאיה רוטנברג', 'Maya Rotenberg' ),
 		'honorificPrefix' => 'עו״ד',
-		'jobTitle'        => 'עורכת דין גירושין ודיני משפחה, מגשרת',
-		'description'     => 'עורכת דין גירושין ודיני משפחה בתל אביב, מעל 20 שנות ניסיון. ייצגה את האב מהיום הראשון ועד בית המשפט העליון בבע״מ 919/15, התקדים של מזונות ילדים ומשמורת משותפת, וייצגה בבית הדין הרבני הגדול בתיק תקדימי על סמכות בתי הדין הרבניים במזונות ילדים.',
+		'jobTitle'        => 'עורכת דין ומגשרת בדיני משפחה',
+		'description'     => 'עורכת דין ומגשרת בדיני משפחה וגירושין בתל אביב. רשומה בכותרת פסק הדין בבע״מ 919/15 של בית המשפט העליון כבאת כוח המבקש.',
 		'url'             => $urls['minisite'],
 		'knowsAbout'      => $knows,
 		'worksFor'        => array( '@id' => $firm_id ),

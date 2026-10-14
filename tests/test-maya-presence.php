@@ -383,6 +383,10 @@ jt_maya_assert( $family === justice_cards_current_terms(), 'content_cluster meta
 
 jt_set_page( array( 'id' => 11687, 'slug' => 'family-law-lawyer-recommended-divorce-wills-inheritances', 'terms' => array() ) );
 jt_maya_assert( array() === justice_cards_current_terms(), 'her own source profile was given a card family' );
+jt_set_page( array( 'id' => 11687, 'slug' => 'family-law-lawyer-recommended-divorce-wills-inheritances', 'title' => 'משרד מאיה רוטנברג', 'terms' => array( 'family-law' ) ) );
+jt_maya_assert( array() === justice_cards_current_terms(), 'her own source profile resolves to a family once it carries a family term' );
+$src_body = '<p>' . str_repeat( 'מילה ', 520 ) . '</p><h2>א</h2><p>ט</p><h2>ב</h2>';
+jt_maya_assert( $src_body === justice_cards_filter_content( $src_body ), 'a card was injected into her own source profile' );
 
 jt_maya_assert( in_array( 'page', justice_cards_singular_types(), true ), 'pages are not in the cards mesh' );
 justice_maya_register_page_taxonomy();

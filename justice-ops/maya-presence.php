@@ -185,7 +185,8 @@ function justice_maya_family_cluster_keys(): array {
 
 /**
  * Family fallback for content that has no practice-area term yet: the theme's own cluster map or
- * the content_cluster meta. Terms always win; this only fills an empty answer.
+ * the content_cluster meta. Terms always win; this only fills an empty answer. Her source profile
+ * (post 11687) is excluded here, before the card injector sees any family.
  *
  * @param string[] $terms   Terms resolved by the cards module.
  * @param int      $post_id Post ID.
@@ -194,10 +195,11 @@ function justice_maya_family_cluster_keys(): array {
 function justice_maya_family_fallback_terms( $terms, $post_id = 0 ): array {
 	$terms   = (array) $terms;
 	$post_id = (int) $post_id;
-	if ( $terms || $post_id <= 0 || ! function_exists( 'justice_cards_family_map' ) ) {
-		return $terms;
-	}
+	// Her own source profile never carries a card, whatever terms it is given.
 	if ( justice_maya_source_profile_post_id() === $post_id ) {
+		return array();
+	}
+	if ( $terms || $post_id <= 0 || ! function_exists( 'justice_cards_family_map' ) ) {
 		return $terms;
 	}
 

@@ -265,6 +265,7 @@ for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MM
 {
 	const s = MZUI.snapshot(reg);
 	check(s.nii_table.includes('4,049') && s.needs_table.includes('17791-01-22'), 'mezonot: the NII and needs tables for the page sections');
+	check(s.nii_table.includes('מלאה או חלקית') && !s.nii_table.includes('מלוא הסכום'), 'the NII income column is the income up to which some allowance is paid, full or partial (btl.gov.il), not a full-amount cap');
 	const x = MZ.indexSupport(reg, Object.assign({}, MZUI.EXAMPLE_MADAD.madad, { asOf: reg.child_support.checked_on }));
 	check(s.madad.sticky.includes(Math.round(x.current).toLocaleString('en-US')), `madad: the sticky figure is the linkage example, ${x.current}`);
 	const years = cs.needs.cases.map((c) => Number(c.date.slice(0, 4)));

@@ -123,7 +123,7 @@ export function renderResult(reg, m, r, opts = {}) {
 		if (!x.ok) { return `<div class="jtool-verdict" data-jtool-live aria-live="polite"><p class="jtool-state jtool-state--info">אין זכאות לפי מה שסימנתם</p><p class="jtool-verdict__sentence">${x.errors.map((e) => esc(e.he)).join(' ')}.</p></div>`; }
 		return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true"><p class="jtool-state jtool-state--ok">✓ לפי סכומי הביטוח הלאומי מ-${esc(isoToHe(cs.nii.from))}</p>`
 			+ `<p class="jtool-verdict__label">${esc(x.row.he)}${m.nii && m.nii.over55 ? ', מגיל 55' : ''}</p><strong class="jtool-verdict__figure">${ils(x.amount, 0)}</strong>`
-			+ `<p class="jtool-verdict__sentence">${esc(`כשמי שחייב לא משלם, הביטוח הלאומי משלם עד ${nis(x.table)} לחודש${x.lower ? `, ולכן את הסכום שבפסק הדין, ${nis(x.amount)}` : ''}. מלוא הסכום כשההכנסה עד ${nis(x.cap)}; מעל זה הוא פוחת.`)}</p><p class="jtool-scope">${esc(cs.nii.lower_he)}.</p></div>`;
+			+ `<p class="jtool-verdict__sentence">${esc(`כשמי שחייב לא משלם, הביטוח הלאומי משלם עד ${nis(x.table)} לחודש${x.lower ? `, ולכן את הסכום שבפסק הדין, ${nis(x.amount)}` : ''}. אפשר לקבל קצבה, מלאה או חלקית, כשההכנסה עד ${nis(x.cap)}; ההכנסה מקטינה את הסכום.`)}</p><p class="jtool-scope">${esc(cs.nii.lower_he)}.</p></div>`;
 	}
 	if (!r.ok) { return errorBox(r.errors); }
 	return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true"><p class="jtool-state jtool-state--ok">✓ לפי בע"מ 919/15 והפסיקה שאחריו</p>`
@@ -205,8 +205,8 @@ export function renderDetails(reg, m, r) {
 /** The National Insurance amounts by family (also the [justice_tool_section part="nii"] table). */
 export function niiTable(reg, key, hid) {
 	const ni = reg.child_support.nii;
-	return `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${hid}">הביטוח הלאומי: כמה משלם, לפי המשפחה</h3></div><div class="jtool-scroll" role="region" aria-labelledby="${hid}" tabindex="0"><table class="jtool-table"><thead><tr><th scope="col">המשפחה</th><th scope="col">עד גיל 55</th><th scope="col">מגיל 55</th><th scope="col">מלוא הסכום עד הכנסה של</th></tr></thead><tbody>`
-		+ ni.rows.map((x) => `<tr${key === x.key ? ' class="jtool-table__total"' : ''}><td data-th="המשפחה">${esc(x.he)}</td><td data-th="עד גיל 55">${ils(x.under55, 0)}</td><td data-th="מגיל 55">${x.over55 === null ? '—' : ils(x.over55, 0)}</td><td data-th="מלוא הסכום עד הכנסה של">${ils(x.cap_under55, 0)}${x.cap_over55 ? ` / ${ils(x.cap_over55, 0)}` : ''}</td></tr>`).join('')
+	return `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${hid}">הביטוח הלאומי: כמה משלם, לפי המשפחה</h3></div><div class="jtool-scroll" role="region" aria-labelledby="${hid}" tabindex="0"><table class="jtool-table"><thead><tr><th scope="col">המשפחה</th><th scope="col">עד גיל 55</th><th scope="col">מגיל 55</th><th scope="col">קצבה, מלאה או חלקית, עד הכנסה של</th></tr></thead><tbody>`
+		+ ni.rows.map((x) => `<tr${key === x.key ? ' class="jtool-table__total"' : ''}><td data-th="המשפחה">${esc(x.he)}</td><td data-th="עד גיל 55">${ils(x.under55, 0)}</td><td data-th="מגיל 55">${x.over55 === null ? '—' : ils(x.over55, 0)}</td><td data-th="קצבה, מלאה או חלקית, עד הכנסה של">${ils(x.cap_under55, 0)}${x.cap_over55 ? ` / ${ils(x.cap_over55, 0)}` : ''}</td></tr>`).join('')
 		+ `</tbody><caption>בתוקף מ-${esc(isoToHe(ni.from))}. ${esc(ni.cap_he)}. ${esc(ni.health_he)}.${cite('ביטוח לאומי', ni.url)}</caption></table></div></div>`;
 }
 

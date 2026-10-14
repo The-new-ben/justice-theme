@@ -381,6 +381,20 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(back.others.length === 1 && back.others[0].value === 0 && IZ.computeBalance(reg, IZUI.toInput(back)).flags.some((f) => f.code === 'business'), 'balance link: a 0-valued extra asset survives with its warning');
 }
 
+/* ---------- Review fixes (PR 130, Codex pass 13) ---------- */
+{
+	const base = { route: 'family', from: '2026-10-14', parentA: 'אבא', pattern: 'week_week', holidays: 'alternate' };
+	const mixed = HK.draftAgreement(reg, Object.assign({}, base, { children: ['2016-01-01', '2018-01-01'], support: { incomeA: 8000, incomeB: 12000, housingA: 8000, housingB: 4000 } }));
+	check(mixed.ok && mixed.support.payer === null && !mixed.text.includes('ואין ביניהם תשלום מזונות חודשי') && mixed.text.includes('השיטות חלוקות בכיוון התשלום') && mixed.flags.some((f) => f.code === 'mixed'), 'a range that crosses zero is left to the parents, never "no payment"');
+	const adultOnly = HK.draftAgreement(reg, { onlyPlan: true, from: '2026-10-14', children: ['2000-01-01'], pattern: 'two_two_five', holidays: 'split' });
+	check(!adultOnly.ok, 'a parenting plan for an adult only: an error');
+	const mix = HK.draftAgreement(reg, Object.assign({}, base, { children: ['2000-01-01', '2018-01-01'], support: { amount: 1500 } }));
+	check(mix.ok && mix.kids === 1 && mix.text.includes('ילדים שמלאו להם 18 אינם בכלל ההסדרים') && mix.text.includes('נולדו 2 ילדים') && !mix.text.includes('1.1.2000'), 'an adult child is counted in the recital only, not in custody or support');
+	const izKeys = ['m', 'k', 'f', 's', 'q', 't', 'c', 'h', 'a', 'b', 'o', 'x', 'e'];
+	const badTr = Object.assign({}, IZUI.EXAMPLE, { options: [Object.assign({}, IZUI.EXAMPLE.options[0], { tranches: 0 })] });
+	check(!IZ.computeBalance(reg, IZUI.toInput(IZUI.modelOf(decodeState(`#s=${IZUI.stateOf(badTr)}`, izKeys)))).ok, 'a rejected tranche count stays rejected after a shared link');
+}
+
 /* ---------- The server snapshots: the same renderers, the sticky figure, no <h2> in a card ---------- */
 for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MMUI], ['heskem-gerushin', HKUI]]) {
 	const s = ui.snapshot(reg);

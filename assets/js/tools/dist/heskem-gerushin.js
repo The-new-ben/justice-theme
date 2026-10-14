@@ -1125,19 +1125,22 @@ function draftAgreement(registry, input) {
 	const errors = [];
 	const route = input.route === 'rabbinical' ? 'rabbinical' : 'family';
 	const from = input.from || da.checked_on;
-	const births = (input.children || []).filter((b) => fEntered(b));
+	const allBirths = (input.children || []).filter((b) => fEntered(b));
 	const plan = hrPlan({ pattern: input.pattern, custom: input.custom, from, holidays: input.holidays, firstA: input.firstA });
 	const parentA = input.parentA === 'אמא' ? 'אמא' : 'אבא';
 	const parentB = parentA === 'אבא' ? 'אמא' : 'אבא';
 	// Child support from the support engine, with the plan's nights (parent A = the "other" parent of the plan).
 	const only = Boolean(input.onlyPlan);
-	if (only && !births.length) { errors.push({ field: 'children', he: 'צריך לפחות ילד אחד עם תאריך לידה' }); }
-	births.forEach((b, i) => {
+	if (only && !allBirths.length) { errors.push({ field: 'children', he: 'צריך לפחות ילד אחד עם תאריך לידה' }); }
+	allBirths.forEach((b, i) => {
 		if (!fIsIso(b)) { errors.push({ field: `child-${i}`, he: 'תאריך לידה לא תקין. לדוגמה: 1.3.2019' }); } else if (b > from) { errors.push({ field: `child-${i}`, he: 'תאריך הלידה אחרי היום' }); }
 	});
 	const sIn = input.support || {};
 	const agreed = fEntered(sIn.amount);
 	let support = null;
+	const births = allBirths.filter((b) => !fIsIso(b) || mzAgeOn(b, from) < 18);
+	const adults = allBirths.length - births.length;
+	if (only && allBirths.length && !births.length) { errors.push({ field: 'children', he: 'כל הילדים כבר בני 18: תוכנית הורות היא לילדים קטינים' }); }
 	if (births.length && !only) {
 		support = computeSupport(registry, {
 			incomeA: sIn.incomeA, incomeB: sIn.incomeB, housingA: sIn.housingA, housingB: sIn.housingB, children: births,
@@ -1204,7 +1207,7 @@ function draftAgreement(registry, input) {
 	if (births.length) {
 		const custody = { joint: 'משמורת משותפת: הילדים יגדלו בשני הבתים, לפי תוכנית ההורות שבנספח א\'', mother: 'הילדים יהיו במשמורת האם, וזמני השהות עם האב יהיו לפי תוכנית ההורות שבנספח א\'', father: 'הילדים יהיו במשמורת האב, וזמני השהות עם האם יהיו לפי תוכנית ההורות שבנספח א\'' }[input.custody || 'joint'];
 		add('הילדים: אפוטרופסות, משמורת וזמני שהות', [
-			`הילדים: ${kidsLine}.`,
+			`הילדים: ${kidsLine}.${adults ? ' ילדים שמלאו להם 18 אינם בכלל ההסדרים שבהסכם זה.' : ''}`,
 			'שני ההורים ימשיכו להיות האפוטרופסים הטבעיים של הילדים, ויחליטו יחד בעניינים מהותיים: חינוך, בריאות, דת ומקום מגורים.',
 			`${custody}. לפי התוכנית, ב-14 לילות הילדים לנים ${plan.nightsA} לילות אצל ${doc(parentA)} ו-${14 - plan.nightsA} אצל ${doc(parentB)}.`,
 			`בחגים ובחופש הגדול, החלוקה בנספח א' גוברת על השגרה. ${plan.rule === 'split' ? 'חגים ארוכים מתחלקים לשני חצאים, והחצאים מתחלפים מדי שנה.' : 'החגים מתחלקים לסירוגין, והסדר מתחלף מדי שנה.'}`,
@@ -1224,7 +1227,7 @@ function draftAgreement(registry, input) {
 		} else if (agreed && amount > 0 && !payer) {
 			items.push(`${hkBlank} ישלם ל${hkBlank} מזונות לילדים בסך ${hkMoney(amount)} לחודש, לכל הילדים יחד, ב-${Number(sIn.payDay) || 10} בכל חודש, מהחודש שאחרי אישור ההסכם.`);
 		} else if (!agreed && support && support.ok && !support.payer) {
-			items.push('לפי חלוקת הזמנים וההכנסות, כל הורה יישא בעין בצורכי הילדים כשהם אצלו, ואין ביניהם תשלום מזונות חודשי.');
+			items.push(`${hkBlank} ישלם ל${hkBlank} מזונות לילדים בסך ${hkBlank} ש"ח לחודש, ב-10 בכל חודש. לפי המחשבון השיטות חלוקות בכיוון התשלום, ולכן את הסכום ואת מי שמשלם קובעים ההורים (ואם אין תשלום, כותבים זאת במפורש).`);
 		} else {
 			items.push(`${hkBlank} ישלם ל${hkBlank} מזונות לילדים בסך ${hkBlank} ש"ח לחודש, ב-10 בכל חודש.`);
 		}
@@ -1289,9 +1292,9 @@ function draftAgreement(registry, input) {
 	const title = only ? 'הסכם הורות משותפת (תוכנית הורות)' : 'הסכם גירושין';
 	const lines = [title, `שנערך ונחתם ב-${hkBlank} ביום ${hkBlank}`, '',
 		`בין: ${A}, ת"ז ${hkBlank} (להלן: "${doc(parentA)}")`, `לבין: ${B}, ת"ז ${hkBlank} (להלן: "${doc(parentB)}")`, '',
-		...(only ? [`הואיל והצדדים הם הורים ל${births.length === 1 ? 'ילד אחד' : `${births.length} ילדים`}, והם חיים או עומדים לחיות בנפרד;`,
+		...(only ? [`הואיל והצדדים הם הורים ל${allBirths.length === 1 ? 'ילד אחד' : `${allBirths.length} ילדים`}, והם חיים או עומדים לחיות בנפרד;`,
 			'והואיל וההורים רוצים להסדיר את האחריות ההורית, את זמני השהות ואת החגים, לטובת הילדים;']
-			: [`הואיל והצדדים נישאו זה לזו ביום ${hkBlank}${births.length ? `, ומנישואיהם נולדו ${births.length === 1 ? 'ילד אחד' : `${births.length} ילדים`}` : ''};`,
+			: [`הואיל והצדדים נישאו זה לזו ביום ${hkBlank}${allBirths.length ? `, ומנישואיהם נולדו ${allBirths.length === 1 ? 'ילד אחד' : `${allBirths.length} ילדים`}` : ''};`,
 				'והואיל ובין הצדדים נפלו חילוקי דעות, והם החליטו להתגרש בהסכמה;',
 				`והואיל והצדדים רוצים להסדיר בהסכם זה את כל העניינים שביניהם, כולל ${kids ? 'הילדים והרכוש' : 'הרכוש'};`]),
 		'והואיל וכל צד קיבל, או הוצע לו לקבל, ייעוץ משפטי עצמאי, והוא חותם בהסכמה חופשית ובהבינו את משמעות ההסכם ותוצאותיו;',
@@ -1318,7 +1321,7 @@ function draftAgreement(registry, input) {
 		lines.push('');
 	}
 	const r = da.routes[route];
-	const flags = [...(agreed && amount > 0 && !payer ? [{ code: 'payer', he: 'הלילות וההכנסות שווים: בחרו בטופס מי משלם את הסכום שסיכמתם, או השלימו את השם בטיוטה' }] : []), { code: 'approval', he: da.s24_he }, { code: 'child', he: da.child_not_bound_he }, { code: 'schedule', he: da.schedule_he }, { code: 'request', he: da.no_request_he }];
+	const flags = [...(agreed && amount > 0 && !payer ? [{ code: 'payer', he: 'הלילות וההכנסות שווים: בחרו בטופס מי משלם את הסכום שסיכמתם, או השלימו את השם בטיוטה' }] : []), ...(!agreed && support && support.ok && !support.payer ? [{ code: 'mixed', he: registry.child_support.flags.mixed_he }] : []), { code: 'approval', he: da.s24_he }, { code: 'child', he: da.child_not_bound_he }, { code: 'schedule', he: da.schedule_he }, { code: 'request', he: da.no_request_he }];
 	if (births.some((b) => support && support.ok && support.perChild.some((c) => c.bracket === 'under6'))) { flags.push({ code: 'under6', he: da.s25_he }); }
 	const lawyer = [
 		'הסכום החודשי: הכלי נותן טווח לפי שיטות החישוב בפסיקה, והסכום בהסכם הוא בחירה שלכם. בדקו אותו מול הצרכים בפועל',

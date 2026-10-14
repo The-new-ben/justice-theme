@@ -1344,6 +1344,14 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(fl.ok && fl.floored && fl.cut && fl.prevBase === 11000, 'a floored current pay with a pre-cut salary: the earlier period keeps the commission, 11,000 (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 38) ---------- */
+{
+	const imp = SH.compute(reg, { status: 'other', buyDate: '2010-06-01', buyPrice: 1000000, improve: 1000000, improveDate: '2012-06-01', depreciation: 1200000, saleDate: '2026-09-01', salePrice: 3000000 });
+	check(imp.ok && imp.dep === 1200000, 'depreciation above the purchase price but below the whole basis (with improvements) is accepted (review, PR 128)');
+	const fl = PE.compute(reg, { salary: 3000, commission: 1000, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevPct: 50 });
+	check(fl.ok && fl.floored && Math.abs(fl.prevBase - Math.round(((fl.base - 1000) * 0.5 + 1000) * 100) / 100) < 0.01, 'a floored pay with a scope change: the commission stays apart in the earlier period (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

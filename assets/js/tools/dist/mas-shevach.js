@@ -422,7 +422,8 @@ function compute(registry, input) {
 	const needDep = rented || status === 'other';
 	const dep = needDep ? amt('depreciation') : 0;
 	if (needDep && !(Number.isFinite(dep) && dep >= 0 && dep < 1e10)) { errors.push({ field: 'depreciation', he: 'הפחת: מספר חיובי, 0 או ריק' }); }
-	if (needDep && Number.isFinite(dep) && buyPrice > 0 && dep >= buyPrice) { errors.push({ field: 'depreciation', he: 'הפחת קטן ממחיר הרכישה' }); }
+	// Depreciation may run on improvements too, so it is checked against the whole basis (review, PR 128).
+	if (needDep && Number.isFinite(dep) && buyPrice > 0 && dep >= buyPrice + buyCosts + (Number.isFinite(improve) ? improve : 0)) { errors.push({ field: 'depreciation', he: 'הפחת קטן משווי הרכישה, ההוצאות וההשבחות יחד' }); }
 	for (const k of ['buyCosts', 'improve', 'saleCosts', 'mortgage']) {
 		const v = amt(k);
 		if (!(Number.isFinite(v) && v >= 0 && v < 1e10)) { errors.push({ field: k, he: 'סכום: מספר חיובי או ריק' }); }

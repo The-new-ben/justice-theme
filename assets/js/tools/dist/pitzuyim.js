@@ -493,7 +493,8 @@ function compute(registry, input) {
 	// For a wage worker the scope is the hours: the earlier period on the current hourly rate times the earlier hours.
 	// The commission average is kept apart from the fixed pay and added to each period as it is (review, PR 128): the
 	// fixed pay scales with the scope (reg. 7) or is the pre-cut pay (reg. 8).
-	const comm = !floored ? commission : 0;
+	// The entered commission stays apart also when the total was raised to the floor (review, PR 128).
+	const comm = Math.min(commission, base);
 	const fte = (base - comm) * 100 / jobPct;
 	const rate = payType === 'hourly' ? (base - comm) / hours : null;
 	const reg7 = hourlyChange ? r2(rate * prevHours + comm) : r2(fte * prevPct / 100 + comm);

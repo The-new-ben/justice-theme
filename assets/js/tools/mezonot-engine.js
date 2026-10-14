@@ -177,7 +177,11 @@ export function computeSupport(registry, input) {
 		const est = mzPeriod(cs, p, kids).perChild.find((c) => c.idx === idx);
 		if (!est) { return; }
 		const f = cs.service.fraction;
-		service.push({ idx, from: mzAnniversary(b, cs.ages.adult), low: fR10(Math.abs(est.min) * f), high: fR10(Math.abs(est.max) * f), sign: est.max >= 0 ? 'A' : 'B' });
+		// The range keeps its order whoever pays; a range that crosses zero keeps its mixed direction (low 0, sign null).
+		const crosses = est.min < 0 && est.max > 0;
+		const lo = crosses ? 0 : Math.min(Math.abs(est.min), Math.abs(est.max));
+		const hi = Math.max(Math.abs(est.min), Math.abs(est.max));
+		service.push({ idx, from: mzAnniversary(b, cs.ages.adult), low: fR10(lo * f), high: fR10(hi * f), sign: crosses ? null : (est.max > 0 ? 'A' : 'B') });
 	});
 	const extrasTotal = extras.education + extras.health + extras.childcare;
 	const split = { A: fR2(extrasTotal * e.sA), B: fR2(extrasTotal * (1 - e.sA)) };

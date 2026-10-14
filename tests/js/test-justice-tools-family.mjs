@@ -327,6 +327,16 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(!tr(0).ok && !tr(1.5).ok && !tr(Number.NaN).ok && tr(4).ok && tr('').ok, 'tranches: a whole number from 1, or blank for one; 0, 1.5 and text are errors');
 }
 
+/* ---------- Review fixes (PR 130, Codex pass 8) ---------- */
+{
+	const sB = MZ.computeSupport(reg, { incomeA: 3000, incomeB: 3000, housingA: 2000, housingB: 2000, children: ['2010-03-01'], nightsA: 8, father: 'A', asOf: '2026-10-14' });
+	check(sB.ok && sB.service.every((x) => x.low <= x.high), 'the service range keeps its order when parent B pays');
+	const izKeys = ['m', 'k', 'f', 's', 'q', 't', 'c', 'h', 'a', 'b', 'o', 'x', 'e'];
+	const zeroHome = Object.assign({}, IZUI.EXAMPLE, { home: Object.assign({}, IZUI.EXAMPLE.home, { value: 0, mortgage: 300000 }) });
+	const back = IZUI.modelOf(decodeState(`#s=${IZUI.stateOf(zeroHome)}`, izKeys));
+	check(back.home.value === 0 && IZ.computeBalance(reg, IZUI.toInput(back)).ok, 'balance link: a 0 home value with a mortgage survives and still computes');
+}
+
 /* ---------- The server snapshots: the same renderers, the sticky figure, no <h2> in a card ---------- */
 for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MMUI], ['heskem-gerushin', HKUI]]) {
 	const s = ui.snapshot(reg);

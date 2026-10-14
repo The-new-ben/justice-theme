@@ -747,7 +747,7 @@ function readModel(root) {
 		homeAddress: val('addr'), residenceMonths: num('res'), gradePct: num('gp'), gradeCap: num('gc'),
 		pension: checked('pe') || 'law', business: checked('b') || 'none', businessGrowth: checked('bg') || 'separate',
 		fruits: on('fr'), jointAccount: on('ja'), second: on('sc'), household: checked('hh') || 'equal',
-		names: { a: val('na'), b: val('nb') }, wedding: wd === '' ? '' : (parseDate(wd) || ''), copies: num('cp') || 1,
+		names: { a: val('na'), b: val('nb') }, wedding: wd === '' ? '' : (parseDate(wd) || ''), copies: val('cp') === '' ? 1 : num('cp'),
 		assetsA: rows('a'), assetsB: rows('b'),
 	};
 }

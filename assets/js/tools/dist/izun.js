@@ -972,7 +972,7 @@ function readModel(root) {
 const ov = (v) => (v === '' || v === undefined || v === null ? -1 : v);
 const stateOf = (m) => encodeState({
 	m: m.marriage, k: m.breakDate, f: m.filed, s: m.apart, q: m.before1974 ? 1 : '', t: m.method === 'time' ? '' : m.method, c: m.cryptoAt === 'today' ? '' : 'b',
-	h: [[m.home.value || 0, m.home.mortgage || 0], [{ joint: 0, a: 1, b: 2 }[m.home.owner] || 0, { '': 0, premarital: 1, gift: 2, inheritance: 3 }[m.home.source] || 0], [m.home.activeGain || 0, 0]],
+	h: [[ov(m.home.value), m.home.mortgage || 0], [{ joint: 0, a: 1, b: 2 }[m.home.owner] || 0, { '': 0, premarital: 1, gift: 2, inheritance: 3 }[m.home.source] || 0], [m.home.activeGain || 0, 0]],
 	a: COLS.map((k) => [ov(m.a[k][0]), ov(m.a[k][1])]), b: COLS.map((k) => [ov(m.b[k][0]), ov(m.b[k][1])]),
 	o: m.options.length ? [[{ a: 1, b: 2 }[m.options[0].owner] || 1, m.options[0].units], [ov(m.options[0].price), m.options[0].strike || 0], [(m.options[0].grant || '').replace(/-/g, ''), (m.options[0].vestStart || '').replace(/-/g, '')], [(m.options[0].vestEnd || '').replace(/-/g, ''), m.options[0].tranches || 1]] : '',
 	x: m.crypto.length ? [[{ a: 1, b: 2 }[m.crypto[0].owner] || 2, m.crypto[0].units], [ov(m.crypto[0].priceBreak), ov(m.crypto[0].priceToday)], [m.crypto[0].where === 'wallet' ? 1 : 0, 0]] : '',
@@ -991,7 +991,7 @@ function modelOf(s) {
 	const x = s.x ? pairs(s.x) : null;
 	return {
 		marriage: s.m, breakDate: s.k, filed: s.f || '', apart: s.s || '', before1974: s.q === '1', method: s.t || 'time', cryptoAt: s.c === 'b' ? 'break' : 'today',
-		home: { value: num(h[0] && h[0][0]), mortgage: num(h[0] && h[0][1]), owner: ['joint', 'a', 'b'][Number(h[1] && h[1][0]) || 0], source: ['', 'premarital', 'gift', 'inheritance'][Number(h[1] && h[1][1]) || 0], activeGain: num(h[2] && h[2][0]) },
+		home: { value: zo(h[0] && h[0][0]), mortgage: num(h[0] && h[0][1]), owner: ['joint', 'a', 'b'][Number(h[1] && h[1][0]) || 0], source: ['', 'premarital', 'gift', 'inheritance'][Number(h[1] && h[1][1]) || 0], activeGain: num(h[2] && h[2][0]) },
 		a: side(s.a), b: side(s.b),
 		others: s.e ? pairs(s.e).map(([code, v]) => ({ owner: ['a', 'b', 'joint'][Number(code[0]) - 1] || 'a', kind: ['savings', 'home', 'car', 'business', 'other', 'debt'][Number(code[1]) - 1] || 'savings', exclude: ['', 'premarital', 'gift', 'inheritance', 'nii', 'agreed'][Number(code[2])] || '', value: num(v) })) : [],
 		options: o ? [{ owner: o[0][0] === '2' ? 'b' : 'a', units: Number(o[0][1]), price: zo(o[1][0]), strike: Number(o[1][1]) || 0, grant: ymd(o[2][0]), vestStart: ymd(o[2][1]), vestEnd: ymd(o[3][0]), tranches: Number(o[3][1]) || 1 }] : [],

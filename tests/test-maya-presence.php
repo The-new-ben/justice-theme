@@ -540,6 +540,13 @@ $jt_rival = false;
 jt_set_page( array( 'id' => 712, 'type' => 'page', 'slug' => 'child-support', 'title' => 'מזונות ילדים', 'terms' => array( 'child-support' ) ) );
 jt_maya_assert( true === justice_maya_context()['applies'], 'her graph does not apply when she holds the first card' );
 
+ob_start();
+$GLOBALS['justice_maya_card_rendered'] = true;
+justice_maya_footer_script();
+$script = (string) ob_get_clean();
+jt_maya_assert( false !== strpos( $script, "replace(/[^0-9.\-]/g,'')" ), 'the quick tool strips the minus sign, so a negative income passes validation' );
+jt_maya_assert( false === strpos( $script, 'localStorage' ) && false === strpos( $script, 'fetch(' ), 'the quick tool stores or sends what was typed' );
+
 // --------------------------------------------------------------------------- 6. styles
 
 $css = justice_maya_css();

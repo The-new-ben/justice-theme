@@ -1079,7 +1079,7 @@ function justice_maya_footer_script(): void {
 	}
 	?>
 <script id="jt-maya-card-js">(function(){var cards=document.querySelectorAll('.jt-maya-card');for(var i=0;i<cards.length;i++){wire(cards[i]);}
-function num(el){var v=parseFloat(String(el&&el.value||'').replace(/[^0-9.]/g,''));return isNaN(v)?NaN:v;}
+function num(el){var v=parseFloat(String(el&&el.value||'').replace(/[^0-9.\-]/g,''));return isNaN(v)?NaN:v;}
 function pct(x){return Math.round(x*100);}
 function setWa(a,text){if(!a)return;try{var u=new URL(a.href);var base=u.searchParams.get('text')||'';a.href=u.origin+u.pathname+'?text='+encodeURIComponent(base+' '+text);}catch(e){}}
 function wire(card){var form=card.querySelector('[data-jt-maya-ratio]');if(form){var out=card.querySelector('[data-jt-maya-result]');var wa=card.querySelector('[data-jt-maya-ratio-wa]');var waBase=wa?wa.href:'';form.addEventListener('submit',function(ev){ev.preventDefault();var a=num(form.querySelector('[data-in=a]')),b=num(form.querySelector('[data-in=b]')),n=num(form.querySelector('[data-in=n]'));if(isNaN(a)||isNaN(b)||isNaN(n)||a<0||b<0||a+b<=0||n<0||n>14){out.hidden=false;out.innerHTML='<p>כדי לחשב, מלאו את שלושת השדות: שתי הכנסות ומספר לילות בין 0 ל-14.</p>';return;}

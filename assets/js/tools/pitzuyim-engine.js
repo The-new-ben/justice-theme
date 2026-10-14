@@ -307,7 +307,8 @@ export function compute(registry, input) {
 export function byArrangement(registry, input) {
 	const out = {};
 	for (const k of ['none', 'partial', 'full']) {
-		const r = compute(registry, Object.assign({}, input, { s14: k, s14From: '' }));
+		// The deposit period stays the user's own, so the card marked as theirs matches the main result (review, PR 128).
+		const r = compute(registry, Object.assign({}, input, { s14: k }));
 		out[k] = r.ok ? { employer: r.employer, pct: r.s14Pct, total: r.severance } : null;
 	}
 	return out;

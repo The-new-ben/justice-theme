@@ -1303,6 +1303,15 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!RE.contractText(reg.rent_contract, shortAsIs, false).includes('כשהיא ראויה ומתאימה למגורים'), 'outside the chapter with "as is" the lease drops the fitness warranty, so it does not contradict itself (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 33) ---------- */
+{
+	const late = PE.compute(reg, { salary: 10000, start: '2016-10-01', end: '2026-09-30', reason: 'fired', s14: 'partial', s14From: '2021-10-01' });
+	const d = PEUI.renderDetails(reg, late);
+	check(late.employer === 64000 && /jt7-scn--here[\s\S]*?64,000/.test(d), 'the card marked as yours keeps the s.14 start date: 64,000 from the employer, as in the main result (review, PR 128)');
+	const shortAsIs = RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { months: 3, option: 'none', asIs: true }));
+	check(RE.contractText(reg.rent_contract, shortAsIs, false).includes('שנוצר אחרי המסירה'), 'outside the chapter with "as is", the repair duty covers defects that arise after delivery (review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

@@ -452,23 +452,23 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 		$rc   = $reg['rent_contract'];
 		$snap = justice_tools_snapshot( 'chozeh-schirut' );
 		$text = '<strong>חוזה שכירות לדירה</strong> נערך בכתב ומפרט גם פגמים ידועים (סעיפים 25ב ו-25ג ל' . esc_html( $rc['law_he'] ) . '). '
-			. 'ערובה שעולה כסף לשוכר מוגבלת לנמוך מבין שכר הדירה לשליש מהתקופה ו-<bdi>' . (int) $rc['deposit']['months'] . '</bdi> חודשי שכירות'
-			. ( isset( $snap['input']['rent'] ) ? ' (בשכר דירה של ' . justice_tools_money( $snap['input']['rent'], 0 ) . ' לחודש, לשנה: ' . justice_tools_money( $snap['total'], 0 ) . ')' : '' ) . ', וחוזרת תוך <bdi>' . (int) $rc['deposit']['return_days'] . '</bdi> ימים. '
-			. 'המשכיר מתקן ליקוי תוך <bdi>' . (int) $rc['repairs']['days'] . '</bdi> ימים, דחוף תוך <bdi>' . (int) $rc['repairs']['urgent_days'] . '</bdi>. נבדק ' . esc_html( justice_tools_he_date( $rc['checked_on'] ) ) . '.';
+			. 'ערובה שעולה כסף לשוכר מוגבלת לנמוך מבין שכר הדירה לשליש מהתקופה ו-<bdi>' . (int) $rc['deposit']['months'] . '</bdi> חודשי שכירות (סעיף 25י(ב)'
+			. ( isset( $snap['input']['rent'] ) ? '; בשכר דירה של ' . justice_tools_money( $snap['input']['rent'], 0 ) . ' לחודש, לשנה: ' . justice_tools_money( $snap['total'], 0 ) : '' ) . '), וחוזרת תוך <bdi>' . (int) $rc['deposit']['return_days'] . '</bdi> ימים (סעיף 25י(ה)). '
+			. 'המשכיר מתקן ליקוי תוך <bdi>' . (int) $rc['repairs']['days'] . '</bdi> ימים, דחוף תוך <bdi>' . (int) $rc['repairs']['urgent_days'] . '</bdi> (סעיף 25ח(ב)). נבדק ' . esc_html( justice_tools_he_date( $rc['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
 	if ( 'pitzuyim' === $name && ! empty( $reg['severance'] ) ) {
 		$sv   = $reg['severance'];
 		$text = '<strong>פיצויי פיטורים</strong> הם משכורת חודש לכל שנת עבודה, וחלק יחסי לחלק משנה, אחרי שנת עבודה אחת (סעיפים 1 ו-12 ל' . esc_html( $sv['law_he'] ) . '). '
-			. 'בסעיף 14 הקופה באה במקום <bdi>' . (int) $sv['approval']['partial_pct'] . '%</bdi> או <bdi>' . (int) $sv['approval']['full_pct'] . '%</bdi> מהפיצויים. הודעה מוקדמת אחרי שנה: חודש. '
-			. 'פטור ממס עד משכורת חודש לשנה, ולא יותר מ-' . justice_tools_money( $sv['tax']['ceiling'], 0 ) . ' לשנה ב-' . (int) $sv['tax']['year'] . '. נבדק ' . esc_html( justice_tools_he_date( $sv['checked_on'] ) ) . '.';
+			. 'בסעיף 14 הקופה באה במקום <bdi>' . (int) $sv['approval']['partial_pct'] . '%</bdi> או <bdi>' . (int) $sv['approval']['full_pct'] . '%</bdi> מהפיצויים (האישור הכללי). הודעה מוקדמת אחרי שנה: חודש (סעיף 3 לחוק הודעה מוקדמת). '
+			. 'פטור ממס עד משכורת חודש לשנה, ולא יותר מ-' . justice_tools_money( $sv['tax']['ceiling'], 0 ) . ' לשנה ב-' . (int) $sv['tax']['year'] . ' (' . esc_html( $sv['tax']['section'] ) . ' לפקודה). נבדק ' . esc_html( justice_tools_he_date( $sv['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
 	if ( 'mas-shevach' === $name && ! empty( $reg['shevach'] ) ) {
 		$sh   = $reg['shevach'];
-		$text = '<strong>מס שבח</strong> משלמים על הרווח הריאלי ממכירת דירה: <bdi>' . (int) $sh['rates']['post2012'] . '%</bdi> על החלק שמ-2012, ושיעורים אחרים לפני כן. '
+		$text = '<strong>מס שבח</strong> משלמים על הרווח הריאלי ממכירת דירה: <bdi>' . (int) $sh['rates']['post2012'] . '%</bdi> על החלק שמ-2012 (' . esc_html( $sh['rate_sections']['post2012'] ) . '), ושיעורים אחרים לפני כן. '
 			. 'דירה יחידה שבבעלותכם <bdi>' . (int) $sh['single']['hold_months'] . '</bdi> חודשים פטורה עד ' . justice_tools_money( $sh['single']['ceiling'], 0 ) . ' (סעיפים 49ב(2) ו-49א(א1)), '
-			. 'ובדירת מגורים שנקנתה לפני 2014 החלק שעד 1.1.2014 פטור. מצהירים תוך <bdi>' . (int) $sh['deadlines']['declare_days'] . '</bdi> ימים ומשלמים תוך <bdi>' . (int) $sh['deadlines']['pay_days'] . '</bdi>. נבדק ' . esc_html( justice_tools_he_date( $sh['checked_on'] ) ) . '.';
+			. 'ובדירת מגורים שנקנתה לפני 2014 החלק שעד 1.1.2014 פטור (' . esc_html( $sh['rate_sections']['linear'] ) . '). מצהירים תוך <bdi>' . (int) $sh['deadlines']['declare_days'] . '</bdi> ימים (' . esc_html( $sh['deadlines']['declare_section'] ) . ') ומשלמים תוך <bdi>' . (int) $sh['deadlines']['pay_days'] . '</bdi> (' . esc_html( $sh['deadlines']['pay_section'] ) . '). נבדק ' . esc_html( justice_tools_he_date( $sh['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
 	if ( 'yerusha' === $name && ! empty( $reg['yerusha'] ) ) {

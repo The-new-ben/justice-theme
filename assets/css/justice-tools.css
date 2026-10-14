@@ -4,7 +4,7 @@
  * Every rule is scoped under .jtool so the theme never fights the tool, and the tool never
  * restyles the page. Roles map onto the theme's --jt2 navy family.
  */
-.jtool, .jtool-answer, .jtool-page {
+.jtool, .jtool-answer, .jtool-page, .jtool-simstrip {
 	--jtool-ink: #1E2A36;
 	--jtool-muted: #4E5D6C;
 	--jtool-surface: #FFFFFF;
@@ -31,6 +31,39 @@
 	--jtool-space-6: 32px;
 	--jtool-font: 'Assistant', 'Heebo', system-ui, sans-serif;
 }
+
+/* Wave 5 (HAD-504): the simulation strip that sits right after a tool page's opening paragraph. One line, one CTA;
+   the opening text and its keywords stay above it. */
+.jtool-simstrip {
+	direction: rtl;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px 16px;
+	margin: 16px 0 24px;
+	padding: 12px 16px;
+	border: 1px solid var(--jtool-border);
+	border-inline-start: 4px solid var(--jtool-verdict);
+	border-radius: 10px;
+	background: var(--jtool-verdict-tint);
+	color: var(--jtool-ink);
+	font-family: var(--jtool-font);
+}
+.jtool-simstrip p { margin: 0; flex: 1 1 260px; min-width: 0; font-size: 0.95rem; line-height: 1.6; }
+.jtool-simstrip__cta {
+	display: inline-flex;
+	align-items: center;
+	min-height: 44px;
+	padding: 0 18px;
+	border-radius: var(--jtool-radius-field);
+	background: var(--jtool-verdict-deep);
+	color: #FFFFFF;
+	font-weight: 700;
+	text-decoration: none;
+}
+.jtool-simstrip__cta:hover { background: var(--jtool-verdict); color: #FFFFFF; }
+.jtool-simstrip__cta:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+@media print { .jtool-simstrip { display: none; } }
 
 .jtool-answer {
 	direction: rtl;

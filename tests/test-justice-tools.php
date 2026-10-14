@@ -398,6 +398,21 @@ $index5 = $jt_shortcodes['justice_tools_index']();
 check( false !== strpos( $index5, '/online-rent-agreement/' ) && false !== strpos( $index5, '/severance-pay-calculator/' ) && false !== strpos( $index5, '/land-appreciation-tax/' ), 'hub cards include the wave-5 tools' );
 check( justice_tools_content_leads_with_tool( '[justice_tool name="chozeh-schirut"]' ) && justice_tools_content_leads_with_tool( '<p>[justice_tool name="mas-shevach"]</p>' ), 'an article that opens with a wave-5 tool gets the tool-first layout (PR 127)' );
 
+// Owner rules of 14.10.2026 (HAD-504): every number in the answer box carries its section; the page blocks put the
+// simulation strip right after the opening paragraph, with one CTA, and keep the year out of the proposed titles.
+check( false !== strpos( $r5, 'סעיף 25י(ב)' ) && false !== strpos( $r5, 'סעיף 25י(ה)' ) && false !== strpos( $r5, 'סעיף 25ח(ב)' ), 'lease answer box: each number with its section' );
+check( false !== strpos( $p5, 'האישור הכללי' ) && false !== strpos( $p5, 'סעיף 3 לחוק הודעה מוקדמת' ) && false !== strpos( $p5, 'סעיף 9(7א)(א) לפקודה' ), 'severance answer box: each number with its source' );
+check( false !== strpos( $s5, 'סעיף 48א(ב)(1)' ) && false !== strpos( $s5, 'סעיף 73(א)' ) && false !== strpos( $s5, 'סעיף 90א' ), 'capital-gains answer box: each number with its section' );
+foreach ( array( 'online-rent-agreement', 'severance-pay-calculator', 'land-appreciation-tax' ) as $slug5 ) {
+	$draft5 = (string) file_get_contents( dirname( __DIR__ ) . '/.content-drafts/tools-wave-5/' . $slug5 . '.html' );
+	$body5  = substr( $draft5, (int) strpos( $draft5, '-->' ) );
+	$strip5 = strpos( $body5, 'class="jtool-simstrip"' );
+	$p1     = strpos( $body5, '</p>', (int) strpos( $body5, '[justice_tool name=' ) + 30 );
+	check( false !== $strip5 && false !== $p1 && $strip5 < strpos( $body5, '<h2>' ) && 1 === substr_count( $body5, 'jtool-simstrip__cta' ) && 1 === substr_count( $body5, 'jus-tice.com/#/simulation' ), 'draft ' . $slug5 . ': the simulation strip right after the opening paragraph, one CTA, no second teaser' );
+	check( 1 === preg_match( '/Title \(\d+\): ([^\n]+)/u', $draft5, $t5 ) && false === strpos( $t5[1], '2026' ) && false === strpos( $t5[1], '2025' ), 'draft ' . $slug5 . ': no year in the proposed title' );
+	check( false === strpos( $body5, '<p>המחשבון' ) && false === strpos( $body5, '<p>החוזה למעלה' ), 'draft ' . $slug5 . ': the opening answers, it does not describe the tool' );
+}
+
 if ( $failures ) {
 	fwrite( STDERR, "justice tools: {$failures} failure(s)\n" );
 	exit( 1 );

@@ -1274,6 +1274,12 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!/<td[^>]*>0 ₪<\/td>/.test(table) && !/>₪0</.test(table), 'the years table computes the non-residential column (no zero from a refused computation; review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 29) ---------- */
+{
+	const m = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { misconduct: true }));
+	check(!m.ok && m.errors.some((e) => e.field === 'misconduct' && e.he.includes('16 ו-17')) && PEUI.renderForm(reg, PEUI.EXAMPLE).includes('id="jt13-misconduct-e"'), 'a disciplinary dismissal declines a definitive result (ss.16-17; review, PR 128)');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

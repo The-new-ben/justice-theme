@@ -12,7 +12,7 @@ import {
 export const TOOL_ID = 'pitzuyim';
 const P = 'jt13';
 
-export const EXAMPLE = { payType: 'monthly', salary: 12000, hourly: '', hours: '', jobPct: '', start: '2018-03-01', end: '2026-09-30', reason: 'fired', s14: 'partial', s14Pct: '', s14From: '', noticeDate: '', noticeMode: 'worked', change: false, changeDate: '', prevPct: '', prevSalary: '', prevHours: '', prevHourly: '', manyChanges: false, unpaidExcess: '', groundOk: false, nearClaim: false, seasonal: false, otherBreaks: false };
+export const EXAMPLE = { payType: 'monthly', salary: 12000, hourly: '', hours: '', jobPct: '', start: '2018-03-01', end: '2026-09-30', reason: 'fired', s14: 'partial', s14Pct: '', s14From: '', noticeDate: '', noticeMode: 'worked', change: false, changeDate: '', prevPct: '', prevSalary: '', prevHours: '', prevHourly: '', manyChanges: false, unpaidExcess: '', groundOk: false, nearClaim: false, seasonal: false, otherBreaks: false, misconduct: false };
 
 const S14_LABEL = { none: 'אין סעיף 14', partial: 'סעיף 14 על 72%', full: 'סעיף 14 מלא (100%)', custom: 'אחוז אחר לפי ההסכם' };
 const REASON_LABEL = { health: 'בריאות', parent: 'הורות (9 חודשים)', move: 'מעבר דירה', term: 'חוזה שלא חודש', worse: 'הרעת תנאים', retire: 'גיל פרישה' };
@@ -54,7 +54,7 @@ export function renderForm(reg, input) {
 		+ `<div class="jtool-row">${dateField('start', 'יום תחילת העבודה', input.start, 'לדוגמה: 1.3.2018')}${dateField('end', 'יום העבודה האחרון', input.end, 'לדוגמה: 30.9.2026')}</div>`
 		+ `<fieldset class="jtool-field"><legend>איך העבודה הסתיימה</legend><div class="jtool-chips">${chip('rk', 'fired', 'פוטרתי', kind === 'fired')}${chip('rk', 'resign', 'התפטרתי', resign)}${chip('rk', 'term', 'חוזה לתקופה קצובה הסתיים, ולא הוצע לי לחדש אותו 3 חודשים לפני הסוף', kind === 'term')}</div>`
 		+ `<p class="jtool-hint" data-if-term${kind === 'term' ? '' : ' hidden'}>אם המעסיק הציע לחדש את החוזה לפחות 3 חודשים לפני סופו וסירבתם, זו התפטרות ולא פיטורים (סעיף 9): בחרו "התפטרתי".</p>`
-		+ `<div class="jtool-chips" data-if-dismissal${kind === 'resign' ? ' hidden' : ''} style="margin-top:8px">${chip('ny', '1', 'עבדתי פחות משנה, והפיטורים היו סמוך לסוף השנה הראשונה (סעיף 3)', input.nearClaim, 'checkbox')}</div>`
+		+ `<div class="jtool-chips" data-if-dismissal${kind === 'resign' ? ' hidden' : ''} style="margin-top:8px">${chip('ny', '1', 'עבדתי פחות משנה, והפיטורים היו סמוך לסוף השנה הראשונה (סעיף 3)', input.nearClaim, 'checkbox')}${chip('mis', '1', 'הפיטורים היו בגלל טענה להתנהגות חמורה (משמעתיים)', input.misconduct, 'checkbox')}</div><p class="jtool-error" id="${P}-misconduct-e" role="alert"></p>`
 		+ `<div class="jtool-chips" style="margin-top:8px">${chip('sea', '1', 'עבדתי בעבודה עונתית', input.seasonal, 'checkbox')}</div><p class="jtool-error" id="${P}-seasonal-e" role="alert"></p>`
 		+ `<div class="jtool-chips" data-if-resign${resign ? '' : ' hidden'} style="margin-top:8px" role="group" aria-label="סיבת ההתפטרות">${chip('rw', 'plain', 'התפטרות רגילה', why === 'plain')}${RESIGN_CODES.filter((k) => k !== 'term').map((k) => chip('rw', k, REASON_LABEL[k], why === k)).join('')}</div>`
 		+ `<div data-if-ground${resign && why !== 'plain' ? '' : ' hidden'} style="margin-top:8px"><div class="jtool-chips">${chip('po', '1', 'התנאים של הסיבה הזאת מתקיימים אצלי', input.groundOk || input.parentOk, 'checkbox')}</div>`
@@ -241,6 +241,7 @@ function readForm(root) {
 		reason: kind === 'fired' ? 'fired' : kind === 'term' ? 'term' : (why === 'plain' || why === 'term' ? 'resign' : why === 'other_ground' ? 'other_ground' : why),
 		groundOk: kind === 'resign' && why !== 'plain' && why !== 'other_ground' && Boolean(root.querySelector(`input[name="${P}-po"]:checked`)),
 		nearClaim: kind !== 'resign' && Boolean(root.querySelector(`input[name="${P}-ny"]:checked`)),
+		misconduct: kind !== 'resign' && Boolean(root.querySelector(`input[name="${P}-mis"]:checked`)),
 		seasonal: Boolean(root.querySelector(`input[name="${P}-sea"]:checked`)), otherBreaks: Boolean(root.querySelector(`input[name="${P}-brk"]:checked`)),
 		s14: radio('s14', 'none'), s14Pct: m('s14p'), s14From: toIso(val(`#${P}-s14f`)),
 		noticeDate: toIso(val(`#${P}-nd`)), noticeMode: radio('nm', 'worked'),
@@ -253,8 +254,8 @@ function readForm(root) {
 const RS = { fired: 'f', resign: 'r', health: 'h', parent: 'p', move: 'm', term: 't', worse: 'w', retire: 'x', other_ground: 'g' };
 const S14 = { none: 'n', partial: 'p', full: 'f', custom: 'c' };
 const NM = { worked: 'w', paid: 'p', none: 'n' };
-const stateOf = (i) => encodeState({ t: i.payType === 'hourly' ? 'h' : '', w: i.salary || '', h: i.hourly || '', o: i.hours || '', j: i.jobPct || '', s: i.start, e: i.end, r: RS[i.reason] || 'f', f: S14[i.s14] || 'n', p: i.s14Pct || '', d: i.s14From || '', n: i.noticeDate || '', m: NM[i.noticeMode] || 'w', c: i.change ? 1 : '', a: i.change ? i.changeDate : '', b: i.change ? i.prevPct : '', g: i.change ? i.prevSalary : '', k: i.change && i.manyChanges ? 1 : '', x: i.change ? i.prevHours : '', y: i.change ? i.prevHourly : '', u: i.unpaidExcess || '', z: i.groundOk || i.parentOk ? 1 : '', q: i.nearClaim ? 1 : '', v: i.seasonal ? 1 : '', i: i.otherBreaks ? 1 : '' });
-const KEYS = ['t', 'w', 'h', 'o', 'j', 's', 'e', 'r', 'f', 'p', 'd', 'n', 'm', 'c', 'a', 'b', 'g', 'k', 'x', 'y', 'u', 'z', 'q', 'v', 'i'];
+const stateOf = (i) => encodeState({ t: i.payType === 'hourly' ? 'h' : '', w: i.salary || '', h: i.hourly || '', o: i.hours || '', j: i.jobPct || '', s: i.start, e: i.end, r: RS[i.reason] || 'f', f: S14[i.s14] || 'n', p: i.s14Pct || '', d: i.s14From || '', n: i.noticeDate || '', m: NM[i.noticeMode] || 'w', c: i.change ? 1 : '', a: i.change ? i.changeDate : '', b: i.change ? i.prevPct : '', g: i.change ? i.prevSalary : '', k: i.change && i.manyChanges ? 1 : '', x: i.change ? i.prevHours : '', y: i.change ? i.prevHourly : '', u: i.unpaidExcess || '', z: i.groundOk || i.parentOk ? 1 : '', q: i.nearClaim ? 1 : '', v: i.seasonal ? 1 : '', i: i.otherBreaks ? 1 : '', l: i.misconduct ? 1 : '' });
+const KEYS = ['t', 'w', 'h', 'o', 'j', 's', 'e', 'r', 'f', 'p', 'd', 'n', 'm', 'c', 'a', 'b', 'g', 'k', 'x', 'y', 'u', 'z', 'q', 'v', 'i', 'l'];
 function inputOf(s) {
 	if (!s.s || !s.e) { return null; }
 	const back = (map, v, d) => Object.keys(map).find((k) => map[k] === v) || d;
@@ -262,7 +263,7 @@ function inputOf(s) {
 		payType: s.t === 'h' ? 'hourly' : 'monthly', salary: s.w ? Number(s.w) : '', hourly: s.h ? Number(s.h) : '', hours: s.o ? Number(s.o) : '', jobPct: s.j ? Number(s.j) : '',
 		start: s.s, end: s.e, reason: back(RS, s.r, 'fired'), s14: back(S14, s.f, 'none'), s14Pct: s.p ? Number(s.p) : '', s14From: s.d || '', noticeDate: s.n || '', noticeMode: back(NM, s.m, 'worked'),
 		change: s.c === '1', changeDate: s.c === '1' ? (s.a || '') : '', prevPct: s.c === '1' && s.b ? Number(s.b) : '', prevSalary: s.c === '1' && s.g ? Number(s.g) : '', manyChanges: s.c === '1' && s.k === '1',
-		prevHours: s.c === '1' && s.x ? Number(s.x) : '', prevHourly: s.c === '1' && s.y ? Number(s.y) : '', unpaidExcess: s.u ? Number(s.u) : '', groundOk: s.z === '1', nearClaim: s.q === '1', seasonal: s.v === '1', otherBreaks: s.i === '1',
+		prevHours: s.c === '1' && s.x ? Number(s.x) : '', prevHourly: s.c === '1' && s.y ? Number(s.y) : '', unpaidExcess: s.u ? Number(s.u) : '', groundOk: s.z === '1', nearClaim: s.q === '1', seasonal: s.v === '1', otherBreaks: s.i === '1', misconduct: s.l === '1',
 	};
 }
 

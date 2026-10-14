@@ -80,7 +80,7 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(r.perChild[0].bracket === '6to15' && near(r.ratio.income, sA, 1e-9), '6-15: the bracket and the income share');
 	// The Hadera formula (paras. 46-51): two children, needs 1,600 + 500 each, housing 40% = 4,100 in all, so 8,300;
 	// income share 65%, time share 6/14. The court rounded the time share to 43% and got 1,826, "1,830 rounded".
-	const h = MZ.computeSupport(reg, { incomeA: 6500 + 0.6 * 10250, incomeB: 3500, housingA: 10250, housingB: 0, children: ['2010-01-01', '2011-01-01'], nightsA: 6, father: 'A', needsDependent: 1600, needsIndependent: 500, housingShare: 40, asOf: '2019-03-17' });
+	const h = MZ.computeSupport(reg, { incomeA: 6500 + 0.6 * 10250, incomeB: 3500, housingA: 10250, housingB: 0, children: ['2010-01-01', '2011-01-01'], nightsA: 6, father: 'A', needsDependent: 1600, needsIndependent: 500, housingShare: 0.4, asOf: '2019-03-17' });
 	const ratioSum = h.perChild.reduce((s, c) => s + c.values.ratio, 0);
 	check(h.ok && near(ratioSum, r10(8300 * (0.65 - 6 / 14) / 2) * 2, 10.01), `the ratio method is the Hadera formula: 8,300 x (65% - 6/14) = ${(8300 * (0.65 - 6 / 14)).toFixed(2)} (engine ${ratioSum})`);
 	check(r10(8300 * (0.65 - 0.43)) === 1830, 'with the court\'s rounded 43%: 1,830, as in para. 51');
@@ -286,6 +286,18 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	const zeroPrice = Object.assign({}, IZUI.EXAMPLE, { options: [Object.assign({}, IZUI.EXAMPLE.options[0], { price: 0 })], crypto: [Object.assign({}, IZUI.EXAMPLE.crypto[0], { priceBreak: 0 })] });
 	const izBack = IZUI.modelOf(decodeState(`#s=${IZUI.stateOf(zeroPrice)}`, izKeys));
 	check(izBack.options[0].price === 0 && izBack.crypto[0].priceBreak === 0 && IZ.computeBalance(reg, IZUI.toInput(izBack)).ok, 'balance link: a 0 option or crypto price stays 0 and still computes');
+}
+
+/* ---------- Review fixes (PR 130, Codex pass 4) ---------- */
+{
+	const pct = (v) => MZ.computeSupport(reg, MZUI.toSupportInput(Object.assign({}, MZUI.EXAMPLE, { housingShare: v, asOf: '2026-10-14' })));
+	check(pct(1).housingShare === 0.01 && pct(40).housingShare === 0.4 && pct(0.5).housingShare === 0.005, 'the form\'s housing share is a percent: 1 means 1%, never 100%');
+	check(!MZ.computeSupport(reg, { incomeA: 10000, children: ['2016-01-01'], housingShare: 40 }).ok, 'the engine takes a fraction and rejects 40 instead of guessing');
+	const nii = (births) => MZ.mzNii(reg, { births, asOf: '2026-10-14' });
+	check(nii(['2016-01-01', '2004-01-01']).amount === 3478 && nii(['2016-01-01', '2018-01-01']).amount === 4049, 'National Insurance counts only children under 18: one minor and one adult is the one-child row');
+	check(nii(['2016-01-01', 'bad']).ok === false && nii(['2030-01-01']).ok === false, 'a bad or future birth date in the NII mode is an input error');
+	const half = IZ.computeBalance(reg, { marriage: '2010-01-01', breakDate: '2025-01-01', items: [{ kind: 'pension', owner: 'a', value: '', atMarriage: 50000 }] });
+	check(!half.ok && half.errors.some((e) => e.field === 'item-0-value'), 'a wedding-day amount with no value today: an error, never a zero pension');
 }
 
 /* ---------- The server snapshots: the same renderers, the sticky figure, no <h2> in a card ---------- */

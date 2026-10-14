@@ -34,7 +34,8 @@ export function toSupportInput(m) {
 		incomeA: m.incomeA, incomeB: m.incomeB, housingA: m.housingA, housingB: m.housingB, children: m.children,
 		nightsA: m.nightsA, father: m.law === 'proportional' ? '' : (m.parentA === 'אמא' ? 'B' : 'A'), law: m.law,
 		needsDependent: m.needsDependent, needsIndependent: m.needsIndependent, necessary: m.necessary,
-		housingShare: m.housingShare, central: m.central, extras: m.extras, asOf: m.asOf,
+		housingShare: m.housingShare === '' || m.housingShare === undefined || m.housingShare === null ? '' : Number(m.housingShare) / 100,
+		central: m.central, extras: m.extras, asOf: m.asOf,
 	};
 }
 
@@ -270,7 +271,7 @@ export function numbersTable(reg) {
 }
 
 function madadOf(reg, m) { return indexSupport(reg, Object.assign({}, m.madad, { asOf: m.asOf })); }
-function niiOf(reg, m) { return mzNii(reg, Object.assign({ children: (m.children || []).length }, m.nii)); }
+function niiOf(reg, m) { return mzNii(reg, Object.assign({ births: m.children || [], asOf: m.asOf }, m.nii)); }
 export function runModel(reg, m) {
 	if (m.mode === 'madad') { return madadOf(reg, m); }
 	if (m.mode === 'nii') { return niiOf(reg, m); }

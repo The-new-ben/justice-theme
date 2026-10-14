@@ -459,8 +459,8 @@ function computeSupport(registry, input) {
 		shareOverride: null,
 	};
 	if (fEntered(input.housingShare)) {
-		let s = Number(input.housingShare);
-		if (s > 1) { s /= 100; }
+		// A fraction 0..1 (the form converts its percent before calling).
+		const s = Number(input.housingShare);
 		if (!(s >= 0 && s <= 1)) { errors.push({ field: 'housingShare', he: 'חלק הילדים במדור: בין 0% ל-100%' }); } else { p.shareOverride = s; }
 	}
 	if (!(Number.isInteger(p.nightsA) && p.nightsA >= 0 && p.nightsA <= 14)) { errors.push({ field: 'nightsA', he: 'מספר לילות מתוך 14: מספר שלם בין 0 ל-14' }); }
@@ -600,7 +600,16 @@ function indexSupport(registry, input) {
  */
 function mzNii(registry, input) {
 	const nii = registry.child_support.nii;
-	const kids = Math.max(0, Number(input.children) || 0);
+	let kids = Math.max(0, Number(input.children) || 0);
+	if (Array.isArray(input.births)) {
+		// From birth dates: every date must be valid and not in the future; only children under 18 on the day count.
+		const asOf = fIsIso(input.asOf) ? input.asOf : registry.child_support.checked_on;
+		const bad = input.births.filter((b) => fEntered(b)).find((b) => !fIsIso(b) || b > asOf);
+		if (bad !== undefined) {
+			return { ok: false, key: '', row: null, amount: 0, table: 0, cap: 0, lower: false, errors: [{ field: 'children', he: 'תאריך לידה לא תקין או אחרי היום, בלשונית "כמה מזונות"' }] };
+		}
+		kids = input.births.filter((b) => fEntered(b) && mzAgeOn(b, asOf) < registry.child_support.ages.adult).length;
+	}
 	if (input.remarried && kids === 0) {
 		// A woman who remarried or lives with a partner gets the children's part only; with no children, nothing.
 		return { ok: false, key: 'none', row: null, amount: 0, table: 0, cap: 0, lower: false, errors: [{ field: 'children', he: 'אישה שנישאה שוב או חיה עם בן זוג מקבלת מהביטוח הלאומי רק את החלק של הילדים. בלי ילדים אין תשלום' }] };
@@ -764,6 +773,7 @@ function computeBalance(registry, input) {
 		}
 		if (!IZ_KINDS.includes(it.kind)) { errors.push({ field: `item-${i}-kind`, he: 'סוג נכס לא מוכר' }); }
 		if (!['a', 'b', 'joint'].includes(it.owner)) { errors.push({ field: `item-${i}-owner`, he: 'על שם מי הנכס' }); }
+		if (fEntered(it.atMarriage) && !fEntered(it.value) && it.kind !== 'home') { errors.push({ field: `item-${i}-value`, he: 'חסר השווי היום: בלי השווי אי אפשר לחשב את החלק שנצבר בנישואין' }); }
 		if (fEntered(it.atMarriage) && fEntered(it.value) && Number(it.atMarriage) > Number(it.value)) { errors.push({ field: `item-${i}-atMarriage`, he: 'הסכום ביום הנישואין גבוה מהשווי היום' }); }
 		if (fEntered(it.activeGain) && !(Number(it.activeGain) >= 0 && Number(it.activeGain) <= fVal(it.value))) { errors.push({ field: `item-${i}-activeGain`, he: 'עליית הערך האקטיבית: בין 0 לשווי הנכס' }); }
 	});

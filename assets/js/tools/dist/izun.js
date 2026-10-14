@@ -473,6 +473,7 @@ function computeBalance(registry, input) {
 		}
 		if (!IZ_KINDS.includes(it.kind)) { errors.push({ field: `item-${i}-kind`, he: 'סוג נכס לא מוכר' }); }
 		if (!['a', 'b', 'joint'].includes(it.owner)) { errors.push({ field: `item-${i}-owner`, he: 'על שם מי הנכס' }); }
+		if (fEntered(it.atMarriage) && !fEntered(it.value) && it.kind !== 'home') { errors.push({ field: `item-${i}-value`, he: 'חסר השווי היום: בלי השווי אי אפשר לחשב את החלק שנצבר בנישואין' }); }
 		if (fEntered(it.atMarriage) && fEntered(it.value) && Number(it.atMarriage) > Number(it.value)) { errors.push({ field: `item-${i}-atMarriage`, he: 'הסכום ביום הנישואין גבוה מהשווי היום' }); }
 		if (fEntered(it.activeGain) && !(Number(it.activeGain) >= 0 && Number(it.activeGain) <= fVal(it.value))) { errors.push({ field: `item-${i}-activeGain`, he: 'עליית הערך האקטיבית: בין 0 לשווי הנכס' }); }
 	});

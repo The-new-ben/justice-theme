@@ -187,8 +187,7 @@ function justice_cards_current_terms_resolved(): array {
 	$own = get_the_terms( get_the_ID(), 'practice-areas' );
 
 	if ( $own && ! is_wp_error( $own ) ) {
-		$slugs    = wp_list_pluck( $own, 'slug' );
-		$expanded = justice_cards_expand_term_slugs( (array) $own );
+		$slugs = wp_list_pluck( $own, 'slug' );
 
 		// The editor's primary term decides when the post carries several families: the term
 		// itself first, then its nearest ancestor that belongs to a family.
@@ -200,12 +199,19 @@ function justice_cards_current_terms_resolved(): array {
 			}
 		}
 
-		// Otherwise the family with the most of the post's terms (ancestors included); a tie keeps
-		// the map order, as before.
+		// Otherwise the family that most of the post's terms belong to (each term with its
+		// ancestors); a tie keeps the map order, as before.
 		$best      = array();
 		$best_hits = 0;
 		foreach ( $map as $family_slugs ) {
-			$hits = count( array_intersect( $expanded, $family_slugs ) );
+			// One vote per assigned term: a term counts for a family when the term or one of its
+			// ancestors belongs to it, so two terms under family-law are two votes, not one.
+			$hits = 0;
+			foreach ( (array) $own as $term ) {
+				if ( array_intersect( justice_cards_expand_term_slugs( array( $term ) ), $family_slugs ) ) {
+					$hits++;
+				}
+			}
 			if ( $hits > $best_hits ) {
 				$best      = $family_slugs;
 				$best_hits = $hits;

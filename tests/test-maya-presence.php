@@ -357,8 +357,11 @@ jt_maya_assert( justice_cards_family_map()['criminal-law'] === justice_cards_cur
 jt_set_page( array( 'id' => 6052, 'terms' => array( 'inheritance', 'criminal-law' ), 'primary' => 75 ) );
 jt_maya_assert( $family === justice_cards_current_terms(), 'a primary term that is an unlisted child of family-law does not decide' );
 
+jt_set_page( array( 'id' => 6053, 'terms' => array( 'family-law', 'inheritance', 'criminal-law' ) ) );
+jt_maya_assert( $family === justice_cards_current_terms(), 'two terms under family-law were counted as one vote' );
+
 jt_set_page( array( 'id' => 606, 'terms' => array( 'criminal-law', 'divorce' ) ) );
-jt_maya_assert( $family === justice_cards_current_terms(), 'divorce plus its ancestor does not outweigh one criminal term' );
+jt_maya_assert( justice_cards_family_map()['criminal-law'] === justice_cards_current_terms(), 'one family term against one criminal term is a tie that keeps the map order' );
 
 jt_set_page( array( 'id' => 607, 'terms' => array( 'inheritance-law', 'family-court-rulings' ) ) );
 jt_maya_assert( $family === justice_cards_current_terms(), 'a family-court inheritance ruling does not reach the family' );

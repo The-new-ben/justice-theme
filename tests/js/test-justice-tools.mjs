@@ -1312,6 +1312,14 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(RE.contractText(reg.rent_contract, shortAsIs, false).includes('שנוצר אחרי המסירה'), 'outside the chapter with "as is", the repair duty covers defects that arise after delivery (review, PR 128)');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 34) ---------- */
+{
+	const hc = PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, commission: 4000, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevHours: 160, prevHourly: 80 });
+	check(hc.ok && hc.cut && hc.prevBase === 16800 && hc.base === 12000 && hc.severance === 28800, 'an hourly cut from 80 to 50 with 4,000 commissions: the earlier period on 16,800, not 12,800 (review, PR 128)');
+	const hr = PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevHours: 80 });
+	check(hr.prevBase === 4000, 'without commissions the earlier hours are unchanged');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

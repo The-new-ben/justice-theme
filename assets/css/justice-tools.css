@@ -57,11 +57,11 @@
 	padding: 0 18px;
 	border-radius: var(--jtool-radius-field);
 	background: var(--jtool-verdict-deep);
-	color: #FFFFFF;
+	color: #FFFFFF !important; /* beats body.jt-look-v3 .entry-content a (dark green on navy) */
 	font-weight: 700;
-	text-decoration: none;
+	text-decoration: none !important;
 }
-.jtool-simstrip__cta:hover { background: var(--jtool-verdict); color: #FFFFFF; }
+.jtool-simstrip__cta:hover { background: var(--jtool-verdict); color: #FFFFFF !important; }
 .jtool-simstrip__cta:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
 @media print { .jtool-simstrip { display: none; } }
 
@@ -277,7 +277,8 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jtool-page .jtool-datatable td::before { content: attr(data-th); font-weight: 600; color: var(--jtool-muted); }
 	.jtool-sticky[data-show="1"] { display: flex; position: fixed; inset-inline: 0; bottom: 0; z-index: 30; align-items: center; justify-content: space-between; gap: var(--jtool-space-3); padding: 10px var(--jtool-space-4); background: var(--jtool-verdict-deep); color: #fff; box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.18); }
 	.jtool-sticky strong { font-size: 1.25rem; font-variant-numeric: tabular-nums; }
-	.jtool-sticky a { color: #fff; font-weight: 800; text-decoration: underline; min-height: 44px; display: inline-flex; align-items: center; }
+	/* !important: the article look (body.jt-look-v3 .entry-content a) would paint this link dark green on navy. */
+	.jtool-sticky a { color: #fff !important; font-weight: 800; text-decoration: underline; min-height: 44px; display: inline-flex; align-items: center; }
 }
 
 /* Current-numbers and comparison tables generated from the registry (page sections) */

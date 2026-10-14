@@ -491,10 +491,12 @@ function compute(registry, input) {
 	// each period) and reg. 8 (a pay cut: the period before it on the salary before it).
 	// For a wage worker the scope is the hours: the earlier period on the current hourly rate times the earlier hours.
 	const fte = base * 100 / jobPct;
-	const rate = payType === 'hourly' ? base / hours : null;
-	const reg7 = hourlyChange ? r2(rate * prevHours) : r2(fte * prevPct / 100);
+	// The hourly wage rate apart from the commission average, which is added to each period (review, PR 128).
+	const comm = payType === 'hourly' && !floored ? commission : 0;
+	const rate = payType === 'hourly' ? (base - comm) / hours : null;
+	const reg7 = hourlyChange ? r2(rate * prevHours + comm) : r2(fte * prevPct / 100);
 	const cut = hourlyChange ? prevHourly !== null && prevHourly > rate : monthlyChange && prevSalary !== null && prevSalary > reg7;
-	const prevBase = !change ? base : cut ? (hourlyChange ? r2(prevHourly * prevHours) : prevSalary) : reg7;
+	const prevBase = !change ? base : cut ? (hourlyChange ? r2(prevHourly * prevHours + comm) : prevSalary) : reg7;
 	const pctNow = payType === 'hourly' ? 100 : jobPct;
 	const periods = change
 		? [{ from: start, to: addDays(changeDate, -1), salary: prevBase, pct: payType === 'hourly' ? (100 * prevHours) / hours : prevPct }, { from: changeDate, to: end, salary: base, pct: pctNow }]

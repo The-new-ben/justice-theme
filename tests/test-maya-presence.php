@@ -418,6 +418,7 @@ foreach ( $topics as $t ) {
 jt_set_page( array( 'id' => 700, 'type' => 'page', 'slug' => 'child-support', 'title' => 'מחשבון מזונות ילדים: הלכת 919/15', 'terms' => array( 'child-support' ) ) );
 $card = justice_cards_render( new WP_Post( 777 ) );
 jt_maya_assert( false !== strpos( $card, 'class="jt-procard jt-procard--house jt-maya-card"' ), 'the house card is not her expert card' );
+jt_maya_assert( false !== strpos( $card, 'class="jt-maya-card__years"><strong>מעל 20</strong> שנות ניסיון' ), 'the card does not lead with over 20 years of experience' );
 jt_maya_assert( false !== strpos( $card, 'data-l="777"' ) && false !== strpos( $card, 'data-card-surface="incontent"' ), 'analytics hooks are gone' );
 jt_maya_assert( false !== strpos( $card, 'jt-procard__wa' ) && false !== strpos( $card, 'jt-procard__profile' ), 'the WhatsApp and profile hooks are gone' );
 jt_maya_assert( false !== strpos( $card, 'https://wa.me/972525101555?text=' ), 'the existing contact path (site WhatsApp intake) is not used' );

@@ -303,6 +303,109 @@ function justice_tools_catalog(): array {
 			'lawyer'    => array( 'label' => 'עורך דין מקרקעין', 'path' => '/real-estate-attorney/' ),
 			'sticky'    => 'מס שבח',
 		),
+		// Family law (HAD-506). Homes are pages without Adv. Maya Rotenberg's reviewed-by line: her line must never look
+		// like a review of a tool she did not review. The lawyer link goes to /family-law/, the family practice page.
+		'mezonot'         => array(
+			'name'        => 'מחשבון מזונות ילדים',
+			'title'       => 'מחשבון מזונות ילדים לפי בע"מ 919/15',
+			'promise'     => 'כמה משלם כל הורה, לפי גילאי הילדים, ההכנסות והלילות; ההוצאות שמתחלקות, הצמדה למדד, הביטוח הלאומי, ומה מזיז את הסכום.',
+			'question'    => 'כמה מזונות משלמים, לפי ההכנסות וזמני השהות?',
+			'page'        => '/child-support/',
+			'category'    => 'LegalApplication',
+			'data'        => array( 'registry_version', 'child_support', 'cpi' ),
+			'dataset'     => 'child_support',
+			'next_text'   => 'הצעד הבא: לתרגל את שיחת הגישור על המזונות, לפני הפגישה ביחידת הסיוע',
+			'primary'     => array( 'label' => 'לתרגל את הגישור על המזונות', 'rehearse' => true ),
+			'rehearse'    => array( 'label' => 'לתרגל את הגישור על המזונות', 'topic' => 'divorce', 'purpose' => 'mediation' ),
+			'more'        => array( array( 'label' => 'הסדרי שהות ותוכנית הורות', 'path' => '/parenting-time-arrangements/' ), array( 'label' => 'מזונות דרך ביטוח לאומי', 'path' => '/bituach-leumi-alimony/' ) ),
+			'lawyer'      => array( 'label' => 'עורך דין לענייני משפחה', 'path' => '/family-law/' ),
+			'sticky'      => 'מזונות',
+			'sticky_kind' => 'range',
+			'modes'       => array(
+				'madad' => array(
+					'name'      => 'מחשבון הצמדה למדד של מזונות',
+					'title'     => 'עדכון מזונות למדד: כמה משלמים היום',
+					'promise'   => 'הסכום שנקבע בפסק הדין או בהסכם, מעודכן לפי מדד המחירים לצרכן כל 3, 6 או 12 חודשים, עם כל עדכון ומועד העדכון הבא.',
+					'question'  => 'כמה מזונות משלמים היום, אחרי ההצמדה למדד?',
+					'page'      => '/tzmidut-mezonot/',
+					'next_text' => 'הצעד הבא: להכניס ליומן את העדכון הבא, ולבדוק שהסכום ששולם מתאים',
+					'primary'   => array( 'label' => 'העדכון הבא ביומן', 'act' => 'ics' ),
+					'more'      => array( array( 'label' => 'מחשבון מזונות ילדים', 'path' => '/child-support/' ), array( 'label' => 'מחשבון הצמדה וריבית לחוב', 'path' => '/hatzmada-madad/' ) ),
+					'sticky'    => 'היום',
+				),
+			),
+		),
+		'izun'            => array(
+			'name'      => 'מחשבון איזון משאבים',
+			'title'     => 'איזון משאבים: מי משלם למי, ולמה',
+			'promise'   => 'דירה, פנסיה, קרן השתלמות, אופציות ו-RSU, קריפטו וחובות: כל נכס נכנס לאיזון או לא, עם הסעיף או פסק הדין, והטווח כשאין נוסחה.',
+			'question'  => 'כמה משלם מי שצבר יותר, באיזון המשאבים?',
+			'page'      => '/resource-balancing/',
+			'category'  => 'LegalApplication',
+			'data'      => array( 'registry_version', 'property_balance' ),
+			'dataset'   => 'property_balance',
+			'next_text' => 'הצעד הבא: לתרגל את הדיון בתביעה הרכושית, מול שופטת וירטואלית',
+			'primary'   => array( 'label' => 'לתרגל את הדיון ברכוש', 'rehearse' => true ),
+			'rehearse'  => array( 'label' => 'לתרגל את הדיון ברכוש', 'topic' => 'family-law', 'purpose' => 'court_rehearsal' ),
+			'more'      => array( array( 'label' => 'חלוקת רכוש בגירושין', 'path' => '/divorce-property-division/' ), array( 'label' => 'עלות הגירושין והמועדים', 'path' => '/opening-divorce-file-rabbinical/' ) ),
+			'lawyer'    => array( 'label' => 'עורך דין לענייני משפחה', 'path' => '/family-law/' ),
+			'sticky'    => 'תשלום איזון',
+			'modes'     => array(
+				'hon' => array(
+					'name'      => 'מחשבון אופציות, RSU וקריפטו בגירושין',
+					'title'     => 'אופציות, RSU וקריפטו בגירושין: כמה מתאזן',
+					'promise'   => 'כלל הזמן לאופציות ול-RSU, מנה אחרי מנה; קריפטו בשני מועדי שווי; והתשלום שיוצא מכל קריאה.',
+					'question'  => 'איך מחלקים אופציות, RSU וקריפטו בגירושין?',
+					'page'      => '/rsu-options-crypto/',
+					'more'      => array( array( 'label' => 'מחשבון איזון משאבים מלא', 'path' => '/resource-balancing/' ), array( 'label' => 'חלוקת רכוש בגירושין', 'path' => '/divorce-property-division/' ) ),
+				),
+			),
+		),
+		'heskem-mamon'    => array(
+			'name'      => 'מחולל הסכם ממון',
+			'title'     => 'טיוטת הסכם ממון: לפי השלב שלכם, עם האישור והעלות',
+			'promise'   => 'הפרדה רכושית, איזון עם חריגים או הסכם מדורג; סעיפי דירה, פנסיה, עסק וירושות; מי מאשר בשלב שלכם וכמה זה עולה. טקסט להעתקה.',
+			'question'  => 'איך כותבים הסכם ממון, ומי מאשר אותו?',
+			'page'      => '/prenuptial-agreement/',
+			'category'  => 'LegalApplication',
+			'data'      => array( 'registry_version', 'prenup' ),
+			'dataset'   => 'prenup',
+			'next_text' => 'הצעד הבא: לתרגל את השיחה על ההסכם ביניכם, לפני הפגישה אצל עורך הדין',
+			'primary'   => array( 'label' => 'העתקת הטיוטה', 'act' => 'copydoc' ),
+			'rehearse'  => array( 'label' => 'לתרגל את השיחה על ההסכם', 'topic' => 'divorce', 'purpose' => 'mediation' ),
+			'more'      => array( array( 'label' => 'הסכם ממון: המדריך המלא', 'path' => '/prenuptial-agreements-overview/' ), array( 'label' => 'איזון משאבים בלי הסכם', 'path' => '/resource-balancing/' ) ),
+			'lawyer'    => array( 'label' => 'עורך דין לענייני משפחה', 'path' => '/family-law/' ),
+			'sticky'    => 'האישור',
+		),
+		'heskem-gerushin' => array(
+			'name'      => 'מחולל הסכם גירושין ותוכנית הורות',
+			'title'     => 'טיוטת הסכם גירושין, עם לוח שהות וחגים',
+			'promise'   => 'ילדים, לוח לינות בשבועיים, חגים לפי הלוח העברי, מזונות מהמחשבון ורכוש מאיזון המשאבים, באותו מסמך, לאישור בית המשפט או בית הדין.',
+			'question'  => 'איך עושים הסכם גירושין, כולל הסדרי שהות?',
+			'page'      => '/divorce-agreement/',
+			'category'  => 'LegalApplication',
+			'data'      => array( 'registry_version', 'divorce_agreement', 'child_support', 'property_balance', 'cpi' ),
+			'dataset'   => 'divorce_agreement',
+			'next_text' => 'הצעד הבא: לתרגל את הגישור על ההסכם, לפני הפגישה ביחידת הסיוע או אצל המגשר',
+			'primary'   => array( 'label' => 'לתרגל את הגישור על ההסכם', 'rehearse' => true ),
+			'rehearse'  => array( 'label' => 'לתרגל את הגישור על ההסכם', 'topic' => 'divorce', 'purpose' => 'mediation' ),
+			'more'      => array( array( 'label' => 'כמה עולה הגירושין', 'path' => '/opening-divorce-file-rabbinical/' ), array( 'label' => 'מחשבון מזונות ילדים', 'path' => '/child-support/' ) ),
+			'lawyer'    => array( 'label' => 'עורך דין לענייני משפחה', 'path' => '/family-law/' ),
+			'sticky'    => 'מזונות בטיוטה',
+			'modes'     => array(
+				'horut' => array(
+					'name'      => 'מחולל תוכנית הורות והסדרי שהות',
+					'title'     => 'הסדרי שהות: לוח שבועיים, חגים והסכם הורות',
+					'promise'   => 'בוחרים הסדר לינות או מסמנים לילה-לילה, מחלקים את החגים לפי הלוח העברי, ומקבלים הסכם הורות לאישור בית המשפט.',
+					'question'  => 'איך בונים הסדרי שהות ותוכנית הורות?',
+					'page'      => '/parenting-time-arrangements/',
+					'next_text' => 'הצעד הבא: לתרגל את השיחה על הסדרי השהות, לפני הפגישה עם המגשר או בבית המשפט',
+					'primary'   => array( 'label' => 'לתרגל את השיחה על הסדרי השהות', 'rehearse' => true ),
+					'more'      => array( array( 'label' => 'מחשבון מזונות ילדים', 'path' => '/child-support/' ), array( 'label' => 'הסכם גירושין מלא', 'path' => '/divorce-agreement/' ) ),
+					'sticky'    => 'לילות',
+				),
+			),
+		),
 	);
 }
 
@@ -532,6 +635,9 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 			. 'לפני תביעה: עד <bdi>' . (int) $ds['meetings_max'] . '</bdi> פגישות ביחידת הסיוע בלי תשלום, ו-<bdi>' . (int) $ds['stay_days'] . '</bdi> ימים שבהם אי אפשר לתבוע. נבדק ' . esc_html( justice_tools_he_date( $d['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
+	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
+		return justice_tools_family_answer( $name, $mode );
+	}
 	if ( 'havraa' === $name && ! empty( $reg['havraa'] ) ) {
 		$hv     = $reg['havraa'];
 		$latest = justice_tools_havraa_latest( $hv );
@@ -614,6 +720,9 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 		$sh = $reg['shevach'] ?? array();
 		return 'תקרת פטור ' . number_format( (float) ( $sh['single']['ceiling'] ?? 0 ) ) . ' ₪ עד ' . justice_tools_he_date( $sh['single']['ceiling_to'] ?? '' ) . ' · נבדק ' . justice_tools_he_date( $sh['checked_on'] ?? '' );
 	}
+	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
+		return justice_tools_family_stamp( $name, $mode );
+	}
 	if ( 'yerusha' === $name ) {
 		$y = $reg['yerusha'] ?? array();
 		return 'חוק הירושה · צו ירושה ' . number_format( (float) ( $y['fees']['order_fee'] ?? 0 ) ) . ' ₪ ב-' . substr( (string) ( $y['fees']['from'] ?? '' ), 0, 4 ) . ' · נבדק ' . justice_tools_he_date( $y['checked_on'] ?? '' );
@@ -663,6 +772,9 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 /** Official sources used by the tool's result (anatomy part H). */
 function justice_tools_sources( string $name ): array {
 	$reg = justice_tools_registry();
+	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
+		return justice_tools_family_sources( $name );
+	}
 	$checked = justice_tools_he_date( $reg['checked_on'] ?? '' );
 	if ( 'chozeh-schirut' === $name ) {
 		$rc      = $reg['rent_contract'];
@@ -849,7 +961,8 @@ function justice_tools_rehearse_url( array $tool ): string {
 	if ( function_exists( 'justice_theme_article_simulation_url' ) ) {
 		return justice_theme_article_simulation_url( $tool['rehearse']['topic'], $tool['rehearse']['purpose'] );
 	}
-	return 'https://jus-tice.com/#/simulation?entry=role&audience=guest&lang=he&purpose=' . rawurlencode( $tool['rehearse']['purpose'] );
+	$topic = (string) ( $tool['rehearse']['topic'] ?? '' );
+	return 'https://jus-tice.com/#/simulation?entry=role&audience=guest&lang=he&purpose=' . rawurlencode( $tool['rehearse']['purpose'] ) . ( '' !== $topic && 'general' !== $topic ? '&topic=' . rawurlencode( $topic ) : '' );
 }
 
 /** The numbered stage bar of a combined tool; each stage is a link to its part of the instrument. */
@@ -1000,7 +1113,7 @@ function justice_tools_shortcode( $atts ): string {
 		. '<div class="jtool-next__more">' . $more . '</div></div></div>'
 		. '<details class="jtool-sources" id="' . esc_attr( $id ) . '-sources"><summary>מקורות (נבדקו ב-' . esc_html( justice_tools_he_date( justice_tools_checked_on( $name ) ) ) . ')</summary>' . justice_tools_sources_html( $name ) . '</details>'
 		. '<p class="jtool-foot">מידע כללי, לא ייעוץ משפטי. מה שהקלדתם לא נשמר אצלנו. החישוב נבנה על ידי צוות Jus-Tice.</p>'
-		. '<div class="jtool-sticky" data-show="0"><span>' . esc_html( $tool['sticky'] ) . '</span><strong data-jtool-sticky-figure>' . ( 'count' === ( $tool['sticky_kind'] ?? '' ) ? '<bdi>' . (int) $snap['total'] . '</bdi>' : ( 'pct' === ( $tool['sticky_kind'] ?? '' ) ? '<bdi>' . esc_html( (string) round( (float) $snap['total'], 2 ) ) . '%</bdi>' : justice_tools_money( $snap['total'], in_array( $name, array( 'tviot-ktanot', 'hetel-hashbacha', 'chozeh-schirut' ), true ) ? 0 : 2 ) ) ) . '</strong><a href="#' . esc_attr( $id ) . '-result">פרטים</a></div>'
+		. '<div class="jtool-sticky" data-show="0"><span>' . esc_html( $tool['sticky'] ) . '</span><strong data-jtool-sticky-figure>' . ( isset( $snap['sticky'] ) ? (string) $snap['sticky'] : ( 'count' === ( $tool['sticky_kind'] ?? '' ) ? '<bdi>' . (int) $snap['total'] . '</bdi>' : ( 'pct' === ( $tool['sticky_kind'] ?? '' ) ? '<bdi>' . esc_html( (string) round( (float) $snap['total'], 2 ) ) . '%</bdi>' : justice_tools_money( $snap['total'], in_array( $name, array( 'tviot-ktanot', 'hetel-hashbacha', 'chozeh-schirut' ), true ) ? 0 : 2 ) ) ) ) . '</strong><a href="#' . esc_attr( $id ) . '-result">פרטים</a></div>'
 		. '</section>'
 		. '<script type="application/json" id="' . esc_attr( $id ) . '-data">' . wp_json_encode( $data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP ) . '</script>'
 		. justice_tools_webapp_schema( $name, $tool );
@@ -1336,6 +1449,9 @@ function justice_tools_numbers_html( string $name ): string {
 	if ( 'mas-shevach' === $name ) {
 		return justice_tools_shevach_numbers_html( $reg['shevach'] );
 	}
+	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
+		return justice_tools_family_numbers_html( $name );
+	}
 	if ( 'gerushin' === $name ) {
 		return justice_tools_gerushin_numbers_html( $reg['divorce_cost'] );
 	}
@@ -1414,7 +1530,7 @@ function justice_tools_numbers_html( string $name ): string {
 
 /** Comparison table (page standard A6). */
 function justice_tools_compare_html( string $name ): string {
-	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach' ), true ) ) {
+	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		$snap = justice_tools_snapshot( $name );
 		return '<div class="jtool-page">' . ( $snap['compare_table'] ?? '' ) . '</div>';
 	}
@@ -1496,17 +1612,34 @@ function justice_tools_section_shortcode( $atts ): string {
 			return '<div class="jtool-page jtool-sources-list">' . justice_tools_sources_html( $name ) . '</div>';
 		case 'updated':
 			return '<p class="jtool-updated">הנתונים בעמוד נבדקו מול המקורות הרשמיים ב-' . esc_html( justice_tools_he_date( justice_tools_checked_on( $name ) ) ) . '.</p>';
+		case 'nii':
+			// The National Insurance table of the child-support tool (HAD-506), for /bituach-leumi-alimony/.
+			return 'mezonot' === $name ? justice_tools_family_nii_html() : '';
+		case 'needs':
+			return 'mezonot' === $name ? justice_tools_family_needs_html() : '';
 	}
 	return '';
 }
 add_shortcode( 'justice_tool_section', 'justice_tools_section_shortcode' );
+
+/** Whether a tool page is published; true where WordPress cannot tell (tests, CLI). */
+function justice_tools_page_live( string $path ): bool {
+	if ( ! function_exists( 'get_page_by_path' ) ) {
+		return true;
+	}
+	$post = get_page_by_path( trim( $path, '/' ), OBJECT, array( 'page', 'post', 'articles' ) );
+	return $post && 'publish' === $post->post_status;
+}
 
 /** [justice_tools_index]: hub cards (design-spec B11) with each tool's question and data stamp. */
 function justice_tools_index_shortcode(): string {
 	$cards = '';
 	foreach ( justice_tools_catalog() as $name => $tool ) {
 		foreach ( array_merge( array( '' ), array_keys( $tool['modes'] ?? array() ) ) as $mode ) {
-			$t      = justice_tools_tool( $name, $mode );
+			$t = justice_tools_tool( $name, $mode );
+			if ( '' !== $mode && ! justice_tools_page_live( (string) $t['page'] ) ) {
+				continue; // A mode whose own page is not published yet (HAD-506: /tzmidut-mezonot/, /rsu-options-crypto/).
+			}
 			$cards .= '<a class="jtool-card" href="' . esc_url( home_url( $t['page'] ) ) . '"><strong>' . esc_html( $t['name'] ) . '</strong><span>' . esc_html( $t['question'] ) . '</span><small>' . esc_html( justice_tools_stamp( $name, $mode ) ) . '</small></a>';
 		}
 	}
@@ -1551,3 +1684,6 @@ function justice_tools_article_opens_with_tool( int $post_id ): bool {
 	}
 	return ! ( function_exists( 'justice_theme_article_reviewer_expert_only' ) && null !== justice_theme_article_reviewer_expert_only( $post_id ) );
 }
+
+// Family law (HAD-506): answer boxes, stamps, sources and page tables of the four family tools.
+require_once __DIR__ . '/justice-tools-family.php';

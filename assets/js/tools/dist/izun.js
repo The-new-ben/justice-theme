@@ -1084,6 +1084,9 @@ function mount(root, reg) {
 		if (act === 'print') {
 			track('tool_download', { tool_id: TOOL_ID, type: 'print' });
 			window.print();
+		} else if ((act === 'link' || act === 'save') && !r.ok) {
+			// A link or a saved copy of answers the tool rejects would come back as different answers (review, PR 130).
+			toast(root, 'יש שדה שצריך לתקן. תקנו אותו, ואז אפשר לשתף או לשמור.');
 		} else if (act === 'link') {
 			const ok = await copyText(link);
 			toast(root, ok ? 'הקישור הועתק. יש בו רק תאריכים וסכומים, בלי שמות.' : link);

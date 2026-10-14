@@ -68,7 +68,8 @@ export function minWageOn(mw, day) {
 /**
  * input = { payType ('monthly'|'hourly'), salary, hourly, hours, jobPct, start, end, reason ('fired'|'resign'|one of
  *           RESIGN_CODES), s14 ('none'|'full'|'partial'|'custom'), s14Pct, s14From, noticeDate, noticeMode
- *           ('worked'|'paid'|'none') }
+ *           ('worked'|'paid'|'none'), change (monthly pay only: the job scope or the pay changed once), changeDate,
+ *           prevPct (the scope before), prevSalary (the pay before, when it was cut), manyChanges (more than one) }
  */
 export function compute(registry, input) {
 	const sv = registry.severance;
@@ -100,6 +101,17 @@ export function compute(registry, input) {
 	if (s14 === 'custom' && !(s14Pct > 0 && s14Pct <= 100)) { errors.push({ field: 's14Pct', he: 'שיעור הכיסוי לפי ההסכם: 1% עד 100%' }); }
 	const s14From = s14 === 'none' || blank(input.s14From) ? start : parseDate(input.s14From);
 	if (s14 !== 'none' && !blank(input.s14From) && !s14From) { errors.push({ field: 's14From', he: 'תחילת ההפרשות לפי סעיף 14: תאריך מלא' }); }
+	// One change of scope or pay (calculation regulations 7 and 8): each period on its own salary. More than one change is
+	// not computed (review, PR 128).
+	const change = payType === 'monthly' && Boolean(input.change);
+	const changeDate = change ? parseDate(input.changeDate) : null;
+	const prevPct = change && !blank(input.prevPct) ? Number(input.prevPct) : jobPct;
+	const prevSalary = change && !blank(input.prevSalary) ? Number(input.prevSalary) : null;
+	if (change && input.manyChanges) { errors.push({ field: 'change', he: 'יותר משינוי אחד בהיקף המשרה או בשכר: כל תקופה מחושבת לפי ההיקף והשכר שלה (תקנות 7 ו-8 לתקנות החישוב). המחשבון מחשב שינוי אחד בלבד; את החישוב לכמה תקופות עושים לפי התלושים, עם עורך דין או רואה חשבון.' }); }
+	if (change && !changeDate) { errors.push({ field: 'changeDate', he: 'מאיזה יום חל השינוי: תאריך מלא' }); }
+	if (change && changeDate && start && end && (changeDate <= start || changeDate > end)) { errors.push({ field: 'changeDate', he: 'יום השינוי אחרי יום התחילה ועד היום האחרון' }); }
+	if (change && !(prevPct > 0 && prevPct <= 100)) { errors.push({ field: 'prevPct', he: 'היקף המשרה לפני השינוי: 1% עד 100%' }); }
+	if (change && prevSalary !== null && !(prevSalary > 0 && prevSalary < 1e7)) { errors.push({ field: 'prevSalary', he: 'השכר לפני השינוי: מספר חיובי או ריק' }); }
 	const noticeDate = blank(input.noticeDate) ? null : parseDate(input.noticeDate);
 	if (!blank(input.noticeDate) && !noticeDate) { errors.push({ field: 'noticeDate', he: 'יום מסירת ההודעה: תאריך מלא' }); }
 	if (noticeDate && end && start && (noticeDate > end || noticeDate < start)) { errors.push({ field: 'noticeDate', he: 'ההודעה ניתנה בין יום התחילה ליום העבודה האחרון' }); }
@@ -129,7 +141,19 @@ export function compute(registry, input) {
 	const nearYear = !yearOk && span.months >= sv.min_months - 2 && reason === 'fired';
 	const conditional = nearYear;
 	const entitled = (yearOk || nearYear) && entitledByReason;
-	const severance = entitled ? r2(base * span.years) : 0;
+	// The periods of work and the salary of each: reg. 7 (a change of scope: the last salary, proportional to the scope of
+	// each period) and reg. 8 (a pay cut: the period before it on the salary before it).
+	const fte = base * 100 / jobPct;
+	const reg7 = r2(fte * prevPct / 100);
+	const cut = change && prevSalary !== null && prevSalary > reg7;
+	const prevBase = change ? (cut ? prevSalary : reg7) : base;
+	const periods = change
+		? [{ from: start, to: addDays(changeDate, -1), salary: prevBase, pct: prevPct }, { from: changeDate, to: end, salary: base, pct: jobPct }]
+		: [{ from: start, to: end, salary: base, pct: jobPct }];
+	const yearsOf = (a, b) => (a > b ? 0 : serviceSpan(a, b).years);
+	const sevFrom = (from) => periods.reduce((t, p) => t + p.salary * yearsOf(from > p.from ? from : p.from, p.to), 0);
+	const severance = entitled ? r2(sevFrom(start)) : 0;
+	if (change) { add('info', 'change', `חושב לפי שתי תקופות (${cut ? 'תקנה 8: הפחתת שכר' : 'תקנה 7: שינוי בהיקף המשרה'}): עד ${heDay(periods[0].to)} לפי ${Math.round(prevBase).toLocaleString('en-US')} ₪ לחודש (${prevPct}% משרה), ומ-${heDay(changeDate)} לפי ${Math.round(base).toLocaleString('en-US')} ₪ (${jobPct}% משרה).`, cut ? 'תקנה 8' : 'תקנה 7'); }
 	if (!yearOk && !nearYear) { add('bad', 'under_year', `עבדתם פחות משנה (${span.months} חודשים ו-${span.days} ימים): אין זכות לפיצויי פיטורים לפי החוק (סעיף 1(א)). ההודעה המוקדמת מגיעה בכל מקרה.`, 'סעיף 1(א)'); }
 	if (nearYear) { add('warn', 'near_year', `פוטרתם אחרי ${span.months} חודשים, סמוך לסוף השנה הראשונה: חזקה שהפיטורים נעשו כדי לחמוק מפיצויים, והם לא פוגעים בזכות אלא אם המעסיק יוכיח אחרת (סעיף 3). הסכום כאן יחסי לתקופה שעבדתם.`, 'סעיף 3'); }
 	if (reason === 'resign') { add('info', 'resign', 'בהתפטרות רגילה אין זכות לפיצויים מהמעסיק. כספים שהופרשו לפיצויים לפי סעיף 14 שייכים לכם גם בהתפטרות.', 'סעיף 14'); }
@@ -142,7 +166,11 @@ export function compute(registry, input) {
 		const from = s14From > start ? s14From : start;
 		coveredYears = from > end ? 0 : serviceSpan(from, end).years;
 	}
-	const fundReplaces = entitled ? r2(base * coveredYears * s14Pct / 100) : 0;
+	// The severance for the period of the deposits, on the law's salary; the fund replaces s14Pct of it. What the fund
+	// actually holds (deposits on each month's pay, plus returns) is not known here and is never shown as an amount
+	// (review, PR 128).
+	const coveredSev = s14 !== 'none' && entitled ? r2(sevFrom(s14From > start ? s14From : start)) : 0;
+	const fundReplaces = entitled ? r2(coveredSev * s14Pct / 100) : 0;
 	// Without a right to severance the fund is still the worker's; its balance is unknown here, never zero (review, PR 128).
 	const fundUnknown = !entitled && s14 !== 'none';
 	const employer = r2(severance - fundReplaces);
@@ -170,12 +198,15 @@ export function compute(registry, input) {
 	// Tax: one month's last salary per year, never above the ceiling per year (s.9(7א)(א)).
 	// The ceiling is the one of the tax year of the grant: the registry holds 2025-2027 (frozen at 13,750); for an end of
 	// work in another year the tool gives no tax split (review, PR 128).
+	// With s.14 the grant is the fund's balance plus the completion, so only the exempt ceiling is known (taxNote 'fund').
 	const tax = sv.tax;
 	const taxKnown = end >= tax.from && end <= tax.to;
 	const perYear = Math.min(base, tax.ceiling);
-	const exemptCap = taxKnown ? r2(perYear * span.years) : null;
-	const exempt = taxKnown ? Math.min(severance, exemptCap) : null;
-	const taxable = taxKnown ? r2(severance - exempt) : null;
+	const withFund = entitled && s14 !== 'none';
+	const exemptCap = taxKnown ? r2(periods.reduce((t, p) => t + Math.min(p.salary, tax.ceiling) * yearsOf(p.from, p.to), 0)) : null;
+	const exempt = !taxKnown ? null : withFund ? exemptCap : Math.min(severance, exemptCap);
+	const taxable = !taxKnown || withFund ? null : r2(severance - exempt);
+	const taxNote = !taxKnown ? 'year' : withFund ? 'fund' : '';
 	const ceilingTotal = taxKnown ? r2(tax.ceiling * span.years) : null;
 	if (!taxKnown && severance > 0) { add('info', 'tax_year', `תקרת הפטור ממס נקבעת לפי שנת המס שבה משולם המענק. במחשבון יש את התקרה של ${tax.from.slice(0, 4)} עד ${tax.to.slice(0, 4)} (${tax.ceiling.toLocaleString('en-US')} ₪ לשנת עבודה); לסיום עבודה ב-${end.slice(0, 4)} בדקו את התקרה בלוח העזר של רשות המסים לאותה שנה. החלק הפטור לא חושב.`, tax.section); }
 	if (taxKnown && taxable > 0 && base < tax.ceiling) { add('info', 'commissioner', `מעל משכורת חודש לכל שנה, פקיד השומה רשאי לפטור עוד, עד ${tax.ceiling.toLocaleString('en-US')} ₪ לכל שנת עבודה (${ceilingTotal.toLocaleString('en-US')} ₪ אצלכם).`, tax.section); }
@@ -192,7 +223,8 @@ export function compute(registry, input) {
 
 	return {
 		ok: true, payType, monthly, base, floored, hourly, hours, jobPct, start, end, span, reason, reasonRow, entitled, yearOk, conditional,
-		severance, s14, s14Pct, s14From, coveredYears, fundReplaces, fundUnknown, employer,
+		severance, s14, s14Pct, s14From, coveredYears, coveredSev, fundReplaces, fundUnknown, employer,
+		change, changeDate, prevPct, prevSalary, prevBase, cut, periods, taxNote,
 		notice, workedToNotice, noticeDate, noticeEnd, short, inLieu, noticeMode,
 		exempt, taxable, exemptCap, ceilingTotal, perYear, deadlines, flags, mwRow,
 	};
@@ -203,7 +235,7 @@ export function byArrangement(registry, input) {
 	const out = {};
 	for (const k of ['none', 'partial', 'full']) {
 		const r = compute(registry, Object.assign({}, input, { s14: k, s14From: '' }));
-		out[k] = r.ok ? { employer: r.employer, fund: r.fundReplaces, total: r.severance } : null;
+		out[k] = r.ok ? { employer: r.employer, pct: r.s14Pct, total: r.severance } : null;
 	}
 	return out;
 }

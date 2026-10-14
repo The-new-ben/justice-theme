@@ -814,7 +814,7 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const span = PE.serviceSpan('2018-03-01', '2026-09-30');
 	check(span.months === 103 && span.days === 0 && near(span.years, 103 / 12, 1e-9), '1.3.2018 to 30.9.2026 is 8 years and 7 months (103 months)');
 	const ex = PE.compute(reg, PEUI.EXAMPLE);
-	check(ex.ok && ex.severance === 103000 && ex.fundReplaces === 74160 && ex.employer === 28840 && ex.notice.month && ex.exempt === 103000 && ex.taxable === 0, 'example: 12,000 x 8 7/12 = 103,000; s.14 on 72%: the fund replaces 74,160, the employer adds 28,840; a month notice; all exempt');
+	check(ex.ok && ex.severance === 103000 && ex.coveredSev === 103000 && ex.fundReplaces === 74160 && ex.employer === 28840 && ex.notice.month && ex.exempt === 103000 && ex.taxable === null && ex.taxNote === 'fund', 'example: 12,000 x 8 7/12 = 103,000; s.14 on 72%: the fund stands for 72%, the employer adds 28,840; a month notice; exempt up to 103,000 (the taxable part depends on the fund)');
 	check(PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'none' })).employer === 103000 && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'full' })).employer === 0, 'no s.14: the employer pays 103,000; s.14 at 100%: the fund replaces it all');
 	const from20 = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14From: '2020-01-01' }));
 	check(near(from20.coveredYears, 6.75, 1e-9) && from20.fundReplaces === 58320 && from20.employer === 44680, 's.14 from 1.1.2020 only: 6.75 years x 12,000 x 72% = 58,320 replaced, 44,680 from the employer');
@@ -988,6 +988,29 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	const oldHtml = PEUI.renderResult(reg, old) + PEUI.renderDetails(reg, old) + PEUI.verdictSentence(reg, old);
 	check(old.ok && old.exempt === null && old.taxable === null && old.flags.some((f) => f.code === 'tax_year') && oldHtml.includes('לא חושב') && !/NaN|null|undefined/.test(oldHtml), 'a dismissal in 2023: no tax split with the 2025-2027 ceiling, said plainly (review, PR 128)');
 	check(PE.compute(reg, PEUI.EXAMPLE).exempt === 103000 && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { end: '2027-12-31' })).exempt !== null && PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { end: '2028-01-01' })).exempt === null, 'the ceiling applies to an end of work from 1.1.2025 to 31.12.2027 only');
+}
+
+/* ---------- Review fixes (PR 128, Codex pass 5) ---------- */
+{
+	// Calculation regulations 7 and 8: one change of scope or pay, each period on its own salary.
+	const up = PE.compute(reg, { salary: 10000, start: '2024-07-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevPct: 50 });
+	check(up.ok && up.severance === 12500 && up.flags.some((f) => f.code === 'change' && f.section === 'תקנה 7'), 'six months at 50% then a year full-time at 10,000: 12,500, not 15,000 (reg. 7; review, PR 128)');
+	const down = PE.compute(reg, { salary: 5000, jobPct: 50, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevPct: 100 });
+	check(down.ok && down.severance === 15000 && down.prevBase === 10000 && down.exempt === 15000, 'a year full-time then a year at 50% on 5,000: the full-time year on the full-time salary, 15,000 (reg. 7; the exempt ceiling per s.9(7א)(ד))');
+	const cutPay = PE.compute(reg, { salary: 8000, start: '2024-01-01', end: '2025-12-31', reason: 'fired', change: true, changeDate: '2025-01-01', prevSalary: 10000 });
+	check(cutPay.ok && cutPay.cut && cutPay.severance === 18000 && cutPay.flags.some((f) => f.code === 'change' && f.section === 'תקנה 8'), 'a pay cut from 10,000 to 8,000: the year before it on 10,000 (reg. 8)');
+	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { change: true, changeDate: '2022-01-01', prevPct: 50, manyChanges: true })).ok && PEUI.renderForm(reg, PEUI.EXAMPLE).includes('id="jt13-change-e"') && PEUI.renderForm(reg, PEUI.EXAMPLE).includes('name="jt13-chg"'), 'more than one change is refused, on its own error line');
+	check(!PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { change: true, changeDate: '2017-01-01' })).ok && !PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { change: true, changeDate: '' })).ok, 'the change day must fall inside the work');
+	check(PE.compute(reg, { payType: 'hourly', hourly: 50, hours: 160, start: '2020-01-01', end: '2025-12-31', change: true, changeDate: '2022-01-01', prevPct: 50 }).change === false, 'the change block is for a monthly salary only');
+	const same = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'none', change: true, changeDate: '2022-01-01', prevPct: 100 }));
+	check(same.severance === 103000, 'a "change" with the same scope and no pay cut gives the plain result');
+	// Section 14: the fund's balance is unknown and never shown as an amount (review, PR 128).
+	const ex = PE.compute(reg, PEUI.EXAMPLE);
+	const html = PEUI.renderResult(reg, ex) + PEUI.renderDetails(reg, ex) + PEUI.verdictSentence(reg, ex);
+	const ltr = PEUI.letter(reg, ex);
+	check(!html.includes('74,160') && !ltr.includes('74,160') && html.includes('מה שנצבר') && ltr.includes('כל הכספים שנצברו לפיצויים') && ltr.includes('28,840'), 'with s.14 the fund is "what accumulated", never a computed amount; the letter asks to release it all and pay the 28,840 completion');
+	const full = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { s14: 'full' }));
+	check(full.employer === 0 && !PEUI.letter(reg, full).includes('מגיעים לי פיצויי פיטורים של') && PEUI.renderDetails(reg, full).includes('תלוי במה שנצבר בקופה'), 'full s.14: the employer owes 0, and the tax line depends on the fund');
 }
 
 if (failures) {

@@ -1188,6 +1188,15 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!SH.compute(reg, SHUI.EXAMPLE).flags.some((f) => f.code === 'surtax'), 'a dwelling under the price line: no surtax warning');
 }
 
+/* ---------- Review fixes (PR 128, Codex pass 20) ---------- */
+{
+	const worse = PE.compute(reg, Object.assign({}, PEUI.EXAMPLE, { reason: 'worse', groundOk: true, s14: 'none' }));
+	const arr = PE.byArrangement(reg, { payType: worse.payType, salary: worse.monthly, start: worse.start, end: worse.end, reason: worse.reason, groundOk: worse.groundOk });
+	check(worse.entitled && arr.none.employer === 103000 && PEUI.renderDetails(reg, worse).includes('103,000'), 'the three-arrangements cards keep a confirmed ground: the employer pays 103,000 without s.14 (review, PR 128)');
+	const near = PE.compute(reg, { salary: 10000, start: '2025-01-01', end: '2025-09-30', reason: 'fired', nearClaim: true });
+	check(near.nearClaim && PE.byArrangement(reg, { salary: 10000, start: '2025-01-01', end: '2025-09-30', reason: 'fired', nearClaim: near.nearClaim }).none.employer === 7500, 'and a claimed s.3 dismissal');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

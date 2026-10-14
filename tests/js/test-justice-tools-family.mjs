@@ -395,6 +395,16 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(!IZ.computeBalance(reg, IZUI.toInput(IZUI.modelOf(decodeState(`#s=${IZUI.stateOf(badTr)}`, izKeys)))).ok, 'a rejected tranche count stays rejected after a shared link');
 }
 
+/* ---------- Review fixes (PR 130, Codex pass 15) ---------- */
+{
+	const noUnits = IZ.computeBalance(reg, { marriage: '2015-01-01', breakDate: '2022-07-01', items: [], options: [{ owner: 'a', units: '', price: 100, strike: 0, grant: '2020-01-01', vestStart: '2020-01-01', vestEnd: '2024-01-01', tranches: 4 }] });
+	check(!noUnits.ok && noUnits.errors.some((e) => e.field === 'opt-0-units'), 'an option with a price and dates but no units: an error, never dropped');
+	const cryNoUnits = IZ.computeBalance(reg, { marriage: '2015-01-01', breakDate: '2022-07-01', items: [], crypto: [{ owner: 'b', units: '', priceBreak: 60000, priceToday: 100000 }] });
+	check(!cryNoUnits.ok, 'crypto prices with no units: an error, never dropped');
+	const w = (timing, wedding) => MM.draftMamon(reg, { timing, route: timing === 'during' ? 'court' : 'notary', regime: 'separate', wedding, today: '2026-10-14' }).ok;
+	check(!w('during', '2027-05-12') && w('during', '2019-06-20') && !w('before', '2019-06-20') && w('before', '2027-05-12'), 'the wedding date fits the stage: past after the wedding, future before it');
+}
+
 /* ---------- The server snapshots: the same renderers, the sticky figure, no <h2> in a card ---------- */
 for (const [name, ui] of [['mezonot', MZUI], ['izun', IZUI], ['heskem-mamon', MMUI], ['heskem-gerushin', HKUI]]) {
 	const s = ui.snapshot(reg);

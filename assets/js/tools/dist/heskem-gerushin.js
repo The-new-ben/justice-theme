@@ -782,7 +782,7 @@ function computeBalance(registry, input) {
 		if (fEntered(it.atMarriage) && fEntered(it.value) && Number(it.atMarriage) > Number(it.value)) { errors.push({ field: `item-${i}-atMarriage`, he: 'הסכום ביום הנישואין גבוה מהשווי היום' }); }
 		if (fEntered(it.activeGain) && !(Number(it.activeGain) >= 0 && Number(it.activeGain) <= fVal(it.value))) { errors.push({ field: `item-${i}-activeGain`, he: 'עליית הערך האקטיבית: בין 0 לשווי הנכס' }); }
 	});
-	const opts = (input.options || []).filter((g) => g && fEntered(g.units));
+	const opts = (input.options || []).filter((g) => g && ['units', 'price', 'grant', 'vestStart', 'vestEnd', 'tranches'].some((f) => fEntered(g[f])));
 	opts.forEach((g, i) => {
 		for (const f of ['units', 'price', 'strike', 'tranches']) {
 			if (fEntered(g[f]) && !(Number(g[f]) >= 0 && Number(g[f]) < 1e11)) { errors.push({ field: `opt-${i}-${f}`, he: 'מספר חיובי' }); }
@@ -795,8 +795,9 @@ function computeBalance(registry, input) {
 		if (!['a', 'b'].includes(g.owner)) { errors.push({ field: `opt-${i}-owner`, he: 'למי הוענקו' }); }
 		if (fEntered(g.tranches) && !(Number.isInteger(Number(g.tranches)) && Number(g.tranches) >= 1 && Number(g.tranches) <= 120)) { errors.push({ field: `opt-${i}-tranches`, he: 'מספר המנות: מספר שלם, 1 ומעלה' }); }
 		if (!fEntered(g.price)) { errors.push({ field: `opt-${i}-price`, he: 'מחיר ליחידה היום: בלי מחיר אי אפשר להעריך את האופציות' }); }
+		if (!fEntered(g.units)) { errors.push({ field: `opt-${i}-units`, he: 'כמה יחידות הוענקו' }); }
 	});
-	const cry = (input.crypto || []).filter((c) => c && fEntered(c.units));
+	const cry = (input.crypto || []).filter((c) => c && ['units', 'priceBreak', 'priceToday'].some((f) => fEntered(c[f])));
 	cry.forEach((c, i) => {
 		for (const f of ['units', 'priceBreak', 'priceToday']) {
 			if (!(fEntered(c[f]) && Number(c[f]) >= 0 && Number(c[f]) < 1e11)) { errors.push({ field: `cry-${i}-${f}`, he: 'מספר חיובי' }); }
@@ -1568,7 +1569,7 @@ function mount(root, reg) {
 	const sticky = root.querySelector('[data-jtool-sticky-figure]');
 	const da = reg.divorce_agreement;
 	const today = ilToday();
-	const saveKey = `jtool-${TOOL_ID}`;
+	const saveKey = `jtool-${TOOL_ID}${root.getAttribute('data-jtool-mode') === 'horut' ? '-horut' : ''}`;
 	const only = root.getAttribute('data-jtool-mode') === 'horut';
 	let model = { onlyPlan: only, from: today, custom: [] };
 	let started = false;
@@ -1607,6 +1608,7 @@ function mount(root, reg) {
 	const fromHash = modelOf(decodeState(window.location.hash, KEYS));
 	if (fromHash) {
 		fromHash.from = today;
+		fromHash.onlyPlan = only;
 		form.innerHTML = renderForm(reg, fromHash);
 		const note = root.querySelector('[data-jtool-shared]');
 		if (note) { note.hidden = false; }
@@ -1677,7 +1679,7 @@ function mount(root, reg) {
 			toast(root, 'נשמר במכשיר הזה בלבד, בלי שמות.');
 		} else if (act === 'restore') {
 			const s = modelOf(decodeState(store.get(saveKey) || '', KEYS));
-			if (s) { s.from = today; form.innerHTML = renderForm(reg, s); run(s); }
+			if (s) { s.from = today; s.onlyPlan = only; form.innerHTML = renderForm(reg, s); run(s); }
 		} else if (act === 'clear') {
 			store.clear(saveKey);
 			toast(root, 'נמחק מהמכשיר.');

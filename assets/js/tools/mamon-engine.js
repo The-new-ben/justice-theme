@@ -76,6 +76,9 @@ export function draftMamon(registry, input) {
 	if (['a', 'b'].includes(input.home) && !(Number.isInteger(residence) && residence >= 0 && residence <= 36)) { errors.push({ field: 'residenceMonths', he: 'חודשי מגורים אחרי פרידה: 0 עד 36' }); }
 	if (fEntered(input.copies) && !(Number.isInteger(Number(input.copies)) && Number(input.copies) >= 1 && Number(input.copies) <= 50)) { errors.push({ field: 'copies', he: 'מספר עותקים: מספר שלם, 1 ומעלה' }); }
 	if (fEntered(input.wedding) && !fIsIso(input.wedding)) { errors.push({ field: 'wedding', he: 'תאריך החתונה לא תקין. לדוגמה: 12.5.2027' }); }
+	const today = fIsIso(input.today) ? input.today : pn.checked_on;
+	if (fIsIso(input.wedding) && timing === 'during' && input.wedding > today) { errors.push({ field: 'wedding', he: 'תאריך החתונה בעתיד, אבל בחרתם "אחרי הנישואין"' }); }
+	if (fIsIso(input.wedding) && timing === 'before' && input.wedding < today) { errors.push({ field: 'wedding', he: 'תאריך החתונה כבר עבר, אבל בחרתם "לפני הנישואין"' }); }
 	for (const [k, list] of [['assetsA', input.assetsA], ['assetsB', input.assetsB]]) {
 		(list || []).forEach((x, i) => { if (x && fEntered(x.value) && !(Number(x.value) >= 0 && Number(x.value) < 1e11)) { errors.push({ field: `${k}-${i}`, he: 'שווי: מספר חיובי' }); } });
 	}

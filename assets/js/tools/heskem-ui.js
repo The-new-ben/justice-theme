@@ -232,7 +232,7 @@ export function mount(root, reg) {
 	const sticky = root.querySelector('[data-jtool-sticky-figure]');
 	const da = reg.divorce_agreement;
 	const today = ilToday();
-	const saveKey = `jtool-${TOOL_ID}`;
+	const saveKey = `jtool-${TOOL_ID}${root.getAttribute('data-jtool-mode') === 'horut' ? '-horut' : ''}`;
 	const only = root.getAttribute('data-jtool-mode') === 'horut';
 	let model = { onlyPlan: only, from: today, custom: [] };
 	let started = false;
@@ -271,6 +271,7 @@ export function mount(root, reg) {
 	const fromHash = modelOf(decodeState(window.location.hash, KEYS));
 	if (fromHash) {
 		fromHash.from = today;
+		fromHash.onlyPlan = only;
 		form.innerHTML = renderForm(reg, fromHash);
 		const note = root.querySelector('[data-jtool-shared]');
 		if (note) { note.hidden = false; }
@@ -341,7 +342,7 @@ export function mount(root, reg) {
 			toast(root, 'נשמר במכשיר הזה בלבד, בלי שמות.');
 		} else if (act === 'restore') {
 			const s = modelOf(decodeState(store.get(saveKey) || '', KEYS));
-			if (s) { s.from = today; form.innerHTML = renderForm(reg, s); run(s); }
+			if (s) { s.from = today; s.onlyPlan = only; form.innerHTML = renderForm(reg, s); run(s); }
 		} else if (act === 'clear') {
 			store.clear(saveKey);
 			toast(root, 'נמחק מהמכשיר.');

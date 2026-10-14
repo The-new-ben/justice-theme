@@ -971,7 +971,7 @@ const ov = (v) => (v === '' || v === undefined || v === null ? -1 : v);
 const stateOf = (m) => encodeState({
 	m: m.marriage, k: m.breakDate, f: m.filed, s: m.apart, q: m.before1974 ? 1 : '', t: m.method === 'time' ? '' : m.method, c: m.cryptoAt === 'today' ? '' : 'b',
 	h: [[m.home.value || 0, m.home.mortgage || 0], [{ joint: 0, a: 1, b: 2 }[m.home.owner] || 0, { '': 0, premarital: 1, gift: 2, inheritance: 3 }[m.home.source] || 0], [m.home.activeGain || 0, 0]],
-	a: COLS.map((k) => [m.a[k][0] || 0, ov(m.a[k][1])]), b: COLS.map((k) => [m.b[k][0] || 0, ov(m.b[k][1])]),
+	a: COLS.map((k) => [ov(m.a[k][0]), ov(m.a[k][1])]), b: COLS.map((k) => [ov(m.b[k][0]), ov(m.b[k][1])]),
 	o: m.options.length ? [[{ a: 1, b: 2 }[m.options[0].owner] || 1, m.options[0].units], [ov(m.options[0].price), m.options[0].strike || 0], [(m.options[0].grant || '').replace(/-/g, ''), (m.options[0].vestStart || '').replace(/-/g, '')], [(m.options[0].vestEnd || '').replace(/-/g, ''), m.options[0].tranches || 1]] : '',
 	x: m.crypto.length ? [[{ a: 1, b: 2 }[m.crypto[0].owner] || 2, m.crypto[0].units], [ov(m.crypto[0].priceBreak), ov(m.crypto[0].priceToday)], [m.crypto[0].where === 'wallet' ? 1 : 0, 0]] : '',
 	e: m.others.length ? m.others.map((x) => [`${{ a: 1, b: 2, joint: 3 }[x.owner] || 1}${['savings', 'home', 'car', 'business', 'other', 'debt'].indexOf(x.kind) + 1}${['', 'premarital', 'gift', 'inheritance', 'nii', 'agreed'].indexOf(x.exclude || '')}`, x.value || 0]) : '',
@@ -984,7 +984,7 @@ function modelOf(s) {
 	const num = (x) => (x === undefined || x === '' || x === '0' ? '' : Number(x));
 	const h = pairs(s.h);
 	const zo = (x) => (x === undefined || x === '' || x === '-1' ? '' : Number(x));
-	const side = (txt) => { const p = pairs(txt); return Object.fromEntries(COLS.map((k, i) => [k, [num((p[i] || [])[0]), zo((p[i] || [])[1])]])); };
+	const side = (txt) => { const p = pairs(txt); return Object.fromEntries(COLS.map((k, i) => [k, [zo((p[i] || [])[0]), zo((p[i] || [])[1])]])); };
 	const o = s.o ? pairs(s.o) : null;
 	const x = s.x ? pairs(s.x) : null;
 	return {

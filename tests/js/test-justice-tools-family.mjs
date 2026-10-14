@@ -298,6 +298,10 @@ check(pn.routes.notary.fee === 446 && pn.routes.notary.fee_copy === 74 && pn.vat
 	check(nii(['2016-01-01', 'bad']).ok === false && nii(['2030-01-01']).ok === false, 'a bad or future birth date in the NII mode is an input error');
 	const half = IZ.computeBalance(reg, { marriage: '2010-01-01', breakDate: '2025-01-01', items: [{ kind: 'pension', owner: 'a', value: '', atMarriage: 50000 }] });
 	check(!half.ok && half.errors.some((e) => e.field === 'item-0-value'), 'a wedding-day amount with no value today: an error, never a zero pension');
+	const izKeys5 = ['m', 'k', 'f', 's', 'q', 't', 'c', 'h', 'a', 'b', 'o', 'x', 'e'];
+	const zz = Object.assign({}, IZUI.EXAMPLE, { a: Object.assign({}, IZUI.EXAMPLE.a, { severance: [0, 0] }) });
+	const zzBack = IZUI.modelOf(decodeState(`#s=${IZUI.stateOf(zz)}`, izKeys5));
+	check(zzBack.a.severance[0] === 0 && zzBack.a.severance[1] === 0 && IZ.computeBalance(reg, IZUI.toInput(zzBack)).ok, 'balance link: a 0 value today with a 0 on the wedding day survives and still computes (Codex pass 5)');
 }
 
 /* ---------- The server snapshots: the same renderers, the sticky figure, no <h2> in a card ---------- */

@@ -259,7 +259,9 @@ export function mount(root, reg) {
 		clearTimeout(timer);
 		timer = setTimeout(() => { timer = null; run(rerender ? m : readModel(root)); }, 160);
 	};
-	const fromHash = modelOf(decodeState(window.location.hash, KEYS));
+	// HAD-541: a share link names its tool (/@heskem-mamon); on a page with several tools only that tool reads it.
+	const shareOwner = (/\/@([a-z-]+)$/.exec(window.location.hash) || [])[1];
+	const fromHash = !shareOwner || shareOwner === 'heskem-mamon' ? modelOf(decodeState(window.location.hash, KEYS)) : null;
 	if (fromHash) {
 		form.innerHTML = renderForm(reg, fromHash);
 		const note = root.querySelector('[data-jtool-shared]');
@@ -289,7 +291,7 @@ export function mount(root, reg) {
 		if (timer) { clearTimeout(timer); timer = null; }
 		const m = readModel(root);
 		const d = run(m, { silent: true });
-		const link = shareUrl(stateOf(m));
+		const link = `${shareUrl(stateOf(m))}/@heskem-mamon`;
 		if (act === 'copydoc' && d.ok) {
 			const ok = await copyText(`${d.text}\n\nטיוטה שנבנתה ב-jus-tice.co.il לפי חוק יחסי ממון בין בני זוג (${isoToHe(pn.checked_on)}). זו טיוטה כללית, לא ייעוץ משפטי; לפני חתימה, עורך דין צריך לעבור עליה.`);
 			toast(root, ok ? 'הטיוטה הועתקה. הדביקו אותה במסמך ועברו עליה עם עורך דין.' : 'לא הצלחנו להעתיק. אפשר לסמן את הטקסט ולהעתיק ידנית.');

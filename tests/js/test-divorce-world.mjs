@@ -208,6 +208,19 @@ const near = (a, b, eps = 0.011) => Math.abs(a - b) <= eps;
 	check(s.tool === 'mapat-gerushin' && s.total === 1725 && s.result.includes('jt22-rail') && (s.result.match(/jt22-st__box/g) || []).length === 18 && s.result.includes('jt22-st--done') && s.details.includes('המועדים שבחוק') && s.compare_table.includes('בהסכמה') && s.compare_table.includes('2,910'), 'snapshot: the example route at 1,725 in fees, 18 stations with one ticked, the clock, the three routes compared');
 }
 
+// HAD-541: on the command center a share link names its tool (/@name). decodeState ignores that segment, so the named
+// tool reads its own keys unchanged; every sharing tool on the page appends its name and reads only its own links.
+{
+	check(JSON.stringify(decodeState('#s=r1/fr/k1/@mapat-gerushin', ['r', 'f', 'k'])) === JSON.stringify({ r: '1', f: 'r', k: '1' }), 'share link: the /@tool segment is ignored by the decoder');
+	const owners = { 'gerushin-ui.js': 'gerushin', 'mezonot-ui.js': 'mezonot', 'izun-ui.js': 'izun', 'heskem-ui.js': 'heskem-gerushin', 'mamon-ui.js': 'heskem-mamon', 'mapat-ui.js': 'mapat-gerushin', 'luach-ui.js': 'luach-shahut' };
+	for (const [file, tool] of Object.entries(owners)) {
+		const src = readFileSync(join(ROOT, 'assets/js/tools', file), 'utf8');
+		check(src.includes(`/@${tool}\`;`) && src.includes(`shareOwner === '${tool}'`), `share link: ${file} names ${tool} and reads only its own links`);
+	}
+	const cmd = readFileSync(join(ROOT, 'assets/js/tools/dist/jt-command.js'), 'utf8');
+	check(cmd.includes(String.raw`/\/@([a-z-]+)$/`), 'the tab script opens the tab the share link names');
+}
+
 if (failures) {
 	console.error(`divorce world: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

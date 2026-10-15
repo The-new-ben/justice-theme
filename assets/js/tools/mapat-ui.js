@@ -189,7 +189,9 @@ export function mount(root, reg) {
 		clearTimeout(timer);
 		timer = setTimeout(() => { timer = null; run(readForm(root, done)); }, 160);
 	};
-	const fromHash = inputOf(decodeState(window.location.hash, KEYS));
+	// HAD-541: a share link names its tool (/@mapat-gerushin); on a page with several tools only that tool reads it.
+	const shareOwner = (/\/@([a-z-]+)$/.exec(window.location.hash) || [])[1];
+	const fromHash = !shareOwner || shareOwner === 'mapat-gerushin' ? inputOf(decodeState(window.location.hash, KEYS)) : null;
 	const saved = fromHash ? null : inputOf(decodeState(store.get(saveKey) || '', KEYS));
 	const initial = fromHash || saved;
 	if (initial) {
@@ -225,7 +227,7 @@ export function mount(root, reg) {
 		if (timer) { clearTimeout(timer); timer = null; }
 		const input = readForm(root, done);
 		const r = run(input, { silent: true });
-		const link = shareUrl(stateOf(input));
+		const link = `${shareUrl(stateOf(input))}/@mapat-gerushin`;
 		if (act === 'ics' && r.ok && r.clock) {
 			const c = r.clock;
 			download('gerushin-map.ics', 'text/calendar;charset=utf-8', ics([{ date: c.meetingsBy, summary: 'גירושין: סוף פגישות המהו"ת ביחידת הסיוע' }, { date: c.stayEnds, summary: 'גירושין: סוף עיכוב ההליכים' }, { date: c.claimsBy, summary: 'גירושין: סוף החלון שבו רק מגיש הבקשה תובע' }], new Date().toISOString()));

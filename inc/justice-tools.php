@@ -1107,6 +1107,10 @@ function justice_tools_early_enqueue(): void {
 			}
 		}
 	}
+	// The divorce command center (HAD-541) prints eight instruments from one shortcode: their bundles and the tab script.
+	if ( has_shortcode( (string) $post->post_content, 'justice_tools_command' ) ) {
+		justice_tools_command_enqueue();
+	}
 	if ( has_shortcode( (string) $post->post_content, 'justice_tools_index' ) || has_shortcode( (string) $post->post_content, 'justice_tool_section' ) ) {
 		$css = JUSTICE_THEME_DIR . '/assets/css/justice-tools.css';
 		wp_enqueue_style( 'justice-tools', JUSTICE_THEME_URI . '/assets/css/justice-tools.css', array(), is_readable( $css ) ? (string) filemtime( $css ) : JUSTICE_THEME_VERSION );

@@ -798,3 +798,34 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jt20-d--a, .jt21-bar__paid, .jt22-bar i, .jt-world-map__n { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 	.jt21-store, .jt-world-map { display: none !important; }
 }
+
+/* The divorce command center (HAD-541): eight tools behind one tab bar, and the tool map at the top as one row of chips.
+   Palette: the instrument's navy family (#0E2E4F, #14477D) and the apps' teal (#0B6470) on white and #F2F7FB; type:
+   the tools' Assistant/Heebo. The server prints every panel and hides all but the first, so the bar and the open panel
+   never move when jt-command.js arrives. */
+.jt-cmd { direction: rtl; margin: 16px 0 32px; font-family: var(--jtool-font, 'Assistant', 'Heebo', system-ui, sans-serif); }
+.jt-cmd__bar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 0 0 16px; padding: 10px; border: 1px solid #D9E3EC; border-radius: 14px; background: #F2F7FB; }
+.jt-cmd__tab { display: flex; align-items: center; gap: 8px; min-height: 48px; margin: 0; padding: 8px 10px; border: 1px solid #D9E3EC; border-radius: 10px; background: #FFFFFF; color: #0E2E4F; font: 700 0.9375rem/1.25 var(--jtool-font, 'Assistant', 'Heebo', system-ui, sans-serif); text-align: start; cursor: pointer; box-shadow: none; }
+.jt-cmd__tab:hover { border-color: #14477D; background: #FFFFFF; color: #0E2E4F; }
+.jt-cmd__tab:focus-visible { outline: 3px solid #1866B4; outline-offset: 2px; }
+.jt-cmd__tab[aria-selected="true"] { border-color: #0E2E4F; background: #0E2E4F; color: #FFFFFF; }
+.jt-cmd__n { flex: 0 0 26px; display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: #0E2E4F; color: #FFFFFF; font-size: 0.8125rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.jt-cmd__tab--app .jt-cmd__n { background: #0B6470; }
+.jt-cmd__tab[aria-selected="true"] .jt-cmd__n { background: #FFFFFF; color: #0E2E4F; }
+.jt-cmd__label { min-width: 0; overflow-wrap: anywhere; }
+.jt-cmd__panel[hidden] { display: none !important; }
+.jt-cmd__panel > .jt-cmd__lead { margin: 0 0 12px !important; padding: 0 12px 0 0; border-inline-start: 3px solid #14477D; color: #1E2A36; font-size: 1rem; line-height: 1.6; }
+.jt-cmd__panel > .jtool, .jt-cmd__panel > .jtool-answer { margin-top: 0; }
+.jt-fees .jtool-datatable caption, .jt-compare .jtool-datatable caption { white-space: normal; overflow-wrap: anywhere; max-width: 100%; }
+.jt-fees .jtool-datatable th:first-child { width: 34%; }
+.jt-world-map--chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px; }
+.jt-world-map--chips .jt-world-map__card { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 10px; border-inline-start-width: 1px; border-radius: 999px; box-shadow: none; }
+.jt-world-map--chips .jt-world-map__n { width: 24px; height: 24px; font-size: 0.8125rem; }
+.jt-world-map--chips .jt-world-map__card strong { font-size: 0.9375rem; }
+@media (max-width: 860px) {
+	.jt-cmd__bar { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 8px; }
+	.jt-cmd__tab { min-height: 44px; font-size: 0.875rem; }
+}
+@media print {
+	.jt-cmd__bar { display: none; }
+}

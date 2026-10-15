@@ -118,3 +118,74 @@ function justice_tools_world_numbers_html( string $name ): string {
 	$snap = justice_tools_snapshot( $name );
 	return isset( $snap['compare_table'] ) ? '<div class="jtool-page">' . (string) $snap['compare_table'] . '</div>' : '';
 }
+
+/**
+ * The divorce command center (HAD-541): the eight instruments of /divorce-lawyer/ in ONE block with a tab bar, so the
+ * tools stop filling most of the page (Ben, 15.10.2026: "group it"). Order = the order people search in: the cost, the
+ * child support, the property, the agreements, then the three apps that run the months after.
+ * Each entry: the tool, its mode, whether its answer box prints above it, the tab label and a one-paragraph lead.
+ */
+function justice_tools_command_divorce_set(): array {
+	return array(
+		array( 'name' => 'gerushin', 'mode' => 'lawyer', 'answer' => '0', 'tab' => 'עלות עורך דין', 'lead' => 'התעריף המינימלי של לשכת עורכי הדין לכל שירות, האגרות לפי הערכאה והמסלול שלכם, ומע״מ. זו הרצפה, לא המחיר שמשרד יגבה; הטווחים שמשרדים מפרסמים מופיעים בפרק המחירים, והפירוט המלא ב<a href="/divorce-costs-2025/">עלויות גירושין ושכר טרחה</a>.' ),
+		array( 'name' => 'mezonot', 'mode' => '', 'answer' => '1', 'tab' => 'מזונות ילדים', 'lead' => 'לפי בע״מ 919/15: גילאי הילדים, הכנסת כל הורה, הדיור ומספר הלילות אצל כל אחד. התוצאה היא טווח, כי שתי שיטות חישוב מקובלות בבתי המשפט נותנות סכומים שונים, והכלי מסביר את ההבדל. המדריך: <a href="/child-support/">מזונות ילדים</a>.' ),
+		array( 'name' => 'izun', 'mode' => '', 'answer' => '1', 'tab' => 'איזון משאבים', 'lead' => 'כל נכס נכנס לאיזון או יוצא ממנו עם הסעיף שלו בחוק יחסי ממון: דירה, פנסיה, קרן השתלמות, אופציות ו-RSU, קריפטו וחובות. התוצאה: מי משלם למי וכמה. המדריך: <a href="/resource-balancing/">איזון משאבים</a>.' ),
+		array( 'name' => 'heskem-gerushin', 'mode' => '', 'answer' => '0', 'tab' => 'הסכם גירושין', 'lead' => 'טיוטה של שבעת הפרקים שהסכם גירושין סוגר, מאותם נתונים שהקלדתם במזונות ובאיזון, עם לוח לינות וחגים. טקסט לעריכה, לא תחליף לבדיקה של עורך דין לכל צד. איך מאשרים ובכמה: <a href="/divorce-agreement/">הסכם גירושין</a>.' ),
+		array( 'name' => 'heskem-mamon', 'mode' => '', 'answer' => '0', 'tab' => 'הסכם ממון', 'lead' => 'לפני החתונה, במהלך הנישואין או כידועים בציבור: מה מפרידים, ומי מאשר את ההסכם ובכמה, נוטריון, רושם הנישואין, בית המשפט או בית הדין. המדריך: <a href="/prenuptial-agreements-overview/">הסכם ממון</a>.' ),
+		array( 'name' => 'mapat-gerushin', 'mode' => '', 'answer' => '1', 'tab' => 'מפת הדרכים', 'lead' => 'בוחרים מסלול וערכאה ומקבלים את כל התחנות, מההכנה ועד אחרי פסק הדין, עם האגרה והתאריך שהחוק קובע לכל אחת. מסמנים מה בוצע, וההתקדמות נשמרת רק בדפדפן שלכם. הצעד הראשון במחלוקת: <a href="/request-for-family-dispute-settlements/">בקשה ליישוב סכסוך</a>.' ),
+		array( 'name' => 'luach-shahut', 'mode' => '', 'answer' => '1', 'tab' => 'לוח זמני שהות', 'lead' => '2-2-3, שבוע-שבוע, 5-2-2-5 או לילה-לילה: שבועיים של לילות, כמה מעברים בין הבתים כל תבנית גוזרת על הילדים, ושנה שלמה עם החגים לפי הלוח העברי, כקובץ יומן וכנספח להסכם. המדריך: <a href="/parenting-time-arrangements/">הסדרי שהות</a>.' ),
+		array( 'name' => 'maakav-mezonot', 'mode' => '', 'answer' => '1', 'tab' => 'מעקב תשלומים', 'lead' => 'רושמים את פסק הדין ואת מה ששולם בפועל; האפליקציה מחשבת הצמדה למדד ופיגורים עם ריבית ליום הנוכחי ומנסחת מכתב דרישה. הכול נשמר רק אצלכם. כשזה לא עוזר: <a href="/bituach-leumi-alimony/">תשלום מזונות דרך ביטוח לאומי</a>.' ),
+	);
+}
+
+/** Enqueue the stylesheet, the eight bundles and the tab script in the head (the early enqueue calls this). */
+function justice_tools_command_enqueue(): void {
+	foreach ( justice_tools_command_divorce_set() as $entry ) {
+		justice_tools_enqueue( $entry['name'] );
+	}
+	$js = JUSTICE_THEME_DIR . '/assets/js/tools/dist/jt-command.js';
+	if ( is_readable( $js ) ) {
+		wp_enqueue_script( 'justice-tools-command', JUSTICE_THEME_URI . '/assets/js/tools/dist/jt-command.js', array(), (string) filemtime( $js ), true );
+	}
+}
+
+/**
+ * [justice_tools_command]: the tab bar and the eight panels, all server-rendered. The first panel is open and the
+ * others carry `hidden`, so nothing moves when the script arrives and every instrument (and its WebApplication block)
+ * is in the HTML. Tabs are <button role="tab">; assets/js/tools/dist/jt-command.js switches them (click, arrow keys,
+ * Home/End) and opens the tab of any #jtool-<name> anchor: the tool map at the top, the roadmap's links, a share link.
+ * A tool the catalog does not hold, or one already printed in this render pass, is left out with its tab.
+ */
+function justice_tools_command_shortcode( $atts = array() ): string {
+	$catalog = justice_tools_catalog();
+	$tabs    = '';
+	$panels  = '';
+	$n       = 0;
+	foreach ( justice_tools_command_divorce_set() as $entry ) {
+		$name = $entry['name'];
+		if ( ! isset( $catalog[ $name ] ) ) {
+			continue;
+		}
+		$tool = justice_tools_shortcode( array( 'name' => $name, 'mode' => $entry['mode'], 'answer' => $entry['answer'] ) );
+		if ( '' === $tool ) {
+			continue;
+		}
+		$n++;
+		$open    = 1 === $n;
+		$app     = in_array( $name, justice_tools_world_names(), true );
+		$tab_id  = 'jt-cmd-tab-' . $name;
+		$pane_id = 'jt-cmd-panel-' . $name;
+		$tabs   .= '<button type="button" class="jt-cmd__tab' . ( $app ? ' jt-cmd__tab--app' : '' ) . '" role="tab" id="' . esc_attr( $tab_id ) . '" aria-controls="' . esc_attr( $pane_id ) . '" aria-selected="' . ( $open ? 'true' : 'false' ) . '" tabindex="' . ( $open ? '0' : '-1' ) . '" data-jt-cmd-tab="' . esc_attr( $name ) . '">'
+			. '<span class="jt-cmd__n" aria-hidden="true">' . $n . '</span><span class="jt-cmd__label">' . esc_html( $entry['tab'] ) . '</span></button>';
+		$panels .= '<div class="jt-cmd__panel" role="tabpanel" id="' . esc_attr( $pane_id ) . '" aria-labelledby="' . esc_attr( $tab_id ) . '" data-jt-cmd-panel="' . esc_attr( $name ) . '"' . ( $open ? '' : ' hidden' ) . '>'
+			. '<p class="jt-cmd__lead">' . $entry['lead'] . '</p>' . $tool . '</div>';
+	}
+	if ( 0 === $n ) {
+		return '';
+	}
+	justice_tools_command_enqueue();
+	return '<div class="jt-cmd" data-jt-cmd><div class="jt-cmd__bar" role="tablist" aria-label="מרכז הפיקוד של הגירושין: ' . $n . ' כלים">' . $tabs . '</div>' . $panels . '</div>';
+}
+if ( function_exists( 'add_shortcode' ) ) {
+	add_shortcode( 'justice_tools_command', 'justice_tools_command_shortcode' );
+}

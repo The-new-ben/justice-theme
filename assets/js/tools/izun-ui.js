@@ -408,7 +408,9 @@ export function mount(root, reg) {
 		clearTimeout(timer);
 		timer = setTimeout(() => { timer = null; run(readModel(root)); }, 180);
 	};
-	const fromHash = modelOf(decodeState(window.location.hash, KEYS));
+	// HAD-541: a share link names its tool (/@izun); on a page with several tools only that tool reads it.
+	const shareOwner = (/\/@([a-z-]+)$/.exec(window.location.hash) || [])[1];
+	const fromHash = !shareOwner || shareOwner === 'izun' ? modelOf(decodeState(window.location.hash, KEYS)) : null;
 	if (fromHash) {
 		form.innerHTML = renderForm(reg, fromHash);
 		const note = root.querySelector('[data-jtool-shared]');
@@ -438,7 +440,7 @@ export function mount(root, reg) {
 		if (timer) { clearTimeout(timer); timer = null; }
 		const m = readModel(root);
 		const r = run(m, { silent: true });
-		const link = shareUrl(stateOf(m));
+		const link = `${shareUrl(stateOf(m))}/@izun`;
 		if (act === 'print') {
 			track('tool_download', { tool_id: TOOL_ID, type: 'print' });
 			window.print();

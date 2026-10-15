@@ -795,7 +795,9 @@ function mount(root, reg) {
 		clearTimeout(timer);
 		timer = setTimeout(() => { timer = null; run(readForm(root)); }, 160);
 	};
-	const fromHash = inputOf(decodeState(window.location.hash, KEYS));
+	// HAD-541: a share link names its tool (/@gerushin); on a page with several tools only that tool reads it.
+	const shareOwner = (/\/@([a-z-]+)$/.exec(window.location.hash) || [])[1];
+	const fromHash = !shareOwner || shareOwner === 'gerushin' ? inputOf(decodeState(window.location.hash, KEYS)) : null;
 	if (fromHash) {
 		form.innerHTML = renderForm(reg, fromHash);
 		const note = root.querySelector('[data-jtool-shared]');
@@ -812,7 +814,7 @@ function mount(root, reg) {
 		if (timer) { clearTimeout(timer); timer = null; }
 		const input = readForm(root);
 		const r = run(input, { silent: true }); // fresh, and the screen shows the same result
-		const link = shareUrl(stateOf(input));
+		const link = `${shareUrl(stateOf(input))}/@gerushin`;
 		if (act === 'ics' && r.ok && r.clock) {
 			download('gerushin.ics', 'text/calendar;charset=utf-8', ics(deadlines(reg, r).map((d) => ({ date: d.date, summary: `גירושין: ${d.what}` })), new Date().toISOString()));
 			track('tool_download', { tool_id: TOOL_ID, type: 'ics' });

@@ -204,7 +204,9 @@ export function mount(root, reg) {
 		clearTimeout(timer);
 		timer = setTimeout(() => { timer = null; run(readForm(root, custom)); }, 160);
 	};
-	const fromHash = modelOf(decodeState(window.location.hash, KEYS));
+	// HAD-541: a share link names its tool (/@luach-shahut); on a page with several tools only that tool reads it.
+	const shareOwner = (/\/@([a-z-]+)$/.exec(window.location.hash) || [])[1];
+	const fromHash = !shareOwner || shareOwner === 'luach-shahut' ? modelOf(decodeState(window.location.hash, KEYS)) : null;
 	if (fromHash) {
 		custom = fromHash.custom.slice();
 		form.innerHTML = renderForm(reg, fromHash);
@@ -242,7 +244,7 @@ export function mount(root, reg) {
 		if (timer) { clearTimeout(timer); timer = null; }
 		const m = readForm(root, custom);
 		const r = run(m, { silent: true });
-		const link = shareUrl(stateOf(m));
+		const link = `${shareUrl(stateOf(m))}/@luach-shahut`;
 		if (act === 'ics' && r.ok) {
 			download('luach-shahut.ics', 'text/calendar;charset=utf-8', ics(r.events, new Date().toISOString()));
 			track('tool_download', { tool_id: TOOL_ID, type: 'ics' });

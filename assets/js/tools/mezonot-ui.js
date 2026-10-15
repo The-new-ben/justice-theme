@@ -420,7 +420,9 @@ export function mount(root, reg) {
 	};
 	// A live page: today is the day of the estimate. The mode the page asked for opens first.
 	const startMode = root.getAttribute('data-jtool-mode') === 'madad' ? 'madad' : 'calc';
-	const fromHash = modelOf(decodeState(window.location.hash, KEYS));
+	// HAD-541: a share link names its tool (/@mezonot); on a page with several tools only that tool reads it.
+	const shareOwner = (/\/@([a-z-]+)$/.exec(window.location.hash) || [])[1];
+	const fromHash = !shareOwner || shareOwner === 'mezonot' ? modelOf(decodeState(window.location.hash, KEYS)) : null;
 	if (fromHash) {
 		fromHash.asOf = today;
 		form.innerHTML = renderForm(reg, fromHash);
@@ -464,7 +466,7 @@ export function mount(root, reg) {
 		if (timer) { clearTimeout(timer); timer = null; }
 		const m = readModel(root, model);
 		const r = run(m, { silent: true });
-		const link = shareUrl(stateOf(m));
+		const link = `${shareUrl(stateOf(m))}/@mezonot`;
 		const sentence = m.mode === 'madad' ? madadSentence(r) : m.mode === 'nii' ? (r.ok === false ? (r.key === 'none' ? 'לפי מה שסימנתם, אין תשלום מהביטוח הלאומי.' : '') : `הביטוח הלאומי משלם עד ${nis(r.table)} לחודש (${r.row.he}).`) : verdictSentence(reg, r, m);
 		if (act === 'ics' && m.mode === 'madad' && r.ok) {
 			download('mezonot-madad.ics', 'text/calendar;charset=utf-8', ics([{ date: r.next, summary: 'מזונות: עדכון הסכום למדד', description: `הסכום עכשיו ${money(r.current, 2)} ש"ח. חשבו מחדש ב-jus-tice.co.il.` }], new Date().toISOString()));

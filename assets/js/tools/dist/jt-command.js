@@ -7,7 +7,8 @@
  *   - a click on a tab, or the arrow keys / Home / End on the bar (RTL: ArrowLeft is the next tab);
  *   - any link or address hash that points inside a closed panel (#jtool-mezonot, #jtool-izun-sources, the tool map
  *     at the top of the page, the roadmap's links to other tools) opens that panel first;
- *   - a share link (#s=...) opens the panel whose tool loaded the shared answers.
+ *   - a share link opens the panel of the tool it names (#s=.../@mezonot), and only that tool reads it; an older
+ *     link without a name opens the first tool that loaded it.
  * The instruments boot on their own, hidden or not; nothing here talks to them.
  */
 (function () {
@@ -70,9 +71,14 @@
 			var hash = decodeURIComponent(window.location.hash.slice(1));
 			if (!hash) { return; }
 			if (hash.indexOf('s=') === 0) {
-				// A share link: the tool that loaded it shows its "opened from a share link" line.
-				var shared = root.querySelector('[data-jtool-shared]:not([hidden])');
-				var at = shared ? panels.indexOf(shared.closest('[role="tabpanel"]')) : -1;
+				// A share link names its tool (#s=.../@mezonot, HAD-541) and only that tool reads it: open its tab.
+				// An older link without the name: the first tool that shows its "opened from a share link" line.
+				var owner = /\/@([a-z-]+)$/.exec(hash);
+				var at = owner ? tabs.map(function (tab) { return tab.getAttribute('data-jt-cmd-tab'); }).indexOf(owner[1]) : -1;
+				if (at < 0 && !owner) {
+					var shared = root.querySelector('[data-jtool-shared]:not([hidden])');
+					at = shared ? panels.indexOf(shared.closest('[role="tabpanel"]')) : -1;
+				}
 				if (at >= 0) { select(at, false); }
 				return;
 			}

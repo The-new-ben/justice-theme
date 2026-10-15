@@ -74,50 +74,63 @@ export function mkTrack(registry, input) {
 	payments.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
 
 	const flags = [];
+	// An instalment is late from the day after its due day: due today is not yet arrears.
 	const rows = mkDueDays(input.first, asOf).map((due) => {
 		const a = mkAmountOn(registry, amount, input.base, every, due);
 		if (a.stale) { flags.push({ code: 'index', he: `המדד הדרוש לעדכון של ${mkIsoHe(a.update)} עוד לא בסדרה: הסכום הוצג בלי העדכון הזה.` }); }
-		return { due, amount: a.amount, update: a.update, factor: a.factor, paid: 0, open: a.amount, late: due < asOf };
+		return { due, amount: a.amount, update: a.update, factor: a.factor, paid: 0, onTime: 0, later: [], open: a.amount, late: due < asOf, linkage: 0, interest: 0, total: a.amount };
 	});
-	// Oldest open instalment first.
-	let pool = 0;
-	for (const p of payments) { pool = fR2(pool + p.amount); }
-	let unallocated = pool;
-	for (const r of rows) {
-		if (unallocated <= 0) { break; }
-		const take = Math.min(unallocated, r.open);
-		r.paid = fR2(r.paid + take);
-		r.open = fR2(r.open - take);
-		unallocated = fR2(unallocated - take);
+	// Payments oldest first, each to the oldest instalment still open, keeping its own day: paid on or before the due
+	// day it reduces the principal before any interest runs; paid later it goes into that instalment's running balance
+	// on the day it was paid, so the days in between carry linkage and interest (Codex review, PR 137).
+	let unallocated = 0;
+	for (const p of payments) {
+		let left = p.amount;
+		for (const r of rows) {
+			if (left <= 0) { break; }
+			if (r.open <= 0) { continue; }
+			const take = Math.min(left, r.open);
+			r.open = fR2(r.open - take);
+			r.paid = fR2(r.paid + take);
+			left = fR2(left - take);
+			if (p.date <= r.due) { r.onTime = fR2(r.onTime + take); } else { r.later.push({ date: p.date, amount: take }); }
+		}
+		unallocated = fR2(unallocated + left);
 	}
-	// Arrears: linkage and linked interest from each due day to asOf (the law from 1.1.2025).
+	// Arrears: linkage and linked interest on what was still owed after the due day, from that day to asOf, with the
+	// late payments applied on their days (the law from 1.1.2025; the wave-1 engine).
 	const regime = registry.interest.regime_start;
 	let oldLaw = false;
 	let ratesMissing = false;
 	for (const r of rows) {
-		r.linkage = 0; r.interest = 0; r.total = r.open;
-		if (!(r.open > 0) || r.due >= asOf) { continue; }
-		const x = compute(registry, { principal: r.open, start: r.due, end: asOf, mode: 'linked' });
+		const principal = fR2(r.amount - r.onTime);
+		r.total = r.open;
+		if (!r.late || principal <= 0) { continue; }
+		const x = compute(registry, { principal, start: r.due, end: asOf, mode: 'linked', payments: r.later });
 		if (x.ok) {
 			r.linkage = fR2(x.linkage || 0);
 			r.interest = fR2(x.interest || 0);
-			r.total = fR2(x.total);
+			r.total = fR2(Math.max(0, x.total));
 			if (r.due < regime) { oldLaw = true; }
 		} else {
 			ratesMissing = true;
 		}
 	}
+	const late = rows.filter((r) => r.late);
 	const totals = {
 		due: fR2(rows.reduce((s, r) => s + r.amount, 0)),
 		paid: fR2(rows.reduce((s, r) => s + r.paid, 0)),
-		open: fR2(rows.reduce((s, r) => s + r.open, 0)),
-		linkage: fR2(rows.reduce((s, r) => s + r.linkage, 0)),
-		interest: fR2(rows.reduce((s, r) => s + r.interest, 0)),
-		total: fR2(rows.reduce((s, r) => s + (r.open > 0 ? r.total : 0), 0)),
+		open: fR2(late.reduce((s, r) => s + r.open, 0)),
+		upcoming: fR2(rows.filter((r) => !r.late).reduce((s, r) => s + r.open, 0)),
+		linkage: fR2(late.reduce((s, r) => s + r.linkage, 0)),
+		interest: fR2(late.reduce((s, r) => s + r.interest, 0)),
+		total: fR2(late.reduce((s, r) => s + r.total, 0)),
 		credit: unallocated,
-		openCount: rows.filter((r) => r.open > 0 && r.late).length,
+		openCount: late.filter((r) => r.open > 0).length,
+		lateCount: late.filter((r) => r.open <= 0 && r.total > 0).length,
 	};
 	if (unallocated > 0) { flags.push({ code: 'credit', he: `שולם ${mkMoney(unallocated)} ₪ יותר מהמגיע עד היום: יתרת זכות לתשלום הבא.` }); }
+	if (totals.upcoming > 0 && totals.open <= 0) { flags.push({ code: 'today', he: `תשלום של ${mkMoney(totals.upcoming)} ₪ מגיע היום: עוד לא בפיגור.` }); }
 	if (oldLaw) { flags.push({ code: 'old_law', he: 'תשלומים שמועדם לפני 1.1.2025: לימים האלה חל הנוסח הקודם של חוק פסיקת ריבית והצמדה, והכלי מחשב להם הצמדה בלבד.' }); }
 	if (ratesMissing) { flags.push({ code: 'rates', he: 'לחלק מהתשלומים לא חושבו הצמדה וריבית: שיעורי הריבית ידועים רק עד סוף הרבעון האחרון שפרסם החשב הכללי.' }); }
 	// The next update of the amount.
@@ -143,6 +156,7 @@ export function mkLetter(registry, r) {
 	if (!r.ok) { return ''; }
 	const cs = registry.child_support;
 	const open = r.rows.filter((x) => x.open > 0 && x.late);
+	const paidLate = r.rows.filter((x) => x.late && x.open <= 0 && x.total > 0);
 	const to = r.meta.debtor || '_______________';
 	const from = r.meta.creditor || '_______________';
 	const file = r.meta.file ? ` (${r.meta.file})` : '';
@@ -158,6 +172,9 @@ export function mkLetter(registry, r) {
 	];
 	for (const x of open) {
 		lines.push(`   - מועד ${mkIsoHe(x.due)}: מגיע ${mkMoney(x.amount)} ₪${x.paid ? `, שולם ${mkMoney(x.paid)} ₪` : ''}, חסר ${mkMoney(x.open)} ₪; בצירוף הפרשי הצמדה וריבית עד ${mkIsoHe(r.asOf)}: ${mkMoney(x.total)} ₪.`);
+	}
+	if (paidLate.length) {
+		lines.push(`   - תשלומים ששולמו באיחור (${paidLate.map((x) => mkIsoHe(x.due)).join(', ')}): הפרשי הצמדה וריבית על ימי האיחור: ${mkMoney(paidLate.reduce((s, x) => s + x.total, 0))} ₪.`);
 	}
 	lines.push(
 		`3. סך החוב ליום ${mkIsoHe(r.asOf)}: ${mkMoney(r.totals.open)} ₪ קרן, ובצירוף הפרשי הצמדה וריבית לפי חוק פסיקת ריבית והצמדה, התשכ"א-1961: ${mkMoney(r.totals.total)} ₪.`,

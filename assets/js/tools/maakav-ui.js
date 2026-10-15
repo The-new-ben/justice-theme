@@ -58,8 +58,8 @@ export function ledger(r) {
 		const [y, mm] = x.due.split('-').map(Number);
 		const paidW = Math.round((x.paid / max) * 100);
 		const openW = Math.round((x.open / max) * 100);
-		const state = !x.late ? 'מועד עתידי' : x.open > 0 ? (x.paid > 0 ? 'שולם חלקית' : 'לא שולם') : 'שולם';
-		return `<div class="jt21-bar${x.open > 0 && x.late ? ' jt21-bar--open' : ''}" role="img" aria-label="${esc(MK_MONTHS[mm - 1])} ${y}: ${esc(state)}, מגיע ${esc(nis(x.amount))}, שולם ${esc(nis(x.paid))}"><span class="jt21-bar__m">${esc(MK_MONTHS[mm - 1].slice(0, 3))} <bdi>${String(y).slice(2)}</bdi></span><span class="jt21-bar__track"><i class="jt21-bar__paid" style="width:${paidW}%"></i><b class="jt21-bar__open" style="width:${openW}%"></b></span><span class="jt21-bar__v">${x.open > 0 ? ils(x.open, 0) : '✓'}</span></div>`;
+		const state = !x.late ? (x.due === r.asOf ? 'מגיע היום' : 'מועד עתידי') : x.open > 0 ? (x.paid > 0 ? 'שולם חלקית' : 'לא שולם') : x.total > 0 ? 'שולם באיחור' : 'שולם';
+		return `<div class="jt21-bar${x.open > 0 && x.late ? ' jt21-bar--open' : ''}" role="img" aria-label="${esc(MK_MONTHS[mm - 1])} ${y}: ${esc(state)}, מגיע ${esc(nis(x.amount))}, שולם ${esc(nis(x.paid))}"><span class="jt21-bar__m">${esc(MK_MONTHS[mm - 1].slice(0, 3))} <bdi>${String(y).slice(2)}</bdi></span><span class="jt21-bar__track"><i class="jt21-bar__paid" style="width:${paidW}%"></i><b class="jt21-bar__open" style="width:${x.late ? openW : 0}%"></b></span><span class="jt21-bar__v">${x.open > 0 && x.late ? ils(x.open, 0) : !x.late ? 'היום' : '✓'}</span></div>`;
 	}).join('');
 	return `<figure class="jt21-ledger"><p class="jt21-ledger__h">חודש אחרי חודש: מה שולם ומה פתוח</p>${bars}<figcaption><span><i class="jt21-k jt21-k--paid"></i>שולם</span> <span><i class="jt21-k jt21-k--open"></i>פתוח</span></figcaption></figure>`;
 }
@@ -67,15 +67,17 @@ export function ledger(r) {
 export function verdictSentence(reg, r) {
 	if (!r.ok) { return ''; }
 	const t = r.totals;
-	if (!(t.open > 0)) { return `כל ${r.rows.length} התשלומים עד ${isoToHe(r.asOf)} שולמו במלואם${t.credit > 0 ? `, ויש יתרת זכות של ${nis(t.credit)}` : ''}. הסכום החודשי היום: ${nis(r.current)}${r.next ? `; העדכון הבא למדד ב-${isoToHe(r.next)}` : ''}.`; }
-	return `${t.openCount} תשלומים פתוחים מתוך ${r.rows.length} עד ${isoToHe(r.asOf)}: קרן ${nis(t.open)}, הפרשי הצמדה ${nis(t.linkage)} וריבית ${nis(t.interest)}, סך הכול ${nis(t.total)}. הסכום החודשי היום: ${nis(r.current)}${r.next ? `; העדכון הבא למדד ב-${isoToHe(r.next)}` : ''}.`;
+	const tail = `הסכום החודשי היום: ${nis(r.current)}${r.next ? `; העדכון הבא למדד ב-${isoToHe(r.next)}` : ''}.`;
+	if (!(t.total > 0)) { return `כל ${r.rows.filter((x) => x.late).length} התשלומים שמועדם עבר עד ${isoToHe(r.asOf)} שולמו במלואם ובזמן${t.upcoming > 0 ? `; ${nis(t.upcoming)} מגיעים היום` : ''}${t.credit > 0 ? `, ויש יתרת זכות של ${nis(t.credit)}` : ''}. ${tail}`; }
+	if (!(t.open > 0)) { return `הקרן שולמה, אבל ${t.lateCount} תשלומים שולמו באיחור ונותרו עליהם הפרשי הצמדה וריבית: ${nis(t.total)} ליום ${isoToHe(r.asOf)}. ${tail}`; }
+	return `${t.openCount} תשלומים פתוחים מתוך ${r.rows.filter((x) => x.late).length} שמועדם עבר עד ${isoToHe(r.asOf)}: קרן ${nis(t.open)}, הפרשי הצמדה ${nis(t.linkage)} וריבית ${nis(t.interest)}, סך הכול ${nis(t.total)}${t.lateCount ? ` (כולל ריבית על ${t.lateCount} תשלומים ששולמו באיחור)` : ''}. ${tail}`;
 }
 
 export function renderResult(reg, r, opts = {}) {
 	if (!r.ok) {
 		return `<div class="jtool-verdict" data-jtool-live aria-live="polite"><p class="jtool-state jtool-state--danger">✕ צריך לתקן</p><p class="jtool-verdict__sentence">${r.errors.map((e) => esc(e.he)).join(' ')}</p></div>`;
 	}
-	const open = r.totals.open > 0;
+	const open = r.totals.total > 0;
 	return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true"><p class="jtool-state ${open ? 'jtool-state--warn' : 'jtool-state--ok'}">${open ? '! יש פיגור בתשלומים' : '✓ אין פיגור'}</p>`
 		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה: ' : ''}${open ? `החוב ליום ${isoToHe(r.asOf)}, כולל הצמדה וריבית` : 'שולם עד היום'}</p>`
 		+ `<strong class="jtool-verdict__figure">${ils(open ? r.totals.total : r.totals.paid, 0)}</strong>`
@@ -95,7 +97,7 @@ export function renderDetails(reg, r) {
 		+ r.rows.map((x) => `<tr${!x.late ? ' class="jtool-muted"' : ''}><td data-th="מועד"><bdi>${isoToHe(x.due)}</bdi></td><td data-th="מגיע">${ils(x.amount)}</td><td data-th="עדכון למדד">${x.update ? `<bdi>${isoToHe(x.update)}</bdi> (×<bdi>${x.factor}</bdi>)` : '—'}</td><td data-th="שולם">${ils(x.paid)}</td><td data-th="פתוח"${x.open > 0 ? ' class="jtool-neg"' : ''}>${ils(x.open)}</td><td data-th="הצמדה">${ils(x.linkage)}</td><td data-th="ריבית">${ils(x.interest)}</td><td data-th="לתשלום היום">${x.open > 0 ? ils(x.total) : '—'}</td></tr>`).join('')
 		+ `<tr class="jtool-table__total"><td data-th="מועד">סך הכול</td><td data-th="מגיע">${ils(r.totals.due)}</td><td data-th="עדכון למדד">—</td><td data-th="שולם">${ils(r.totals.paid)}</td><td data-th="פתוח">${ils(r.totals.open)}</td><td data-th="הצמדה">${ils(r.totals.linkage)}</td><td data-th="ריבית">${ils(r.totals.interest)}</td><td data-th="לתשלום היום">${ils(r.totals.total)}</td></tr></tbody>`
 		+ `<caption>הצמדה וריבית צמודה מיום הפירעון של כל תשלום, לפי סעיפים 1 ו-4א ל${esc(law.law_he)}; דמי פיגורים (סעיף 5א) ואגרות הוצאה לפועל נוספים בתיק ההוצאה לפועל, לא כאן. תשלום מכסה קודם את התשלום הישן ביותר שנותר פתוח.</caption></table></div></div>`;
-	if (r.totals.open > 0) {
+	if (r.totals.total > 0) {
 		out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-letter-h">מכתב דרישה, מוכן להעתקה</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="copyletter">העתקה</button><button class="jtool-btn" type="button" data-act="print">הדפסה / PDF</button></div></div><pre class="jtool-letter" role="region" aria-labelledby="${P}-letter-h" tabindex="0">${esc(mkLetter(reg, r))}</pre></div>`;
 	}
 	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-next-h">מה עושים כשלא משלמים</h3></div><ol class="jtool-steps">`
@@ -194,8 +196,8 @@ export function mount(root, reg) {
 		showErrors(r);
 		result.innerHTML = renderResult(reg, r);
 		details.innerHTML = renderDetails(reg, r);
-		if (sticky) { sticky.innerHTML = r.ok ? ils(r.totals.open > 0 ? r.totals.total : 0, 0) : '—'; }
-		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: r.totals.open > 0 ? 'arrears' : 'paid' }); }
+		if (sticky) { sticky.innerHTML = r.ok ? ils(r.totals.total, 0) : '—'; }
+		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: r.totals.total > 0 ? 'arrears' : 'paid' }); }
 		if (!opts.noSave) { persist(input); }
 		return r;
 	};
@@ -267,7 +269,7 @@ export function mount(root, reg) {
 			load(Object.assign({}, EXAMPLE, { payments: [] }));
 			toast(root, 'הרישום נמחק מהמכשיר הזה.');
 		} else if (act === 'rehearse') {
-			track('tool_rehearse_click', { tool_id: TOOL_ID, band: r.ok ? (r.totals.open > 0 ? 'arrears' : 'paid') : 'error' });
+			track('tool_rehearse_click', { tool_id: TOOL_ID, band: r.ok ? (r.totals.total > 0 ? 'arrears' : 'paid') : 'error' });
 		} else if (act === 'lawyer') {
 			track('tool_lawyer_click', { tool_id: TOOL_ID });
 		}

@@ -156,8 +156,6 @@ export function mount(root, reg) {
 		const stamp = root.querySelector('.jtool-stamp');
 		if (stamp) { stamp.classList.add('jtool-stamp--stale'); stamp.insertAdjacentText('beforeend', ' · ייתכן שהאגרות התעדכנו'); }
 	}
-	const startField = root.querySelector(`#${P}-start`);
-	if (startField && !window.location.hash && !store.get(saveKey)) { startField.value = isoToHe(today); }
 	const sync = () => {
 		const route = (root.querySelector(`input[name="${P}-route"]:checked`) || {}).value || 'agree';
 		form.querySelectorAll('[data-if-clock]').forEach((el) => { el.hidden = route === 'agree'; });
@@ -199,6 +197,12 @@ export function mount(root, reg) {
 		form.innerHTML = renderForm(reg, initial);
 		if (fromHash) { const note = root.querySelector('[data-jtool-shared]'); if (note) { note.hidden = false; } }
 		run(initial, { silent: true, noSave: true });
+	} else {
+		// A fresh visit counts the clock from today, and the result is recomputed for that day (the server HTML holds the
+		// example's day; Codex review, PR 137).
+		const startField = root.querySelector(`#${P}-start`);
+		if (startField) { startField.value = isoToHe(today); }
+		run(readForm(root, done), { silent: true, noSave: true });
 	}
 	root.querySelectorAll('[data-jtool-saved]').forEach((n) => n.remove());
 	form.addEventListener('input', schedule);

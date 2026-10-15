@@ -107,9 +107,20 @@ const near = (a, b, eps = 0.011) => Math.abs(a - b) <= eps;
 	const flat = MK.mkTrack(reg, { amount: 3000, base: '2024-01-10', first: '2026-01-10', every: 0, asOf: '2026-10-14', payments: [{ date: '2026-01-12', amount: 3000 }, { date: '2026-02-10', amount: 3000 }, { date: '2026-03-11', amount: 1500 }] });
 	check(flat.ok && flat.totals.due === 30000 && flat.totals.paid === 7500 && flat.totals.open === 22500 && flat.totals.openCount === 8 && flat.rows[2].open === 1500 && flat.rows[1].open === 0 && flat.rows[9].open === 3000, `flat: 22,500 open in 8 instalments (engine ${flat.totals.open}, ${flat.totals.openCount})`);
 	check(flat.totals.total > flat.totals.open && flat.totals.linkage >= 0 && flat.totals.interest > 0 && flat.rows[9].interest > 0 && flat.rows[9].total - 3000 < 5 && flat.rows[3].total > flat.rows[9].total, 'arrears carry linkage and interest; the instalment due four days ago carries four days of it, April far more');
+	// Payments keep their own day: January was paid two days late, so two days of interest remain on it although its
+	// principal is paid; February was paid on the day; March's 1,500 came one day late and the rest runs from 10.3.
+	check(flat.rows[0].open === 0 && flat.rows[0].paid === 3000 && flat.rows[0].total > 0 && flat.rows[0].total < 1 && flat.rows[1].total === 0 && flat.totals.lateCount === 1, `a payment two days late leaves two days of interest (${flat.rows[0].total}); on the day leaves nothing`);
+	const marchGold = T04.compute(reg, { principal: 3000, start: '2026-03-10', end: '2026-10-14', mode: 'linked', payments: [{ date: '2026-03-11', amount: 1500 }] });
+	check(marchGold.ok && near(flat.rows[2].total, marchGold.total) && near(flat.rows[2].interest, marchGold.interest), `March: 3,000 from 10.3 with 1,500 paid on 11.3 = the wave-1 engine's ${marchGold.total} (engine ${flat.rows[2].total})`);
+	const early = MK.mkTrack(reg, { amount: 3000, base: '2024-01-10', first: '2026-01-10', every: 0, asOf: '2026-10-14', payments: [{ date: '2026-01-05', amount: 3000 }] });
+	check(early.ok && early.rows[0].open === 0 && early.rows[0].total === 0 && early.rows[0].onTime === 3000, 'a payment before the due day reduces the principal with no interest');
 	const over = MK.mkTrack(reg, { amount: 3000, base: '2024-01-10', first: '2026-09-10', every: 0, asOf: '2026-10-14', payments: [{ date: '2026-09-10', amount: 7000 }] });
 	check(over.ok && over.totals.open === 0 && over.totals.credit === 1000 && over.flags.some((f) => f.code === 'credit') && over.totals.total === 0, 'overpayment: nothing open and a 1,000 credit');
 	check(over.next === null && over.current === 3000, 'without indexation there is no next update');
+	// Due today is not arrears: nothing open, nothing to demand, a note that it is due.
+	const today = MK.mkTrack(reg, { amount: 3000, base: '2024-01-10', first: '2026-10-14', every: 0, asOf: '2026-10-14', payments: [] });
+	check(today.ok && today.rows.length === 1 && !today.rows[0].late && today.totals.open === 0 && today.totals.total === 0 && today.totals.upcoming === 3000 && today.flags.some((f) => f.code === 'today') && !MK.mkLetter(reg, today).includes('1 תשלומים'), 'an instalment due today is upcoming, not late');
+	check(MKUI.verdictSentence(reg, today).includes('מגיעים היום') && !MKUI.renderResult(reg, today).includes('copyletter'), 'the UI shows no arrears and no letter for an instalment due today');
 }
 
 /* ---------- The tracker: the CPI update, against the registry's chaining and the family engine ---------- */
@@ -125,10 +136,18 @@ const near = (a, b, eps = 0.011) => Math.abs(a - b) <= eps;
 	check(r.rows.every((x) => x.amount === r.rows[0].amount) && r.totals.due === Math.round(r.rows[0].amount * 10 * 100) / 100, 'every 2026 instalment carries the same updated amount');
 	// March: 1,500 paid of the updated amount; the open part carries linkage and linked interest from 10.3 to 14.10.2026,
 	// exactly as the wave-1 engine computes them.
+	// Oldest first, by hand: 3,000 on 12.1 leaves 176.02 of January; 3,000 on 10.2 closes January (29 days late) and
+	// puts 2,823.98 on February; 1,500 on 11.3 closes February's 352.04 and puts 1,147.96 on March.
+	const jan = r.rows[0];
+	const feb = r.rows[1];
 	const march = r.rows[2];
-	const t = T04.compute(reg, { principal: march.open, start: '2026-03-10', end: '2026-10-14', mode: 'linked' });
-	check(t.ok && near(march.total, t.total) && near(march.linkage, t.linkage) && near(march.interest, t.interest), `March arrears ${march.open}: ${t.total} with linkage and interest (engine ${march.total})`);
-	check(near(r.totals.total, r.rows.filter((x) => x.open > 0).reduce((s, x) => s + x.total, 0)), 'the total is the sum of the open instalments with their linkage and interest');
+	check(jan.onTime === 0 && jan.later.length === 2 && jan.later[0].amount === 3000 && jan.later[1].amount === 176.02 && jan.later[1].date === '2026-02-10' && jan.open === 0, 'January: 3,000 two days late and 176.02 a month late');
+	check(feb.onTime === 2823.98 && feb.later.length === 1 && feb.later[0].amount === 352.04 && feb.open === 0 && march.onTime === 0 && march.later[0].amount === 1147.96 && march.open === 2028.06, 'February and March take the rest in order, each payment on its own day');
+	const t = T04.compute(reg, { principal: march.amount, start: '2026-03-10', end: '2026-10-14', mode: 'linked', payments: [{ date: '2026-03-11', amount: 1147.96 }] });
+	check(t.ok && near(march.total, t.total) && near(march.linkage, t.linkage) && near(march.interest, t.interest), `March: the updated amount from 10.3 with 1,147.96 paid on 11.3: ${t.total} with linkage and interest (engine ${march.total})`);
+	const tj = T04.compute(reg, { principal: jan.amount, start: '2026-01-10', end: '2026-10-14', mode: 'linked', payments: jan.later });
+	check(tj.ok && near(jan.total, tj.total) && jan.total > 0 && jan.total < 5, `January, paid late in two parts, keeps only the interest of the late days: ${tj.total} (engine ${jan.total})`);
+	check(near(r.totals.total, r.rows.filter((x) => x.late).reduce((s, x) => s + x.total, 0)), 'the total is the sum of the late instalments with their linkage and interest');
 	// Before 1.1.2025 the old law applies to those days: flagged, never silently included.
 	const old = MK.mkTrack(reg, { amount: 2000, base: '2023-06-10', first: '2024-06-10', every: 0, asOf: '2026-10-14', payments: [] });
 	check(old.ok && old.flags.some((f) => f.code === 'old_law') && old.rows[0].linkage > 0, 'instalments due before 1.1.2025 carry linkage and the old-law flag');

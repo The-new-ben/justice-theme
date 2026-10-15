@@ -176,8 +176,6 @@ export function mount(root, reg) {
 	track('tool_view', { tool_id: TOOL_ID });
 	// The live page starts on the coming Sunday, unless a shared link or a saved plan says otherwise.
 	const nextSunday = (() => { const d = new Date(`${today}T00:00:00Z`); const add = (7 - d.getUTCDay()) % 7; return new Date(d.getTime() + add * 86400000).toISOString().slice(0, 10); })();
-	const startField = root.querySelector(`#${P}-start`);
-	if (startField && !window.location.hash) { startField.value = isoToHe(nextSunday); }
 	const showErrors = (r) => {
 		root.querySelectorAll('.jtool-error').forEach((e) => { e.textContent = ''; });
 		root.querySelectorAll('[aria-invalid]').forEach((e) => e.removeAttribute('aria-invalid'));
@@ -213,6 +211,12 @@ export function mount(root, reg) {
 		const note = root.querySelector('[data-jtool-shared]');
 		if (note) { note.hidden = false; }
 		run(fromHash, { silent: true });
+	} else {
+		// A fresh visit starts on the coming Sunday, and the year is recomputed from it (the server HTML holds the
+		// example's start; Codex review, PR 137).
+		const startField = root.querySelector(`#${P}-start`);
+		if (startField) { startField.value = isoToHe(nextSunday); }
+		run(readForm(root, custom), { silent: true });
 	}
 	if (store.get(saveKey) && !fromHash) { const n = root.querySelector('[data-jtool-saved]'); if (n) { n.hidden = false; } }
 	form.addEventListener('input', schedule);

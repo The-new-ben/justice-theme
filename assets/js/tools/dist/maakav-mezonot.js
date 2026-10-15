@@ -659,50 +659,63 @@ function mkTrack(registry, input) {
 	payments.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
 
 	const flags = [];
+	// An instalment is late from the day after its due day: due today is not yet arrears.
 	const rows = mkDueDays(input.first, asOf).map((due) => {
 		const a = mkAmountOn(registry, amount, input.base, every, due);
 		if (a.stale) { flags.push({ code: 'index', he: `המדד הדרוש לעדכון של ${mkIsoHe(a.update)} עוד לא בסדרה: הסכום הוצג בלי העדכון הזה.` }); }
-		return { due, amount: a.amount, update: a.update, factor: a.factor, paid: 0, open: a.amount, late: due < asOf };
+		return { due, amount: a.amount, update: a.update, factor: a.factor, paid: 0, onTime: 0, later: [], open: a.amount, late: due < asOf, linkage: 0, interest: 0, total: a.amount };
 	});
-	// Oldest open instalment first.
-	let pool = 0;
-	for (const p of payments) { pool = fR2(pool + p.amount); }
-	let unallocated = pool;
-	for (const r of rows) {
-		if (unallocated <= 0) { break; }
-		const take = Math.min(unallocated, r.open);
-		r.paid = fR2(r.paid + take);
-		r.open = fR2(r.open - take);
-		unallocated = fR2(unallocated - take);
+	// Payments oldest first, each to the oldest instalment still open, keeping its own day: paid on or before the due
+	// day it reduces the principal before any interest runs; paid later it goes into that instalment's running balance
+	// on the day it was paid, so the days in between carry linkage and interest (Codex review, PR 137).
+	let unallocated = 0;
+	for (const p of payments) {
+		let left = p.amount;
+		for (const r of rows) {
+			if (left <= 0) { break; }
+			if (r.open <= 0) { continue; }
+			const take = Math.min(left, r.open);
+			r.open = fR2(r.open - take);
+			r.paid = fR2(r.paid + take);
+			left = fR2(left - take);
+			if (p.date <= r.due) { r.onTime = fR2(r.onTime + take); } else { r.later.push({ date: p.date, amount: take }); }
+		}
+		unallocated = fR2(unallocated + left);
 	}
-	// Arrears: linkage and linked interest from each due day to asOf (the law from 1.1.2025).
+	// Arrears: linkage and linked interest on what was still owed after the due day, from that day to asOf, with the
+	// late payments applied on their days (the law from 1.1.2025; the wave-1 engine).
 	const regime = registry.interest.regime_start;
 	let oldLaw = false;
 	let ratesMissing = false;
 	for (const r of rows) {
-		r.linkage = 0; r.interest = 0; r.total = r.open;
-		if (!(r.open > 0) || r.due >= asOf) { continue; }
-		const x = compute(registry, { principal: r.open, start: r.due, end: asOf, mode: 'linked' });
+		const principal = fR2(r.amount - r.onTime);
+		r.total = r.open;
+		if (!r.late || principal <= 0) { continue; }
+		const x = compute(registry, { principal, start: r.due, end: asOf, mode: 'linked', payments: r.later });
 		if (x.ok) {
 			r.linkage = fR2(x.linkage || 0);
 			r.interest = fR2(x.interest || 0);
-			r.total = fR2(x.total);
+			r.total = fR2(Math.max(0, x.total));
 			if (r.due < regime) { oldLaw = true; }
 		} else {
 			ratesMissing = true;
 		}
 	}
+	const late = rows.filter((r) => r.late);
 	const totals = {
 		due: fR2(rows.reduce((s, r) => s + r.amount, 0)),
 		paid: fR2(rows.reduce((s, r) => s + r.paid, 0)),
-		open: fR2(rows.reduce((s, r) => s + r.open, 0)),
-		linkage: fR2(rows.reduce((s, r) => s + r.linkage, 0)),
-		interest: fR2(rows.reduce((s, r) => s + r.interest, 0)),
-		total: fR2(rows.reduce((s, r) => s + (r.open > 0 ? r.total : 0), 0)),
+		open: fR2(late.reduce((s, r) => s + r.open, 0)),
+		upcoming: fR2(rows.filter((r) => !r.late).reduce((s, r) => s + r.open, 0)),
+		linkage: fR2(late.reduce((s, r) => s + r.linkage, 0)),
+		interest: fR2(late.reduce((s, r) => s + r.interest, 0)),
+		total: fR2(late.reduce((s, r) => s + r.total, 0)),
 		credit: unallocated,
-		openCount: rows.filter((r) => r.open > 0 && r.late).length,
+		openCount: late.filter((r) => r.open > 0).length,
+		lateCount: late.filter((r) => r.open <= 0 && r.total > 0).length,
 	};
 	if (unallocated > 0) { flags.push({ code: 'credit', he: `שולם ${mkMoney(unallocated)} ₪ יותר מהמגיע עד היום: יתרת זכות לתשלום הבא.` }); }
+	if (totals.upcoming > 0 && totals.open <= 0) { flags.push({ code: 'today', he: `תשלום של ${mkMoney(totals.upcoming)} ₪ מגיע היום: עוד לא בפיגור.` }); }
 	if (oldLaw) { flags.push({ code: 'old_law', he: 'תשלומים שמועדם לפני 1.1.2025: לימים האלה חל הנוסח הקודם של חוק פסיקת ריבית והצמדה, והכלי מחשב להם הצמדה בלבד.' }); }
 	if (ratesMissing) { flags.push({ code: 'rates', he: 'לחלק מהתשלומים לא חושבו הצמדה וריבית: שיעורי הריבית ידועים רק עד סוף הרבעון האחרון שפרסם החשב הכללי.' }); }
 	// The next update of the amount.
@@ -728,6 +741,7 @@ function mkLetter(registry, r) {
 	if (!r.ok) { return ''; }
 	const cs = registry.child_support;
 	const open = r.rows.filter((x) => x.open > 0 && x.late);
+	const paidLate = r.rows.filter((x) => x.late && x.open <= 0 && x.total > 0);
 	const to = r.meta.debtor || '_______________';
 	const from = r.meta.creditor || '_______________';
 	const file = r.meta.file ? ` (${r.meta.file})` : '';
@@ -743,6 +757,9 @@ function mkLetter(registry, r) {
 	];
 	for (const x of open) {
 		lines.push(`   - מועד ${mkIsoHe(x.due)}: מגיע ${mkMoney(x.amount)} ₪${x.paid ? `, שולם ${mkMoney(x.paid)} ₪` : ''}, חסר ${mkMoney(x.open)} ₪; בצירוף הפרשי הצמדה וריבית עד ${mkIsoHe(r.asOf)}: ${mkMoney(x.total)} ₪.`);
+	}
+	if (paidLate.length) {
+		lines.push(`   - תשלומים ששולמו באיחור (${paidLate.map((x) => mkIsoHe(x.due)).join(', ')}): הפרשי הצמדה וריבית על ימי האיחור: ${mkMoney(paidLate.reduce((s, x) => s + x.total, 0))} ₪.`);
 	}
 	lines.push(
 		`3. סך החוב ליום ${mkIsoHe(r.asOf)}: ${mkMoney(r.totals.open)} ₪ קרן, ובצירוף הפרשי הצמדה וריבית לפי חוק פסיקת ריבית והצמדה, התשכ"א-1961: ${mkMoney(r.totals.total)} ₪.`,
@@ -831,8 +848,8 @@ function ledger(r) {
 		const [y, mm] = x.due.split('-').map(Number);
 		const paidW = Math.round((x.paid / max) * 100);
 		const openW = Math.round((x.open / max) * 100);
-		const state = !x.late ? 'מועד עתידי' : x.open > 0 ? (x.paid > 0 ? 'שולם חלקית' : 'לא שולם') : 'שולם';
-		return `<div class="jt21-bar${x.open > 0 && x.late ? ' jt21-bar--open' : ''}" role="img" aria-label="${esc(MK_MONTHS[mm - 1])} ${y}: ${esc(state)}, מגיע ${esc(nis(x.amount))}, שולם ${esc(nis(x.paid))}"><span class="jt21-bar__m">${esc(MK_MONTHS[mm - 1].slice(0, 3))} <bdi>${String(y).slice(2)}</bdi></span><span class="jt21-bar__track"><i class="jt21-bar__paid" style="width:${paidW}%"></i><b class="jt21-bar__open" style="width:${openW}%"></b></span><span class="jt21-bar__v">${x.open > 0 ? ils(x.open, 0) : '✓'}</span></div>`;
+		const state = !x.late ? (x.due === r.asOf ? 'מגיע היום' : 'מועד עתידי') : x.open > 0 ? (x.paid > 0 ? 'שולם חלקית' : 'לא שולם') : x.total > 0 ? 'שולם באיחור' : 'שולם';
+		return `<div class="jt21-bar${x.open > 0 && x.late ? ' jt21-bar--open' : ''}" role="img" aria-label="${esc(MK_MONTHS[mm - 1])} ${y}: ${esc(state)}, מגיע ${esc(nis(x.amount))}, שולם ${esc(nis(x.paid))}"><span class="jt21-bar__m">${esc(MK_MONTHS[mm - 1].slice(0, 3))} <bdi>${String(y).slice(2)}</bdi></span><span class="jt21-bar__track"><i class="jt21-bar__paid" style="width:${paidW}%"></i><b class="jt21-bar__open" style="width:${x.late ? openW : 0}%"></b></span><span class="jt21-bar__v">${x.open > 0 && x.late ? ils(x.open, 0) : !x.late ? 'היום' : '✓'}</span></div>`;
 	}).join('');
 	return `<figure class="jt21-ledger"><p class="jt21-ledger__h">חודש אחרי חודש: מה שולם ומה פתוח</p>${bars}<figcaption><span><i class="jt21-k jt21-k--paid"></i>שולם</span> <span><i class="jt21-k jt21-k--open"></i>פתוח</span></figcaption></figure>`;
 }
@@ -840,15 +857,17 @@ function ledger(r) {
 function verdictSentence(reg, r) {
 	if (!r.ok) { return ''; }
 	const t = r.totals;
-	if (!(t.open > 0)) { return `כל ${r.rows.length} התשלומים עד ${isoToHe(r.asOf)} שולמו במלואם${t.credit > 0 ? `, ויש יתרת זכות של ${nis(t.credit)}` : ''}. הסכום החודשי היום: ${nis(r.current)}${r.next ? `; העדכון הבא למדד ב-${isoToHe(r.next)}` : ''}.`; }
-	return `${t.openCount} תשלומים פתוחים מתוך ${r.rows.length} עד ${isoToHe(r.asOf)}: קרן ${nis(t.open)}, הפרשי הצמדה ${nis(t.linkage)} וריבית ${nis(t.interest)}, סך הכול ${nis(t.total)}. הסכום החודשי היום: ${nis(r.current)}${r.next ? `; העדכון הבא למדד ב-${isoToHe(r.next)}` : ''}.`;
+	const tail = `הסכום החודשי היום: ${nis(r.current)}${r.next ? `; העדכון הבא למדד ב-${isoToHe(r.next)}` : ''}.`;
+	if (!(t.total > 0)) { return `כל ${r.rows.filter((x) => x.late).length} התשלומים שמועדם עבר עד ${isoToHe(r.asOf)} שולמו במלואם ובזמן${t.upcoming > 0 ? `; ${nis(t.upcoming)} מגיעים היום` : ''}${t.credit > 0 ? `, ויש יתרת זכות של ${nis(t.credit)}` : ''}. ${tail}`; }
+	if (!(t.open > 0)) { return `הקרן שולמה, אבל ${t.lateCount} תשלומים שולמו באיחור ונותרו עליהם הפרשי הצמדה וריבית: ${nis(t.total)} ליום ${isoToHe(r.asOf)}. ${tail}`; }
+	return `${t.openCount} תשלומים פתוחים מתוך ${r.rows.filter((x) => x.late).length} שמועדם עבר עד ${isoToHe(r.asOf)}: קרן ${nis(t.open)}, הפרשי הצמדה ${nis(t.linkage)} וריבית ${nis(t.interest)}, סך הכול ${nis(t.total)}${t.lateCount ? ` (כולל ריבית על ${t.lateCount} תשלומים ששולמו באיחור)` : ''}. ${tail}`;
 }
 
 function renderResult(reg, r, opts = {}) {
 	if (!r.ok) {
 		return `<div class="jtool-verdict" data-jtool-live aria-live="polite"><p class="jtool-state jtool-state--danger">✕ צריך לתקן</p><p class="jtool-verdict__sentence">${r.errors.map((e) => esc(e.he)).join(' ')}</p></div>`;
 	}
-	const open = r.totals.open > 0;
+	const open = r.totals.total > 0;
 	return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true"><p class="jtool-state ${open ? 'jtool-state--warn' : 'jtool-state--ok'}">${open ? '! יש פיגור בתשלומים' : '✓ אין פיגור'}</p>`
 		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה: ' : ''}${open ? `החוב ליום ${isoToHe(r.asOf)}, כולל הצמדה וריבית` : 'שולם עד היום'}</p>`
 		+ `<strong class="jtool-verdict__figure">${ils(open ? r.totals.total : r.totals.paid, 0)}</strong>`
@@ -868,7 +887,7 @@ function renderDetails(reg, r) {
 		+ r.rows.map((x) => `<tr${!x.late ? ' class="jtool-muted"' : ''}><td data-th="מועד"><bdi>${isoToHe(x.due)}</bdi></td><td data-th="מגיע">${ils(x.amount)}</td><td data-th="עדכון למדד">${x.update ? `<bdi>${isoToHe(x.update)}</bdi> (×<bdi>${x.factor}</bdi>)` : '—'}</td><td data-th="שולם">${ils(x.paid)}</td><td data-th="פתוח"${x.open > 0 ? ' class="jtool-neg"' : ''}>${ils(x.open)}</td><td data-th="הצמדה">${ils(x.linkage)}</td><td data-th="ריבית">${ils(x.interest)}</td><td data-th="לתשלום היום">${x.open > 0 ? ils(x.total) : '—'}</td></tr>`).join('')
 		+ `<tr class="jtool-table__total"><td data-th="מועד">סך הכול</td><td data-th="מגיע">${ils(r.totals.due)}</td><td data-th="עדכון למדד">—</td><td data-th="שולם">${ils(r.totals.paid)}</td><td data-th="פתוח">${ils(r.totals.open)}</td><td data-th="הצמדה">${ils(r.totals.linkage)}</td><td data-th="ריבית">${ils(r.totals.interest)}</td><td data-th="לתשלום היום">${ils(r.totals.total)}</td></tr></tbody>`
 		+ `<caption>הצמדה וריבית צמודה מיום הפירעון של כל תשלום, לפי סעיפים 1 ו-4א ל${esc(law.law_he)}; דמי פיגורים (סעיף 5א) ואגרות הוצאה לפועל נוספים בתיק ההוצאה לפועל, לא כאן. תשלום מכסה קודם את התשלום הישן ביותר שנותר פתוח.</caption></table></div></div>`;
-	if (r.totals.open > 0) {
+	if (r.totals.total > 0) {
 		out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-letter-h">מכתב דרישה, מוכן להעתקה</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="copyletter">העתקה</button><button class="jtool-btn" type="button" data-act="print">הדפסה / PDF</button></div></div><pre class="jtool-letter" role="region" aria-labelledby="${P}-letter-h" tabindex="0">${esc(mkLetter(reg, r))}</pre></div>`;
 	}
 	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-next-h">מה עושים כשלא משלמים</h3></div><ol class="jtool-steps">`
@@ -967,8 +986,8 @@ function mount(root, reg) {
 		showErrors(r);
 		result.innerHTML = renderResult(reg, r);
 		details.innerHTML = renderDetails(reg, r);
-		if (sticky) { sticky.innerHTML = r.ok ? ils(r.totals.open > 0 ? r.totals.total : 0, 0) : '—'; }
-		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: r.totals.open > 0 ? 'arrears' : 'paid' }); }
+		if (sticky) { sticky.innerHTML = r.ok ? ils(r.totals.total, 0) : '—'; }
+		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: r.totals.total > 0 ? 'arrears' : 'paid' }); }
 		if (!opts.noSave) { persist(input); }
 		return r;
 	};
@@ -1040,7 +1059,7 @@ function mount(root, reg) {
 			load(Object.assign({}, EXAMPLE, { payments: [] }));
 			toast(root, 'הרישום נמחק מהמכשיר הזה.');
 		} else if (act === 'rehearse') {
-			track('tool_rehearse_click', { tool_id: TOOL_ID, band: r.ok ? (r.totals.open > 0 ? 'arrears' : 'paid') : 'error' });
+			track('tool_rehearse_click', { tool_id: TOOL_ID, band: r.ok ? (r.totals.total > 0 ? 'arrears' : 'paid') : 'error' });
 		} else if (act === 'lawyer') {
 			track('tool_lawyer_click', { tool_id: TOOL_ID });
 		}

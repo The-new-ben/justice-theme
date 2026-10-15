@@ -61,6 +61,7 @@ $justice_theme_files = array(
 	'inc/eeat.php',
 	'inc/ai-crawlers.php',
 	'inc/seo.php',
+	'inc/practice-term-content.php',
 	'inc/accessibility.php',
 	'inc/related-content.php',
 	'inc/content-clusters.php',

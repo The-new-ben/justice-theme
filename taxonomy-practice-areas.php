@@ -16,17 +16,20 @@ $term_desc  = $term instanceof WP_Term ? $term->description : '';
 // follows the main query's page size and page number, a page past the real
 // items answers an honest 404 (no redirect), and the long term description,
 // the intent cards, the lawyers band and the tools render on page 1 only.
-$justice_tax_paged    = max( 1, (int) get_query_var( 'paged' ) );
-$justice_tax_per_page = function_exists( 'justice_theme_practice_archive_per_page' ) ? justice_theme_practice_archive_per_page() : 12;
-$justice_tax_articles = array();
-$justice_tax_total    = 0;
+$justice_tax_paged      = max( 1, (int) get_query_var( 'paged' ) );
+$justice_tax_per_page   = function_exists( 'justice_theme_practice_archive_per_page' ) ? justice_theme_practice_archive_per_page() : 12;
+$justice_tax_post_types = function_exists( 'justice_theme_practice_archive_post_types' ) ? justice_theme_practice_archive_post_types() : array( 'articles', 'post' );
+$justice_tax_post_types = array_values( array_filter( $justice_tax_post_types, 'post_type_exists' ) );
+$justice_tax_articles   = array();
+$justice_tax_total      = 0;
 
 // The main tax query arrives empty on ops-corrupted requests, so the
 // articles list uses its own query with a term-relationship fallback
-// (same poison-proof pattern as the pillar firms band).
-if ( post_type_exists( 'articles' ) && $term_slug ) {
+// (same poison-proof pattern as the pillar firms band). Same post types as
+// the main query, so both count the same items and agree on the page count.
+if ( $justice_tax_post_types && $term_slug ) {
 	$justice_tax_articles_query = new WP_Query( array(
-		'post_type'        => 'articles',
+		'post_type'        => $justice_tax_post_types,
 		'post_status'      => 'publish',
 		'posts_per_page'   => $justice_tax_per_page,
 		'paged'            => $justice_tax_paged,
@@ -48,7 +51,7 @@ if ( post_type_exists( 'articles' ) && $term_slug ) {
 		if ( is_array( $justice_tax_object_ids ) ) {
 			foreach ( $justice_tax_object_ids as $justice_tax_object_id ) {
 				$justice_tax_candidate = get_post( (int) $justice_tax_object_id );
-				if ( $justice_tax_candidate instanceof WP_Post && 'articles' === $justice_tax_candidate->post_type && 'publish' === $justice_tax_candidate->post_status ) {
+				if ( $justice_tax_candidate instanceof WP_Post && in_array( $justice_tax_candidate->post_type, $justice_tax_post_types, true ) && 'publish' === $justice_tax_candidate->post_status ) {
 					$justice_tax_published[] = $justice_tax_candidate;
 				}
 			}

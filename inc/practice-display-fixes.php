@@ -28,10 +28,21 @@ function justice_theme_practice_tax_archive_post_types( WP_Query $query ): void 
 	if ( ! $query->is_tax( 'practice-areas' ) && ! $query->is_category() ) {
 		return;
 	}
-	$query->set( 'post_type', array( 'articles', 'post' ) );
+	$query->set( 'post_type', justice_theme_practice_archive_post_types() );
 	$query->set( 'posts_per_page', 12 );
 }
 add_action( 'pre_get_posts', 'justice_theme_practice_tax_archive_post_types', 20 );
+
+/**
+ * The post types a practice-area archive lists: the same list for the main
+ * query and for the template's own paginated query, so both count the same
+ * items and agree on how many pages exist.
+ *
+ * @return string[]
+ */
+function justice_theme_practice_archive_post_types(): array {
+	return array( 'articles', 'post' );
+}
 
 /**
  * Real pagination for the practice-areas archive template (structure audit

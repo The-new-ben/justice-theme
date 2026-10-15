@@ -112,8 +112,25 @@ jt_assert( range( 13, 24 ) === array_slice( $fallback, justice_theme_practice_ar
 jt_assert( range( 25, 30 ) === array_slice( $fallback, justice_theme_practice_archive_offset( 3, 12 ), 12 ), 'The last fallback page holds the remainder.' );
 jt_assert( array() === array_slice( $fallback, justice_theme_practice_archive_offset( 4, 12 ), 12 ), 'A fallback page past the end is empty.' );
 
+// The listing query and the main query count the same post types, so they agree on the page count.
+jt_assert( array( 'articles', 'post' ) === justice_theme_practice_archive_post_types(), 'The archive lists articles and posts, like the main query.' );
+$jt_main_query_sets = array();
+$jt_main_query      = new class() extends WP_Query {
+	public function is_tax( $taxonomy = '' ): bool {
+		return 'practice-areas' === $taxonomy;
+	}
+	public function set( $key, $value ): void {
+		global $jt_main_query_sets;
+		$jt_main_query_sets[ $key ] = $value;
+	}
+};
+justice_theme_practice_tax_archive_post_types( $jt_main_query );
+jt_assert( justice_theme_practice_archive_post_types() === $jt_main_query_sets['post_type'] && 12 === $jt_main_query_sets['posts_per_page'], 'The main archive query uses the shared post-type list and 12 per page.' );
+
 // The template itself: it paginates, never redirects, and keeps the long description to page 1.
 $template = file_get_contents( dirname( __DIR__ ) . '/taxonomy-practice-areas.php' );
+jt_assert( false !== strpos( $template, "'post_type'        => \$justice_tax_post_types" ) && false !== strpos( $template, 'justice_theme_practice_archive_post_types()' ), 'The listing query uses the shared post-type list.' );
+jt_assert( false !== strpos( $template, 'in_array( $justice_tax_candidate->post_type, $justice_tax_post_types, true )' ), 'The term-relationship fallback accepts the same post types.' );
 jt_assert( false !== strpos( $template, "'paged'            => \$justice_tax_paged" ), 'The article query carries the page number.' );
 jt_assert( false !== strpos( $template, 'paginate_links(' ), 'The archive renders pagination links.' );
 jt_assert( false !== strpos( $template, 'justice_theme_practice_archive_not_found()' ), 'A page past the end uses the honest 404 helper.' );

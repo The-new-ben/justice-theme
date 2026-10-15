@@ -278,10 +278,29 @@
 
 	var LEAD_CONTEXT_KEY = 'justice_lead_context';
 
+	// True only for a same-site link to the homepage lead form (/#ask-lawyer):
+	// a WhatsApp or profile link that also carries data-lead-* must not leave
+	// context behind for an unrelated later visit.
+	function linksToLeadForm(link) {
+		var url;
+
+		try {
+			url = new URL(link.getAttribute('href') || '', window.location.href);
+		} catch (error) {
+			return false;
+		}
+
+		return url.origin === window.location.origin && '/' === url.pathname && '#ask-lawyer' === url.hash;
+	}
+
 	// Context handoff between pages (the article CTA no longer carries
 	// lead_area/lead_message query strings): the clicked link's data-lead-*
 	// values are stored for one navigation and applied to the homepage form.
 	function storeLeadContext(link) {
+		if (!linksToLeadForm(link)) {
+			return;
+		}
+
 		var context = {
 			leadArea: link.dataset.leadArea || '',
 			leadMessage: link.dataset.leadMessage || '',

@@ -248,6 +248,9 @@
 		form = document.querySelector('#ask-lawyer form');
 
 		if (!form) {
+			// An article CTA links the clean homepage anchor; its context rides
+			// along in sessionStorage and fills the form on the next page.
+			storeLeadContext(link);
 			return false;
 		}
 
@@ -271,6 +274,69 @@
 		setOrCreateHidden(form, 'utm_campaign', link.dataset.leadUtmCampaign || '');
 
 		return true;
+	}
+
+	var LEAD_CONTEXT_KEY = 'justice_lead_context';
+
+	// Context handoff between pages (the article CTA no longer carries
+	// lead_area/lead_message query strings): the clicked link's data-lead-*
+	// values are stored for one navigation and applied to the homepage form.
+	function storeLeadContext(link) {
+		var context = {
+			leadArea: link.dataset.leadArea || '',
+			leadMessage: link.dataset.leadMessage || '',
+			leadSourceKeyword: link.dataset.leadSourceKeyword || '',
+			leadSourceSurface: link.dataset.leadSourceSurface || ''
+		};
+
+		if (!context.leadArea && !context.leadMessage && !context.leadSourceKeyword && !context.leadSourceSurface) {
+			return;
+		}
+
+		try {
+			window.sessionStorage.setItem(LEAD_CONTEXT_KEY, JSON.stringify(context));
+		} catch (error) {
+			// Storage unavailable: the visitor still lands on the form.
+		}
+	}
+
+	function applyStoredLeadContext() {
+		var raw = null;
+		var context = null;
+		var carrier;
+
+		if (!document.querySelector('#ask-lawyer form')) {
+			return false;
+		}
+
+		try {
+			raw = window.sessionStorage.getItem(LEAD_CONTEXT_KEY);
+			window.sessionStorage.removeItem(LEAD_CONTEXT_KEY);
+		} catch (error) {
+			raw = null;
+		}
+
+		if (!raw) {
+			return false;
+		}
+
+		try {
+			context = JSON.parse(raw);
+		} catch (error) {
+			return false;
+		}
+
+		if (!context || typeof context !== 'object') {
+			return false;
+		}
+
+		carrier = document.createElement('a');
+		carrier.dataset.leadArea = String(context.leadArea || '').slice(0, 60);
+		carrier.dataset.leadMessage = String(context.leadMessage || '').slice(0, 260);
+		carrier.dataset.leadSourceKeyword = String(context.leadSourceKeyword || '').slice(0, 200);
+		carrier.dataset.leadSourceSurface = String(context.leadSourceSurface || '').slice(0, 60);
+
+		return applyLeadPrefillFromLink(carrier);
 	}
 
 	function applyAskLawyerWhatsAppPrefill(link) {
@@ -540,6 +606,7 @@
 
 	document.addEventListener('DOMContentLoaded', function () {
 		trackSuccessFromQuery();
+		applyStoredLeadContext();
 
 		document.querySelectorAll('select[data-selected-plan]').forEach(function (select) {
 			var selectedPlan = select.getAttribute('data-selected-plan');

@@ -39,6 +39,15 @@ jobs:
           php tests/test-justice-tools.php
           php tests/test-article-tool-first-layout.php
           python3 -m py_compile tools/justice_tools_registry.py
+
+      - name: Test the structure batch (HAD-540)
+        run: |
+          set -euo pipefail
+          php tests/test-seo-term-pillar-canonicals.php
+          php tests/test-practice-archive-pagination.php
+          php tests/test-registration-canonical.php
+          php tests/test-article-lead-cta-clean-url.php
+          php tests/test-professional-cards.php
           node tests/js/test-justice-tools-family.mjs
           php tests/test-justice-tools-family.php
           php tests/test-divorce-head-term.php

@@ -181,11 +181,44 @@ function justice_theme_get_article_lead_area( $post_id = 0, $primary_term = null
 }
 
 /**
+ * Lead context as data attributes for a clean CTA link: data-lead-area,
+ * data-lead-message and data-lead-source-keyword (the dataset keys
+ * analytics-events.js already reads on homepage links). On an article the
+ * script stores them on the click and the homepage form picks them up. The
+ * href itself stays parameter-free, so crawlers see one homepage URL.
+ *
+ * @param array{lead_area?:string,lead_message?:string,source_keyword?:string} $context Context values.
+ * @return string Attribute string starting with a space, or '' when nothing to carry.
+ */
+function justice_theme_lead_context_attributes( array $context ): string {
+	$attributes = array();
+	$keys       = array(
+		'lead_area'      => 'data-lead-area',
+		'lead_message'   => 'data-lead-message',
+		'source_keyword' => 'data-lead-source-keyword',
+	);
+
+	foreach ( $keys as $key => $attribute ) {
+		$value = isset( $context[ $key ] ) ? trim( preg_replace( '/\s+/', ' ', (string) $context[ $key ] ) ) : '';
+
+		if ( 'lead_message' === $key ) {
+			$value = function_exists( 'mb_substr' ) ? mb_substr( $value, 0, 260, 'UTF-8' ) : substr( $value, 0, 260 );
+		}
+
+		if ( '' !== $value ) {
+			$attributes[] = $attribute . '="' . esc_attr( $value ) . '"';
+		}
+	}
+
+	return $attributes ? ' ' . implode( ' ', $attributes ) : '';
+}
+
+/**
  * Build a contextual, post-content lead CTA for article templates.
  *
  * @param int          $post_id      Post ID.
  * @param WP_Term|null $primary_term Primary practice-area term.
- * @return array{url:string,title:string,text:string,button:string,lead_area:string,area_label:string}
+ * @return array{url:string,context:string,title:string,text:string,button:string,lead_area:string,area_label:string}
  */
 function justice_theme_get_contextual_article_lead_cta( $post_id = 0, $primary_term = null ): array {
 	$post_id      = $post_id ? absint( $post_id ) : get_the_ID();
@@ -198,21 +231,21 @@ function justice_theme_get_contextual_article_lead_cta( $post_id = 0, $primary_t
 		__( 'קראתי את המאמר "%s" ואני רוצה לבדוק האם המקרה שלי מתאים לפנייה לעורך דין.', 'justice-theme' ),
 		get_the_title( $post_id )
 	);
-	$url          = function_exists( 'justice_theme_ask_lawyer_fallback_url' )
-		? justice_theme_ask_lawyer_fallback_url(
-			array(
-				// No utm_* here: the host strips utm parameters with a 301, so every
-				// CTA carried a redirect hop (Screaming Frog 18.9.2026: 1,740 redirecting
-				// homepage variants). lead_message + source_keyword keep the attribution.
-				'lead_area'      => $lead_area,
-				'lead_message'   => $lead_message,
-				'source_keyword' => get_post_field( 'post_name', $post_id ),
-			)
-		)
-		: home_url( '/#ask-lawyer' );
+	// The link is the clean homepage anchor. The article context (area,
+	// prefilled message, source keyword) travels in data attributes that the
+	// theme script hands to the homepage form (structure audit batch 14b,
+	// owner order 15.10.2026): the previous query-string link put 1,749
+	// parameter URLs of the homepage into the internal link graph, one per
+	// article. No utm_* either: the host strips utm parameters with a 301.
+	$url = home_url( '/#ask-lawyer' );
 
 	return array(
 		'url'        => $url,
+		'context'    => justice_theme_lead_context_attributes( array(
+			'lead_area'      => $lead_area,
+			'lead_message'   => $lead_message,
+			'source_keyword' => (string) get_post_field( 'post_name', $post_id ),
+		) ),
 		'title'      => $area_label
 			? sprintf(
 				/* translators: %s: legal practice area. */

@@ -78,7 +78,10 @@ function justice_cards_singular_types(): array {
 function justice_cards_family_map(): array {
 	return apply_filters( 'justice_cards_family_map', array(
 		'criminal-law'  => array( 'criminal-law', 'criminal' ),
-		'family'        => array( 'family-law', 'divorce', 'child-support', 'child-custody', 'rabbinical-court', 'family-court' ),
+		// family-court-rulings (פסקי דין בענייני משפחה) joined on 15.10.2026
+		// (owner order, structure audit batch 15b): 51 family-court rulings
+		// carried only that term and never resolved to the family.
+		'family'        => array( 'family-law', 'divorce', 'child-support', 'child-custody', 'rabbinical-court', 'family-court', 'family-court-rulings' ),
 		'real-estate'   => array( 'real-estate-law', 'real-estate' ),
 		'labor'         => array( 'israeli-labor-law', 'labor-law' ),
 		'nezikin'       => array( 'personal-injury', 'tort-law' ),
@@ -86,6 +89,73 @@ function justice_cards_family_map(): array {
 		'inheritance'   => array( 'inheritance-law', 'wills-probate' ),
 		'traffic'       => array( 'traffic-law' ),
 	) );
+}
+
+/**
+ * The article's primary practice-area slug: the term the editor marked as
+ * primary in Yoast (post meta _yoast_wpseo_primary_practice-areas) when it
+ * is one of the article's own terms, otherwise the first term WordPress
+ * returns (the same fallback Yoast's breadcrumb and the theme's article CTA
+ * use).
+ *
+ * @param int   $post_id Article ID.
+ * @param array $terms   The article's practice-areas terms (objects with a term_id and a slug).
+ */
+function justice_cards_primary_term_slug( int $post_id, array $terms ): string {
+	if ( ! $terms ) {
+		return '';
+	}
+
+	$primary_id = (int) get_post_meta( $post_id, '_yoast_wpseo_primary_practice-areas', true );
+
+	if ( $primary_id > 0 ) {
+		foreach ( $terms as $term ) {
+			if ( isset( $term->term_id, $term->slug ) && (int) $term->term_id === $primary_id ) {
+				return (string) $term->slug;
+			}
+		}
+	}
+
+	$first = reset( $terms );
+
+	return isset( $first->slug ) ? (string) $first->slug : '';
+}
+
+/**
+ * Pick the family for a set of term slugs. One matching family wins
+ * outright. When the terms span several families (a domestic-violence guide
+ * filed under family law and criminal law, an inheritance ruling filed as a
+ * family-court ruling) the article's primary term decides; without a primary
+ * in any of them the map order decides, as before (owner order 15.10.2026,
+ * structure audit batch 15b).
+ *
+ * @param string[]                $slugs        The article's term slugs.
+ * @param string                  $primary_slug The article's primary term slug ('' when unknown).
+ * @param array<string,string[]>  $map          Family key => term slugs.
+ * @return string|null Family key, or null when no term belongs to a family.
+ */
+function justice_cards_resolve_family( array $slugs, string $primary_slug, array $map ): ?string {
+	$matches = array();
+
+	foreach ( $map as $family => $family_slugs ) {
+		if ( array_intersect( $slugs, $family_slugs ) ) {
+			$matches[] = $family;
+		}
+	}
+
+	if ( ! $matches ) {
+		return null;
+	}
+
+	if ( count( $matches ) > 1 && '' !== $primary_slug ) {
+		foreach ( $matches as $family ) {
+			if ( in_array( $primary_slug, $map[ $family ], true ) ) {
+				return $family;
+			}
+		}
+	}
+
+	return $matches[0];
 }
 
 /**
@@ -125,14 +195,9 @@ function justice_cards_current_terms(): array {
 
 	if ( $own && ! is_wp_error( $own ) ) {
 		$slugs = wp_list_pluck( $own, 'slug' );
+		$family = justice_cards_resolve_family( $slugs, justice_cards_primary_term_slug( (int) get_the_ID(), $own ), $map );
 
-		foreach ( $map as $family_slugs ) {
-			if ( array_intersect( $slugs, $family_slugs ) ) {
-				return $family_slugs;
-			}
-		}
-
-		return $slugs;
+		return null !== $family ? $map[ $family ] : $slugs;
 	}
 
 	$cats = wp_get_post_categories( get_the_ID(), array( 'fields' => 'slugs' ) );

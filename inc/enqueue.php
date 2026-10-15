@@ -119,7 +119,7 @@ function justice_theme_enqueue_assets() {
 		'justice-analytics-events',
 		JUSTICE_THEME_URI . '/assets/js/analytics-events.js',
 		array(),
-		'1.1.3',
+		'1.1.4',
 		true
 	);
 

@@ -226,7 +226,7 @@ while ( have_posts() ) :
 				<section class="single-article__lead-cta" aria-label="<?php esc_attr_e( 'פנייה בהקשר למאמר', 'justice-theme' ); ?>">
 					<h2><?php echo esc_html( $article_contextual_cta['title'] ); ?></h2>
 					<p><?php echo esc_html( $article_contextual_cta['text'] ); ?></p>
-					<a class="button button--primary" href="<?php echo esc_url( $article_contextual_cta['url'] ); ?>">
+					<a class="button button--primary" href="<?php echo esc_url( $article_contextual_cta['url'] ); ?>"<?php echo isset( $article_contextual_cta['context'] ) ? $article_contextual_cta['context'] : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped attribute string from justice_theme_lead_context_attributes(). ?>>
 						<?php echo esc_html( $article_contextual_cta['button'] ); ?>
 					</a>
 				</section>

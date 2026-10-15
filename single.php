@@ -72,7 +72,7 @@ while ( have_posts() ) :
 			<div class="single-article__lead-cta">
 				<h3><?php echo esc_html( $article_contextual_cta['title'] ); ?></h3>
 				<p><?php echo esc_html( $article_contextual_cta['text'] ); ?></p>
-				<a href="<?php echo esc_url( $article_contextual_cta['url'] ); ?>" class="button button--primary"><?php echo esc_html( $article_contextual_cta['button'] ); ?></a>
+				<a href="<?php echo esc_url( $article_contextual_cta['url'] ); ?>" class="button button--primary"<?php echo isset( $article_contextual_cta['context'] ) ? $article_contextual_cta['context'] : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped attribute string from justice_theme_lead_context_attributes(). ?>><?php echo esc_html( $article_contextual_cta['button'] ); ?></a>
 			</div>
 		</div>
 	</article>

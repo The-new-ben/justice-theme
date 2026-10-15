@@ -79,7 +79,11 @@ function get_posts( $args ): array {
 	return array_slice( $jt_candidates, $offset, $limit );
 }
 function get_post_meta( $id, $key, $single = false ) {
+	global $jt_post_meta;
 	$id = (int) $id;
+	if ( isset( $jt_post_meta[ $id ][ $key ] ) ) {
+		return $jt_post_meta[ $id ][ $key ];
+	}
 	$meta = array(
 		201 => array( 'priority_score' => '200', 'professional_type' => 'lawyer', 'subscription_status' => 'inactive', 'plan_type' => 'listing' ),
 		202 => array( 'priority_score' => '0', 'professional_type' => 'lawyer', 'subscription_status' => 'active', 'plan_type' => 'featured', 'profile_fact_review_status' => 'source_checked' ),
@@ -106,7 +110,8 @@ function get_queried_object_id(): int {
 	return $jt_queried_object_id;
 }
 function get_the_ID(): int {
-	return 500;
+	global $jt_current_post_id;
+	return $jt_current_post_id ?: 500;
 }
 function get_the_title( $id = 0 ): string {
 	return $id ? 'איש מקצוע ' . (int) $id : 'מדריך מחירי דירות בקפריסין';
@@ -119,6 +124,10 @@ function get_permalink( $id = 0 ): string {
 	return $id ? 'https://example.test/professional/' . (int) $id . '/' : 'https://example.test/cyprus-prices/';
 }
 function get_the_terms( $id, $taxonomy ) {
+	global $jt_post_terms;
+	if ( 'practice-areas' === $taxonomy && isset( $jt_post_terms[ (int) $id ] ) ) {
+		return $jt_post_terms[ (int) $id ];
+	}
 	if ( 500 === (int) $id ) {
 		return array( (object) array( 'term_id' => 7, 'slug' => 'real-estate', 'name' => 'מקרקעין' ) );
 	}
@@ -293,5 +302,54 @@ $jt_json = false;
 $_GET['rest_route'] = '/wp/v2/articles/500';
 jt_professional_cards_assert( $source === justice_cards_filter_content( $source ), 'REST query transport response was mutated.' );
 unset( $_GET['rest_route'] );
+
+// Family resolution (structure audit batch 15b, 15.10.2026): family-court
+// rulings join the family, the primary term decides a tie, map order otherwise.
+$jt_term = static fn( int $id, string $slug, string $name ): object => (object) array( 'term_id' => $id, 'slug' => $slug, 'name' => $name );
+$t_family     = $jt_term( 68, 'family-law', 'דיני משפחה' );
+$t_criminal   = $jt_term( 170, 'criminal-law', 'משפט פלילי' );
+$t_rulings    = $jt_term( 646, 'court-rulings', 'פסקי דין' );
+$t_fam_ruling = $jt_term( 651, 'family-court-rulings', 'פסקי דין בענייני משפחה' );
+$t_inherit    = $jt_term( 714, 'inheritance-law', 'ירושה וצוואות' );
+$family_slugs = justice_cards_family_map()['family'];
+jt_professional_cards_assert( in_array( 'family-court-rulings', $family_slugs, true ), 'family-court-rulings is part of the family map.' );
+
+$map = justice_cards_family_map();
+jt_professional_cards_assert( 'family' === justice_cards_resolve_family( array( 'court-rulings', 'family-court-rulings' ), 'court-rulings', $map ), 'A family-court ruling with only that family term resolves to the family.' );
+jt_professional_cards_assert( null === justice_cards_resolve_family( array( 'court-rulings' ), 'court-rulings', $map ), 'A general ruling belongs to no family.' );
+jt_professional_cards_assert( 'criminal-law' === justice_cards_resolve_family( array( 'family-law', 'criminal-law' ), '', $map ), 'Without a primary the map order still decides (criminal first).' );
+jt_professional_cards_assert( 'family' === justice_cards_resolve_family( array( 'family-law', 'criminal-law' ), 'family-law', $map ), 'The primary term decides a tie between two families.' );
+jt_professional_cards_assert( 'criminal-law' === justice_cards_resolve_family( array( 'family-law', 'criminal-law' ), 'criminal-law', $map ), 'The primary term decides the tie the other way too.' );
+jt_professional_cards_assert( 'inheritance' === justice_cards_resolve_family( array( 'family-court-rulings', 'inheritance-law' ), 'inheritance-law', $map ), 'An inheritance ruling heard in the family court stays with inheritance when that is its primary.' );
+jt_professional_cards_assert( 'family' === justice_cards_resolve_family( array( 'family-court-rulings', 'inheritance-law' ), 'court-rulings', $map ), 'A primary outside every family falls back to the map order.' );
+jt_professional_cards_assert( 'family' === justice_cards_resolve_family( array( 'divorce' ), 'criminal-law', $map ), 'A single matching family wins regardless of the primary.' );
+
+// Primary term: the Yoast meta when it names one of the article's terms, else the first term.
+$jt_post_meta = array( 601 => array( '_yoast_wpseo_primary_practice-areas' => '68' ), 602 => array( '_yoast_wpseo_primary_practice-areas' => '999' ) );
+jt_professional_cards_assert( 'family-law' === justice_cards_primary_term_slug( 601, array( $t_criminal, $t_family ) ), 'The Yoast primary term wins over term order.' );
+jt_professional_cards_assert( 'criminal-law' === justice_cards_primary_term_slug( 602, array( $t_criminal, $t_family ) ), 'A Yoast primary that is not one of the article terms is ignored: first term.' );
+jt_professional_cards_assert( 'family-law' === justice_cards_primary_term_slug( 603, array( $t_family, $t_criminal ) ), 'Without Yoast meta the first term is the primary.' );
+jt_professional_cards_assert( '' === justice_cards_primary_term_slug( 603, array() ), 'No terms, no primary.' );
+
+// End to end on the current view: the domestic-violence guide (family-law first, criminal-law too)
+// resolves to the family; a family-court ruling resolves to the family; an inheritance ruling heard
+// in the family court with inheritance as its Yoast primary stays with inheritance.
+$jt_post_terms = array(
+	601 => array( $t_criminal, $t_family ),
+	604 => array( $t_rulings, $t_fam_ruling ),
+	605 => array( $t_fam_ruling, $t_inherit ),
+	606 => array( $t_family, $t_criminal ),
+	607 => array( $t_rulings ),
+);
+$jt_post_meta[605] = array( '_yoast_wpseo_primary_practice-areas' => '714' );
+foreach ( array( 601 => 'family', 604 => 'family', 605 => 'inheritance', 606 => 'family' ) as $post_id => $expected_family ) {
+	$jt_current_post_id = $post_id;
+	jt_professional_cards_assert( $map[ $expected_family ] === justice_cards_current_terms(), "Post {$post_id} resolves to the {$expected_family} family." );
+}
+$jt_current_post_id = 607;
+jt_professional_cards_assert( array( 'court-rulings' ) === justice_cards_current_terms(), 'A general ruling keeps its own terms (no family).' );
+$jt_current_post_id = 0;
+$jt_post_terms      = array();
+$jt_post_meta       = array();
 
 echo "professional cards tests passed\n";

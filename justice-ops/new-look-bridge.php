@@ -36,6 +36,36 @@ add_filter( 'body_class', function ( array $classes ): array {
 	return $classes;
 } );
 
+/**
+ * The registration page's Yoast state matches what the bridge below already
+ * ships (structure audit batch 14a, owner order 15.10.2026).
+ *
+ * The theme marks /lawyer-registration/ noindex in Yoast's robots array, and
+ * the output filter below has removed that noindex tag from the HTML since
+ * the bridge shipped, so the page has been indexable all along. Yoast,
+ * however, still believed the page was noindex and therefore printed no
+ * canonical at all (its canonical presenter is silent on noindex pages).
+ * Result: every claim link (/lawyer-registration/?claim_profile_id=...) was
+ * a canonical-less indexable URL; nine of them sit in Search Console, one
+ * indexed. Declaring the real state in Yoast's array makes Yoast print its
+ * canonical, which is the clean /lawyer-registration/ URL for every
+ * parameter variant. Indexability itself does not change.
+ *
+ * @param mixed $robots Yoast robots array.
+ * @return mixed
+ */
+function justice_ops_registration_robots_array( $robots ) {
+	if ( ! is_array( $robots ) || ! function_exists( 'is_page' ) || ! is_page( 'lawyer-registration' ) ) {
+		return $robots;
+	}
+
+	$robots['index']  = 'index';
+	$robots['follow'] = 'follow';
+
+	return $robots;
+}
+add_filter( 'wpseo_robots_array', 'justice_ops_registration_robots_array', 99999 );
+
 add_action( 'template_redirect', function (): void {
 	if ( is_admin() || wp_doing_ajax() || wp_is_json_request() ) {
 		return;

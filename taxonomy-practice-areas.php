@@ -5,12 +5,98 @@
  * @package JusticeTheme
  */
 
-get_header();
-
 $term       = get_queried_object();
 $term_name  = $term instanceof WP_Term ? $term->name : single_term_title( '', false );
 $term_slug  = $term instanceof WP_Term ? $term->slug : '';
 $term_desc  = $term instanceof WP_Term ? $term->description : '';
+
+// Real pagination (structure audit batch 2, 15.10.2026): the article grid
+// used to ignore `paged`, so /page/2/ and /page/3/ of a term were copies of
+// page 1 while the main query kept reporting more pages. The grid now
+// follows the main query's page size and page number, a page past the real
+// items answers an honest 404 (no redirect), and the long term description,
+// the intent cards, the lawyers band and the tools render on page 1 only.
+$justice_tax_paged      = max( 1, (int) get_query_var( 'paged' ) );
+$justice_tax_per_page   = function_exists( 'justice_theme_practice_archive_per_page' ) ? justice_theme_practice_archive_per_page() : 12;
+$justice_tax_post_types = function_exists( 'justice_theme_practice_archive_post_types' ) ? justice_theme_practice_archive_post_types() : array( 'articles', 'post' );
+$justice_tax_post_types = array_values( array_filter( $justice_tax_post_types, 'post_type_exists' ) );
+$justice_tax_articles   = array();
+$justice_tax_total      = 0;
+
+// The main tax query arrives empty on ops-corrupted requests, so the
+// articles list uses its own query with a term-relationship fallback
+// (same poison-proof pattern as the pillar firms band). Same post types as
+// the main query, so both count the same items and agree on the page count.
+if ( $justice_tax_post_types && $term_slug ) {
+	$justice_tax_articles_query = new WP_Query( array(
+		'post_type'        => $justice_tax_post_types,
+		'post_status'      => 'publish',
+		'posts_per_page'   => $justice_tax_per_page,
+		'paged'            => $justice_tax_paged,
+		'suppress_filters' => true,
+		'tax_query'        => array(
+			array(
+				'taxonomy' => 'practice-areas',
+				'field'    => 'slug',
+				'terms'    => $term_slug,
+			),
+		),
+	) );
+	if ( $justice_tax_articles_query->post_count >= 1 ) {
+		$justice_tax_articles = $justice_tax_articles_query->posts;
+		$justice_tax_total    = (int) $justice_tax_articles_query->found_posts;
+	} elseif ( $term instanceof WP_Term ) {
+		$justice_tax_object_ids = get_objects_in_term( $term->term_id, 'practice-areas' );
+		$justice_tax_published  = array();
+		if ( is_array( $justice_tax_object_ids ) ) {
+			foreach ( $justice_tax_object_ids as $justice_tax_object_id ) {
+				$justice_tax_candidate = get_post( (int) $justice_tax_object_id );
+				if ( $justice_tax_candidate instanceof WP_Post && in_array( $justice_tax_candidate->post_type, $justice_tax_post_types, true ) && 'publish' === $justice_tax_candidate->post_status ) {
+					$justice_tax_published[] = $justice_tax_candidate;
+				}
+			}
+		}
+		$justice_tax_total    = count( $justice_tax_published );
+		$justice_tax_articles = array_slice(
+			$justice_tax_published,
+			function_exists( 'justice_theme_practice_archive_offset' ) ? justice_theme_practice_archive_offset( $justice_tax_paged, $justice_tax_per_page ) : ( $justice_tax_paged - 1 ) * $justice_tax_per_page,
+			$justice_tax_per_page
+		);
+	}
+}
+
+$justice_tax_pages = function_exists( 'justice_theme_practice_archive_page_count' )
+	? justice_theme_practice_archive_page_count( $justice_tax_total, $justice_tax_per_page )
+	: (int) ceil( $justice_tax_total / max( 1, $justice_tax_per_page ) );
+
+if ( $justice_tax_paged > 1 && $justice_tax_paged > $justice_tax_pages ) {
+	if ( function_exists( 'justice_theme_practice_archive_not_found' ) ) {
+		justice_theme_practice_archive_not_found();
+		return;
+	}
+	global $wp_query;
+	$wp_query->set_404();
+	status_header( 404 );
+	nocache_headers();
+	get_template_part( '404' );
+	return;
+}
+
+$justice_tax_is_paged = $justice_tax_paged > 1;
+
+// Page 2+ has no lawyers band of its own, so its hero action points back at
+// page one's band; the guides anchor exists on every page.
+$justice_tax_page_one_url  = '';
+$justice_tax_lawyers_href  = '#practice-lawyers';
+if ( $justice_tax_is_paged && $term instanceof WP_Term ) {
+	$justice_tax_term_link = get_term_link( $term );
+	if ( is_string( $justice_tax_term_link ) && '' !== $justice_tax_term_link ) {
+		$justice_tax_page_one_url = $justice_tax_term_link;
+		$justice_tax_lawyers_href = $justice_tax_page_one_url . '#practice-lawyers';
+	}
+}
+
+get_header();
 $clean_name = trim( str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ' ), '', $term_name ) );
 
 $practice_area_seo_overrides = array(
@@ -106,7 +192,9 @@ $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-
 		<div>
 			<p class="section-header__eyebrow"><?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?></p>
 			<h1><?php echo esc_html( $hero_title ); ?></h1>
-			<?php if ( $term_desc ) : ?>
+			<?php if ( $justice_tax_is_paged ) : ?>
+				<p><?php echo esc_html( sprintf( 'עמוד %1$d מתוך %2$d: עוד מדריכים ומאמרים בתחום %3$s. המבוא, עורכי הדין והכלים נמצאים בעמוד הראשון.', $justice_tax_paged, $justice_tax_pages, $display_area ) ); ?></p>
+			<?php elseif ( $term_desc ) : ?>
 				<div class="practice-hub-hero__description">
 					<?php echo wp_kses_post( wpautop( $term_desc ) ); ?>
 				</div>
@@ -116,7 +204,7 @@ $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-
 				<p><?php echo esc_html( sprintf( 'מרכז מידע, עורכי דין וכלים דיגיטליים בתחום %s. העמוד נועד לעזור להבין את הבעיה, לקרוא מדריכים רלוונטיים ולהשאיר פנייה מסודרת.', $display_area ) ); ?></p>
 			<?php endif; ?>
 			<div class="practice-hub-hero__actions">
-				<a class="button button--gold" href="#practice-lawyers"><?php esc_html_e( 'עורכי דין בתחום', 'justice-theme' ); ?></a>
+				<a class="button button--gold" href="<?php echo esc_url( $justice_tax_lawyers_href ); ?>"><?php esc_html_e( 'עורכי דין בתחום', 'justice-theme' ); ?></a>
 				<a class="button button--ghost" href="#practice-guides"><?php esc_html_e( 'מדריכים משפטיים', 'justice-theme' ); ?></a>
 			</div>
 		</div>
@@ -132,6 +220,7 @@ $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-
 	</div>
 </section>
 
+<?php if ( ! $justice_tax_is_paged ) : ?>
 <section class="practice-hub-intent section" aria-label="<?php esc_attr_e( 'הכוונה ראשונית לפי תחום משפטי', 'justice-theme' ); ?>">
 	<div class="container practice-hub-intent__grid">
 		<article class="practice-hub-intent__card">
@@ -187,6 +276,7 @@ $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-
 		</div>
 	</div>
 </section>
+<?php endif; ?>
 
 <section class="practice-hub-content section" id="practice-guides">
 	<div class="container">
@@ -198,44 +288,6 @@ $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-
 			<a class="button button--ghost" href="<?php echo esc_url( justice_theme_public_url( (string) get_post_type_archive_link( 'articles' ) ) ); ?>"><?php esc_html_e( 'כל המאמרים', 'justice-theme' ); ?></a>
 		</div>
 
-		<?php
-		// The main tax query arrives empty on ops-corrupted requests, so the
-		// articles list uses its own query with a term-relationship fallback
-		// (same poison-proof pattern as the pillar firms band).
-		$justice_tax_articles = array();
-		if ( post_type_exists( 'articles' ) && $term_slug ) {
-			$justice_tax_articles_query = new WP_Query( array(
-				'post_type'        => 'articles',
-				'post_status'      => 'publish',
-				'posts_per_page'   => 12,
-				'no_found_rows'    => true,
-				'suppress_filters' => true,
-				'tax_query'        => array(
-					array(
-						'taxonomy' => 'practice-areas',
-						'field'    => 'slug',
-						'terms'    => $term_slug,
-					),
-				),
-			) );
-			if ( $justice_tax_articles_query->post_count >= 1 ) {
-				$justice_tax_articles = $justice_tax_articles_query->posts;
-			} elseif ( isset( $term ) && $term instanceof WP_Term ) {
-				$justice_tax_object_ids = get_objects_in_term( $term->term_id, 'practice-areas' );
-				if ( is_array( $justice_tax_object_ids ) ) {
-					foreach ( $justice_tax_object_ids as $justice_tax_object_id ) {
-						$justice_tax_candidate = get_post( (int) $justice_tax_object_id );
-						if ( $justice_tax_candidate instanceof WP_Post && 'articles' === $justice_tax_candidate->post_type && 'publish' === $justice_tax_candidate->post_status ) {
-							$justice_tax_articles[] = $justice_tax_candidate;
-							if ( count( $justice_tax_articles ) >= 12 ) {
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
-		?>
 		<?php if ( ! empty( $justice_tax_articles ) ) : ?>
 			<div class="article-grid">
 				<?php
@@ -247,6 +299,19 @@ $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-
 				wp_reset_postdata();
 				?>
 			</div>
+			<?php if ( $justice_tax_pages > 1 ) : ?>
+				<nav class="pagination practice-hub-pagination" aria-label="<?php esc_attr_e( 'עמודי המדריכים בתחום', 'justice-theme' ); ?>">
+					<?php
+					echo wp_kses_post( (string) paginate_links( array(
+						'total'     => $justice_tax_pages,
+						'current'   => $justice_tax_paged,
+						'mid_size'  => 2,
+						'prev_text' => esc_html__( 'הקודם', 'justice-theme' ),
+						'next_text' => esc_html__( 'הבא', 'justice-theme' ),
+					) ) );
+					?>
+				</nav>
+			<?php endif; ?>
 		<?php else : ?>
 			<div class="directory-empty">
 				<h2><?php esc_html_e( 'המדריכים בתחום הזה בהכנה', 'justice-theme' ); ?></h2>
@@ -256,7 +321,7 @@ $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-
 	</div>
 </section>
 
-<?php if ( $tools && $tools->have_posts() ) : ?>
+<?php if ( ! $justice_tax_is_paged && $tools && $tools->have_posts() ) : ?>
 	<section class="practice-hub-tools section">
 		<div class="container">
 			<div class="section-header">

@@ -230,7 +230,7 @@
 		return 'general';
 	}
 
-	function applyLeadPrefillFromLink(link) {
+	function applyLeadPrefillFromLink(link, event) {
 		var form;
 		var area;
 		var message;
@@ -248,6 +248,9 @@
 		form = document.querySelector('#ask-lawyer form');
 
 		if (!form) {
+			// An article CTA links the clean homepage anchor; its context rides
+			// along in sessionStorage and fills the form on the next page.
+			storeLeadContext(link, event);
 			return false;
 		}
 
@@ -271,6 +274,129 @@
 		setOrCreateHidden(form, 'utm_campaign', link.dataset.leadUtmCampaign || '');
 
 		return true;
+	}
+
+	var LEAD_CONTEXT_KEY = 'justice_lead_context';
+
+	// True only for a same-site link to the homepage lead form (/#ask-lawyer):
+	// a WhatsApp or profile link that also carries data-lead-* must not leave
+	// context behind for an unrelated later visit.
+	function linksToLeadForm(link) {
+		var url;
+
+		try {
+			url = new URL(link.getAttribute('href') || '', window.location.href);
+		} catch (error) {
+			return false;
+		}
+
+		return url.origin === window.location.origin && '/' === url.pathname && '#ask-lawyer' === url.hash;
+	}
+
+	var LEAD_CONTEXT_MAX_AGE_MS = 10 * 60 * 1000;
+	var LEAD_CONTEXT_CLEAR_AFTER_MS = 1500;
+
+	// Context handoff between pages (the article CTA no longer carries
+	// lead_area/lead_message query strings): the clicked link's data-lead-*
+	// values are stored for one navigation and applied to the homepage form.
+	// A Ctrl/Cmd/Shift-click opens the CTA in another tab, which inherits a
+	// copy of sessionStorage at creation; this tab then clears its own copy a
+	// moment later so a later homepage visit here is not attributed to the
+	// article. A stored context also expires on its own.
+	function storeLeadContext(link, event) {
+		if (!linksToLeadForm(link)) {
+			return;
+		}
+
+		var opensElsewhere = !!(event && (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || (typeof event.button === 'number' && event.button !== 0)));
+
+		var context = {
+			savedAt: Date.now(),
+			leadArea: link.dataset.leadArea || '',
+			leadMessage: link.dataset.leadMessage || '',
+			leadSourceKeyword: link.dataset.leadSourceKeyword || '',
+			leadSourceSurface: link.dataset.leadSourceSurface || ''
+		};
+
+		if (!context.leadArea && !context.leadMessage && !context.leadSourceKeyword && !context.leadSourceSurface) {
+			return;
+		}
+
+		try {
+			window.sessionStorage.setItem(LEAD_CONTEXT_KEY, JSON.stringify(context));
+		} catch (error) {
+			// Storage unavailable: the visitor still lands on the form.
+			return;
+		}
+
+		if (opensElsewhere) {
+			window.setTimeout(function () {
+				try {
+					window.sessionStorage.removeItem(LEAD_CONTEXT_KEY);
+				} catch (error) {
+					// Nothing to clear.
+				}
+			}, LEAD_CONTEXT_CLEAR_AFTER_MS);
+		}
+	}
+
+	function applyStoredLeadContext() {
+		var raw = null;
+		var context = null;
+		var carrier;
+
+		if (!document.querySelector('#ask-lawyer form')) {
+			return false;
+		}
+
+		try {
+			raw = window.sessionStorage.getItem(LEAD_CONTEXT_KEY);
+			window.sessionStorage.removeItem(LEAD_CONTEXT_KEY);
+		} catch (error) {
+			raw = null;
+		}
+
+		if (!raw) {
+			return false;
+		}
+
+		try {
+			context = JSON.parse(raw);
+		} catch (error) {
+			return false;
+		}
+
+		if (!context || typeof context !== 'object') {
+			return false;
+		}
+
+		if (typeof context.savedAt !== 'number' || Date.now() - context.savedAt > LEAD_CONTEXT_MAX_AGE_MS) {
+			return false;
+		}
+
+		carrier = document.createElement('a');
+		carrier.dataset.leadArea = String(context.leadArea || '').slice(0, 60);
+		carrier.dataset.leadMessage = String(context.leadMessage || '').slice(0, 260);
+		carrier.dataset.leadSourceKeyword = String(context.leadSourceKeyword || '').slice(0, 200);
+		carrier.dataset.leadSourceSurface = String(context.leadSourceSurface || '').slice(0, 60);
+
+		return applyLeadPrefillFromLink(carrier);
+	}
+
+	// A middle-click dispatches auxclick, not click: it opens the CTA in a new
+	// tab, so the context is stored for that tab the same way as a Ctrl-click.
+	function handleAuxClick(event) {
+		var link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+
+		if (!link || !link.dataset || event.button !== 1) {
+			return;
+		}
+
+		if (document.querySelector('#ask-lawyer form')) {
+			return;
+		}
+
+		storeLeadContext(link, event);
 	}
 
 	function applyAskLawyerWhatsAppPrefill(link) {
@@ -446,7 +572,7 @@
 			return;
 		}
 
-		var appliedLeadPrefill = applyLeadPrefillFromLink(link);
+		var appliedLeadPrefill = applyLeadPrefillFromLink(link, event);
 
 		applyAskLawyerWhatsAppPrefill(link);
 
@@ -540,6 +666,7 @@
 
 	document.addEventListener('DOMContentLoaded', function () {
 		trackSuccessFromQuery();
+		applyStoredLeadContext();
 
 		document.querySelectorAll('select[data-selected-plan]').forEach(function (select) {
 			var selectedPlan = select.getAttribute('data-selected-plan');
@@ -550,6 +677,7 @@
 		});
 
 		document.addEventListener('click', handleClick, true);
+		document.addEventListener('auxclick', handleAuxClick, true);
 
 		document.querySelectorAll('form').forEach(function (form) {
 			form.addEventListener('focusin', function () {

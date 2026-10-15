@@ -351,6 +351,105 @@ function justice_seo_term_canonicals(): array {
 }
 
 /**
+ * Practice-area archives that have a pillar page (owner order 15.10.2026,
+ * structure audit batch 1): the raw taxonomy archive is the weaker copy of
+ * the pillar, so it canonicalises to the pillar. Term slug => pillar path.
+ *
+ * Sources, in this order: the two term pairs reviewed in 2026-07 (family-law,
+ * child-support), the cluster pillars of inc/content-clusters.php (one per
+ * cluster whose topic is the term itself, never a spoke), the Israeli
+ * personal-injury hub that the entity waves use (2.37.31: the nominal
+ * cluster pillar /personal-injury-law/ is a US-law article), and the same-
+ * slug page in the legal-pillar template (child-custody). A target that is
+ * not a published page, post or article at render time is skipped, so an
+ * archive never points at a 404 (justice_seo_term_pillar_target_exists).
+ *
+ * Kept apart from justice_seo_term_canonicals(): the P0 recovery plugin
+ * unsets the three static keys of that map at priority 999
+ * (justice_p0_retire_term_cross_canonicals), which is why the archive
+ * canonical never reached the live site. This map is filterable on its own.
+ *
+ * @return array<string,string>
+ */
+function justice_seo_term_pillar_canonicals(): array {
+	return apply_filters( 'justice_seo_term_pillar_canonicals', array(
+		'family-law'           => '/family-law/',
+		'child-support'        => '/child-support/',
+		'child-custody'        => '/child-custody/',
+		'divorce'              => '/divorce-lawyer/',
+		'prenuptial-agreement' => '/prenuptial-agreements-overview/',
+		'criminal-law'         => '/criminal-defense-attorney/',
+		'real-estate'          => '/real-estate-attorney/',
+		'medical-malpractice'  => '/medical-malpractice-lawyer/',
+		'personal-injury'      => '/personal-injury-israel/',
+		'traffic-law'          => '/traffic-lawyer/',
+		'israeli-labor-law'    => '/labor-lawyer/',
+		'inheritance-law'      => '/inheritance-lawyer/',
+		'immigration-law'      => '/immigration-lawyer/',
+		'tax-law'              => '/tax-lawyer/',
+	) );
+}
+
+/**
+ * True when a pillar path resolves to published content (page, post or
+ * article), so a canonical is never emitted toward a dead URL.
+ */
+function justice_seo_term_pillar_target_exists( string $path ): bool {
+	$slug = trim( $path, '/' );
+
+	if ( '' === $slug ) {
+		return false;
+	}
+
+	foreach ( array( 'page', 'post', 'articles' ) as $post_type ) {
+		if ( ! post_type_exists( $post_type ) ) {
+			continue;
+		}
+
+		$target = get_page_by_path( $slug, OBJECT, $post_type );
+
+		if ( $target instanceof WP_Post && 'publish' === $target->post_status ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * The canonical path for a term archive, or '' when the archive keeps its
+ * own: the reviewed term map first, then the practice-area pillar map (page
+ * one only; a paginated archive page lists different items and keeps its
+ * own canonical).
+ */
+function justice_seo_term_canonical_path( WP_Term $term, bool $paged = false ): string {
+	if ( $paged ) {
+		return '';
+	}
+
+	$map = justice_seo_term_canonicals();
+	$key = $term->taxonomy . ':' . $term->slug;
+
+	if ( isset( $map[ $key ] ) ) {
+		return (string) $map[ $key ];
+	}
+
+	if ( 'practice-areas' !== $term->taxonomy ) {
+		return '';
+	}
+
+	$pillars = justice_seo_term_pillar_canonicals();
+
+	if ( ! isset( $pillars[ $term->slug ] ) ) {
+		return '';
+	}
+
+	$path = (string) $pillars[ $term->slug ];
+
+	return justice_seo_term_pillar_target_exists( $path ) ? $path : '';
+}
+
+/**
  * Resolve the consolidated canonical for the current view, or '' when the
  * view keeps its own. Shared by the canonical and og:url filters so the
  * two signals can never disagree.
@@ -366,10 +465,9 @@ function justice_seo_consolidated_url(): string {
 	}
 
 	if ( $qo instanceof WP_Term ) {
-		$map = justice_seo_term_canonicals();
-		$key = $qo->taxonomy . ':' . $qo->slug;
+		$path = justice_seo_term_canonical_path( $qo, function_exists( 'is_paged' ) && is_paged() );
 
-		return isset( $map[ $key ] ) ? home_url( $map[ $key ] ) : '';
+		return '' !== $path ? home_url( $path ) : '';
 	}
 
 	return '';

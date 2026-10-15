@@ -28,10 +28,82 @@ function justice_theme_practice_tax_archive_post_types( WP_Query $query ): void 
 	if ( ! $query->is_tax( 'practice-areas' ) && ! $query->is_category() ) {
 		return;
 	}
-	$query->set( 'post_type', array( 'articles', 'post' ) );
+	$query->set( 'post_type', justice_theme_practice_archive_post_types() );
 	$query->set( 'posts_per_page', 12 );
 }
 add_action( 'pre_get_posts', 'justice_theme_practice_tax_archive_post_types', 20 );
+
+/**
+ * The post types a practice-area archive lists: the same list for the main
+ * query and for the template's own paginated query, so both count the same
+ * items and agree on how many pages exist.
+ *
+ * @return string[]
+ */
+function justice_theme_practice_archive_post_types(): array {
+	return array( 'articles', 'post' );
+}
+
+/**
+ * Real pagination for the practice-areas archive template (structure audit
+ * batch 2, owner order 15.10.2026). The template's article grid ran its own
+ * query without `paged`, so every /page/N/ the main query reported was a
+ * copy of page 1 (18 archives, 92 duplicate URLs on 15.10). These helpers
+ * keep the template on the main query's page size and number, and give a
+ * page past the real items an honest 404: no redirect, no page-1 copy.
+ */
+
+/**
+ * Items per page on a practice-area archive: the main query's size, so the
+ * template and WordPress can never disagree on how many pages exist.
+ */
+function justice_theme_practice_archive_per_page(): int {
+	$per_page = (int) get_query_var( 'posts_per_page' );
+
+	return $per_page > 0 ? $per_page : 12;
+}
+
+/**
+ * Number of real pages for a total item count.
+ */
+function justice_theme_practice_archive_page_count( int $total, int $per_page ): int {
+	if ( $per_page < 1 || $total < 1 ) {
+		return 0;
+	}
+
+	return (int) ceil( $total / $per_page );
+}
+
+/**
+ * Zero-based offset of the first item on a page.
+ */
+function justice_theme_practice_archive_offset( int $paged, int $per_page ): int {
+	return max( 0, $paged - 1 ) * max( 1, $per_page );
+}
+
+/**
+ * True when the requested page lies beyond the real items (page 1 always
+ * renders, even when the term has no articles yet).
+ */
+function justice_theme_practice_archive_is_past_end( int $paged, int $total, int $per_page ): bool {
+	return $paged > 1 && $paged > justice_theme_practice_archive_page_count( $total, $per_page );
+}
+
+/**
+ * Answer a page beyond the real items with a plain 404 and the 404 template.
+ * Called before any output, so the status header still reaches the client.
+ */
+function justice_theme_practice_archive_not_found(): void {
+	global $wp_query;
+
+	if ( $wp_query instanceof WP_Query ) {
+		$wp_query->set_404();
+	}
+
+	status_header( 404 );
+	nocache_headers();
+	get_template_part( '404' );
+}
 
 /**
  * The encyclopedia domain terms were created with English slugs and no Hebrew

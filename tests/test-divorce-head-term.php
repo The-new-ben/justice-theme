@@ -93,7 +93,7 @@ check( array() === justice_theme_practice_landing_team_parts( '<p>טקסט שנ�
 check( array( 'המחשבון והתשובה שמעליו', 'השאלות הנפוצות' ) === justice_theme_practice_landing_team_parts( '[justice_tool name="gerushin" mode="lawyer"]<section class="jt-team-block jt-head-faq">' ), 'tool and team FAQ are both named' );
 $tpl = (string) file_get_contents( dirname( __DIR__ ) . '/template-parts/content/practice-landing-page.php' );
 check( false !== strpos( $tpl, 'הטקסט במדריך נבדק על ידי' ) && false !== strpos( $tpl, ': צוות Jus-Tice, מול המקורות שמצוינים בהם.' ) && false !== strpos( $tpl, 'התוכן בעמוד נבדק על ידי' ), 'template: the narrowed line when team content is present, the full line otherwise' );
-check( 2 === substr_count( $tpl, 'class="eeat-reviewed-footer"' ), 'template: both variants keep the eeat-reviewed-footer class the ops strippers match' );
+check( 3 === substr_count( $tpl, 'class="eeat-reviewed-footer"' ), 'template: all three variants (full, narrowed, marked chapters since HAD-539) keep the eeat-reviewed-footer class the ops strippers match' );
 
 /* ---------- LegalService on the owner page ---------- */
 $map = justice_theme_practice_area_service_map();

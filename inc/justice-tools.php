@@ -1142,8 +1142,42 @@ function justice_tools_webapp_schema( string $name, array $tool ): string {
  * @param array|string $atts Shortcode attributes.
  * @return string
  */
-function justice_tools_shortcode( $atts ): string {
+/**
+ * One instrument per tool per render pass (two copies would share field ids and one share link). The guard is per
+ * pass, not per request: justice-ops practice-polish pre-renders a practice landing page's body at template_redirect
+ * and discards it once the theme carries the slot, so a per-request guard left the real render empty (HAD-539,
+ * 15.10.2026: /divorce-lawyer/ showed the answer box and none of its eight instruments). the_content at priority 0
+ * opens a new pass.
+ *
+ * @param string $name  Tool name; '' only resets.
+ * @param bool   $reset Start a new render pass.
+ * @return bool True when this name already printed in the current pass (the caller prints nothing).
+ */
+function justice_tools_printed( string $name, bool $reset = false ): bool {
 	static $printed = array();
+	if ( $reset ) {
+		$printed = array();
+	}
+	if ( '' === $name ) {
+		return false;
+	}
+	if ( isset( $printed[ $name ] ) ) {
+		return true;
+	}
+	$printed[ $name ] = true;
+	return false;
+}
+
+/** the_content filter, priority 0: every run of the filter is a new render pass for the instruments. */
+function justice_tools_new_render_pass( $content ) {
+	justice_tools_printed( '', true );
+	return $content;
+}
+if ( function_exists( 'add_filter' ) ) {
+	add_filter( 'the_content', 'justice_tools_new_render_pass', 0 );
+}
+
+function justice_tools_shortcode( $atts ): string {
 	$atts    = shortcode_atts( array( 'name' => '', 'answer' => '1', 'mode' => '' ), $atts, 'justice_tool' );
 	$name    = sanitize_key( (string) $atts['name'] );
 	$catalog = justice_tools_catalog();
@@ -1162,11 +1196,10 @@ function justice_tools_shortcode( $atts ): string {
 		wp_enqueue_style( 'justice-tools', JUSTICE_THEME_URI . '/assets/css/justice-tools.css', array(), is_readable( $css ) ? (string) filemtime( $css ) : JUSTICE_THEME_VERSION );
 		return justice_tools_answer( $name, $mode );
 	}
-	// One instrument per tool per page: two copies would share field ids and one share link.
-	if ( ! isset( $catalog[ $name ] ) || empty( $snap['form'] ) || isset( $printed[ $name ] ) ) {
+	// One instrument per tool per render pass: two copies would share field ids and one share link.
+	if ( ! isset( $catalog[ $name ] ) || empty( $snap['form'] ) || justice_tools_printed( $name ) ) {
 		return '';
 	}
-	$printed[ $name ] = true;
 	$tool = justice_tools_tool( $name, $mode );
 	$reg  = justice_tools_registry();
 	justice_tools_enqueue( $name );

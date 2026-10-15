@@ -104,6 +104,9 @@ check( 0 === strpos( $only, '<div class="jtool-answer"><p><strong>עורך די�
 $full = $tool( array( 'name' => 'gerushin', 'mode' => 'lawyer', 'answer' => '0' ) );
 check( false !== strpos( $full, 'data-jtool="gerushin" data-jtool-mode="lawyer"' ) && false === strpos( $full, 'jtool-answer' ), 'the instrument still prints once after the answer-only call, without a second answer box' );
 check( '' === $tool( array( 'name' => 'gerushin', 'mode' => 'lawyer' ) ) && '' === $tool( array( 'name' => 'no-such-tool', 'answer' => 'only' ) ), 'a second instrument prints nothing; an unknown tool prints nothing' );
+justice_tools_new_render_pass( '' );
+check( false !== strpos( $tool( array( 'name' => 'gerushin', 'mode' => 'lawyer', 'answer' => '0' ) ), 'data-jtool="gerushin" data-jtool-mode="lawyer"' ), 'a new render pass (justice-ops pre-renders the body at template_redirect, then the template renders it) prints the instrument again' );
+check( '' === $tool( array( 'name' => 'gerushin', 'mode' => 'lawyer', 'answer' => '0' ) ), 'within one pass the instrument still prints once' );
 check( isset( $jt_enqueued['justice-tools'] ), 'the answer box enqueues the stylesheet' );
 
 /* ---------- The practice landing: her card after the first section, the reviewed-chapters line ---------- */

@@ -43,6 +43,12 @@ const TOOLS = {
 	izun: ['instrument.js', 'dates.js', 'family-common.js', 'izun-engine.js', 'izun-ui.js'],
 	'heskem-mamon': ['instrument.js', 'dates.js', 'family-common.js', 'mamon-engine.js', 'mamon-ui.js'],
 	'heskem-gerushin': ['instrument.js', 'dates.js', 'family-common.js', 'mezonot-engine.js', 'izun-engine.js', 'horut-engine.js', 'heskem-engine.js', 'heskem-ui.js'],
+	// The divorce world (HAD-539): the custody calendar reuses the parenting engine's holidays; the tracker reuses the
+	// wave-1 linkage and interest engine (so dates.js is not bundled next to it: both export parseDate and addMonths);
+	// the roadmap reuses the wave-4 divorce engine's fees and clock.
+	'luach-shahut': ['instrument.js', 'dates.js', 'family-common.js', 'horut-engine.js', 'luach-engine.js', 'luach-ui.js'],
+	'maakav-mezonot': ['instrument.js', 'hatzmada-engine.js', 'family-common.js', 'maakav-engine.js', 'maakav-ui.js'],
+	'mapat-gerushin': ['instrument.js', 'dates.js', 'gerushin-engine.js', 'mapat-engine.js', 'mapat-ui.js'],
 };
 
 function strip(code) {
@@ -88,6 +94,9 @@ const fmz = await import(pathToFileURL(join(SRC, 'mezonot-ui.js')).href);
 const fiz = await import(pathToFileURL(join(SRC, 'izun-ui.js')).href);
 const fmm = await import(pathToFileURL(join(SRC, 'mamon-ui.js')).href);
 const fhk = await import(pathToFileURL(join(SRC, 'heskem-ui.js')).href);
+const dwl = await import(pathToFileURL(join(SRC, 'luach-ui.js')).href);
+const dwm = await import(pathToFileURL(join(SRC, 'maakav-ui.js')).href);
+const dwr = await import(pathToFileURL(join(SRC, 'mapat-ui.js')).href);
 const snapshots = {
 	registry_version: registry.registry_version,
 	hatzmada: t04.snapshot(registry),
@@ -107,6 +116,9 @@ const snapshots = {
 	izun: fiz.snapshot(registry),
 	'heskem-mamon': fmm.snapshot(registry),
 	'heskem-gerushin': fhk.snapshot(registry),
+	'luach-shahut': dwl.snapshot(registry),
+	'maakav-mezonot': dwm.snapshot(registry),
+	'mapat-gerushin': dwr.snapshot(registry),
 };
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 

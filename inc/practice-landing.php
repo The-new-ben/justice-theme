@@ -31,7 +31,10 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 			// HAD-532: the hero line now says what the body says (the body: "not a ranking and not a price list"). The old line
 			// promised "מומלץ" and "השוואת משרדים, מחירים", the two intents GSC shows owned by /the-recommended-family-lawyers/
 			// and /divorce-costs-2025/, and split the head term with them.
-			'summary'        => 'עורך דין גירושין: איך בוחרים ייצוג לפי ההליך שלכם, התעריף המינימלי של לשכת עורכי הדין, מה לשאול בפגישה הראשונה, ומדריכי עומק על הסכם גירושין, מזונות ומשמורת.',
+			// HAD-539: the page is the divorce world: the lawyer, the costs, and every divorce tool and app in one place.
+			'summary'        => 'עורך דין גירושין: איך בוחרים ייצוג, כמה זה עולה, וכל כלי הגירושין בעמוד אחד: מחשבון מזונות, איזון משאבים, מחולל הסכם גירושין, לוח זמני שהות, מעקב תשלומים ומפת הדרכים, לצד תרגול הגישור.',
+			// HAD-539: Adv. Maya Rotenberg's premium card sits after the first section, under the answer box, not after the second.
+			'midfold_after_sections' => 1,
 			'hide_signals'   => true,
 			'show_map'       => true,
 			'quick_path'     => array(
@@ -230,12 +233,26 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 function justice_theme_practice_landing_team_parts( string $content ): array {
 	$parts = array();
 	if ( false !== strpos( $content, '[justice_tool ' ) ) {
-		$parts[] = 'המחשבון והתשובה שמעליו';
+		$parts[] = false !== strpos( $content, 'jt-team-guide' ) ? 'המחשבונים, האפליקציות והתשובות שמעליהם' : 'המחשבון והתשובה שמעליו';
+	}
+	if ( false !== strpos( $content, 'jt-team-guide' ) ) {
+		$parts[] = 'מדריכי הכלים וההשוואה לעמודים המדורגים';
 	}
 	if ( false !== strpos( $content, 'jt-team-block' ) ) {
 		$parts[] = 'השאלות הנפוצות';
 	}
 	return $parts;
+}
+
+/**
+ * True when the body marks the reviewer's own chapters with the class jt-reviewed-block (the divorce world, HAD-539):
+ * the bottom line then says that only the marked chapters carry her review, and the rest is the team's.
+ *
+ * @param string $content Raw post_content of the landing page.
+ * @return bool
+ */
+function justice_theme_practice_landing_has_reviewed_blocks( string $content ): bool {
+	return false !== strpos( $content, 'jt-reviewed-block' );
 }
 
 /**

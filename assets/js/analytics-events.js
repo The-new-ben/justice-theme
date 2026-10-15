@@ -230,7 +230,7 @@
 		return 'general';
 	}
 
-	function applyLeadPrefillFromLink(link) {
+	function applyLeadPrefillFromLink(link, event) {
 		var form;
 		var area;
 		var message;
@@ -250,7 +250,7 @@
 		if (!form) {
 			// An article CTA links the clean homepage anchor; its context rides
 			// along in sessionStorage and fills the form on the next page.
-			storeLeadContext(link);
+			storeLeadContext(link, event);
 			return false;
 		}
 
@@ -293,15 +293,25 @@
 		return url.origin === window.location.origin && '/' === url.pathname && '#ask-lawyer' === url.hash;
 	}
 
+	var LEAD_CONTEXT_MAX_AGE_MS = 10 * 60 * 1000;
+
 	// Context handoff between pages (the article CTA no longer carries
 	// lead_area/lead_message query strings): the clicked link's data-lead-*
 	// values are stored for one navigation and applied to the homepage form.
-	function storeLeadContext(link) {
+	// Only a plain click in this tab stores anything: a Ctrl/Cmd/Shift-click
+	// opens another tab (which copies sessionStorage) and would otherwise
+	// leave the context behind in this one; a stored context also expires.
+	function storeLeadContext(link, event) {
 		if (!linksToLeadForm(link)) {
 			return;
 		}
 
+		if (event && (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || (typeof event.button === 'number' && event.button !== 0))) {
+			return;
+		}
+
 		var context = {
+			savedAt: Date.now(),
 			leadArea: link.dataset.leadArea || '',
 			leadMessage: link.dataset.leadMessage || '',
 			leadSourceKeyword: link.dataset.leadSourceKeyword || '',
@@ -346,6 +356,10 @@
 		}
 
 		if (!context || typeof context !== 'object') {
+			return false;
+		}
+
+		if (typeof context.savedAt !== 'number' || Date.now() - context.savedAt > LEAD_CONTEXT_MAX_AGE_MS) {
 			return false;
 		}
 
@@ -531,7 +545,7 @@
 			return;
 		}
 
-		var appliedLeadPrefill = applyLeadPrefillFromLink(link);
+		var appliedLeadPrefill = applyLeadPrefillFromLink(link, event);
 
 		applyAskLawyerWhatsAppPrefill(link);
 

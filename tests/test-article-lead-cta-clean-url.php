@@ -102,9 +102,11 @@ $tags = file_get_contents( dirname( __DIR__ ) . '/inc/template-tags.php' );
 jt_assert( false === strpos( $tags, 'justice_theme_ask_lawyer_fallback_url' ), 'The article CTA no longer uses the query-string URL builder.' );
 
 $script = file_get_contents( dirname( __DIR__ ) . '/assets/js/analytics-events.js' );
-jt_assert( false !== strpos( $script, 'storeLeadContext(link)' ) && false !== strpos( $script, 'applyStoredLeadContext();' ), 'The theme script stores the context on the click and applies it on the homepage form.' );
+jt_assert( false !== strpos( $script, 'storeLeadContext(link, event)' ) && false !== strpos( $script, 'applyStoredLeadContext();' ), 'The theme script stores the context on the click and applies it on the homepage form.' );
 jt_assert( false !== strpos( $script, "sessionStorage.setItem(LEAD_CONTEXT_KEY" ) && false !== strpos( $script, 'sessionStorage.removeItem(LEAD_CONTEXT_KEY)' ), 'The context lives for one navigation only.' );
 jt_assert( false !== strpos( $script, "if (!linksToLeadForm(link)) {\n\t\t\treturn;\n\t\t}" ) && false !== strpos( $script, "'#ask-lawyer' === url.hash" ) && false !== strpos( $script, "'/' === url.pathname" ), 'Only a same-site link to /#ask-lawyer stores context; WhatsApp and profile links leave nothing behind.' );
+jt_assert( false !== strpos( $script, 'event.ctrlKey || event.metaKey || event.shiftKey || event.altKey' ) && false !== strpos( $script, 'storeLeadContext(link, event)' ), 'A modified click (new tab) stores nothing in this tab.' );
+jt_assert( false !== strpos( $script, 'savedAt: Date.now()' ) && false !== strpos( $script, 'Date.now() - context.savedAt > LEAD_CONTEXT_MAX_AGE_MS' ), 'A stored context expires instead of attributing a later, unrelated visit.' );
 $enqueue = file_get_contents( dirname( __DIR__ ) . '/inc/enqueue.php' );
 jt_assert( false !== strpos( $enqueue, "'/assets/js/analytics-events.js',\n\t\tarray(),\n\t\t'1.1.4'" ), 'The script version moved so cached copies refresh.' );
 

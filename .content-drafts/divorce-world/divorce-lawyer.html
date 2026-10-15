@@ -1,40 +1,39 @@
 <!--
-  The divorce world (HAD-539), release step for https://jus-tice.co.il/divorce-lawyer/ (post 7274, type "page",
-  practice-landing template, Adv. Maya Rotenberg's premium card, featured card and reviewed-by line).
-  NOT placed by this PR. Order: the theme release that ships this PR first (three new tool bundles, answer="only",
-  midfold_after_sections, the reviewed-chapters footer line), then this content step. Save a revision before the edit.
+  The divorce world v2 (HAD-541, follows HAD-539), release step for https://jus-tice.co.il/divorce-lawyer/ (post 7274, type
+  "page", practice-landing template, Adv. Maya Rotenberg's premium card, featured card and reviewed-by line).
+  Ben, 15.10.2026 17:40: the eight tool blocks took most of the page; group them; more content from the Google top
+  results read physically in Chrome; prices and costs first-class; a base article on divorce itself; right hierarchy.
+  Order: the theme release that ships this PR first ([justice_tools_command], jt-command.js, the CSS), then this
+  content step. Save a revision before the edit, and keep a backup of the v1 body (it is this file's previous commit).
 
-  1. Replace the WHOLE post_content with everything after this comment. The HAD-532 block A (the lawyer-mode
-     shortcode) and block B (the FAQ) are inside it, so .content-drafts/divorce-head-term/divorce-lawyer.html is
-     superseded by this file; the two city titles in city-titles.html stay as they are.
-  2. Adv. Maya Rotenberg's reviewed text: her chapters are kept word for word inside <section class="jt-reviewed-block">
-     with the visible tag "נבדק על ידי עו"ד מאיה רוטנברג": the urgent-situations list, the table of lawyer by situation,
-     what a divorce lawyer does, what to bring to the first meeting, the eight questions before a power of attorney,
-     how a divorce starts and the "who files first" chapter with Amendment 6, legal aid, and her sources list.
-     Dropped from the old body (owner, 15.10.2026: "too much bloated text"): the two opening paragraphs (the answer box
-     replaces them), "מפת המשך לפי הנושא" (the tool map and the guide sections replace it) and "לפני מעבר לפרופיל או
-     השארת פרטים" (privacy boilerplate). If Ben wants any of them back, paste them into a jt-reviewed-block.
-     Her card, her profile and justice-ops/maya-presence.php are not touched.
-  3. The theme places her premium card and the cinema map after the FIRST h2 section (midfold_after_sections = 1), i.e.
-     right after the answer box, the simulation strip, the expert line, the short "what is on this page" chapter and the
-     tool map: her card is on the first or second screen. The featured-lawyer grid at the bottom stays.
-  4. The simulation strip carries data-hadmaia-article-entry="divorce", so the theme adds no second aside.
-  5. The bottom line reads: "הפרקים המסומנים "נבדק על ידי עו"ד מאיה רוטנברג" הם הטקסט שעבר את בדיקתה. שאר העמוד,
-     המחשבונים, האפליקציות והתשובות שמעליהם ומדריכי הכלים וההשוואה לעמודים המדורגים והשאלות הנפוצות: צוות Jus-Tice,
-     מול המקורות שמצוינים בהם." (jt-reviewed-block + jt-team-guide + jt-team-block switch it on). Check it live.
-  6. Yoast (no year):
+  1. Replace the WHOLE post_content with everything after this comment.
+  2. The eight instruments are no longer placed one by one: [justice_tools_command] prints them as ONE block with a tab
+     bar (cost, child support, balancing, agreement, prenup, roadmap, custody calendar, payment tracker), the first tab
+     open, the others hidden in the HTML, every #jtool-<name> anchor opening its tab. The answer box at the top stays
+     ([justice_tool ... answer="only"]). The tool map under the first heading is now one row of chips that open the tabs.
+  3. Adv. Maya Rotenberg's reviewed text: her five chapters are kept byte for byte inside <section class="jt-reviewed-block">
+     with the visible tag. Two of them moved with the outline: the legal-aid chapter now follows the prices chapter, and
+     "how a divorce starts" + "who files first" follow the new stages chapter. Nothing in them was edited. Her card, her
+     profile and justice-ops/maya-presence.php are not touched; the theme still places her premium card after the first
+     section (midfold_after_sections = 1), right after the answer box and the tool chips.
+  4. New team chapters: prices and costs (the fee table from the registry, the Bar's minimum tariff, the ranges offices
+     publish, attributed as "לפי פרסומי משרדים", fee models, consent vs mediation vs dispute, cost drivers, savings,
+     forgotten costs, legal aid and fee exemption); the command center; divorce in Israel (who divorces where, the two
+     courts, the get, consent and the joint request, spousal support / ketubah / housing, common-law couples); the eight
+     stages; asset concealment and interim relief. Removed: the eight per-tool intro chapters (their facts moved into the
+     topic chapters and into the tab leads) and the separate "בית הדין הרבני" chapter (folded into "divorce in Israel").
+  5. The FAQ grows from 12 to 23 questions, from Google's "people also ask" for the four searches. The phrase "שאלות נפוצות"
+     now appears first in the FAQ heading: the FAQPage builder (inc/schema.php) slices from its first occurrence, and in
+     v1 the intro carried it, so the live FAQPage held 26 entries, 14 of them chapter headings. v2: 23, all questions.
+  6. Yoast stays as it is (no change in this step):
      Title (59): עורך דין גירושין: בחירה, עלויות וכל כלי הגירושין | Jus-Tice
      Meta (156): עורך דין גירושין: איך בוחרים ייצוג, התעריף המינימלי של הלשכה והאגרות, מחשבון מזונות, איזון משאבים, מחולל הסכם גירושין, לוח זמני שהות ומפת הדרכים, בעמוד אחד.
-     The justice-ops family-release contract for /divorce-lawyer/ (seo_title, description) still carries the HAD-532
-     wording; it only overrides the hero summary at render time when the bridge option is on. The live hero on
-     15.10.2026 showed the theme summary, so no plugin change is required for this step; align the contract in the next
-     justice-ops release.
-  7. Purge /divorce-lawyer/ (Varnish + CDN), then check at 1280 and 390: the answer box under the hero, the strip, Maya's
-     card after the tool map, eight instruments working (gerushin lawyer mode, mezonot, izun, heskem-gerushin,
-     heskem-mamon, mapat-gerushin, luach-shahut, maakav-mezonot), the FAQ above the sources, one FAQPage and eight
-     WebApplication blocks in the source, the reviewed line, HTTP 200. Indexing is Ben's decision; no request here.
-  8. On 15.10.2026 12:30 the live page showed no instrument although the HAD-532 shortcode is in post_content: make sure
-     the theme on the server is at this PR's commit (the shortcode prints nothing on an older catalog) before step 1.
+  7. No new URL, no redirect, no robots or sitemap change. Every internal link was checked with HTTP 200 (no redirect)
+     on 15.10.2026; no new external link (the official sources list at the bottom is the v1 list).
+  8. Purge /divorce-lawyer/ (Varnish + CDN), then check at 1280 and 390: the answer box under the hero, the strip, Maya's
+     card after the chips, the prices chapter, one tab bar with eight tabs and one open instrument, every chip opening its
+     tab, eight WebApplication and one FAQPage (23 questions) in the source, the reviewed line, HTTP 200. Indexing is Ben's
+     decision; no request here.
 -->
 [justice_tool name="gerushin" mode="lawyer" answer="only"]
 
@@ -44,17 +43,8 @@
 
 <div class="jt-team-guide">
 <h2>עורך דין גירושין: מה הוא עושה, ומה יש בעמוד הזה</h2>
-<p>עורך דין גירושין מייצג צד אחד: מנסח ובודק את הסכם הגירושין, מנהל את המשא ומתן על הילדים, המזונות והרכוש, ומייצג בבית המשפט לענייני משפחה או בבית הדין הרבני כשאין הסכמה. הדין זהה בכל הארץ; מה שמשתנה הוא הערכאה, המסלול והמספרים שלכם. לכן העמוד הזה בנוי כעולם שלם של גירושין ולא כמאמר: שמונה כלים שעונים במספרים על השאלות שעורך הדין יישאל אתכם בפגישה הראשונה, מדריך קצר בין כלי לכלי, פרקים שעו״ד מאיה רוטנברג בדקה, השוואה לעמודים שמדורגים ראשונים בגוגל, ושאלות נפוצות מתוך מה שאנשים באמת מחפשים. כל מספר בעמוד מגיע ממאגר מתוארך עם הסעיף או פסק הדין שלו. בוחרים מאיפה להתחיל:</p>
-<nav class="jt-world-map" aria-label="הכלים והאפליקציות בעמוד">
-<a class="jt-world-map__card" href="#jtool-gerushin"><span class="jt-world-map__n">1</span><strong>כמה יעלה עורך דין גירושין</strong><span>התעריף המינימלי של הלשכה לכל שירות, וכל אגרה לפי המסלול</span></a>
-<a class="jt-world-map__card" href="#jtool-mezonot"><span class="jt-world-map__n">2</span><strong>מחשבון מזונות ילדים</strong><span>לפי בע״מ 919/15: גילאים, הכנסות ולילות</span></a>
-<a class="jt-world-map__card" href="#jtool-izun"><span class="jt-world-map__n">3</span><strong>מחשבון איזון משאבים</strong><span>דירה, פנסיה, קרן השתלמות, אופציות וקריפטו: מי משלם למי</span></a>
-<a class="jt-world-map__card" href="#jtool-heskem-gerushin"><span class="jt-world-map__n">4</span><strong>מחולל הסכם גירושין ותוכנית הורות</strong><span>טיוטה להעתקה, עם לוח לינות וחגים</span></a>
-<a class="jt-world-map__card" href="#jtool-heskem-mamon"><span class="jt-world-map__n">5</span><strong>מחולל הסכם ממון</strong><span>לפני, במהלך ואחרי: מי מאשר וכמה זה עולה</span></a>
-<a class="jt-world-map__card jt-world-map__card--app" href="#jtool-mapat-gerushin"><span class="jt-world-map__n">6</span><strong>מפת הדרכים לגירושין</strong><span>צ׳קליסט מההחלטה ועד אחרי פסק הדין, עם אגרות ותאריכים</span></a>
-<a class="jt-world-map__card jt-world-map__card--app" href="#jtool-luach-shahut"><span class="jt-world-map__n">7</span><strong>מחולל לוח זמני שהות</strong><span>2-2-3, שבוע-שבוע או לילה-לילה; שנה שלמה עם החגים</span></a>
-<a class="jt-world-map__card jt-world-map__card--app" href="#jtool-maakav-mezonot"><span class="jt-world-map__n">8</span><strong>מעקב תשלומי מזונות</strong><span>הצמדה למדד, פיגורים עם ריבית ומכתב דרישה; נשמר אצלכם בלבד</span></a>
-</nav>
+<p>עורך דין גירושין מייצג צד אחד: מנסח ובודק את הסכם הגירושין, מנהל את המשא ומתן על הילדים, המזונות והרכוש, ומייצג בבית המשפט לענייני משפחה או בבית הדין הרבני כשאין הסכמה. הדין זהה בכל הארץ; מה שמשתנה הוא הערכאה, המסלול והמספרים שלכם. בעמוד הזה: כמה עולה עורך דין גירושין וכמה עולים הגירושין עצמם, עם כל אגרה והסעיף שלה; מה הם גירושין בישראל, מי מחליט על מה ואיך ההליך מתקדם שלב אחרי שלב; שמונה כלים שעונים במספרים על השאלות שעורך הדין ישאל בפגישה הראשונה; הפרקים שעו״ד מאיה רוטנברג בדקה; ותשובות לשאלות שאנשים מחפשים בגוגל. כל מספר מגיע ממאגר מתוארך עם הסעיף או פסק הדין שלו. הכלים, כל אחד בלשונית משלו:</p>
+<nav class="jt-world-map jt-world-map--chips" aria-label="הכלים בעמוד"><a class="jt-world-map__card" href="#jtool-gerushin"><span class="jt-world-map__n">1</span><strong>עלות עורך דין גירושין</strong></a><a class="jt-world-map__card" href="#jtool-mezonot"><span class="jt-world-map__n">2</span><strong>מחשבון מזונות ילדים</strong></a><a class="jt-world-map__card" href="#jtool-izun"><span class="jt-world-map__n">3</span><strong>איזון משאבים</strong></a><a class="jt-world-map__card" href="#jtool-heskem-gerushin"><span class="jt-world-map__n">4</span><strong>מחולל הסכם גירושין</strong></a><a class="jt-world-map__card" href="#jtool-heskem-mamon"><span class="jt-world-map__n">5</span><strong>מחולל הסכם ממון</strong></a><a class="jt-world-map__card jt-world-map__card--app" href="#jtool-mapat-gerushin"><span class="jt-world-map__n">6</span><strong>מפת הדרכים לגירושין</strong></a><a class="jt-world-map__card jt-world-map__card--app" href="#jtool-luach-shahut"><span class="jt-world-map__n">7</span><strong>לוח זמני שהות</strong></a><a class="jt-world-map__card jt-world-map__card--app" href="#jtool-maakav-mezonot"><span class="jt-world-map__n">8</span><strong>מעקב תשלומי מזונות</strong></a></nav>
 </div>
 
 <h2>יש מצב דחוף? פועלים קודם להגנה על אדם, ילד או זכות</h2>
@@ -71,45 +61,182 @@
 </section>
 
 <div class="jt-team-guide">
-<h2>מרכז הפיקוד לגירושין: הכלים לפי סדר הביקוש</h2>
-<p>הסדר כאן הוא הסדר שבו אנשים מחפשים: קודם כמה זה עולה, אחר כך המזונות, הרכוש, ההסכם, ובסוף הסכם הממון למי שרוצה להסדיר מראש. כל כלי עובד בלי הרשמה, מציג דוגמה מחושבת עוד לפני שהקלדתם משהו, ומצטט את הסעיף או פסק הדין מאחורי כל שורה. מה שהקלדתם לא נשלח אלינו.</p>
+<h2>כמה עולה עורך דין גירושין, וכמה עולה להתגרש</h2>
+<p>התשובה הקצרה: האגרות קבועות בתקנות והן מאות שקלים לכל הליך; התעריף המינימלי של לשכת עורכי הדין הוא רצפה של כאלף עד כשלושת אלפים שקלים לשירות; ושכר הטרחה בפועל נקבע בהסכם עם המשרד, ולפי פרסומי משרדים הוא נע בין אלפי שקלים בודדים להסכם בהסכמה לעשרות אלפים, ולעיתים יותר ממאה אלף, בהליך במחלוקת. ההבדל בין הקצוות הוא כמעט תמיד מידת ההסכמה בין בני הזוג, לא שם המשרד. החשבון בנוי משלושה רכיבים: אגרות שמשלמים לערכאה, שכר טרחה לעורך הדין או למגשר, ומומחים כשיש מחלוקת על שווי או על הילדים.</p>
 
-<h3>כמה יעלה עורך דין גירושין, ומה עוד משלמים בדרך</h3>
-<p>שכר הטרחה של עורך דין לגירושין נקבע בהסכם בכתב, אבל יש נקודת ייחוס רשמית: התעריף המינימלי המומלץ של לשכת עורכי הדין, שאינו מחייב. בתוספת לכללי הלשכה: סידור גט בהסכמה 1,287 ₪ (פרט 8(5)), תביעה לגט בלי הסכמה 3,173 ₪ (פרט 8(6)), החזקת ילדים בהסכמה 1,287 ₪ ובהתנגדות 3,008 ₪ (פרטים 8(7)-8(8)), עריכת הסכם לפסק הגט לא פחות מ-2,480 ₪ (פרט 8(9)), וכל דיון נוסף 498 ₪ (פרט 8(15)); תביעה רכושית נגזרת משווי הרכוש. הכול לפני מע״מ ולכל צד. משרד עורכי דין גירושין גובה בדרך כלל יותר, לפי שלבים או לפי שעות, ולכן המחשבון מציג את הרצפה ואת האגרות שמשלמים בכל מקרה, ולא "מחיר". עלויות נלוות, מומחים ודוגמאות של הסכמי שכר טרחה: <a href="/divorce-costs-2025/">עלויות גירושין ושכר טרחה</a>.</p>
-[justice_tool name="gerushin" mode="lawyer" answer="0"]
+<h3>אגרות בית הדין הרבני ובית המשפט לענייני משפחה</h3>
+<p>אלה הסכומים שבתקנות האגרות, בנוסח העדכני שנבדק ב-14.10.2026. ברשת עדיין מופיעים סכומים ישנים יותר, ולכן כדאי לבדוק את הסכום ביום ההגשה.</p>
+<div class="jtool-page jt-fees">
+<table class="jtool-datatable">
+<caption>אגרות הגירושין לפי הערכאה, לפי תקנות הדיינים (אגרות) ותקנות בית המשפט לעניני משפחה (אגרות)</caption>
+<thead><tr><th scope="col">ההליך</th><th scope="col">בית הדין הרבני</th><th scope="col">בית המשפט לענייני משפחה</th></tr></thead>
+<tbody>
+<tr><td data-th="ההליך">בקשה ליישוב סכסוך, הצעד הראשון במחלוקת</td><td data-th="בית הדין הרבני">119 ₪</td><td data-th="בית המשפט לענייני משפחה">120 ₪</td></tr>
+<tr><td data-th="ההליך">תביעת גירושין</td><td data-th="בית הדין הרבני">457 ₪</td><td data-th="בית המשפט לענייני משפחה">אין: גט ניתן רק בבית הדין</td></tr>
+<tr><td data-th="ההליך">תביעה רכושית: איזון משאבים, דירה</td><td data-th="בית הדין הרבני">596 ₪</td><td data-th="בית המשפט לענייני משפחה">601 ₪</td></tr>
+<tr><td data-th="ההליך">משמורת והחזקת ילדים</td><td data-th="בית הדין הרבני">417 ₪</td><td data-th="בית המשפט לענייני משפחה">421 ₪</td></tr>
+<tr><td data-th="ההליך">מזונות</td><td data-th="בית הדין הרבני">מי שתובע פטור</td><td data-th="בית המשפט לענייני משפחה">283 ₪</td></tr>
+<tr><td data-th="ההליך">אישור הסכם גירושין, תוקף של פסק דין</td><td data-th="בית הדין הרבני">536 ₪</td><td data-th="בית המשפט לענייני משפחה">541 ₪</td></tr>
+<tr><td data-th="ההליך">סידור הגט</td><td data-th="בית הדין הרבני">בלי אגרה בתיק הגירושין; בקשה נפרדת 326 ₪, או 457 ₪ כשאחד מבני הזוג בחוץ לארץ</td><td data-th="בית המשפט לענייני משפחה">אין</td></tr>
+<tr><td data-th="ההליך">תעודת גירושין</td><td data-th="בית הדין הרבני">326 ₪ לכל צד</td><td data-th="בית המשפט לענייני משפחה">אין</td></tr>
+<tr><td data-th="ההליך">פרוטוקול</td><td data-th="בית הדין הרבני">118 ₪ בתיק גירושין, 88 ₪ בשאר</td><td data-th="בית המשפט לענייני משפחה">86 ₪</td></tr>
+</tbody>
+</table>
+</div>
+<p>האגרות מתעדכנות: בבית הדין ב-1 בינואר לפי מדד נובמבר, ובבית המשפט לענייני משפחה ב-1 בינואר וב-1 ביולי. מי שמסיים בהסכמה מוקדם מקבל חלק מהאגרה בחזרה: בבית הדין האגרה קטנה במחצית אם ההליך הסתיים לפני שמיעת ראיות וברבע אחרי (תקנה 12), ובבית המשפט לענייני משפחה משלמים מחצית בפשרה עד קדם המשפט (תקנה 8(ב)). על הבקשה ליישוב סכסוך אין החזר. הטבלה המלאה, כולל אגרות נדירות יותר: <a href="/fees-rabbinical-courts/">אגרות בתי הדין הרבניים</a>.</p>
 
-<h3>מזונות ילדים: המחשבון של בע״מ 919/15</h3>
-<p>עורך דין מזונות יתחיל מארבעה נתונים: גילאי הילדים, הכנסת כל הורה, עלות הדיור של כל בית ומספר הלילות אצל כל הורה. מגיל 6 שני ההורים חבים לפי יחס ההכנסות וחלוקת הלילות; עד גיל 6 אב יהודי נושא לבדו בצרכים ההכרחיים, שבית המשפט העליון תיאר בכ-1,300 עד 1,400 ₪ לילד, ועוד חלק הילדים במדור, 30% לילד אחד ו-40% לשניים. בפסקי דין שפורסמו נקבעו 1,500 עד 2,250 ₪ לילד בלי מדור. המחשבון מציג טווח ולא מספר אחד, כי שתי שיטות חישוב מקובלות בבתי המשפט נותנות תוצאות שונות, ומסביר את ההבדל. המדריך המלא, כולל הצמדה למדד, ביטוח לאומי ושינוי מזונות: <a href="/child-support/">מחשבון מזונות ילדים והמדריך</a>.</p>
-[justice_tool name="mezonot"]
+<h3>התעריף המינימלי של לשכת עורכי הדין</h3>
+<p>לשכת עורכי הדין מפרסמת תעריף מינימלי מומלץ לכל שירות בגירושין. הוא אינו מחייב (כלל 2), מע״מ של 18% נוסף עליו, והוא מתעדכן ב-1 בינואר. זה הסכום שעורך דין לא אמור לרדת ממנו, לא הסכום שמשרד עורכי דין גירושין יגבה בפועל. הסכומים הם לכל צד ולעורך הדין שלו, לפי התוספת לכללים:</p>
+<ul>
+<li>סידור גט בהסכמה: 1,287 ₪ (פרט 8(5)).</li>
+<li>תביעה לגט בלי הסכמה: 3,173 ₪ (פרט 8(6)).</li>
+<li>החזקת ילדים בהסכמה: 1,287 ₪; בהתנגדות: 3,008 ₪ (פרטים 8(7) ו-8(8)).</li>
+<li>עריכת הסכם לפסק הגט: לא פחות מ-2,480 ₪ (פרט 8(9)).</li>
+<li>כל דיון נוסף: 498 ₪ (פרט 8(15)).</li>
+<li>תביעה רכושית: נגזרת משווי הרכוש שבמחלוקת (פרטים 1 ו-3).</li>
+</ul>
+<p>המחשבון בלשונית הראשונה של מרכז הפיקוד מחבר את התעריף לאגרות לפי המסלול שלכם, בהסכמה, בגישור או בתביעות: <a href="#jtool-gerushin">מחשבון עלות עורך דין גירושין</a>.</p>
 
-<h3>איזון משאבים: דירה, פנסיה, אופציות וקריפטו</h3>
-<p>בלי הסכם ממון, כל אחד מבני הזוג זכאי למחצית שווי הנכסים שנצברו בנישואין, כולל פנסיה, פיצויים וקרן השתלמות (סעיף 5 לחוק יחסי ממון), ומי שצבר יותר משלם לשני מחצית ההפרש אחרי ניכוי החובות (סעיף 6). לא מתאזנים נכסים מלפני הנישואין, מתנות וירושות. אפשר לבקש איזון מוקדם שנה אחרי פתיחת ההליך או אחרי תשעה חודשי פירוד (סעיף 5א). המחשבון מכניס כל נכס לאיזון או מחריג אותו עם הסעיף שלו, ומטפל גם באופציות ו-RSU לפי כלל הזמן שבתי המשפט למשפחה אימצו, ובקריפטו בשני מועדי שווי. חלוקה בעין של דירה, עסק ופנסיה: <a href="/divorce-property-division/">חלוקת רכוש בגירושין</a>; המחשבון המלא בעמוד <a href="/resource-balancing/">איזון משאבים</a>; הייטק: <a href="/rsu-options-crypto/">אופציות, RSU וקריפטו בגירושין</a>.</p>
-[justice_tool name="izun"]
+<h3>כמה גובים משרדים בפועל: הטווחים שמתפרסמים</h3>
+<p>אין מחירון רשמי לשכר הטרחה, ולכן המידע היחיד על מחירי השוק הוא מה שמשרדים מפרסמים בעצמם. אלה הטווחים לפי פרסומי משרדים ומחירונים שמתפרסמים ברשת, לכל צד ובדרך כלל לפני מע״מ:</p>
+<div class="jtool-page jt-fees">
+<table class="jtool-datatable">
+<caption>שכר טרחה בגירושין לפי פרסומי משרדים. טווחים, לא מחירון</caption>
+<thead><tr><th scope="col">השירות</th><th scope="col">הטווח שמתפרסם</th><th scope="col">ממה זה תלוי</th></tr></thead>
+<tbody>
+<tr><td data-th="השירות">פגישת ייעוץ ראשונה</td><td data-th="הטווח שמתפרסם">500 עד 1,500 ₪</td><td data-th="ממה זה תלוי">יש משרדים שמקזזים אותה משכר הטרחה, ויש שאינם גובים עליה</td></tr>
+<tr><td data-th="השירות">הסכם גירושין בהסכמה</td><td data-th="הטווח שמתפרסם">5,000 עד 20,000 ₪</td><td data-th="ממה זה תלוי">ילדים, דירה, עסק, פנסיות ומספר הפגישות</td></tr>
+<tr><td data-th="השירות">גירושין בהסכמה, הכול כלול</td><td data-th="הטווח שמתפרסם">7,000 עד 30,000 ₪</td><td data-th="ממה זה תלוי">שכר טרחה, אגרות והוצאות נלוות</td></tr>
+<tr><td data-th="השירות">גישור</td><td data-th="הטווח שמתפרסם">700 עד 2,000 ₪ לשעה או לפגישה</td><td data-th="ממה זה תלוי">הליך שלם: מאלפי שקלים בודדים ועד כ-20,000 ₪ לזוג</td></tr>
+<tr><td data-th="השירות">תביעה אחת: מזונות, משמורת או צו הגנה</td><td data-th="הטווח שמתפרסם">8,000 עד 30,000 ₪</td><td data-th="ממה זה תלוי">מספר הדיונים והאם יש תסקיר או מומחה</td></tr>
+<tr><td data-th="השירות">הליך מלא במחלוקת</td><td data-th="הטווח שמתפרסם">30,000 עד 150,000 ₪ ויותר</td><td data-th="ממה זה תלוי">עסק, הון, נכסים בחו״ל או מאבק ממושך על הילדים</td></tr>
+<tr><td data-th="השירות">דיון נוסף מעבר למוסכם</td><td data-th="הטווח שמתפרסם">מאות שקלים ועד כמה אלפים</td><td data-th="ממה זה תלוי">כשהמחיר אינו כולל</td></tr>
+</tbody>
+</table>
+</div>
+<p>הטווחים רחבים כי הם מתארים תיקים שונים מאוד. שני דברים קבועים: שכר הטרחה נקבע בהסכם בכתב, ואת מה שאינו כלול בו כדאי לראות לפני החתימה ולא בחשבון הראשון. ההסבר המלא, עם דוגמאות לכל מסלול: <a href="/divorce-costs-2025/">כמה עולה גירושין: עלויות ושכר טרחה</a>; ולשכר הטרחה של עורכי דין בכלל: <a href="/lawyer-fees-tariff/">מחירון שכר טרחה של עורכי דין</a>.</p>
 
-<h3>הסכם גירושין ותוכנית הורות: טיוטה אחת להעתקה</h3>
-<p>עורך דין הסכם גירושין סוגר שבעה פרקים: הצדדים והנספחים, הגט, הילדים ולוח הלינות, המזונות עם הצמדה ויום תשלום, הרכוש והפנסיה, סילוק טענות, והאישור. המחולל בונה את כל השבעה מאותם נתונים שהקלדתם במחשבון המזונות ובאיזון המשאבים, כך שההסכם והמספרים מסכימים זה עם זה, ומוסיף לוח שבועיים וחלוקת חגים לפי הלוח העברי. הטיוטה היא טקסט להעתקה ולעריכה, לא תחליף לבדיקה של עורך דין לכל צד. איך מאשרים ובכמה: <a href="/divorce-agreement/">הסכם גירושין: מה כולל, איך עושים ומי מאשר</a>; נוסח מלא לעיון: <a href="/free-divorce-agreement-template/">הסכם גירושין דוגמא</a>.</p>
-[justice_tool name="heskem-gerushin" answer="0"]
+<h3>איך משרדים מתמחרים: מחיר כולל, לפי שלבים או לפי שעה</h3>
+<p>שלוש שיטות, ולכל אחת השאלה שכדאי לשאול. מחיר כולל מתאים להליך שגבולותיו ידועים, בעיקר הסכם בהסכמה: יודעים מראש כמה ישולם, ושואלים מה קורה אם ההסכמה מתפרקת באמצע הדרך. תמחור לפי שלבים מתאים להליך במחלוקת: סכום לבקשה ליישוב סכסוך, סכום לכל תביעה, סכום לשלב ההוכחות, ותוספת לכל דיון מעבר למספר שהוסכם. תמחור לפי שעה נפוץ בייעוץ ובתיקים שקשה לצפות את היקפם, ושם כדאי לבקש דיווח שעות חודשי ותקרה. יש גם הסכמים שמשלבים סכום קבוע עם רכיב לפי התוצאה בתביעות רכוש. בכל שיטה, שאלו מה אינו כלול: אגרות, פרוטוקולים, שמאי, אקטואר, רואה חשבון, תרגומים ונסיעות.</p>
 
-<h3>הסכם ממון: לפני החתונה, במהלך הנישואין או כידועים בציבור</h3>
-<p>הסכם ממון חייב להיות בכתב ולקבל אישור: לפני החתונה אפשר אימות של נוטריון (446 ₪ ועוד מע״מ 18%, פרט 11(א) לתקנות הנוטריונים) או של רושם הנישואין; אחרי החתונה רק בית המשפט לענייני משפחה (541 ₪) או בית הדין הרבני (536 ₪). הסכם ממון לא קובע מזונות ילדים ולא משמורת, ואלה נשארים לבית המשפט. המחולל שואל באיזה שלב אתם ומה אתם רוצים להפריד, ומוציא טיוטה עם השער שמאשר אותה. מדריך העומק ודוגמאות: <a href="/prenuptial-agreements-overview/">הסכם ממון: המדריך</a>; הכלי בעמוד שלו: <a href="/prenuptial-agreement/">הסכם ממון לפני נישואין</a>.</p>
-[justice_tool name="heskem-mamon" answer="0"]
+<h3>גירושין בהסכמה, בגישור או במחלוקת: איפה הכסף</h3>
+<div class="jtool-page jt-fees">
+<table class="jtool-datatable">
+<caption>שלושת המסלולים זה לצד זה. אגרות לפי התקנות; שכר טרחה לפי פרסומי משרדים</caption>
+<thead><tr><th scope="col">מה משווים</th><th scope="col">בהסכמה</th><th scope="col">בגישור</th><th scope="col">במחלוקת</th></tr></thead>
+<tbody>
+<tr><td data-th="מה משווים">הצעד הראשון</td><td data-th="בהסכמה">הסכם חתום שמוגש ישר לאישור</td><td data-th="בגישור">פגישות עם מגשר עד להסכם</td><td data-th="במחלוקת">בקשה ליישוב סכסוך, פגישות מהו״ת בלי תשלום ו-60 ימי עיכוב הליכים</td></tr>
+<tr><td data-th="מה משווים">אגרות</td><td data-th="בהסכמה">536 ₪ לאישור בבית הדין, או 541 ₪ ועוד 86 ₪ פרוטוקול בבית המשפט ו-326 ₪ לבקשה לסידור גט; 326 ₪ לתעודת גירושין לכל צד</td><td data-th="בגישור">כמו בהסכמה, אחרי שההסכם נחתם</td><td data-th="במחלוקת">אגרה לכל תביעה: רכוש 596 או 601 ₪, משמורת 417 או 421 ₪, מזונות 283 ₪ בבית המשפט, גירושין 457 ₪ בבית הדין</td></tr>
+<tr><td data-th="מה משווים">שכר טרחה</td><td data-th="בהסכמה">5,000 עד 20,000 ₪ לצד</td><td data-th="בגישור">שכר המגשר לזוג, ועוד בדיקה של עורך דין לכל צד</td><td data-th="במחלוקת">30,000 עד 150,000 ₪ ויותר לצד</td></tr>
+<tr><td data-th="מה משווים">מומחים</td><td data-th="בהסכמה">לרוב לא</td><td data-th="בגישור">לפעמים שמאי או אקטואר מוסכם</td><td data-th="במחלוקת">שמאי, אקטואר, רואה חשבון, תסקיר ומומחה לטובת הילד</td></tr>
+<tr><td data-th="מה משווים">זמן</td><td data-th="בהסכמה">דיון אחד, לפי התור בערכאה</td><td data-th="בגישור">לפי קצב השיחות</td><td data-th="במחלוקת">החוק קובע ימים רק להתחלה; למשך התביעות אין מגבלה</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>מה מייקר את הגירושין</h3>
+<ul>
+<li>מחלוקת על הילדים: תסקיר, מומחה לטובת הילד ודיונים חוזרים הם החלק הארוך והיקר ברוב התיקים.</li>
+<li>רכוש שקשה לשום: עסק או חברה, מוניטין, אופציות ו-RSU, נכסים בחו״ל וקריפטו.</li>
+<li>פנסיות וזכויות בעבודה שדורשות אקטואר, ודירה שדורשת שמאי.</li>
+<li>תביעות נפרדות במקום הסכם אחד: כל תביעה היא אגרה, כתב טענות ודיונים.</li>
+<li>מאבק על הערכאה, בית הדין או בית המשפט, עוד לפני שמגיעים לעניין עצמו.</li>
+<li>מסמכים חסרים: כל מסמך שלא הובא מראש עולה בבקשות לגילוי מסמכים.</li>
+<li>ותק ומיקום המשרד, ומי מופיע בדיונים בפועל.</li>
+</ul>
+
+<h3>איך מוזילים את הגירושין בלי לוותר על זכויות</h3>
+<ol>
+<li>מגיעים לפגישה הראשונה עם תיקייה מסודרת: מסמכים, נכסים, חובות, ילדים ומטרות. רשימת ההכנה של עו״ד מאיה רוטנברג מופיעה בהמשך העמוד.</li>
+<li>סוגרים בהסכמה כמה שיותר נושאים, גם אם לא את כולם: כל נושא שנסגר הוא תביעה שלא מגישים.</li>
+<li>מנצלים את פגישות המהו״ת ביחידת הסיוע, שאינן בתשלום, ואת הגישור לפני שמגישים תביעות.</li>
+<li>ממנים מומחה מוסכם אחד במקום מומחה מטעם כל צד.</li>
+<li>חותמים על הסכם שכר טרחה לפי שלבים, עם תקרה ועם רשימה של מה שאינו כלול.</li>
+<li>מחשבים לבד לפני הפגישה: המזונות, האיזון ולוח השהות במרכז הפיקוד נותנים נקודת פתיחה במספרים, וכך שעת הייעוץ הולכת על מה שבאמת פתוח.</li>
+</ol>
+
+<h3>עלויות שקל לשכוח</h3>
+<p>מע״מ על שכר הטרחה; פרוטוקולים; שמאי לדירה, שלפי פרסומי משרדים עולה כ-1,500 עד 4,000 ₪ לדירת מגורים רגילה; אקטואר לחלוקת פנסיה; רואה חשבון לעסק; תרגום ואימות של מסמכים מחו״ל; השלכות מס על העברת דירה או מניות בין בני הזוג, שכדאי לבדוק לפני החתימה ולא אחריה; ובעיקר העלות של שני משקי בית, שכירות שנייה, הובלה וריהוט, שמתחילה עוד לפני שההליך נגמר. מיסוי בחלוקת רכוש: <a href="/property-division-property-tax-divorce/">חלוקת רכוש בגירושין והמס</a>.</p>
+
+<h3>מי שאינו יכול לשלם: סיוע משפטי ופטור מאגרה</h3>
+<p>שתי דרכים. הסיוע המשפטי של משרד המשפטים מייצג בגירושין, במזונות, במשמורת ובחלוקת רכוש, בכפוף למבחן כלכלי ולבחינת הבקשה; הפרק של עו״ד מאיה רוטנברג, מיד כאן, מקשר לבקשה. בנפרד, מי שאין לו יכולת לשלם אגרה יכול לבקש מהערכאה פטור ממנה. פגישות המהו״ת ביחידת הסיוע אינן בתשלום לאף אחד. מי זכאי ואיך מגישים: <a href="/legal-aid-israel/">סיוע משפטי בישראל</a>, <a href="/exemption-court-fee/">פטור מאגרה</a>; ומי משלם את ההוצאות בסוף התיק: <a href="/legal-costs-who-pays/">מי משלם הוצאות משפט</a>.</p>
+</div>
+<section class="jt-reviewed-block">
+<p class="jt-reviewed-block__tag">נבדק על ידי עו"ד מאיה רוטנברג</p>
+<h3>מי שאינו יכול לממן עורך דין פרטי</h3>
+<p>הסיוע המשפטי במשרד המשפטים מטפל, בכפוף לתנאי הזכאות ולבחינת הבקשה, גם בענייני גירושין, מזונות, משמורת, חלוקת רכוש, אלימות במשפחה והתרת נישואין. התנאים והסכומים מתעדכנים, ולכן אין להסתמך על מספר שהועתק ממאמר ישן. <a href="https://www.gov.il/he/service/legal_aid_application">הגשת בקשה לסיוע משפטי</a>.</p>
+</section>
+
+<div class="jt-team-guide">
+<h2>מרכז הפיקוד של הגירושין: שמונה כלים בלשונית אחת</h2>
+<p>במקום שמונה כלים זה אחרי זה, לשונית לכל כלי: חמישה מחשבונים ומחוללים, ושלוש אפליקציות שמלוות את ההליך. הסדר הוא הסדר שבו אנשים מחפשים: קודם כמה זה עולה, אחר כך המזונות, הרכוש וההסכמים, ובסוף הכלים שמנהלים את החודשים שאחרי. כל כלי עובד בלי הרשמה, מציג דוגמה מחושבת עוד לפני שהקלדתם משהו, ומצטט את הסעיף או פסק הדין מאחורי כל שורה. מה שהקלדתם לא נשלח אלינו, והאפליקציות שומרות התקדמות רק בדפדפן שלכם.</p>
+[justice_tools_command]
 </div>
 
 <div class="jt-team-guide">
-<h2>שלוש אפליקציות שמנהלות את הגירושין, מההחלטה ועד אחרי פסק הדין</h2>
-<p>מחשבון עונה על שאלה אחת. גירושין הם תהליך של חודשים עם תאריכים שהחוק קובע, תשלומים שחוזרים כל חודש ולוח שהות שמשתנה בכל חג. שלוש האפליקציות הבאות מנהלות את זה: הן זוכרות את ההתקדמות שלכם, אבל רק בדפדפן שלכם, בלי חשבון ובלי שרת. אפשר לייצא, לייבא במכשיר אחר ולמחוק.</p>
+<h2>גירושין בישראל: מה זה, מי מחליט ואיך זה עובד</h2>
+<p>גירושין הם הסיום הרשמי של הנישואין, והם נוגעים בארבעה עניינים: הגט עצמו, הילדים, המזונות והרכוש. בני זוג יהודים מתגרשים בישראל בגט, והגט ניתן רק בבית הדין הרבני (סעיף 1 לחוק שיפוט בתי דין רבניים (נישואין וגירושין)). כל השאר, הילדים, המזונות והרכוש, יכול להתברר בבית הדין או בבית המשפט לענייני משפחה, וזו השאלה הראשונה שעורך דין גירושין בודק, כי ממנה נגזרים המסלול, הזמן והעלות.</p>
 
-<h3>מפת הדרכים לגירושין: צ׳קליסט אינטראקטיבי עם אגרות ותאריכים</h3>
-<p>בוחרים מסלול, בהסכמה, יישוב סכסוך או תביעות, והערכאה, ומקבלים את כל השלבים בחמישה פרקים: ההכנה, המסלול, הגט, ומה שעושים אחרי פסק הדין. כל תחנה אומרת מה מכינים אליה, כמה היא עולה לפי תקנות האגרות, איזה תאריך החוק קובע לה (45 ימים לפגישות ביחידת הסיוע, 60 או 75 ימי עיכוב הליכים, 15 ימים למגיש הבקשה), ואיזה כלי בעמוד עוזר בה. מסמנים מה בוצע, וההתקדמות נשמרת. הבקשה שפותחת כמעט כל הליך במחלוקת: <a href="/request-for-family-dispute-settlements/">בקשה ליישוב סכסוך</a>.</p>
-[justice_tool name="mapat-gerushin"]
+<h3>מי מתגרש איפה</h3>
+<p>הדין האישי, כלומר הדת, קובע איפה ניתנים הגירושין עצמם. בני זוג יהודים: בית הדין הרבני. בני זוג מוסלמים, נוצרים או דרוזים: בית הדין הדתי של העדה, שפועל לפי הדין שלו ובאגרות שלו; הכלים בעמוד הזה מחשבים רק את המסלול היהודי. בני זוג בני דתות שונות או בלי דת רשומה: בדרך כלל בית המשפט לענייני משפחה. ידועים בציבור אינם צריכים גט כלל. מה שאינו הגט עצמו נקבע לפי חוקים שחלים על כולם: הרכוש לפי חוק יחסי ממון, הילדים לפי חוק הכשרות המשפטית והאפוטרופסות, ומזונות הילדים לפי חוק המזונות, שמפנה לדין האישי של ההורה כפי שפורש בבע״מ 919/15.</p>
 
-<h3>לוח זמני שהות: 2-2-3, שבוע-שבוע, 5-2-2-5 או לילה-לילה</h3>
-<p>אין בחוק נוסחה להסדרי שהות; יש תבניות שהורים ומגשרים משתמשים בהן, ובית המשפט מאשר הסדר רק אם הוא לטובת הילד. המחולל מראה כל תבנית כשבועיים של לילות, סופר כמה מעברים בין הבתים היא גוזרת על הילדים, ואז פורש שנה שלמה: 365 לילות עם החגים והחופש הגדול לפי הלוח העברי, חצי-חצי או לסירוגין. התוצאה היא גם מספר הלילות שמקלידים במחשבון המזונות, קובץ יומן, וטקסט שנכנס להסכם. ההליך והמונחים: <a href="/parenting-time-arrangements/">הסדרי שהות ותוכנית הורות</a>; <a href="/joint-custody-shared-parenting/">משמורת משותפת</a>.</p>
-[justice_tool name="luach-shahut"]
+<h3>שתי ערכאות: מה מחליט כל אחת</h3>
+<div class="jtool-page jt-fees">
+<table class="jtool-datatable">
+<caption>בית הדין הרבני ובית המשפט לענייני משפחה, נושא אחרי נושא, לבני זוג יהודים</caption>
+<thead><tr><th scope="col">הנושא</th><th scope="col">בית הדין הרבני</th><th scope="col">בית המשפט לענייני משפחה</th></tr></thead>
+<tbody>
+<tr><td data-th="הנושא">הגט</td><td data-th="בית הדין הרבני">רק כאן</td><td data-th="בית המשפט לענייני משפחה">אינו מוסמך לתת גט</td></tr>
+<tr><td data-th="הנושא">רכוש ואיזון משאבים</td><td data-th="בית הדין הרבני">כשנכרך כדין לתביעת הגירושין</td><td data-th="בית המשפט לענייני משפחה">כשהתביעה הוגשה אליו, בלי כריכה תקפה בבית הדין</td></tr>
+<tr><td data-th="הנושא">משמורת וזמני שהות</td><td data-th="בית הדין הרבני">כשנכרכו כדין</td><td data-th="בית המשפט לענייני משפחה">כן, עם תסקיר של עובד סוציאלי לסדרי דין</td></tr>
+<tr><td data-th="הנושא">מזונות ילדים</td><td data-th="בית הדין הרבני">בהוראת השעה של תיקון מס׳ 6, כשנכרכו לתביעת גירושין</td><td data-th="בית המשפט לענייני משפחה">כן</td></tr>
+<tr><td data-th="הנושא">מזונות אישה</td><td data-th="בית הדין הרבני">כן, גם בתביעה עצמאית של האישה</td><td data-th="בית המשפט לענייני משפחה">כן</td></tr>
+<tr><td data-th="הנושא">אישור הסכם גירושין</td><td data-th="בית הדין הרבני">כן</td><td data-th="בית המשפט לענייני משפחה">כן</td></tr>
+</tbody>
+</table>
+</div>
+<p>מי מחליט בפועל תלוי בסוג העניין, בערכאה שבה נפתח ההליך, בכריכה ובתקפותה ובהחלטות שכבר ניתנו. לכן "מי מגיש ראשון" אינו סיסמה אלא בדיקה, ועו״ד מאיה רוטנברג מסבירה אותה בפרק שלה בהמשך. העמודים: <a href="/jurisdiction-rabbinical-courts-law/">חוק שיפוט בתי דין רבניים: סמכות וכריכה</a>, ועורכי דין שמופיעים שם: <a href="/practice-areas/rabbinical-court/">עורך דין לבית הדין הרבני</a>.</p>
 
-<h3>מעקב תשלומי מזונות: הצמדה למדד, פיגורים עם ריבית ומכתב דרישה</h3>
-<p>פסק דין למזונות הוא רק ההתחלה: הסכום מתעדכן למדד בתדירות שנקבעה, תשלום שמאחר צובר הפרשי הצמדה וריבית כחוק מיום הפירעון, ואחרי כמה חודשים כבר קשה לדעת מה בדיוק חסר. האפליקציה רושמת את פסק הדין ואת מה ששולם בפועל, מציירת חודש אחרי חודש מה פתוח, מחשבת את החוב ליום הנוכחי עם ההצמדה והריבית, ומנסחת מכתב דרישה שמוכן להעתקה. כשזה לא עוזר: לשכת ההוצאה לפועל במסלול מזונות, או <a href="/bituach-leumi-alimony/">תשלום מזונות דרך ביטוח לאומי</a>; חישוב ההצמדה לבדה: <a href="/tzmidut-mezonot/">עדכון מזונות למדד</a>.</p>
-[justice_tool name="maakav-mezonot"]
+<h3>הגט: איך מסדרים אותו, ומה קורה כשאחד מסרב</h3>
+<p>הגט הוא המסמך שהבעל נותן לאישה מרצונו, בבית הדין ובנוכחות שניהם, והוא שמסיים את הנישואין לפי הדין. בגירושין בהסכמה בבית הדין, אחרי הדיון באישור ההסכם בית הדין קובע מועד לסידור הגט, בלי אגרה נוספת. מי שאישר הסכם בבית המשפט לענייני משפחה מגיש אחר כך בקשה לסידור גט בבית הדין, 326 ₪. אחרי הגט כל צד מקבל תעודת גירושין, 326 ₪. כשאחד מבני הזוג מסרב, בית הדין יכול לפסוק שעליו לתת או לקבל גט, ולהטיל עליו הגבלות כמו על רישיון נהיגה, דרכון ויציאה מהארץ, לפי חוק בתי דין רבניים (קיום פסקי דין של גירושין). העמודים: <a href="/arranging-get-procedure/">סידור גט: אגרות, מסמכים ותעודת גירושין</a>, <a href="/gett-jewish-divorce/">גט</a>, <a href="/refusal-of-get/">סרבנות גט</a>, <a href="/opening-divorce-file-rabbinical/">פתיחת תיק גירושין בבית הדין הרבני</a>.</p>
+
+<h3>גירושין בהסכמה ובקשה משותפת לגירושין</h3>
+<p>גירושין בהסכמה הם המסלול שבו בני הזוג מסכימים על הכול, הגט, הילדים, המזונות והרכוש, וחותמים על הסכם גירושין לפני שפונים לערכאה. את ההסכם מגישים בבקשה משותפת לבית המשפט לענייני משפחה או לבית הדין הרבני, ואין צורך בבקשה ליישוב סכסוך, כי בקשה לאישור הסכם אינה "תובענה" לפי החוק להסדר התדיינויות בסכסוכי משפחה. בדיון שני בני הזוג מופיעים, השופט או הדיין בודק שהם מבינים את ההסכם, שנחתם מרצון ושהוא לטובת הילדים, ונותן לו תוקף של פסק דין. עורך דין הסכם גירושין סוגר בו שבעה פרקים: הצדדים והנספחים, הגט, הילדים ולוח הלינות, המזונות עם הצמדה ויום תשלום, הרכוש והפנסיה, סילוק טענות, והאישור. המחולל בלשונית "הסכם גירושין" בונה את כולם מאותם נתונים שהקלדתם במזונות ובאיזון. העמודים: <a href="/consensual-divorce/">גירושין בהסכמה</a>, <a href="/settlement-agreement-approval/">אישור הסכם גירושין</a>, <a href="/rabbinical-agreement-approval/">אישור הסכם בבית הדין הרבני</a>, <a href="/divorce-agreement/">הסכם גירושין: מה כולל ומי מאשר</a>, ונוסח מלא לעיון: <a href="/free-divorce-agreement-template/">הסכם גירושין דוגמא</a>.</p>
+
+<h3>מזונות אישה, כתובה ומדור</h3>
+<p>מזונות אישה ומזונות ילדים הם שני חיובים שונים. אצל בני זוג יהודים הבעל חייב במזונות אשתו כל עוד הם נשואים, לפי הדין האישי, והחיוב מסתיים עם הגט; לכן בתיקים רבים מזונות האישה הם חלק מהמשא ומתן על מועד הגט. האישה יכולה לתבוע מזונות בבית הדין הרבני או בבית המשפט לענייני משפחה, וגובה החיוב תלוי בהכנסות של שניהם ובנסיבות הפירוד. הכתובה היא התחייבות כספית של הבעל שנכתבה בחתונה, ותביעה לכתובה מוגשת לרוב לבית הדין יחד עם תביעת הגירושין; הזכאות לה נבחנת לפי נסיבות הפרידה. מדור הוא רכיב הדיור, וחלק הילדים בעלות הדיור נקבע בפסיקה בדרך כלל ב-30% לילד אחד וב-40% לשניים. העמודים: <a href="/divorce-spousal-support/">מזונות אישה בגירושין</a>, <a href="/ketubah/">כתובה בגירושין</a>, <a href="/mador-spousal-housing/">מדור</a>.</p>
+
+<h3>ידועים בציבור: פרידה בלי גט</h3>
+<p>זוג שחי יחד בלי נישואים אינו צריך גט ואינו עובר בבית הדין הרבני. הפרידה מתבררת בבית המשפט לענייני משפחה: הסדרי השהות ומזונות הילדים כמו אצל הורים נשואים, ואילו הרכוש אינו מתחלק לפי חוק יחסי ממון אלא לפי הלכת השיתוף שבפסיקה, שבודקת מאמץ משותף ומה שהוסכם בפועל. הסכם חיים משותפים שנחתם מראש חוסך את רוב המחלוקת, ומחולל הסכם הממון בלשונית החמישית עובד גם לידועים בציבור. העמודים: <a href="/common-law-spouses-rights-property-custody-alimony/">ידועים בציבור: רכוש, משמורת ומזונות</a>, <a href="/cohabitation-agreement/">הסכם חיים משותפים</a>.</p>
+</div>
+
+<div class="jt-team-guide">
+<h2>שלבי הליך גירושין, מההחלטה ועד אחרי הגט</h2>
+<p>כל הליך גירושין עובר באותן תחנות, גם אם בהסכמה חלק מהן נמשכות שעה ובמחלוקת חלק נמשכות חודשים. מפת הדרכים במרכז הפיקוד מציירת אותן לפי המסלול והערכאה שלכם, עם האגרה והתאריך של כל אחת: <a href="#jtool-mapat-gerushin">מפת הדרכים לגירושין</a>.</p>
+<ol>
+<li><strong>הכנה.</strong> לפני שאומרים משהו לצד השני: מסמכים, תמונה של הנכסים והחובות, ההסדר הקיים עם הילדים ופגישת ייעוץ. מה שנעשה כאן קובע את נקודת הפתיחה במשא ומתן. מה להביא לפגישה: <a href="/divorce-consultation-guide/">ייעוץ גירושין, המדריך</a>.</li>
+<li><strong>בחירת מסלול.</strong> הסכם ישיר, גישור, או בקשה ליישוב סכסוך כשאין הסכמה. ההחלטה הזו קובעת את רוב העלות.</li>
+<li><strong>בקשה ליישוב סכסוך.</strong> במחלוקת זה הצעד הראשון שהחוק מחייב: 119 ₪ בבית הדין או 120 ₪ בבית המשפט, ואחריה עד ארבע פגישות מהו״ת ביחידת הסיוע בתוך 45 ימים, בלי תשלום. מה קורה בפגישות: <a href="/mahut-meetings/">פגישות מהו״ת</a>.</li>
+<li><strong>עיכוב הליכים.</strong> 60 ימים, או 75 אחרי הארכה, שבהם אי אפשר להגיש תביעה, ואז 15 ימים שבהם רק מי שהגיש את הבקשה רשאי לתבוע. מי שמגיש ראשון משפיע על הערכאה, אבל לא רק הוא, כמו שהפרק הבא מסביר.</li>
+<li><strong>הסכם או תביעות.</strong> מי שהגיעו להסכמה מביאים הסכם לאישור; האחרים מגישים תביעות: גירושין, רכוש, משמורת ומזונות, ולעיתים בקשה למזונות זמניים עד ההכרעה. <a href="/motion-temporary-alimony/">בקשה למזונות זמניים</a>.</li>
+<li><strong>ההליך עצמו.</strong> כתבי טענות, גילוי מסמכים, תסקיר של עובד סוציאלי לסדרי דין, מומחים, דיונים והוכחות. בשלב הזה עובר רוב הזמן ורוב הכסף.</li>
+<li><strong>פסק דין וגט.</strong> פסק דין או הסכם מאושר, ואז סידור הגט בבית הדין ותעודת גירושין לכל צד.</li>
+<li><strong>אחרי פסק הדין.</strong> העברת הדירה או הכספים, חלוקת הפנסיה דרך הקופה, מזונות שמתעדכנים למדד, ושינוי ההסדרים כשהנסיבות משתנות. כשלא משלמים: הוצאה לפועל או ביטוח לאומי, ואפליקציית המעקב בלשונית האחרונה רושמת כל תשלום: <a href="#jtool-maakav-mezonot">מעקב תשלומי מזונות</a>.</li>
+</ol>
+</div>
+<section class="jt-reviewed-block">
+<p class="jt-reviewed-block__tag">נבדק על ידי עו"ד מאיה רוטנברג</p>
+<h3>איך מתחיל הליך גירושין בישראל</h3>
+<p>במחלוקת משפחתית נדרש בדרך כלל להתחיל בבקשה ליישוב סכסוך לפני הגשת תביעות. ההליך מפנה את הצדדים ליחידת הסיוע ולפגישות מהו"ת. תקופת עיכוב ההליכים היא בדרך כלל 60 ימים, או 75 ימים אם יחידת הסיוע האריכה אותה, אלא אם הערכאה קיצרה או האריכה את התקופה. לאחר סיום התקופה עומדים לצד שהגיש את הבקשה 15 ימים להגשת תובענה, בתנאי שהופיע לפגישות מהו"ת. קיימים חריגים ומסלולים לסעד דחוף, ולכן יש לבדוק את המועדים לפי התיק בפועל. <a href="https://www.gov.il/he/service/asking_for_family_dispute_settlements">בקשה ליישוב סכסוך במשפחה</a>, <a href="https://www.gov.il/he/service/filing-lawsuit-family-dispute">הגשת תביעה בסכסוך משפחתי</a>, <a href="https://www.gov.il/he/service/shorten-or-extend-delay-proceedings-family-dispute">קיצור או הארכת תקופת עיכוב ההליכים</a>.</p>
+<p>אם מגיעים להסכם, אפשר לבקש מבית המשפט לענייני משפחה או מבית דין מוסמך לאשרו. אישור שיפוטי מעניק להסכם תוקף של פסק דין. כאשר מדובר בבני זוג יהודים, אישור ההסכם אינו מחליף את סידור הגט בבית הדין הרבני. <a href="https://www.gov.il/he/service/couple-family-agreement">אישור הסכם גירושין בבית המשפט</a>, <a href="https://www.gov.il/he/service/request-divorce-by-consent">בקשה לגירושין בהסכמה בבית הדין הרבני</a>.</p>
+<h3>למה לא נכון להסתפק בסיסמה "מי מגיש ראשון"</h3>
+<p>הסמכות בעניינים הנלווים לגירושין אינה נקבעת רק לפי מי שפתח ראשון. היא תלויה בסוג העניין, בערכאה שבה נפתח ההליך, בכריכה ובתקפותה, בהחלטות שכבר ניתנו ובדין שבתוקף במועד הפעולה.</p>
+<p>ב-18 בנובמבר 2025 נכנס לתוקף תיקון מס' 6 לחוק שיפוט בתי דין רבניים, כהוראת שעה לשנתיים. בתקופה זו נוסח סעיף 3 כולל, במסגרת העניינים הכרוכים בתביעת גירושין בין יהודים שהוגשה לבית דין רבני, גם מזונות לילדי בני הזוג והשבת הוצאות מזונות. התיקון מגדיר לצורך הסעיף את צורכיהם הכלכליים של הילדים וכולל הוראות תחולה לתביעות שהיו תלויות ועומדות ביום כניסתו לתוקף, עם סייגים הנוגעים להחלטות קודמות על סמכות או מזונות. מאמר או עצה שנכתבו לפני התיקון עלולים שלא לשקף את הדין שבתוקף. לפני בחירת ערכאה נדרשת בדיקה פרטנית של העובדות, ההליכים וההחלטות שכבר ניתנו. <a href="https://fs.knesset.gov.il/25/law/25_lsr_9835045.pdf">נוסח תיקון מס' 6 שפורסם בספר החוקים</a>.</p>
+</section>
+
+<div class="jt-team-guide">
+<h2>כמה זמן לוקח להתגרש: לוח הזמנים שבחוק</h2>
+<p>החוק קובע ימים רק לחלק הראשון של הדרך. מיום הגשת הבקשה ליישוב סכסוך: עד ארבע פגישות ביחידת הסיוע בתוך 45 ימים, ואפשר להאריך פעם אחת ב-15; עיכוב הליכים של 60 ימים, או 75 אחרי הארכה, שבהם אי אפשר לתבוע; ואז 15 ימים שבהם רק מי שהגיש את הבקשה רשאי לתבוע, ואחריהם גם הצד השני. ימי ראש השנה, יום כיפור, סוכות ופסח לא נספרים, ומועד שנופל בשבת או בחג עובר ליום שאחריו. בהסכמה מדלגים על כל זה: בקשה לאישור הסכם אינה "תובענה", והזמן הוא זמן התור לדיון. להליך במחלוקת החוק לא קובע משך, ולכן אף כלי כאן לא מבטיח "שנה" או "שנתיים". מפת הדרכים במרכז הפיקוד מחשבת את שלושת התאריכים מיום ההגשה שלכם, ומייצאת אותם ליומן. מה קורה ביום שפותחים את התיק: <a href="/opening-divorce-file-rabbinical/">פתיחת תיק גירושין</a>.</p>
 </div>
 
 <div class="jt-team-guide">
@@ -207,62 +334,39 @@
 </section>
 
 <div class="jt-team-guide">
-<h2>כמה עולה עורך דין גירושין: שכר טרחה, אגרות ומי משלם</h2>
-<p>שלושה סוגי הוצאה. הראשון הוא שכר הטרחה, שנקבע בהסכם; התעריף המינימלי של הלשכה, 1,287 ₪ לגט בהסכמה ו-3,173 ₪ לתביעת גט, הוא הרצפה, לא המחיר. משרדים גובים לפי שלבים (הסכם, יישוב סכסוך, תביעה, ערעור), לפי שעות, או במחיר כולל להליך בהסכמה. השני הוא האגרות, שמשלמים לערכאה בכל מקרה: בבית הדין הרבני 119 ₪ לבקשה ליישוב סכסוך, 457 ₪ לתביעת גירושין, 596 ₪ לתביעה רכושית, 536 ₪ לאישור הסכם ו-326 ₪ לתעודת גירושין; בבית המשפט לענייני משפחה 120 ₪ לבקשה, 541 ₪ לאישור הסכם, 601 ₪ לתביעה רכושית ו-283 ₪ לתביעת מזונות. מי שמגיש תביעת מזונות בבית הדין פטור מאגרה. השלישי הוא המומחים: שמאי לדירה, אקטואר לפנסיה, רואה חשבון לעסק, ולעיתים מומחה לטובת הילד. את ההוצאות האלה בית המשפט יכול לחלק בין הצדדים בפסק הדין. הטבלה המלאה של אגרות בית הדין: <a href="/fees-rabbinical-courts/">אגרות בתי הדין הרבניים</a>.</p>
-</div>
-<section class="jt-reviewed-block">
-<p class="jt-reviewed-block__tag">נבדק על ידי עו"ד מאיה רוטנברג</p>
-<h3>מי שאינו יכול לממן עורך דין פרטי</h3>
-<p>הסיוע המשפטי במשרד המשפטים מטפל, בכפוף לתנאי הזכאות ולבחינת הבקשה, גם בענייני גירושין, מזונות, משמורת, חלוקת רכוש, אלימות במשפחה והתרת נישואין. התנאים והסכומים מתעדכנים, ולכן אין להסתמך על מספר שהועתק ממאמר ישן. <a href="https://www.gov.il/he/service/legal_aid_application">הגשת בקשה לסיוע משפטי</a>.</p>
-</section>
-
-<div class="jt-team-guide">
 <h2>גישור גירושין או בית משפט: איך בוחרים מסלול</h2>
-<p>שלושה מסלולים, ומפת הדרכים למעלה מראה כל אחד מהם תחנה-תחנה. בהסכמה: הסכם שחתמתם מובא ישירות לאישור, בלי בקשה ליישוב סכסוך, ומקבל תוקף של פסק דין באותו דיון. גישור: מגשר אינו מייצג אף צד; הוא מוביל שיחה עד להסכם, וכל צד מביא את ההסכם לבדיקה של עורך דין לפני החתימה. זה המסלול שהתרגול בראש העמוד מדמה, מול מגשרת ומול הצד השני. במחלוקת: החוק מחייב להתחיל בבקשה ליישוב סכסוך, עד ארבע פגישות ביחידת הסיוע בלי תשלום, ו-60 ימים שבהם אי אפשר לתבוע; רק אחר כך מגישים תביעות, והחוק אינו קובע כמה זמן יימשכו. עורך דין גירושין טוב יגיד לכם איזה מסלול מתאים למחלוקת שלכם, ולא רק לאיזה מסלול הוא רגיל. איך גישור עובד, כמה הוא עולה ומתי הוא לא מתאים: <a href="/divorce-mediation/">גישור גירושין</a>; המסלול המהיר: <a href="/consensual-divorce/">גירושין בהסכמה</a>.</p>
+<p>שלושה מסלולים, ומפת הדרכים במרכז הפיקוד מראה כל אחד מהם תחנה אחרי תחנה. בהסכמה: הסכם שחתמתם מובא ישירות לאישור, בלי בקשה ליישוב סכסוך, ומקבל תוקף של פסק דין באותו דיון. גישור: מגשר אינו מייצג אף צד; הוא מוביל שיחה עד להסכם, וכל צד מביא את ההסכם לבדיקה של עורך דין לפני החתימה. לפי פרסומי מגשרים ומשרדים, שעת גישור עולה כ-700 עד 2,000 ₪, והליך שלם לזוג נע בין אלפי שקלים בודדים לכ-20,000 ₪; פגישות המהו״ת ביחידת הסיוע אינן בתשלום. זה המסלול שהתרגול בראש העמוד מדמה, מול מגשרת ומול הצד השני. במחלוקת: החוק מחייב להתחיל בבקשה ליישוב סכסוך, עד ארבע פגישות ביחידת הסיוע בלי תשלום, ו-60 ימים שבהם אי אפשר לתבוע; רק אחר כך מגישים תביעות, והחוק אינו קובע כמה זמן יימשכו. עורך דין גירושין טוב יגיד לכם איזה מסלול מתאים למחלוקת שלכם, ולא רק לאיזה מסלול הוא רגיל. איך גישור עובד, כמה הוא עולה ומתי הוא לא מתאים: <a href="/divorce-mediation/">גישור גירושין</a>; המסלול המהיר: <a href="/consensual-divorce/">גירושין בהסכמה</a>.</p>
 
 <h2>מזונות ילדים בקצרה: הכללים שקובעים את הסכום</h2>
-<p>שלושה גילאים, שלושה כללים. עד גיל 6 אב יהודי נושא לבדו בצרכים ההכרחיים של הילד ובחלקו במדור, ומה שמעבר להכרחי מתחלק לפי יחס ההכנסות. מגיל 6 עד 15 שני ההורים חבים מדין צדקה לפי יכולתם הכלכלית היחסית, בהתחשב בחלוקת הלילות בפועל; זו ההלכה של בע״מ 919/15. מגיל 15 עד 18 שני ההורים לפי יכולתם, ובתקופת השירות הצבאי בתי המשפט פוסקים שליש. מזונות צמודים למדד ומתעדכנים בתדירות שנקבעה, כל שלושה חודשים בפסקי דין רבים. אפשר לבקש שינוי כשהנסיבות השתנו (סעיף 13 לחוק המזונות), ותביעה שהוגשה יותר משנה אחרי התקופה שבעדה היא מוגשת עלולה להידחות (סעיף 11). כשהחייב לא משלם, המוסד לביטוח לאומי משלם במקומו את הנמוך מבין פסק הדין לסכום שבתקנות: 3,478 ₪ לאישה עם ילד אחד ו-4,049 ₪ עם שני ילדים ויותר, בסכומים שמתעדכנים ב-1 בינואר. עורך דין משמורת ועורך דין מזונות הם לרוב אותו אדם, כי הלילות והסכום קשורים זה בזה. המחשבון והמדריך: <a href="/child-support/">מזונות ילדים</a>.</p>
+<p>שלושה גילאים, שלושה כללים. עד גיל 6 אב יהודי נושא לבדו בצרכים ההכרחיים של הילד, שבית המשפט העליון תיאר בכ-1,300 עד 1,400 ₪ לילד, ובחלקו במדור, ומה שמעבר להכרחי מתחלק לפי יחס ההכנסות. מגיל 6 עד 15 שני ההורים חבים מדין צדקה לפי יכולתם הכלכלית היחסית, בהתחשב בחלוקת הלילות בפועל; זו ההלכה של בע״מ 919/15. מגיל 15 עד 18 שני ההורים לפי יכולתם, ובתקופת השירות הצבאי בתי המשפט פוסקים שליש. בפסקי דין שפורסמו נקבעו 1,500 עד 2,250 ₪ לילד בלי מדור. מזונות צמודים למדד ומתעדכנים בתדירות שנקבעה, כל שלושה חודשים בפסקי דין רבים. אפשר לבקש שינוי כשהנסיבות השתנו (סעיף 13 לחוק המזונות), ותביעה שהוגשה יותר משנה אחרי התקופה שבעדה היא מוגשת עלולה להידחות (סעיף 11). כשהחייב לא משלם, המוסד לביטוח לאומי משלם במקומו את הנמוך מבין פסק הדין לסכום שבתקנות: 3,478 ₪ לאישה עם ילד אחד ו-4,049 ₪ עם שני ילדים ויותר, בסכומים שמתעדכנים ב-1 בינואר. עורך דין משמורת ועורך דין מזונות הם לרוב אותו אדם, כי הלילות והסכום קשורים זה בזה. המחשבון מציג טווח ולא מספר אחד, כי שתי שיטות חישוב מקובלות בבתי המשפט נותנות תוצאות שונות: <a href="#jtool-mezonot">מחשבון מזונות ילדים</a>; המדריך המלא: <a href="/child-support/">מזונות ילדים</a>; עדכון הסכום למדד: <a href="/tzmidut-mezonot/">עדכון מזונות למדד</a>.</p>
 
 <h2>משמורת, אחריות הורית וזמני שהות</h2>
-<p>המונח המשפטי העדכני הוא אחריות הורית משותפת, ולידה הסדרי שהות: אצל מי הילדים לנים ומתי. הסכם בין הורים על החזקת הילדים והסדרי הקשר טעון אישור בית המשפט, שמאשר אותו רק אם הוא לטובת הילד (סעיף 24 לחוק הכשרות המשפטית והאפוטרופסות); בלי הסכם, בית המשפט מחליט לפי טובת הילד, וילדים עד גיל 6 יהיו אצל אמם אם אין סיבות מיוחדות (סעיף 25). בבית המשפט לענייני משפחה מתלווה לתביעה תסקיר של עובד סוציאלי לסדרי דין, ולעיתים מומחה. משמורת משותפת אינה מבטלת מזונות: היא נתון בחישוב. לוח השהות שבניתם באפליקציה למעלה הוא הנספח שמצורף להסכם או לתביעה. המדריכים: <a href="/child-custody/">משמורת ילדים בישראל</a>, <a href="/child-custody-guide/">הסדרי שהות עם ילדים</a>, ו<a href="/joint-custody-shared-parenting/">משמורת משותפת</a>.</p>
+<p>המונח המשפטי העדכני הוא אחריות הורית משותפת, ולידה הסדרי שהות: אצל מי הילדים לנים ומתי. הסכם בין הורים על החזקת הילדים והסדרי הקשר טעון אישור בית המשפט, שמאשר אותו רק אם הוא לטובת הילד (סעיף 24 לחוק הכשרות המשפטית והאפוטרופסות); בלי הסכם, בית המשפט מחליט לפי טובת הילד, וילדים עד גיל 6 יהיו אצל אמם אם אין סיבות מיוחדות (סעיף 25). בבית המשפט לענייני משפחה מתלווה לתביעה תסקיר של עובד סוציאלי לסדרי דין, ולעיתים מומחה. אין בחוק נוסחה להסדרי שהות; יש תבניות שהורים ומגשרים משתמשים בהן, 2-2-3, שבוע-שבוע, 5-2-2-5 או לילה-לילה, וכל אחת גוזרת מספר אחר של מעברים בין הבתים. משמורת משותפת אינה מבטלת מזונות: היא נתון בחישוב. לוח השהות שבונים במרכז הפיקוד הוא הנספח שמצורף להסכם או לתביעה: <a href="#jtool-luach-shahut">מחולל לוח זמני שהות</a>. הסדר שנקבע אפשר לשנות כשטובת הילד מחייבת זאת (<a href="/child-custody-modification/">שינוי משמורת</a>), וחשש שילד יוצא מהארץ בלי הסכמה הוא מצב דחוף: עיכוב יציאה לפני, ואמנת האג אחרי (<a href="/child-abduction-hague/">חטיפת ילדים לחו״ל</a>). המדריכים: <a href="/child-custody/">משמורת ילדים בישראל</a>, <a href="/parenting-time-arrangements/">הסדרי שהות ותוכנית הורות</a>, <a href="/child-custody-guide/">הסדרי שהות עם ילדים</a>, ו<a href="/joint-custody-shared-parenting/">משמורת משותפת</a>.</p>
 
 <h2>רכוש, איזון משאבים והסכמים</h2>
-<p>ברירת המחדל של החוק היא איזון: כל מה שנצבר מיום הנישואין מתחלק בשווי, גם כשהוא רשום על שם אחד, ופנסיה מתחלקת בלי למכור אותה, דרך הקופה, עד מחצית היתרה שנצברה עד מועד הפירוד. מכירת דירת המגורים לצורך האיזון מעוכבת עד שיש מגורים מתאימים לילדים ולהורה שאיתם (סעיף 6א), ונכס שהוסתר כדי לסכל את האיזון נחשב כאילו עדיין בידי מי שהסתיר (סעיף 7). בית המשפט רשאי, בנסיבות מיוחדות, לחלק אחרת (סעיף 8). הסכם ממון משנה את ברירת המחדל מראש; הסכם גירושין סוגר אותה בדיעבד; ושניהם צריכים אישור כדי לחייב. בשני המקרים עורך דין גירושין בודק קודם כול את מועד הקרע, את מה שהיה לכל אחד ערב הנישואין ואת החובות. העמודים: <a href="/resource-balancing/">איזון משאבים</a>, <a href="/divorce-pension-split/">חלוקת פנסיה בגירושין</a>, <a href="/matrimonial-property-law/">חוק יחסי ממון בין בני זוג</a>.</p>
+<p>ברירת המחדל של החוק היא איזון: בלי הסכם ממון, כל אחד מבני הזוג זכאי למחצית שווי הנכסים שנצברו מיום הנישואין, גם כשהם רשומים על שם אחד, כולל פנסיה, פיצויים וקרן השתלמות (סעיף 5 לחוק יחסי ממון), ומי שצבר יותר משלם לשני מחצית ההפרש אחרי ניכוי החובות (סעיף 6). לא מתאזנים נכסים מלפני הנישואין, מתנות וירושות. אפשר לבקש איזון מוקדם שנה אחרי פתיחת ההליך או אחרי תשעה חודשי פירוד (סעיף 5א). פנסיה מתחלקת בלי למכור אותה, דרך הקופה, עד מחצית היתרה שנצברה עד מועד הפירוד. מכירת דירת המגורים לצורך האיזון מעוכבת עד שיש מגורים מתאימים לילדים ולהורה שאיתם (סעיף 6א), ובית המשפט רשאי, בנסיבות מיוחדות, לחלק אחרת (סעיף 8). אופציות ו-RSU מתחלקות לפי כלל הזמן שבתי המשפט למשפחה אימצו, וקריפטו מחייב לקבוע מועד שווי. הסכם ממון משנה את ברירת המחדל מראש: לפני החתונה אפשר אימות של נוטריון (446 ₪ ועוד מע״מ, פרט 11(א) לתקנות הנוטריונים) או של רושם הנישואין, ואחרי החתונה רק אישור של בית המשפט לענייני משפחה (541 ₪) או של בית הדין הרבני (536 ₪). הסכם גירושין סוגר את ברירת המחדל בדיעבד, ושניהם צריכים אישור כדי לחייב. בשני המקרים עורך דין גירושין בודק קודם כול את מועד הקרע, את מה שהיה לכל אחד ערב הנישואין ואת החובות. המחשבון: <a href="#jtool-izun">איזון משאבים</a>; העמודים: <a href="/resource-balancing/">איזון משאבים</a>, <a href="/divorce-property-division/">חלוקת רכוש בגירושין</a>, <a href="/divorce-pension-split/">חלוקת פנסיה בגירושין</a>, <a href="/rsu-options-crypto/">אופציות, RSU וקריפטו בגירושין</a>, <a href="/matrimonial-property-law/">חוק יחסי ממון בין בני זוג</a>, <a href="/prenuptial-agreements-overview/">הסכם ממון: המדריך</a>, <a href="/prenuptial-agreement/">הסכם ממון לפני נישואין</a>.</p>
 
-<h2>בית הדין הרבני: גט, סמכות וכריכה</h2>
-<p>גט בין יהודים ניתן רק בבית הדין הרבני, גם כשכל השאר הוסדר בבית המשפט. סידור הגט עצמו פטור מאגרה כששני בני הזוג בארץ; תעודת גירושין עולה 326 ₪ לכל צד. את הרכוש והילדים אפשר לכרוך לתביעת הגירושין בבית הדין או להגיש לבית המשפט לענייני משפחה, והשאלה מי מוסמך היא בדיוק השאלה שעו״ד מאיה רוטנברג מסבירה בפרק שלה כאן. סרבנות גט היא עולם בפני עצמו, עם סנקציות שבית הדין מוסמך להטיל. העמודים: <a href="/opening-divorce-file-rabbinical/">פתיחת תיק גירושין בבית הדין הרבני</a>, <a href="/gett-jewish-divorce/">גט</a>, <a href="/refusal-of-get/">סרבנות גט</a>, ועורכי דין שמופיעים שם: <a href="/practice-areas/rabbinical-court/">עורך דין לבית הדין הרבני</a>.</p>
-</div>
-<section class="jt-reviewed-block">
-<p class="jt-reviewed-block__tag">נבדק על ידי עו"ד מאיה רוטנברג</p>
-<h3>איך מתחיל הליך גירושין בישראל</h3>
-<p>במחלוקת משפחתית נדרש בדרך כלל להתחיל בבקשה ליישוב סכסוך לפני הגשת תביעות. ההליך מפנה את הצדדים ליחידת הסיוע ולפגישות מהו"ת. תקופת עיכוב ההליכים היא בדרך כלל 60 ימים, או 75 ימים אם יחידת הסיוע האריכה אותה, אלא אם הערכאה קיצרה או האריכה את התקופה. לאחר סיום התקופה עומדים לצד שהגיש את הבקשה 15 ימים להגשת תובענה, בתנאי שהופיע לפגישות מהו"ת. קיימים חריגים ומסלולים לסעד דחוף, ולכן יש לבדוק את המועדים לפי התיק בפועל. <a href="https://www.gov.il/he/service/asking_for_family_dispute_settlements">בקשה ליישוב סכסוך במשפחה</a>, <a href="https://www.gov.il/he/service/filing-lawsuit-family-dispute">הגשת תביעה בסכסוך משפחתי</a>, <a href="https://www.gov.il/he/service/shorten-or-extend-delay-proceedings-family-dispute">קיצור או הארכת תקופת עיכוב ההליכים</a>.</p>
-<p>אם מגיעים להסכם, אפשר לבקש מבית המשפט לענייני משפחה או מבית דין מוסמך לאשרו. אישור שיפוטי מעניק להסכם תוקף של פסק דין. כאשר מדובר בבני זוג יהודים, אישור ההסכם אינו מחליף את סידור הגט בבית הדין הרבני. <a href="https://www.gov.il/he/service/couple-family-agreement">אישור הסכם גירושין בבית המשפט</a>, <a href="https://www.gov.il/he/service/request-divorce-by-consent">בקשה לגירושין בהסכמה בבית הדין הרבני</a>.</p>
-<h3>למה לא נכון להסתפק בסיסמה "מי מגיש ראשון"</h3>
-<p>הסמכות בעניינים הנלווים לגירושין אינה נקבעת רק לפי מי שפתח ראשון. היא תלויה בסוג העניין, בערכאה שבה נפתח ההליך, בכריכה ובתקפותה, בהחלטות שכבר ניתנו ובדין שבתוקף במועד הפעולה.</p>
-<p>ב-18 בנובמבר 2025 נכנס לתוקף תיקון מס' 6 לחוק שיפוט בתי דין רבניים, כהוראת שעה לשנתיים. בתקופה זו נוסח סעיף 3 כולל, במסגרת העניינים הכרוכים בתביעת גירושין בין יהודים שהוגשה לבית דין רבני, גם מזונות לילדי בני הזוג והשבת הוצאות מזונות. התיקון מגדיר לצורך הסעיף את צורכיהם הכלכליים של הילדים וכולל הוראות תחולה לתביעות שהיו תלויות ועומדות ביום כניסתו לתוקף, עם סייגים הנוגעים להחלטות קודמות על סמכות או מזונות. מאמר או עצה שנכתבו לפני התיקון עלולים שלא לשקף את הדין שבתוקף. לפני בחירת ערכאה נדרשת בדיקה פרטנית של העובדות, ההליכים וההחלטות שכבר ניתנו. <a href="https://fs.knesset.gov.il/25/law/25_lsr_9835045.pdf">נוסח תיקון מס' 6 שפורסם בספר החוקים</a>.</p>
-</section>
-
-<div class="jt-team-guide">
-<h2>כמה זמן לוקח להתגרש: לוח הזמנים שבחוק</h2>
-<p>החוק קובע ימים רק לחלק הראשון של הדרך. מיום הגשת הבקשה ליישוב סכסוך: עד ארבע פגישות ביחידת הסיוע בתוך 45 ימים, ואפשר להאריך פעם אחת ב-15; עיכוב הליכים של 60 ימים, או 75 אחרי הארכה, שבהם אי אפשר לתבוע; ואז 15 ימים שבהם רק מי שהגיש את הבקשה רשאי לתבוע, ואחריהם גם הצד השני. ימי ראש השנה, יום כיפור, סוכות ופסח לא נספרים, ומועד שנופל בשבת או בחג עובר ליום שאחריו. בהסכמה מדלגים על כל זה: בקשה לאישור הסכם אינה "תובענה", והזמן הוא זמן התור לדיון. להליך במחלוקת החוק לא קובע משך, ולכן אף כלי כאן לא מבטיח "שנה" או "שנתיים". מפת הדרכים למעלה מחשבת את שלושת התאריכים מיום ההגשה שלכם, ומייצאת אותם ליומן. מה קורה ביום שפותחים את התיק: <a href="/opening-divorce-file-rabbinical/">פתיחת תיק גירושין</a>.</p>
+<h3>הברחת רכוש, גילוי נכסים וצווים זמניים</h3>
+<p>החשש הנפוץ בפגישה הראשונה הוא שהצד השני יעביר כסף, ימכור נכס או ירשום אותו על שם אחר. החוק עונה בשלוש דרכים. נכס שנמסר או הועבר כדי לסכל את האיזון יכול להיחשב כאילו עדיין בידי מי שהעביר אותו (סעיף 7 לחוק יחסי ממון). בית המשפט יכול להורות על גילוי מסמכים: דפי חשבון, דוחות של קופות גמל וקרנות, ומסמכים של חברות. וכשיש חשש ממשי, אפשר לבקש סעד זמני, כמו עיקול או צו מניעה, עוד לפני שהתביעה הוכרעה, ובמקרים דחופים גם בתקופת עיכוב ההליכים. מה שאסור לעשות בעצמכם הוא להיכנס לחשבון, למכשיר או לתיבת הדואר של הצד השני; ראיה שהושגה כך עלולה לפגוע דווקא בכם. העמודים: <a href="/divorce-financial-disclosure/">גילוי נכסים בגירושין</a>, <a href="/resource-balancing-hidden-spouse-accounts/">כספים שהוברחו לחשבונות בן הזוג</a>, <a href="/divorce-company-ownership/">גירושין של בעלי חברות</a>.</p>
 
 <h2>מה יש כאן שאין בעמודים המדורגים ראשונים בגוגל</h2>
-<p>קראנו את עשרת העמודים שגוגל ישראל מדרג ראשונים ל"עורך דין גירושין". תשעה מהם הם עמודי בית של משרדים ואחד הוא אינדקס דירוגים. הם טובים במה שהם: שם, שנות ניסיון (20 עד 40), טלפון, טופס "השאירו פרטים", סרטונים בחלקם, וביקורות. אף אחד מהם לא כותב מחיר או אגרה אחת, אף אחד לא נותן מחשבון או כלי, רק שלושה מהם עונים על שאלות נפוצות, ואף אחד לא מקשר למקור רשמי שאפשר לבדוק. כדי לקבל מספר צריך להשאיר פרטים ולחכות לשיחה. העמוד הזה בנוי הפוך: המספרים קודם, עם הסעיף, ואת הפגישה עושים אחרי שיודעים מה לשאול. מה שהם נותנים ואנחנו לא: ייצוג. בשביל זה יש כאן את הכרטיס של עו״ד מאיה רוטנברג ואת <a href="/lawyers/?area=family-law">מאגר עורכי הדין לענייני משפחה לפי עיר</a>.</p>
+<p>פתחנו בכרום את החיפושים "עורך דין גירושין", "כמה עולה להתגרש", "מחיר עורך דין גירושין" ו"גירושין", וקראנו את העמודים שגוגל מדרג ראשונים. ל"עורך דין גירושין" כל שמונה התוצאות בעמוד הראשון הן עמודי בית של משרדים, ולידן מפה עם שלושה משרדים וביקורות. הם טובים במה שהם: שם, שנות ניסיון, טלפון, וואטסאפ וטופס, ובשניים מהם גם תשובות לשאלות חוזרות. אף אחד מהשמונה לא כותב סכום אחד ואף אחד לא נותן כלי. מי שמחפש מחיר מגיע לעמודי מחירון, עם טווחים רחבים ואגרות שמצוטטות לרוב בסכומים ישנים. העמוד הזה בנוי הפוך: המספרים קודם, עם הסעיף ותאריך הבדיקה, והפגישה אחרי שיודעים מה לשאול. מה שהם נותנים ואנחנו לא: ייצוג. בשביל זה יש כאן את הכרטיס של עו״ד מאיה רוטנברג ואת <a href="/lawyers/?area=family-law">מאגר עורכי הדין לענייני משפחה לפי עיר</a>.</p>
 <div class="jt-compare jtool-page">
 <table class="jtool-datatable">
-<caption>העמודים המדורגים ראשונים מול העמוד הזה. נקרא בכרום ב-15.10.2026 (גוגל ישראל, מחשב, "עורך דין גירושין")</caption>
-<thead><tr><th scope="col">מה מחפשים</th><th scope="col">שלושת העמודים הראשונים</th><th scope="col">העמוד הזה</th></tr></thead>
+<caption>העמודים המדורגים ראשונים מול העמוד הזה. נקרא בכרום ב-15.10.2026 (גוגל ישראל, מחשב, ארבעה חיפושים)</caption>
+<thead><tr><th scope="col">מה מחפשים</th><th scope="col">העמודים המדורגים ראשונים</th><th scope="col">העמוד הזה</th></tr></thead>
 <tbody>
-<tr><td data-th="מה מחפשים">תשובה במספרים בפסקה הראשונה</td><td data-th="שלושת העמודים הראשונים">אין; הפסקה הראשונה מציגה את המשרד</td><td data-th="העמוד הזה">תיבת תשובה של 60 מילים עם התעריף המינימלי לכל שירות והסעיף שלו</td></tr>
-<tr><td data-th="מה מחפשים">מחירים ואגרות</td><td data-th="שלושת העמודים הראשונים">אפס סכומים בשלושתם; "לייעוץ ראשוני"</td><td data-th="העמוד הזה">כל אגרה בבית הדין ובבית המשפט, התעריף של הלשכה, מע״מ, לפי מסלול</td></tr>
-<tr><td data-th="מה מחפשים">מחשבונים</td><td data-th="שלושת העמודים הראשונים">אין</td><td data-th="העמוד הזה">חמישה: עלות, מזונות, איזון משאבים, הסכם גירושין, הסכם ממון</td></tr>
-<tr><td data-th="מה מחפשים">אפליקציות שמלוות את ההליך</td><td data-th="שלושת העמודים הראשונים">אין</td><td data-th="העמוד הזה">שלוש: מפת הדרכים, לוח זמני שהות, מעקב תשלומי מזונות</td></tr>
-<tr><td data-th="מה מחפשים">שאלות נפוצות</td><td data-th="שלושת העמודים הראשונים">באחד מהשלושה, בלי סימון FAQ</td><td data-th="העמוד הזה">12 שאלות מתוך חיפושים אמיתיים, עם סימון FAQ</td></tr>
-<tr><td data-th="מה מחפשים">מקורות שאפשר לבדוק</td><td data-th="שלושת העמודים הראשונים">אין קישור לחוק, לתקנה או לפסק דין</td><td data-th="העמוד הזה">מעל 30 מקורות רשמיים עם תאריך בדיקה, בכל כלי ובסוף העמוד</td></tr>
-<tr><td data-th="מה מחפשים">עורך דין בשם, עם ניסיון</td><td data-th="שלושת העמודים הראשונים">כן, זה כל העמוד</td><td data-th="העמוד הזה">כרטיס של עו״ד מאיה רוטנברג, ומאגר לפי עיר</td></tr>
-<tr><td data-th="מה מחפשים">תרגול לפני הפגישה</td><td data-th="שלושת העמודים הראשונים">אין</td><td data-th="העמוד הזה">גישור מול דמויות AI, בלי הרשמה</td></tr>
-<tr><td data-th="מה מחפשים">כמה לחיצות עד תוצאה</td><td data-th="שלושת העמודים הראשונים">טופס, ואז שיחת טלפון</td><td data-th="העמוד הזה">אפס לדוגמה המחושבת; שתיים עד ארבע לתוצאה שלכם</td></tr>
-<tr><td data-th="מה מחפשים">אורך וטעינה</td><td data-th="שלושת העמודים הראשונים">900 עד 1,300 מילים; 1 עד 2.2 שניות</td><td data-th="העמוד הזה">מדריך קצר בין הכלים; כל כלי נטען רק עם הקובץ שלו</td></tr>
+<tr><td data-th="מה מחפשים">תשובה במספרים בפסקה הראשונה</td><td data-th="העמודים המדורגים ראשונים">אין; הפסקה הראשונה מציגה את המשרד</td><td data-th="העמוד הזה">תיבת תשובה עם התעריף המינימלי לכל שירות והסעיף שלו</td></tr>
+<tr><td data-th="מה מחפשים">מחירים ואגרות</td><td data-th="העמודים המדורגים ראשונים">אפס סכומים בשמונה עמודי הבית; בעמודי המחירון טווחים ואגרות ישנות</td><td data-th="העמוד הזה">כל אגרה בבית הדין ובבית המשפט בנוסח העדכני, התעריף של הלשכה, והטווחים שמשרדים מפרסמים</td></tr>
+<tr><td data-th="מה מחפשים">מה הם גירושין, איפה ובאילו שלבים</td><td data-th="העמודים המדורגים ראשונים">רשימת שירותים, בלי הסבר</td><td data-th="העמוד הזה">פרק בסיס, טבלת ערכאות ושמונה שלבים</td></tr>
+<tr><td data-th="מה מחפשים">מחשבונים</td><td data-th="העמודים המדורגים ראשונים">אין</td><td data-th="העמוד הזה">חמישה: עלות, מזונות, איזון משאבים, הסכם גירושין, הסכם ממון</td></tr>
+<tr><td data-th="מה מחפשים">אפליקציות שמלוות את ההליך</td><td data-th="העמודים המדורגים ראשונים">אין</td><td data-th="העמוד הזה">שלוש: מפת הדרכים, לוח זמני שהות, מעקב תשלומי מזונות</td></tr>
+<tr><td data-th="מה מחפשים">תשובות לשאלות שאנשים שואלים</td><td data-th="העמודים המדורגים ראשונים">בשניים מהשמונה, עם סימון FAQ</td><td data-th="העמוד הזה">23 שאלות מתוך מה שגוגל מציג ב"אנשים שאלו גם", עם סימון FAQ</td></tr>
+<tr><td data-th="מה מחפשים">מקורות שאפשר לבדוק</td><td data-th="העמודים המדורגים ראשונים">אין קישור לחוק, לתקנה או לפסק דין</td><td data-th="העמוד הזה">מעל 30 מקורות רשמיים עם תאריך בדיקה, בכל כלי ובסוף העמוד</td></tr>
+<tr><td data-th="מה מחפשים">עורך דין בשם, עם ניסיון</td><td data-th="העמודים המדורגים ראשונים">כן, זה כל העמוד</td><td data-th="העמוד הזה">כרטיס של עו״ד מאיה רוטנברג, ומאגר לפי עיר</td></tr>
+<tr><td data-th="מה מחפשים">תרגול לפני הפגישה</td><td data-th="העמודים המדורגים ראשונים">אין</td><td data-th="העמוד הזה">גישור מול דמויות AI, בלי הרשמה</td></tr>
+<tr><td data-th="מה מחפשים">כמה לחיצות עד תוצאה</td><td data-th="העמודים המדורגים ראשונים">טופס, ואז שיחת טלפון</td><td data-th="העמוד הזה">אפס לדוגמה המחושבת; שתיים עד ארבע לתוצאה שלכם</td></tr>
+<tr><td data-th="מה מחפשים">אורך וטעינה</td><td data-th="העמודים המדורגים ראשונים">900 עד 3,300 מילים בעמודי הבית</td><td data-th="העמוד הזה">מדריך מלא; כלי אחד פתוח בכל רגע, וכל כלי נטען רק עם הקובץ שלו</td></tr>
 </tbody>
 </table>
 </div>
@@ -272,26 +376,48 @@
 <h2>שאלות נפוצות על עורך דין גירושין</h2>
 <h3>איך בוחרים עורך דין גירושין?</h3>
 <p>בודקים חמישה דברים: שהשם מופיע במאגר עורכי הדין של לשכת עורכי הדין עם רישיון בתוקף; ניסיון בסוג המחלוקת שלכם ובערכאה שבה התיק יתנהל, בית המשפט לענייני משפחה או בית הדין הרבני; מי מטפל בתיק ביום יום ומי מופיע בדיונים; הסכם שכר טרחה בכתב לפי שלבים, עם מה שאינו כלול בו (אגרות, שמאי, אקטואר); וזמינות לבקשה דחופה כמו צו הגנה או עיכוב יציאה מהארץ. השאלות לפגישה הראשונה מופיעות למעלה, בפרק על ייפוי הכוח, ורשימת הבדיקות המלאה: <a href="/experienced-family-law-attorney/">איך לבחור עורך דין לענייני משפחה</a>.</p>
+<h3>מי עורך הדין המומלץ ביותר לענייני גירושין?</h3>
+<p>אין עורך דין אחד שמתאים לכל תיק. המתאים לכם הוא מי שמנהל בפועל תיקים כמו שלכם, באותה ערכאה, ויכול להראות זאת: הסכם בהסכמה, מאבק על ילדים, תביעה רכושית מול חברה וגט מסורב הם עבודות שונות. בקשו לדעת מי יטפל בתיק ביום יום, קבלו הצעת שכר טרחה בכתב לפי שלבים, והשוו שניים או שלושה משרדים לפני שאתם חותמים. השוואה מסודרת לפי שיטה אחת: <a href="/the-recommended-family-lawyers/">עורך דין גירושין מומלץ</a>.</p>
 <h3>כמה עולה עורך דין גירושין?</h3>
-<p>שכר הטרחה נקבע בהסכם בכתב עם עורך הדין. לשכת עורכי הדין מפרסמת תעריף מינימלי מומלץ שאינו מחייב, לכל שירות בנפרד: סידור גט בהסכמה, תביעה לגט בלי הסכמה ועריכת הסכם לפסק הגט. המחשבון הראשון במרכז הפיקוד מחשב אותו לפי המסלול שלכם, ואת כל ההוצאות, כולל אגרות, מומחים ומע"מ, מפרט המדריך <a href="/divorce-costs-2025/">עלויות גירושין ושכר טרחה</a>.</p>
+<p>שכר הטרחה נקבע בהסכם בכתב. הרצפה היא התעריף המינימלי המומלץ של לשכת עורכי הדין, שאינו מחייב: 1,287 ₪ לסידור גט בהסכמה, 3,173 ₪ לתביעת גט בלי הסכמה ולא פחות מ-2,480 ₪ לעריכת הסכם לפסק הגט, ועוד מע״מ. בפועל, לפי פרסומי משרדים, הסכם בהסכמה עולה כ-5,000 עד 20,000 ₪ לצד, והליך מלא במחלוקת כ-30,000 עד 150,000 ₪ ויותר. הפירוט, עם האגרות והמומחים: <a href="/divorce-costs-2025/">עלויות גירושין ושכר טרחה</a>.</p>
+<h3>כמה עולה להתגרש?</h3>
+<p>בהסכמה, לפי פרסומי משרדים, כ-7,000 עד 30,000 ₪ לצד כשהכול כלול; האגרות עצמן הן 536 ₪ לאישור ההסכם בבית הדין הרבני או 541 ₪ בבית המשפט לענייני משפחה, ו-326 ₪ לתעודת גירושין לכל צד. במחלוקת, שבה כל נושא הוא תביעה נפרדת עם מומחים ודיונים, העלות לצד מגיעה לעשרות אלפי שקלים, ובתיקים מורכבים ליותר מ-150,000 ₪. מה שקובע את ההבדל הוא כמה נושאים נסגרים בהסכמה. הטבלאות המלאות בפרק המחירים למעלה, והמדריך: <a href="/divorce-costs-2025/">כמה עולה גירושין</a>.</p>
+<h3>כמה עולה הסכם גירושין?</h3>
+<p>שלושה רכיבים: אגרת האישור, 536 ₪ בבית הדין הרבני או 541 ₪ בבית המשפט לענייני משפחה; שכר טרחה, שהרצפה שלו בתעריף הלשכה היא 2,480 ₪ ועוד מע״מ, ולפי פרסומי משרדים הוא נע בדרך כלל בין כ-5,000 לכ-20,000 ₪ לצד; ולעיתים שמאי או אקטואר. עורך דין משותף לשני הצדדים זול יותר, אבל אינו יכול לייצג את האינטרס של כל אחד מכם מול השני, ולכן רבים מוסיפים בדיקה קצרה של עורך דין נפרד לכל צד. הפירוט: <a href="/how-much-does-a-divorce-agreement-cost/">כמה עולה הסכם גירושין</a>.</p>
+<h3>מהי אגרת פתיחת תיק גירושין?</h3>
+<p>תלוי איך פותחים. במחלוקת, התיק נפתח בבקשה ליישוב סכסוך: 119 ₪ בבית הדין הרבני או 120 ₪ בבית המשפט לענייני משפחה. תביעת גירושין בבית הדין הרבני עולה 457 ₪, ותביעה רכושית שנכרכת אליה 596 ₪. בהסכמה פותחים בבקשה לאישור ההסכם, 536 ₪ בבית הדין. ברשת עדיין מופיעים סכומים ישנים יותר; אלה הסכומים בנוסח העדכני של התקנות. הטבלה המלאה: <a href="/fees-rabbinical-courts/">אגרות בתי הדין הרבניים</a>.</p>
+<h3>כמה עולה לפתוח תיק גירושין בבית המשפט לענייני משפחה?</h3>
+<p>הבקשה ליישוב סכסוך עולה 120 ₪. אם אין הסכמה ומגישים תביעות: תביעה רכושית 601 ₪, משמורת 421 ₪ ומזונות 283 ₪, ועוד 86 ₪ לפרוטוקול. בקשה לאישור הסכם גירושין עולה 541 ₪. האגרות מתעדכנות ב-1 בינואר וב-1 ביולי. בית המשפט לענייני משפחה אינו נותן גט, ולכן בני זוג יהודים ממשיכים ממנו לבית הדין הרבני לסידור הגט. הצעד הראשון: <a href="/request-for-family-dispute-settlements/">בקשה ליישוב סכסוך במשפחה</a>.</p>
 <h3>האם חייבים עורך דין כדי להתגרש?</h3>
 <p>לא. החוק אינו מחייב ייצוג, ובני זוג שהסכימו על הכול יכולים להגיש בעצמם בקשה לאישור הסכם גירושין לבית המשפט לענייני משפחה או לבית הדין הרבני. הסיכון הוא הסכם שנחתם בלי בדיקה ומשאיר פתוחים מזונות, פנסיה, דירה או הסדרי שהות. מה חייב להופיע בהסכם: <a href="/free-divorce-agreement-template/">הסכם גירושין, דוגמה וסעיפי חובה</a>.</p>
+<h3>מהם גירושין בהסכמה?</h3>
+<p>גירושין שבהם בני הזוג מסכימים על הכול, הגט, הילדים, המזונות והרכוש, וחותמים על הסכם גירושין שמוגש לאישור בבקשה משותפת. הם לא מתחילים בבקשה ליישוב סכסוך, ההסכם מקבל תוקף של פסק דין בדיון אחד, והאגרה היא 536 ₪ בבית הדין הרבני או 541 ₪ בבית המשפט לענייני משפחה. זה המסלול הקצר והזול, בתנאי שההסכם באמת סוגר כל נושא. השלבים: <a href="/consensual-divorce/">גירושין בהסכמה</a>.</p>
+<h3>מהי בקשה משותפת לגירושין?</h3>
+<p>בקשה ששני בני הזוג מגישים יחד לבית הדין הרבני: להתגרש בהסכמה ולאשר את הסכם הגירושין שחתמו. בית הדין קובע דיון בנוכחות שניהם, מאשר את ההסכם ונותן לו תוקף של פסק דין, ואחר כך מסדר את הגט. בבית המשפט לענייני משפחה הבקשה המשותפת היא לאישור ההסכם בלבד, והגט מסודר אחר כך בבית הדין. מה מצרפים ואיך הדיון נראה: <a href="/rabbinical-agreement-approval/">אישור הסכם גירושין בבית הדין הרבני</a>.</p>
 <h3>איך מתגרשים בישראל, שלב אחרי שלב?</h3>
 <p>בהסכמה: הסכם, אישור בבית המשפט או בבית הדין, סידור הגט בבית הדין הרבני ותעודת גירושין. במחלוקת: בקשה ליישוב סכסוך, פגישות ביחידת הסיוע, עיכוב הליכים, תביעות, דיונים ופסק דין, ורק אז הגט. מפת הדרכים בעמוד מציגה את התחנות של המסלול שלכם עם האגרות והתאריכים, ואת הצעד הראשון במחלוקת מסביר העמוד <a href="/request-for-family-dispute-settlements/">בקשה ליישוב סכסוך במשפחה</a>.</p>
+<h3>איך להתגרש הכי מהר?</h3>
+<p>בהסכמה מלאה. הסכם חתום שסוגר את הגט, הילדים, המזונות והרכוש מוגש ישר לאישור, בלי בקשה ליישוב סכסוך ובלי 60 ימי עיכוב, ומאושר בדיון אחד לפי התור בערכאה; אחריו נקבע סידור הגט. מה שמאט הוא נושא פתוח: כל נושא שנשאר במחלוקת דורש בקשה ליישוב סכסוך ותביעה, ומעכב את הסיום. לכן כדאי לסגור קודם את המספרים, המזונות, האיזון ולוח השהות, ורק אז לנסח. מה ההסכם צריך לכלול כדי לעבור באישור: <a href="/settlement-agreement-approval/">אישור הסכם גירושין</a>.</p>
 <h3>כמה זמן לוקח להתגרש?</h3>
 <p>החוק קובע ימים רק לתחילת הדרך: 45 ימים לפגישות ביחידת הסיוע, 60 או 75 ימי עיכוב הליכים ו-15 ימים למגיש הבקשה. להליך במחלוקת אין משך קבוע בחוק; הסכם בהסכמה מאושר בדיון אחד, לפי התור בערכאה. מה מקצר: <a href="/consensual-divorce/">גירושין בהסכמה</a>.</p>
+<h3>האם אפשר לעשות גישור לפני גירושין?</h3>
+<p>כן, וכדאי לנסות. אפשר לפנות למגשר פרטי לפני כל הליך, ומי שמגיש בקשה ליישוב סכסוך מוזמן לפגישות מהו״ת ביחידת הסיוע, עד ארבע פגישות בלי תשלום, ומשם אפשר להמשיך לגישור. גישור מסתיים בהסכם שכל צד בודק עם עורך דין לפני החתימה, ואז מגישים אותו לאישור. לפי פרסומי מגשרים, שעת גישור עולה כ-700 עד 2,000 ₪. מה קורה בפגישות: <a href="/mahut-meetings/">פגישות מהו״ת</a>.</p>
+<h3>מה ההבדל בין עורך דין גירושין למגשר?</h3>
+<p>מגשר אינו מייצג אף צד: הוא מנהל שיחה בין שניכם עד להסכם. עורך דין גירושין מייצג רק אתכם ובודק שההסכם שומר על הזכויות שלכם לפני החתימה. רבים משלבים: גישור עד להסכם, ובדיקה של עורך דין לכל צד לפני האישור. <a href="/divorce-mediation/">גישור גירושין: איך התהליך עובד</a>.</p>
+<h3>בבית הדין הרבני או בבית המשפט לענייני משפחה?</h3>
+<p>גט בין יהודים ניתן רק בבית הדין הרבני (סעיף 1 לחוק שיפוט בתי דין רבניים (נישואין וגירושין)). רכוש, מזונות והסדרי שהות יכולים להתברר בבית המשפט לענייני משפחה או בבית הדין, לפי הערכאה שבה נפתח ההליך, כריכתם לתביעת הגירושין והחלטות שכבר ניתנו, כמו שמוסבר למעלה בפרק על "מי מגיש ראשון". הצעד הראשון בבית הדין: <a href="/opening-divorce-file-rabbinical/">פתיחת תיק גירושין בבית הדין הרבני</a>.</p>
+<h3>האם בן הזוג יכול למנוע ממני להתגרש?</h3>
+<p>לעכב כן; למנוע לאורך זמן קשה יותר. גט ניתן רק בהסכמת שניהם, ולכן מי שמסרב יכול לעכב את הסיום גם כשכל השאר כבר הוכרע. מי שרוצה להתגרש מגיש תביעת גירושין לבית הדין הרבני; אם בית הדין פוסק שיש לתת גט והצד השני מסרב, הוא יכול להטיל עליו הגבלות, כמו על רישיון נהיגה, דרכון ויציאה מהארץ. בנפרד, אפשר לתבוע פיצויים על סרבנות גט בבית המשפט לענייני משפחה. מה עושים: <a href="/refusal-of-get/">סרבנות גט</a>.</p>
 <h3>עורך דין גירושין או עורכת דין גירושין: מה עדיף?</h3>
 <p>המין של עורך הדין אינו משנה את הדין ואת סיכויי התיק. מה שקובע הוא ניסיון בסוג המחלוקת, היכרות עם הערכאה ומי יטפל בתיק בפועל. מתי ההעדפה בכל זאת משנה ללקוח, ואיך בודקים אותה: <a href="/women-lawyer-vs-men-divorce-lawyer/">עורכת דין גירושין, מתי לבחור ואיך</a>.</p>
 <h3>יש עורך דין לגירושין בחינם?</h3>
 <p>למי שזכאי, כן. הסיוע המשפטי במשרד המשפטים מטפל בגירושין, מזונות, משמורת וחלוקת רכוש, בכפוף לתנאי זכאות כלכליים ולבחינת הבקשה. פגישות המידע ביחידת הסיוע שליד בית המשפט ובית הדין אינן בתשלום. מי זכאי ואיך מגישים: <a href="/legal-aid-israel/">סיוע משפטי בישראל</a>.</p>
-<h3>בבית הדין הרבני או בבית המשפט לענייני משפחה?</h3>
-<p>גט בין יהודים ניתן רק בבית הדין הרבני (סעיף 1 לחוק שיפוט בתי דין רבניים (נישואין וגירושין)). רכוש, מזונות והסדרי שהות יכולים להתברר בבית המשפט לענייני משפחה או בבית הדין, לפי הערכאה שבה נפתח ההליך, כריכתם לתביעת הגירושין והחלטות שכבר ניתנו, כמו שמוסבר למעלה בפרק על "מי מגיש ראשון". הצעד הראשון בבית הדין: <a href="/opening-divorce-file-rabbinical/">פתיחת תיק גירושין בבית הדין הרבני</a>.</p>
 <h3>מי משלם מזונות במשמורת משותפת?</h3>
 <p>מגיל 6 שני ההורים חבים לפי יכולתם הכלכלית היחסית, בהתחשב בחלוקת הלילות בפועל, ולכן במשמורת משותפת עם הכנסות שוות ההעברה קטנה או אפסית, ועם פער הכנסות ההורה שמרוויח יותר משלם את ההפרש. עד גיל 6 האב נושא לבדו בצרכים ההכרחיים גם במשמורת משותפת. המחשבון מראה את שני המצבים: <a href="/child-support/">מזונות ילדים</a>.</p>
 <h3>מה עושים כשלא משלמים מזונות?</h3>
 <p>רושמים את התשלומים באפליקציית המעקב ושולחים מכתב דרישה עם החוב, ההצמדה והריבית. לא שולם: פותחים תיק בלשכת ההוצאה לפועל במסלול מזונות, שבו הלשכה גובה בעצמה, ובמקביל המוסד לביטוח לאומי משלם במקום החייב את הנמוך מבין פסק הדין לסכום שבתקנות. איך זה עובד: <a href="/bituach-leumi-alimony/">תשלום מזונות דרך ביטוח לאומי</a>.</p>
-<h3>מה ההבדל בין עורך דין גירושין למגשר?</h3>
-<p>מגשר אינו מייצג אף צד: הוא מנהל שיחה בין שניכם עד להסכם. עורך דין גירושין מייצג רק אתכם ובודק שההסכם שומר על הזכויות שלכם לפני החתימה. רבים משלבים: גישור עד להסכם, ובדיקה של עורך דין לכל צד לפני האישור. <a href="/divorce-mediation/">גישור גירושין: איך התהליך עובד</a>.</p>
+<h3>האם אפשר לשנות הסכם גירושין אחרי שאושר?</h3>
+<p>תלוי בפרק. מזונות ילדים אפשר לשנות כשהנסיבות השתנו באופן מהותי (סעיף 13 לחוק המזונות), והסדרי שהות ומשמורת כשטובת הילד מחייבת זאת. פרקי הרכוש סופיים כמעט תמיד, ומבטלים אותם רק בעילות מצומצמות כמו הטעיה או כפייה. כשהצד השני לא מקיים את ההסכם, אוכפים אותו בהוצאה לפועל, כי יש לו תוקף של פסק דין. העמודים: <a href="/child-custody-modification/">שינוי משמורת</a>, <a href="/cancel-a-divorce-settlement-agreement/">ביטול הסכם גירושין</a>.</p>
 <h3>איך מוצאים עורך דין גירושין בעיר שלי?</h3>
 <p>הדין זהה בכל הארץ. מה שמשתנה הוא בית המשפט או בית הדין האזורי שבו התיק יתנהל, ולכן כדאי לשאול כמה תיקים עורך הדין מנהל שם. מדריכים לפי עיר: <a href="/family-lawyer-tel-aviv/">עורך דין גירושין בתל אביב</a>, <a href="/family-law-petah-tikva/">פתח תקווה</a>, <a href="/family-law-rishon-lezion/">ראשון לציון</a>, <a href="/family-law-haifa/">חיפה</a>, <a href="/family-law-beer-sheva/">באר שבע</a>, <a href="/family-law-netanya/">נתניה</a>, <a href="/family-law-ashdod/">אשדוד</a>, <a href="/family-law-herzliya/">הרצליה</a>, <a href="/family-law-rehovot/">רחובות</a> ו<a href="/family-law-modiin/">מודיעין</a>.</p>
 </section>
@@ -330,5 +456,7 @@
 <li><a href="https://www.nevo.co.il/law_html/Law01/072_002.htm" target="_blank" rel="noopener">חוק המזונות (הבטחת תשלום), התשל"ב-1972</a>: סעיף 3; והסכומים באתר <a href="https://www.btl.gov.il/benefits/Alimony/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx" target="_blank" rel="noopener">המוסד לביטוח לאומי</a>. נבדק 14.10.2026.</li>
 <li><a href="https://www.gov.il/he/service/opening_alimony_file" target="_blank" rel="noopener">רשות האכיפה והגבייה, פתיחת תיק מזונות בהוצאה לפועל</a>: המסלול הרגיל ומסלול המזונות. נבדק 15.10.2026.</li>
 <li><a href="https://www.gov.il/he/service/couple-family-agreement" target="_blank" rel="noopener">gov.il, אישור הסכם בין בני זוג</a> ו<a href="https://www.gov.il/he/service/request-divorce-by-consent" target="_blank" rel="noopener">גירושין בהסכמה בבית הדין הרבני</a>: מה מגישים ומה קורה בדיון. נבדק 14.10.2026.</li>
+<li>חוק שיפוט בתי דין רבניים (נישואין וגירושין): סעיף 1, הגט בבית הדין הרבני; וחוק בתי דין רבניים (קיום פסקי דין של גירושין): ההגבלות על מי שמסרב לפסק דין של גירושין.</li>
+<li>טווחי שכר הטרחה והגישור בפרק המחירים: פרסומי משרדים ומחירונים שעלו בחיפושי גוגל ישראל "כמה עולה להתגרש" ו"מחיר עורך דין גירושין"; טווחים, לא מחירון ולא התחייבות של משרד כלשהו. נבדק 15.10.2026.</li>
 </ol>
 </div>

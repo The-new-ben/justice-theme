@@ -127,10 +127,9 @@ $dir   = dirname( __DIR__ ) . '/.content-drafts/divorce-world/';
 $block = (string) file_get_contents( $dir . 'divorce-lawyer.html' );
 $notes = substr( $block, 0, (int) strpos( $block, '-->' ) );
 $body  = substr( $block, (int) strpos( $block, '-->' ) + 3 );
-check( 1 === substr_count( $body, '[justice_tool name="gerushin" mode="lawyer" answer="only"]' ) && 1 === substr_count( $body, '[justice_tool name="gerushin" mode="lawyer" answer="0"]' ), 'the answer box opens the body; the lawyer-cost instrument comes later, once' );
-foreach ( array( 'mezonot', 'izun', 'heskem-gerushin', 'heskem-mamon', 'luach-shahut', 'maakav-mezonot', 'mapat-gerushin' ) as $nm ) {
-	check( 1 === preg_match_all( '#\[justice_tool name="' . preg_quote( $nm, '#' ) . '"[^\]]*\]#', $body ), "the {$nm} instrument is placed exactly once" );
-}
+check( 1 === substr_count( $body, '[justice_tool name="gerushin" mode="lawyer" answer="only"]' ) && 1 === preg_match_all( '#\[justice_tool\s#', $body ), 'the answer box opens the body and is the only single-tool shortcode' );
+// HAD-541: the eight instruments come from ONE command-center shortcode (a tab bar), placed once, after the prices chapter.
+check( 1 === substr_count( $body, '[justice_tools_command]' ) && (int) strpos( $body, 'כמה עולה עורך דין גירושין, וכמה עולה להתגרש' ) < (int) strpos( $body, '[justice_tools_command]' ), 'the command center is placed once, after the prices chapter' );
 check( 0 === preg_match( '/\[justice_tool_section/', $body ), 'no section shortcodes: every table a reader needs is inside its instrument' );
 $first_h2 = (int) strpos( $body, '<h2' );
 check( (int) strpos( $body, 'answer="only"' ) < (int) strpos( $body, 'jtool-simstrip' ) && (int) strpos( $body, 'jtool-simstrip' ) < (int) strpos( $body, 'jt-expert-line' ) && (int) strpos( $body, 'jt-expert-line' ) < $first_h2, 'order: answer box, simulation strip, the expert line, then the first heading' );
@@ -155,17 +154,22 @@ $team_text = strip_tags( $team );
 $team_lines = array_filter( array_map( 'trim', explode( "\n", $team_text ) ), static fn( $l ) => '' !== $l && false === strpos( $l, 'נבדק' ) );
 check( 0 === preg_match( '/\b20(1|2)\d\b/', implode( ' ', $team_lines ) ), 'team copy: no year outside the "נבדק" lines (the reviewed Amendment 6 chapter and the comparison caption excepted)' );
 check( 0 === preg_match( '/הטוב ביותר|המוביל בארץ|מספר 1|100%/u', $team_text ), 'team copy: no superlatives' );
-// The FAQ: 12 real queries, each answer one paragraph that routes to its owner.
+// The FAQ: 23 real queries (12 + 11 from Google's "people also ask", HAD-541), each answer one paragraph that routes to its owner.
 preg_match( '#<section class="jt-team-block jt-head-faq">(.*?)</section>#su', $body, $faq_m );
 $faq = $faq_m[1];
 check( 1 === preg_match( '#<h2>([^<]*שאלות נפוצות[^<]*)</h2>#u', $faq, $fh ) && false !== strpos( $fh[1], 'עורך דין גירושין' ), 'FAQ heading: "שאלות נפוצות" with the head phrase' );
 preg_match_all( '#<h3>(.+?)</h3>\s*<p>(.+?)</p>#us', $faq, $pairs, PREG_SET_ORDER );
-check( count( $pairs ) === 12 && count( $pairs ) === substr_count( $faq, '<h3>' ), '12 questions, each an h3 followed by its one-paragraph answer (FAQPage builder)' );
+check( count( $pairs ) === 23 && count( $pairs ) === substr_count( $faq, '<h3>' ), '23 questions, each an h3 followed by its one-paragraph answer (FAQPage builder)' );
+// inc/schema.php slices the FAQPage from the FIRST "שאלות נפוצות" in the body: in v1 the intro carried the phrase and the
+// live FAQPage held 26 entries, 14 of them chapter headings. The phrase now appears first in the FAQ heading itself.
+check( (int) strpos( $body, 'שאלות נפוצות' ) > (int) strpos( $body, '<section class="jt-team-block jt-head-faq">' ), 'the first "שאלות נפוצות" in the body is the FAQ heading (no chapter heading leaks into the FAQPage)' );
+preg_match_all( '#<h3[^>]*>(.+?)</h3>\s*<p>(.+?)</p>#us', substr( $body, (int) strpos( $body, 'שאלות נפוצות' ) ), $schema_pairs );
+check( 23 === count( $schema_pairs[1] ), 'the FAQPage builder finds exactly the 23 questions' );
 check( 1 === preg_match( '#<h3>[^<]*</h3>\s*<p>(?:(?!</p>).)*</p>\s*$#us', trim( $faq ) ), 'the last answer is the last <p> before the section ends' );
 foreach ( $pairs as $p ) {
 	check( false !== strpos( $p[2], '<a href="/' ), 'the answer routes to an owner page: ' . strip_tags( $p[1] ) );
 }
-$queries = array( 'איך בוחרים עורך דין גירושין', 'כמה עולה עורך דין גירושין', 'איך מתגרשים בישראל', 'כמה זמן לוקח להתגרש', 'עורכת דין גירושין', 'מי משלם מזונות במשמורת משותפת', 'מה עושים כשלא משלמים מזונות', 'עורך דין גירושין בעיר שלי' );
+$queries = array( 'איך בוחרים עורך דין גירושין', 'כמה עולה עורך דין גירושין', 'איך מתגרשים בישראל', 'כמה זמן לוקח להתגרש', 'עורכת דין גירושין', 'מי משלם מזונות במשמורת משותפת', 'מה עושים כשלא משלמים מזונות', 'עורך דין גירושין בעיר שלי', 'כמה עולה להתגרש', 'כמה עולה הסכם גירושין', 'מהי אגרת פתיחת תיק גירושין', 'מהם גירושין בהסכמה', 'מהי בקשה משותפת לגירושין', 'איך להתגרש הכי מהר', 'האם אפשר לעשות גישור לפני גירושין', 'האם בן הזוג יכול למנוע ממני להתגרש' );
 foreach ( $queries as $q ) {
 	check( false !== strpos( $faq, $q ), 'a real query is answered: ' . $q );
 }
@@ -189,6 +193,45 @@ foreach ( array( 'עורכת דין גירושין', 'עורך דין לגירו
 }
 check( substr_count( strip_tags( $body ), 'עורך דין גירושין' ) <= 30, 'the head phrase is not stuffed' );
 check( substr_count( $body, 'class="jt-compare' ) === 1 && false !== strpos( $body, 'העמודים המדורגים ראשונים' ) && 0 === preg_match( '/divorce1|moskovich|hhlaw|lucymeir|lawreviews|avivharel|wolf-law|gerushin\.co|rotenberglaw/i', $body ), 'the comparison names no firm' );
+// HAD-541: the prices chapter states the registry's fees and the Bar tariff exactly, and attributes the market ranges.
+$reg_dc = justice_tools_registry()['divorce_cost'];
+foreach ( array( $reg_dc['rabbinical']['request'], $reg_dc['family']['request'], $reg_dc['rabbinical']['divorce'], $reg_dc['rabbinical']['property'], $reg_dc['family']['property'], $reg_dc['rabbinical']['custody'], $reg_dc['family']['custody'], $reg_dc['family']['support'], $reg_dc['rabbinical']['agreement'], $reg_dc['family']['agreement'], $reg_dc['rabbinical']['certificate'], $reg_dc['bar']['get_consent'], $reg_dc['bar']['get_contested'], $reg_dc['bar']['custody_opposed'], $reg_dc['bar']['agreement_min'], $reg_dc['bar']['extra_hearing'] ) as $fee ) {
+	check( false !== strpos( $body, number_format( (float) $fee ) . ' ₪' ), 'the prices chapter states the registry fee ' . $fee );
+}
+check( substr_count( $body, 'לפי פרסומי משרדים' ) >= 4 && false !== strpos( $body, 'טווחים, לא מחירון' ), 'market ranges are attributed to published office prices, never presented as a price list' );
+foreach ( array( 'גירושין בישראל: מה זה, מי מחליט ואיך זה עובד', 'שלבי הליך גירושין, מההחלטה ועד אחרי הגט', 'מזונות אישה, כתובה ומדור', 'ידועים בציבור: פרידה בלי גט', 'הברחת רכוש, גילוי נכסים וצווים זמניים' ) as $chapter ) {
+	check( false !== strpos( $body, $chapter ), 'the v2 chapter is in the body: ' . $chapter );
+}
+check( (int) strpos( $body, 'איך מתחיל הליך גירושין בישראל' ) > (int) strpos( $body, 'שלבי הליך גירושין, מההחלטה ועד אחרי הגט' ), 'her "how a divorce starts" chapter follows the stages chapter' );
+
+/* ---------- The command center (HAD-541) ---------- */
+justice_tools_new_render_pass( '' );
+$cmd = $jt_shortcodes['justice_tools_command']( array() );
+$set = justice_tools_command_divorce_set();
+check( 8 === count( $set ) && array( 'gerushin', 'mezonot', 'izun', 'heskem-gerushin', 'heskem-mamon', 'mapat-gerushin', 'luach-shahut', 'maakav-mezonot' ) === array_column( $set, 'name' ), 'the set: the eight instruments in search order, cost first' );
+check( 0 === strpos( $cmd, '<div class="jt-cmd" data-jt-cmd><div class="jt-cmd__bar" role="tablist" aria-label="מרכז הפיקוד של הגירושין: 8 כלים">' ), 'one block, one tablist with a name' );
+check( 8 === substr_count( $cmd, 'role="tab"' ) && 8 === substr_count( $cmd, 'role="tabpanel"' ) && 1 === substr_count( $cmd, 'aria-selected="true"' ) && 7 === substr_count( $cmd, 'aria-selected="false"' ), 'eight tabs, eight panels, one selected' );
+check( 7 === preg_match_all( '#<div class="jt-cmd__panel" role="tabpanel"[^>]*\shidden>#', $cmd ) && false !== strpos( $cmd, 'id="jt-cmd-panel-gerushin" aria-labelledby="jt-cmd-tab-gerushin" data-jt-cmd-panel="gerushin">' ), 'the first panel is open in the HTML and the other seven are hidden (no layout shift)' );
+check( 1 === preg_match_all( '#role="tab"[^>]*tabindex="0"#', $cmd ) && 7 === preg_match_all( '#role="tab"[^>]*tabindex="-1"#', $cmd ), 'roving tabindex: only the open tab is in the tab order' );
+foreach ( $set as $i => $entry ) {
+	$nm = $entry['name'];
+	check( 1 === substr_count( $cmd, 'aria-controls="jt-cmd-panel-' . $nm . '"' ) && 1 === substr_count( $cmd, 'id="jt-cmd-panel-' . $nm . '"' ) && 1 === substr_count( $cmd, 'data-jtool="' . $nm . '"' ), "{$nm}: its tab controls its panel, and its instrument is inside, once" );
+	$panel = substr( $cmd, (int) strpos( $cmd, 'id="jt-cmd-panel-' . $nm . '"' ) );
+	$panel = substr( $panel, 0, false !== strpos( $panel, 'class="jt-cmd__panel"', 10 ) ? (int) strpos( $panel, 'class="jt-cmd__panel"', 10 ) : strlen( $panel ) );
+	check( false !== strpos( $panel, 'id="jtool-' . $nm . '"' ) && 1 === preg_match( '#<p class="jt-cmd__lead">[^<]*(<a href="/[a-z0-9-]+/">[^<]+</a>[^<]*)+</p>#u', $panel ), "{$nm}: the #jtool anchor is inside its panel, after a lead that links its guide" );
+	check( ( '1' === $entry['answer'] ) === ( false !== strpos( $panel, 'class="jtool-answer"' ) ), "{$nm}: its answer box prints only when the set asks for it" );
+}
+check( false !== strpos( $cmd, 'data-jtool="gerushin" data-jtool-mode="lawyer"' ), 'the cost tab runs the lawyer mode' );
+check( 8 === substr_count( $cmd, '"@type":"WebApplication"' ), 'eight WebApplication blocks, one per instrument' );
+check( 3 === substr_count( $cmd, 'jt-cmd__tab--app' ), 'the three apps carry the app badge' );
+check( false === stripos( $cmd, '<h1' ) && false === stripos( $cmd, '<h2' ) && 8 === substr_count( $cmd, 'role="heading" aria-level="2"' ), 'no h1/h2 inside: the block sits under its own h2, the tool titles stay headings by role' );
+check( isset( $jt_enqueued['justice-tools-command'] ) && false !== strpos( (string) $jt_enqueued['justice-tools-command'], '/assets/js/tools/dist/jt-command.js' ), 'the tab script is enqueued from the folder Autoptimize skips' );
+check( '' === $jt_shortcodes['justice_tools_command']( array() ), 'within one render pass the block prints once' );
+$js = (string) file_get_contents( dirname( __DIR__ ) . '/assets/js/tools/dist/jt-command.js' );
+check( false !== strpos( $js, "'ArrowLeft'" ) && false !== strpos( $js, "'Home'" ) && false !== strpos( $js, "'End'" ) && false !== strpos( $js, 'hashchange' ) && false !== strpos( $js, "indexOf('s=')" ), 'the tab script: arrow keys (RTL), Home/End, anchors and share links open their tab' );
+$css = (string) file_get_contents( dirname( __DIR__ ) . '/assets/css/justice-tools.css' );
+check( false !== strpos( $css, '.jt-cmd__panel[hidden] { display: none !important; }' ) && false !== strpos( $css, '.jt-world-map--chips' ) && 0 === preg_match( '/jt-cmd[^{]*\{[^}]*(#C9A|#D4AF|gold|#F5F0E6|#FAF6EE|beige)/i', $css ), 'the command-center CSS: hidden panels stay hidden, chips for the map, no gold or cream' );
+
 // Yoast in the notes.
 check( 1 === preg_match( '/Title \((\d+)\): ([^\n]+)/u', $notes, $t ) && (int) $t[1] === mb_strlen( $t[2] ) && mb_strlen( $t[2] ) <= 60 && 0 === strpos( $t[2], 'עורך דין גירושין' ) && false === strpos( $t[2], 'מומלץ' ) && 0 === preg_match( '/20\d\d/', $t[2] ), 'Yoast title: counted, at most 60, head phrase first, no "מומלץ", no year' );
 check( 1 === preg_match( '/Meta \((\d+)\): ([^\n]+)/u', $notes, $d ) && (int) $d[1] === mb_strlen( $d[2] ) && mb_strlen( $d[2] ) <= 160 && 0 === strpos( $d[2], 'עורך דין גירושין' ) && 0 === preg_match( '/20\d\d/', $d[2] ), 'Yoast meta: counted, at most 160, head phrase first, no year' );

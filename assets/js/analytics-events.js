@@ -294,21 +294,21 @@
 	}
 
 	var LEAD_CONTEXT_MAX_AGE_MS = 10 * 60 * 1000;
+	var LEAD_CONTEXT_CLEAR_AFTER_MS = 1500;
 
 	// Context handoff between pages (the article CTA no longer carries
 	// lead_area/lead_message query strings): the clicked link's data-lead-*
 	// values are stored for one navigation and applied to the homepage form.
-	// Only a plain click in this tab stores anything: a Ctrl/Cmd/Shift-click
-	// opens another tab (which copies sessionStorage) and would otherwise
-	// leave the context behind in this one; a stored context also expires.
+	// A Ctrl/Cmd/Shift-click opens the CTA in another tab, which inherits a
+	// copy of sessionStorage at creation; this tab then clears its own copy a
+	// moment later so a later homepage visit here is not attributed to the
+	// article. A stored context also expires on its own.
 	function storeLeadContext(link, event) {
 		if (!linksToLeadForm(link)) {
 			return;
 		}
 
-		if (event && (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || (typeof event.button === 'number' && event.button !== 0))) {
-			return;
-		}
+		var opensElsewhere = !!(event && (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || (typeof event.button === 'number' && event.button !== 0)));
 
 		var context = {
 			savedAt: Date.now(),
@@ -326,6 +326,17 @@
 			window.sessionStorage.setItem(LEAD_CONTEXT_KEY, JSON.stringify(context));
 		} catch (error) {
 			// Storage unavailable: the visitor still lands on the form.
+			return;
+		}
+
+		if (opensElsewhere) {
+			window.setTimeout(function () {
+				try {
+					window.sessionStorage.removeItem(LEAD_CONTEXT_KEY);
+				} catch (error) {
+					// Nothing to clear.
+				}
+			}, LEAD_CONTEXT_CLEAR_AFTER_MS);
 		}
 	}
 

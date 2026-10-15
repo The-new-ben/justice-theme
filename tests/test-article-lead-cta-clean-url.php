@@ -107,6 +107,7 @@ jt_assert( false !== strpos( $script, "sessionStorage.setItem(LEAD_CONTEXT_KEY" 
 jt_assert( false !== strpos( $script, "if (!linksToLeadForm(link)) {\n\t\t\treturn;\n\t\t}" ) && false !== strpos( $script, "'#ask-lawyer' === url.hash" ) && false !== strpos( $script, "'/' === url.pathname" ), 'Only a same-site link to /#ask-lawyer stores context; WhatsApp and profile links leave nothing behind.' );
 jt_assert( false !== strpos( $script, 'event.ctrlKey || event.metaKey || event.shiftKey || event.altKey' ) && false !== strpos( $script, 'storeLeadContext(link, event)' ) && false !== strpos( $script, 'if (opensElsewhere) {' ) && false !== strpos( $script, '}, LEAD_CONTEXT_CLEAR_AFTER_MS);' ), 'A modified click (new tab) stores the context for the new tab to inherit and clears it in this tab a moment later.' );
 jt_assert( false !== strpos( $script, 'savedAt: Date.now()' ) && false !== strpos( $script, 'Date.now() - context.savedAt > LEAD_CONTEXT_MAX_AGE_MS' ), 'A stored context expires instead of attributing a later, unrelated visit.' );
+jt_assert( false !== strpos( $script, "document.addEventListener('auxclick', handleAuxClick, true);" ) && false !== strpos( $script, 'event.button !== 1' ), 'A middle-click (auxclick) stores the context for the new tab too.' );
 $enqueue = file_get_contents( dirname( __DIR__ ) . '/inc/enqueue.php' );
 jt_assert( false !== strpos( $enqueue, "'/assets/js/analytics-events.js',\n\t\tarray(),\n\t\t'1.1.4'" ), 'The script version moved so cached copies refresh.' );
 

@@ -383,6 +383,22 @@
 		return applyLeadPrefillFromLink(carrier);
 	}
 
+	// A middle-click dispatches auxclick, not click: it opens the CTA in a new
+	// tab, so the context is stored for that tab the same way as a Ctrl-click.
+	function handleAuxClick(event) {
+		var link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+
+		if (!link || !link.dataset || event.button !== 1) {
+			return;
+		}
+
+		if (document.querySelector('#ask-lawyer form')) {
+			return;
+		}
+
+		storeLeadContext(link, event);
+	}
+
 	function applyAskLawyerWhatsAppPrefill(link) {
 		if (link.getAttribute('data-investigation-interest') === 'pilot') return;
 		var href = link.getAttribute('href') || '';
@@ -661,6 +677,7 @@
 		});
 
 		document.addEventListener('click', handleClick, true);
+		document.addEventListener('auxclick', handleAuxClick, true);
 
 		document.querySelectorAll('form').forEach(function (form) {
 			form.addEventListener('focusin', function () {

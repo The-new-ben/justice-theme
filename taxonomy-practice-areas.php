@@ -84,6 +84,18 @@ if ( $justice_tax_paged > 1 && $justice_tax_paged > $justice_tax_pages ) {
 
 $justice_tax_is_paged = $justice_tax_paged > 1;
 
+// Page 2+ has no lawyers band of its own, so its hero action points back at
+// page one's band; the guides anchor exists on every page.
+$justice_tax_page_one_url  = '';
+$justice_tax_lawyers_href  = '#practice-lawyers';
+if ( $justice_tax_is_paged && $term instanceof WP_Term ) {
+	$justice_tax_term_link = get_term_link( $term );
+	if ( is_string( $justice_tax_term_link ) && '' !== $justice_tax_term_link ) {
+		$justice_tax_page_one_url = $justice_tax_term_link;
+		$justice_tax_lawyers_href = $justice_tax_page_one_url . '#practice-lawyers';
+	}
+}
+
 get_header();
 $clean_name = trim( str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ' ), '', $term_name ) );
 
@@ -192,7 +204,7 @@ $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-
 				<p><?php echo esc_html( sprintf( 'מרכז מידע, עורכי דין וכלים דיגיטליים בתחום %s. העמוד נועד לעזור להבין את הבעיה, לקרוא מדריכים רלוונטיים ולהשאיר פנייה מסודרת.', $display_area ) ); ?></p>
 			<?php endif; ?>
 			<div class="practice-hub-hero__actions">
-				<a class="button button--gold" href="#practice-lawyers"><?php esc_html_e( 'עורכי דין בתחום', 'justice-theme' ); ?></a>
+				<a class="button button--gold" href="<?php echo esc_url( $justice_tax_lawyers_href ); ?>"><?php esc_html_e( 'עורכי דין בתחום', 'justice-theme' ); ?></a>
 				<a class="button button--ghost" href="#practice-guides"><?php esc_html_e( 'מדריכים משפטיים', 'justice-theme' ); ?></a>
 			</div>
 		</div>

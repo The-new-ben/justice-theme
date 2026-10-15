@@ -137,6 +137,8 @@ jt_assert( false !== strpos( $template, 'justice_theme_practice_archive_not_foun
 jt_assert( false === strpos( $template, 'wp_redirect' ) && false === strpos( $template, 'wp_safe_redirect' ), 'No redirect in the archive template.' );
 jt_assert( strpos( $template, 'get_header();' ) > strpos( $template, 'justice_theme_practice_archive_not_found()' ), 'The 404 decision is made before any output.' );
 jt_assert( false !== strpos( $template, '<?php if ( $justice_tax_is_paged ) : ?>' ) && false !== strpos( $template, '<?php elseif ( $term_desc ) : ?>' ), 'The term description renders on page 1 only.' );
+jt_assert( false !== strpos( $template, 'href="<?php echo esc_url( $justice_tax_lawyers_href ); ?>"' ) && false !== strpos( $template, "\$justice_tax_lawyers_href = \$justice_tax_page_one_url . '#practice-lawyers';" ) && false === strpos( $template, 'href="#practice-lawyers"' ), 'On page 2+ the hero lawyers action points back at page one, where the lawyers band renders.' );
+jt_assert( false !== strpos( $template, "<?php endif; ?>\n\n<section class=\"practice-hub-content section\" id=\"practice-guides\">" ), 'The guides anchor exists on every page, right after the page-1-only block.' );
 jt_assert( false === strpos( $template, "'no_found_rows'" ), 'The article query counts rows so the page count is real.' );
 
 echo "practice archive pagination tests passed\n";

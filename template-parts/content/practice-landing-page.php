@@ -179,7 +179,8 @@ if ( post_type_exists( 'articles' ) ) {
 					if ( function_exists( 'justice_theme_inject_after_section' ) && function_exists( 'justice_theme_midfold_block_html' ) ) {
 						$justice_body_html = justice_theme_inject_after_section(
 							$justice_body_html,
-							justice_theme_midfold_block_html( $term_slug, $title )
+							justice_theme_midfold_block_html( $term_slug, $title ),
+							isset( $config['midfold_after_sections'] ) ? max( 1, (int) $config['midfold_after_sections'] ) : 2
 						);
 					}
 					echo $justice_body_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -324,9 +325,13 @@ if ( post_type_exists( 'articles' ) ) {
 				$justice_team_parts = function_exists( 'justice_theme_practice_landing_team_parts' ) && $page_id > 0
 					? justice_theme_practice_landing_team_parts( (string) get_post_field( 'post_content', $page_id ) )
 					: array();
+				$justice_reviewed_blocks = function_exists( 'justice_theme_practice_landing_has_reviewed_blocks' ) && $page_id > 0
+					&& justice_theme_practice_landing_has_reviewed_blocks( (string) get_post_field( 'post_content', $page_id ) );
 				?>
 				<?php if ( empty( $justice_team_parts ) ) : ?>
 				<p class="eeat-reviewed-footer"><strong>התוכן בעמוד נבדק על ידי <?php echo esc_html( $config['reviewed_by'] ); ?></strong></p>
+				<?php elseif ( $justice_reviewed_blocks ) : ?>
+				<p class="eeat-reviewed-footer"><strong>הפרקים המסומנים "נבדק על ידי <?php echo esc_html( $config['reviewed_by'] ); ?>" הם הטקסט שעבר את בדיקתה.</strong> שאר העמוד, <?php echo esc_html( implode( ' ו', $justice_team_parts ) ); ?>: צוות Jus-Tice, מול המקורות שמצוינים בהם.</p>
 				<?php else : ?>
 				<p class="eeat-reviewed-footer"><strong>הטקסט במדריך נבדק על ידי <?php echo esc_html( $config['reviewed_by'] ); ?>.</strong> <?php echo esc_html( implode( ' ו', $justice_team_parts ) ); ?>: צוות Jus-Tice, מול המקורות שמצוינים בהם.</p>
 				<?php endif; ?>

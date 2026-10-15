@@ -52,6 +52,8 @@ jobs:
           php tests/test-justice-tools-family.php
           php tests/test-divorce-head-term.php
           python3 -m py_compile tools/justice_tools_family.py
+          node tests/js/test-divorce-world.mjs
+          php tests/test-divorce-world.php
 
       - name: Enforce append-only release ZIPs
         run: |

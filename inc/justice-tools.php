@@ -25,6 +25,10 @@
  *   [justice_tool name="chozeh-schirut"]                 wave 5: a residential lease under the Fair Rental chapter (/online-rent-agreement/)
  *   [justice_tool name="pitzuyim"]                       wave 5: severance pay, section 14 and the notice (/severance-pay-calculator/)
  *   [justice_tool name="mas-shevach"]                    wave 5: capital gains tax on a home, and the net (/land-appreciation-tax/)
+ *   [justice_tool name="luach-shahut"]                   the divorce world (HAD-539): the custody calendar (/divorce-lawyer/)
+ *   [justice_tool name="maakav-mezonot"]                 the divorce world: the child-support payment tracker (/divorce-lawyer/)
+ *   [justice_tool name="mapat-gerushin"]                 the divorce world: the divorce roadmap (/divorce-lawyer/)
+ *   [justice_tool name="gerushin" mode="lawyer" answer="only"]   the answer box alone; the instrument prints later on the page
  *   [justice_tool_section name="hatzmada" part="method"]  part: method | numbers | compare | sources | updated
  *                                                         (add mode="fee" for the fee-only page's method)
  *   [justice_tools_index]                                 hub cards with the data stamp
@@ -427,6 +431,59 @@ function justice_tools_catalog(): array {
 				),
 			),
 		),
+		// The divorce world (HAD-539): three apps that run a divorce end to end, all on /divorce-lawyer/ next to the five
+		// family tools, so the lawyer link goes to the directory and never to the page itself. The law sets no schedule
+		// (divorce_agreement.schedule_he), so the calendar's patterns are templates; the tracker keeps its log in the
+		// browser only; the roadmap's fees and days come from divorce_cost through the wave-4 engine.
+		'luach-shahut'    => array(
+			'name'        => 'מחולל לוח זמני שהות',
+			'title'       => 'לוח זמני שהות: שבועיים, שנה שלמה והחגים',
+			'promise'     => 'בוחרים 2-2-3, שבוע-שבוע, 5-2-2-5 או מסמנים לילה-לילה; מחלקים חגים וחופש גדול; ומקבלים לוח שבועיים, שנה שלמה של לילות לכל הורה, קובץ יומן וטקסט להסכם.',
+			'question'    => 'איך בונים לוח זמני שהות, וכמה לילות בשנה אצל כל הורה?',
+			'page'        => '/divorce-lawyer/',
+			'category'    => 'LegalApplication',
+			'data'        => array( 'registry_version', 'divorce_agreement' ),
+			'dataset'     => 'divorce_agreement',
+			'next_text'   => 'הצעד הבא: לתרגל את השיחה על הלוח מול ההורה השני ומגשרת, לפני הפגישה ביחידת הסיוע',
+			'primary'     => array( 'label' => 'לתרגל את השיחה על זמני השהות', 'rehearse' => true ),
+			'rehearse'    => array( 'label' => 'לתרגל את השיחה על זמני השהות', 'topic' => 'divorce', 'purpose' => 'mediation' ),
+			'more'        => array( array( 'label' => 'הסדרי שהות ותוכנית הורות', 'path' => '/parenting-time-arrangements/' ), array( 'label' => 'מחשבון מזונות ילדים', 'path' => '/child-support/' ) ),
+			'lawyer'      => array( 'label' => 'עורכי דין לענייני משפחה לפי עיר', 'path' => '/lawyers/?area=family-law' ),
+			'sticky'      => 'לילות',
+			'sticky_kind' => 'count',
+		),
+		'maakav-mezonot'  => array(
+			'name'      => 'מעקב תשלומי מזונות',
+			'title'     => 'מעקב מזונות: מה שולם, מה פתוח, והצמדה וריבית על הפיגור',
+			'promise'   => 'רושמים את פסק הדין ואת התשלומים; הכלי מעדכן את הסכום למדד, מחשב את החוב עם הצמדה וריבית כחוק, ומנסח מכתב דרישה. הכול נשמר אצלכם בדפדפן בלבד.',
+			'question'  => 'כמה מזונות חייבים לי היום, כולל הצמדה וריבית?',
+			'page'      => '/divorce-lawyer/',
+			'category'  => 'FinanceApplication',
+			'data'      => array( 'registry_version', 'child_support', 'cpi', 'interest' ),
+			'dataset'   => 'child_support',
+			'next_text' => 'הצעד הבא: לשלוח את מכתב הדרישה, ואם לא שולם, לפתוח תיק מזונות בהוצאה לפועל',
+			'primary'   => array( 'label' => 'העתקת מכתב הדרישה', 'act' => 'copyletter' ),
+			'rehearse'  => array( 'label' => 'לתרגל את הדיון על המזונות', 'topic' => 'divorce', 'purpose' => 'court_rehearsal' ),
+			'more'      => array( array( 'label' => 'פתיחת תיק מזונות בהוצאה לפועל', 'url' => 'https://www.gov.il/he/service/opening_alimony_file' ), array( 'label' => 'עדכון מזונות למדד', 'path' => '/tzmidut-mezonot/' ), array( 'label' => 'מזונות דרך ביטוח לאומי', 'path' => '/bituach-leumi-alimony/' ) ),
+			'lawyer'    => array( 'label' => 'עורכי דין לענייני משפחה לפי עיר', 'path' => '/lawyers/?area=family-law' ),
+			'sticky'    => 'החוב',
+		),
+		'mapat-gerushin'  => array(
+			'name'      => 'מפת הדרכים לגירושין',
+			'title'     => 'מפת הדרכים לגירושין: מההחלטה ועד פסק הדין, שלב אחרי שלב',
+			'promise'   => 'בהסכמה, ביישוב סכסוך או בתביעות: כל שלב עם מה שמכינים אליו, האגרה שלו, התאריך שהחוק קובע והקישור לכלי המתאים. מסמנים מה בוצע; ההתקדמות נשמרת אצלכם.',
+			'question'  => 'איך מתגרשים בישראל, שלב אחרי שלב, וכמה זמן וכסף זה לוקח?',
+			'page'      => '/divorce-lawyer/',
+			'category'  => 'LegalApplication',
+			'data'      => array( 'registry_version', 'divorce_cost', 'divorce_agreement', 'property_balance', 'child_support' ),
+			'dataset'   => 'divorce_cost',
+			'next_text' => 'הצעד הבא: לתרגל את פגישת המהו"ת ביחידת הסיוע, השלב שבו רוב ההסכמים נולדים',
+			'primary'   => array( 'label' => 'לתרגל את פגישת המהו"ת', 'rehearse' => true ),
+			'rehearse'  => array( 'label' => 'לתרגל את פגישת המהו"ת', 'topic' => 'divorce', 'purpose' => 'mediation' ),
+			'more'      => array( array( 'label' => 'בקשה ליישוב סכסוך', 'path' => '/request-for-family-dispute-settlements/' ), array( 'label' => 'פתיחת תיק גירושין בבית הדין הרבני', 'path' => '/opening-divorce-file-rabbinical/' ) ),
+			'lawyer'    => array( 'label' => 'עורכי דין לענייני משפחה לפי עיר', 'path' => '/lawyers/?area=family-law' ),
+			'sticky'    => 'אגרות',
+		),
 	);
 }
 
@@ -669,6 +726,9 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 			. 'לפני תביעה: עד <bdi>' . (int) $ds['meetings_max'] . '</bdi> פגישות ביחידת הסיוע בלי תשלום, ו-<bdi>' . (int) $ds['stay_days'] . '</bdi> ימים שבהם אי אפשר לתבוע. נבדק ' . esc_html( justice_tools_he_date( $d['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
+	if ( in_array( $name, justice_tools_world_names(), true ) ) {
+		return justice_tools_world_answer( $name );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_answer( $name, $mode );
 	}
@@ -754,6 +814,9 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 		$sh = $reg['shevach'] ?? array();
 		return 'תקרת פטור ' . number_format( (float) ( $sh['single']['ceiling'] ?? 0 ) ) . ' ₪ עד ' . justice_tools_he_date( $sh['single']['ceiling_to'] ?? '' ) . ' · נבדק ' . justice_tools_he_date( $sh['checked_on'] ?? '' );
 	}
+	if ( in_array( $name, justice_tools_world_names(), true ) ) {
+		return justice_tools_world_stamp( $name );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_stamp( $name, $mode );
 	}
@@ -809,6 +872,9 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 /** Official sources used by the tool's result (anatomy part H). */
 function justice_tools_sources( string $name ): array {
 	$reg = justice_tools_registry();
+	if ( in_array( $name, justice_tools_world_names(), true ) ) {
+		return justice_tools_world_sources( $name );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_sources( $name );
 	}
@@ -1076,8 +1142,42 @@ function justice_tools_webapp_schema( string $name, array $tool ): string {
  * @param array|string $atts Shortcode attributes.
  * @return string
  */
-function justice_tools_shortcode( $atts ): string {
+/**
+ * One instrument per tool per render pass (two copies would share field ids and one share link). The guard is per
+ * pass, not per request: justice-ops practice-polish pre-renders a practice landing page's body at template_redirect
+ * and discards it once the theme carries the slot, so a per-request guard left the real render empty (HAD-539,
+ * 15.10.2026: /divorce-lawyer/ showed the answer box and none of its eight instruments). the_content at priority 0
+ * opens a new pass.
+ *
+ * @param string $name  Tool name; '' only resets.
+ * @param bool   $reset Start a new render pass.
+ * @return bool True when this name already printed in the current pass (the caller prints nothing).
+ */
+function justice_tools_printed( string $name, bool $reset = false ): bool {
 	static $printed = array();
+	if ( $reset ) {
+		$printed = array();
+	}
+	if ( '' === $name ) {
+		return false;
+	}
+	if ( isset( $printed[ $name ] ) ) {
+		return true;
+	}
+	$printed[ $name ] = true;
+	return false;
+}
+
+/** the_content filter, priority 0: every run of the filter is a new render pass for the instruments. */
+function justice_tools_new_render_pass( $content ) {
+	justice_tools_printed( '', true );
+	return $content;
+}
+if ( function_exists( 'add_filter' ) ) {
+	add_filter( 'the_content', 'justice_tools_new_render_pass', 0 );
+}
+
+function justice_tools_shortcode( $atts ): string {
 	$atts    = shortcode_atts( array( 'name' => '', 'answer' => '1', 'mode' => '' ), $atts, 'justice_tool' );
 	$name    = sanitize_key( (string) $atts['name'] );
 	$catalog = justice_tools_catalog();
@@ -1086,11 +1186,20 @@ function justice_tools_shortcode( $atts ): string {
 		$mode = '';
 	}
 	$snap = justice_tools_snapshot( $name, $mode );
-	// One instrument per tool per page: two copies would share field ids and one share link.
-	if ( ! isset( $catalog[ $name ] ) || empty( $snap['form'] ) || isset( $printed[ $name ] ) ) {
+	// answer="only": the answer box alone, for a page that opens with the answer and places the instrument further down
+	// (the divorce world, HAD-539). It is not the instrument, so the same tool still prints once, later on the page.
+	if ( 'only' === (string) $atts['answer'] ) {
+		if ( ! isset( $catalog[ $name ] ) ) {
+			return '';
+		}
+		$css = JUSTICE_THEME_DIR . '/assets/css/justice-tools.css';
+		wp_enqueue_style( 'justice-tools', JUSTICE_THEME_URI . '/assets/css/justice-tools.css', array(), is_readable( $css ) ? (string) filemtime( $css ) : JUSTICE_THEME_VERSION );
+		return justice_tools_answer( $name, $mode );
+	}
+	// One instrument per tool per render pass: two copies would share field ids and one share link.
+	if ( ! isset( $catalog[ $name ] ) || empty( $snap['form'] ) || justice_tools_printed( $name ) ) {
 		return '';
 	}
-	$printed[ $name ] = true;
 	$tool = justice_tools_tool( $name, $mode );
 	$reg  = justice_tools_registry();
 	justice_tools_enqueue( $name );
@@ -1486,6 +1595,9 @@ function justice_tools_numbers_html( string $name ): string {
 	if ( 'mas-shevach' === $name ) {
 		return justice_tools_shevach_numbers_html( $reg['shevach'] );
 	}
+	if ( in_array( $name, justice_tools_world_names(), true ) ) {
+		return justice_tools_world_numbers_html( $name );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_numbers_html( $name );
 	}
@@ -1567,7 +1679,7 @@ function justice_tools_numbers_html( string $name ): string {
 
 /** Comparison table (page standard A6). */
 function justice_tools_compare_html( string $name ): string {
-	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
+	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin', 'luach-shahut', 'maakav-mezonot', 'mapat-gerushin' ), true ) ) {
 		$snap = justice_tools_snapshot( $name );
 		return '<div class="jtool-page">' . ( $snap['compare_table'] ?? '' ) . '</div>';
 	}
@@ -1724,3 +1836,5 @@ function justice_tools_article_opens_with_tool( int $post_id ): bool {
 
 // Family law (HAD-506): answer boxes, stamps, sources and page tables of the four family tools.
 require_once __DIR__ . '/justice-tools-family.php';
+// The divorce world (HAD-539): the custody calendar, the payment tracker and the roadmap on /divorce-lawyer/.
+require_once __DIR__ . '/justice-tools-divorce-world.php';

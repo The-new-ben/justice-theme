@@ -1521,3 +1521,8 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jtool figure.jt44-curve, .jtool .jt45-slip, .jtool ol.jt44-pay { break-inside: avoid; }
 	.jt44-area, .jt44-line, .jt44-me, .jt44-pay__n, .jt45-seg, .jt45-k { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 }
+/* Wave 2A (HAD-578): on a phone the answer comes first. The verdict, the curve or the payslip strip sit above the form,
+   so the example result is on the first screen of the tool and every change still recomputes it in place. */
+@media (max-width: 900px) {
+	.jtool[data-jtool="maanak-avoda"] .jtool-result, .jtool[data-jtool="sachar-neto"] .jtool-result { order: -1; }
+}

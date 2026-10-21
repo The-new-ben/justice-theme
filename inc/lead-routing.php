@@ -27,6 +27,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param bool    $update  Whether this is an update.
  */
 function justice_theme_route_lead_to_lawyers( int $post_id, WP_Post $post, bool $update ): void {
+	// Never route an unfinished/test record, including nested classifier hooks.
+	// The public verified-intake path delegates generic requests to Ops only.
+	if ( 'publish' !== $post->post_status
+		|| get_post_meta( $post_id, 'lead_is_test', true )
+		|| in_array( get_post_meta( $post_id, 'lead_storage_status', true ), array( 'pending', 'incomplete' ), true )
+		|| 'ops' === get_post_meta( $post_id, 'lead_routing_owner', true ) ) {
+		return;
+	}
 	if ( get_post_meta( $post_id, 'routing_hold', true ) ) {
 		update_post_meta( $post_id, 'routing_notes', 'Routing is on owner hold. Confirm consent, commercial terms and handoff path before releasing this lead.' );
 		return;

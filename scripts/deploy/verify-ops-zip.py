@@ -39,6 +39,7 @@ def main() -> None:
                 fail(f"file outside plugin root: {name}")
 
         required = {
+            "justice-ops/lead-intake.php",
             "justice-ops/justice-ops.php",
             "justice-ops/family-content-release.php",
             "justice-ops/criminal-content-release.php",
@@ -117,6 +118,7 @@ def main() -> None:
             "require_once __DIR__ . '/professional-cards.php';",
             "require_once __DIR__ . '/advertise.php';",
             "require_once __DIR__ . '/lead-router.php';",
+            "require_once __DIR__ . '/lead-intake.php';",
             "require_once __DIR__ . '/scheduler.php';",
             "require_once __DIR__ . '/calculators.php';",
             "require_once __DIR__ . '/doc-generators.php';",

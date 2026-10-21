@@ -222,6 +222,9 @@ function justice_hubspot_deal_properties( int $lead_id, array $s ): array {
  * Create or update the deal for one lead. Safe to call repeatedly.
  */
 function justice_hubspot_sync_lead( int $lead_id ): array {
+	if ( get_post_meta( $lead_id, 'lead_is_test', true ) || in_array( get_post_meta( $lead_id, 'lead_storage_status', true ), array( 'pending', 'incomplete' ), true ) ) {
+		return array( 'ok' => false, 'error' => 'test or incomplete intake excluded' );
+	}
 	if ( ! justice_hubspot_enabled() || 'justice_lead' !== get_post_type( $lead_id ) ) {
 		return array( 'ok' => false, 'error' => 'disabled or not a lead' );
 	}
@@ -292,7 +295,20 @@ function justice_hubspot_backfill( int $limit = 25 ): array {
 		'orderby'        => 'date',
 		'order'          => 'ASC',
 		'fields'         => 'ids',
-		'meta_query'     => array( array( 'key' => 'hubspot_deal_id', 'compare' => 'NOT EXISTS' ) ),
+		'meta_query'     => array(
+			'relation' => 'AND',
+			array( 'key' => 'hubspot_deal_id', 'compare' => 'NOT EXISTS' ),
+			array(
+				'relation' => 'OR',
+				array( 'key' => 'lead_is_test', 'compare' => 'NOT EXISTS' ),
+				array( 'key' => 'lead_is_test', 'value' => array( '', '0' ), 'compare' => 'IN' ),
+			),
+			array(
+				'relation' => 'OR',
+				array( 'key' => 'lead_storage_status', 'compare' => 'NOT EXISTS' ),
+				array( 'key' => 'lead_storage_status', 'value' => array( 'pending', 'incomplete' ), 'compare' => 'NOT IN' ),
+			),
+		),
 	) );
 	$done = 0; $failed = 0; $last = '';
 	foreach ( $q->posts as $id ) {

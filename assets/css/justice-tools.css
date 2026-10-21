@@ -1526,3 +1526,18 @@ a.jtool-cite:hover { text-decoration: underline; }
 @media (max-width: 900px) {
 	.jtool[data-jtool="maanak-avoda"] .jtool-result, .jtool[data-jtool="sachar-neto"] .jtool-result { order: -1; }
 }
+/* Wave 2A (HAD-578): the result-first card ([justice_tool_lead]) right under the page title, and readable curve labels
+   on phones. The card is server-rendered with the example and rewritten in place by the tool (no layout shift). */
+.jtool-page.jtool-lead { direction: rtl; margin: 0 0 18px; padding: 14px 16px 16px; border: 1px solid var(--jtool-border); border-inline-start: 5px solid var(--jtool-ok); border-radius: 12px; background: var(--jtool-surface-2); color: var(--jtool-ink); font-family: var(--jtool-font); }
+.jtool-page.jtool-lead p { margin: 0 !important; }
+.jtool-page.jtool-lead .jtool-lead__label { font: 700 0.9rem/1.4 var(--jtool-font) !important; color: var(--jtool-muted) !important; }
+.jtool-page.jtool-lead .jtool-lead__row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 4px 0 6px !important; }
+.jtool-page.jtool-lead .jtool-lead__figure { font: 800 2.1rem/1.1 var(--jtool-font); color: var(--jtool-verdict-deep); font-variant-numeric: tabular-nums; }
+.jtool-page.jtool-lead .jtool-lead__unit { font: 700 0.95rem/1.4 var(--jtool-font); color: var(--jtool-ok); }
+.jtool-page.jtool-lead .jtool-lead__line { font: 400 0.95rem/1.55 var(--jtool-font) !important; color: var(--jtool-ink) !important; }
+.jtool-page.jtool-lead a.jtool-lead__go { display: inline-flex; align-items: center; min-height: 44px; margin-top: 10px; padding: 0 18px; border-radius: var(--jtool-radius-field); background: var(--jtool-verdict-deep); color: #fff !important; font: 800 0.95rem/1 var(--jtool-font); text-decoration: none !important; }
+.jtool-page.jtool-lead a.jtool-lead__go:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+@media (max-width: 600px) {
+	.jtool .jt44-ty, .jtool .jt44-tx { font-size: 21px; }
+}
+@media print { .jtool-page.jtool-lead a.jtool-lead__go { display: none; } }

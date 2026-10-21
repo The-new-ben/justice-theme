@@ -123,6 +123,14 @@ foreach ( $homes as $name => $home ) {
 	$again = $tool( array( 'name' => $name ) ) . $tool( array( 'name' => $name ) );
 	check( 1 === substr_count( $again, 'data-jtool="' . $name . '"' ), "{$name}: one instrument per render pass" );
 }
+$lead = $jt_shortcodes['justice_tool_lead'] ?? null;
+check( is_callable( $lead ), 'the result-first card shortcode is registered' );
+foreach ( array( 'maanak-avoda' => '13,020', 'sachar-neto' => '9,815.29' ) as $name => $figure ) {
+	$card = $lead( array( 'name' => $name ) );
+	check( false !== strpos( $card, 'data-jtool-lead="' . $name . '"' ) && false !== strpos( $card, $figure ) && false !== strpos( $card, 'href="#jtool-' . $name . '"' ), "{$name}: the result-first card carries the example {$figure} and the jump to the tool" );
+	check( 0 === preg_match( '/<h[1-6][\s>]/', $card ) && false === strpos( $card, 'undefined' ) && false === strpos( $card, 'NaN' ), "{$name}: the card has no heading and no undefined / NaN" );
+}
+check( '' === $lead( array( 'name' => 'dmei-bituach' ) ), 'the card is only for the wave-2A tools' );
 check( in_array( 'maanak-avoda', justice_tools_rights_names(), true ) && in_array( 'sachar-neto', justice_tools_rights_names(), true ), 'the wave-2A names are merged into the rights names' );
 
 echo "rights wave 2A tools (PHP): {$passed} passed, {$failures} failed\n";

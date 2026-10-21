@@ -136,6 +136,7 @@ check(c.pts.length === 49 && near(Math.max(...c.pts.map((x) => x[1])), 1085) && 
 const s = snapshot(reg);
 const all = [s.form, s.result, s.details, s.method, s.compare_table, s.sentence, renderForm(reg, { kids: 0 }), renderResult(reg, run({ income: 'x' })), renderDetails(reg, run(Object.assign({}, EXAMPLE, { realEstate: true }))), bandsTable(reg)].join('');
 check(s.result.includes('13,020') && s.result.includes('15.12.2026') && s.method.includes('סעיף 6ב1') && s.compare_table.includes('<caption'), 'snapshot: the example figures, the dates, the sections and the table');
+check(s.lead.includes('13,020') && s.lead.includes('data-lead-go') && !/<h[1-6][\s>]/.test(s.lead), 'the result-first card carries the example 13,020 and the jump to the form');
 check(!/<h2[\s>]/.test(all), 'no <h2> in any rendered HTML');
 check(!/undefined|NaN|>null</.test(all), 'no undefined / NaN / null in any rendered string');
 check(s.result.includes('<svg') && s.result.includes('role="img"'), 'the grant curve renders as a labelled SVG');

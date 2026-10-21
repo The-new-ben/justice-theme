@@ -125,6 +125,20 @@ function justice_theme_article_simulation_url( string $topic, string $purpose ):
 	return 'https://jus-tice.com/#/simulation?' . http_build_query( $params, '', '&', PHP_QUERY_RFC3986 );
 }
 
+/** Court-stage guides keep their criminal topic, with a court entry and direct legal intake. */
+function justice_theme_article_simulation_context( string $topic, string $slug ): array {
+	$world = justice_theme_article_simulation_world( $topic );
+	if ( 'criminal-law' === $topic && in_array( $slug, array(
+		'criminal-appeal', 'criminal-sentencing-israel', 'plea-bargain',
+	), true ) ) {
+		$world = justice_theme_article_simulation_world( 'general' );
+		$world['cta'] = 'סימולציית בית משפט על המקרה שלכם';
+		$world['alt'] = 'התייעצות עם עורך דין פלילי';
+		$world['alt_url'] = home_url( '/criminal-defense-attorney/#practice-lead-form' );
+	}
+	return $world;
+}
+
 function justice_theme_article_simulation_entry( string $content ): string {
 	$post_id = (int) get_the_ID();
 	// Practice landing templates render their queried page body outside WP's loop.
@@ -137,9 +151,10 @@ function justice_theme_article_simulation_entry( string $content ): string {
 		|| false !== strpos( $content, 'jtool-simstrip' ) ) { return $content; }
 	$topic = justice_theme_article_simulation_topic( $post_id );
 	if ( ! $topic ) { return $content; }
-	$w = justice_theme_article_simulation_world( $topic );
+	$w = justice_theme_article_simulation_context( $topic, (string) get_post_field( 'post_name', $post_id ) );
 	$face = ( defined( 'JUSTICE_THEME_URI' ) ? JUSTICE_THEME_URI : '' ) . '/assets/images/hadmaya/' . $w['face'] . '.webp';
 	$lead = justice_theme_article_simulation_url( $topic, $w['lead'] );
+	$alt = $w['alt_url'] ?? justice_theme_article_simulation_url( $topic, $w['alt_purpose'] );
 	$live = 'police_interrogation' === $w['lead'] ? ' data-investigation-entry="live"' : '';
 	// The white card family (Ben 28.9.2026): the question a reader could be asked, the person who asks it,
 	// one lead action and one alternative. The face link and the actions row keep their classes, because
@@ -152,7 +167,7 @@ function justice_theme_article_simulation_entry( string $content ): string {
 		. '<p class="l3-simcard__quote">״' . esc_html( $w['quote'] ) . '״<span class="l3-simcard__caret" aria-hidden="true"></span></p>'
 		. '<p class="l3-simcard__text">' . esc_html( $w['text'] ) . '</p>'
 		. '<div class="l3-article-simulation__actions l3-simcard__actions"><a class="l3-simcard__cta"' . $live . ' href="' . esc_url( $lead ) . '">' . esc_html( $w['cta'] ) . '</a>'
-		. '<a class="l3-article-simulation__secondary l3-simcard__alt" href="' . esc_url( justice_theme_article_simulation_url( $topic, $w['alt_purpose'] ) ) . '">' . esc_html( $w['alt'] ) . '</a></div>'
+		. '<a class="l3-article-simulation__secondary l3-simcard__alt" href="' . esc_url( $alt ) . '">' . esc_html( $w['alt'] ) . '</a></div>'
 		. '<small class="l3-simcard__note">סימולציה להכנה, לא ייעוץ משפטי · דמויות AI</small></div></aside>';
 	// Preserve the article and Claude's contextual links exactly: the card is only inserted.
 	$at = justice_theme_article_simulation_offset( $content );

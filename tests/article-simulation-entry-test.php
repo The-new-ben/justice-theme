@@ -14,6 +14,7 @@ function get_queried_object_id() { return $GLOBALS['queried']; }
 function get_post_field( $field, $id ) { return $GLOBALS['slug']; }
 function get_the_title( $id ) { return 'Article title'; }
 function get_permalink( $id ) { return 'https://jus-tice.co.il/' . $GLOBALS['slug'] . '/'; }
+function home_url( $path ) { return 'https://jus-tice.co.il' . $path; }
 function wp_strip_all_tags( $value ) { return strip_tags( $value ); }
 function esc_attr( $s ) { return htmlspecialchars( $s, ENT_QUOTES ); }
 function esc_url( $s ) { return htmlspecialchars( $s, ENT_QUOTES ); }
@@ -23,6 +24,7 @@ function justice_theme_cluster_for_slug( $s ) {
 	return match ( $s ) {
 		'divorce-lawyer' => array( 'key' => 'family-law' ),
 		'criminal-defense-attorney' => array( 'key' => 'criminal-law' ),
+		'plea-bargain' => array( 'key' => 'criminal-law' ),
 		default => null,
 	};
 }
@@ -52,6 +54,19 @@ check_entry( 1 === substr_count( $out, 'data-investigation-entry="live"' ), 'one
 check_entry( str_contains( $out, 'purpose=police_interrogation&amp;topic=criminal-law' ), 'criminal pages open the interrogation world' );
 check_entry( str_contains( $out, 'purpose=court_rehearsal' ), 'a criminal hearing stays one tap away' );
 check_entry( ! str_contains( $out, 'wa.me/' ) && ! str_contains( $out, 'data-investigation-interest' ), 'the WhatsApp pilot invitation is retired' );
+foreach ( array( 'criminal-appeal', 'criminal-sentencing-israel', 'plea-bargain' ) as $slug ) {
+	$out = justice_theme_article_simulation_entry( $content );
+	check_entry( 1 === substr_count( $out, 'data-hadmaia-article-entry="criminal-law"' ), $slug . ': one criminal entry' );
+	check_entry( str_contains( $out, 'data-world="court"' ) && str_contains( $out, '/assets/images/hadmaya/judge.webp' ), $slug . ': existing court card' );
+	check_entry( str_contains( $out, 'purpose=court_rehearsal&amp;topic=criminal-law' ), $slug . ': court route keeps criminal topic' );
+	check_entry( ! str_contains( $out, 'police_interrogation' ) && ! str_contains( $out, 'purpose=mediation' ) && ! str_contains( $out, 'witness_prep' ), $slug . ': no unrelated stage' );
+	check_entry( str_contains( $out, 'href="https://jus-tice.co.il/criminal-defense-attorney/#practice-lead-form">התייעצות עם עורך דין פלילי</a>' ), $slug . ': direct criminal intake' );
+	check_entry( ! str_contains( $out, 'data-investigation-entry' ), $slug . ': no police interception attribute' );
+	check_entry( $out === justice_theme_article_simulation_entry( $out ), $slug . ': idempotent' );
+	check_entry( preg_replace( '#<aside class="l3-article-simulation l3-simcard".*?</aside>#s', '', $out ) === $content, $slug . ': original content intact' );
+}
+check_entry( justice_theme_article_simulation_world( 'divorce' ) === justice_theme_article_simulation_context( 'divorce', 'criminal-appeal' ), 'court allowlist cannot override another topic' );
+check_entry( justice_theme_article_simulation_world( 'criminal-law' ) === justice_theme_article_simulation_context( 'criminal-law', 'criminal-unverified-stage' ), 'unverified criminal stages remain unchanged' );
 foreach ( array( 'police-investigation-rights', 'consultation-before-police-questioning',
 	'recording-interrogation-documentation', 'summons-interrogation-warning-rights',
 	'detention-days', 'expunge-closed-cases-record', 'criminal-evidence',

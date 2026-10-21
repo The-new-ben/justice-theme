@@ -58,7 +58,7 @@ foreach ( array( 'criminal-appeal', 'criminal-sentencing-israel', 'plea-bargain'
 	$out = justice_theme_article_simulation_entry( $content );
 	check_entry( 1 === substr_count( $out, 'data-hadmaia-article-entry="criminal-law"' ), $slug . ': one criminal entry' );
 	check_entry( str_contains( $out, 'data-world="court"' ) && str_contains( $out, '/assets/images/hadmaya/judge.webp' ), $slug . ': existing court card' );
-	check_entry( str_contains( $out, 'purpose=court_rehearsal&amp;topic=criminal-law' ), $slug . ': court route keeps criminal topic' );
+	check_entry( str_contains( $out, 'href="https://jus-tice.com/#/simulation?entry=role&amp;audience=guest&amp;lang=he&amp;purpose=court_rehearsal"' ) && ! str_contains( $out, 'topic=criminal-law' ), $slug . ': supported court route avoids the app legacy witness override' );
 	check_entry( ! str_contains( $out, 'police_interrogation' ) && ! str_contains( $out, 'purpose=mediation' ) && ! str_contains( $out, 'witness_prep' ), $slug . ': no unrelated stage' );
 	check_entry( str_contains( $out, 'href="https://jus-tice.co.il/criminal-defense-attorney/#practice-lead-form">התייעצות עם עורך דין פלילי</a>' ), $slug . ': direct criminal intake' );
 	check_entry( ! str_contains( $out, 'data-investigation-entry' ), $slug . ': no police interception attribute' );

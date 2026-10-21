@@ -125,13 +125,16 @@ function justice_theme_article_simulation_url( string $topic, string $purpose ):
 	return 'https://jus-tice.com/#/simulation?' . http_build_query( $params, '', '&', PHP_QUERY_RFC3986 );
 }
 
-/** Court-stage guides keep their criminal topic, with a court entry and direct legal intake. */
+/** Court-stage guides use the verified court entry and direct criminal legal intake. */
 function justice_theme_article_simulation_context( string $topic, string $slug ): array {
 	$world = justice_theme_article_simulation_world( $topic );
 	if ( 'criminal-law' === $topic && in_array( $slug, array(
 		'criminal-appeal', 'criminal-sentencing-israel', 'plea-bargain',
 	), true ) ) {
 		$world = justice_theme_article_simulation_world( 'general' );
+		// The app treats criminal-law + court_rehearsal as legacy witness preparation.
+		// Use its supported general court entry; the reader describes their own case.
+		$world['lead_topic'] = 'general';
 		$world['cta'] = 'סימולציית בית משפט על המקרה שלכם';
 		$world['alt'] = 'התייעצות עם עורך דין פלילי';
 		$world['alt_url'] = home_url( '/criminal-defense-attorney/#practice-lead-form' );
@@ -153,7 +156,7 @@ function justice_theme_article_simulation_entry( string $content ): string {
 	if ( ! $topic ) { return $content; }
 	$w = justice_theme_article_simulation_context( $topic, (string) get_post_field( 'post_name', $post_id ) );
 	$face = ( defined( 'JUSTICE_THEME_URI' ) ? JUSTICE_THEME_URI : '' ) . '/assets/images/hadmaya/' . $w['face'] . '.webp';
-	$lead = justice_theme_article_simulation_url( $topic, $w['lead'] );
+	$lead = justice_theme_article_simulation_url( $w['lead_topic'] ?? $topic, $w['lead'] );
 	$alt = $w['alt_url'] ?? justice_theme_article_simulation_url( $topic, $w['alt_purpose'] );
 	$live = 'police_interrogation' === $w['lead'] ? ' data-investigation-entry="live"' : '';
 	// The white card family (Ben 28.9.2026): the question a reader could be asked, the person who asks it,

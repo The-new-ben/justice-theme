@@ -38,6 +38,9 @@ jobs:
           set -euo pipefail
           git ls-files -z '*.php' | sort -z | xargs -0 -r -n1 php -l
 
+      - name: Test article anchor clearance (HAD-552)
+        run: node tests/js/test-article-anchor-clearance.mjs
+
       - name: Test the co.il tools (HAD-485)
         run: |
           set -euo pipefail

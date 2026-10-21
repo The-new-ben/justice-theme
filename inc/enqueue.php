@@ -115,6 +115,17 @@ function justice_theme_enqueue_assets() {
 		true
 	);
 
+	// Native TOC anchors must clear the theme-owned sticky masthead.
+	if ( is_singular( array( 'articles', 'page', 'justice_term' ) ) ) {
+		wp_enqueue_script(
+			'justice-article-anchor-clearance',
+			JUSTICE_THEME_URI . '/assets/js/article-anchor-clearance.js',
+			array(),
+			'1.0.0',
+			true
+		);
+	}
+
 	wp_enqueue_script(
 		'justice-analytics-events',
 		JUSTICE_THEME_URI . '/assets/js/analytics-events.js',

@@ -25,6 +25,12 @@ jobs:
       - name: Reject whitespace errors
         run: git diff --check HEAD^ HEAD
 
+      - name: Test criminal directory CTA eligibility (HAD-552)
+        run: |
+          set -euo pipefail
+          php tests/test-practice-directory-eligibility.php
+          php tests/test-practice-landing-funnel-truth.php
+
       - name: Lint every tracked PHP file
         run: |
           set -euo pipefail

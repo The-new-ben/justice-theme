@@ -43,7 +43,7 @@ if ( ! empty( $config['featured_lawyer'] ) && function_exists( 'justice_theme_ge
 }
 
 $area_lawyer_posts = function_exists( 'justice_theme_get_practice_firms' )
-	? justice_theme_get_practice_firms( $term_slug, 6 )
+	? justice_theme_get_practice_firms( $term_slug, 6, false, 'criminal-law' === $term_slug )
 	: array();
 $has_area_lawyers = ! empty( $area_lawyer_posts );
 

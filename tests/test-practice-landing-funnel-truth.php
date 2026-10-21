@@ -16,7 +16,7 @@ function jt_funnel_assert( bool $condition, string $message ): void {
 }
 
 jt_funnel_assert(
-	1 === substr_count( $template, "justice_theme_get_practice_firms( \$term_slug, 6 )" ),
+	1 === substr_count( $template, "justice_theme_get_practice_firms( \$term_slug, 6, false, 'criminal-law' === \$term_slug )" ),
 	'The approved practice-firm list must be calculated exactly once.'
 );
 
@@ -56,7 +56,7 @@ jt_funnel_assert(
 );
 
 jt_funnel_assert(
-	false !== strpos( $functions, "define( 'JUSTICE_DEPLOY_MARKER', '2026-10-05-criminal-funnel-truth-v1' );" ),
+	false !== strpos( $functions, "define( 'JUSTICE_DEPLOY_MARKER', '2026-10-21-practice-directory-eligibility-v2' );" ),
 	'The criminal funnel release marker is missing.'
 );
 

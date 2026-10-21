@@ -137,7 +137,7 @@ check(err({ template: 'custom', custom: [] }, 'custom') && run({ template: 'cust
 
 /* ---------- 8. The rendered result: picture, text equivalent, ages, money, scenario, next steps, print ---------- */
 const html = U.renderResult(reg, ex, { today: '2026-10-21' });
-check(html.includes('<bdi>181</bdi> / <bdi>365</bdi>') && html.includes('49.6%') && html.includes('2,440') && html.includes('3,320'), 'the result shows 181 / 365, 49.6% and the support band');
+check(html.includes('<bdi dir="ltr">181 / 365</bdi>') && html.includes('49.6%') && html.includes('2,440') && html.includes('3,320'), 'the result shows 181 / 365, 49.6% and the support band');
 check((html.match(/class="jt41-d /g) || []).length === 365, 'the picture: 365 nights in the ribbon');
 const sr = (html.match(/<ul class="jt41-sr">([\s\S]*?)<\/ul>/) || [])[1] || '';
 check((sr.match(/<li>/g) || []).length === 12 && sr.includes('נובמבר 2026') && sr.includes('לילות אצל האב') && sr.includes('חופשה: פסח'), 'the picture\'s text equivalent: twelve month lines with nights per parent and the vacations');
@@ -166,7 +166,7 @@ check((cal.match(/BEGIN:VEVENT/g) || []).length === all.length && cal.includes('
 
 /* ---------- 10. Snapshot, page tables, share state, hygiene ---------- */
 const snap = U.snapshot(reg);
-check(snap.tool === 'mishmoret' && snap.total === 181 && snap.sticky === '<bdi>181</bdi>/365' && snap.registry_version === reg.registry_version, 'snapshot: tool, total 181, sticky 181/365');
+check(snap.tool === 'mishmoret' && snap.total === 181 && snap.sticky === '<bdi dir="ltr">181/365</bdi>' && snap.registry_version === reg.registry_version, 'snapshot: tool, total 181, sticky 181/365');
 check(snap.result.includes('דוגמה: לילות') && snap.method.startsWith('<ol>') && snap.method.includes('jtool-cite') && snap.method.includes('2,440') && snap.method.includes('פסקה 3'), 'snapshot: the example result and the computation path with cites');
 check(snap.compare_table.includes('<caption>') && snap.compare_table.includes('5-2-2-5') && snap.compare_table.includes('3,510') && snap.holidays_table.includes('<caption>') && snap.holidays_table.includes('<bdi>73</bdi>'), 'page tables: the templates with the support band, the vacations by stage (73 nights for the middle schools\' summer), each with a caption');
 check(snap.form.includes('name="jt41-tpl"') && snap.form.includes('id="jt41-start"') && snap.form.includes('value="14,000"'), 'form: template chips, the start day, the incomes pre-filled from the child-support example');
@@ -184,14 +184,14 @@ check(html.includes('data-act="rehearse">לתרגל את הגישור עם הנ�
 const hs = handoffState('x', U.aiBrief(reg, ex), 'mediation');
 check(hs.phase === 'intake' && hs.locale === 'he' && hs.simulationPurpose === 'mediation' && hs.description.includes('181') && hs.description.includes('2,400 עד 3,400') && !/\d{9}/.test(hs.description), 'handoff state: intake, Hebrew, mediation, the scenario with 181 nights and the support band, no 9-digit run');
 const lead = U.leadCard(reg, ex, { example: true });
-check(lead.includes('דוגמה מחושבת: לילות ב-12 החודשים אצל האב') && lead.includes('<bdi>181</bdi>/<bdi>365</bdi>') && lead.includes('49.6%') && lead.includes('5-2-2-5') && lead.includes('2,440 ₪ עד 3,320 ₪') && lead.includes('data-lead-go') && lead.includes('לחשב לפי המקרה שלכם'), 'lead card (example): 181/365, 49.6%, 5-2-2-5 and the support band, the jump to the form');
+check(lead.includes('דוגמה מחושבת: לילות ב-12 החודשים אצל האב') && lead.includes('<bdi dir="ltr">181/365</bdi>') && lead.includes('49.6%') && lead.includes('5-2-2-5') && lead.includes('2,440 ₪ עד 3,320 ₪') && lead.includes('data-lead-go') && lead.includes('לחשב לפי המקרה שלכם'), 'lead card (example): 181/365, 49.6%, 5-2-2-5 and the support band, the jump to the form');
 check(snap.lead === lead && !/<h2/i.test(lead) && !bad(lead), 'snapshot().lead is the example card; no h2, no undefined/NaN/null');
 const leadOwn = U.leadCard(reg, eve, {});
-check(leadOwn.includes('החישוב שלכם') && leadOwn.includes('<bdi>87</bdi>/<bdi>365</bdi>') && leadOwn.includes('לשנות את הנתונים') && !bad(leadOwn), 'lead card (your answers): 87/365 for alternate weekends + an evening');
+check(leadOwn.includes('החישוב שלכם') && leadOwn.includes('<bdi dir="ltr">87/365</bdi>') && leadOwn.includes('לשנות את הנתונים') && !bad(leadOwn), 'lead card (your answers): 87/365 for alternate weekends + an evening');
 const leadErr = U.leadCard(reg, run({ start: 'x' }), {});
 check(leadErr.includes('jtool-lead__figure">—</strong>') && leadErr.includes('יום תחילת הלוח לא תקין') && !bad(leadErr), 'lead card (error): a dash and the error');
 check(!bad(U.leadCard(reg, none, {})) && U.leadCard(reg, none, {}).includes('בלי הכנסות'), 'lead card without incomes: no support band, says so');
-check(snap.sticky === '<bdi>181</bdi>/365', 'the snapshot sticky is the exact string the mount writes');
+check(snap.sticky === '<bdi dir="ltr">181/365</bdi>', 'the snapshot sticky is the exact string the mount writes');
 
 console.log(`${passed} passed, ${failures} failed`);
 process.exit(failures ? 1 : 0);

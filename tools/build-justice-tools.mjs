@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Build the co.il tools (HAD-485 wave 1, HAD-490 wave 2, HAD-498 wave 3, HAD-502 wave 4, HAD-504 wave 5, HAD-506 family
- * law) from their ES-module sources.
+ * law, the inheritance wave, the rights wave HAD-574) from their ES-module sources.
  *
  *   node tools/build-justice-tools.mjs          write the bundles and the server snapshots
  *   node tools/build-justice-tools.mjs --check  fail when a committed file is out of date (CI)
@@ -55,6 +55,13 @@ const TOOLS = {
 	histalkut: ['instrument.js', 'histalkut-engine.js', 'histalkut-ui.js'],
 	'heskem-yorshim': ['instrument.js', 'heskem-yorshim-engine.js', 'heskem-yorshim-ui.js'],
 	hitnagdut: ['instrument.js', 'dates.js', 'hitnagdut-engine.js', 'hitnagdut-ui.js'],
+	// The rights wave (21.10.2026, HAD-574): the two tax instruments share mas-engine.js (the tax years and the points).
+	'dmei-bituach': ['instrument.js', 'bituach-engine.js', 'bituach-ui.js'],
+	'nekudot-zikui': ['instrument.js', 'dates.js', 'mas-engine.js', 'zikui-ui.js'],
+	'hechzer-mas': ['instrument.js', 'dates.js', 'mas-engine.js', 'hechzer-ui.js'],
+	'dmei-avtala': ['instrument.js', 'dates.js', 'avtala-engine.js', 'avtala-ui.js'],
+	'dmei-leida': ['instrument.js', 'dates.js', 'leida-engine.js', 'leida-ui.js'],
+	'kitzbat-nechut': ['instrument.js', 'dates.js', 'nechut-engine.js', 'nechut-ui.js'],
 };
 
 function strip(code) {
@@ -108,6 +115,12 @@ const ihS = await import(pathToFileURL(join(SRC, 'sichsuch-ui.js')).href);
 const ihH = await import(pathToFileURL(join(SRC, 'histalkut-ui.js')).href);
 const ihA = await import(pathToFileURL(join(SRC, 'heskem-yorshim-ui.js')).href);
 const ihO = await import(pathToFileURL(join(SRC, 'hitnagdut-ui.js')).href);
+const rtB = await import(pathToFileURL(join(SRC, 'bituach-ui.js')).href);
+const rtZ = await import(pathToFileURL(join(SRC, 'zikui-ui.js')).href);
+const rtH = await import(pathToFileURL(join(SRC, 'hechzer-ui.js')).href);
+const rtA = await import(pathToFileURL(join(SRC, 'avtala-ui.js')).href);
+const rtL = await import(pathToFileURL(join(SRC, 'leida-ui.js')).href);
+const rtN = await import(pathToFileURL(join(SRC, 'nechut-ui.js')).href);
 const snapshots = {
 	registry_version: registry.registry_version,
 	hatzmada: t04.snapshot(registry),
@@ -135,6 +148,12 @@ const snapshots = {
 	histalkut: ihH.snapshot(registry),
 	'heskem-yorshim': ihA.snapshot(registry),
 	hitnagdut: ihO.snapshot(registry),
+	'dmei-bituach': rtB.snapshot(registry),
+	'nekudot-zikui': rtZ.snapshot(registry),
+	'hechzer-mas': rtH.snapshot(registry),
+	'dmei-avtala': rtA.snapshot(registry),
+	'dmei-leida': rtL.snapshot(registry),
+	'kitzbat-nechut': rtN.snapshot(registry),
 };
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 

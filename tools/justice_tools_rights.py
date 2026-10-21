@@ -15,7 +15,7 @@ BTL_AVG_WAGE = ("https://www.btl.gov.il/Mediniyut/GeneralData/Pages/"
 BTL_BASIC = ("https://www.btl.gov.il/Mediniyut/GeneralData/Pages/"
              "%d7%94%d7%a1%d7%9b%d7%95%d7%9d%20%d7%94%d7%91%d7%a1%d7%99%d7%a1%d7%99%20%d7%9c%d7%97%d7%99%d7%a9%d7%95%d7%91%20"
              "%d7%a7%d7%a6%d7%91%d7%90%d7%95%d7%aa.aspx")                                  # הסכום הבסיסי לחישוב קצבאות
-BTL_LAW = "https://www.nevo.co.il/law_html/law00/72734.htm"                           # חוק הביטוח הלאומי [נוסח משולב], התשנ"ה-1995
+BTL_LAW = "https://www.btl.gov.il/Laws1/00_0001_000001.pdf"                    # חוק הביטוח הלאומי, פרק א' (סעיפים 1 ו-2), באתר המוסד
 
 # The per-instrument datasets of the wave, in the order the registry prints them. A module that is not there yet is skipped,
 # so each builder adds its own file without touching this one.

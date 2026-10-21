@@ -83,6 +83,18 @@ jobs:
           php tests/test-inheritance-tools.php
           python3 -m py_compile tools/justice_tools_inheritance.py
 
+      - name: Test the rights wave (21.10.2026, HAD-574)
+        run: |
+          set -euo pipefail
+          node tests/js/test-rights-bituach.mjs
+          node tests/js/test-rights-zikui.mjs
+          node tests/js/test-rights-hechzer.mjs
+          node tests/js/test-rights-avtala.mjs
+          node tests/js/test-rights-leida.mjs
+          node tests/js/test-rights-nechut.mjs
+          php tests/test-rights-tools.php
+          python3 -m py_compile tools/justice_tools_rights.py tools/justice_tools_rights_bituach.py tools/justice_tools_rights_tax.py tools/justice_tools_rights_avtala.py tools/justice_tools_rights_leida.py tools/justice_tools_rights_nechut.py
+
       - name: Enforce append-only release ZIPs
         run: |
           set -euo pipefail

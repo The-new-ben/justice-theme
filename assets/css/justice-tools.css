@@ -1458,3 +1458,66 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jtool figure.jt33-lad, .jtool figure.jt33-ch { break-inside: avoid; }
 	.jt33-ch__p, .jt33-ch__w, .jt33-rung__bar i, .jt33-scale__fill { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 }
+
+/* ---- The rights wave 2A (22.10.2026, HAD-578) ----
+   jt44 maanak-avoda: the work grant's own shape, the law's curve (rise from the floor, plateau, fall to the ceiling) with
+   the reader's point on it, and the s.12 payment calendar as a numbered rail. jt45 sachar-neto: the payslip strip (the gross
+   cut into what reaches the account and each deduction) and the employer's cost strip. Navy and deep green from the
+   instrument variables only; no gold, cream or brown. Mobile first (390 px). */
+.jtool figure.jt44-curve { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt44-curve__h { margin: 0 0 var(--jtool-space-2); font: 800 0.95rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt44-curve__h span { font-weight: 600; color: var(--jtool-muted); font-size: 0.85rem; }
+.jtool .jt44-curve svg { display: block; width: 100%; height: auto; direction: ltr; }
+.jtool .jt44-grid { stroke: var(--jtool-border); stroke-width: 1; }
+.jtool .jt44-ty, .jtool .jt44-tx { fill: var(--jtool-muted); font: 600 11px/1 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt44-area { fill: var(--jtool-ok-bg); }
+.jtool .jt44-line { fill: none; stroke: var(--jtool-ok); stroke-width: 3; stroke-linejoin: round; }
+.jtool .jt44-me-l { stroke: var(--jtool-verdict-deep); stroke-width: 2; stroke-dasharray: 4 3; }
+.jtool .jt44-me { fill: var(--jtool-verdict-deep); stroke: #fff; stroke-width: 2; }
+.jtool .jt44-curve__keys { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: var(--jtool-space-2) 0 0 !important; font-size: 0.85rem !important; color: var(--jtool-ink) !important; }
+.jtool .jt44-curve__keys span { display: inline-flex; align-items: center; gap: 6px; }
+.jtool .jt44-k { display: inline-block; width: 14px; height: 14px; border-radius: 3px; }
+.jtool .jt44-k--line { background: var(--jtool-ok); height: 4px; }
+.jtool .jt44-k--me { background: var(--jtool-verdict-deep); border-radius: 50%; }
+.jtool ol.jt44-pay { display: grid; grid-template-columns: 1fr; gap: 6px; margin: var(--jtool-space-4) 0 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt44-pay li { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; align-items: center; gap: 10px; margin: 0; padding: 10px var(--jtool-space-3); border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-ok); border-radius: 8px; background: var(--jtool-surface-2); }
+.jtool .jt44-pay li::before { content: none; }
+.jtool .jt44-pay__n { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--jtool-verdict-deep); color: #fff; font: 800 0.85rem/1 var(--jtool-font); }
+.jtool .jt44-pay__d { font: 700 0.95rem/1.3 var(--jtool-font); color: var(--jtool-ink); font-variant-numeric: tabular-nums; }
+.jtool .jt44-pay li strong { color: var(--jtool-ok); }
+.jtool .jt44-pay__note, .jtool .jt44-late, .jtool .jt44-note { margin: var(--jtool-space-2) 0 0 !important; font-size: 0.875rem !important; line-height: 1.55 !important; color: var(--jtool-muted) !important; }
+.jtool .jt44-note { padding: 0 var(--jtool-space-4) var(--jtool-space-3) !important; }
+.jtool ol.jt44-steps { margin: 0 !important; padding: var(--jtool-space-3) var(--jtool-space-5) var(--jtool-space-3) var(--jtool-space-4) !important; }
+.jtool .jt44-steps li { margin: 0 0 8px; font-size: 0.925rem; line-height: 1.55; }
+.jtool ul.jt44-links, .jtool ul.jt45-links { margin: 0 !important; padding: var(--jtool-space-3) var(--jtool-space-5) var(--jtool-space-3) var(--jtool-space-4) !important; }
+.jtool .jt44-links li, .jtool .jt45-links li { margin: 0 0 8px; font-size: 0.925rem; line-height: 1.55; }
+.jtool .jt44-links a, .jtool .jt45-links a { color: var(--jtool-verdict); font-weight: 800; text-decoration: underline; text-underline-offset: 2px; }
+
+.jtool .jt45-slip { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt45-slip__h { margin: 0 0 var(--jtool-space-2) !important; font: 800 0.95rem/1.35 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt45-slip__h span { font-weight: 600; color: var(--jtool-muted); font-size: 0.85rem; }
+.jtool .jt45-slip__h + .jt45-strip { margin-bottom: 0; }
+.jtool .jt45-strip { display: flex; gap: 2px; min-height: 44px; border-radius: 6px; overflow: hidden; }
+.jtool .jt45-seg { display: flex; align-items: center; justify-content: center; flex-basis: 0; min-width: 6px; padding: 0 2px; color: #fff; font: 800 0.85rem/1 var(--jtool-font); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; }
+.jtool .jt45-seg--net { background: var(--jtool-ok); }
+.jtool .jt45-seg--tax { background: var(--jtool-verdict-deep); }
+.jtool .jt45-seg--bl { background: var(--jtool-verdict); }
+.jtool .jt45-seg--health { background: #2F6FA8; }
+.jtool .jt45-seg--pen { background: #16594A; }
+.jtool .jt45-seg--sf { background: #3C7F70; }
+.jtool .jt45-seg--gross { background: var(--jtool-verdict-deep); }
+.jtool .jt45-seg--er { background: #16594A; }
+.jtool .jt45-seg--es { background: #3C7F70; }
+.jtool .jt45-seg--kr { background: #557F99; }
+.jtool .jt45-seg--ebl { background: var(--jtool-verdict); }
+.jtool .jt45-keys { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: var(--jtool-space-2) 0 var(--jtool-space-4) !important; font-size: 0.85rem !important; color: var(--jtool-ink) !important; }
+.jtool .jt45-keys:last-child { margin-bottom: 0 !important; }
+.jtool .jt45-keys span { display: inline-flex; align-items: center; gap: 6px; }
+.jtool .jt45-k { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
+.jtool .jt45-two { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-4); border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-verdict); border-radius: var(--jtool-radius-card); background: var(--jtool-verdict-tint); }
+.jtool .jt45-two__h { margin: 0 0 var(--jtool-space-2) !important; font: 800 0.95rem/1.35 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt45-note { margin: 0 !important; padding: 0 var(--jtool-space-4) var(--jtool-space-3) !important; font-size: 0.875rem !important; line-height: 1.55 !important; color: var(--jtool-muted) !important; }
+@media print {
+	.jtool figure.jt44-curve, .jtool .jt45-slip, .jtool ol.jt44-pay { break-inside: avoid; }
+	.jt44-area, .jt44-line, .jt44-me, .jt44-pay__n, .jt45-seg, .jt45-k { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}

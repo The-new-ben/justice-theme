@@ -1084,7 +1084,7 @@ function mount(root, reg) {
 			try {
 				const file = exportWordContract(reg, input);
 				download(file.filename, file.mime, file.bytes);
-				toast(root, 'בקשת ההורדה נשלחה לדפדפן. עברו על כל התנאים והפרטים לפני שימוש.');
+				toast(root, 'בקשת ההורדה נשלחה. אם הקובץ לא ירד, אפשר להעתיק את החוזה או להדפיס.');
 				// This measures a download request, not a saved/opened file or a lead. No form values.
 				track('tool_download', { tool_id: TOOL_ID, type: isSampleInput(input) ? 'word_sample' : 'word_draft' });
 			} catch (error) {

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Build the co.il tools (HAD-485 wave 1, HAD-490 wave 2, HAD-498 wave 3, HAD-502 wave 4, HAD-504 wave 5, HAD-506 family
- * law, the inheritance wave, the rights waves HAD-574 and HAD-578) from their ES-module sources.
+ * law, the inheritance wave, the rights waves HAD-574 and HAD-578, the family + land wave HAD-579) from their ES-module sources.
  *
  *   node tools/build-justice-tools.mjs          write the bundles and the server snapshots
  *   node tools/build-justice-tools.mjs --check  fail when a committed file is out of date (CI)
@@ -66,6 +66,13 @@ const TOOLS = {
 	// hands the result to the jus-tice.com simulation (the one-time window handoff, never a URL).
 	'maanak-avoda': ['instrument.js', 'sim-handoff.js', 'maanak-engine.js', 'maanak-ui.js'],
 	'sachar-neto': ['instrument.js', 'dates.js', 'mas-engine.js', 'sim-handoff.js', 'neto-engine.js', 'neto-ui.js'],
+	// The family + land wave (21-22.10.2026, HAD-579): each instrument reuses the engines it builds on.
+	'agrot-rabanut': ['instrument.js', 'dates.js', 'gerushin-engine.js', 'rabanut-engine.js', 'rabanut-ui.js'],
+	mishmoret: ['instrument.js', 'dates.js', 'family-common.js', 'horut-engine.js', 'luach-engine.js', 'mezonot-engine.js', 'mishmoret-engine.js', 'mishmoret-ui.js'],
+	'yishuv-sichsuch': ['instrument.js', 'dates.js', 'sichsuch-fl-engine.js', 'sichsuch-fl-ui.js'],
+	'yeduim-batzibur': ['instrument.js', 'dates.js', 'yeduim-engine.js', 'yeduim-ui.js'],
+	'alut-iska': ['instrument.js', 'rechisha-engine.js', 'iska-engine.js', 'iska-ui.js'],
+	'dira-mikablan': ['instrument.js', 'dates.js', 'kablan-engine.js', 'kablan-ui.js'],
 };
 
 function strip(code) {
@@ -127,6 +134,12 @@ const rtL = await import(pathToFileURL(join(SRC, 'leida-ui.js')).href);
 const rtN = await import(pathToFileURL(join(SRC, 'nechut-ui.js')).href);
 const r2M = await import(pathToFileURL(join(SRC, 'maanak-ui.js')).href);
 const r2N = await import(pathToFileURL(join(SRC, 'neto-ui.js')).href);
+const fl0 = await import(pathToFileURL(join(SRC, 'rabanut-ui.js')).href);
+const fl1 = await import(pathToFileURL(join(SRC, 'mishmoret-ui.js')).href);
+const fl2 = await import(pathToFileURL(join(SRC, 'sichsuch-fl-ui.js')).href);
+const fl3 = await import(pathToFileURL(join(SRC, 'yeduim-ui.js')).href);
+const fl4 = await import(pathToFileURL(join(SRC, 'iska-ui.js')).href);
+const fl5 = await import(pathToFileURL(join(SRC, 'kablan-ui.js')).href);
 const snapshots = {
 	registry_version: registry.registry_version,
 	hatzmada: t04.snapshot(registry),
@@ -162,6 +175,12 @@ const snapshots = {
 	'kitzbat-nechut': rtN.snapshot(registry),
 	'maanak-avoda': r2M.snapshot(registry),
 	'sachar-neto': r2N.snapshot(registry),
+	'agrot-rabanut': fl0.snapshot(registry),
+	mishmoret: fl1.snapshot(registry),
+	'yishuv-sichsuch': fl2.snapshot(registry),
+	'yeduim-batzibur': fl3.snapshot(registry),
+	'alut-iska': fl4.snapshot(registry),
+	'dira-mikablan': fl5.snapshot(registry),
 };
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 

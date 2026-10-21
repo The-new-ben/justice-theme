@@ -1541,3 +1541,532 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jtool .jt44-ty, .jtool .jt44-tx { font-size: 21px; }
 }
 @media print { .jtool-page.jtool-lead a.jtool-lead__go { display: none; } }
+/* ===== The family + land wave (21-22.10.2026, HAD-579): jt40 rabbinical fees, jt41 custody, jt42 dispute clock, jt43 cohabitation, jt44 apartment costs, jt45 contractor ===== */
+
+/* ===== The family + land wave (21.10.2026, HAD-579): jt40, the rabbinical-court fee ledger (agrot-rabanut) =====
+   The picture is a court-fee ledger: ruled rows, the rabbinical court and the family court as two columns headed in the
+   instrument's navy and deep green, the chosen filing route drawn solid, a cell that a forum does not hear struck through
+   with a fine hatch (as a clerk voids a ledger cell), and a double rule over the totals. Mobile first (390 px), light. */
+.jtool .jt40-presets { gap: var(--jtool-space-2); }
+.jtool .jt40-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; }
+.jtool .jt40-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt40-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt40-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt40-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt40-all > .jt40-group { margin-top: var(--jtool-space-3); }
+.jtool .jt40-group .jtool-chip span { min-height: 40px; padding: 6px 12px; font-size: 0.9rem; }
+
+/* The ledger */
+.jtool .jt40-ledgerwrap { margin-top: var(--jtool-space-4); }
+.jtool table.jt40-ledger { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 0; background: #fff; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); font: 400 0.9rem/1.4 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt40-ledger caption { caption-side: top; padding: 0 0 var(--jtool-space-2); text-align: start; font: 800 1rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt40-ledger th, .jtool .jt40-ledger td { padding: 8px 6px; border-bottom: 1px solid var(--jtool-border); vertical-align: top; text-align: start; overflow-wrap: anywhere; }
+.jtool .jt40-ledger thead th { padding: 10px 6px; font: 800 0.85rem/1.25 var(--jtool-font); color: #fff; }
+.jtool .jt40-ledger thead th:first-child { width: 36%; background: var(--jtool-surface-2); color: var(--jtool-ink); }
+.jtool .jt40-ledger thead .jt40-col-rab { background: var(--jtool-verdict); }
+.jtool .jt40-ledger thead .jt40-col-fam { background: var(--jtool-ok); }
+.jtool .jt40-ledger thead .jt40-col--on { box-shadow: inset 0 -4px 0 rgba(255, 255, 255, 0.85); }
+.jtool .jt40-ledger tbody th { font: 700 0.875rem/1.35 var(--jtool-font); color: var(--jtool-ink); background: var(--jtool-surface-2); }
+.jtool .jt40-ledger td strong { display: block; font: 800 1rem/1.2 var(--jtool-font); color: var(--jtool-ink); }
+.jtool .jt40-ledger td small { display: block; margin-top: 2px; font-size: 0.75rem; line-height: 1.35; color: var(--jtool-muted); }
+.jtool .jt40-ledger .jtool-cite { white-space: normal; padding: 0 4px; margin-inline-start: 0; font-size: 0.75rem; }
+.jtool .jt40-ledger .jt40-admin { color: var(--jtool-warn); font-weight: 700; }
+.jtool .jt40-ledger .jt40-cell--on { background: var(--jtool-verdict-tint); box-shadow: inset -3px 0 0 var(--jtool-verdict); }
+.jtool .jt40-ledger td.jt40-cell--on:last-child { background: var(--jtool-ok-bg); box-shadow: inset -3px 0 0 var(--jtool-ok); }
+.jtool .jt40-ledger td.jt40-na { background: repeating-linear-gradient(135deg, #FFFFFF 0 7px, #EEF2F6 7px 8px); color: var(--jtool-muted); }
+.jtool .jt40-ledger td.jt40-na > span { display: block; font: 700 0.8rem/1.3 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt40-ledger tfoot th, .jtool .jt40-ledger tfoot td { background: #fff; }
+.jtool .jt40-ledger tr.jt40-total th, .jtool .jt40-ledger tr.jt40-total td { border-top: 3px double var(--jtool-verdict-deep); font: 800 1.05rem/1.3 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt40-ledger tr.jt40-sub th, .jtool .jt40-ledger tr.jt40-sub td { font-size: 0.85rem; color: var(--jtool-muted); }
+.jtool .jt40-ledger tr:last-child th, .jtool .jt40-ledger tr:last-child td { border-bottom: 0; }
+
+/* The brief for the simulation, the next steps, the two-column boxes */
+.jtool .jt40-brief, .jtool .jt40-next { margin-top: var(--jtool-space-4); padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: var(--jtool-surface-2); }
+.jtool .jt40-brief { border-inline-start: 4px solid var(--jtool-verdict); }
+.jtool .jt40-brief h4, .jtool .jt40-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt40-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; color: var(--jtool-ink) !important; }
+.jtool .jt40-next ul, .jtool ul.jt40-list { margin: 0 !important; padding: 0 1.1em 0 0 !important; display: flex; flex-direction: column; gap: 6px; }
+.jtool .jt40-next li, .jtool .jt40-list li { font-size: 0.925rem; line-height: 1.5; }
+.jtool .jt40-next a { color: var(--jtool-verdict); text-decoration: underline; text-underline-offset: 2px; }
+.jtool .jt40-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--jtool-space-3); }
+.jtool .jt40-cols > div { padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: #fff; }
+.jtool .jt40-cols > div:first-child { border-top: 3px solid var(--jtool-verdict); }
+.jtool .jt40-cols > div:last-child { border-top: 3px solid var(--jtool-ok); }
+.jtool .jt40-col__h { margin: 0 0 var(--jtool-space-2) !important; font: 800 0.95rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt40-cols p { margin: 0 0 6px !important; font-size: 0.925rem !important; line-height: 1.5 !important; }
+.jtool .jt40-print { display: none; }
+@media (min-width: 720px) {
+	.jtool .jt40-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.jtool table.jt40-ledger { font-size: 0.95rem; }
+	.jtool .jt40-ledger th, .jtool .jt40-ledger td { padding: 10px 12px; }
+	.jtool .jt40-ledger td strong { font-size: 1.1rem; }
+}
+@media print {
+	.jtool[data-jtool="agrot-rabanut"] .jtool__head, .jtool[data-jtool="agrot-rabanut"] .jtool__body, .jtool[data-jtool="agrot-rabanut"] .jt40-screen,
+	.jtool[data-jtool="agrot-rabanut"] .jtool-next, .jtool[data-jtool="agrot-rabanut"] .jtool-sources, .jtool[data-jtool="agrot-rabanut"] .jtool-foot,
+	.jtool[data-jtool="agrot-rabanut"] .jtool-scope, .jtool[data-jtool="agrot-rabanut"] .jtool-actions { display: none !important; }
+	.jtool .jt40-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt40-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt40-print p, .jtool .jt40-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt40-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}
+.jtool .jt40-ledger caption small { display: block; margin-top: 4px; font: 400 0.8rem/1.4 var(--jtool-font); color: var(--jtool-muted); }
+
+/*
+ * The family + land wave (HAD-579), lane mishmoret: the parenting-time planner on /child-custody/ (prefix jt41).
+ * The picture is the school wall planner: twelve month rows of nights in two inks, navy (--jtool-verdict) for parent A
+ * and pale deep green (--jtool-ok-bg, edged --jtool-ok) for parent B, every Ministry of Education vacation ruled under
+ * its nights with its name, a dark notch on each handover day, and the year's split as one bar on top. White ground, no
+ * warm tones, no gradients. Mobile first (390 px), then wider screens. Print: a one-page parenting-plan summary.
+ */
+
+/* The fortnight board in the form (clickable in "custom") */
+.jtool .jt41-board { padding: 10px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface-2); }
+.jtool .jt41-board__days, .jtool .jt41-board__wk { display: grid; grid-template-columns: 3.4em repeat(7, minmax(0, 1fr)); gap: 3px; align-items: center; }
+.jtool .jt41-board__wk { margin-top: 3px; }
+.jtool .jt41-board__days span { text-align: center; font: 700 0.75rem/1.2 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt41-board__w { font: 700 0.75rem/1.2 var(--jtool-font); color: var(--jtool-muted); white-space: nowrap; }
+.jtool .jt41-n { display: flex; align-items: center; justify-content: center; min-height: 34px; padding: 0; border: 0; border-radius: 6px; font: 700 0.8125rem/1 var(--jtool-font); }
+.jtool button.jt41-n { min-height: 44px; cursor: pointer; }
+.jtool button.jt41-n:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt41-n--a { background: var(--jtool-verdict); color: #fff; }
+.jtool .jt41-n--b { background: var(--jtool-ok-bg); color: var(--jtool-ok); box-shadow: inset 0 0 0 1px var(--jtool-ok); }
+.jtool .jt41-board__k { margin: 8px 0 0 !important; font-size: 0.8125rem !important; line-height: 1.45 !important; color: var(--jtool-ink) !important; }
+
+/* The year: the split bar and the month rows */
+.jtool .jt41-ribbon { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface); }
+.jtool .jt41-ribbon__h { margin: 0 0 8px; font: 700 0.8125rem/1.35 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt41-share { display: flex; height: 22px; margin: 0 0 10px; border-radius: 4px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--jtool-ok); }
+.jtool .jt41-share i { display: flex; align-items: center; justify-content: center; font: 800 0.75rem/1 var(--jtool-font); font-style: normal; white-space: nowrap; overflow: hidden; }
+.jtool .jt41-share__a { background: var(--jtool-verdict); color: #fff; }
+.jtool .jt41-share__b { flex: 1 1 auto; background: var(--jtool-ok-bg); color: var(--jtool-ok); }
+.jtool .jt41-row { display: grid; grid-template-columns: 3.4em minmax(0, 1fr); gap: 6px; align-items: start; margin: 0 0 3px; }
+.jtool .jt41-row__m { padding-top: 1px; font: 700 0.6875rem/1.2 var(--jtool-font); color: var(--jtool-muted); white-space: nowrap; }
+.jtool .jt41-row__g { display: grid; grid-template-columns: repeat(31, minmax(0, 1fr)); column-gap: 1px; row-gap: 1px; }
+.jtool .jt41-d { position: relative; grid-row: 1; display: block; height: 10px; border-radius: 2px; }
+.jtool .jt41-a { background: var(--jtool-verdict); }
+.jtool .jt41-b { background: var(--jtool-ok-bg); box-shadow: inset 0 0 0 1px var(--jtool-ok); }
+.jtool .jt41-x::before { content: ""; position: absolute; top: -2px; bottom: -2px; inset-inline-start: -1px; width: 2px; background: var(--jtool-ink); }
+.jtool .jt41-hl { grid-row: 2; display: block; min-width: 0; padding-top: 1px; border-top: 2px solid var(--jtool-verdict-deep); font: 700 0.5625rem/1.2 var(--jtool-font); color: var(--jtool-verdict-deep); white-space: nowrap; overflow: hidden; }
+.jtool .jt41-sr { position: absolute !important; width: 1px; height: 1px; margin: 0; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.jtool .jt41-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 8px 0 0 !important; font-size: 0.8125rem !important; line-height: 1.5 !important; color: var(--jtool-ink) !important; }
+.jtool .jt41-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.jtool .jt41-k { display: inline-block; width: 16px; height: 12px; border-radius: 3px; }
+.jtool .jt41-k--a { background: var(--jtool-verdict); }
+.jtool .jt41-k--b { background: var(--jtool-ok-bg); box-shadow: inset 0 0 0 1px var(--jtool-ok); }
+.jtool .jt41-k--h { height: 2px; border-radius: 0; background: var(--jtool-verdict-deep); }
+.jtool .jt41-k--x { width: 2px; border-radius: 0; background: var(--jtool-ink); }
+.jtool .jt41-cal { margin-top: var(--jtool-space-3); }
+
+/* The panels under the year: ages, money, the scenario, next steps */
+.jtool .jt41-ages, .jtool .jt41-money, .jtool .jt41-brief, .jtool .jt41-next { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface); }
+.jtool .jt41-brief { background: var(--jtool-verdict-tint); border-inline-start: 4px solid var(--jtool-verdict); }
+.jtool .jt41-ages h4, .jtool .jt41-money h4, .jtool .jt41-brief h4, .jtool .jt41-next h4 { margin: 0 0 8px !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool ol.jt41-kids, .jtool .jt41-next ol, .jtool ul.jt41-law { display: flex; flex-direction: column; gap: 10px; margin: 0 !important; padding: 0 !important; list-style: none; counter-reset: none; }
+.jtool ol.jt41-kids > li::before, .jtool .jt41-next ol > li::before, .jtool ul.jt41-law > li::before { content: none; }
+.jtool .jt41-kid { padding: 8px 12px; border-inline-start: 3px solid var(--jtool-verdict); background: var(--jtool-surface-2); border-radius: 0 8px 8px 0; }
+.jtool .jt41-kid strong { color: var(--jtool-verdict-deep); }
+.jtool .jt41-kid ul { margin: 6px 0 0 !important; padding: 0 18px 0 0 !important; font-size: 0.9rem; line-height: 1.55; }
+.jtool .jt41-kid__next { margin: 6px 0 0 !important; font-size: 0.875rem !important; font-weight: 700; color: var(--jtool-ink) !important; }
+.jtool .jt41-money__line { margin: 0 0 10px !important; line-height: 1.6 !important; }
+.jtool .jt41-mine td { font-weight: 800; background: var(--jtool-verdict-tint); }
+.jtool .jt41-brief__text { margin: 0 0 10px !important; font-size: 0.95rem !important; line-height: 1.65 !important; color: var(--jtool-ink) !important; }
+.jtool .jt41-next li { font-size: 0.95rem; line-height: 1.6; }
+.jtool .jt41-next a, .jtool ul.jt41-law a:not(.jtool-cite) { color: var(--jtool-verdict); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.jtool ul.jt41-law { padding: 0 var(--jtool-space-4) var(--jtool-space-4) !important; font-size: 0.9rem; line-height: 1.55; }
+
+/* The print-only summary */
+.jtool .jt41-print { display: none; }
+
+@media (min-width: 600px) {
+	.jtool .jt41-row { grid-template-columns: 4em minmax(0, 1fr); gap: 8px; }
+	.jtool .jt41-row__m { font-size: 0.8125rem; }
+	.jtool .jt41-row__g { column-gap: 2px; row-gap: 2px; }
+	.jtool .jt41-d { height: 14px; border-radius: 3px; }
+	.jtool .jt41-hl { font-size: 0.6875rem; }
+	.jtool .jt41-board__days, .jtool .jt41-board__wk { grid-template-columns: 4em repeat(7, minmax(0, 1fr)); gap: 4px; }
+}
+
+@media print {
+	.jtool[data-jtool="mishmoret"] .jtool__head, .jtool[data-jtool="mishmoret"] .jtool-details, .jtool[data-jtool="mishmoret"] .jtool-sources, .jtool[data-jtool="mishmoret"] .jtool-scope { display: none !important; }
+	.jtool[data-jtool="mishmoret"] .jtool__body { padding: 0; }
+	.jtool[data-jtool="mishmoret"] .jtool-result { display: flex !important; flex-direction: column; }
+	.jtool[data-jtool="mishmoret"] .jtool-result > :not(.jt41-print):not(.jt41-ribbon) { display: none !important; }
+	.jtool .jt41-print { display: block !important; order: -1; font-size: 10pt; line-height: 1.4; }
+	.jtool .jt41-print__h { margin: 0 0 4px !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt41-print__d { margin: 0 0 8px !important; font-size: 9pt !important; color: #000 !important; }
+	.jtool .jt41-print__t { width: 100%; border-collapse: collapse; margin: 0 0 8px; }
+	.jtool .jt41-print__t th, .jtool .jt41-print__t td { padding: 2px 6px; border-bottom: 1px solid #999; text-align: start; font-size: 9.5pt; color: #000; }
+	.jtool .jt41-print__path, .jtool .jt41-print__src { margin: 6px 0 0 !important; padding: 0 16px 0 0 !important; font-size: 9pt; }
+	.jtool .jt41-ribbon, .jtool .jt41-print { break-inside: avoid; }
+	.jtool .jt41-ribbon { order: 0; margin: 6px 0; padding: 6px; }
+	.jtool .jt41-sr { display: none !important; }
+	.jtool .jt41-d { height: 8px; }
+	.jtool .jt41-a, .jtool .jt41-b, .jtool .jt41-x::before, .jtool .jt41-share__a, .jtool .jt41-share__b, .jtool .jt41-k--a, .jtool .jt41-k--b, .jtool .jt41-k--h, .jtool .jt41-k--x { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* The template chips in two columns on a phone; the settings that rarely change fold under their summary. */
+.jtool .jt41-tpls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.jtool .jt41-tpls .jtool-chip span { width: 100%; justify-content: center; text-align: center; }
+.jtool .jt41-more > summary { font-weight: 700; }
+.jtool .jt41-more[open] > .jtool-field { margin-top: var(--jtool-space-3); }
+@media (min-width: 600px) {
+	.jtool .jt41-tpls { display: flex; flex-wrap: wrap; }
+	.jtool .jt41-tpls .jtool-chip span { width: auto; }
+}
+
+/* The family + land wave (21.10.2026, HAD-579): yishuv-sichsuch, the clock of a request to settle a family dispute (jt42).
+   The picture is the court's calendar strip: one track in day counts from the filing day (right to left), the meetings
+   window in navy, the stay of proceedings in slate blue, an agreed or court-set extension in deep teal, the filer's 15
+   days in deep green, the holiday days the law does not count hatched in white, and today's marker as an ink pin.
+   The stations under it repeat every date in text. Mobile first (390 px), the instrument's --jtool-* palette only. */
+.jt42-clock { margin: 12px 0 0; padding: 12px 14px 14px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt42-clock__h { margin: 0 0 4px !important; font: 700 0.875rem/1.3 var(--jtool-font) !important; color: var(--jtool-muted) !important; }
+
+/* The track */
+.jt42-bar { position: relative; height: 30px; margin: 30px 2px 26px; border: 1px solid var(--jtool-border); border-radius: 6px; background: var(--jtool-surface-2); }
+.jt42-seg { position: absolute; top: 0; bottom: 0; }
+.jt42-seg--meet { background: var(--jtool-verdict); }
+.jt42-seg--stay { background: #46648C; }
+.jt42-seg--more { background: #0B6470; }
+.jt42-seg--file { background: var(--jtool-ok); }
+.jt42-seg--open { background: repeating-linear-gradient(90deg, #E3EAF1 0 6px, #F2F7FB 6px 12px); }
+.jt42-pause { position: absolute; top: 0; bottom: 0; min-width: 2px; background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0 2px, transparent 2px 4px); }
+.jt42-tick { position: absolute; top: 100%; transform: translateX(50%); padding-top: 3px; border-top: 0; font: 700 0.75rem/1 var(--jtool-font); color: var(--jtool-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jt42-tick::before { content: ''; position: absolute; top: -6px; inset-inline-start: 50%; width: 1px; height: 6px; background: var(--jtool-field-border); }
+.jt42-now { position: absolute; top: -26px; bottom: -4px; width: 0; border-inline-start: 2px solid var(--jtool-verdict-deep); }
+.jt42-now b { position: absolute; top: 0; inset-inline-start: -2px; transform: translateX(50%); padding: 2px 7px; border-radius: 999px; background: var(--jtool-verdict-deep); color: #fff; font: 700 0.72rem/1.4 var(--jtool-font); white-space: nowrap; }
+.jt42-now--s b { transform: none; }
+.jt42-now--e b { transform: translateX(100%); }
+.jtool .jt42-legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 0 0 10px !important; font-size: 0.8125rem !important; line-height: 1.4; color: var(--jtool-muted) !important; }
+.jt42-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.jt42-key { position: static; display: inline-block; flex: none; width: 14px; height: 12px; border-radius: 2px; }
+.jt42-key--pause { background-color: var(--jtool-verdict); }
+
+/* The stations: every milestone in text */
+.jtool ol.jt42-st { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt42-st li::before { content: none; }
+.jt42-st__i { display: flex; flex-direction: column; gap: 2px; margin: 0 !important; padding: 6px 8px; border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-verdict); border-radius: 6px; background: #fff; min-width: 0; }
+.jt42-st__i--end { border-inline-start-color: #46648C; }
+.jt42-st__i--window { border-inline-start-color: var(--jtool-ok); }
+.jt42-st__i--info { border-inline-start-color: var(--jtool-field-border); }
+.jt42-st__i--past { opacity: 0.62; }
+.jt42-st__day { font: 700 0.75rem/1.2 var(--jtool-font); color: var(--jtool-muted); }
+.jt42-st__date { font: 800 1rem/1.2 var(--jtool-font); color: var(--jtool-verdict-deep); font-variant-numeric: tabular-nums; }
+.jt42-st__what { font-size: 0.85rem; line-height: 1.4; color: var(--jtool-ink); overflow-wrap: anywhere; }
+.jt42-st__sec { font-size: 0.78rem; line-height: 1.3; }
+
+/* The scenario and the next actions */
+.jt42-brief, .jt42-next { margin: 12px 0 0; padding: 12px 14px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jt42-brief { border-inline-start: 4px solid var(--jtool-verdict); background: var(--jtool-verdict-tint); }
+.jtool .jt42-brief h4, .jtool .jt42-next h4 { margin: 0 0 6px !important; font: 800 0.95rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt42-brief__text { margin: 0 0 10px !important; font-size: 0.95rem !important; line-height: 1.6 !important; color: var(--jtool-ink) !important; }
+.jtool .jt42-next ul, .jtool ul.jt42-list { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 0 16px 0 0 !important; padding-inline-start: 18px !important; }
+.jt42-next li, .jt42-list li { font-size: 0.92rem; line-height: 1.5; }
+.jt42-next a { color: var(--jtool-verdict) !important; text-decoration: underline !important; text-underline-offset: 2px; }
+.jt42-next__off a { font-weight: 700; }
+.jtool .jt42-more { margin: 12px 0 0; }
+
+/* The printed summary: hidden on screen, the only body of the tool in print */
+.jt42-print { display: none; }
+
+@media (min-width: 600px) {
+	.jtool ol.jt42-st { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+	.jt42-bar { height: 34px; }
+}
+@media print {
+	.jtool[data-jtool="yishuv-sichsuch"] .jtool__body,
+	.jtool[data-jtool="yishuv-sichsuch"] .jtool-details > *:not(.jt42-print),
+	.jtool[data-jtool="yishuv-sichsuch"] .jtool-sources,
+	.jtool[data-jtool="yishuv-sichsuch"] .jtool-foot,
+	.jtool[data-jtool="yishuv-sichsuch"] [data-jtool-shared],
+	.jtool[data-jtool="yishuv-sichsuch"] [data-jtool-saved] { display: none !important; }
+	.jt42-print { display: block !important; font: 400 10.5pt/1.45 var(--jtool-font); color: #000; }
+	.jtool .jt42-print h3 { margin: 0 0 2pt !important; font: 800 14pt/1.25 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt42-print h4 { margin: 8pt 0 2pt !important; font: 800 11pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jt42-print__date { margin: 0 0 4pt; font-size: 9pt; color: #333; }
+	.jt42-print__in { display: grid; grid-template-columns: max-content 1fr; gap: 1pt 10pt; margin: 0; }
+	.jt42-print__in dt { font-weight: 700; }
+	.jt42-print__in dd { margin: 0; }
+	.jt42-print table { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+	.jt42-print th, .jt42-print td { padding: 2pt 4pt; border-bottom: 0.5pt solid #999; text-align: start; vertical-align: top; }
+	.jt42-print ol, .jt42-print ul { margin: 0; padding-inline-start: 14pt; font-size: 9.5pt; }
+	.jt42-print li { break-inside: avoid; }
+	.jt42-print a { color: #000 !important; text-decoration: none !important; }
+	.jt42-bar, .jt42-seg, .jt42-pause { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+
+/* The family + land wave (HAD-579): yeduim-batzibur, the rights map for cohabiting partners (jt43).
+   The picture is a clerk's ledger: ruled lines, the topic in the margin, "what you have" and "what you must prove" on
+   facing pages split by a double rule, a status mark per line. Then the proof meter: five named tests as one bar.
+   Navy ink and the existing --jtool-* states only; no warm accents. Mobile first (390 px). */
+.jtool .jt43-fig { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 1.6rem; line-height: 1.2; }
+.jtool .jt43-fig span { white-space: nowrap; }
+.jtool .jt43-fig bdi { font-size: 2.1rem; }
+
+/* The ledger */
+.jtool .jt43-book { border: 1px solid #B9CBDD; border-top: 3px solid var(--jtool-verdict-deep); border-radius: 4px; background: #fff; overflow: hidden; }
+.jtool .jt43-book__h { margin: 0 !important; padding: 10px 12px; font: 800 1rem/1.35 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; background: var(--jtool-surface-2); border-bottom: 1px solid #B9CBDD; letter-spacing: 0.01em; }
+.jtool table.jt43-ledger { width: 100%; border-collapse: collapse; margin: 0; font-size: 0.925rem; line-height: 1.5; color: var(--jtool-ink); }
+.jtool .jt43-ledger caption { caption-side: bottom; text-align: start; padding: 8px 12px; font-size: 0.85rem; color: var(--jtool-muted); }
+.jtool .jt43-ledger thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.jtool .jt43-ledger tr { display: block; padding: 10px 12px 12px; border-bottom: 1px solid var(--jtool-border); background-image: linear-gradient(var(--jtool-border), var(--jtool-border)); background-size: 1px 100%; background-repeat: no-repeat; background-position: right 34px top; }
+.jtool .jt43-ledger th, .jtool .jt43-ledger td { display: block; padding: 0; text-align: start; vertical-align: top; }
+.jtool .jt43-ledger th.jt43-c-topic { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin: 0 0 6px; font-weight: 800; color: var(--jtool-verdict-deep); }
+.jtool .jt43-ledger td { padding-inline-start: 34px; margin-top: 4px; }
+.jtool .jt43-ledger td::before { content: attr(data-th); display: block; font-size: 0.8rem; font-weight: 700; color: var(--jtool-muted); letter-spacing: 0.02em; }
+.jtool .jt43-ledger td.jt43-c-prove { margin-top: 8px; padding-top: 6px; border-top: 3px double #B9CBDD; }
+.jtool .jt43-mark { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; font: 800 0.85rem/1 var(--jtool-font); }
+.jtool .jt43-topic { flex: 1 1 auto; min-width: 0; }
+.jtool .jt43-st { flex: none; padding: 1px 8px; border-radius: 999px; font-size: 0.8rem; font-weight: 800; }
+.jtool .jt43-r--have .jt43-mark, .jtool .jt43-r--have .jt43-st { background: var(--jtool-ok-bg); color: var(--jtool-ok); }
+.jtool .jt43-r--prove .jt43-mark, .jtool .jt43-r--prove .jt43-st { background: var(--jtool-verdict-tint); color: var(--jtool-verdict); }
+.jtool .jt43-r--no .jt43-mark, .jtool .jt43-r--no .jt43-st { background: var(--jtool-danger-bg); color: var(--jtool-danger); }
+.jtool .jt43-r--info .jt43-mark, .jtool .jt43-r--info .jt43-st { background: #fff; color: var(--jtool-muted); border: 1px solid var(--jtool-border); }
+.jtool .jt43-r--no td { color: var(--jtool-muted); }
+.jtool .jt43-rest > summary { margin-bottom: 8px; }
+.jtool .jt43-rest table.jt43-ledger { border: 1px solid var(--jtool-border); border-radius: 4px; }
+
+/* The proof meter */
+.jtool .jt43-meter { padding: 12px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt43-meter__h { margin: 0 0 8px !important; font: 700 0.95rem/1.4 var(--jtool-font) !important; color: var(--jtool-ink) !important; }
+.jtool .jt43-meter__h strong { margin-inline: 4px; font-size: 1.15rem; color: var(--jtool-verdict-deep); }
+.jtool .jt43-meter__h span { color: var(--jtool-muted); font-weight: 600; }
+.jtool ol.jt43-meter__bar { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; margin: 0 !important; padding: 0 !important; list-style: none; counter-reset: none; }
+.jtool .jt43-meter__bar li { margin: 0; padding: 6px 10px 6px 8px; border-inline-start: 10px solid var(--jtool-border); background: var(--jtool-surface-2); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 10px; font-size: 0.875rem; line-height: 1.4; }
+.jtool .jt43-meter__bar li::before { content: none; }
+.jtool .jt43-seg__n { font-weight: 700; color: var(--jtool-ink); }
+.jtool .jt43-seg__s { font-weight: 800; }
+.jtool .jt43-seg--met { border-inline-start-color: var(--jtool-verdict-deep) !important; }
+.jtool .jt43-seg--met .jt43-seg__s { color: var(--jtool-verdict-deep); }
+.jtool .jt43-seg--open { border-inline-start-color: transparent !important; border-image: repeating-linear-gradient(45deg, var(--jtool-verdict) 0 3px, #fff 3px 6px) 10; }
+.jtool .jt43-seg--open .jt43-seg__s { color: var(--jtool-verdict); }
+.jtool .jt43-seg--not { border-inline-start-color: var(--jtool-danger) !important; background: #fff; }
+.jtool .jt43-seg--not .jt43-seg__s { color: var(--jtool-danger); }
+.jtool .jt43-seg--na { border-inline-start-style: dashed !important; background: #fff; }
+.jtool .jt43-seg--na .jt43-seg__s { color: var(--jtool-muted); }
+.jtool .jt43-meter__note { margin: 8px 0 0 !important; font-size: 0.8rem !important; color: var(--jtool-muted) !important; line-height: 1.45 !important; }
+
+/* The scenario for the simulation, and what to do now */
+.jtool .jt43-brief { padding: 12px; border: 1.5px dashed var(--jtool-field-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface-2); }
+.jtool .jt43-brief h4, .jtool .jt43-next h4 { margin: 0 0 6px !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt43-brief__t { margin: 0 0 10px !important; font-size: 0.95rem !important; line-height: 1.6 !important; color: var(--jtool-ink) !important; }
+.jtool .jt43-brief__n { margin: 8px 0 0 !important; font-size: 0.8rem !important; color: var(--jtool-muted) !important; }
+.jtool .jt43-next { padding: 12px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt43-next ol { margin: 0 !important; padding: 0 20px 0 0 !important; display: flex; flex-direction: column; gap: 6px; font-size: 0.925rem; line-height: 1.5; }
+.jtool .jt43-next a { color: var(--jtool-verdict); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+.jtool ol.jt43-list, .jtool ul.jt43-info { margin: 0 !important; padding: 10px 24px 10px 12px !important; display: flex; flex-direction: column; gap: 6px; font-size: 0.925rem; line-height: 1.55; }
+.jtool .jt43-list__src { margin: 0 !important; padding: 0 12px 10px !important; font-size: 0.85rem !important; color: var(--jtool-muted) !important; }
+.jtool .jtool-table tr.jt43-mine td { background: var(--jtool-verdict-tint); font-weight: 800; }
+
+/* The print sheet: hidden on screen */
+.jtool .jt43-print { display: none; }
+
+/* From 600 px: two facing pages per line, "what you have" | "what you must prove", the topic across the top. The same
+   in the result column and in the full-width details. */
+@media (min-width: 600px) {
+	.jtool .jt43-ledger tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding: 10px 12px 12px; background-image: none; }
+	.jtool .jt43-ledger th.jt43-c-topic { grid-column: 1 / -1; margin: 0 0 6px; }
+	.jtool .jt43-ledger td { margin: 0; padding: 0 10px; }
+	.jtool .jt43-ledger td.jt43-c-have { padding-inline-start: 0; }
+	.jtool .jt43-ledger td.jt43-c-prove { margin: 0; padding: 0 12px 0 0; padding-inline-start: 12px; padding-inline-end: 0; border-top: 0; border-inline-start: 3px double #8FA7BF; }
+}
+@media (min-width: 720px) {
+	.jtool ol.jt43-meter__bar { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px; }
+	.jtool .jt43-meter__bar li { flex-direction: column; justify-content: flex-start; border-inline-start: 0; border-top: 10px solid var(--jtool-border); padding: 8px; }
+	.jtool .jt43-seg--met { border-top-color: var(--jtool-verdict-deep) !important; }
+	.jtool .jt43-seg--open { border-top-color: transparent !important; }
+	.jtool .jt43-seg--not { border-top-color: var(--jtool-danger) !important; }
+	.jtool .jt43-seg--na { border-top-style: dashed !important; }
+}
+/* In the narrow result column of a desktop shell the meter stays a list: five columns would squeeze the test names. */
+@media (min-width: 901px) {
+	.jtool .jtool-result ol.jt43-meter__bar { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+	.jtool .jtool-result .jt43-meter__bar li { flex-direction: row; justify-content: space-between; border-top: 0; border-inline-start: 10px solid var(--jtool-border); padding: 6px 10px 6px 8px; }
+	.jtool .jtool-result .jt43-seg--met { border-inline-start-color: var(--jtool-verdict-deep) !important; }
+	.jtool .jtool-result .jt43-seg--not { border-inline-start-color: var(--jtool-danger) !important; }
+	.jtool .jtool-result .jt43-seg--na { border-inline-start-style: dashed !important; }
+}
+
+@media print {
+	.jtool .jtool-result, .jtool .jt43-screen, .jtool details.jtool-sources, .jtool .jtool-foot, .jtool .jtool-scope { display: none !important; }
+	.jtool .jtool__head { padding: 0 0 4px !important; border: 0; }
+	.jtool .jtool__promise { display: none !important; }
+	.jtool .jt43-print { display: block !important; padding: 0 !important; font: 400 8.5pt/1.32 var(--jtool-font); color: #000; }
+	.jtool .jt43-print p { margin: 0 0 3px !important; font-size: 8.5pt !important; line-height: 1.32 !important; }
+	.jtool .jt43-print__h { margin: 0 0 2px !important; font-size: 11pt !important; font-weight: 800; }
+	.jtool .jt43-print h4 { margin: 5px 0 1px !important; font-size: 9.5pt !important; }
+	.jtool .jt43-print ul { margin: 0 !important; padding: 0 14px 0 0 !important; font-size: 7.5pt; }
+	.jtool .jt43-print table { width: 100%; border-collapse: collapse; margin: 3px 0; font-size: 7.5pt; line-height: 1.28; }
+	.jtool .jt43-print th, .jtool .jt43-print td { border: 0.5pt solid #555; padding: 2px 4px; text-align: start; vertical-align: top; }
+}
+
+/* ===== The family + land wave (21.10.2026, HAD-579): jt44, the closing ledger of an apartment deal (alut-iska) =====
+   The picture is a closing cash-flow strip, the settlement sheet a conveyancer hands over at the end of a deal: four
+   stations ruled like the columns of a closing statement (before signing, the signing day, the tax day, registration or
+   payoff), the payments of each station on dotted leader lines, and under each station a running-total gauge that
+   fills in the instrument's navy as the money goes out. The ledger table below is its text equivalent: ruled rows, a
+   double rule over the total. Mobile first (390 px), light only, the --jtool-* navy / deep-green palette. */
+.jtool .jt44-side .jtool-chip span { min-height: 48px; padding: 10px 18px; font-weight: 800; font-size: 1rem; }
+.jtool .jt44-end { justify-content: flex-end; }
+
+/* The strip */
+.jtool ol.jt44-strip { list-style: none; margin: var(--jtool-space-4) 0 0 !important; padding: 0 !important; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: #fff; counter-reset: jt44st; }
+.jtool .jt44-st { position: relative; margin: 0 !important; padding: var(--jtool-space-3) var(--jtool-space-3) var(--jtool-space-3) var(--jtool-space-3); border-bottom: 1px solid var(--jtool-border); counter-increment: jt44st; }
+.jtool .jt44-st:last-child { border-bottom: 0; }
+.jtool .jt44-st__when { margin: 0 0 6px !important; font: 800 0.95rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt44-st__when::before { content: counter(jt44st); display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; margin-inline-end: 6px; border-radius: 50%; background: var(--jtool-verdict); color: #fff; font-size: 0.8rem; }
+.jtool .jt44-st__when bdi { font-weight: 700; color: var(--jtool-ink); }
+.jtool ul.jt44-st__items { list-style: none; margin: 0 0 8px !important; padding: 0 !important; display: flex; flex-direction: column; gap: 3px; }
+.jtool .jt44-st__items li { display: flex; align-items: baseline; gap: 6px; margin: 0 !important; font-size: 0.875rem; line-height: 1.4; color: var(--jtool-ink); }
+.jtool .jt44-st__items li span { flex: 0 1 auto; }
+.jtool .jt44-st__items li::after { content: ""; order: 2; flex: 1 1 12px; border-bottom: 1px dotted var(--jtool-muted); transform: translateY(-3px); }
+.jtool .jt44-st__items li b { order: 3; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jtool .jt44-st--empty .jt44-st__items li { color: var(--jtool-muted); }
+.jtool .jt44-st--empty .jt44-st__items li::after { display: none; }
+.jtool .jt44-st__run { margin: 0 !important; font: 700 0.8rem/1.3 var(--jtool-font) !important; color: var(--jtool-muted) !important; font-variant-numeric: tabular-nums; }
+.jtool .jt44-st__bar { display: block; height: 8px; margin-bottom: 4px; border-radius: 4px; background: var(--jtool-surface-2); box-shadow: inset 0 0 0 1px var(--jtool-border); overflow: hidden; }
+.jtool .jt44-st__bar i { display: block; height: 100%; width: var(--jt44-h, 0%); background: var(--jtool-verdict); }
+.jtool .jt44-st:last-child .jt44-st__bar i { background: var(--jtool-verdict-deep); }
+
+/* The ledger */
+.jtool .jt44-ledgerwrap { margin-top: var(--jtool-space-4); }
+.jtool table.jt44-ledger { width: 100%; border-collapse: collapse; margin: 0; background: #fff; font: 400 0.875rem/1.4 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt44-ledger caption { caption-side: top; padding: 0 0 var(--jtool-space-2); text-align: start; font: 800 1rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt44-ledger th, .jtool .jt44-ledger td { padding: 8px 6px; border-bottom: 1px solid var(--jtool-border); vertical-align: top; text-align: start; }
+.jtool .jt44-ledger thead th { background: var(--jtool-verdict); color: #fff; font: 800 0.8rem/1.25 var(--jtool-font); white-space: nowrap; }
+.jtool .jt44-ledger tbody th { font-weight: 700; color: var(--jtool-ink); }
+.jtool .jt44-ledger td small, .jtool .jt44-ledger th small { display: block; font-weight: 400; margin-top: 2px; font-size: 0.75rem; line-height: 1.35; color: var(--jtool-muted); }
+.jtool .jt44-ledger td:nth-child(3), .jtool .jt44-ledger td:nth-child(4) { white-space: nowrap; font-weight: 700; }
+.jtool .jt44-ledger td:nth-child(4) { color: var(--jtool-verdict-deep); }
+.jtool .jt44-ledger td:first-child { width: 22%; color: var(--jtool-muted); font-size: 0.8rem; }
+.jtool .jt44-ledger td small { white-space: normal; }
+.jtool .jt44-ledger .jtool-cite { white-space: normal; padding: 0 4px; margin-inline-start: 0; font-size: 0.75rem; }
+.jtool .jt44-ledger tr.jt44-total th, .jtool .jt44-ledger tr.jt44-total td { border-top: 3px double var(--jtool-verdict-deep); border-bottom: 0; font: 800 1.05rem/1.3 var(--jtool-font); color: var(--jtool-verdict-deep); }
+
+/* The fee box, the sale box, the brief, the next steps */
+.jtool .jt44-fee, .jtool .jt44-sell, .jtool .jt44-brief, .jtool .jt44-next { margin-top: var(--jtool-space-4); padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: var(--jtool-surface-2); }
+.jtool .jt44-fee { border-inline-start: 4px solid var(--jtool-ok); background: #fff; }
+.jtool .jt44-sell { border-inline-start: 4px solid var(--jtool-verdict-deep); background: #fff; }
+.jtool .jt44-brief { border-inline-start: 4px solid var(--jtool-verdict); }
+.jtool .jt44-fee h4, .jtool .jt44-sell h4, .jtool .jt44-brief h4, .jtool .jt44-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt44-fee p, .jtool .jt44-sell p, .jtool .jt44-brief p { margin: 0 0 var(--jtool-space-2) !important; font-size: 0.95rem !important; line-height: 1.6 !important; color: var(--jtool-ink) !important; }
+.jtool .jt44-sell small { color: var(--jtool-muted); }
+.jtool .jt44-next ul, .jtool ul.jt44-list { margin: 0 !important; padding: 0 1.1em 0 0 !important; display: flex; flex-direction: column; gap: 6px; }
+.jtool .jt44-next li, .jtool .jt44-list li { font-size: 0.925rem; line-height: 1.5; }
+.jtool .jt44-next a { color: var(--jtool-verdict); text-decoration: underline; text-underline-offset: 2px; }
+.jtool .jt44-print { display: none; }
+@media (min-width: 720px) {
+	.jtool ol.jt44-strip { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+	.jtool .jt44-st { border-bottom: 0; border-inline-start: 1px solid var(--jtool-border); display: flex; flex-direction: column; }
+	.jtool .jt44-st:first-child { border-inline-start: 0; }
+	.jtool ul.jt44-st__items { flex: 1 1 auto; }
+	.jtool table.jt44-ledger { font-size: 0.925rem; }
+	.jtool .jt44-ledger th, .jtool .jt44-ledger td { padding: 9px 10px; }
+}
+@media print {
+	.jtool[data-jtool="alut-iska"] .jtool__head, .jtool[data-jtool="alut-iska"] .jtool__body, .jtool[data-jtool="alut-iska"] .jt44-screen,
+	.jtool[data-jtool="alut-iska"] .jtool-next, .jtool[data-jtool="alut-iska"] .jtool-sources, .jtool[data-jtool="alut-iska"] .jtool-foot,
+	.jtool[data-jtool="alut-iska"] .jtool-scope, .jtool[data-jtool="alut-iska"] .jtool-actions, .jtool[data-jtool="alut-iska"] .jtool-btn { display: none !important; }
+	.jtool .jt44-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt44-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt44-print p, .jtool .jt44-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt44-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}
+
+/* ===== The family + land wave (22.10.2026, HAD-579): jt45, buying an apartment from a contractor (dira-mikablan) =====
+   Two pictures from a new-build purchase. The payment schedule strip reads like the contractor's payment-voucher book
+   laid on a site programme: a bar per payment (the linked part filled in navy, the unlinked first 20% left open), the
+   building input index as a deep-green line over it, the contract delivery date as the dashed red end of the linkage.
+   The warranty clock reads like a defects register: one track per kind of defect of the addendum, the inspection
+   period solid navy, the three warranty years pale with a dashed edge, the 20 years of a fundamental defect in green,
+   today as a thin ink line; the nearest end is outlined in red. Mobile first (390 px), light only. */
+.jtool .jt45-presets { gap: var(--jtool-space-2); }
+.jtool .jt45-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; }
+.jtool .jt45-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt45-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt45-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt45-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+
+/* The payment rows of the form */
+.jtool table.jt45-paytable { width: 100%; margin: var(--jtool-space-2) 0 0; border-collapse: collapse; table-layout: fixed; }
+.jtool .jt45-paytable th, .jtool .jt45-paytable td { padding: 4px 3px; vertical-align: middle; text-align: start; border-bottom: 1px solid var(--jtool-border); }
+.jtool .jt45-paytable thead th { font: 700 0.8rem/1.2 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt45-paytable th:first-child { width: 1.6em; color: var(--jtool-verdict-deep); }
+.jtool .jt45-paytable th:last-child, .jtool .jt45-paytable td:last-child { width: 46px; }
+.jtool .jt45-paytable input { width: 100%; min-height: 40px; padding: 6px 8px; border: 1.5px solid var(--jtool-field-border); border-radius: var(--jtool-radius-field); font: 400 1rem/1.2 var(--jtool-font); font-variant-numeric: tabular-nums; background: #fff; color: var(--jtool-ink); }
+.jtool .jt45-paytable td:nth-child(2), .jtool .jt45-paytable th:nth-child(2) { width: 30%; white-space: nowrap; }
+.jtool .jt45-paytable td:nth-child(2) input { width: calc(100% - 1.2em); }
+.jtool .jt45-paytable input:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 1px; }
+
+/* The four parts of the result */
+.jtool .jt45-part { margin-top: var(--jtool-space-5); padding-top: var(--jtool-space-3); border-top: 2px solid var(--jtool-verdict-tint); }
+.jtool .jt45-part h3 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1.05rem/1.35 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt45-fig { margin: 0 0 var(--jtool-space-3); padding: var(--jtool-space-2); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: #fff; }
+.jtool .jt45-fig svg { display: block; width: 100%; height: auto; }
+.jtool .jt45-fig figcaption { margin-top: 6px; font: 400 0.825rem/1.45 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt45-lbl { font: 600 11px/1 var(--jtool-font); fill: var(--jtool-muted); direction: rtl; }
+/* In the SVGs the page direction (rtl) is kept: text-anchor "start" is the right edge of a Hebrew label. */
+.jtool .jt45-lbl--row { font-size: 10.5px; fill: var(--jtool-ink); }
+.jtool .jt45-lbl--idx { font-size: 11px; font-weight: 800; fill: var(--jtool-ok); }
+.jtool .jt45-lbl--deliv { fill: var(--jtool-danger); font-weight: 800; }
+.jtool .jt45-lbl--actual { fill: var(--jtool-warn); font-weight: 800; }
+.jtool .jt45-lbl--today { fill: var(--jtool-ink); font-weight: 800; }
+.jtool .jt45-tick { fill: var(--jtool-muted); font-weight: 400; }
+.jtool .jt45-axis { stroke: var(--jtool-field-border); stroke-width: 1; }
+.jtool .jt45-bar { fill: #fff; stroke: var(--jtool-verdict); stroke-width: 1.5; }
+.jtool .jt45-bar--linked { fill: var(--jtool-verdict); }
+.jtool .jt45-idx { fill: none; stroke: var(--jtool-ok); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.jtool .jt45-deliv { stroke: var(--jtool-danger); stroke-width: 1.5; stroke-dasharray: 5 3; }
+.jtool .jt45-actual { stroke: var(--jtool-warn); stroke-width: 1.5; stroke-dasharray: 2 3; }
+.jtool .jt45-today { stroke: var(--jtool-ink); stroke-width: 1.25; }
+.jtool .jt45-insp { fill: var(--jtool-verdict); }
+.jtool .jt45-warr { fill: var(--jtool-verdict-tint); stroke: var(--jtool-verdict); stroke-width: 1; stroke-dasharray: 3 2; }
+.jtool .jt45-fund { fill: var(--jtool-ok-bg); stroke: var(--jtool-ok); stroke-width: 1; }
+.jtool .jt45-visible { stroke: var(--jtool-warn); stroke-width: 1.25; stroke-dasharray: 1 3; }
+.jtool .jt45-row--near rect { stroke: var(--jtool-danger); stroke-width: 2; stroke-dasharray: none; }
+.jtool .jt45-row--near .jt45-lbl--row { font-weight: 800; fill: var(--jtool-danger); }
+
+/* Tables: the payments, the delay months, the clock dates (row headers light, cells wrap) */
+.jtool .jt45-part .jtool-table tbody th, .jtool .jt45-part .jtool-table tfoot th { position: static; background: var(--jtool-surface-2); color: var(--jtool-ink); white-space: normal; vertical-align: top; border-bottom: 1px solid var(--jtool-border); }
+.jtool .jt45-part .jtool-table td { white-space: normal; vertical-align: top; }
+.jtool .jt45-part .jtool-table tfoot th, .jtool .jt45-part .jtool-table tfoot td { font-weight: 800; border-top: 2px solid var(--jtool-verdict); }
+.jtool table.jt45-pays { font-variant-numeric: tabular-nums; }
+.jtool .jt45-pays small, .jtool .jt45-part td small, .jtool .jt45-part th small { display: block; margin-top: 2px; font: 400 0.775rem/1.35 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt45-future th, .jtool .jt45-future td { background: var(--jtool-surface-2); }
+.jtool tr.jt45-near th, .jtool tr.jt45-near td { background: var(--jtool-warn-bg); font-weight: 700; }
+.jtool .jt45-clockmore { margin-top: var(--jtool-space-2); }
+
+/* The securities checklist */
+.jtool .jt45-check { padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: #fff; }
+.jtool .jt45-check__h { margin: var(--jtool-space-3) 0 4px !important; font: 800 0.95rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt45-check__h:first-child { margin-top: 0 !important; }
+.jtool .jt45-check ul, .jtool ul.jt45-list { margin: 0 !important; padding: 0 1.1em 0 0 !important; display: flex; flex-direction: column; gap: 5px; }
+.jtool .jt45-check li, .jtool .jt45-list li { font-size: 0.9rem; line-height: 1.5; }
+.jtool .jt45-check .jtool-btn { margin-top: var(--jtool-space-3); }
+
+/* The brief for the simulation, the next steps */
+.jtool .jt45-brief, .jtool .jt45-next { margin-top: var(--jtool-space-4); padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: var(--jtool-surface-2); }
+.jtool .jt45-brief { border-inline-start: 4px solid var(--jtool-verdict); }
+.jtool .jt45-brief h4, .jtool .jt45-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt45-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; color: var(--jtool-ink) !important; }
+.jtool .jt45-next ul { margin: 0 !important; padding: 0 1.1em 0 0 !important; display: flex; flex-direction: column; gap: 6px; }
+.jtool .jt45-next li { font-size: 0.925rem; line-height: 1.5; }
+.jtool .jt45-next a { color: var(--jtool-verdict); text-decoration: underline; text-underline-offset: 2px; }
+.jtool .jt45-print { display: none; }
+@media (max-width: 640px) {
+	.jtool .jt45-part .jtool-table tbody th, .jtool .jt45-part .jtool-table tfoot th { display: block; width: 100%; padding: 6px 0 2px; background: transparent; }
+}
+@media (min-width: 768px) {
+	.jtool .jt45-lbl { font-size: 9px; }
+	.jtool .jt45-lbl--row { font-size: 9.5px; }
+}
+@media print {
+	.jtool[data-jtool="dira-mikablan"] .jtool__head, .jtool[data-jtool="dira-mikablan"] .jtool__body, .jtool[data-jtool="dira-mikablan"] .jt45-screen,
+	.jtool[data-jtool="dira-mikablan"] .jtool-next, .jtool[data-jtool="dira-mikablan"] .jtool-sources, .jtool[data-jtool="dira-mikablan"] .jtool-foot,
+	.jtool[data-jtool="dira-mikablan"] .jtool-scope, .jtool[data-jtool="dira-mikablan"] .jtool-actions { display: none !important; }
+	.jtool .jt45-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt45-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt45-print p, .jtool .jt45-print li { margin: 0 0 4pt !important; font-size: 10pt !important; color: #000 !important; }
+	.jtool .jt45-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}

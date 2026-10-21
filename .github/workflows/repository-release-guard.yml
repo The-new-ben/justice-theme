@@ -104,6 +104,18 @@ jobs:
           php tests/test-rights-2a-tools.php
           python3 -m py_compile tools/justice_tools_rights_maanak.py tools/justice_tools_rights_neto.py
 
+      - name: Test the family + land wave (21-22.10.2026, HAD-579)
+        run: |
+          set -euo pipefail
+          node tests/js/test-fl-rabanut.mjs
+          node tests/js/test-fl-mishmoret.mjs
+          node tests/js/test-fl-sichsuch.mjs
+          node tests/js/test-fl-yeduim.mjs
+          node tests/js/test-fl-iska.mjs
+          node tests/js/test-fl-kablan.mjs
+          php tests/test-fl-tools.php
+          python3 -m py_compile tools/justice_tools_fl.py tools/justice_tools_fl_rabanut.py tools/justice_tools_fl_mishmoret.py tools/justice_tools_fl_sichsuch.py tools/justice_tools_fl_yeduim.py tools/justice_tools_fl_iska.py tools/justice_tools_fl_kablan.py
+
       - name: Enforce append-only release ZIPs
         run: |
           set -euo pipefail

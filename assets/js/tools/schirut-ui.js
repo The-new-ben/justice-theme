@@ -307,6 +307,11 @@ export function mount(root, reg) {
 		for (let parent = target.parentElement; parent && parent !== root; parent = parent.parentElement) {
 			if (parent.tagName === 'DETAILS') { parent.open = true; }
 		}
+		// The live sticky header includes the admin bar offset on signed-in previews.
+		const header = document.querySelector('.site-header');
+		if (header && ['sticky', 'fixed'].includes(window.getComputedStyle(header).position)) {
+			target.style.scrollMarginTop = `${Math.max(140, Math.ceil(header.getBoundingClientRect().bottom) + 32)}px`;
+		}
 		target.focus({ preventScroll: true });
 		target.scrollIntoView({ block: 'start' });
 	};

@@ -83,7 +83,7 @@ export function verdictSentence(reg, r) {
 	} else if (r.missing > 0) {
 		s = `צריך תשלומי איזון של ${nis(r.equalization)}, אבל כספי העיזבון מכסים רק ${nis(r.fromEstate)}: חסרים ${nis(r.missing)}. סמנו תשלום מכסף פרטי, הוסיפו נכס שנמכר, או שנו את החלוקה.`;
 	} else if (r.fromPrivate > 0) {
-		s = `צריך תשלומי איזון של ${nis(r.equalization)}: ${r.fromEstate > 0 ? `${nis(r.fromEstate)} מכספי העיזבון, ו` : ''}${nis(r.fromPrivate)} מגיעים מכסף פרטי: החלק הזה הוא מכירה לעניין מיסוי מקרקעין (${lt.division_not_sale}).`;
+		s = `צריך תשלומי איזון של ${nis(r.equalization)}: ${r.fromEstate > 0 ? `${nis(r.fromEstate)} מכספי העיזבון, ו-` : ''}${nis(r.fromPrivate)} מגיעים מכסף פרטי: החלק הזה הוא מכירה לעניין מיסוי מקרקעין (${lt.division_not_sale}).`;
 	} else {
 		s = `צריך תשלומי איזון של ${nis(r.equalization)}, כולם מכספי העיזבון: לא מכירה (${lt.division_not_sale} לחוק מיסוי מקרקעין).`;
 	}

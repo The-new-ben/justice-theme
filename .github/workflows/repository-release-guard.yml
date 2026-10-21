@@ -41,6 +41,9 @@ jobs:
       - name: Test article anchor clearance (HAD-552)
         run: node tests/js/test-article-anchor-clearance.mjs
 
+      - name: Test consultation CTA measurement boundaries (HAD-552)
+        run: node tests/js/test-analytics-events.mjs
+
       - name: Test court-stage criminal entries (HAD-552)
         run: php tests/article-simulation-entry-test.php
 

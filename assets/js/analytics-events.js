@@ -59,7 +59,8 @@
 	function eventParams(extra) {
 		var params = {
 			page_path: window.location.pathname,
-			page_location: window.location.href.split('#')[0],
+			// Query and fragment values may contain typed case/contact information.
+			page_location: window.location.origin + window.location.pathname,
 			page_title: document.title
 		};
 
@@ -77,18 +78,44 @@
 
 		try {
 			url = new URL(href, window.location.href);
+			if (['http:', 'https:', 'tel:', 'mailto:'].indexOf(url.protocol) === -1) {
+				return '';
+			}
 
-			if (url.hostname.indexOf('wa.me') !== -1 || url.hostname.indexOf('whatsapp.com') !== -1) {
-				url.searchParams.delete('text');
+			// Destination identity is useful; arbitrary query/fragment values are not.
+			url.username = '';
+			url.password = '';
+			url.search = '';
+			if (!isLeadFormAnchor(url.hash)) {
+				url.hash = '';
 			}
 
 			return url.toString();
 		} catch (error) {
-			return String(href || '').replace(/([?&]text=)[^&]+/i, '$1[removed]');
+			return '';
 		}
 	}
 
+	function isLeadFormAnchor(hash) {
+		return ['#ask-lawyer', '#lead-form', '#practice-lead-form', '#lawyer-inquiry'].indexOf(hash) !== -1;
+	}
+
+	function isInternalLeadFormLink(url) {
+		return !!url && url.origin === window.location.origin && isLeadFormAnchor(url.hash);
+	}
+
+	function isIntakeMeasurementTest() {
+		var testField = document.querySelector('input[name="justice_intake_test"]');
+		return '1' === new URLSearchParams(window.location.search).get('lead_test')
+			|| !!(testField && '1' === testField.value);
+	}
+
 	function track(eventName, params) {
+		// Excludes explicit synthetic intake checks from this event emitter only.
+		// This does not disable other analytics or change consent configuration.
+		if (isIntakeMeasurementTest()) {
+			return;
+		}
 		var payload = eventParams(params);
 
 		if ('function' === typeof window.gtag) {
@@ -646,7 +673,7 @@
 			return;
 		}
 
-		if (link.closest('.justice-content-lawyer-cta') || '#lead-form' === href || '#practice-lead-form' === href || '#lawyer-inquiry' === href) {
+		if (link.closest('.justice-content-lawyer-cta') || isInternalLeadFormLink(linkUrl)) {
 			track('article_cta_click', params);
 			return;
 		}

@@ -810,6 +810,10 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(REUI.exportContract(reg, REUI.EXAMPLE).startsWith('חוזה לדוגמה בלבד.') && REUI.exportContract(reg, { ...REUI.EXAMPLE, rent: 6100 }).startsWith('טיוטה לפי השדות שבדף.'), 'copied rental output carries sample/draft status, including unchanged-default caution');
 	check(REUI.exportContract(reg, { ...REUI.EXAMPLE, rent: '' }) === '', 'invalid rental input has no exportable contract');
 	check(REUI.exportContract(reg, REUI.EXAMPLE, true).includes('[סעיף 25ב; סעיף 25ג]') && !REUI.exportContract(reg, REUI.EXAMPLE).includes('[סעיף'), 'status wrapper preserves sources/no-sources output modes');
+	check(rs.entry.includes('href="#jt12-doc-h"') && rs.entry.includes('href="#jt12-rent"') && rs.entry.includes('חוזה לדוגמה'), 'rental entry has native preview/edit links and identifies the sample before input');
+	check(REUI.renderEntry({ ...REUI.EXAMPLE, rent: 6100 }).includes('צפייה בטיוטת החוזה') && !REUI.renderEntry({ ...REUI.EXAMPLE, rent: 6100 }).includes('צפייה בחוזה לדוגמה'), 'editing terms changes the preview label without discarding input');
+	check(REUI.renderEntry({ ...REUI.EXAMPLE, rent: '' }, false).includes('בדיקת השדות לתיקון'), 'invalid input entry directs the reader to repair instead of promising a contract');
+	check(rs.details.includes('id="jt12-doc-h" tabindex="-1"') && rs.details.includes('חזרה לעריכת התנאים') && rs.details.includes('שמירה כ-PDF'), 'rental preview has a focus destination, return route and truthful browser PDF instructions');
 }
 
 /* ---------- Wave 5: severance pay, section 14, the advance notice, the tax ceiling and the deadlines ---------- */

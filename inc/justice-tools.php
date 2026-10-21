@@ -1254,6 +1254,7 @@ function justice_tools_shortcode( $atts ): string {
 		. justice_tools_stages_html( $tool, $id )
 		. '<p class="jtool-scope" data-jtool-shared hidden style="margin:12px 24px 0 !important">נפתח מקישור שיתוף. התשובות נטענו מהקישור ולא נשמרו אצלנו, והחישוב רץ שוב עם הנתונים העדכניים.</p>'
 		. '<p class="jtool-scope" data-jtool-saved hidden style="margin:12px 24px 0 !important">יש חישוב שמור במכשיר הזה. <button class="jtool-linkbtn" type="button" data-act="restore">לטעון אותו</button> <button class="jtool-linkbtn" type="button" data-act="clear">למחוק</button></p>'
+		. ( 'chozeh-schirut' === $name && ! empty( $snap['entry'] ) ? '<div class="jt12-entry" data-jt12-entry>' . $snap['entry'] . '</div>' : '' )
 		. '<div class="jtool__body"><div class="jtool-form" role="group" aria-label="' . esc_attr( 'הנתונים ל' . $tool['name'] ) . '" data-jtool-form>' . $snap['form'] . '</div>'
 		. '<div class="jtool-result" id="' . esc_attr( $id ) . '-result" data-jtool-result>' . $snap['result'] . '</div></div>'
 		. '<div class="jtool-details" data-jtool-details>' . $snap['details'] . '</div>'

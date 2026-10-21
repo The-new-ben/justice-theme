@@ -53,6 +53,14 @@ function citeChip(rc, key, uid) {
 
 /* ---------------- Pure renderers ---------------- */
 
+/** Direct preview/edit routes, based on the HAD-552 Claude Design prototype. No data reset. */
+export function renderEntry(input, valid = true) {
+	const sample = isSampleInput(input);
+	return `<nav class="jt12-entry__routes" aria-label="מה עושים קודם"><a class="jt12-entry__route" href="#${P}-doc-h" data-act="preview-contract"><strong>${valid ? (sample ? 'צפייה בחוזה לדוגמה' : 'צפייה בטיוטת החוזה') : 'בדיקת השדות לתיקון'}</strong><span>${valid ? 'מעבר ישיר לחוזה, להעתקה ולהדפסה' : 'יש לתקן את השדות המסומנים לפני יצירת חוזה'}</span></a>`
+		+ `<a class="jt12-entry__route jt12-entry__route--edit" href="#${P}-rent" data-act="edit-contract"><strong>התאמת התנאים שלי</strong><span>עריכת הסכומים, התאריכים ושאר התנאים</span></a></nav>`
+		+ `<p class="jt12-entry__status">${esc(draftNotice(input))}</p>`;
+}
+
 export function renderForm(reg, input) {
 	const rc = reg.rent_contract;
 	const chip = (name, value, label, checked, type = 'radio') => `<label class="jtool-chip"><input type="${type}" name="${P}-${name}" value="${value}"${checked ? ' checked' : ''}><span>${esc(label)}</span></label>`;
@@ -161,11 +169,12 @@ export function renderDetails(reg, r, input = {}) {
 		+ `<p class="jt12-cl__p">${esc(`אנו החתומים מטה ערבים, יחד ולחוד, לקיום חיובי השוכר לפי חוזה השכירות לדירה ב${[r.names.address || '__________', r.names.city].filter(Boolean).join(', ')}, עד סכום של ${r.guarantorMax ? nis(r.guarantorMax) : '__________ ₪'}.`)}</p>`
 		+ `<p class="jt12-cl__p">${Array.from({ length: r.guarantors }, (_, k) => `${k + 1}. שם: __________ ת"ז: __________ חתימה: __________`).map(esc).join('<br>')}</p></li>` : '';
 	const sched = r.schedule.map((s) => `<li class="jt12-sch jt12-sch--${s.state}"><span>${esc(s.item)}</span><small>${{ filled: 'בחוזה', hand: 'למילוי ביד', ids: 'בחוזה; ת"ז ביד', list: 'בנספח א\'', declared: 'הצהרה: אין פגם ידוע' }[s.state]}</small></li>`).join('');
-	return `<div class="jtool-tablewrap jt12-docwrap"><div class="jtool-tablewrap__head"><h3 id="${P}-doc-h">חוזה שכירות למגורים</h3><div class="jtool-actions"><button class="jtool-btn jtool-btn--primary" type="button" data-act="copy-contract">העתקת החוזה</button><button class="jtool-btn" type="button" data-act="copy-sources">העתקה עם הסעיפים בחוק</button><button class="jtool-btn" type="button" data-act="print">הדפסה</button></div></div>`
+	return `<div class="jtool-tablewrap jt12-docwrap"><div class="jtool-tablewrap__head"><h3 id="${P}-doc-h" tabindex="-1">חוזה שכירות למגורים</h3><div class="jtool-actions"><button class="jtool-btn jtool-btn--primary" type="button" data-act="copy-contract">${isSampleInput(input) ? 'העתקת החוזה לדוגמה' : 'העתקת הטיוטה'}</button><button class="jtool-btn" type="button" data-act="copy-sources">העתקה עם הסעיפים בחוק</button><button class="jtool-btn" type="button" data-act="print">הדפסה</button><a class="jtool-btn" href="#${P}-rent" data-act="edit-contract">עריכת התנאים</a></div></div>`
 		+ `<p class="jt12-doc__note" data-jt12-draft>${esc(draftNotice(input))}</p>`
+		+ '<p class="jt12-doc__note jt12-doc__print-help">בחלון ההדפסה של הדפדפן אפשר לבחור שמירה כ-PDF.</p>'
 		+ `<p class="jt12-doc__note">${esc(rc.bill.he)}. לפי ${esc(rc.law_he)}, נוסח עדכני ל-${esc(isoToHe(rc.law_current_to))}. מעבר עם העכבר או נגיעה בסעיף מציגים את לשון החוק.</p>`
 		+ `<ol class="jt12-doc" aria-labelledby="${P}-doc-h">${doc}${appA}${appB}</ol>`
-		+ `<div class="jt12-sign"><span>המשכיר: __________</span><span>השוכר: __________</span></div></div>`
+		+ `<div class="jt12-sign"><span>המשכיר: __________</span><span>השוכר: __________</span></div><div class="jtool-actions jt12-doc__return"><a class="jtool-btn" href="#${P}-rent" data-act="edit-contract">חזרה לעריכת התנאים</a></div></div>`
 		+ `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-sch-h">מה החוק מחייב לכלול (התוספת השנייה)</h3></div><ul class="jt12-schlist" aria-labelledby="${P}-sch-h">${sched}</ul></div>`;
 }
 
@@ -186,6 +195,7 @@ export function snapshot(reg) {
 		registry_version: reg.registry_version,
 		input: EXAMPLE,
 		total: r.cap.cap,
+		entry: renderEntry(EXAMPLE),
 		form: renderForm(reg, EXAMPLE),
 		result: renderResult(reg, r, { example: true }),
 		details: renderDetails(reg, r, EXAMPLE),
@@ -268,6 +278,7 @@ export function mount(root, reg) {
 	const result = root.querySelector('[data-jtool-result]');
 	const details = root.querySelector('[data-jtool-details]');
 	const sticky = root.querySelector('[data-jtool-sticky-figure]');
+	const entry = root.querySelector('[data-jt12-entry]');
 	const rc = reg.rent_contract;
 	const today = ilToday();
 	const saveKey = `jtool-${TOOL_ID}`;
@@ -308,6 +319,7 @@ export function mount(root, reg) {
 		showErrors(r);
 		result.innerHTML = renderResult(reg, r, { example: isSampleInput(input) });
 		details.innerHTML = renderDetails(reg, r, input);
+		if (entry) { entry.innerHTML = renderEntry(input, r.ok); }
 		root.querySelectorAll('[data-act="print"], [data-act="copy-contract"], [data-act="copy-sources"]').forEach((button) => {
 			button.setAttribute('aria-disabled', r.ok ? 'false' : 'true');
 		});
@@ -351,6 +363,15 @@ export function mount(root, reg) {
 		const input = readForm(root);
 		const r = compute(reg, input);
 		const link = shareUrl(shareState(input));
+		if (act === 'preview-contract' || act === 'edit-contract') {
+			ev.preventDefault();
+			if (!r.ok) {
+				run(input, { silent: true });
+				toast(root, 'בדקו את השדה המסומן לפני יצירת החוזה.');
+			}
+			focusField(!r.ok ? root.querySelector('[aria-invalid="true"]') : root.querySelector(act === 'preview-contract' ? `#${P}-doc-h` : `#${P}-rent`));
+			return;
+		}
 		if (['print', 'copy-contract', 'copy-sources'].includes(act) && !r.ok) {
 			ev.preventDefault();
 			run(input, { silent: true });

@@ -484,6 +484,27 @@ a.jtool-cite:hover { text-decoration: underline; }
  * with the section-14 share hatched in teal and the payment clock after it; capital gains is the holding period laid on
  * the dates of the law. Navy = what you pay, teal = what the law leaves free, the instrument's danger red = over a limit.
  */
+/* HAD-552, Claude Design: document-workbench routes, white/slate/navy/cobalt; no overlay or new font request. */
+.jt12-entry { padding: var(--jtool-space-4); border-bottom: 1px solid var(--jtool-border); }
+.jt12-entry__routes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.jtool a.jt12-entry__route { display: flex; flex-direction: column; justify-content: center; gap: 4px; min-height: 66px; padding: 12px 16px; border: 2px solid #10243A; border-radius: 2px; background: #FFFFFF; color: #10243A; text-decoration: none; line-height: 1.45; }
+.jtool a.jt12-entry__route--edit { border-color: #174FC4; background: #174FC4; color: #FFFFFF; }
+.jt12-entry__route strong { font-size: 1rem; }
+.jt12-entry__route span { font-size: 0.875rem; }
+.jtool a.jt12-entry__route:hover { text-decoration: underline; text-underline-offset: 4px; }
+.jtool a.jt12-entry__route:focus-visible { outline: 3px solid #00685F; outline-offset: 3px; }
+.jtool p.jt12-entry__status { margin: 12px 0 0 !important; padding: 10px 12px; border-inline-start: 3px solid #10243A; background: #EEF2F6; color: #10243A; font-size: 0.875rem !important; line-height: 1.5 !important; }
+.jtool[data-jtool="chozeh-schirut"] #jt12-doc-h,
+.jtool[data-jtool="chozeh-schirut"] input,
+.jtool[data-jtool="chozeh-schirut"] textarea { scroll-margin-top: 140px; }
+.jtool #jt12-doc-h:focus { outline: 2px solid #174FC4; outline-offset: 4px; }
+.jt12-doc__return { padding: var(--jtool-space-3) var(--jtool-space-4); }
+@media (max-width: 600px) {
+	.jt12-entry__routes { grid-template-columns: minmax(0, 1fr); }
+}
+@media print {
+	.jt12-entry, .jt12-doc__print-help { display: none !important; }
+}
 .jtool textarea.jt12-area { width: 100%; min-height: 76px; padding: 10px 12px; border: 1.5px solid var(--jtool-field-border); border-radius: var(--jtool-radius-field); background: #fff; color: var(--jtool-ink); font: 500 1rem/1.5 var(--jtool-font); resize: vertical; }
 .jtool textarea.jt12-area:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
 .jt12-meter { padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }

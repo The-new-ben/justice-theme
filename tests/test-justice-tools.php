@@ -368,11 +368,14 @@ foreach ( array( $rc5, $sv5, $sh5 ) as $ds ) {
 }
 $h5 = $jt_shortcodes['justice_tool'];
 $r5 = $h5( array( 'name' => 'chozeh-schirut' ) );
+check( false !== strpos( $r5, 'data-jt12-entry' ) && strpos( $r5, 'data-jt12-entry' ) < strpos( $r5, 'data-jtool-form' ), 'rental preview/edit entry precedes the input form in server HTML' );
+check( false !== strpos( $r5, 'href="#jt12-doc-h"' ) && false !== strpos( $r5, 'id="jt12-doc-h" tabindex="-1"' ) && false !== strpos( $r5, 'חוזה לדוגמה בלבד' ), 'rental entry has an existing accessible destination and sample disclosure without JavaScript' );
 check( false !== strpos( $r5, 'class="jtool-answer"' ) && false !== strpos( $r5, '18,000' ) && false !== strpos( $r5, '<bdi>60</bdi>' ) && false !== strpos( $r5, '<bdi>30</bdi>' ), 'lease answer box: the cap example, 60 days, 30 days, from the registry' );
 check( false !== strpos( $r5, 'jt12-meter' ) && false !== strpos( $r5, 'jt12-doc' ) && false !== strpos( $r5, 'jt12-cite' ) && false !== strpos( $r5, 'סעיף 25י(ב)' ) && false !== strpos( $r5, 'שכירות שאינה מוגנת' ), 'lease in the server HTML: the meter, the whole lease with its section chips (crawlers read the lease)' );
 check( false !== strpos( $r5, 'jtool-btn--primary" href="https://jus-tice.com/#/simulation' ) && false !== strpos( $r5, 'purpose=mediation' ), 'lease: the rehearsal of the talk with the landlord is the primary next step' );
 check( false !== strpos( $r5, 'חוק השכירות, נוסח ל-30.9.2026 · נבדק 14.10.2026' ), 'lease stamp: the text date and the check date' );
 $p5 = $h5( array( 'name' => 'pitzuyim' ) );
+check( false === strpos( $p5, 'data-jt12-entry' ), 'rental entry does not leak into other tools' );
 check( false !== strpos( $p5, 'class="jtool-answer"' ) && false !== strpos( $p5, '<bdi>72%</bdi>' ) && false !== strpos( $p5, '13,750' ), 'severance answer box: s.14 at 72% and the 2026 ceiling' );
 check( false !== strpos( $p5, '103,000' ) && false !== strpos( $p5, 'jt13-ruler' ) && false !== strpos( $p5, '28,840' ) && false !== strpos( $p5, 'purpose=mediation' ), 'severance example in the server HTML: 103,000, the ruler, the employer top-up; the employment rehearsal' );
 check( false !== strpos( $p5, 'תקרת פטור 13,750 ₪ ב-2026 · נבדק 14.10.2026' ), 'severance stamp' );

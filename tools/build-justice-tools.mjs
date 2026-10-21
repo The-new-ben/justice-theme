@@ -67,12 +67,12 @@ const TOOLS = {
 	'maanak-avoda': ['instrument.js', 'sim-handoff.js', 'maanak-engine.js', 'maanak-ui.js'],
 	'sachar-neto': ['instrument.js', 'dates.js', 'mas-engine.js', 'sim-handoff.js', 'neto-engine.js', 'neto-ui.js'],
 	// The family + land wave (21-22.10.2026, HAD-579): each instrument reuses the engines it builds on.
-	'agrot-rabanut': ['instrument.js', 'dates.js', 'gerushin-engine.js', 'rabanut-engine.js', 'rabanut-ui.js'],
-	mishmoret: ['instrument.js', 'dates.js', 'family-common.js', 'horut-engine.js', 'luach-engine.js', 'mezonot-engine.js', 'mishmoret-engine.js', 'mishmoret-ui.js'],
-	'yishuv-sichsuch': ['instrument.js', 'dates.js', 'sichsuch-fl-engine.js', 'sichsuch-fl-ui.js'],
-	'yeduim-batzibur': ['instrument.js', 'dates.js', 'yeduim-engine.js', 'yeduim-ui.js'],
-	'alut-iska': ['instrument.js', 'rechisha-engine.js', 'iska-engine.js', 'iska-ui.js'],
-	'dira-mikablan': ['instrument.js', 'dates.js', 'kablan-engine.js', 'kablan-ui.js'],
+	'agrot-rabanut': ['instrument.js', 'sim-handoff.js', 'dates.js', 'gerushin-engine.js', 'rabanut-engine.js', 'rabanut-ui.js'],
+	mishmoret: ['instrument.js', 'sim-handoff.js', 'dates.js', 'family-common.js', 'horut-engine.js', 'luach-engine.js', 'mezonot-engine.js', 'mishmoret-engine.js', 'mishmoret-ui.js'],
+	'yishuv-sichsuch': ['instrument.js', 'sim-handoff.js', 'dates.js', 'sichsuch-fl-engine.js', 'sichsuch-fl-ui.js'],
+	'yeduim-batzibur': ['instrument.js', 'sim-handoff.js', 'dates.js', 'yeduim-engine.js', 'yeduim-ui.js'],
+	'alut-iska': ['instrument.js', 'sim-handoff.js', 'rechisha-engine.js', 'iska-engine.js', 'iska-ui.js'],
+	'dira-mikablan': ['instrument.js', 'sim-handoff.js', 'dates.js', 'kablan-engine.js', 'kablan-ui.js'],
 };
 
 function strip(code) {

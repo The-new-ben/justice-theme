@@ -9,7 +9,7 @@
   "publisher_he": "הלשכה המרכזית לסטטיסטיקה",
   "source_name": "הלשכה המרכזית לסטטיסטיקה, ממשק המדדים (סדרה 120010)",
   "source_url": "https://api.cbs.gov.il/index/data/price?id=120010&format=json&download=false",
-  "official_calculator_url": "https://www.cbs.gov.il/he/Pages/%D7%9E%D7%97%D7%A9%D7%91%D7%95%D7%9F-%D7%94%D7%A6%D7%9E%D7%93%D7%94.aspx",
+  "official_calculator_url": "https://www.cbs.gov.il/he/CBSNewBrand/Pages/Calculator.aspx",
   "checked_on": "2026-10-12",
   "refresh_every_days": 31,
   "latest_month": "2026-08",
@@ -2898,7 +2898,7 @@
    "from": "2026-01-01",
    "affidavit_first": 200,
    "affidavit_additional": 80,
-   "item": "פרט 7"
+   "item": "פרט 6"
   },
   "evidence_he": "תצהיר נחתם בפני עורך דין, נוטריון, שופט או רשם, אחרי אזהרה (סעיף 15 לפקודת הראיות)",
   "evidence_url": "https://he.wikisource.org/wiki/פקודת_הראיות",

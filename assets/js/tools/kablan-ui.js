@@ -12,6 +12,7 @@
  */
 import { kbCompute, kbKnownMonth, kbIndex } from './kablan-engine.js';
 import { addMonths, parseDate, daysBetween } from './dates.js';
+import { openSimulation } from './sim-handoff.js';
 import {
 	esc, ils, money, parseMoney, isoToHe, encodeState, decodeState, decodeList, ics,
 	track, download, copyText, toast, shareUrl, whatsappUrl, store, stickyBar, isStale, ilToday,
@@ -64,6 +65,12 @@ function kbPriceBand(n) {
 	if (m < 1) { return 'פחות ממיליון ₪'; }
 	const lo = Math.floor(m * 2) / 2;
 	return `בין ${lo} ל-${lo + 0.5} מיליון ₪`;
+}
+/** The sticky figure: the delay compensation when there is one, else the linkage; the same string on the server and in the
+ * browser (the snapshot never shows a raw number). */
+export function kbStickyFigure(r) {
+	if (!r.ok) { return '—'; }
+	return ils(r.delay.compMonths && !r.delay.excused && r.input.rent > 0 ? r.delay.total : r.pay.diffTotal, 0);
 }
 const kbLeft = (days) => (days > 0 ? `עוד ${money(days, 0)} ימים` : days === 0 ? 'היום' : 'עבר');
 
@@ -296,7 +303,7 @@ export function renderResult(reg, r, opts = {}) {
 		+ `<div class="${P}-part"><h3 id="${P}-h-delay">2. איחור במסירה: הפיצוי לפי סעיף 5א</h3>${kbDelayTable(reg, r)}</div>`
 		+ `<div class="${P}-part"><h3 id="${P}-h-clock">3. שעון הבדק והאחריות</h3>${kbClock(reg, r)}${kbClockTable(reg, r)}</div>`
 		+ `<div class="${P}-part"><h3 id="${P}-h-check">4. הבטוחות: רשימת בדיקה לפי חוק ההבטחה</h3>${kbChecklist(reg, r)}</div>`
-		+ `<div class="${P}-brief"><h4>התרחיש לסימולציה</h4><p data-${P}-brief>${esc(brief)}</p><a class="jtool-btn" href="${KB_SIM}" target="_blank" rel="noopener" data-act="rehearse">להעתיק ולתרגל את השיחה</a></div>`
+		+ `<div class="${P}-brief"><h4>התרחיש לסימולציה</h4><p data-${P}-brief>${esc(brief)}</p><a class="jtool-btn" href="${KB_SIM}" target="_blank" rel="noopener" data-act="rehearse">לתרגל את השיחה עם הנתונים שלכם</a></div>`
 		+ `<div class="${P}-next"><h4>מה עושים עכשיו</h4><ul>${na.official.map((x) => `<li>${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.he)}</a>` : esc(x.he)}${x.rule ? ` (${esc(x.rule)})` : ''}</li>`).join('')}`
 		+ `${na.links.map((x) => `<li><a href="${esc(x.path)}">${esc(x.he)}</a></li>`).join('')}</ul></div>`;
 }
@@ -354,7 +361,7 @@ export function snapshot(reg) {
 		registry_version: reg.registry_version,
 		input: EXAMPLE,
 		total: r.delay.total,
-		sticky: r.delay.total,
+		sticky: kbStickyFigure(r),
 		form: renderForm(reg, EXAMPLE),
 		result: renderResult(reg, r, { example: true }),
 		details: renderDetails(reg, r, { printedOn: fl.checked_on }),
@@ -443,7 +450,7 @@ export function mount(root, reg) {
 		showErrors(r);
 		result.innerHTML = renderResult(reg, r);
 		details.innerHTML = renderDetails(reg, r, { printedOn: today });
-		if (sticky) { sticky.innerHTML = r.ok ? ils(r.delay.compMonths && !r.delay.excused && r.input.rent > 0 ? r.delay.total : r.pay.diffTotal, 0) : '—'; }
+		if (sticky) { sticky.innerHTML = kbStickyFigure(r); }
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: `${r.stage}-${r.regime}-${r.delay.compMonths ? 'late' : 'ontime'}` }); }
 		return r;
 	};
@@ -514,9 +521,17 @@ export function mount(root, reg) {
 			toast(root, ok ? 'רשימת הבדיקה הועתקה.' : 'לא הצלחנו להעתיק.');
 			track('tool_share', { tool_id: TOOL_ID, channel: 'copy-list' });
 		} else if (act === 'rehearse') {
-			// The simulation refuses a case story in its URL: the brief goes to the clipboard and the link opens as is.
-			if (r.ok) { copyText(aiBrief(reg, r)); }
-			toast(root, 'התרחיש הועתק. בסימולציה, הדביקו אותו בתיאור המקרה.');
+			// The simulation refuses a case story in its URL: the brief travels by the one-time window handoff
+			// (sim-handoff.js); when the popup or the protocol is unavailable, it goes to the clipboard and the link opens.
+			const brief = r.ok ? aiBrief(reg, r) : '';
+			const purpose = (/purpose=([a-z_]+)/.exec(b.getAttribute('href') || '') || [])[1] || 'court_rehearsal';
+			if (brief && openSimulation(brief, purpose, b.getAttribute('href'))) {
+				ev.preventDefault();
+				toast(root, 'נפתח תרגול עם הנתונים שלכם. הדמויות הן AI, והתרגול אינו נשמר אצלנו.');
+			} else {
+				if (brief) { copyText(brief); }
+				toast(root, 'התרחיש הועתק. בסימולציה, הדביקו אותו בתיאור המקרה.');
+			}
 			track('tool_rehearse_click', { tool_id: TOOL_ID, band: r.ok ? r.stage : 'error' });
 		} else if (act === 'save') {
 			store.set(saveKey, stateOf(input));

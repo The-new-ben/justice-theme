@@ -15,7 +15,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as E from '../../assets/js/tools/kablan-engine.js';
 import * as U from '../../assets/js/tools/kablan-ui.js';
-import { decodeState, ics } from '../../assets/js/tools/instrument.js';
+import { decodeState, ics, ils } from '../../assets/js/tools/instrument.js';
+import { handoffState } from '../../assets/js/tools/sim-handoff.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const reg = JSON.parse(readFileSync(join(ROOT, 'assets/data/justice-tools-registry.json'), 'utf8'));
@@ -154,6 +155,13 @@ for (const [name, over] of [['old', { signDate: '2021-01-01', deliveryDate: '202
 	check(rr.ok && !bad(all) && !/<h2/i.test(all), `render ${name}: no undefined/NaN/null, no <h2>`);
 }
 check(U.renderResult(reg, run({ price: 0 })).includes('צריך לתקן'), 'an input error renders the fix-the-input state');
+
+/* ---------- 11. Polish: the window handoff into the simulation, the sticky string ---------- */
+check(s.result.includes('data-act="rehearse">לתרגל את השיחה עם הנתונים שלכם</a>') && !s.result.includes('להעתיק ולתרגל'), 'rehearse button: "לתרגל את השיחה עם הנתונים שלכם" (no "copy" in the label)');
+const hs = handoffState('x', U.aiBrief(reg, r), 'court_rehearsal');
+check(hs.phase === 'intake' && hs.locale === 'he' && hs.simulationPurpose === 'court_rehearsal' && hs.description.includes('9 חודשים') && hs.description.includes('בין 50 ל-60 אלף') && hs.description.includes('15.11.2027') && !/\d{9}/.test(hs.description), 'handoff state: intake, he, court_rehearsal; the brief with the delay months, the compensation band and the nearest deadline; no 9-digit run');
+check(s.sticky === ils(55500, 0) && typeof s.sticky === 'string' && U.kbStickyFigure(r) === s.sticky, `snapshot sticky = the string the mount writes (${s.sticky})`);
+check(U.kbStickyFigure(run({ rent: '' })) === ils(35875, 0) && U.kbStickyFigure(run({ price: 0 })) === '—', 'sticky: the linkage when no rent is typed; "—" on an input error');
 
 console.log(`${passed} passed, ${failures} failed`);
 process.exit(failures ? 1 : 0);

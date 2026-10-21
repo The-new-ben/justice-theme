@@ -20,7 +20,8 @@ import { fileURLToPath } from 'node:url';
 import * as E from '../../assets/js/tools/sichsuch-fl-engine.js';
 import * as U from '../../assets/js/tools/sichsuch-fl-ui.js';
 import * as G from '../../assets/js/tools/gerushin-engine.js';
-import { decodeState, ics } from '../../assets/js/tools/instrument.js';
+import { decodeState, ics, isoToHe } from '../../assets/js/tools/instrument.js';
+import { handoffState } from '../../assets/js/tools/sim-handoff.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const reg = JSON.parse(readFileSync(join(ROOT, 'assets/data/justice-tools-registry.json'), 'utf8'));
@@ -148,6 +149,18 @@ check(/^[0-9A-Za-z._~/-]+$/.test(st) && !/[֐-׿]/.test(st), 'the share state is
 const exBack = U.inputOf(decodeState(U.stateOf(Object.assign({}, U.EXAMPLE, { start: '2026-10-21' })), U.KEYS));
 check(exBack.subjects.join() === 'children,support' && exBack.forum === 'family' && exBack.start === '2026-10-21' && U.inputOf({}) === null && U.inputOf(decodeState(U.stateOf(Object.assign({}, U.EXAMPLE, { subjects: [] })), U.KEYS)).subjects.length === 0, 'the example round-trips; an empty choice of subjects survives; an empty hash gives no input');
 check(U.TOOL_ID === 'yishuv-sichsuch' && U.YS_SIM_URL.includes('topic=family-law') && U.YS_SIM_URL.includes('purpose=mediation'), 'the tool id and the simulation entry (family-law, mediation)');
+
+/* ---------- 8. The polish round: the window handoff, the button, the sticky string ---------- */
+const hs = handoffState('x', U.aiBrief(reg, ex), 'mediation');
+check(hs.phase === 'intake' && hs.locale === 'he' && hs.simulationPurpose === 'mediation' && hs.sessionId === 'x' && hs.description.includes('20.12.2026') && hs.description.includes('השאלה לתרגול') && !/\d{9}/.test(hs.description) && hs.chatHistory.length === 0, 'the handoff state: intake, Hebrew, mediation, the scenario with the stay end 20.12.2026, no 9-digit run');
+check(U.YS_REHEARSE_LABEL === 'לתרגל את פגישת המהו"ת עם הנתונים שלכם' && snap.result.includes('data-act="rehearse">לתרגל את פגישת המהו&quot;ת עם הנתונים שלכם</a>') && !snap.result.includes('להעתיק ולתרגל'), 'the rehearse button no longer says copy: "לתרגל את פגישת המהו"ת עם הנתונים שלכם"');
+check(snap.sticky === `<bdi>${isoToHe(ex.stayEnd)}</bdi>` && snap.sticky === '<bdi>20.12.2026</bdi>' && !/^\d+(\.\d+)?$/.test(snap.sticky), 'the snapshot sticky is the same string mount writes (<bdi>20.12.2026</bdi>), never a raw number');
+const srcNames = (f) => [...readFileSync(join(ROOT, 'assets/js/tools', f), 'utf8').matchAll(/^(?:export )?(?:async )?(?:function|const|let|class) ([A-Za-z_$][\w$]*)/gm)].map((m) => m[1]);
+const bundleNames = ['instrument.js', 'sim-handoff.js', 'dates.js', 'sichsuch-fl-engine.js', 'sichsuch-fl-ui.js'].flatMap(srcNames);
+check(bundleNames.length === new Set(bundleNames).size && ['SIM_ORIGIN', 'SIM_TYPE', 'uuid4', 'handoffState', 'openSimulation'].every((n) => bundleNames.filter((x) => x === n).length === 1), 'no top-level name repeats across the five bundled files (sim-handoff.js included)');
+const uiSrc = readFileSync(join(ROOT, 'assets/js/tools/sichsuch-fl-ui.js'), 'utf8');
+const reh = uiSrc.slice(uiSrc.indexOf("act === 'rehearse'"), uiSrc.indexOf("act === 'save'"));
+check(reh.includes('openSimulation(brief, purpose, b.getAttribute(\'href\'))') && reh.indexOf('ev.preventDefault()') > 0 && !reh.includes('await') && reh.includes('copyText(brief)'), 'mount: rehearse opens the handoff, preventDefault before any await, the clipboard only as the fallback');
 
 console.log(`fl-sichsuch: ${passed} passed, ${failures} failed`);
 process.exit(failures ? 1 : 0);

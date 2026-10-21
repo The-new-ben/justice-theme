@@ -14,7 +14,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as E from '../../assets/js/tools/iska-engine.js';
 import * as U from '../../assets/js/tools/iska-ui.js';
-import { decodeState, ics } from '../../assets/js/tools/instrument.js';
+import { decodeState, ics, ils } from '../../assets/js/tools/instrument.js';
+import { handoffState } from '../../assets/js/tools/sim-handoff.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const reg = JSON.parse(readFileSync(join(ROOT, 'assets/data/justice-tools-registry.json'), 'utf8'));
@@ -128,7 +129,15 @@ check(na.official[0].url === fl.services.declare.url && na.links.length === 4 &&
 check(snap.result.includes('<h4>מה עושים עכשיו</h4>') && snap.result.includes('<h4>התרחיש לסימולציה</h4>') && snap.result.includes('data-act="rehearse"') && snap.result.includes('purpose=mediation&topic=real-estate'), 'result: "what to do now", the brief under its h4 and the rehearse button (real-estate, mediation)');
 check(snap.result.includes('כלל 2') && snap.result.includes('כלל 14(ב) ו-14(ד)'), 'fee box: the tariff is cited as non-binding (rule 2) and the one-lawyer rule (14(ב), 14(ד))');
 
-/* ---------- 8. Share state round trip ---------- */
+/* ---------- 8. The simulation handoff and the sticky ---------- */
+check(snap.result.includes('data-act="rehearse">לתרגל את המשא ומתן עם הנתונים שלכם</a>') && !snap.result.includes('להעתיק ולתרגל'), 'rehearse button: "לתרגל את המשא ומתן עם הנתונים שלכם" (the brief goes by the window handoff, not by copy)');
+const hs = handoffState('x', U.aiBrief(reg, r), 'mediation');
+check(hs.phase === 'intake' && hs.locale === 'he' && hs.simulationPurpose === 'mediation' && hs.description.includes('30,136.33') && hs.description.includes('15,538.33') && !/\d{9}/.test(hs.description) && !bad(hs.description), 'handoff state: intake, Hebrew, mediation; the description carries 30,136.33 and the tax, no 9-digit run');
+const hss = handoffState('y', U.aiBrief(reg, s), 'mediation');
+check(hss.description.includes('70,800') && hss.description.includes('7.5%') && !/\d{9}/.test(hss.description), 'handoff state (sale): the costs 70,800 and the advance rate, no 9-digit run');
+check(snap.sticky === ils(snap.total, 0) && snap.sticky.includes('30,136') && !/30136/.test(snap.sticky), `snapshot sticky = ils(total, 0), the string the mount writes (${snap.sticky})`);
+
+/* ---------- 9. Share state round trip ---------- */
 for (const [name, inp] of [['buy', EX], ['sell', U.SELL_EXAMPLE], ['oleh fixed', Object.assign({}, EX, { track: 'oleh', aliyah: '2026-06-01', feeMode: 'fixed', fee: 9000, feeVat: true, appraiser: 2500 })]]) {
 	const back = U.inputOf(decodeState(`#s=${U.stateOf(inp)}`, U.KEYS));
 	const a = E.ikCompute(reg, inp);

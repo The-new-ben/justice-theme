@@ -8,6 +8,7 @@
  * one-page closing sheet prints on its own.
  */
 import { ikCompute, ikBar, IK_TRACKS, IK_STAGES } from './iska-engine.js';
+import { openSimulation } from './sim-handoff.js';
 import {
 	esc, ils, money, parseMoney, isoToHe, encodeState, decodeState, ics,
 	track, download, copyText, toast, shareUrl, whatsappUrl, store, stickyBar, isStale, ilToday,
@@ -196,7 +197,7 @@ export function renderResult(reg, r, opts = {}) {
 		+ (r.flags.length ? `<ul class="jtool-flags">${r.flags.map((f) => `<li>${esc(f.he)}</li>`).join('')}</ul>` : '')
 		+ ikSellBox(reg, r)
 		+ feeBox(reg, r)
-		+ `<div class="${P}-brief"><h4>התרחיש לסימולציה</h4><p data-${P}-brief>${esc(brief)}</p><a class="jtool-btn" href="${IK_SIM}" target="_blank" rel="noopener" data-act="rehearse">להעתיק ולתרגל את המשא ומתן</a></div>`
+		+ `<div class="${P}-brief"><h4>התרחיש לסימולציה</h4><p data-${P}-brief>${esc(brief)}</p><a class="jtool-btn" href="${IK_SIM}" target="_blank" rel="noopener" data-act="rehearse">לתרגל את המשא ומתן עם הנתונים שלכם</a></div>`
 		+ `<div class="${P}-next"><h4>מה עושים עכשיו</h4><ul>${na.official.map((x) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.he)}</a>${x.rule ? ` (${esc(x.rule)})` : ''}</li>`).join('')}`
 		+ `${na.links.map((x) => `<li><a href="${esc(x.path)}">${esc(x.he)}</a></li>`).join('')}</ul></div>`;
 }
@@ -256,7 +257,8 @@ export function snapshot(reg) {
 		registry_version: reg.registry_version,
 		input: EXAMPLE,
 		total: r.total,
-		sticky: r.total,
+		// The same string the mount writes, so the server HTML never shows a raw 30136.33.
+		sticky: ils(r.total, 0),
 		form: renderForm(reg, EXAMPLE),
 		result: renderResult(reg, r, { example: true }),
 		details: renderDetails(reg, r),
@@ -415,9 +417,17 @@ export function mount(root, reg) {
 			toast(root, ok ? 'התוצאה הועתקה.' : 'לא הצלחנו להעתיק.');
 			track('tool_share', { tool_id: TOOL_ID, channel: 'copy' });
 		} else if (act === 'rehearse') {
-			// The simulation refuses a case story in its URL: the brief goes to the clipboard and the link opens as is.
-			if (r.ok) { copyText(aiBrief(reg, r)); }
-			toast(root, 'התרחיש הועתק. בסימולציה, הדביקו אותו בתיאור המקרה.');
+			// The simulation refuses a case story in its URL: the brief goes by the one-time window handoff (sim-handoff.js);
+			// when a popup is blocked, it goes to the clipboard and the plain topic link opens.
+			const brief = r.ok ? aiBrief(reg, r) : '';
+			const purpose = (/purpose=([a-z_]+)/.exec(b.getAttribute('href') || '') || [])[1] || 'mediation';
+			if (brief && openSimulation(brief, purpose, b.getAttribute('href'))) {
+				ev.preventDefault();
+				toast(root, 'נפתח תרגול עם הנתונים שלכם. הדמויות הן AI, והתרגול אינו נשמר אצלנו.');
+			} else {
+				if (brief) { copyText(brief); }
+				toast(root, 'התרחיש הועתק. בסימולציה, הדביקו אותו בתיאור המקרה.');
+			}
 			track('tool_rehearse_click', { tool_id: TOOL_ID, band: r.ok ? r.side : 'error' });
 		} else if (act === 'shevach') {
 			track('tool_next_click', { tool_id: TOOL_ID, band: 'shevach' });

@@ -2070,3 +2070,8 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jtool .jt45-print p, .jtool .jt45-print li { margin: 0 0 4pt !important; font-size: 10pt !important; color: #000 !important; }
 	.jtool .jt45-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
 }
+/* The family + land wave (HAD-579): on a pillar page that opens with the result-first card, the card is the first thing
+   under the title on a phone (the route-summary panel of the hero repeats the page's own contents). */
+@media (max-width: 700px) {
+	body:has(.legal-pillar-content .jtool-lead) .legal-pillar-hero__panel { display: none; }
+}

@@ -169,7 +169,9 @@ function justice_tools_rights2a_numbers_html( string $name ): string {
 function justice_tools_rights2a_lead_shortcode( $atts ): string {
 	$atts = shortcode_atts( array( 'name' => '' ), $atts, 'justice_tool_lead' );
 	$name = sanitize_key( (string) $atts['name'] );
-	if ( ! in_array( $name, justice_tools_rights2a_names(), true ) ) {
+	// The family + land wave (HAD-579) uses the same card on its pages where the tool starts low on a phone.
+	$fl = function_exists( 'justice_tools_fl_names' ) && in_array( $name, justice_tools_fl_names(), true );
+	if ( ! $fl && ! in_array( $name, justice_tools_rights2a_names(), true ) ) {
 		return '';
 	}
 	$snap = justice_tools_snapshot( $name );

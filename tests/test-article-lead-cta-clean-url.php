@@ -109,6 +109,6 @@ jt_assert( false !== strpos( $script, 'event.ctrlKey || event.metaKey || event.s
 jt_assert( false !== strpos( $script, 'savedAt: Date.now()' ) && false !== strpos( $script, 'Date.now() - context.savedAt > LEAD_CONTEXT_MAX_AGE_MS' ), 'A stored context expires instead of attributing a later, unrelated visit.' );
 jt_assert( false !== strpos( $script, "document.addEventListener('auxclick', handleAuxClick, true);" ) && false !== strpos( $script, 'event.button !== 1' ), 'A middle-click (auxclick) stores the context for the new tab too.' );
 $enqueue = str_replace( "\r\n", "\n", file_get_contents( dirname( __DIR__ ) . '/inc/enqueue.php' ) );
-jt_assert( false !== strpos( $enqueue, "'/assets/js/analytics-events.js',\n\t\tarray(),\n\t\t'1.1.5'" ), 'The script version moved so cached copies refresh.' );
+jt_assert( false !== strpos( $enqueue, "'/assets/js/analytics-events.js',\n\t\tarray(),\n\t\t'1.1.6'" ), 'The script version moved so cached copies refresh.' );
 
 echo "article lead CTA clean URL tests passed\n";

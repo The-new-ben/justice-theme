@@ -114,6 +114,10 @@ pay = payments(rm, 2025, '2026-12-05', 13020, 950);
 check(pay.rows.length === 0 && pay.late, 's.12(4): filed after 30.11.2026 → no published calendar');
 r = run(Object.assign({}, solo, { kids: 0, by: 1960, sex: 'm', income: 7200, months: 10 }));
 check(near(r.annual, 404) && r.pay.rows.length === 1 && r.pay.single, 's.12(3א): 390 − 0.23 × 1,520 = 40.40 × 10 = 404 ≤ 950 → one payment');
+// The official simulator (misim.gov.il, run on 22.10.2026 with a single mother born 1990, 2 children, 60,000 ₪ in 12 months):
+// 7,020 ₪. The engine: single parent, 1-2 children, 5,000 a month is on the plateau → 390 × 150% × 12 = 7,020.
+r = run(Object.assign({}, solo, { kids: 2, single: true, by: 1990, income: 5000 }));
+check(near(r.annual, 7020), 'equals the Tax Authority simulator: single parent of 2, 60,000 ₪ a year → 7,020');
 // Tax year 2024: the bands only.
 r = run(Object.assign({}, solo, { year: 2024, kids: 2, income: 5000 }));
 check(r.mode === 'bands' && r.eligible && r.monthly === null, '2024: 5,000 is inside 2,390-7,220 → in the band, no invented amount');

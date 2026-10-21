@@ -489,9 +489,16 @@ a.jtool-cite:hover { text-decoration: underline; }
 .jt12-entry__routes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .jtool a.jt12-entry__route { display: flex; flex-direction: column; justify-content: center; gap: 4px; min-height: 66px; padding: 12px 16px; border: 2px solid #10243A; border-radius: 2px; background: #FFFFFF; color: #10243A; text-decoration: none; line-height: 1.45; }
 .jtool a.jt12-entry__route--edit { border-color: #174FC4; background: #174FC4; color: #FFFFFF; }
+/* The live article skin has important anchor colors; preserve the approved route contrast. */
+.jtool[data-jtool="chozeh-schirut"] a.jt12-entry__route,
+.jtool[data-jtool="chozeh-schirut"] a.jt12-entry__route strong,
+.jtool[data-jtool="chozeh-schirut"] a.jt12-entry__route span { color: #10243A !important; text-decoration: none !important; }
+.jtool[data-jtool="chozeh-schirut"] a.jt12-entry__route--edit,
+.jtool[data-jtool="chozeh-schirut"] a.jt12-entry__route--edit strong,
+.jtool[data-jtool="chozeh-schirut"] a.jt12-entry__route--edit span { color: #FFFFFF !important; }
 .jt12-entry__route strong { font-size: 1rem; }
 .jt12-entry__route span { font-size: 0.875rem; }
-.jtool a.jt12-entry__route:hover { text-decoration: underline; text-underline-offset: 4px; }
+.jtool[data-jtool="chozeh-schirut"] a.jt12-entry__route:hover { text-decoration: underline !important; text-underline-offset: 4px; }
 .jtool a.jt12-entry__route:focus-visible { outline: 3px solid #00685F; outline-offset: 3px; }
 .jtool p.jt12-entry__status { margin: 12px 0 0 !important; padding: 10px 12px; border-inline-start: 3px solid #10243A; background: #EEF2F6; color: #10243A; font-size: 0.875rem !important; line-height: 1.5 !important; }
 .jtool[data-jtool="chozeh-schirut"] #jt12-doc-h,

@@ -422,6 +422,11 @@ foreach ( array( 'online-rent-agreement', 'severance-pay-calculator', 'land-appr
 	check( false === strpos( $body5, '<p>המחשבון' ) && false === strpos( $body5, '<p>החוזה למעלה' ), 'draft ' . $slug5 . ': the opening answers, it does not describe the tool' );
 }
 
+$rental_css = (string) file_get_contents( dirname( __DIR__ ) . '/assets/css/justice-tools.css' );
+check( false !== strpos( $rental_css, '.jtool[data-jtool="chozeh-schirut"] a.jt12-entry__route--edit span { color: #FFFFFF !important;' ), 'rental entry preserves white text against important article-link overrides' );
+$rental_ui = (string) file_get_contents( dirname( __DIR__ ) . '/assets/js/tools/schirut-ui.js' );
+check( false !== strpos( $rental_ui, 'header.getBoundingClientRect().bottom) + 32' ) && false !== strpos( $rental_ui, "['sticky', 'fixed']" ), 'rental focus clearance accounts for the live sticky header, not a fixed guessed height' );
+
 if ( $failures ) {
 	fwrite( STDERR, "justice tools: {$failures} failure(s)\n" );
 	exit( 1 );

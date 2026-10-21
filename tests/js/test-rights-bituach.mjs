@@ -140,5 +140,60 @@ for (const i of [EX, { status: 'both', salary: 6000, selfIncome: 5000, extra: [3
 const st = BUI.stateOf(Object.assign({}, EX, { sex: 'f', born: '4/1963', month: '2026-10' }), 'w_ret');
 check(!st.includes('1963') && st.includes('bf'), 'the share link carries the band, never the birth month');
 
+/* ---------- 10. Follow-up is owned by the selected journey, not the initial employee example (HAD-552) ---------- */
+const followCases = [
+	[{}, 'employee'],
+	[{ status: 'self', selfIncome: 12000 }, 'advance'],
+	[{ status: 'both', salary: 6000, selfIncome: 5000 }, 'mixed'],
+	[{ status: 'none', noneKind: 'none' }, 'personal'],
+	[{ status: 'none', noneKind: 'student' }, 'personal'],
+	[{ status: 'none', noneKind: 'passive', passive: 12000 }, 'personal'],
+	[{ status: 'none', band: 'oap' }, 'personal'],
+	[{ status: 'pension', salary: '', pension: 6000 }, 'pension'],
+	[{ status: 'pension', band: 'r67', salary: '', pension: 6000 }, 'pension'],
+	[{ status: 'pension', salary: 5000, pension: 6000 }, 'coordination'],
+	[{ salary: 6000, extra: [5000, ''] }, 'coordination'],
+	[{ salary: 6000, extra: [5000, ''], mode: 'tier' }, 'coordination'],
+	[{ salary: '' }, 'input'],
+	[{ status: 'self', selfIncome: '' }, 'input'],
+];
+for (const [input, kind] of followCases) {
+	const result = run(input);
+	const action = BUI.nextAction(reg, result);
+	check(action.kind === kind, `follow-up for ${JSON.stringify(input)} routes to ${kind}`);
+	if (kind !== 'employee') {
+		check(!/מעסיק|תלוש השכר/.test(action.label), `${kind}: primary label is not the employee rehearsal`);
+		if (action.href.startsWith('#') && kind !== 'input') {
+			check(BUI.renderDetails(reg, result).includes(`id="${action.href.slice(1)}"`), `${kind}: action anchor exists in that result`);
+		}
+	}
+}
+check(!BUI.nextSteps(reg, se)[0].includes('תלוש'), 'self-employed checklist begins with the advance, not a payslip');
+check(!BUI.nextSteps(reg, run({ status: 'none' }))[0].includes('תלוש'), 'non-working checklist begins with status/payment, not a payslip');
+check(BUI.nextSteps(reg, run({ status: 'none', band: 'oap' }))[0].includes('קצבת האזרח הוותיק'), 'old-age pension checklist refers to its own statement');
+check(!BUI.nextSteps(reg, run({ status: 'pension', salary: '', pension: 6000 })).join(' ').includes('הכנסה נוספת'), 'pension-only does not instruct declaring additional salary');
+check(BUI.nextSteps(reg, run({ status: 'pension', salary: 5000, pension: 6000 })).join(' ').includes('הכנסה נוספת'), 'pension plus salary keeps the additional-income instruction');
+check(BUI.nextSteps(reg, run({ status: 'self', selfIncome: '' })).length === 0, 'invalid input produces no actionable result checklist');
+
+// Exercise the same DOM updater called after compute on input, initial shared state and restore.
+const original = { text: 'employee next', label: 'employee rehearsal', href: 'https://jus-tice.com/#/simulation', target: '_blank', rel: 'noopener', 'data-act': 'rehearse' };
+const attrs = new Map(Object.entries(original).filter(([k]) => !['text', 'label'].includes(k)));
+const link = { textContent: original.label, setAttribute: (k, v) => attrs.set(k, v), removeAttribute: (k) => attrs.delete(k) };
+const paragraph = { textContent: original.text };
+const boxAttrs = new Map();
+const box = { querySelector: (selector) => selector === '.jtool-next__text' ? paragraph : link, setAttribute: (k, v) => boxAttrs.set(k, v) };
+const root = { querySelector: () => box };
+for (const status of ['self', 'none', 'pension', 'both', 'employee']) {
+	const r = run({ status, selfIncome: 12000, pension: 6000, salary: status === 'pension' ? '' : 14000 });
+	BUI.updateNextAction(root, reg, r, original);
+	check(boxAttrs.get('data-followup-kind') === BUI.nextAction(reg, r).kind, `DOM follow-up updates after switch to ${status}`);
+	check(status === 'employee' ? attrs.get('data-act') === 'rehearse' : !attrs.has('data-act'), `${status}: only actual rehearsal retains rehearsal tracking`);
+}
+check(attrs.get('href') === original.href && attrs.get('target') === '_blank' && attrs.get('rel') === 'noopener' && paragraph.textContent === original.text && link.textContent === original.label, 'returning to employee restores original label, URL, target, rel and tracking');
+BUI.updateNextAction(root, reg, run({ salary: '' }), original);
+check(attrs.get('href') === '#jtool-dmei-bituach' && !attrs.has('target') && !attrs.has('data-act'), 'invalid input removes stale rehearsal URL/tracking and goes to calculator inputs');
+BUI.updateNextAction(root, reg, se, original);
+check(attrs.get('href') === '#jt28-self-h' && link.textContent.includes('מקדמה'), 'correcting invalid input re-enables the matching self-employed next step');
+
 console.log(`${passed} passed, ${failures} failed`);
 process.exit(failures ? 1 : 0);

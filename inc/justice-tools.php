@@ -33,6 +33,8 @@
  *                                                         (add mode="fee" for the fee-only page's method)
  *   [justice_tools_index]                                 hub cards with the data stamp
  *
+ *   [justice_tool name="tzav-yerusha"]                 the inheritance wave (21.10.2026): see inc/justice-tools-inheritance.php for its five instruments
+ *
  * Claude Design boards: https://claude.ai/artifact/JHKhphmy9L1QbYYUk2KX4e (wave 1),
  * https://claude.ai/artifact/759KGxB7GDSy5NHaajW8sJ (wave 2), wave 3 (HAD-498): see the PR.
  *
@@ -73,7 +75,7 @@ function justice_tools_snapshots(): array {
  * passed url_word_audit (hatzmada 0 owners, madad 0 owners).
  */
 function justice_tools_catalog(): array {
-	return array(
+	$catalog = array(
 		'hatzmada'       => array(
 			'name'      => 'מחשבון הצמדה למדד וריבית',
 			'title'     => 'מחשבון הצמדה למדד וריבית לפי חוק פסיקת ריבית והצמדה',
@@ -485,6 +487,8 @@ function justice_tools_catalog(): array {
 			'sticky'    => 'אגרות',
 		),
 	);
+	// The inheritance wave (21.10.2026): five instruments, in inc/justice-tools-inheritance.php.
+	return array_merge( $catalog, justice_tools_inheritance_catalog() );
 }
 
 /** The day a tool's own sources were checked: the wave-3 tools carry it in their dataset. */
@@ -729,6 +733,9 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 	if ( in_array( $name, justice_tools_world_names(), true ) ) {
 		return justice_tools_world_answer( $name );
 	}
+	if ( in_array( $name, justice_tools_inheritance_names(), true ) ) {
+		return justice_tools_inheritance_answer( $name, $mode );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_answer( $name, $mode );
 	}
@@ -817,6 +824,9 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 	if ( in_array( $name, justice_tools_world_names(), true ) ) {
 		return justice_tools_world_stamp( $name );
 	}
+	if ( in_array( $name, justice_tools_inheritance_names(), true ) ) {
+		return justice_tools_inheritance_stamp( $name, $mode );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_stamp( $name, $mode );
 	}
@@ -874,6 +884,9 @@ function justice_tools_sources( string $name ): array {
 	$reg = justice_tools_registry();
 	if ( in_array( $name, justice_tools_world_names(), true ) ) {
 		return justice_tools_world_sources( $name );
+	}
+	if ( in_array( $name, justice_tools_inheritance_names(), true ) ) {
+		return justice_tools_inheritance_sources( $name );
 	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_sources( $name );
@@ -1603,6 +1616,9 @@ function justice_tools_numbers_html( string $name ): string {
 	if ( in_array( $name, justice_tools_world_names(), true ) ) {
 		return justice_tools_world_numbers_html( $name );
 	}
+	if ( in_array( $name, justice_tools_inheritance_names(), true ) ) {
+		return justice_tools_inheritance_numbers_html( $name );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_numbers_html( $name );
 	}
@@ -1684,7 +1700,7 @@ function justice_tools_numbers_html( string $name ): string {
 
 /** Comparison table (page standard A6). */
 function justice_tools_compare_html( string $name ): string {
-	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin', 'luach-shahut', 'maakav-mezonot', 'mapat-gerushin' ), true ) ) {
+	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin', 'luach-shahut', 'maakav-mezonot', 'mapat-gerushin' ), true ) || in_array( $name, justice_tools_inheritance_names(), true ) ) {
 		$snap = justice_tools_snapshot( $name );
 		return '<div class="jtool-page">' . ( $snap['compare_table'] ?? '' ) . '</div>';
 	}
@@ -1843,3 +1859,5 @@ function justice_tools_article_opens_with_tool( int $post_id ): bool {
 require_once __DIR__ . '/justice-tools-family.php';
 // The divorce world (HAD-539): the custody calendar, the payment tracker and the roadmap on /divorce-lawyer/.
 require_once __DIR__ . '/justice-tools-divorce-world.php';
+// The inheritance wave (21.10.2026): the request planner, the waiver affidavit, the dispute navigator, the heirs' agreement, the objection clock.
+require_once __DIR__ . '/justice-tools-inheritance.php';

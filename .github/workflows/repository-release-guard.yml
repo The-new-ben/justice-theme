@@ -63,6 +63,17 @@ jobs:
           node tests/js/test-divorce-world.mjs
           php tests/test-divorce-world.php
 
+      - name: Test the inheritance wave (21.10.2026)
+        run: |
+          set -euo pipefail
+          node tests/js/test-inheritance-tzav.mjs
+          node tests/js/test-inheritance-sichsuch.mjs
+          node tests/js/test-inheritance-histalkut.mjs
+          node tests/js/test-inheritance-heskem-yorshim.mjs
+          node tests/js/test-inheritance-hitnagdut.mjs
+          php tests/test-inheritance-tools.php
+          python3 -m py_compile tools/justice_tools_inheritance.py
+
       - name: Enforce append-only release ZIPs
         run: |
           set -euo pipefail

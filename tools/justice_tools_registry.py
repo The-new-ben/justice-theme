@@ -35,6 +35,7 @@ Usage
   add --wave5-checked-on <day> the same way for the wave-5 datasets (HAD-504: rent_contract, severance, shevach)
   add --family-checked-on <day> to rebuild the family-law datasets (HAD-506, tools/justice_tools_family.py) the same way;
   a --base refresh without it keeps them as they are
+  add --inheritance-checked-on <day> the same way for the inheritance-process dataset (tools/justice_tools_inheritance.py)
 
 Every input can be a saved file (so a reviewer can rebuild the exact registry from the files
 attached to the PR) or omitted to fetch live. The script never estimates a missing value: a
@@ -1065,6 +1066,8 @@ def main() -> int:
                                                    "road-accident and divorce-cost datasets are built too")
     parser.add_argument("--family-checked-on", help="the day the family-law sources were read (HAD-506); when given, the child-"
                                                     "support, property-balance, prenup and divorce-agreement datasets are built")
+    parser.add_argument("--inheritance-checked-on", help="the day the inheritance-process sources were read (the inheritance wave, "
+                                                         "tools/justice_tools_inheritance.py); when given, that dataset is built too")
     args = parser.parse_args()
     wave3_day = args.wave3_checked_on or args.checked_on
     wave4_day = args.wave4_checked_on
@@ -1094,6 +1097,11 @@ def main() -> int:
             if key in base:
                 registry[key] = base[key]
         add_family(registry, args.family_checked_on)
+        # The inheritance-process dataset (the inheritance wave) is kept the same way unless rebuilt.
+        for key in INHERITANCE_KEYS:
+            if key in base:
+                registry[key] = base[key]
+        add_inheritance(registry, args.inheritance_checked_on)
         write_registry(registry, args.out)
         return 0
 
@@ -1126,6 +1134,7 @@ def main() -> int:
     add_wave4(registry, wave4_day or args.checked_on)
     add_wave5(registry, wave5_day or args.checked_on)
     add_family(registry, args.family_checked_on or args.checked_on)
+    add_inheritance(registry, args.inheritance_checked_on or args.checked_on)
     write_registry(registry, args.out)
     return 0
 
@@ -1157,6 +1166,18 @@ def add_family(registry: dict, day: str | None) -> None:
     registry["property_balance"] = fam.build_property_balance(day)
     registry["prenup"] = fam.build_prenup(day)
     registry["divorce_agreement"] = fam.build_divorce_agreement(day)
+
+
+INHERITANCE_KEYS = ("inheritance_process",)
+
+
+def add_inheritance(registry: dict, day: str | None) -> None:
+    """The inheritance wave (21.10.2026): the process dataset of tools/justice_tools_inheritance.py, with its own checked_on."""
+    if not day:
+        return
+    import justice_tools_inheritance as inh  # tools/ is the script's own folder
+    registry["registry_version"] = max(registry["registry_version"], day)
+    registry["inheritance_process"] = inh.build_inheritance_process(day)
 
 
 def write_registry(registry: dict, out: str) -> None:

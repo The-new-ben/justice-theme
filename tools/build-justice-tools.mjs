@@ -49,6 +49,12 @@ const TOOLS = {
 	'luach-shahut': ['instrument.js', 'dates.js', 'family-common.js', 'horut-engine.js', 'luach-engine.js', 'luach-ui.js'],
 	'maakav-mezonot': ['instrument.js', 'hatzmada-engine.js', 'family-common.js', 'maakav-engine.js', 'maakav-ui.js'],
 	'mapat-gerushin': ['instrument.js', 'dates.js', 'gerushin-engine.js', 'mapat-engine.js', 'mapat-ui.js'],
+	// The inheritance wave (21.10.2026): the request planner and the dispute navigator share dates.js with wave 4.
+	'tzav-yerusha': ['instrument.js', 'dates.js', 'tzav-engine.js', 'tzav-ui.js'],
+	'sichsuch-yerusha': ['instrument.js', 'dates.js', 'sichsuch-engine.js', 'sichsuch-ui.js'],
+	histalkut: ['instrument.js', 'histalkut-engine.js', 'histalkut-ui.js'],
+	'heskem-yorshim': ['instrument.js', 'heskem-yorshim-engine.js', 'heskem-yorshim-ui.js'],
+	hitnagdut: ['instrument.js', 'dates.js', 'hitnagdut-engine.js', 'hitnagdut-ui.js'],
 };
 
 function strip(code) {
@@ -97,6 +103,11 @@ const fhk = await import(pathToFileURL(join(SRC, 'heskem-ui.js')).href);
 const dwl = await import(pathToFileURL(join(SRC, 'luach-ui.js')).href);
 const dwm = await import(pathToFileURL(join(SRC, 'maakav-ui.js')).href);
 const dwr = await import(pathToFileURL(join(SRC, 'mapat-ui.js')).href);
+const ihT = await import(pathToFileURL(join(SRC, 'tzav-ui.js')).href);
+const ihS = await import(pathToFileURL(join(SRC, 'sichsuch-ui.js')).href);
+const ihH = await import(pathToFileURL(join(SRC, 'histalkut-ui.js')).href);
+const ihA = await import(pathToFileURL(join(SRC, 'heskem-yorshim-ui.js')).href);
+const ihO = await import(pathToFileURL(join(SRC, 'hitnagdut-ui.js')).href);
 const snapshots = {
 	registry_version: registry.registry_version,
 	hatzmada: t04.snapshot(registry),
@@ -119,6 +130,11 @@ const snapshots = {
 	'luach-shahut': dwl.snapshot(registry),
 	'maakav-mezonot': dwm.snapshot(registry),
 	'mapat-gerushin': dwr.snapshot(registry),
+	'tzav-yerusha': ihT.snapshot(registry),
+	'sichsuch-yerusha': ihS.snapshot(registry),
+	histalkut: ihH.snapshot(registry),
+	'heskem-yorshim': ihA.snapshot(registry),
+	hitnagdut: ihO.snapshot(registry),
 };
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 

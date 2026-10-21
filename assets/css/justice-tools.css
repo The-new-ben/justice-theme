@@ -857,3 +857,178 @@ a.jtool-cite:hover { text-decoration: underline; }
 @media print {
 	.jt-cmd__bar { display: none; }
 }
+
+/* The inheritance wave (21.10.2026): the request planner (jt23), the dispute navigator (jt25), the waiver affidavit
+   (jt24), the heirs' agreement (jt26) and the objection clock (jt27). Pictures from the subject: the registrar's file as
+   a docket rail of numbered stations; a crossroads of signposts for the routes a quarrel opens; a court document in a
+   ruled sheet. Same navy family (#0E2E4F, #14477D) and the apps' teal (#0B6470) on white and #F2F7FB; nothing warm. */
+.jtool ol.jt23-rail { position: relative; margin: var(--jtool-space-4) 0 0 !important; padding: 0 !important; list-style: none; display: flex; flex-direction: column; gap: var(--jtool-space-2); }
+.jtool ol.jt23-rail::before { content: ""; position: absolute; top: 18px; bottom: 18px; inset-inline-start: 17px; width: 2px; background: #C9D9EA; }
+.jtool .jt23-rail > li::before { content: none; }
+.jt23-st { position: relative; display: grid; grid-template-columns: 36px minmax(0, 1fr); grid-template-areas: "n title" ". meta" ". do" ". foot"; column-gap: 10px; row-gap: 4px; align-items: start; padding: 8px 10px 10px 8px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: #fff; }
+.jt23-st__n { grid-area: n; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: var(--jtool-verdict-deep); color: #fff; font: 800 0.95rem/1 var(--jtool-font); font-variant-numeric: tabular-nums; box-shadow: 0 0 0 3px #fff; }
+.jtool .jt23-st__t { grid-area: title; margin: 6px 0 0 !important; font: 800 1rem/1.35 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jt23-st__meta { grid-area: meta; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.8125rem; color: var(--jtool-muted); }
+.jt23-st__when { font-weight: 700; font-variant-numeric: tabular-nums; }
+.jt23-st__cost { font-weight: 800; color: var(--jtool-verdict-deep); font-variant-numeric: tabular-nums; }
+.jt23-st__cost--free { color: #0B6470; }
+.jtool ul.jt23-st__do { grid-area: do; margin: 0 !important; padding: 0 18px 0 0 !important; font-size: 0.9rem; line-height: 1.5; color: var(--jtool-ink); }
+.jtool ul.jt23-st__do li { margin: 0; }
+.jt23-st__foot { grid-area: foot; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-size: 0.875rem; }
+.jtool .jt23-st__link { color: var(--jtool-verdict); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.jtool ul.jt23-why { margin: var(--jtool-space-2) 0 0 !important; }
+.jtool ol.jt23-docs { margin: 0 !important; padding: var(--jtool-space-3) var(--jtool-space-5) var(--jtool-space-4) var(--jtool-space-4) !important; display: flex; flex-direction: column; gap: var(--jtool-space-2); counter-reset: jt23doc; list-style: none; }
+.jtool ol.jt23-docs li { position: relative; padding-inline-start: 30px; font-size: 0.95rem !important; line-height: 1.6 !important; color: var(--jtool-ink) !important; }
+.jtool ol.jt23-docs li::before { counter-increment: jt23doc; content: counter(jt23doc); position: absolute; inset-inline-start: 0; top: 2px; display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 4px; border: 1.5px solid var(--jtool-verdict); color: var(--jtool-verdict); font: 800 0.8rem/1 var(--jtool-font); }
+.jt23-count .jt6-stepper input { min-width: 0; }
+
+.jt25-cross { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #F2F7FB; }
+.jtool .jt25-cross__center { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 0 0 var(--jtool-space-3) !important; font-size: 0.9rem !important; color: var(--jtool-muted) !important; }
+.jt25-cross__center b { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--jtool-verdict-deep); color: #fff; font-weight: 700; font-size: 0.875rem; }
+.jtool ol.jt25-posts { margin: 0 !important; padding: 0 !important; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--jtool-space-2); }
+.jtool .jt25-posts > li::before { content: none; }
+.jt25-post { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 12px 12px 12px 14px; border: 1px solid var(--jtool-border); border-inline-start: 4px solid #9FB4CB; border-radius: var(--jtool-radius-field); background: #fff; }
+.jt25-post--first { border-color: var(--jtool-verdict-deep); border-inline-start-color: var(--jtool-verdict-deep); box-shadow: 0 0 0 2px var(--jtool-verdict-tint); }
+.jt25-post--later { opacity: 0.7; border-inline-start-style: dashed; }
+.jt25-post__tag { align-self: flex-start; padding: 1px 8px; border-radius: 999px; background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); font: 700 0.75rem/1.5 var(--jtool-font); }
+.jt25-post--first .jt25-post__tag { background: var(--jtool-verdict-deep); color: #fff; }
+.jtool .jt25-post__t { margin: 0 !important; font: 800 0.95rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt25-post__where { margin: 0 !important; font-size: 0.8125rem !important; line-height: 1.45 !important; color: var(--jtool-muted) !important; }
+.jtool .jt25-post__meta { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 2px 0 0 !important; font-size: 0.8125rem !important; color: var(--jtool-ink) !important; }
+.jt25-post__meta span:first-child { font-weight: 800; color: var(--jtool-verdict-deep); font-variant-numeric: tabular-nums; }
+.jt25-of { font: 700 1rem/1 var(--jtool-font); color: var(--jtool-muted); }
+.jt25-row--first td { background: var(--jtool-verdict-tint); }
+.jtool ul.jt25-ev { margin: 8px 0 0 !important; padding: 0 18px 0 0 !important; font-size: 0.95rem; line-height: 1.6; color: var(--jtool-ink); }
+.jt25-issues .jtool-chip { max-width: 100%; }
+@media (max-width: 600px) {
+	.jt23-st { grid-template-columns: 30px minmax(0, 1fr); }
+	.jt23-st__n { width: 30px; height: 30px; font-size: 0.85rem; }
+	.jtool ol.jt23-rail::before { inset-inline-start: 14px; }
+	.jtool ol.jt25-posts { grid-template-columns: 1fr; }
+}
+@media print {
+	.jt23-st, .jt25-post { break-inside: avoid; }
+	.jt23-st__n, .jt25-cross__center b, .jt25-post--first .jt25-post__tag { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* The inheritance wave (21.10.2026), jt24: the waiver affidavit (histalkut). Two pictures from the subject's world: the
+   share flow of a court file (the deceased, the renouncer's share, where s.6 sends it, or a wall when it is not a waiver),
+   and the affidavit as a sheet in David, the typeface of Israeli court filings, on white with a navy double rule. */
+.jtool .jt24-flow { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--jtool-space-3); margin: var(--jtool-space-4) 0 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt24-flow li { margin: 0; padding: 0; }
+.jtool .jt24-flow li::before { content: none; }
+.jtool .jt24-flow li.jt24-node { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 2px; min-height: 92px; padding: 10px 12px 12px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: #fff; text-align: center; }
+.jt24-node__k { font: 700 0.8rem/1.2 var(--jtool-font); color: var(--jtool-muted); }
+.jt24-node__v { font: 800 1.05rem/1.25 var(--jtool-font); color: var(--jtool-verdict-deep); overflow-wrap: anywhere; }
+.jt24-node__s { font-size: 0.8125rem; line-height: 1.3; color: var(--jtool-muted); }
+.jtool .jt24-flow li.jt24-node--from { background: var(--jtool-verdict-tint); border-color: #C9D9EA; }
+.jtool .jt24-flow li.jt24-node--share { border-color: var(--jtool-verdict); box-shadow: inset 0 0 0 1px var(--jtool-verdict); }
+.jtool .jt24-flow li.jt24-node--to { background: var(--jtool-ok-bg); border-color: #BFE0CC; }
+.jt24-node--to .jt24-node__v { color: var(--jtool-ok); }
+.jtool .jt24-flow li.jt24-node--wall { background: var(--jtool-danger-bg); border-color: #F0C4BA; border-inline-start: 6px solid var(--jtool-danger); }
+.jt24-node--wall .jt24-node__v { color: var(--jtool-danger); }
+/* The connector from each station to the next (right to left): a line and a head that points at the next station. */
+.jtool .jt24-flow li.jt24-node:not(:last-child)::after { content: ""; position: absolute; top: calc(50% - 1px); inset-inline-end: calc(-1 * var(--jtool-space-3) - 1px); width: calc(var(--jtool-space-3) + 2px); height: 2px; background: var(--jtool-verdict); }
+.jtool .jt24-flow li.jt24-node:not(:last-child)::before { content: ""; position: absolute; top: calc(50% - 6px); inset-inline-end: calc(-1 * var(--jtool-space-3) - 2px); width: 0; height: 0; border: 6px solid transparent; border-inline-start: 8px solid var(--jtool-verdict); border-inline-end: 0; }
+.jtool .jt24-flow--blocked li.jt24-node--share::after { background: var(--jtool-danger); }
+.jtool .jt24-flow--blocked li.jt24-node--share::before { border-inline-start-color: var(--jtool-danger); }
+.jtool .jt24-flow__text { margin: var(--jtool-space-2) 0 0 !important; font-size: 0.9rem !important; line-height: 1.5 !important; color: var(--jtool-muted) !important; }
+@media (max-width: 600px) {
+	.jtool .jt24-flow { grid-template-columns: minmax(0, 1fr); gap: var(--jtool-space-4); }
+	.jtool .jt24-flow li.jt24-node { min-height: 0; }
+	.jtool .jt24-flow li.jt24-node:not(:last-child)::after { top: auto; bottom: calc(-1 * var(--jtool-space-4) - 1px); inset-inline-end: calc(50% - 1px); width: 2px; height: calc(var(--jtool-space-4) + 2px); }
+	.jtool .jt24-flow li.jt24-node:not(:last-child)::before { top: auto; bottom: calc(-1 * var(--jtool-space-4) - 2px); inset-inline-end: calc(50% - 6px); border: 6px solid transparent; border-top: 8px solid var(--jtool-verdict); border-bottom: 0; }
+	.jtool .jt24-flow--blocked li.jt24-node--share::before { border-top-color: var(--jtool-danger); border-inline-start-color: transparent; }
+}
+/* The affidavit sheet: the court's typeface, a double rule at the head, the fill-in brackets left as text. */
+.jtool pre.jt24-doc { font-family: 'David', 'David Libre', 'Frank Ruhl Libre', 'Times New Roman', serif; font-size: 1.0625rem; line-height: 1.85; padding: var(--jtool-space-5) var(--jtool-space-5) var(--jtool-space-4); border-top: 3px double var(--jtool-verdict-deep); }
+.jtool .jt24-doc__note { margin: 0 !important; padding: var(--jtool-space-2) var(--jtool-space-4) var(--jtool-space-3) !important; font-size: 0.85rem !important; line-height: 1.45 !important; color: var(--jtool-muted) !important; border-top: 1px solid var(--jtool-border); }
+/* The clock: the stage you are in. */
+.jtool .jtool-table tr.jt24-now td { background: var(--jtool-verdict-tint); font-weight: 700; }
+@media print {
+	.jtool pre.jt24-doc { break-inside: avoid; border-top-color: #000; font-size: 12pt; }
+	.jtool .jt24-flow, .jtool .jt24-flow__text, .jtool .jt24-doc__note { display: none !important; }
+}
+
+/* jt27: the objection clock and grounds checker (the inheritance wave, 21.10.2026). The picture is a court docket's
+   14-day track: the days already gone filled in navy, today's cell ringed, the days left dashed, today's marker in the
+   band's colour (ok / warn / danger). The grounds map, the s.72 route strip and the draft reuse the instrument's roles. */
+.jt27-clock { margin-top: var(--jtool-space-3); padding: var(--jtool-space-3) var(--jtool-space-4) var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jt27-track { position: relative; padding: 22px 0 4px; }
+.jtool .jt27-days { display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); gap: 3px; margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt27-days li { margin: 0; padding: 0; }
+.jtool .jt27-days li::before { content: none; }
+.jt27-day { height: 22px; border: 1.5px solid #9FB4CB; border-radius: 4px; background: #fff; }
+.jt27-day--past { background: var(--jtool-verdict); border-color: var(--jtool-verdict); }
+.jt27-day--today { background: var(--jtool-verdict-deep); border-color: var(--jtool-verdict-deep); box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px var(--jtool-verdict-deep); }
+.jt27-day--left { border-style: dashed; background: var(--jtool-surface-2); }
+.jt27-now { position: absolute; top: 0; bottom: 4px; width: 2px; background: var(--jtool-verdict-deep); transform: translateX(50%); }
+.jt27-now b { position: absolute; top: -2px; inset-inline-start: 50%; transform: translateX(50%); padding: 1px 7px; border-radius: 999px; background: var(--jtool-verdict-deep); color: #fff; font: 800 0.72rem/1.4 var(--jtool-font); white-space: nowrap; }
+.jt27-clock--open .jt27-now, .jt27-clock--open .jt27-now b { background: var(--jtool-ok); }
+.jt27-clock--closing .jt27-now, .jt27-clock--closing .jt27-now b, .jt27-clock--closing .jt27-day--today { background: var(--jtool-warn); border-color: var(--jtool-warn); }
+.jt27-clock--closing .jt27-day--today { box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px var(--jtool-warn); }
+.jt27-clock--last .jt27-now, .jt27-clock--last .jt27-now b, .jt27-clock--last .jt27-day--today, .jt27-clock--passed .jt27-now, .jt27-clock--passed .jt27-now b { background: var(--jtool-danger); border-color: var(--jtool-danger); }
+.jt27-clock--last .jt27-day--today { box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px var(--jtool-danger); }
+.jt27-clock--passed .jt27-day--past { background: var(--jtool-danger-bg); border-color: var(--jtool-danger); }
+.jt27-clock--none .jt27-track { padding-top: 6px; }
+.jtool .jt27-track__dates { display: flex; justify-content: space-between; gap: var(--jtool-space-2); margin: 6px 0 0 !important; font-size: 0.8125rem !important; line-height: 1.4 !important; color: var(--jtool-muted) !important; }
+.jtool .jt27-track__dates span:nth-child(2) { font-weight: 800; color: var(--jtool-verdict-deep); text-align: center; }
+.jtool .jt27-track__dates span:last-child { text-align: left; }
+
+/* The grounds map: one row per ground the person marked, the edge in the strength's colour. */
+.jt27-map { margin-top: var(--jtool-space-3); }
+.jtool .jt27-map__sum { margin: 0 0 var(--jtool-space-2) !important; font: 800 0.95rem/1.4 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt27-map__list { display: flex; flex-direction: column; gap: var(--jtool-space-2); margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt27-map__list li::before { content: none; }
+.jt27-g { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-verdict); border-radius: var(--jtool-radius-field); background: #fff; font-size: 0.9rem; line-height: 1.5; }
+.jt27-g--strong { border-inline-start-color: var(--jtool-ok); }
+.jt27-g--needs { border-inline-start-color: var(--jtool-warn); }
+.jt27-g__tag { align-self: flex-start; padding: 1px 8px; border-radius: 999px; font: 800 0.75rem/1.5 var(--jtool-font); background: var(--jtool-ok-bg); color: var(--jtool-ok); }
+.jt27-g--needs .jt27-g__tag { background: var(--jtool-warn-bg); color: var(--jtool-warn); }
+.jt27-g__he { font-weight: 700; color: var(--jtool-ink); }
+.jt27-g__eff { color: var(--jtool-muted); }
+.jt27-g__eff em { font-style: normal; font-weight: 700; color: var(--jtool-verdict-deep); }
+.jt27-g__need { color: var(--jtool-warn); }
+
+/* The s.72 route strip after an order was issued. */
+.jtool .jt27-route { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--jtool-space-2); margin: var(--jtool-space-3) 0 0 !important; padding: 18px 0 0 !important; list-style: none; }
+.jt27-route::before { content: ""; position: absolute; top: 26px; inset-inline: 10% 10%; height: 2px; background: repeating-linear-gradient(90deg, #9FB4CB 0 8px, transparent 8px 14px); }
+.jtool .jt27-route li::before { content: none; }
+.jt27-rs { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 22px 8px 10px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: #fff; text-align: center; }
+.jt27-rs::after { content: ""; position: absolute; top: -9px; inset-inline-start: calc(50% - 9px); width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 3px solid #fff; box-shadow: 0 0 0 1.5px #9FB4CB; }
+.jt27-rs--done::after { background: var(--jtool-verdict); box-shadow: 0 0 0 1.5px var(--jtool-verdict); }
+.jt27-rs--here { border-color: var(--jtool-verdict-deep); background: var(--jtool-verdict-tint); }
+.jt27-rs--here::after { background: var(--jtool-verdict-deep); box-shadow: 0 0 0 1.5px var(--jtool-verdict-deep); }
+.jt27-rs__when { font: 700 0.8rem/1.2 var(--jtool-font); color: var(--jtool-muted); }
+.jt27-rs__what { font: 800 0.95rem/1.3 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jt27-rs__note { font-size: 0.8125rem; color: var(--jtool-muted); }
+
+/* The grounds in the form: a row per ground, lit when it is picked. */
+.jtool .jt27-grounds { display: flex; flex-direction: column; gap: var(--jtool-space-2); margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt27-grounds li::before { content: none; }
+.jt27-ground { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: #fff; }
+.jt27-ground--on { border-color: var(--jtool-verdict); background: var(--jtool-verdict-tint); }
+.jtool .jt27-ground__he { margin: 0 !important; font: 700 0.92rem/1.45 var(--jtool-font) !important; color: var(--jtool-ink) !important; }
+.jt27-ground .jtool-chip span { min-height: 38px; padding: 6px 12px; font-size: 0.875rem; }
+
+/* The draft, the checklist and the next steps. */
+.jtool pre.jt27-doc { max-height: 560px; overflow: auto; border-top: 1px solid var(--jtool-border); }
+.jtool .jt27-list, .jtool .jt27-steps { display: flex; flex-direction: column; gap: var(--jtool-space-2); margin: 0 !important; padding: var(--jtool-space-3) var(--jtool-space-5) var(--jtool-space-4) var(--jtool-space-4) !important; }
+.jtool .jt27-list li, .jtool .jt27-steps li { font-size: 0.95rem !important; line-height: 1.6 !important; color: var(--jtool-ink) !important; }
+.jtool .jtool-verdict__figure small { font: 700 1rem/1 var(--jtool-font); color: var(--jtool-muted); }
+
+@media (max-width: 600px) {
+	.jt27-day { height: 16px; border-radius: 3px; }
+	.jt27-now b { font-size: 0.68rem; padding: 0 6px; }
+	.jtool .jt27-track__dates { flex-wrap: wrap; }
+	.jtool .jt27-track__dates span:last-child { text-align: start; }
+	.jtool .jt27-route { grid-template-columns: 1fr; padding-top: 0 !important; gap: 12px; }
+	.jt27-route::before { top: 0; bottom: 0; inset-inline: auto; inset-inline-start: 18px; width: 2px; height: auto; background: repeating-linear-gradient(180deg, #9FB4CB 0 8px, transparent 8px 14px); }
+	.jt27-rs { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: baseline; padding: 10px 12px; padding-inline-start: 40px; text-align: start; }
+	.jt27-rs::after { top: calc(50% - 9px); inset-inline-start: 10px; }
+}
+@media print {
+	.jt27-clock, .jt27-map, .jt27-route, .jt27-g { break-inside: avoid; }
+	.jtool pre.jt27-doc { max-height: none; overflow: visible; }
+	.jt27-day--past, .jt27-day--today, .jt27-now, .jt27-now b { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}

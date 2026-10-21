@@ -498,6 +498,35 @@
 		}
 	}
 
+	function confirmStoredIntake() {
+		if (isIntakeMeasurementTest() || 'function' !== typeof window.fetch || !window.justiceIntakeReceipt) {
+			return;
+		}
+		var endpoint;
+		try {
+			endpoint = new URL(window.justiceIntakeReceipt.endpoint, window.location.href);
+			if (endpoint.origin !== window.location.origin || endpoint.username || endpoint.password) { return; }
+		} catch (error) { return; }
+		window.fetch(endpoint.toString(), {
+			method: 'POST', credentials: 'same-origin', cache: 'no-store', referrerPolicy: 'origin',
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-Justice-Receipt': '1' },
+			body: 'action=justice_intake_receipt&return_path=' + encodeURIComponent(window.location.pathname)
+		}).then(function(response) {
+			if (!response.ok) { return null; }
+			return response.json();
+		}).then(function(receipt) {
+			if (!receipt || receipt.version !== 1 || receipt.stored !== true) { return; }
+			document.querySelectorAll('[data-intake-receipt-notice]').forEach(function(notice) {
+				notice.textContent = 'הפנייה נשמרה במערכת.';
+			});
+			if (receipt.fresh === true) {
+				track('generate_lead', { form_type: 'server_confirmed_intake', confirmation_source: 'stored_receipt', measurement_version: 2 });
+			}
+		}).catch(function() {
+			// Storage and routing do not depend on analytics. Never invent success on error.
+		});
+	}
+
 	function trackSuccessFromQuery() {
 		var query = new URLSearchParams(window.location.search);
 		var hashQuery = new URLSearchParams((window.location.hash || '').replace(/^#/, ''));
@@ -509,7 +538,7 @@
 		});
 
 		if ('success' === query.get('lead')) {
-			track('generate_lead', { form_type: 'lead_redirect_success' });
+			confirmStoredIntake();
 		}
 
 		if ('sent' === query.get('registration')) {

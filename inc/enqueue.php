@@ -130,9 +130,12 @@ function justice_theme_enqueue_assets() {
 		'justice-analytics-events',
 		JUSTICE_THEME_URI . '/assets/js/analytics-events.js',
 		array(),
-		'1.1.5',
+		'1.1.6',
 		true
 	);
+	wp_localize_script( 'justice-analytics-events', 'justiceIntakeReceipt', array(
+		'endpoint' => admin_url( 'admin-ajax.php' ),
+	) );
 
 	if ( is_page_template( 'page-lawyer-registration.php' ) || is_page( 'lawyer-registration' ) ) {
 		wp_enqueue_script(

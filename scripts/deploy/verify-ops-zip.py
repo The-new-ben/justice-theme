@@ -40,6 +40,7 @@ def main() -> None:
 
         required = {
             "justice-ops/lead-intake.php",
+            "justice-ops/intake-receipts.php",
             "justice-ops/justice-ops.php",
             "justice-ops/family-content-release.php",
             "justice-ops/criminal-content-release.php",

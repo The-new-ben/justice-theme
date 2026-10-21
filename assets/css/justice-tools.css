@@ -1087,3 +1087,374 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jt26-bar__fill, .jt26-bar__gap, .jt26-k { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 	.jtool pre.jt26-doc { max-height: none; overflow: visible; }
 }
+
+/* ===== The rights wave (21.10.2026, HAD-574): jt28 contributions, jt29 credit points, jt30 tax refund, jt31 unemployment, jt32 maternity, jt33 disability ===== */
+
+/* The rights wave (21.10.2026), jt28: National Insurance and health contributions (dmei-bituach). Two pictures from the
+   subject's own paper: the payslip's compulsory-deduction lines (a sheet with a navy head band, dotted leaders and a double
+   rule above the sum; the self-employed advance and the not-working payment as a perforated voucher with a deep-green
+   band), and the two-step tier bar: the reduced tier, the full tier and the ceiling line, each income source laid on it in
+   the order of the law. Navy and deep green from the instrument palette only. */
+.jtool .jt28-slips { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--jtool-space-3); margin: 0; }
+.jtool .jt28-slip { margin: 0; border: 1px solid var(--jtool-border); border-top: 4px solid var(--jtool-verdict-deep); border-radius: 0 0 var(--jtool-radius-field) var(--jtool-radius-field); background: #fff; font-variant-numeric: tabular-nums; }
+.jtool .jt28-slip--voucher { border: 1.5px dashed var(--jtool-field-border); border-top: 4px solid var(--jtool-ok); border-radius: var(--jtool-radius-field); }
+.jtool .jt28-slip__head { display: flex; justify-content: space-between; gap: var(--jtool-space-2); margin: 0 !important; padding: 6px 12px !important; background: var(--jtool-verdict-deep); color: #fff !important; font: 700 0.875rem/1.3 var(--jtool-font) !important; }
+.jtool .jt28-slip--voucher .jt28-slip__head { background: var(--jtool-ok); }
+.jtool .jt28-slip__head span:last-child { font-weight: 600; opacity: 0.9; }
+.jtool .jt28-slip__rows { margin: 0 !important; padding: 6px 12px 10px !important; }
+.jtool .jt28-slip__row { display: flex; align-items: baseline; gap: 6px; margin: 0; padding: 4px 0; }
+.jtool .jt28-slip__row dt { margin: 0; font: 600 0.925rem/1.35 var(--jtool-font); color: var(--jtool-ink); white-space: nowrap; }
+.jtool .jt28-slip__row::after { content: ""; order: 1; flex: 1 1 auto; min-width: 12px; border-bottom: 1.5px dotted #9FB4CB; transform: translateY(-4px); }
+.jtool .jt28-slip__row dd { order: 2; margin: 0; font: 700 0.975rem/1.35 var(--jtool-font); color: var(--jtool-ink); white-space: nowrap; direction: ltr; unicode-bidi: isolate; }
+.jtool .jt28-slip__row--sum { margin-top: 4px; padding-top: 8px; border-top: 3px double var(--jtool-verdict-deep); }
+.jtool .jt28-slip__row--sum dt, .jtool .jt28-slip__row--sum dd { font-weight: 800; font-size: 0.975rem; color: var(--jtool-verdict-deep); }
+.jtool .jt28-slip__row--sum::after { border-bottom-color: transparent; }
+.jtool .jt28-slip__sub { margin: 0 !important; padding: 6px 12px 0 !important; border-top: 1px solid var(--jtool-border); font: 700 0.8125rem/1.3 var(--jtool-font) !important; color: var(--jtool-muted) !important; }
+.jtool .jt28-slip__note { margin: 0 !important; padding: 0 12px 10px !important; font-size: 0.8125rem !important; line-height: 1.4 !important; color: var(--jtool-muted) !important; }
+
+/* The two-step bar: zones, sources, the tier line and the ceiling line. RTL: inset-inline-start is the right edge. */
+.jtool .jt28-bar { margin: 0; padding: var(--jtool-space-3) var(--jtool-space-3) var(--jtool-space-2); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: #fff; }
+.jtool .jt28-bar__cap { margin: 0 0 var(--jtool-space-2); font: 700 0.9rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt28-bar__track { position: relative; height: 36px; margin: 22px 0 30px; border-radius: 6px; background: var(--jtool-surface-2); overflow: visible; }
+.jtool .jt28-bar__zone { position: absolute; top: 0; bottom: 0; }
+.jtool .jt28-bar__zone--low { background: var(--jtool-verdict-tint); border-start-start-radius: 6px; border-end-start-radius: 6px; }
+.jtool .jt28-bar__zone--high { background: #C9D9EA; }
+.jtool .jt28-bar__zone--over { background: repeating-linear-gradient(-45deg, #F2F7FB 0 6px, #D9E3EC 6px 8px); border-start-end-radius: 6px; border-end-end-radius: 6px; }
+.jtool .jt28-bar__seg { position: absolute; top: 10px; height: 16px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55); }
+.jtool .jt28-bar__seg--salary, .jtool .jt28-key--salary { background: var(--jtool-verdict); }
+.jtool .jt28-bar__seg--self, .jtool .jt28-key--self { background: var(--jtool-ok); }
+.jtool .jt28-bar__seg--pension, .jtool .jt28-key--pension { background: var(--jtool-verdict-deep); }
+.jtool .jt28-bar__seg--passive, .jtool .jt28-key--passive { background: var(--jtool-muted); }
+.jtool .jt28-bar__line { position: absolute; top: -4px; bottom: -4px; width: 0; border-inline-start: 2px dashed var(--jtool-verdict-deep); }
+.jtool .jt28-bar__line--max { border-inline-start: 3px solid var(--jtool-verdict-deep); }
+.jtool .jt28-bar__line b { position: absolute; top: calc(100% + 2px); inset-inline-start: 0; transform: translateX(50%); font: 700 0.75rem/1.2 var(--jtool-font); color: var(--jtool-verdict-deep); white-space: nowrap; }
+.jtool .jt28-bar__line--max b { inset-inline-start: auto; inset-inline-end: 0; transform: none; padding-inline-start: 4px; }
+.jtool .jt28-bar__zl { position: absolute; bottom: calc(100% + 3px); transform: translateX(50%); font: 600 0.75rem/1.2 var(--jtool-font); color: var(--jtool-muted); white-space: nowrap; }
+.jtool .jt28-bar__more { position: absolute; inset-inline-end: 6px; top: calc(100% + 2px); font: 700 0.75rem/1.2 var(--jtool-font); color: var(--jtool-muted); white-space: nowrap; }
+.jtool ul.jt28-bar__legend { display: flex; flex-direction: column; gap: 4px; margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool ul.jt28-bar__legend li { margin: 0; padding: 0; font-size: 0.875rem; line-height: 1.45; color: var(--jtool-ink); }
+.jtool ul.jt28-bar__legend li::before { content: none; }
+.jtool .jt28-key { display: inline-block; width: 12px; height: 12px; margin-inline-end: 6px; border-radius: 2px; vertical-align: -1px; }
+
+/* Text blocks under the tables. */
+.jtool .jt28-coord { border-inline-start: 4px solid var(--jtool-verdict); }
+.jtool .jt28-self { border-inline-start: 4px solid var(--jtool-ok); }
+.jtool p.jt28-links, .jtool p.jt28-dues, .jtool p.jt28-age { margin: 0 !important; padding: var(--jtool-space-2) var(--jtool-space-4) var(--jtool-space-3) !important; font-size: 0.9rem !important; line-height: 1.6 !important; color: var(--jtool-ink) !important; }
+.jtool p.jt28-age { padding: var(--jtool-space-3) var(--jtool-space-4) !important; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: var(--jtool-surface-2); }
+.jtool p.jt28-links .jtool-cite { margin-block: 2px; }
+
+@media (min-width: 600px) {
+	.jtool .jt28-slips { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+}
+@media print {
+	.jtool .jt28-slip, .jtool .jt28-bar { break-inside: avoid; }
+	.jtool .jt28-slip__head, .jtool .jt28-bar__zone, .jtool .jt28-bar__seg, .jtool .jt28-key { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* The rights wave (21.10.2026): the credit-points builder (nekudot-zikui, prefix jt29). Mobile first (390 px), light.
+   The ledger is a payslip line of points by kind; the year strip is a row of tax years, the ones a refund can still be
+   asked for marked in deep green; the Form 101 map lists the boxes to tick. Instrument palette only (--jtool-*). */
+.jtool .jt29-kid { grid-template-columns: minmax(0, 1fr) 44px; }
+.jtool .jt29-kid > .jtool-field:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+
+.jtool .jt29-ledger { padding: var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt29-ledger__h { margin: 0 0 var(--jtool-space-2) !important; font: 800 0.95rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt29-ledger__bar { display: flex; gap: 2px; min-height: 40px; border-radius: 6px; overflow: hidden; }
+.jtool .jt29-seg { display: flex; align-items: center; justify-content: center; flex-basis: 0; min-width: 34px; padding: 0 4px; color: #fff; font: 800 0.9rem/1 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt29-seg--base { background: var(--jtool-verdict-deep); }
+.jtool .jt29-seg--kids { background: var(--jtool-verdict); }
+.jtool .jt29-seg--family { background: var(--jtool-ok); }
+.jtool .jt29-seg--study { background: #1D5F8A; }
+.jtool .jt29-seg--service { background: var(--jtool-muted); }
+.jtool .jt29-ledger__keys { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: var(--jtool-space-2) 0 0 !important; font-size: 0.85rem !important; color: var(--jtool-muted) !important; }
+.jtool .jt29-ledger__keys span { display: inline-flex; align-items: center; gap: 6px; }
+.jtool .jt29-k { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
+.jtool .jt29-k--back { background: var(--jtool-ok-bg); border: 2px solid var(--jtool-ok); margin-inline-end: 6px; vertical-align: -1px; }
+
+.jtool ol.jt29-years { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; align-items: end; margin: 0 !important; padding: var(--jtool-space-3) var(--jtool-space-2) 0 !important; list-style: none; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card) var(--jtool-radius-card) 0 0; background: var(--jtool-surface-2); }
+.jtool .jt29-yr { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 2px; min-height: 150px; margin: 0; padding: 0 0 6px; text-align: center; }
+.jtool .jt29-yr::before { content: none; }
+.jtool .jt29-yr__bar { order: 1; width: 100%; max-width: 38px; border-radius: 4px 4px 0 0; background: #A9C2DA; }
+.jtool .jt29-yr__pts { order: 0; font: 800 0.85rem/1 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt29-yr__y { order: 2; font: 700 0.8rem/1.2 var(--jtool-font); color: var(--jtool-ink); }
+.jtool .jt29-yr__v { order: 3; display: none; font-size: 0.75rem; color: var(--jtool-muted); }
+.jtool .jt29-yr--back .jt29-yr__bar { background: var(--jtool-ok); }
+.jtool .jt29-yr--back .jt29-yr__y { color: var(--jtool-ok); }
+.jtool .jt29-yr--here .jt29-yr__bar { background: var(--jtool-verdict-deep); }
+.jtool .jt29-yr--here .jt29-yr__y { font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.jtool .jt29-years__note { margin: 0 !important; padding: var(--jtool-space-2) var(--jtool-space-3); border: 1px solid var(--jtool-border); border-top: 0; border-radius: 0 0 var(--jtool-radius-card) var(--jtool-radius-card); font-size: 0.875rem !important; line-height: 1.5 !important; color: var(--jtool-ink) !important; }
+.jtool .jt29-years__note a { color: var(--jtool-verdict); font-weight: 800; text-decoration: underline; }
+
+.jtool ol.jt29-form { display: flex; flex-direction: column; gap: 0; margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt29-form li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 2px 10px; align-items: start; margin: 0; padding: 10px var(--jtool-space-4); border-bottom: 1px dashed var(--jtool-border); font-size: 0.925rem; line-height: 1.5; }
+.jtool .jt29-form li::before { content: none; }
+.jtool .jt29-form__box { grid-row: span 2; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 2px solid var(--jtool-verdict); border-radius: 4px; color: var(--jtool-verdict); font-weight: 800; }
+.jtool .jt29-form li strong { color: var(--jtool-verdict-deep); }
+.jtool .jt29-form li span:last-child { color: var(--jtool-muted); }
+.jtool .jt29-form__note, .jtool .jt29-two { margin: 0 !important; padding: var(--jtool-space-3) var(--jtool-space-4) !important; font-size: 0.9rem !important; line-height: 1.55 !important; color: var(--jtool-ink) !important; }
+
+@media (min-width: 601px) {
+	.jtool .jt29-kid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) 44px; }
+	.jtool .jt29-kid > .jtool-field:nth-child(2) { grid-column: auto; grid-row: auto; }
+	.jtool .jt29-yr__v { display: block; }
+	.jtool .jt29-yr__pts { font-size: 0.95rem; }
+}
+@media print { .jtool .jt29-years__note a { text-decoration: none; } }
+
+/* The rights wave (21.10.2026): the salaried refund calculator (hechzer-mas, prefix jt30). Mobile first (390 px), light.
+   Each tax year is a card copied from Form 106; the staircase is the year's brackets as steps with the reader's income
+   as a marker; the Form 106 map shows each line with the annual-report code it goes to. Instrument palette only. */
+.jtool ol.jt30-rows { display: flex; flex-direction: column; gap: var(--jtool-space-3); margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt30-row { display: flex; flex-direction: column; gap: var(--jtool-space-3); margin: 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-verdict); border-radius: var(--jtool-radius-field); background: var(--jtool-surface-2); }
+.jtool .jt30-row::before { content: none; }
+.jtool .jt30-row__head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--jtool-space-2); }
+.jtool .jt30-row__head .jtool-field { flex: 1 1 auto; max-width: 180px; }
+.jtool .jt30-profile { display: flex; flex-direction: column; gap: var(--jtool-space-4); margin-top: var(--jtool-space-3); }
+.jtool .jt30-kid { grid-template-columns: minmax(0, 1fr) 44px; }
+.jtool .jt30-kid > .jtool-field:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+
+.jtool .jt30-stairs { margin: 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt30-stairs svg { display: block; width: 100%; max-width: 560px; height: auto; margin-inline: auto; }
+.jtool .jt30-axis { stroke: var(--jtool-field-border); stroke-width: 1.5; }
+.jtool .jt30-st--paid { fill: var(--jtool-verdict); }
+.jtool .jt30-st--free { fill: var(--jtool-surface-2); stroke: var(--jtool-field-border); stroke-width: 1; stroke-dasharray: 4 3; }
+.jtool .jt30-st--surtax { fill: var(--jtool-muted); opacity: 0.55; }
+.jtool .jt30-st__rate { fill: var(--jtool-verdict-deep); font: 800 14px/1 var(--jtool-font); }
+.jtool .jt30-st__cap { fill: var(--jtool-muted); font: 600 12px/1 var(--jtool-font); }
+.jtool .jt30-mark { stroke: var(--jtool-ok); stroke-width: 2.5; }
+.jtool .jt30-mark__t { fill: var(--jtool-ok); font: 800 14px/1 var(--jtool-font); }
+.jtool .jt30-stairs figcaption { margin-top: var(--jtool-space-2); font-size: 0.875rem; line-height: 1.5; color: var(--jtool-muted); }
+
+.jtool .jt30-f106 { border: 1.5px solid var(--jtool-verdict-deep); border-radius: 6px; background: #fff; overflow: hidden; }
+.jtool .jt30-f106__head { display: flex; justify-content: space-between; align-items: center; gap: var(--jtool-space-2); padding: 8px var(--jtool-space-3); background: var(--jtool-verdict-deep); color: #fff; font-size: 0.9rem; }
+.jtool .jt30-f106__head strong { font-size: 1rem; letter-spacing: 0.02em; }
+.jtool .jt30-f106__months { padding: 8px var(--jtool-space-3); border-bottom: 1px solid var(--jtool-border); font-size: 0.85rem; color: var(--jtool-muted); }
+.jtool .jt30-f106__months ol { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 2px; margin: 6px 0 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt30-m { margin: 0; padding: 2px 0; border: 1px solid var(--jtool-border); border-radius: 3px; text-align: center; font: 700 0.75rem/1.4 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt30-m::before { content: none; }
+.jtool .jt30-m--on { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt30-f106 dl { margin: 0; }
+.jtool .jt30-f106__line { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 10px; padding: 8px var(--jtool-space-3); border-bottom: 1px dashed var(--jtool-border); }
+.jtool .jt30-f106__line dt { flex: 1 1 180px; font-size: 0.875rem; color: var(--jtool-ink); }
+.jtool .jt30-f106__line dd { display: flex; align-items: center; gap: 8px; margin: 0; font-weight: 800; font-variant-numeric: tabular-nums; }
+.jtool .jt30-code { display: inline-flex; align-items: center; min-height: 26px; padding: 0 6px; border: 1.5px solid var(--jtool-verdict); border-radius: 4px; color: var(--jtool-verdict); font: 800 0.85rem/1 var(--jtool-font); letter-spacing: 0.04em; }
+.jtool .jt30-f106__note { margin: 0 !important; padding: 8px var(--jtool-space-3) !important; font-size: 0.85rem !important; line-height: 1.5 !important; color: var(--jtool-muted) !important; }
+.jtool .jt30-pts { margin: 0 !important; padding: 0 var(--jtool-space-4) var(--jtool-space-4) !important; }
+.jtool .jt30-pts a { color: var(--jtool-verdict); font-weight: 800; text-decoration: underline; }
+
+@media (min-width: 601px) {
+	.jtool .jt30-kid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) 44px; }
+	.jtool .jt30-kid > .jtool-field:nth-child(2) { grid-column: auto; grid-row: auto; }
+}
+@media print { .jtool .jt30-row, .jtool .jt30-profile { display: none; } }
+
+/* The rights wave (21.10.2026): dmei-avtala, unemployment benefit (jt31). The picture is the Institute's benefit ledger:
+   a month per row, a calendar day per cell (Saturday never paid, the waiting days hatched in slate, the 90 days after a
+   resignation in pale slate, the paid days in navy, from day 126 in deep teal), with the daily amount drawn against the
+   dashed ceiling line above it. Mobile first (390 px), the instrument's own --jtool-* palette only. */
+.jtool .jt31-why { margin: 4px 0 !important; padding-inline-start: 18px !important; font-size: 0.875rem; line-height: 1.5; color: var(--jtool-muted); }
+.jtool .jt31-why li { margin: 0 0 2px !important; }
+.jt31-six { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--jtool-space-2); margin-top: 8px; }
+
+/* The daily amount against the ceiling line */
+.jtool figure.jt31-ch { margin: 0; padding: 12px 14px 10px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jt31-ch__svg { display: block; width: 100%; height: auto; direction: ltr; }
+.jt31-ch__amt { fill: var(--jtool-verdict); }
+.jt31-ch__cap { fill: none; stroke: var(--jtool-danger); stroke-width: 2; stroke-dasharray: 6 3; }
+.jt31-ch__base { stroke: var(--jtool-field-border); stroke-width: 1; }
+.jt31-ch__step { stroke: var(--jtool-verdict-deep); stroke-width: 1; stroke-dasharray: 2 2; }
+.jt31-ch__t { font: 700 11px var(--jtool-font); fill: var(--jtool-muted); }
+.jt31-ch__v { font: 800 12px var(--jtool-font); fill: var(--jtool-verdict-deep); }
+.jt31-ch__v--cap { fill: var(--jtool-danger); font-weight: 700; }
+.jt31-ch__v--in { fill: #fff; }
+.jtool .jt31-ch__cap-t { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; font-size: 0.8125rem; line-height: 1.4; color: var(--jtool-muted); }
+.jt31-ch__cap-t span { display: inline-flex; align-items: center; gap: 6px; }
+.jt31-k { display: inline-block; flex: none; width: 16px; height: 10px; border-radius: 2px; }
+.jt31-k--amt { background: var(--jtool-verdict); }
+.jt31-k--cap { height: 0; border-radius: 0; border-top: 2px dashed var(--jtool-danger); }
+
+/* The ledger: a month per row, a day per cell */
+.jt31-led { padding: 12px 14px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt31-led__h { margin: 0 0 8px !important; font: 700 0.875rem/1.3 var(--jtool-font) !important; color: var(--jtool-muted) !important; }
+.jtool ol.jt31-led__rows { display: flex; flex-direction: column; gap: 8px; margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt31-led__rows li::before { content: none; }
+.jtool .jt31-led__row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 2px 8px; margin: 0 !important; padding: 0 0 8px; border-bottom: 1px solid var(--jtool-surface-2); }
+.jt31-led__m { font: 800 0.9rem/1.2 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jt31-led__sum { font-weight: 800; text-align: end; font-variant-numeric: tabular-nums; }
+.jt31-led__sum small { display: block; font-size: 0.75rem; font-weight: 600; color: var(--jtool-muted); }
+.jt31-led__strip { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(31, minmax(0, 1fr)); gap: 2px; }
+.jt31-led__note { grid-column: 1 / -1; font-size: 0.75rem; line-height: 1.4; color: var(--jtool-muted); }
+.jt31-c { display: block; height: 14px; border: 1px solid var(--jtool-border); border-radius: 2px; background: #fff; }
+.jt31-c--paid { background: var(--jtool-verdict); border-color: var(--jtool-verdict); }
+.jt31-c--paid2 { background: #0B6470; border-color: #0B6470; }
+.jt31-c--wait { background: repeating-linear-gradient(135deg, #6F8091 0 2px, #E3EAF1 2px 4px); border-color: #6F8091; }
+.jt31-c--hold { background: #C9D3DD; border-color: #9FB0C1; }
+.jt31-c--sat { background: var(--jtool-surface-2); border-color: transparent; }
+.jt31-c--pre, .jt31-c--post { background: transparent; border-style: dashed; opacity: 0.55; }
+.jt31-c--first { outline: 2px solid var(--jtool-ok); outline-offset: 1px; }
+.jt31-c--step { border-top: 3px solid var(--jtool-danger); }
+.jt31-c--last { outline: 2px solid var(--jtool-verdict-deep); outline-offset: 1px; }
+.jtool .jt31-led__legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 10px 0 0 !important; font-size: 0.8125rem !important; line-height: 1.4; color: var(--jtool-muted) !important; }
+.jt31-led__legend span { display: inline-flex; align-items: center; gap: 6px; }
+.jt31-led__legend .jt31-c { flex: none; width: 12px; height: 12px; }
+
+/* The gate, the checklist and the notes */
+.jtool ul.jt31-gate, .jtool ul.jt31-info { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 10px 16px 12px !important; list-style: none; }
+.jtool .jt31-gate li::before, .jtool .jt31-info li::before { content: none; }
+.jt31-gate__i { font-size: 0.95rem; line-height: 1.5; }
+.jt31-gate__i--ok strong { color: var(--jtool-ok); }
+.jt31-gate__i--no strong { color: var(--jtool-danger); }
+.jt31-info li { font-size: 0.9rem; line-height: 1.55; color: var(--jtool-ink); }
+.jtool ol.jt31-list { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 10px 16px 12px !important; padding-inline-start: 34px !important; }
+.jt31-list li { font-size: 0.95rem; line-height: 1.55; }
+.jt31-scns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (min-width: 600px) {
+	.jt31-six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+	.jt31-c { height: 16px; }
+}
+@media (min-width: 900px) {
+	.jt31-scns { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+@media print {
+	.jtool figure.jt31-ch, .jt31-led, .jt31-led__row { break-inside: avoid; }
+	.jt31-c--paid, .jt31-c--paid2, .jt31-c--wait, .jt31-c--hold { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+
+/* The rights wave (21.10.2026): dmei-leida, maternity allowance and the birth grant (jt32). The picture is the leave
+   calendar: a card per week from the stop day, a cell per day (paid days before the birth in a lighter navy, paid days in
+   navy, the extensions in deep teal, the partner's days in deep green, the unpaid weeks of the job-protected leave in pale
+   slate, the 60 days of protection hatched in slate), the birth day ringed, the last paid day and the return marked.
+   Mobile first (390 px), the instrument's own --jtool-* palette only. */
+.jt32-six { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--jtool-space-2); margin-top: 8px; }
+
+/* The leave calendar: a card per week, a cell per day */
+.jt32-cal { padding: 12px 14px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt32-cal__h { margin: 0 0 8px !important; font: 700 0.875rem/1.3 var(--jtool-font) !important; color: var(--jtool-muted) !important; }
+.jtool ol.jt32-cal__wks { display: grid; grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); gap: 6px; margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt32-cal__wks li::before { content: none; }
+.jtool .jt32-wk { display: flex; flex-direction: column; gap: 2px; margin: 0 !important; padding: 4px 5px 5px; border: 1px solid var(--jtool-border); border-radius: 6px; background: #fff; }
+.jt32-wk--mark { border-color: var(--jtool-verdict-deep); }
+.jt32-wk__n { font: 800 0.8rem/1 var(--jtool-font); color: var(--jtool-verdict-deep); font-variant-numeric: tabular-nums; }
+.jt32-wk__d { font: 600 0.7rem/1.1 var(--jtool-font); color: var(--jtool-muted); font-variant-numeric: tabular-nums; direction: ltr; text-align: end; }
+.jt32-wk__days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 1px; margin-top: 2px; direction: rtl; }
+.jt32-wk__m { font: 700 0.68rem/1.1 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jt32-c { display: block; height: 12px; border: 1px solid var(--jtool-border); border-radius: 2px; background: #fff; }
+.jt32-c--pre { background: #4F7FAE; border-color: #4F7FAE; }
+.jt32-c--paid { background: var(--jtool-verdict); border-color: var(--jtool-verdict); }
+.jt32-c--ext { background: #0B6470; border-color: #0B6470; }
+.jt32-c--partner { background: var(--jtool-ok); border-color: var(--jtool-ok); }
+.jt32-c--unpaid { background: #C9D3DD; border-color: #9FB0C1; }
+.jt32-c--protect { background: repeating-linear-gradient(135deg, #6F8091 0 2px, #E3EAF1 2px 4px); border-color: #6F8091; }
+.jt32-c--gap { background: transparent; border-style: dashed; border-color: var(--jtool-field-border); }
+.jt32-c--post { background: transparent; border-color: var(--jtool-surface-2); }
+.jt32-c--prot { border-bottom: 3px solid #6F8091; }
+.jt32-c--birth { outline: 2px solid var(--jtool-verdict-deep); outline-offset: 1px; box-shadow: inset 0 0 0 2px #fff; }
+.jt32-c--end { border-top: 3px solid var(--jtool-danger); }
+.jt32-c--back { outline: 2px solid var(--jtool-ok); outline-offset: 1px; }
+.jtool .jt32-cal__legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 10px 0 0 !important; font-size: 0.8125rem !important; line-height: 1.4; color: var(--jtool-muted) !important; }
+.jt32-cal__legend span { display: inline-flex; align-items: center; gap: 6px; }
+.jt32-cal__legend .jt32-c { flex: none; width: 12px; height: 12px; }
+
+/* The gate, the checklist and the notes */
+.jtool ul.jt32-gate, .jtool ul.jt32-info { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 10px 16px 12px !important; list-style: none; }
+.jtool .jt32-gate li::before, .jtool .jt32-info li::before { content: none; }
+.jt32-gate__i { font-size: 0.95rem; line-height: 1.5; }
+.jt32-gate__i--ok strong { color: var(--jtool-ok); }
+.jt32-gate__i--no strong { color: var(--jtool-danger); }
+.jt32-info li { font-size: 0.9rem; line-height: 1.55; color: var(--jtool-ink); }
+.jtool ol.jt32-list { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 10px 16px 12px !important; padding-inline-start: 34px !important; }
+.jt32-list li { font-size: 0.95rem; line-height: 1.55; }
+
+@media (min-width: 600px) {
+	.jt32-six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+	.jtool ol.jt32-cal__wks { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); }
+	.jt32-c { height: 14px; }
+}
+@media print {
+	.jt32-cal, .jt32-wk { break-inside: avoid; }
+	.jt32-c--pre, .jt32-c--paid, .jt32-c--ext, .jt32-c--partner, .jt32-c--unpaid, .jt32-c--protect { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+
+/* The rights wave (21.10.2026): kitzbat-nechut, the general disability pension (jt33). Two pictures from the Institute's
+   own forms: the degree ladder (the medical-disability scale with its 25/40/60% marks, then one rung per degree of
+   incapacity with the monthly pension for the reader's family, the reader's rung in navy) and the wage-and-pension ledger
+   (a column per wage step: the wage in pale slate, the pension in navy on top, the dashed line where schedule 8.1 starts
+   to cut and the red line where the pension ends, the reader's wage in green). Mobile first (390 px), the instrument's own
+   --jtool-* palette only. */
+.jt33-meds { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--jtool-space-2); margin-top: 8px; }
+
+/* The degree ladder */
+.jtool figure.jt33-lad { margin: 0; padding: 12px 14px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt33-lad__h { margin: 0 0 10px; font: 700 0.875rem/1.35 var(--jtool-font); color: var(--jtool-muted); }
+.jt33-scale { display: block; margin: 0 0 12px; }
+.jt33-scale__track { position: relative; display: block; height: 10px; border: 1px solid var(--jtool-field-border); border-radius: 5px; background: var(--jtool-surface-2); }
+.jt33-scale__fill { position: absolute; inset-block: 0; inset-inline-start: 0; display: block; border-radius: 4px; background: var(--jtool-verdict); }
+.jt33-scale__fill--no { background: var(--jtool-danger); }
+.jt33-scale__tick { position: absolute; top: -4px; width: 2px; height: 16px; margin-inline-start: -1px; background: var(--jtool-verdict-deep); }
+.jt33-scale__tick--single { background: var(--jtool-muted); height: 12px; top: -2px; }
+.jt33-scale__tick--hm { background: #0B6470; }
+.jt33-scale__one { position: absolute; top: 10px; width: 0; height: 0; margin-inline-start: -5px; border: 5px solid transparent; border-bottom-color: var(--jtool-muted); }
+.jt33-scale__labels { position: relative; display: block; height: 18px; margin-top: 4px; }
+.jt33-scale__labels em { position: absolute; top: 0; transform: translateX(50%); font: 700 0.75rem/1.2 var(--jtool-font); font-style: normal; color: var(--jtool-verdict-deep); font-variant-numeric: tabular-nums; unicode-bidi: isolate; white-space: nowrap; }
+.jtool .jt33-scale__cap { display: block; margin-top: 2px; font-size: 0.8125rem; line-height: 1.4; color: var(--jtool-muted); }
+.jtool ol.jt33-lad__rungs { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt33-lad__rungs li::before { content: none; }
+.jtool .jt33-rung { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; align-items: center; gap: 8px; margin: 0 !important; padding: 6px 8px; border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-field-border); border-radius: var(--jtool-radius-field); background: #fff; }
+.jt33-rung__d { font: 800 0.95rem/1.2 var(--jtool-font); color: var(--jtool-verdict-deep); font-variant-numeric: tabular-nums; }
+.jt33-rung__bar { display: block; height: 10px; border-radius: 3px; background: var(--jtool-surface-2); overflow: hidden; }
+.jt33-rung__bar i { display: block; height: 100%; background: #9FB0C1; }
+.jt33-rung__v { font-weight: 800; text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jt33-rung__v small { display: block; font-size: 0.75rem; font-weight: 700; color: var(--jtool-verdict); }
+.jtool .jt33-rung--here { border-color: var(--jtool-verdict); border-inline-start-color: var(--jtool-verdict); background: var(--jtool-verdict-tint); }
+.jt33-rung--here .jt33-rung__bar i { background: var(--jtool-verdict); }
+.jt33-rung--none .jt33-rung__d, .jt33-rung--none .jt33-rung__v { color: var(--jtool-muted); font-weight: 700; font-size: 0.875rem; }
+
+/* The wage-and-pension ledger */
+.jtool figure.jt33-ch { margin: 0; padding: 12px 14px 10px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jt33-ch__svg { display: block; width: 100%; height: auto; direction: ltr; }
+.jt33-ch__w { fill: #C9D3DD; }
+.jt33-ch__p { fill: var(--jtool-verdict); }
+.jt33-ch__p--here { fill: var(--jtool-verdict-deep); }
+.jt33-ch__base { stroke: var(--jtool-field-border); stroke-width: 1; }
+.jt33-ch__l { stroke-width: 1.5; stroke-dasharray: 4 3; }
+.jt33-ch__l--cut { stroke: var(--jtool-verdict-deep); }
+.jt33-ch__l--end { stroke: var(--jtool-danger); }
+.jt33-ch__you { stroke: var(--jtool-ok); stroke-width: 2.5; }
+.jt33-ch__t { font: 700 11px var(--jtool-font); fill: var(--jtool-muted); }
+.jtool .jt33-ch__cap { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; font-size: 0.8125rem; line-height: 1.4; color: var(--jtool-muted); }
+.jt33-ch__cap span { display: inline-flex; align-items: center; gap: 6px; }
+.jt33-k { display: inline-block; flex: none; width: 16px; height: 10px; border-radius: 2px; }
+.jt33-k--w { background: #C9D3DD; }
+.jt33-k--p { background: var(--jtool-verdict); }
+.jt33-k--cut, .jt33-k--end, .jt33-k--you { height: 0; border-radius: 0; border-top: 2px dashed var(--jtool-verdict-deep); }
+.jt33-k--end { border-top-color: var(--jtool-danger); }
+.jt33-k--you { border-top: 3px solid var(--jtool-ok); }
+.jtool .jt33-note { margin: 0 !important; padding: 10px 16px !important; font-size: 0.9rem; line-height: 1.55; color: var(--jtool-ink); }
+
+/* The gate, the ledger table, the dates, the checklist and the notes */
+.jtool ul.jt33-gate, .jtool ul.jt33-info { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 10px 16px 12px !important; list-style: none; }
+.jtool .jt33-gate li::before, .jtool .jt33-info li::before { content: none; }
+.jt33-gate__i { font-size: 0.95rem; line-height: 1.5; }
+.jt33-gate__i--ok strong { color: var(--jtool-ok); }
+.jt33-gate__i--check strong { color: var(--jtool-warn); }
+.jt33-gate__i--no strong { color: var(--jtool-danger); }
+.jtool .jt33-wsteps { margin: 0 !important; padding: 0 16px 12px !important; font-size: 0.875rem; line-height: 1.5; color: var(--jtool-muted); }
+.jtool tr.jt33-you td { background: var(--jtool-verdict-tint); font-weight: 800; }
+.jtool tr.jt33-dl--key td { font-weight: 700; }
+.jt33-info li { font-size: 0.9rem; line-height: 1.55; color: var(--jtool-ink); }
+.jtool ol.jt33-list { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 10px 16px 12px !important; padding-inline-start: 34px !important; }
+.jt33-list li { font-size: 0.95rem; line-height: 1.55; }
+.jt33-scns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (min-width: 600px) {
+	.jt33-meds { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+	.jtool .jt33-rung { grid-template-columns: 80px minmax(0, 1fr) auto; }
+}
+@media (min-width: 900px) {
+	.jt33-scns { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media print {
+	.jtool figure.jt33-lad, .jtool figure.jt33-ch { break-inside: avoid; }
+	.jt33-ch__p, .jt33-ch__w, .jt33-rung__bar i, .jt33-scale__fill { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}

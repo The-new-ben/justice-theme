@@ -3196,5 +3196,1974 @@
   },
   "service_he": "האפוטרופוס הכללי, הרשם לענייני ירושה",
   "service_url": "https://www.gov.il/he/service/inheritance_order"
+ },
+ "rights_btl": {
+  "name_he": "נתוני היסוד של הביטוח הלאומי לשנת 2026",
+  "publisher_he": "המוסד לביטוח לאומי, מחקר ותכנון: נתונים כלליים",
+  "source_name": "המוסד לביטוח לאומי: שכר ממוצע לפי סעיפים 1 ו-2 לחוק הביטוח הלאומי; הסכום הבסיסי לחישוב קצבאות",
+  "source_url": "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%d7%a9%d7%9b%d7%a8%20%d7%9e%d7%9e%d7%95%d7%a6%d7%a2.aspx",
+  "checked_on": "2026-10-21",
+  "refresh_every_days": 365,
+  "next_update": "2027-01-01",
+  "law_he": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995",
+  "law_url": "https://www.btl.gov.il/Laws1/00_0001_000001.pdf",
+  "from": "2026-01-01",
+  "avg_wage": {
+   "s1_benefits": 13566,
+   "s1_contributions": 13566,
+   "s2_benefits": 13769,
+   "s2_contributions": 13769,
+   "section_1_he": "סעיף 1 לחוק",
+   "section_2_he": "סעיף 2 לחוק",
+   "url": "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%d7%a9%d7%9b%d7%a8%20%d7%9e%d7%9e%d7%95%d7%a6%d7%a2.aspx",
+   "he": "השכר הממוצע מ-1.1.2026: לפי סעיף 1 לחוק 13,566 ש\"ח (קצבאות ודמי ביטוח); לפי סעיף 2 לחוק 13,769 ש\"ח (קצבאות ודמי ביטוח)"
+  },
+  "basic_amount": {
+   "b1": 10514,
+   "b1_he": "סכום בסיסי 1: מענק לידה, דמי לידה, נפגעי עבודה, דמי תאונה, מענק בר מצווה, גמלה למתנדב ומענק פטירה",
+   "b2_child_first_fifth": 173,
+   "b2_child_second_to_fourth": 219,
+   "b2_income_support": 162,
+   "b2_he": "סכום בסיסי 2: קצבת ילדים ונקודת קצבה בהבטחת הכנסה",
+   "b3": 10382,
+   "b3_change_pct": 2.4,
+   "b3_he": "סכום בסיסי 3: קצבאות שאינן מעודכנות לפי סכום בסיסי אחר, וחישוב ההכנסה המרבית לגביית דמי ביטוח",
+   "b4": 11352,
+   "b4_change_pct": 3.4,
+   "b4_he": "סכום בסיסי 4: קצבת נכות כללית והקצבאות שסכומיהן נגזרים ממנה",
+   "url": "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%d7%94%d7%a1%d7%9b%d7%95%d7%9d%20%d7%94%d7%91%d7%a1%d7%99%d7%a1%d7%99%20%d7%9c%d7%97%d7%99%d7%a9%d7%95%d7%91%20%d7%a7%d7%a6%d7%91%d7%90%d7%95%d7%aa.aspx"
+  }
+ },
+ "rights_bituach": {
+  "name_he": "דמי ביטוח לאומי ודמי ביטוח בריאות לשנת 2026",
+  "publisher_he": "המוסד לביטוח לאומי: שיעורי וסכומי דמי ביטוח; חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995",
+  "source_name": "המוסד לביטוח לאומי: שיעורי דמי ביטוח לאומי ודמי ביטוח בריאות (החל מ-1.1.2026)",
+  "source_url": "https://www.btl.gov.il/Insurance/Rates/Pages/default.aspx",
+  "checked_on": "2026-10-21",
+  "refresh_every_days": 365,
+  "next_update": "2027-01-01",
+  "from": "2026-01-01",
+  "year": 2026,
+  "law_he": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995",
+  "law_url": "https://www.btl.gov.il/Laws1/00_0001_000015.pdf",
+  "law_ch1_url": "https://www.btl.gov.il/Laws1/00_0001_000001.pdf",
+  "law_tables_url": "https://www.btl.gov.il/Laws1/00_0001_000020.pdf",
+  "health_law_he": "חוק ביטוח בריאות ממלכתי, התשנ\"ד-1994",
+  "tier": {
+   "amount": 7703,
+   "from": "2026-01-01",
+   "base_amount": 7522,
+   "base_year": 2025,
+   "section": "סעיף 334(א) לחוק",
+   "amendment_he": "תיקון 256, מ-1.1.2026",
+   "he": "מדרגת הגבייה המופחתת: 7,522 ש\"ח, מתעדכנת ב-1 בינואר לפי עליית המדד בשנים 2026 עד 2028, ומ-2029 לפי עליית השכר הממוצע",
+   "not_60_he": "מ-1.1.2026 החוק לא מגדיר עוד את המדרגה כ-60% מהשכר הממוצע: התיקון החליף את הביטוי בכל מקום בביטוי \"מדרגת הגבייה המופחתת\"",
+   "url": "https://www.btl.gov.il/Laws1/00_0001_000015.pdf",
+   "published_url": "https://www.btl.gov.il/Insurance/Rates/Pages/%d7%9c%d7%a2%d7%95%d7%91%d7%93%d7%99%d7%9d%20%d7%a9%d7%9b%d7%99%d7%a8%d7%99%d7%9d.aspx"
+  },
+  "max": {
+   "amount": 51910,
+   "from": "2026-01-01",
+   "basic_amount": 10382,
+   "times": 5,
+   "section": "לוח י\"א, פרטים 1 ו-2; סעיף 348(א)",
+   "he": "ההכנסה המרבית החייבת בדמי ביטוח: הסכום הבסיסי כפול 5",
+   "url": "https://www.btl.gov.il/Laws1/00_0001_000020.pdf",
+   "published_url": "https://www.btl.gov.il/Insurance/Rates/Pages/%d7%9c%d7%a2%d7%95%d7%91%d7%93%d7%99%d7%9d%20%d7%a9%d7%9b%d7%99%d7%a8%d7%99%d7%9d.aspx"
+  },
+  "min_self": {
+   "amount": 3442,
+   "pct": 25,
+   "section": "לוח י\"א, פרט 2; סעיף 348(ב)",
+   "he": "עצמאי שהכנסתו נמוכה מההכנסה המזערית משלם כאילו הכנסתו היתה ההכנסה המזערית",
+   "lower_he": "לעצמאי אין הכנסה מזערית נמוכה יותר בלוח י\"א; הכנסה מזערית של 5% (פרט 3) חלה על מקבלי דמי אבטלה, מתנדבים בשירות לאומי ותלמידי ישיבה, ושל 15% (פרט 4) על מבוטח אחר",
+   "definition_he": "עובד עצמאי לעניין החוק: עוסק במשלח ידו 20 שעות בשבוע בממוצע לפחות, או שהכנסתו החודשית הממוצעת ממנו לפחות 50% מהשכר הממוצע, או 12 שעות בשבוע לפחות עם הכנסה שלא פחתה מהסכום שבלוח א'",
+   "definition_section": "סעיף 1 לחוק, הגדרת \"עובד עצמאי\"",
+   "url": "https://www.btl.gov.il/Insurance/Rates/Pages/%d7%9c%d7%a2%d7%a6%d7%9e%d7%90%d7%99%d7%9d.aspx",
+   "law_url": "https://www.btl.gov.il/Laws1/00_0001_000020.pdf",
+   "definition_url": "https://www.btl.gov.il/Laws1/00_0001_000001.pdf"
+  },
+  "passive_exempt": {
+   "amount": 3442,
+   "pct": 25,
+   "section": "סעיף 348(א1)",
+   "url": "https://www.btl.gov.il/Insurance/Rates/Pages/%d7%9e%d7%99%20%d7%a9%d7%90%d7%99%d7%a0%d7%9d%20%d7%a2%d7%95%d7%91%d7%93%d7%99%d7%9d%20%d7%95%d7%91%d7%a2%d7%9c%d7%99%20%d7%94%d7%9b%d7%a0%d7%a1%d7%94%20%d7%a9%d7%9c%d7%90%20%d7%9e%d7%a2%d7%91%d7%95%d7%93%d7%94.aspx"
+  },
+  "min_pension": {
+   "amount": 688.45,
+   "pct": 5,
+   "derived": true,
+   "section": "סעיף 345ב(ג)(2); לוח י\"א, פרט 3",
+   "url": "https://www.btl.gov.il/Laws1/00_0001_000015.pdf"
+  },
+  "employee": {
+   "url": "https://www.btl.gov.il/Insurance/Rates/Pages/%d7%9c%d7%a2%d7%95%d7%91%d7%93%d7%99%d7%9d%20%d7%a9%d7%9b%d7%99%d7%a8%d7%99%d7%9d.aspx",
+   "health_url": "https://www.btl.gov.il/Insurance/Health_Insurance/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%93%d7%9e%d7%99%20%d7%91%d7%99%d7%98%d7%95%d7%97%20%d7%91%d7%a8%d7%99%d7%90%d7%95%d7%aa.aspx",
+   "rates_from_he": "שיעורים בתוקף מ-1.2.2025, סכומי המדרגה והתקרה מ-1.1.2026",
+   "work": {
+    "he": "מגיל 18 ועד גיל הפרישה",
+    "row_he": "טור 1 בטופס 102",
+    "bl": [
+     1.04,
+     7
+    ],
+    "health": [
+     3.23,
+     5.17
+    ],
+    "employer": [
+     4.51,
+     7.6
+    ]
+   },
+   "u18": {
+    "he": "מי שטרם מלאו לו 18",
+    "bl": [0, 0],
+    "health": [0, 0],
+    "employer": [
+     0.61,
+     2.12
+    ]
+   },
+   "w_ret": {
+    "he": "אישה בין גיל הפרישה שלה לגיל הפרישה לגבר, שאינה מקבלת קצבת אזרח ותיק",
+    "total": [
+     3.95,
+     10.24
+    ],
+    "health": [
+     3.23,
+     5.17
+    ],
+    "bl": [
+     0.72,
+     5.07
+    ],
+    "derived": true,
+    "employer": [
+     4.17,
+     7.12
+    ]
+   },
+   "r67": {
+    "he": "נשים וגברים בין גיל 67 לגיל 70 שאינם מקבלים קצבת אזרח ותיק",
+    "total": [
+     3.93,
+     10.03
+    ],
+    "health": [
+     3.23,
+     5.17
+    ],
+    "bl": [
+     0.7,
+     4.86
+    ],
+    "derived": true,
+    "employer": [
+     4.13,
+     6.96
+    ]
+   },
+   "oap": {
+    "he": "נשים וגברים המקבלים קצבת אזרח ותיק",
+    "bl": [0, 0],
+    "health": [0, 0],
+    "employer": [
+     0.61,
+     2.12
+    ],
+    "section": "סעיף 342(ג)(2)",
+    "section_he": "המעסיק לא מנכה משכר מי שמקבל קצבת אזרח ותיק, ומי שהגיע לגיל 70"
+   },
+   "disabled": {
+    "he": "מקבלי קצבת נכות מעבודה או נכות כללית ויש להם אישור שנתי מהביטוח הלאומי",
+    "bl": [0, 0],
+    "health": [
+     3.23,
+     5.17
+    ],
+    "employer": [
+     0.61,
+     2.12
+    ]
+   }
+  },
+  "self": {
+   "url": "https://www.btl.gov.il/Insurance/Rates/Pages/%d7%9c%d7%a2%d7%a6%d7%9e%d7%90%d7%99%d7%9d.aspx",
+   "work": {
+    "he": "מגיל 18 ועד גיל הפרישה",
+    "bl": [
+     4.47,
+     12.83
+    ],
+    "health": [
+     3.23,
+     5.17
+    ]
+   },
+   "u18": {
+    "he": "מי שטרם מלאו לו 18 (פטור מדמי ביטוח בריאות)",
+    "bl": [
+     0.26,
+     0.78
+    ],
+    "health": [0, 0]
+   },
+   "oap": {
+    "he": "מי שמקבל קצבת אזרח ותיק (דמי ביטוח הבריאות מנוכים מהקצבה)",
+    "bl": [
+     0.26,
+     0.78
+    ],
+    "health": [0, 0]
+   },
+   "ret": {
+    "he": "מי שהגיע לגיל הפרישה ולא מקבל קצבת אזרח ותיק",
+    "total": [
+     6.92,
+     15.79
+    ],
+    "health": [
+     3.23,
+     5.17
+    ],
+    "bl": [
+     3.69,
+     10.62
+    ],
+    "derived": true
+   },
+   "deduct_pct": 52,
+   "deduct_section": "סעיף 47א(א) לפקודת מס הכנסה",
+   "deduct_url": "https://www.nevo.co.il/law_html/law01/255_001.htm",
+   "base_section": "סעיף 345(ב)(1)(א) לחוק",
+   "example_url": "https://www.btl.gov.il/Insurance/National%20Insurance/type_list/Self_Employed/Pages/hishov.dmey.bituach.aspx",
+   "example": {
+    "monthly_income": 12000,
+    "quarter_base": 34690,
+    "quarter_total": 3864
+   },
+   "advance_he": "עד השומה הסופית משלמים מקדמות לפי ההכנסה העדכנית שבידי הביטוח הלאומי; עם השומה מחושבים ההפרשים (סעיף 345(ב)(1) ו-(ג))"
+  },
+  "mixed": {
+   "section": "סעיף 342(ו)",
+   "url": "https://www.btl.gov.il/Insurance/National%20Insurance/type_list/%D7%A2%D7%95%D7%91%D7%93%20%D7%A9%D7%9B%D7%99%D7%A8%20%D7%95%D7%92%D7%9D%20%D7%A2%D7%95%D7%91%D7%93%20%D7%A2%D7%A6%D7%9E%D7%90%D7%99/Pages/default.aspx",
+   "he": "על ההכנסה כעצמאי חל השיעור המופחת רק על ההפרש בין השכר למדרגה המופחתת"
+  },
+  "pension": {
+   "url": "https://www.btl.gov.il/Insurance/Rates/Pages/%d7%9c%d7%9e%d7%a7%d7%91%d7%9c%d7%99%20%d7%a4%d7%a0%d7%a1%d7%99%d7%94%20%d7%9e%d7%95%d7%a7%d7%93%d7%9e%d7%aa.aspx",
+   "bl": [
+    1.02,
+    6.79
+   ],
+   "health": [
+    3.23,
+    5.17
+   ],
+   "section": "סעיף 345ב",
+   "cap_section": "סעיף 345ב(ג)(1)",
+   "with_work_section": "סעיף 345ב(ה)",
+   "definition_he": "קצבה המשתלמת מכוח חיקוק או הסכם עבודה לפני גיל הפרישה, אחרי פרישה מוחלטת או חלקית (סעיף 345ב(א))",
+   "exempt_he": "פטורים מניכוי מהפנסיה, באישור חתום מהביטוח הלאומי: אלמנה המקבלת קצבת שאירים או קצבת תלויים בנפגעי עבודה, ונכה המקבל קצבת נכות כללית בשיעור 75% (יציבה, או זמנית לשנה לפחות) או קצבת נכות מעבודה 100% לצמיתות",
+   "exempt_url": "https://www.btl.gov.il/Insurance/Pensyonerim/Pages/Ptor.aspx"
+  },
+  "none": {
+   "url": "https://www.btl.gov.il/Insurance/Rates/Pages/%d7%9e%d7%99%20%d7%a9%d7%90%d7%99%d7%a0%d7%9d%20%d7%a2%d7%95%d7%91%d7%93%d7%99%d7%9d%20%d7%95%d7%91%d7%a2%d7%9c%d7%99%20%d7%94%d7%9b%d7%a0%d7%a1%d7%94%20%d7%a9%d7%9c%d7%90%20%d7%9e%d7%a2%d7%91%d7%95%d7%93%d7%94.aspx",
+   "bl": 143,
+   "health": 123,
+   "total": 266,
+   "passive": {
+    "bl": [
+     6.92,
+     7
+    ],
+    "health": [
+     5.17,
+     5.17
+    ]
+   },
+   "example": {
+    "income": 12000,
+    "base": 8558,
+    "total": 1035
+   },
+   "homemaker_he": "אישה נשואה שאינה עובדת ובן זוגה מבוטח פטורה מדמי ביטוח לאומי ובריאות",
+   "homemaker_section": "סעיף 342(א) לחוק",
+   "homemaker_url": "https://www.btl.gov.il/Insurance/Health_Insurance/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%93%d7%9e%d7%99%20%d7%91%d7%99%d7%98%d7%95%d7%97%20%d7%91%d7%a8%d7%99%d7%90%d7%95%d7%aa.aspx"
+  },
+  "student": {
+   "total": 171,
+   "url": "https://www.btl.gov.il/Insurance/National%20Insurance/type_list/TlmidStodent/Pages/SecomTlmid.aspx",
+   "he": "תלמיד (סטודנט) שלא עובד: דמי ביטוח לאומי ובריאות בשיעור המינימום"
+  },
+  "oap_health": {
+   "single": 237,
+   "with_supplement": 123,
+   "couple": 340,
+   "url": "https://www.btl.gov.il/Insurance/Health_Insurance/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%93%d7%9e%d7%99%20%d7%91%d7%99%d7%98%d7%95%d7%97%20%d7%91%d7%a8%d7%99%d7%90%d7%95%d7%aa%20%d7%9c%d7%9e%d7%a7%d7%91%d7%9c%d7%99%20%d7%a7%d7%a6%d7%91%d7%90%d7%95%d7%aa%20%d7%9e%d7%9f%20%d7%94%d7%9e%d7%95%d7%a1%d7%93%20%d7%9c%d7%91%d7%99%d7%98%d7%95%d7%97%20%d7%9c%d7%90%d7%95%d7%9e%d7%99%20%d7%95%d7%9e%d7%92%d7%95%d7%a4%d7%99%d7%9d%20%d7%90%d7%97%d7%a8%d7%99%d7%9d.aspx",
+   "other_income_he": "מי שמקבל קצבת אזרח ותיק פטור מדמי ביטוח בריאות על הכנסה אחרת"
+  },
+  "coordination": {
+   "section_each": "סעיף 342(ב)",
+   "section_diff": "סעיף 342(ד)",
+   "section_secondary": "סעיף 342(ה)(3)",
+   "order_he": "שכר, הכנסה כעצמאי, הכנסה שלא מעבודה, פנסיה מוקדמת",
+   "when_url": "https://www.btl.gov.il/Insurance/Teum/Pages/mizakay.aspx",
+   "main_url": "https://www.btl.gov.il/Insurance/Teum/Pages/masik-ikari.aspx",
+   "refund_url": "https://www.btl.gov.il/Insurance/Teum/Hechzer/Pages/default.aspx",
+   "online_url": "https://b2b.btl.gov.il/BTL.ILG.Payments/HechzerDmeyBituachInfo.aspx",
+   "refund_years": 7,
+   "form_low": {
+    "number": "657",
+    "he": "בקשה לתיאום עבור עובד או מקבל פנסיה מוקדמת ממספר מקורות הכנסה",
+    "url": "https://www.btl.gov.il/%D7%98%D7%A4%D7%A1%D7%99%D7%9D%20%D7%95%D7%90%D7%99%D7%A9%D7%95%D7%A8%D7%99%D7%9D/forms/Employers_forms/Pages/t657.aspx",
+    "when_he": "ההכנסה אצל המעסיק העיקרי נמוכה ממדרגת הגבייה המופחתת"
+   },
+   "form_max": {
+    "number": "752",
+    "he": "בקשה לתיאום דמי ביטוח לבעלי הכנסות גבוהות מההכנסה המרבית",
+    "url": "https://www.btl.gov.il/%D7%98%D7%A4%D7%A1%D7%99%D7%9D%20%D7%95%D7%90%D7%99%D7%A9%D7%95%D7%A8%D7%99%D7%9D/forms/Employers_forms/Pages/bakashaLehejzerDmeBituhaj.aspx",
+    "when_he": "ההכנסה מכל המעסיקים יחד עולה על ההכנסה המרבית"
+   },
+   "current_year_he": "תיאום לשנה הנוכחית עושים דרך המעסיק או משלם הפנסיה, עם אישור לתיאום מהביטוח הלאומי"
+  },
+  "dues": {
+   "url": "https://www.btl.gov.il/Pages/BenefitsPaymentDates.aspx",
+   "standing_order_day": 22,
+   "howtopay_url": "https://www.btl.gov.il/Insurance/National%20Insurance/type_list/Self_Employed/Pages/howtopay.aspx",
+   "dates": [
+    "2026-01-15",
+    "2026-02-15",
+    "2026-03-15",
+    "2026-04-15",
+    "2026-05-15",
+    "2026-06-15",
+    "2026-07-15",
+    "2026-08-16",
+    "2026-09-15",
+    "2026-10-15",
+    "2026-11-15",
+    "2026-12-15"
+   ],
+   "he": "מועד הדיווח והתשלום של דמי הביטוח לעצמאים ולמעסיקים, לפי לוח המועדים של הביטוח הלאומי"
+  },
+  "advance_fix": {
+   "form": "672",
+   "he": "בקשה לתיקון מקדמות",
+   "url": "https://www.btl.gov.il/%D7%98%D7%A4%D7%A1%D7%99%D7%9D%20%D7%95%D7%90%D7%99%D7%A9%D7%95%D7%A8%D7%99%D7%9D/forms/insurance_forms/Pages/672%20-%20%D7%91%D7%A7%D7%A9%D7%94%20%D7%9C%D7%AA%D7%99%D7%A7%D7%95%D7%9F%20%D7%9E%D7%A7%D7%93%D7%9E%D7%95%D7%AA.aspx",
+   "page_url": "https://www.btl.gov.il/Insurance/National%20Insurance/type_list/Self_Employed/Pages/tikun.aspx",
+   "min_change_pct": 10,
+   "per_year": 4,
+   "rule_he": "רק אם ההכנסה השתנתה ב-10% לפחות, פעם אחת בכל רבעון"
+  },
+  "personal_url": "https://ps.btl.gov.il/",
+  "retirement": {
+   "url": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/gilMezake/Pages/gilPrisha.aspx",
+   "men": [67, 0],
+   "entitlement_age": 70,
+   "women": [
+    [
+     "1944-06",
+     60,
+     0
+    ],
+    [
+     "1944-08",
+     60,
+     4
+    ],
+    [
+     "1945-04",
+     60,
+     8
+    ],
+    [
+     "1945-12",
+     61,
+     0
+    ],
+    [
+     "1946-08",
+     61,
+     4
+    ],
+    [
+     "1947-04",
+     61,
+     8
+    ],
+    [
+     "1959-12",
+     62,
+     0
+    ],
+    [
+     "1960-12",
+     62,
+     4
+    ],
+    [
+     "1961-12",
+     62,
+     8
+    ],
+    [
+     "1962-12",
+     63,
+     0
+    ],
+    [
+     "1963-12",
+     63,
+     3
+    ],
+    [
+     "1964-12",
+     63,
+     6
+    ],
+    [
+     "1965-12",
+     63,
+     9
+    ],
+    [
+     "1966-12",
+     64,
+     0
+    ],
+    [
+     "1967-12",
+     64,
+     3
+    ],
+    [
+     "1968-12",
+     64,
+     6
+    ],
+    [
+     "1969-12",
+     64,
+     9
+    ]
+   ],
+   "women_after": [65, 0]
+  }
+ },
+ "rights_tax": {
+  "name_he": "מס הכנסה לשכירים 2020 עד 2026: מדרגות, נקודות זיכוי והחזר מס",
+  "publisher_he": "רשות המסים בישראל; פקודת מס הכנסה [נוסח חדש]",
+  "source_name": "רשות המסים: לוח עזר לחישוב מס הכנסה ממשכורת ושכר עבודה, ינואר 2020 עד ינואר 2026 (מעודכן לאפריל 2026)",
+  "source_url": "https://www.gov.il/he/pages/income-tax-monthly-deductions-booklet",
+  "checked_on": "2026-10-21",
+  "refresh_every_days": 365,
+  "next_update": "2027-01-01",
+  "law_he": "פקודת מס הכנסה [נוסח חדש]",
+  "law_url": "https://www.nevo.co.il/law_html/law00/84255.htm",
+  "law_current_to": "2026-09-27",
+  "current_year": 2026,
+  "first_year": 2020,
+  "years": {
+   "2020": {
+    "year": 2020,
+    "point_month": 219,
+    "point_year": 2628,
+    "brackets": [
+     [75960, 10],
+     [108960, 14],
+     [174960, 20],
+     [243120, 31],
+     [505920, 35],
+     [null, 47]
+    ],
+    "surtax": {
+     "threshold": 651600,
+     "pct": 3
+    },
+    "donation": {
+     "min": 190,
+     "max": 9350000
+    },
+    "source_he": "לוח עזר ינואר 2020",
+    "url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/luachyanoar.pdf"
+   },
+   "2021": {
+    "year": 2021,
+    "point_month": 218,
+    "point_year": 2616,
+    "brackets": [
+     [75480, 10],
+     [108360, 14],
+     [173880, 20],
+     [241680, 31],
+     [502920, 35],
+     [null, 47]
+    ],
+    "surtax": {
+     "threshold": 647640,
+     "pct": 3
+    },
+    "donation": {
+     "min": 190,
+     "max": 9294000
+    },
+    "source_he": "לוח עזר ינואר 2021 (מדד שלילי, 0.6%-)",
+    "url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/itc_itc_necuyim2021-1.pdf"
+   },
+   "2022": {
+    "year": 2022,
+    "point_month": 223,
+    "point_year": 2676,
+    "brackets": [
+     [77400, 10],
+     [110880, 14],
+     [178080, 20],
+     [247440, 31],
+     [514920, 35],
+     [null, 47]
+    ],
+    "surtax": {
+     "threshold": 663240,
+     "pct": 3
+    },
+    "donation": {
+     "min": 190,
+     "max": 9517000
+    },
+    "source_he": "לוח עזר ינואר 2022",
+    "url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2022.pdf",
+    "change_he": "חוק הגדלת נקודות זיכוי להורים במס הכנסה (הוראת שעה) פורסם ב-18.5.2022, רטרואקטיבית מ-1.1.2022: נקודה נוספת לכל הורה לילד בן 6 עד 12",
+    "change_url": "https://www.gov.il/BlobFolder/dynamiccollectorresultitem/employers-info-190522/he/IncomeTax_IncomeTaxRepresentInfo_employers-info-180522.pdf",
+    "change_ages": [6, 12]
+   },
+   "2023": {
+    "year": 2023,
+    "point_month": 235,
+    "point_year": 2820,
+    "brackets": [
+     [81480, 10],
+     [116760, 14],
+     [187440, 20],
+     [260520, 31],
+     [542160, 35],
+     [null, 47]
+    ],
+    "surtax": {
+     "threshold": 698280,
+     "pct": 3
+    },
+    "donation": {
+     "min": 200,
+     "max": 10019808
+    },
+    "source_he": "לוח עזר ינואר 2023",
+    "url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2023.pdf",
+    "change_he": "לפי לוח העזר של ינואר 2023 הנקודה הנוספת לילד בן 6 עד 12 ניתנה בתלוש רק עד פברואר 2023; חוק הגדלת נקודות זיכוי להורים במס הכנסה והרחבת מענק עבודה, התשפ\"ג-2023 (ספר החוקים 3048) החיל אותה על כל שנת 2023",
+    "change_url": "https://www.gov.il/BlobFolder/dynamiccollectorresultitem/employers-info-030124/he/IncomeTax_employers-info-030124.pdf",
+    "change_ages": [6, 12]
+   },
+   "2024": {
+    "year": 2024,
+    "point_month": 242,
+    "point_year": 2904,
+    "brackets": [
+     [84120, 10],
+     [120720, 14],
+     [193800, 20],
+     [269280, 31],
+     [560280, 35],
+     [null, 47]
+    ],
+    "surtax": {
+     "threshold": 721560,
+     "pct": 3
+    },
+    "donation": {
+     "min": 207,
+     "max": 10354816
+    },
+    "source_he": "לוח עזר ינואר 2024",
+    "url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2024.pdf",
+    "change_he": "חוק סיוע להורים לילדים עד גיל שלוש פורסם ב-20.3.2024, רטרואקטיבית מ-1.1.2024: עוד נקודה בשנת הלידה, שתיים בגיל שנה ושנתיים ואחת בגיל שלוש",
+    "change_url": "https://www.gov.il/BlobFolder/dynamiccollectorresultitem/employers-info-260324/he/IncomeTax_employers-info-260324.pdf",
+    "change_ages": [0, 3]
+   },
+   "2025": {
+    "year": 2025,
+    "point_month": 242,
+    "point_year": 2904,
+    "brackets": [
+     [84120, 10],
+     [120720, 14],
+     [193800, 20],
+     [269280, 31],
+     [560280, 35],
+     [null, 47]
+    ],
+    "surtax": {
+     "threshold": 721560,
+     "pct": 3
+    },
+    "donation": {
+     "min": 207,
+     "max": 10354816
+    },
+    "source_he": "לוח עזר ינואר 2025 (הקפאה)",
+    "url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2025.pdf",
+    "frozen": true
+   },
+   "2026": {
+    "year": 2026,
+    "point_month": 242,
+    "point_year": 2904,
+    "brackets": [
+     [84120, 10],
+     [120720, 14],
+     [228000, 20],
+     [301200, 31],
+     [560280, 35],
+     [null, 47]
+    ],
+    "surtax": {
+     "threshold": 721560,
+     "pct": 3
+    },
+    "donation": {
+     "min": 207,
+     "max": 10354816
+    },
+    "source_he": "לוח עזר ינואר 2026, מעודכן לאפריל 2026",
+    "url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2026.pdf",
+    "frozen": true,
+    "change_he": "מדרגת 20% עד 228,000 ומדרגת 31% עד 301,200 בשנה, רטרואקטיבית מ-1.1.2026 (חוק ההתייעלות הכלכלית 2026, פורסם 31.3.2026)",
+    "change_url": "https://www.gov.il/BlobFolder/dynamiccollectorresultitem/employers-info-300326-1/he/IncomeTax_IncomeTaxEmployersInfo_employers-info-300326-1.pdf"
+   }
+  },
+  "freeze": {
+   "he": "חוק ההתייעלות הכלכלית (תיקוני חקיקה להשגת יעדי התקציב לשנת התקציב 2025) (הקפאת עדכוני מס ומס יסף), התשפ\"ה-2024: ב-1 בינואר 2025 עד 2027 לא מתואמים הסכומים שמתואמים לפי סעיף 120ב",
+   "from": 2025,
+   "to": 2027,
+   "law_he": "ספר החוקים 3342, 26.12.2024",
+   "url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2025.pdf"
+  },
+  "brackets_section": "סעיף 121",
+  "surtax_section": "סעיף 121ב",
+  "surtax_capital_he": "מ-2025 עוד 2% על הכנסה ממקורות הוניים מעל אותו סכום (סעיף 121ב(א1)); לא חל על משכורת",
+  "point_section": "סעיף 33א",
+  "points": {
+   "resident": {
+    "pts": 2,
+    "section": "סעיף 34",
+    "he": "תושב ישראל"
+   },
+   "travel": {
+    "pts": 0.25,
+    "section": "סעיף 36",
+    "he": "זיכוי נסיעה לתושב ישראל"
+   },
+   "woman": {
+    "pts": 0.5,
+    "section": "סעיף 36א",
+    "he": "אישה"
+   },
+   "spouse": {
+    "pts": 1,
+    "section": "סעיף 37",
+    "he": "בן או בת זוג שכלכלתם עליכם, כשאחד מכם הגיע לגיל פרישה או עיוור או נכה לפי סעיף 9(5)"
+   },
+   "single_parent": {
+    "pts": 1,
+    "section": "סעיף 40(ב)(2)",
+    "he": "הורה במשפחה חד-הורית שהילדים אצלו, מקבל בגינם קצבת ילדים ולא מנהל משק בית משותף עם יחיד אחר"
+   },
+   "sole_parent": {
+    "pts": 1,
+    "section": "סעיף 40(ב)(1ב)",
+    "he": "הורה יחיד: ההורה השני נפטר או לא רשום במרשם האוכלוסין; מקבל את שתי העמודות ועוד נקודה"
+   },
+   "support": {
+    "pts": 1,
+    "section": "סעיף 40(ב)(2)",
+    "he": "הורה החי בנפרד שהילדים לא אצלו ומשתתף בכלכלתם לפי פסק דין (נקודה אחת, או חלק ממנה לפי חלקו)"
+   },
+   "alimony": {
+    "pts": 1,
+    "section": "סעיף 40א",
+    "he": "גרוש שנישא שוב ומשלם מזונות לבן הזוג לשעבר"
+   },
+   "disabled_child": {
+    "pts": 2,
+    "section": "סעיף 45(א)",
+    "he": "לכל ילד משותק, עיוור או עם מוגבלות שכלית-התפתחותית; לאחד מבני הזוג, לפי בחירתם; לא יחד עם זיכוי לפי סעיף 44"
+   },
+   "kids_sections": {
+    "married_woman": "סעיף 66(ג)(4)",
+    "married_man": "סעיף 66(ג)(5)",
+    "single_with": "סעיף 40(ב)(1)",
+    "single_without": "סעיף 40(ב)(1א)"
+   },
+   "kids_max_age": 18,
+   "kids_single_max_age": 18,
+   "kids_move_he": "אם רשאית להעביר נקודה אחת משנת הלידה לשנה שאחריה (טופס 116ד); הסכום הכולל לא משתנה",
+   "kids": [
+    {
+     "from": 2020,
+     "to": 2021,
+     "col1": [
+      [
+       0,
+       0,
+       1.5
+      ],
+      [
+       1,
+       5,
+       2.5
+      ],
+      [6, 17, 1],
+      [
+       18,
+       18,
+       0.5
+      ]
+     ],
+     "col2": [
+      [
+       0,
+       0,
+       1.5
+      ],
+      [
+       1,
+       5,
+       2.5
+      ]
+     ],
+     "source_he": "הודעת רשות המסים למעסיקים, 18.5.2022: הטבלה \"לפני הוראת השעה\"; לוחות העזר 2020 ו-2021, פרק ז",
+     "url": "https://www.gov.il/BlobFolder/dynamiccollectorresultitem/employers-info-190522/he/IncomeTax_IncomeTaxRepresentInfo_employers-info-180522.pdf"
+    },
+    {
+     "from": 2022,
+     "to": 2023,
+     "col1": [
+      [
+       0,
+       0,
+       1.5
+      ],
+      [
+       1,
+       5,
+       2.5
+      ],
+      [6, 12, 2],
+      [13, 17, 1],
+      [
+       18,
+       18,
+       0.5
+      ]
+     ],
+     "col2": [
+      [
+       0,
+       0,
+       1.5
+      ],
+      [
+       1,
+       5,
+       2.5
+      ],
+      [6, 12, 1]
+     ],
+     "source_he": "חוק הגדלת נקודות זיכוי להורים במס הכנסה (הוראת שעה), התשפ\"ב-2022: נקודה נוספת לכל הורה לילד בן 6 עד 12, בשנים 2022 ו-2023 (הודעות רשות המסים 18.5.2022 ו-3.1.2024)",
+     "url": "https://www.gov.il/BlobFolder/dynamiccollectorresultitem/employers-info-030124/he/IncomeTax_employers-info-030124.pdf"
+    },
+    {
+     "from": 2024,
+     "to": 2026,
+     "col1": [
+      [
+       0,
+       0,
+       2.5
+      ],
+      [
+       1,
+       2,
+       4.5
+      ],
+      [
+       3,
+       3,
+       3.5
+      ],
+      [
+       4,
+       5,
+       2.5
+      ],
+      [6, 17, 2],
+      [
+       18,
+       18,
+       0.5
+      ]
+     ],
+     "col2": [
+      [
+       0,
+       0,
+       2.5
+      ],
+      [
+       1,
+       2,
+       4.5
+      ],
+      [
+       3,
+       3,
+       3.5
+      ],
+      [
+       4,
+       5,
+       2.5
+      ],
+      [6, 17, 1]
+     ],
+     "source_he": "חוק הגדלת נקודות זיכוי להורים במס הכנסה, התשפ\"ג-2023 (נקודה נוספת לילד בן 6 עד 17 מ-2024) וחוק סיוע להורים לילדים עד גיל שלוש, התשפ\"ד-2024 (תיקון 271: עוד נקודה בשנת הלידה, שתיים בגיל שנה ושנתיים ואחת בגיל שלוש, מ-1.1.2024)",
+     "url": "https://www.gov.il/BlobFolder/dynamiccollectorresultitem/employers-info-260324/he/IncomeTax_employers-info-260324.pdf"
+    }
+   ],
+   "soldier": {
+    "months": 36,
+    "full_rate_num": 1,
+    "full_rate_den": 6,
+    "short_rate_num": 1,
+    "short_rate_den": 12,
+    "min_months_man": 23,
+    "min_months_woman": 22,
+    "section": "סעיף 39א",
+    "he": "חייל משוחרר: 1/6 נקודה לחודש (2 בשנה) ב-36 החודשים שאחרי חודש השחרור, אם שירת לפחות 23 חודשים מלאים (גבר) או 22 (אישה); אחרת 1/12 לחודש. שירות לאומי נחשב שירות סדיר",
+    "url": "https://www.gov.il/BlobFolder/generalpage/income-tax-guide-knowyourright/he/Guides_IncomeTax_da-2025.pdf"
+   },
+   "immigrant": {
+    "reform_from": "2022-01-01",
+    "section": "סעיף 35(א)",
+    "before": [
+     [18, 1, 4],
+     [12, 1, 6],
+     [12, 1, 12]
+    ],
+    "after": [
+     [12, 1, 12],
+     [18, 1, 4],
+     [12, 1, 6],
+     [12, 1, 12]
+    ],
+    "he": "עולה: חלקי נקודה לכל חודש מחודש העלייה; מי שעלה מ-1.1.2022: 1/12 ב-12 החודשים הראשונים, 1/4 ב-18 הבאים, 1/6 ב-12 ו-1/12 ב-12 (54 חודשים); לפני כן: 1/4 ב-18, 1/6 ב-12 ו-1/12 ב-12 (42 חודשים). קטין חוזר (עזב כקטין וחזר אחרי 5 שנים לפחות) נחשב עולה",
+    "returning_he": "תושב חוזר ותיק או תושב חוזר: אין נקודות זיכוי לפי סעיף 35, מלבד מי ששב בין 16.5.2010 ל-30.9.2012 (תקופת 54 החודשים שלו הסתיימה לפני 2020). להקלות אחרות (הוראת השעה לשנים 2026 עד 2030) יש בקשה נפרדת",
+    "url": "https://www.gov.il/BlobFolder/dynamiccollectorresultitem/-1represent-info-27722/he/IncomeTax_IncomeTaxRepresentInfo_%C2%A0represent-info-%2027722.pdf"
+   },
+   "degree": {
+    "sections": {
+     "ba": "סעיף 40ג(א)",
+     "ma": "סעיף 40ג(א)",
+     "med": "סעיף 40ג(ד)(1)",
+     "cert": "סעיף 40ד",
+     "either": "סעיף 40ה"
+    },
+    "rule_from": 2023,
+    "rule": {
+     "ba": [1, 3],
+     "ma": [
+      0.5,
+      2
+     ],
+     "cert": [1, 3],
+     "med": [
+      [1, 3],
+      [
+       0.5,
+       2
+      ]
+     ]
+    },
+    "temp": {
+     "from": 2014,
+     "to": 2022,
+     "ba": 1,
+     "ma": 0.5,
+     "cert": 1,
+     "med": [1, 0.5]
+    },
+    "rule_he": "מי שסיים מ-1.1.2023: תואר ראשון 1 נקודה לכל שנת לימודים, עד 3 שנים; תואר שני חצי נקודה לשנה, עד 2; תעודת מקצוע 1 נקודה לשנה, עד 3; תואר שלישי ברפואה או ברפואת שיניים 1 נקודה ב-3 שנים ועוד חצי ב-2; מהשנה שאחרי סיום הלימודים",
+    "temp_he": "מי שסיים בשנים 2014 עד 2022 (הוראת השעה): נקודה אחת לתואר ראשון או לתעודת מקצוע וחצי נקודה לתואר שני, בשנה אחת בלבד: השנה שאחרי הסיום או זו שאחריה, לפי בחירה",
+    "form_he": "טופס 119: הצהרה על סיום לימודים, עם אישור הזכאות",
+    "url": "https://www.gov.il/BlobFolder/generalpage/income-tax-guide-knowyourright/he/Guides_IncomeTax_da-2025.pdf"
+   },
+   "reservist": {
+    "from_year": 2026,
+    "section": "סעיף 39ב",
+    "temp_years": [2026, 2027],
+    "temp_bands": [
+     [
+      30,
+      39,
+      0.5
+     ],
+     [
+      40,
+      49,
+      0.75
+     ]
+    ],
+    "base_days": 50,
+    "base_pts": 1,
+    "step_days": 5,
+    "step_pts": 0.25,
+    "max_pts": 4,
+    "he": "מי ששירת במילואים כלוחם בשנה הקודמת: 2026 ו-2027 (הוראת שעה): 30 עד 39 ימים חצי נקודה, 40 עד 49 שלושה רבעים, 50 ימים נקודה אחת ועוד רבע לכל 5 ימים נוספים, עד 4 נקודות. לפי אישור צה\"ל בלבד",
+    "url": "https://www.gov.il/BlobFolder/dynamiccollectorresultitem/employers-info161225-1/he/IncomeTax_employers-info161225-1.pdf"
+   },
+   "youth_he": "מי שמלאו לו או לבן זוגו 16 ועוד לא 18: נקודה (סעיף 40ב); לא בחישוב"
+  },
+  "form101": {
+   "url": "https://www.gov.il/BlobFolder/service/itc101/he/Service_Pages_Income_tax_annual-report-2024_itc101.pdf",
+   "year": 2026,
+   "items": {
+    "resident": "חלק ח, סעיף 1",
+    "immigrant": "חלק ח, סעיף 4",
+    "spouse": "חלק ח, סעיף 5",
+    "single_parent": "חלק ח, סעיף 6",
+    "kids_col1": "חלק ח, סעיף 7",
+    "kids_col2": "חלק ח, סעיף 8",
+    "sole_parent": "חלק ח, סעיף 9",
+    "support": "חלק ח, סעיף 10",
+    "disabled_child": "חלק ח, סעיף 11",
+    "alimony": "חלק ח, סעיף 12",
+    "soldier": "חלק ח, סעיף 14",
+    "degree": "חלק ח, סעיף 15 (וטופס 119)",
+    "reservist": "חלק ח, סעיף 16 (ואישור צה\"ל)",
+    "woman": "חלק ב: מין",
+    "kids_list": "חלק ג: הילדים ושנות הלידה",
+    "one_employer": "חלק ה: \"אבקש לקבל נקודות זיכוי ומדרגות מס כנגד הכנסתי זו\" אצל מעסיק אחד בלבד"
+   },
+   "when_he": "ממלאים בתחילת העבודה ובתחילת כל שנת מס, ומודיעים על שינוי תוך שבוע"
+  },
+  "coordination": {
+   "he": "יותר ממעסיק אחד: את נקודות הזיכוי והמדרגות מקבלים אצל מעסיק אחד (טופס 101, חלק ה). כדי שהמעסיק השני לא ינכה מס מרבי, עורכים תיאום מס לשנה הנוכחית: מקוון באזור האישי או בטופס 116 לפקיד השומה",
+   "service_url": "https://www.gov.il/he/service/tax-coordination-online",
+   "form_url": "https://www.gov.il/BlobFolder/service/tax-coordination-online/he/Service_Pages_Income_tax_annual-report-2024_itc116-2024.pdf",
+   "form": "116",
+   "current_year_only_he": "תיאום מס עורכים לשנה הנוכחית בלבד; על שנים שעברו מבקשים החזר"
+  },
+  "form106": {
+   "url": "https://www.gov.il/BlobFolder/service/itc-106/he/Service_Pages_Income_tax_itc106.pdf",
+   "fields": {
+    "months": {
+     "where": "חלק א, למעלה: חודשי העבודה 1 עד 12",
+     "field": ""
+    },
+    "salary": {
+     "where": "חלק א, סעיף 1: משכורת",
+     "field": "158/172"
+    },
+    "tax": {
+     "where": "חלק ב, סעיף 13: מס הכנסה שנוכה ושולם (כולל מס נוסף)",
+     "field": "042"
+    },
+    "pension": {
+     "where": "חלק ב, סעיף 15: לקופת גמל לקצבה כעמית שכיר",
+     "field": "045/086"
+    },
+    "life": {
+     "where": "חלק ב, סעיף 15: לביטוח חיים",
+     "field": "036/081"
+    },
+    "donations": {
+     "where": "חלק ב, סעיף 15: לתרומות למוסדות ציבור",
+     "field": "037/237"
+    },
+    "points": {
+     "where": "חלק ג, סעיף 16: מספר נקודות הזיכוי שניתנו",
+     "field": ""
+    }
+   },
+   "two_fields_he": "המספר הראשון לבן הזוג הרשום, השני לבן או בת הזוג"
+  },
+  "refund": {
+   "years_back": 6,
+   "section": "סעיף 160(א)",
+   "he": "בקשה להחזר מס על שנה מסוימת מגישים עד שש שנים אחריה: על 2020 עד 31.12.2026, על 2021 עד 31.12.2027, וכן הלאה",
+   "interest": {
+    "pct": 4,
+    "section": "סעיף 159א(א) ו-(ג); סעיף 160(א)",
+    "he": "ההחזר משולם עם הפרשי הצמדה למדד וריבית של 4% לשנה, מתום שנת המס או מיום התשלום, המאוחר, ועד יום ההחזר. הסכום תלוי ביום התשלום ולכן לא מחושב כאן"
+   },
+   "form_url": "https://www.gov.il/BlobFolder/service/reporting-and-payment-2025-annual-tax-report-for-individuals/he/Service_Pages_Income_tax_annual-report-2026_itc135-2025.pdf",
+   "service_url": "https://www.gov.il/he/service/itc135",
+   "online_url": "https://secapp.taxes.gov.il/srbksOpentik/#/mainPage",
+   "personal_url": "https://secapp.taxes.gov.il/srsherutatzmi",
+   "guide_url": "https://www.gov.il/he/Departments/Guides/tax-return-application-guide",
+   "simulator_url": "https://secapp.taxes.gov.il/shSimulatorMas/main.aspx",
+   "documents": [
+    "טופס 106 מכל מעסיק ומכל משלם קצבה, לכל שנה (גם לבן או בת הזוג)",
+    "אישורים מהמוסד לביטוח לאומי על דמי אבטלה, דמי לידה, תגמולי מילואים או דמי פגיעה, אם היו",
+    "קבלות על תרומות למוסד ציבורי מוכר (סעיף 46)",
+    "אישורים שנתיים על ביטוח חיים וקופת גמל לקצבה ששילמתם בעצמכם",
+    "לפי העניין: טופס 119 ואישור זכאות לתואר; תעודת שחרור; תעודת עולה; פסק דין למזונות; טופס 116א לילד עם מוגבלות",
+    "צילום צ'ק או אישור בנק לחשבון שאליו יועבר ההחזר"
+   ]
+  },
+  "donation": {
+   "pct": 35,
+   "income_cap_pct": 30,
+   "section": "סעיף 46(א)",
+   "carry_years": 3,
+   "he": "תרומה למוסד ציבורי מוכר או לקרן לאומית: זיכוי של 35% מהתרומות בשנה, כשהסך עולה על המינימום של אותה שנה; עד 30% מההכנסה החייבת או עד התקרה השנתית, הנמוך; היתרה עוברת ל-3 השנים הבאות"
+  },
+  "insurance": {
+   "life_pct": 25,
+   "pension_pct": 35,
+   "section": "סעיף 45א",
+   "he": "ביטוח חיים: זיכוי של 25% מהפרמיה; קופת גמל לקצבה ששילמתם בעצמכם: 35%. שניהם בתוך תקרות סעיף 45א(ד) ו-(ה), שמחושבות יחד עם ההפרשות שבתלוש, ולכן הכלי מציג את הזיכוי האפשרי בנפרד ולא מוסיף אותו להחזר"
+  },
+  "towns": {
+   "section": "סעיף 11",
+   "url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2026.pdf",
+   "he": "תושבי יישוב מוטב מקבלים הנחה באחוזים עד תקרה, לפי רשימת היישובים של כל שנה (לוח העזר, פרק ח). הכלי לא מחשב את ההנחה"
+  },
+  "immigrant_relief_he": "עולה חדש או תושב חוזר ותיק שהגיע בין 5.11.2025 ל-31.12.2026: פטור על הכנסה מיגיעה אישית בשנים 2026 עד 2030 עד תקרה שנתית (הוראת השעה, חוק ההתייעלות הכלכלית 2026); לא בחישוב",
+  "simulators": {
+   "points": "https://secapp.taxes.gov.il/srsimulatorNZ/#/simulator",
+   "refund": "https://secapp.taxes.gov.il/shSimulatorMas/main.aspx"
+  },
+  "booklets_url": "https://www.gov.il/he/pages/income-tax-monthly-deductions-booklet",
+  "guide_url": "https://www.gov.il/BlobFolder/generalpage/income-tax-guide-knowyourright/he/Guides_IncomeTax_da-2025.pdf"
+ },
+ "rights_avtala": {
+  "name_he": "דמי אבטלה לשנת 2026",
+  "publisher_he": "המוסד לביטוח לאומי, ענף אבטלה",
+  "source_name": "המוסד לביטוח לאומי: דמי אבטלה (תנאי זכאות, סכום הקצבה, תקופת הזכאות, תשלום); חוק הביטוח הלאומי, פרק ז'",
+  "source_url": "https://www.btl.gov.il/benefits/Unemployment/Pages/default.aspx",
+  "checked_on": "2026-10-21",
+  "refresh_every_days": 365,
+  "next_update": "2027-01-01",
+  "from": "2026-01-01",
+  "law_he": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995, פרק ז': ביטוח אבטלה",
+  "law_url": "https://www.btl.gov.il/Laws1/00_0001_000007.pdf",
+  "schedules_url": "https://www.btl.gov.il/Laws1/00_0001_000020.pdf",
+  "pages": {
+   "main": "https://www.btl.gov.il/benefits/Unemployment/Pages/default.aspx",
+   "conditions": "https://www.btl.gov.il/benefits/Unemployment/Pages/zakaut.aspx",
+   "qualify_extra": "https://www.btl.gov.il/benefits/Unemployment/Pages/DaysHaxhsharaAvt.aspx",
+   "attend": "https://www.btl.gov.il/benefits/Unemployment/Pages/Avtala_att.aspx",
+   "days": "https://www.btl.gov.il/benefits/Unemployment/Pages/tkufat_zakaut.aspx",
+   "submit": "https://www.btl.gov.il/benefits/Unemployment/Pages/submit.aspx",
+   "sum": "https://www.btl.gov.il/benefits/Unemployment/Pages/sum.aspx",
+   "calc": "https://www.btl.gov.il/benefits/Unemployment/Pages/hisuv.aspx",
+   "reasons": "https://www.btl.gov.il/benefits/Unemployment/Pages/nesibothafsakatavoda.aspx",
+   "pay": "https://www.btl.gov.il/benefits/Unemployment/Pages/pay.aspx",
+   "workdays": "https://www.btl.gov.il/benefits/Unemployment/Pages/workdays.aspx",
+   "repeat": "https://www.btl.gov.il/benefits/Unemployment/Pages/MovtalHozer.aspx",
+   "women": "https://www.btl.gov.il/benefits/Unemployment/Pages/zecoyot-nasim.aspx",
+   "leave": "https://www.btl.gov.il/benefits/Unemployment/Pages/avthlat.aspx",
+   "after_birth": "https://www.btl.gov.il/benefits/Unemployment/Pages/dmeyavtalalenashimachreydeyda.aspx",
+   "incomes": "https://www.btl.gov.il/benefits/Unemployment/Pages/incomes.aspx",
+   "calculator": "https://www.btl.gov.il/Simulators/Pages/AvtalaCalcNew.aspx",
+   "eligibility_calculator": "https://www.btl.gov.il/Simulators/Pages/ZacautAvtalaNew.aspx"
+  },
+  "age": {
+   "min": 20,
+   "max": 67,
+   "section": "סעיף 160(א)",
+   "max_section": "לוח א1, חלק ב'",
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/zakaut.aspx",
+   "under20_he": "מתחת לגיל 20 (מגיל 18): רק מפרנס יחיד של משפחתו או מי שיש לו ילד שעיקר פרנסתו עליו, ובתנאים (סעיף 160(ג))",
+   "over_max_he": "מגיל 67 אין דמי אבטלה; המוסד מפעיל מענק לבני 67 ומעלה, בבקשה נפרדת",
+   "over_max_url": "https://forms.btl.gov.il/Form/Fill/Avtala67"
+  },
+  "qualify": {
+   "months": 12,
+   "window_months": 18,
+   "section": "סעיף 161(א)",
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/zakaut.aspx",
+   "partial_he": "עבודה בחלק מהחודש, אפילו יום אחד, נחשבת לחודש עבודה מלא",
+   "extra_he": "נכללים גם: עד 6 חודשי שירות סדיר, מילואים, ימי מחלה עם דמי מחלה, דמי לידה ושמירת היריון, דמי פגיעה, ימי אבל, תשלום במקום הודעה מוקדמת, ושני החודשים הראשונים של חל\"ת שהמעסיק שילם עליהם דמי ביטוח (סעיף 161(ג) ודף המוסד)",
+   "extra_url": "https://www.btl.gov.il/benefits/Unemployment/Pages/DaysHaxhsharaAvt.aspx",
+   "late_months": 3,
+   "late_he": "מי שלא נרשם בסמוך להפסקת העבודה לא נפגע אם לא עברו 3 חודשים מיום הפסקת העבודה עד ה-1 בחודש שבו התייצב לראשונה, ובתנאי שהשלים את תקופת האכשרה בחודש שבו הפסיק לעבוד",
+   "late_url": "https://www.btl.gov.il/benefits/Unemployment/Pages/Avtala_att.aspx"
+  },
+  "base": {
+   "months": 6,
+   "divisor": 150,
+   "section": "סעיף 170(א)",
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/hisuv.aspx",
+   "he": "ההכנסה (החייבת בדמי ביטוח) ב-6 החודשים שקדמו לחודש שבו נרשמתם לראשונה בשירות התעסוקה, מחולקת ב-150",
+   "favorable_section": "סעיף 170(ג)",
+   "skip_he": "חודשים שבהם השכר הופחת שלא באשמתכם או בגלל מחלה, או שבהם קיבלתם דמי פגיעה, אפשר להחליף בחודשים הקודמים הסמוכים, עד 18 חודשים לפני ההתייצבות הראשונה; החישוב לפי הנוח לכם (סעיפים 170(ב1) ו-170(ג), ודף המוסד)",
+   "skip_url": "https://www.btl.gov.il/benefits/Unemployment/Pages/sum.aspx",
+   "floor_section": "סעיף 170(ו)",
+   "floor_he": "השכר היומי הממוצע לא יפחת משכר המינימום היומי, או משכר מינימום חלקי למי שעבד במשרה חלקית"
+  },
+  "rates": {
+   "basic_daily": 415,
+   "basic_from": "2026-01-01",
+   "young_under": 28,
+   "section": "סעיף 167(א); לוח ז'",
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/hisuv.aspx",
+   "schedule_url": "https://www.btl.gov.il/Laws1/00_0001_000020.pdf",
+   "tiers": [
+    {
+     "upto": 0.5,
+     "pct": 80,
+     "pct_young": 60,
+     "he": "עד מחצית הסכום היומי הבסיסי"
+    },
+    {
+     "upto": 0.75,
+     "pct": 50,
+     "pct_young": 40,
+     "he": "ממחצית ועד שלושה רבעים ממנו"
+    },
+    {
+     "upto": 1,
+     "pct": 45,
+     "pct_young": 35,
+     "he": "משלושה רבעים ועד מלואו"
+    },
+    {
+     "upto": 5,
+     "pct": 30,
+     "pct_young": 25,
+     "he": "ממלואו ועד 5 פעמים הסכום היומי הבסיסי"
+    }
+   ]
+  },
+  "cap": {
+   "first_days": 125,
+   "first": 550.76,
+   "after": 367.17,
+   "wage_divisor": 25,
+   "section": "סעיף 167(ב)",
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/sum.aspx",
+   "he": "השכר היומי הממוצע במשק (השכר הממוצע לפי סעיף 2 מחולק ב-25) ב-125 ימי התשלום הראשונים, ושני שלישים ממנו מיום התשלום ה-126"
+  },
+  "month": {
+   "table_days": 25,
+   "table_url": "https://www.btl.gov.il/benefits/Unemployment/Pages/sum.aspx",
+   "paid_weekdays_he": "ימים ראשון עד שישי; לא משולם על שבת, ומשולם על חג וערב חג שלא חלים בשבת",
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/workdays.aspx",
+   "workdays_2026": {
+    "2026-01": 26,
+    "2026-02": 24,
+    "2026-03": 27,
+    "2026-04": 26,
+    "2026-05": 26,
+    "2026-06": 26,
+    "2026-07": 27,
+    "2026-08": 26,
+    "2026-09": 26,
+    "2026-10": 26,
+    "2026-11": 26,
+    "2026-12": 27
+   }
+  },
+  "days": {
+   "section": "סעיף 171(א)",
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/tkufat_zakaut.aspx",
+   "dependents_many": 3,
+   "window_months": 12,
+   "window_he": "את הימים מנצלים בתוך 12 החודשים שמתחילים ב-1 בחודש שבו התייצבתם לראשונה",
+   "bands": [
+    {
+     "from": 20,
+     "to": 25,
+     "few": 50,
+     "many": 138,
+     "few_section": "סעיף 171(א)(2ב)",
+     "many_section": "סעיף 171(א)(1א)"
+    },
+    {
+     "from": 25,
+     "to": 28,
+     "few": 67,
+     "many": 138,
+     "few_section": "סעיף 171(א)(2א)",
+     "many_section": "סעיף 171(א)(1א)"
+    },
+    {
+     "from": 28,
+     "to": 35,
+     "few": 100,
+     "many": 138,
+     "few_section": "סעיף 171(א)(3)",
+     "many_section": "סעיף 171(א)(1א)"
+    },
+    {
+     "from": 35,
+     "to": 45,
+     "few": 138,
+     "many": 175,
+     "few_section": "סעיף 171(א)(1א)",
+     "many_section": "סעיף 171(א)(1)"
+    },
+    {
+     "from": 45,
+     "to": 67,
+     "few": 175,
+     "many": 175,
+     "few_section": "סעיף 171(א)(1)",
+     "many_section": "סעיף 171(א)(1)"
+    }
+   ],
+   "dependent_income_max": 7848,
+   "dependents_he": "ילד עד גיל 18 (ובתנאים עד 24: סיום לימודים תיכוניים, התנדבות, שירות סדיר או לאומי); בת זוג שנשואה שנה לפחות או שילדה ילד, בת 45 ומעלה או שיש עמה ילד, והכנסתה עד 7,848 ש\"ח לחודש; בן זוג בן 70, או בן 50 ומעלה שהכנסתו עד 7,848 ש\"ח"
+  },
+  "women": {
+   "born_from": "1960-01-01",
+   "from_age": 57,
+   "upper_age": 60,
+   "days": 300,
+   "window_months": 18,
+   "cap_from_day": 176,
+   "cap": 201.03,
+   "cap_pct_of_avg": 1.46,
+   "section_57": "סעיף 171(א)(1ג)",
+   "section_60": "סעיף 171(א)(1ב)",
+   "cap_section": "סעיף 167(ג)",
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/zecoyot-nasim.aspx",
+   "he": "אישה שנולדה מ-1.1.1960 ואילך, מגיל 57: עד 300 ימים בתוך 18 חודשים; מגיל 57 עד 60, מיום התשלום ה-176 לא יותר מ-201.03 ש\"ח ליום"
+  },
+  "waiting": {
+   "days": 5,
+   "every_months": 4,
+   "section": "סעיף 172",
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/pay.aspx",
+   "he": "לא משולמים 5 ימי האבטלה הראשונים בכל תקופה של 4 חודשים רצופים שמתחילה בתאריך הקובע (ה-1 בחודש ההתייצבות הראשונה); הם לא יורדים ממכסת הימים"
+  },
+  "resign": {
+   "wait_days": 90,
+   "section": "סעיף 166(ב)",
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/nesibothafsakatavoda.aspx",
+   "reasons_he": [
+    "הרעה מוחשית בתנאי העבודה, או נסיבות שלא אפשרו להמשיך לעבוד",
+    "המצב הבריאותי שלכם או של בן משפחה קרוב",
+    "מעבר דירה או שינוי מקום העבודה: מרחק של יותר מ-60 ק\"מ, או 40 ק\"מ לאם לילד מתחת לגיל 7",
+    "הטרדה מינית במקום העבודה",
+    "בעלי תעודת מקצוע שעבדו בעבודה שאינה במקצוע ועוברים לעבודה במקצוע",
+    "שהייה במקלט לנפגעי אלימות במשפחה",
+    "התפטרות מעבודה חדשה של עד 6 חודשים, כשלא מימשתם את הזכאות הקודמת",
+    "התפטרות מעבודה שנייה, עד 3 חודשים אחרי התפטרות מוצדקת מהראשונה"
+   ],
+   "docs_he": "מצרפים לתביעה מסמכים שמראים את הסיבה"
+  },
+  "leave": {
+   "min_days": 30,
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/avthlat.aspx",
+   "own_he": "מי שיצא לחל\"ת מיוזמתו, גם כשהחל\"ת מוצדק, לא זכאי לדמי אבטלה (מ-2.7.2021)",
+   "vacation_he": "כשנותרו ימי חופשה אצל המעסיק, דמי האבטלה מתחילים רק בסיומם; לדוגמה: חל\"ת של 50 יום ו-20 ימי חופשה, זכאות מהיום ה-21"
+  },
+  "refuse": {
+   "wait_days": 90,
+   "cut_days": 30,
+   "section": "סעיפים 166(ד) ו-171(א1)",
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/pay.aspx",
+   "he": "מי שמסרב לעבודה מתאימה או להכשרה: 90 ימים בלי דמי אבטלה מיום הסירוב, ו-30 ימים פחות במכסה, בכל סירוב"
+  },
+  "repeat": {
+   "under_age": 40,
+   "period_months": 48,
+   "days_pct": 80,
+   "cap_pct": 85,
+   "cap_first": 468.15,
+   "section": "סעיף 171א",
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/MovtalHozer.aspx",
+   "he": "מתחת לגיל 40: מי שקיבל דמי אבטלה על כל הימים המרביים, ותוך 4 שנים מתחילת הזכאות הקודמת תובע שוב, מקבל 80% מהימים, ובתקופה הנוספת עד 468.15 ש\"ח ליום (85% מהתקרה) ב-125 הימים הראשונים",
+   "over_he": "מגיל 40: אם קיבלתם דמי אבטלה ב-11 החודשים שלפני התביעה, בכל חודש נבדק כמה ימים שולמו באותו חודש וב-11 שלפניו, גם בתביעה הקודמת, ולא משולם מעבר למכסה",
+   "renew_he": "תביעה חוזרת מגישים רק אחרי 12 חודשים מתחילת הזכאות הקודמת; לפני כן ממשיכים באותה תביעה כל עוד נשארו ימים"
+  },
+  "pay": {
+   "day_of_month": 12,
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/pay.aspx",
+   "he": "דמי אבטלה משולמים ב-12 לחודש או בסמוך לו, עבור ימי ההתייצבות בחודש הקודם; בחגים המועד עשוי לזוז"
+  },
+  "deductions": {
+   "ni_min": 48,
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/hisuv.aspx",
+   "he": "מדמי האבטלה מנוכים מס הכנסה במקור, דמי ביטוח לאומי לפי שיעור המינימום (48 ש\"ח) ודמי ביטוח בריאות לפי הסכום"
+  },
+  "register": {
+   "office_days": 14,
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/zakaut.aspx",
+   "taasuka_url": "https://www.taasuka.gov.il/",
+   "taasuka_guide_url": "https://www.taasuka.gov.il/applicants/dmeiavtala/",
+   "one_click_url": "https://www.gov.il/he/multiservice/unemployment-payment-and-job-seeking",
+   "he": "נרשמים באתר שירות התעסוקה, ומתייצבים בלשכה הקרובה למקום המגורים בתוך 14 יום מהרישום באתר",
+   "start_he": "דמי האבטלה מחושבים מיום הרישום הראשון בשירות התעסוקה, ולכן נרשמים מיד עם הפסקת העבודה, גם אחרי התפטרות"
+  },
+  "claim": {
+   "form": "1500",
+   "form_url": "https://govforms.gov.il/mw/forms/T1500@btl.gov.il",
+   "one_click_url": "https://www.gov.il/he/multiservice/unemployment-payment-and-job-seeking",
+   "deadline_months": 12,
+   "url": "https://www.btl.gov.il/benefits/Unemployment/Pages/submit.aspx",
+   "deadline_he": "את התביעה והמסמכים מגישים בתוך 12 חודשים מהיום שבו התייצבתם לראשונה; תביעה מאוחרת משולמת רק על 12 החודשים שלפני ההגשה",
+   "employer_form": "100",
+   "employer_he": "המעסיק משדר למוסד טופס 100 עם נתוני השכר; אם לא שודר, מצרפים אישור מעסיק על התקופה והשכר או תלושים",
+   "docs_he": [
+    "תלושי השכר של 6 חודשי העבודה האחרונים, כולל החודש האחרון (וטופס 100 מהמעסיק, או תלושים של 12 מתוך 18 החודשים)",
+    "אישור מהמעסיק על סיבת הפסקת העבודה ותאריכה, בחתימה ובחותמת",
+    "בהתפטרות מוצדקת: המסמכים שמראים את הסיבה",
+    "בחל\"ת של 30 יום לפחות: אישור מעסיק על תקופת החל\"ת ועל יתרת ימי החופשה",
+    "מי שהשתחרר מצה\"ל בשנה וחצי האחרונות: תעודת שחרור",
+    "מקבלי פנסיה: תלוש הפנסיה של החודש הראשון; מי שעובד בתקופת האבטלה: תלוש לכל חודש",
+    "אישור על הנחה או פטור ממס הכנסה, אם יש"
+   ]
+  },
+  "calculator_url": "https://www.btl.gov.il/Simulators/Pages/AvtalaCalcNew.aspx",
+  "eligibility_calculator_url": "https://www.btl.gov.il/Simulators/Pages/ZacautAvtalaNew.aspx"
+ },
+ "rights_leida": {
+  "name_he": "דמי לידה ומענק לידה לשנת 2026",
+  "publisher_he": "המוסד לביטוח לאומי, ענף אמהות",
+  "source_name": "המוסד לביטוח לאומי: דמי לידה (תנאי זכאות, תקופת הזכאות, סכום, הגשת תביעה), דמי לידה לאב, מענק לידה; חוק הביטוח הלאומי, פרק ג'; חוק עבודת נשים",
+  "source_url": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/default.aspx",
+  "checked_on": "2026-10-21",
+  "refresh_every_days": 365,
+  "next_update": "2027-01-01",
+  "from": "2026-01-01",
+  "law_he": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995, פרק ג': ביטוח אימהות",
+  "law_url": "https://www.btl.gov.il/Laws1/00_0001_000003.pdf",
+  "claims_law_url": "https://www.btl.gov.il/Laws1/00_0001_000014.pdf",
+  "work_law_he": "חוק עבודת נשים, התשי\"ד-1954",
+  "work_law_url": "https://www.nevo.co.il/law_html/law01/p176_001.htm",
+  "pages": {
+   "main": "https://www.btl.gov.il/benefits/maternity/Pages/default.aspx",
+   "allowance": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/default.aspx",
+   "conditions": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/%D7%AA%D7%A0%D7%90%D7%99%20%D7%94%D7%96%D7%9B%D7%90%D7%95%D7%AA.aspx",
+   "period": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/%d7%aa%d7%a7%d7%95%d7%a4%d7%aa%20%d7%94%d7%96%d7%9b%d7%90%d7%95%d7%aa%20%d7%94%d7%9e%d7%a8%d7%91%d7%99%d7%aa.aspx",
+   "amount": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/ShiureyLeda.aspx",
+   "claim": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/%d7%90%d7%95%d7%a4%d7%9f%20%d7%94%d7%92%d7%a9%d7%aa%20%d7%94%d7%aa%d7%91%d7%99%d7%a2%d7%94.aspx",
+   "differences": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/hefreshim.aspx",
+   "father": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/dmailaidaleav.aspx",
+   "father_conditions": "https://www.btl.gov.il/benefits/maternity/dmeLedaLaav/Pages/tnaey%20zakaoot%20ledmeyleda%20laav.aspx",
+   "father_period": "https://www.btl.gov.il/benefits/maternity/dmeLedaLaav/Pages/meshech_av.aspx",
+   "father_amount": "https://www.btl.gov.il/benefits/maternity/dmeLedaLaav/Pages/shihor%20smeyleda%20laav.aspx",
+   "father_claim": "https://www.btl.gov.il/benefits/maternity/dmeLedaLaav/Pages/hagashat%20tviha.aspx",
+   "grant": "https://www.btl.gov.il/benefits/maternity/maanakleda/Pages/default.aspx",
+   "grant_amount": "https://www.btl.gov.il/benefits/maternity/maanakleda/Pages/ShiurMaanakLeda.aspx",
+   "grant_conditions": "https://www.btl.gov.il/benefits/maternity/maanakleda/Pages/TnaeyZacaut.aspx",
+   "grant_claim": "https://www.btl.gov.il/benefits/maternity/maanakleda/Pages/OfenHagashatTvia.aspx",
+   "multiple": "https://www.btl.gov.il/benefits/maternity/Pages/%d7%a7%d7%a6%d7%91%d7%aa%20%d7%9c%d7%99%d7%93%d7%94.aspx",
+   "hospital": "https://www.btl.gov.il/benefits/maternity/Pages/%d7%9e%d7%a2%d7%a0%d7%a7%20%d7%90%d7%a9%d7%a4%d7%95%d7%96.aspx",
+   "calculator": "https://www.btl.gov.il/Simulators/Pages/DmeyLedaCalc.aspx",
+   "gov_service": "https://www.gov.il/he/service/claim_for_birth_payment"
+  },
+  "qualify": {
+   "full_months": 10,
+   "full_window": 14,
+   "full_alt_months": 15,
+   "full_alt_window": 22,
+   "full_days": 105,
+   "full_weeks": 15,
+   "full_section": "סעיף 50(א)(1)",
+   "partial_months": 6,
+   "partial_window": 14,
+   "partial_days": 56,
+   "partial_weeks": 8,
+   "partial_section": "סעיף 50(א)(2)",
+   "url": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/%D7%AA%D7%A0%D7%90%D7%99%20%D7%94%D7%96%D7%9B%D7%90%D7%95%D7%AA.aspx",
+   "period_url": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/%d7%aa%d7%a7%d7%95%d7%a4%d7%aa%20%d7%94%d7%96%d7%9b%d7%90%d7%95%d7%aa%20%d7%94%d7%9e%d7%a8%d7%91%d7%99%d7%aa.aspx",
+   "partial_month_he": "עבודה בחלק מהחודש נחשבת לחודש עבודה מלא",
+   "extra_section": "סעיף 50(ב)",
+   "extra_he": "נחשבים גם חודשים של דמי לידה קודמים, דמי פגיעה, דמי אבטלה, דמי תאונה, גמלה לשמירת היריון, דמי מחלה או חופשה מקופת גמל, שני החודשים הראשונים של חופשה ללא תשלום, הכשרה מקצועית מאושרת, ושירות צבאי או לאומי (סעיף 50(ב) ודף המוסד)",
+   "self_he": "עצמאית: זכאותה נבדקת רק אם בזמן ההיריון הייתה רשומה בביטוח הלאומי כעובדת עצמאית ושילמה את דמי הביטוח עד יום הפסקת העבודה; חוב לביטוח הלאומי מסדירים לפני יום הפסקת העבודה",
+   "both_he": "מי שעבדה גם כשכירה וגם כעצמאית: חודשי הביטוח נספרים בנפרד לכל סוג עבודה, ודמי הלידה משולמים לפי סך ההכנסות רק אם בכל סוג נצברה תקופת הזכאות",
+   "both_url": "https://www.gov.il/he/service/claim_for_birth_payment",
+   "birth_week": 22,
+   "birth_he": "לידה משבוע 22 ויום (גם לידה שקטה)",
+   "stop_he": "הפסקת לעבוד בזמן ההיריון ולא עבדת בתקופת דמי הלידה"
+  },
+  "base": {
+   "months_short": 3,
+   "divisor_short": 90,
+   "months_long": 6,
+   "divisor_long": 180,
+   "section": "סעיף 54(א)",
+   "income_section": "סעיף 54(ב)(1)",
+   "self_section": "סעיף 54(ב)(2)",
+   "url": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/ShiureyLeda.aspx",
+   "he": "השכר ב-3 החודשים המלאים שקדמו לחודש הפסקת העבודה חלקי 90, או ב-6 החודשים חלקי 180, הגבוה מביניהם",
+   "example_he": "מי שהפסיקה לעבוד באמצע יולי: אפריל עד יוני, או ינואר עד יוני, הגבוה",
+   "self_he": "עצמאית: בשלב הראשון לפי ההכנסה שעליה שולמו המקדמות ב-3 החודשים שלפני הפסקת העבודה, מול רבע מההכנסה בשומה של השנה הקודמת (אם יש), הגבוה; בשלב השני, כשמגיעה השומה של השנה שבה הפסיקה לעבוד, החישוב נעשה שוב לפי השומה הזאת או של השנה הקודמת, הגבוהה",
+   "self_quarters": 4,
+   "both_he": "שכירה שהיא גם עצמאית: לפי סך שתי ההכנסות, אך לא יותר ממקסימום דמי הלידה ליום",
+   "drop_he": "אם השכר ב-6 החודשים ירד בגלל מחלה, תאונה, שביתה, השבתה, מלחמה, אבל או סיבה אחרת שאינה תלויה בך, ויש אישורים, המוסד בודק חישוב לפי שכר גבוה יותר או לפי חודשים קודמים",
+   "reserve_he": "תגמולי מילואים ששולמו בזמן ההיריון נכנסים לחישוב"
+  },
+  "max": {
+   "daily": 1752.33,
+   "b1_mult": 5,
+   "divisor": 30,
+   "from": "2026-01-01",
+   "section": "סעיף 53(א)",
+   "url": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/ShiureyLeda.aspx",
+   "he": "עד 1,752.33 ש\"ח ליום (הסכום הבסיסי כפול 5, חלקי 30), מ-1.1.2026"
+  },
+  "deductions": {
+   "section": "סעיף 53(ד)",
+   "url": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/ShiureyLeda.aspx",
+   "he": "מדמי הלידה מנוכים במקור מס הכנסה, דמי ביטוח לאומי ודמי ביטוח בריאות; אישור על הנחה או פטור ממס מגישים עם התביעה"
+  },
+  "start": {
+   "before_full": 53,
+   "before_partial": 28,
+   "section": "סעיף 52(א)",
+   "url": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/%d7%aa%d7%a7%d7%95%d7%a4%d7%aa%20%d7%94%d7%96%d7%9b%d7%90%d7%95%d7%aa%20%d7%94%d7%9e%d7%a8%d7%91%d7%99%d7%aa.aspx",
+   "he": "היום הראשון לדמי הלידה הוא יום הפסקת העבודה, אך לא לפני 53 יום לפני הלידה (בדמי לידה מלאים) או 28 יום (בחלקיים)"
+  },
+  "multiple": {
+   "full_extra_days": 21,
+   "partial_extra_days": 14,
+   "section": "סעיף 51(א1)",
+   "work_section": "סעיף 6(ג)(1) לחוק עבודת נשים",
+   "url": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/%d7%aa%d7%a7%d7%95%d7%a4%d7%aa%20%d7%94%d7%96%d7%9b%d7%90%d7%95%d7%aa%20%d7%94%d7%9e%d7%a8%d7%91%d7%99%d7%aa.aspx",
+   "he": "לידה של יותר מילד אחד: 3 שבועות נוספים לכל ילד נוסף (תאומים 18 שבועות, שלישייה 21); בדמי לידה חלקיים שבועיים לכל ילד נוסף; משולם אוטומטית"
+  },
+  "hosp": {
+   "min_days": 15,
+   "mother_full": 28,
+   "mother_partial": 14,
+   "baby_full": 140,
+   "baby_partial": 84,
+   "total_full": 140,
+   "total_partial": 84,
+   "section": "סעיף 51(א)",
+   "work_mother_section": "סעיף 6(ב1) לחוק עבודת נשים",
+   "work_baby_section": "סעיף 6(ד) לחוק עבודת נשים",
+   "work_total_section": "סעיף 6(ד2) לחוק עבודת נשים",
+   "url": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/%d7%aa%d7%a7%d7%95%d7%a4%d7%aa%20%d7%94%d7%96%d7%9b%d7%90%d7%95%d7%aa%20%d7%94%d7%9e%d7%a8%d7%91%d7%99%d7%aa.aspx",
+   "gov_url": "https://www.gov.il/he/service/claim_for_birth_payment",
+   "mother_he": "אשפוז של היולדת 15 ימים לפחות (גם לא רצופים) בתקופת דמי הלידה: הארכה לפי ימי האשפוז, עד 4 שבועות (בדמי לידה חלקיים עד שבועיים)",
+   "baby_he": "אשפוז של התינוק 15 ימים לפחות (גם לא רצופים): הארכה לפי ימי האשפוז, עד 20 שבועות (בדמי לידה חלקיים עד 12)",
+   "window_he": "מי שעבדה 12 חודשים לפחות אצל אותו מעסיק לפני הלידה: אשפוז בתקופת דמי הלידה ועד 26 שבועות מהלידה; אחרת רק אשפוז בתקופת דמי הלידה",
+   "combine_he": "אם גם היולדת וגם התינוק אושפזו פחות מ-15 יום, ותקופות האשפוז לא חפפו, אפשר לצרף אותן להארכה",
+   "home_he": "אשפוז בית לא מקנה הארכה",
+   "split_he": "אפשר לפצל: לחזור לעבודה אחרי 3 שבועות לפחות מהלידה, ולהמשיך את יתרת התקופה כשהתינוק יוצא מבית החולים",
+   "claim_he": "את ההארכה או הפיצול מבקשים בתביעה נפרדת, מוקדם ככל האפשר, עם אישור בית החולים (ושכירה: אישור המעסיק)"
+  },
+  "complex": {
+   "days": 35,
+   "from": "2026-04-01",
+   "total_max_days": 140,
+   "section": "סעיף 51(א3)",
+   "work_section": "סעיף 6(ד3) לחוק עבודת נשים",
+   "url": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/%d7%aa%d7%a7%d7%95%d7%a4%d7%aa%20%d7%94%d7%96%d7%9b%d7%90%d7%95%d7%aa%20%d7%94%d7%9e%d7%a8%d7%91%d7%99%d7%aa.aspx",
+   "he": "מ-1.4.2026: תינוק שהוכר בתוך תקופת הלידה וההורות כילד עם מוגבלות מורכבת, 5 שבועות נוספים, ובלבד שכל ההארכות יחד לא יעלו על 20 שבועות; רק למי שלא חזרה לעבוד"
+  },
+  "partner": {
+   "min_days": 7,
+   "together_days": 7,
+   "together_twins_days": 21,
+   "together_triplets_days": 35,
+   "swap_after_days": 42,
+   "partial_swap_days": 14,
+   "months": 10,
+   "window": 14,
+   "alt_months": 15,
+   "alt_window": 22,
+   "section": "סעיף 49(ב)",
+   "together_section": "סעיף 49(ד1)",
+   "min_section": "סעיף 49(ג)(3)",
+   "work_section": "סעיף 6(ח) לחוק עבודת נשים",
+   "url": "https://www.btl.gov.il/benefits/maternity/dmeLedaLaav/Pages/meshech_av.aspx",
+   "conditions_url": "https://www.btl.gov.il/benefits/maternity/dmeLedaLaav/Pages/tnaey%20zakaoot%20ledmeyleda%20laav.aspx",
+   "amount_url": "https://www.btl.gov.il/benefits/maternity/dmeLedaLaav/Pages/shihor%20smeyleda%20laav.aspx",
+   "claim_url": "https://www.btl.gov.il/benefits/maternity/dmeLedaLaav/Pages/hagashat%20tviha.aspx",
+   "together_he": "יחד עם היולדת: 7 ימים, על חשבון השבוע האחרון שלה (תאומים: עד 3 שבועות ברציפות, שלישייה: עד 5)",
+   "swap_he": "במקום היולדת: רק אחרי 6 שבועות מהלידה, לפחות 7 ימים רצופים, ליתרת התקופה; מתחלפים פעם אחת בלבד",
+   "partial_he": "כשליולדת דמי לידה חלקיים (56 ימים), בן הזוג יכול להחליף אותה ל-14 ימים בלבד, אחרי 42 ימים מהלידה",
+   "qualify_he": "בן הזוג צריך תקופת אכשרה מלאה משלו: 10 מתוך 14 החודשים שלפני הפסקת עבודתו, או 15 מתוך 22",
+   "return_he": "היולדת מוותרת בכתב על חלק מהתקופה וחוזרת לעבודה בזמן שבן הזוג בחופשה (בשבוע המשותף היא לא צריכה לחזור)",
+   "amount_he": "דמי הלידה של בן הזוג מחושבים לפי השכר שלו, באותו כלל (3 חודשים חלקי 90 או 6 חלקי 180), עד אותו מקסימום",
+   "notify_he": "כשדמי הלידה של היולדת משולמים אוטומטית, מודיעים לסניף לפני הלידה שבן הזוג יחליף אותה, כדי שלא ייווצר חוב",
+   "form": "360"
+  },
+  "leave": {
+   "weeks": 26,
+   "before_max_weeks": 7,
+   "short_weeks": 15,
+   "seniority_months": 12,
+   "section": "סעיף 6(ב)(1) לחוק עבודת נשים",
+   "short_section": "סעיף 6(ב)(5) לחוק עבודת נשים",
+   "shorten_section": "סעיף 6(ב)(2) לחוק עבודת נשים",
+   "url": "https://www.nevo.co.il/law_html/law01/p176_001.htm",
+   "he": "תקופת לידה והורות של 26 שבועות, מהם עד 7 שבועות לפני יום הלידה המשוער; 15 מהם בתשלום דמי לידה",
+   "short_he": "מי שעבדה פחות מ-12 חודשים אצל אותו מעסיק או באותו מקום עבודה: 15 שבועות",
+   "shorten_he": "אפשר לקצר, אבל לא פחות מ-15 שבועות (ועוד ההארכות), והמעסיק לא יכול לדחות את החזרה ביותר מ-3 שבועות מההודעה"
+  },
+  "protect": {
+   "pregnancy_months": 6,
+   "after_days": 60,
+   "pregnancy_section": "סעיף 9(א) לחוק עבודת נשים",
+   "leave_section": "סעיף 9(ג)(1) לחוק עבודת נשים",
+   "after_section": "סעיף 9(ג)(1א) לחוק עבודת נשים",
+   "url": "https://www.nevo.co.il/law_html/law01/p176_001.htm",
+   "pregnancy_he": "בהיריון אסור לפטר בלי היתר, למי שעבדה 6 חודשים לפחות אצל אותו מעסיק; היתר לא יינתן אם הפיטורים בקשר להיריון",
+   "leave_he": "בתקופת הלידה וההורות אסור לפטר, וגם לא לתת הודעת פיטורים שתחול בה",
+   "after_he": "60 ימים אחרי תום תקופת הלידה וההורות אסור לפטר בלי היתר, והיתר יינתן רק כשהעסק חדל לפעול או בפשיטת רגל או פירוק, ולא בקשר ללידה"
+  },
+  "parent_hour": {
+   "months": 4,
+   "section": "סעיף 7(ג)(3) לחוק עבודת נשים",
+   "url": "https://www.nevo.co.il/law_html/law01/p176_001.htm",
+   "he": "4 חודשים מתום תקופת הלידה וההורות: שעת הורות, שעה ביום בלי ניכוי משכר, למי שעובדת במשרה מלאה"
+  },
+  "unpaid": {
+   "max_months": 12,
+   "section": "סעיף 7(ד)(1) לחוק עבודת נשים",
+   "url": "https://www.nevo.co.il/law_html/law01/p176_001.htm",
+   "he": "אחרי תקופת הלידה וההורות אפשר להיעדר ללא תשלום עד רבע ממספר החודשים שעבדת אצל אותו מעסיק, ולא יותר מ-12 חודשים מיום הלידה (בניכוי השבועות שמעבר ל-15 שכבר נוצלו)"
+  },
+  "claim": {
+   "earliest_weeks_before": 9,
+   "deadline_months": 12,
+   "section": "סעיף 296(א)",
+   "late_section": "סעיף 296(ב)(1)",
+   "url": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/%d7%90%d7%95%d7%a4%d7%9f%20%d7%94%d7%92%d7%a9%d7%aa%20%d7%94%d7%aa%d7%91%d7%99%d7%a2%d7%94.aspx",
+   "gov_url": "https://www.gov.il/he/service/claim_for_birth_payment",
+   "form": "355",
+   "form_url": "https://govforms.gov.il/mw/forms/t355@btl.gov.il",
+   "pdf_url": "https://www.btl.gov.il/%D7%98%D7%A4%D7%A1%D7%99%D7%9D%20%D7%95%D7%90%D7%99%D7%A9%D7%95%D7%A8%D7%99%D7%9D/Documents/T355.pdf",
+   "employer_form": "100",
+   "deadline_he": "תביעה שמוגשת אחרי 12 חודשים מיום הפסקת העבודה עלולה לאבד את הזכאות; gov.il: לא יאוחר מ-12 חודשים מיום הזכאות הראשון",
+   "employer_he": "המעסיק משדר למוסד טופס 100, וכך דמי הלידה משולמים בלי תביעה; אפשר לשדר גם בהיריון אם הפסקת לעבוד, אבל לא לפני 9 שבועות מיום הלידה המשוער",
+   "sms_he": "אחרי לידה בבית חולים שכירה מקבלת מסרון שמבקש את אישורה לפנות למעסיק לדיווח על השכר; אישור המסרון חוסך את התביעה",
+   "auto_he": [
+    "עצמאית שילדה בבית חולים: התשלום אוטומטי אחרי שבית החולים מעביר את נתוני הלידה",
+    "מעסיק שיש לו הסדר עם הביטוח הלאומי: הוא מעביר את התביעה בעצמו",
+    "מי שקיבלה דמי אבטלה עד חודש לפני הלידה: אחרי ה-17 בחודש שאחרי חודש הלידה",
+    "מי שקיבלה קצבה לשמירת היריון עד הלידה: אחרי שבית החולים מעביר את נתוני הלידה"
+   ],
+   "online_he": "מילוי התביעה המקוונת אפשרי רק אחרי הלידה",
+   "docs_he": [
+    "טופס התביעה, עם החלק של המעסיק על חודשי העבודה והשכר (בכמה מעסיקים: טופס לכל מעסיק)",
+    "אם השכר ב-6 החודשים ירד מסיבה רפואית או אחרת: מכתב והאישורים",
+    "לידת בית או לידה בחוץ לארץ: אישור רשמי על הלידה",
+    "שירות צבאי או לאומי ב-22 החודשים שלפני הלידה: תעודת שחרור או אישור רשות השירות",
+    "הכשרה מקצועית בשנתיים האחרונות: אישור על המקום ועל התקופה",
+    "פטור או הנחה ממס הכנסה: האישור"
+   ],
+   "paid_he": "דמי הלידה משולמים בתשלום אחד לחשבון הבנק"
+  },
+  "grant": {
+   "first": 2103,
+   "second": 946,
+   "third_plus": 631,
+   "twins": 10514,
+   "triplets": 15771,
+   "each_extra": 5257,
+   "pct_first": 20,
+   "pct_second": 9,
+   "pct_third": 6,
+   "pct_twins": 100,
+   "pct_triplets": 150,
+   "pct_extra": 50,
+   "section": "סעיף 44",
+   "url": "https://www.btl.gov.il/benefits/maternity/maanakleda/Pages/ShiurMaanakLeda.aspx",
+   "conditions_url": "https://www.btl.gov.il/benefits/maternity/maanakleda/Pages/TnaeyZacaut.aspx",
+   "claim_url": "https://www.btl.gov.il/benefits/maternity/maanakleda/Pages/OfenHagashatTvia.aspx",
+   "he": "מענק לידה לפי מספר הילדים במשפחה: 2,103 ש\"ח לילד הראשון, 946 לשני, 631 לשלישי ואילך; תאומים 10,514, שלישייה 15,771, ועוד 5,257 לכל ילד נוסף (מ-1.1.2026)",
+   "paid_he": "משולם אוטומטית בתוך חודש מהלידה, לחשבון שבו משולמת קצבת הילדים (בלידה ראשונה: לחשבון שנמסר בבית החולים)",
+   "family_he": "הספירה לפי הילדים שבעדם שולם מענק באותה משפחה",
+   "abroad_he": "לידה בחוץ לארץ, אימוץ ופונדקאות: מגישים תביעה"
+  },
+  "multi_allowance": {
+   "min_babies": 3,
+   "months": 20,
+   "section": "סעיף 45",
+   "url": "https://www.btl.gov.il/benefits/maternity/Pages/%d7%a7%d7%a6%d7%91%d7%aa%20%d7%9c%d7%99%d7%93%d7%94.aspx",
+   "bands": [
+    [1, 3],
+    [4, 6],
+    [7, 9],
+    [10, 12],
+    [13, 20]
+   ],
+   "rows": [
+    {
+     "kids": 3,
+     "amounts": [
+      13458,
+      10514,
+      8411,
+      6308,
+      3680
+     ]
+    },
+    {
+     "kids": 4,
+     "amounts": [
+      17874,
+      14194,
+      11565,
+      7886,
+      4626
+     ]
+    },
+    {
+     "kids": 5,
+     "amounts": [
+      26285,
+      21028,
+      15771,
+      10514,
+      5993
+     ]
+    }
+   ],
+   "he": "שלושה ילדים או יותר בלידה אחת: קצבה חודשית ל-20 חודשים מהחודש שאחרי הלידה, לפי מספר הילדים שבחיים (בחודש הראשון: בתום 30 יום מהלידה), אוטומטית"
+  },
+  "hospital": {
+   "amount": 19028,
+   "from": "2026-01-10",
+   "premature": 301930,
+   "premature_grams": 1750,
+   "premature_icu_days": 4,
+   "section": "סעיף 43; לוח ב1",
+   "url": "https://www.btl.gov.il/benefits/maternity/Pages/%d7%9e%d7%a2%d7%a0%d7%a7%20%d7%90%d7%a9%d7%a4%d7%95%d7%96.aspx",
+   "he": "מענק האשפוז, 19,028 ש\"ח (מ-10.1.2026), עובר ישירות לבית החולים, ולא ליולדת; לפג עד 1,750 גרם שאושפז 4 ימים לפחות בטיפול נמרץ יילודים, עוד 301,930 ש\"ח לבית החולים"
+  },
+  "war": {
+   "from": "2026-02-28",
+   "to": "2026-04-14",
+   "section": "סעיף 49ב",
+   "url": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/%D7%AA%D7%A0%D7%90%D7%99%20%D7%94%D7%96%D7%9B%D7%90%D7%95%D7%AA.aspx",
+   "he": "מי שילדה בין 28.2.2026 ל-14.4.2026 ויצאה לחופשה ללא תשלום בעקבות המלחמה בזמן ההיריון: כשאין מספיק חודשי אכשרה, אפשר להביא בחשבון את תקופת דמי האבטלה ששולמו בעקבות החל\"ת, ואז ייתכנו דמי לידה חלקיים או מלאים"
+  },
+  "differences": {
+   "min": 1611,
+   "url": "https://www.btl.gov.il/benefits/maternity/Childbirth_Allowance/Pages/hefreshim.aspx",
+   "he": "אם אחרי התשלום המעסיק שילם עוד (הבראה, ביגוד, בונוס) מעל 1,611 ש\"ח (רבע משכר המינימום), מבקשים ממנו לשדר טופס 100 עם התשלומים, והמוסד בודק הפרשים"
+  },
+  "calculator_url": "https://www.btl.gov.il/Simulators/Pages/DmeyLedaCalc.aspx",
+  "gov_service_url": "https://www.gov.il/he/service/claim_for_birth_payment"
+ },
+ "rights_nechut": {
+  "name_he": "קצבת נכות כללית לשנת 2026",
+  "publisher_he": "המוסד לביטוח לאומי, ענף נכות כללית",
+  "source_name": "המוסד לביטוח לאומי: נכות כללית (תנאי זכאות, סכום הקצבה, לעבוד ולקבל קצבת נכות, תשלום, ערעור); חוק הביטוח הלאומי, פרק ט'",
+  "source_url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+  "checked_on": "2026-10-21",
+  "refresh_every_days": 365,
+  "next_update": "2027-01-01",
+  "from": "2026-01-01",
+  "law_he": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995, פרק ט': ביטוח נכות",
+  "law_url": "https://www.btl.gov.il/Laws1/00_0001_000009.pdf",
+  "general_law_url": "https://www.btl.gov.il/Laws1/00_0001_000014.pdf",
+  "schedules_url": "https://www.btl.gov.il/Laws1/00_0001_000020.pdf",
+  "pages": {
+   "main": "https://www.btl.gov.il/benefits/Disability/Pages/default.aspx",
+   "conditions": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%94%d7%96%d7%9b%d7%90%d7%99%d7%9d%20%d7%9c%d7%a7%d7%a6%d7%91%d7%aa%20%d7%a0%d7%9b%d7%95%d7%aa%20%d7%97%d7%95%d7%93%d7%a9%d7%99%d7%aa.aspx",
+   "sum": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "pay": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%aa%d7%a9%d7%9c%d7%95%d7%9d%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "work": "https://www.btl.gov.il/benefits/Disability/Pages/laavod.aspx",
+   "submit": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%94%d7%92%d7%a9%d7%aa%20%d7%94%d7%aa%d7%91%d7%99%d7%a2%d7%94.aspx",
+   "medical": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%a7%d7%91%d7%99%d7%a2%d7%aa%20%d7%90%d7%97%d7%95%d7%96%20%d7%94%d7%a0%d7%9b%d7%95%d7%aa%20%d7%94%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa.aspx",
+   "weighted": "https://www.btl.gov.il/benefits/Disability/Pages/chishuvDargatNehutMeshuklelet.aspx",
+   "degree": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%a7%d7%91%d7%99%d7%a2%d7%aa%20%d7%93%d7%a8%d7%92%d7%aa%20%d7%90%d7%99%e2%80%93%d7%94%d7%9b%d7%95%d7%a9%d7%a8%20%d7%9c%d7%94%d7%a9%d7%aa%d7%9b%d7%a8%20%d7%90%d7%95%20%d7%9c%d7%aa%d7%a4%d7%a7%d7%93%20%d7%91%d7%9e%d7%a9%d7%a7%20%d7%91%d7%99%d7%aa.aspx",
+   "committee": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%91%d7%93%d7%99%d7%a7%d7%94%20%d7%a2%d7%9c%20%d7%99%d7%93%d7%99%20%d7%95%d7%a2%d7%93%d7%94%20%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa.aspx",
+   "process": "https://www.btl.gov.il/benefits/Disability/Pages/tipulBetvia.aspx",
+   "appeal": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%a2%d7%a8%d7%a2%d7%95%d7%a8%20%d7%a2%d7%9c%20%d7%90%d7%97%d7%95%d7%96%20%d7%94%d7%a0%d7%9b%d7%95%d7%aa%20%d7%94%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa%20%d7%93%d7%a8%d7%92%d7%aa%20%d7%90%d7%99%20%d7%94%d7%9b%d7%95%d7%a9%d7%a8%20%d7%90%d7%97%d7%a8.aspx",
+   "recheck": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%91%d7%a7%d7%a9%d7%94%20%d7%9c%d7%a7%d7%91%d7%99%d7%a2%d7%94%20%d7%9e%d7%97%d7%93%d7%a9%20%d7%a9%d7%9c%20%d7%90%d7%97%d7%95%d7%96%20%d7%94%d7%a0%d7%9b%d7%95%d7%aa%20%d7%94%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa.aspx",
+   "fast": "https://www.btl.gov.il/benefits/Disability/Pages/MaslulYarok.aspx",
+   "changes": "https://www.btl.gov.il/benefits/Disability/Pages/hodaaAlShinuim.aspx",
+   "fee": "https://www.btl.gov.il/benefits/Disability/Pages/scharTircha.aspx",
+   "transfer": "https://www.btl.gov.il/benefits/Disability/Pages/kitzbaAchret.aspx",
+   "homemaker": "https://www.btl.gov.il/Audience/akeretBayit/akeretBayitNeja/Pages/default.aspx",
+   "homemaker_conditions": "https://www.btl.gov.il/Audience/akeretBayit/akeretBayitNeja/Pages/tnaiZakaut.aspx",
+   "homemaker_sum": "https://www.btl.gov.il/Audience/akeretBayit/akeretBayitNeja/Pages/shiuureHakitzba.aspx",
+   "calculator": "https://www.btl.gov.il/Simulators/NehutIndex/Pages/Calculator.aspx",
+   "docs_calculator": "https://www.btl.gov.il/Simulators/NehutIndex/Pages/TviaDocs.aspx",
+   "income_support": "https://www.btl.gov.il/benefits/Income_support/Pages/default.aspx"
+  },
+  "age": {
+   "min": 18,
+   "men_max": 67,
+   "women_from": 62,
+   "women_max": 65,
+   "claim_after_months": 12,
+   "section": "סעיף 195 (הגדרת \"מבוטח\")",
+   "schedule": "לוח א1",
+   "url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%94%d7%96%d7%9b%d7%90%d7%99%d7%9d%20%d7%9c%d7%a7%d7%a6%d7%91%d7%aa%20%d7%a0%d7%9b%d7%95%d7%aa%20%d7%97%d7%95%d7%93%d7%a9%d7%99%d7%aa.aspx",
+   "submit_url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%94%d7%92%d7%a9%d7%aa%20%d7%94%d7%aa%d7%91%d7%99%d7%a2%d7%94.aspx",
+   "women_he": "גיל הפרישה לאישה הוא 62 עד 65, לפי חודש הלידה (לוח א1)",
+   "over_he": "מגיל הפרישה אין קצבת נכות כללית חדשה; מי שכבר מקבל עובר לקצבת אזרח ותיק, ותביעה על התקופה שלפני גיל הפרישה אפשר להגיש עד 12 חודשים אחריו",
+   "transfer_url": "https://www.btl.gov.il/benefits/Disability/Pages/kitzbaAchret.aspx"
+  },
+  "medical": {
+   "min": 60,
+   "alt_min": 40,
+   "single_min": 25,
+   "section": "סעיף 208(א)",
+   "url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%94%d7%96%d7%9b%d7%90%d7%99%d7%9d%20%d7%9c%d7%a7%d7%a6%d7%91%d7%aa%20%d7%a0%d7%9b%d7%95%d7%aa%20%d7%97%d7%95%d7%93%d7%a9%d7%99%d7%aa.aspx",
+   "homemaker_min": 50,
+   "homemaker_url": "https://www.btl.gov.il/Audience/akeretBayit/akeretBayitNeja/Pages/tnaiZakaut.aspx",
+   "weighted_he": "כמה ליקויים: כל ליקוי נוסף מחושב מתוך מה שנותר, לא בחיבור. לדוגמה 20% ו-10%: 20% ועוד 10% מתוך 80% = 28%",
+   "weighted_url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%a7%d7%91%d7%99%d7%a2%d7%aa%20%d7%90%d7%97%d7%95%d7%96%20%d7%94%d7%a0%d7%9b%d7%95%d7%aa%20%d7%94%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa.aspx",
+   "calculator_url": "https://www.btl.gov.il/benefits/Disability/Pages/chishuvDargatNehutMeshuklelet.aspx",
+   "filtered_he": "ליקויים שהתקנות קובעות שאינם משפיעים על הכושר להשתכר (\"ליקויים מנופים\") לא נכנסים לחישוב"
+  },
+  "homemaker": {
+   "worked_months": 12,
+   "worked_any_months": 24,
+   "window_months": 48,
+   "apart_months": 24,
+   "section": "סעיף 195 (הגדרת \"עקרת בית\")",
+   "url": "https://www.btl.gov.il/Audience/akeretBayit/akeretBayitNeja/Pages/tnaiZakaut.aspx",
+   "main_url": "https://www.btl.gov.il/Audience/akeretBayit/akeretBayitNeja/Pages/default.aspx",
+   "def_he": "אישה נשואה שלא עבדה כשכירה או כעצמאית 12 חודשים רצופים, או 24 חודשים מתוך 48 שלפני התביעה, ולא חיה בנפרד מבן הזוג 24 חודשים",
+   "test_he": "נבדק הכושר לתפקד במשק הבית, במכון להערכה תפקודית",
+   "worker_he": "מי שעבדה 12 חודשים רצופים, או 24 חודשים מתוך 48 שלפני התביעה, נבדקת ככל מבוטח, לפי הכושר להשתכר"
+  },
+  "degree": {
+   "min_loss": 50,
+   "levels": [
+    60,
+    65,
+    74,
+    100
+   ],
+   "full_above": 74,
+   "section": "סעיף 209(א1)",
+   "loss_section": "סעיף 195 (הגדרת \"נכה\")",
+   "temp_years": 2,
+   "temp_section": "סעיף 210",
+   "url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%a7%d7%91%d7%99%d7%a2%d7%aa%20%d7%93%d7%a8%d7%92%d7%aa%20%d7%90%d7%99%e2%80%93%d7%94%d7%9b%d7%95%d7%a9%d7%a8%20%d7%9c%d7%94%d7%a9%d7%aa%d7%9b%d7%a8%20%d7%90%d7%95%20%d7%9c%d7%aa%d7%a4%d7%a7%d7%93%20%d7%91%d7%9e%d7%a9%d7%a7%20%d7%91%d7%99%d7%aa.aspx",
+   "he_75": "דרגה של 75% שנקבעה בעבר משולמת כדרגה מלאה"
+  },
+  "pension": {
+   "single_full_pct": 25,
+   "single_full_section": "סעיף 200(ב)",
+   "total_pct_of_basic": 41.5,
+   "components": [
+    {
+     "pct": 107.0,
+     "section": "סעיף 200(א)(1)",
+     "partial": "degree",
+     "he": "הקצבה הבסיסית"
+    },
+    {
+     "pct": 20.6,
+     "section": "סעיף 200(א)(2)",
+     "partial": "none",
+     "he": "מה שהיה הקצבה החודשית הנוספת: סעיף 200א בוטל בתיקון 200 (1.3.2018) ונכלל כאן; רק בדרגה מלאה"
+    },
+    {
+     "pct": 21.4,
+     "section": "סעיף 200(א)(3)",
+     "partial": "whole",
+     "he": "תוספת מתיקון 200 (1.3.2018), שמשולמת במלואה גם בדרגה חלקית"
+    },
+    {
+     "pct": 17.0,
+     "section": "סעיף 200(א)(4)(א)",
+     "partial": "degree",
+     "he": "תוספת מתיקון 227 (1.1.2022)"
+    }
+   ],
+   "amounts": {
+    "100": {
+     "pension": 4711,
+     "child": 1214,
+     "spouse": 1518
+    },
+    "74": {
+     "pension": 3211,
+     "child": 898,
+     "spouse": 1123
+    },
+    "65": {
+     "pension": 2894,
+     "child": 789,
+     "spouse": 987
+    },
+    "60": {
+     "pension": 2718,
+     "child": 728,
+     "spouse": 911
+    }
+   },
+   "section": "סעיף 200(א)",
+   "partial_section": "סעיף 201(א)",
+   "url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "basic_he": "סכום בסיסי 4, שממנו נגזרת קצבת הנכות הכללית"
+  },
+  "dependents": {
+   "spouse_pct": 12.5,
+   "child_pct": 10,
+   "uplift_pct": 7,
+   "section": "סעיף 200(ג)-(ד)",
+   "children_max": 2,
+   "spouse_income_pct": 57,
+   "spouse_income_max": 7848,
+   "spouse_section": "לוח ט, פרט 1",
+   "url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "spouse_he": "בן או בת זוג שהכנסתם עד 7,848 ש\"ח ברוטו בחודש ואינם מקבלים קצבה אחרת",
+   "kids_he": "רק שני הילדים הראשונים: עד גיל 18, או עד 24 בשירות צבאי או לאומי, או שעונים להגדרת ילד",
+   "homemaker_he": "עקרת בית נכה מקבלת תוספת רק בעד ילדיה, לא בעד בן זוג",
+   "homemaker_url": "https://www.btl.gov.il/Audience/akeretBayit/akeretBayitNeja/Pages/shiuureHakitzba.aspx"
+  },
+  "work": {
+   "new_claim_pct": 60,
+   "new_claim_max": 8261,
+   "new_claim_days": 90,
+   "new_claim_window_months": 15,
+   "new_claim_section": "סעיף 195 (הגדרת \"נכה\"), פסקה (3)",
+   "new_claim_url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%94%d7%96%d7%9b%d7%90%d7%99%d7%9d%20%d7%9c%d7%a7%d7%a6%d7%91%d7%aa%20%d7%a0%d7%9b%d7%95%d7%aa%20%d7%97%d7%95%d7%93%d7%a9%d7%99%d7%aa.aspx",
+   "full_add_pct": 21,
+   "full_add_from": 2891,
+   "full_add_section": "סעיף 201(ב)",
+   "tiers": [
+    {
+     "to_pct": 50.23,
+     "rate": 0,
+     "he": "עד 50.23% מהשכר הממוצע"
+    },
+    {
+     "to_pct": 68.0,
+     "rate": 30,
+     "he": "מעל 50.23% ועד 68%"
+    },
+    {
+     "to_pct": 93.0,
+     "rate": 40,
+     "he": "מעל 68% ועד 93%"
+    },
+    {
+     "to_pct": null,
+     "rate": 60,
+     "he": "מעל 93% מהשכר הממוצע"
+    }
+   ],
+   "tiers_section": "סעיף 202(ב)(2); לוח ח1",
+   "free_upto": 6916,
+   "crossover": {
+    "74": 11278,
+    "65": 12071,
+    "60": 12511
+   },
+   "min_pct_of_basic": 2.68,
+   "min_section": "סעיף 202(ג)",
+   "protect_section": "סעיף 209(ד)",
+   "protect_he": "דרגת אי-הכושר נשארת גם כשעובדים; מי שהקצבה שלו נפסקה רק בגלל הכנסה מעבודה, וההכנסה ירדה מתחת ל-8,261 ש\"ח, חוזר לקצבה בלי ועדה רפואית, כל עוד הדרגה בתוקף",
+   "benefits_months": 36,
+   "benefits_he": "מי שהפסיק לקבל קצבה רק בגלל הכנסה גבוהה זכאי להטבות הנלוות עוד 36 חודשים",
+   "income_he": "ההכנסה ברוטו מעבודה כשכיר או כעצמאי, כולל תשלומים נוספים כמו הבראה, ביגוד ובונוסים",
+   "avg_wage_he": "השכר הממוצע לפי סעיף 2 לחוק",
+   "url": "https://www.btl.gov.il/benefits/Disability/Pages/laavod.aspx",
+   "tables": {
+    "100": "https://www.btl.gov.il/benefits/Disability/Pages/100per.aspx",
+    "74": "https://www.btl.gov.il/benefits/Disability/Pages/74Per.aspx",
+    "65": "https://www.btl.gov.il/benefits/Disability/Pages/65Per.aspx",
+    "60": "https://www.btl.gov.il/benefits/Disability/Pages/60Per.aspx"
+   }
+  },
+  "other_income": {
+   "disregard_pct": 11.37,
+   "disregard": 1566,
+   "section": "סעיף 202(ב)(3)",
+   "url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "he": "הכנסה שלא מעבודה (פנסיה, שכר דירה, מלגה, קצבה אחרת) משפיעה רק כשהקצבה עם התוספות גבוהה מהקצבה המלאה: 1,566 ש\"ח ממנה לא נחשבים, והשאר מופחת, אבל לא מתחת לקצבה המלאה",
+   "homemaker_he": "לעקרת בית: כל ההכנסה שלא מעבודה מופחתת מתוספת הילדים, ולא מתחת לקצבה המלאה",
+   "homemaker_url": "https://www.btl.gov.il/Audience/akeretBayit/akeretBayitNeja/Pages/shiuureHakitzba.aspx",
+   "alimony_he": "מזונות שהאב משלם בעד הילדים לא מופחתים מתוספת הילדים; מזונות בעד האם נחשבים הכנסה שלא מעבודה"
+  },
+  "clock": {
+   "wait_days": 90,
+   "start_section": "סעיף 196(ב)",
+   "early_from_day": 31,
+   "early_to_day": 90,
+   "early_min_months": 6,
+   "early_section": "סעיף 196(ג)",
+   "det_back_months": 15,
+   "det_section": "סעיף 195 (הגדרת \"התאריך הקובע\")",
+   "consider_days": 90,
+   "consider_section": "סעיף 207(א)",
+   "retro_months": 12,
+   "retro_section": "סעיף 296(ב)(1)",
+   "pay_day": 28,
+   "url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%aa%d7%a9%d7%9c%d7%95%d7%9d%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "pay_he": "קצבת הנכות משולמת ב-28 בכל חודש עבור אותו חודש; בחגים המועד עשוי לזוז",
+   "early_he": "מי שנקבעה לו דרגה 100% לשישה חודשים לפחות מקבל קצבה מלאה כבר מהיום ה-31, עם התוספות לבן הזוג ולילדים"
+  },
+  "appeal": {
+   "days": 60,
+   "court_days": 60,
+   "other_court_months": 12,
+   "url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%a2%d7%a8%d7%a2%d7%95%d7%a8%20%d7%a2%d7%9c%20%d7%90%d7%97%d7%95%d7%96%20%d7%94%d7%a0%d7%9b%d7%95%d7%aa%20%d7%94%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa%20%d7%93%d7%a8%d7%92%d7%aa%20%d7%90%d7%99%20%d7%94%d7%9b%d7%95%d7%a9%d7%a8%20%d7%90%d7%97%d7%a8.aspx",
+   "section": "סעיף 211",
+   "court_section": "סעיף 213",
+   "medical_he": "על אחוזי הנכות הרפואית (מי שנקבעו לו פחות מ-80%, או דרגה של 74% ומטה): ערר בכתב ומנומק לוועדה רפואית לעררים, דרך הסניף, בתוך 60 ימים מקבלת ההודעה",
+   "degree_he": "על דרגת אי-הכושר (נדחה, או נקבעה דרגה של 74% ומטה): ערר לוועדה לעררים, בתוך 60 ימים מקבלת ההודעה",
+   "court_he": "על החלטת ועדת העררים: ערעור לבית הדין האזורי לעבודה, בשאלה משפטית בלבד, בתוך 60 ימים מקבלת ההחלטה",
+   "other_he": "על החלטה אחרת של פקיד התביעות (הכנסות, תקופות עבודה, גיל): תביעה לבית הדין האזורי לעבודה בתוך 12 חודשים מקבלת ההודעה",
+   "lower_he": "ועדת העררים יכולה גם להוריד; כשהיא שוקלת להוריד היא מודיעה, ולעיתים אפשר לבטל את הערר",
+   "rest_he": "מועד שחל בשבת או בחג נדחה ליום שאחריו (חוק הפרשנות, סעיף 10(ג))"
+  },
+  "recheck": {
+   "months": 6,
+   "medical_months": 12,
+   "url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%91%d7%a7%d7%a9%d7%94%20%d7%9c%d7%a7%d7%91%d7%99%d7%a2%d7%94%20%d7%9e%d7%97%d7%93%d7%a9%20%d7%a9%d7%9c%20%d7%90%d7%97%d7%95%d7%96%20%d7%94%d7%a0%d7%9b%d7%95%d7%aa%20%d7%94%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa.aspx",
+   "he": "בדיקה מחדש אפשר לבקש 6 חודשים אחרי הקביעה האחרונה, אם התביעה נדחתה או נקבעה דרגה חלקית; גם אז המוסד רשאי להפחית",
+   "income_he": "מי שנדחה בגלל הכנסות גבוהות והכנסותיו ירדו מגיש תביעה חוזרת בלי המתנה"
+  },
+  "changes": {
+   "days": 30,
+   "url": "https://www.btl.gov.il/benefits/Disability/Pages/hodaaAlShinuim.aspx",
+   "he": "על כל שינוי בהכנסות (שלכם או של בן הזוג), במצב המשפחתי או בכתובת מודיעים בתוך 30 יום, עם תלוש שכר או אישור על הפסקת עבודה"
+  },
+  "claim": {
+   "form": "7801",
+   "form_url": "https://govforms.gov.il/mw/forms/T7801@btl.gov.il",
+   "pdf_url": "https://www.btl.gov.il/%d7%98%d7%a4%d7%a1%d7%99%d7%9d%20%d7%95%d7%90%d7%99%d7%a9%d7%95%d7%a8%d7%99%d7%9d/Documents/t7801.pdf",
+   "phone": "*3928",
+   "url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%94%d7%92%d7%a9%d7%aa%20%d7%94%d7%aa%d7%91%d7%99%d7%a2%d7%94.aspx",
+   "docs_calculator_url": "https://www.btl.gov.il/Simulators/NehutIndex/Pages/TviaDocs.aspx",
+   "docs_he": [
+    "טופס התביעה 7801, מקוון באתר הממשלתי או בטלפון *3928",
+    "מסמכים רפואיים: סיכומי מחלה, המחלות הכרוניות, הטיפולים והתרופות (מחשבון המסמכים של המוסד מפרט לפי אבחנה)",
+    "שכירים: 15 תלושי השכר האחרונים, או אישור המעסיק על תקופת העבודה והשכר (בטופס התביעה)",
+    "פירוט דמי מחלה מהמעסיק, או תשלום מחברת ביטוח, בעד התקופות שבהן לא עבדתם ב-15 החודשים האחרונים",
+    "עצמאים: הצהרה במחלקת הביטוח והגבייה על השינויים בעבודה ובהכנסות, והשומות האחרונות",
+    "הכנסות שלא מעבודה ב-15 החודשים האחרונים: פנסיה, תשלומים מחברת ביטוח, מזונות, הכנסה מרכוש",
+    "מי שמגיש בשם אחר: ייפוי כוח, צו אפוטרופוס או פסק דין (סעיף 4 בטופס)"
+   ],
+   "fast_days": 30,
+   "fast_url": "https://www.btl.gov.il/benefits/Disability/Pages/MaslulYarok.aspx",
+   "fast_he": "מחלה ממארת בטיפול פעיל, ALS, ליקוי נפשי של 50% ומעלה, השתלה בשנה האחרונה ומחלות קשות בטיפול פעיל: מסלול מהיר, המוסד משתדל לסיים בתוך 30 ימים",
+   "prep_he": "ייעוץ והכנה לוועדה הרפואית, חינם, במרכזי יד מכוונת (*2496)",
+   "prep_url": "https://www.btl.gov.il/snifim/Pages/yadMechavenet1.aspx",
+   "committee_he": [
+    "להביא תעודה מזהה עם תמונה; בלעדיה לא נבדקים",
+    "לפרט את כל התלונות של היום, גם קושי בעבודה ועזרה ברחצה, בלבוש, באכילה ובניידות; אפשר להגיש מסמך כתוב, והוא מצורף לדוח",
+    "להביא מסמכים רפואיים חדשים שאינם בתיק, וצילום שלהם להשאיר בוועדה",
+    "מותר להביא מלווה, מתרגם או עורך דין, ולבקש שהמלווה יהיה בבדיקה",
+    "רופא שמכיר אתכם אישית או מטפל בכם לא יכול לשבת בוועדה: מודיעים על כך"
+   ],
+   "committee_url": "https://www.btl.gov.il/benefits/Disability/Pages/%d7%91%d7%93%d7%99%d7%a7%d7%94%20%d7%a2%d7%9c%20%d7%99%d7%93%d7%99%20%d7%95%d7%a2%d7%93%d7%94%20%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa.aspx",
+   "income_support_he": "מי שאין לו או למשפחתו הכנסה בודק זכאות להבטחת הכנסה עד שתתקבל קצבת הנכות",
+   "income_support_url": "https://www.btl.gov.il/benefits/Income_support/Pages/default.aspx"
+  },
+  "fee_url": "https://www.btl.gov.il/benefits/Disability/Pages/scharTircha.aspx",
+  "calculator_url": "https://www.btl.gov.il/Simulators/NehutIndex/Pages/Calculator.aspx"
  }
 }

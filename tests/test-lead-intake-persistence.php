@@ -2,6 +2,11 @@
 declare(strict_types=1);
 define( 'ABSPATH', __DIR__ );
 class WP_Error {}
+class WP_Query {
+	public array $posts = array();
+	public int $found_posts = 0;
+	public function __construct( public array $args ) { $GLOBALS['last_query'] = $args; }
+}
 class IntakeResponse extends RuntimeException {
 	public function __construct( public int $status, public string $target ) { parent::__construct( $target ); }
 }
@@ -123,6 +128,8 @@ check_intake( 'case_review' === get_post_meta( 1, 'product_intent' ), 'Hadmaya p
 check_intake( '777' === get_post_meta( 1, 'assigned_lawyer_id' ), 'Handler never overwrites router assignment' );
 check_intake( 'routed_pending_qualification' === get_post_meta( 1, 'qualified_lead_billing_status' ), 'Handler never overwrites router billing trail' );
 check_intake( 'accepted_for_sending' === get_post_meta( 1, 'lead_owner_mail_status' ), 'Mail acceptance is recorded without claiming inbox delivery' );
+fixture(); $_POST['lead_consent'] = 'on'; $r = run_intake();
+check_intake( 302 === $r->status && '1' === get_post_meta( 1, 'consent' ), 'Native checkbox value from lawyer-profile forms remains accepted' );
 fixture( array( 'mail_ok' => false ) ); $r = run_intake();
 check_intake( 302 === $r->status && 'failed' === get_post_meta( 1, 'lead_owner_mail_status' ), 'Mail failure is visible internally while saved enquiry remains valid' );
 
@@ -145,6 +152,10 @@ require dirname( __DIR__ ) . '/justice-ops/lead-router.php';
 require dirname( __DIR__ ) . '/justice-ops/hubspot-sync.php';
 check_intake( false === justice_router_route_lead( 1 )['ok'], 'Manual router invocation also excludes a synthetic lead' );
 check_intake( false === justice_hubspot_sync_lead( 1 )['ok'], 'HubSpot/backfill excludes a synthetic lead before token access' );
+justice_hubspot_backfill();
+check_intake( 'AND' === $last_query['meta_query']['relation'] && 'NOT EXISTS' === $last_query['meta_query'][0]['compare'], 'Backfill retains missing-deal selection with combined exclusions' );
+check_intake( 'lead_is_test' === $last_query['meta_query'][1][0]['key'] && array( '', '0' ) === $last_query['meta_query'][1][1]['value'], 'Backfill excludes synthetic rows before applying its batch limit' );
+check_intake( 'lead_storage_status' === $last_query['meta_query'][2][0]['key'] && 'incomplete' === $last_query['meta_query'][2][1]['value'] && '!=' === $last_query['meta_query'][2][1]['compare'], 'Backfill excludes incomplete rows before applying its batch limit' );
 
 fixture(); $_GET['lead_test'] = '1'; ob_start(); justice_ops_intake_form_context(); $html = ob_get_clean();
 check_intake( '' === $html, 'Anonymous page never exposes test fields' );

@@ -69,7 +69,8 @@ function justice_ops_handle_public_intake(): void {
 	$city    = justice_ops_intake_field( $_POST, 'lead_city' );
 	$message = justice_ops_intake_field( $_POST, 'lead_message', true );
 	$urgency = justice_ops_intake_field( $_POST, 'lead_urgency' ) ?: 'normal';
-	$consent = '1' === justice_ops_intake_field( $_POST, 'lead_consent' );
+	// Existing profile forms use the native checkbox default "on".
+	$consent = in_array( justice_ops_intake_field( $_POST, 'lead_consent' ), array( '1', 'on' ), true );
 	if ( '' === $name || '' === $phone || ! $consent ) {
 		wp_die( 'יש למלא שם וטלפון ולאשר יצירת קשר לפני השליחה.', '', array( 'response' => 400, 'back_link' => true ) );
 	}

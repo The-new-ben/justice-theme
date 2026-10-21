@@ -295,7 +295,20 @@ function justice_hubspot_backfill( int $limit = 25 ): array {
 		'orderby'        => 'date',
 		'order'          => 'ASC',
 		'fields'         => 'ids',
-		'meta_query'     => array( array( 'key' => 'hubspot_deal_id', 'compare' => 'NOT EXISTS' ) ),
+		'meta_query'     => array(
+			'relation' => 'AND',
+			array( 'key' => 'hubspot_deal_id', 'compare' => 'NOT EXISTS' ),
+			array(
+				'relation' => 'OR',
+				array( 'key' => 'lead_is_test', 'compare' => 'NOT EXISTS' ),
+				array( 'key' => 'lead_is_test', 'value' => array( '', '0' ), 'compare' => 'IN' ),
+			),
+			array(
+				'relation' => 'OR',
+				array( 'key' => 'lead_storage_status', 'compare' => 'NOT EXISTS' ),
+				array( 'key' => 'lead_storage_status', 'value' => 'incomplete', 'compare' => '!=' ),
+			),
+		),
 	) );
 	$done = 0; $failed = 0; $last = '';
 	foreach ( $q->posts as $id ) {

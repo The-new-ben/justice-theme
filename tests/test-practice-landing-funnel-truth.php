@@ -56,8 +56,8 @@ jt_funnel_assert(
 );
 
 jt_funnel_assert(
-	false !== strpos( $functions, "define( 'JUSTICE_DEPLOY_MARKER', '2026-10-21-intake-persistence-v5' );" ),
-	'The criminal funnel release marker is missing.'
+	false !== strpos( $functions, "define( 'JUSTICE_DEPLOY_MARKER', '2026-10-21-rental-output-v1' );" ),
+	'The current theme release marker is missing.'
 );
 
 echo "practice landing funnel truth tests passed\n";

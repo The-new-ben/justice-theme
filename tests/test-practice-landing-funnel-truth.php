@@ -56,7 +56,7 @@ jt_funnel_assert(
 );
 
 jt_funnel_assert(
-	false !== strpos( $functions, "define( 'JUSTICE_DEPLOY_MARKER', '2026-10-21-practice-directory-eligibility-v2' );" ),
+	false !== strpos( $functions, "define( 'JUSTICE_DEPLOY_MARKER', '2026-10-21-criminal-intake-followthrough-v3' );" ),
 	'The criminal funnel release marker is missing.'
 );
 

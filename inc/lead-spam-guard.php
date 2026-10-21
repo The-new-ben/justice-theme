@@ -175,12 +175,18 @@ function justice_theme_render_lead_area_options( string $selected = '', string $
 }
 
 /**
- * Read a safe area prefill from the current request.
+ * Read a safe area prefill, with an optional explicit template context.
  */
-function justice_theme_current_lead_prefill_area(): string {
-	$area = isset( $_GET['lead_area'] ) ? sanitize_key( wp_unslash( $_GET['lead_area'] ) ) : '';
+function justice_theme_current_lead_prefill_area( string $fallback = '' ): string {
+	$area    = isset( $_GET['lead_area'] ) && is_string( $_GET['lead_area'] ) ? sanitize_key( wp_unslash( $_GET['lead_area'] ) ) : '';
+	$allowed = justice_theme_lead_area_values();
 
-	return in_array( $area, justice_theme_lead_area_values(), true ) ? $area : '';
+	if ( in_array( $area, $allowed, true ) ) {
+		return $area;
+	}
+
+	$fallback = sanitize_key( $fallback );
+	return in_array( $fallback, $allowed, true ) ? $fallback : '';
 }
 
 /**

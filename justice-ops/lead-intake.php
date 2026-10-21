@@ -71,8 +71,10 @@ function justice_ops_handle_public_intake(): void {
 	$urgency = justice_ops_intake_field( $_POST, 'lead_urgency' ) ?: 'normal';
 	// Existing profile forms use the native checkbox default "on".
 	$consent = in_array( justice_ops_intake_field( $_POST, 'lead_consent' ), array( '1', 'on' ), true );
-	if ( '' === $name || '' === $phone || ! $consent ) {
-		wp_die( 'יש למלא שם וטלפון ולאשר יצירת קשר לפני השליחה.', '', array( 'response' => 400, 'back_link' => true ) );
+	// Preserve legacy forms that do not emit this field. Record absence honestly;
+	// adding a new sitewide consent policy is not part of this storage repair.
+	if ( '' === $name || '' === $phone ) {
+		wp_die( 'יש למלא שם וטלפון לפני השליחה.', '', array( 'response' => 400, 'back_link' => true ) );
 	}
 	$surface = sanitize_key( justice_ops_intake_field( $_POST, 'lead_source_surface' ) ) ?: 'public_lead_form';
 	$source  = wp_get_referer() ?: home_url( '/' );
@@ -100,7 +102,7 @@ function justice_ops_handle_public_intake(): void {
 		'visitor_name' => $name, 'visitor_phone' => $phone, 'visitor_email' => $email,
 		'legal_area' => $area, 'city' => $city, 'message' => $message, 'urgency' => $urgency,
 		'follow_up_status' => 'not_started', 'coverage_status' => 'coverage_review',
-		'consent' => '1', 'consent_status' => 'explicit_site_form_consent',
+		'consent' => $consent ? '1' : '0', 'consent_status' => $consent ? 'explicit_site_form_consent' : 'missing_site_form_consent',
 		'source_url' => $source, 'source_page_url' => $source,
 		'source_keyword' => justice_ops_intake_field( $_POST, 'source_keyword' ),
 		'source_channel' => $channel, 'source_system' => 'justice_public_site',

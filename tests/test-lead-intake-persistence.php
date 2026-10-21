@@ -138,7 +138,9 @@ check_intake( 403 === $r->status && 0 === $inserts, 'Invalid form nonce cannot c
 fixture(); $_POST['lead_name'] = array( 'bad' ); $r = run_intake();
 check_intake( 400 === $r->status && 0 === $inserts, 'Malformed required field fails safely' );
 fixture(); $_POST['lead_consent'] = '0'; $r = run_intake();
-check_intake( 400 === $r->status && 0 === $inserts, 'Explicit consent is required before saving or routing' );
+check_intake( 302 === $r->status && '0' === get_post_meta( 1, 'consent' ), 'Unchecked value is never recorded as explicit consent' );
+fixture(); unset( $_POST['lead_consent'] ); $r = run_intake();
+check_intake( 302 === $r->status && 'missing_site_form_consent' === get_post_meta( 1, 'consent_status' ), 'Legacy generator forms without checkbox remain accepted without inventing consent' );
 fixture(); $_POST['justice_intake_test'] = '1'; $_POST['justice_intake_test_nonce'] = 'valid-justice_intake_test'; $r = run_intake();
 check_intake( 403 === $r->status && 0 === $inserts, 'Anonymous visitor cannot activate the private test mode' );
 fixture( array( 'admin' => true ) ); $_POST['justice_intake_test'] = '1'; $r = run_intake();

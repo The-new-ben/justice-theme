@@ -23,7 +23,7 @@ function esc_html( $t ) { return htmlspecialchars( (string) $t, ENT_QUOTES, 'UTF
 function esc_attr( $t ) { return htmlspecialchars( (string) $t, ENT_QUOTES, 'UTF-8' ); }
 function esc_url( $u ) { return (string) $u; }
 function home_url( $path = '' ) { return 'https://jus-tice.co.il' . $path; }
-function get_permalink() { return 'https://jus-tice.co.il/inheritance-order/'; }
+function get_permalink() { return 'https://jus-tice.co.il/applying-order-heirs-registrar/'; }
 function wp_json_encode( $data, $flags = 0 ) { return json_encode( $data, $flags ); }
 function wp_enqueue_style( $h, $src = '', $deps = array(), $ver = false ) { global $jt_enqueued; $jt_enqueued[ $h ] = $src; }
 function wp_enqueue_script( $h, $src = '', $deps = array(), $ver = false, $footer = false ) { global $jt_enqueued; $jt_enqueued[ $h ] = $src; }
@@ -64,7 +64,7 @@ check( '2026-10-21' === ( $reg['registry_version'] ?? '' ), 'the registry versio
 foreach ( justice_tools_inheritance_names() as $name ) {
 	check( isset( $catalog[ $name ] ), "catalog: {$name}" );
 }
-check( '/inheritance-order/' === ( $catalog['tzav-yerusha']['page'] ?? '' ) && '/what-is-a-probate-order/' === ( $catalog['tzav-yerusha']['modes']['kiyum']['page'] ?? '' ) && ! empty( $catalog['tzav-yerusha']['modes']['kiyum']['shares_form'] ), 'the planner lives on /inheritance-order/ and, as a mode, on the probate page' );
+check( '/applying-order-heirs-registrar/' === ( $catalog['tzav-yerusha']['page'] ?? '' ) && '/registrar-of-inheritance/' === ( $catalog['tzav-yerusha']['modes']['kiyum']['page'] ?? '' ) && ! empty( $catalog['tzav-yerusha']['modes']['kiyum']['shares_form'] ), 'the planner lives on the request page and, as a mode, on the registrar page (never on a page with the reviewed-by line)' );
 check( '/inheritance-dispute/' === ( $catalog['sichsuch-yerusha']['page'] ?? '' ) && '/inheritance-disputes-lawyer/' === ( $catalog['sichsuch-yerusha']['modes']['lawyer']['page'] ?? '' ), 'the navigator lives on /inheritance-dispute/ and on the lawyer\'s guide' );
 foreach ( justice_tools_inheritance_names() as $name ) {
 	$t = $catalog[ $name ];
@@ -123,7 +123,7 @@ foreach ( justice_tools_inheritance_names() as $name ) {
 	check( false !== strpos( $section( array( 'name' => $name, 'part' => 'updated' ) ), '21.10.2026' ), "{$name}: the updated line uses the wave's check date" );
 }
 $index = $jt_shortcodes['justice_tools_index']();
-check( false !== strpos( $index, '/inheritance-order/' ) && false !== strpos( $index, '/inheritance-dispute/' ), 'hub cards include the wave' );
+check( false !== strpos( $index, '/applying-order-heirs-registrar/' ) && false !== strpos( $index, '/inheritance-dispute/' ), 'hub cards include the wave' );
 
 if ( $failures ) {
 	fwrite( STDERR, "inheritance tools: {$failures} failure(s)\n" );

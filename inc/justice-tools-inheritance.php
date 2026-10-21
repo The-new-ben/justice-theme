@@ -3,8 +3,9 @@
  * The inheritance wave (21.10.2026): five instruments for the process after a death, each on the page that owns its words.
  *
  * Shortcodes (placing them is an editor step, after the theme release):
- *   [justice_tool name="tzav-yerusha"]                   the request planner: route, documents, fees, clock (/inheritance-order/)
- *   [justice_tool name="tzav-yerusha" mode="kiyum"]      the same instrument read from the will's side (/what-is-a-probate-order/)
+ *   [justice_tool name="tzav-yerusha"]                   the request planner: route, documents, fees, clock (/applying-order-heirs-registrar/)
+ *   [justice_tool name="tzav-yerusha" mode="kiyum"]      the same instrument read from the will's side (/registrar-of-inheritance/)
+ *   (/inheritance-order/ and /what-is-a-probate-order/ carry Adv. Maya Rotenberg's reviewed-by line, so they only link here)
  *   [justice_tool name="histalkut"]                      the waiver-affidavit generator (/disclaimer-renouncing-share/)
  *   [justice_tool name="sichsuch-yerusha"]               the dispute navigator (/inheritance-dispute/)
  *   [justice_tool name="sichsuch-yerusha" mode="lawyer"] the navigator on the lawyer's guide (/inheritance-disputes-lawyer/)
@@ -36,7 +37,7 @@ function justice_tools_inheritance_catalog(): array {
 			'title'     => 'בקשה לצו ירושה או לצו קיום צוואה: המסלול, המסמכים, האגרה והשעון',
 			'promise'   => 'עונים על המצב שלכם, עם או בלי צוואה, מי מגיש ומי היורשים, ומקבלים את מסלול ההגשה, את רשימת המסמכים לפי תקנה 14, את האגרה כפי שנגבית, ואת המועדים: 7 ימים לצוואה המקורית, 14 ימים להתנגדויות.',
 			'question'  => 'איך מגישים בקשה לצו ירושה, מה מצרפים, כמה משלמים וכמה זמן זה לוקח?',
-			'page'      => '/inheritance-order/',
+			'page'      => '/applying-order-heirs-registrar/',
 			'category'  => 'LegalApplication',
 			'data'      => array( 'registry_version', 'inheritance_process' ),
 			'dataset'   => 'inheritance_process',
@@ -52,7 +53,7 @@ function justice_tools_inheritance_catalog(): array {
 					'title'       => 'בקשה לצו קיום צוואה: המסלול, המסמכים, האגרה והשעון',
 					'promise'     => 'מסמנים שיש צוואה ומקבלים את מסלול ההגשה, את המסמכים (הצוואה המקורית בתוך 7 ימים מהגשה מקוונת, הודעה לזוכים, ייפוי כוח), את האגרה כפי שנגבית, ו-14 הימים להתנגדויות.',
 					'question'    => 'איך מגישים בקשה לצו קיום צוואה, ומה קורה אם מישהו מתנגד?',
-					'page'        => '/what-is-a-probate-order/',
+					'page'        => '/registrar-of-inheritance/',
 					'more'        => array( array( 'label' => 'הגשה מקוונת באתר האפוטרופוס הכללי', 'url' => 'https://www.gov.il/he/service/probate-order' ), array( 'label' => 'כמה עולה צוואה, מהחתימה ועד צו הקיום', 'path' => '/depositing-testament-registrar/' ), array( 'label' => 'התנגדות לצוואה: שעון ועילות', 'path' => '/will-dispute-grounds/' ) ),
 					'shares_form' => true,
 				),
@@ -98,7 +99,7 @@ function justice_tools_inheritance_catalog(): array {
 			'next_text'   => 'הצעד הבא: להעתיק את התצהיר, למלא את הסוגריים המרובעים ולחתום בפני עורך דין',
 			'primary'     => array( 'label' => 'העתקת התצהיר', 'act' => 'copy-doc' ),
 			'rehearse'    => array( 'label' => 'לתרגל את השיחה במשפחה על החלוקה', 'topic' => 'inheritance', 'purpose' => 'mediation' ),
-			'more'        => array( array( 'label' => 'בקשה לצו ירושה: המתכנן', 'path' => '/inheritance-order/' ), array( 'label' => 'מי יורש כמה', 'path' => '/succession-law-israel/' ), array( 'label' => 'בקשה לצו ירושה, האפוטרופוס הכללי', 'url' => 'https://www.gov.il/he/service/inheritance_order' ) ),
+			'more'        => array( array( 'label' => 'בקשה לצו ירושה: המתכנן', 'path' => '/applying-order-heirs-registrar/' ), array( 'label' => 'מי יורש כמה', 'path' => '/succession-law-israel/' ), array( 'label' => 'בקשה לצו ירושה, האפוטרופוס הכללי', 'url' => 'https://www.gov.il/he/service/inheritance_order' ) ),
 			'lawyer'      => array( 'label' => 'עורך דין לענייני ירושה', 'path' => '/inheritance-lawyer/' ),
 			'sticky'      => 'מסתלקים מ',
 			'sticky_kind' => 'text',

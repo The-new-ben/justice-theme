@@ -823,6 +823,23 @@ function actionAfterFlush(target, flush) {
 	return button ? button.getAttribute('data-act') : null;
 }
 
+/** Match the existing article-anchor clearance for this tool's dynamic native links. */
+function clearFollowupAnchor(root, clicked) {
+	const link = clicked.closest(`#jtool-${TOOL_ID}-next a.jtool-btn--primary`);
+	const href = link && link.getAttribute('href');
+	if (!href || !href.startsWith('#')) { return; }
+	const doc = root.ownerDocument;
+	const target = doc.getElementById(href.slice(1));
+	const header = doc.querySelector('.site-header');
+	if (!target || !root.contains(target) || !header) { return; }
+	const style = doc.defaultView.getComputedStyle(header);
+	if (!/^(sticky|fixed)$/.test(style.position) || style.display === 'none') { return; }
+	const height = header.getBoundingClientRect().height;
+	const padding = parseFloat(doc.defaultView.getComputedStyle(doc.documentElement).scrollPaddingTop) || 0;
+	const original = parseFloat(doc.defaultView.getComputedStyle(target).scrollMarginTop) || 0;
+	target.style.scrollMarginTop = `${Math.ceil(Math.max(original, height + (parseFloat(style.top) || 0) + 12 - padding, 0))}px`;
+}
+
 function renderDetails(reg, r, opts = {}) {
 	if (!r.ok) { return ''; }
 	const rb = reg.rights_bituach;
@@ -1017,6 +1034,7 @@ function mount(root, reg) {
 		const act = actionAfterFlush(ev.target, () => {
 			if (timer) { clearTimeout(timer); timer = null; run(readForm(root, month), { silent: true }); }
 		});
+		clearFollowupAnchor(root, ev.target);
 		if (!act) { return; }
 		const input = readForm(root, month);
 		const r = compute(reg, input);

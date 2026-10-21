@@ -125,6 +125,27 @@ function justice_tools_inheritance_catalog(): array {
 			'sticky'      => 'ימים להתנגדות',
 			'sticky_kind' => 'count',
 		),
+		// The inheritance wave (21.10.2026): the heirs' distribution agreement with the equalization ledger (/heirs-distribution-agreement/).
+		'heskem-yorshim'  => array(
+			'name'      => 'מחולל הסכם חלוקת עיזבון',
+			'title'     => 'הסכם חלוקת עיזבון בין יורשים: המאזן, תשלומי האיזון והטיוטה',
+			'promise'   => 'מי מקבל יותר מחלקו ומי פחות, כמה מאזנים מכספי העיזבון בלי מס, וכמה מגיע מכסף פרטי ונחשב מכירה (סעיף 5(ג)(4)); וההסכם עצמו, סעיף אחרי סעיף, בלי בית משפט.',
+			'question'  => 'איך מחלקים עיזבון אחרת מהצו בלי מס ובלי בית משפט, וכמה כל יורש משלם או מקבל?',
+			'page'      => '/heirs-distribution-agreement/',
+			'category'  => 'LegalApplication',
+			'data'      => array( 'registry_version', 'inheritance_process', 'will_cost' ),
+			'dataset'   => 'inheritance_process',
+			'next_text' => 'הצעד הבא: להעתיק את ההסכם, להשלים את הפרטים שבסוגריים, ולתרגל את שיחת החלוקה לפני שיושבים עם שאר היורשים',
+			'primary'   => array( 'label' => 'העתקת ההסכם', 'act' => 'copy-doc' ),
+			'rehearse'  => array( 'label' => 'לתרגל את שיחת החלוקה בין היורשים', 'topic' => 'inheritance', 'purpose' => 'mediation' ),
+			'more'      => array(
+				array( 'label' => 'צו ירושה: המדריך', 'path' => '/inheritance-order/' ),
+				array( 'label' => 'מחשבון מס שבח', 'path' => '/land-appreciation-tax/' ),
+				array( 'label' => 'מחשבון מס רכישה', 'path' => '/acquisition-tax-brackets-2026/' ),
+			),
+			'lawyer'    => array( 'label' => 'עורך דין לענייני ירושה', 'path' => '/inheritance-lawyer/' ),
+			'sticky'    => 'איזון',
+		),
 	);
 }
 
@@ -168,6 +189,15 @@ function justice_tools_inheritance_answer( string $name, string $mode = '' ): st
 			. 'אחרי שהצו ניתן מבקשים תיקון או ביטול (' . esc_html( $ip['sections']['amend'] ) . '): ' . justice_tools_money( $rg['items']['amend']['amount'], 0 ) . ' אצל הרשם או ' . justice_tools_money( $fc['items']['amend']['amount'], 0 ) . ' בבית המשפט. נבדק ' . esc_html( justice_tools_he_date( $ip['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
+	if ( 'heskem-yorshim' === $name && ! empty( $reg['inheritance_process'] ) ) {
+		$ip   = $reg['inheritance_process'];
+		$lt   = $ip['land_tax'];
+		$text = '<strong>הסכם חלוקת עיזבון</strong> מאפשר ליורשים לחלק את הנכסים אחרת מהצו, בהסכמה ובלי בית משפט (' . esc_html( $ip['sections']['division_agreement'] ) . ' לחוק הירושה). '
+			. 'חלוקה ראשונה אינה מכירה כל עוד האיזון משולם מכספי העיזבון (' . esc_html( $lt['division_not_sale'] ) . ' לחוק מיסוי מקרקעין); כסף פרטי שיורש מוסיף הוא מכירה: מס רכישה למשלם, מס שבח למקבל. '
+			. 'אישור בית משפט רק כשיש קטין או חסוי (' . esc_html( $ip['capacity']['minor_property'] ) . ' לחוק הכשרות). '
+			. 'רישום בטאבו: ' . justice_tools_money( $ip['bar']['registration_per_unit'], 0 ) . ' ליחידה לפי תעריף הלשכה, לפני מע"מ. נבדק ' . esc_html( justice_tools_he_date( $ip['checked_on'] ) ) . '.';
+		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+	}
 	return '' === $text ? '' : '<div class="jtool-answer"><p>' . $text . '</p></div>';
 }
 
@@ -190,6 +220,10 @@ function justice_tools_inheritance_stamp( string $name, string $mode = '' ): str
 	if ( 'hitnagdut' === $name ) {
 		$ip = $reg['inheritance_process'] ?? array();
 		return 'אגרת התנגדות ' . number_format( (float) ( $ip['family_court']['items']['objection']['amount'] ?? 0 ) ) . ' ₪ מ-' . justice_tools_he_date( $ip['family_court']['current_to'] ?? '' ) . ' · נבדק ' . justice_tools_he_date( $ip['checked_on'] ?? '' );
+	}
+	if ( 'heskem-yorshim' === $name ) {
+		$ip = $reg['inheritance_process'] ?? array();
+		return ( $ip['land_tax']['division_not_sale'] ?? '' ) . ' לחוק מיסוי מקרקעין: חלוקה ראשונה אינה מכירה · רישום בטאבו ' . number_format( (float) ( $ip['bar']['registration_per_unit'] ?? 0 ) ) . ' ₪ ליחידה · נבדק ' . justice_tools_he_date( $ip['checked_on'] ?? '' );
 	}
 	return 'חוק הירושה ותקנותיו · ' . $checked;
 }
@@ -262,6 +296,24 @@ function justice_tools_inheritance_sources( string $name ): array {
 			array( 'name' => $bar['rules_he'], 'url' => $bar['url'], 'text' => 'פרט 4.א(4): בקשה לצו ירושה או לצו קיום ' . $bar['probate_pct'] . '% מערך העיזבון, לא פחות מ-' . number_format( (float) $bar['probate_min'] ) . ' ₪; עם התנגדות תוספת של ' . (int) $bar['objection_add_pct'] . '%; לכל דיון נוסף ' . number_format( (float) $ip['bar']['hearing'] ) . ' ₪. ' . $bar['note_he'] . '. נוסח ל-' . justice_tools_he_date( $bar['current_to'] ) . '.' ),
 			array( 'name' => 'חוק בתי המשפט [נוסח משולב], התשמ"ד-1984', 'url' => $ip['courts']['mediation_url'], 'text' => $ip['courts']['mediation_he'] . '.' ),
 			array( 'name' => 'פקודת הראיות [נוסח חדש], התשל"א-1971', 'url' => $ip['evidence_url'], 'text' => $ip['evidence_he'] . '.' ),
+			array( 'name' => $reg['will_cost']['vat']['he'], 'url' => $reg['will_cost']['vat']['url'], 'text' => 'מע"מ ' . $reg['will_cost']['vat']['pct'] . '% מ-' . justice_tools_he_date( $reg['will_cost']['vat']['from'] ) . ', על התעריף המומלץ של הלשכה.' ),
+		);
+	}
+	if ( 'heskem-yorshim' === $name ) {
+		$ip      = $reg['inheritance_process'];
+		$sc      = $ip['sections'];
+		$lt      = $ip['land_tax'];
+		$cp      = $ip['capacity'];
+		$bar     = $ip['bar'];
+		$checked = justice_tools_he_date( $ip['checked_on'] );
+		return array(
+			array( 'name' => $ip['law_he'], 'url' => $ip['law_url'], 'text' => $sc['division_agreement'] . ': היורשים רשאים לחלק את נכסי העיזבון ביניהם בהסכם; ' . $sc['division_court'] . ': בלי הסכם, בצו בית משפט, ואז חלים הכללים הכפויים (' . $sc['division_rules'] . '); ' . $sc['agreement_in_life_void'] . ': הסכם בדבר ירושתו של אדם שנעשה בחייו בטל, ולכן ההסכם נערך אחרי הפטירה; ' . $sc['no_manager'] . ' ו-' . str_replace( 'סעיף ', '', $sc['heirs_together'] ) . ': בלי מנהל עיזבון היורשים מנהלים ומחלקים את העיזבון יחד; ' . $sc['family_court'] . ': בית המשפט לענייני משפחה. נוסח עדכני ל-' . justice_tools_he_date( $ip['law_current_to'] ) . ', נבדק ' . $checked . '.' ),
+			array( 'name' => $lt['law_he'], 'url' => $lt['url'], 'text' => $lt['inheritance_not_sale'] . ': הורשה אינה מכירה; ' . $lt['division_not_sale'] . ': ' . $lt['division_he'] . ', לפני רישום הצו או אחריו; תמורה מכסף פרטי של יורש הופכת את החלק שנקנה בה למכירה (מס רכישה למשלם, מס שבח למקבל); ' . $lt['inherited_home'] . ': ' . $lt['inherited_home_he'] . '.' ),
+			array( 'name' => $cp['law_he'], 'url' => $cp['url'], 'text' => $cp['he'] . '. בלי קטין או חסוי, ההסכם לא טעון אישור של בית משפט ולא של הרשם.' ),
+			array( 'name' => $bar['rules_he'], 'url' => $bar['url'], 'text' => $bar['items']['registration'] . ': רישום המקרקעין על שם היורשים ' . number_format( (float) $bar['registration_per_unit'] ) . ' ₪ ליחידת מקרקעין, כשלא עורך הדין שהוציא את הצו רושם (אז אין תעריף נוסף). ' . $bar['note_he'] . '. אין בתעריף פרט לעריכת הסכם חלוקה, ולכן הכלי לא מציג מחיר לעורך הדין. נוסח ל-' . justice_tools_he_date( $bar['current_to'] ) . '.' ),
+			array( 'name' => 'חוק בתי המשפט [נוסח משולב], התשמ"ד-1984', 'url' => $ip['courts']['mediation_url'], 'text' => $ip['courts']['mediation_he'] . '; ' . $ip['courts']['family_he'] . '.' ),
+			array( 'name' => $ip['land_law']['law_he'], 'url' => $ip['land_law']['url'], 'text' => 'כשאין הסכם על דירה משותפת: ' . $ip['land_law']['partition_he'] . '.' ),
+			array( 'name' => $ip['service_he'], 'url' => $ip['service_url'], 'text' => $ip['online_rule']['tabu_he'] . '. ' . $ip['online_rule']['he'] . '. נבדק ' . $checked . '.' ),
 			array( 'name' => $reg['will_cost']['vat']['he'], 'url' => $reg['will_cost']['vat']['url'], 'text' => 'מע"מ ' . $reg['will_cost']['vat']['pct'] . '% מ-' . justice_tools_he_date( $reg['will_cost']['vat']['from'] ) . ', על התעריף המומלץ של הלשכה.' ),
 		);
 	}

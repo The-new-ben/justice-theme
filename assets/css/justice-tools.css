@@ -1032,3 +1032,58 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jtool pre.jt27-doc { max-height: none; overflow: visible; }
 	.jt27-day--past, .jt27-day--today, .jt27-now, .jt27-now b { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 }
+
+/* jt26: the heirs' distribution agreement with the equalization ledger (the inheritance wave, 21.10.2026). The picture is
+   the heirs' ledger: a beam per heir, filled in navy up to what the division hands him, a dashed tick at what the order
+   gives him, the gap hatched in the warn role when he received more (he pays) and ringed in the ok role when he received
+   less (he is paid). The form's repeat rows carry three fields and the remove button; the tax gate block, the draft and
+   the pairs table reuse the instrument's roles. Navy variables only. */
+.jtool .jtool-rep__row.jt26-row { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 0.8fr) 44px; }
+.jtool .jt26-row .jtool-field { min-width: 0; }
+.jtool .jt26-row__err { grid-column: 1 / -1; }
+.jtool .jt26-row [data-if-custom][hidden] { display: none !important; }
+
+/* The ledger beam */
+.jt26-beam { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jt26-beam__bars { display: flex; flex-direction: column; gap: 10px; }
+.jt26-bar { display: grid; grid-template-columns: 6.5em minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 0.9rem; }
+.jt26-bar__who { font-weight: 800; color: var(--jtool-verdict-deep); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jt26-bar__track { position: relative; display: block; height: 24px; border-radius: 6px; background: var(--jtool-surface-2); box-shadow: inset 0 0 0 1px var(--jtool-border); }
+.jt26-bar__fill { position: absolute; top: 0; inset-inline-start: 0; height: 100%; border-radius: 6px; background: var(--jtool-verdict); }
+.jt26-bar__gap { position: absolute; top: 0; height: 100%; border-radius: 0 6px 6px 0; }
+.jt26-bar--over .jt26-bar__gap { background: repeating-linear-gradient(135deg, var(--jtool-warn) 0 4px, var(--jtool-warn-bg) 4px 8px); }
+.jt26-bar--under .jt26-bar__gap { background: var(--jtool-ok-bg); box-shadow: inset 0 0 0 2px var(--jtool-ok); }
+.jt26-bar__tick { position: absolute; top: -5px; bottom: -5px; width: 0; border-inline-start: 2px dashed var(--jtool-verdict-deep); }
+.jt26-bar__v { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--jtool-ink); white-space: nowrap; }
+.jt26-bar__v small { font-size: 0.78rem; font-weight: 700; color: var(--jtool-muted); }
+.jt26-bar--over .jt26-bar__v small { color: var(--jtool-warn); }
+.jt26-bar--under .jt26-bar__v small { color: var(--jtool-ok); }
+.jtool .jt26-beam figcaption { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 10px 0 0; font-size: 0.8125rem; line-height: 1.5; color: var(--jtool-muted); }
+.jt26-beam figcaption span { display: inline-flex; align-items: center; gap: 6px; }
+.jt26-k { display: inline-block; width: 16px; height: 12px; border-radius: 3px; }
+.jt26-k--fill { background: var(--jtool-verdict); }
+.jt26-k--tick { width: 0; height: 14px; border-radius: 0; border-inline-start: 2px dashed var(--jtool-verdict-deep); }
+.jt26-k--over { background: repeating-linear-gradient(135deg, var(--jtool-warn) 0 3px, var(--jtool-warn-bg) 3px 6px); }
+.jt26-k--under { background: var(--jtool-ok-bg); box-shadow: inset 0 0 0 2px var(--jtool-ok); }
+
+/* The s.5(ג)(4) gate: the exact amount of money from outside the estate, and who buys what from whom. */
+.jt26-tax { padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-warn); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt26-tax__h { margin: 0 0 6px !important; font: 800 1rem/1.4 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt26-tax p { margin: 0 !important; font-size: 0.95rem !important; line-height: 1.6 !important; color: var(--jtool-ink) !important; }
+.jtool .jt26-tax p + p { margin-top: 6px !important; }
+.jtool .jt26-tax a:not(.jtool-cite) { color: var(--jtool-verdict); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+
+/* The draft */
+.jtool pre.jt26-doc { max-height: 560px; overflow: auto; border-top: 1px solid var(--jtool-border); }
+
+@media (max-width: 600px) {
+	.jtool .jtool-rep__row.jt26-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.jtool .jt26-row .jtool-iconbtn { grid-column: 1 / -1; justify-self: end; }
+	.jt26-bar { grid-template-columns: 4em minmax(0, 1fr); }
+	.jt26-bar__v { grid-column: 2; flex-direction: row; gap: 8px; align-items: baseline; }
+}
+@media print {
+	.jt26-beam, .jt26-tax, .jt26-bar { break-inside: avoid; }
+	.jt26-bar__fill, .jt26-bar__gap, .jt26-k { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+	.jtool pre.jt26-doc { max-height: none; overflow: visible; }
+}

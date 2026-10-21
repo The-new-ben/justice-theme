@@ -101,6 +101,7 @@ check((t.match(/<tr>/g) || []).length === 12 && t.includes('6,443.85') && t.incl
 const s = snapshot(reg);
 const all = [s.form, s.result, s.details, s.method, s.compare_table, s.sentence, renderForm(reg, { mode: 'net' }), renderResult(reg, run({ gross: 'x' })), renderDetails(reg, run({ gross: 12000, second: true, gross2: 3000, ot125: 5, travel: 300, sf: true, profile: man }))].join('');
 check(s.result.includes('9,815.29') && s.method.includes('סעיף 45א') && s.compare_table.includes('<caption'), 'snapshot: the example net, the sections and the table');
+check(s.lead.includes('9,815.29') && s.lead.includes('data-lead-go') && !/<h[1-6][\s>]/.test(s.lead), 'the result-first card carries the example 9,815.29 and the jump to the form');
 check(!/<h2[\s>]/.test(all), 'no <h2> in any rendered HTML');
 check(!/undefined|NaN|>null</.test(all), 'no undefined / NaN / null in any rendered string');
 const back = inputOf(decodeState(`#s=${stateOf(Object.assign({}, EXAMPLE, { ot125: 5, sf: true, second: true, gross2: 2500 }))}`, KEYS));

@@ -178,6 +178,24 @@ export function netTable(reg) {
 		+ `<thead><tr><th scope="col">ברוטו</th><th scope="col">נטו, גבר (2.25 נקודות)</th><th scope="col">נטו, אישה (2.75 נקודות)</th><th scope="col">מס הכנסה (גבר)</th><th scope="col">ביטוח לאומי ובריאות</th><th scope="col">פנסיה 6%</th><th scope="col">עלות למעסיק</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
+/** The result-first card at the top of the page ([justice_tool_lead]): the net of the example (or of the reader's own
+ * answers once they change anything), the main deductions in one line, and a jump to the form. Same markup on the
+ * server and in the browser, so the card never shifts the layout. */
+export function leadCard(reg, r, opts = {}) {
+	const go = `<a class="jtool-lead__go" href="#jtool-${TOOL_ID}" data-lead-go>${opts.example ? 'לחשב לפי השכר שלכם' : 'לשנות את הנתונים'}</a>`;
+	if (!r.ok) {
+		return `<p class="jtool-lead__label">שכר נטו</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">—</strong></p><p class="jtool-lead__line">${esc(r.errors.map((e) => e.he).join(' '))}</p>${go}`;
+	}
+	const net = r.p.mode === 'net';
+	const label = `${opts.example ? 'דוגמה מחושבת: ' : 'החישוב שלכם: '}${net ? 'הברוטו שצריך' : 'שכר נטו לחודש'}, ${r.year}`;
+	const who = opts.example ? 'אישה, בלי ילדים, פנסיה 6%' : `${fmtPts(r.m.points)} נקודות זיכוי${r.pension ? `, פנסיה ${pctTxt(r.p.pe)}` : ''}`;
+	const line = net
+		? `כדי לקבל ${amt(r.p.net)} ₪ נטו (${who}): מס הכנסה ${money(r.tax)} ₪, ביטוח לאומי ובריאות ${money(r.bl + r.health)} ₪.`
+		: `מ-${amt(r.gross)} ₪ ברוטו (${who}): מס הכנסה ${money(r.tax)} ₪, ביטוח לאומי ובריאות ${money(r.bl + r.health)} ₪${r.pension ? `, פנסיה ${money(r.pension)} ₪` : ''}.`;
+	return `<p class="jtool-lead__label">${esc(label)}</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">${ils(net ? r.gross : r.net)}</strong><span class="jtool-lead__unit">${net ? 'ברוטו בחודש' : 'נטו בחודש'} · עלות מעסיק ${ils(r.employerCost, 0)}</span></p>`
+		+ `<p class="jtool-lead__line">${esc(line)}</p>${go}`;
+}
+
 export function snapshot(reg) {
 	const rt = reg.rights_tax;
 	const rb = reg.rights_bituach;
@@ -190,6 +208,7 @@ export function snapshot(reg) {
 		input: EXAMPLE,
 		total: r.net,
 		sticky: ils(r.net),
+		lead: leadCard(reg, r, { example: true }),
 		form: renderForm(reg, EXAMPLE),
 		result: renderResult(reg, r, { example: true }),
 		details: renderDetails(reg, r),
@@ -255,6 +274,8 @@ export function mount(root, reg) {
 	const result = root.querySelector('[data-jtool-result]');
 	const details = root.querySelector('[data-jtool-details]');
 	const sticky = root.querySelector('[data-jtool-sticky-figure]');
+	const lead = document.querySelector(`[data-jtool-lead="${TOOL_ID}"]`);
+	let own = false;
 	const rn = reg.rights_neto;
 	const today = ilToday();
 	const saveKey = `jtool-${TOOL_ID}`;
@@ -297,10 +318,12 @@ export function mount(root, reg) {
 		result.innerHTML = renderResult(reg, r);
 		details.innerHTML = renderDetails(reg, r);
 		if (sticky) { sticky.innerHTML = r.ok ? ils(r.p.mode === 'net' ? r.gross : r.net) : '—'; }
+		if (lead) { lead.innerHTML = leadCard(reg, r, { example: !own }); }
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: netoBand(r) }); }
 		return r;
 	};
 	const later = () => {
+		own = true;
 		if (!started) { started = true; track('tool_start', { tool_id: TOOL_ID }); }
 		sync();
 		clearTimeout(timer);
@@ -315,6 +338,7 @@ export function mount(root, reg) {
 	};
 	const fromHash = inputOf(decodeState(window.location.hash, KEYS));
 	if (fromHash) {
+		own = true;
 		redraw(fromHash);
 		const note = root.querySelector('[data-jtool-shared]');
 		if (note) { note.hidden = false; }
@@ -323,6 +347,17 @@ export function mount(root, reg) {
 		run(readForm(root), { silent: true });
 	}
 	if (store.get(saveKey) && !fromHash) { const n = root.querySelector('[data-jtool-saved]'); if (n) { n.hidden = false; } }
+	// The card's jump: to the form, first field focused (the page anchor is the fallback without the script).
+	if (lead) {
+		lead.addEventListener('click', (ev) => {
+			if (!ev.target.closest('[data-lead-go]')) { return; }
+			ev.preventDefault();
+			form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			const first = form.querySelector('input:not([type="radio"]):not([type="checkbox"])');
+			if (first) { setTimeout(() => first.focus({ preventScroll: true }), 350); }
+			track('tool_lead_click', { tool_id: TOOL_ID });
+		});
+	}
 	form.addEventListener('input', later);
 	form.addEventListener('change', later);
 	root.addEventListener('click', async (ev) => {

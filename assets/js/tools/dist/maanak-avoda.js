@@ -606,7 +606,7 @@ function grantCurve(reg, r) {
 	const c = curve(reg.rights_maanak, r.p);
 	const W = 640;
 	const H = 220;
-	const L = 44;
+	const L = 64;
 	const B = 30;
 	const top = Math.max(...c.pts.map((x) => x[1]), r.monthly, 1);
 	const yMax = Math.ceil(top / 200) * 200;
@@ -729,6 +729,29 @@ function bandsTable(reg) {
 		+ `<thead><tr><th scope="col">מי</th><th scope="col">המענק מתחיל מעל</th><th scope="col">המקסימום מ-</th><th scope="col">המקסימום עד</th><th scope="col">התקרה</th><th scope="col">מענק מרבי לחודש</th><th scope="col">מרבי לשנה</th><th scope="col">2024: טווח ההכנסה</th><th scope="col">סעיף</th></tr></thead><tbody>${tr}${trT}</tbody></table></div>`;
 }
 
+/** The result-first card at the top of the page ([justice_tool_lead]): the computed grant of the example (or of the
+ * reader's own answers once they change anything), one line of why, and a jump to the form. Same markup on the server
+ * and in the browser, so the card never shifts the layout when the script takes over. */
+function leadCard(reg, r, opts = {}) {
+	const go = `<a class="jtool-lead__go" href="#jtool-${TOOL_ID}" data-lead-go>${opts.example ? 'לחשב לפי הנתונים שלכם' : 'לשנות את הנתונים'}</a>`;
+	if (!r.ok) {
+		return `<p class="jtool-lead__label">מענק עבודה</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">—</strong></p><p class="jtool-lead__line">${esc(r.errors.map((e) => e.he).join(' '))}</p>${go}`;
+	}
+	const p = r.p;
+	const label = `${opts.example ? 'דוגמה מחושבת: ' : 'המענק שלכם: '}מענק עבודה על שנת המס ${r.year}`;
+	const fam = p.single ? `הורה יחיד ל-${p.kids}` : p.kids ? `הורה ל-${p.kids} ילדים${p.toddlers ? ` (${p.toddlers === 1 ? 'פעוט אחד' : `${p.toddlers} פעוטות`})` : ''}` : 'בלי ילדים';
+	if (r.mode === 'bands') {
+		return `<p class="jtool-lead__label">${esc(label)}</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">${r.eligible ? `עד ${ils(r.maxYear, 0)}` : 'אין זכאות'}</strong><span class="jtool-lead__unit">${r.eligible ? 'בשנה (טווח)' : ''}</span></p>`
+			+ `<p class="jtool-lead__line">${esc(`${fam}, ${money(p.income, 0)} ₪ בחודש. ${r.eligible ? 'ההכנסה בטווח של 2024; את הסכום המדויק נותן הסימולטור הרשמי. מגישים עד 31.12.2026.' : r.reasons.map((x) => x.he).join('; ')}`)}</p>${go}`;
+	}
+	if (!r.eligible) {
+		return `<p class="jtool-lead__label">${esc(label)}</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">אין זכאות</strong></p><p class="jtool-lead__line">${esc(`${fam}, ${money(p.income, 0)} ₪ בחודש: ${r.reasons.map((x) => x.he).join('; ')}`)}</p>${go}`;
+	}
+	const first = r.pay.rows.length ? ` תשלום ראשון ${isoToHe(r.pay.rows[0].date)}.` : '';
+	return `<p class="jtool-lead__label">${esc(label)}</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">${ils(r.annual, 0)}</strong><span class="jtool-lead__unit">בשנה · ${ils(r.monthly)} לחודש</span></p>`
+		+ `<p class="jtool-lead__line">${esc(`${fam}, ${money(p.income, 0)} ₪ ברוטו בחודש, ${p.months} חודשי עבודה${p.spouse ? `, בן/בת זוג ${money(p.spouseIncome, 0)} ₪` : ''}.${first} מגישים עד ${isoToHe(r.deadline)}.`)}</p>${go}`;
+}
+
 function snapshot(reg) {
 	const rm = reg.rights_maanak;
 	const r = compute(reg, EXAMPLE);
@@ -739,6 +762,7 @@ function snapshot(reg) {
 		input: EXAMPLE,
 		total: r.annual,
 		sticky: ils(r.annual, 0),
+		lead: leadCard(reg, r, { example: true }),
 		form: renderForm(reg, EXAMPLE),
 		result: renderResult(reg, r, { example: true }),
 		details: renderDetails(reg, r),
@@ -798,6 +822,8 @@ function mount(root, reg) {
 	const result = root.querySelector('[data-jtool-result]');
 	const details = root.querySelector('[data-jtool-details]');
 	const sticky = root.querySelector('[data-jtool-sticky-figure]');
+	const lead = document.querySelector(`[data-jtool-lead="${TOOL_ID}"]`);
+	let own = false;
 	const rm = reg.rights_maanak;
 	const today = ilToday();
 	const saveKey = `jtool-${TOOL_ID}`;
@@ -831,12 +857,14 @@ function mount(root, reg) {
 		result.innerHTML = renderResult(reg, r);
 		details.innerHTML = renderDetails(reg, r);
 		if (sticky) { sticky.innerHTML = r.ok && r.mode === 'full' ? ils(r.annual, 0) : '—'; }
+		if (lead) { lead.innerHTML = leadCard(reg, r, { example: !own }); }
 		// The net-salary link carries the income, so the reader does not type it twice.
 		root.querySelectorAll(`a[href*="${NET_PATH}"]`).forEach((a) => { if (r.ok && input.income) { a.setAttribute('href', `${NET_PATH}#s=g${Math.round(Number(input.income))}`); } });
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: grantBand(r) }); }
 		return r;
 	};
 	const schedule2 = () => {
+		own = true;
 		if (!started) { started = true; track('tool_start', { tool_id: TOOL_ID }); }
 		sync();
 		clearTimeout(timer);
@@ -844,6 +872,7 @@ function mount(root, reg) {
 	};
 	const fromHash = inputOf(decodeState(window.location.hash, KEYS));
 	if (fromHash) {
+		own = true;
 		form.innerHTML = renderForm(reg, Object.assign({}, fromHash, { filed: today }));
 		const note = root.querySelector('[data-jtool-shared]');
 		if (note) { note.hidden = false; }
@@ -855,6 +884,17 @@ function mount(root, reg) {
 		run(readForm(root, today), { silent: true });
 	}
 	if (store.get(saveKey) && !fromHash) { const n = root.querySelector('[data-jtool-saved]'); if (n) { n.hidden = false; } }
+	// The card's jump: to the form, first field focused (the page anchor is the fallback without the script).
+	if (lead) {
+		lead.addEventListener('click', (ev) => {
+			if (!ev.target.closest('[data-lead-go]')) { return; }
+			ev.preventDefault();
+			form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			const first = form.querySelector('input:not([type="radio"]):not([type="checkbox"])');
+			if (first) { setTimeout(() => first.focus({ preventScroll: true }), 350); }
+			track('tool_lead_click', { tool_id: TOOL_ID });
+		});
+	}
 	form.addEventListener('input', schedule2);
 	form.addEventListener('change', schedule2);
 	root.addEventListener('click', async (ev) => {

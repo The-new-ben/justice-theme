@@ -160,3 +160,23 @@ function justice_tools_rights2a_numbers_html( string $name ): string {
 	$snap = justice_tools_snapshot( $name );
 	return isset( $snap['compare_table'] ) ? '<div class="jtool-page">' . (string) $snap['compare_table'] . '</div>' : '';
 }
+
+/**
+ * The result-first card ([justice_tool_lead name="maanak-avoda"]): placed as the first block of the page, right under the
+ * title, so the computed example is on the first screen at 390 and 1280. It holds the server snapshot's numbers; the
+ * tool's script on the same page rewrites it with the reader's own result and turns its link into a jump to the form.
+ */
+function justice_tools_rights2a_lead_shortcode( $atts ): string {
+	$atts = shortcode_atts( array( 'name' => '' ), $atts, 'justice_tool_lead' );
+	$name = sanitize_key( (string) $atts['name'] );
+	if ( ! in_array( $name, justice_tools_rights2a_names(), true ) ) {
+		return '';
+	}
+	$snap = justice_tools_snapshot( $name );
+	if ( empty( $snap['lead'] ) ) {
+		return '';
+	}
+	justice_tools_enqueue( $name );
+	return '<div class="jtool-page jtool-lead" data-jtool-lead="' . esc_attr( $name ) . '" id="jtool-' . esc_attr( $name ) . '-lead">' . $snap['lead'] . '</div>';
+}
+add_shortcode( 'justice_tool_lead', 'justice_tools_rights2a_lead_shortcode' );

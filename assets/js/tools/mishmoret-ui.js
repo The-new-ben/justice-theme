@@ -237,7 +237,7 @@ export function renderResult(reg, r, opts = {}) {
 	const state = r.equal ? `חלוקה שווה: ${fl.ruling.equal_nights} לילות מתוך ${fl.ruling.equal_of}, כמו בהגדרה של בע"מ 919/15` : (r.nights14 > fl.ruling.equal_nights ? `רוב הלילות אצל ${A}` : `רוב הלילות אצל ${B}`);
 	return `<div class="jtool-verdict" data-jtool-live aria-live="polite" aria-atomic="true"><p class="jtool-state jtool-state--ok">✓ ${esc(state)}</p>`
 		+ `<p class="jtool-verdict__label">${opts.example ? 'דוגמה: ' : ''}לילות ב-12 החודשים הקרובים אצל ${esc(A)}</p>`
-		+ `<strong class="jtool-verdict__figure"><bdi>${r.year.a}</bdi> / <bdi>365</bdi></strong>`
+		+ `<strong class="jtool-verdict__figure"><bdi dir="ltr">${r.year.a} / 365</bdi></strong>`
 		+ `<p class="jtool-verdict__sentence">${esc(verdictSentence(reg, r))}</p></div>`
 		+ ribbon(r)
 		+ `<div class="jtool-actions ${MMP}-cal"><button class="jtool-btn" type="button" data-act="ics">כל המעברים והחופשות ליומן (.ics)</button><button class="jtool-btn" type="button" data-act="ics-a">היומן של ${esc(A)}</button><button class="jtool-btn" type="button" data-act="ics-b">היומן של ${esc(B)}</button></div>`
@@ -322,7 +322,7 @@ export function leadCard(reg, r, opts = {}) {
 	const ages = r.kids.filter((k) => k.minor).map((k) => k.age).sort((a, b) => a - b);
 	const line = `${mmTplShort(r.template)}, ${ages.length === 1 ? `ילד בן ${ages[0]}` : `ילדים בני ${ages.join(' ו-')}`}, חופשות ${MM_RULE_HE[r.rule]}. מזונות לפי בע"מ 919/15: ${money$}.`;
 	return `<p class="jtool-lead__label">${opts.example ? 'דוגמה מחושבת' : 'החישוב שלכם'}: לילות ב-12 החודשים אצל ${esc(A)}</p>`
-		+ `<p class="jtool-lead__row"><strong class="jtool-lead__figure"><bdi>${r.year.a}</bdi>/<bdi>365</bdi></strong><span class="jtool-lead__unit"><bdi>${r.year.aPct}%</bdi> · <bdi>${r.nights14}</bdi> מתוך 14 בממוצע${r.equal ? ', חלוקה שווה' : ''}</span></p>`
+		+ `<p class="jtool-lead__row"><strong class="jtool-lead__figure"><bdi dir="ltr">${r.year.a}/365</bdi></strong><span class="jtool-lead__unit"><bdi>${r.year.aPct}%</bdi> · <bdi>${r.nights14}</bdi> מתוך 14 בממוצע${r.equal ? ', חלוקה שווה' : ''}</span></p>`
 		+ `<p class="jtool-lead__line">${esc(line)}</p>${go}`;
 }
 
@@ -337,7 +337,7 @@ export function snapshot(reg) {
 		registry_version: reg.registry_version,
 		input: EXAMPLE,
 		total: r.year.a,
-		sticky: `<bdi>${r.year.a}</bdi>/365`,
+		sticky: `<bdi dir="ltr">${r.year.a}/365</bdi>`,
 		form: renderForm(reg, EXAMPLE),
 		result: renderResult(reg, r, { example: true }),
 		details: renderDetails(reg, r),
@@ -438,7 +438,7 @@ export function mount(root, reg) {
 		details.innerHTML = renderDetails(reg, r);
 		const holder = form.querySelector('[data-jt41-board]');
 		if (holder) { holder.innerHTML = board(m, mmNights(m.template, m.custom)); }
-		if (sticky) { sticky.innerHTML = r.ok ? `<bdi>${r.year.a}</bdi>/365` : '—'; }
+		if (sticky) { sticky.innerHTML = r.ok ? `<bdi dir="ltr">${r.year.a}/365</bdi>` : '—'; }
 		if (lead) { lead.innerHTML = leadCard(reg, r, { example: !own }); }
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: r.equal ? 'equal' : 'primary' }); }
 		last = r;

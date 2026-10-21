@@ -195,5 +195,17 @@ check(attrs.get('href') === '#jtool-dmei-bituach' && !attrs.has('target') && !at
 BUI.updateNextAction(root, reg, se, original);
 check(attrs.get('href') === '#jt28-self-h' && link.textContent.includes('מקדמה'), 'correcting invalid input re-enables the matching self-employed next step');
 
+// A CTA click during the debounce must use the newly computed journey in either direction.
+const target = { closest: () => attrs.has('data-act') ? { getAttribute: (k) => attrs.get(k) } : null };
+for (const status of ['self', 'none', 'pension', 'both']) {
+	BUI.updateNextAction(root, reg, run({}), original);
+	const pending = run({ status, selfIncome: 12000, pension: 6000, salary: status === 'pension' ? '' : 14000 });
+	const act = BUI.actionAfterFlush(target, () => BUI.updateNextAction(root, reg, pending, original));
+	check(act === null, `rapid employee-to-${status} click does not emit a stale rehearsal action`);
+	check(attrs.get('href') === BUI.nextAction(reg, pending).href, `${status}: rapid click sees the updated destination`);
+	const restored = BUI.actionAfterFlush(target, () => BUI.updateNextAction(root, reg, run({}), original));
+	check(restored === 'rehearse' && attrs.get('href') === original.href, `rapid ${status}-to-employee click restores the real rehearsal action`);
+}
+
 console.log(`${passed} passed, ${failures} failed`);
 process.exit(failures ? 1 : 0);

@@ -323,6 +323,13 @@ export function updateNextAction(root, reg, r, employeeAction) {
 	box.setAttribute('data-followup-kind', action.kind);
 }
 
+/** A click can arrive during the input debounce; read the action only after its result is current. */
+export function actionAfterFlush(target, flush) {
+	flush();
+	const button = target.closest('[data-act]');
+	return button ? button.getAttribute('data-act') : null;
+}
+
 export function renderDetails(reg, r, opts = {}) {
 	if (!r.ok) { return ''; }
 	const rb = reg.rights_bituach;
@@ -514,10 +521,10 @@ export function mount(root, reg) {
 	form.addEventListener('input', schedule);
 	form.addEventListener('change', schedule);
 	root.addEventListener('click', async (ev) => {
-		const b = ev.target.closest('[data-act]');
-		if (!b) { return; }
-		const act = b.getAttribute('data-act');
-		if (timer) { clearTimeout(timer); timer = null; run(readForm(root, month), { silent: true }); }
+		const act = actionAfterFlush(ev.target, () => {
+			if (timer) { clearTimeout(timer); timer = null; run(readForm(root, month), { silent: true }); }
+		});
+		if (!act) { return; }
 		const input = readForm(root, month);
 		const r = compute(reg, input);
 		const link = shareUrl(stateOf(input, r.ok ? r.band : input.band));

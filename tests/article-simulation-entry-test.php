@@ -24,7 +24,6 @@ function justice_theme_cluster_for_slug( $s ) {
 	return match ( $s ) {
 		'divorce-lawyer' => array( 'key' => 'family-law' ),
 		'criminal-defense-attorney' => array( 'key' => 'criminal-law' ),
-		'plea-bargain' => array( 'key' => 'criminal-law' ),
 		default => null,
 	};
 }

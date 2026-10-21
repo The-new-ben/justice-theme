@@ -12,7 +12,7 @@ function justice_theme_article_simulation_topic( int $post_id ): string {
 		'police-investigation-rights', 'consultation-before-police-questioning',
 		'recording-interrogation-documentation', 'summons-interrogation-warning-rights',
 		'detention-days', 'expunge-closed-cases-record', 'criminal-evidence',
-		'criminal-record-deletion', 'dangerous-drugs-ordinance', 'drug-possession',
+		'criminal-record-deletion', 'dangerous-drugs-ordinance', 'drug-possession', 'plea-bargain',
 		// Police pages with the most search impressions (GSC 27.8-24.9): the interrogation world fits them.
 		'lahav-433', 'police-stations-israel-directory', 'posta', 'drug-offenses-criminal-lawyer',
 		'apply-for-police-criminal-information-certificates', 'pre-indictment-hearing', 'testimony-investigation-law',

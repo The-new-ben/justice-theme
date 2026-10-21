@@ -1,15 +1,16 @@
 /**
  * Wave 5 UI: the residential-lease generator (HAD-504). The form takes what a landlord and a tenant actually agree on;
  * the result shows the security cap as a meter, the check of every choice against the Fair Rental chapter, and the
- * whole lease, each clause with its sections (hover or tap a section to read it). Copy and print only: the lease is
- * text in the page, never a file on our server.
- * Privacy: names, the address, the furniture list and the defects are never put in the share link or saved on the
- * device; they stay in the open page only.
+ * whole lease, each clause with its sections (hover or tap a section to read it). Copy, print and Word export are
+ * made locally: the lease is never a file on our server.
+ * Privacy: personal fields never enter share links or automatic storage. They enter the local output only when
+ * the user chooses to copy, print or download it.
  */
 import { compute, contractText, citeLabel, depositCap, PAYS, FORBIDDEN } from './schirut-engine.js';
+import { wordDocument, WORD_MIME } from './word-document.js';
 import {
 	esc, ils, money, parseMoney, isoToHe, encodeState, decodeState,
-	track, copyText, toast, shareUrl, whatsappUrl, store, stickyBar, isStale, ilToday,
+	track, copyText, download, toast, shareUrl, whatsappUrl, store, stickyBar, isStale, ilToday,
 } from './instrument.js';
 
 export const TOOL_ID = 'chozeh-schirut';
@@ -56,7 +57,7 @@ function citeChip(rc, key, uid) {
 /** Direct preview/edit routes, based on the HAD-552 Claude Design prototype. No data reset. */
 export function renderEntry(input, valid = true) {
 	const sample = isSampleInput(input);
-	return `<nav class="jt12-entry__routes" aria-label="מה עושים קודם"><a class="jt12-entry__route" href="#${P}-doc-h" data-act="preview-contract"><strong>${valid ? (sample ? 'צפייה בחוזה לדוגמה' : 'צפייה בטיוטת החוזה') : 'בדיקת השדות לתיקון'}</strong><span>${valid ? 'מעבר ישיר לחוזה, להעתקה ולהדפסה' : 'יש לתקן את השדות המסומנים לפני יצירת חוזה'}</span></a>`
+	return `<nav class="jt12-entry__routes" aria-label="מה עושים קודם"><a class="jt12-entry__route" href="#${P}-doc-h" data-act="preview-contract"><strong>${valid ? (sample ? 'צפייה בחוזה לדוגמה' : 'צפייה בטיוטת החוזה') : 'בדיקת השדות לתיקון'}</strong><span>${valid ? 'מעבר לחוזה, להורדת Word ולהדפסה' : 'יש לתקן את השדות המסומנים לפני יצירת חוזה'}</span></a>`
 		+ `<a class="jt12-entry__route jt12-entry__route--edit" href="#${P}-rent" data-act="edit-contract"><strong>התאמת התנאים שלי</strong><span>עריכת הסכומים, התאריכים ושאר התנאים</span></a></nav>`
 		+ `<p class="jt12-entry__status">${esc(draftNotice(input))}</p>`;
 }
@@ -95,7 +96,7 @@ export function renderForm(reg, input) {
 		+ `<div class="jtool-chips" style="margin-top:8px" role="group" aria-label="בעלי חיים">${chip('pet', 'ask', 'חיות: בהסכמה', (input.pets || 'ask') === 'ask')}${chip('pet', 'yes', 'חיות: מותר', input.pets === 'yes')}${chip('pet', 'no', 'חיות: אסור', input.pets === 'no')}</div>`
 		+ area('fur', 'ריהוט ואבזרים (נספח א\')', input.furniture, 'שורה לכל פריט: מקרר, מזגן בסלון, ארון בחדר השינה')
 		+ area('def', 'פגמים שהמשכיר יודע עליהם', input.defects, 'לדוגמה: רטיבות בקיר חדר השירות')
-		+ `<p class="jtool-hint">שמות, כתובת, ריהוט ופגמים לא נכנסים לקישור השיתוף ולא נשמרים במכשיר. מספרי תעודת הזהות ממלאים בכתב יד בחתימה.</p></details>`
+		+ `<p class="jtool-hint">שמות, כתובת, ריהוט ופגמים לא נכנסים לקישור השיתוף ולא נשמרים אוטומטית. הם נכללים בחוזה כשמעתיקים, מדפיסים או מורידים אותו. מספרי תעודת הזהות ממלאים בכתב יד בחתימה.</p></details>`
 		+ `<div class="jtool-chips">${chip('excl', '1', 'הדירה בבית מלון או לנופש, במעון, בדיור מוגן, במעונות סטודנטים או עובדים, או בשכירות מוגנת', input.excluded, 'checkbox')}</div><p class="jtool-error" id="${P}-excl-e" role="alert"></p>`
 		+ `<div class="jtool-chips">${chip('sub', '1', 'המשכיר הוא שוכר שמשכיר לי בשכירות משנה', input.sublease, 'checkbox')}</div><p class="jtool-error" id="${P}-sub-e" role="alert"></p>`
 		+ `<details class="jtool-more"${['returnDays', 'repairDays', 'urgentDays', 'optTenantDays', 'optLandlordDays', 'exitTenantDays', 'exitLandlordDays'].some((k) => input[k] !== '' && input[k] !== undefined) || input.relative ? ' open' : ''}><summary>מועדים שהמשכיר ביקש לשנות</summary>`
@@ -169,12 +170,12 @@ export function renderDetails(reg, r, input = {}) {
 		+ `<p class="jt12-cl__p">${esc(`אנו החתומים מטה ערבים, יחד ולחוד, לקיום חיובי השוכר לפי חוזה השכירות לדירה ב${[r.names.address || '__________', r.names.city].filter(Boolean).join(', ')}, עד סכום של ${r.guarantorMax ? nis(r.guarantorMax) : '__________ ₪'}.`)}</p>`
 		+ `<p class="jt12-cl__p">${Array.from({ length: r.guarantors }, (_, k) => `${k + 1}. שם: __________ ת"ז: __________ חתימה: __________`).map(esc).join('<br>')}</p></li>` : '';
 	const sched = r.schedule.map((s) => `<li class="jt12-sch jt12-sch--${s.state}"><span>${esc(s.item)}</span><small>${{ filled: 'בחוזה', hand: 'למילוי ביד', ids: 'בחוזה; ת"ז ביד', list: 'בנספח א\'', declared: 'הצהרה: אין פגם ידוע' }[s.state]}</small></li>`).join('');
-	return `<div class="jtool-tablewrap jt12-docwrap"><div class="jtool-tablewrap__head"><h3 id="${P}-doc-h" tabindex="-1">חוזה שכירות למגורים</h3><div class="jtool-actions"><button class="jtool-btn jtool-btn--primary" type="button" data-act="copy-contract">${isSampleInput(input) ? 'העתקת החוזה לדוגמה' : 'העתקת הטיוטה'}</button><button class="jtool-btn" type="button" data-act="copy-sources">העתקה עם הסעיפים בחוק</button><button class="jtool-btn" type="button" data-act="print">הדפסה</button><a class="jtool-btn" href="#${P}-rent" data-act="edit-contract">עריכת התנאים</a></div></div>`
+	return `<div class="jtool-tablewrap jt12-docwrap"><div class="jtool-tablewrap__head"><h3 id="${P}-doc-h" tabindex="-1">חוזה שכירות למגורים</h3><div class="jtool-actions"><button class="jtool-btn jtool-btn--primary" type="button" data-act="download-word">הורדת Word</button><button class="jtool-btn" type="button" data-act="copy-contract">${isSampleInput(input) ? 'העתקת החוזה לדוגמה' : 'העתקת הטיוטה'}</button><button class="jtool-btn" type="button" data-act="copy-sources">העתקה עם הסעיפים בחוק</button><button class="jtool-btn" type="button" data-act="print">הדפסה</button><a class="jtool-btn" href="#${P}-rent" data-act="edit-contract">עריכת התנאים</a></div></div>`
 		+ `<p class="jt12-doc__note" data-jt12-draft>${esc(draftNotice(input))}</p>`
-		+ '<p class="jt12-doc__note jt12-doc__print-help">בחלון ההדפסה של הדפדפן אפשר לבחור שמירה כ-PDF.</p>'
+		+ '<p class="jt12-doc__note jt12-doc__print-help">קובץ Word ניתן לעריכה ונוצר במכשיר שלכם. בחלון ההדפסה אפשר לבחור שמירה כ-PDF.</p>'
 		+ `<p class="jt12-doc__note">${esc(rc.bill.he)}. לפי ${esc(rc.law_he)}, נוסח עדכני ל-${esc(isoToHe(rc.law_current_to))}. מעבר עם העכבר או נגיעה בסעיף מציגים את לשון החוק.</p>`
 		+ `<ol class="jt12-doc" aria-labelledby="${P}-doc-h">${doc}${appA}${appB}</ol>`
-		+ `<div class="jt12-sign"><span>המשכיר: __________</span><span>השוכר: __________</span></div><div class="jtool-actions jt12-doc__return"><a class="jtool-btn" href="#${P}-rent" data-act="edit-contract">חזרה לעריכת התנאים</a></div></div>`
+		+ `<div class="jt12-sign"><span>המשכיר: __________</span><span>השוכר: __________</span></div><div class="jtool-actions jt12-doc__return"><button class="jtool-btn jtool-btn--primary" type="button" data-act="download-word">הורדת Word</button><a class="jtool-btn" href="#${P}-rent" data-act="edit-contract">חזרה לעריכת התנאים</a></div></div>`
 		+ `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-sch-h">מה החוק מחייב לכלול (התוספת השנייה)</h3></div><ul class="jt12-schlist" aria-labelledby="${P}-sch-h">${sched}</ul></div>`;
 }
 
@@ -256,6 +257,39 @@ export function exportContract(reg, input, includeSources = false) {
 	const r = compute(reg, input);
 	return r.ok ? `${draftNotice(input)}\n\n${contractText(reg.rent_contract, r, includeSources)}` : '';
 }
+
+/** Reuse the existing export text, including all annexes; no second legal template to drift. */
+export function exportWordContract(reg, input) {
+	const r = compute(reg, input);
+	if (!r.ok) { return null; }
+	const text = contractText(reg.rent_contract, r);
+	const title = text.split('\n')[0];
+	const paragraphs = [{ text: title, style: 'Title' }, { text: draftNotice(input), style: 'Notice' }];
+	const prefix = [title, ''];
+	r.clauses.forEach((cl, i) => {
+		const heading = `${i + 1}. ${cl.title}`;
+		prefix.push(heading); paragraphs.push({ text: heading, style: 'Heading1' });
+		cl.paras.forEach((para, j) => {
+			const value = cl.paras.length > 1 ? `${i + 1}.${j + 1} ${para}` : para;
+			prefix.push(value); paragraphs.push({ text: value }); // Preserve newlines inside a field as Word line breaks.
+		});
+		prefix.push('');
+	});
+	const beforeSignatures = prefix.join('\n') + '\n';
+	if (!text.startsWith(beforeSignatures)) { throw new Error('Contract export format changed'); }
+	// Annex wording and signature rows come from the existing export, never a parallel legal template.
+	const annexes = new Set(["נספח א': הריהוט והאבזרים בדירה", "נספח ב': כתב ערבות"]);
+	paragraphs[paragraphs.length - 1].keepNext = true;
+	paragraphs[paragraphs.length - 1].keepLines = true;
+	const tail = text.slice(beforeSignatures.length).split('\n').filter(Boolean)
+		.map((value, index) => ({ text: value, style: annexes.has(value) ? 'Heading1' : 'Normal', keepLines: index === 0 }));
+	const guarantorStart = tail.findIndex((para) => para.text === "נספח ב': כתב ערבות");
+	if (r.guarantors && guarantorStart >= 0) {
+		for (let i = guarantorStart; i < tail.length; i += 1) { tail[i].keepNext = i < tail.length - 1; tail[i].keepLines = true; }
+	}
+	paragraphs.push(...tail);
+	return { bytes: wordDocument(paragraphs), filename: isSampleInput(input) ? 'rental-contract-sample.docx' : 'rental-contract-draft.docx', mime: WORD_MIME };
+}
 const KEYS = ['r', 'm', 's', 'd', 'p', 'i', 'o', 'q', 'u', 'e', 'x', 'c', 'b', 'g', 'h', 'k', 'M', 'y', 'f', 'z', 'A', 'B', 'C', 'D', 'P', 'F', 'a', 'v', 'w', 'j', 'n', 'l', 'X', 'S'];
 function inputOf(s) {
 	if (!s.r) { return null; }
@@ -325,7 +359,7 @@ export function mount(root, reg) {
 		result.innerHTML = renderResult(reg, r, { example: isSampleInput(input) });
 		details.innerHTML = renderDetails(reg, r, input);
 		if (entry) { entry.innerHTML = renderEntry(input, r.ok); }
-		root.querySelectorAll('[data-act="print"], [data-act="copy-contract"], [data-act="copy-sources"]').forEach((button) => {
+		root.querySelectorAll('[data-act="print"], [data-act="copy-contract"], [data-act="copy-sources"], [data-act="download-word"]').forEach((button) => {
 			button.setAttribute('aria-disabled', r.ok ? 'false' : 'true');
 		});
 		const capHint = form.querySelector('[data-jt12-cap]');
@@ -377,14 +411,24 @@ export function mount(root, reg) {
 			focusField(!r.ok ? root.querySelector('[aria-invalid="true"]') : root.querySelector(act === 'preview-contract' ? `#${P}-doc-h` : `#${P}-rent`));
 			return;
 		}
-		if (['print', 'copy-contract', 'copy-sources'].includes(act) && !r.ok) {
+		if (['print', 'copy-contract', 'copy-sources', 'download-word'].includes(act) && !r.ok) {
 			ev.preventDefault();
 			run(input, { silent: true });
 			toast(root, 'לא ניתן להוציא חוזה מהנתונים האלה. בדקו את השדה המסומן.');
 			focusField(root.querySelector('[aria-invalid="true"]'));
 			return;
 		}
-		if (act === 'print') {
+		if (act === 'download-word') {
+			try {
+				const file = exportWordContract(reg, input);
+				download(file.filename, file.mime, file.bytes);
+				toast(root, 'בקשת ההורדה נשלחה. אם הקובץ לא ירד, אפשר להעתיק את החוזה או להדפיס.');
+				// This measures a download request, not a saved/opened file or a lead. No form values.
+				track('tool_download', { tool_id: TOOL_ID, type: isSampleInput(input) ? 'word_sample' : 'word_draft' });
+			} catch (error) {
+				toast(root, 'לא הצלחנו ליצור קובץ Word. אפשר להעתיק את החוזה או לבחור הדפסה.');
+			}
+		} else if (act === 'print') {
 			track('tool_download', { tool_id: TOOL_ID, type: 'print' });
 			window.print();
 		} else if ((act === 'copy-contract' || act === 'copy-sources') && r.ok) {

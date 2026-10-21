@@ -395,7 +395,8 @@ foreach ( array( 'chozeh-schirut' => array( $r5, 2 ), 'pitzuyim' => array( $p5, 
 	check( isset( $jt_enqueued[ 'justice-tool-' . $nm ] ), $nm . ': bundle enqueued' );
 	check( 1 === preg_match( '#<script type="application/json" id="jtool-' . preg_quote( $nm, '#' ) . '-data">(.*?)</script>#s', $html, $mm ) && count( json_decode( $mm[1], true ) ) === $sets, $nm . ': the data island carries only its own datasets' );
 	check( false !== strpos( $html, '"dateModified":"2026-10-14"' ) && false !== strpos( $html, 'נבדקו ב-14.10.2026' ), $nm . ': schema and sources carry its own check date' );
-	check( false === strpos( $html, 'download="' ) && false === strpos( $html, '.docx' ), $nm . ': no download links: copy, print and .ics are made in the browser' );
+	check( false === strpos( $html, 'download="' ) && false === strpos( $html, '.docx' ), $nm . ': no server download links: outputs are made in the browser' );
+	check( ( 'chozeh-schirut' === $nm ) === ( false !== strpos( $html, 'data-act="download-word"' ) ), $nm . ': Word export action belongs only to rental' );
 }
 $sec5 = $jt_shortcodes['justice_tool_section'];
 $nr5  = $sec5( array( 'name' => 'chozeh-schirut', 'part' => 'numbers' ) );

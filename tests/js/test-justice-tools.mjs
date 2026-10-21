@@ -1405,6 +1405,43 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(RE.contractText(reg.rent_contract, RE.compute(reg, Object.assign({}, REUI.EXAMPLE, { start: '2027-01-31' })), false).includes('ביום האחרון של החודש'), 'a lease from the 31st defines short months (review, PR 128)');
 }
 
+/* ---------- HAD-552: genuine client-side Word contract, not an HTML file ---------- */
+{
+	const unpack = (bytes) => {
+		const buffer = Buffer.from(bytes); const parts = {}; let pos = 0;
+		while (buffer.readUInt32LE(pos) === 0x04034b50) {
+			check(buffer.readUInt16LE(pos + 8) === 0, 'Word ZIP uses the STORE method');
+			const size = buffer.readUInt32LE(pos + 18), nl = buffer.readUInt16LE(pos + 26), el = buffer.readUInt16LE(pos + 28);
+			const start = pos + 30 + nl + el;
+			parts[buffer.toString('utf8', pos + 30, pos + 30 + nl)] = buffer.toString('utf8', start, start + size);
+			pos = start + size;
+		}
+		check(buffer.readUInt32LE(pos) === 0x02014b50 && buffer.readUInt32LE(buffer.length - 22) === 0x06054b50, 'Word ZIP has a central directory and end record');
+		return parts;
+	};
+	for (const input of [REUI.EXAMPLE, { ...REUI.EXAMPLE, rent: 6100, guarantors: 2, guarantorMax: 18000, landlord: 'בדיקת משכיר', tenant: 'בדיקת שוכר', address: 'רחוב בדיקה 12', furniture: 'מקרר\nארון & מדף <גדול>', defects: 'סימן בקיר\nבדיקה נוספת' }, { ...REUI.EXAMPLE, months: 3, option: 'none', relative: true }]) {
+		const file = REUI.exportWordContract(reg, input), parts = unpack(file.bytes);
+		const xml = parts['word/document.xml'];
+		check(Object.keys(parts).length === 5 && !Object.keys(parts).some((p) => /docProps|vbaProject|media/.test(p)), 'Word has only its five required parts, no private metadata, macros or raster content');
+		check(file.mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' && file.filename === (REUI.isSampleInput(input) ? 'rental-contract-sample.docx' : 'rental-contract-draft.docx'), 'Word MIME and non-personal sample/draft filename');
+		check(xml.includes('<w:pStyle w:val="Title"/>') && xml.includes(REUI.draftNotice(input)), 'Word title and current sample/draft disclosure');
+		const texts = [...xml.matchAll(/<w:t xml:space="preserve">([\s\S]*?)<\/w:t>/g)].map((m) => m[1].replace(/&quot;/g, '"').replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&amp;/g, '&'));
+		const plain = RE.contractText(reg.rent_contract, RE.compute(reg, input)).split('\n').filter(Boolean);
+		const expected = [plain[0], REUI.draftNotice(input), ...plain.slice(1)];
+		check(JSON.stringify(texts) === JSON.stringify(expected), 'Word preserves every existing export paragraph, signatures and optional annex without new legal prose');
+		check(xml.includes('<w:bidi/>') && xml.includes('w:w="12240" w:h="15840"') && parts['word/styles.xml'].includes('w:cs="Arial"'), 'Word RTL, Letter size and deliberate Hebrew font');
+		check(!xml.includes('<w:jc') && !parts['word/styles.xml'].includes('<w:jc'), 'Word bidi uses the right start edge without mirrored explicit alignment');
+		if (input.defects?.includes('\n')) { check(xml.includes('<w:br/>'), 'Newline inside a contract field stays in the same Word paragraph'); }
+		if (input.guarantors) { check((xml.match(/<w:keepNext\/>/g) || []).length >= input.guarantors + 2, 'Guarantor annex and main signature stay with preceding content'); }
+		check(!/TargetMode="External"|<w:altChunk|<w:hyperlink|<w:fldChar/.test(Object.values(parts).join('')), 'Word contains no remote content, HTML imports or executable fields');
+	}
+	for (const invalid of [{ rent: '' }, { start: '2026-02-31' }, { excluded: true }, { sublease: true }]) {
+		check(REUI.exportWordContract(reg, { ...REUI.EXAMPLE, ...invalid }) === null, 'Word export blocked by existing engine validation: ' + Object.keys(invalid)[0]);
+	}
+	const detail = REUI.renderDetails(reg, RE.compute(reg, REUI.EXAMPLE), REUI.EXAMPLE);
+	check((detail.match(/data-act="download-word"/g) || []).length === 2 && detail.includes('data-act="copy-contract"') && detail.includes('data-act="print"'), 'Word at the start and end of the contract, retaining existing output alternatives');
+}
+
 if (failures) {
 	console.error(`justice tools engines: ${failures} failure(s), ${passed} passed`);
 	process.exit(1);

@@ -35,7 +35,7 @@ function justice_ops_intake_form_context(): void {
 		wp_nonce_field( 'justice_intake_test', 'justice_intake_test_nonce' );
 	}
 	if ( 'success' === justice_ops_intake_field( $_GET, 'lead' ) ) {
-		echo '<p class="lead-form__notice" role="status">הפנייה נשמרה במערכת.</p>';
+		echo '<p class="lead-form__notice" data-intake-receipt-notice role="status">אפשר לברר את מצב הפנייה דרך פרטי הקשר באתר.</p>';
 	}
 }
 add_action( 'justice_public_lead_form_context', 'justice_ops_intake_form_context' );
@@ -58,6 +58,8 @@ function justice_ops_handle_public_intake(): void {
 	if ( ! wp_verify_nonce( $nonce, 'justice_submit_lead' ) ) {
 		wp_die( 'בדיקת האבטחה נכשלה. חזרו לטופס ונסו שוב.', '', array( 'response' => 403, 'back_link' => true ) );
 	}
+	// A new submission must not inherit a previous successful submission's receipt.
+	if ( function_exists( 'justice_ops_intake_clear_receipt' ) ) { justice_ops_intake_clear_receipt(); }
 	$is_test = justice_ops_intake_is_test( $_POST );
 	if ( '1' === justice_ops_intake_field( $_POST, 'justice_intake_test' ) && ! $is_test ) {
 		wp_die( 'בדיקת המערכת דורשת הרשאת מנהל תקפה.', '', array( 'response' => 403 ) );
@@ -174,6 +176,7 @@ function justice_ops_handle_public_intake(): void {
 	if ( ! $is_test && $assigned && function_exists( 'justice_theme_route_lead_to_lawyers' ) ) {
 		justice_theme_route_lead_to_lawyers( $lead_id, get_post( $lead_id ), true );
 	}
+	if ( function_exists( 'justice_ops_intake_issue_receipt' ) ) { justice_ops_intake_issue_receipt( $lead_id, $source ); }
 	wp_safe_redirect( add_query_arg( 'lead', 'success', $source ) );
 	exit;
 }

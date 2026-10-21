@@ -1271,14 +1271,19 @@ function justice_tools_shortcode( $atts ): string {
 	// The tool title is a heading by role, not an <h2> tag: a plugin outside this repo inserts the page's
 	// "בעמוד הזה" table of contents right before the first <h2> in the content, and with an <h2> title it
 	// landed inside the tool card and pushed the form below the fold (HAD-487). The TOC now starts after the tool.
-	$html  = '1' === (string) $atts['answer'] ? justice_tools_answer( $name, $mode ) : '';
+	$answer       = '1' === (string) $atts['answer'] ? justice_tools_answer( $name, $mode ) : '';
+	$rental_entry = 'chozeh-schirut' === $name && ! empty( $snap['entry'] );
+	// Rental visitors can reach the sample or their terms before the explanatory blocks.
+	// Keep the full answer and source stamp in the normal reading order, before the fields.
+	$html = $rental_entry ? '' : $answer;
 	$html .= '<section class="jtool" id="' . esc_attr( $id ) . '" data-jtool="' . esc_attr( $name ) . '"' . ( '' !== $mode ? ' data-jtool-mode="' . esc_attr( $mode ) . '"' : '' ) . ' data-jtool-data="' . esc_attr( $id ) . '-data" aria-labelledby="' . esc_attr( $id ) . '-title">'
+		. ( $rental_entry ? '<div class="jt12-entry" data-jt12-entry>' . $snap['entry'] . '</div>' : '' )
 		. '<div class="jtool__head"><div><div class="jtool__title" role="heading" aria-level="2" id="' . esc_attr( $id ) . '-title">' . esc_html( $tool['title'] ) . '</div><p class="jtool__promise">' . esc_html( $tool['promise'] ) . '</p></div>'
 		. '<a class="jtool-stamp" href="#' . esc_attr( $id ) . '-sources"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>' . esc_html( justice_tools_stamp( $name, $mode ) ) . '</a></div>'
+		. ( $rental_entry ? $answer : '' )
 		. justice_tools_stages_html( $tool, $id )
 		. '<p class="jtool-scope" data-jtool-shared hidden style="margin:12px 24px 0 !important">נפתח מקישור שיתוף. התשובות נטענו מהקישור ולא נשמרו אצלנו, והחישוב רץ שוב עם הנתונים העדכניים.</p>'
 		. '<p class="jtool-scope" data-jtool-saved hidden style="margin:12px 24px 0 !important">יש חישוב שמור במכשיר הזה. <button class="jtool-linkbtn" type="button" data-act="restore">לטעון אותו</button> <button class="jtool-linkbtn" type="button" data-act="clear">למחוק</button></p>'
-		. ( 'chozeh-schirut' === $name && ! empty( $snap['entry'] ) ? '<div class="jt12-entry" data-jt12-entry>' . $snap['entry'] . '</div>' : '' )
 		. '<div class="jtool__body"><div class="jtool-form" role="group" aria-label="' . esc_attr( 'הנתונים ל' . $tool['name'] ) . '" data-jtool-form>' . $snap['form'] . '</div>'
 		. '<div class="jtool-result" id="' . esc_attr( $id ) . '-result" data-jtool-result>' . $snap['result'] . '</div></div>'
 		. '<div class="jtool-details" data-jtool-details>' . $snap['details'] . '</div>'

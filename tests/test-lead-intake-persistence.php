@@ -44,6 +44,11 @@ function current_time( ...$args ) { return '2026-10-21 10:00:00'; }
 function is_wp_error( $value ) { return $value instanceof WP_Error; }
 function add_query_arg( $key, $value, $url ) { return $url . '?' . $key . '=' . $value; }
 function wp_safe_redirect( $url ) { throw new IntakeResponse( 302, $url ); }
+function justice_ops_intake_clear_receipt() { $GLOBALS['receipt_cleared'] = true; }
+function justice_ops_intake_issue_receipt( $id, $source ) {
+	$GLOBALS['receipt_attempt'] = array( 'id' => $id, 'stored' => get_post_meta( $id, 'lead_storage_status' ), 'source' => $source );
+	return false; // A failed measurement receipt must not change successful intake.
+}
 function wp_die( $message, $title = '', $args = array() ) { throw new IntakeResponse( $args['response'] ?? 500, $message ); }
 function get_option( $key, $default = '' ) {
 	if ( 'justice_hubspot_token' === $key ) {
@@ -113,6 +118,8 @@ function fixture( array $changes = array() ): void {
 	$GLOBALS['fixture'] = array_merge( array( 'admin' => false, 'insert_fail' => false, 'publish_fail' => false, 'meta_fail' => '', 'mail_ok' => true ), $changes );
 	foreach ( array( 'posts', 'meta', 'mails', 'at_route' ) as $key ) { $GLOBALS[$key] = array(); }
 	$GLOBALS['inserts'] = 0;
+	$GLOBALS['receipt_cleared'] = false;
+	$GLOBALS['receipt_attempt'] = null;
 	$_GET = array();
 	$_POST = array(
 		'justice_lead_nonce' => 'valid-justice_submit_lead', 'lead_name' => 'Synthetic check',
@@ -154,6 +161,7 @@ check_intake( 1 === count( $actions['admin_post_justice_submit_lead'][10] ), 'Ha
 fixture( array( 'insert_fail' => true ) ); $r = run_intake();
 check_intake( 503 === $r->status && ! str_contains( $r->target, 'success' ), 'Insert failure cannot report success' );
 check_intake( ! $mails && ! $at_route, 'Insert failure sends no mail or commercial routing' );
+check_intake( $receipt_cleared && null === $receipt_attempt, 'Failed new intake clears old proof and cannot issue fresh proof' );
 fixture( array( 'meta_fail' => 'visitor_phone' ) ); $r = run_intake();
 check_intake( 503 === $r->status && 'draft' === get_post_status( 1 ), 'Partial metadata remains a draft and reports failure' );
 check_intake( ! $mails && ! $at_route && 'incomplete' === get_post_meta( 1, 'lead_storage_status' ), 'Partial storage cannot trigger notifications or routing' );
@@ -162,6 +170,7 @@ check_intake( 503 === $r->status && ! $mails && ! $at_route, 'Publish failure is
 
 fixture(); $r = run_intake();
 check_intake( 302 === $r->status && str_ends_with( $r->target, 'lead=success' ), 'Verified storage keeps the existing success return path' );
+check_intake( $receipt_cleared && 'stored' === $receipt_attempt['stored'] && 1 === $receipt_attempt['id'], 'Receipt is attempted only after committed storage, and its failure does not block intake' );
 check_intake( 'stored' === get_post_meta( 1, 'lead_storage_status' ) && 'publish' === get_post_status( 1 ), 'Success has persisted metadata and a published CRM record' );
 check_intake( "Synthetic O'Brien \\ sample" === get_post_meta( 1, 'message' ), 'Apostrophes and backslashes survive metadata storage' );
 check_intake( '1' === $at_route[0]['consent'] && 'case_review' === $at_route[0]['utm_content'], 'Consent and attribution exist before routing starts' );
@@ -205,7 +214,7 @@ check_intake( '' === $html, 'Anonymous page never exposes test fields' );
 $fixture['admin'] = true; ob_start(); justice_ops_intake_form_context(); $html = ob_get_clean();
 check_intake( str_contains( $html, 'justice_intake_test_nonce' ), 'Administrator test page contains the dedicated nonce field' );
 $_GET = array( 'lead' => 'success' ); ob_start(); justice_ops_intake_form_context(); $html = ob_get_clean();
-check_intake( str_contains( $html, 'הפנייה נשמרה במערכת' ) && ! str_contains( $html, 'נשלחה לעורך דין' ), 'Public notice promises storage, not delivery or lawyer acceptance' );
+check_intake( str_contains( $html, 'data-intake-receipt-notice' ) && ! str_contains( $html, 'נשמרה' ) && ! str_contains( $html, 'נשלחה לעורך דין' ), 'Success URL alone makes no storage/delivery claim; client needs server proof' );
 
 // Real theme classifier + routing and Ops hooks, dispatched in WordPress order.
 // This catches routes nested inside wp_insert_post or a metadata write.

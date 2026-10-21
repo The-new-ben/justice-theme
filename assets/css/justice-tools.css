@@ -1051,23 +1051,23 @@ a.jtool-cite:hover { text-decoration: underline; }
 .jt26-bar__track { position: relative; display: block; height: 24px; border-radius: 6px; background: var(--jtool-surface-2); box-shadow: inset 0 0 0 1px var(--jtool-border); }
 .jt26-bar__fill { position: absolute; top: 0; inset-inline-start: 0; height: 100%; border-radius: 6px; background: var(--jtool-verdict); }
 .jt26-bar__gap { position: absolute; top: 0; height: 100%; border-radius: 0 6px 6px 0; }
-.jt26-bar--over .jt26-bar__gap { background: repeating-linear-gradient(135deg, var(--jtool-warn) 0 4px, var(--jtool-warn-bg) 4px 8px); }
+.jt26-bar--over .jt26-bar__gap { background: repeating-linear-gradient(135deg, #7FA3CB 0 4px, #E3ECF6 4px 8px); }
 .jt26-bar--under .jt26-bar__gap { background: var(--jtool-ok-bg); box-shadow: inset 0 0 0 2px var(--jtool-ok); }
 .jt26-bar__tick { position: absolute; top: -5px; bottom: -5px; width: 0; border-inline-start: 2px dashed var(--jtool-verdict-deep); }
 .jt26-bar__v { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--jtool-ink); white-space: nowrap; }
 .jt26-bar__v small { font-size: 0.78rem; font-weight: 700; color: var(--jtool-muted); }
-.jt26-bar--over .jt26-bar__v small { color: var(--jtool-warn); }
+.jt26-bar--over .jt26-bar__v small { color: var(--jtool-verdict-deep); }
 .jt26-bar--under .jt26-bar__v small { color: var(--jtool-ok); }
 .jtool .jt26-beam figcaption { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 10px 0 0; font-size: 0.8125rem; line-height: 1.5; color: var(--jtool-muted); }
 .jt26-beam figcaption span { display: inline-flex; align-items: center; gap: 6px; }
 .jt26-k { display: inline-block; width: 16px; height: 12px; border-radius: 3px; }
 .jt26-k--fill { background: var(--jtool-verdict); }
 .jt26-k--tick { width: 0; height: 14px; border-radius: 0; border-inline-start: 2px dashed var(--jtool-verdict-deep); }
-.jt26-k--over { background: repeating-linear-gradient(135deg, var(--jtool-warn) 0 3px, var(--jtool-warn-bg) 3px 6px); }
+.jt26-k--over { background: repeating-linear-gradient(135deg, #7FA3CB 0 3px, #E3ECF6 3px 6px); }
 .jt26-k--under { background: var(--jtool-ok-bg); box-shadow: inset 0 0 0 2px var(--jtool-ok); }
 
 /* The s.5(ג)(4) gate: the exact amount of money from outside the estate, and who buys what from whom. */
-.jt26-tax { padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-warn); border-radius: var(--jtool-radius-card); background: #fff; }
+.jt26-tax { padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-verdict); border-radius: var(--jtool-radius-card); background: #fff; }
 .jtool .jt26-tax__h { margin: 0 0 6px !important; font: 800 1rem/1.4 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
 .jtool .jt26-tax p { margin: 0 !important; font-size: 0.95rem !important; line-height: 1.6 !important; color: var(--jtool-ink) !important; }
 .jtool .jt26-tax p + p { margin-top: 6px !important; }

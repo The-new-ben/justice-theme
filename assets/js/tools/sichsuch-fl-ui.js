@@ -4,11 +4,14 @@
  * The picture is the court's own calendar: one track from the filing day, in day counts, with the meetings window,
  * the stay of proceedings and the filer's 15 days as segments, the holiday days that the law does not count hatched,
  * and today's marker. The stations under it, the table of dates and the printed summary say the same in text.
- * Bundle: instrument.js + dates.js + sichsuch-fl-engine.js + sichsuch-fl-ui.js (no name shared with sichsuch-ui.js,
- * the inheritance dispute navigator, which is never bundled with this tool).
+ * Bundle: instrument.js + sim-handoff.js + dates.js + sichsuch-fl-engine.js + sichsuch-fl-ui.js (no name shared with
+ * sichsuch-ui.js, the inheritance dispute navigator, which is never bundled with this tool).
+ * The rehearse button opens the simulation with the scenario already written (sim-handoff.js, a one-time window
+ * handoff); when the popup is blocked it copies the scenario and the plain link opens.
  */
 import { compute, ysHe, YS_SUBJECTS, YS_SPECIAL } from './sichsuch-fl-engine.js';
 import { daysBetween, parseDate } from './dates.js';
+import { openSimulation } from './sim-handoff.js';
 import {
 	esc, money, isoToHe, encodeState, decodeState, ics,
 	track, download, copyText, toast, shareUrl, whatsappUrl, store, stickyBar, isStale, ilToday,
@@ -18,6 +21,7 @@ export const TOOL_ID = 'yishuv-sichsuch';
 const P = 'jt42';
 // The simulation of the first meeting at the support unit (the catalog's rehearse entry: family-law, mediation).
 export const YS_SIM_URL = 'https://jus-tice.com/#/simulation?entry=role&audience=guest&lang=he&purpose=mediation&topic=family-law';
+export const YS_REHEARSE_LABEL = 'לתרגל את פגישת המהו"ת עם הנתונים שלכם';
 
 export const EXAMPLE = { start: '', forum: 'family', role: 'filer', subjects: ['children', 'support'], extended: false, track: 'base', agreedEnd: '', stopOn: '', courtEnd: '', lastMeeting: '', reliefOn: '', special: 'none' };
 
@@ -184,7 +188,7 @@ function ysNextHtml(reg, r) {
 
 function ysBriefHtml(reg, r) {
 	return `<div class="jt42-brief"><h4>התרחיש לסימולציה</h4><p class="jt42-brief__text">${esc(aiBrief(reg, r))}</p>`
-		+ `<a class="jtool-btn" href="${esc(YS_SIM_URL)}" target="_blank" rel="noopener" data-act="rehearse">להעתיק ולתרגל את פגישת המהו"ת</a>`
+		+ `<a class="jtool-btn" href="${esc(YS_SIM_URL)}" target="_blank" rel="noopener" data-act="rehearse">${esc(YS_REHEARSE_LABEL)}</a>`
 		+ '<p class="jtool-hint">בלי שמות ובלי פרטים מזהים. הדמויות בסימולציה הן AI, והתרגול לא נשמר.</p></div>';
 }
 
@@ -476,9 +480,12 @@ export function mount(root, reg) {
 		const b = ev.target.closest('[data-act]');
 		if (!b) { return; }
 		const act = b.getAttribute('data-act');
+		// A click while the debounce is pending renders it now; otherwise the shown result is current and stays in place
+		// (the clicked rehearse link is not re-rendered under the pointer).
+		const pending = Boolean(timer);
 		if (timer) { clearTimeout(timer); timer = null; }
 		const input = readForm(root);
-		const r = run(input, { silent: true });
+		const r = pending ? run(input, { silent: true }) : compute(reg, withToday(input));
 		const link = `${shareUrl(stateOf(input))}/@${TOOL_ID}`;
 		if (act === 'ics' && r.ok && r.applies) {
 			download('yishuv-sichsuch.ics', 'text/calendar;charset=utf-8', ics(icsEvents(reg, r), new Date().toISOString()));
@@ -499,10 +506,18 @@ export function mount(root, reg) {
 			toast(root, ok ? 'התוצאה הועתקה.' : 'לא הצלחנו להעתיק.');
 			track('tool_share', { tool_id: TOOL_ID, channel: 'copy' });
 		} else if (act === 'rehearse') {
-			// The app refuses a case story in the URL: the scenario goes to the clipboard, and the link opens the simulation.
-			if (r.ok) { await copyText(aiBrief(reg, r)); }
-			toast(root, 'התרחיש הועתק. בסימולציה, הדביקו אותו בתיאור המקרה.');
+			// The app refuses a case story in the URL: the scenario travels by the one-time window handoff (never in the URL);
+			// if the popup is blocked it goes to the clipboard and the plain link opens. preventDefault stays synchronous.
 			track('tool_rehearse_click', { tool_id: TOOL_ID, band: r.ok ? (r.applies ? r.stage : r.special) : 'error' });
+			const brief = r.ok ? aiBrief(reg, r) : '';
+			const purpose = (/purpose=([a-z_]+)/.exec(b.getAttribute('href') || '') || [])[1] || 'mediation';
+			if (brief && openSimulation(brief, purpose, b.getAttribute('href'))) {
+				ev.preventDefault();
+				toast(root, 'נפתח תרגול עם הנתונים שלכם. הדמויות הן AI, והתרגול אינו נשמר אצלנו.');
+			} else {
+				if (brief) { copyText(brief); }
+				toast(root, 'התרחיש הועתק. בסימולציה, הדביקו אותו בתיאור המקרה.');
+			}
 		} else if (act === 'save') {
 			store.set(saveKey, stateOf(input));
 			toast(root, 'נשמר במכשיר הזה בלבד. אפשר למחוק בכל רגע.');

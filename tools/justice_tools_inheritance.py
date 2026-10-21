@@ -140,7 +140,7 @@ def build_inheritance_process(checked_on: str) -> dict:
         # An affidavit before a notary (the notary tariff, items 7 and 10) when no lawyer verifies it for free.
         "notary": {
             "regulation_he": "תקנות הנוטריונים (שכר שירותים), התשל\"ט-1978", "url": NOTARY_FEES, "from": "2026-01-01",
-            "affidavit_first": 200, "affidavit_additional": 80, "item": "פרט 7",
+            "affidavit_first": 200, "affidavit_additional": 80, "item": "פרט 6",
         },
         "evidence_he": "תצהיר נחתם בפני עורך דין, נוטריון, שופט או רשם, אחרי אזהרה (סעיף 15 לפקודת הראיות)",
         "evidence_url": EVIDENCE,

@@ -121,5 +121,16 @@ foreach ( $homes as $name => $home ) {
 	check( 1 === substr_count( $again, 'data-jtool="' . $name . '"' ), "{$name}: one instrument per render pass" );
 }
 
+/* ---------- The result-first card under the title (the pages where the tool starts low on a phone) ---------- */
+$lead_sc = $jt_shortcodes['justice_tool_lead'] ?? null;
+check( is_callable( $lead_sc ), 'the [justice_tool_lead] shortcode is registered' );
+foreach ( array( 'agrot-rabanut', 'mishmoret', 'yeduim-batzibur' ) as $name ) {
+	$lead = is_callable( $lead_sc ) ? (string) $lead_sc( array( 'name' => $name ) ) : '';
+	check( false !== strpos( $lead, 'class="jtool-page jtool-lead"' ) && false !== strpos( $lead, 'data-jtool-lead="' . $name . '"' ) && false !== strpos( $lead, 'data-lead-go' ), "{$name}: the result-first card renders with its jump to the form" );
+	check( false !== strpos( $lead, $homes[ $name ][2][0] ) || false !== strpos( $lead, 'jtool-lead__figure' ), "{$name}: the card carries the example's figure" );
+	check( 0 === preg_match( '/<h2[\s>]/', $lead ) && false === strpos( $lead, 'undefined' ) && false === strpos( $lead, 'NaN' ), "{$name}: the card has no h2, undefined or NaN" );
+}
+check( '' === ( is_callable( $lead_sc ) ? (string) $lead_sc( array( 'name' => 'no-such-tool' ) ) : '' ), 'the card renders nothing for an unknown tool' );
+
 echo "family + land tools (PHP): {$passed} passed, {$failures} failed\n";
 exit( $failures ? 1 : 0 );

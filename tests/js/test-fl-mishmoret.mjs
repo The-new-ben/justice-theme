@@ -23,6 +23,7 @@ import * as LU from '../../assets/js/tools/luach-engine.js';
 import * as MZU from '../../assets/js/tools/mezonot-ui.js';
 import { computeSupport } from '../../assets/js/tools/mezonot-engine.js';
 import { decodeState, ics } from '../../assets/js/tools/instrument.js';
+import { handoffState } from '../../assets/js/tools/sim-handoff.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const reg = JSON.parse(readFileSync(join(ROOT, 'assets/data/justice-tools-registry.json'), 'utf8'));
@@ -177,6 +178,20 @@ const model = { parentA: 'אמא', children: ['2019-02-03'], template: 'custom',
 const back = U.modelOf(decodeState(U.stateOf(model), U.KEYS));
 check(JSON.stringify(back) === JSON.stringify(model), 'share state round trip: stateOf -> decodeState -> modelOf (an explicit 0 survives, a blank stays blank)');
 check(!/[א-ת]/.test(U.stateOf(EX)) && !U.stateOf(EX).includes('@'), 'the share state holds no Hebrew text (no names)');
+
+/* ---------- 11. Polish round: the window handoff and the result-first card ---------- */
+check(html.includes('data-act="rehearse">לתרגל את הגישור עם הנתונים שלכם</a>') && !/להעתיק/.test(html.match(/data-act="rehearse">[^<]*/)[0]), 'the rehearse button says what it does (practise with your figures), not "copy"');
+const hs = handoffState('x', U.aiBrief(reg, ex), 'mediation');
+check(hs.phase === 'intake' && hs.locale === 'he' && hs.simulationPurpose === 'mediation' && hs.description.includes('181') && hs.description.includes('2,400 עד 3,400') && !/\d{9}/.test(hs.description), 'handoff state: intake, Hebrew, mediation, the scenario with 181 nights and the support band, no 9-digit run');
+const lead = U.leadCard(reg, ex, { example: true });
+check(lead.includes('דוגמה מחושבת: לילות ב-12 החודשים אצל האב') && lead.includes('<bdi>181</bdi>/<bdi>365</bdi>') && lead.includes('49.6%') && lead.includes('5-2-2-5') && lead.includes('2,440 ₪ עד 3,320 ₪') && lead.includes('data-lead-go') && lead.includes('לחשב לפי המקרה שלכם'), 'lead card (example): 181/365, 49.6%, 5-2-2-5 and the support band, the jump to the form');
+check(snap.lead === lead && !/<h2/i.test(lead) && !bad(lead), 'snapshot().lead is the example card; no h2, no undefined/NaN/null');
+const leadOwn = U.leadCard(reg, eve, {});
+check(leadOwn.includes('החישוב שלכם') && leadOwn.includes('<bdi>87</bdi>/<bdi>365</bdi>') && leadOwn.includes('לשנות את הנתונים') && !bad(leadOwn), 'lead card (your answers): 87/365 for alternate weekends + an evening');
+const leadErr = U.leadCard(reg, run({ start: 'x' }), {});
+check(leadErr.includes('jtool-lead__figure">—</strong>') && leadErr.includes('יום תחילת הלוח לא תקין') && !bad(leadErr), 'lead card (error): a dash and the error');
+check(!bad(U.leadCard(reg, none, {})) && U.leadCard(reg, none, {}).includes('בלי הכנסות'), 'lead card without incomes: no support band, says so');
+check(snap.sticky === '<bdi>181</bdi>/365', 'the snapshot sticky is the exact string the mount writes');
 
 console.log(`${passed} passed, ${failures} failed`);
 process.exit(failures ? 1 : 0);

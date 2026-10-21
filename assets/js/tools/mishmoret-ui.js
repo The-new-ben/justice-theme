@@ -1,13 +1,10 @@
 /**
- * The parenting-time planner on /child-custody/ (the family + land wave, HAD-579).
- * One picture from the subject: the school wall planner. Twelve month rows of nights in two inks (navy = parent A, pale
- * deep green = parent B), every school vacation of the Ministry of Education's calendar ruled under its nights with its
- * name, a notch on every handover day, and the year's split as one bar on top. Under it: the age rules of every child
- * with their sections, what the split does to child support (the /child-support/ engine, with a link that opens that tool
- * with the same numbers), the scenario for the simulation, and what to do next.
+ * The parenting-time planner on /child-custody/ (HAD-579): a school wall planner of the year (navy = parent A, pale green
+ * = B, vacations ruled with their names), the age rules, the support band of /child-support/, the scenario, next steps.
  */
 import { compute, MM_TEMPLATES, MM_DAYS, mmNights, mmCompare, mmBreaks } from './mishmoret-engine.js';
 import { parseDate } from './dates.js';
+import { openSimulation } from './sim-handoff.js';
 import {
 	esc, money, parseMoney, isoToHe, encodeState, decodeState, ics,
 	track, download, copyText, toast, shareUrl, whatsappUrl, store, stickyBar, isStale, ilToday,
@@ -88,7 +85,6 @@ export function ribbon(r) {
 	const B = mmWho('B', r.parentA);
 	const rows = r.months.map((mo) => {
 		const [y, mm] = mo.key.split('-').map(Number);
-		// Only the month's first cell is placed; the rest flow along the row (a short first month starts mid-row).
 		const cells = mo.days.map((d, i) => `<i class="${MMP}-d ${MMP}-${d.who.toLowerCase()}${d.hol ? ` ${MMP}-h` : ''}${d.handover ? ` ${MMP}-x` : ''}"${i === 0 && mo.first > 1 ? ` style="grid-column-start:${mo.first}"` : ''}></i>`).join('');
 		const spans = [];
 		for (const d of mo.days) {
@@ -96,7 +92,7 @@ export function ribbon(r) {
 			const last = spans[spans.length - 1];
 			if (d.hol && last && last.key === d.hol && last.to === day - 1) { last.to = day; } else if (d.hol) { spans.push({ key: d.hol, from: day, to: day }); }
 		}
-		// The name only where it has room (3 nights or more in the month); a shorter part keeps its rule line.
+		// The name only where it has room (3 nights or more).
 		const labels = spans.map((s) => `<b class="${MMP}-hl" style="grid-column:${s.from} / ${s.to + 1}">${s.to - s.from >= 2 ? esc(MM_SHORT[s.key] || '') : ''}</b>`).join('');
 		return `<div class="${MMP}-row"><span class="${MMP}-row__m">${esc(MM_MONTHS_SHORT[mm - 1])} ${String(y).slice(2)}</span><span class="${MMP}-row__g">${cells}${labels}</span></div>`;
 	}).join('');
@@ -248,7 +244,7 @@ export function renderResult(reg, r, opts = {}) {
 		+ (r.flags.length ? `<ul class="jtool-flags">${r.flags.map((f) => `<li>${esc(f.he)}</li>`).join('')}</ul>` : '')
 		+ agesBlock(reg, r)
 		+ moneyBlock(reg, r)
-		+ `<section class="${MMP}-brief" aria-labelledby="${MMP}-brief-h"><h4 id="${MMP}-brief-h">התרחיש לסימולציה</h4><p class="${MMP}-brief__text">${esc(aiBrief(reg, r))}</p><a class="jtool-btn jtool-btn--primary" href="${esc(MM_SIM)}" target="_blank" rel="noopener" data-act="rehearse">לתרגל את הגישור על תוכנית ההורות</a></section>`
+		+ `<section class="${MMP}-brief" aria-labelledby="${MMP}-brief-h"><h4 id="${MMP}-brief-h">התרחיש לסימולציה</h4><p class="${MMP}-brief__text">${esc(aiBrief(reg, r))}</p><a class="jtool-btn jtool-btn--primary" href="${esc(MM_SIM)}" target="_blank" rel="noopener" data-act="rehearse">לתרגל את הגישור עם הנתונים שלכם</a></section>`
 		+ nextBlock(reg, r)
 		+ printBlock(reg, r, opts.today || fl.checked_on);
 }
@@ -314,6 +310,22 @@ export function holidaysTable(reg) {
 	return `<div class="jtool-datawrap"><table class="jtool-datatable"><caption>${esc(`חופשות בית הספר בשנת הלימודים ${fl.school_year.he}, ${fl.school_year.sector_he}, לפי חוזר המנכ"ל של משרד החינוך (הודעות 0363 ו-0364, ${isoToHe(fl.stages.k6.published)}). לילות: מהערב של יום הלימודים האחרון עד הבוקר שבו חוזרים.`)}</caption><thead><tr><th scope="col">החופשה</th><th scope="col">מתי</th>${Object.values(fl.stages).map((v) => `<th scope="col">לילות, ${esc(v.he)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
+/** The result-first card ([justice_tool_lead]): same markup on the server and in the browser. */
+export function leadCard(reg, r, opts = {}) {
+	const go = `<a class="jtool-lead__go" href="#jtool-${TOOL_ID}" data-lead-go>${opts.example ? 'לחשב לפי המקרה שלכם' : 'לשנות את הנתונים'}</a>`;
+	if (!r.ok) {
+		return `<p class="jtool-lead__label">לילות בשנה אצל כל הורה</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">—</strong></p><p class="jtool-lead__line">${esc(r.errors.map((e) => e.he).join(' '))}</p>${go}`;
+	}
+	const A = mmWho('A', r.parentA);
+	const x = r.support && r.support.ok ? r.support.result : null;
+	const money$ = x ? (x.payer ? `${mmWho(x.payer, r.parentA)} ${mmPays(mmWho(x.payer, r.parentA))} ${mmNis(x.low)} עד ${mmNis(x.high)} לחודש` : 'כמעט אין העברה') : 'בלי הכנסות, בלי טווח מזונות';
+	const ages = r.kids.filter((k) => k.minor).map((k) => k.age).sort((a, b) => a - b);
+	const line = `${mmTplShort(r.template)}, ${ages.length === 1 ? `ילד בן ${ages[0]}` : `ילדים בני ${ages.join(' ו-')}`}, חופשות ${MM_RULE_HE[r.rule]}. מזונות לפי בע"מ 919/15: ${money$}.`;
+	return `<p class="jtool-lead__label">${opts.example ? 'דוגמה מחושבת' : 'החישוב שלכם'}: לילות ב-12 החודשים אצל ${esc(A)}</p>`
+		+ `<p class="jtool-lead__row"><strong class="jtool-lead__figure"><bdi>${r.year.a}</bdi>/<bdi>365</bdi></strong><span class="jtool-lead__unit"><bdi>${r.year.aPct}%</bdi> · <bdi>${r.nights14}</bdi> מתוך 14 בממוצע${r.equal ? ', חלוקה שווה' : ''}</span></p>`
+		+ `<p class="jtool-lead__line">${esc(line)}</p>${go}`;
+}
+
 export function snapshot(reg) {
 	const r = compute(reg, EXAMPLE);
 	const fl = reg.fl_mishmoret;
@@ -338,6 +350,7 @@ export function snapshot(reg) {
 		holidays_table: holidaysTable(reg),
 		sentence: verdictSentence(reg, r),
 		brief: aiBrief(reg, r),
+		lead: leadCard(reg, r, { example: true }),
 	};
 }
 
@@ -389,6 +402,8 @@ export function mount(root, reg) {
 	const result = root.querySelector('[data-jtool-result]');
 	const details = root.querySelector('[data-jtool-details]');
 	const sticky = root.querySelector('[data-jtool-sticky-figure]');
+	const lead = document.querySelector(`[data-jtool-lead="${TOOL_ID}"]`);
+	let own = false;
 	const fl = reg.fl_mishmoret;
 	const saveKey = `jtool-${TOOL_ID}`;
 	const today = ilToday();
@@ -424,6 +439,7 @@ export function mount(root, reg) {
 		const holder = form.querySelector('[data-jt41-board]');
 		if (holder) { holder.innerHTML = board(m, mmNights(m.template, m.custom)); }
 		if (sticky) { sticky.innerHTML = r.ok ? `<bdi>${r.year.a}</bdi>/365` : '—'; }
+		if (lead) { lead.innerHTML = leadCard(reg, r, { example: !own }); }
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: r.equal ? 'equal' : 'primary' }); }
 		last = r;
 		return r;
@@ -437,6 +453,7 @@ export function mount(root, reg) {
 	const shareOwner = (/\/@([a-z-]+)$/.exec(window.location.hash) || [])[1];
 	const fromHash = !shareOwner || shareOwner === TOOL_ID ? modelOf(decodeState(window.location.hash, KEYS)) : null;
 	if (fromHash) {
+		own = true;
 		custom = fromHash.custom.slice();
 		form.innerHTML = renderForm(reg, fromHash);
 		const note = root.querySelector('[data-jtool-shared]');
@@ -451,6 +468,21 @@ export function mount(root, reg) {
 		run(readModel(root, custom), { silent: true });
 	}
 	if (store.get(saveKey) && !fromHash) { const n = root.querySelector('[data-jtool-saved]'); if (n) { n.hidden = false; } }
+	// The card's jump: to the form, first field focused (the page anchor is the fallback without the script).
+	if (lead) {
+		lead.addEventListener('click', (ev) => {
+			if (!ev.target.closest('[data-lead-go]')) { return; }
+			ev.preventDefault();
+			form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			const first = form.querySelector('input:not([type="radio"]):not([type="checkbox"])');
+			if (first) { setTimeout(() => first.focus({ preventScroll: true }), 350); }
+			track('tool_lead_click', { tool_id: TOOL_ID });
+		});
+	}
+	const mine = () => { own = true; };
+	form.addEventListener('input', mine, true);
+	form.addEventListener('change', mine, true);
+	form.addEventListener('click', (ev) => { if (ev.target.closest('[data-night], [data-add-kid], [data-remove-kid]')) { own = true; } }, true);
 	form.addEventListener('input', schedule);
 	form.addEventListener('change', (ev) => {
 		// Switching to "custom" starts from the nights of the plan that was on screen.
@@ -485,7 +517,8 @@ export function mount(root, reg) {
 		const act = b.getAttribute('data-act');
 		if (timer) { clearTimeout(timer); timer = null; }
 		const m = readModel(root, custom);
-		const r = run(m, { silent: true });
+		// A link the reader clicked must stay in the page to open: compute without redrawing for the two links.
+		const r = act === 'rehearse' || act === 'support' ? compute(reg, m) : run(m, { silent: true });
 		const link = `${shareUrl(stateOf(m))}/@${TOOL_ID}`;
 		if ((act === 'ics' || act === 'ics-a' || act === 'ics-b') && r.ok) {
 			const which = act === 'ics-a' ? 'A' : act === 'ics-b' ? 'B' : 'all';
@@ -509,10 +542,17 @@ export function mount(root, reg) {
 			toast(root, ok ? 'התוצאה הועתקה.' : 'לא הצלחנו להעתיק.');
 			track('tool_share', { tool_id: TOOL_ID, channel: 'copy' });
 		} else if (act === 'rehearse') {
-			// The scenario goes to the clipboard; the link itself opens the simulation (no case story in a URL).
-			if (r.ok) { copyText(aiBrief(reg, r)); }
-			toast(root, 'התרחיש הועתק. בסימולציה, הדביקו אותו בתיאור המקרה.');
+			// The scenario goes to the simulation by the window handoff (never in a URL); without it, to the clipboard.
 			track('tool_rehearse_click', { tool_id: TOOL_ID, band: r.ok ? (r.equal ? 'equal' : 'primary') : 'error' });
+			const brief = r.ok ? aiBrief(reg, r) : '';
+			const purpose = (/purpose=([a-z_]+)/.exec(b.getAttribute('href') || '') || [])[1] || 'mediation';
+			if (brief && openSimulation(brief, purpose, b.getAttribute('href'))) {
+				ev.preventDefault();
+				toast(root, 'נפתח תרגול עם הנתונים שלכם. הדמויות הן AI, והתרגול אינו נשמר אצלנו.');
+			} else {
+				if (brief) { copyText(brief); }
+				toast(root, 'התרחיש הועתק. בסימולציה, הדביקו אותו בתיאור המקרה.');
+			}
 		} else if (act === 'support') {
 			track('tool_next_click', { tool_id: TOOL_ID, type: 'mezonot' });
 		} else if (act === 'save') {

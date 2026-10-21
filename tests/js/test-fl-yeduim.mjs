@@ -22,6 +22,7 @@ import { fileURLToPath } from 'node:url';
 import * as E from '../../assets/js/tools/yeduim-engine.js';
 import * as U from '../../assets/js/tools/yeduim-ui.js';
 import { decodeState, ics } from '../../assets/js/tools/instrument.js';
+import { handoffState } from '../../assets/js/tools/sim-handoff.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const reg = JSON.parse(readFileSync(join(ROOT, 'assets/data/justice-tools-registry.json'), 'utf8'));
@@ -177,7 +178,20 @@ for (const over of [{}, { question: 'death', died: '10.5.2026', age: '55to80', f
 }
 check(!/[A-Za-z]{3,}@|\d{9}/.test(U.stateOf(EX)), 'the share state carries no name, e-mail or ID');
 
-/* ---------- 9. The checklist ---------- */
+/* ---------- 9. The simulation handoff and the result-first card (polish round, 22.10.2026) ---------- */
+check(U.renderResult(reg, sep).includes('>לתרגל את הגישור עם הנתונים שלכם</a>') && U.renderResult(reg, r).includes('>לתרגל את ההוכחה בבית המשפט עם הנתונים שלכם</a>') && !/להעתיק/.test(U.renderResult(reg, r)), 'the rehearse button opens the practice with your data; its label no longer says copy');
+const hs = handoffState('x', U.aiBrief(reg, r), 'court_rehearsal');
+check(hs.phase === 'intake' && hs.locale === 'he' && hs.simulationPurpose === 'court_rehearsal' && hs.description.includes('7 שנים') && !/\d{9}/.test(hs.description), 'handoff state: intake, Hebrew, the scenario with "7 שנים", no 9-digit run');
+const hsSep = handoffState('y', U.aiBrief(reg, sep), 'mediation');
+check(hsSep.phase === 'intake' && hsSep.description.includes('לגישור') && hsSep.simulationPurpose === 'mediation', 'separation: the handoff carries the mediation scenario');
+check(snap.lead.includes('דוגמה מחושבת: מבחני ההוכחה') && snap.lead.includes('<bdi>4</bdi> מתוך <bdi>5</bdi>') && snap.lead.includes('<bdi>2,700</bdi>') && snap.lead.includes('נשאר להוכיח: כוונת השיתוף בדירה') && snap.lead.includes('href="#jtool-yeduim-batzibur" data-lead-go'), 'the lead card: 4 of 5, inheritance as married and 2,700 a month, what is left to prove, the jump');
+check(!/<h2[\s>]/i.test(snap.lead) && clean(snap.lead), 'the lead card: no h2, no undefined/NaN/null');
+const leadBad = U.leadCard(reg, bad, { example: false });
+check(leadBad.includes('jtool-lead__figure">—') && leadBad.includes('ממתי אתם גרים יחד') && leadBad.includes('לשנות את הנתונים') && clean(leadBad), 'the lead card on an input error: a dash and the error');
+check(U.leadCard(reg, sep, {}).includes('החישוב שלכם') && U.leadCard(reg, sep, {}).includes('איזון משאבים לא חל') && U.leadCard(reg, m, {}).includes('לא מתקיים: שאף אחד מכם לא נשוי לאחר'), 'the lead card for separation and for a partner married to another');
+check(snap.sticky === `<bdi>${snap.total}</bdi> מתוך <bdi>5</bdi>`, 'the snapshot sticky is the same string the mount writes');
+
+/* ---------- 10. The checklist ---------- */
 check(U.checklist(reg, r).length === fy.nii.documents_he.length && U.checklist(reg, d1)[0].includes('112'), 'documents: the questionnaire list; after a death, questionnaire 112 first');
 check(U.checklistText(reg, r).startsWith('1. ') && !U.checklistText(reg, r).includes('undefined'), 'the copied list is numbered');
 

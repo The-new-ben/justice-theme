@@ -55,6 +55,8 @@ import urllib.request
 from pathlib import Path
 
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+# The CBS linkage calculator (the old /he/Pages/מחשבון-הצמדה.aspx address answers an error page since October 2026).
+CBS_CALCULATOR = "https://www.cbs.gov.il/he/CBSNewBrand/Pages/Calculator.aspx"
 CBS_PRICE = "https://api.cbs.gov.il/index/data/price?id=120010&format=json&download=false&startPeriod=01-1990&endPeriod=12-2030&lang=he&PageSize=1000"
 GA_HISTORY = "https://ga.mof.gov.il/api/rate/history/{id}"
 BTL_MINWAGE = "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%D7%A9%D7%9B%D7%A8%20%D7%9E%D7%99%D7%A0%D7%99%D7%9E%D7%95%D7%9D.aspx"
@@ -102,7 +104,7 @@ def build_cpi(raw: dict, checked_on: str) -> dict:
         "publisher_he": "הלשכה המרכזית לסטטיסטיקה",
         "source_name": "הלשכה המרכזית לסטטיסטיקה, ממשק המדדים (סדרה 120010)",
         "source_url": "https://api.cbs.gov.il/index/data/price?id=120010&format=json&download=false",
-        "official_calculator_url": "https://www.cbs.gov.il/he/Pages/%D7%9E%D7%97%D7%A9%D7%91%D7%95%D7%9F-%D7%94%D7%A6%D7%9E%D7%93%D7%94.aspx",
+        "official_calculator_url": CBS_CALCULATOR,
         "checked_on": checked_on,
         "refresh_every_days": 31,
         "latest_month": latest,
@@ -1085,6 +1087,8 @@ def main() -> int:
                                                "min_wage", "havraa", "small_claims")}
         # The version is the latest refresh of any dataset kept or rebuilt (review, PR 126).
         registry["registry_version"] = max(base["registry_version"], wave3_day)
+        # The CPI is kept from the base; only its calculator link follows the CBS's current address.
+        registry["cpi"] = dict(registry["cpi"], official_calculator_url=CBS_CALCULATOR)
         registry["yerusha"] = build_yerusha(wave3_day)
         registry["purchase_tax"] = build_purchase_tax(wave3_day)
         registry["betterment"] = build_betterment(wave3_day)

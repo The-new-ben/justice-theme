@@ -11,6 +11,7 @@ import {
 	esc, ils, money, parseMoney, isoToHe, encodeState, decodeState, ics,
 	track, download, copyText, toast, shareUrl, whatsappUrl, store, stickyBar, isStale, ilToday,
 } from './instrument.js';
+import { openSimulation } from './sim-handoff.js';
 
 export const TOOL_ID = 'agrot-rabanut';
 const P = 'jt40';
@@ -197,7 +198,7 @@ export function renderResult(reg, r, opts = {}) {
 			: `<p class="jtool-scope">להליכים האלה אין מקבילה בבית המשפט לענייני משפחה: הם בשיפוט בית הדין הרבני. האגרות מתעדכנות ב-${isoToHe(fl.next_update)}.</p></div>`)
 		+ ledger(reg, r)
 		+ (r.flags.length ? `<ul class="jtool-flags">${r.flags.map((f) => `<li>${esc(f.he)}</li>`).join('')}</ul>` : '')
-		+ `<div class="${P}-brief"><h4>התרחיש לסימולציה</h4><p data-${P}-brief>${esc(brief)}</p><a class="jtool-btn" href="${RB_SIM}" target="_blank" rel="noopener" data-act="rehearse">להעתיק ולתרגל את הדיון</a></div>`
+		+ `<div class="${P}-brief"><h4>התרחיש לסימולציה</h4><p data-${P}-brief>${esc(brief)}</p><a class="jtool-btn" href="${RB_SIM}" target="_blank" rel="noopener" data-act="rehearse">לתרגל את הדיון עם הנתונים שלכם</a></div>`
 		+ `<div class="${P}-next"><h4>מה עושים עכשיו</h4><ul>${na.official.map((x) => `<li>${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.he)}</a>` : esc(x.he)}${x.rule ? ` (${esc(x.rule)})` : ''}</li>`).join('')}`
 		+ `${na.links.map((x) => `<li><a href="${esc(x.path)}">${esc(x.he)}</a></li>`).join('')}</ul></div>`;
 }
@@ -291,6 +292,25 @@ export function compareTable(reg) {
 		+ `<div class="jtool-datawrap"><table class="jtool-datatable"><caption>הטבלה המלאה: כל פרטי התוספת הראשונה לתקנות הדיינים (אגרות), בנוסח ל-${isoToHe(fl.rab.current_to)}. ${esc(fl.rab.indexed_he)}.</caption><thead><tr><th scope="col">פרט</th><th scope="col">ההליך</th><th scope="col">אגרה</th></tr></thead><tbody>${sched}</tbody></table></div>`;
 }
 
+/** The result-first card at the top of the page ([justice_tool_lead]): the fees of the example (or of the reader's own
+ * file once they change anything), the other forum and the maintenance exemption in one line, and a jump to the form.
+ * Same markup on the server and in the browser, so the card never shifts the layout. */
+export function leadCard(reg, r, opts = {}) {
+	const go = `<a class="jtool-lead__go" href="#jtool-${TOOL_ID}" data-lead-go>${opts.example ? 'לחשב לפי המקרה שלכם' : 'לשנות את הנתונים'}</a>`;
+	if (!r.ok) {
+		return `<p class="jtool-lead__label">אגרות בית הדין הרבני</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">—</strong></p><p class="jtool-lead__line">${esc(r.errors.map((e) => e.he).join(' '))}</p>${go}`;
+	}
+	const key = Object.keys(PRESETS).find((k) => PRESETS[k].sel.join('.') === r.sel.join('.'));
+	const label = `${opts.example ? 'דוגמה מחושבת: ' : 'החישוב שלכם: '}${key ? PRESETS[key].he : `${r.lines.length} הליכים`}, כשמגישים ל${FORUM_HE[r.forum]}`;
+	const other = r.forum === 'family' ? r.totals.rab : r.totals.fam;
+	const sup = r.sel.includes('sup') ? `; מי שתובע מזונות בבית הדין הרבני פטור מאגרה (${reg.fl_rabanut.rab.rules.support.section})` : '';
+	const line = rbHasBoth(r)
+		? `אותו תיק ${rbIn(rbForumName(r, r.forum === 'family' ? 'rabbinical' : 'family'))}: ${nis(other)}${rbMissing(r) ? `, בלי ${rbMissing(r)}` : ''}${sup}.`
+		: `ההליכים האלה נדונים רק בבית הדין הרבני; האגרות מתעדכנות ב-${isoToHe(reg.fl_rabanut.next_update)}.`;
+	return `<p class="jtool-lead__label">${esc(label)}</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">${ils(r.totals.chosen, r.totals.chosen % 1 ? 2 : 0)}</strong><span class="jtool-lead__unit">באגרות, כולל אגרות הפרוטוקול</span></p>`
+		+ `<p class="jtool-lead__line">${esc(line)}</p>${go}`;
+}
+
 export function snapshot(reg) {
 	const r = rbCompute(reg, EXAMPLE);
 	const fl = reg.fl_rabanut;
@@ -301,6 +321,9 @@ export function snapshot(reg) {
 		registry_version: reg.registry_version,
 		input: EXAMPLE,
 		total: r.totals.chosen,
+		// The same string the mount writes into the sticky bar, so the page never shows a raw number.
+		sticky: ils(r.totals.chosen, 0),
+		lead: leadCard(reg, r, { example: true }),
 		form: renderForm(reg, EXAMPLE),
 		result: renderResult(reg, r, { example: true }),
 		details: renderDetails(reg, r),
@@ -351,6 +374,8 @@ export function mount(root, reg) {
 	const result = root.querySelector('[data-jtool-result]');
 	const details = root.querySelector('[data-jtool-details]');
 	const sticky = root.querySelector('[data-jtool-sticky-figure]');
+	const lead = document.querySelector(`[data-jtool-lead="${TOOL_ID}"]`);
+	let own = false;
 	const fl = reg.fl_rabanut;
 	const today = ilToday();
 	const saveKey = `jtool-${TOOL_ID}`;
@@ -386,6 +411,7 @@ export function mount(root, reg) {
 		result.innerHTML = renderResult(reg, r);
 		details.innerHTML = renderDetails(reg, r, { today, printedOn: today });
 		if (sticky) { sticky.innerHTML = r.ok ? ils(r.totals.chosen, 0) : '—'; }
+		if (lead) { lead.innerHTML = leadCard(reg, r, { example: !own }); }
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: `${r.forum}-${r.lines.length > 4 ? 'many' : 'few'}` }); }
 		return r;
 	};
@@ -398,14 +424,30 @@ export function mount(root, reg) {
 	const shareOwner = (/\/@([a-z-]+)$/.exec(window.location.hash) || [])[1];
 	const fromHash = !shareOwner || shareOwner === TOOL_ID ? inputOf(decodeState(window.location.hash.replace(/\/@[a-z-]+$/, ''), KEYS)) : null;
 	if (fromHash) {
+		own = true;
 		form.innerHTML = renderForm(reg, fromHash);
 		const note = root.querySelector('[data-jtool-shared]');
 		if (note) { note.hidden = false; }
 		run(fromHash, { silent: true });
 	}
 	if (store.get(saveKey) && !fromHash) { const n = root.querySelector('[data-jtool-saved]'); if (n) { n.hidden = false; } }
+	// The card turns from "the example" to "your file" on the first change the reader makes.
+	const mine = () => { own = true; };
+	form.addEventListener('input', mine, true);
+	form.addEventListener('change', mine, true);
 	form.addEventListener('input', schedule);
 	form.addEventListener('change', schedule);
+	// The card's jump: to the form, the first preset focused (the page anchor is the fallback without the script).
+	if (lead) {
+		lead.addEventListener('click', (ev) => {
+			if (!ev.target.closest('[data-lead-go]')) { return; }
+			ev.preventDefault();
+			form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			const first = form.querySelector(`.${P}-preset, input:not([type="radio"]):not([type="checkbox"])`);
+			if (first) { setTimeout(() => first.focus({ preventScroll: true }), 350); }
+			track('tool_lead_click', { tool_id: TOOL_ID });
+		});
+	}
 	root.addEventListener('click', async (ev) => {
 		const b = ev.target.closest('[data-act]');
 		if (!b) { return; }
@@ -415,6 +457,7 @@ export function mount(root, reg) {
 			const p = PRESETS[b.getAttribute('data-preset')];
 			if (!p) { return; }
 			const input = Object.assign(readForm(root), { sel: p.sel.slice() });
+			own = true;
 			form.innerHTML = renderForm(reg, input);
 			sync(input);
 			run(input);
@@ -442,10 +485,18 @@ export function mount(root, reg) {
 			toast(root, ok ? 'התוצאה הועתקה.' : 'לא הצלחנו להעתיק.');
 			track('tool_share', { tool_id: TOOL_ID, channel: 'copy' });
 		} else if (act === 'rehearse') {
-			// The simulation refuses a case story in its URL: the brief goes to the clipboard and the link opens as is.
-			if (r.ok) { copyText(aiBrief(reg, r)); }
-			toast(root, 'התרחיש הועתק. בסימולציה, הדביקו אותו בתיאור המקרה.');
+			// The simulation refuses a case story in its URL: the brief travels by the one-time window handoff
+			// (sim-handoff.js); when a popup is blocked, it goes to the clipboard and the plain link opens as is.
 			track('tool_rehearse_click', { tool_id: TOOL_ID, band: r.ok ? r.forum : 'error' });
+			const brief = r.ok ? aiBrief(reg, r) : '';
+			const purpose = (/purpose=([a-z_]+)/.exec(b.getAttribute('href') || '') || [])[1] || 'court_rehearsal';
+			if (brief && openSimulation(brief, purpose, b.getAttribute('href'))) {
+				ev.preventDefault();
+				toast(root, 'נפתח תרגול עם הנתונים שלכם. הדמויות הן AI, והתרגול אינו נשמר אצלנו.');
+			} else {
+				if (brief) { copyText(brief); }
+				toast(root, 'התרחיש הועתק. בסימולציה, הדביקו אותו בתיאור המקרה.');
+			}
 		} else if (act === 'save') {
 			store.set(saveKey, stateOf(input));
 			toast(root, 'נשמר במכשיר הזה בלבד. אפשר למחוק בכל רגע.');

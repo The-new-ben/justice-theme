@@ -15,7 +15,8 @@ import { fileURLToPath } from 'node:url';
 import * as E from '../../assets/js/tools/rabanut-engine.js';
 import * as U from '../../assets/js/tools/rabanut-ui.js';
 import { clock } from '../../assets/js/tools/gerushin-engine.js';
-import { decodeState, ics } from '../../assets/js/tools/instrument.js';
+import { decodeState, ics, ils } from '../../assets/js/tools/instrument.js';
+import { handoffState } from '../../assets/js/tools/sim-handoff.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const reg = JSON.parse(readFileSync(join(ROOT, 'assets/data/justice-tools-registry.json'), 'utf8'));
@@ -155,6 +156,18 @@ const scenarios = [ex, fam, consent, joinAgree, joint, abroad, k100, k0, inh, ai
 check(scenarios.every((r) => { const h = U.renderResult(reg, r) + U.renderDetails(reg, r, { today: '2026-10-21' }) + U.verdictSentence(reg, r); return !/<h2/i.test(h) && !bad(h); }), 'every scenario renders without <h2>, undefined, NaN or null');
 check(!/<h2/i.test(U.renderForm(reg, EX)) && U.renderForm(reg, EX).includes('data-preset="consent"') && U.renderForm(reg, EX).includes('aria-pressed="true"'), 'the form: one-click presets, the example preset pressed');
 check(U.compareTable(reg).includes('<caption>') && U.compareTable(reg).includes('1,632') && U.compareTable(reg).includes('19(טז)') && U.compareTable(reg).includes('ההוצאות בפועל'), 'the page table: captions, the whole schedule (19(א) 1,632 ... 19(טז)), the expense items');
+/* ---------- 10. The polish round: the window handoff, the sticky string, the result-first card ---------- */
+check(snap.result.includes('>לתרגל את הדיון עם הנתונים שלכם</a>') && !snap.result.includes('להעתיק ולתרגל'), 'the rehearse button opens the simulation with the data ("לתרגל את הדיון עם הנתונים שלכם"), it no longer says "copy"');
+const hs = handoffState('x', U.aiBrief(reg, ex), 'court_rehearsal');
+check(hs.phase === 'intake' && hs.locale === 'he' && hs.simulationPurpose === 'court_rehearsal' && hs.description.includes('2,535') && hs.description.includes('2,910') && !/\d{9}/.test(hs.description), 'the handoff state: intake, Hebrew, court_rehearsal, the description carries 2,535 and 2,910 and no 9-digit run');
+check(snap.sticky === ils(2535, 0) && snap.sticky.includes('2,535') && !snap.sticky.includes('.00'), 'the snapshot sticky is the string the mount writes (2,535 ₪), never a raw number');
+const lead = snap.lead;
+check(lead.includes('דוגמה מחושבת: גירושין במחלוקת, עם ילדים ורכוש, כשמגישים לבית הדין הרבני') && lead.includes('class="jtool-lead__figure"><span class="jtool-amt"><bdi>2,535</bdi> ₪</span>') && lead.includes('2,910') && lead.includes('פטור מאגרה (תקנה 14א)') && lead.includes('data-lead-go') && lead.includes('href="#jtool-agrot-rabanut"') && lead.includes('לחשב לפי המקרה שלכם'), 'the lead card: the example 2,535 at the rabbinical court, the family court 2,910, the maintenance exemption, the jump to the form');
+const own = U.leadCard(reg, consent, { example: false });
+check(own.includes('החישוב שלכם: גירושין בהסכמה, עם הסכם') && own.includes('1,188') && own.includes('1,605') && own.includes('לשנות את הנתונים') && !own.includes('14א'), 'the lead card for the reader own file: consent 1,188 vs 1,605, no maintenance line, "לשנות את הנתונים"');
+const leadPermit = U.leadCard(reg, run({ sel: ['permit'], reqDate: '' }), { example: false });
+const leadErr = U.leadCard(reg, run({ sel: [] }), { example: false });
+check(leadPermit.includes('רק בבית הדין הרבני') && leadErr.includes('jtool-lead__figure">—</strong>') && leadErr.includes('בחרו לפחות הליך אחד') && [lead, own, leadPermit, leadErr].every((h) => !/<h2/i.test(h) && !bad(h)), 'the lead card: a rabbinical-only file is not compared; the error case shows "—" and the error; no h2, undefined, NaN or null');
 const err = U.renderResult(reg, run({ sel: [] }));
 check(err.includes('צריך לתקן') && err.includes('בחרו לפחות הליך אחד'), 'an input error renders its message');
 

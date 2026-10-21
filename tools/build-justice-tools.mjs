@@ -34,7 +34,7 @@ const TOOLS = {
 	'teunat-drachim': ['instrument.js', 'dates.js', 'teuna-engine.js', 'teuna-ui.js'],
 	gerushin: ['instrument.js', 'dates.js', 'gerushin-engine.js', 'gerushin-ui.js'],
 	// Wave 5 (HAD-504): a rental-contract generator, severance and notice, capital gains on a home.
-	'chozeh-schirut': ['instrument.js', 'dates.js', 'schirut-engine.js', 'schirut-ui.js'],
+	'chozeh-schirut': ['instrument.js', 'dates.js', 'word-document.js', 'schirut-engine.js', 'schirut-ui.js'],
 	pitzuyim: ['instrument.js', 'dates.js', 'pitzuyim-engine.js', 'pitzuyim-ui.js'],
 	'mas-shevach': ['instrument.js', 'dates.js', 'shevach-engine.js', 'shevach-ui.js'],
 	// Family law (HAD-506): family-common.js holds the helpers the family engines share. The agreement generator bundles

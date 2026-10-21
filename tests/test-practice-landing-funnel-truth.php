@@ -56,7 +56,7 @@ jt_funnel_assert(
 );
 
 jt_funnel_assert(
-	false !== strpos( $functions, "define( 'JUSTICE_DEPLOY_MARKER', '2026-10-21-article-anchor-clearance-v1' );" ),
+	false !== strpos( $functions, "define( 'JUSTICE_DEPLOY_MARKER', '2026-10-21-criminal-court-entry-v1' );" ),
 	'The current theme release marker is missing.'
 );
 

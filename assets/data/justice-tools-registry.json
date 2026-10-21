@@ -3196,5 +3196,42 @@
   },
   "service_he": "האפוטרופוס הכללי, הרשם לענייני ירושה",
   "service_url": "https://www.gov.il/he/service/inheritance_order"
+ },
+ "rights_btl": {
+  "name_he": "נתוני היסוד של הביטוח הלאומי לשנת 2026",
+  "publisher_he": "המוסד לביטוח לאומי, מחקר ותכנון: נתונים כלליים",
+  "source_name": "המוסד לביטוח לאומי: שכר ממוצע לפי סעיפים 1 ו-2 לחוק הביטוח הלאומי; הסכום הבסיסי לחישוב קצבאות",
+  "source_url": "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%d7%a9%d7%9b%d7%a8%20%d7%9e%d7%9e%d7%95%d7%a6%d7%a2.aspx",
+  "checked_on": "2026-10-21",
+  "refresh_every_days": 365,
+  "next_update": "2027-01-01",
+  "law_he": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995",
+  "law_url": "https://www.nevo.co.il/law_html/law00/72734.htm",
+  "from": "2026-01-01",
+  "avg_wage": {
+   "s1_benefits": 13566,
+   "s1_contributions": 13566,
+   "s2_benefits": 13769,
+   "s2_contributions": 13769,
+   "section_1_he": "סעיף 1 לחוק",
+   "section_2_he": "סעיף 2 לחוק",
+   "url": "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%d7%a9%d7%9b%d7%a8%20%d7%9e%d7%9e%d7%95%d7%a6%d7%a2.aspx",
+   "he": "השכר הממוצע מ-1.1.2026: לפי סעיף 1 לחוק 13,566 ש\"ח (קצבאות ודמי ביטוח); לפי סעיף 2 לחוק 13,769 ש\"ח (קצבאות ודמי ביטוח)"
+  },
+  "basic_amount": {
+   "b1": 10514,
+   "b1_he": "סכום בסיסי 1: מענק לידה, דמי לידה, נפגעי עבודה, דמי תאונה, מענק בר מצווה, גמלה למתנדב ומענק פטירה",
+   "b2_child_first_fifth": 173,
+   "b2_child_second_to_fourth": 219,
+   "b2_income_support": 162,
+   "b2_he": "סכום בסיסי 2: קצבת ילדים ונקודת קצבה בהבטחת הכנסה",
+   "b3": 10382,
+   "b3_change_pct": 2.4,
+   "b3_he": "סכום בסיסי 3: קצבאות שאינן מעודכנות לפי סכום בסיסי אחר, וחישוב ההכנסה המרבית לגביית דמי ביטוח",
+   "b4": 11352,
+   "b4_change_pct": 3.4,
+   "b4_he": "סכום בסיסי 4: קצבת נכות כללית והקצבאות שסכומיהן נגזרים ממנה",
+   "url": "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%d7%94%d7%a1%d7%9b%d7%95%d7%9d%20%d7%94%d7%91%d7%a1%d7%99%d7%a1%d7%99%20%d7%9c%d7%97%d7%99%d7%a9%d7%95%d7%91%20%d7%a7%d7%a6%d7%91%d7%90%d7%95%d7%aa.aspx"
+  }
  }
 }

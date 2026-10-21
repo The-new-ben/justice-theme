@@ -261,15 +261,73 @@ function selfHtml(reg, r, today) {
 
 /** What to do next, in order: the personal area, the form, the refund. */
 export function nextSteps(reg, r) {
+	if (!r.ok) { return []; }
 	const rb = reg.rights_bituach;
-	const out = [`להשוות לשורות "ביטוח לאומי" ו"ביטוח בריאות" בתלוש, ולבדוק את הדיווחים באזור האישי באתר הביטוח הלאומי (${rb.personal_url}).`];
+	const first = r.status === 'self'
+		? 'להשוות את המקדמה המחושבת לדרישת התשלום ולבדוק את ההכנסה שעליה היא מבוססת'
+		: r.status === 'both'
+			? 'לבדוק בנפרד את הניכויים בתלוש השכר ואת המקדמה על ההכנסה מהעסק'
+			: r.status === 'none'
+				? (r.none.kind === 'oap' ? 'לבדוק את ניכוי דמי הבריאות בפירוט קצבת האזרח הוותיק' : 'לבדוק שהמעמד וההכנסות מעודכנים, ולהשוות לדרישת התשלום')
+				: r.status === 'pension'
+					? `להשוות לניכויים בתלוש הפנסיה${r.S > 0 ? ' ובתלוש השכר' : ''}`
+					: 'להשוות לשורות "ביטוח לאומי" ו"ביטוח בריאות" בתלוש';
+	const out = [`${first}, ולבדוק את הדיווחים באזור האישי באתר הביטוח הלאומי (${rb.personal_url}).`];
 	if (r.coord && r.coord.kind === 'refund') { const f = rb.coordination[r.coord.form === 'max' ? 'form_max' : 'form_low']; out.push(`לבקש את מה שנוכה ביותר: בקשה מקוונת לתיאום דמי ביטוח, או טופס ${f.number}, עד ${rb.coordination.refund_years} שנים אחורה.`); }
 	if (r.coord && r.coord.kind === 'owe') { out.push('לבקש אישור לתיאום דמי ביטוח לשנה הנוכחית ולמסור אותו למעסיק המשני, כדי שההפרש לא יצטבר לחוב.'); }
 	if (r.salaries && r.salaries.length > 1) { out.push('לסמן בטופס 101 של המעסיק המשני שיש הכנסה נוספת (בתחילת העבודה ובתחילת כל שנה).'); }
 	if (r.self) { out.push(`עצמאי/ת: לשלם את המקדמה עד מועד התשלום בכל חודש, ולתקן אותה בטופס ${rb.advance_fix.form} כשההכנסה משתנה ב-${rb.advance_fix.min_change_pct}% לפחות.`); }
-	if (r.pension && !r.pension.retired && !r.pension.exempt) { out.push('מקבל/ת פנסיה מוקדמת ושכר: לסמן בטופס 101 של משלם הפנסיה שיש הכנסה נוספת; משלם הפנסיה הוא המעסיק המשני.'); }
+	if (r.pension && r.S > 0 && !r.pension.retired && !r.pension.exempt) { out.push('מקבל/ת פנסיה מוקדמת ושכר: לסמן בטופס 101 של משלם הפנסיה שיש הכנסה נוספת; משלם הפנסיה הוא המעסיק המשני.'); }
 	if (r.status === 'none' && r.none.kind !== 'oap') { out.push('מי שלא עובד/ת: להודיע לביטוח הלאומי על המעמד בטופס דין וחשבון רב שנתי, ולשלם ישירות.'); }
 	return out;
+}
+
+/** Route the follow-up from the same result as the calculation, never a stale employee example. */
+export function nextAction(reg, r) {
+	if (!r.ok) {
+		return { text: 'הצעד הבא: להשלים או לתקן את פרטי החישוב לפני בדיקת התוצאה.', label: 'חזרה לפרטי החישוב', href: `#jtool-${TOOL_ID}`, kind: 'input' };
+	}
+	if (r.coord && ['refund', 'owe'].includes(r.coord.kind)) {
+		return { text: 'הצעד הבא: לבדוק את ההפרש בין הניכויים אצל המשלמים ואת אפשרויות תיאום דמי הביטוח.', label: 'לפירוט ההפרש ותיאום דמי הביטוח', href: `#${P}-coord-h`, kind: 'coordination' };
+	}
+	if (r.status === 'self') {
+		return { text: 'הצעד הבא: להשוות את המקדמה לדרישת התשלום ולבדוק את מועדי התשלום ואפשרויות עדכון ההכנסה.', label: 'למקדמה, למועדי התשלום ולעדכון ההכנסה', href: `#${P}-self-h`, kind: 'advance' };
+	}
+	if (r.status === 'both') {
+		return { text: 'הצעד הבא: לבדוק גם את הניכויים בתלוש וגם את המקדמה על ההכנסה מהעסק.', label: 'לרשימת הבדיקות לשכיר ולעצמאי', href: `#${P}-next-h`, kind: 'mixed' };
+	}
+	if (r.status === 'none') {
+		return { text: r.none.kind === 'oap' ? 'הצעד הבא: להשוות את ניכוי דמי הבריאות לפירוט קצבת האזרח הוותיק באזור האישי.' : 'הצעד הבא: לבדוק באזור האישי שהמעמד וההכנסות מעודכנים, ולהשוות לדרישת התשלום.', label: 'לבדיקת הדיווחים באזור האישי בביטוח הלאומי', href: reg.rights_bituach.personal_url, kind: 'personal' };
+	}
+	if (r.status === 'pension') {
+		return { text: `הצעד הבא: להשוות את החישוב לניכויים בתלוש הפנסיה${r.S > 0 ? ' ובתלוש השכר' : ''}, ולבדוק את הדיווחים והאישורים.`, label: 'לרשימת הבדיקות לפנסיה', href: `#${P}-next-h`, kind: 'pension' };
+	}
+	// The existing server-rendered employee action is retained, including its rehearsal URL and tracking.
+	return { kind: 'employee' };
+}
+
+export function updateNextAction(root, reg, r, employeeAction) {
+	const box = root.querySelector(`#jtool-${TOOL_ID}-next`);
+	const text = box && box.querySelector('.jtool-next__text');
+	const link = box && box.querySelector('.jtool-next__cta > a.jtool-btn--primary');
+	if (!text || !link || !employeeAction) { return; }
+	const action = nextAction(reg, r);
+	const values = action.kind === 'employee' ? employeeAction : action;
+	text.textContent = values.text;
+	link.textContent = values.label;
+	link.setAttribute('href', values.href);
+	for (const name of ['target', 'rel', 'data-act']) {
+		const value = action.kind === 'employee' ? employeeAction[name] : null;
+		if (value) { link.setAttribute(name, value); } else { link.removeAttribute(name); }
+	}
+	box.setAttribute('data-followup-kind', action.kind);
+}
+
+/** A click can arrive during the input debounce; read the action only after its result is current. */
+export function actionAfterFlush(target, flush) {
+	flush();
+	const button = target.closest('[data-act]');
+	return button ? button.getAttribute('data-act') : null;
 }
 
 export function renderDetails(reg, r, opts = {}) {
@@ -382,6 +440,13 @@ export function mount(root, reg) {
 	const result = root.querySelector('[data-jtool-result]');
 	const details = root.querySelector('[data-jtool-details]');
 	const sticky = root.querySelector('[data-jtool-sticky-figure]');
+	const nextBox = root.querySelector(`#jtool-${TOOL_ID}-next`);
+	const nextLink = nextBox && nextBox.querySelector('.jtool-next__cta > a.jtool-btn--primary');
+	const employeeAction = nextLink ? {
+		text: nextBox.querySelector('.jtool-next__text').textContent,
+		label: nextLink.textContent, href: nextLink.getAttribute('href'),
+		target: nextLink.getAttribute('target'), rel: nextLink.getAttribute('rel'), 'data-act': nextLink.getAttribute('data-act'),
+	} : null;
 	const rb = reg.rights_bituach;
 	const today = ilToday();
 	const month = today.slice(0, 7);
@@ -428,6 +493,7 @@ export function mount(root, reg) {
 		showErrors(r);
 		result.innerHTML = renderResult(reg, r);
 		details.innerHTML = renderDetails(reg, r, { today });
+		updateNextAction(root, reg, r, employeeAction);
 		if (sticky) { sticky.innerHTML = r.ok ? ilsn(r.monthly.total) : '—'; }
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: `${r.status}_${r.incomeBand}` }); }
 		return r;
@@ -455,10 +521,10 @@ export function mount(root, reg) {
 	form.addEventListener('input', schedule);
 	form.addEventListener('change', schedule);
 	root.addEventListener('click', async (ev) => {
-		const b = ev.target.closest('[data-act]');
-		if (!b) { return; }
-		const act = b.getAttribute('data-act');
-		if (timer) { clearTimeout(timer); timer = null; run(readForm(root, month), { silent: true }); }
+		const act = actionAfterFlush(ev.target, () => {
+			if (timer) { clearTimeout(timer); timer = null; run(readForm(root, month), { silent: true }); }
+		});
+		if (!act) { return; }
 		const input = readForm(root, month);
 		const r = compute(reg, input);
 		const link = shareUrl(stateOf(input, r.ok ? r.band : input.band));

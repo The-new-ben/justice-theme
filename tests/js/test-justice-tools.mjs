@@ -1430,13 +1430,16 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 		const expected = [plain[0], REUI.draftNotice(input), ...plain.slice(1)];
 		check(JSON.stringify(texts) === JSON.stringify(expected), 'Word preserves every existing export paragraph, signatures and optional annex without new legal prose');
 		check(xml.includes('<w:bidi/>') && xml.includes('w:w="12240" w:h="15840"') && parts['word/styles.xml'].includes('w:cs="Arial"'), 'Word RTL, Letter size and deliberate Hebrew font');
+		check(!xml.includes('<w:jc') && !parts['word/styles.xml'].includes('<w:jc'), 'Word bidi uses the right start edge without mirrored explicit alignment');
+		if (input.defects?.includes('\n')) { check(xml.includes('<w:br/>'), 'Newline inside a contract field stays in the same Word paragraph'); }
+		if (input.guarantors) { check((xml.match(/<w:keepNext\/>/g) || []).length >= input.guarantors + 2, 'Guarantor annex and main signature stay with preceding content'); }
 		check(!/TargetMode="External"|<w:altChunk|<w:hyperlink|<w:fldChar/.test(Object.values(parts).join('')), 'Word contains no remote content, HTML imports or executable fields');
 	}
 	for (const invalid of [{ rent: '' }, { start: '2026-02-31' }, { excluded: true }, { sublease: true }]) {
 		check(REUI.exportWordContract(reg, { ...REUI.EXAMPLE, ...invalid }) === null, 'Word export blocked by existing engine validation: ' + Object.keys(invalid)[0]);
 	}
 	const detail = REUI.renderDetails(reg, RE.compute(reg, REUI.EXAMPLE), REUI.EXAMPLE);
-	check(detail.includes('data-act="download-word"') && detail.includes('data-act="copy-contract"') && detail.includes('data-act="print"'), 'Word added without removing existing output alternatives');
+	check((detail.match(/data-act="download-word"/g) || []).length === 2 && detail.includes('data-act="copy-contract"') && detail.includes('data-act="print"'), 'Word at the start and end of the contract, retaining existing output alternatives');
 }
 
 if (failures) {

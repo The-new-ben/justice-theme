@@ -353,12 +353,13 @@ function wordZip(files) {
 
 /** Plain editable paragraphs, black Arial, RTL, Letter. Layout follows the HAD-552 Claude Design brief. */
 function wordDocument(paragraphs) {
-	const body = paragraphs.map(({ text, style = 'Normal' }) => {
+	const body = paragraphs.map(({ text, style = 'Normal', keepNext = false, keepLines = false }) => {
 		const safeStyle = ['Title', 'Heading1', 'Notice', 'Normal'].includes(style) ? style : 'Normal';
 		const runs = String(text).split(/(\n|\t)/).map((part) => part === '\n' ? '<w:r><w:br/></w:r>' : part === '\t' ? '<w:r><w:tab/></w:r>' : `<w:r><w:t xml:space="preserve">${wordEscape(part)}</w:t></w:r>`).join('');
-		return `<w:p><w:pPr><w:pStyle w:val="${safeStyle}"/><w:bidi/><w:jc w:val="right"/></w:pPr>${runs}</w:p>`;
+		// Bidi paragraphs use their start edge (right). Explicit "right" is mirrored by Word/LibreOffice.
+		return `<w:p><w:pPr><w:pStyle w:val="${safeStyle}"/>${keepNext ? '<w:keepNext/>' : ''}${keepLines ? '<w:keepLines/>' : ''}<w:bidi/></w:pPr>${runs}</w:p>`;
 	}).join('');
-	const styles = `<w:styles xmlns:w="${WORD_NS}"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/><w:color w:val="000000"/><w:sz w:val="24"/><w:szCs w:val="24"/><w:lang w:val="he-IL" w:bidi="he-IL"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:bidi/><w:jc w:val="right"/><w:widowControl/><w:spacing w:after="120" w:line="288" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>`
+	const styles = `<w:styles xmlns:w="${WORD_NS}"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/><w:color w:val="000000"/><w:sz w:val="24"/><w:szCs w:val="24"/><w:lang w:val="he-IL" w:bidi="he-IL"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:widowControl/><w:bidi/><w:spacing w:after="120" w:line="288" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>`
 		+ '<w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/></w:style>'
 		+ '<w:style w:type="paragraph" w:styleId="Title"><w:name w:val="Title"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:pPr><w:keepNext/><w:spacing w:after="240"/></w:pPr><w:rPr><w:b/><w:bCs/><w:sz w:val="40"/><w:szCs w:val="40"/></w:rPr></w:style>'
 		+ '<w:style w:type="paragraph" w:styleId="Heading1"><w:name w:val="heading 1"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:pPr><w:keepNext/><w:keepLines/><w:spacing w:before="240" w:after="100"/><w:outlineLvl w:val="0"/></w:pPr><w:rPr><w:b/><w:bCs/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:style>'
@@ -858,7 +859,7 @@ function renderDetails(reg, r, input = {}) {
 		+ '<p class="jt12-doc__note jt12-doc__print-help">קובץ Word ניתן לעריכה ונוצר במכשיר שלכם. בחלון ההדפסה אפשר לבחור שמירה כ-PDF.</p>'
 		+ `<p class="jt12-doc__note">${esc(rc.bill.he)}. לפי ${esc(rc.law_he)}, נוסח עדכני ל-${esc(isoToHe(rc.law_current_to))}. מעבר עם העכבר או נגיעה בסעיף מציגים את לשון החוק.</p>`
 		+ `<ol class="jt12-doc" aria-labelledby="${P}-doc-h">${doc}${appA}${appB}</ol>`
-		+ `<div class="jt12-sign"><span>המשכיר: __________</span><span>השוכר: __________</span></div><div class="jtool-actions jt12-doc__return"><a class="jtool-btn" href="#${P}-rent" data-act="edit-contract">חזרה לעריכת התנאים</a></div></div>`
+		+ `<div class="jt12-sign"><span>המשכיר: __________</span><span>השוכר: __________</span></div><div class="jtool-actions jt12-doc__return"><button class="jtool-btn jtool-btn--primary" type="button" data-act="download-word">הורדת Word</button><a class="jtool-btn" href="#${P}-rent" data-act="edit-contract">חזרה לעריכת התנאים</a></div></div>`
 		+ `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-sch-h">מה החוק מחייב לכלול (התוספת השנייה)</h3></div><ul class="jt12-schlist" aria-labelledby="${P}-sch-h">${sched}</ul></div>`;
 }
 
@@ -945,11 +946,32 @@ function exportContract(reg, input, includeSources = false) {
 function exportWordContract(reg, input) {
 	const r = compute(reg, input);
 	if (!r.ok) { return null; }
-	const lines = contractText(reg.rent_contract, r).split('\n');
-	const headings = new Set(r.clauses.map((cl, i) => `${i + 1}. ${cl.title}`));
-	headings.add("נספח א': הריהוט והאבזרים בדירה"); headings.add("נספח ב': כתב ערבות");
-	const paragraphs = [{ text: lines.shift(), style: 'Title' }, { text: draftNotice(input), style: 'Notice' },
-		...lines.filter((text) => text !== '').map((text) => ({ text, style: headings.has(text) ? 'Heading1' : 'Normal' }))];
+	const text = contractText(reg.rent_contract, r);
+	const title = text.split('\n')[0];
+	const paragraphs = [{ text: title, style: 'Title' }, { text: draftNotice(input), style: 'Notice' }];
+	const prefix = [title, ''];
+	r.clauses.forEach((cl, i) => {
+		const heading = `${i + 1}. ${cl.title}`;
+		prefix.push(heading); paragraphs.push({ text: heading, style: 'Heading1' });
+		cl.paras.forEach((para, j) => {
+			const value = cl.paras.length > 1 ? `${i + 1}.${j + 1} ${para}` : para;
+			prefix.push(value); paragraphs.push({ text: value }); // Preserve newlines inside a field as Word line breaks.
+		});
+		prefix.push('');
+	});
+	const beforeSignatures = prefix.join('\n') + '\n';
+	if (!text.startsWith(beforeSignatures)) { throw new Error('Contract export format changed'); }
+	// Annex wording and signature rows come from the existing export, never a parallel legal template.
+	const annexes = new Set(["נספח א': הריהוט והאבזרים בדירה", "נספח ב': כתב ערבות"]);
+	paragraphs[paragraphs.length - 1].keepNext = true;
+	paragraphs[paragraphs.length - 1].keepLines = true;
+	const tail = text.slice(beforeSignatures.length).split('\n').filter(Boolean)
+		.map((value, index) => ({ text: value, style: annexes.has(value) ? 'Heading1' : 'Normal', keepLines: index === 0 }));
+	const guarantorStart = tail.findIndex((para) => para.text === "נספח ב': כתב ערבות");
+	if (r.guarantors && guarantorStart >= 0) {
+		for (let i = guarantorStart; i < tail.length; i += 1) { tail[i].keepNext = i < tail.length - 1; tail[i].keepLines = true; }
+	}
+	paragraphs.push(...tail);
 	return { bytes: wordDocument(paragraphs), filename: isSampleInput(input) ? 'rental-contract-sample.docx' : 'rental-contract-draft.docx', mime: WORD_MIME };
 }
 const KEYS = ['r', 'm', 's', 'd', 'p', 'i', 'o', 'q', 'u', 'e', 'x', 'c', 'b', 'g', 'h', 'k', 'M', 'y', 'f', 'z', 'A', 'B', 'C', 'D', 'P', 'F', 'a', 'v', 'w', 'j', 'n', 'l', 'X', 'S'];

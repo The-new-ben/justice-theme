@@ -175,7 +175,7 @@ export function renderDetails(reg, r, input = {}) {
 		+ '<p class="jt12-doc__note jt12-doc__print-help">קובץ Word ניתן לעריכה ונוצר במכשיר שלכם. בחלון ההדפסה אפשר לבחור שמירה כ-PDF.</p>'
 		+ `<p class="jt12-doc__note">${esc(rc.bill.he)}. לפי ${esc(rc.law_he)}, נוסח עדכני ל-${esc(isoToHe(rc.law_current_to))}. מעבר עם העכבר או נגיעה בסעיף מציגים את לשון החוק.</p>`
 		+ `<ol class="jt12-doc" aria-labelledby="${P}-doc-h">${doc}${appA}${appB}</ol>`
-		+ `<div class="jt12-sign"><span>המשכיר: __________</span><span>השוכר: __________</span></div><div class="jtool-actions jt12-doc__return"><a class="jtool-btn" href="#${P}-rent" data-act="edit-contract">חזרה לעריכת התנאים</a></div></div>`
+		+ `<div class="jt12-sign"><span>המשכיר: __________</span><span>השוכר: __________</span></div><div class="jtool-actions jt12-doc__return"><button class="jtool-btn jtool-btn--primary" type="button" data-act="download-word">הורדת Word</button><a class="jtool-btn" href="#${P}-rent" data-act="edit-contract">חזרה לעריכת התנאים</a></div></div>`
 		+ `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-sch-h">מה החוק מחייב לכלול (התוספת השנייה)</h3></div><ul class="jt12-schlist" aria-labelledby="${P}-sch-h">${sched}</ul></div>`;
 }
 
@@ -262,11 +262,32 @@ export function exportContract(reg, input, includeSources = false) {
 export function exportWordContract(reg, input) {
 	const r = compute(reg, input);
 	if (!r.ok) { return null; }
-	const lines = contractText(reg.rent_contract, r).split('\n');
-	const headings = new Set(r.clauses.map((cl, i) => `${i + 1}. ${cl.title}`));
-	headings.add("נספח א': הריהוט והאבזרים בדירה"); headings.add("נספח ב': כתב ערבות");
-	const paragraphs = [{ text: lines.shift(), style: 'Title' }, { text: draftNotice(input), style: 'Notice' },
-		...lines.filter((text) => text !== '').map((text) => ({ text, style: headings.has(text) ? 'Heading1' : 'Normal' }))];
+	const text = contractText(reg.rent_contract, r);
+	const title = text.split('\n')[0];
+	const paragraphs = [{ text: title, style: 'Title' }, { text: draftNotice(input), style: 'Notice' }];
+	const prefix = [title, ''];
+	r.clauses.forEach((cl, i) => {
+		const heading = `${i + 1}. ${cl.title}`;
+		prefix.push(heading); paragraphs.push({ text: heading, style: 'Heading1' });
+		cl.paras.forEach((para, j) => {
+			const value = cl.paras.length > 1 ? `${i + 1}.${j + 1} ${para}` : para;
+			prefix.push(value); paragraphs.push({ text: value }); // Preserve newlines inside a field as Word line breaks.
+		});
+		prefix.push('');
+	});
+	const beforeSignatures = prefix.join('\n') + '\n';
+	if (!text.startsWith(beforeSignatures)) { throw new Error('Contract export format changed'); }
+	// Annex wording and signature rows come from the existing export, never a parallel legal template.
+	const annexes = new Set(["נספח א': הריהוט והאבזרים בדירה", "נספח ב': כתב ערבות"]);
+	paragraphs[paragraphs.length - 1].keepNext = true;
+	paragraphs[paragraphs.length - 1].keepLines = true;
+	const tail = text.slice(beforeSignatures.length).split('\n').filter(Boolean)
+		.map((value, index) => ({ text: value, style: annexes.has(value) ? 'Heading1' : 'Normal', keepLines: index === 0 }));
+	const guarantorStart = tail.findIndex((para) => para.text === "נספח ב': כתב ערבות");
+	if (r.guarantors && guarantorStart >= 0) {
+		for (let i = guarantorStart; i < tail.length; i += 1) { tail[i].keepNext = i < tail.length - 1; tail[i].keepLines = true; }
+	}
+	paragraphs.push(...tail);
 	return { bytes: wordDocument(paragraphs), filename: isSampleInput(input) ? 'rental-contract-sample.docx' : 'rental-contract-draft.docx', mime: WORD_MIME };
 }
 const KEYS = ['r', 'm', 's', 'd', 'p', 'i', 'o', 'q', 'u', 'e', 'x', 'c', 'b', 'g', 'h', 'k', 'M', 'y', 'f', 'z', 'A', 'B', 'C', 'D', 'P', 'F', 'a', 'v', 'w', 'j', 'n', 'l', 'X', 'S'];

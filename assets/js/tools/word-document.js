@@ -49,12 +49,13 @@ function wordZip(files) {
 
 /** Plain editable paragraphs, black Arial, RTL, Letter. Layout follows the HAD-552 Claude Design brief. */
 export function wordDocument(paragraphs) {
-	const body = paragraphs.map(({ text, style = 'Normal' }) => {
+	const body = paragraphs.map(({ text, style = 'Normal', keepNext = false, keepLines = false }) => {
 		const safeStyle = ['Title', 'Heading1', 'Notice', 'Normal'].includes(style) ? style : 'Normal';
 		const runs = String(text).split(/(\n|\t)/).map((part) => part === '\n' ? '<w:r><w:br/></w:r>' : part === '\t' ? '<w:r><w:tab/></w:r>' : `<w:r><w:t xml:space="preserve">${wordEscape(part)}</w:t></w:r>`).join('');
-		return `<w:p><w:pPr><w:pStyle w:val="${safeStyle}"/><w:bidi/><w:jc w:val="right"/></w:pPr>${runs}</w:p>`;
+		// Bidi paragraphs use their start edge (right). Explicit "right" is mirrored by Word/LibreOffice.
+		return `<w:p><w:pPr><w:pStyle w:val="${safeStyle}"/>${keepNext ? '<w:keepNext/>' : ''}${keepLines ? '<w:keepLines/>' : ''}<w:bidi/></w:pPr>${runs}</w:p>`;
 	}).join('');
-	const styles = `<w:styles xmlns:w="${WORD_NS}"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/><w:color w:val="000000"/><w:sz w:val="24"/><w:szCs w:val="24"/><w:lang w:val="he-IL" w:bidi="he-IL"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:bidi/><w:jc w:val="right"/><w:widowControl/><w:spacing w:after="120" w:line="288" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>`
+	const styles = `<w:styles xmlns:w="${WORD_NS}"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/><w:color w:val="000000"/><w:sz w:val="24"/><w:szCs w:val="24"/><w:lang w:val="he-IL" w:bidi="he-IL"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:widowControl/><w:bidi/><w:spacing w:after="120" w:line="288" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>`
 		+ '<w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/></w:style>'
 		+ '<w:style w:type="paragraph" w:styleId="Title"><w:name w:val="Title"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:pPr><w:keepNext/><w:spacing w:after="240"/></w:pPr><w:rPr><w:b/><w:bCs/><w:sz w:val="40"/><w:szCs w:val="40"/></w:rPr></w:style>'
 		+ '<w:style w:type="paragraph" w:styleId="Heading1"><w:name w:val="heading 1"/><w:basedOn w:val="Normal"/><w:next w:val="Normal"/><w:pPr><w:keepNext/><w:keepLines/><w:spacing w:before="240" w:after="100"/><w:outlineLvl w:val="0"/></w:pPr><w:rPr><w:b/><w:bCs/><w:sz w:val="26"/><w:szCs w:val="26"/></w:rPr></w:style>'

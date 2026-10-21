@@ -25,6 +25,8 @@ RIGHTS_MODULES = (
     "justice_tools_rights_avtala",    # rights_avtala: unemployment benefit (/unemployment-benefits-eligibility/)
     "justice_tools_rights_leida",     # rights_leida: maternity allowance and birth grant (/maternity-allowance/)
     "justice_tools_rights_nechut",    # rights_nechut: general disability pension (/general-disability-pension-2026/)
+    "justice_tools_rights_maanak",    # rights_maanak: the work grant, wave 2A (/maanak-avoda/)
+    "justice_tools_rights_neto",      # rights_neto: gross to net salary, wave 2A (/net-salary-calculator/)
 )
 
 

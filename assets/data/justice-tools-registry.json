@@ -5165,5 +5165,392 @@
   },
   "fee_url": "https://www.btl.gov.il/benefits/Disability/Pages/scharTircha.aspx",
   "calculator_url": "https://www.btl.gov.il/Simulators/NehutIndex/Pages/Calculator.aspx"
+ },
+ "rights_maanak": {
+  "name_he": "מענק עבודה (מס הכנסה שלילי): שנות המס 2025 ו-2024",
+  "publisher_he": "רשות המסים בישראל; חוק מענק עבודה, התשס\"ח-2007",
+  "source_name": "חוק להגדלת שיעור ההשתתפות בכוח העבודה ולצמצום פערים חברתיים (מענק עבודה), התשס\"ח-2007, בנוסח העדכני (הודעת עדכון מ-11.2.2026); מדריכי רשות המסים לשנות המס 2025 ו-2024",
+  "source_url": "https://www.gov.il/he/pages/work-grant-guide-2025",
+  "checked_on": "2026-10-21",
+  "refresh_every_days": 90,
+  "next_update": "2027-01-01",
+  "law_he": "חוק להגדלת שיעור ההשתתפות בכוח העבודה ולצמצום פערים חברתיים (מענק עבודה), התשס\"ח-2007",
+  "law_short_he": "חוק מענק עבודה",
+  "law_url": "https://www.nevo.co.il/law_html/law01/999_877.htm",
+  "notice_he": "הודעת עדכון סכומים, ילקוט הפרסומים 14248 (11.2.2026), בתוקף מ-1.1.2026",
+  "index_rule_he": "לשנת מס מסוימת חלים הסכומים המעודכנים ב-1 בינואר של השנה שאחריה; הסכומים מתעדכנים לפי המדד ומעוגלים ל-10 ₪ (סעיף 8(א))",
+  "index_section": "סעיף 8(א)",
+  "claim_year": 2025,
+  "years_open": [2025, 2024],
+  "age": {
+   "with_kids": 21,
+   "no_kids": 55,
+   "section": "סעיפים 1 ו-2",
+   "he": "גיל 21 ומעלה להורה; גיל 55 ומעלה למי שאין לו ילדים (הגיל שמלאו בשנת המס)",
+   "history_he": "עד 2021 הגיל היה 23; מ-1.1.2025 הגיל 21 קבוע בחוק (תיקון 20)"
+  },
+  "child_under": 19,
+  "child_he": "ילד שטרם מלאו לו 19 בשנת המס (לשנת 2025: לא מלאו לו 19 עד 31.12.2025)",
+  "toddler_under": 3,
+  "toddler_he": "פעוט: ילד שטרם מלאו לו 3 במהלך שנת המס (שנת הלידה, השנה שבה מלאה לו שנה והשנה שבה מלאו לו שנתיים)",
+  "single_he": "הורה יחיד: הילדים אצלו וכלכלתם עליו, הוא חי בנפרד מההורה השני ואין לו בן זוג, לרבות ידוע בציבור (סעיף 6ב(א))",
+  "real_estate": {
+   "section": "סעיף 3(א)(1)",
+   "he": "אין זכאות אם לעובד, לבן הזוג או לילד הסמוך על שולחנו יש, במועד כלשהו בשנת המס, זכות במקרקעין בישראל או בחו\"ל שאינה דירת מגורים יחידה, וחלקם יחד עולה על 50%"
+  },
+  "work_income_he": "שכר עבודה (לא פנסיה), הכנסה מעסק או משלח יד, וגם דמי לידה, גמלת שמירת היריון ותגמולי מילואים. חודש שבו שולמו דמי אבטלה אינו חודש עבודה (סעיף 1)",
+  "extra_income_he": "הכנסה נוספת, כגון פנסיה או גמלת נפגעי עבודה, מקטינה את המענק (סעיף 4)",
+  "relative_he": "חודש שבו ההכנסה היחידה היתה ממעסיק קרוב משפחה (או מחברה שבשליטתו) לא נספר (סעיף 2)",
+  "months_he": "המענק = הסכום החודשי לפי ההכנסה החודשית הממוצעת בשנה, כפול מספר חודשי העבודה בפועל (חופשה, מחלה, לידה ומילואים נספרים; חודשי דמי אבטלה לא)",
+  "self_employed_he": "עצמאי זכאי באותם תנאים, בשינויים המחויבים, אם הגיש דוח שנתי; לא אם היה חייב בניהול ספרים ולא ניהל, או שספריו נפסלו סופית (סעיפים 17 ו-17א). הכנסה מעסק נספרת אחרי ההוצאות המותרות",
+  "adjusted_min_wage_he": "מי שנקבע לו שכר מינימום מותאם (עובד עם מוגבלות) זכאי בלי תנאי הגיל 55, והסכומים 2,450 ו-4,260 מוכפלים במקדם (סעיף 6). המחשבון לא מחשב את המקדם: את הסכום המדויק נותן הסימולטור הרשמי",
+  "parent_pct": 150,
+  "parent_section": "סעיף 6א",
+  "years": {
+   "2025": {
+    "status": "full",
+    "index_he": "הסכומים לפי המדד הידוע ב-1.1.2026, כפי שהם מופיעים בחוק ובמדריך רשות המסים לשנת המס 2025",
+    "guide_url": "https://www.gov.il/he/pages/work-grant-guide-2025",
+    "pdf_url": "https://www.gov.il/BlobFolder/generalpage/income-tax-guide-knowyourright/he/Guides_IncomeTax_da-2025.pdf",
+    "regular": {
+     "k12": {
+      "floor": 2450,
+      "p1": 4260,
+      "p2": 5680,
+      "ceiling": 7390,
+      "base": 100,
+      "rate_in": 16.1,
+      "max": 390,
+      "rate_out": 23,
+      "extra_threshold": 1420,
+      "published_top": 7289,
+      "section": "סעיף 2(1)"
+     },
+     "k3": {
+      "floor": 2450,
+      "p1": 4260,
+      "p2": 5680,
+      "ceiling": 8100,
+      "base": 140,
+      "rate_in": 23.5,
+      "max": 570,
+      "rate_out": 23.5,
+      "extra_threshold": 1420,
+      "published_top": 8020,
+      "section": "סעיף 2(2)"
+     }
+    },
+    "spouse": {
+     "base": 14210,
+     "pivot": 5680,
+     "cap": 1710,
+     "rate_k12": 23,
+     "rate_k3": 23.5,
+     "section": "סעיף 5"
+    },
+    "spouse_toddler": {
+     "base": 16180,
+     "pivot": 5690,
+     "cap": 3100,
+     "section": "סעיף 6ב1(ב)"
+    },
+    "single": {
+     "k12": {
+      "floor": 1510,
+      "p1": 4260,
+      "p2": 8000,
+      "ceiling": 11190,
+      "base": 100,
+      "rate_in": 10.8,
+      "max": 390,
+      "rate_out": 11.6,
+      "extra_threshold": 3740,
+      "section": "סעיף 6ב(א)(1)"
+     },
+     "k3": {
+      "floor": 1510,
+      "p1": 4260,
+      "p2": 8940,
+      "ceiling": 13660,
+      "base": 140,
+      "rate_in": 15.5,
+      "max": 570,
+      "rate_out": 11.6,
+      "extra_threshold": 4680,
+      "section": "סעיף 6ב(א)(2)"
+     },
+     "pct": 150,
+     "extra_section": "סעיף 6ב(ב)"
+    },
+    "toddler": {
+     "floor": 2460,
+     "p1": 4270,
+     "rate_in": 28.3,
+     "max": 500,
+     "k12": {
+      "p2": 7390,
+      "rate_out": 34.5,
+      "published_top": 8781
+     },
+     "k3": {
+      "p2": 8100,
+      "rate_out": 35.25,
+      "published_top": 9462
+     },
+     "section": "סעיף 6ב1(א)",
+     "he": "תוספת לכל פעוט, משולמת ב-100% (לא מוכפלת ב-150%); אפשר לקבל אותה גם כשההכנסה מעל התקרה הרגילה"
+    },
+    "single_toddler": {
+     "floor": 1500,
+     "p1": 4270,
+     "rate_in": 18.7,
+     "max": 500,
+     "k12": {
+      "p2": 8000,
+      "end": 11190,
+      "published_top": 11063
+     },
+     "k3": {
+      "p2": 8950,
+      "end": 13660,
+      "published_top": 13474
+     },
+     "section": "סעיף 6ב2(א)"
+    },
+    "women60": {
+     "born_from": 1960,
+     "age_from": 60,
+     "age_below": 67,
+     "floor": 920,
+     "p1": 4150,
+     "p2": 6100,
+     "ceiling": 8930,
+     "base": 140,
+     "rate_in": 33.21,
+     "max": 1210,
+     "rate_out": 42,
+     "extra_threshold": 1950,
+     "spouse": {
+      "base": 15210,
+      "pivot_self": 6100,
+      "cap_self": 2820,
+      "pivot_spouse": 5510,
+      "cap_spouse": 1650,
+      "rate": 42
+     },
+     "section": "סעיף 6ה",
+     "he": "עובדת שנולדה ב-1.1.1960 או אחריו, בגיל 60 ועד לפני 67 בשנת המס: מקבלת את הגבוה מבין המסלול הזה למסלול הרגיל (לא מוכפל ב-150%)"
+    },
+    "min_month": 20,
+    "min_he": "סכום חודשי נמוך מ-20 ₪ אינו משולם (רשות המסים); בחוק: מענק כולל נמוך מ-20 ₪ (סעיף 3(ב))",
+    "min_section": "סעיף 3(ב)",
+    "single_payment_max": 950,
+    "max_year": 10260,
+    "max_year_he": "המענק המרבי בלי תוספת פעוטות: 10,260 ₪ בשנה (570 × 150% × 12)",
+    "opens": "2026-01-01",
+    "deadline_online": "2027-12-31",
+    "deadline_post": "2026-12-26",
+    "deadline_he": "בקשה מקוונת עד 31.12.2027; בסניפי הדואר עד 26.12.2026",
+    "deadline_url": "https://www.gov.il/he/departments/topics/work_grant",
+    "paid_he": "התשלום הראשון לשנת 2025 שולם ב-16.7.2026; השני הוקדם ל-9.9.2026",
+    "paid_url": "https://www.gov.il/he/pages/020926-1"
+   },
+   "2024": {
+    "status": "bands",
+    "index_he": "הסכומים לפי המדד הידוע ב-1.1.2025 (מדריך רשות המסים לשנת המס 2024)",
+    "guide_url": "https://www.gov.il/he/pages/work-grant-guide-2024",
+    "pdf_url": "https://www.gov.il/BlobFolder/generalpage/income-tax-guide-knowyourright/he/Guides_IncomeTax_da-2024.pdf",
+    "bands": {
+     "k12": [2390, 7220],
+     "k3": [2390, 7910],
+     "single_k12": [1470, 10930],
+     "single_k3": [1470, 13340],
+     "toddler_k12": [2400, 8582],
+     "toddler_k3": [2400, 9243],
+     "women60": [900, 8720]
+    },
+    "toddler_max": 490,
+    "max_year": 10080,
+    "single_payment_max": 930,
+    "opens": "2025-01-01",
+    "deadline_online": "2026-12-31",
+    "deadline_he": "בקשה מקוונת עד 31.12.2026",
+    "deadline_url": "https://www.gov.il/he/Departments/DynamicCollectors/shelot-vetshuvot-taxes2?skip=0&subject=06",
+    "inner_he": "רשות המסים פרסמה לשנת 2024 את טווחי ההכנסה ואת המקסימום בלבד; את הסכום המדויק נותן הסימולטור הרשמי"
+   }
+  },
+  "next_year_he": "על שנת המס 2026 מגישים מ-1.1.2027 ועד 31.12.2028; הסכומים יפורסמו בעדכון של 1.1.2027",
+  "advance_he": "עובדת שכירה בת 60 עד 66 שהגישה בקשה חד-פעמית מקבלת 75% מהמענק של 2026 מראש, ברבעונים, והיתרה עד 15.7.2027 (סעיף 6ה(ה)-(ו))",
+  "payments": {
+   "section": "סעיף 12",
+   "rows": [
+    {
+     "filed_by": "06-30",
+     "dates": [
+      "07-15",
+      "10-15",
+      "12-15",
+      "+02-15"
+     ]
+    },
+    {
+     "filed_by": "09-30",
+     "dates": [
+      "10-15",
+      "12-15",
+      "+02-15"
+     ]
+    },
+    {
+     "filed_by": "11-30",
+     "dates": [
+      "12-15",
+      "+02-15"
+     ]
+    }
+   ],
+   "he": "המענק משולם בתשלומים שווים לפי מועד ההגשה: עד 30.6 ארבעה (15.7, 15.10, 15.12, 15.2), עד 30.9 שלושה, עד 30.11 שניים (15.12, 15.2). מענק קטן מהסכום לתשלום אחד משולם בבת אחת במועד הראשון",
+   "late_he": "לבקשה שהוגשה אחרי 30.11 של השנה שאחרי שנת המס אין לוח תשלומים מפורסם; ההחלטה ניתנת תוך 90 יום (סעיף 9)",
+   "url": "https://www.gov.il/he/pages/work-grant-guide-2025"
+  },
+  "decision": {
+   "days": 90,
+   "section": "סעיף 9",
+   "he": "החלטה תוך 90 יום מהבקשה או עד 15 ביולי של השנה שאחרי שנת המס, המאוחר מביניהם"
+  },
+  "objection": {
+   "days": 30,
+   "section": "סעיפים 10 ו-11",
+   "he": "השגה מנומקת בכתב לפקיד השומה תוך 30 יום מקבלת ההחלטה; אם לא הוחלט בה תוך 90 יום היא מתקבלת; על ההחלטה בהשגה מערערים לבית המשפט המחוזי"
+  },
+  "not_income": {
+   "section": "סעיף 16",
+   "he": "המענק אינו הכנסה לעניין מס הכנסה, ביטוח לאומי, הבטחת הכנסה ודמי ביטוח בריאות, ואי אפשר לעקל אותו, למעט מזונות שנפסקו (סעיף 16)"
+  },
+  "false_he": "בקשה כוזבת: עד שנת מאסר, ושלילת המענק לאותה שנה ולשנתיים שאחריה (סעיף 15)",
+  "requires_he": "המעסיק דיווח על השכר (טופס 126/856) עד 30.4 של השנה שאחרי שנת המס, ומי שחייב בדוח שנתי (הוא או בן הזוג) הגיש אותו (סעיף 7)",
+  "claim_url": "https://secapp.taxes.gov.il/gmMhsBakasha/",
+  "service_url": "https://www.gov.il/he/service/submitting-an-online-claim-for-job-grant",
+  "topic_url": "https://www.gov.il/he/departments/topics/work_grant",
+  "faq_url": "https://www.gov.il/he/Departments/DynamicCollectors/shelot-vetshuvot-taxes2?skip=0&subject=06",
+  "simulator_url": "https://www.misim.gov.il/shmaanakavoda/frmFirst.aspx",
+  "eligibility_url": "https://www.misim.gov.il/gmmhszakaut/",
+  "status_url": "https://www.misim.gov.il/gmmhsberur/firstpage.aspx",
+  "form_120_url": "https://www.gov.il/he/service/itc-120",
+  "form_930_url": "https://www.gov.il/he/service/itc930",
+  "press_jul_url": "https://www.gov.il/he/pages/sa150726-4",
+  "press_sep_url": "https://www.gov.il/he/pages/020926-1",
+  "post_he": "בסניפי הדואר: עם תעודה מזהה וצ'ק או אישור בנק על חשבון על שמכם, לשנה האחרונה בלבד"
+ },
+ "rights_neto": {
+  "name_he": "שכר נטו 2026: ניכויים, הפקדות ותקרות",
+  "publisher_he": "רשות המסים בישראל: לוח עזר לחישוב מס הכנסה ממשכורת 2026; משרד העבודה; המוסד לביטוח לאומי",
+  "source_name": "לוח עזר לחישוב המס ממשכורת ומשכר עבודה לשנת 2026 (מעודכן לאפריל 2026); פקודת מס הכנסה; תקנות מס הכנסה (ניכוי ממשכורת ומשכר עבודה), התשנ\"ג-1993; חוק שעות עבודה ומנוחה; צווי ההרחבה",
+  "source_url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2026.pdf",
+  "checked_on": "2026-10-21",
+  "refresh_every_days": 120,
+  "next_update": "2027-01-01",
+  "year": 2026,
+  "booklet_url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2026.pdf",
+  "notice_url": "https://www.gov.il/BlobFolder/dynamiccollectorresultitem/employers-info-300326-1/he/IncomeTax_IncomeTaxEmployersInfo_employers-info-300326-1.pdf",
+  "ordinance_url": "https://www.nevo.co.il/law_html/law01/255_001.htm",
+  "withholding_url": "https://www.nevo.co.il/law_html/law01/255_163.htm",
+  "method": {
+   "he": "משכורת החודש כפול 12, המס לפי המדרגות השנתיות ומס היסף, פחות נקודות הזיכוי והזיכויים, חלקי 12",
+   "section": "תקנות הניכוי ממשכורת, התוספת הראשונה (שיטת החישוב החודשית)",
+   "rounding_he": "התקנות מתירות לעגל את המשכורת ואת המס לשקל השלם (שבר מעל 49 אגורות כלפי מעלה); תלושים מציגים בדרך כלל אגורות, וההפרש קטן משקל",
+   "url": "https://www.nevo.co.il/law_html/law01/255_163.htm"
+  },
+  "pension": {
+   "employee_pct": 6,
+   "employer_pct": 6.5,
+   "severance_pct": 6,
+   "severance_full_pct": 8.33,
+   "from": "2017-01-01",
+   "he": "חובת הביטוח הפנסיוני: עובד 6%, מעסיק 6.5% לתגמולים ו-6% לפיצויים (המעסיק רשאי להשלים ל-8.33%)",
+   "cap_he": "החובה חלה על השכר או על השכר הממוצע במשק, הנמוך מביניהם; מעסיקים רבים מפקידים מכל השכר",
+   "wait_he": "עובד חדש בלי קופה: 6 חודשי המתנה; מי שיש לו כבר קופה: מהיום הראשון, ומשולם אחרי 3 חודשים רטרואקטיבית",
+   "section": "צו ההרחבה לביטוח פנסיוני מקיף במשק (2011, כנוסחו מ-2017)",
+   "url": "https://www.gov.il/BlobFolder/guide/labor-wage/he/workers-rights_working-conditions_pension_H096.pdf",
+   "rates_url": "https://fs.knesset.gov.il/globaldocs/MMM/07dcb0f8-423d-ef11-815f-005056aac6c3/2_07dcb0f8-423d-ef11-815f-005056aac6c3_11_20749.pdf"
+  },
+  "pension_credit": {
+   "rate": 35,
+   "share_pct": 7,
+   "cap_month": 9700,
+   "min_base_month": 189,
+   "he": "זיכוי של 35% מהפקדות העובד לפנסיה, עד 7% מההכנסה המבוטחת ולא יותר מ-7% מ-9,700 ₪ בחודש",
+   "section": "סעיף 45א לפקודה; תקרת הכנסה מזכה 9,700 ₪ לחודש (סעיף 47(א1)(1), מוקפאת 2025-2027)",
+   "url": "https://www.nevo.co.il/law_html/law01/255_001.htm",
+   "cap_url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2026.pdf"
+  },
+  "employer_ceiling": {
+   "tagmulim_salary_cap": 34423,
+   "tagmulim_max_pct": 7.5,
+   "severance_year_cap": 45600,
+   "severance_month_cap": 3800,
+   "severance_max_pct": 8.33,
+   "he": "הפקדות המעסיק פטורות ממס עד 7.5% לתגמולים משכר של עד 34,423 ₪ בחודש (פי 2.5 מהשכר הממוצע), ולפיצויים עד משכורת חודש בשנה ולא יותר מ-45,600 ₪ בשנה. מה שמעבר נזקף כהכנסה של העובד, גם לביטוח הלאומי",
+   "section": "סעיף 3(ה3) לפקודה",
+   "url": "https://www.nevo.co.il/law_html/law01/255_001.htm",
+   "cap_url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2026.pdf"
+  },
+  "study_fund": {
+   "employee_pct": 2.5,
+   "employer_pct": 7.5,
+   "salary_cap": 15712,
+   "year_cap": 188544,
+   "he": "הפקדת המעסיק לקרן השתלמות פטורה ממס עד 7.5% משכר של עד 15,712 ₪ בחודש; הפקדה מעבר נזקפת כהכנסה. הפקדת העובד (2.5% בדרך כלל, לפי הסכם) לא מזכה בהטבה. שעות נוספות והחזר הוצאות לא נכללים בשכר הקובע",
+   "section": "סעיף 3(ה) לפקודה",
+   "url": "https://www.nevo.co.il/law_html/law01/255_001.htm",
+   "cap_url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2026.pdf"
+  },
+  "overtime": {
+   "first_pct": 125,
+   "first_hours": 2,
+   "next_pct": 150,
+   "rest_pct": 150,
+   "divisor": 182,
+   "week_hours": 42,
+   "max_day": 12,
+   "max_week_overtime": 16,
+   "he": "שעתיים נוספות ראשונות ביום: 125%; מהשעה השלישית: 150%; שעות במנוחה השבועית: 150%. שכר שעה של עובד חודשי: השכר החודשי חלקי 182",
+   "section": "סעיפים 16 ו-17 לחוק שעות עבודה ומנוחה; צו ההרחבה לקיצור שבוע העבודה (42 שעות מ-1.4.2018)",
+   "url": "https://www.nevo.co.il/law_html/law00/5174.htm",
+   "week_url": "https://www.gov.il/BlobFolder/dynamiccollectorresultitem/extention-order-short-week-2018/he/extention-order-short-week-2018.pdf",
+   "divisor_url": "https://www.gov.il/BlobFolder/policy/instructions-regarding-hourly-minimum-wage-in-light-a-shorten-work-week/he/workers-rights_enforcement-and-exercise-of-rights_minimum-wage-enforcement-procedure.pdf"
+  },
+  "travel": {
+   "max_day": 22.6,
+   "from": "2016-02-01",
+   "he": "החזר הוצאות נסיעה: עד 22.60 ₪ ליום עבודה, לפי מחיר הנסיעה המוזל בתחבורה ציבורית; הוא חלק מההכנסה החייבת",
+   "section": "צו ההרחבה בדבר השתתפות המעביד בהוצאות נסיעה (2016); סעיף 2(2)(א) לפקודה",
+   "url": "https://www.gov.il/BlobFolder/dynamiccollectorresultitem/extention-order-travel-expenses-2016/he/extention-order-travel-expenses-2016.pdf"
+  },
+  "second_job": {
+   "rate": 47,
+   "surtax_month": 60130,
+   "he": "בלי תיאום מס, המעסיק השני מנכה 47% מכל השכר (המס המרבי), ונקודות הזיכוי והמדרגות ניתנות אצל מעסיק אחד",
+   "section": "תקנה 5(א) לתקנות הניכוי ממשכורת; טופס 101, חלק ה",
+   "url": "https://www.nevo.co.il/law_html/law01/255_163.htm",
+   "form101_url": "https://www.gov.il/BlobFolder/service/itc101/he/Service_Pages_Income_tax_annual-report-2024_itc101.pdf",
+   "coordination_he": "תיאום מס מקוון באזור האישי או בטופס 116: כל מעסיק מנכה לפי השיעור שבאישור, והמס השנתי מתיישר עם המס על סך ההכנסה",
+   "coordination_url": "https://www.gov.il/he/service/tax-coordination-online",
+   "form116_url": "https://www.gov.il/BlobFolder/service/tax-coordination-online/he/Service_Pages_Income_tax_annual-report-2024_itc116-2024.pdf",
+   "bl_he": "המעסיק המשני מנכה דמי ביטוח לאומי ובריאות בשיעור המלא מהשקל הראשון, אלא אם הצגתם אישור תיאום מהביטוח הלאומי לשנה הנוכחית; על שנים שעברו מבקשים החזר",
+   "bl_section": "תקנות הביטוח הלאומי (מעסיקים אחדים), 1997; מכתב בל/651 (04.2026)",
+   "bl_url": "https://www.btl.gov.il/%D7%98%D7%A4%D7%A1%D7%99%D7%9D%20%D7%95%D7%90%D7%99%D7%A9%D7%95%D7%A8%D7%99%D7%9D/Documents/t651.pdf",
+   "bl_regs_url": "https://www.btl.gov.il/Laws1/02_0001_110441.pdf",
+   "bl_teum_url": "https://www.btl.gov.il/Insurance/Teum/Pages/default.aspx"
+  },
+  "employer": {
+   "he": "עלות המעסיק: השכר, הפקדות הפנסיה, הפיצויים וקרן ההשתלמות, ודמי ביטוח לאומי של המעסיק (4.51% עד המדרגה ו-7.6% מעליה, עד התקרה). מס שכר חל רק על מלכ\"רים ומוסדות כספיים",
+   "url": "https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2026.pdf"
+  },
+  "official": {
+   "tax_simulator_url": "https://secapp.taxes.gov.il/srsimulatorNZ/",
+   "tax_simulator_he": "הסימולטור של רשות המסים מחשב נקודות זיכוי בלבד; מחשבון שכר נטו רשמי לא נמצא",
+   "bl_calculator_url": "https://www.btl.gov.il/Simulators/Pages/BituahCalculator.aspx"
+  }
  }
 }

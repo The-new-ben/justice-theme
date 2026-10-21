@@ -2,6 +2,9 @@
 declare(strict_types=1);
 define( 'ABSPATH', __DIR__ );
 class WP_Error {}
+class WP_Post {
+	public function __construct( public int $ID, public string $post_type, public string $post_status, public string $post_title ) {}
+}
 class WP_Query {
 	public array $posts = array();
 	public int $found_posts = 0;
@@ -13,6 +16,10 @@ class IntakeResponse extends RuntimeException {
 $actions = array();
 function add_action( $hook, $callback, $priority = 10, ...$args ) { $GLOBALS['actions'][$hook][$priority][] = $callback; }
 function add_filter( ...$args ) {}
+function dispatch_fixture_hook( $hook, ...$args ) {
+	$priorities = $GLOBALS['actions'][$hook] ?? array(); ksort( $priorities );
+	foreach ( $priorities as $callbacks ) { foreach ( $callbacks as $cb ) { $cb( ...$args ); } }
+}
 function has_action( $hook, $callback ) {
 	foreach ( $GLOBALS['actions'][$hook] ?? array() as $priority => $callbacks ) { if ( in_array( $callback, $callbacks, true ) ) { return $priority; } }
 	return false;
@@ -39,26 +46,57 @@ function add_query_arg( $key, $value, $url ) { return $url . '?' . $key . '=' . 
 function wp_safe_redirect( $url ) { throw new IntakeResponse( 302, $url ); }
 function wp_die( $message, $title = '', $args = array() ) { throw new IntakeResponse( $args['response'] ?? 500, $message ); }
 function get_option( $key, $default = '' ) {
-	if ( 'justice_hubspot_token' === $key ) { throw new RuntimeException( 'Test exclusion must happen before token/API access' ); }
+	if ( 'justice_hubspot_token' === $key ) {
+		if ( ! empty( $GLOBALS['fixture']['real_hooks'] ) && ! get_post_meta( 1, 'lead_is_test' ) && 'stored' === get_post_meta( 1, 'lead_storage_status' ) ) { return ''; }
+		throw new RuntimeException( 'Test/incomplete exclusion must happen before token/API access' );
+	}
 	return 'admin_email' === $key ? 'owner@example.com' : $default;
 }
 function wp_insert_post( $post, $wp_error = false ) {
 	$GLOBALS['inserts']++;
 	if ( $GLOBALS['fixture']['insert_fail'] ) { return $wp_error ? new WP_Error() : 0; }
 	$GLOBALS['posts'][1] = $post;
+	foreach ( $post['meta_input'] ?? array() as $key => $value ) { update_post_meta( 1, $key, $value ); }
+	if ( ! empty( $GLOBALS['fixture']['owner_hold'] ) ) { update_post_meta( 1, 'routing_hold', '1' ); }
+	if ( ! empty( $GLOBALS['fixture']['real_hooks'] ) ) { dispatch_fixture_hook( 'save_post_justice_lead', 1, get_post( 1 ), false ); }
 	return 1;
 }
 function wp_update_post( $post, $wp_error = false ) {
 	if ( $GLOBALS['fixture']['publish_fail'] ) { return new WP_Error(); }
 	$GLOBALS['posts'][$post['ID']] = array_merge( $GLOBALS['posts'][$post['ID']], $post );
+	if ( ! empty( $GLOBALS['fixture']['real_hooks'] ) ) { dispatch_fixture_hook( 'save_post_justice_lead', $post['ID'], get_post( $post['ID'] ), true ); }
 	return $post['ID'];
 }
 function get_post_status( $id ) { return $GLOBALS['posts'][$id]['post_status'] ?? ''; }
 function get_post_type( $id ) { return $GLOBALS['posts'][$id]['post_type'] ?? ''; }
+function get_post( $id ) { $p = $GLOBALS['posts'][$id]; return new WP_Post( $id, $p['post_type'], $p['post_status'], $p['post_title'] ); }
+function wp_is_post_revision( $id ) { return false; }
+function wp_strip_all_tags( $v ) { return strip_tags( $v ); }
+function post_type_exists( $type ) { return true; }
+function taxonomy_exists( $type ) { return true; }
+function is_email( $email ) { return filter_var( $email, FILTER_VALIDATE_EMAIL ); }
+function get_the_title( $id ) { return 'Fixture lawyer ' . $id; }
+function wp_date( ...$args ) { return '2026-10-21 10:00'; }
+function wp_hash( $v ) { return md5( $v ); }
+function rest_url( $path ) { return 'https://example.com/' . $path; }
+function justice_cards_family_map() { return array( 'criminal-law' => array( 'criminal-law' ) ); }
+function justice_cards_lawyers( ...$args ) { return empty( $GLOBALS['fixture']['no_capacity'] ) ? array( (object) array( 'ID' => 777 ) ) : array(); }
+function justice_ai_chat( ...$args ) { return ''; }
 function get_post_meta( $id, $key, $single = true ) { return $GLOBALS['meta'][$id][$key] ?? ''; }
+function delete_post_meta( $id, $key, $value = '' ) {
+	if ( get_post_meta( $id, $key ) !== $value ) { return false; }
+	unset( $GLOBALS['meta'][$id][$key] ); return true;
+}
 function update_post_meta( $id, $key, $value ) {
 	if ( $GLOBALS['fixture']['meta_fail'] === $key ) { return false; }
+	$exists = array_key_exists( $key, $GLOBALS['meta'][$id] ?? array() );
+	$clean = is_string( $value ) ? stripslashes( $value ) : $value;
+	if ( $exists && get_post_meta( $id, $key ) === $clean ) { return false; }
 	$GLOBALS['meta'][$id][$key] = is_string( $value ) ? stripslashes( $value ) : $value;
+	if ( ! empty( $GLOBALS['fixture']['real_hooks'] ) ) {
+		dispatch_fixture_hook( $exists ? 'updated_post_meta' : 'added_post_meta', 1, $id, $key, $clean );
+		return true;
+	}
 	if ( 'lead_status' === $key && 'new' === $value ) {
 		$GLOBALS['at_route'][] = $GLOBALS['meta'][$id];
 		// Simulate the existing router's writes to catch any later overwrite.
@@ -67,7 +105,10 @@ function update_post_meta( $id, $key, $value ) {
 	}
 	return true;
 }
-function wp_mail( $to, $subject, $body ) { $GLOBALS['mails'][] = array( $to, $subject, $body ); return $GLOBALS['fixture']['mail_ok']; }
+function wp_mail( $to, $subject, $body, ...$args ) {
+	$GLOBALS['mails'][] = array( $to, $subject, $body, $GLOBALS['meta'][1] ?? array(), get_post_status( 1 ) );
+	return $GLOBALS['fixture']['mail_ok'];
+}
 function fixture( array $changes = array() ): void {
 	$GLOBALS['fixture'] = array_merge( array( 'admin' => false, 'insert_fail' => false, 'publish_fail' => false, 'meta_fail' => '', 'mail_ok' => true ), $changes );
 	foreach ( array( 'posts', 'meta', 'mails', 'at_route' ) as $key ) { $GLOBALS[$key] = array(); }
@@ -157,7 +198,7 @@ check_intake( false === justice_hubspot_sync_lead( 1 )['ok'], 'HubSpot/backfill 
 justice_hubspot_backfill();
 check_intake( 'AND' === $last_query['meta_query']['relation'] && 'NOT EXISTS' === $last_query['meta_query'][0]['compare'], 'Backfill retains missing-deal selection with combined exclusions' );
 check_intake( 'lead_is_test' === $last_query['meta_query'][1][0]['key'] && array( '', '0' ) === $last_query['meta_query'][1][1]['value'], 'Backfill excludes synthetic rows before applying its batch limit' );
-check_intake( 'lead_storage_status' === $last_query['meta_query'][2][0]['key'] && 'incomplete' === $last_query['meta_query'][2][1]['value'] && '!=' === $last_query['meta_query'][2][1]['compare'], 'Backfill excludes incomplete rows before applying its batch limit' );
+check_intake( 'lead_storage_status' === $last_query['meta_query'][2][0]['key'] && array( 'pending', 'incomplete' ) === $last_query['meta_query'][2][1]['value'] && 'NOT IN' === $last_query['meta_query'][2][1]['compare'], 'Backfill excludes pending/incomplete rows before applying its batch limit' );
 
 fixture(); $_GET['lead_test'] = '1'; ob_start(); justice_ops_intake_form_context(); $html = ob_get_clean();
 check_intake( '' === $html, 'Anonymous page never exposes test fields' );
@@ -165,4 +206,37 @@ $fixture['admin'] = true; ob_start(); justice_ops_intake_form_context(); $html =
 check_intake( str_contains( $html, 'justice_intake_test_nonce' ), 'Administrator test page contains the dedicated nonce field' );
 $_GET = array( 'lead' => 'success' ); ob_start(); justice_ops_intake_form_context(); $html = ob_get_clean();
 check_intake( str_contains( $html, 'הפנייה נשמרה במערכת' ) && ! str_contains( $html, 'נשלחה לעורך דין' ), 'Public notice promises storage, not delivery or lawyer acceptance' );
+
+// Real theme classifier + routing and Ops hooks, dispatched in WordPress order.
+// This catches routes nested inside wp_insert_post or a metadata write.
+require dirname( __DIR__ ) . '/inc/lead-classifier.php';
+require dirname( __DIR__ ) . '/inc/lead-routing.php';
+function lifecycle_fixture( array $changes = array() ): void {
+	fixture( array_merge( array( 'real_hooks' => true ), $changes ) );
+	$GLOBALS['meta'][777]['email'] = 'lawyer@example.com';
+	$GLOBALS['meta'][888]['email'] = 'profile@example.com';
+}
+foreach ( array( 'routing_hold', 'lead_is_test', 'lead_storage_status', 'visitor_phone', 'message', 'utm_content', 'assigned_lawyer_id' ) as $field ) {
+	lifecycle_fixture( array( 'meta_fail' => $field ) ); $r = run_intake();
+	check_intake( 503 === $r->status && ! $mails && ! get_post_meta( 1, 'routing_completed' ), 'Real hooks cannot notify/bill on failed field: ' . $field );
+}
+lifecycle_fixture( array( 'publish_fail' => true ) ); $r = run_intake();
+check_intake( 503 === $r->status && ! $mails, 'Real classifier/meta hooks cannot notify before publish succeeds' );
+lifecycle_fixture( array( 'admin' => true ) ); $_POST['justice_intake_test'] = '1'; $_POST['justice_intake_test_nonce'] = 'valid-justice_intake_test'; $r = run_intake();
+check_intake( 302 === $r->status && 1 === count( $mails ) && 'owner@example.com' === $mails[0][0], 'Real hooks send synthetic notification only to owner' );
+check_intake( ! get_post_meta( 1, 'routing_completed' ) && ! get_post_meta( 1, 'lead_routed_at' ) && 'test_excluded' === get_post_meta( 1, 'qualified_lead_billing_status' ), 'Real hooks leave synthetic record unassigned/unbilled' );
+lifecycle_fixture(); $r = run_intake();
+$lawyer_mails = array_values( array_filter( $mails, fn( $m ) => 'lawyer@example.com' === $m[0] ) );
+check_intake( 302 === $r->status && 1 === count( $lawyer_mails ), 'Generic intake uses Ops once, with no duplicate theme notification' );
+check_intake( 'stored' === $lawyer_mails[0][3]['lead_storage_status'] && '1' === $lawyer_mails[0][3]['consent'] && 'case_review' === $lawyer_mails[0][3]['utm_content'] && 'publish' === $lawyer_mails[0][4], 'Actual notification sees committed consent, attribution and published record' );
+dispatch_fixture_hook( 'save_post_justice_lead', 1, get_post( 1 ), true );
+check_intake( 3 === count( $mails ), 'Later theme save cannot send generic enquiry a second time' );
+lifecycle_fixture(); $_POST['assigned_lawyer_id'] = '888'; $r = run_intake();
+$profile_mails = array_filter( $mails, fn( $m ) => 'profile@example.com' === $m[0] );
+check_intake( 302 === $r->status && 1 === count( $profile_mails ) && '888' === get_post_meta( 1, 'assigned_lawyer_id' ), 'Profile enquiry keeps selected lawyer, uses theme once, no Ops reassignment' );
+check_intake( ! array_filter( $mails, fn( $m ) => 'lawyer@example.com' === $m[0] ), 'Generic advertiser never receives direct profile enquiry' );
+lifecycle_fixture( array( 'owner_hold' => true ) ); $r = run_intake();
+check_intake( 302 === $r->status && '1' === get_post_meta( 1, 'routing_hold' ) && 1 === count( $mails ), 'Verified intake never removes a separate owner hold' );
+lifecycle_fixture( array( 'no_capacity' => true ) ); $r = run_intake();
+check_intake( 302 === $r->status && 1 === count( $mails ) && 'unrouted_no_capacity' === get_post_meta( 1, 'lead_routing_status' ), 'No eligible lawyer stays saved for owner without a false handoff' );
 echo "Passed $passed intake persistence assertions.\n";

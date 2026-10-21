@@ -88,16 +88,33 @@ function justice_ops_handle_public_intake(): void {
 		? justice_theme_public_lead_revenue_next_step( $surface )
 		: 'Review need, consent and coverage before assignment or billing.';
 
-	// Draft until every field is verified; no lead_status trigger exists yet.
+	$assigned = $is_test ? 0 : absint( justice_ops_intake_field( $_POST, 'assigned_lawyer_id' ) );
+	// WordPress writes meta_input before save_post. Hold even the classifier's
+	// nested meta hooks; a draft alone was not a guard in the legacy theme.
+	$initial_meta = array(
+		'routing_hold' => $is_test ? '1' : 'intake_pending',
+		'lead_storage_status' => 'pending',
+		'lead_intake_version' => '2026-10-21-persistence-v2',
+		'lead_routing_owner' => $assigned ? 'theme' : 'ops',
+		'lead_is_test' => $is_test ? '1' : '0',
+	);
 	$lead_id = wp_insert_post( array(
 		'post_type' => 'justice_lead', 'post_status' => 'draft',
 		'post_title' => ( $is_test ? '[בדיקת מערכת] ' : '' ) . $name . ' - ' . ( $area ?: 'כללי' ),
+		'meta_input' => $initial_meta,
 	), true );
 	if ( ! $lead_id || is_wp_error( $lead_id ) ) {
 		justice_ops_intake_failure( 0, 'insert' );
 		return;
 	}
 	$lead_id = (int) $lead_id;
+	foreach ( $initial_meta as $key => $value ) {
+		// A separate owner policy may replace our temporary hold with its own.
+		$actual = (string) get_post_meta( $lead_id, $key, true );
+		if ( ( 'routing_hold' === $key && '' !== $actual ) || $actual === $value ) { continue; }
+		justice_ops_intake_failure( $lead_id, 'initial_metadata' );
+		return;
+	}
 	$meta = array(
 		'visitor_name' => $name, 'visitor_phone' => $phone, 'visitor_email' => $email,
 		'legal_area' => $area, 'city' => $city, 'message' => $message, 'urgency' => $urgency,
@@ -110,8 +127,7 @@ function justice_ops_handle_public_intake(): void {
 		'lead_revenue_model' => 'public_intake_review', 'qualified_lead_billing_status' => 'not_ready',
 		'lead_revenue_notes' => 'Qualify need, consent, coverage and commercial terms before billing.',
 		'owner_revenue_next_step' => $next,
-		'assigned_lawyer_id' => (string) absint( justice_ops_intake_field( $_POST, 'assigned_lawyer_id' ) ),
-		'lead_intake_version' => '2026-10-21-persistence-v1',
+		'assigned_lawyer_id' => (string) $assigned,
 	);
 	if ( $is_test ) {
 		$meta['lead_is_test'] = '1';
@@ -136,6 +152,10 @@ function justice_ops_handle_public_intake(): void {
 		return;
 	}
 	update_post_meta( $lead_id, 'lead_storage_status', 'stored' );
+	if ( 'stored' !== get_post_meta( $lead_id, 'lead_storage_status', true ) ) {
+		justice_ops_intake_failure( $lead_id, 'storage_confirmation' );
+		return;
+	}
 	update_post_meta( $lead_id, 'lead_stored_at', current_time( 'mysql', true ) );
 
 	// Mail acceptance is observable, but is not proof of inbox delivery.
@@ -145,9 +165,15 @@ function justice_ops_handle_public_intake(): void {
 	update_post_meta( $lead_id, 'lead_owner_mail_status', $mail_ok ? 'accepted_for_sending' : 'failed' );
 	update_post_meta( $lead_id, 'lead_owner_mail_attempted_at', current_time( 'mysql', true ) );
 
-	// All metadata (including consent, assignment defaults and UTM) now exists.
-	// Do not overwrite the router's assignment or billing trail afterward.
+	// Release only OUR hold, never an owner's or policy's hold. A failed delete
+	// leaves a saved lead in the owner queue, not an unsafe external handoff.
+	if ( ! $is_test ) { delete_post_meta( $lead_id, 'routing_hold', 'intake_pending' ); }
+	// One routing owner: profile requests keep their direct assignment; generic
+	// requests use Ops eligibility/caps. The theme must not also broadcast them.
 	update_post_meta( $lead_id, 'lead_status', $is_test ? 'closed' : 'new' );
+	if ( ! $is_test && $assigned && function_exists( 'justice_theme_route_lead_to_lawyers' ) ) {
+		justice_theme_route_lead_to_lawyers( $lead_id, get_post( $lead_id ), true );
+	}
 	wp_safe_redirect( add_query_arg( 'lead', 'success', $source ) );
 	exit;
 }

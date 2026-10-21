@@ -103,8 +103,11 @@ function justice_router_reply_suggestion( string $family, string $situation ): s
  * Route one lead. Idempotent: a routed lead never routes twice.
  */
 function justice_router_route_lead( int $lead_id ): array {
-	if ( get_post_meta( $lead_id, 'lead_is_test', true ) || 'incomplete' === get_post_meta( $lead_id, 'lead_storage_status', true ) ) {
+	if ( get_post_meta( $lead_id, 'lead_is_test', true ) || in_array( get_post_meta( $lead_id, 'lead_storage_status', true ), array( 'pending', 'incomplete' ), true ) ) {
 		return array( 'ok' => false, 'why' => 'test or incomplete intake excluded' );
+	}
+	if ( 'theme' === get_post_meta( $lead_id, 'lead_routing_owner', true ) ) {
+		return array( 'ok' => false, 'why' => 'direct profile request belongs to theme router' );
 	}
 	if ( 'justice_lead' !== get_post_type( $lead_id ) || get_post_meta( $lead_id, 'lead_routed_at', true ) ) {
 		return array( 'ok' => false, 'why' => 'not a lead or already routed' );

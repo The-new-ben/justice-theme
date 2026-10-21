@@ -222,7 +222,7 @@ function justice_hubspot_deal_properties( int $lead_id, array $s ): array {
  * Create or update the deal for one lead. Safe to call repeatedly.
  */
 function justice_hubspot_sync_lead( int $lead_id ): array {
-	if ( get_post_meta( $lead_id, 'lead_is_test', true ) || 'incomplete' === get_post_meta( $lead_id, 'lead_storage_status', true ) ) {
+	if ( get_post_meta( $lead_id, 'lead_is_test', true ) || in_array( get_post_meta( $lead_id, 'lead_storage_status', true ), array( 'pending', 'incomplete' ), true ) ) {
 		return array( 'ok' => false, 'error' => 'test or incomplete intake excluded' );
 	}
 	if ( ! justice_hubspot_enabled() || 'justice_lead' !== get_post_type( $lead_id ) ) {
@@ -306,7 +306,7 @@ function justice_hubspot_backfill( int $limit = 25 ): array {
 			array(
 				'relation' => 'OR',
 				array( 'key' => 'lead_storage_status', 'compare' => 'NOT EXISTS' ),
-				array( 'key' => 'lead_storage_status', 'value' => 'incomplete', 'compare' => '!=' ),
+				array( 'key' => 'lead_storage_status', 'value' => array( 'pending', 'incomplete' ), 'compare' => 'NOT IN' ),
 			),
 		),
 	) );

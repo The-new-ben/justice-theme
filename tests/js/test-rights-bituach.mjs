@@ -207,5 +207,29 @@ for (const status of ['self', 'none', 'pension', 'both']) {
 	check(restored === 'rehearse' && attrs.get('href') === original.href, `rapid ${status}-to-employee click restores the real rehearsal action`);
 }
 
+// Native follow-up fragments must land below the actual sticky masthead, including admin padding.
+const anchorTarget = { style: {} };
+const masthead = { getBoundingClientRect: () => ({ height: 134 }) };
+const documentRoot = {};
+let headingMargin = '0px', rootPadding = '32px', headerTop = '32px', headerPosition = 'sticky';
+let fragment = '#jt28-self-h', inside = true;
+const anchorRoot = { contains: () => inside, ownerDocument: {
+	getElementById: () => anchorTarget, querySelector: () => masthead, documentElement: documentRoot,
+	defaultView: { getComputedStyle: el => el === masthead ? { position: headerPosition, display: 'block', top: headerTop } : el === documentRoot ? { scrollPaddingTop: rootPadding } : { scrollMarginTop: headingMargin } },
+} };
+const anchorClick = { closest: () => ({ getAttribute: () => fragment }) };
+BUI.clearFollowupAnchor(anchorRoot, anchorClick);
+check(anchorTarget.style.scrollMarginTop === '146px', 'follow-up clears actual masthead without double-counting admin padding');
+rootPadding = '0px'; headerTop = '0px'; BUI.clearFollowupAnchor(anchorRoot, anchorClick);
+check(anchorTarget.style.scrollMarginTop === '146px', 'anonymous native anchor gets the same visible header clearance');
+headingMargin = '240px'; BUI.clearFollowupAnchor(anchorRoot, anchorClick);
+check(anchorTarget.style.scrollMarginTop === '240px', 'larger existing heading clearance is retained');
+anchorTarget.style = {}; fragment = 'https://ps.btl.gov.il/'; BUI.clearFollowupAnchor(anchorRoot, anchorClick);
+check(Object.keys(anchorTarget.style).length === 0, 'external personal-area action is untouched');
+fragment = '#jt28-self-h'; inside = false; BUI.clearFollowupAnchor(anchorRoot, anchorClick);
+check(Object.keys(anchorTarget.style).length === 0, 'unrelated targets outside this tool are untouched');
+inside = true; headerPosition = 'static'; BUI.clearFollowupAnchor(anchorRoot, anchorClick);
+check(Object.keys(anchorTarget.style).length === 0, 'non-sticky header does not add unnecessary clearance');
+
 console.log(`${passed} passed, ${failures} failed`);
 process.exit(failures ? 1 : 0);

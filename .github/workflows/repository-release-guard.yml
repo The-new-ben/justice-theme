@@ -30,6 +30,7 @@ jobs:
           set -euo pipefail
           php tests/test-practice-directory-eligibility.php
           php tests/test-practice-landing-funnel-truth.php
+          php tests/test-criminal-intake-followthrough.php
 
       - name: Lint every tracked PHP file
         run: |

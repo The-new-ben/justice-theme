@@ -666,16 +666,29 @@ function justice_theme_render_cluster_hub_links( int $post_id ): string {
 	$extra_links = array();
 
 	if ( '' !== $area_slug ) {
-		$directory_base = (string) get_post_type_archive_link( 'justice_lawyer' );
-		if ( ! $directory_base ) {
-			$directory_base = home_url( '/lawyers/' );
-		}
-		$directory_url = add_query_arg( 'area', $area_slug, $directory_base );
-		$extra_links[] = sprintf(
-			'<a href="%s">%s</a>',
-			esc_url( function_exists( 'justice_theme_public_url' ) ? justice_theme_public_url( $directory_url ) : $directory_url ),
-			esc_html( sprintf( __( 'עורכי דין בתחום %s', 'justice-theme' ), $area_label ) )
+		// Match the criminal pillar's contactable-profile contract. Do not send
+		// visitors to an empty directory, or alter other practice-area journeys.
+		$criminal_directory_empty = 'criminal-law' === $area_slug && (
+			! function_exists( 'justice_theme_get_practice_firms' ) ||
+			empty( justice_theme_get_practice_firms( 'criminal-law', 1, false, true ) )
 		);
+		if ( $criminal_directory_empty ) {
+			$extra_links[] = sprintf(
+				'<a href="#practice-lead-form">%s</a>',
+				esc_html__( 'פנייה בנושא פלילי', 'justice-theme' )
+			);
+		} else {
+			$directory_base = (string) get_post_type_archive_link( 'justice_lawyer' );
+			if ( ! $directory_base ) {
+				$directory_base = home_url( '/lawyers/' );
+			}
+			$directory_url = add_query_arg( 'area', $area_slug, $directory_base );
+			$extra_links[] = sprintf(
+				'<a href="%s">%s</a>',
+				esc_url( function_exists( 'justice_theme_public_url' ) ? justice_theme_public_url( $directory_url ) : $directory_url ),
+				esc_html( sprintf( __( 'עורכי דין בתחום %s', 'justice-theme' ), $area_label ) )
+			);
+		}
 
 		// The taxonomy hub carries the area's article archive: link it when the
 		// term really exists so the pillar, the archive and the directory form

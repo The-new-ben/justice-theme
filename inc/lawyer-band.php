@@ -20,9 +20,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param string $term_slug       practice-areas term slug.
  * @param int    $limit           Max firms to return.
  * @param bool   $registered_only Only sponsored/reserved (registered) cards.
+ * @param bool   $directory_only  Require a contactable card and public listing query eligibility.
  * @return WP_Post[]
  */
-function justice_theme_get_practice_firms( string $term_slug, int $limit = 6, bool $registered_only = false ): array {
+function justice_theme_get_practice_firms( string $term_slug, int $limit = 6, bool $registered_only = false, bool $directory_only = false ): array {
 	if ( ! $term_slug || ! taxonomy_exists( 'practice-areas' ) || ! post_type_exists( 'justice_lawyer' ) ) {
 		return array();
 	}
@@ -32,7 +33,29 @@ function justice_theme_get_practice_firms( string $term_slug, int $limit = 6, bo
 	}
 
 	$candidates = array();
-	$object_ids = get_objects_in_term( $term->term_id, 'practice-areas' );
+	// Name-only bands historically use term relationships. They are not proof
+	// that the directory offers a contactable professional. Conversion surfaces
+	// must also honour its public query filters and the existing activity gate.
+	$object_ids = $directory_only
+		? get_posts(
+			array(
+				'post_type'                     => 'justice_lawyer',
+				'post_status'                   => 'publish',
+				'posts_per_page'                => -1,
+				'fields'                        => 'ids',
+				'no_found_rows'                 => true,
+				'suppress_filters'              => false,
+				'justice_public_lawyer_listing' => true,
+				'tax_query'                     => array(
+					array(
+						'taxonomy' => 'practice-areas',
+						'field'    => 'slug',
+						'terms'    => $term_slug,
+					),
+				),
+			)
+		)
+		: get_objects_in_term( $term->term_id, 'practice-areas' );
 	if ( ! is_array( $object_ids ) ) {
 		return array();
 	}
@@ -52,6 +75,15 @@ function justice_theme_get_practice_firms( string $term_slug, int $limit = 6, bo
 			if ( ! in_array( $status, array( 'active', 'reserved' ), true ) ) {
 				continue;
 			}
+		}
+		if (
+			$directory_only
+			&& (
+				! function_exists( 'justice_theme_lawyer_card_is_active' )
+				|| ! justice_theme_lawyer_card_is_active( (int) $candidate->ID )
+			)
+		) {
+			continue;
 		}
 		$candidates[] = $candidate;
 	}

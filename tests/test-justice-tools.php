@@ -30,6 +30,12 @@ function is_singular( $t = '' ) { return false; }
 
 require_once dirname( __DIR__ ) . '/inc/justice-tools.php';
 
+// Read-only fixture for local interaction testing of the actual server-rendered rental component.
+if ( in_array( '--render-rental', $argv ?? array(), true ) ) {
+	echo $jt_shortcodes['justice_tool']( array( 'name' => 'chozeh-schirut' ) );
+	exit( 0 );
+}
+
 // A child run renders only the fee-only page, the way /small-claims-fee-calculator/ will (a page of its own).
 if ( in_array( '--fee-only', $argv ?? array(), true ) ) {
 	$html = $jt_shortcodes['justice_tool']( array( 'name' => 'tviot-ktanot', 'mode' => 'fee' ) );

@@ -805,6 +805,11 @@ check(!T05.compute(reg, { mode: 'full', amount: 0, on: '2026-10-12' }).ok && !T0
 	check(!/משה|דנה|הרצל|חיפה|רטיבות|מקרר/.test(share) && share.includes('r6000'), 'privacy: the share link carries the terms only, never names, the address, defects or furniture');
 	const rs = REUI.snapshot(reg);
 	check(rs.total === 18000 && rs.result.includes('jt12-meter') && rs.result.includes('jtool-state--ok') && rs.details.includes('jt12-cite') && rs.details.includes('6,180') && rs.compare_table.includes('13,500') && rs.method.includes('24,000'), 'lease snapshot: the 18,000 cap and meter, a clean check, section chips, the option rent 6,180, the cap table');
+	check(REUI.isSampleInput(REUI.EXAMPLE) && REUI.isSampleInput({ ...REUI.EXAMPLE, cash: '', note: '' }), 'rental sample detection normalizes empty zero-value money fields');
+	check(!REUI.isSampleInput({ ...REUI.EXAMPLE, rent: 6100 }) && !REUI.isSampleInput({ ...REUI.EXAMPLE, tenant: 'בדיקת ממשק' }), 'rental sample detection notices changed terms and private fields');
+	check(REUI.exportContract(reg, REUI.EXAMPLE).startsWith('חוזה לדוגמה בלבד.') && REUI.exportContract(reg, { ...REUI.EXAMPLE, rent: 6100 }).startsWith('טיוטה לפי השדות שבדף.'), 'copied rental output carries sample/draft status, including unchanged-default caution');
+	check(REUI.exportContract(reg, { ...REUI.EXAMPLE, rent: '' }) === '', 'invalid rental input has no exportable contract');
+	check(REUI.exportContract(reg, REUI.EXAMPLE, true).includes('[סעיף 25ב; סעיף 25ג]') && !REUI.exportContract(reg, REUI.EXAMPLE).includes('[סעיף'), 'status wrapper preserves sources/no-sources output modes');
 }
 
 /* ---------- Wave 5: severance pay, section 14, the advance notice, the tax ceiling and the deadlines ---------- */

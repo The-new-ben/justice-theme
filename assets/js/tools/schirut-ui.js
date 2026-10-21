@@ -147,7 +147,7 @@ export function renderResult(reg, r, opts = {}) {
 		+ checkList(r);
 }
 
-export function renderDetails(reg, r) {
+export function renderDetails(reg, r, input = {}) {
 	if (!r.ok) { return ''; }
 	const rc = reg.rent_contract;
 	let n = 0;
@@ -162,6 +162,7 @@ export function renderDetails(reg, r) {
 		+ `<p class="jt12-cl__p">${Array.from({ length: r.guarantors }, (_, k) => `${k + 1}. שם: __________ ת"ז: __________ חתימה: __________`).map(esc).join('<br>')}</p></li>` : '';
 	const sched = r.schedule.map((s) => `<li class="jt12-sch jt12-sch--${s.state}"><span>${esc(s.item)}</span><small>${{ filled: 'בחוזה', hand: 'למילוי ביד', ids: 'בחוזה; ת"ז ביד', list: 'בנספח א\'', declared: 'הצהרה: אין פגם ידוע' }[s.state]}</small></li>`).join('');
 	return `<div class="jtool-tablewrap jt12-docwrap"><div class="jtool-tablewrap__head"><h3 id="${P}-doc-h">חוזה שכירות למגורים</h3><div class="jtool-actions"><button class="jtool-btn jtool-btn--primary" type="button" data-act="copy-contract">העתקת החוזה</button><button class="jtool-btn" type="button" data-act="copy-sources">העתקה עם הסעיפים בחוק</button><button class="jtool-btn" type="button" data-act="print">הדפסה</button></div></div>`
+		+ `<p class="jt12-doc__note" data-jt12-draft>${esc(draftNotice(input))}</p>`
 		+ `<p class="jt12-doc__note">${esc(rc.bill.he)}. לפי ${esc(rc.law_he)}, נוסח עדכני ל-${esc(isoToHe(rc.law_current_to))}. מעבר עם העכבר או נגיעה בסעיף מציגים את לשון החוק.</p>`
 		+ `<ol class="jt12-doc" aria-labelledby="${P}-doc-h">${doc}${appA}${appB}</ol>`
 		+ `<div class="jt12-sign"><span>המשכיר: __________</span><span>השוכר: __________</span></div></div>`
@@ -187,7 +188,7 @@ export function snapshot(reg) {
 		total: r.cap.cap,
 		form: renderForm(reg, EXAMPLE),
 		result: renderResult(reg, r, { example: true }),
-		details: renderDetails(reg, r),
+		details: renderDetails(reg, r, EXAMPLE),
 		method: `<ol><li>שליש מתקופת השכירות: ${money(r.rent, 0)} × ${r.months} ÷ 3 = ${money(r.cap.byTerm, 0)} ₪ <a class="jtool-cite" href="${esc(rc.law_url)}" target="_blank" rel="noopener">סעיף 25י(ב)(1)</a></li>`
 			+ `<li>שלושה חודשי שכירות: ${money(r.rent, 0)} × ${rc.deposit.months} = ${money(r.cap.byMonths, 0)} ₪ <a class="jtool-cite" href="${esc(rc.law_url)}" target="_blank" rel="noopener">סעיף 25י(ב)(2)</a></li>`
 			+ `<li>התקרה היא הנמוך מביניהם: ${money(r.cap.cap, 0)} ₪, לכל הערובות שעולות כסף לשוכר יחד.</li>`
@@ -228,6 +229,23 @@ export const shareState = (i) => encodeState({
 	y: i.returnDays, f: i.repairDays, z: i.urgentDays, A: i.optTenantDays, B: i.optLandlordDays, C: i.exitTenantDays, D: i.exitLandlordDays,
 	P: bits(i.pays || {}, PAYS), F: bits(i.forbidden || {}, FORBIDDEN), a: i.asIs ? 1 : '', v: i.parking ? 1 : '', w: i.storage ? 1 : '', j: i.pets === 'yes' ? 'y' : i.pets === 'no' ? 'n' : '', n: i.smoking ? 1 : '', l: i.relative ? 1 : '', X: i.excluded ? 1 : '', S: i.sublease ? 1 : '',
 });
+/** A restored/shared example is still a sample. Personal fields never enter the share-state comparison. */
+export function isSampleInput(input) {
+	return shareState(input) === shareState(EXAMPLE)
+		&& ['landlord', 'tenant', 'address', 'city', 'furniture', 'defects'].every((key) => !String(input[key] || '').trim());
+}
+
+export function draftNotice(input) {
+	return isSampleInput(input)
+		? 'חוזה לדוגמה בלבד. הסכומים, התאריכים ושאר התנאים הם נתוני דוגמה, ולא תנאים שמסרתם.'
+		: 'טיוטה לפי השדות שבדף. שדות שלא שיניתם עשויים להכיל נתוני דוגמה. עברו על כל התנאים והפרטים לפני שימוש.';
+}
+
+/** Keep the sample/draft status in the actual output, not just in a label next to the button. */
+export function exportContract(reg, input, includeSources = false) {
+	const r = compute(reg, input);
+	return r.ok ? `${draftNotice(input)}\n\n${contractText(reg.rent_contract, r, includeSources)}` : '';
+}
 const KEYS = ['r', 'm', 's', 'd', 'p', 'i', 'o', 'q', 'u', 'e', 'x', 'c', 'b', 'g', 'h', 'k', 'M', 'y', 'f', 'z', 'A', 'B', 'C', 'D', 'P', 'F', 'a', 'v', 'w', 'j', 'n', 'l', 'X', 'S'];
 function inputOf(s) {
 	if (!s.r) { return null; }
@@ -269,9 +287,17 @@ export function mount(root, reg) {
 			const id = ids[e.field] || e.field;
 			const box = root.querySelector(`#${P}-${id}-e`);
 			if (box) { box.textContent = e.he; }
-			const f = root.querySelector(`#${P}-${id}`);
+			const f = root.querySelector(`#${P}-${id}`) || root.querySelector(`input[name="${P}-${id}"]`);
 			if (f) { f.setAttribute('aria-invalid', 'true'); }
 		}
+	};
+	const focusField = (target) => {
+		if (!target) { return; }
+		for (let parent = target.parentElement; parent && parent !== root; parent = parent.parentElement) {
+			if (parent.tagName === 'DETAILS') { parent.open = true; }
+		}
+		target.focus({ preventScroll: true });
+		target.scrollIntoView({ block: 'start' });
 	};
 	const sync = () => {
 		form.querySelectorAll('[data-if-option]').forEach((el) => { el.hidden = ((root.querySelector(`input[name="${P}-op"]:checked`) || {}).value || 'none') === 'none'; });
@@ -280,8 +306,11 @@ export function mount(root, reg) {
 	const run = (input, opts = {}) => {
 		const r = compute(reg, input);
 		showErrors(r);
-		result.innerHTML = renderResult(reg, r);
-		details.innerHTML = renderDetails(reg, r);
+		result.innerHTML = renderResult(reg, r, { example: isSampleInput(input) });
+		details.innerHTML = renderDetails(reg, r, input);
+		root.querySelectorAll('[data-act="print"], [data-act="copy-contract"], [data-act="copy-sources"]').forEach((button) => {
+			button.setAttribute('aria-disabled', r.ok ? 'false' : 'true');
+		});
 		const capHint = form.querySelector('[data-jt12-cap]');
 		// Where the cap does not bind, neither the hint nor the sticky bar presents it as a limit (review, PR 128).
 		if (capHint && r.ok) { capHint.textContent = r.free ? `התקרה של חוזה רגיל, ${nis(r.cap.cap)} (סעיף 25י(ב)), לא מחייבת בחוזה הזה; הערובות נכתבות כפי שסוכמו.` : `מזומן, ערבות בנקאית וערבות מחברת ביטוח: יחד עד ${nis(r.cap.cap)} (סעיף 25י(ב)).`; }
@@ -322,13 +351,20 @@ export function mount(root, reg) {
 		const input = readForm(root);
 		const r = compute(reg, input);
 		const link = shareUrl(shareState(input));
+		if (['print', 'copy-contract', 'copy-sources'].includes(act) && !r.ok) {
+			ev.preventDefault();
+			run(input, { silent: true });
+			toast(root, 'לא ניתן להוציא חוזה מהנתונים האלה. בדקו את השדה המסומן.');
+			focusField(root.querySelector('[aria-invalid="true"]'));
+			return;
+		}
 		if (act === 'print') {
 			track('tool_download', { tool_id: TOOL_ID, type: 'print' });
 			window.print();
 		} else if ((act === 'copy-contract' || act === 'copy-sources') && r.ok) {
-			const ok = await copyText(contractText(rc, r, act === 'copy-sources'));
-			toast(root, ok ? 'החוזה הועתק. הדביקו אותו במסמך, עברו עליו וחתמו.' : 'לא הצלחנו להעתיק.');
-			track('tool_letter', { tool_id: TOOL_ID });
+			const ok = await copyText(exportContract(reg, input, act === 'copy-sources'));
+			toast(root, ok ? (isSampleInput(input) ? 'החוזה לדוגמה הועתק. התאימו את התנאים לפני שימוש.' : 'הטיוטה הועתקה. עברו על כל התנאים והפרטים לפני שימוש.') : 'לא הצלחנו להעתיק.');
+			if (ok) { track('tool_letter', { tool_id: TOOL_ID, type: isSampleInput(input) ? 'sample' : 'draft' }); }
 		} else if (act === 'link') {
 			const ok = await copyText(link);
 			toast(root, ok ? 'הקישור הועתק. אין בו שמות, כתובת או פרטים אישיים.' : link);

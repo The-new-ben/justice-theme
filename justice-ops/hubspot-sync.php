@@ -222,6 +222,9 @@ function justice_hubspot_deal_properties( int $lead_id, array $s ): array {
  * Create or update the deal for one lead. Safe to call repeatedly.
  */
 function justice_hubspot_sync_lead( int $lead_id ): array {
+	if ( get_post_meta( $lead_id, 'lead_is_test', true ) || 'incomplete' === get_post_meta( $lead_id, 'lead_storage_status', true ) ) {
+		return array( 'ok' => false, 'error' => 'test or incomplete intake excluded' );
+	}
 	if ( ! justice_hubspot_enabled() || 'justice_lead' !== get_post_type( $lead_id ) ) {
 		return array( 'ok' => false, 'error' => 'disabled or not a lead' );
 	}

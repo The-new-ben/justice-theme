@@ -31,6 +31,7 @@ jobs:
           php tests/test-practice-directory-eligibility.php
           php tests/test-practice-landing-funnel-truth.php
           php tests/test-criminal-intake-followthrough.php
+          php tests/test-lead-intake-persistence.php
 
       - name: Lint every tracked PHP file
         run: |

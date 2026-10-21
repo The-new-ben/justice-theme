@@ -76,4 +76,8 @@ $form = file_get_contents( dirname( __DIR__ ) . '/template-parts/forms/lead-form
 verify( str_contains( $template, "'lead_area' => 'criminal-law' === \$term_slug ? 'criminal-law' : ''" ), 'Only the criminal landing opts into page prefill' );
 verify( str_contains( $form, "justice_theme_current_lead_prefill_area( (string) ( \$args['lead_area'] ?? '' ) )" ), 'The form passes its template context to the resolver' );
 verify( str_contains( $form, '<select id="lead-area" name="lead_area" required>' ), 'The area remains a normal editable select' );
+$css = file_get_contents( dirname( __DIR__ ) . '/assets/css/premium-pass-3.css' );
+verify( str_contains( $template, "'criminal-law' === \$term_slug ? ' legal-pillar-sidebar--flow' : ''" ), 'Only the criminal form opts out of the oversized sticky sidebar' );
+verify( 1 === preg_match( '/\.legal-pillar-sidebar--flow\s*\{[^}]*position:\s*static;[^}]*\}/', $css ), 'The full criminal form scrolls in normal document flow' );
+verify( 1 === preg_match( '/\.legal-pillar-sidebar--flow\s*\{[^}]*scroll-margin-top:\s*[^;]+;[^}]*\}/', $css ), 'The enquiry anchor has clearance beneath the fixed header' );
 echo "Criminal intake followthrough fixtures passed.\n";

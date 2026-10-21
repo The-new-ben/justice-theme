@@ -219,7 +219,7 @@ if ( post_type_exists( 'articles' ) ) {
 			</div>
 
 			
-			<aside class="legal-pillar-sidebar" id="practice-lead-form">
+			<aside class="legal-pillar-sidebar<?php echo esc_attr( 'criminal-law' === $term_slug ? ' legal-pillar-sidebar--flow' : '' ); ?>" id="practice-lead-form">
 				<h2><?php esc_html_e( 'צריכים הכוונה?', 'justice-theme' ); ?></h2>
 				<p><?php esc_html_e( 'השאירו פרטים קצרים. המטרה היא להפוך שאלה כללית לפנייה מסודרת עם תחום, עיר ודחיפות.', 'justice-theme' ); ?></p>
 				<p class="legal-pillar-sidebar__disclosure"><?php esc_html_e( 'הפנייה נשלחת דרך Jus-Tice לצורך מיון ראשוני ובדיקת התאמה. לפני התקשרות, ודאו מול עורך הדין מי יטפל בפועל ומה כולל שכר הטרחה.', 'justice-theme' ); ?></p>

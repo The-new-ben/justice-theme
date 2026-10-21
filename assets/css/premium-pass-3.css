@@ -1756,6 +1756,14 @@
   top: 110px;
 }
 
+/* A long enquiry form must not be pinned below the viewport. Keep every
+   field and the submit control reachable while the criminal article scrolls. */
+.legal-pillar-sidebar--flow {
+  position: static;
+  top: auto;
+  scroll-margin-top: 12rem;
+}
+
 .legal-pillar-topic-box {
   margin-top: 1.5rem;
 }

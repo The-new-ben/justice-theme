@@ -38,6 +38,7 @@ Usage
   add --inheritance-checked-on <day> the same way for the inheritance-process dataset (tools/justice_tools_inheritance.py)
   add --rights-checked-on <day> the same way for the rights-guide datasets (the rights wave, tools/justice_tools_rights.py
   and tools/justice_tools_rights_<name>.py)
+  add --fl-checked-on <day> the same way for the family + land datasets (HAD-579, tools/justice_tools_fl_<name>.py)
 
 Every input can be a saved file (so a reviewer can rebuild the exact registry from the files
 attached to the PR) or omitted to fetch live. The script never estimates a missing value: a
@@ -1070,6 +1071,8 @@ def main() -> int:
                                                     "support, property-balance, prenup and divorce-agreement datasets are built")
     parser.add_argument("--inheritance-checked-on", help="the day the inheritance-process sources were read (the inheritance wave, "
                                                          "tools/justice_tools_inheritance.py); when given, that dataset is built too")
+    parser.add_argument("--fl-checked-on", help="the day the family + land sources were read (HAD-579, "
+                                                "tools/justice_tools_fl_*.py); when given, those datasets are built too")
     parser.add_argument("--rights-checked-on", help="the day the rights-guide sources were read (the rights wave, "
                                                     "tools/justice_tools_rights*.py); when given, those datasets are built too")
     args = parser.parse_args()
@@ -1111,6 +1114,11 @@ def main() -> int:
             if key.startswith("rights_"):
                 registry[key] = base[key]
         add_rights(registry, args.rights_checked_on)
+        # The family + land datasets (HAD-579) are kept the same way unless rebuilt.
+        for key in base:
+            if key.startswith("fl_"):
+                registry[key] = base[key]
+        add_fl(registry, args.fl_checked_on)
         write_registry(registry, args.out)
         return 0
 
@@ -1145,6 +1153,7 @@ def main() -> int:
     add_family(registry, args.family_checked_on or args.checked_on)
     add_inheritance(registry, args.inheritance_checked_on or args.checked_on)
     add_rights(registry, args.rights_checked_on or args.checked_on)
+    add_fl(registry, args.fl_checked_on or args.checked_on)
     write_registry(registry, args.out)
     return 0
 
@@ -1197,6 +1206,14 @@ def add_rights(registry: dict, day: str | None) -> None:
         return
     import justice_tools_rights as rights  # tools/ is the script's own folder
     rights.add_rights(registry, day)
+
+
+def add_fl(registry: dict, day: str | None) -> None:
+    """The family + land wave (HAD-579): the per-instrument datasets of tools/justice_tools_fl_<name>.py."""
+    if not day:
+        return
+    import justice_tools_fl as fl  # tools/ is the script's own folder
+    fl.add_fl(registry, day)
 
 
 def write_registry(registry: dict, out: str) -> None:

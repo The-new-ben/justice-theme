@@ -2458,12 +2458,12 @@ a.jtool-cite:hover { text-decoration: underline; }
 .jt50-ck__post--elig { stroke: var(--jtool-ok); }
 .jt50-ck__post--eighty { stroke: var(--jtool-muted); }
 .jt50-ck__today { stroke: var(--jtool-verdict-deep); stroke-width: 1.5; stroke-dasharray: 4 3; }
-.jt50-ck__t { font: 700 13px var(--jtool-font); fill: var(--jtool-ink); direction: rtl; unicode-bidi: plaintext; paint-order: stroke; stroke: var(--jtool-surface); stroke-width: 3px; stroke-linejoin: round; }
+.jt50-ck__t { font: 700 17px var(--jtool-font); fill: var(--jtool-ink); direction: rtl; unicode-bidi: plaintext; paint-order: stroke; stroke: var(--jtool-surface); stroke-width: 3px; stroke-linejoin: round; }
 .jt50-ck__t--ret { fill: var(--jtool-verdict-deep); font-weight: 800; }
 .jt50-ck__t--elig { fill: var(--jtool-ok); font-weight: 800; }
-.jt50-ck__t--date, .jt50-ck__t--tick { font-size: 12px; font-weight: 600; fill: var(--jtool-muted); }
+.jt50-ck__t--date, .jt50-ck__t--tick { font-size: 15px; font-weight: 600; fill: var(--jtool-muted); }
 .jt50-ck__t--eighty { fill: var(--jtool-muted); font-weight: 800; }
-.jt50-ck__t--win { font-size: 12px; fill: var(--jtool-verdict); }
+.jt50-ck__t--win { font-size: 15px; fill: var(--jtool-verdict); }
 .jt50-ck__t--today { fill: var(--jtool-verdict-deep); }
 .jtool .jt50-ck__cap { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; font-size: 0.8125rem; line-height: 1.4; color: var(--jtool-muted); }
 .jt50-ck__cap span, .jt50-lg__key span { display: inline-flex; align-items: center; gap: 6px; }

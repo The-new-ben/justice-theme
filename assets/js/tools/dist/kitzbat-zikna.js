@@ -859,66 +859,116 @@ function verdictSentence(reg, r) {
 	return out.join(' ');
 }
 
-/** The retirement-age clock: the life line from the birth date (broken after 55) to 85, right to left. */
+/**
+ * The retirement-age clock: the life line from the birth date (broken after 58) to 82, right to left. The labels never meet:
+ * each post's label (retirement age above the line, 70 and 80 below it, today above) takes the nearest free row on its side,
+ * a row where it does not touch another label, does not sit on another post's leader and keeps its own leader clear; the
+ * today line is cut wherever it would cross any text. All y values are relative to the line; the viewBox fits the rows used.
+ */
 function clock(reg, r) {
 	const z = reg.rights_zikna;
 	const w = 360;
-	const h = 196;
 	const right = 350;
 	const brk = 318;
 	const left = 14;
 	const lo = 58;
 	const hi = 82;
-	const ax = 112;
+	const lh = 24;
+	const rowH = 82;
 	const yrs = (iso) => { const [y, m, d] = iso.split('-').map(Number); const [by, bm, bd] = r.birth.split('-').map(Number); return (y - by) + (m - bm) / 12 + (d - bd) / 365; };
 	const xa = (a) => (a <= lo ? right - (Math.max(0, a) / lo) * (right - brk - 8) : brk - ((Math.min(a, hi) - lo) / (hi - lo)) * (brk - left));
 	const f = (v) => v.toFixed(1);
-	// Hebrew labels are centred and kept inside the frame (about 6.6 units a character at 13 px).
-	const t = (x, y, text, cls = '') => { const half = String(text).length * 3.3 + 2; const cx = Math.min(w - 2 - half, Math.max(2 + half, x)); return `<text class="${P}-ck__t${cls ? ` ${P}-ck__t--${cls}` : ''}" x="${f(cx)}" y="${y}" text-anchor="middle">${esc(text)}</text>`; };
-	let out = '';
+	// Hebrew at 17 units (dates and ticks at 15): about 9.3 and 8 units a character, with a margin.
+	const width = (line) => String(line.t).length * (line.c === 'date' || line.c === 'tick' || line.c === 'win' ? 8 : 9.3) + 12;
+	const boxes = [];
+	const placed = [];
+	const text = (cx, y, t, c) => `<text class="${P}-ck__t ${P}-ck__t--${c}" x="${f(cx)}" y="${f(y)}" text-anchor="middle">${esc(t)}</text>`;
+	/** Put a label in the nearest free row: its side first, then the other side. */
+	const place = (lab) => {
+		const wd = Math.max(...lab.lines.map(width));
+		const cx = Math.min(w - 2 - wd / 2, Math.max(2 + wd / 2, lab.x));
+		const h = lab.lines.length * lh + 2;
+		const sides = lab.side === 'above' ? ['above', 'below'] : ['below', 'above'];
+		for (let row = 0; row < 4; row += 1) {
+			for (const side of sides) {
+				const y0 = side === 'above' ? -28 - row * rowH - h : 46 + row * rowH;
+				const box = { x0: cx - wd / 2, x1: cx + wd / 2, y0, y1: y0 + h };
+				const ok = placed.every((p) => {
+					if (p.side !== side) { return true; }
+					if (p.row === row && box.x0 < p.box.x1 + 6 && p.box.x0 - 6 < box.x1) { return false; }
+					if (lab.post && p.row < row && lab.x > p.box.x0 - 4 && lab.x < p.box.x1 + 4) { return false; }
+					if (p.post && p.row > row && p.x > box.x0 - 4 && p.x < box.x1 + 4) { return false; }
+					return true;
+				});
+				if (ok) { const out = Object.assign({}, lab, { side, row, box, cx }); placed.push(out); boxes.push(box); return out; }
+			}
+		}
+		return null;
+	};
 	const cond = r.conditional;
 	const xc = xa(cond.years + cond.months / 12);
 	const x70 = xa(r.elig.years + r.elig.months / 12);
 	const x80 = xa(z.amounts.from80);
-	// The income-test window, from the conditional age to 70.
+	const xt = xa(r.now.years + r.now.months / 12);
+	const ret = r.toSeventy ? null : place({ x: xc, post: true, side: 'above', lines: [{ t: 'גיל הפרישה', c: 'ret' }, { t: ageHe(cond.years, cond.months), c: 'ret' }, { t: isoToHe(cond.date), c: 'date' }] });
+	const seventy = place({ x: x70, post: true, side: 'below', lines: [{ t: `גיל ${ageHe(r.elig.years, r.elig.months)}`, c: 'elig' }].concat(r.toSeventy ? [{ t: 'הקצבה מתחילה', c: 'elig' }] : []).concat([{ t: isoToHe(r.elig.date), c: 'date' }]) });
+	const eighty = place({ x: x80, post: true, side: 'below', lines: [{ t: `גיל ${z.amounts.from80}`, c: 'eighty' }, { t: isoToHe(r.at80), c: 'date' }] });
+	const today = place({ x: xt, post: false, side: 'above', lines: [{ t: `היום, גיל ${r.now.years}`, c: 'today' }] });
+	let back = '';
+	let front = '';
+	// The income-test window above the line, its name inside when it fits.
 	if (r.window > 0) {
-		out += `<rect class="${P}-ck__win" x="${f(x70)}" y="${ax - 20}" width="${f(xc - x70)}" height="20"></rect>`;
-		if (r.stop < r.elig.date) { const xs = xa(yrs(r.stop)); out += `<line class="${P}-ck__stop" x1="${f(xs)}" x2="${f(xs)}" y1="${ax - 20}" y2="${ax}"></line>`; }
-		if (xc - x70 > 66) { out += t((xc + x70) / 2, ax - 6, 'מבחן הכנסות', 'win'); }
+		back += `<rect class="${P}-ck__win" x="${f(x70)}" y="-22" width="${f(xc - x70)}" height="21"></rect>`;
+		if (r.stop < r.elig.date) { const xs = xa(yrs(r.stop)); back += `<line class="${P}-ck__stop" x1="${f(xs)}" x2="${f(xs)}" y1="-22" y2="-1"></line>`; }
+		const wl = width({ t: 'מבחן הכנסות', c: 'win' });
+		if (xc - x70 > wl + 8) { const cx = (xc + x70) / 2; front += text(cx, -5, 'מבחן הכנסות', 'win'); boxes.push({ x0: cx - wl / 2, x1: cx + wl / 2, y0: -21, y1: -1 }); }
 	}
-	// The transition grant's 4 months from 62.
+	// The transition grant's 4 months from 62, a short bar on the line (it ends where the women's retirement age can start).
 	if (r.grant) {
 		const g1 = xa(yrs(r.grant.from));
 		const g2 = xa(yrs(r.grant.to));
-		out += `<rect class="${P}-ck__grant${r.grant.state === 'no' ? ` ${P}-ck__grant--no` : ''}" x="${f(g2)}" y="${ax - 30}" width="${f(Math.max(3, g1 - g2))}" height="7"></rect>`;
+		back += `<rect class="${P}-ck__grant${r.grant.state === 'no' ? ` ${P}-ck__grant--no` : ''}" x="${f(g2)}" y="-9" width="${f(Math.max(3, g1 - g2))}" height="8"></rect>`;
 	}
-	// The women's schedule step: a bracket under the line from 62 to the reader's retirement age.
+	// The women's schedule step: a bracket under the line, from 62 to the reader's retirement age.
 	if (r.sex === 'f' && r.womenStep > 0) {
 		const x62 = xa(z.ages.women_now_from);
 		const xr = xa(r.ret.years + r.ret.months / 12);
-		out += `<path class="${P}-ck__step" d="M${f(x62)} ${ax + 4} V${ax + 11} H${f(xr)} V${ax + 4}"></path>`;
+		back += `<path class="${P}-ck__step" d="M${f(x62)} 6 V13 H${f(xr)} V6"></path>`;
 	}
-	// The life line, the break, the birth, the ticks.
-	out += `<line class="${P}-ck__life" x1="${f(right)}" x2="${f(brk)}" y1="${ax}" y2="${ax}"></line><line class="${P}-ck__life" x1="${f(brk - 8)}" x2="${f(left)}" y1="${ax}" y2="${ax}"></line>`;
-	out += `<path class="${P}-ck__brk" d="M${f(brk + 1)} ${ax - 7} L${f(brk - 3)} ${ax + 7} M${f(brk - 5)} ${ax - 7} L${f(brk - 9)} ${ax + 7}"></path>`;
-	out += `<circle class="${P}-ck__birth" cx="${f(right)}" cy="${ax}" r="4.5"></circle>${t(right, ax + 30, r.birth.slice(0, 4), 'tick')}`;
-	const posts = [r.toSeventy ? null : xc, x70, x80].filter((x) => x !== null);
-	[60, 65, 70, 75, 80].forEach((a) => {
-		const x = xa(a);
-		out += `<line class="${P}-ck__tick" x1="${f(x)}" x2="${f(x)}" y1="${ax}" y2="${ax + 6}"></line>`;
-		if (!posts.some((p) => Math.abs(p - x) < 16)) { out += t(x, ax + 30, String(a), 'tick'); }
+	// The life line, the break, the birth, the ticks (a tick's number gives way to a post's leader and to the labels).
+	back += `<line class="${P}-ck__life" x1="${f(right)}" x2="${f(brk)}" y1="0" y2="0"></line><line class="${P}-ck__life" x1="${f(brk - 8)}" x2="${f(left)}" y1="0" y2="0"></line>`;
+	back += `<path class="${P}-ck__brk" d="M${f(brk + 1)} -7 L${f(brk - 3)} 7 M${f(brk - 5)} -7 L${f(brk - 9)} 7"></path><circle class="${P}-ck__birth" cx="${f(right)}" cy="0" r="4.5"></circle>`;
+	const ticks = [{ x: right, t: r.birth.slice(0, 4) }].concat([60, 65, 70, 75, 80].map((a) => ({ x: xa(a), t: String(a), tick: true })));
+	const leaders = placed.filter((p) => p.post && p.side === 'below').map((p) => p.x);
+	ticks.forEach((k) => {
+		if (k.tick) { back += `<line class="${P}-ck__tick" x1="${f(k.x)}" x2="${f(k.x)}" y1="0" y2="6"></line>`; }
+		const wd = width({ t: k.t, c: 'tick' });
+		const cx = Math.min(w - 2 - wd / 2, Math.max(2 + wd / 2, k.x));
+		const box = { x0: cx - wd / 2, x1: cx + wd / 2, y0: 17, y1: 39 };
+		if (leaders.some((x) => x > box.x0 - 3 && x < box.x1 + 3) || boxes.some((b) => b.x0 < box.x1 && box.x0 < b.x1 && b.y0 < box.y1 && box.y0 < b.y1)) { return; }
+		boxes.push(box);
+		front += text(cx, 34, k.t, 'tick');
 	});
-	// The posts: the retirement age above the line, 70 and 80 below it.
-	if (!r.toSeventy) {
-		out += `<line class="${P}-ck__post ${P}-ck__post--ret" x1="${f(xc)}" x2="${f(xc)}" y1="54" y2="${ax + 4}"></line>${t(xc, 36, `גיל הפרישה ${ageHe(cond.years, cond.months).replace(' חודשים', ' ח\'')}`, 'ret')}${t(xc, 50, isoToHe(cond.date), 'date')}`;
-	}
-	out += `<line class="${P}-ck__post ${P}-ck__post--elig" x1="${f(x70)}" x2="${f(x70)}" y1="${ax - 4}" y2="${ax + 40}"></line>${t(x70, ax + 56, `גיל ${ageHe(r.elig.years, r.elig.months).replace(' חודשים', ' ח\'')}${r.toSeventy ? ': הקצבה מתחילה' : ''}`, 'elig')}${t(x70, ax + 70, isoToHe(r.elig.date), 'date')}`;
-	out += `<line class="${P}-ck__post ${P}-ck__post--eighty" x1="${f(x80)}" x2="${f(x80)}" y1="${ax - 4}" y2="${ax + 40}"></line>${t(x80, ax + 56, `גיל ${z.amounts.from80}`, 'eighty')}${t(x80, ax + 70, isoToHe(r.at80), 'date')}`;
-	// Today, drawn under the posts' labels.
-	const xt = xa(r.now.years + r.now.months / 12);
-	out = `<line class="${P}-ck__today" x1="${f(xt)}" x2="${f(xt)}" y1="20" y2="${h - 4}"></line>${out}${t(xt, 14, `היום, גיל ${r.now.years}`, 'today')}`;
+	// The posts: a leader from the line to the label, never into another label; then the label.
+	placed.forEach((p) => {
+		const cls = p === ret ? 'ret' : p === today ? 'today' : p === eighty ? 'eighty' : 'elig';
+		if (p.post) { back += `<line class="${P}-ck__post ${P}-ck__post--${cls}" x1="${f(p.x)}" x2="${f(p.x)}" y1="${p.side === 'above' ? -1 : 1}" y2="${f(p.side === 'above' ? p.box.y1 + 4 : p.box.y0 - 4)}"></line>`; }
+		p.lines.forEach((line, i) => { front += text(p.cx, p.box.y0 + 18 + i * lh, line.t, line.c); });
+	});
+	// The frame: the rows actually used.
+	const top = Math.min(-28, ...boxes.map((b) => b.y0)) - 6;
+	const bottom = Math.max(41, ...boxes.map((b) => b.y1)) + 6;
+	// Today: a dashed line over the whole height, cut wherever it would cross text.
+	// It runs from its own label to the far edge of the picture.
+	const own = today ? today.box : null;
+	const end = own && own.y0 > 0 ? own.y0 - 4 : bottom - 2;
+	const cuts = boxes.filter((b) => b !== own && xt > b.x0 - 3 && xt < b.x1 + 3).map((b) => [b.y0 - 4, b.y1 + 4]).sort((a, b) => a[0] - b[0]);
+	let from = own && own.y0 < 0 ? own.y1 + 4 : top + 2;
+	let todayLine = '';
+	cuts.forEach(([a, b]) => { if (b <= from) { return; } if (a > from + 2) { todayLine += `<line class="${P}-ck__today" x1="${f(xt)}" x2="${f(xt)}" y1="${f(from)}" y2="${f(Math.min(a, end))}"></line>`; } from = Math.max(from, b); });
+	if (end > from + 2) { todayLine += `<line class="${P}-ck__today" x1="${f(xt)}" x2="${f(xt)}" y1="${f(from)}" y2="${f(end)}"></line>`; }
 	const label = `שעון גיל הפרישה: נולדתם ב-${r.birth.slice(0, 4)}; ${r.toSeventy ? '' : `גיל הפרישה ${ageHe(cond.years, cond.months)} ב-${isoToHe(cond.date)}; `}גיל ${ageHe(r.elig.years, r.elig.months)} ב-${isoToHe(r.elig.date)}; ${z.amounts.from80} ב-${isoToHe(r.at80)}; היום אתם בני ${r.now.years}`;
-	return `<svg class="${P}-ck__svg" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}">${out}</svg>`;
+	return `<svg class="${P}-ck__svg" viewBox="0 ${f(top)} ${w} ${f(bottom - top)}" role="img" aria-label="${esc(label)}">${back}${todayLine}${front}</svg>`;
 }
 
 /** The pension ledger: one bar per phase, the parts stacked, the income-test reduction as a cut. */

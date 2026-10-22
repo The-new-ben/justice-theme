@@ -128,15 +128,6 @@ foreach ( array( 'wp_print_scripts', 'wp_print_styles', 'wp_print_footer_scripts
 	check( isset( $hooks[ $tag ] ), "runs again on $tag" );
 }
 
-// Font preconnect: printed on tool pages only.
-$jt_q = array( 'singular' => true );
-$jt_post = new WP_Post( array( 'post_content' => '[justice_tool name="sachar-neto"]' ) );
-ob_start(); justice_theme_tool_page_font_preconnect(); $head = (string) ob_get_clean();
-check( false !== strpos( $head, 'href="https://fonts.gstatic.com" crossorigin' ) && false !== strpos( $head, 'href="https://fonts.googleapis.com"' ), 'preconnects on a tool page' );
-$jt_post = new WP_Post( array( 'post_content' => '<p>מאמר</p>' ) );
-ob_start(); justice_theme_tool_page_font_preconnect(); $head = (string) ob_get_clean();
-check( '' === $head, 'no preconnect on other pages' );
-
 // The tool bundles keep loading from assets/js/tools/dist/ (the Autoptimize exclusion), untouched here.
 $src = (string) file_get_contents( dirname( __DIR__ ) . '/inc/tool-page-weight.php' );
 check( false === strpos( $src, 'justice-tool-' . "'" ) && false === strpos( $src, 'tools/dist' . "'" ), 'this file never dequeues a tool bundle' );

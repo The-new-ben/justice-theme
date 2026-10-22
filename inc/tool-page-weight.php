@@ -17,6 +17,11 @@
  * Also fixes the home-page dequeue in inc/enqueue.php, which names `signature_pad` while the plugin
  * registers `signature-pad` (and `dwp-js`), so those two never left the home page.
  *
+ * Not done here: a Google Fonts preconnect. Printed from wp_head it never reached the live HTML (22.10.2026,
+ * after the first release): the page carries no fonts.googleapis.com / fonts.gstatic.com reference at all,
+ * because the local-fonts plugin rewrites them. The Assistant @import at the top of main.css is faster only
+ * once that face is hosted locally too.
+ *
  * @package JusticeTheme
  */
 
@@ -122,17 +127,3 @@ function justice_theme_dequeue_home_signature_scripts(): void {
 }
 add_action( 'wp_enqueue_scripts', 'justice_theme_dequeue_home_signature_scripts', 1000 );
 add_action( 'wp_print_footer_scripts', 'justice_theme_dequeue_home_signature_scripts', 1 );
-
-/**
- * Tool pages: open the Google Fonts connections early. main.css starts with an @import of the Assistant
- * family (the Hebrew text face), so the browser learns about fonts.googleapis.com only after the main
- * stylesheet arrives and about fonts.gstatic.com one round trip later. Two preconnects remove that wait.
- */
-function justice_theme_tool_page_font_preconnect(): void {
-	if ( null === justice_theme_tool_page_content() ) {
-		return;
-	}
-	echo '<link rel="preconnect" href="https://fonts.googleapis.com" data-justice-theme="tool-weight">' . "\n";
-	echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin data-justice-theme="tool-weight">' . "\n";
-}
-add_action( 'wp_head', 'justice_theme_tool_page_font_preconnect', 1 );

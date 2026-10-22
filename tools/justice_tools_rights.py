@@ -27,6 +27,11 @@ RIGHTS_MODULES = (
     "justice_tools_rights_nechut",    # rights_nechut: general disability pension (/general-disability-pension-2026/)
     "justice_tools_rights_maanak",    # rights_maanak: the work grant, wave 2A (/maanak-avoda/)
     "justice_tools_rights_neto",      # rights_neto: gross to net salary, wave 2A (/net-salary-calculator/)
+    # wave 2B (22.10.2026, HAD-585): old age, reserve duty, children, income support
+    "justice_tools_rights_zikna",     # rights_zikna: old-age pension and the retirement age (/elder-law-israel/)
+    "justice_tools_rights_miluim",    # rights_miluim: reserve-duty pay, the published grants, the protection (/miluim-dismissal-protection/)
+    "justice_tools_rights_yeladim",   # rights_yeladim: child allowance and the savings plan (/kitzbat-yeladim/)
+    "justice_tools_rights_havtacha",  # rights_havtacha: income support (/havtachat-hachnasa/)
 )
 
 

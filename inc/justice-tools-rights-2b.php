@@ -23,12 +23,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /** The tools this file answers for. */
 function justice_tools_rights2b_names(): array {
-	return array( 'tagmulei-miluim', 'kitzbat-yeladim', 'havtachat-hachnasa' );
+	return array( 'kitzbat-zikna', 'tagmulei-miluim', 'kitzbat-yeladim', 'havtachat-hachnasa' );
 }
 
 /** The catalog entries, merged into justice_tools_rights_catalog(). */
 function justice_tools_rights2b_catalog(): array {
 	return array(
+		// Rights wave 2B (22.10.2026, HAD-585): the old-age pension and the retirement-age clock, from the birth date to 80
+		// (/elder-law-israel/, pages 20400). Reads rights_btl (basic amount 3, the average wage of section 2) and rights_zikna.
+		'kitzbat-zikna' => array(
+			'name'      => 'מחשבון קצבת זקנה וגיל פרישה 2026',
+			'title'     => 'קצבת זקנה וגיל הפרישה: מתי, כמה, ומה עושה מבחן ההכנסות עד גיל 70',
+			'promise'   => 'גיל הפרישה לפי חודש הלידה (גם ההדרגה לנשים), תקופת האכשרה, הקצבה לפי המשפחה עם תוספות הוותק, התלויים והדחייה, מבחן ההכנסות שקל אחרי שקל, מענק המעבר לילידות 1960 עד 1966, והמועדים ליומן.',
+			'question'  => 'מתי אגיע לגיל הפרישה, כמה קצבת זקנה אקבל, ומה קורה אם אמשיך לעבוד?',
+			'page'      => '/elder-law-israel/',
+			'category'  => 'FinanceApplication',
+			'data'      => array( 'registry_version', 'rights_btl', 'rights_zikna' ),
+			'dataset'   => 'rights_zikna',
+			'next_text' => 'הצעד הבא: להכניס ליומן את גיל הפרישה ואת גיל 70, להגיש תביעה בזמן כדי לא לאבד חודשים, ולהתכונן לשיחה עם פקיד התביעות',
+			'primary'   => array( 'label' => 'הוספת המועדים ליומן', 'act' => 'ics' ),
+			// The rehearsal is the claims interview (the income between the retirement age and 70, the waiver and the deferral,
+			// the insured periods); after a rejection the result switches to the appeal at the regional labour court.
+			'rehearse'  => array( 'label' => 'לתרגל את השיחה עם פקיד התביעות', 'topic' => 'general', 'purpose' => 'witness_prep' ),
+			'more'      => array(
+				array( 'label' => 'ערר וערעור על החלטות הביטוח הלאומי', 'path' => '/bituach-leumi-appeal-guide/' ),
+				array( 'label' => 'זכויות פנסיה: מה עוד מגיע', 'path' => '/pension-rights-israel/' ),
+				array( 'label' => 'אזרח ותיק באתר הביטוח הלאומי', 'url' => 'https://www.btl.gov.il/benefits/old_age/Pages/default.aspx' ),
+			),
+			'lawyer'    => array( 'label' => 'עורך דין לביטוח לאומי', 'path' => '/national-insurance-attorney/' ),
+			'sticky'    => 'קצבה לחודש',
+		),
 		// Rights guide wave 2B (21.10.2026): reserve-duty pay, the IDF's 2026 grants and the dismissal protection, from the service
 		// dates to the last protected day (/miluim-dismissal-protection/, pages 24688). Reads rights_tax for the s.39ב points.
 		'tagmulei-miluim' => array(
@@ -104,6 +128,17 @@ function justice_tools_rights2b_catalog(): array {
 /** The answer box (40-70 words): the direct answer, its numbers, their sections and the check date. */
 function justice_tools_rights2b_answer( string $name, string $mode = '' ): string {
 	$reg = justice_tools_registry();
+	// kitzbat-zikna (jt50): the answer box. One paragraph, every figure and section from rights_zikna (the Institute's 2026
+	// table, chapter 11 of the National Insurance Law and its tables, the Retirement Age Law), ending with the check date.
+	if ( 'kitzbat-zikna' === $name && ! empty( $reg['rights_zikna'] ) ) {
+		$zk   = $reg['rights_zikna'];
+		$am   = $zk['amounts'];
+		$it   = $zk['income_test'];
+		$ag   = $zk['ages'];
+		$text = '<strong>קצבת זקנה</strong> (קצבת אזרח ותיק) היא קצבה חודשית מהביטוח הלאומי: ב-<bdi>' . esc_html( substr( $zk['from'], 0, 4 ) ) . '</bdi> ' . justice_tools_money( $am['basic'], 0 ) . ' ליחיד ו-' . justice_tools_money( $am['published']['couple'], 0 ) . ' לזוג, ועוד <bdi>' . (int) $zk['seniority']['pct_per_year'] . '%</bdi> לכל שנת ביטוח עד <bdi>' . (int) $zk['seniority']['max_pct'] . '%</bdi> (' . esc_html( $am['section'] ) . ', ' . esc_html( $zk['seniority']['section'] ) . '). '
+			. 'היא משולמת מגיל הפרישה, <bdi>' . (int) $ag['men_now'] . '</bdi> לגבר ו-<bdi>' . (int) $ag['women_now_from'] . '</bdi> עד <bdi>' . (int) $ag['women_now_to'] . '</bdi> לאישה לפי חודש הלידה, כשההכנסה מעבודה עד ' . justice_tools_money( $it['single'], 0 ) . ' ליחיד (' . esc_html( $it['section'] ) . '), ומגיל <bdi>' . (int) $ag['men_eligibility'] . '</bdi> בלי מבחן הכנסות. נבדק ' . esc_html( justice_tools_he_date( $zk['checked_on'] ) ) . '.';
+		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+	}
 	// tagmulei-miluim (jt51): the answer box. One paragraph, every figure and section from rights_miluim (the Institute's 2026
 	// figures, chapter 12 of the National Insurance Law, the Discharged Soldiers Law), ending with the check date.
 	if ( 'tagmulei-miluim' === $name && ! empty( $reg['rights_miluim'] ) ) {
@@ -142,6 +177,11 @@ function justice_tools_rights2b_answer( string $name, string $mode = '' ): strin
 /** The data stamp in the tool's header. */
 function justice_tools_rights2b_stamp( string $name, string $mode = '' ): string {
 	$reg = justice_tools_registry();
+	// Renders: יחיד 1,838 ₪, זוג 2,762 ₪ מ-1.1.2026 · נבדק 21.10.2026
+	if ( 'kitzbat-zikna' === $name ) {
+		$zk = $reg['rights_zikna'] ?? array();
+		return 'יחיד ' . number_format( (float) ( $zk['amounts']['basic'] ?? 0 ) ) . ' ₪, זוג ' . number_format( (float) ( $zk['amounts']['published']['couple'] ?? 0 ) ) . ' ₪ מ-' . justice_tools_he_date( $zk['from'] ?? '' ) . ' · נבדק ' . justice_tools_he_date( $zk['checked_on'] ?? '' );
+	}
 	if ( 'tagmulei-miluim' === $name ) {
 		$ml = $reg['rights_miluim'] ?? array();
 		return 'מינימום ' . number_format( (float) ( $ml['pay']['min_daily'] ?? 0 ), 2 ) . ' · מקסימום ' . number_format( (float) ( $ml['pay']['max_daily'] ?? 0 ), 2 ) . ' ₪ ליום מ-' . justice_tools_he_date( $ml['pay']['from'] ?? '' ) . ' · נבדק ' . justice_tools_he_date( $ml['checked_on'] ?? '' );
@@ -162,6 +202,39 @@ function justice_tools_rights2b_stamp( string $name, string $mode = '' ): string
 /** Official sources used by each instrument's result. */
 function justice_tools_rights2b_sources( string $name ): array {
 	$reg = justice_tools_registry();
+	if ( 'kitzbat-zikna' === $name ) {
+		$zk      = $reg['rights_zikna'];
+		$btl     = $reg['rights_btl'];
+		$pg      = $zk['pages'];
+		$am      = $zk['amounts'];
+		$it      = $zk['income_test'];
+		$sp      = $zk['spouse'];
+		$gr      = $zk['grant'];
+		$checked = justice_tools_he_date( $zk['checked_on'] );
+		$from    = justice_tools_he_date( $zk['from'] );
+		$rates   = array();
+		foreach ( $gr['rates'] as $year => $rate ) {
+			$rates[] = $year . ': ' . number_format( (float) $rate );
+		}
+		$sup = $zk['supplement']['table']['to70'];
+		return array(
+			array( 'name' => $zk['law_he'], 'url' => $zk['law_url'], 'text' => 'סעיף 240: מי מבוטח; 244(א): קצבה של ' . esc_html( (string) $am['pct']['basic'] ) . '% מהסכום הבסיסי; 244(ב): ' . esc_html( (string) $am['pct']['spouse'] ) . '% לבן זוג תלוי ו-' . esc_html( (string) $am['pct']['child'] ) . '% לכל אחד משני הילדים הראשונים; 245(א): הגיל, 70 או גיל הפרישה כשההכנסה עד ההכנסה המרבית; 245(ב): קצבה פחות ' . (int) $it['deduct_pct'] . '% מההכנסה שמעל ההכנסה המרבית, ולא פחות מ-' . (int) $it['min_partial_pct'] . '% מהקצבה הבסיסית; 245(ג): הכנסה מקצבה לא נחשבת; 246: תקופת אכשרה, ' . (int) $zk['achshara']['last10_months'] . ' חודשים בתוך 10 שנים או ' . (int) $zk['achshara']['total_months'] . ' חודשים, והפטור לאישה; 247: התלויים; 247א: ' . esc_html( (string) $am['pct']['basic80'] ) . '% מגיל ' . (int) $am['from80'] . '; 248: תוספת ותק, ' . (int) $zk['seniority']['pct_per_year'] . '% לשנה עד ' . (int) $zk['seniority']['max_pct'] . '%; 249: תוספת דחייה, ' . (int) $zk['deferral']['pct_per_year'] . '% לשנה, ו-' . (int) $zk['deferral']['nine_months'] . ' חודשים כשנה; 269א: מענק המעבר. הנוסח המשולב באתר המוסד, נבדק ' . $checked . '.' ),
+			array( 'name' => 'חוק הביטוח הלאומי: הלוחות א1, ט ו-ט1; פרק א\', הגדרת "גיל הפרישה"', 'url' => $zk['tables_url'], 'text' => 'לוח א1, חלק א\': גיל הפרישה לפי חודש הלידה (גבר ' . (int) $zk['ages']['men_now'] . ' מילידי מאי 1942; אישה עד דצמבר 1955), ולילידות 1956 ואילך לפי חוק גיל פרישה (' . $zk['general_url'] . '); חלק ד\': גיל הזכאות לאישה, ' . (int) $zk['ages']['men_eligibility'] . ' מילידות מאי 1950; לוח ט, פרט 1: ' . (int) $sp['limit_pct'] . '% מהשכר הממוצע, ' . number_format( (float) $sp['income_limit'] ) . ' ₪, הכנסת בן הזוג התלוי; לוח ט1: ההכנסה המרבית, ' . esc_html( (string) $it['max_pct']['none'] ) . '% ו-' . esc_html( (string) $it['max_pct']['one'] ) . '% מהשכר הממוצע ועוד ' . esc_html( (string) $it['max_pct']['each'] ) . '% לכל תלוי נוסף.' ),
+			array( 'name' => $zk['retirement_law_he'], 'url' => $zk['retirement_law_url'], 'text' => 'סעיף 3: גיל הפרישה 67 לגבר ו-65 לאישה; 6(2): אישה שנולדה עד דצמבר 1969 לפי חלק ב\' בתוספת, מ-62 (ילידות מאי 1947 עד 1959) ועד 64 ו-9 חודשים (ילידות 1969). נוסח עדכני (נבו).' ),
+			array( 'name' => 'הביטוח הלאומי: סכומי הקצבה לפי המצב המשפחתי', 'url' => $am['url'], 'text' => 'מ-' . $from . ': יחיד ' . number_format( (float) $am['published']['single'] ) . ' ₪, מגיל 80 ' . number_format( (float) $am['published']['single80'] ) . ' ₪; זוג ' . number_format( (float) $am['published']['couple'] ) . ' ₪, מגיל 80 ' . number_format( (float) $am['published']['couple80'] ) . ' ₪; יחיד וילד ' . number_format( (float) $am['published']['single_child'] ) . ' ₪; זוג וילד ' . number_format( (float) $am['published']['couple_child'] ) . ' ₪; יחיד ו-2 ילדים ' . number_format( (float) $am['published']['single_children'] ) . ' ₪; זוג ו-2 ילדים ' . number_format( (float) $am['published']['couple_children'] ) . ' ₪. ' . $am['both_he'] . '.' ),
+			array( 'name' => 'הביטוח הלאומי: גיל הפרישה וגיל הזכאות', 'url' => $pg['retirement'], 'text' => $zk['ages']['he'] . '. ' . $zk['ages']['women_he'] . '.' ),
+			array( 'name' => 'הביטוח הלאומי: מבחן הכנסות וקצבה חלקית', 'url' => $it['work_url'], 'text' => 'מ-' . $from . ': מעבודה, קצבה מלאה עד ' . number_format( (float) $it['single'] ) . ' ₪ ליחיד ו-' . number_format( (float) $it['couple'] ) . ' ₪ לזוג, ואין קצבה מעל ' . number_format( (float) $it['end_single'] ) . ' ו-' . number_format( (float) $it['end_couple'] ) . ' ₪; שלא מעבודה ' . number_format( (float) $it['other']['single'][0] ) . ' עד ' . number_format( (float) $it['other']['single'][1] ) . ' ₪ ליחיד, ' . number_format( (float) $it['other']['couple'][0] ) . ' עד ' . number_format( (float) $it['other']['couple'][1] ) . ' ₪ לזוג (' . $it['other_url'] . '); הקצבה החלקית המזערית ' . number_format( (float) $it['min_partial'] ) . ' ₪ (' . $it['partial_url'] . '). ' . $it['excluded_he'] . '.' ),
+			array( 'name' => 'הביטוח הלאומי: תוספת ותק ותוספת דחיית קצבה', 'url' => $zk['seniority']['url'], 'text' => $zk['seniority']['he'] . '. ' . $zk['deferral']['he'] . ' (' . $zk['deferral']['url'] . '). ' . $zk['deferral']['other_he'] . '.' ),
+			array( 'name' => 'הביטוח הלאומי: תוספת עבור בן זוג וילדים, והגדרות', 'url' => $am['dependants_url'], 'text' => 'מ-' . $from . ': בן או בת זוג ' . number_format( (float) $am['spouse'] ) . ' ₪, ילד ' . number_format( (float) $am['child'] ) . ' ₪ (עד ' . (int) $am['max_children'] . '). ' . $sp['wife_he'] . '. ' . $sp['husband_he'] . '. ' . $sp['child_he'] . '.' ),
+			array( 'name' => 'הביטוח הלאומי: תקופת אכשרה לגבר ולאישה', 'url' => $zk['achshara']['woman_url'], 'text' => $zk['achshara']['he'] . '. ' . $zk['achshara']['exempt_he'] . '. ' . $zk['achshara']['basic70_he'] . '.' ),
+			array( 'name' => 'הביטוח הלאומי: מענק מעבר לנשים בגיל 62', 'url' => $gr['url'], 'text' => $gr['he'] . '; לחודש לפי שנת הלידה: ' . implode( ', ', $rates ) . ' ₪; ' . $gr['rate_he'] . '; ' . $gr['deadline_he'] . '.' ),
+			array( 'name' => 'הביטוח הלאומי: השלמת הכנסה לקצבת אזרח ותיק', 'url' => $zk['supplement']['amounts_url'], 'text' => 'מ-' . $from . ', עד גיל 70, כולל הקצבה: יחיד ' . number_format( (float) $sup['single'] ) . ' ₪, זוג ' . number_format( (float) $sup['couple'] ) . ' ₪.' ),
+			array( 'name' => 'הביטוח הלאומי: הגשת התביעה, תשלום הקצבה וניכויים', 'url' => $zk['claim']['url'], 'text' => $zk['claim']['retro_he'] . '. ' . $zk['claim']['pay_he'] . '; ' . $zk['claim']['first_he'] . ' (' . $zk['claim']['payment_url'] . '). ' . $zk['health']['he'] . '.' ),
+			array( 'name' => 'הביטוח הלאומי: ערעור על החלטה', 'url' => $zk['appeal']['court_url'], 'text' => $zk['appeal']['he'] . '.' ),
+			array( 'name' => 'חוק העונשין, ' . $zk['penal']['section'], 'url' => $zk['penal']['url'], 'text' => $zk['penal']['he'] . '.' ),
+			array( 'name' => $btl['name_he'], 'url' => $btl['basic_amount']['url'], 'text' => 'סכום בסיסי 3 מ-' . justice_tools_he_date( $btl['from'] ) . ': ' . number_format( (float) $btl['basic_amount']['b3'] ) . ' ₪, שממנו נגזרת הקצבה; השכר הממוצע לפי סעיף 2: ' . number_format( (float) $btl['avg_wage']['s2_benefits'] ) . ' ₪, שממנו נגזרת ההכנסה המרבית.' ),
+		);
+	}
 	if ( 'tagmulei-miluim' === $name ) {
 		$ml      = $reg['rights_miluim'];
 		$btl     = $reg['rights_btl'];

@@ -756,8 +756,10 @@ function byIncome(registry, base, list) {
  * (tagmulei-miluim). Two pictures from the reservist's own paperwork: a pay slip of the reward (the basis against the floor
  * and the ceiling lines, the days, the 40% addition, the total), and the service calendar: a row per month, a cell per day,
  * the days served and then the protected days after them, with the last protected day marked. The tables, the checklist
- * and the .ics say the same in text.
+ * and the .ics say the same in text. The result-first card ([justice_tool_lead]) carries the total on the first screen, and
+ * the rehearse link hands the reader's figures to the jus-tice.com simulation (sim-handoff.js, the wave-2A bar, HAD-585).
  */
+
 
 
 
@@ -893,8 +895,11 @@ function calendar(reg, r) {
 	return `<div class="${P}-cal" role="group" aria-label="${esc(label)}"><p class="${P}-cal__h">יומן השירות וההגנה מפיטורים, יום אחרי יום</p><ol class="${P}-cal__ms">${rows}</ol><p class="${P}-cal__legend">${legend}</p></div>`;
 }
 
-/** The one-line reason to rehearse, tied to the result. */
+/** The one-line reason to rehearse, tied to the result: the dismissal protection is an employee's; everyone else talks to the Institute. */
 function rehearseWhy(reg, r) {
+	if (r.status !== 'employee') {
+		return `<p class="${P}-why"><strong>תרגול:</strong> ${esc(`התגמול משולם ישירות מהביטוח הלאומי. חסר תשלום, או שהסכום נמוך מ-${nis(r.total)}? כדאי לתרגל את השיחה עם פקיד התביעות.`)} <a href="#jtool-${TOOL_ID}-next" data-act="rehearse" data-${P}-rehearse>לתרגול השיחה</a></p>`;
+	}
 	const why = r.extOn
 		? `קיבלתם הזמנה לשימוע או מכתב פיטורים עד ${isoToHe(r.protectEnd)}? המעסיק צריך היתר, ובוועדת התעסוקה עליו להוכיח שזה לא בגלל המילואים. כדאי לתרגל את הדיון.`
 		: r.after
@@ -1066,7 +1071,7 @@ function renderDetails(reg, r) {
 	gate(r.points > 0 ? (r.taxOk === false ? 'no' : r.taxOk ? 'ok' : 'check') : 'no', r.points > 0 ? `${r.yearDays} ימים ב-${r.svcYear}: ${r.points} נקודות זיכוי ב-${r.taxYear}${r.taxOk === null ? ', אם המדרג א\'+, א\' או ב\'' : r.taxOk ? '' : ', אבל רק במדרגים א\'+, א\' ו-ב\''}` : `${r.yearDays} ימים ב-${r.svcYear}: פחות מ-30, בלי נקודות זיכוי ב-${r.taxYear}`, 'סעיף 39ב', ml.tax.url);
 	if (r.addBand) { gate('check', `התגמול הנוסף של רשות המסים לפי הטבלה שפורסמה לשירות ב-2025: ${money(r.addBand[2], 0)} ש"ח ל-${r.addBand[0]} ימים ומעלה; טבלת ${ml.grants.year} טרם פורסמה`, 'תגמולים', ml.grants.additional_2025.url); }
 	const sym = { ok: '✓', no: '✕', check: '?' };
-	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-gate-h">התנאים, אחד אחד</h3></div><ul class="${P}-gate">`
+	out += `<div class="jtool-tablewrap ${P}-p-no"><div class="jtool-tablewrap__head"><h3 id="${P}-gate-h">התנאים, אחד אחד</h3></div><ul class="${P}-gate">`
 		+ gates.map((x) => `<li class="${P}-gate__i ${P}-gate__i--${x.state}"><strong aria-hidden="true">${sym[x.state]}</strong> ${esc(x.he)}${cite(x.section, x.url)}</li>`).join('')
 		+ `</ul></div>`;
 	// 3. The protection, period by period.
@@ -1076,23 +1081,23 @@ function renderDetails(reg, r) {
 		+ segs.map((s) => `<tr><td data-th="מ"><bdi>${esc(isoToHe(s.from))}</bdi></td><td data-th="עד"><bdi>${esc(isoToHe(s.to))}</bdi></td><td data-th="ימים">${num(daysBetween(s.from, s.to) + 1, 0)}</td><td data-th="מה אסור">${esc(s.he)}${cite(s.section, s.url)}</td></tr>`).join('')
 		+ `</tbody><caption>${esc(pr.cause_he)}${cite(pr.cause_section, pr.law_url)}. ${esc(pr.notice_he)}${cite(pr.notice_section, pr.law_url)}. פיצוי בוועדת התעסוקה: לפחות <bdi>${money(r.remedy.avg5, 0)}</bdi> ש"ח (5 פעמים השכר הממוצע${r.remedy.wage5 ? `, או 5 משכורות: ${money(r.remedy.wage5, 0)}` : ''}, הגבוה)${cite(pr.remedy.section, pr.law_url)}; ערעור תוך ${pr.appeal.days} ימים${cite(pr.appeal.section, pr.law_url)}.</caption></table></div></div>`;
 	// 4. The grants of the year.
-	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-gr-h">מענקי צה"ל ל-${ml.grants.year}</h3></div>${grantsBlock(reg, r)}</div>`;
+	out += `<div class="jtool-tablewrap ${P}-p-no"><div class="jtool-tablewrap__head"><h3 id="${P}-gr-h">מענקי צה"ל ל-${ml.grants.year}</h3></div>${grantsBlock(reg, r)}</div>`;
 	// 5. The dates to keep.
 	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-dl-h">המועדים</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="ics">הוספה ליומן (.ics)</button></div></div>`
 		+ `<div class="jtool-scroll" role="region" aria-labelledby="${P}-dl-h" tabindex="0"><table class="jtool-table"><thead><tr><th scope="col">תאריך</th><th scope="col">מה</th><th scope="col">מקור</th></tr></thead><tbody>`
 		+ r.deadlines.map((x) => `<tr><td data-th="תאריך"><bdi>${esc(isoToHe(x.date))}</bdi></td><td data-th="מה">${esc(x.he)}</td><td data-th="מקור">${cite(x.section, x.url)}</td></tr>`).join('')
 		+ `</tbody></table></div></div>`;
 	// 6. What to do now.
-	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-chk-h">מה עושים עכשיו</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="copy-list">העתקת הרשימה</button></div></div>`
+	out += `<div class="jtool-tablewrap ${P}-p-no"><div class="jtool-tablewrap__head"><h3 id="${P}-chk-h">מה עושים עכשיו</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="copy-list">העתקת הרשימה</button></div></div>`
 		+ `<ol class="${P}-list">${checklist(reg, r).map((x) => `<li>${esc(x.he)}${cite(x.section, x.url)}</li>`).join('')}</ol></div>`;
 	// 7. What changed and when.
 	const hist = ml.history.slice().sort((a, b) => (a.date < b.date ? 1 : -1));
-	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-hist-h">מה השתנה ומתי</h3></div>`
+	out += `<div class="jtool-tablewrap ${P}-p-no"><div class="jtool-tablewrap__head"><h3 id="${P}-hist-h">מה השתנה ומתי</h3></div>`
 		+ `<div class="jtool-scroll" role="region" aria-labelledby="${P}-hist-h" tabindex="0"><table class="jtool-table"><thead><tr><th scope="col">מתאריך</th><th scope="col">מה</th><th scope="col">מקור</th></tr></thead><tbody>`
 		+ hist.map((x) => `<tr><td data-th="מתאריך"><bdi>${esc(isoToHe(x.date))}</bdi></td><td data-th="מה">${esc(x.he)}</td><td data-th="מקור">${cite(x.section, x.url)}</td></tr>`).join('')
 		+ `</tbody></table></div></div>`;
 	const info = r.flags.filter((x) => x.level === 'info');
-	if (info.length) { out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-info-h">עוד לפני שמגישים</h3></div><ul class="${P}-info">${info.map((x) => `<li>${esc(x.he)}</li>`).join('')}</ul></div>`; }
+	if (info.length) { out += `<div class="jtool-tablewrap ${P}-p-no"><div class="jtool-tablewrap__head"><h3 id="${P}-info-h">עוד לפני שמגישים</h3></div><ul class="${P}-info">${info.map((x) => `<li>${esc(x.he)}</li>`).join('')}</ul></div>`; }
 	return out;
 }
 
@@ -1120,6 +1125,45 @@ function grantsTable(reg) {
 	return `<div class="jtool-datawrap"><table class="jtool-datatable"><caption>מענקי צה"ל ל-${g.year} בכסף לפי מדרג וימי שירות בשנה, בלי ילדים ובלי ימי צו 8 קודמים; אחרי הפלוס: שובר נופש וארנק דיגיטלי. ${esc(g.budget_he)}.</caption><thead><tr><th scope="col">מדרג</th>${list.map((n) => `<th scope="col">${n} ימים</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
+/** The reader's income as the tool read it: the monthly wage, the 3 months of the basis, or the minimum. */
+function incomeHe(r) {
+	if (!r.needsIncome) { return 'התגמול המזערי'; }
+	return r.wageMode === 'same' ? `${money(r.six[r.six.length - 1], 0)} ₪ ברוטו בחודש` : `${money(r.base.sum, 0)} ₪ ב-3 החודשים של הבסיס`;
+}
+const PAYER_LINE = { employer: 'המעסיק משלם עם השכר, והביטוח הלאומי מחזיר לו', claim: 'הביטוח הלאומי משלם, בתביעה אישית', self: 'הביטוח הלאומי משלם, בדרך כלל אוטומטית', institute: 'הביטוח הלאומי משלם' };
+
+/** The result-first card at the top of the page ([justice_tool_lead]): the total of the example (or of the reader's own
+ * answers once they change anything), the reward a day, one line of why, and a jump to the form. Same markup on the server
+ * and in the browser, so the card never shifts the layout when the script takes over. */
+function leadCard(reg, r, opts = {}) {
+	const go = `<a class="jtool-lead__go" href="#jtool-${TOOL_ID}" data-lead-go>${opts.example ? 'לחשב לפי הנתונים שלכם' : 'לשנות את הנתונים'}</a>`;
+	if (!r.ok) {
+		return `<p class="jtool-lead__label">תגמול מילואים</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">—</strong></p><p class="jtool-lead__line">${esc(r.errors.map((e) => e.he).join(' '))}</p>${go}`;
+	}
+	const label = `${opts.example ? 'דוגמה מחושבת' : 'החישוב שלכם'}: תגמול מילואים, סך הכול ברוטו`;
+	const prot = r.status !== 'employee' ? '' : r.after ? ` אסור לפטר בלי היתר מוועדת התעסוקה עד ${isoToHe(r.p30.to)}${r.extOn ? `, ועד ${isoToHe(r.extTo)} רק מטעמים מיוחדים` : ''}.` : ' אסור לפטר בלי היתר בימי השירות עצמם.';
+	const one = r.tier && r.grants.length === 1 ? r.grants[0] : null;
+	const grants = one && one.cash > 0 ? ` מענקי צה"ל ב${tierHe(reg, one.tier)}: עוד ${one.cashLow !== one.cash ? `${money(one.cashLow, 0)} עד ${nis(one.cash)}` : nis(one.cash)}.` : '';
+	const line = `${STATUS_LABEL[r.status]}, ${incomeHe(r)}, ${r.days} ימי שירות (${isoToHe(r.start)} עד ${isoToHe(r.end)})${r.comp ? `, כולל פיצוי לעצמאי של ${nis(r.comp)}` : ''}. ${PAYER_LINE[r.payer]}.${prot}${grants}`;
+	return `<p class="jtool-lead__label">${esc(label)}</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">${ilsn(r.total)}</strong><span class="jtool-lead__unit">${ilsn(r.daily)} ליום · <bdi>${dn(r.pd.paid)}</bdi> ימים לתשלום</span></p>`
+		+ `<p class="jtool-lead__line">${esc(line)}</p>${go}`;
+}
+
+/** The scenario for the simulation: the tool's figures and choices only, never a name, an ID or an employer. */
+function scenarioText(reg, r) {
+	if (!r.ok) { return ''; }
+	const res = `לפי החישוב לפי חוק הביטוח הלאומי: תגמול של ${nis(r.daily)} ליום, ${dn(r.pd.paid)} ימים לתשלום עם התוספת, ${nis(r.total)} ברוטו${r.comp ? ` (כולל פיצוי לעצמאי של ${nis(r.comp)})` : ''}; ${PAYER_LINE[r.payer]}.`;
+	let prot = '';
+	let ask = 'אני רוצה להתכונן לשיחה עם פקיד התביעות בביטוח הלאומי על חישוב התגמול, ולהבין מה לבדוק ואילו מסמכים להביא.';
+	if (r.status === 'employee') {
+		prot = r.extOn ? `אסור לפטר אותי בלי היתר מוועדת התעסוקה עד ${isoToHe(r.p30.to)}, ועד ${isoToHe(r.extTo)} רק מטעמים מיוחדים שאינם קשורים לשירות.`
+			: r.after ? `אסור לפטר אותי בלי היתר מוועדת התעסוקה עד ${isoToHe(r.p30.to)}.` : 'השירות היה קצר: אסור לפטר בלי היתר רק בימי השירות עצמם, ופיטורים בגלל המילואים בטלים תמיד.';
+		ask = 'אני רוצה להתכונן לדיון בוועדת התעסוקה, אם המעסיק יבקש היתר לפטר אותי אחרי המילואים, ולשיחה עם המעסיק על החזרה לעבודה: מה לטעון ואילו מסמכים להביא.';
+	}
+	const svc = `שירות מילואים של ${r.days} ימים, ${isoToHe(r.start)} עד ${isoToHe(r.end)}${Number(r.prior) ? `, אחרי ${r.prior} ימי מילואים קודמים באותה שנה` : ''}${r.emergency ? ', בצו 8' : ''}.`;
+	return `תגמולי מילואים והגנה מפיטורים. ${STATUS_LABEL[r.status]}, ${incomeHe(r)}. ${svc} ${res}${prot ? ` ${prot}` : ''} ${ask}`;
+}
+
 function snapshot(reg) {
 	const r = compute(reg, EXAMPLE);
 	const ml = reg.rights_miluim;
@@ -1132,6 +1176,7 @@ function snapshot(reg) {
 		input: EXAMPLE,
 		total: r.total,
 		sticky: ilsn(r.total),
+		lead: leadCard(reg, r, { example: true }),
 		form: renderForm(reg, EXAMPLE),
 		result: renderResult(reg, r, { example: true }),
 		details: renderDetails(reg, r),
@@ -1199,6 +1244,8 @@ function mount(root, reg) {
 	const today = ilToday();
 	const saveKey = `jtool-${TOOL_ID}`;
 	const serverRehearse = root.querySelector('.jtool-next a[data-act="rehearse"]');
+	const lead = document.querySelector(`[data-jtool-lead="${TOOL_ID}"]`);
+	let own = false;
 	let started = false;
 	let timer = null;
 	track('tool_view', { tool_id: TOOL_ID });
@@ -1246,17 +1293,20 @@ function mount(root, reg) {
 		details.innerHTML = renderDetails(reg, r);
 		wireRehearse();
 		if (sticky) { sticky.innerHTML = r.ok ? ilsn(r.total) : '—'; }
+		if (lead) { lead.innerHTML = leadCard(reg, r, { example: !own }); }
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: band(r) }); }
 	};
 	const schedule = () => {
+		own = true;
 		if (!started) { started = true; track('tool_start', { tool_id: TOOL_ID }); }
 		sync();
 		clearTimeout(timer);
 		timer = setTimeout(() => { timer = null; run(readForm(root)); }, 160);
 	};
-	const load = (input) => { form.innerHTML = renderForm(reg, input); sync(); run(input); };
+	const load = (input) => { own = true; form.innerHTML = renderForm(reg, input); sync(); run(input); };
 	const fromHash = inputOf(decodeState(window.location.hash, KEYS));
 	if (fromHash) {
+		own = true;
 		form.innerHTML = renderForm(reg, fromHash);
 		const note = root.querySelector('[data-jtool-shared]');
 		if (note) { note.hidden = false; }
@@ -1265,6 +1315,17 @@ function mount(root, reg) {
 		wireRehearse();
 	}
 	if (store.get(saveKey) && !fromHash) { const nb = root.querySelector('[data-jtool-saved]'); if (nb) { nb.hidden = false; } }
+	// The card's jump: to the form, first field focused (the page anchor is the fallback without the script).
+	if (lead) {
+		lead.addEventListener('click', (ev) => {
+			if (!ev.target.closest('[data-lead-go]')) { return; }
+			ev.preventDefault();
+			form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			const first = Array.from(form.querySelectorAll('input[type="text"]')).find((el) => !el.closest('[hidden]'));
+			if (first) { setTimeout(() => first.focus({ preventScroll: true }), 350); }
+			track('tool_lead_click', { tool_id: TOOL_ID });
+		});
+	}
 	form.addEventListener('input', schedule);
 	form.addEventListener('change', schedule);
 	root.addEventListener('click', async (ev) => {
@@ -1305,7 +1366,8 @@ function mount(root, reg) {
 			toast(root, ok ? 'התוצאה הועתקה.' : 'לא הצלחנו להעתיק.');
 			track('tool_share', { tool_id: TOOL_ID, channel: 'copy' });
 		} else if (act === 'rehearse') {
-			track('tool_rehearse_click', { tool_id: TOOL_ID, band: r.ok ? (r.extOn ? 'ext' : r.after ? 'after' : 'short') : 'error' });
+			track('tool_rehearse_click', { tool_id: TOOL_ID, band: r.ok ? (r.status !== 'employee' ? 'institute' : r.extOn ? 'ext' : r.after ? 'after' : 'short') : 'error' });
+			if (r.ok && openSimulation(scenarioText(reg, r), 'court_rehearsal', btn.getAttribute('href'))) { ev.preventDefault(); toast(root, 'נפתח תרגול עם הנתונים שלכם. הדמויות הן AI, והתרגול אינו נשמר אצלנו.'); }
 		} else if (act === 'save') {
 			store.set(saveKey, stateOf(input));
 			toast(root, 'נשמר במכשיר הזה בלבד. אפשר למחוק בכל רגע.');
@@ -1319,6 +1381,11 @@ function mount(root, reg) {
 			track('tool_lawyer_click', { tool_id: TOOL_ID });
 		}
 	});
+	// The printed summary ends with the sources: a closed <details> does not print, so it opens for the print and closes after.
+	const sources = root.querySelector('details.jtool-sources');
+	let sourcesOpen = true;
+	window.addEventListener('beforeprint', () => { if (sources) { sourcesOpen = sources.open; sources.open = true; } });
+	window.addEventListener('afterprint', () => { if (sources && !sourcesOpen) { sources.open = false; } });
 	stickyBar(root);
 	root.setAttribute('data-jtool-ready', '1');
 }

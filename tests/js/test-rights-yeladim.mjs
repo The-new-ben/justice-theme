@@ -157,5 +157,39 @@ check(YE.shiftMonth('2026-11', 2) === '2027-01' && YE.monthSpan('2026-10', '2027
 const cl = YU.checklistText(reg, ex);
 check(cl.startsWith('1. ') && cl.split('\n').length === 4 && YU.nextSteps(reg, supp4).length === 4 && YU.nextSteps(reg, single).some((x) => x.path === '/child-support/') && YU.TOOL_ID === 'kitzbat-yeladim', 'the next steps: 3 + the rehearsal for the example; 4 with the study grant; the child-support link for a single parent');
 
+/* ---------- 8. The result-first card and the simulation hand-off (the wave-2A bar, HAD-585) ---------- */
+check(typeof snap.lead === 'string' && snap.lead.includes('דוגמה מחושבת') && snap.lead.includes('611') && snap.lead.includes('174') && snap.lead.includes('7,332') && snap.lead.includes('1.2.2033') && snap.lead.includes('392') && snap.lead.includes('בגילים 11, 6 ו-2') && snap.lead.includes('href="#jtool-kitzbat-yeladim"') && snap.lead.includes('data-lead-go') && snap.lead.includes('לחשב לפי הנתונים שלכם'), 'snapshot.lead: 611 a month and 174 to the savings, 7,332 in 12 months, 392 from 1.2.2033 (ages 11, 6, 2), the jump to the form');
+check(!/<h2[\s>]/.test(snap.lead) && !/undefined|NaN|null/.test(snap.lead) && noPortal(snap.lead) && !/[A-Za-z]{4,}/.test(snap.lead.replace(/<[^>]+>/g, ' ')), 'snapshot.lead: no <h2>, no undefined / NaN / null, no English, no unofficial portal');
+check(YU.leadCard(reg, ex).includes('החישוב שלכם') && YU.leadCard(reg, ex).includes('לשנות את הנתונים'), 'the reader\'s own card says so and offers to change the answers');
+const grown = fam(['2000-01-01']);
+const badKid = fam(['2020-02-31']);
+const waiting = fam(['2027-03-01']);
+check(grown.ok && YU.leadCard(reg, grown).includes('אין קצבה') && YU.leadCard(reg, grown).includes('בגיל 26') && YU.scenarioText(reg, grown).includes('אין קצבת ילדים'), 'no child under 18: the card says "no allowance" and why; the scenario says so');
+check(!badKid.ok && YU.leadCard(reg, badKid).includes('jtool-lead__figure">—</strong>') && YU.leadCard(reg, badKid).includes(badKid.errors[0].he) && YU.scenarioText(reg, badKid) === '', 'an impossible birth date: the card shows a dash and the error, and no scenario is written');
+check(waiting.ok && YU.leadCard(reg, waiting).includes('1.3.2027') && YU.leadCard(reg, waiting).includes('173') && YU.leadCard(reg, waiting).includes('עוד לא התחילה'), 'a child expected in March 2027: the card shows 173 from 1.3.2027');
+const prof = ['one', 'three', 'five', 'support', 'shift'].map((k) => YE.compute(reg, YE.profile(k, DAY)));
+const leadsAll = prof.concat([ex, grown, badKid, waiting]).map((r) => YU.leadCard(reg, r) + YU.scenarioText(reg, r)).join('');
+check(!/<h2[\s>]/.test(leadsAll) && !/undefined|NaN|null/.test(leadsAll) && noPortal(leadsAll) && YU.leadCard(reg, prof[3]).includes('1,056') && YU.leadCard(reg, prof[3]).includes('קצבת ההורה: הבטחת הכנסה') && YU.leadCard(reg, prof[0]).includes('בגיל 1'), 'every profile: no <h2> / undefined / NaN / null; the income-support family 1,056 with the parent\'s benefit named; one child "at age 1"');
+const sc = YU.scenarioText(reg, ex);
+check(sc.startsWith('קצבת ילדים וחיסכון') && sc.includes('611') && sc.includes('174') && sc.includes('7,332') && sc.includes('392') && sc.includes('ההורה השני') && sc.includes('גישור') && sc.includes('החיסכון של כל ילד'), 'the scenario: 611 a month, 174 to the savings, 7,332, 392 later; the separation talk on who receives the allowance and runs the savings');
+check(!sc.includes('22.1.2015') && !sc.includes('2015-01-22') && !sc.includes('4.6.2020') && !sc.includes('10.3.2024'), 'privacy: the scenario carries the ages, never a birth date');
+const priv = YE.compute(reg, Object.assign({}, EX, { name: 'ישראלה ישראלי', id: '123456782', phone: '0501234567', kids: EX.kids.map((k) => Object.assign({ name: 'נועה' }, k)) }));
+const scP = YU.scenarioText(reg, priv) + YU.leadCard(reg, priv);
+check(!scP.includes('ישראלה') && !scP.includes('נועה') && !scP.includes('123456782') && !scP.includes('0501234567') && scP.includes('611'), 'privacy: names, an ID or a phone slipped into the input never reach the scenario or the card');
+// The print rules: this instrument's own under its prefix, and no other instrument's print rule hides the shell's result or
+// sources on every tool (the jt43 rule did until HAD-585 scoped it to its own tool).
+const css = readFileSync(join(ROOT, 'assets/css/justice-tools.css'), 'utf8');
+const printBlocks = [];
+for (let i = css.indexOf('@media print'); i !== -1; i = css.indexOf('@media print', i + 1)) {
+	let depth = 0;
+	let j = css.indexOf('{', i);
+	const start = j;
+	for (; j < css.length; j += 1) { if (css[j] === '{') { depth += 1; } else if (css[j] === '}') { depth -= 1; if (!depth) { break; } } }
+	printBlocks.push(css.slice(start + 1, j));
+}
+const leaks = printBlocks.join('\n').split('}').map((rule) => rule.split('{')).filter((x) => x.length === 2 && /display:\s*none/.test(x[1]))
+	.flatMap((x) => x[0].split(',').map((sel) => sel.trim())).filter((sel) => /\.jtool-result\b|\.jtool-sources\b|\.jtool-verdict\b|\.jtool-details\b/.test(sel) && !sel.includes('[data-jtool='));
+check(!leaks.length && /\.jt52-quick, \.jt52-adds, \.jt52-arr/.test(css) && css.includes('.jt52-led, .jt52-st, .jt52-row { break-inside: avoid; }'), `print: the jt52 rules print the ledger and the step chart; no unscoped print rule hides the result or the sources (${leaks.join(' | ')})`);
+
 console.log(`kitzbat-yeladim: ${passed} passed, ${failures} failed`);
 process.exit(failures ? 1 : 0);

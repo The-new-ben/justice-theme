@@ -1888,10 +1888,11 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jtool .jtool-result .jt43-seg--na { border-inline-start-style: dashed !important; }
 }
 
+/* Scoped to this instrument (HAD-585): unscoped, these three lines hid the result and the sources of every tool on print. */
 @media print {
-	.jtool .jtool-result, .jtool .jt43-screen, .jtool details.jtool-sources, .jtool .jtool-foot, .jtool .jtool-scope { display: none !important; }
-	.jtool .jtool__head { padding: 0 0 4px !important; border: 0; }
-	.jtool .jtool__promise { display: none !important; }
+	.jtool[data-jtool="yeduim-batzibur"] .jtool-result, .jtool[data-jtool="yeduim-batzibur"] .jt43-screen, .jtool[data-jtool="yeduim-batzibur"] details.jtool-sources, .jtool[data-jtool="yeduim-batzibur"] .jtool-foot, .jtool[data-jtool="yeduim-batzibur"] .jtool-scope { display: none !important; }
+	.jtool[data-jtool="yeduim-batzibur"] .jtool__head { padding: 0 0 4px !important; border: 0; }
+	.jtool[data-jtool="yeduim-batzibur"] .jtool__promise { display: none !important; }
 	.jtool .jt43-print { display: block !important; padding: 0 !important; font: 400 8.5pt/1.32 var(--jtool-font); color: #000; }
 	.jtool .jt43-print p { margin: 0 0 3px !important; font-size: 8.5pt !important; line-height: 1.32 !important; }
 	.jtool .jt43-print__h { margin: 0 0 2px !important; font-size: 11pt !important; font-weight: 800; }
@@ -2163,9 +2164,32 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jt51-c { height: 18px; }
 }
 @media print {
-	.jt51-profiles, .jt51-why a, .jt51-next { display: none !important; }
+	.jt51-profiles, .jt51-why a, .jt51-next, .jt51-p-no { display: none !important; }
 	.jt51-slip, .jt51-cal, .jt51-m { break-inside: avoid; }
 	.jt51-c--svc, .jt51-c--after, .jt51-c--ext, .jt51-gauge__fill, .jt51-gauge__line { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+	/* One or two A4 pages (HAD-585): the slip and the calendar side by side, the tables of this instrument in a smaller face. */
+	.jtool .jt51-pics { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; align-items: start; }
+	.jt51-slip, .jt51-cal { padding: 6px 8px; }
+	.jt51-slip__rows > div { padding: 2px 0; font-size: 8.5pt; line-height: 1.25; }
+	.jt51-slip__rows .jt51-slip__total { padding-top: 3px; font-size: 9pt; }
+	.jt51-c { height: 10px; }
+	.jtool ol.jt51-cal__ms { gap: 4px; }
+	.jtool .jt51-cal__legend { margin-top: 4px !important; font-size: 7.5pt !important; }
+	.jtool[data-jtool="tagmulei-miluim"] .jtool-table th, .jtool[data-jtool="tagmulei-miluim"] .jtool-table td { padding: 2px 6px !important; font-size: 8.5pt !important; line-height: 1.3 !important; }
+	.jtool[data-jtool="tagmulei-miluim"] .jtool-table caption, .jtool[data-jtool="tagmulei-miluim"] .jtool-cite { font-size: 7.5pt !important; }
+	.jtool[data-jtool="tagmulei-miluim"] .jtool-sources, .jtool[data-jtool="tagmulei-miluim"] .jtool-sources li { font-size: 7.5pt !important; line-height: 1.3 !important; margin: 0 !important; }
+	.jtool[data-jtool="tagmulei-miluim"] .jtool-foot { font-size: 7.5pt !important; }
+	.jtool[data-jtool="tagmulei-miluim"] .jtool__promise, .jt51-why { display: none !important; }
+	.jtool[data-jtool="tagmulei-miluim"] .jtool__head { padding-top: 0 !important; padding-bottom: 4pt !important; }
+	.jtool[data-jtool="tagmulei-miluim"] .jtool__title { font-size: 13pt !important; }
+	.jtool[data-jtool="tagmulei-miluim"] [data-jtool-shared], .jtool[data-jtool="tagmulei-miluim"] [data-jtool-saved] { display: none !important; }
+	.jtool[data-jtool="tagmulei-miluim"] .jtool-breakdown > div { padding: 3pt 6pt !important; }
+	.jtool[data-jtool="tagmulei-miluim"] .jtool-breakdown dt, .jtool[data-jtool="tagmulei-miluim"] .jtool-breakdown dd { font-size: 8.5pt !important; line-height: 1.3 !important; }
+	.jtool[data-jtool="tagmulei-miluim"] .jtool-verdict__figure { font-size: 20pt !important; margin: 0 0 2pt !important; }
+	.jtool[data-jtool="tagmulei-miluim"] .jtool-verdict__sentence { font-size: 9pt !important; line-height: 1.35 !important; }
+	.jtool[data-jtool="tagmulei-miluim"] .jtool-sources ul { display: block !important; columns: 3; column-gap: 10pt; padding: 0 8pt 6pt !important; }
+	.jtool[data-jtool="tagmulei-miluim"] .jtool-sources li, .jtool[data-jtool="tagmulei-miluim"] .jtool-sources li a { font-size: 6.5pt !important; line-height: 1.25 !important; }
+	.jtool[data-jtool="tagmulei-miluim"] .jtool-sources li { break-inside: avoid; margin: 0 0 2pt !important; }
 }
 
 /* Rights wave 2B (21.10.2026): kitzbat-yeladim, the child allowance and the savings plan (jt52). Two pictures from the
@@ -2379,5 +2403,151 @@ a.jtool-cite:hover { text-decoration: underline; }
 @media print {
 	.jt53-quick, .jt53-next, .jt53-noprint { display: none !important; }
 	.jtool figure.jt53-lad, .jtool figure.jt53-ch { break-inside: avoid; }
+	/* One or two A4 pages (HAD-585): the staircase at half width, the tables of this instrument in a smaller face. */
+	.jt53-ch__svg { width: 58%; margin-inline-start: auto; }
+	.jtool ol.jt53-lad__rungs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 14px; }
+	.jtool .jt53-rung { padding: 3px 0; }
+	.jtool .jt53-rung__t small { font-size: 7.5pt; line-height: 1.25; }
+	.jtool[data-jtool="havtachat-hachnasa"] .jtool-table th, .jtool[data-jtool="havtachat-hachnasa"] .jtool-table td { padding: 2px 6px !important; font-size: 8.5pt !important; line-height: 1.3 !important; }
+	.jtool[data-jtool="havtachat-hachnasa"] .jtool-table caption, .jtool[data-jtool="havtachat-hachnasa"] .jtool-cite { font-size: 7.5pt !important; }
+	.jtool[data-jtool="havtachat-hachnasa"] .jtool-sources, .jtool[data-jtool="havtachat-hachnasa"] .jtool-sources li { font-size: 7.5pt !important; line-height: 1.3 !important; margin: 0 !important; }
+	.jtool[data-jtool="havtachat-hachnasa"] .jtool-foot { font-size: 7.5pt !important; }
+	.jtool[data-jtool="havtachat-hachnasa"] .jtool__promise { display: none !important; }
+	.jtool[data-jtool="havtachat-hachnasa"] .jtool__head { padding-top: 0 !important; padding-bottom: 4pt !important; }
+	.jtool[data-jtool="havtachat-hachnasa"] .jtool__title { font-size: 13pt !important; }
+	.jtool[data-jtool="havtachat-hachnasa"] [data-jtool-shared], .jtool[data-jtool="havtachat-hachnasa"] [data-jtool-saved] { display: none !important; }
+	.jtool[data-jtool="havtachat-hachnasa"] .jtool-breakdown > div { padding: 3pt 6pt !important; }
+	.jtool[data-jtool="havtachat-hachnasa"] .jtool-breakdown dt, .jtool[data-jtool="havtachat-hachnasa"] .jtool-breakdown dd { font-size: 8.5pt !important; line-height: 1.3 !important; }
+	.jtool[data-jtool="havtachat-hachnasa"] .jtool-verdict__figure { font-size: 20pt !important; margin: 0 0 2pt !important; }
+	.jtool[data-jtool="havtachat-hachnasa"] .jtool-verdict__sentence { font-size: 9pt !important; line-height: 1.35 !important; }
+	.jtool[data-jtool="havtachat-hachnasa"] .jtool-sources ul { display: block !important; columns: 3; column-gap: 10pt; padding: 0 8pt 6pt !important; }
+	.jtool[data-jtool="havtachat-hachnasa"] .jtool-sources li, .jtool[data-jtool="havtachat-hachnasa"] .jtool-sources li a { font-size: 6.5pt !important; line-height: 1.25 !important; }
+	.jtool[data-jtool="havtachat-hachnasa"] .jtool-sources li { break-inside: avoid; margin: 0 0 2pt !important; }
 	.jt53-ch__p, .jt53-ch__w, .jt53-rung__bar i, .jtool .jt53-rung--no, .jtool .jt53-rung--check { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+
+/* The rights wave 2B (22.10.2026, HAD-585): kitzbat-zikna, the old-age pension (jt50). Two pictures from the Institute's
+   own desk: the retirement-age clock (a life line from the birth date, broken after 55, with posts at the retirement age,
+   at 70 and at 80, the income-test window as a pale navy band, the women's schedule step as a deep-green bracket from 62,
+   the 4 months of the transition grant, and today's line) and the pension ledger (a bar per phase: the basic pension in deep
+   navy, the dependants in navy, the seniority in deep green, the deferral in pale green, the income-test reduction as a
+   slate hatch). Palette: the instrument's own --jtool-* navy, deep green and slate on white; no cream, gold, brass, brown,
+   terracotta or purple, no Inter or Space Grotesk, no emoji. Mobile first (390 px). */
+
+/* The quick profiles: one click loads a whole life */
+.jt50-quick { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface-2); }
+.jtool .jt50-quick__h { margin: 0 !important; font: 700 0.875rem/1.3 var(--jtool-font); color: var(--jtool-muted); }
+.jt50-qchip { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-verdict); border-radius: 999px; background: var(--jtool-surface); color: var(--jtool-verdict-deep); font: 700 0.9rem/1.2 var(--jtool-font); cursor: pointer; text-align: start; }
+.jt50-qchip:hover { background: var(--jtool-verdict-tint); }
+.jt50-qchip:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+
+/* The retirement-age clock */
+.jtool figure.jt50-ck { margin: 0; padding: 10px 12px 8px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface); }
+.jt50-ck__svg { display: block; width: 100%; height: auto; direction: ltr; }
+.jt50-ck__life { stroke: var(--jtool-ink); stroke-width: 3; stroke-linecap: round; }
+.jt50-ck__brk { stroke: var(--jtool-muted); stroke-width: 1.5; fill: none; }
+.jt50-ck__birth { fill: var(--jtool-surface); stroke: var(--jtool-ink); stroke-width: 2; }
+.jt50-ck__tick { stroke: var(--jtool-muted); stroke-width: 1.5; }
+.jt50-ck__win { fill: var(--jtool-verdict-tint); stroke: var(--jtool-verdict); stroke-width: 1; }
+.jt50-ck__stop { stroke: var(--jtool-verdict); stroke-width: 1.5; stroke-dasharray: 3 2; }
+.jt50-ck__step { fill: none; stroke: var(--jtool-ok); stroke-width: 2.5; }
+.jt50-ck__grant { fill: var(--jtool-ok); }
+.jt50-ck__grant--no { fill: none; stroke: var(--jtool-ok); stroke-width: 1.5; stroke-dasharray: 2 2; }
+.jt50-ck__post { stroke-width: 2.5; }
+.jt50-ck__post--ret { stroke: var(--jtool-verdict-deep); }
+.jt50-ck__post--elig { stroke: var(--jtool-ok); }
+.jt50-ck__post--eighty { stroke: var(--jtool-muted); }
+.jt50-ck__today { stroke: var(--jtool-verdict-deep); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.jt50-ck__t { font: 700 13px var(--jtool-font); fill: var(--jtool-ink); direction: rtl; unicode-bidi: plaintext; paint-order: stroke; stroke: var(--jtool-surface); stroke-width: 3px; stroke-linejoin: round; }
+.jt50-ck__t--ret { fill: var(--jtool-verdict-deep); font-weight: 800; }
+.jt50-ck__t--elig { fill: var(--jtool-ok); font-weight: 800; }
+.jt50-ck__t--date, .jt50-ck__t--tick { font-size: 12px; font-weight: 600; fill: var(--jtool-muted); }
+.jt50-ck__t--eighty { fill: var(--jtool-muted); font-weight: 800; }
+.jt50-ck__t--win { font-size: 12px; fill: var(--jtool-verdict); }
+.jt50-ck__t--today { fill: var(--jtool-verdict-deep); }
+.jtool .jt50-ck__cap { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; font-size: 0.8125rem; line-height: 1.4; color: var(--jtool-muted); }
+.jt50-ck__cap span, .jt50-lg__key span { display: inline-flex; align-items: center; gap: 6px; }
+.jt50-k { display: inline-block; flex: none; width: 16px; height: 10px; border-radius: 2px; }
+.jt50-k--win { background: var(--jtool-verdict-tint); border: 1px solid var(--jtool-verdict); }
+.jt50-k--step { height: 0; border-radius: 0; border-top: 3px solid var(--jtool-ok); }
+.jt50-k--grant { background: var(--jtool-ok); }
+.jt50-k--today { height: 0; border-radius: 0; border-top: 2px dashed var(--jtool-verdict-deep); }
+
+/* The pension ledger */
+.jtool figure.jt50-lg { margin: 0; padding: 12px 14px 10px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface); }
+.jtool .jt50-lg__cap { margin: 0 0 8px; font: 700 0.875rem/1.35 var(--jtool-font); color: var(--jtool-muted); }
+.jtool ol.jt50-lg__rows { display: flex; flex-direction: column; gap: 10px; margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt50-lg__rows li::before { content: none; }
+.jtool .jt50-lg__row { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "h v" "bar bar"; gap: 4px 10px; margin: 0 !important; }
+.jt50-lg__h { grid-area: h; font-size: 0.875rem; line-height: 1.35; color: var(--jtool-ink); }
+.jt50-lg__h strong { color: var(--jtool-verdict-deep); }
+.jt50-lg__v { grid-area: v; font: 800 1rem/1.3 var(--jtool-font); color: var(--jtool-verdict-deep); white-space: nowrap; }
+.jt50-lg__bar { grid-area: bar; display: flex; height: 18px; overflow: hidden; border: 1px solid var(--jtool-border); border-radius: 4px; background: var(--jtool-surface-2); }
+.jt50-lg__s { display: block; height: 100%; }
+.jt50-lg__s--base, .jt50-k--base { background: var(--jtool-verdict-deep); }
+.jt50-lg__s--dep, .jt50-k--dep { background: var(--jtool-verdict); }
+.jt50-lg__s--sen, .jt50-k--sen { background: var(--jtool-ok); }
+.jt50-lg__s--def, .jt50-k--def { background: var(--jtool-ok); opacity: 0.5; }
+.jt50-lg__s--cut, .jt50-k--cut { background: repeating-linear-gradient(135deg, var(--jtool-field-border) 0 3px, var(--jtool-surface) 3px 7px); }
+.jtool .jt50-lg__key { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 8px 0 0 !important; font-size: 0.8125rem; line-height: 1.4; color: var(--jtool-muted); }
+
+/* The gates */
+.jt50-gates { padding: 10px 14px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface); }
+.jtool .jt50-gates__h { margin: 0 0 6px !important; font: 700 0.875rem/1.35 var(--jtool-font); color: var(--jtool-muted); }
+.jtool ol.jt50-gates__list { display: flex; flex-direction: column; margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt50-gates__list li::before { content: none; }
+.jtool .jt50-rung { display: grid; grid-template-columns: 92px minmax(0, 1fr); align-items: start; gap: 10px; margin: 0 !important; padding: 7px 0; border-bottom: 1px dashed var(--jtool-border); }
+.jtool .jt50-rung:last-child { border-bottom: 0; }
+.jt50-rung__s { font: 800 0.8125rem/1.3 var(--jtool-font); white-space: nowrap; }
+.jt50-rung__t { display: flex; flex-direction: column; min-width: 0; line-height: 1.35; }
+.jt50-rung__t strong { font-size: 0.95rem; color: var(--jtool-verdict-deep); }
+.jt50-rung__t small { font-size: 0.8125rem; color: var(--jtool-muted); overflow-wrap: anywhere; }
+.jt50-rung--ok .jt50-rung__s, .jt50-gate__i--ok strong { color: var(--jtool-ok); }
+.jt50-rung--check .jt50-rung__s, .jt50-rung--part .jt50-rung__s, .jt50-gate__i--check strong, .jt50-gate__i--part strong { color: var(--jtool-warn); }
+.jt50-rung--no .jt50-rung__s, .jt50-gate__i--no strong { color: var(--jtool-danger); }
+.jt50-rung--route .jt50-rung__s, .jt50-gate__i--route strong { color: var(--jtool-verdict); }
+.jtool .jt50-rung--no { background: var(--jtool-danger-bg); }
+.jtool .jt50-rung--check, .jtool .jt50-rung--part { background: var(--jtool-warn-bg); }
+
+/* The next steps and the rehearsal */
+.jt50-next { padding: 12px 14px; border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-verdict); border-radius: var(--jtool-radius-card); background: var(--jtool-surface); }
+.jtool .jt50-next__h { margin: 0 0 6px !important; color: var(--jtool-verdict-deep); }
+.jtool ol.jt50-next__list { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 0 !important; padding-inline-start: 22px !important; }
+.jt50-next__list li { font-size: 0.95rem; line-height: 1.5; }
+.jt50-next__list a { color: var(--jtool-verdict); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+.jt50-next__list small { color: var(--jtool-muted); }
+.jtool .jt50-rehearse { margin: 10px 0 0 !important; padding-top: 10px; border-top: 1px dashed var(--jtool-border); font-size: 0.9rem; line-height: 1.55; color: var(--jtool-ink); }
+.jt50-rehearse a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; margin-top: 4px; border-radius: var(--jtool-radius-field); background: var(--jtool-verdict-deep); color: #fff !important; font-weight: 700; text-decoration: none !important; }
+.jt50-rehearse a:hover { background: var(--jtool-verdict); }
+.jt50-rehearse a:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+
+/* The details: the gate list, the dates, the notes, the checklist */
+.jtool ul.jt50-gate, .jtool ul.jt50-info { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 10px 16px 12px !important; list-style: none; }
+.jtool .jt50-gate li::before, .jtool .jt50-info li::before { content: none; }
+.jt50-gate__i { font-size: 0.95rem; line-height: 1.5; }
+.jt50-info li { font-size: 0.9rem; line-height: 1.55; color: var(--jtool-ink); }
+.jtool tr.jt50-you td { background: var(--jtool-verdict-tint); font-weight: 800; }
+.jtool tr.jt50-dl--key td { font-weight: 700; }
+.jtool tr.jt50-dl--past td { color: var(--jtool-muted); }
+.jtool .jt50-note { margin: 0 !important; padding: 10px 16px !important; font-size: 0.9rem; line-height: 1.55; color: var(--jtool-ink); }
+.jtool ol.jt50-list { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 10px 16px 12px !important; padding-inline-start: 34px !important; }
+.jt50-list li { font-size: 0.95rem; line-height: 1.55; }
+
+@media (min-width: 600px) {
+	.jtool .jt50-lg__row { grid-template-columns: minmax(150px, 34%) minmax(0, 1fr) auto; grid-template-areas: "h bar v"; align-items: center; }
+	.jt50-lg__bar { height: 22px; }
+	.jtool .jt50-rung { grid-template-columns: 104px minmax(0, 1fr); }
+}
+@media print {
+	.jt50-quick, .jt50-next, .jt50-noprint { display: none !important; }
+	/* This instrument always prints its result and its sources (the jt43 print rule is scoped to its own tool since HAD-585). */
+	.jtool[data-jtool="kitzbat-zikna"] .jtool-result { display: flex !important; }
+	.jtool[data-jtool="kitzbat-zikna"] details.jtool-sources { display: block !important; }
+	.jtool[data-jtool="kitzbat-zikna"] .jt50-ck__svg { max-height: 62mm; }
+	.jtool[data-jtool="kitzbat-zikna"] .jtool-table { font-size: 8.5pt; }
+	.jtool[data-jtool="kitzbat-zikna"] tr.jt50-dl--past { display: none; }
+	.jtool figure.jt50-ck, .jtool figure.jt50-lg { break-inside: avoid; }
+	.jtool .jt50-rung { padding: 3px 0; }
+	.jtool[data-jtool="kitzbat-zikna"] .jtool-verdict__sentence { font-size: 10pt; }
+	.jt50-lg__s, .jt50-k, .jt50-ck__win, .jt50-ck__grant, .jtool .jt50-rung--no, .jtool .jt50-rung--check, .jtool .jt50-rung--part { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 }

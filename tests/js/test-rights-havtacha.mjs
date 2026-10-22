@@ -179,5 +179,40 @@ check(cal.includes('DTSTART;VALUE=DATE:20261130') && cal.includes('DTSTART;VALUE
 const cl = HU.checklist(reg, ex);
 check(cl.length === 9 && cl[0].he.includes(hv.claim.form) && HU.checklistText(reg, ex).startsWith('1. ') && HU.TOOL_ID === 'havtachat-hachnasa', 'the checklist: form 5619, 4 documents, reporting, the full month, changes, the related grants: 9 numbered lines');
 
+/* ---------- 14. The result-first card and the simulation hand-off (the wave-2A bar, HAD-585) ---------- */
+check(typeof snap.lead === 'string' && snap.lead.includes('דוגמה מחושבת') && snap.lead.includes('3,540') && snap.lead.includes('42,480') && snap.lead.includes('6,540') && snap.lead.includes('נשארים 75') && snap.lead.includes('30.11.2026') && snap.lead.includes('href="#jtool-havtachat-hachnasa"') && snap.lead.includes('data-lead-go') && snap.lead.includes('לחשב לפי הנתונים שלכם'), 'snapshot.lead: 3,540 a month (42,480 a year), 6,540 with the work, 75 of every 100, file by 30.11.2026, the jump to the form');
+check(!/<h2[\s>]/.test(snap.lead) && !/undefined|NaN|null/.test(snap.lead) && !/[A-Za-z]{4,}/.test(snap.lead.replace(/<[^>]+>/g, ' ')), 'snapshot.lead: no <h2>, no undefined / NaN / null, no English');
+check(HU.leadCard(reg, ex).includes('החישוב שלכם') && HU.leadCard(reg, ex).includes('לשנות את הנתונים'), 'the reader\'s own card says so and offers to change the answers');
+const carNo = run({ car: 'one', carValue: 90000 });
+const retired = one({ age: 70, sex: 'm' });
+const badAge = run({ age: '' });
+check(carNo.ok && !carNo.eligible && HU.leadCard(reg, carNo).includes('אין זכאות') && HU.leadCard(reg, carNo).includes('התנאי שנכשל: רכב') && HU.leadCard(reg, carNo).includes('3,540'), 'a car above the limit: the card says "no entitlement", names the failing gate (the car) and what it would have been (3,540)');
+check(retired.ok && retired.route && HU.leadCard(reg, retired).includes('השלמת הכנסה') && HU.leadCard(reg, retired).includes(String(hv.claim.old_age_form)), 'from the retirement age: the card points to the old-age income supplement and its form');
+check(!badAge.ok && HU.leadCard(reg, badAge).includes('jtool-lead__figure">—</strong>') && HU.leadCard(reg, badAge).includes(badAge.errors[0].he) && HU.scenarioText(reg, badAge) === '', 'an input error: the card shows a dash and the error, and no scenario is written');
+const profs = HU.PROFILES.map((p) => HE.compute(reg, p.input));
+const leadsAll = profs.concat([ex, carNo, retired, badAge, run({ decision: '2026-12-01' }), run({ hearing: '2026-12-01' }), run({ excl: 'student' })]).map((r) => HU.leadCard(reg, r) + HU.scenarioText(reg, r)).join('');
+check(!/<h2[\s>]/.test(leadsAll) && !/undefined|NaN|null/.test(leadsAll) && profs.map((r) => r.monthly).join() === '2076,3540,1268,2596,2284' && HU.leadCard(reg, profs[2]).includes('1,268') && HU.leadCard(reg, profs[2]).includes('37.5'), 'every profile and case: no <h2> / undefined / NaN / null; the couple working 4,500 gets 1,268 and keeps 37.5 of every 100');
+const sc = HU.scenarioText(reg, ex);
+check(sc.startsWith('הבטחת הכנסה') && sc.includes('3,540') && sc.includes('4,049') && sc.includes('509') && sc.includes('3,000') && sc.includes('גיל 34') && sc.includes('פקיד התביעות') && HU.rehearsal(ex).purpose === 'witness_prep', 'the scenario: 3,540 = 4,049 - 509, the work 3,000, age 34; the claims-officer interview (witness_prep)');
+check(HU.scenarioText(reg, carNo).includes('בית הדין האזורי לעבודה') && HU.rehearsal(carNo).purpose === 'court_rehearsal' && HU.rehearsal(run({ decision: '2026-12-01' })).purpose === 'court_rehearsal' && HU.scenarioText(reg, run({ hearing: '2026-12-01' })).includes('החוקר') && HU.rehearsal(run({ hearing: '2026-12-01' })).purpose === 'witness_prep' && HU.scenarioText(reg, retired).includes('אזרח ותיק'), 'the hearing fits the result: a rejection or a decision -> the regional labour court; a hearing notice -> the investigator; the retirement age -> the old-age claim');
+const priv = HE.compute(reg, Object.assign({}, EX, { name: 'ישראלה ישראלי', id: '123456782', phone: '0501234567', address: 'רחוב הדוגמה 5' }));
+const scP = HU.scenarioText(reg, priv) + HU.leadCard(reg, priv);
+check(!scP.includes('ישראלה') && !scP.includes('123456782') && !scP.includes('0501234567') && !scP.includes('רחוב הדוגמה') && scP.includes('3,540'), 'privacy: a name, an ID, a phone or an address slipped into the input never reach the scenario or the card');
+// The print rules: this instrument's own under its prefix, and no other instrument's print rule hides the shell's result or
+// sources on every tool (the jt43 rule did until HAD-585 scoped it to its own tool).
+const css = readFileSync(join(ROOT, 'assets/css/justice-tools.css'), 'utf8');
+const printBlocks = [];
+for (let i = css.indexOf('@media print'); i !== -1; i = css.indexOf('@media print', i + 1)) {
+	let depth = 0;
+	let j = css.indexOf('{', i);
+	const start = j;
+	for (; j < css.length; j += 1) { if (css[j] === '{') { depth += 1; } else if (css[j] === '}') { depth -= 1; if (!depth) { break; } } }
+	printBlocks.push(css.slice(start + 1, j));
+}
+const leaks = printBlocks.join('\n').split('}').map((rule) => rule.split('{')).filter((x) => x.length === 2 && /display:\s*none/.test(x[1]))
+	.flatMap((x) => x[0].split(',').map((sel) => sel.trim())).filter((sel) => /\.jtool-result\b|\.jtool-sources\b|\.jtool-verdict\b|\.jtool-details\b/.test(sel) && !sel.includes('[data-jtool='));
+check(!leaks.length && /\.jt53-quick, \.jt53-next, \.jt53-noprint \{ display: none !important; \}/.test(css), `print: the jt53 rules print the ladder and the staircase; no unscoped print rule hides the result or the sources (${leaks.join(' | ')})`);
+check(/jtool-tablewrap jt53-noprint"><div class="jtool-tablewrap__head"><h3 id="jt53-gate-h"/.test(snap.details) && /jtool-tablewrap jt53-noprint"><div class="jtool-tablewrap__head"><h3 id="jt53-led-h"/.test(snap.details) && /<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="jt53-calc-h"/.test(snap.details) && /<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="jt53-dl-h"/.test(snap.details), 'the printed summary (two A4 pages): the ladder, the staircase, the calculation and the dates print; the gate list and the step table (their text twins) stay on screen');
+
 console.log(`havtachat-hachnasa: ${passed} passed, ${failures} failed`);
 process.exit(failures ? 1 : 0);

@@ -803,8 +803,11 @@ function compute(registry, input) {
  * and the income staircase (a column per step of work income: the income at the bottom, the benefit on top, the lines
  * where the first disregard ends, where the single parent's band ends, where the determining amount takes over from 55
  * and where the benefit ends), so "every extra shekel of work: how much stays" is visible. The tables, the checklist and
- * the .ics say the same in text.
+ * the .ics say the same in text. The result-first card ([justice_tool_lead]) carries the monthly benefit (or the failing gate)
+ * on the first screen, and the rehearse link hands the reader's figures to the jus-tice.com simulation (sim-handoff.js, the
+ * wave-2A bar, HAD-585).
  */
+
 
 
 const TOOL_ID = 'havtachat-hachnasa';
@@ -1054,11 +1057,11 @@ function renderDetails(reg, r) {
 			+ `</tbody><caption>${esc(`${hv.clock.pay_he}. הסכומים מ-${isoToHe(hv.from)}, ברוטו.`)}</caption></table></div></div>`;
 	}
 	// 2. The gates, with the section of each.
-	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-gate-h">תנאי הזכאות, אחד אחד</h3></div><ul class="${P}-gate">`
+	out += `<div class="jtool-tablewrap ${P}-noprint"><div class="jtool-tablewrap__head"><h3 id="${P}-gate-h">תנאי הזכאות, אחד אחד</h3></div><ul class="${P}-gate">`
 		+ r.gates.map((g) => `<li class="${P}-gate__i ${P}-gate__i--${g.state}"><strong aria-hidden="true">${STATE[g.state]}</strong> ${esc(GATE_HE[g.key])}: ${esc(g.he)}${cite(g.section || 'המוסד לביטוח לאומי', g.url)}</li>`).join('') + '</ul></div>';
 	// 3. The staircase in text.
 	if (r.ledger.length) {
-		out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-led-h">הכנסה וקצבה: כמה נשאר מכל שקל</h3></div>`
+		out += `<div class="jtool-tablewrap ${P}-noprint"><div class="jtool-tablewrap__head"><h3 id="${P}-led-h">הכנסה וקצבה: כמה נשאר מכל שקל</h3></div>`
 			+ `<div class="jtool-scroll" role="region" aria-labelledby="${P}-led-h" tabindex="0"><table class="jtool-table"><thead><tr><th scope="col">הכנסה מעבודה</th><th scope="col">הבטחת הכנסה</th><th scope="col">ביחד</th><th scope="col">מ-100 ₪ נוספים נשארים</th><th scope="col">מה קורה כאן</th></tr></thead><tbody>`
 			+ r.ledger.map((x) => `<tr${x.you ? ` class="${P}-you"` : ''}><td data-th="הכנסה מעבודה">${ilsn(x.w)}</td><td data-th="הבטחת הכנסה">${ilsn(x.pay)}</td><td data-th="ביחד">${ilsn(x.total)}</td><td data-th="מ-100 ₪ נוספים נשארים">${ils(x.keep, 0)}</td><td data-th="מה קורה כאן">${esc(whyHe(hv, x.you ? 'you' : x.why))}</td></tr>`).join('')
 			+ `</tbody><caption>${esc(`הקצבה נגמרת בהכנסה של ${money(r.end, 0)} ₪, כי סכום של פחות מ-${hv.min_pay} ש"ח לא משולם (${hv.min_pay_section})${r.published ? `; בטבלה של המוסד, בלי הכלל הזה: ${money(r.published, 0)} ₪` : ''}`)}${cite('סכום הקצבה', hv.amounts.url)}</caption></table></div></div>`;
@@ -1119,6 +1122,84 @@ function disregardTable(reg) {
 		+ `<thead><tr><th scope="col">הרכב המשפחה</th><th scope="col">עד 55: לא נחשב</th><th scope="col">עד 55: נחשב מהיתרה</th><th scope="col">מ-55: לא נחשב</th><th scope="col">מ-55: נחשב מהיתרה</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
+const EMP_HE = { registered: 'רשום ומתייצב בשירות התעסוקה', fulltime: 'עבודה של 36 שעות בשבוע ומעלה', exempt: 'בקבוצת פטור מהתייצבות', none: 'לא רשום בשירות התעסוקה ולא בקבוצת פטור' };
+const EXCL_HE = { student: 'לימודים במוסד להשכלה גבוהה', yeshiva: 'לימודים בישיבה', kibbutz: 'חברות בקיבוץ או במושב שיתופי', army: 'שירות סדיר במשפחה' };
+const keepHe = (k) => money(k, Number.isInteger(k) ? 0 : 1);
+/** Who the tool computed for, in the reader's own answers: the family, the ages, the work income. */
+function whoHe(r) {
+	const fam = r.fam === 'single' ? 'יחיד' : r.fam === 'couple' ? `בני זוג${r.kids ? ` עם ${r.kids === 1 ? 'ילד' : `${r.kids} ילדים`}` : ''}` : `הורה יחיד עם ${r.kids === 1 ? 'ילד' : `${r.kids} ילדים`}`;
+	const age = r.fam === 'couple' && r.spouseAge !== null && r.spouseAge !== '' ? `בגילים ${r.age} ו-${r.spouseAge}` : `גיל ${r.age}`;
+	return `${fam}, ${age}, ${r.W > 0 ? `הכנסה מעבודה ${nis(r.W)} בחודש` : 'בלי הכנסה מעבודה'}`;
+}
+/** The hearing that fits the result, and the simulation's purpose for it: a rejection or a decision goes to the regional
+ * labour court (court_rehearsal); everything else is the claims officer or the investigator (witness_prep, the catalog's). */
+function rehearsal(r) {
+	if (r.ok && !r.route && (r.verdict === 'no' || r.decision)) {
+		return { purpose: 'court_rehearsal', ask: 'אני רוצה להתכונן לדיון בבית הדין האזורי לעבודה, שבו מערערים על החלטת הביטוח הלאומי, ולהבין מה לטעון ואילו מסמכים להביא.' };
+	}
+	if (r.ok && !r.route && r.hearing) {
+		return { purpose: 'witness_prep', ask: 'אני רוצה להתכונן לשימוע ולשיחה עם החוקר של הביטוח הלאומי: מה לומר על ההכנסות, על הרכב ועל מי שגר בבית, ואילו מסמכים להביא.' };
+	}
+	if (r.ok && !r.route && (r.car !== 'none' || r.fam === 'couple')) {
+		return { purpose: 'witness_prep', ask: 'אני רוצה להתכונן לשיחה עם פקיד התביעות או עם החוקר של הביטוח הלאומי: הרכב, בן או בת הזוג, ההכנסות ומי גר בבית.' };
+	}
+	if (r.ok && r.route) {
+		return { purpose: 'witness_prep', ask: 'אני רוצה להתכונן לשיחה עם פקיד התביעות על קצבת אזרח ותיק ועל השלמת ההכנסה, ולהבין אילו מסמכים להביא.' };
+	}
+	return { purpose: 'witness_prep', ask: 'אני רוצה להתכונן לבירור אצל פקיד התביעות בביטוח הלאומי: ההכנסות, ההתייצבות בשירות התעסוקה ומה משתנה כשמתחילים לעבוד.' };
+}
+
+/** The result-first card at the top of the page ([justice_tool_lead]): the monthly benefit of the example (or of the
+ * reader's own answers once they change anything), or "no entitlement" with the gate that failed, one line of why, and a
+ * jump to the form. Same markup on the server and in the browser, so the card never shifts the layout. */
+function leadCard(reg, r, opts = {}) {
+	const go = `<a class="jtool-lead__go" href="#jtool-${TOOL_ID}" data-lead-go>${opts.example ? 'לחשב לפי הנתונים שלכם' : 'לשנות את הנתונים'}</a>`;
+	if (!r.ok) {
+		return `<p class="jtool-lead__label">הבטחת הכנסה</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">—</strong></p><p class="jtool-lead__line">${esc(r.errors.map((e) => e.he).join(' '))}</p>${go}`;
+	}
+	const hv = reg.rights_havtacha;
+	const label = `${opts.example ? 'דוגמה מחושבת' : 'החישוב שלכם'}: הבטחת הכנסה לחודש`;
+	const card = (figure, unit, line) => `<p class="jtool-lead__label">${esc(label)}</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">${figure}</strong>${unit ? `<span class="jtool-lead__unit">${unit}</span>` : ''}</p><p class="jtool-lead__line">${esc(line)}</p>${go}`;
+	if (r.route) { return card('השלמת הכנסה', 'לקצבת אזרח ותיק', `${whoHe(r)}. ${hv.age.retirement_he} (טופס ${hv.claim.old_age_form}).`); }
+	if (!r.eligible) {
+		const g = r.gates.find((x) => x.state === 'no');
+		return card('אין זכאות', '', `${whoHe(r)}. התנאי שנכשל: ${GATE_HE[g.key]}: ${g.he}.${r.calc ? ` אילו התנאים היו מתקיימים: ${nis(r.calc.pay)} בחודש.` : ''}`);
+	}
+	if (r.conflict) { return card(ils(0, 0), 'לפי תקנה 9', `${whoHe(r)}. ההכנסה מגיעה לסכום הקובע, ולכן אין תשלום; בטבלה של הביטוח הלאומי יש קצבה חלקית עד הכנסה של ${nis(r.published)}. כדאי להגיש תביעה ולבקש את החישוב.`); }
+	const fb = r.deadlines.find((d) => d.key === 'file_by');
+	const check = r.verdict === 'check' ? ` לבדיקה: ${r.gates.filter((g) => g.state === 'check').map((g) => GATE_HE[g.key]).join(', ')}.` : '';
+	const line = `${whoHe(r)}.${r.W > 0 ? ` ביחד עם העבודה ${nis(r.total)} בחודש; מכל 100 ₪ נוספים נשארים ${keepHe(r.keep)} ₪.` : ` הקצבה המלאה, ${groupHe(reg, r)}.`}${check}${fb ? ` להגיש עד ${isoToHe(fb.date)}.` : ''}`;
+	return card(ils(r.monthly, 0), `לחודש · ${ils(r.annual, 0)} בשנה`, line);
+}
+
+/** The scenario for the simulation: the tool's figures and choices only, never a name, an ID or an address. */
+function scenarioText(reg, r) {
+	if (!r.ok) { return ''; }
+	const hv = reg.rights_havtacha;
+	const adds = [];
+	if (r.pension > 0) { adds.push(`פנסיה ${nis(r.pension)} בחודש`); }
+	if (r.other > 0) { adds.push(`הכנסה אחרת ${nis(r.other)} בחודש`); }
+	if (r.car !== 'none') { adds.push(`${r.car === 'two' ? 'שני רכבים' : 'רכב'}${r.carValue ? ` בשווי ${nis(r.carValue)}` : ''}`); }
+	if (r.savings > 0) { adds.push(`חסכונות ${nis(r.savings)}`); }
+	if (r.realty) { adds.push('נכס מקרקעין נוסף'); }
+	if (r.res === 'new') { adds.push(`תושבות של פחות מ-${hv.residence.months} חודשים`); }
+	if (r.excl !== 'none') { adds.push(EXCL_HE[r.excl]); }
+	const emp = `${EMP_HE[r.emp]}${r.fam === 'couple' ? `; בן או בת הזוג: ${EMP_HE[r.spouseEmp]}` : ''}`;
+	let res;
+	if (r.route) {
+		res = `לפי החישוב: ${hv.age.retirement_he}.`;
+	} else if (!r.eligible) {
+		const g = r.gates.find((x) => x.state === 'no');
+		res = `לפי החישוב לפי חוק הבטחת הכנסה אין זכאות: ${GATE_HE[g.key]}: ${g.he}.${r.calc ? ` אילו התנאים היו מתקיימים: ${nis(r.calc.pay)} בחודש.` : ''}`;
+	} else if (r.conflict) {
+		res = `לפי החישוב ההכנסה מגיעה לסכום הקובע ואין תשלום, אבל בטבלה של הביטוח הלאומי יש קצבה חלקית עד הכנסה של ${nis(r.published)}.`;
+	} else {
+		res = `לפי החישוב לפי חוק הבטחת הכנסה: ${nis(r.monthly)} בחודש (${KIND_HE[r.kind]}, הקצבה המלאה ${nis(r.calc.full)}${r.calc.income ? `, פחות ${nis(r.calc.income)} הכנסה שנחשבת` : ''})${r.verdict === 'check' ? `, בכפוף לבדיקה של: ${r.gates.filter((g) => g.state === 'check').map((g) => GATE_HE[g.key]).join(', ')}` : ''}.`;
+	}
+	const events = `${r.hearing ? ' הגיעה הודעה על שימוע לפני הפסקת הקצבה.' : ''}${r.decision ? ' התקבלה החלטה של הביטוח הלאומי.' : ''}`;
+	return `הבטחת הכנסה. ${whoHe(r)}; ${emp}.${adds.length ? ` ${adds.join(', ')}.` : ''} ${res}${events} ${rehearsal(r).ask}`;
+}
+
 function snapshot(reg) {
 	const r = compute(reg, EXAMPLE);
 	const hv = reg.rights_havtacha;
@@ -1133,6 +1214,7 @@ function snapshot(reg) {
 		input: EXAMPLE,
 		total: r.monthly,
 		sticky: ils(r.monthly, 0),
+		lead: leadCard(reg, r, { example: true }),
 		form: renderForm(reg, EXAMPLE),
 		result: renderResult(reg, r, { example: true }),
 		details: renderDetails(reg, r),
@@ -1199,6 +1281,8 @@ function mount(root, reg) {
 	const hv = reg.rights_havtacha;
 	const today = ilToday();
 	const saveKey = `jtool-${TOOL_ID}`;
+	const lead = document.querySelector(`[data-jtool-lead="${TOOL_ID}"]`);
+	let own = false;
 	let started = false;
 	let timer = null;
 	track('tool_view', { tool_id: TOOL_ID });
@@ -1236,9 +1320,11 @@ function mount(root, reg) {
 		result.innerHTML = renderResult(reg, r);
 		details.innerHTML = renderDetails(reg, r);
 		if (sticky) { sticky.innerHTML = r.ok && r.eligible ? ils(r.monthly, 0) : '—'; }
+		if (lead) { lead.innerHTML = leadCard(reg, r, { example: !own }); }
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: band(r) }); }
 	};
 	const schedule = () => {
+		own = true;
 		if (!started) { started = true; track('tool_start', { tool_id: TOOL_ID }); }
 		sync();
 		clearTimeout(timer);
@@ -1246,12 +1332,24 @@ function mount(root, reg) {
 	};
 	const fromHash = inputOf(decodeState(window.location.hash, KEYS));
 	if (fromHash) {
+		own = true;
 		form.innerHTML = renderForm(reg, fromHash);
 		const note = root.querySelector('[data-jtool-shared]');
 		if (note) { note.hidden = false; }
 		run(fromHash, { silent: true });
 	}
 	if (store.get(saveKey) && !fromHash) { const nb = root.querySelector('[data-jtool-saved]'); if (nb) { nb.hidden = false; } }
+	// The card's jump: to the form, the first visible field focused (the page anchor is the fallback without the script).
+	if (lead) {
+		lead.addEventListener('click', (ev) => {
+			if (!ev.target.closest('[data-lead-go]')) { return; }
+			ev.preventDefault();
+			form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			const first = Array.from(form.querySelectorAll('input[type="text"]')).find((el) => !el.closest('[hidden]'));
+			if (first) { setTimeout(() => first.focus({ preventScroll: true }), 350); }
+			track('tool_lead_click', { tool_id: TOOL_ID });
+		});
+	}
 	form.addEventListener('input', schedule);
 	form.addEventListener('change', schedule);
 	root.addEventListener('click', async (ev) => {
@@ -1260,7 +1358,7 @@ function mount(root, reg) {
 		const act = b.getAttribute('data-act');
 		if (act === 'profile') {
 			const p = PROFILES[Number(b.getAttribute('data-profile'))];
-			if (p) { form.innerHTML = renderForm(reg, p.input); sync(); run(p.input); track('tool_start', { tool_id: TOOL_ID, type: 'profile' }); }
+			if (p) { own = true; form.innerHTML = renderForm(reg, p.input); sync(); run(p.input); track('tool_start', { tool_id: TOOL_ID, type: 'profile' }); }
 			return;
 		}
 		if (timer) { clearTimeout(timer); timer = null; run(readForm(root), { silent: true }); }
@@ -1268,9 +1366,12 @@ function mount(root, reg) {
 		const r = compute(reg, input);
 		const link = shareUrl(stateOf(input));
 		if (act === 'ics' && r.ok) {
+			// Only the dates the law or the Institute sets (the claim month's last day, the hearing's 14 days, the appeal's 12 months).
 			const events = r.deadlines.filter((d) => d.ics);
-			download('havtachat-hachnasa.ics', 'text/calendar;charset=utf-8', ics((events.length ? events : r.deadlines).map((d) => ({ date: d.date, summary: `הבטחת הכנסה: ${d.he}` })), new Date().toISOString()));
-			track('tool_download', { tool_id: TOOL_ID, type: 'ics' });
+			if (events.length) {
+				download('havtachat-hachnasa.ics', 'text/calendar;charset=utf-8', ics(events.map((d) => ({ date: d.date, summary: `הבטחת הכנסה: ${d.he}` })), new Date().toISOString()));
+				track('tool_download', { tool_id: TOOL_ID, type: 'ics' });
+			}
 		} else if (act === 'copy-list' && r.ok) {
 			const ok = await copyText(checklistText(reg, r));
 			toast(root, ok ? 'הרשימה הועתקה.' : 'לא הצלחנו להעתיק.');
@@ -1291,12 +1392,13 @@ function mount(root, reg) {
 			track('tool_share', { tool_id: TOOL_ID, channel: 'copy' });
 		} else if (act === 'rehearse') {
 			track('tool_rehearse_click', { tool_id: TOOL_ID, band: band(r) });
+			if (r.ok && openSimulation(scenarioText(reg, r), rehearsal(r).purpose, b.getAttribute('href'))) { ev.preventDefault(); toast(root, 'נפתח תרגול עם הנתונים שלכם. הדמויות הן AI, והתרגול אינו נשמר אצלנו.'); }
 		} else if (act === 'save') {
 			store.set(saveKey, stateOf(input));
 			toast(root, 'נשמר במכשיר הזה בלבד. אפשר למחוק בכל רגע.');
 		} else if (act === 'restore') {
 			const s = inputOf(decodeState(store.get(saveKey) || '', KEYS));
-			if (s) { form.innerHTML = renderForm(reg, s); sync(); run(s); }
+			if (s) { own = true; form.innerHTML = renderForm(reg, s); sync(); run(s); }
 		} else if (act === 'clear') {
 			store.clear(saveKey);
 			toast(root, 'נמחק מהמכשיר.');
@@ -1304,6 +1406,11 @@ function mount(root, reg) {
 			track('tool_lawyer_click', { tool_id: TOOL_ID });
 		}
 	});
+	// The printed summary ends with the sources: a closed <details> does not print, so it opens for the print and closes after.
+	const sources = root.querySelector('details.jtool-sources');
+	let sourcesOpen = true;
+	window.addEventListener('beforeprint', () => { if (sources) { sourcesOpen = sources.open; sources.open = true; } });
+	window.addEventListener('afterprint', () => { if (sources && !sourcesOpen) { sources.open = false; } });
 	stickyBar(root);
 	root.setAttribute('data-jtool-ready', '1');
 }

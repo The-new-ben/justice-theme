@@ -181,5 +181,40 @@ check(Object.entries(MU.PROFILES).map(([k, p]) => `${k}:${ME.compute(reg, p.inpu
 check(MU.periods(reg, ext).map((s) => `${s.key}:${s.from}-${s.to}`).join(' ') === 'during:2026-11-01-2026-11-30 after:2026-12-01-2026-12-30 ext:2026-12-31-2027-01-29' && MU.TOOL_ID === 'tagmulei-miluim', 'the protection in text: the service, the 30 days, days 31 to 60');
 check(ME.byIncome(reg, EX, [8000, 51911]).map((x) => `${x.daily}/${x.total}`).join(' ') === '328.76/10125.81 1730.33/53294.16', 'the income table: 8,000 -> the minimum, 10,125.81; 51,911 -> the maximum, 53,294.16');
 
+/* ---------- 11. The result-first card and the simulation hand-off (the wave-2A bar, HAD-585) ---------- */
+check(typeof snap.lead === 'string' && snap.lead.includes('דוגמה מחושבת') && snap.lead.includes('15,400') && snap.lead.includes('<bdi>500</bdi>') && snap.lead.includes('30.8') && snap.lead.includes('30.12.2026') && snap.lead.includes('href="#jtool-tagmulei-miluim"') && snap.lead.includes('data-lead-go') && snap.lead.includes('לחשב לפי הנתונים שלכם'), 'snapshot.lead: the example 15,400 (500 a day, 30.8 days paid), protected to 30.12.2026, the jump to the form');
+check(!/<h2[\s>]/.test(snap.lead) && !/undefined|NaN|null/.test(snap.lead) && noPortal(snap.lead) && !/[A-Za-z]{4,}/.test(snap.lead.replace(/<[^>]+>/g, ' ')), 'snapshot.lead: no <h2>, no undefined / NaN / null, no English, no unofficial portal');
+check(MU.leadCard(reg, ex).includes('החישוב שלכם') && MU.leadCard(reg, ex).includes('לשנות את הנתונים') && !MU.leadCard(reg, ex).includes('דוגמה מחושבת'), 'the reader\'s own card says so and offers to change the answers');
+const badDates = run({ end: '2026-10-01' });
+check(!badDates.ok && MU.leadCard(reg, badDates).includes('jtool-lead__figure">—</strong>') && MU.leadCard(reg, badDates).includes(badDates.errors[0].he) && MU.scenarioText(reg, badDates) === '' && !/undefined|NaN|null/.test(MU.leadCard(reg, badDates)), 'an input error: the card shows a dash and the error, and no scenario is written');
+const cb2 = ME.compute(reg, MU.PROFILES.combat.input);
+check(MU.leadCard(reg, se).includes('23,100') && MU.leadCard(reg, se).includes('4,620') && !MU.leadCard(reg, se).includes('ועדת התעסוקה') && MU.leadCard(reg, st).includes('6,903.96') && MU.leadCard(reg, st).includes('התגמול המזערי') && MU.leadCard(reg, cb2).includes('29.1.2027') && MU.leadCard(reg, cb2).includes('6,450') && MU.leadCard(reg, cb2).includes('6,910') && MU.leadCard(reg, two).includes('בימי השירות עצמם'), 'the card per case: self 23,100 with 4,620 compensation and no committee; student 6,903.96 at the minimum; combat protected to 29.1.2027 with grants 6,450 to 6,910; a 2-day service protected only in the service');
+const leadsAll = [ex, se, seMax, st, no, sp, cl, two, three, ac, ext, chk, old, em(10000), em(18000), far, b3m, cb, fl, above, low, badDates].map((r) => MU.leadCard(reg, r) + MU.scenarioText(reg, r)).join('');
+check(!/<h2[\s>]/.test(leadsAll) && !/undefined|NaN|null/.test(leadsAll) && noPortal(leadsAll), 'every case: the card and the scenario carry no <h2>, no undefined / NaN / null, no unofficial portal');
+const sc = MU.scenarioText(reg, ex);
+check(sc.startsWith('תגמולי מילואים') && sc.includes('15,000') && sc.includes('500 ₪ ליום') && sc.includes('30.8') && sc.includes('15,400') && sc.includes('30.12.2026') && sc.includes('ועדת התעסוקה') && sc.includes('המעסיק'), 'the scenario: the income, 500 a day, 30.8 days, 15,400, protected to 30.12.2026, the Employment Committee hearing and the employer talk');
+check(MU.scenarioText(reg, se).includes('פקיד התביעות') && !MU.scenarioText(reg, se).includes('ועדת התעסוקה') && MU.scenarioText(reg, cb2).includes('29.1.2027') && MU.scenarioText(reg, cb2).includes('40 ימי מילואים קודמים'), 'self-employed: the claims officer, no committee; the combat profile: days 31 to 60 to 29.1.2027 and the 40 earlier days');
+const priv = ME.compute(reg, Object.assign({}, EX, { name: 'ישראלה ישראלי', id: '123456782', phone: '0501234567', employer: 'מפעל הדוגמה' }));
+const scP = MU.scenarioText(reg, priv) + MU.leadCard(reg, priv);
+check(!scP.includes('ישראלה') && !scP.includes('123456782') && !scP.includes('0501234567') && !scP.includes('מפעל הדוגמה') && !/תעודת זהות|טלפון|כתובת/.test(scP) && scP.includes('15,400'), 'privacy: a name, an ID, a phone or an employer slipped into the input never reach the scenario or the card');
+check(MU.renderResult(reg, se).includes('לתרגול השיחה') && MU.renderResult(reg, se).includes('פקיד התביעות') && MU.renderResult(reg, ex).includes('לתרגול הדיון'), 'the rehearse reason fits the result: the claims officer for the self-employed, the committee for an employee');
+// The print rules: this instrument's own under its prefix, and no other instrument's print rule hides the shell's result or
+// sources on every tool (the jt43 rule did until HAD-585 scoped it to its own tool).
+const css = readFileSync(join(ROOT, 'assets/css/justice-tools.css'), 'utf8');
+const printBlocks = [];
+for (let i = css.indexOf('@media print'); i !== -1; i = css.indexOf('@media print', i + 1)) {
+	let depth = 0;
+	let j = css.indexOf('{', i);
+	const start = j;
+	for (; j < css.length; j += 1) { if (css[j] === '{') { depth += 1; } else if (css[j] === '}') { depth -= 1; if (!depth) { break; } } }
+	printBlocks.push(css.slice(start + 1, j));
+}
+const leaks = printBlocks.join('\n').split('}').map((rule) => rule.split('{')).filter((x) => x.length === 2 && /display:\s*none/.test(x[1]))
+	.flatMap((x) => x[0].split(',').map((sel) => sel.trim())).filter((sel) => /\.jtool-result\b|\.jtool-sources\b|\.jtool-verdict\b|\.jtool-details\b/.test(sel) && !sel.includes('[data-jtool='));
+check(!leaks.length && /@media print \{\s*\.jt51-profiles, \.jt51-why a, \.jt51-next, \.jt51-p-no \{ display: none !important; \}/.test(css) && css.includes('.jtool[data-jtool="yeduim-batzibur"] .jtool-result'), `print: the jt51 rules print the slip and the calendar; no unscoped print rule hides the result or the sources (${leaks.join(' | ')})`);
+const noPrint = ['gate', 'gr', 'chk', 'hist'].every((k) => new RegExp(`jtool-tablewrap jt51-p-no"><div class="jtool-tablewrap__head"><h3 id="jt51-${k}-h"`).test(snap.details));
+const printed = ['calc', 'per', 'dl'].every((k) => new RegExp(`<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="jt51-${k}-h"`).test(snap.details));
+check(noPrint && printed, 'the printed summary (two A4 pages): the calculation, the protection periods and the dates print; the gates, the grants, the checklist and what changed stay on screen');
+
 console.log(`tagmulei-miluim: ${passed} passed, ${failures} failed`);
 process.exit(failures ? 1 : 0);

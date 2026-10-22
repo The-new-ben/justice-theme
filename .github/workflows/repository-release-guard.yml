@@ -104,6 +104,16 @@ jobs:
           php tests/test-rights-2a-tools.php
           python3 -m py_compile tools/justice_tools_rights_maanak.py tools/justice_tools_rights_neto.py
 
+      - name: Test the rights wave 2B (22.10.2026, HAD-585)
+        run: |
+          set -euo pipefail
+          node tests/js/test-rights-zikna.mjs
+          node tests/js/test-rights-miluim.mjs
+          node tests/js/test-rights-yeladim.mjs
+          node tests/js/test-rights-havtacha.mjs
+          php tests/test-rights-2b-tools.php
+          python3 -m py_compile tools/justice_tools_rights_zikna.py tools/justice_tools_rights_miluim.py tools/justice_tools_rights_yeladim.py tools/justice_tools_rights_havtacha.py
+
       - name: Test the family + land wave (21-22.10.2026, HAD-579)
         run: |
           set -euo pipefail

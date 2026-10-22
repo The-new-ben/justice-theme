@@ -3,11 +3,14 @@
  * Institute's own world: the family ledger (the children's file: a row per child, oldest first, with a ribbon on one shared
  * calendar from the first month of the allowance to the month of 18, the savings stripe under it, the withdrawal window to
  * 21 and the grant marks, and a "today" line through all the rows), and the step chart of the family's monthly total as the
- * children leave the count. The tables, the dates and the .ics say the same in text.
+ * children leave the count. The tables, the dates and the .ics say the same in text. The result-first card
+ * ([justice_tool_lead]) carries the family's monthly total on the first screen, and the rehearse link hands the reader's
+ * figures to the jus-tice.com simulation (sim-handoff.js, the wave-2A bar, HAD-585).
  */
 import {
 	compute, profile, familyTable, currentRow, amountAt, shiftMonth, ymHe, BENEFITS, MAX_KIDS, ORD_HE,
 } from './yeladim-engine.js';
+import { openSimulation } from './sim-handoff.js';
 import {
 	esc, ils, money, num, isoToHe, encodeState, decodeState, ics,
 	track, download, copyText, toast, shareUrl, whatsappUrl, store, stickyBar, isStale, ilToday,
@@ -330,6 +333,60 @@ export function savingsTable(reg) {
 	return `<div class="jtool-datawrap"><table class="jtool-datatable"><caption>${esc(`מענקים לחיסכון לכל ילד מ-${isoToHe(sv.from)} (${sv.grants_section}, ${sv.withdraw_section}). ילד שנולד עד ה-15 בחודש וכל החודשים בארץ: ${full} הפקדות של ${sv.monthly} ₪ = ${money(full * sv.monthly, 0)} ₪ עד גיל 18, וכפול עם תוספת ההורים; בלי תשואה, שתלויה בקופה ובמסלול`)}${cite('סכום החיסכון', sv.url)}</caption><thead><tr><th scope="col">הילד</th><th scope="col">גיל ${sv.grant_3_age}</th><th scope="col">בר או בת מצווה</th><th scope="col">גיל 18</th><th scope="col">גיל 21, אם לא נמשך</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
+/** The children's ages, oldest first, in words ("בגיל 2", "בגילים 11, 6 ו-2"); a child not yet born is left out. */
+function agesHe(r) {
+	const ages = r.kids.slice().sort(byBirth).filter((k) => k.age !== null).map((k) => k.age);
+	if (!ages.length) { return ''; }
+	const word = (a, and) => (a === 0 ? `${and ? 'ו' : ''}מתחת לשנה` : `${and ? 'ו-' : ''}${a}`);
+	if (ages.length === 1) { return `בגיל ${word(ages[0], false)}`; }
+	return `בגילים ${ages.slice(0, -1).map((a) => word(a, false)).join(', ')} ${word(ages[ages.length - 1], true)}`;
+}
+function familyHe(r) {
+	const ages = agesHe(r);
+	return `${kidsWord(r.kids.length)}${ages ? ` ${ages}` : ''}${r.single ? ', הורה עצמאי' : ''}${r.benefit !== 'none' ? `, קצבת ההורה: ${BEN_LABEL[r.benefit]}` : ''}`;
+}
+
+/** The result-first card at the top of the page ([justice_tool_lead]): the family's monthly allowance of the example (or of
+ * the reader's own children once they change anything), the savings beside it, the next change, and a jump to the form.
+ * Same markup on the server and in the browser, so the card never shifts the layout when the script takes over. */
+export function leadCard(reg, r, opts = {}) {
+	const go = `<a class="jtool-lead__go" href="#jtool-${TOOL_ID}" data-lead-go>${opts.example ? 'לחשב לפי הנתונים שלכם' : 'לשנות את הנתונים'}</a>`;
+	if (!r.ok) {
+		return `<p class="jtool-lead__label">קצבת ילדים</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">—</strong></p><p class="jtool-lead__line">${esc(r.errors.map((e) => e.he).join(' '))}</p>${go}`;
+	}
+	const al = reg.rights_yeladim.allowance;
+	const label = `${opts.example ? 'דוגמה מחושבת' : 'החישוב שלכם'}: קצבת ילדים לחודש`;
+	if (!r.n) {
+		const start = r.periods.find((p) => p.n);
+		if (!start) {
+			return `<p class="jtool-lead__label">${esc(label)}</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">אין קצבה</strong></p><p class="jtool-lead__line">${esc(`${familyHe(r)}: אין ילד מתחת לגיל ${al.end_age} במניין, ולכן אין קצבת ילדים.`)}</p>${go}`;
+		}
+		return `<p class="jtool-lead__label">${esc(label)}</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">${ils(start.total, 0)}</strong><span class="jtool-lead__unit">לחודש מ-<bdi>${esc(isoToHe(`${start.from}-01`))}</bdi></span></p>`
+			+ `<p class="jtool-lead__line">${esc(`${familyHe(r)}. הקצבה עוד לא התחילה; ממנה והלאה גם ${nis(start.savings)} בחודש לחיסכון.`)}</p>${go}`;
+	}
+	const next = r.periods.length > 1 ? r.periods[1] : null;
+	const line = `${familyHe(r)}. ב-12 החודשים הקרובים ${nis(r.next12)}${next ? `; מ-${isoToHe(`${next.from}-01`)} הקצבה ${next.total < r.monthly ? 'יורדת' : 'עולה'} ל-${nis(next.total)}` : ''}.`;
+	return `<p class="jtool-lead__label">${esc(label)}</p><p class="jtool-lead__row"><strong class="jtool-lead__figure">${ils(r.monthly, 0)}</strong><span class="jtool-lead__unit">לחודש · ועוד ${ils(r.now.savings, 0)} לחיסכון</span></p>`
+		+ `<p class="jtool-lead__line">${esc(line)}</p>${go}`;
+}
+
+/** The scenario for the simulation: the family's figures and choices only, never a name, an ID or a birth date. */
+export function scenarioText(reg, r) {
+	if (!r.ok) { return ''; }
+	const yl = reg.rights_yeladim;
+	const next = r.periods.length > 1 ? r.periods[1] : null;
+	let res;
+	if (r.n) {
+		res = `לפי החישוב לפי חוק הביטוח הלאומי: קצבת ילדים של ${nis(r.monthly)} בחודש${r.now.supplement ? ` (כולל תוספת של ${nis(r.now.supplement)})` : ''}, ועוד ${nis(r.now.savings)} בחודש שהביטוח הלאומי מפקיד לחיסכון של ${r.n === 1 ? 'הילד' : 'הילדים'}${r.addSave ? `; ההורים מוסיפים מהקצבה ${nis(r.now.parentAdd)} בחודש` : ''}. ב-12 החודשים הקרובים ${nis(r.next12)}${next ? `; מ-${isoToHe(`${next.from}-01`)} הקצבה ${next.total < r.monthly ? 'יורדת' : 'עולה'} ל-${nis(next.total)} בחודש` : ''}.`;
+	} else {
+		const start = r.periods.find((p) => p.n);
+		res = start ? `לפי החישוב הקצבה תתחיל ב-${isoToHe(`${start.from}-01`)}: ${nis(start.total)} בחודש.` : `לפי החישוב אין ילד מתחת לגיל ${yl.allowance.end_age} במניין, ולכן אין קצבת ילדים.`;
+	}
+	const study = r.study.on && r.study.total ? ` מענק הלימודים: ${nis(r.study.total)}.` : '';
+	const ask = 'אני רוצה להתכונן לשיחה עם ההורה השני על הפרידה, או לגישור: מי מקבל את הקצבה, מי מנהל את החיסכון של כל ילד, באיזו קופה ובאיזה מסלול, ומה כותבים על זה בהסכם.';
+	return `קצבת ילדים וחיסכון לכל ילד. משפחה עם ${familyHe(r)}. ${res}${study} ${ask}`;
+}
+
 export function snapshot(reg) {
 	const r = compute(reg, EXAMPLE);
 	const yl = reg.rights_yeladim;
@@ -346,6 +403,7 @@ export function snapshot(reg) {
 		input: EXAMPLE,
 		total: r.monthly,
 		sticky: ils(r.monthly, 0),
+		lead: leadCard(reg, r, { example: true }),
 		form: renderForm(reg, EXAMPLE),
 		result: renderResult(reg, r, { example: true }),
 		details: renderDetails(reg, r),
@@ -395,6 +453,8 @@ export function mount(root, reg) {
 	const yl = reg.rights_yeladim;
 	const today = ilToday();
 	const saveKey = `jtool-${TOOL_ID}`;
+	const lead = document.querySelector(`[data-jtool-lead="${TOOL_ID}"]`);
+	let own = false;
 	let started = false;
 	let timer = null;
 	track('tool_view', { tool_id: TOOL_ID });
@@ -421,15 +481,18 @@ export function mount(root, reg) {
 		result.innerHTML = renderResult(reg, r, opts);
 		details.innerHTML = renderDetails(reg, r);
 		if (sticky) { sticky.innerHTML = r.ok ? ils(r.monthly, 0) : '—'; }
+		if (lead) { lead.innerHTML = leadCard(reg, r, { example: !own }); }
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: band(r) }); }
 		return r;
 	};
 	const schedule = () => {
+		own = true;
 		if (!started) { started = true; track('tool_start', { tool_id: TOOL_ID }); }
 		clearTimeout(timer);
 		timer = setTimeout(() => { timer = null; run(readForm(root)); }, 160);
 	};
 	const redraw = (input, focusId) => {
+		own = true;
 		form.innerHTML = renderForm(reg, input);
 		run(input);
 		const f = focusId ? root.querySelector(`#${focusId}`) : null;
@@ -437,6 +500,7 @@ export function mount(root, reg) {
 	};
 	const fromHash = inputOf(decodeState(window.location.hash, KEYS));
 	if (fromHash) {
+		own = true;
 		form.innerHTML = renderForm(reg, fromHash);
 		const note = root.querySelector('[data-jtool-shared]');
 		if (note) { note.hidden = false; }
@@ -446,6 +510,17 @@ export function mount(root, reg) {
 		run(readForm(root), { silent: true, example: true });
 	}
 	if (store.get(saveKey) && !fromHash) { const nb = root.querySelector('[data-jtool-saved]'); if (nb) { nb.hidden = false; } }
+	// The card's jump: to the form, the first birth date focused (the page anchor is the fallback without the script).
+	if (lead) {
+		lead.addEventListener('click', (ev) => {
+			if (!ev.target.closest('[data-lead-go]')) { return; }
+			ev.preventDefault();
+			form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			const first = Array.from(form.querySelectorAll('input[type="text"]')).find((el) => !el.closest('[hidden]'));
+			if (first) { setTimeout(() => first.focus({ preventScroll: true }), 350); }
+			track('tool_lead_click', { tool_id: TOOL_ID });
+		});
+	}
 	form.addEventListener('input', schedule);
 	form.addEventListener('change', schedule);
 	root.addEventListener('click', async (ev) => {
@@ -501,6 +576,7 @@ export function mount(root, reg) {
 			track('tool_share', { tool_id: TOOL_ID, channel: 'copy' });
 		} else if (act === 'rehearse') {
 			track('tool_rehearse_click', { tool_id: TOOL_ID, band: band(r) });
+			if (r.ok && openSimulation(scenarioText(reg, r), 'mediation', btn.getAttribute('href'))) { ev.preventDefault(); toast(root, 'נפתח תרגול עם הנתונים שלכם. הדמויות הן AI, והתרגול אינו נשמר אצלנו.'); }
 		} else if (act === 'save') {
 			store.set(saveKey, stateOf(input));
 			toast(root, 'נשמר במכשיר הזה בלבד. אפשר למחוק בכל רגע.');
@@ -514,6 +590,11 @@ export function mount(root, reg) {
 			track('tool_lawyer_click', { tool_id: TOOL_ID });
 		}
 	});
+	// The printed summary ends with the sources: a closed <details> does not print, so it opens for the print and closes after.
+	const sources = root.querySelector('details.jtool-sources');
+	let sourcesOpen = true;
+	window.addEventListener('beforeprint', () => { if (sources) { sourcesOpen = sources.open; sources.open = true; } });
+	window.addEventListener('afterprint', () => { if (sources && !sourcesOpen) { sources.open = false; } });
 	stickyBar(root);
 	root.setAttribute('data-jtool-ready', '1');
 }

@@ -6843,6 +6843,640 @@
   ],
   "history_url": "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%d7%94%d7%a1%d7%9b%d7%95%d7%9d%20%d7%94%d7%91%d7%a1%d7%99%d7%a1%d7%99%20%d7%9c%d7%97%d7%99%d7%a9%d7%95%d7%91%20%d7%a7%d7%a6%d7%91%d7%90%d7%95%d7%aa.aspx"
  },
+ "rights_zikna": {
+  "name_he": "קצבת אזרח ותיק (קצבת זקנה) וגיל הפרישה לשנת 2026",
+  "publisher_he": "המוסד לביטוח לאומי, ענף אזרח ותיק",
+  "source_name": "המוסד לביטוח לאומי: אזרח ותיק (תנאי זכאות, גיל הפרישה, אכשרה, מבחן הכנסות, סכום הקצבה ותוספות, מענק מעבר, תביעה); חוק הביטוח הלאומי, פרק י\"א ולוחותיו; חוק גיל פרישה",
+  "source_url": "https://www.btl.gov.il/benefits/old_age/Shum/Pages/Shum.aspx",
+  "checked_on": "2026-10-21",
+  "refresh_every_days": 365,
+  "next_update": "2027-01-01",
+  "from": "2026-01-01",
+  "law_he": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995, פרק י\"א",
+  "law_url": "https://www.btl.gov.il/Laws1/00_0001_000011.pdf",
+  "tables_url": "https://www.btl.gov.il/Laws1/00_0001_000020.pdf",
+  "general_url": "https://www.btl.gov.il/Laws1/00_0001_000001.pdf",
+  "retirement_law_he": "חוק גיל פרישה, התשס\"ד-2004",
+  "retirement_law_url": "https://www.nevo.co.il/law_html/law00/73761.htm",
+  "rehearse_url": "https://jus-tice.com/#/simulation?entry=role&audience=guest&lang=he&purpose=court_rehearsal&topic=general",
+  "pages": {
+   "main": "https://www.btl.gov.il/benefits/old_age/Pages/default.aspx",
+   "conditions": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/Pages/default.aspx",
+   "ages": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/gilMezake/Pages/default.aspx",
+   "retirement": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/gilMezake/Pages/gilPrisha.aspx",
+   "eligibility_age": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/gilMezake/Pages/gilZakaut.aspx",
+   "insured_man": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/mevutach/Pages/geverMevuta.aspx",
+   "insured_woman": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/mevutach/Pages/%D7%90%D7%99%D7%A9%D7%94%D7%9E%D7%91%D7%95%D7%98%D7%97%D7%AA.aspx",
+   "achshara_man": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/achshara/Pages/%D7%AA%D7%A7%D7%95%D7%A4%D7%AA%D7%90%D7%9B%D7%A9%D7%A8%D7%94%D7%9C%D7%92%D7%91%D7%A8.aspx",
+   "achshara_woman": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/achshara/Pages/achsharaIsha.aspx",
+   "income_test": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/Pages/%D7%94%D7%9B%D7%A0%D7%A1%D7%95%D7%AA%20%D7%91%D7%92%D7%99%D7%9C%20%D7%94%D7%A4%D7%A8%D7%99%D7%A9%D7%94.aspx",
+   "income_work": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/Pages/hachnasotMewavoda.aspx",
+   "income_other": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/Pages/hachnasotLoMewavoda.aspx",
+   "income_both": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/Pages/hachnasotGamVegam.aspx",
+   "income_extra": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/Pages/HacnasaZikna.aspx",
+   "paid": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/Pages/%D7%A9%D7%95%D7%9C%D7%9E%D7%95%20%D7%91%D7%A2%D7%93%D7%9A%20%D7%93%D7%9E%D7%99%20%D7%91%D7%99%D7%98%D7%95%D7%97%20%D7%9B%D7%97%D7%95%D7%A7.aspx",
+   "partial": "https://www.btl.gov.il/benefits/old_age/Pages/%D7%A7%D7%A6%D7%91%D7%AA%20%D7%96%D7%A7%D7%A0%D7%94%20%D7%99%D7%97%D7%A1%D7%99%D7%AA.aspx",
+   "amounts": "https://www.btl.gov.il/benefits/old_age/Shum/Pages/Shum.aspx",
+   "additions": "https://www.btl.gov.il/benefits/old_age/Shum/Pages/Tosafot.aspx",
+   "deductions": "https://www.btl.gov.il/benefits/old_age/Shum/Pages/Nicuyim.aspx",
+   "seniority": "https://www.btl.gov.il/benefits/old_age/Pages/tosefetVetek.aspx",
+   "deferral": "https://www.btl.gov.il/benefits/old_age/Pages/t-dchiyatkitsba.aspx",
+   "dependants": "https://www.btl.gov.il/benefits/old_age/Pages/%D7%AA%D7%95%D7%A1%D7%A4%D7%AA%20%D7%91%D7%A2%D7%93%20%D7%91%D7%9F%20%D7%96%D7%95%D7%92%20%D7%95%D7%99%D7%9C%D7%93%D7%99%D7%9D.aspx",
+   "def_wife": "https://www.btl.gov.il/benefits/old_age/HaddarotZikna/Pages/BatZug.aspx",
+   "def_husband": "https://www.btl.gov.il/benefits/old_age/HaddarotZikna/Pages/BenZug.aspx",
+   "def_child": "https://www.btl.gov.il/benefits/old_age/HaddarotZikna/Pages/HagdaratYeled.aspx",
+   "supplement": "https://www.btl.gov.il/benefits/old_age/hashHachZ/Pages/default.aspx",
+   "supplement_amounts": "https://www.btl.gov.il/benefits/old_age/hashHachZ/Pages/schumim.aspx",
+   "supplement_income": "https://www.btl.gov.il/benefits/old_age/hashHachZ/Pages/HCNsOT.aspx",
+   "grant": "https://www.btl.gov.il/benefits/old_age/MankMavrATR/Pages/default.aspx",
+   "grant_conditions": "https://www.btl.gov.il/benefits/old_age/MankMavrATR/Pages/MankMavrTnaim.aspx",
+   "grant_amount": "https://www.btl.gov.il/benefits/old_age/MankMavrATR/Pages/ScomMankMavr.aspx",
+   "grant_claim": "https://www.btl.gov.il/benefits/old_age/MankMavrATR/Pages/BksaMankMavr.aspx",
+   "claim": "https://www.btl.gov.il/benefits/old_age/Pages/%D7%90%D7%95%D7%A4%D7%9F%20%D7%94%D7%92%D7%A9%D7%AA%20%D7%94%D7%AA%D7%91%D7%99%D7%A2%D7%94.aspx",
+   "payment": "https://www.btl.gov.il/benefits/old_age/Pages/%D7%9E%D7%95%D7%A2%D7%93%20%D7%94%D7%AA%D7%A9%D7%9C%D7%95%D7%9D.aspx",
+   "from_other": "https://www.btl.gov.il/benefits/old_age/Pages/%D7%9E%D7%A2%D7%91%D7%A8%20%D7%9E%D7%A7%D7%91%D7%9C%D7%AA%20%D7%A7%D7%A6%D7%91%D7%90%D7%95%D7%AA%20%D7%90%D7%97%D7%A8%D7%95%D7%AA%20%D7%9C%D7%A7%D7%91%D7%9C%D7%AA%20%D7%A7%D7%A6%D7%91%D7%AA%20%D7%96%D7%A7%D7%A0%D7%94.aspx",
+   "special": "https://www.btl.gov.il/benefits/old_age/Pages/%d7%92%d7%9e%d7%9c%d7%aa%20%d7%96%d7%a7%d7%a0%d7%94%20%d7%9e%d7%99%d7%95%d7%97%d7%93%d7%aa.aspx",
+   "calculator": "https://www.btl.gov.il/benefits/old_age/Pages/BdikatZacautZikna.aspx",
+   "appeal": "https://www.btl.gov.il/benefits/old_age/Pages/erur.aspx",
+   "appeal_committee": "https://www.btl.gov.il/benefits/%D7%A2%D7%A8%D7%A2%D7%95%D7%A8%20%D7%A2%D7%9C%20%D7%94%D7%97%D7%9C%D7%98%D7%95%D7%AA%20%D7%94%D7%9E%D7%95%D7%A1%D7%93%20%D7%9C%D7%91%D7%99%D7%98%D7%95%D7%97%20%D7%9C%D7%90%D7%95%D7%9E%D7%99/Pages/vadatviot.aspx",
+   "appeal_court": "https://www.btl.gov.il/benefits/%D7%A2%D7%A8%D7%A2%D7%95%D7%A8%20%D7%A2%D7%9C%20%D7%94%D7%97%D7%9C%D7%98%D7%95%D7%AA%20%D7%94%D7%9E%D7%95%D7%A1%D7%93%20%D7%9C%D7%91%D7%99%D7%98%D7%95%D7%97%20%D7%9C%D7%90%D7%95%D7%9E%D7%99/Pages/%D7%91%D7%AA%D7%99%20%D7%94%D7%93%D7%99%D7%9F%20%D7%94%D7%90%D7%96%D7%95%D7%A8%D7%99%D7%99%D7%9D%20%D7%9C%D7%A2%D7%91%D7%95%D7%93%D7%94.aspx",
+   "legal_aid": "https://www.btl.gov.il/benefits/%D7%A2%D7%A8%D7%A2%D7%95%D7%A8%20%D7%A2%D7%9C%20%D7%94%D7%97%D7%9C%D7%98%D7%95%D7%AA%20%D7%94%D7%9E%D7%95%D7%A1%D7%93%20%D7%9C%D7%91%D7%99%D7%98%D7%95%D7%97%20%D7%9C%D7%90%D7%95%D7%9E%D7%99/Pages/%D7%A1%D7%99%D7%95%D7%A2%20%D7%9E%D7%A9%D7%A4%D7%98%D7%99.aspx",
+   "basic": "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%d7%94%d7%a1%d7%9b%d7%95%d7%9d%20%d7%94%d7%91%d7%a1%d7%99%d7%a1%d7%99%20%d7%9c%d7%97%d7%99%d7%a9%d7%95%d7%91%20%d7%a7%d7%a6%d7%91%d7%90%d7%95%d7%aa.aspx"
+  },
+  "ages": {
+   "men_retirement": [
+    [
+     null,
+     "1939-06",
+     65,
+     0
+    ],
+    [
+     "1939-07",
+     "1939-08",
+     65,
+     4
+    ],
+    [
+     "1939-09",
+     "1940-04",
+     65,
+     8
+    ],
+    [
+     "1940-05",
+     "1940-12",
+     66,
+     0
+    ],
+    [
+     "1941-01",
+     "1941-08",
+     66,
+     4
+    ],
+    [
+     "1941-09",
+     "1942-04",
+     66,
+     8
+    ],
+    [
+     "1942-05",
+     null,
+     67,
+     0
+    ]
+   ],
+   "women_retirement": [
+    [
+     null,
+     "1944-06",
+     60,
+     0
+    ],
+    [
+     "1944-07",
+     "1944-08",
+     60,
+     4
+    ],
+    [
+     "1944-09",
+     "1945-04",
+     60,
+     8
+    ],
+    [
+     "1945-05",
+     "1945-12",
+     61,
+     0
+    ],
+    [
+     "1946-01",
+     "1946-08",
+     61,
+     4
+    ],
+    [
+     "1946-09",
+     "1947-04",
+     61,
+     8
+    ],
+    [
+     "1947-05",
+     "1959-12",
+     62,
+     0
+    ],
+    [
+     "1960-01",
+     "1960-12",
+     62,
+     4
+    ],
+    [
+     "1961-01",
+     "1961-12",
+     62,
+     8
+    ],
+    [
+     "1962-01",
+     "1962-12",
+     63,
+     0
+    ],
+    [
+     "1963-01",
+     "1963-12",
+     63,
+     3
+    ],
+    [
+     "1964-01",
+     "1964-12",
+     63,
+     6
+    ],
+    [
+     "1965-01",
+     "1965-12",
+     63,
+     9
+    ],
+    [
+     "1966-01",
+     "1966-12",
+     64,
+     0
+    ],
+    [
+     "1967-01",
+     "1967-12",
+     64,
+     3
+    ],
+    [
+     "1968-01",
+     "1968-12",
+     64,
+     6
+    ],
+    [
+     "1969-01",
+     "1969-12",
+     64,
+     9
+    ],
+    [
+     "1970-01",
+     null,
+     65,
+     0
+    ]
+   ],
+   "women_eligibility": [
+    [
+     null,
+     "1939-06",
+     65,
+     0
+    ],
+    [
+     "1939-07",
+     "1939-08",
+     65,
+     4
+    ],
+    [
+     "1939-09",
+     "1940-04",
+     65,
+     8
+    ],
+    [
+     "1940-05",
+     "1940-12",
+     66,
+     0
+    ],
+    [
+     "1941-01",
+     "1941-08",
+     66,
+     4
+    ],
+    [
+     "1941-09",
+     "1942-04",
+     66,
+     8
+    ],
+    [
+     "1942-05",
+     "1944-12",
+     67,
+     0
+    ],
+    [
+     "1945-01",
+     "1945-08",
+     67,
+     4
+    ],
+    [
+     "1945-09",
+     "1946-04",
+     67,
+     8
+    ],
+    [
+     "1946-05",
+     "1946-12",
+     68,
+     0
+    ],
+    [
+     "1947-01",
+     "1947-08",
+     68,
+     4
+    ],
+    [
+     "1947-09",
+     "1948-04",
+     68,
+     8
+    ],
+    [
+     "1948-05",
+     "1948-12",
+     69,
+     0
+    ],
+    [
+     "1949-01",
+     "1949-08",
+     69,
+     4
+    ],
+    [
+     "1949-09",
+     "1950-04",
+     69,
+     8
+    ],
+    [
+     "1950-05",
+     null,
+     70,
+     0
+    ]
+   ],
+   "men_eligibility": 70,
+   "men_now": 67,
+   "women_now_from": 62,
+   "women_now_to": 65,
+   "law_from_1956": "1956-01",
+   "section": "סעיף 245(א); לוח א1 חלקים א' ו-ד'",
+   "retirement_section": "לוח א1, חלק א'; חוק גיל פרישה, התוספת, חלק ב'",
+   "url": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/gilMezake/Pages/gilPrisha.aspx",
+   "eligibility_url": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/gilMezake/Pages/gilZakaut.aspx",
+   "law_url": "https://www.btl.gov.il/Laws1/00_0001_000011.pdf",
+   "tables_url": "https://www.btl.gov.il/Laws1/00_0001_000020.pdf",
+   "retirement_law_url": "https://www.nevo.co.il/law_html/law00/73761.htm",
+   "he": "קצבת אזרח ותיק משולמת מגיל הפרישה בהתאם למבחן הכנסות, ומגיל הזכאות (70) בלי קשר להכנסות",
+   "women_he": "גיל הפרישה לאישה נקבע לפי חודש הלידה: 62 לילידות מאי 1947 עד 1959, ועולה בהדרגה עד 65 לילידות 1970 ואילך (התיקון של 2021)"
+  },
+  "achshara": {
+   "last10_months": 60,
+   "total_months": 144,
+   "section": "סעיף 246",
+   "url": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/achshara/Pages/%D7%AA%D7%A7%D7%95%D7%A4%D7%AA%D7%90%D7%9B%D7%A9%D7%A8%D7%94%D7%9C%D7%92%D7%91%D7%A8.aspx",
+   "woman_url": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/achshara/Pages/achsharaIsha.aspx",
+   "he": "60 חודשי ביטוח בתוך 10 השנים שלפני הגיל המזכה, או 144 חודשי ביטוח, או 60 חודשים לפחות כשחודשי הביטוח מאז שנעשו תושבים רבים מהחודשים שבלי ביטוח",
+   "exempt_he": "פטורה מתקופת אכשרה אישה שהגיעה לגיל הפרישה כשהיא רווקה, גרושה, אלמנה שלא מקבלת קצבת שאירים או תלויים, עגונה, נשואה למי שאינו מבוטח, או שקיבלה קצבת נכות כללית בחודש שלפני",
+   "basic70_he": "אישה שחייבת בתקופת אכשרה ולא צברה אותה זכאית בגיל 70 לקצבה בסיסית, אם הייתה תושבת 60 חודשים מתוך 10 השנים שלפני, או 144 חודשים",
+   "housewife_he": "עקרת בית (נשואה למבוטח ואינה עובדת) לא חייבת בדמי ביטוח, ויכולה להיות זכאית לקצבה בגיל 70",
+   "later_he": "אפשר להמשיך לצבור תקופת אכשרה גם אחרי גיל הפרישה, ומרגע ההשלמה יש זכאות",
+   "returning_he": "תושב חוזר שלא צבר תקופת אכשרה עשוי לקבל גמלת אזרח ותיק מיוחדת עד שיצבור אותה"
+  },
+  "insured": {
+   "section": "סעיף 240",
+   "url": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/mevutach/Pages/geverMevuta.aspx",
+   "woman_url": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/mevutach/Pages/%D7%90%D7%99%D7%A9%D7%94%D7%9E%D7%91%D7%95%D7%98%D7%97%D7%AA.aspx",
+   "special_url": "https://www.btl.gov.il/benefits/old_age/Pages/%d7%92%d7%9e%d7%9c%d7%aa%20%d7%96%d7%a7%d7%a0%d7%94%20%d7%9e%d7%99%d7%95%d7%97%d7%93%d7%aa.aspx",
+   "he": "מבוטחים תושבי ישראל מגיל 18 שנולדו בישראל, או שעלו לראשונה לפני גיל 62 (גבר) או לפני גיל הפרישה (אישה)",
+   "special_he": "מי שעלה אחרי הגיל הזה עשוי לקבל גמלת אזרח ותיק מיוחדת מאוצר המדינה: בסכומי הקצבה הבסיסית, בלי תוספת ותק ודחייה, ובמבחן הכנסות גם אחרי גיל 70"
+  },
+  "amounts": {
+   "pct": {
+    "basic": 17.7,
+    "basic80": 18.7,
+    "spouse": 8.9,
+    "child": 5.6
+   },
+   "published": {
+    "single": 1838,
+    "single80": 1941,
+    "couple": 2762,
+    "couple80": 2865,
+    "single_child": 2419,
+    "couple_child": 3343,
+    "single_children": 3000,
+    "couple_children": 3924,
+    "spouse": 924,
+    "child": 581
+   },
+   "basic": 1838,
+   "basic80": 1941,
+   "spouse": 924,
+   "child": 581,
+   "max_children": 2,
+   "from80": 80,
+   "section": "סעיף 244",
+   "section80": "סעיף 247א",
+   "url": "https://www.btl.gov.il/benefits/old_age/Shum/Pages/Shum.aspx",
+   "dependants_url": "https://www.btl.gov.il/benefits/old_age/Pages/%D7%AA%D7%95%D7%A1%D7%A4%D7%AA%20%D7%91%D7%A2%D7%93%20%D7%91%D7%9F%20%D7%96%D7%95%D7%92%20%D7%95%D7%99%D7%9C%D7%93%D7%99%D7%9D.aspx",
+   "law_url": "https://www.btl.gov.il/Laws1/00_0001_000011.pdf",
+   "both_he": "אם כל אחד מבני הזוג עונה על תנאי הזכאות, כל אחד מקבל קצבה ליחיד",
+   "children_he": "התוספת עבור ילדים משולמת עבור שני ילדים לכל היותר; כששני ההורים מקבלים קצבה, רק למקבל הקצבה הגבוהה",
+   "housewife_he": "אישה שמקבלת קצבה כעקרת בית אינה זכאית לתוספת עבור בן זוג וילדים"
+  },
+  "seniority": {
+   "pct_per_year": 2,
+   "max_pct": 50,
+   "section": "סעיף 248",
+   "url": "https://www.btl.gov.il/benefits/old_age/Pages/tosefetVetek.aspx",
+   "law_url": "https://www.btl.gov.il/Laws1/00_0001_000011.pdf",
+   "he": "2% לכל שנת ביטוח מלאה (12 חודשים, גם לא רצופים), עד 50%: 25 שנים מגיעים לתקרה",
+   "women_he": "לאישה נספרות תקופות שבהן עבדה, הייתה רווקה, גרושה, אלמנה בלי קצבת שאירים, עגונה, נשואה למי שאינו מבוטח, או קיבלה קצבת נכות"
+  },
+  "deferral": {
+   "pct_per_year": 5,
+   "nine_months": 9,
+   "section": "סעיף 249",
+   "url": "https://www.btl.gov.il/benefits/old_age/Pages/t-dchiyatkitsba.aspx",
+   "law_url": "https://www.btl.gov.il/Laws1/00_0001_000011.pdf",
+   "he": "5% מהקצבה המלאה (כולל תוספת הוותק) לכל שנה מגיל הפרישה ועד 70 שבה הקצבה לא שולמה בגלל הכנסה מעבודה, או שבה ויתרו על קצבה חלקית",
+   "nine_he": "הכנסה כזאת במשך 9 חודשים לפחות מתוך שנה נחשבת כהכנסה של כל השנה",
+   "other_he": "מי שיש לו הכנסות גבוהות שלא מעבודה בלבד לא זכאי לתוספת דחייה",
+   "avtala_he": "דמי אבטלה נחשבים הכנסה מעבודה, גם במבחן ההכנסות וגם לתוספת הדחייה"
+  },
+  "income_test": {
+   "max_pct": {
+    "none": 73.45,
+    "one": 97.93,
+    "each": 7.0
+   },
+   "single": 10113,
+   "couple": 13484,
+   "extra_dep": 964,
+   "deduct_pct": 60,
+   "min_partial_pct": 10,
+   "min_partial": 184,
+   "end_single": 14402,
+   "end_couple": 20082,
+   "top_example": 2757,
+   "other": {
+    "single": [30339, 34627],
+    "couple": [40452, 47050],
+    "couple_pension": [40452, 44740]
+   },
+   "both": {
+    "single": [10113, 20226],
+    "couple": [13484, 26968]
+   },
+   "other_mult": 3,
+   "both_other_mult": 2,
+   "history": [
+    {
+     "from": "",
+     "to": "2021-12-31",
+     "none": 57,
+     "one": 76,
+     "each": 7,
+     "table": "לוח ט'"
+    },
+    {
+     "from": "2022-01-01",
+     "to": "2022-12-31",
+     "none": 63.97,
+     "one": 85.3,
+     "each": 7,
+     "table": "לוח ט1 (הוראת תחולה)"
+    },
+    {
+     "from": "2023-01-01",
+     "to": "",
+     "none": 73.45,
+     "one": 97.93,
+     "each": 7,
+     "table": "לוח ט1"
+    }
+   ],
+   "section": "סעיף 245(ב)",
+   "table_section": "לוח ט1",
+   "url": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/Pages/%D7%94%D7%9B%D7%A0%D7%A1%D7%95%D7%AA%20%D7%91%D7%92%D7%99%D7%9C%20%D7%94%D7%A4%D7%A8%D7%99%D7%A9%D7%94.aspx",
+   "work_url": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/Pages/hachnasotMewavoda.aspx",
+   "other_url": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/Pages/hachnasotLoMewavoda.aspx",
+   "both_url": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/Pages/hachnasotGamVegam.aspx",
+   "extra_url": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/Pages/HacnasaZikna.aspx",
+   "partial_url": "https://www.btl.gov.il/benefits/old_age/Pages/%D7%A7%D7%A6%D7%91%D7%AA%20%D7%96%D7%A7%D7%A0%D7%94%20%D7%99%D7%97%D7%A1%D7%99%D7%AA.aspx",
+   "law_url": "https://www.btl.gov.il/Laws1/00_0001_000011.pdf",
+   "tables_url": "https://www.btl.gov.il/Laws1/00_0001_000020.pdf",
+   "he": "מגיל הפרישה ועד 70: מי שהכנסתו עולה על ההכנסה המרבית מקבל קצבה פחות 60% מההפרש, ולא פחות מ-10% מהקצבה הבסיסית; מתחת לזה אין קצבה",
+   "excluded_he": "הכנסה מפנסיה, בישראל או בחו\"ל, לא נחשבת; גם הפרשי הצמדה פטורים ממס על פיקדונות וחסכונות",
+   "extra_he": "תשלום נוסף (הבראה, ביגוד, מענק) של יותר מ-25% משכר המינימום מתחלק ל-12 חודשים; הפרשי שכר נזקפים לחודש שבעדו שולמו",
+   "other_he": "הכנסה שלא מעבודה (שכר דירה, ריבית): קצבה מלאה עד פי 3 מההכנסה המרבית; עם הכנסה מעבודה, עד פי 2 ממנה כשהכנסת העבודה מתחת להכנסה המרבית",
+   "dependants_he": "ההכנסה המרבית לפי מספר התלויים: בלי תלויים 73.45% מהשכר הממוצע, עם תלוי אחד 97.93%, ועוד 7% לכל תלוי נוסף",
+   "waive_he": "אפשר לוותר על הקצבה החלקית ולקבל אחר כך קצבה גבוהה יותר עם תוספת דחייה",
+   "disability_he": "מי שקיבל קצבת נכות כללית עד גיל הפרישה עובר לקצבת אזרח ותיק בלי מבחן הכנסות, והקצבה לא תהיה נמוכה מקצבת הנכות האחרונה",
+   "report_he": "על כל שינוי בהכנסות מודיעים עד גיל 70, וגם על הכנסות בן או בת הזוג"
+  },
+  "spouse": {
+   "income_limit": 7848,
+   "limit_pct": 57,
+   "wife_min_age": 45,
+   "wife_free_age": 67,
+   "husband_min_age": 50,
+   "husband_free_age": 70,
+   "together_months": 12,
+   "section": "סעיף 247",
+   "url": "https://www.btl.gov.il/benefits/old_age/Pages/%D7%AA%D7%95%D7%A1%D7%A4%D7%AA%20%D7%91%D7%A2%D7%93%20%D7%91%D7%9F%20%D7%96%D7%95%D7%92%20%D7%95%D7%99%D7%9C%D7%93%D7%99%D7%9D.aspx",
+   "wife_url": "https://www.btl.gov.il/benefits/old_age/HaddarotZikna/Pages/BatZug.aspx",
+   "husband_url": "https://www.btl.gov.il/benefits/old_age/HaddarotZikna/Pages/BenZug.aspx",
+   "child_url": "https://www.btl.gov.il/benefits/old_age/HaddarotZikna/Pages/HagdaratYeled.aspx",
+   "law_url": "https://www.btl.gov.il/Laws1/00_0001_000011.pdf",
+   "wife_he": "בת זוג: נשואה או ידועה בציבור שנה לפחות (או שילדה לו ילד), בת 45 ומעלה או שיש עמה ילד שלו, והכנסתה עד 7,848 ש\"ח או שהיא בת 67 ומעלה",
+   "husband_he": "בן זוג: נשוי או ידוע בציבור שנה לפחות, בן 50 עד 70 עם הכנסה עד 7,848 ש\"ח, או בן 70 ומעלה",
+   "pension_he": "התוספת משולמת עבור בן זוג שאינו מקבל קצבה מהביטוח הלאומי",
+   "child_he": "ילד: עד 18; עד 20 בלימודי תיכון, בגרות או מכינה קדם-צבאית; עד 21 בהתנדבות שדחתה את השירות; עד 24 בשירות סדיר, לאומי או עתודה"
+  },
+  "grant": {
+   "born_from": 1960,
+   "born_to": 1966,
+   "from_age": 62,
+   "months": 4,
+   "rates": {
+    "1960": 4000,
+    "1961": 4000,
+    "1962": 4000,
+    "1963": 3750,
+    "1964": 3500,
+    "1965": 3250,
+    "1966": 3000
+   },
+   "det_pct": 73.5,
+   "det": 10120,
+   "other_year": 60000,
+   "claim_age": 64,
+   "claim_months": 24,
+   "section": "סעיף 269א",
+   "url": "https://www.btl.gov.il/benefits/old_age/MankMavrATR/Pages/default.aspx",
+   "conditions_url": "https://www.btl.gov.il/benefits/old_age/MankMavrATR/Pages/MankMavrTnaim.aspx",
+   "amount_url": "https://www.btl.gov.il/benefits/old_age/MankMavrATR/Pages/ScomMankMavr.aspx",
+   "claim_url": "https://www.btl.gov.il/benefits/old_age/MankMavrATR/Pages/BksaMankMavr.aspx",
+   "law_url": "https://www.btl.gov.il/Laws1/00_0001_000011.pdf",
+   "he": "אישה שנולדה בשנים 1960 עד 1966 עשויה לקבל מענק מעבר בעד 4 החודשים שמיום שמלאו לה 62",
+   "conditions_he": [
+    "אין הכנסה מעבודה (כשכירה או כעצמאית) מגיל 62 ועד 62 ו-4 חודשים, ולא חופשה ללא תשלום מרצון",
+    "הכנסה מפנסיה, מתגמולים או מקצבאות עד 10,120 ש\"ח לחודש",
+    "הכנסה שנתית שלא מעבודה עד 60,000 ש\"ח בשנת המס שבה מלאו לה 61",
+    "תקופת אכשרה מלאה, או פטור ממנה",
+    "לא מקבלת הבטחת הכנסה, דמי מזונות, קצבת נכות כללית או דמי אבטלה (נבדק בכל אחד מ-4 החודשים)"
+   ],
+   "rate_he": "הסכום לחודש: לפי שנת הלידה, או ההפרש בין 10,120 ש\"ח לבין ההכנסה מקצבאות ופנסיה, הנמוך מהשניים",
+   "survivor_he": "מי שמקבלת קצבת שאירים מקבלת השלמה עד גובה המענק",
+   "deadline_he": "מגישים עד גיל 64"
+  },
+  "supplement": {
+   "table": {
+    "to70": {
+     "single": 4375,
+     "couple": 6912,
+     "single_child": 7305,
+     "single_children": 8426,
+     "couple_child": 8035,
+     "couple_children": 9156
+    },
+    "to80": {
+     "single": 4418,
+     "couple": 6981,
+     "single_child": 7374,
+     "single_children": 8496,
+     "couple_child": 8102,
+     "couple_children": 9226
+    },
+    "from80": {
+     "single": 4460,
+     "couple": 7048,
+     "single_child": 7442,
+     "single_children": 8563,
+     "couple_child": 8171,
+     "couple_children": 9292
+    }
+   },
+   "health": 123,
+   "pension_disregard": {
+    "single": 1790,
+    "couple": 2823
+   },
+   "work_disregard": {
+    "single": 3236,
+    "couple": 3786
+   },
+   "work_pct": 60,
+   "url": "https://www.btl.gov.il/benefits/old_age/hashHachZ/Pages/default.aspx",
+   "amounts_url": "https://www.btl.gov.il/benefits/old_age/hashHachZ/Pages/schumim.aspx",
+   "income_url": "https://www.btl.gov.il/benefits/old_age/hashHachZ/Pages/HCNsOT.aspx",
+   "he": "למקבלי קצבת אזרח ותיק עם הכנסות נמוכות משולמת תוספת השלמת הכנסה, עד הסכומים שבטבלה"
+  },
+  "health": {
+   "single": 237,
+   "couple": 340,
+   "supplement": 123,
+   "url": "https://www.btl.gov.il/benefits/old_age/Shum/Pages/Nicuyim.aspx",
+   "he": "מהקצבה מנוכים דמי ביטוח בריאות: 237 ש\"ח ליחיד, 340 ש\"ח לזוג, 123 ש\"ח למקבלי השלמת הכנסה",
+   "wife_he": "לאישה נשואה לא מנוכים דמי ביטוח בריאות מהקצבה"
+  },
+  "claim": {
+   "retro_months": 12,
+   "retro_after70_months": 48,
+   "pay_day": 28,
+   "cutoff_day": 15,
+   "url": "https://www.btl.gov.il/benefits/old_age/Pages/%D7%90%D7%95%D7%A4%D7%9F%20%D7%94%D7%92%D7%A9%D7%AA%20%D7%94%D7%AA%D7%91%D7%99%D7%A2%D7%94.aspx",
+   "payment_url": "https://www.btl.gov.il/benefits/old_age/Pages/%D7%9E%D7%95%D7%A2%D7%93%20%D7%94%D7%AA%D7%A9%D7%9C%D7%95%D7%9D.aspx",
+   "calculator_url": "https://www.btl.gov.il/benefits/old_age/Pages/BdikatZacautZikna.aspx",
+   "he": "מגישים תביעה עם מסמכים על ההכנסות: אישור מעסיק על סיום או צמצום העבודה, הצהרת עצמאי, חוזה שכירות או אישור ריבית",
+   "mail_he": "חודש לפני גיל הפרישה נשלח טופס התביעה בדואר, ולנשים גם פירוט תקופות הביטוח",
+   "retro_he": "תביעה אחרי גיל הפרישה: עד 12 חודשים אחורה; אחרי גיל 70: עד 48 חודשים, ושנה אחת מהם יכולה להיות לפני 70 לפי מבחן ההכנסות",
+   "pay_he": "הקצבה משולמת ב-28 בכל חודש, עבור אותו חודש",
+   "first_he": "מי שנולד לפני ה-15 בחודש מתחיל לקבל בחודש שבו הגיע לגיל המזכה; מי שנולד אחרי ה-15, בחודש שאחריו"
+  },
+  "appeal": {
+   "committee_months": 6,
+   "court_months": 12,
+   "committee_form": "בל/910",
+   "url": "https://www.btl.gov.il/benefits/old_age/Pages/erur.aspx",
+   "committee_url": "https://www.btl.gov.il/benefits/%D7%A2%D7%A8%D7%A2%D7%95%D7%A8%20%D7%A2%D7%9C%20%D7%94%D7%97%D7%9C%D7%98%D7%95%D7%AA%20%D7%94%D7%9E%D7%95%D7%A1%D7%93%20%D7%9C%D7%91%D7%99%D7%98%D7%95%D7%97%20%D7%9C%D7%90%D7%95%D7%9E%D7%99/Pages/vadatviot.aspx",
+   "court_url": "https://www.btl.gov.il/benefits/%D7%A2%D7%A8%D7%A2%D7%95%D7%A8%20%D7%A2%D7%9C%20%D7%94%D7%97%D7%9C%D7%98%D7%95%D7%AA%20%D7%94%D7%9E%D7%95%D7%A1%D7%93%20%D7%9C%D7%91%D7%99%D7%98%D7%95%D7%97%20%D7%9C%D7%90%D7%95%D7%9E%D7%99/Pages/%D7%91%D7%AA%D7%99%20%D7%94%D7%93%D7%99%D7%9F%20%D7%94%D7%90%D7%96%D7%95%D7%A8%D7%99%D7%99%D7%9D%20%D7%9C%D7%A2%D7%91%D7%95%D7%93%D7%94.aspx",
+   "legal_aid_url": "https://www.btl.gov.il/benefits/%D7%A2%D7%A8%D7%A2%D7%95%D7%A8%20%D7%A2%D7%9C%20%D7%94%D7%97%D7%9C%D7%98%D7%95%D7%AA%20%D7%94%D7%9E%D7%95%D7%A1%D7%93%20%D7%9C%D7%91%D7%99%D7%98%D7%95%D7%97%20%D7%9C%D7%90%D7%95%D7%9E%D7%99/Pages/%D7%A1%D7%99%D7%95%D7%A2%20%D7%9E%D7%A9%D7%A4%D7%98%D7%99.aspx",
+   "he": "על החלטה אפשר לפנות לוועדת תביעות בתוך 6 חודשים (טופס בל/910), ולהגיש תביעה לבית הדין האזורי לעבודה בתוך 12 חודשים מיום ההחלטה; אפשר לבקש סיוע משפטי חינם"
+  },
+  "from_other": {
+   "url": "https://www.btl.gov.il/benefits/old_age/Pages/%D7%9E%D7%A2%D7%91%D7%A8%20%D7%9E%D7%A7%D7%91%D7%9C%D7%AA%20%D7%A7%D7%A6%D7%91%D7%90%D7%95%D7%AA%20%D7%90%D7%97%D7%A8%D7%95%D7%AA%20%D7%9C%D7%A7%D7%91%D7%9C%D7%AA%20%D7%A7%D7%A6%D7%91%D7%AA%20%D7%96%D7%A7%D7%A0%D7%94.aspx",
+   "he": "קצבת נכות כללית והבטחת הכנסה משולמות עד גיל הפרישה; משם קצבת אזרח ותיק, ולמי שקיבל נכות, לא פחות מקצבת הנכות האחרונה"
+  },
+  "paid": {
+   "url": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/Pages/%D7%A9%D7%95%D7%9C%D7%9E%D7%95%20%D7%91%D7%A2%D7%93%D7%9A%20%D7%93%D7%9E%D7%99%20%D7%91%D7%99%D7%98%D7%95%D7%97%20%D7%9B%D7%97%D7%95%D7%A7.aspx",
+   "he": "שכיר לא נפגע מחוב של המעסיק; עצמאי ומי שלא עובד משלמים בעצמם עד הגיל המזכה, וחוב בדמי ביטוח מעכב או מקטין את הקצבה"
+  },
+  "penal": {
+   "url": "https://www.nevo.co.il/law_html/law00/70301.htm",
+   "section": "סעיף 368ו לחוק העונשין",
+   "age": 65,
+   "harm_years": 5,
+   "serious_years": 7,
+   "he": "התוקף אדם בן 65 ומעלה וגורם לו חבלה של ממש: עד 5 שנות מאסר; חבלה חמורה: עד 7 שנים"
+  },
+  "history": [
+   {
+    "from": "2024-01-01",
+    "b3": 9806,
+    "change_pct": 3.3
+   },
+   {
+    "from": "2025-01-01",
+    "b3": 10139,
+    "change_pct": 3.4
+   }
+  ],
+  "history_url": "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%d7%94%d7%a1%d7%9b%d7%95%d7%9d%20%d7%94%d7%91%d7%a1%d7%99%d7%a1%d7%99%20%d7%9c%d7%97%d7%99%d7%a9%d7%95%d7%91%20%d7%a7%d7%a6%d7%91%d7%90%d7%95%d7%aa.aspx"
+ },
  "fl_iska": {
   "name_he": "העלות המלאה של קניית דירה או מכירתה",
   "publisher_he": "משרד המשפטים (רישום המקרקעין), רשות המסים ולשכת עורכי הדין",

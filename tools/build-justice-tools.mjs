@@ -79,6 +79,7 @@ const TOOLS = {
 	'tagmulei-miluim': ['instrument.js', 'sim-handoff.js', 'dates.js', 'miluim-engine.js', 'miluim-ui.js'],
 	'kitzbat-yeladim': ['instrument.js', 'sim-handoff.js', 'dates.js', 'yeladim-engine.js', 'yeladim-ui.js'],
 	'havtachat-hachnasa': ['instrument.js', 'sim-handoff.js', 'dates.js', 'havtacha-engine.js', 'havtacha-ui.js'],
+	'kitzbat-zikna': ['instrument.js', 'sim-handoff.js', 'dates.js', 'zikna-engine.js', 'zikna-ui.js'],
 };
 
 function strip(code) {
@@ -149,6 +150,7 @@ const fl5 = await import(pathToFileURL(join(SRC, 'kablan-ui.js')).href);
 const r2bM = await import(pathToFileURL(join(SRC, 'miluim-ui.js')).href);
 const r2bY = await import(pathToFileURL(join(SRC, 'yeladim-ui.js')).href);
 const r2bH = await import(pathToFileURL(join(SRC, 'havtacha-ui.js')).href);
+const r2bZ = await import(pathToFileURL(join(SRC, 'zikna-ui.js')).href);
 const snapshots = {
 	registry_version: registry.registry_version,
 	hatzmada: t04.snapshot(registry),
@@ -193,6 +195,7 @@ const snapshots = {
 	'tagmulei-miluim': r2bM.snapshot(registry),
 	'kitzbat-yeladim': r2bY.snapshot(registry),
 	'havtachat-hachnasa': r2bH.snapshot(registry),
+	'kitzbat-zikna': r2bZ.snapshot(registry),
 };
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 

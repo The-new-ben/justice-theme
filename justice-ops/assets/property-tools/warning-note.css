@@ -94,3 +94,8 @@
 .jt-property-tool .jt-list .jt-n{background:#FFFFFF}
 }
 @media (prefers-reduced-motion:reduce){.jt-property-tool *{transition:none!important}}
+
+/* Isolate tool headings from the article template heading decoration. */
+.entry-content .jt-property-tool h2,.entry-content .jt-property-tool h3,.entry-content .jt-property-tool h4{font-family:inherit!important;margin:0!important;padding:0!important;border:0!important}
+.entry-content .jt-property-tool h2::before,.entry-content .jt-property-tool h3::before,.entry-content .jt-property-tool h4::before{content:none!important}
+.entry-content .jt-property-tool .jt-h{margin-bottom:10px!important}

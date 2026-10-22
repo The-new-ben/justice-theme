@@ -119,6 +119,8 @@ foreach ( $homes as $name => $home ) {
 	check( count( $sources ) >= 6, "{$name}: at least 6 official sources (" . count( $sources ) . ')' );
 	foreach ( $sources as $s ) {
 		check( 0 === strpos( (string) $s['url'], 'https://' ) && '' !== trim( (string) $s['text'] ) && false === mb_strpos( (string) $s['text'] . $s['name'], 'כל זכות' ) && false === strpos( (string) $s['url'], 'kolzchut' ), "{$name}: source {$s['name']} has an official https url and a text" );
+		// A raw web address in the text has no break point and pushed the 1280 page sideways (HAD-585 polish).
+		check( false === strpos( (string) $s['text'], 'http' ) && 0 === preg_match( '/\S{45,}/u', (string) $s['text'] ), "{$name}: source {$s['name']} has no raw web address or unbreakable run in its text" );
 	}
 	$stamp = justice_tools_stamp( $name );
 	check( false !== mb_strpos( $stamp, 'נבדק 21.10.2026' ), "{$name}: the stamp carries the check date ({$stamp})" );

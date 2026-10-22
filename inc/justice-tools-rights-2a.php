@@ -173,6 +173,8 @@ function justice_tools_rights2a_lead_shortcode( $atts ): string {
 	$fl = function_exists( 'justice_tools_fl_names' ) && in_array( $name, justice_tools_fl_names(), true );
 	// The rights wave 2B (HAD-585) puts it on its four pages too.
 	$b2 = function_exists( 'justice_tools_rights2b_names' ) && in_array( $name, justice_tools_rights2b_names(), true );
+	// The labor wave (22.10.2026): its four instruments and the upgraded severance tool use the card too.
+	$fl = $fl || ( function_exists( 'justice_tools_labor_names' ) && in_array( $name, array_merge( justice_tools_labor_names(), array( 'pitzuyim' ) ), true ) );
 	if ( ! $fl && ! $b2 && ! in_array( $name, justice_tools_rights2a_names(), true ) ) {
 		return '';
 	}

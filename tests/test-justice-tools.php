@@ -381,12 +381,12 @@ check( false === strpos( $p5, 'data-jt12-entry' ), 'rental entry does not leak i
 check( strpos( $p5, 'class="jtool-answer"' ) < strpos( $p5, '<section class="jtool"' ), 'other tools retain the answer-first layout' );
 check( false !== strpos( $p5, 'class="jtool-answer"' ) && false !== strpos( $p5, '<bdi>72%</bdi>' ) && false !== strpos( $p5, '13,750' ), 'severance answer box: s.14 at 72% and the 2026 ceiling' );
 check( false !== strpos( $p5, '103,000' ) && false !== strpos( $p5, 'jt13-ruler' ) && false !== strpos( $p5, '28,840' ) && false !== strpos( $p5, 'purpose=mediation' ), 'severance example in the server HTML: 103,000, the ruler, the employer top-up; the employment rehearsal' );
-check( false !== strpos( $p5, 'תקרת פטור 13,750 ₪ ב-2026 · נבדק 14.10.2026' ), 'severance stamp' );
+check( false !== strpos( $p5, 'תקרת פטור 13,750 ₪ ב-2026 · הפקדה לפיצויים 6% מ-1.1.2017 · נבדק 22.10.2026' ), 'severance stamp: the 2026 ceiling, the 2017 deposit rate and the labor wave check date (22.10.2026)' );
 $s5 = $h5( array( 'name' => 'mas-shevach' ) );
 check( false !== strpos( $s5, 'class="jtool-answer"' ) && false !== strpos( $s5, '<bdi>25%</bdi>' ) && false !== strpos( $s5, '5,008,000' ) && false !== strpos( $s5, '<bdi>30</bdi>' ), 'capital-gains answer box: 25%, the ceiling, 30 days' );
 check( false !== strpos( $s5, 'jt14-strip' ) && false !== strpos( $s5, '383,957.59' ) && false !== strpos( $s5, 'data-act="ics"' ) && false !== strpos( $s5, 'purpose=court_rehearsal' ), 'capital-gains example in the server HTML: the strip, the CBS inflation, the .ics primary, the objection rehearsal as a secondary link' );
 check( false !== strpos( $s5, 'תקרת פטור 5,008,000 ₪ עד 31.12.2027 · נבדק 14.10.2026' ), 'capital-gains stamp' );
-foreach ( array( 'chozeh-schirut' => array( $r5, 2 ), 'pitzuyim' => array( $p5, 3 ), 'mas-shevach' => array( $s5, 3 ) ) as $nm => $pair ) {
+foreach ( array( 'chozeh-schirut' => array( $r5, 2 ), 'pitzuyim' => array( $p5, 6 ), 'mas-shevach' => array( $s5, 3 ) ) as $nm => $pair ) {
 	list( $html, $sets ) = $pair;
 	check( 1 === substr_count( $html, '"@type":"WebApplication"' ) && false === strpos( $html, 'FAQPage' ) && false === stripos( $html, 'aggregateRating' ), $nm . ': one WebApplication, no FAQPage, no rating' );
 	$card = substr( $html, (int) strpos( $html, '<section class="jtool"' ) );

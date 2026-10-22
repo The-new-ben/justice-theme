@@ -39,6 +39,7 @@ Usage
   add --rights-checked-on <day> the same way for the rights-guide datasets (the rights wave, tools/justice_tools_rights.py
   and tools/justice_tools_rights_<name>.py)
   add --fl-checked-on <day> the same way for the family + land datasets (HAD-579, tools/justice_tools_fl_<name>.py)
+  add --labor-checked-on <day> the same way for the labor-law datasets (the labor wave, tools/justice_tools_labor_<name>.py)
 
 Every input can be a saved file (so a reviewer can rebuild the exact registry from the files
 attached to the PR) or omitted to fetch live. The script never estimates a missing value: a
@@ -1077,6 +1078,8 @@ def main() -> int:
                                                 "tools/justice_tools_fl_*.py); when given, those datasets are built too")
     parser.add_argument("--rights-checked-on", help="the day the rights-guide sources were read (the rights wave, "
                                                     "tools/justice_tools_rights*.py); when given, those datasets are built too")
+    parser.add_argument("--labor-checked-on", help="the day the labor-law sources were read (the labor wave, "
+                                                   "tools/justice_tools_labor_*.py); when given, those datasets are built too")
     args = parser.parse_args()
     wave3_day = args.wave3_checked_on or args.checked_on
     wave4_day = args.wave4_checked_on
@@ -1123,6 +1126,11 @@ def main() -> int:
             if key.startswith("fl_"):
                 registry[key] = base[key]
         add_fl(registry, args.fl_checked_on)
+        # The labor-law datasets (the labor wave) are kept the same way unless rebuilt.
+        for key in base:
+            if key.startswith("labor_"):
+                registry[key] = base[key]
+        add_labor(registry, args.labor_checked_on)
         write_registry(registry, args.out)
         return 0
 
@@ -1158,6 +1166,7 @@ def main() -> int:
     add_inheritance(registry, args.inheritance_checked_on or args.checked_on)
     add_rights(registry, args.rights_checked_on or args.checked_on)
     add_fl(registry, args.fl_checked_on or args.checked_on)
+    add_labor(registry, args.labor_checked_on or args.checked_on)
     write_registry(registry, args.out)
     return 0
 
@@ -1218,6 +1227,14 @@ def add_fl(registry: dict, day: str | None) -> None:
         return
     import justice_tools_fl as fl  # tools/ is the script's own folder
     fl.add_fl(registry, day)
+
+
+def add_labor(registry: dict, day: str | None) -> None:
+    """The labor wave (22.10.2026): the per-instrument datasets of tools/justice_tools_labor_<name>.py."""
+    if not day:
+        return
+    import justice_tools_labor as labor  # tools/ is the script's own folder
+    labor.add_labor(registry, day)
 
 
 def write_registry(registry: dict, out: str) -> None:

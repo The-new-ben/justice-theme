@@ -58,7 +58,7 @@ check( 597 === ( $ip['registrar']['items']['order']['amount'] ?? 0 ) && 507 === 
 check( 1151 === ( $ip['family_court']['items']['objection']['amount'] ?? 0 ) && 1183 === ( $ip['family_court']['items']['amend']['amount'] ?? 0 ) && 3481 === ( $ip['family_court']['items']['property']['amount'] ?? 0 ) && '2026-07-01' === ( $ip['family_court']['current_to'] ?? '' ), 'family court: 1,151 / 1,183 / 3,481 from 1.7.2026' );
 check( 14 === ( $ip['days']['objection'] ?? 0 ) && 7 === ( $ip['days']['online_original_will'] ?? 0 ) && 10 === count( $ip['grounds'] ?? array() ) && 8 === count( $ip['routes'] ?? array() ), 'the periods, 10 grounds, 8 routes' );
 check( 2190 === ( $ip['bar']['registration_per_unit'] ?? 0 ) && 6307 === ( $ip['bar']['partition_min'] ?? 0 ) && 754 === ( $ip['bar']['hearing'] ?? 0 ), 'the Bar: 2,190 per unit, partition at least 6,307, a hearing 754' );
-check( '2026-10-21' === ( $reg['registry_version'] ?? '' ), 'the registry version moved to the wave day' );
+check( ( $reg['registry_version'] ?? '' ) >= '2026-10-21', 'the registry version moved to the wave day or later (a later wave moves it on)' );
 
 /* ---------- The catalog ---------- */
 foreach ( justice_tools_inheritance_names() as $name ) {

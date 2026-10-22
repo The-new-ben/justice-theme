@@ -49,6 +49,28 @@ export function noticeDays(sv, payType, months) {
 	return { days: null, month: true, section: 'סעיף 3(3)' };
 }
 
+/**
+ * The notice as the Ministry of Labor's published table reads ss.3-4 (gov.il guide, chapter "תקופת ההודעה המוקדמת"; the
+ * labor wave, 22.10.2026): n = the month of work in which the notice is given (full months, plus one when days of a further
+ * month have started). Monthly: n <= 6 -> n days (s.3(1)); 7..12 -> 6 + 2.5 for each month from the 7th (s.3(2)); 12 full
+ * months or more -> a month (s.3(3)). Wage: n <= 12 -> n days (s.4(1)); 13..24 -> 14 + 1 for every two months after the
+ * 13th (s.4(2)); 25..36 -> 21 + the same (s.4(3)); more than 36 months -> a month (s.4(4)). compute() uses this reading,
+ * and the notice instrument (hodaa-engine.js) uses the same function, so the two pages never disagree.
+ */
+export function noticeByMonth(sv, payType, span) {
+	const n = span.months + (span.days > 0 ? 1 : 0);
+	const N = sv.notice;
+	if (payType === 'hourly') {
+		if (n <= 12) { return { days: n, month: false, section: 'סעיף 4(1)', n }; }
+		if (n <= 24) { return { days: N.wage.y2_base + Math.floor((n - 13) / 2), month: false, section: 'סעיף 4(2)', n }; }
+		if (n <= 36) { return { days: N.wage.y3_base + Math.floor((n - 25) / 2), month: false, section: 'סעיף 4(3)', n }; }
+		return { days: null, month: true, section: 'סעיף 4(4)', n };
+	}
+	if (span.months >= 12) { return { days: null, month: true, section: 'סעיף 3(3)', n }; }
+	if (n <= N.monthly.first_months) { return { days: n, month: false, section: 'סעיף 3(1)', n }; }
+	return { days: N.monthly.base_days + N.monthly.per_month * (n - N.monthly.first_months), month: false, section: 'סעיף 3(2)', n };
+}
+
 /** One month after a day, by the Interpretation Law s.10(ב): the same day number, or the last day of a shorter month. */
 export function monthLater(iso) {
 	const [y, m, d] = iso.split('-').map(Number);
@@ -239,8 +261,10 @@ export function compute(registry, input) {
 
 	// Advance notice.
 	const at = noticeDate || end;
-	const workedToNotice = serviceSpan(start, at).months;
-	const notice = noticeDays(sv, payType, workedToNotice);
+	// The month of work in which the notice is given counts once it has started (the Ministry's table; noticeByMonth).
+	const noticeSpan = serviceSpan(start, at);
+	const workedToNotice = noticeSpan.months;
+	const notice = noticeByMonth(sv, payType, noticeSpan);
 	// Interpretation Law s.10: a period in days does not count the day of the notice (10(א)); a month ends on the same day
 	// number in the next month, or on its last day when it has no such day (10(ב)).
 	const noticeEnd = noticeDate ? (notice.month ? monthLater(noticeDate) : addDays(noticeDate, Math.ceil(notice.days))) : null;
@@ -319,4 +343,179 @@ export function byArrangement(registry, input) {
 		out[k] = r.ok ? { employer: r.employer, pct: r.s14Pct, total: r.severance } : null;
 	}
 	return out;
+}
+
+/* ---------------- The labor wave (22.10.2026): the severance salary from the payslip, and the pension-deposit check ----------------
+ * Additive only: compute(), serviceSpan(), noticeDays(), monthLater(), minWageOn() and RESIGN_CODES above are frozen (other
+ * tools import them). Every number below comes from registry.labor_pitzuyim (the 1964 calculation regulations, reg. 1; the
+ * comprehensive pension extension order, consolidated 2011, ss.6-9), registry.rights_neto.pension (the rates from
+ * 1.1.2017), registry.rights_btl.avg_wage (the order's ceiling) and registry.severance.
+ */
+
+/**
+ * Reg. 1 of the 1964 regulations: the payslip lines (monthly amounts) -> the severance salary.
+ * parts = { base, seniority, col, family, dept, commission, overtime, travel, havraa, bonus, benefit, other }.
+ * Returns { ok, any, rows[{code, he, status, section, rule_he, amount}], fixed (reg. 1), avg (reg. 9), out, check, base,
+ * payslip } or { ok:false, errors }. status: in (counted), avg (the 12-month average, reg. 9), out (not in reg. 1(א)),
+ * check (a fixed payment under another name: not counted; the labour court decides).
+ */
+export function pzBase(registry, parts) {
+	const lp = registry.labor_pitzuyim;
+	const errors = [];
+	const rows = [];
+	const sum = { in: 0, avg: 0, out: 0, check: 0 };
+	for (const c of lp.components) {
+		const raw = parts ? parts[c.code] : '';
+		if (blank(raw)) { continue; }
+		const v = Number(raw);
+		if (!(Number.isFinite(v) && v >= 0 && v < 1e7)) { errors.push({ field: `pz-${c.code}`, he: `${c.he}: סכום חודשי חיובי, 0 או ריק` }); continue; }
+		if (v === 0) { continue; }
+		rows.push({ code: c.code, he: c.he, status: c.status, section: c.section, rule_he: c.rule_he, amount: v });
+		sum[c.status] += v;
+	}
+	const any = rows.length > 0;
+	if (!errors.length && any && !(sum.in > 0)) { errors.push({ field: 'pz-base', he: 'שכר יסוד: חובה כשממלאים את רכיבי התלוש (תקנה 1(א)(1))' }); }
+	if (errors.length) { return { ok: false, errors }; }
+	return { ok: true, any, rows, fixed: r2(sum.in), avg: r2(sum.avg), out: r2(sum.out), check: r2(sum.check), base: r2(sum.in + sum.avg), payslip: r2(sum.in + sum.avg + sum.out + sum.check) };
+}
+
+/** The pension order's deposit rates on a day (percent of the insured salary): s.6(ד) of the order to 2016, the 2016
+ * increase order from 1.1.2017 (registry.rights_neto.pension). null before 1.1.2008. */
+export function pzOrderRate(registry, day) {
+	const lp = registry.labor_pitzuyim;
+	const pn = registry.rights_neto.pension;
+	if (day >= pn.from) { return { from: pn.from, employer: pn.employer_pct, employee: pn.employee_pct, severance: pn.severance_pct, section: lp.increase_2016.gazette_he }; }
+	let row = null;
+	for (const x of lp.order.rows) { if (x.from <= day) { row = x; } }
+	return row ? { from: row.from, employer: row.employer, employee: row.employee, severance: row.severance, section: lp.order.rows_section } : null;
+}
+
+/** The share of a year's severance that a deposit rate replaces (s.7 of the order; the 1998 approval: 6% -> 72%, the full
+ * rate (8⅓%, the order writes 8.33%) -> 100%): a month's salary a year is 1/12 of the year's pay. */
+export function pzCoverPct(rate, full) {
+	return rate >= full ? 100 : r2(rate * 12);
+}
+
+/** The periods of the deposit schedule between two days, each with the order's severance rate. */
+function pzSegments(registry, from, to) {
+	const lp = registry.labor_pitzuyim;
+	const marks = [...lp.order.rows.map((x) => x.from), registry.rights_neto.pension.from].filter((d) => d > from && d <= to).sort();
+	const out = [];
+	let a = from;
+	for (const m of [...marks, addDays(to, 1)]) {
+		const b = addDays(m, -1);
+		if (b >= a) { const rt = pzOrderRate(registry, a); if (rt) { out.push({ from: a, to: b, rate: rt.severance, years: serviceSpan(a, b).years }); } }
+		a = m;
+	}
+	return out;
+}
+
+/**
+ * The section-14 and pension-deposit check on a computed result r (from compute()).
+ * input = { depWage (the salary the deposits were made on; empty = the law's salary), fundBal (the severance balance on the
+ * fund's annual report; optional), orderRates (true: the deposits followed the order's rising rates from 2008) }.
+ * Returns { ok, wage, depWage, capWage, avgWage, rates, monthly, mandatory, from, months, gap, order, fund, flags } or
+ * { ok:false, errors }. It never states what the fund holds: only what the rates put in it, without returns.
+ */
+export function pzFundCheck(registry, r, input = {}) {
+	if (!r || !r.ok) { return { ok: false, errors: [] }; }
+	const lp = registry.labor_pitzuyim;
+	const pn = registry.rights_neto.pension;
+	const avgWage = registry.rights_btl.avg_wage.s2_benefits;
+	const full = lp.order.full_rate;
+	const errors = [];
+	const depWage = blank(input.depWage) ? null : Number(input.depWage);
+	const fundBal = blank(input.fundBal) ? null : Number(input.fundBal);
+	if (depWage !== null && !(Number.isFinite(depWage) && depWage > 0 && depWage < 1e7)) { errors.push({ field: 'depWage', he: 'השכר שממנו הופרש: מספר חיובי או ריק' }); }
+	if (fundBal !== null && !(Number.isFinite(fundBal) && fundBal >= 0 && fundBal < 1e8)) { errors.push({ field: 'fundBal', he: 'יתרת הפיצויים בקופה: מספר, 0 או ריק' }); }
+	if (errors.length) { return { ok: false, errors }; }
+	const flags = [];
+	const add = (level, code, he, section) => flags.push({ level, code, he, section: section || '' });
+	const n0 = (x) => Math.round(x).toLocaleString('en-US');
+	// The deposit wage: what the payslip deposits on; the s.14 cover reaches at most the law's salary (s.6(ב) of the order).
+	const wage = depWage === null ? r.base : depWage;
+	const capWage = Math.min(wage, avgWage);
+	const isFull = r.s14 === 'full';
+	const sevRate = isFull ? full : pn.severance_pct;
+	const completion = isFull ? 0 : r2(full - pn.severance_pct);
+	const rates = { employee: pn.employee_pct, employer: pn.employer_pct, severance: sevRate, completion, full };
+	const monthly = { employee: r2(wage * pn.employee_pct / 100), employer: r2(wage * pn.employer_pct / 100), severance: r2(wage * sevRate / 100), completion: r2(wage * completion / 100) };
+	monthly.total = r2(monthly.employer + monthly.severance + monthly.completion);
+	const mandatory = { wage: capWage, employee: r2(capWage * pn.employee_pct / 100), employer: r2(capWage * pn.employer_pct / 100), severance: r2(capWage * pn.severance_pct / 100) };
+	if (wage > avgWage) { add('info', 'cap', `חובת ההפרשה לפי צו הפנסיה חלה עד השכר הממוצע במשק (${n0(avgWage)} ₪ מ-${heDay(registry.rights_btl.from)}). מעל זה ההפרשה לפי ההסכם, ועל פיצויים שלא הופרשו המעסיק אחראי לפי החוק.`, lp.order.cap_section); }
+	// The deposit period: from the s.14 start, or (the order's route without s.14) from 1.1.2008 or the first day of work.
+	const order = input.orderRates === true && !isFull;
+	// Without s.14 the reader may give the first deposit day (the order's waiting period, s.6(ה), delays it).
+	const depFrom = r.s14 === 'none' && order && !blank(input.depFrom) ? parseDate(input.depFrom) : null;
+	if (r.s14 === 'none' && order && !blank(input.depFrom) && (!depFrom || depFrom < r.start || depFrom > r.end)) { return { ok: false, errors: [{ field: 'depFrom', he: 'יום תחילת ההפרשות: תאריך מלא, בין יום התחילה ליום העבודה האחרון' }] }; }
+	const orderFrom = depFrom || r.start;
+	const from = r.s14 !== 'none' ? (r.s14From > r.start ? r.s14From : r.start) : order ? (orderFrom > lp.order.first_from ? orderFrom : lp.order.first_from) : null;
+	if (order && r.s14 === 'none' && !depFrom && r.entitled) { add('info', 'waiting', `${pn.wait_he} (סעיף 6(ה) לצו). בעד החודשים שלא הופרש בהם, המעסיק משלם פיצויים מלאים: הזינו את היום שבו התחילו ההפרשות.`, '6(ה)'); }
+	const span = from && from <= r.end ? serviceSpan(from, r.end) : null;
+	const months = span ? r2(span.months + (span.days * 12) / 365) : 0;
+	const simple = !r.change && !(r.unpaidExcess > 0);
+	// A deposit wage below the law's salary: s.14 replaces severance only for the salary deposited (s.7 of the order); the
+	// employer owes the full severance on the rest of the salary for that period.
+	let gap = null;
+	if (r.entitled && r.s14 !== 'none' && !order && depWage !== null && wage < r.base - 0.005) {
+		if (simple) {
+			const extra = r2(r.coveredSev * (1 - wage / r.base) * r.s14Pct / 100);
+			gap = { wage, base: r.base, short: r2(r.base - wage), extra, employer: r2(r.employer + extra) };
+			add('warn', 'gap', `ההפרשות היו מ-${n0(wage)} ₪, פחות מהשכר הקובע (${n0(r.base)} ₪). על ההפרש סעיף 14 לא חל, והמעסיק משלים עוד ${n0(extra)} ₪ (סעיף 7 לצו).`, lp.order.cover_section);
+		} else {
+			add('info', 'gap_periods', 'ההפרשות היו משכר נמוך מהשכר הקובע, והיה שינוי בשכר או חופשה ללא תשלום: את ההשלמה על ההפרש מחשבים לפי כל תקופה בנפרד (סעיף 7 לצו).', lp.order.cover_section);
+		}
+	}
+	// The order's route: each period replaced at its rate (2008: 0.834% -> 10.01% of that year's severance; from 2014: 6% -> 72%).
+	let orderRes = null;
+	if (order && r.entitled && from && from <= r.end) {
+		if (!simple) {
+			add('info', 'order_periods', 'הפרשות לפי שיעורי הצו יחד עם שינוי בשכר או חופשה ללא תשלום: את הכיסוי מחשבים לפי כל תקופה בנפרד.', lp.order.cover_section);
+		} else {
+			const first = lp.order.first_from;
+			const segs = pzSegments(registry, from < first ? first : from, r.end);
+			const ratio = Math.min(1, wage / r.base);
+			const rows = segs.map((s) => { const cover = pzCoverPct(s.rate, full); const sev = r2(r.base * s.years); return { from: s.from, to: s.to, rate: s.rate, cover, years: s.years, sev, replaced: r2(sev * ratio * cover / 100) }; });
+			// Before 1.1.2008 the order did not exist: deposits of that time (s.14 chosen) count at the arrangement's own share.
+			if (r.s14 !== 'none' && from < first) {
+				const to = addDays(first, -1) < r.end ? addDays(first, -1) : r.end;
+				const years = serviceSpan(from, to).years;
+				const sev = r2(r.base * years);
+				rows.unshift({ from, to, rate: null, cover: r.s14Pct, years, sev, replaced: r2(sev * ratio * r.s14Pct / 100) });
+			}
+			const replaced = r2(rows.reduce((t, x) => t + x.replaced, 0));
+			const sevCovered = r2(rows.reduce((t, x) => t + x.sev, 0));
+			orderRes = { rows, replaced, sevCovered, coverPct: sevCovered ? r2(replaced * 100 / sevCovered) : 0, employer: r2(r.severance - replaced) };
+			add('info', 'order', `לפי שיעורי צו הפנסיה, ההפרשות לפיצויים מכסות ${orderRes.coverPct}% מהפיצויים בעד תקופת ההפרשות, והמעסיק משלים ${n0(orderRes.employer)} ₪ (סעיף 7 לצו).`, lp.order.cover_section);
+		}
+	}
+	if (r.s14 === 'none' && !order && r.entitled && r.end >= lp.order.first_from) { add('info', 'order_s7', 'אם המעסיק הפריש לכם לפיצויים לפי צו הפנסיה, ההפרשות באות במקום פיצויים בשיעור שהופרש (6% במקום 72%), בעד השכר והתקופות שבעדם הופרשו (סעיף 7 לצו). בדקו בתלוש ובדוח השנתי של הקופה, ובחרו את ההסדר שמתאים.', lp.order.cover_section); }
+	// The fund balance against what the rates put in, without returns or fees: a check, never a verdict.
+	let fund = null;
+	if (fundBal !== null && from && months > 0) {
+		const segs = order ? pzSegments(registry, from, r.end) : [{ rate: sevRate, years: months / 12 }];
+		const deposits = r2(segs.reduce((t, s) => t + (wage * s.rate / 100) * s.years * 12, 0));
+		const diff = r2(fundBal - deposits);
+		const low = diff < -0.1 * deposits;
+		fund = { bal: fundBal, deposits, diff, pct: deposits ? r2(fundBal * 100 / deposits) : 0, low };
+		add(low ? 'warn' : 'info', 'fund', low
+			? `היתרה בקופה (${n0(fundBal)} ₪) נמוכה ביותר מ-10% מההפקדות שהשיעורים מחייבים על השכר הזה (${n0(deposits)} ₪, בלי תשואה). אפשר שחסרות הפקדות, שהשכר היה נמוך יותר בעבר או שהקופה הפסידה: בדקו בדוחות השנתיים. על הפקדות שחסרות סעיף 14 לא חל (סעיף 7 לצו).`
+			: `היתרה בקופה (${n0(fundBal)} ₪) לעומת ההפקדות שהשיעורים מחייבים על השכר הזה (${n0(deposits)} ₪, בלי תשואה): ההפרש (${n0(diff)} ₪) יכול לבוא מתשואה, מדמי ניהול או משכר שהשתנה.`, lp.order.cover_section);
+	}
+	return { ok: true, wage, depWage, capWage, avgWage, rates, monthly, mandatory, from, months, gap, order: orderRes, fund, flags };
+}
+
+/** "What changed and when": the published values behind the instrument, dated. */
+export function pzChanges(registry) {
+	const sv = registry.severance;
+	const lp = registry.labor_pitzuyim;
+	const pn = registry.rights_neto.pension;
+	const aw = registry.rights_btl.avg_wage;
+	const rows = [{ date: '1998', he: `האישור הכללי לפי סעיף 14: הפרשה של 8⅓% לפיצויים במקום ${sv.approval.full_pct}% מהם; 6% בלי השלמה במקום ${sv.approval.partial_pct}%`, src: sv.approval.gazette_he, url: sv.approval.url }];
+	for (const x of lp.order.rows) { rows.push({ date: x.from, he: `צו הפנסיה: לפיצויים ${x.severance}%, תגמולי מעסיק ${x.employer}%, עובד ${x.employee}% (כיסוי ${pzCoverPct(x.severance, lp.order.full_rate)}% מהפיצויים)`, src: `${lp.order.rows_section}, ${lp.order.gazette_he}`, url: lp.order.url }); }
+	rows.push({ date: pn.from, he: `לפיצויים ${pn.severance_pct}%, תגמולי מעסיק ${pn.employer_pct}%, עובד ${pn.employee_pct}%; השלמה לפי בחירת המעסיק עד ${lp.order.full_rate}%`, src: `${lp.increase_2016.he}, ${lp.increase_2016.gazette_he}`, url: lp.increase_2016.source_url });
+	rows.push({ date: sv.tax.from, he: `תקרת הפטור ממס על פיצויים: ${sv.tax.ceiling.toLocaleString('en-US')} ₪ לכל שנת עבודה, בלי עדכון עד ${sv.tax.to.slice(0, 4)}`, src: `${sv.tax.section}; ${sv.tax.frozen_he}`, url: sv.tax.source_url });
+	rows.push({ date: registry.rights_btl.from, he: `השכר הממוצע במשק (סעיף 2 לחוק הביטוח הלאומי): ${aw.s2_benefits.toLocaleString('en-US')} ₪, עד אליו חלה חובת ההפרשה לפי הצו`, src: lp.order.cap_section, url: aw.url });
+	for (const x of registry.min_wage.rows.slice(-3)) { rows.push({ date: x.from, he: `שכר המינימום: ${x.monthly.toLocaleString('en-US')} ₪ לחודש, הרצפה של שכר הפיצויים (סעיף 13ב)`, src: registry.min_wage.law_he, url: registry.min_wage.source_url }); }
+	return rows.sort((a, b) => String(a.date).localeCompare(String(b.date)));
 }

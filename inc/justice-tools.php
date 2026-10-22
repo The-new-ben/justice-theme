@@ -36,6 +36,7 @@
  *   [justice_tool name="tzav-yerusha"]                 the inheritance wave (21.10.2026): see inc/justice-tools-inheritance.php for its five instruments
  *   [justice_tool name="dmei-avtala"]                  the rights wave (21.10.2026, HAD-574): see inc/justice-tools-rights.php for its six instruments
  *   [justice_tool name="mishmoret"]                    the family + land wave (HAD-579): see inc/justice-tools-family-land.php for its six instruments
+ *   [justice_tool name="gmar-cheshbon"]                the labor wave (22.10.2026): see inc/justice-tools-labor.php for its four instruments
  *
  * Claude Design boards: https://claude.ai/artifact/JHKhphmy9L1QbYYUk2KX4e (wave 1),
  * https://claude.ai/artifact/759KGxB7GDSy5NHaajW8sJ (wave 2), wave 3 (HAD-498): see the PR.
@@ -295,19 +296,20 @@ function justice_tools_catalog(): array {
 			'lawyer'    => array( 'label' => 'עורך דין מקרקעין', 'path' => '/real-estate-attorney/' ),
 			'sticky'    => 'תקרת ערובה',
 		),
+		// The labor wave (22.10.2026): the payslip components, the pension-deposit check and the window handoff.
 		'pitzuyim'        => array(
 			'name'      => 'מחשבון פיצויי פיטורים והודעה מוקדמת',
 			'title'     => 'פיצויי פיטורים והודעה מוקדמת: כמה, ממי ועד מתי',
-			'promise'   => 'שכר כפול ותק, מה הקופה מכסה בסעיף 14 ומה המעסיק משלים, כמה ימי הודעה מוקדמת, כמה פטור ממס, ומכתב למעסיק עם המועדים.',
+			'promise'   => 'מה מהתלוש נכנס לשכר הקובע, שכר כפול ותק, מה הקופה מכסה בסעיף 14 ומה המעסיק משלים, בדיקת ההפקדות לקופה, כמה ימי הודעה מוקדמת, כמה פטור ממס, ומכתב למעסיק עם המועדים.',
 			'question'  => 'כמה פיצויי פיטורים והודעה מוקדמת מגיעים לי?',
 			'page'      => '/severance-pay-calculator/',
 			'category'  => 'FinanceApplication',
-			'data'      => array( 'registry_version', 'severance', 'min_wage' ),
+			'data'      => array( 'registry_version', 'severance', 'min_wage', 'labor_pitzuyim', 'rights_neto', 'rights_btl' ),
 			'dataset'   => 'severance',
-			'next_text' => 'הצעד הבא: לתרגל את השיחה עם המעסיק, לפני השימוע או לפני שמבקשים את הכסף',
+			'next_text' => 'הצעד הבא: לתרגל את השיחה עם המעסיק, לפני השימוע או לפני שמבקשים את ההשלמה',
 			'primary'   => array( 'label' => 'לתרגל את השיחה עם המעסיק', 'rehearse' => true ),
 			'rehearse'  => array( 'label' => 'לתרגל את השיחה עם המעסיק', 'topic' => 'employment', 'purpose' => 'mediation' ),
-			'more'      => array( array( 'label' => 'מכתב פיטורים והודעה מוקדמת', 'path' => '/notice-of-dismissal/' ), array( 'label' => 'בודק שכר מינימום', 'path' => '/minimum-wage-israel-2025/' ) ),
+			'more'      => array( array( 'label' => 'גמר חשבון: כל מה שמגיע בסיום העבודה', 'path' => '/gmar-cheshbon/' ), array( 'label' => 'הפרשות לפנסיה בתלוש', 'path' => '/hafrashot-pensia/' ), array( 'label' => 'רשות המסים: טופס 161', 'url' => 'https://www.gov.il/he/service/notice-of-retirement' ) ),
 			'lawyer'    => array( 'label' => 'עורך דין דיני עבודה', 'path' => '/labor-lawyer/' ),
 			'sticky'    => 'פיצויים',
 		),
@@ -492,7 +494,8 @@ function justice_tools_catalog(): array {
 	// The inheritance wave (21.10.2026): five instruments, in inc/justice-tools-inheritance.php.
 	// The rights wave (21.10.2026, HAD-574): six instruments, in inc/justice-tools-rights.php.
 	// The family + land wave (21-22.10.2026, HAD-579): six instruments, in inc/justice-tools-family-land.php.
-	return array_merge( $catalog, justice_tools_inheritance_catalog(), justice_tools_rights_catalog(), justice_tools_fl_catalog() );
+	// The labor wave (22.10.2026): four instruments, in inc/justice-tools-labor.php.
+	return array_merge( $catalog, justice_tools_inheritance_catalog(), justice_tools_rights_catalog(), justice_tools_fl_catalog(), justice_tools_labor_catalog() );
 }
 
 /** The day a tool's own sources were checked: the wave-3 tools carry it in their dataset. */
@@ -650,6 +653,18 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 			. 'המשכיר מתקן ליקוי תוך <bdi>' . (int) $rc['repairs']['days'] . '</bdi> ימים, דחוף תוך <bdi>' . (int) $rc['repairs']['urgent_days'] . '</bdi> (סעיף 25ח(ב)). נבדק ' . esc_html( justice_tools_he_date( $rc['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
+	// The labor wave (22.10.2026): REPLACES the wave-5 'pitzuyim' answer box in justice_tools_answer() (one paragraph,
+	// about 60 words, every figure from the registry). The old block stays as the fallback when the new keys are missing.
+	if ( 'pitzuyim' === $name && ! empty( $reg['severance'] ) && ! empty( $reg['labor_pitzuyim'] ) && ! empty( $reg['rights_neto'] ) ) {
+		$sv   = $reg['severance'];
+		$lp   = $reg['labor_pitzuyim'];
+		$pn   = $reg['rights_neto']['pension'];
+		$text = '<strong>פיצויי פיטורים</strong> הם משכורת חודש לכל שנת עבודה, וחלק יחסי לחלק משנה, אחרי שנת עבודה אחת (סעיפים 1 ו-12 ל' . esc_html( $sv['law_he'] ) . '). '
+			. 'השכר הקובע: שכר יסוד, ותק, יוקר המחיה ומשפחה (תקנה 1 לתקנות החישוב). '
+			. 'בסעיף 14 הקופה באה במקום <bdi>' . (int) $sv['approval']['partial_pct'] . '%</bdi> מהפיצויים בהפקדה של <bdi>' . esc_html( (string) $pn['severance_pct'] ) . '%</bdi>, או <bdi>' . (int) $sv['approval']['full_pct'] . '%</bdi> בהפקדה של <bdi>' . esc_html( (string) $lp['order']['full_rate'] ) . '%</bdi> (האישור הכללי). '
+			. 'הודעה מוקדמת אחרי שנה: חודש (סעיף 3 לחוק הודעה מוקדמת). פטור ממס עד ' . justice_tools_money( $sv['tax']['ceiling'], 0 ) . ' לשנת עבודה (' . esc_html( $sv['tax']['section'] ) . ' לפקודה). נבדק ' . esc_html( justice_tools_he_date( $lp['checked_on'] ) ) . '.';
+		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
+	}
 	if ( 'pitzuyim' === $name && ! empty( $reg['severance'] ) ) {
 		$sv   = $reg['severance'];
 		$text = '<strong>פיצויי פיטורים</strong> הם משכורת חודש לכל שנת עבודה, וחלק יחסי לחלק משנה, אחרי שנת עבודה אחת (סעיפים 1 ו-12 ל' . esc_html( $sv['law_he'] ) . '). '
@@ -746,6 +761,9 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 	if ( in_array( $name, justice_tools_fl_names(), true ) ) {
 		return justice_tools_fl_answer( $name, $mode );
 	}
+	if ( in_array( $name, justice_tools_labor_names(), true ) ) {
+		return justice_tools_labor_answer( $name, $mode );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_answer( $name, $mode );
 	}
@@ -825,7 +843,9 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 	}
 	if ( 'pitzuyim' === $name ) {
 		$sv = $reg['severance'] ?? array();
-		return 'תקרת פטור ' . number_format( (float) ( $sv['tax']['ceiling'] ?? 0 ) ) . ' ₪ ב-' . ( $sv['tax']['year'] ?? '' ) . ' · נבדק ' . justice_tools_he_date( $sv['checked_on'] ?? '' );
+		$pn = $reg['rights_neto']['pension'] ?? array();
+		$lp = $reg['labor_pitzuyim'] ?? array();
+		return 'תקרת פטור ' . number_format( (float) ( $sv['tax']['ceiling'] ?? 0 ) ) . ' ₪ ב-' . ( $sv['tax']['year'] ?? '' ) . ' · הפקדה לפיצויים ' . ( $pn['severance_pct'] ?? '' ) . '% מ-' . justice_tools_he_date( $pn['from'] ?? '' ) . ' · נבדק ' . justice_tools_he_date( $lp['checked_on'] ?? ( $sv['checked_on'] ?? '' ) );
 	}
 	if ( 'mas-shevach' === $name ) {
 		$sh = $reg['shevach'] ?? array();
@@ -842,6 +862,9 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 	}
 	if ( in_array( $name, justice_tools_fl_names(), true ) ) {
 		return justice_tools_fl_stamp( $name, $mode );
+	}
+	if ( in_array( $name, justice_tools_labor_names(), true ) ) {
+		return justice_tools_labor_stamp( $name, $mode );
 	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_stamp( $name, $mode );
@@ -910,6 +933,9 @@ function justice_tools_sources( string $name ): array {
 	if ( in_array( $name, justice_tools_fl_names(), true ) ) {
 		return justice_tools_fl_sources( $name );
 	}
+	if ( in_array( $name, justice_tools_labor_names(), true ) ) {
+		return justice_tools_labor_sources( $name );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_sources( $name );
 	}
@@ -928,16 +954,21 @@ function justice_tools_sources( string $name ): array {
 	if ( 'pitzuyim' === $name ) {
 		$sv      = $reg['severance'];
 		$mw      = $reg['min_wage'];
+		$lp      = $reg['labor_pitzuyim'];
+		$pn      = $reg['rights_neto']['pension'];
 		$checked = justice_tools_he_date( $sv['checked_on'] );
 		return array(
-			array( 'name' => $sv['law_he'], 'url' => $sv['law_url'], 'text' => 'סעיף 1: שנת עבודה ופיטורים; 3: פיטורים סמוך לסוף השנה; 6 עד 11: התפטרות שדינה כפיטורים; 12: חודש לכל שנה; 13ב: לא פחות משכר המינימום; 14: קופה במקום פיצויים. נוסח עדכני ל-' . justice_tools_he_date( $sv['law_current_to'] ) . ', נבדק ' . $checked . '.' ),
-			array( 'name' => $sv['regs_he'], 'url' => $sv['regs_url'], 'text' => 'תקנה 4: השכר האחרון; 7: עבודה חלקית; 10: הפסקות שלא נספרות; 12: העתקת מגורים.' ),
+			array( 'name' => $sv['law_he'], 'url' => $sv['law_url'], 'text' => 'סעיף 1: שנת עבודה ופיטורים; 3: פיטורים סמוך לסוף השנה; 6 עד 11: התפטרות שדינה כפיטורים; 12: חודש לכל שנה; 13ב: לא פחות משכר המינימום; 14: קופה במקום פיצויים; 16 ו-17: שלילה; 26: הכספים בקופה מוגנים. נוסח עדכני ל-' . justice_tools_he_date( $sv['law_current_to'] ) . ', נבדק ' . $checked . ' ו-' . justice_tools_he_date( $lp['checked_on'] ) . '.' ),
+			array( 'name' => $sv['regs_he'], 'url' => $sv['regs_url'], 'text' => 'תקנה 1: רכיבי השכר (שכר יסוד, ותק, יוקר המחיה, משפחה; תוספת מחלקתית או מקצועית כשכר יסוד); 1א: משרה אחת; 4: השכר האחרון; 6: שינוי זמני; 7: עבודה חלקית; 8: הפחתת שכר; 9: עמלות לפי ממוצע 12 חודשים; 10: הפסקות שלא נספרות; 12: העתקת מגורים. נוסח עדכני ל-' . justice_tools_he_date( $lp['regs']['current_to'] ) . '.' ),
 			array( 'name' => $sv['wage_regs_he'], 'url' => $sv['wage_regs_url'], 'text' => 'לעובד בשכר: חודש לכל שנה מ-' . justice_tools_he_date( $sv['wage_regs_from'] ) . '.' ),
 			array( 'name' => $sv['approval']['he'], 'url' => $sv['approval']['url'], 'text' => $sv['approval']['full_he'] . '; ' . $sv['approval']['partial_he'] . ' (' . $sv['approval']['gazette_he'] . ').' ),
+			array( 'name' => $lp['order']['he'] . ' (' . $lp['order']['gazette_he'] . ')', 'url' => $lp['order']['url'], 'text' => $lp['order']['rows_section'] . ': שיעורי ההפקדה 2008 עד 2014; ' . $lp['order']['cap_section'] . ': ' . $lp['order']['cap_he'] . '; ' . $lp['order']['cover_section'] . ': ' . $lp['order']['cover_he'] . '; ' . $lp['order']['completion_section'] . ': השלמה עד ' . $lp['order']['full_rate'] . '%.' ),
+			array( 'name' => $lp['increase_2016']['he'] . ' (' . $lp['increase_2016']['gazette_he'] . ')', 'url' => $lp['increase_2016']['source_url'], 'text' => 'מ-' . justice_tools_he_date( $pn['from'] ) . ': עובד ' . $pn['employee_pct'] . '%, מעסיק ' . $pn['employer_pct'] . '% לתגמולים ו-' . $pn['severance_pct'] . '% לפיצויים (מקור: ' . $lp['increase_2016']['source_he'] . ').' ),
 			array( 'name' => $sv['notice']['he'], 'url' => $sv['notice']['url'], 'text' => 'סעיף 3: משכורת חודשית; 4: שכר; 5: גם בהתפטרות; 6: תשלום במקום עבודה; 7: פיצוי כשאין הודעה; 8: אישור על תקופת העבודה.' ),
 			array( 'name' => $sv['late']['he'], 'url' => $sv['late']['url'], 'text' => 'סעיף 20: המועד לתשלום הפיצויים, הלנה אחרי ' . $sv['late']['grace_days'] . ' ימים, ' . $sv['late']['monthly_pct'] . '% לחודש אחרי ' . $sv['late']['linkage_to_day'] . ' ימים.' ),
 			array( 'name' => $sv['tax']['source_he'], 'url' => $sv['tax']['source_url'], 'text' => 'תקרת הפטור למענק פרישה: ' . number_format( (float) $sv['tax']['ceiling'] ) . ' ₪ לכל שנת עבודה ב-' . $sv['tax']['year'] . '. ' . $sv['tax']['frozen_he'] . '.' ),
 			array( 'name' => $sv['tax']['law_he'], 'url' => $sv['tax']['law_url'], 'text' => $sv['tax']['section'] . ': פטור עד משכורת חודש לכל שנה, ולא יותר מהתקרה; המנהל רשאי לפטור עודף.' ),
+			array( 'name' => 'רשות המסים: הודעה על פרישה מעבודה (טופס 161)', 'url' => $lp['services']['form_161']['url'], 'text' => 'המעסיק מדווח על סיום העבודה; בחלק ב׳ העובד ממלא את בחירותיו לגבי כספי הפיצויים.' ),
 			array( 'name' => $mw['source_name'], 'url' => $mw['source_url'], 'text' => 'שכר המינימום לרצפה של סעיף 13ב. נבדק ' . justice_tools_he_date( $mw['checked_on'] ) . '.' ),
 			array( 'name' => $sv['limitation']['he'], 'url' => $sv['limitation']['url'], 'text' => $sv['limitation']['section'] . ': ' . $sv['limitation']['years'] . ' שנים.' ),
 		);
@@ -1652,6 +1683,9 @@ function justice_tools_numbers_html( string $name ): string {
 	if ( in_array( $name, justice_tools_fl_names(), true ) ) {
 		return justice_tools_fl_numbers_html( $name );
 	}
+	if ( in_array( $name, justice_tools_labor_names(), true ) ) {
+		return justice_tools_labor_numbers_html( $name );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_numbers_html( $name );
 	}
@@ -1733,7 +1767,7 @@ function justice_tools_numbers_html( string $name ): string {
 
 /** Comparison table (page standard A6). */
 function justice_tools_compare_html( string $name ): string {
-	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin', 'luach-shahut', 'maakav-mezonot', 'mapat-gerushin' ), true ) || in_array( $name, justice_tools_inheritance_names(), true ) || in_array( $name, justice_tools_rights_names(), true ) || in_array( $name, justice_tools_fl_names(), true ) ) {
+	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin', 'luach-shahut', 'maakav-mezonot', 'mapat-gerushin' ), true ) || in_array( $name, justice_tools_inheritance_names(), true ) || in_array( $name, justice_tools_rights_names(), true ) || in_array( $name, justice_tools_fl_names(), true ) || in_array( $name, justice_tools_labor_names(), true ) ) {
 		$snap = justice_tools_snapshot( $name );
 		return '<div class="jtool-page">' . ( $snap['compare_table'] ?? '' ) . '</div>';
 	}
@@ -1898,3 +1932,5 @@ require_once __DIR__ . '/justice-tools-inheritance.php';
 require_once __DIR__ . '/justice-tools-rights.php';
 // The family + land wave (21-22.10.2026, HAD-579): fees, custody, dispute clock, cohabitation, apartment costs, contractor.
 require_once __DIR__ . '/justice-tools-family-land.php';
+// The labor wave (22.10.2026): notice, annual leave, overtime and the final settlement (the severance upgrade is above).
+require_once __DIR__ . '/justice-tools-labor.php';

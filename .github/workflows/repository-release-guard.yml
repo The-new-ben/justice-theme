@@ -126,6 +126,17 @@ jobs:
           php tests/test-fl-tools.php
           python3 -m py_compile tools/justice_tools_fl.py tools/justice_tools_fl_rabanut.py tools/justice_tools_fl_mishmoret.py tools/justice_tools_fl_sichsuch.py tools/justice_tools_fl_yeduim.py tools/justice_tools_fl_iska.py tools/justice_tools_fl_kablan.py
 
+      - name: Test the labor wave (22.10.2026)
+        run: |
+          set -euo pipefail
+          node tests/js/test-labor-hodaa.mjs
+          node tests/js/test-labor-chufsha.mjs
+          node tests/js/test-labor-nosafot.mjs
+          node tests/js/test-labor-pitzuyim.mjs
+          node tests/js/test-labor-gmar.mjs
+          php tests/test-labor-tools.php
+          python3 -m py_compile tools/justice_tools_labor.py tools/justice_tools_labor_hodaa.py tools/justice_tools_labor_chufsha.py tools/justice_tools_labor_nosafot.py tools/justice_tools_labor_pitzuyim.py tools/justice_tools_labor_gmar.py
+
       - name: Enforce append-only release ZIPs
         run: |
           set -euo pipefail

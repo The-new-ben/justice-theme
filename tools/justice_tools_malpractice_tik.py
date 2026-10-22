@@ -213,4 +213,13 @@ def build(checked_on: str) -> dict:
         },
         "common_docs_he": ["הרשומה הרפואית המלאה של הטיפול", "מכתב השחרור וסיכומי הביקור", "מסמכי הנזק: אישורי מחלה, קביעת נכות, קבלות ותלושי שכר", "יומן אישי: תאריכים, מה נאמר ומי נכח"],
         "pages": {"clock": CLOCK_PAGE, "records": RECORDS_PAGE, "cost": COST_PAGE},
+        # Limitation Law s.15A(c)-(d) (Amendment 8, Sefer HaChukim 3151, p.492, published 25.1.2024): a period that ended
+        # between 7.10.2023 and the eve of publication is revived unless the court decides otherwise, so the safe date of
+        # such a period is its plain end (Codex review of PR 172; the full clock does the same).
+        "war_revival": {
+            "eve": "2024-01-24",
+            "section": "סעיף 15א(ג)-(ד) לחוק ההתיישנות",
+            "he": "התקופה הסתיימה בין 7.10.2023 לבין ערב פרסום התיקון (25.1.2024): היא מוחזרת לחיים, אלא אם בית המשפט יחליט אחרת. לכן המועד הבטוח הוא הסיום המקורי, וההארכה מותנית",
+            "url": "https://fs.knesset.gov.il/25/law/25_lsr_4019628.pdf",
+        },
     }

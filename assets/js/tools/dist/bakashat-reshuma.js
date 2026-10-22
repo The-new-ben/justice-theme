@@ -593,23 +593,25 @@ function rsCompute(reg, input) {
 	const within5 = treated >= fiveFrom;
 	const dec = who === 'heir' && death ? rsDeceased(reg, death, treated, today) : null;
 
-	// The right and what to attach, by who asks.
+	// The right and what to attach, by who asks. A parent of a patient who is an adult today asks with the patient's own
+	// waiver, like a representative (Codex review of PR 172): the letter, the basis and the attachments follow `asWho`.
+	const asWho = adultNow ? 'rep' : who;
 	const basis = [];
 	const attach = [];
 	const lawRight = { he: L.right_he, section: L.right_section, url: L.url };
-	if (who === 'self') {
+	if (asWho === 'self') {
 		basis.push(lawRight);
 		attach.push(C.self_he);
-	} else if (who === 'parent') {
+	} else if (asWho === 'parent') {
 		basis.push(lawRight, { he: M.capacity.parents_he, section: `${M.capacity.parents_section} ל${M.capacity.he}`, url: M.capacity.url }, { he: C.minor_he, section: `${C.sections.minor} ל${C.short_he}`, url: C.url });
 		attach.push('תעודה מזהה של ההורה, עם הספח שבו רשום הילד', 'אם ההורים פרודים: אין צורך בחתימת ההורה השני, אלא אם ידוע שהוא מתנגד');
-	} else if (who === 'guardian') {
+	} else if (asWho === 'guardian') {
 		basis.push(lawRight, { he: C.guardian_he, section: `${C.sections.guardian} ל${C.short_he}`, url: C.url });
 		attach.push('צו המינוי של בית המשפט, בתוקף (מקור או העתק מאושר)', 'תעודה מזהה של האפוטרופוס');
-	} else if (who === 'poa') {
+	} else if (asWho === 'poa') {
 		basis.push(lawRight, { he: C.rep_he, section: `${C.sections.rep} ל${C.short_he}`, url: C.url });
 		attach.push('ייפוי הכוח (רפואי או מתמשך לעניינים אישיים)', 'כתב ויתור על סודיות רפואית חתום בידי המטופל', 'תעודה מזהה של מיופה הכוח');
-	} else if (who === 'heir') {
+	} else if (asWho === 'heir') {
 		basis.push({ he: C.deceased_he, section: `${C.sections.deceased} ל${C.short_he}`, url: C.url });
 		attach.push('צו ירושה או צו קיום צוואה שבו המבקש רשום כיורש, או צו בית משפט, או תצהיר מאומת בפני עורך דין', 'תעודת פטירה', 'תעודה מזהה של המבקש');
 	} else {
@@ -729,7 +731,7 @@ function rsCompute(reg, input) {
 
 	return {
 		ok: true, who, where, owner, format, docs, missing, followup, today, treated, birth, death, pages,
-		ageNow, ageAtTreat, adultNow, regsApply, within5, fiveFrom, dec, capped: isCapped, capReasons,
+		ageNow, ageAtTreat, adultNow, asWho, regsApply, within5, fiveFrom, dec, capped: isCapped, capReasons,
 		basis, attach, free, lines, paper, digitalMax, paperMax, lead, docItems, retention, flags, events,
 		response: M.response,
 		start: addDays(R.published, R.start_days),
@@ -966,6 +968,8 @@ function letterParts(reg, r, fields) {
 	const R = M.regs;
 	const C = M.circular;
 	const f = fields || {};
+	// The letter's basis: a parent of a patient who is an adult today asks with the patient's waiver, as a representative.
+	const lw = r.asWho || r.who;
 	const pname = fv(f, 'pname') || BLANK;
 	const pid = fv(f, 'pid') || BLANK;
 	const inst = fv(f, 'inst');
@@ -986,7 +990,7 @@ function letterParts(reg, r, fields) {
 		poa: `מוגשת בזאת בקשה, כמיופה כוח של ${pname} ומקרובי המשפחה (ייפוי הכוח וכתב הוויתור מצורפים), לקבל העתק מהרשומה הרפואית, לפי ${lawRef}, בעניין הטיפול ${when}.`,
 		heir: `מוגשת בזאת בקשה מכוח זכות הירושה, לאחר פטירת ${pname}${r.death ? ` ביום ${isoToHe(r.death)}` : ''}, לקבל העתק מהרשומה הרפואית, לפי ${C.sections.deceased} ל${C.he}, בעניין הטיפול ${when}.`,
 		rep: `מוגשת בזאת בקשה, מטעם ${pname} ובהסכמתו בכתב, לקבל העתק מהרשומה הרפואית, לפי ${L.disclose_section} ל${L.he}, בעניין הטיפול ${when}. כתב ויתור על סודיות רפואית חתום מצורף.`,
-	}[r.who];
+	}[lw];
 	out.push({ kind: 'p', text: opening });
 	if (r.where === 'idf') { out.push({ kind: 'p', text: `לעניין סעיפים 17 עד 23 לחוק, חיל הרפואה הוא מוסד רפואי (${L.idf_section}).` }); }
 	if (r.followup) {
@@ -1017,12 +1021,12 @@ function letterParts(reg, r, fields) {
 	const contact = [fv(f, 'mail') && `דואר אלקטרוני: ${fv(f, 'mail')}`, fv(f, 'phone') && `טלפון: ${fv(f, 'phone')}`, fv(f, 'addr') && `כתובת: ${fv(f, 'addr')}`].filter(Boolean);
 	out.push({ kind: 'p', text: `פרטים ליצירת קשר: ${contact.length ? contact.join(' · ') : `דואר אלקטרוני ${BLANK} · טלפון ${BLANK}`}` });
 	out.push({ kind: 'p', text: 'מצורפים:' });
-	(r.who === 'self' ? ['צילום תעודה מזהה עם תמונה'] : r.attach.filter((a) => !/^אם ההורים/.test(a))).forEach((a) => out.push({ kind: 'li', text: a }));
+	(lw === 'self' ? ['צילום תעודה מזהה עם תמונה'] : r.attach.filter((a) => !/^אם ההורים/.test(a))).forEach((a) => out.push({ kind: 'li', text: a }));
 	out.push({ kind: 'line', text: 'בכבוד רב,' });
-	const signer = r.who === 'self' ? pname : fv(f, 'rname') || BLANK;
-	const signerId = r.who === 'self' ? pid : fv(f, 'rid') || BLANK;
+	const signer = lw === 'self' ? pname : fv(f, 'rname') || BLANK;
+	const signerId = lw === 'self' ? pid : fv(f, 'rid') || BLANK;
 	out.push({ kind: 'sig', text: `שם: ${signer} · מספר זהות: ${signerId} · חתימה: ${BLANK}` });
-	if (r.who === 'rep' || r.who === 'poa') {
+	if (lw === 'rep' || lw === 'poa') {
 		out.push({ kind: 'h', text: 'נספח: כתב ויתור על סודיות רפואית' });
 		out.push({ kind: 'p', text: `בזאת ניתנת הסכמתי למסור ל-${fv(f, 'rname') || BLANK} (פרטי המבקש ופרטי הקשר: ${BLANK}) את המידע הרפואי הבא מהרשומה הרפואית שלי ב-${inst || BLANK}: ${r.docs.includes('all') ? 'התיק הרפואי המלא' : [...r.docs, ...r.missing].map((c) => docHe(reg, c)).join(', ')}. ההסכמה פוטרת את המוסד מחובת הסודיות לגבי מידע זה בלבד, ומטענות בגין מסירתו (${L.disclose_section} לחוק; ${C.sections.waiver} ל${C.short_he}).` });
 		out.push({ kind: 'line', text: `פרטי המטופל: שם מלא ${pname} · מספר זהות ${pid} · שנת לידה ${BLANK} · כתובת ${BLANK} · טלפון ${BLANK}` });

@@ -40,7 +40,7 @@ const has = (list, code) => list.some((x) => x.code === code);
 /* ---------- 1. The registry ---------- */
 check(T && T.checked_on === '2026-10-22' && T.next_update === '2027-01-01' && reg.registry_version >= '2026-10-22', 'registry: malpractice_tik checked 22.10.2026, next update 1.1.2027');
 const urls = JSON.stringify(T).match(/https?:\/\/[^"]+/g) || [];
-check(urls.length >= 10 && urls.every((u) => /^https:\/\/(www\.nevo\.co\.il|www\.gov\.il|library\.mevaker\.gov\.il|supremedecisions\.court\.gov\.il)\//.test(u)), `registry: all ${urls.length} source links are official (Nevo, gov.il, the State Comptroller, the Supreme Court)`);
+check(urls.length >= 10 && urls.every((u) => /^https:\/\/(www\.nevo\.co\.il|www\.gov\.il|library\.mevaker\.gov\.il|supremedecisions\.court\.gov\.il|fs\.knesset\.gov\.il)\//.test(u)), `registry: all ${urls.length} source links are official (Nevo, gov.il, the State Comptroller, the Supreme Court, the Knesset)`);
 check(!/kolzchut|wikipedia|wikisource|כל זכות|כל-זכות|כל־זכות/.test(JSON.stringify(T)), 'registry: no private portal, no Wikipedia or Wikisource');
 check(T.torts.negligence_section === 'סעיף 35' && T.torts.duty_section === 'סעיף 36' && T.torts.damage_section === 'סעיף 2' && T.torts.res_ipsa_section === 'סעיף 41' && T.torts.res_ipsa_conditions_he.length === 3 && T.torts.dependants_section === 'סעיף 78', 'registry: Civil Wrongs Ordinance ss.35, 36, 2, 41 (three conditions), 78');
 check(T.patient.consent_section === 'סעיף 13' && T.patient.consent_items_he.length === 5 && T.patient.written_section === 'סעיף 14(ב)' && T.patient.emergency_section === 'סעיף 15(3)' && T.patient.record_section === 'סעיף 17(א)' && T.patient.access_section === 'סעיף 18(א)' && T.patient.inquiry_section === 'סעיף 21', 'registry: Patients\' Rights Law s.13 (five items), 14(b), 15(3), 17(a), 18(a), 21');
@@ -102,7 +102,7 @@ check(run({ patient: 'adult', birth: '1990-01-01' }).deadline === '2032-06-10', 
 
 /* ---------- 6. The war window (s.15A) and rest days ---------- */
 const w17 = run({ event: '2017-01-01' });
-check(w17.people[0].plain === '2024-01-01' && w17.people[0].added === 183 && w17.deadline === '2024-07-02' && w17.expired && has(w17.flags, 'expired') && has(w17.flags, 'war'), 'treated 1.1.2017: the 7 years end 1.1.2024 inside the window; 25+30+31+31+29+31+6 = 183 days added: 2.7.2024; expired today: a flag, never a verdict');
+check(w17.people[0].plain === '2024-01-01' && w17.people[0].added === 0 && w17.people[0].revived === '2024-07-02' && w17.deadline === '2024-01-01' && w17.expired && has(w17.flags, 'expired') && has(w17.flags, 'war_revived'), 'treated 1.1.2017: the 7 years ended 1.1.2024, inside the window and before the amendment (25.1.2024): safe 1.1.2024; 1.1.2024 + 183 days (25+30+31+31+29+31+6) = 2.7.2024 only if the court does not decide otherwise (s.15A(c)-(d)); expired today: a flag, never a verdict');
 const w24 = run({ event: '2024-01-01' });
 check(w24.people[0].added === 97 && w24.people[0].plain === '2031-01-01' && isRestDay('2031-04-08') && w24.deadline === '2031-04-09', 'treated 1.1.2024 inside the window: 31+29+31+6 = 97 days not counted -> 8.4.2031, a holiday (Pesach), so 9.4.2031');
 const feb29 = run({ event: '2028-02-29', today: '2028-03-01' });
@@ -197,5 +197,14 @@ check(U.recordsLink({ ok: false }) === '/obtaining-medical-records-copy/', 'cros
 check(U.inputOf(decodeState('', U.KEYS)) === null && U.inputOf(decodeState('kb', U.KEYS)) === null, 'no state, or no event without a base: nothing is read');
 check(U.tkPreset('birth', '2026-10-22').event === addDays('2026-10-22', -420) && U.tkPreset('nope', '2026-10-22') === null && daysBetween(EX.event, EX.today) === 499 && addYears(EX.event, 7) === '2032-06-10', 'presets: relative to today; an unknown preset is null');
 
+// Codex review of PR 172: a period that ended between 7.10.2023 and the eve of Amendment 8 is revived only conditionally
+// (s.15A(c)-(d)): the safe date is the plain end (off a rest day), the revived date is kept apart and flagged.
+const rvA = E.tkCompute(reg, Object.assign({}, EX, { kind: 'surgery', patient: 'adult', event: '2016-12-01' }));
+check(rvA.people[0].plain === '2023-12-01' && rvA.people[0].revived && rvA.people[0].revived > '2024-01-24' && rvA.deadline === offRestDays('2023-12-01', reg.car_accident.independence_days) && rvA.people[0].added === 0, `s.15A(c): treated 1.12.2016, the 7 years ended 1.12.2023 inside the window and before 25.1.2024: safe ${rvA.deadline}, revived ${rvA.people[0].revived} only conditionally`);
+check(rvA.expired && rvA.flags.some((f) => f.code === 'war_revived' && /15א\(ג\)/.test(f.section)), 's.15A(c): the safe date has passed and a warning names the conditional revival with its section');
+const rvB = E.tkCompute(reg, Object.assign({}, EX, { kind: 'surgery', patient: 'adult', event: '2017-02-01' }));
+check(rvB.people[0].plain === '2024-02-01' && !rvB.people[0].revived && rvB.people[0].added === 183 && !rvB.flags.some((f) => f.code === 'war_revived'), 's.15A(a): treated 1.2.2017, the period still ran on the eve of the amendment: 183 war days added, no revival warning');
+const rvC = E.tkCompute(reg, Object.assign({}, EX, { kind: 'surgery', patient: 'adult', event: '2016-10-06' }));
+check(!rvC.people[0].revived && rvC.people[0].added === 0 && rvC.deadline === offRestDays('2023-10-06', reg.car_accident.independence_days), 'before the window: treated 6.10.2016 ends 6.10.2023 (a day before 7.10.2023), no war days, no revival');
 console.log(`${passed} checks passed${failures ? `, ${failures} failed` : ''}`);
 process.exit(failures ? 1 : 0);

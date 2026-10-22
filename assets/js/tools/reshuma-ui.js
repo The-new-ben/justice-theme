@@ -225,6 +225,8 @@ export function letterParts(reg, r, fields) {
 	const R = M.regs;
 	const C = M.circular;
 	const f = fields || {};
+	// The letter's basis: a parent of a patient who is an adult today asks with the patient's waiver, as a representative.
+	const lw = r.asWho || r.who;
 	const pname = fv(f, 'pname') || BLANK;
 	const pid = fv(f, 'pid') || BLANK;
 	const inst = fv(f, 'inst');
@@ -245,7 +247,7 @@ export function letterParts(reg, r, fields) {
 		poa: `מוגשת בזאת בקשה, כמיופה כוח של ${pname} ומקרובי המשפחה (ייפוי הכוח וכתב הוויתור מצורפים), לקבל העתק מהרשומה הרפואית, לפי ${lawRef}, בעניין הטיפול ${when}.`,
 		heir: `מוגשת בזאת בקשה מכוח זכות הירושה, לאחר פטירת ${pname}${r.death ? ` ביום ${isoToHe(r.death)}` : ''}, לקבל העתק מהרשומה הרפואית, לפי ${C.sections.deceased} ל${C.he}, בעניין הטיפול ${when}.`,
 		rep: `מוגשת בזאת בקשה, מטעם ${pname} ובהסכמתו בכתב, לקבל העתק מהרשומה הרפואית, לפי ${L.disclose_section} ל${L.he}, בעניין הטיפול ${when}. כתב ויתור על סודיות רפואית חתום מצורף.`,
-	}[r.who];
+	}[lw];
 	out.push({ kind: 'p', text: opening });
 	if (r.where === 'idf') { out.push({ kind: 'p', text: `לעניין סעיפים 17 עד 23 לחוק, חיל הרפואה הוא מוסד רפואי (${L.idf_section}).` }); }
 	if (r.followup) {
@@ -276,12 +278,12 @@ export function letterParts(reg, r, fields) {
 	const contact = [fv(f, 'mail') && `דואר אלקטרוני: ${fv(f, 'mail')}`, fv(f, 'phone') && `טלפון: ${fv(f, 'phone')}`, fv(f, 'addr') && `כתובת: ${fv(f, 'addr')}`].filter(Boolean);
 	out.push({ kind: 'p', text: `פרטים ליצירת קשר: ${contact.length ? contact.join(' · ') : `דואר אלקטרוני ${BLANK} · טלפון ${BLANK}`}` });
 	out.push({ kind: 'p', text: 'מצורפים:' });
-	(r.who === 'self' ? ['צילום תעודה מזהה עם תמונה'] : r.attach.filter((a) => !/^אם ההורים/.test(a))).forEach((a) => out.push({ kind: 'li', text: a }));
+	(lw === 'self' ? ['צילום תעודה מזהה עם תמונה'] : r.attach.filter((a) => !/^אם ההורים/.test(a))).forEach((a) => out.push({ kind: 'li', text: a }));
 	out.push({ kind: 'line', text: 'בכבוד רב,' });
-	const signer = r.who === 'self' ? pname : fv(f, 'rname') || BLANK;
-	const signerId = r.who === 'self' ? pid : fv(f, 'rid') || BLANK;
+	const signer = lw === 'self' ? pname : fv(f, 'rname') || BLANK;
+	const signerId = lw === 'self' ? pid : fv(f, 'rid') || BLANK;
 	out.push({ kind: 'sig', text: `שם: ${signer} · מספר זהות: ${signerId} · חתימה: ${BLANK}` });
-	if (r.who === 'rep' || r.who === 'poa') {
+	if (lw === 'rep' || lw === 'poa') {
 		out.push({ kind: 'h', text: 'נספח: כתב ויתור על סודיות רפואית' });
 		out.push({ kind: 'p', text: `בזאת ניתנת הסכמתי למסור ל-${fv(f, 'rname') || BLANK} (פרטי המבקש ופרטי הקשר: ${BLANK}) את המידע הרפואי הבא מהרשומה הרפואית שלי ב-${inst || BLANK}: ${r.docs.includes('all') ? 'התיק הרפואי המלא' : [...r.docs, ...r.missing].map((c) => docHe(reg, c)).join(', ')}. ההסכמה פוטרת את המוסד מחובת הסודיות לגבי מידע זה בלבד, ומטענות בגין מסירתו (${L.disclose_section} לחוק; ${C.sections.waiver} ל${C.short_he}).` });
 		out.push({ kind: 'line', text: `פרטי המטופל: שם מלא ${pname} · מספר זהות ${pid} · שנת לידה ${BLANK} · כתובת ${BLANK} · טלפון ${BLANK}` });

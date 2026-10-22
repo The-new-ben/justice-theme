@@ -16804,6 +16804,12 @@
    "clock": "/medical-malpractice-statute-of-limitations/",
    "records": "/obtaining-medical-records-copy/",
    "cost": "/medical-malpractice-cost/"
+  },
+  "war_revival": {
+   "eve": "2024-01-24",
+   "section": "סעיף 15א(ג)-(ד) לחוק ההתיישנות",
+   "he": "התקופה הסתיימה בין 7.10.2023 לבין ערב פרסום התיקון (25.1.2024): היא מוחזרת לחיים, אלא אם בית המשפט יחליט אחרת. לכן המועד הבטוח הוא הסיום המקורי, וההארכה מותנית",
+   "url": "https://fs.knesset.gov.il/25/law/25_lsr_4019628.pdf"
   }
  }
 }

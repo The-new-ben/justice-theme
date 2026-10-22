@@ -77,6 +77,10 @@ check(!rep.capped && rep.free.length === 0 && line(rep, 'printout').amount === 6
 check(run({ who: 'poa' }).capped && run({ who: 'guardian' }).capped && run({ who: 'parent', birth: '2015-05-01' }).capped, 'a relative holding a power of attorney, a guardian and a parent of a minor: the caps apply (reg. 3(a); Capacity Law s.14)');
 const adult = run({ who: 'parent', birth: '2006-01-01', treated: '2020-05-01' });
 check(adult.ok && adult.adultNow && adult.ageNow === 20 && !adult.capped && has(adult, 'adult_now') && adult.flags.find((f) => f.code === 'adult_now').level === 'danger', 'a parent of a patient born 1.1.2006: 20 today, an adult (Capacity Law s.3): the parent needs the patient\'s waiver; no cap, a danger flag');
+// Codex review of PR 172: the letter for a patient who is an adult today asks with the patient's waiver, never as a minor's parent.
+const adultLetter = U.letterText(U.letterParts(reg, adult, {}));
+check(adult.asWho === 'rep' && adult.basis.some((b) => /20/.test(b.section)) && adult.attach.some((a) => /ויתור על סודיות/.test(a)), 'an adult today: the basis is the waiver (s.20), and the signed waiver of the patient is attached');
+check(!/הקטין/.test(adultLetter) && /נספח: כתב ויתור על סודיות רפואית/.test(adultLetter) && /בהסכמתו בכתב/.test(adultLetter), 'an adult today: the letter never calls the patient a minor and carries the waiver annex');
 check(has(run({ birth: '2012-01-01', treated: '2025-01-01' }), 'minor_self'), 'the patient is 14 today: a flag says a parent asks for a minor (C.16)');
 
 /* ---------- 4. A deceased patient (reg. 3(d), circular C.12) ---------- */

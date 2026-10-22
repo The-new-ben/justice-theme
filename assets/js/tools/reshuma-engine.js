@@ -157,23 +157,25 @@ export function rsCompute(reg, input) {
 	const within5 = treated >= fiveFrom;
 	const dec = who === 'heir' && death ? rsDeceased(reg, death, treated, today) : null;
 
-	// The right and what to attach, by who asks.
+	// The right and what to attach, by who asks. A parent of a patient who is an adult today asks with the patient's own
+	// waiver, like a representative (Codex review of PR 172): the letter, the basis and the attachments follow `asWho`.
+	const asWho = adultNow ? 'rep' : who;
 	const basis = [];
 	const attach = [];
 	const lawRight = { he: L.right_he, section: L.right_section, url: L.url };
-	if (who === 'self') {
+	if (asWho === 'self') {
 		basis.push(lawRight);
 		attach.push(C.self_he);
-	} else if (who === 'parent') {
+	} else if (asWho === 'parent') {
 		basis.push(lawRight, { he: M.capacity.parents_he, section: `${M.capacity.parents_section} ל${M.capacity.he}`, url: M.capacity.url }, { he: C.minor_he, section: `${C.sections.minor} ל${C.short_he}`, url: C.url });
 		attach.push('תעודה מזהה של ההורה, עם הספח שבו רשום הילד', 'אם ההורים פרודים: אין צורך בחתימת ההורה השני, אלא אם ידוע שהוא מתנגד');
-	} else if (who === 'guardian') {
+	} else if (asWho === 'guardian') {
 		basis.push(lawRight, { he: C.guardian_he, section: `${C.sections.guardian} ל${C.short_he}`, url: C.url });
 		attach.push('צו המינוי של בית המשפט, בתוקף (מקור או העתק מאושר)', 'תעודה מזהה של האפוטרופוס');
-	} else if (who === 'poa') {
+	} else if (asWho === 'poa') {
 		basis.push(lawRight, { he: C.rep_he, section: `${C.sections.rep} ל${C.short_he}`, url: C.url });
 		attach.push('ייפוי הכוח (רפואי או מתמשך לעניינים אישיים)', 'כתב ויתור על סודיות רפואית חתום בידי המטופל', 'תעודה מזהה של מיופה הכוח');
-	} else if (who === 'heir') {
+	} else if (asWho === 'heir') {
 		basis.push({ he: C.deceased_he, section: `${C.sections.deceased} ל${C.short_he}`, url: C.url });
 		attach.push('צו ירושה או צו קיום צוואה שבו המבקש רשום כיורש, או צו בית משפט, או תצהיר מאומת בפני עורך דין', 'תעודת פטירה', 'תעודה מזהה של המבקש');
 	} else {
@@ -293,7 +295,7 @@ export function rsCompute(reg, input) {
 
 	return {
 		ok: true, who, where, owner, format, docs, missing, followup, today, treated, birth, death, pages,
-		ageNow, ageAtTreat, adultNow, regsApply, within5, fiveFrom, dec, capped: isCapped, capReasons,
+		ageNow, ageAtTreat, adultNow, asWho, regsApply, within5, fiveFrom, dec, capped: isCapped, capReasons,
 		basis, attach, free, lines, paper, digitalMax, paperMax, lead, docItems, retention, flags, events,
 		response: M.response,
 		start: addDays(R.published, R.start_days),

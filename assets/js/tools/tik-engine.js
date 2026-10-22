@@ -18,7 +18,7 @@
  * Every top-level helper starts with "tk": the bundle concatenates this file with instrument.js, dates.js and sim-handoff.js.
  */
 
-import { addYears, daysBetween, parseDate, fullYears } from './dates.js';
+import { addYears, daysBetween, parseDate, fullYears, offRestDays } from './dates.js';
 import * as TE from './teuna-engine.js';
 
 export const TK_KINDS = ['birth', 'surgery', 'diagnosis', 'anesthesia', 'medication', 'dental', 'consent'];
@@ -43,10 +43,17 @@ export function tkPatient(kind, patient) {
 
 /**
  * The plain limitation date of one claimant: 7 years from the event (s.5(1)), from the 18th birthday for a minor (s.10),
- * without the war window (s.15A), moved off a rest day; the road engine's limitation() with reg.car_accident, unchanged.
+ * plus the war window of s.15A(a) for a period still running, moved off a rest day; the road engine's limitation() with
+ * reg.car_accident. A period that ended between 7.10.2023 and the eve of Amendment 8 (s.15A(c)-(d)) is revived only unless
+ * the court decides otherwise: its safe date is the plain end (moved off a rest day), and `revived` keeps the later date.
  */
 export function tkLimit(reg, event, birth) {
-	return TE.limitation(reg.car_accident, event, birth || null);
+	const lim = TE.limitation(reg.car_accident, event, birth || null);
+	const rv = reg.malpractice_tik && reg.malpractice_tik.war_revival;
+	const war = reg.car_accident.limitation.war;
+	if (!rv || !lim.added || lim.plain < war.from || lim.plain > rv.eve) { return Object.assign({}, lim, { revived: null }); }
+	const safe = offRestDays(lim.plain, reg.car_accident.independence_days);
+	return Object.assign({}, lim, { added: 0, raw: lim.plain, deadline: safe, rolled: safe !== lim.plain, revived: lim.deadline });
 }
 
 /**
@@ -251,6 +258,8 @@ export function tkCompute(reg, input) {
 	if (!bodily && !consentOnly) { flag('warn', 'no_damage', 'בלי נזק אין עוולת רשלנות. אם יתגלה נזק, חוזרים לבדיקה עם יום הגילוי.', O.negligence_section, O.url); }
 	const added = people.reduce((s, p) => Math.max(s, p.added || 0), 0);
 	if (added) { flag('info', 'war', `${added} ימים מתוך ${tkHe(ca.limitation.war.from)} עד ${tkHe(ca.limitation.war.to)} לא נספרים (${ca.limitation.war.section} לחוק ההתיישנות), ולכן היום האחרון נדחה.`, ca.limitation.war.section, ca.limitation.url); }
+	const revived = people.find((p) => p.revived);
+	if (revived) { const rv = reg.malpractice_tik.war_revival; flag('warn', 'war_revived', `שבע השנים הסתיימו ב-${tkHe(revived.plain)}. ${rv.he}: עד ${tkHe(revived.revived)} רק אם בית המשפט לא יחליט אחרת.`, rv.section, rv.url); }
 
 	const counts = { facts: 0, prove: 0, missing: 0 };
 	el.forEach((e) => { counts[e.status] += 1; });

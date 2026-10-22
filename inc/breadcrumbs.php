@@ -377,6 +377,9 @@ function justice_theme_resolve_pillar_for_slug( string $slug ) {
 		'legal-aid-israel'          => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
 		'law-suit-cost-israel'      => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
 		'elder-law-israel'          => array( 'name' => 'זכויות', 'url' => '/disability-rights-israel/' ),
+		// The rights wave 2B (HAD-585): the two new National Insurance pages sit under the same rights crumb as old age.
+		'kitzbat-yeladim'           => array( 'name' => 'זכויות', 'url' => '/disability-rights-israel/' ),
+		'havtachat-hachnasa'        => array( 'name' => 'זכויות', 'url' => '/disability-rights-israel/' ),
 		'tax-lawyer-israel'         => array( 'name' => 'מיסוי', 'url' => '/tax-lawyer-israel/' ),
 		'mediation-israel'          => array( 'name' => 'גישור', 'url' => '/mediation-israel/' ),
 	);

@@ -2,7 +2,7 @@
 /**
  * Build the co.il tools (HAD-485 wave 1, HAD-490 wave 2, HAD-498 wave 3, HAD-502 wave 4, HAD-504 wave 5, HAD-506 family
  * law, the inheritance wave, the rights waves HAD-574, HAD-578 and HAD-585, the family + land wave HAD-579, the labor
- * wave, the road-accident and personal-injury wave HAD-591) from their ES-module sources.
+ * wave, the road-accident and personal-injury wave HAD-591, the consumer-law wave HAD-593) from their ES-module sources.
  *
  *   node tools/build-justice-tools.mjs          write the bundles and the server snapshots
  *   node tools/build-justice-tools.mjs --check  fail when a committed file is out of date (CI)
@@ -26,7 +26,9 @@ const TOOLS = {
 	hatzmada: ['instrument.js', 'hatzmada-engine.js', 'hatzmada-ui.js'],
 	'sachar-minimum': ['instrument.js', 'minwage-engine.js', 'minwage-ui.js'],
 	havraa: ['instrument.js', 'havraa-engine.js', 'havraa-ui.js'],
-	'tviot-ktanot': ['instrument.js', 'tviot-engine.js', 'tviot-ui.js'],
+	// The consumer-law wave (HAD-593) added the claim against a business and the window handoff (sim-handoff.js). The engine
+	// keeps its own date helpers (addDays, parseDate), so dates.js is not bundled next to it.
+	'tviot-ktanot': ['instrument.js', 'sim-handoff.js', 'tviot-engine.js', 'tviot-ui.js'],
 	yerusha: ['instrument.js', 'yerusha-engine.js', 'yerusha-ui.js'],
 	'mas-rechisha': ['instrument.js', 'rechisha-engine.js', 'rechisha-ui.js'],
 	'hetel-hashbacha': ['instrument.js', 'hashbacha-engine.js', 'hashbacha-ui.js'],
@@ -95,6 +97,13 @@ const TOOLS = {
 	'teunat-avoda': ['instrument.js', 'sim-handoff.js', 'dates.js', 'avoda-engine.js', 'avoda-ui.js'],
 	'shiklul-nechut': ['instrument.js', 'sim-handoff.js', 'dates.js', 'teuna-engine.js as TE', 'shiklul-engine.js', 'shiklul-ui.js'],
 	'shaon-nezikin': ['instrument.js', 'sim-handoff.js', 'dates.js', 'teuna-engine.js as TE', 'shaon-engine.js', 'shaon-ui.js'],
+	// The consumer-law wave (22.10.2026, HAD-593): the cancellation-rights checker stands alone; the flight instrument reuses
+	// the road engine's limitation() (the war window, rest days) as TE and the small-claims engine's ceilingOn() and fee() as
+	// TV; the remedy calculator reuses the CPI and interest engine as HZ (it has its own parseDate and addMonths), each in its
+	// own scope.
+	'bitul-iska': ['instrument.js', 'sim-handoff.js', 'dates.js', 'bitul-engine.js', 'bitul-ui.js'],
+	'pitzui-tisa': ['instrument.js', 'sim-handoff.js', 'dates.js', 'teuna-engine.js as TE', 'tviot-engine.js as TV', 'tisa-engine.js', 'tisa-ui.js'],
+	'pitzui-tzarchan': ['instrument.js', 'sim-handoff.js', 'dates.js', 'hatzmada-engine.js as HZ', 'pitzui-engine.js', 'pitzui-ui.js'],
 };
 
 function strip(code) {
@@ -185,6 +194,9 @@ const lbG = await import(pathToFileURL(join(SRC, 'gmar-ui.js')).href);
 const ijA = await import(pathToFileURL(join(SRC, 'avoda-ui.js')).href);
 const ijS = await import(pathToFileURL(join(SRC, 'shiklul-ui.js')).href);
 const ijN = await import(pathToFileURL(join(SRC, 'shaon-ui.js')).href);
+const csB = await import(pathToFileURL(join(SRC, 'bitul-ui.js')).href);
+const csT = await import(pathToFileURL(join(SRC, 'tisa-ui.js')).href);
+const csP = await import(pathToFileURL(join(SRC, 'pitzui-ui.js')).href);
 const snapshots = {
 	registry_version: registry.registry_version,
 	hatzmada: t04.snapshot(registry),
@@ -237,6 +249,9 @@ const snapshots = {
 	'teunat-avoda': ijA.snapshot(registry),
 	'shiklul-nechut': ijS.snapshot(registry),
 	'shaon-nezikin': ijN.snapshot(registry),
+	'bitul-iska': csB.snapshot(registry),
+	'pitzui-tisa': csT.snapshot(registry),
+	'pitzui-tzarchan': csP.snapshot(registry),
 };
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 

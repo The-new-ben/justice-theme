@@ -3306,3 +3306,422 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jtool .jt63-print p, .jtool .jt63-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
 	.jtool .jt63-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
 }
+
+/* ===== The consumer-law wave (22.10.2026, HAD-593): jt64, the cancellation-rights checker (bitul-iska) =====
+   The picture comes from the counter of a shop: a calendar strip of the cancellation window (one cell a day from the deal,
+   the window's days in deep navy edging, rest days hatched because the law skips or moves them, the last day a solid navy
+   block, today ruled in deep green) beside a till receipt in tabular figures where the cancellation fee is the only line
+   taken off the price, down to the refund and the day it is due. The notice reads like a typed letter. Mobile first
+   (390 px), light, the instrument's navy / deep-green variables only; no cream, gold, brown, terracotta, purple gradient,
+   Inter or emoji. */
+.jtool .jt64-presets { gap: var(--jtool-space-2); }
+.jtool .jt64-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: var(--jtool-surface); color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; text-align: start; }
+.jtool .jt64-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: var(--jtool-surface); }
+.jtool .jt64-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt64-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt64-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt64-checks { margin-top: var(--jtool-space-2); }
+.jtool .jt64-checks [hidden] { display: none !important; }
+.jtool .jt64-more > .jtool-row, .jtool .jt64-more > .jtool-field { margin-top: var(--jtool-space-3); }
+.jtool .jt64-unit { display: block; margin-top: 2px; font: 700 0.95rem/1.35 var(--jtool-font); color: var(--jtool-muted); }
+
+/* The pair: the window strip, then the receipt. Stacked at every width: on a desktop the result sits in the instrument's
+   narrow second column, where side by side would squeeze the receipt. */
+.jtool .jt64-pair { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--jtool-space-3); margin-top: var(--jtool-space-4); }
+
+/* The window strip. */
+.jtool .jt64-strip { margin: 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface); }
+.jtool .jt64-strip__h { margin: 0 0 var(--jtool-space-2); font: 800 0.95rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt64-cells { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 3px; margin: 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt64-c { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 44px; margin: 0 !important; padding: 3px 1px; border: 1px solid var(--jtool-border); border-radius: 5px; background: var(--jtool-surface); color: var(--jtool-ink); text-align: center; list-style: none !important; }
+.jtool .jt64-c b { font: 800 0.82rem/1 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt64-c small { margin-top: 3px; min-height: 0.7rem; font: 700 0.62rem/1.1 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt64-c--rest { background: repeating-linear-gradient(135deg, var(--jtool-surface-2) 0 4px, var(--jtool-surface) 4px 8px); color: var(--jtool-muted); }
+.jtool .jt64-c--in { border-color: var(--jtool-verdict); border-bottom-width: 4px; }
+.jtool .jt64-c--deal, .jtool .jt64-c--rec { border-color: var(--jtool-verdict-deep); background: var(--jtool-verdict-tint); }
+.jtool .jt64-c--deal small, .jtool .jt64-c--rec small { color: var(--jtool-verdict-deep); }
+.jtool .jt64-c--last { border-color: var(--jtool-verdict-deep); background: var(--jtool-verdict-deep); color: var(--jtool-surface); }
+.jtool .jt64-c--last small { color: var(--jtool-surface); }
+.jtool .jt64-c--gone { border-color: var(--jtool-danger); background: var(--jtool-danger-bg); color: var(--jtool-danger); }
+.jtool .jt64-c--gone small { color: var(--jtool-danger); }
+.jtool .jt64-c--due { border-style: dashed; border-color: var(--jtool-ok); }
+.jtool .jt64-c--due small { color: var(--jtool-ok); }
+.jtool .jt64-c--svc { border-color: var(--jtool-field-border); border-width: 2px; }
+.jtool .jt64-c--today { box-shadow: inset 0 -5px 0 var(--jtool-ok); }
+.jtool .jt64-c--today small { color: var(--jtool-ok); font-weight: 800; }
+.jtool .jt64-c--last.jt64-c--today small { color: var(--jtool-surface); }
+.jtool .jt64-bar { position: relative; height: 56px; margin: 8px 14px 0; background: linear-gradient(var(--jtool-border), var(--jtool-border)) center / 100% 4px no-repeat; }
+.jtool .jt64-bar__win { position: absolute; top: 24px; height: 8px; border-radius: 4px; background: var(--jtool-verdict); }
+.jtool .jt64-m { position: absolute; top: 16px; transform: translateX(50%); }
+.jtool .jt64-m i { display: flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; padding: 0 4px; border-radius: 999px; border: 2px solid var(--jtool-surface); background: var(--jtool-verdict); color: var(--jtool-surface); font: 800 0.72rem/1 var(--jtool-font); font-style: normal; box-shadow: 0 0 0 1px var(--jtool-verdict); }
+.jtool .jt64-m--deadline i { background: var(--jtool-verdict-deep); }
+.jtool .jt64-m--limit i { background: var(--jtool-ok); box-shadow: 0 0 0 1px var(--jtool-ok); }
+.jtool .jt64-m--start i, .jtool .jt64-m--info i { background: var(--jtool-surface); color: var(--jtool-verdict-deep); box-shadow: 0 0 0 1px var(--jtool-field-border); }
+.jtool .jt64-m--today { top: 40px; z-index: 2; }
+.jtool .jt64-m--today i { min-width: 0; height: auto; padding: 1px 6px; border-radius: 4px; background: var(--jtool-ok-bg); color: var(--jtool-ok); box-shadow: 0 0 0 1px var(--jtool-ok); font-size: 0.68rem; }
+.jtool .jt64-legend { margin: var(--jtool-space-3) 0 0 !important; padding: 0 !important; list-style: none !important; display: flex; flex-direction: column; gap: 6px; }
+.jtool .jt64-legend li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 0 !important; font-size: 0.9rem !important; line-height: 1.5 !important; list-style: none !important; }
+.jtool .jt64-legend i { flex: none; display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; border-radius: 999px; background: var(--jtool-verdict); color: var(--jtool-surface); font: 800 0.72rem/1 var(--jtool-font); font-style: normal; }
+.jtool .jt64-legend bdi { font-weight: 800; font-variant-numeric: tabular-nums; }
+.jtool .jt64-key { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: var(--jtool-space-2) 0 0 !important; font: 600 0.78rem/1.4 var(--jtool-font) !important; color: var(--jtool-muted) !important; }
+.jtool .jt64-k::before { content: ""; display: inline-block; width: 12px; height: 12px; margin-inline-end: 5px; vertical-align: -2px; border: 1px solid var(--jtool-border); border-radius: 3px; background: var(--jtool-surface); }
+.jtool .jt64-k--in::before { border-color: var(--jtool-verdict); border-bottom-width: 4px; }
+.jtool .jt64-k--rest::before { background: repeating-linear-gradient(135deg, var(--jtool-surface-2) 0 3px, var(--jtool-surface) 3px 6px); }
+.jtool .jt64-k--today::before { box-shadow: inset 0 -4px 0 var(--jtool-ok); }
+
+/* The till receipt: tabular figures, a dashed tear line, the refund as the total. */
+.jtool .jt64-receipt { margin: 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-top: 4px solid var(--jtool-verdict-deep); border-radius: 4px 4px 12px 12px; background: var(--jtool-surface); font-variant-numeric: tabular-nums; }
+.jtool .jt64-receipt figcaption { margin: 0 0 var(--jtool-space-2); padding-bottom: 6px; border-bottom: 1px dashed var(--jtool-field-border); font: 800 0.95rem/1.3 var(--jtool-font); color: var(--jtool-verdict-deep); letter-spacing: 0.02em; }
+.jtool .jt64-receipt table { width: 100%; border-collapse: collapse; margin: 0 !important; }
+.jtool .jt64-receipt th, .jtool .jt64-receipt td { padding: 6px 0 !important; border: 0 !important; background: none !important; font-size: 0.93rem !important; line-height: 1.4 !important; vertical-align: baseline; }
+.jtool .jt64-receipt th { font-weight: 600 !important; color: var(--jtool-ink) !important; text-align: start; }
+.jtool .jt64-receipt td { text-align: end; font-weight: 700; white-space: nowrap; color: var(--jtool-ink); }
+.jtool .jt64-receipt .jt64-r--minus td { color: var(--jtool-verdict); }
+.jtool .jt64-receipt .jt64-r--total th, .jtool .jt64-receipt .jt64-r--total td { padding-top: 10px !important; border-top: 2px solid var(--jtool-verdict-deep) !important; font-size: 1.1rem !important; font-weight: 800 !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt64-receipt .jt64-r--warn th, .jtool .jt64-receipt .jt64-r--warn td { color: var(--jtool-danger) !important; }
+.jtool .jt64-receipt__due { margin: var(--jtool-space-2) 0 0 !important; padding-top: 6px; border-top: 1px dashed var(--jtool-field-border); font: 800 0.95rem/1.4 var(--jtool-font) !important; color: var(--jtool-ok) !important; }
+.jtool .jt64-receipt__foot { margin: 6px 0 0 !important; font-size: 0.8rem !important; line-height: 1.45 !important; color: var(--jtool-muted) !important; }
+
+/* Why, the channels, the letter, the brief, next steps, method, tables. */
+.jtool .jt64-box, .jtool .jt64-brief, .jtool .jt64-next { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface-2); }
+.jtool .jt64-box h3.jt64-h, .jtool .jt64-brief h4, .jtool .jt64-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt64-why, .jtool .jt64-chan { margin: 0 !important; padding: 0 !important; list-style: none !important; display: flex; flex-direction: column; gap: 6px; }
+.jtool .jt64-why li, .jtool .jt64-chan li { margin: 0 !important; padding: 8px 12px; border: 1px solid var(--jtool-border); border-inline-start: 5px solid var(--jtool-field-border); border-radius: 8px; background: var(--jtool-surface); font-size: 0.93rem !important; line-height: 1.55 !important; list-style: none !important; }
+.jtool .jt64-why li.jt64-flag--danger { border-inline-start-color: var(--jtool-danger); background: var(--jtool-danger-bg); color: var(--jtool-danger); }
+.jtool .jt64-why li.jt64-flag--warn { border-inline-start-color: var(--jtool-verdict); background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); }
+.jtool .jt64-chan li { border-inline-start-color: var(--jtool-ok); }
+.jtool .jt64-note { margin: var(--jtool-space-2) 0 0 !important; font-size: 0.85rem !important; color: var(--jtool-muted) !important; line-height: 1.5 !important; }
+.jtool .jt64-priv { margin-top: var(--jtool-space-3); }
+.jtool .jt64-doc { margin: var(--jtool-space-3) 0 var(--jtool-space-2) !important; padding: var(--jtool-space-3) var(--jtool-space-4) !important; max-height: 420px; overflow: auto; border: 1px solid var(--jtool-field-border); border-inline-start: 5px solid var(--jtool-verdict-deep); border-radius: 6px; background: var(--jtool-surface) !important; color: var(--jtool-ink) !important; font: 400 0.95rem/1.7 var(--jtool-font) !important; white-space: pre-wrap; word-break: break-word; direction: rtl; text-align: start; }
+.jtool .jt64-doc:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt64-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; }
+.jtool .jt64-next ul { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt64-next li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt64-method { margin: 0 !important; padding-inline-start: 20px !important; }
+.jtool .jt64-method li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt64-wrap td { white-space: normal !important; }
+.jtool .jt64-print { display: none; }
+@media print {
+	.jtool[data-jtool="bitul-iska"] .jtool__head, .jtool[data-jtool="bitul-iska"] .jtool-form, .jtool[data-jtool="bitul-iska"] .jt64-screen,
+	.jtool[data-jtool="bitul-iska"] .jtool-next, .jtool[data-jtool="bitul-iska"] .jtool-sources, .jtool[data-jtool="bitul-iska"] .jtool-foot,
+	.jtool[data-jtool="bitul-iska"] .jt64-brief, .jtool[data-jtool="bitul-iska"] .jt64-next, .jtool[data-jtool="bitul-iska"] .jtool-actions,
+	.jtool[data-jtool="bitul-iska"] .jtool-sticky, .jtool[data-jtool="bitul-iska"] .jt64-priv, .jtool[data-jtool="bitul-iska"] .jtool-stages { display: none !important; }
+	.jtool[data-jtool="bitul-iska"] .jtool__body { display: block !important; }
+	.jtool .jt64-strip, .jtool .jt64-receipt, .jtool .jt64-box { break-inside: avoid; border-color: #000; }
+	.jtool .jt64-c { border-color: #555 !important; }
+	.jtool .jt64-doc { max-height: none; overflow: visible; border-color: #000 !important; }
+	.jtool .jt64-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt64-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt64-print p, .jtool .jt64-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt64-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}
+
+/* The consumer-law wave (22.10.2026, HAD-593), the ktanot lane: the claim against a business inside tviot-ktanot (prefix
+   jt65; the wave-1 jt5 classes stay). Two pictures from the subject's world: the claim ledger (the heads stacked along a
+   line, the ceiling ruled across it, the part above it hatched, the court fee as a stamp; then the same as receipt rows)
+   and the case track (every dated step of the file on one line, the hearing in bold, the steps that assume the judgment was
+   given at the hearing dashed). Palette: only the --jtool-* navy and deep-green variables. Mobile first (390). */
+
+/* Quick profiles */
+.jtool .jt65-presets { gap: 8px; }
+.jtool .jt65-preset { min-height: 44px; padding: 6px 14px; border: 1px solid var(--jtool-field-border); border-radius: 999px; background: var(--jtool-surface); color: var(--jtool-ink); font: 700 0.92rem/1.3 var(--jtool-font); cursor: pointer; }
+.jtool .jt65-preset[aria-pressed="true"] { border-color: var(--jtool-verdict-deep); background: var(--jtool-verdict-deep); color: #fff; }
+.jtool .jt65-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+
+/* The heads form */
+.jtool .jt65-claim { padding: 12px; border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-verdict-deep); border-radius: 10px; background: var(--jtool-surface-2); }
+.jtool .jt65-claim > legend { padding: 0 6px; font-weight: 800; }
+.jtool .jt65-heads { display: grid; grid-template-columns: 1fr; gap: 4px 12px; }
+@media (min-width: 640px) { .jtool .jt65-heads { grid-template-columns: 1fr 1fr; } }
+.jtool .jt65-head .jtool-label { display: flex; align-items: center; gap: 6px; }
+.jtool .jt65-head .jtool-hint { margin-top: 2px; }
+.jtool input[data-kt-sum] { background: var(--jtool-verdict-tint); font-weight: 800; }
+.jtool .jt65-waive { margin-top: 8px; }
+
+/* Head swatches: one per head, from the navy / deep-green family; patterns tell them apart without colour. */
+.jtool .jt65-sw { display: inline-block; inline-size: 12px; block-size: 12px; border-radius: 2px; flex: none; }
+.jtool .jt65-sw--price { background: var(--jtool-verdict-deep); }
+.jtool .jt65-sw--fee { background: var(--jtool-verdict); }
+.jtool .jt65-sw--repair { background: var(--jtool-focus); }
+.jtool .jt65-sw--comp { background: repeating-linear-gradient(135deg, var(--jtool-ok) 0 3px, var(--jtool-ok-bg) 3px 5px); }
+.jtool .jt65-sw--flight { background: repeating-linear-gradient(90deg, var(--jtool-ink) 0 3px, var(--jtool-verdict-tint) 3px 5px); }
+.jtool .jt65-sw--other { background: var(--jtool-field-border); }
+
+/* The claim ledger */
+.jtool .jt65-ledger { margin: 16px 0; padding: 14px; border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface); }
+.jtool .jt65-ledger__h { margin: 0 0 10px; font: 800 1rem/1.4 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt65-ledger__top { display: flex; align-items: center; gap: 12px; }
+.jtool .jt65-bar { position: relative; flex: 1 1 auto; display: flex; block-size: 34px; margin: 22px 0 6px; border: 1px solid var(--jtool-ink); border-radius: 4px; background: var(--jtool-surface-2); overflow: visible; }
+.jtool .jt65-seg { display: block; block-size: 100%; border-inline-end: 1px solid var(--jtool-surface); }
+.jtool .jt65-over { position: absolute; inset-block: 0; background: repeating-linear-gradient(135deg, var(--jtool-ink) 0 2px, transparent 2px 6px); opacity: 0.55; pointer-events: none; }
+.jtool .jt65-ceil { position: absolute; inset-block: -22px -6px; border-inline-start: 3px solid var(--jtool-ink); }
+.jtool .jt65-ceil b { position: absolute; inset-block-start: 0; inset-inline-end: 4px; white-space: nowrap; font: 800 0.78rem/1.2 var(--jtool-font); color: var(--jtool-ink); background: var(--jtool-surface); padding: 1px 4px; }
+.jtool .jt65-stamp { flex: none; display: grid; place-items: center; inline-size: 92px; min-block-size: 76px; padding: 6px; border: 3px double var(--jtool-verdict-deep); border-radius: 10px; color: var(--jtool-verdict-deep); text-align: center; transform: rotate(-4deg); background: var(--jtool-verdict-tint); }
+.jtool .jt65-stamp span { font: 700 0.72rem/1.1 var(--jtool-font); }
+.jtool .jt65-stamp strong { font: 800 1.15rem/1.2 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt65-stamp small { font: 600 0.68rem/1.1 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt65-stamp--off { border-color: var(--jtool-muted); color: var(--jtool-muted); background: var(--jtool-surface-2); transform: none; }
+.jtool .jt65-rows { list-style: none; margin: 12px 0 0; padding: 0; font-variant-numeric: tabular-nums; }
+.jtool .jt65-row { display: grid; grid-template-columns: 14px 18px minmax(0, 1fr) auto; grid-template-areas: "sw n name amt" ". . basis basis"; align-items: baseline; gap: 2px 8px; padding: 8px 0; border-block-end: 1px dashed var(--jtool-border); }
+.jtool .jt65-row .jt65-sw { grid-area: sw; align-self: center; }
+.jtool .jt65-row__n { grid-area: n; font: 700 0.8rem/1 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt65-row__name { grid-area: name; font-weight: 700; }
+.jtool .jt65-row__dots { display: none; }
+.jtool .jt65-row__amt { grid-area: amt; font-weight: 800; white-space: nowrap; }
+.jtool .jt65-row__basis { grid-area: basis; font-size: 0.86rem; color: var(--jtool-muted); }
+.jtool .jt65-row--todo { color: var(--jtool-muted); }
+.jtool .jt65-row--todo .jt65-row__amt { font-weight: 700; }
+.jtool .jt65-row--total { grid-template-areas: "name name name amt" "basis basis basis basis"; border-block-end: 0; border-block-start: 2px solid var(--jtool-ink); }
+.jtool .jt65-row--total .jt65-row__name, .jtool .jt65-row--total .jt65-row__amt { font-size: 1.05rem; color: var(--jtool-verdict-deep); }
+.jtool .jt65-row--waive .jt65-row__amt { color: var(--jtool-ok); }
+@media (min-width: 640px) {
+	.jtool .jt65-row { grid-template-columns: 14px 18px minmax(0, max-content) minmax(24px, 1fr) auto; grid-template-areas: "sw n name dots amt" ". . basis basis basis"; }
+	.jtool .jt65-row__dots { display: block; grid-area: dots; align-self: end; border-block-end: 2px dotted var(--jtool-field-border); margin-block-end: 5px; }
+	.jtool .jt65-row--total { grid-template-areas: "name name name dots amt" "basis basis basis basis basis"; }
+}
+
+/* Above the ceiling: two roads */
+.jtool .jt65-choice { margin: 12px 0; padding: 12px; border: 1px solid var(--jtool-verdict); border-radius: 10px; background: var(--jtool-verdict-tint); }
+.jtool .jt65-choice h4 { margin: 0 0 8px; font: 800 1rem/1.3 var(--jtool-font); }
+.jtool .jt65-choice__grid { display: grid; gap: 10px; }
+@media (min-width: 640px) { .jtool .jt65-choice__grid { grid-template-columns: 1fr 1fr; } }
+.jtool .jt65-choice__opt { padding: 10px; border-radius: 8px; background: var(--jtool-surface); }
+.jtool .jt65-choice__opt p { margin: 0 0 8px; font-size: 0.92rem; line-height: 1.55; }
+.jtool .jt65-choice__t { font-weight: 800; color: var(--jtool-verdict-deep); }
+.jtool .jt65-flag { border-inline-start: 3px solid var(--jtool-verdict); padding-inline-start: 8px; }
+
+/* The case track */
+.jtool .jt65-track { margin: 16px 0; padding: 14px; border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface); }
+.jtool .jt65-track__h { margin: 0 0 6px; font: 800 1rem/1.4 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt65-line { position: relative; block-size: 6px; margin: 30px 12px 46px; border-radius: 3px; background: var(--jtool-border); }
+.jtool .jt65-line__fill { position: absolute; inset-block: 0; inset-inline-start: 0; border-radius: 3px; background: var(--jtool-verdict); }
+.jtool .jt65-node { position: absolute; inset-block-start: 50%; transform: translate(50%, -50%); }
+.jtool .jt65-node i { display: grid; place-items: center; inline-size: 22px; block-size: 22px; border: 2px solid var(--jtool-verdict-deep); border-radius: 50%; background: var(--jtool-surface); color: var(--jtool-verdict-deep); font: 800 0.72rem/1 var(--jtool-font); font-style: normal; }
+.jtool .jt65-node--l1 { inset-block-start: calc(50% + 22px); }
+.jtool .jt65-node--l2 { inset-block-start: calc(50% - 22px); }
+.jtool .jt65-node--hearing i { inline-size: 28px; block-size: 28px; background: var(--jtool-verdict-deep); color: #fff; }
+.jtool .jt65-node--event i, .jtool .jt65-node--judgment i, .jtool .jt65-node--judgment_latest i { border-color: var(--jtool-ok); color: var(--jtool-ok); }
+.jtool .jt65-node--cond i { border-style: dashed; }
+.jtool .jt65-node--past i { border-color: var(--jtool-field-border); color: var(--jtool-muted); }
+.jtool .jt65-today { position: absolute; inset-block: -14px -14px; border-inline-start: 2px solid var(--jtool-ok); }
+.jtool .jt65-today b { position: absolute; inset-block-start: -18px; inset-inline-start: -14px; font: 800 0.72rem/1 var(--jtool-font); color: var(--jtool-ok); }
+.jtool .jt65-legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.jtool .jt65-lg { display: grid; grid-template-columns: 24px auto minmax(0, 1fr); gap: 0 8px; align-items: baseline; font-size: 0.9rem; line-height: 1.5; }
+.jtool .jt65-lg i { display: grid; place-items: center; inline-size: 20px; block-size: 20px; border: 2px solid var(--jtool-verdict-deep); border-radius: 50%; font: 800 0.68rem/1 var(--jtool-font); font-style: normal; color: var(--jtool-verdict-deep); }
+.jtool .jt65-lg bdi { font-weight: 800; font-variant-numeric: tabular-nums; }
+.jtool .jt65-lg > span, .jtool .jt65-lg > a { grid-column: 3; }
+.jtool .jt65-lg > a { justify-self: start; }
+.jtool .jt65-lg--cond i { border-style: dashed; }
+.jtool .jt65-lg--past { color: var(--jtool-muted); }
+.jtool .jt65-lg--hearing span { font-weight: 800; }
+.jtool .jt65-track__end { margin: 10px 0 0; padding-block-start: 8px; border-block-start: 1px solid var(--jtool-border); font-size: 0.9rem; }
+
+/* The scenario, next steps, documents, what changed */
+.jtool .jt65-brief, .jtool .jt65-next { margin: 14px 0; padding: 12px; border: 1px solid var(--jtool-border); border-radius: 10px; background: var(--jtool-surface-2); }
+.jtool .jt65-brief h4, .jtool .jt65-next h4 { margin: 0 0 6px; font: 800 0.98rem/1.3 var(--jtool-font); }
+.jtool .jt65-brief p { margin: 0 0 10px; line-height: 1.6; }
+.jtool .jt65-next ul { margin: 0; padding-inline-start: 18px; }
+.jtool .jt65-next li { margin: 4px 0; }
+.jtool .jt65-check { list-style: none; margin: 0; padding: 0 12px 8px; }
+.jtool .jt65-check li { position: relative; padding: 6px 26px 6px 0; border-block-end: 1px dashed var(--jtool-border); }
+.jtool .jt65-check li::before { content: ""; position: absolute; inset-inline-start: 0; inset-block-start: 9px; inline-size: 14px; block-size: 14px; border: 2px solid var(--jtool-verdict-deep); border-radius: 3px; }
+.jtool .jt65-chg td:first-child { white-space: nowrap; }
+
+/* The one-page print */
+.jtool .jt65-print { display: none; }
+@media print {
+	.jtool[data-jtool="tviot-ktanot"] .jtool__head, .jtool[data-jtool="tviot-ktanot"] .jtool-form, .jtool[data-jtool="tviot-ktanot"] .jtool-compare,
+	.jtool[data-jtool="tviot-ktanot"] .jtool-next, .jtool[data-jtool="tviot-ktanot"] .jtool-sources, .jtool[data-jtool="tviot-ktanot"] .jtool-foot,
+	.jtool[data-jtool="tviot-ktanot"] .jt65-brief, .jtool[data-jtool="tviot-ktanot"] .jt65-next, .jtool[data-jtool="tviot-ktanot"] .jt65-choice,
+	.jtool[data-jtool="tviot-ktanot"] .jtool-actions, .jtool[data-jtool="tviot-ktanot"] .jtool-sticky, .jtool[data-jtool="tviot-ktanot"] .jtool-stages,
+	.jtool[data-jtool="tviot-ktanot"] .jtool-path, .jtool[data-jtool="tviot-ktanot"] .jt65-docs, .jtool[data-jtool="tviot-ktanot"] .jtool-tablewrap { display: none !important; }
+	.jtool[data-jtool="tviot-ktanot"] .jtool__body { display: block !important; }
+	.jtool .jt65-ledger, .jtool .jt65-track { break-inside: avoid; border-color: #000; }
+	.jtool .jt65-stamp { transform: none; }
+	.jtool .jt65-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt65-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt65-print p { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+}
+
+/* ===== The consumer-law wave (22.10.2026, HAD-593): jt66, the flight-disruption instrument (pitzui-tisa) =====
+   The picture is an airport departure board: the reader's flight as one board row in deep navy cells (date, distance,
+   passengers, status), the hours of delay as a runway-like strip with the law's thresholds as numbered stand markers (2 hours
+   food and calls, 5 hours refund or another ticket, 8 hours a cancelled flight; 3 on a domestic flight), and the compensation
+   ladder of the First Schedule as three gate bars with the reader's bar lit in deep green and the half the airline may take
+   off drawn inside it. The letter to the airline is a typed document in a ruled box. Mobile first (390 px), light, the
+   instrument's navy / deep-green variables only; no cream, gold, brown, terracotta, purple gradient, Inter or emoji. */
+.jtool .jt66-presets { gap: var(--jtool-space-2); }
+.jtool .jt66-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; text-align: start; }
+.jtool .jt66-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt66-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt66-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt66-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt66-checks { margin-top: var(--jtool-space-2); }
+.jtool .jt66-more > .jtool-row, .jtool .jt66-more > .jtool-field, .jtool .jt66-more > .jtool-chips { margin-top: var(--jtool-space-3); }
+
+/* The departure board. */
+.jtool .jt66-board { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-verdict-deep); border-radius: 12px; background: var(--jtool-surface); }
+.jtool .jt66-board__h { margin: 0 0 var(--jtool-space-2); font: 800 0.95rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt66-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px; padding: 3px; border-radius: 8px; background: var(--jtool-verdict-deep); }
+.jtool .jt66-cell { display: flex; flex-direction: column; gap: 2px; min-height: 48px; padding: 6px 10px; border-radius: 5px; background: var(--jtool-verdict); color: #fff; }
+.jtool .jt66-cell small { font: 700 0.68rem/1.2 var(--jtool-font); letter-spacing: 0.04em; color: var(--jtool-verdict-tint); }
+.jtool .jt66-cell b { font: 800 1rem/1.25 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt66-cell--st.jt66-st--due { background: var(--jtool-ok); }
+.jtool .jt66-cell--st.jt66-st--none { background: var(--jtool-verdict-deep); box-shadow: inset 0 0 0 1px var(--jtool-verdict-tint); }
+.jtool .jt66-sub { margin: var(--jtool-space-3) 0 6px !important; font: 700 0.8rem/1.3 var(--jtool-font) !important; color: var(--jtool-muted) !important; letter-spacing: 0.02em; }
+.jtool .jt66-strip { position: relative; height: 86px; margin: 0 10px; background: linear-gradient(var(--jtool-border), var(--jtool-border)) center 20px / 100% 10px no-repeat; }
+.jtool .jt66-strip__fill { position: absolute; top: 20px; inset-inline-start: 0; height: 10px; border-radius: 3px; background: repeating-linear-gradient(90deg, var(--jtool-verdict-deep) 0 14px, var(--jtool-verdict) 14px 18px); }
+.jtool .jt66-mk { position: absolute; top: 8px; transform: translateX(50%); display: flex; flex-direction: column; align-items: center; width: 64px; text-align: center; }
+.jtool .jt66-mk::before { content: ""; width: 2px; height: 34px; background: var(--jtool-field-border); }
+.jtool .jt66-mk i { margin-top: 2px; padding: 0 6px; border-radius: 4px; background: #fff; border: 1px solid var(--jtool-field-border); color: var(--jtool-verdict-deep); font: 800 0.72rem/1.5 var(--jtool-font); font-style: normal; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jtool .jt66-mk em { margin-top: 2px; font: 700 0.64rem/1.2 var(--jtool-font); font-style: normal; color: var(--jtool-muted); }
+.jtool .jt66-mk--on::before { background: var(--jtool-ok); }
+.jtool .jt66-mk--on i { background: var(--jtool-ok); border-color: var(--jtool-ok); color: #fff; }
+.jtool .jt66-mk--on em { color: var(--jtool-ok); }
+.jtool .jt66-ladder { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: 8px; margin: 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt66-step { display: flex; flex-direction: column; align-items: stretch; margin: 0 !important; text-align: center; list-style: none !important; }
+.jtool .jt66-pole { display: flex; flex-direction: column; justify-content: flex-end; height: 92px; }
+.jtool .jt66-bar { position: relative; display: block; min-height: 18px; border-radius: 6px 6px 0 0; background: var(--jtool-verdict-tint); border: 1px solid var(--jtool-border); border-bottom: 3px solid var(--jtool-verdict-deep); }
+.jtool .jt66-step b { margin-top: 4px; font: 800 0.95rem/1.2 var(--jtool-font); font-variant-numeric: tabular-nums; color: var(--jtool-ink); }
+.jtool .jt66-step small { font: 600 0.7rem/1.25 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt66-step--mine .jt66-bar { background: var(--jtool-ok); border-color: var(--jtool-ok); }
+.jtool .jt66-step--mine b { color: var(--jtool-ok); }
+.jtool .jt66-step--off .jt66-bar { background: #fff; border-style: dashed; border-color: var(--jtool-field-border); }
+.jtool .jt66-step--off b { color: var(--jtool-muted); text-decoration: line-through; }
+.jtool .jt66-half { position: absolute; inset-inline: 0; top: 0; background: repeating-linear-gradient(135deg, #fff 0 4px, transparent 4px 8px); opacity: 0.75; }
+
+/* What the law gives, flags, letter, brief, next steps, method, tables. */
+.jtool .jt66-box, .jtool .jt66-brief, .jtool .jt66-next { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface-2); }
+.jtool .jt66-box h3.jt66-h, .jtool .jt66-brief h4, .jtool .jt66-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt66-gets { margin: 0 !important; padding: 0 !important; list-style: none !important; display: flex; flex-direction: column; gap: 6px; }
+.jtool .jt66-get { margin: 0 !important; padding: 8px 12px; border: 1px solid var(--jtool-border); border-inline-start: 5px solid var(--jtool-field-border); border-radius: 8px; background: #fff; font-size: 0.93rem !important; line-height: 1.55 !important; list-style: none !important; }
+.jtool .jt66-get--due { border-inline-start-color: var(--jtool-ok); }
+.jtool .jt66-get--no { border-inline-start-color: var(--jtool-verdict-deep); color: var(--jtool-muted); }
+.jtool .jt66-kind { display: inline-block; margin-inline-end: 6px; padding: 1px 8px; border-radius: 999px; background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); font: 800 0.75rem/1.5 var(--jtool-font); }
+.jtool .jt66-get--due .jt66-kind { background: var(--jtool-ok-bg); color: var(--jtool-ok); }
+.jtool .jt66-flags { margin-top: var(--jtool-space-4) !important; }
+.jtool .jt66-flags li.jt66-flag { border: 1px solid var(--jtool-border); border-inline-start-width: 5px; background: var(--jtool-surface-2); color: var(--jtool-ink); }
+.jtool .jt66-flags li.jt66-flag--danger { border-inline-start-color: var(--jtool-danger); background: var(--jtool-danger-bg); color: var(--jtool-danger); }
+.jtool .jt66-flags li.jt66-flag--warn { border-inline-start-color: var(--jtool-verdict); background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); }
+.jtool .jt66-flags li.jt66-flag--info { border-inline-start-color: var(--jtool-field-border); }
+.jtool .jt66-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; }
+.jtool .jt66-next ul { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt66-next li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt66-method { margin: 0 !important; padding-inline-start: 20px !important; }
+.jtool .jt66-method li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt66-letter .jtool-row { margin-top: var(--jtool-space-2); }
+.jtool .jt66-doc { margin: var(--jtool-space-3) 0 0 !important; padding: var(--jtool-space-3) var(--jtool-space-4) !important; max-height: 420px; overflow: auto; border: 1px solid var(--jtool-field-border); border-inline-start: 5px solid var(--jtool-verdict-deep); border-radius: 8px; background: #fff; color: var(--jtool-ink); font: 400 0.92rem/1.7 var(--jtool-font) !important; white-space: pre-wrap; word-break: break-word; direction: rtl; text-align: start; }
+.jtool .jt66-quote { margin: var(--jtool-space-3) 0 0 !important; padding: var(--jtool-space-2) var(--jtool-space-3) !important; border-inline-start: 4px solid var(--jtool-verdict); background: var(--jtool-verdict-tint); color: var(--jtool-ink); }
+.jtool .jt66-quote p { margin: 0 0 4px !important; font-size: 0.9rem !important; line-height: 1.6 !important; }
+.jtool .jt66-quote footer { font-size: 0.8rem; color: var(--jtool-muted); }
+.jtool .jt66-wrap td { white-space: normal !important; }
+.jtool .jt66-wrap tr.jt66-mine td { background: var(--jtool-ok-bg); font-weight: 700; }
+.jtool .jt66-print { display: none; }
+@media (min-width: 640px) {
+	.jtool .jt66-row { grid-template-columns: 1fr 1.4fr 0.7fr 1.2fr; }
+	.jtool .jt66-mk { width: 96px; }
+	.jtool .jt66-mk em { font-size: 0.72rem; }
+	.jtool .jt66-pole { height: 112px; }
+}
+@media print {
+	.jtool[data-jtool="pitzui-tisa"] .jtool__head, .jtool[data-jtool="pitzui-tisa"] .jtool-form, .jtool[data-jtool="pitzui-tisa"] .jt66-screen,
+	.jtool[data-jtool="pitzui-tisa"] .jtool-next, .jtool[data-jtool="pitzui-tisa"] .jtool-sources, .jtool[data-jtool="pitzui-tisa"] .jtool-foot,
+	.jtool[data-jtool="pitzui-tisa"] .jt66-brief, .jtool[data-jtool="pitzui-tisa"] .jt66-next, .jtool[data-jtool="pitzui-tisa"] .jtool-actions,
+	.jtool[data-jtool="pitzui-tisa"] .jtool-sticky, .jtool[data-jtool="pitzui-tisa"] .jtool-stages { display: none !important; }
+	.jtool[data-jtool="pitzui-tisa"] .jtool__body { display: block !important; }
+	.jtool .jt66-board, .jtool .jt66-box { break-inside: avoid; border-color: #000; }
+	.jtool .jt66-row, .jtool .jt66-cell { background: #fff !important; color: #000 !important; border: 1px solid #555; }
+	.jtool .jt66-cell small { color: #000 !important; }
+	.jtool .jt66-get, .jtool .jt66-bar { border-color: #555 !important; }
+	.jtool .jt66-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt66-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt66-print p, .jtool .jt66-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt66-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}
+
+/* ===== The consumer-law wave (22.10.2026, HAD-593): jt67, the consumer's remedy and compensation calculator (pitzui-tzarchan) =====
+   The picture is the shop counter and the Authority's desk: a till slip (white paper with torn dashed edges, every line with
+   its section in small type and its amount in tabular figures, the total ruled twice under them, and below the rule, in
+   muted type, what is not in the total: the s.31א maximum the court sets and the Authority's sanction the reader never
+   gets), beside a three-rung ladder on a navy rail (the business -> the Authority -> the small claim), each rung with its
+   date or its fee. The demand letter sits in a plain typed sheet. Mobile first (390 px), light, the instrument's navy /
+   deep-green variables only; no cream, gold, brown, terracotta, purple gradient, Inter or emoji. */
+.jtool .jt67-presets { gap: var(--jtool-space-2); }
+.jtool .jt67-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; text-align: start; }
+.jtool .jt67-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt67-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt67-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt67-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt67-cases { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+.jtool .jt67-cases .jtool-chip { margin: 0; }
+.jtool .jt67-cases .jtool-chip span { display: flex; align-items: center; min-height: 44px; width: 100%; box-sizing: border-box; }
+.jtool .jt67-checks { margin-top: var(--jtool-space-2); }
+.jtool .jt67-more > .jtool-row, .jtool .jt67-more > .jtool-field { margin-top: var(--jtool-space-3); }
+.jtool [data-pz-field][hidden], .jtool [data-pz-row][hidden] { display: none !important; }
+
+/* The desk: the till slip and the ladder. */
+.jtool .jt67-desk { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: var(--jtool-space-4); align-items: start; margin: var(--jtool-space-4) 0 0; padding: 0; }
+.jtool .jt67-desk__h { grid-column: 1 / -1; margin: 0; font: 800 0.95rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt67-slip { position: relative; padding: 18px 16px 16px; background: #fff; border: 1px solid var(--jtool-border); border-radius: 4px; box-shadow: 0 1px 0 var(--jtool-border); background-image: repeating-linear-gradient(90deg, var(--jtool-field-border) 0 6px, transparent 6px 12px), repeating-linear-gradient(90deg, var(--jtool-field-border) 0 6px, transparent 6px 12px); background-size: 100% 2px, 100% 2px; background-position: top, bottom; background-repeat: no-repeat; }
+.jtool .jt67-slip__h { margin: 0 0 10px !important; padding-bottom: 8px; border-bottom: 1px dashed var(--jtool-field-border); font: 800 0.85rem/1.3 var(--jtool-font) !important; letter-spacing: 0.04em; color: var(--jtool-verdict-deep) !important; text-align: center; }
+.jtool .jt67-slip__lines { margin: 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt67-ln { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 0 !important; padding: 7px 0; border-bottom: 1px dotted var(--jtool-border); list-style: none !important; font-size: 0.92rem; line-height: 1.45; }
+.jtool .jt67-ln__t { flex: 1 1 auto; min-width: 0; color: var(--jtool-ink); }
+.jtool .jt67-ln__t small { display: block; margin-top: 2px; font: 600 0.72rem/1.3 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt67-ln__a { flex: none; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--jtool-verdict-deep); }
+.jtool .jt67-ln--info .jt67-ln__a, .jtool .jt67-ln--info .jt67-ln__t { color: var(--jtool-muted); font-weight: 600; }
+.jtool .jt67-ln--claim .jt67-ln__a { color: var(--jtool-verdict); }
+.jtool .jt67-slip__total { display: flex; justify-content: space-between; align-items: baseline; margin: 6px 0 0 !important; padding: 10px 0 8px; border-top: 3px double var(--jtool-verdict-deep); font: 800 1.05rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt67-slip__total strong { font-size: 1.35rem; font-variant-numeric: tabular-nums; color: var(--jtool-ok); }
+.jtool .jt67-slip__sub { margin: 10px 0 2px !important; font: 700 0.75rem/1.3 var(--jtool-font) !important; color: var(--jtool-muted) !important; letter-spacing: 0.03em; }
+.jtool .jt67-slip__lines--below .jt67-ln { border-bottom-style: dashed; }
+.jtool .jt67-ln--c31 .jt67-ln__a { color: var(--jtool-ok); }
+.jtool .jt67-ln--sanction .jt67-ln__a, .jtool .jt67-ln--sanction .jt67-ln__t { color: var(--jtool-muted); }
+.jtool .jt67-ladder { position: relative; margin: 0 !important; padding: 4px 0 0 !important; list-style: none !important; counter-reset: none; }
+.jtool .jt67-ladder::before { content: ""; position: absolute; top: 18px; bottom: 18px; inset-inline-start: 17px; width: 4px; border-radius: 2px; background: var(--jtool-verdict-deep); }
+.jtool .jt67-rung { position: relative; display: flex; gap: 12px; margin: 0 0 10px !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt67-rung > div { flex: 1 1 auto; min-width: 0; padding: 10px 12px; border: 1px solid var(--jtool-border); border-radius: 10px; background: var(--jtool-surface-2); }
+.jtool .jt67-rung strong { display: block; font: 800 0.98rem/1.3 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt67-rung p { margin: 4px 0 0 !important; font-size: 0.9rem !important; line-height: 1.5 !important; }
+.jtool .jt67-rung__n { position: relative; z-index: 1; flex: none; display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; border: 3px solid #fff; background: var(--jtool-verdict); color: #fff; font: 800 1rem/1 var(--jtool-font); box-shadow: 0 0 0 1px var(--jtool-verdict-deep); }
+.jtool .jt67-rung--court .jt67-rung__n { background: var(--jtool-ok); box-shadow: 0 0 0 1px var(--jtool-ok); }
+.jtool .jt67-rung__d { color: var(--jtool-muted); font-weight: 700; }
+.jtool .jt67-rung__d bdi { color: var(--jtool-verdict-deep); font-variant-numeric: tabular-nums; }
+
+/* What the law gives, flags, letter, brief, next steps. */
+.jtool .jt67-box, .jtool .jt67-brief, .jtool .jt67-next, .jtool .jt67-letter { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface-2); }
+.jtool .jt67-h { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.35 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt67-gives { margin: 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt67-give { margin: 0 0 8px !important; padding: 8px 10px; border-inline-start: 4px solid var(--jtool-ok); background: #fff; border-radius: 6px; list-style: none !important; }
+.jtool .jt67-give p { margin: 0 !important; font-size: 0.92rem !important; line-height: 1.55 !important; }
+.jtool .jt67-give__d { margin-top: 4px !important; font-weight: 800; color: var(--jtool-verdict-deep); }
+.jtool .jt67-give__d bdi { font-variant-numeric: tabular-nums; }
+.jtool .jt67-flags { margin-top: var(--jtool-space-4) !important; }
+.jtool .jt67-flags li.jt67-flag { border: 1px solid var(--jtool-border); border-inline-start-width: 5px; background: var(--jtool-surface-2); color: var(--jtool-ink); }
+.jtool .jt67-flags li.jt67-flag--danger { border-color: #E9B9AE; border-inline-start-color: var(--jtool-danger); background: var(--jtool-danger-bg); color: var(--jtool-danger); }
+.jtool .jt67-flags li.jt67-flag--warn { border-inline-start-color: var(--jtool-verdict); background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); }
+.jtool .jt67-flags li.jt67-flag--info { border-inline-start-color: var(--jtool-field-border); }
+.jtool .jt67-letter h4, .jtool .jt67-brief h4, .jtool .jt67-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.35 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt67-note { margin: 0 0 var(--jtool-space-2) !important; font-size: 0.85rem !important; color: var(--jtool-muted) !important; }
+.jtool .jt67-letter__t { margin: var(--jtool-space-3) 0 0; padding: 14px 16px; max-height: 420px; overflow: auto; background: #fff; border: 1px solid var(--jtool-field-border); border-radius: 6px; white-space: pre-wrap; word-break: break-word; font: 400 0.92rem/1.7 var(--jtool-font); color: var(--jtool-ink); direction: rtl; text-align: start; }
+.jtool .jt67-letter__t:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt67-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; }
+.jtool .jt67-next ul, .jtool .jt67-rules { margin: 0 !important; padding-inline-start: 20px !important; }
+.jtool .jt67-next li, .jtool .jt67-rules li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.5 !important; }
+.jtool .jt67-next a { font-weight: 700; }
+.jtool .jt67-method { margin: 0 !important; padding-inline-start: 22px !important; }
+.jtool .jt67-method li { margin: 0 0 6px !important; font-size: 0.92rem !important; line-height: 1.55 !important; }
+.jtool .jt67-wrap td, .jtool .jt67-wrap th { vertical-align: top; }
+.jtool .jt67-mine td { background: var(--jtool-ok-bg); font-weight: 700; }
+.jtool .jt67-rules { margin-top: var(--jtool-space-3) !important; }
+.jtool .jt67-print { display: none; }
+
+@media print {
+	.jtool .jt67-screen, .jtool .jtool-form, .jtool .jt67-brief, .jtool .jt67-next, .jtool .jt67-letter, .jtool .jtool-actions, .jtool .jt67-presets, .jtool .jtool-sticky { display: none !important; }
+	.jtool .jt67-print { display: block; font-size: 11pt; line-height: 1.45; color: #000; }
+	.jtool .jt67-print h3 { margin: 0 0 6pt; font-size: 14pt; }
+	.jtool .jt67-print p, .jtool .jt67-print li { margin: 0 0 4pt; }
+	.jtool .jt67-print .jt67-letter__t { max-height: none; overflow: visible; border: 1px solid #999; font-size: 10pt; }
+	.jtool .jt67-desk { break-inside: avoid; }
+	.jtool .jt67-slip { box-shadow: none; }
+}

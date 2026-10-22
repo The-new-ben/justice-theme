@@ -39,6 +39,8 @@
  *   [justice_tool name="gmar-cheshbon"]                the labor wave (22.10.2026): see inc/justice-tools-labor.php for its four instruments
  *   [justice_tool name="teunat-avoda"]                 the injury wave (22.10.2026, HAD-591): see inc/justice-tools-injury.php for its three
  *                                                      instruments; it also upgrades teunat-drachim above
+ *   [justice_tool name="bitul-iska"]                   the consumer-law wave (22.10.2026, HAD-593): see inc/justice-tools-consumer.php for its
+ *                                                      three instruments; it also upgrades tviot-ktanot above
  *
  * Claude Design boards: https://claude.ai/artifact/JHKhphmy9L1QbYYUk2KX4e (wave 1),
  * https://claude.ai/artifact/759KGxB7GDSy5NHaajW8sJ (wave 2), wave 3 (HAD-498): see the PR.
@@ -131,16 +133,17 @@ function justice_tools_catalog(): array {
 		'tviot-ktanot'   => array(
 			'name'      => 'בודק תביעות קטנות ואגרה',
 			'title'     => 'תביעה קטנה: אפשר? כמה אגרה? עד מתי?',
-			'promise'   => 'בדיקת התאמה, האגרה בעיגול הנכון, המועדים, שלד כתב התביעה ותרגול הדיון.',
+			'promise'   => 'בדיקת התאמה, התביעה נגד עסק לפי ראשי תביעה מול התקרה, האגרה בעיגול הנכון, שלד כתב התביעה, המסמכים, המועדים עד ההוצאה לפועל ותרגול הדיון.',
 			'question'  => 'האם התביעה שלי מתאימה לתביעות קטנות, וכמה אגרה אשלם?',
 			'page'      => '/small-claims-court-israel/',
 			'category'  => 'LegalApplication',
-			'data'      => array( 'registry_version', 'checked_on', 'small_claims' ),
+			'data'      => array( 'registry_version', 'checked_on', 'small_claims', 'consumer_ktanot' ),
+			'dataset'   => 'consumer_ktanot',
 			'next_text' => 'הצעד הבא: לתרגל את הדיון מול שופטת וירטואלית, לפני שעומדים מולה באמת',
 			// Conversion 5 (a direct hearing): the rehearsal is the primary next step, after the result.
 			'primary'   => array( 'label' => 'לתרגל את הדיון בתביעה הקטנה', 'rehearse' => true ),
-			'rehearse'  => array( 'label' => 'לתרגל את הדיון בתביעה הקטנה', 'topic' => 'general', 'purpose' => 'court_rehearsal' ),
-			'more'      => array( array( 'label' => 'הגשה באתר הרשות השופטת', 'url' => 'https://www.gov.il/he/service/filing_a_small_claim' ), array( 'label' => 'מחשבון הצמדה וריבית לסכום', 'path' => '/hatzmada-madad/' ) ),
+			'rehearse'  => array( 'label' => 'לתרגל את הדיון בתביעה הקטנה', 'topic' => 'contract-dispute', 'purpose' => 'court_rehearsal' ),
+			'more'      => array( array( 'label' => 'הגשה באתר הרשות השופטת', 'url' => 'https://www.gov.il/he/service/filing_a_small_claim' ), array( 'label' => 'מה חוק הגנת הצרכן נותן לפני שתובעים', 'path' => '/consumer-rights-israel/' ), array( 'label' => 'מחשבון הצמדה וריבית לסכום', 'path' => '/hatzmada-madad/' ) ),
 			'lawyer'    => array( 'label' => 'עורך דין ליטיגציה', 'path' => '/lawyers/' ),
 			'sticky'    => 'אגרה',
 			// The stage bar of a combined tool (design-spec 3, board T05-desktop): check, fee, deadlines, claim, rehearse.
@@ -159,6 +162,7 @@ function justice_tools_catalog(): array {
 				),
 			),
 		),
+
 		// Wave 3 (HAD-498): every tool carries a teaser to the simulation (Ben, 13.10.2026).
 		'yerusha'        => array(
 			'name'        => 'מחשבון חלוקת ירושה ללא צוואה',
@@ -509,7 +513,8 @@ function justice_tools_catalog(): array {
 	// The family + land wave (21-22.10.2026, HAD-579): six instruments, in inc/justice-tools-family-land.php.
 	// The labor wave (22.10.2026): four instruments, in inc/justice-tools-labor.php.
 	// The road-accident and personal-injury wave (HAD-591): three instruments, in inc/justice-tools-injury.php.
-	return array_merge( $catalog, justice_tools_inheritance_catalog(), justice_tools_rights_catalog(), justice_tools_fl_catalog(), justice_tools_labor_catalog(), justice_tools_injury_catalog() );
+	// The consumer-law wave (HAD-593): three instruments, in inc/justice-tools-consumer.php.
+	return array_merge( $catalog, justice_tools_inheritance_catalog(), justice_tools_rights_catalog(), justice_tools_fl_catalog(), justice_tools_labor_catalog(), justice_tools_injury_catalog(), justice_tools_consumer_catalog() );
 }
 
 /** The day a tool's own sources were checked: the wave-3 tools carry it in their dataset. */
@@ -788,6 +793,9 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 	if ( in_array( $name, justice_tools_injury_names(), true ) ) {
 		return justice_tools_injury_answer( $name, $mode );
 	}
+	if ( in_array( $name, justice_tools_consumer_names(), true ) ) {
+		return justice_tools_consumer_answer( $name, $mode );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_answer( $name, $mode );
 	}
@@ -820,9 +828,12 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 				. 'המקור: ' . esc_html( $f['section'] ) . ' ל' . esc_html( $f['regulation_he'] ) . ' ומדריך האגרות של ' . esc_html( $sc['publisher_he'] ) . '. נבדק ' . esc_html( justice_tools_he_date( $sc['checked_on'] ) ) . '.';
 			return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 		}
+		$kt   = $reg['consumer_ktanot'] ?? array();
 		$text = '<strong>תביעה קטנה אפשר להגיש עד ' . justice_tools_money( $ceil['amount'], 0 ) . '</strong> מ-' . esc_html( justice_tools_he_date( $ceil['from'] ) ) . ' (הודעת מנהל בתי המשפט, <bdi>' . esc_html( justice_tools_he_date( $ceil['notice_date'] ) ) . '</bdi>). '
 			. 'האגרה היא <bdi>' . esc_html( (string) $f['pct'] ) . '%</bdi> מסכום התביעה, מעוגלת כלפי מעלה לכפולה של <bdi>' . (int) $f['round_up_to'] . '</bdi> ₪, ולא פחות מ-' . justice_tools_money( $f['min'], 0 ) . ' (' . esc_html( $f['section'] ) . ' לתקנות שיפוט בתביעות קטנות). '
-			. 'רק יחיד יכול לתבוע, כולל עוסק פטור או מורשה; חברה בע"מ לא. נבדק ' . esc_html( justice_tools_he_date( $sc['checked_on'] ) ) . '.';
+			. 'רק יחיד יכול לתבוע, כולל עוסק פטור או מורשה; חברה בע"מ לא. '
+			. ( ! empty( $kt['regs'] ) ? 'פסק הדין ניתן בתום הדיון או עד <bdi>' . (int) $kt['regs']['judgment_max_days'] . '</bdi> ימים אחריו (' . esc_html( $kt['regs']['judgment_section'] ) . '), ובקשת רשות ערעור מגישים בתוך <bdi>' . (int) $kt['regs']['appeal_days'] . '</bdi> ימים (' . esc_html( $kt['regs']['appeal_section'] ) . '). ' : '' )
+			. 'נבדק ' . esc_html( justice_tools_he_date( $kt['checked_on'] ?? $sc['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
 	if ( 'hatzmada' === $name && ! empty( $reg['cpi'] ) ) {
@@ -892,6 +903,9 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 	}
 	if ( in_array( $name, justice_tools_injury_names(), true ) ) {
 		return justice_tools_injury_stamp( $name, $mode );
+	}
+	if ( in_array( $name, justice_tools_consumer_names(), true ) ) {
+		return justice_tools_consumer_stamp( $name, $mode );
 	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_stamp( $name, $mode );
@@ -967,6 +981,9 @@ function justice_tools_sources( string $name ): array {
 	}
 	if ( in_array( $name, justice_tools_injury_names(), true ) ) {
 		return justice_tools_injury_sources( $name );
+	}
+	if ( in_array( $name, justice_tools_consumer_names(), true ) ) {
+		return justice_tools_consumer_sources( $name );
 	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_sources( $name );
@@ -1129,15 +1146,27 @@ function justice_tools_sources( string $name ): array {
 		$sc   = $reg['small_claims'];
 		$ceil = justice_tools_sc_ceiling( $sc );
 		$dl   = $sc['deadlines'];
-		return array(
+		$kt   = $reg['consumer_ktanot'] ?? array();
+		$out  = array(
 			array( 'name' => $ceil['source_he'], 'url' => $ceil['url'], 'text' => number_format( (float) $ceil['amount'] ) . ' ₪ מ-' . justice_tools_he_date( $ceil['from'] ) . '. נבדק ' . $checked . '.' ),
-			array( 'name' => $sc['fee']['regulation_he'], 'url' => $sc['fee']['regulation_url'], 'text' => 'תקנה 2: מקום השיפוט; 3: תוכן כתב התביעה; 4(ב): כתב הגנה תוך ' . $dl['defence_days'] . ' יום; 6(א): אגרה ' . $sc['fee']['pct'] . '%, מעוגלת כלפי מעלה לכפולה של ' . $sc['fee']['round_up_to'] . ' ₪, לפחות ' . $sc['fee']['min'] . ' ₪; 7(ב1): מסירה בידי התובע ' . $dl['plaintiff_service_days_before'] . ' יום לפני הדיון; 12: ביטול החלטה תוך ' . $dl['set_aside_days'] . ' יום.' ),
-			array( 'name' => $sc['law_he'], 'url' => $sc['law_url'], 'text' => 'סעיף 60: מי תובע ועל מה, ויותר מ-' . $sc['max_claims_per_year'] . ' תביעות בשנה; 63: ייצוג ברשות בית המשפט; 64: ערעור ברשות.' ),
+			array( 'name' => $sc['fee']['regulation_he'], 'url' => $sc['fee']['regulation_url'], 'text' => 'תקנה 2: מקום השיפוט; 3: תוכן כתב התביעה; 4(ב): כתב הגנה תוך ' . $dl['defence_days'] . ' יום; 6(א): אגרה ' . $sc['fee']['pct'] . '%, מעוגלת כלפי מעלה לכפולה של ' . $sc['fee']['round_up_to'] . ' ₪, לפחות ' . $sc['fee']['min'] . ' ₪; 7(ב1): מסירה בידי התובע ' . $dl['plaintiff_service_days_before'] . ' יום לפני הדיון; 12: ביטול החלטה תוך ' . $dl['set_aside_days'] . ' יום'
+				. ( ! empty( $kt['regs'] ) ? '; 15(א): פסק דין עד ' . $kt['regs']['judgment_max_days'] . ' ימים אחרי הדיון; 16(א): רשות ערעור תוך ' . $kt['regs']['appeal_days'] . ' ימים; 16א: מניין הימים. נוסח ל-' . justice_tools_he_date( $kt['regs']['current_to'] ) : '' ) . '.' ),
+			array( 'name' => $sc['law_he'], 'url' => $sc['law_url'], 'text' => 'סעיף 60: מי תובע ועל מה, ויותר מ-' . $sc['max_claims_per_year'] . ' תביעות בשנה; 61(1): בית משפט אחר; 62: ראיות וסדרי דין; 63: ייצוג ברשות בית המשפט; 64: ערעור ברשות.' ),
 			array( 'name' => $sc['source_name'], 'url' => $sc['source_url'], 'text' => 'מדריך האגרות: התקרה והאגרה. נבדק ' . $checked . '.' ),
-			array( 'name' => 'הרשות השופטת, הגשת תביעה קטנה', 'url' => $sc['service_url'], 'text' => 'מי יכול לתבוע; בדיקת מסירה וזימון עדים ' . $dl['service_check_days_before'] . ' יום לפני הדיון; מתורגמן ' . $dl['interpreter_days_before'] . ' ימים לפני; הגשה מקוונת עד ' . $sc['online_max_plaintiffs'] . ' תובעים ו-' . $sc['online_max_defendants'] . ' נתבעים.' ),
+			array( 'name' => 'הרשות השופטת, הגשת תביעה קטנה', 'url' => $sc['service_url'], 'text' => 'מי יכול לתבוע ואת מי; בדיקת מסירה וזימון עדים ' . $dl['service_check_days_before'] . ' יום לפני הדיון; מתורגמן ' . $dl['interpreter_days_before'] . ' ימים לפני; הגשה מקוונת עד ' . $sc['online_max_plaintiffs'] . ' תובעים ו-' . $sc['online_max_defendants'] . ' נתבעים; מספר הזהות של הנתבע להוצאה לפועל.' ),
 			array( 'name' => $sc['limitation_he'], 'url' => $sc['limitation_url'], 'text' => $sc['limitation_years'] . ' שנות התיישנות מיום שנולדה העילה.' ),
 			array( 'name' => $sc['labor_court_he'], 'url' => $sc['labor_court_url'], 'text' => 'סכסוך בין עובד למעסיק: בית הדין לעבודה, לא תביעות קטנות.' ),
 		);
+		if ( ! empty( $kt ) ) {
+			$ex    = $kt['exemplary'];
+			$out[] = array( 'name' => $ex['he'], 'url' => $ex['url'], 'text' => 'סעיף 31א: פיצויים לדוגמה עד ' . number_format( (float) $ex['max'] ) . ' ₪, ועד ' . number_format( (float) $ex['aggravated_max'] ) . ' ₪ בהפרה חוזרת, נמשכת או בנסיבות מחמירות; בקשה בכתב לפני התביעה (31א(ב)). העילות לפי סוג המקרה: סעיפים 13ד(ג), 14ה, 14ט, 17ב(ד), 18א, 31(א). נוסח ל-' . justice_tools_he_date( $ex['current_to'] ) . '.' );
+			$out[] = array( 'name' => 'תקנות הגנת הצרכן (אחריות ושירות לאחר מכירה), התשס"ו-2006', 'url' => $kt['kinds']['def']['grounds'][1]['url'], 'text' => 'האחריות והשירות לאחר מכירה: העילה בתביעה על מוצר פגום.' );
+			$out[] = array( 'name' => $kt['aviation']['he'], 'url' => $kt['aviation']['url'], 'text' => 'סעיפים 3 ו-6: ההטבות בטיסה שבוטלה; 3(א)(2): השבה תוך ' . $kt['aviation']['refund_days'] . ' ימים מהפנייה בכתב; 19: התיישנות ' . $kt['aviation']['limitation_years'] . ' שנים. נוסח ל-' . justice_tools_he_date( $kt['aviation']['current_to'] ) . '.' );
+			$out[] = array( 'name' => 'הרשות השופטת, תביעה קטנה: המלצות להגשה', 'url' => $kt['documents']['url'], 'text' => 'מה לכתוב ואילו מסמכים לצרף לפי סוג התביעה (עודכן ' . justice_tools_he_date( $kt['documents']['updated'] ) . ').' );
+			$out[] = array( 'name' => 'הרשות השופטת, קבלת כסף שנפסק', 'url' => $kt['execution']['url'], 'text' => $kt['execution']['after_days'] . ' ימים אחרי שהחייב קיבל את פסק הדין: הטופס לפתיחת תיק בהוצאה לפועל (עודכן ' . justice_tools_he_date( $kt['execution']['updated'] ) . ').' );
+			$out[] = array( 'name' => $kt['splitting']['he'] . ', ' . $kt['splitting']['section'], 'url' => $kt['splitting']['url'], 'text' => 'כל הסעדים של עילה אחת בתביעה אחת, אלא ברשות בית המשפט: ' . $kt['splitting']['via_he'] . '.' );
+		}
+		return $out;
 	}
 	if ( 'hatzmada' === $name ) {
 		$cpi = $reg['cpi'];
@@ -1736,6 +1765,9 @@ function justice_tools_numbers_html( string $name ): string {
 	if ( in_array( $name, justice_tools_injury_names(), true ) ) {
 		return justice_tools_injury_numbers_html( $name );
 	}
+	if ( in_array( $name, justice_tools_consumer_names(), true ) ) {
+		return justice_tools_consumer_numbers_html( $name );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_numbers_html( $name );
 	}
@@ -1817,7 +1849,7 @@ function justice_tools_numbers_html( string $name ): string {
 
 /** Comparison table (page standard A6). */
 function justice_tools_compare_html( string $name ): string {
-	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin', 'luach-shahut', 'maakav-mezonot', 'mapat-gerushin' ), true ) || in_array( $name, justice_tools_inheritance_names(), true ) || in_array( $name, justice_tools_rights_names(), true ) || in_array( $name, justice_tools_fl_names(), true ) || in_array( $name, justice_tools_labor_names(), true ) || in_array( $name, justice_tools_injury_names(), true ) ) {
+	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin', 'luach-shahut', 'maakav-mezonot', 'mapat-gerushin' ), true ) || in_array( $name, justice_tools_inheritance_names(), true ) || in_array( $name, justice_tools_rights_names(), true ) || in_array( $name, justice_tools_fl_names(), true ) || in_array( $name, justice_tools_labor_names(), true ) || in_array( $name, justice_tools_injury_names(), true ) || in_array( $name, justice_tools_consumer_names(), true ) ) {
 		$snap = justice_tools_snapshot( $name );
 		return '<div class="jtool-page">' . ( $snap['compare_table'] ?? '' ) . '</div>';
 	}
@@ -1987,3 +2019,4 @@ require_once __DIR__ . '/justice-tools-family-land.php';
 require_once __DIR__ . '/justice-tools-labor.php';
 // The road-accident and personal-injury wave (22.10.2026, HAD-591): work injury, the disability degree, the injured person's clock.
 require_once __DIR__ . '/justice-tools-injury.php';
+require_once __DIR__ . '/justice-tools-consumer.php';

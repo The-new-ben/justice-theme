@@ -167,7 +167,7 @@ function justice_tools_rights2a_numbers_html( string $name ): string {
  * tool's script on the same page rewrites it with the reader's own result and turns its link into a jump to the form.
  */
 function justice_tools_rights2a_lead_shortcode( $atts ): string {
-	$atts = shortcode_atts( array( 'name' => '' ), $atts, 'justice_tool_lead' );
+	$atts = shortcode_atts( array( 'name' => '', 'mode' => '' ), $atts, 'justice_tool_lead' );
 	$name = sanitize_key( (string) $atts['name'] );
 	// The family + land wave (HAD-579) uses the same card on its pages where the tool starts low on a phone.
 	$fl = function_exists( 'justice_tools_fl_names' ) && in_array( $name, justice_tools_fl_names(), true );
@@ -177,10 +177,12 @@ function justice_tools_rights2a_lead_shortcode( $atts ): string {
 	$fl = $fl || ( function_exists( 'justice_tools_labor_names' ) && in_array( $name, array_merge( justice_tools_labor_names(), array( 'pitzuyim' ) ), true ) );
 	// The road-accident and personal-injury wave (HAD-591): its three instruments and the upgraded road-accident tool.
 	$fl = $fl || ( function_exists( 'justice_tools_injury_names' ) && in_array( $name, array_merge( justice_tools_injury_names(), array( 'teunat-drachim' ) ), true ) );
+	// The consumer-law wave (HAD-593): its three instruments and the upgraded small-claims instrument (full and fee modes).
+	$fl = $fl || 'tviot-ktanot' === $name || ( function_exists( 'justice_tools_consumer_names' ) && in_array( $name, justice_tools_consumer_names(), true ) );
 	if ( ! $fl && ! $b2 && ! in_array( $name, justice_tools_rights2a_names(), true ) ) {
 		return '';
 	}
-	$snap = justice_tools_snapshot( $name );
+	$snap = justice_tools_snapshot( $name, 'tviot-ktanot' === $name && 'fee' === sanitize_key( (string) $atts['mode'] ) ? 'fee' : '' );
 	if ( empty( $snap['lead'] ) ) {
 		return '';
 	}

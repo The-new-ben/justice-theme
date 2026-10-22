@@ -622,4 +622,3 @@ export function mount(root, reg) {
 	stickyBar(root);
 	root.setAttribute('data-jtool-ready', '1');
 }
-

@@ -192,6 +192,7 @@ jobs:
           php tests/test-hadmaya-film-card.php
           php tests/test-article-simulation-placement.php
           php tests/test-varnish-cache.php
+          php tests/test-tool-page-weight.php
           python3 -m py_compile \
             scripts/deploy/build-ops-zip.py \
             scripts/deploy/verify-ops-zip.py \

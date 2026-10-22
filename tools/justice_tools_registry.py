@@ -42,6 +42,8 @@ Usage
   add --labor-checked-on <day> the same way for the labor-law datasets (the labor wave, tools/justice_tools_labor_<name>.py)
   add --injury-checked-on <day> the same way for the road-accident and personal-injury datasets (HAD-591,
   tools/justice_tools_injury_<name>.py)
+  add --consumer-checked-on <day> the same way for the consumer-law datasets (HAD-593,
+  tools/justice_tools_consumer_<name>.py)
 
 Every input can be a saved file (so a reviewer can rebuild the exact registry from the files
 attached to the PR) or omitted to fetch live. The script never estimates a missing value: a
@@ -1085,6 +1087,9 @@ def main() -> int:
     parser.add_argument("--injury-checked-on", help="the day the road-accident and personal-injury sources were read "
                                                     "(HAD-591, tools/justice_tools_injury_*.py); when given, those datasets "
                                                     "are built too")
+    parser.add_argument("--consumer-checked-on", help="the day the consumer-law sources were read (HAD-593, "
+                                                      "tools/justice_tools_consumer_*.py); when given, those datasets "
+                                                      "are built too")
     args = parser.parse_args()
     wave3_day = args.wave3_checked_on or args.checked_on
     wave4_day = args.wave4_checked_on
@@ -1141,6 +1146,11 @@ def main() -> int:
             if key.startswith("injury_"):
                 registry[key] = base[key]
         add_injury(registry, args.injury_checked_on)
+        # The consumer-law datasets are kept the same way unless rebuilt.
+        for key in base:
+            if key.startswith("consumer_"):
+                registry[key] = base[key]
+        add_consumer(registry, args.consumer_checked_on)
         write_registry(registry, args.out)
         return 0
 
@@ -1178,6 +1188,7 @@ def main() -> int:
     add_fl(registry, args.fl_checked_on or args.checked_on)
     add_labor(registry, args.labor_checked_on or args.checked_on)
     add_injury(registry, args.injury_checked_on or args.checked_on)
+    add_consumer(registry, args.consumer_checked_on or args.checked_on)
     write_registry(registry, args.out)
     return 0
 
@@ -1254,6 +1265,14 @@ def add_injury(registry: dict, day: str | None) -> None:
         return
     import justice_tools_injury as injury  # tools/ is the script's own folder
     injury.add_injury(registry, day)
+
+
+def add_consumer(registry: dict, day: str | None) -> None:
+    """The consumer-law wave: the datasets of tools/justice_tools_consumer_<name>.py."""
+    if not day:
+        return
+    import justice_tools_consumer as consumer  # tools/ is the script's own folder
+    consumer.add_consumer(registry, day)
 
 
 def write_registry(registry: dict, out: str) -> None:

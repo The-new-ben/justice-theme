@@ -72,7 +72,7 @@ foreach ( array_unique( array_column( $homes, 1 ) ) as $key ) {
 	$ds = $reg[ $key ] ?? array();
 	check( '2026-10-21' === ( $ds['checked_on'] ?? '' ) && 0 === strpos( (string) ( $ds['source_url'] ?? '' ), 'https://' ) && ( $ds['refresh_every_days'] ?? 0 ) > 0 && ! empty( $ds['next_update'] ), "{$key}: an https source, the check date, a refresh period and the next update" );
 }
-check( '2026-10-21' === ( $reg['registry_version'] ?? '' ), 'the registry version is the wave day' );
+check( ( $reg['registry_version'] ?? '' ) >= '2026-10-21', 'the registry version is the wave day or later (a later wave moves it on)' );
 $json = json_encode( array_intersect_key( $reg, array_flip( array( 'rights_btl', 'rights_bituach', 'rights_tax', 'rights_avtala', 'rights_leida', 'rights_nechut' ) ) ), JSON_UNESCAPED_UNICODE );
 check( false === mb_strpos( (string) $json, 'כל זכות' ) && false === mb_strpos( (string) $json, 'כל-זכות' ) && false === stripos( (string) $json, 'kolzchut' ), 'no rights dataset names the private rights portal' );
 

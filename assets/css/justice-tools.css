@@ -2551,3 +2551,393 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jtool[data-jtool="kitzbat-zikna"] .jtool-verdict__sentence { font-size: 10pt; }
 	.jt50-lg__s, .jt50-k, .jt50-ck__win, .jt50-ck__grant, .jtool .jt50-rung--no, .jtool .jt50-rung--check, .jtool .jt50-rung--part { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 }
+
+/* ===== The labor wave (22.10.2026): notice jt46, annual leave jt47, overtime jt48, severance additions jt49, final settlement jt56 ===== */
+
+/* ===== The labor wave (22.10.2026): jt46, the advance notice in both directions (hodaa-mukdemet) =====
+   The picture is the notice laid on a wall calendar: the day the notice is handed over as a solid navy tab, then one cell
+   per calendar day, numbered by the count of the law (the notice day itself is not counted), the days a dismissal notice
+   does not count (reserve duty, the birth-and-parenting leave and the days after) hatched like a struck-out ledger line,
+   the days not worked but owed drawn with a dashed rule, and the last day closed by a thick deep-green rule, as a clerk
+   rules off a period. Mobile first (390 px), light, the instrument's navy / deep-green variables only. */
+.jtool .jt46-presets { gap: var(--jtool-space-2); }
+.jtool .jt46-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; }
+.jtool .jt46-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt46-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt46-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt46-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt46-special > .jtool-row, .jtool .jt46-special > .jtool-field { margin-top: var(--jtool-space-3); }
+.jtool .jt46-gates .jtool-chip span { min-height: 40px; padding: 6px 12px; font-size: 0.9rem; }
+
+/* The ribbon. */
+.jtool .jt46-ribbon { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface); }
+.jtool .jt46-ribbon__h { margin: 0 0 var(--jtool-space-2); font: 800 0.95rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt46-days { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 4px; margin: 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt46-d { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-height: 52px; margin: 0 !important; padding: 14px 2px 4px; border: 1px solid var(--jtool-border); border-radius: 6px; background: #fff; color: var(--jtool-ink); text-align: center; list-style: none !important; }
+.jtool .jt46-d b { font: 800 1rem/1 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt46-d small { margin-top: 3px; font: 600 0.68rem/1 var(--jtool-font); color: var(--jtool-muted); font-variant-numeric: tabular-nums; }
+.jtool .jt46-d__m { position: absolute; top: 2px; inset-inline: 0; font: 700 0.62rem/1.1 var(--jtool-font); color: var(--jtool-verdict); }
+.jtool .jt46-d--notice { border-color: var(--jtool-verdict-deep); background: var(--jtool-verdict-deep); color: #fff; }
+.jtool .jt46-d--notice small, .jtool .jt46-d--notice .jt46-d__m { color: #fff; }
+.jtool .jt46-d--counted { border-color: #B9CDE0; }
+.jtool .jt46-d--waived { border-color: #A9D3BA; background: var(--jtool-ok-bg); }
+.jtool .jt46-d--missing { border: 1.5px dashed var(--jtool-verdict); background: var(--jtool-verdict-tint); }
+.jtool .jt46-d--pause { border-color: var(--jtool-border); background: repeating-linear-gradient(135deg, var(--jtool-surface-2) 0 6px, #DCE5EE 6px 8px); color: var(--jtool-muted); }
+.jtool .jt46-d--run { grid-column: span 4; flex-direction: row; gap: 8px; justify-content: center; padding-top: 4px; }
+.jtool .jt46-d--run small { margin: 0; font-size: 0.72rem; line-height: 1.3; white-space: normal; }
+.jtool .jt46-d--last { border-color: var(--jtool-ok); border-inline-end-width: 5px; background: var(--jtool-ok-bg); }
+.jtool .jt46-d--last small { color: var(--jtool-ok); font-weight: 800; }
+.jtool .jt46-keys { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: var(--jtool-space-2) 0 0 !important; font: 600 0.82rem/1.4 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt46-keys span { display: inline-flex; align-items: center; gap: 6px; }
+.jtool .jt46-k { display: inline-block; width: 14px; height: 14px; border: 1px solid #B9CDE0; border-radius: 3px; background: #fff; }
+.jtool .jt46-k--pause { background: repeating-linear-gradient(135deg, var(--jtool-surface-2) 0 3px, #DCE5EE 3px 5px); }
+.jtool .jt46-k--missing { border: 1.5px dashed var(--jtool-verdict); background: var(--jtool-verdict-tint); }
+.jtool .jt46-k--waived { border-color: #A9D3BA; background: var(--jtool-ok-bg); }
+
+/* Flags, brief, next steps, method, the law's table. */
+.jtool .jt46-flags { margin-top: var(--jtool-space-4) !important; }
+.jtool .jt46-flags li.jt46-flag { border: 1px solid var(--jtool-border); border-inline-start-width: 5px; background: var(--jtool-surface-2); color: var(--jtool-ink); }
+.jtool .jt46-flags li.jt46-flag--danger { border-color: #E9B9AE; border-inline-start-color: var(--jtool-danger); background: var(--jtool-danger-bg); color: var(--jtool-danger); }
+.jtool .jt46-flags li.jt46-flag--warn { border-inline-start-color: var(--jtool-verdict); background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); }
+.jtool .jt46-flags li.jt46-flag--info { border-inline-start-color: var(--jtool-field-border); }
+.jtool .jt46-brief, .jtool .jt46-next { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface-2); }
+.jtool .jt46-brief h4, .jtool .jt46-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt46-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; }
+.jtool .jt46-next ul, .jtool .jt46-list { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt46-next li, .jtool .jt46-list li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt46-method { margin: 0 !important; padding-inline-start: 20px !important; }
+.jtool .jt46-method li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt46-tiers tr.jt46-mine td { background: var(--jtool-verdict-tint); font-weight: 700; }
+.jtool .jt46-print { display: none; }
+@media (min-width: 720px) {
+	.jtool .jt46-days { grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); }
+	.jtool .jt46-d { min-height: 58px; }
+	.jtool .jt46-d b { font-size: 1.1rem; }
+}
+@media print {
+	.jtool[data-jtool="hodaa-mukdemet"] .jtool__head, .jtool[data-jtool="hodaa-mukdemet"] .jtool-form, .jtool[data-jtool="hodaa-mukdemet"] .jt46-screen,
+	.jtool[data-jtool="hodaa-mukdemet"] .jtool-next, .jtool[data-jtool="hodaa-mukdemet"] .jtool-sources, .jtool[data-jtool="hodaa-mukdemet"] .jtool-foot,
+	.jtool[data-jtool="hodaa-mukdemet"] .jt46-brief, .jtool[data-jtool="hodaa-mukdemet"] .jt46-next, .jtool[data-jtool="hodaa-mukdemet"] .jtool-actions,
+	.jtool[data-jtool="hodaa-mukdemet"] .jtool-sticky, .jtool[data-jtool="hodaa-mukdemet"] .jtool-stages { display: none !important; }
+	.jtool[data-jtool="hodaa-mukdemet"] .jtool__body { display: block !important; }
+	.jtool .jt46-ribbon { break-inside: avoid; border-color: #000; }
+	.jtool .jt46-d { border-color: #555 !important; }
+	.jtool .jt46-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt46-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt46-print p, .jtool .jt46-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt46-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}
+
+/*
+ * The labor wave (22.10.2026), lane chufsha: annual leave and its redemption on /annual-leave-calculator/ (prefix jt47).
+ * The picture is the law's table drawn as what it is, a staircase: one column per seniority year, filled navy
+ * (--jtool-verdict) to the days that apply, the law's own step ruled as a deep-green outline (--jtool-ok) where the
+ * extension order lifts the step above it (a ruled line at the law's height), the reader's step dark (--jtool-verdict-deep) and the next step edged. Under it
+ * the leave line of a payslip as one ledger bar: each counted year a cell, a part year hatched, the used days a dark band.
+ * White ground, no warm tones, no gradients. Mobile first (390 px), then wider screens. Print: a one-page summary.
+ */
+
+/* Quick profiles above the form */
+.jtool .jt47-profiles { margin: 0 0 var(--jtool-space-3); padding: 10px 12px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface-2); }
+.jtool .jt47-profiles__h { margin: 0 0 6px !important; font: 700 0.8125rem/1.3 var(--jtool-font) !important; color: var(--jtool-muted) !important; }
+.jtool .jt47-chip { min-height: 44px; padding: 8px 12px; border: 1px solid var(--jtool-field-border); border-radius: 999px; background: var(--jtool-surface); color: var(--jtool-verdict-deep); font: 700 0.875rem/1.25 var(--jtool-font); cursor: pointer; text-align: start; }
+.jtool .jt47-chip:hover { border-color: var(--jtool-verdict); background: var(--jtool-verdict-tint); }
+.jtool .jt47-chip:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+
+/* The seniority staircase */
+.jtool .jt47-stairs { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface); }
+.jtool .jt47-stairs__h, .jtool .jt47-led__h { margin: 0 0 10px; font: 700 0.8125rem/1.45 var(--jtool-font); color: var(--jtool-ink); }
+.jtool .jt47-stairs__list { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 2px; height: 150px; margin: 0; padding: 18px 0 0; list-style: none; border-bottom: 1px solid var(--jtool-field-border); }
+.jtool .jt47-step { position: relative; height: 100%; min-width: 0; }
+.jtool .jt47-step__bar { position: absolute; inset-inline: 0; bottom: 0; height: var(--h); min-height: 2px; background: var(--jtool-verdict); border-radius: 2px 2px 0 0; }
+.jtool .jt47-step__law { position: absolute; inset-inline: -1px; bottom: var(--l); height: 0; border-top: 3px solid var(--jtool-ok); }
+.jtool .jt47-step__v { position: absolute; inset-inline: 0; bottom: calc(var(--h) + 3px); text-align: center; font: 700 0.6875rem/1 var(--jtool-font); color: var(--jtool-muted); font-variant-numeric: tabular-nums; }
+.jtool .jt47-step__n { position: absolute; bottom: -18px; inset-inline: 0; text-align: center; font: 600 0.6875rem/1 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt47-stairs { padding-bottom: calc(var(--jtool-space-3) + 2px); }
+.jtool .jt47-stairs__list + .jt47-keys { margin-top: 26px !important; }
+.jtool .jt47-step--me .jt47-step__bar { background: var(--jtool-verdict-deep); box-shadow: 0 0 0 2px var(--jtool-surface), 0 0 0 4px var(--jtool-verdict-deep); }
+.jtool .jt47-step--me .jt47-step__v, .jtool .jt47-step--me .jt47-step__n { color: var(--jtool-verdict-deep); font-weight: 800; font-size: 0.8125rem; }
+.jtool .jt47-step--next .jt47-step__bar { background: var(--jtool-verdict-tint); box-shadow: inset 0 0 0 2px var(--jtool-verdict); }
+.jtool .jt47-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.jtool .jt47-keys { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 10px 0 0 !important; font: 400 0.75rem/1.4 var(--jtool-font) !important; color: var(--jtool-muted) !important; }
+.jtool .jt47-keys span { display: inline-flex; align-items: center; gap: 6px; }
+.jtool .jt47-keys__x { margin-inline-start: auto; }
+.jtool .jt47-k { display: inline-block; width: 14px; height: 10px; border-radius: 2px; }
+.jtool .jt47-k--fill { background: var(--jtool-verdict); }
+.jtool .jt47-k--law { height: 0; border-top: 3px solid var(--jtool-ok); border-radius: 0; }
+.jtool .jt47-k--me { background: var(--jtool-verdict-deep); }
+.jtool .jt47-k--used { background: var(--jtool-ink); }
+.jtool .jt47-k--part { background: repeating-linear-gradient(135deg, var(--jtool-verdict-tint) 0 3px, var(--jtool-verdict) 3px 4px); }
+
+/* The leave ledger bar */
+.jtool .jt47-led { margin: var(--jtool-space-3) 0 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface); }
+.jtool .jt47-led__bar { position: relative; display: flex; gap: 2px; height: 40px; border-radius: 4px; overflow: hidden; background: var(--jtool-surface-2); }
+.jtool .jt47-led__y { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; background: var(--jtool-verdict); color: #fff; font: 600 0.6875rem/1.15 var(--jtool-font); white-space: nowrap; overflow: hidden; }
+.jtool .jt47-led__y b { font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
+.jtool .jt47-led__y--part { background: repeating-linear-gradient(135deg, var(--jtool-verdict) 0 6px, var(--jtool-verdict-deep) 6px 8px); }
+.jtool .jt47-led__used { position: absolute; inset-block: 0; inset-inline-start: 0; background: rgba(30, 42, 54, 0.78); border-inline-end: 2px solid #fff; }
+
+/* The scenario and the next steps */
+.jtool .jt47-brief, .jtool .jt47-next { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface-2); }
+.jtool .jt47-brief h4, .jtool .jt47-next h4 { margin: 0 0 6px !important; font: 800 0.9375rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt47-brief p { margin: 0 0 10px !important; font-size: 0.9375rem !important; line-height: 1.55 !important; color: var(--jtool-ink) !important; }
+.jtool .jt47-next ul, .jtool .jt47-rules { margin: 0; padding-inline-start: 18px; }
+.jtool .jt47-next li, .jtool .jt47-rules li { margin: 0 0 6px; font-size: 0.9375rem; line-height: 1.5; }
+.jtool .jt47-next a { color: var(--jtool-verdict); font-weight: 700; }
+.jtool .jt47-hist th[scope="row"] { font-weight: 700; white-space: nowrap; }
+
+.jtool .jt47-print { display: none; }
+@media (min-width: 720px) {
+	.jtool .jt47-stairs__list { height: 190px; gap: 4px; }
+	.jtool .jt47-step__v { font-size: 0.75rem; }
+	.jtool .jt47-led__bar { height: 46px; }
+	.jtool .jt47-led__y { font-size: 0.75rem; }
+}
+@media print {
+	.jtool[data-jtool="chufsha-shnatit"] .jtool__head, .jtool[data-jtool="chufsha-shnatit"] .jtool__body, .jtool[data-jtool="chufsha-shnatit"] .jt47-screen,
+	.jtool[data-jtool="chufsha-shnatit"] .jtool-next, .jtool[data-jtool="chufsha-shnatit"] .jtool-sources, .jtool[data-jtool="chufsha-shnatit"] .jtool-foot,
+	.jtool[data-jtool="chufsha-shnatit"] .jtool-scope, .jtool[data-jtool="chufsha-shnatit"] .jtool-actions, .jtool[data-jtool="chufsha-shnatit"] .jtool-sticky,
+	.jtool-lead[data-jtool-lead="chufsha-shnatit"] { display: none !important; }
+	.jtool .jt47-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt47-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt47-print p, .jtool .jt47-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt47-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}
+
+/* ===== The labor-law wave (22.10.2026): jt48, the overtime time card (shaot-nosafot) =====
+   The picture is the worker's own time card (כרטיס נוכחות): a perforated card edge, the punched in/out times in tabular
+   figures, one bar per day from the clock-in, the hours coloured by the rate the law sets (regular in the instrument's
+   pale navy, 125% in its deep green, 150% in its deep navy, the weekly rest in a green hatch), and a fine tick where the
+   day's norm ends. Mobile first (390 px), light, the --jtool-* palette only. */
+.jtool .jt48-presets { gap: var(--jtool-space-2); }
+.jtool .jt48-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; }
+.jtool .jt48-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt48-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt48-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt48-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt48-weekrow { margin-top: var(--jtool-space-2); }
+
+/* The input card: seven punched rows */
+.jtool .jt48-card { padding: var(--jtool-space-3) !important; border: 1px solid var(--jtool-border) !important; border-top: 2px dashed var(--jtool-field-border) !important; border-radius: 0 0 var(--jtool-radius-field) var(--jtool-radius-field) !important; background: #fff; }
+.jtool .jt48-card > legend { padding: 0 6px !important; }
+.jtool .jt48-slots { display: flex; flex-direction: column; gap: 6px; margin-top: var(--jtool-space-2); }
+.jtool .jt48-slot { display: grid; grid-template-columns: 44px minmax(0, 1fr) 92px; align-items: center; gap: 6px; padding: 4px 0; border-bottom: 1px solid var(--jtool-border); }
+.jtool .jt48-slot:last-child { border-bottom: 0; }
+.jtool .jt48-slot__day { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 44px; border-radius: 6px; background: var(--jtool-verdict-deep); color: #fff; font: 800 1rem/1 var(--jtool-font); cursor: pointer; }
+.jtool .jt48-slot__day small { font: 700 0.65rem/1.1 var(--jtool-font); color: #CFE6D8; }
+.jtool .jt48-slot--rest .jt48-slot__day { background: var(--jtool-ok); }
+.jtool .jt48-slot--rest .jt48-slot__day small { color: #fff; }
+.jtool input.jt48-slot__in { min-height: 44px; font: 700 1rem/1.2 ui-monospace, 'Cascadia Mono', 'Consolas', monospace; letter-spacing: 0.02em; text-align: center; font-variant-numeric: tabular-nums; }
+.jtool select.jt48-slot__kind { min-height: 44px; padding: 8px 6px; font-size: 0.875rem; }
+.jtool .jt48-slot__err { grid-column: 1 / -1; }
+.jtool .jt48-slot__err:empty { display: none; }
+
+/* The result card: the week drawn by rate */
+.jtool .jt48-clock { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-top: 2px dashed var(--jtool-field-border); border-radius: 0 0 var(--jtool-radius-field) var(--jtool-radius-field); background: #fff; }
+.jtool table.jt48-cardt { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 0; font: 400 0.875rem/1.35 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt48-cardt caption { caption-side: top; padding: 0 0 var(--jtool-space-2); text-align: start; font: 800 1rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt48-cardt caption small { display: block; margin-top: 4px; font: 400 0.8rem/1.4 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt48-cardt th, .jtool .jt48-cardt td { padding: 6px 4px; border-bottom: 1px solid var(--jtool-border); text-align: start; vertical-align: middle; }
+.jtool .jt48-cardt thead th { font: 700 0.75rem/1.2 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt48-cardt thead th:nth-child(1), .jtool .jt48-cardt tbody th { width: 34px; }
+.jtool .jt48-cardt thead th:nth-child(2) { width: 92px; }
+.jtool .jt48-cardt thead th:nth-child(4) { width: 40px; }
+.jtool .jt48-cardt tbody th { font: 800 0.95rem/1 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt48-io { font: 600 0.78rem/1.3 ui-monospace, 'Cascadia Mono', 'Consolas', monospace; color: var(--jtool-ink); }
+.jtool .jt48-tag { display: inline-block; margin-inline-start: 4px; padding: 0 5px; border-radius: 4px; background: var(--jtool-verdict-deep); color: #fff; font: 700 0.65rem/1.5 var(--jtool-font); font-style: normal; }
+.jtool .jt48-tag--rest { background: var(--jtool-ok); }
+.jtool .jt48-barcell { position: relative; }
+.jtool .jt48-bar { position: relative; display: flex; height: 18px; border-radius: 3px; background: repeating-linear-gradient(90deg, var(--jtool-surface-2) 0 calc(8.333% - 1px), var(--jtool-border) calc(8.333% - 1px) 8.333%); overflow: visible; }
+.jtool .jt48-seg { display: block; height: 100%; }
+.jtool .jt48-seg--reg { background: #BFD3E8; box-shadow: inset 0 0 0 1px var(--jtool-verdict); }
+.jtool .jt48-seg--125 { background: var(--jtool-ok); }
+.jtool .jt48-seg--150 { background: var(--jtool-verdict-deep); }
+.jtool .jt48-seg--rest { background: repeating-linear-gradient(135deg, var(--jtool-ok) 0 5px, var(--jtool-ok-bg) 5px 8px); box-shadow: inset 0 0 0 1px var(--jtool-ok); }
+.jtool .jt48-norm { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--jtool-ink); box-shadow: 0 0 0 1px #fff; }
+.jtool .jt48-tot { font: 800 0.9rem/1 var(--jtool-font); color: var(--jtool-verdict-deep); text-align: end; }
+.jtool .jt48-cardt tfoot th, .jtool .jt48-cardt tfoot td { border-bottom: 0; border-top: 3px double var(--jtool-verdict-deep); font: 700 0.85rem/1.4 var(--jtool-font); }
+.jtool .jt48-row--rest th, .jtool .jt48-row--rest td { background: var(--jtool-ok-bg); }
+.jtool .jt48-keys { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: var(--jtool-space-2) 0 0 !important; font: 600 0.8rem/1.4 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt48-k { display: inline-block; width: 14px; height: 10px; margin-inline-end: 5px; vertical-align: middle; border-radius: 2px; }
+
+/* Flags, brief, next steps */
+.jtool .jt48-flags { margin-top: var(--jtool-space-4); }
+.jtool .jt48-flags li.jt48-flag--danger { background: var(--jtool-danger-bg); color: var(--jtool-danger); border-color: var(--jtool-danger); }
+.jtool .jt48-flags li.jt48-flag--info { background: var(--jtool-surface-2); color: var(--jtool-ink); border-color: var(--jtool-border); }
+.jtool .jt48-flags .jtool-cite { white-space: normal; }
+.jtool .jt48-brief, .jtool .jt48-next { margin-top: var(--jtool-space-4); padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); background: var(--jtool-surface-2); }
+.jtool .jt48-brief { border-inline-start: 4px solid var(--jtool-verdict); }
+.jtool .jt48-brief h4, .jtool .jt48-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt48-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; color: var(--jtool-ink) !important; }
+.jtool .jt48-next ul { margin: 0 !important; padding: 0 1.1em 0 0 !important; display: flex; flex-direction: column; gap: 6px; }
+.jtool .jt48-next li { font-size: 0.925rem; line-height: 1.5; }
+.jtool .jt48-next a { color: var(--jtool-verdict); text-decoration: underline; text-underline-offset: 2px; }
+.jtool .jt48-note { margin: var(--jtool-space-3) 0 0 !important; font-size: 0.875rem !important; line-height: 1.55 !important; color: var(--jtool-muted) !important; }
+.jtool .jt48-print { display: none; }
+
+@media (min-width: 720px) {
+	.jtool .jt48-slot { grid-template-columns: 52px minmax(0, 1fr) 110px; }
+	.jtool .jt48-cardt thead th:nth-child(2) { width: 112px; }
+	.jtool .jt48-io { font-size: 0.85rem; }
+	.jtool .jt48-bar { height: 22px; }
+}
+@media print {
+	.jtool[data-jtool="shaot-nosafot"] .jtool__head, .jtool[data-jtool="shaot-nosafot"] .jtool__body, .jtool[data-jtool="shaot-nosafot"] .jt48-screen,
+	.jtool[data-jtool="shaot-nosafot"] .jtool-next, .jtool[data-jtool="shaot-nosafot"] .jtool-sources, .jtool[data-jtool="shaot-nosafot"] .jtool-foot,
+	.jtool[data-jtool="shaot-nosafot"] .jtool-scope, .jtool[data-jtool="shaot-nosafot"] .jtool-actions, .jtool[data-jtool="shaot-nosafot"] .jtool-sticky { display: none !important; }
+	.jtool .jt48-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt48-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt48-print p, .jtool .jt48-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt48-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}
+
+/* The labor wave (22.10.2026): the severance upgrade, prefix jt49 (pitzuyim keeps its jt13 ruler and timeline).
+   The picture is the payslip itself: a strip of the last payslip's lines, the counted ones in deep green, the 12-month
+   average hatched, the lines reg. 1 leaves out in grey; the deposit lines read like the pension block of a payslip.
+   Palette: the existing --jtool-* navy / deep-green variables only. Mobile first (390 px), light only. */
+.jtool .jt49-quick { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0 0 14px; }
+.jtool .jt49-quick__h { font: 700 0.8125rem/1.3 var(--jtool-font); color: var(--jtool-muted); margin-inline-end: 4px; }
+.jtool .jt49-quick__chip { min-height: 40px; padding: 6px 12px; border: 1px solid var(--jtool-verdict); border-radius: 999px; background: var(--jtool-surface); color: var(--jtool-verdict-deep); font: 600 0.875rem/1.25 var(--jtool-font); cursor: pointer; text-align: start; }
+.jtool .jt49-quick__chip:hover { background: var(--jtool-verdict-tint); }
+.jtool .jt49-quick__chip:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt49-pick__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px 12px; margin-top: 8px; }
+.jtool .jt49-pick__rule { margin: 2px 0 0 !important; font-size: 0.75rem !important; line-height: 1.35 !important; color: var(--jtool-muted) !important; }
+.jtool .jt49-tag { display: inline-block; margin-inline-start: 6px; padding: 1px 7px; border-radius: 999px; font: 700 0.6875rem/1.5 var(--jtool-font); vertical-align: 1px; }
+.jtool .jt49-tag--in { background: var(--jtool-ok-bg); color: var(--jtool-ok); }
+.jtool .jt49-tag--avg { background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); }
+.jtool .jt49-tag--out { background: #EEF2F6; color: var(--jtool-muted); }
+.jtool .jt49-tag--check { background: var(--jtool-surface); color: var(--jtool-verdict-deep); box-shadow: inset 0 0 0 1px var(--jtool-verdict); }
+.jtool input[readonly] { background: var(--jtool-surface-2); color: var(--jtool-verdict-deep); }
+
+/* The payslip strip */
+.jt49-strip { margin-top: 10px; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface); }
+.jtool .jt49-strip__h { margin: 0 0 8px !important; font: 700 0.875rem/1.3 var(--jtool-font) !important; color: var(--jtool-ink) !important; }
+.jt49-strip__bar { display: flex; gap: 2px; height: 26px; border-radius: 6px; overflow: hidden; background: var(--jtool-border); }
+.jt49-strip__seg { flex-basis: 0; min-width: 6px; }
+.jt49-strip__seg--in { background: var(--jtool-ok); }
+.jt49-strip__seg--avg { background: repeating-linear-gradient(135deg, var(--jtool-ok) 0 5px, #4F9A72 5px 10px); }
+.jt49-strip__seg--out { background: repeating-linear-gradient(45deg, #C9D3DD 0 4px, #E3E9EF 4px 8px); }
+.jt49-strip__seg--check { background: var(--jtool-surface); box-shadow: inset 0 0 0 2px var(--jtool-verdict); }
+.jtool ul.jt49-strip__list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; margin: 8px 0 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt49-strip__list li::before { content: none; }
+.jt49-strip__li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 10px; padding: 4px 0 4px 0; padding-inline-start: 10px; border-inline-start: 4px solid var(--jtool-ok); font-size: 0.875rem; line-height: 1.35; }
+.jt49-strip__li bdi { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--jtool-ink); }
+.jt49-strip__li small { grid-column: 1 / -1; font-size: 0.75rem; color: var(--jtool-muted); }
+.jt49-strip__li--avg { border-inline-start-color: #4F9A72; }
+.jt49-strip__li--out, .jt49-strip__li--check { border-inline-start-color: #C9D3DD; color: var(--jtool-muted); }
+.jt49-strip__li--out bdi, .jt49-strip__li--check bdi { color: var(--jtool-muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+.jtool .jt49-strip__out { margin: 8px 0 0 !important; font-size: 0.8125rem !important; line-height: 1.45 !important; color: var(--jtool-muted) !important; }
+
+/* The scenario and the next steps */
+.jt49-brief, .jt49-next { margin-top: 12px; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface); }
+.jt49-brief { border-inline-start: 4px solid var(--jtool-verdict); background: var(--jtool-verdict-tint); }
+.jtool .jt49-brief h4, .jtool .jt49-next h4 { margin: 0 0 6px !important; font: 800 0.9375rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt49-brief p { margin: 0 0 10px !important; font-size: 0.9375rem !important; line-height: 1.55 !important; color: var(--jtool-ink) !important; }
+.jtool .jt49-next ul { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt49-next li { margin: 0 0 4px; font-size: 0.9375rem; line-height: 1.45; }
+
+/* The deposit check and "what changed" */
+.jtool .jt49-fund__dl { margin-top: 10px; }
+.jtool table.jt49-order td, .jtool table.jt49-order th { font-variant-numeric: tabular-nums; }
+.jtool .jt49-printbar { display: flex; justify-content: flex-start; margin: 12px 0 0; }
+.jtool .jt49-print { display: none; }
+@media (max-width: 719px) {
+	.jtool .jt49-quick { flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: 6px; -webkit-overflow-scrolling: touch; }
+	.jtool .jt49-quick__h, .jtool .jt49-quick__chip { flex: 0 0 auto; white-space: nowrap; scroll-snap-align: start; }
+}
+@media (min-width: 720px) {
+	.jtool .jt49-pick__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.jtool ul.jt49-strip__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 18px; }
+	.jt49-strip__bar { height: 30px; }
+}
+@media print {
+	.jtool[data-jtool="pitzuyim"] .jtool__head, .jtool[data-jtool="pitzuyim"] .jtool__body, .jtool[data-jtool="pitzuyim"] .jtool-form,
+	.jtool[data-jtool="pitzuyim"] .jtool-result, .jtool[data-jtool="pitzuyim"] .jtool-tablewrap, .jtool[data-jtool="pitzuyim"] .jtool-next,
+	.jtool[data-jtool="pitzuyim"] .jtool-sources, .jtool[data-jtool="pitzuyim"] .jtool-foot, .jtool[data-jtool="pitzuyim"] .jtool-actions,
+	.jtool[data-jtool="pitzuyim"] .jtool-sticky, .jtool[data-jtool="pitzuyim"] .jt49-printbar, [data-jtool-lead="pitzuyim"] { display: none !important; }
+	.jtool .jt49-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt49-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt49-print p, .jtool .jt49-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt49-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}
+
+/* ===== The labor wave (22.10.2026): jt56, the final settlement, "what am I owed when I leave" (gmar-cheshbon) =====
+   The picture is the final-settlement payslip itself, as a payroll clerk rules it: a white form with a navy header band
+   (the month, the worker type, the dates), a tear line above it, ruled rows item / basis / section / amount with tabular
+   figures, each group headed in small caps (what the employer pays, a possible offset, what the fund releases, what is
+   not paid out), and the totals closed by a double rule in deep green. At 390 px every line folds into a labelled card.
+   Light only, the instrument's navy / deep-green variables only; no cream, brown or gold. */
+.jtool .jt56-presets { gap: var(--jtool-space-2); }
+.jtool .jt56-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; }
+.jtool .jt56-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt56-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt56-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt56-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt56-ground { margin-top: var(--jtool-space-2); }
+.jtool .jt56-more > .jtool-row { margin-top: var(--jtool-space-3); }
+
+/* The sheet. */
+.jtool .jt56-sheet { margin: var(--jtool-space-4) 0 0; border: 1px solid #B9CDE0; border-top: 2px dashed var(--jtool-field-border); border-radius: 0 0 10px 10px; background: var(--jtool-surface); }
+.jtool .jt56-sheet__h { display: flex; flex-direction: column; gap: 2px; margin: 0; padding: 10px 12px; background: var(--jtool-verdict-deep); color: #fff; }
+.jtool .jt56-sheet__h span:first-child { font: 800 1rem/1.3 var(--jtool-font); letter-spacing: 0.01em; }
+.jtool .jt56-sheet__h span:last-child { font: 600 0.82rem/1.4 var(--jtool-font); color: #D6E4F2; }
+.jtool .jt56-t { width: 100%; border-collapse: collapse; font: 400 0.92rem/1.45 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt56-t thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.jtool .jt56-t tbody, .jtool .jt56-t tfoot, .jtool .jt56-t tr { display: block; }
+.jtool .jt56-gh th { display: block; padding: 8px 12px 4px; border-top: 1px solid var(--jtool-border); background: var(--jtool-surface-2); font: 800 0.74rem/1.2 var(--jtool-font); letter-spacing: 0.06em; color: var(--jtool-verdict); text-align: start; }
+.jtool .jt56-t tr.jt56-l { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 8px 12px; border-top: 1px solid var(--jtool-border); }
+.jtool .jt56-l th { grid-column: 1; font: 700 0.95rem/1.35 var(--jtool-font); color: var(--jtool-ink); text-align: start; }
+.jtool .jt56-l td { display: block; padding: 0; border: 0; }
+.jtool .jt56-l td[data-th="בסיס החישוב"] { grid-column: 1 / -1; grid-row: 2; font-size: 0.84rem; color: var(--jtool-muted); }
+.jtool .jt56-l td[data-th="בסיס החישוב"] small { display: block; margin-top: 2px; font-size: 0.8rem; }
+.jtool .jt56-l td[data-th="סעיף"] { grid-column: 1 / -1; grid-row: 3; font-size: 0.8rem; }
+.jtool .jt56-l .jt56-amt { grid-column: 2; grid-row: 1; text-align: end; font-weight: 800; white-space: nowrap; }
+.jtool .jt56-l--offset .jt56-amt { color: var(--jtool-danger); }
+.jtool .jt56-l--fund .jt56-amt { color: var(--jtool-verdict); }
+.jtool .jt56-l--none th, .jtool .jt56-l--none .jt56-amt { color: var(--jtool-muted); }
+.jtool .jt56-na { font-weight: 600; font-size: 0.82rem; color: var(--jtool-muted); }
+.jtool .jt56-t tr.jt56-tot { display: flex; justify-content: space-between; gap: 12px; padding: 8px 12px; border-top: 1px solid var(--jtool-border); }
+.jtool .jt56-tot th { font: 700 0.95rem/1.3 var(--jtool-font); text-align: start; }
+.jtool .jt56-tot td { padding: 0; border: 0; font-weight: 800; white-space: nowrap; }
+.jtool .jt56-tot:first-child { border-top: 3px double var(--jtool-ok); background: var(--jtool-ok-bg); color: var(--jtool-ok); }
+.jtool .jt56-tot:first-child th, .jtool .jt56-tot:first-child td { font-size: 1.05rem; color: var(--jtool-ok); }
+.jtool .jt56-tot--all { border-top: 2px solid var(--jtool-verdict-deep); }
+.jtool .jt56-sheet__f { margin: 0 !important; padding: 8px 12px 10px; border-top: 1px solid var(--jtool-border); font: 600 0.82rem/1.5 var(--jtool-font); color: var(--jtool-muted); }
+
+/* Flags, brief, next steps, method, letter. */
+.jtool .jt56-flags { margin-top: var(--jtool-space-4) !important; }
+.jtool .jt56-flags li.jt56-flag { border: 1px solid var(--jtool-border); border-inline-start-width: 5px; background: var(--jtool-surface-2); color: var(--jtool-ink); }
+.jtool .jt56-flags li.jt56-flag--danger { border-color: #E9B9AE; border-inline-start-color: var(--jtool-danger); background: var(--jtool-danger-bg); color: var(--jtool-danger); }
+.jtool .jt56-flags li.jt56-flag--warn { border-inline-start-color: var(--jtool-verdict); background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); }
+.jtool .jt56-flags li.jt56-flag--info { border-inline-start-color: var(--jtool-field-border); }
+.jtool .jt56-brief, .jtool .jt56-next { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface-2); }
+.jtool .jt56-brief h4, .jtool .jt56-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt56-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; }
+.jtool .jt56-btn2 { background: #fff !important; color: var(--jtool-verdict) !important; border: 1.5px solid var(--jtool-verdict) !important; }
+.jtool .jt56-next ul, .jtool .jt56-list { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt56-next li, .jtool .jt56-list li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt56-method { margin: 0 !important; padding-inline-start: 20px !important; }
+.jtool .jt56-method li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt56-letter { margin-top: var(--jtool-space-4); }
+.jtool .jt56-pre { margin: var(--jtool-space-2) 0 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: 8px; background: #fff; font: 400 0.9rem/1.6 var(--jtool-font); white-space: pre-wrap; overflow-wrap: anywhere; }
+.jtool .jt56-print { display: none; }
+@media (min-width: 720px) {
+	/* The result column stays narrow on a wide screen, so the lines keep their card form; only the header spreads. */
+	.jtool .jt56-sheet__h { flex-direction: row; justify-content: space-between; align-items: baseline; gap: 12px; }
+	.jtool .jt56-t tr.jt56-l { grid-template-columns: 1fr auto; }
+}
+@media print {
+	.jtool[data-jtool="gmar-cheshbon"] .jtool__head, .jtool[data-jtool="gmar-cheshbon"] .jtool-form, .jtool[data-jtool="gmar-cheshbon"] .jt56-screen,
+	.jtool[data-jtool="gmar-cheshbon"] .jtool-next, .jtool[data-jtool="gmar-cheshbon"] .jtool-sources, .jtool[data-jtool="gmar-cheshbon"] .jtool-foot,
+	.jtool[data-jtool="gmar-cheshbon"] .jt56-brief, .jtool[data-jtool="gmar-cheshbon"] .jt56-next, .jtool[data-jtool="gmar-cheshbon"] .jt56-flags,
+	.jtool[data-jtool="gmar-cheshbon"] .jtool-actions, .jtool[data-jtool="gmar-cheshbon"] .jtool-sticky, .jtool[data-jtool="gmar-cheshbon"] .jt56-sheet,
+	.jtool[data-jtool="gmar-cheshbon"] .jtool-stages { display: none !important; }
+	.jtool[data-jtool="gmar-cheshbon"] .jtool__body { display: block !important; }
+	.jtool .jt56-print { display: block !important; color: #000; font: 400 10.5pt/1.45 var(--jtool-font); }
+	.jtool .jt56-print h3 { margin: 0 0 6pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt56-print p, .jtool .jt56-print li { margin: 0 0 3pt !important; font-size: 10pt !important; color: #000 !important; }
+	.jtool .jt56-print ol { margin: 0 0 5pt !important; padding-inline-start: 16pt !important; }
+	.jtool .jt56-pt { width: 100%; margin: 4pt 0 6pt; border-collapse: collapse; font-size: 9.5pt; }
+	.jtool .jt56-pt th, .jtool .jt56-pt td { padding: 2pt 4pt; border: 0.5pt solid #555; text-align: start; vertical-align: top; }
+	.jtool .jt56-pt td:last-child { text-align: end; white-space: nowrap; }
+}

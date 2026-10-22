@@ -1,13 +1,13 @@
 {
   "name": "Justice Ops",
   "slug": "justice-ops",
-  "version": "2.37.51",
+  "version": "2.37.52",
   "author": "Jus-Tice",
   "homepage": "https://jus-tice.co.il/",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "7.4",
-  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.37.51.zip",
+  "download_url": "https://raw.githubusercontent.com/The-new-ben/justice-theme/main/plugin-dist/justice-ops-2.37.52.zip",
   "last_updated": "2026-10-22",
   "sections": {
     "description": "2.37.50 (HAD-581): adds two explicit editorial shortcodes for real-estate document preparation. Page-local assets load only where a known tool is requested. Closed tool map, no submissions, no personal-identity inputs, no storage, no new REST routes. Existing content, URLs, redirects, lead routing, receipts and update controls are unchanged. Designed in Claude Design and integrated with reviewed local assets.",

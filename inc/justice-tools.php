@@ -37,6 +37,8 @@
  *   [justice_tool name="dmei-avtala"]                  the rights wave (21.10.2026, HAD-574): see inc/justice-tools-rights.php for its six instruments
  *   [justice_tool name="mishmoret"]                    the family + land wave (HAD-579): see inc/justice-tools-family-land.php for its six instruments
  *   [justice_tool name="gmar-cheshbon"]                the labor wave (22.10.2026): see inc/justice-tools-labor.php for its four instruments
+ *   [justice_tool name="teunat-avoda"]                 the injury wave (22.10.2026, HAD-591): see inc/justice-tools-injury.php for its three
+ *                                                      instruments; it also upgrades teunat-drachim above
  *
  * Claude Design boards: https://claude.ai/artifact/JHKhphmy9L1QbYYUk2KX4e (wave 1),
  * https://claude.ai/artifact/759KGxB7GDSy5NHaajW8sJ (wave 2), wave 3 (HAD-498): see the PR.
@@ -227,19 +229,30 @@ function justice_tools_catalog(): array {
 			'lawyer'    => array( 'label' => 'עורך דין לענייני ירושה', 'path' => '/inheritance-lawyer/' ),
 			'sticky'    => 'היום',
 		),
+		// The injury wave (22.10.2026, HAD-591): REPLACES the wave-4 'teunat-drachim' entry in justice_tools_catalog()
+		// (inc/justice-tools.php). Bundle line for tools/build-justice-tools.mjs:
+		// 'teunat-drachim': ['instrument.js', 'sim-handoff.js', 'dates.js', 'teuna-engine.js', 'teuna-ui.js']
+		// (the new top-level names of teuna-*.js start with "tn" or are UI exports; no name collides with instrument.js,
+		// dates.js or sim-handoff.js: checked on the built bundle). 'dataset' stays car_accident, so the schema date and the
+		// sources line keep its own check date; the data island adds injury_teuna (the PHP test that counts 2 keys in this
+		// island needs 3). The lead card needs 'teunat-drachim' in the allow list of justice_tools_rights2a_lead_shortcode().
 		'teunat-drachim'  => array(
 			'name'        => 'מחשבון פיצויים בתאונת דרכים',
-			'title'       => 'פיצויים בתאונת דרכים: כאב וסבל, שכר טרחה והתיישנות',
-			'promise'     => 'הנוסחה שבתקנות לכאב וסבל, התקרה להפסד השתכרות, כמה עורך דין יכול לגבות מההצעה, ועד מתי אפשר לתבוע.',
-			'question'    => 'כמה פיצוי מגיע על כאב וסבל, וכמה יישאר אחרי שכר הטרחה?',
+			'title'       => 'פיצויים בתאונת דרכים: כאב וסבל, הפסד השתכרות, שכר טרחה והתיישנות',
+			'promise'     => 'הנוסחה שבתקנות לכאב וסבל, פנקס התביעה לפי ראשי הנזק מול התקרות שבחוק, הפסד כושר השתכרות עד הגיל שתבחרו, מי משלם, כמה עורך דין יכול לגבות, ועד מתי אפשר לתבוע.',
+			'question'    => 'כמה פיצויים מגיעים בתאונת דרכים, וכמה יישאר אחרי שכר הטרחה?',
 			'page'        => '/israel-road-accident-compensation-law/',
 			'category'    => 'LegalApplication',
-			'data'        => array( 'registry_version', 'car_accident' ),
+			'data'        => array( 'registry_version', 'car_accident', 'injury_teuna' ),
 			'dataset'     => 'car_accident',
-			'next_text'   => 'הצעד הבא: לתרגל את העדות ואת הבדיקה אצל המומחה הרפואי, לפני שזה קורה באמת',
+			'next_text'   => 'הצעד הבא: לשלוח למבטח דרישה בכתב לתשלום תכוף, להכניס ליומן את המועדים, ולתרגל את הבדיקה אצל המומחה ואת העדות',
 			'primary'     => array( 'label' => 'לתרגל את העדות ואת הבדיקה אצל המומחה', 'rehearse' => true ),
 			'rehearse'    => array( 'label' => 'לתרגל את העדות ואת הבדיקה אצל המומחה', 'topic' => 'personal-injury', 'purpose' => 'witness_prep' ),
-			'more'        => array( array( 'label' => 'שכר טרחה: 8%, 11% או 13%', 'path' => '/eight-eleven-thirteen-fee-tariff/' ), array( 'label' => 'תקרת הפסד השתכרות', 'path' => '/ceiling-lost-earnings-triple-wage/' ) ),
+			'more'        => array(
+				array( 'label' => 'המומחה הרפואי מטעם בית המשפט', 'path' => '/sole-court-expert-road-accident/' ),
+				array( 'label' => 'שכר טרחה: 8%, 11% או 13%', 'path' => '/eight-eleven-thirteen-fee-tariff/' ),
+				array( 'label' => 'איתור המבטח של הרכב (קרנית)', 'url' => 'https://www.karnit.co.il/insurenceqry/' ),
+			),
 			'lawyer'      => array( 'label' => 'עורך דין תאונות דרכים', 'path' => '/car-accident-auto-injury-lawyer/' ),
 			'sticky'      => 'כאב וסבל',
 			'sticky_kind' => 'pct',
@@ -495,7 +508,8 @@ function justice_tools_catalog(): array {
 	// The rights wave (21.10.2026, HAD-574): six instruments, in inc/justice-tools-rights.php.
 	// The family + land wave (21-22.10.2026, HAD-579): six instruments, in inc/justice-tools-family-land.php.
 	// The labor wave (22.10.2026): four instruments, in inc/justice-tools-labor.php.
-	return array_merge( $catalog, justice_tools_inheritance_catalog(), justice_tools_rights_catalog(), justice_tools_fl_catalog(), justice_tools_labor_catalog() );
+	// The road-accident and personal-injury wave (HAD-591): three instruments, in inc/justice-tools-injury.php.
+	return array_merge( $catalog, justice_tools_inheritance_catalog(), justice_tools_rights_catalog(), justice_tools_fl_catalog(), justice_tools_labor_catalog(), justice_tools_injury_catalog() );
 }
 
 /** The day a tool's own sources were checked: the wave-3 tools carry it in their dataset. */
@@ -721,13 +735,20 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 			. 'אחרי הפטירה: בקשה לצו קיום ' . justice_tools_money( $rf['order'], 0 ) . ', או ' . justice_tools_money( $rf['payments']['online_fee'], 0 ) . ' בהגשה מקוונת, ועוד ' . justice_tools_money( $rf['payments']['publication'], 0 ) . ' הוצאות פרסום. התעריפים מ-' . esc_html( justice_tools_he_date( $rf['from'] ) ) . ', נבדק ' . esc_html( justice_tools_he_date( $w['checked_on'] ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
+	// teunat-drachim (the injury wave, jt60): REPLACES the wave-4 answer box. One paragraph, every figure from
+	// reg.car_accident (the formula, the ceiling with the 2026 average wage, the fee caps, the limitation), the check date
+	// of the wave (reg.injury_teuna) when present. Keeps the strings the PHP tests read (13%, 0.2%, s.2(ג), "מגיל 18",
+	// "סעיפים 5(1) ו-10").
 	if ( 'teunat-drachim' === $name && ! empty( $reg['car_accident'] ) ) {
 		$c    = $reg['car_accident'];
 		$np   = $c['nonpecuniary'];
 		$fs   = $c['fees']['stages'];
-		$text = '<strong>פיצוי על כאב וסבל בתאונת דרכים</strong> נקבע בנוסחה שבתקנות: <bdi>' . (int) $np['disability_pct_per_pct'] . '%</bdi> מהסכום המקסימלי לכל אחוז נכות לצמיתות, פחות <bdi>' . (int) $np['age_pct_per_year'] . '%</bdi> לכל שנת גיל מעל ' . (int) $np['age_from'] . ', ועוד <bdi>' . esc_html( (string) ( $np['hospital_permille'] / 10 ) ) . '%</bdi> לכל יום אשפוז. '
-			. 'עורך דין יכול לגבות עד <bdi>' . (int) $fs['none']['pct'] . '%</bdi> בלי תביעה, <bdi>' . (int) $fs['settle']['pct'] . '%</bdi> בפשרה אחרי תביעה ו-<bdi>' . (int) $fs['judgment']['pct'] . '%</bdi> בפסק דין, ועוד מע"מ. '
-			. 'לא משנה מי אשם בתאונה (סעיף 2(ג)), והתביעה מתיישנת <bdi>' . (int) $c['limitation']['years'] . '</bdi> שנים מיום התאונה, ולמי שהיה קטין ביום התאונה מגיל 18 (סעיפים 5(1) ו-10 לחוק ההתיישנות). נבדק ' . esc_html( justice_tools_he_date( $c['checked_on'] ) ) . '.';
+		$nii  = $c['earnings']['nii'][ count( $c['earnings']['nii'] ) - 1 ];
+		$ceil = (int) $c['earnings']['ceiling_multiple'] * min( (int) $nii['s1'], (int) $nii['s2'] );
+		$day  = ! empty( $reg['injury_teuna']['checked_on'] ) ? $reg['injury_teuna']['checked_on'] : $c['checked_on'];
+		$text = '<strong>חוק פיצויים לנפגעי תאונות דרכים</strong> (פלת"ד) מחייב לפצות כל נפגע בתאונת דרכים, גם אשם (סעיף 2(ג)). כאב וסבל: <bdi>' . (int) $np['disability_pct_per_pct'] . '%</bdi> מהסכום המקסימלי לכל אחוז נכות, פחות <bdi>' . (int) $np['age_pct_per_year'] . '%</bdi> לכל שנה מעל גיל ' . (int) $np['age_from'] . ', ו-<bdi>' . esc_html( (string) ( $np['hospital_permille'] / 10 ) ) . '%</bdi> ליום אשפוז. '
+			. 'הכנסה מעל פי ' . (int) $c['earnings']['ceiling_multiple'] . ' מהשכר הממוצע (לפחות ' . justice_tools_money( $ceil, 0 ) . ' לחודש) לא נספרת. '
+			. 'שכר הטרחה עד <bdi>' . (int) $fs['none']['pct'] . '%</bdi>, <bdi>' . (int) $fs['settle']['pct'] . '%</bdi> או <bdi>' . (int) $fs['judgment']['pct'] . '%</bdi> ועוד מע"מ, והתביעה מתיישנת <bdi>' . (int) $c['limitation']['years'] . '</bdi> שנים, לקטין מגיל 18 (סעיפים 5(1) ו-10 לחוק ההתיישנות). נבדק ' . esc_html( justice_tools_he_date( $day ) ) . '.';
 		return '<div class="jtool-answer"><p>' . $text . '</p></div>';
 	}
 	if ( 'gerushin' === $name && ! empty( $reg['divorce_cost'] ) ) {
@@ -763,6 +784,9 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 	}
 	if ( in_array( $name, justice_tools_labor_names(), true ) ) {
 		return justice_tools_labor_answer( $name, $mode );
+	}
+	if ( in_array( $name, justice_tools_injury_names(), true ) ) {
+		return justice_tools_injury_answer( $name, $mode );
 	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_answer( $name, $mode );
@@ -866,6 +890,9 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 	if ( in_array( $name, justice_tools_labor_names(), true ) ) {
 		return justice_tools_labor_stamp( $name, $mode );
 	}
+	if ( in_array( $name, justice_tools_injury_names(), true ) ) {
+		return justice_tools_injury_stamp( $name, $mode );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_stamp( $name, $mode );
 	}
@@ -890,11 +917,13 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 		$w = $reg['will_cost'] ?? array();
 		return 'אגרות ותעריף נוטריונים מ-' . justice_tools_he_date( $w['registrar']['from'] ?? '' ) . ' · נבדק ' . justice_tools_he_date( $w['checked_on'] ?? '' );
 	}
+	// teunat-drachim: REPLACES the wave-4 stamp branch in justice_tools_stamp(). The NII average-wage date from
+	// reg.car_accident, the check date of the wave (reg.injury_teuna) when present.
 	if ( 'teunat-drachim' === $name ) {
 		$c   = $reg['car_accident'] ?? array();
 		$nii = $c['earnings']['nii'] ?? array();
 		$nii = $nii ? $nii[ count( $nii ) - 1 ] : array( 'from' => '' );
-		return 'תקנות 1976 · שכר ממוצע מ-' . justice_tools_he_date( $nii['from'] ) . ' · נבדק ' . justice_tools_he_date( $c['checked_on'] ?? '' );
+		return 'תקנות 1976 · שכר ממוצע מ-' . justice_tools_he_date( $nii['from'] ) . ' · נבדק ' . justice_tools_he_date( $reg['injury_teuna']['checked_on'] ?? ( $c['checked_on'] ?? '' ) );
 	}
 	if ( 'havraa' === $name ) {
 		$latest = justice_tools_havraa_latest( $reg['havraa'] ?? array() );
@@ -935,6 +964,9 @@ function justice_tools_sources( string $name ): array {
 	}
 	if ( in_array( $name, justice_tools_labor_names(), true ) ) {
 		return justice_tools_labor_sources( $name );
+	}
+	if ( in_array( $name, justice_tools_injury_names(), true ) ) {
+		return justice_tools_injury_sources( $name );
 	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_sources( $name );
@@ -1039,19 +1071,34 @@ function justice_tools_sources( string $name ): array {
 			array( 'name' => $w['vat']['he'], 'url' => $w['vat']['url'], 'text' => 'מע"מ ' . $w['vat']['pct'] . '% מ-' . justice_tools_he_date( $w['vat']['from'] ) . '.' ),
 		);
 	}
+	// teunat-drachim (the injury wave): REPLACES the wave-4 sources branch in justice_tools_sources(). The six wave-4 rows
+	// are kept (the law's row lists the new sections), and the sources the upgrade reads are added; every text is built
+	// from the registry (reg.car_accident, reg.injury_teuna).
 	if ( 'teunat-drachim' === $name ) {
 		$c       = $reg['car_accident'];
+		$t       = $reg['injury_teuna'] ?? array();
 		$np      = $c['nonpecuniary'];
 		$nii     = $c['earnings']['nii'][ count( $c['earnings']['nii'] ) - 1 ];
-		$checked = justice_tools_he_date( $c['checked_on'] );
-		return array(
-			array( 'name' => $c['law_he'], 'url' => $c['law_url'], 'text' => 'סעיף 2(ג): אחריות מוחלטת; 4(א)(1): תקרת הכנסה פי ' . $c['earnings']['ceiling_multiple'] . ' מהשכר הממוצע; 4(א)(2): ניכוי מס עד ' . $c['earnings']['tax_cap_pct'] . '%; 4(א)(3) ו-4(ב): הסכום המקסימלי, צמוד למדד; 5: תשלומים תכופים; 6א: מומחה מטעם בית המשפט; 7: מי לא זכאי; 16(א): תקרת שכר הטרחה. נוסח עדכני ל-' . justice_tools_he_date( $c['law_current_to'] ) . ', נבדק ' . $checked . '.' ),
-			array( 'name' => $c['regs_he'], 'url' => $c['regs_url'], 'text' => 'תקנה 2(א)(1): ' . $np['hospital_permille'] . ' פרומיל לכל יום אשפוז; 2(א)(2): אחוז לכל אחוז נכות; 2(ב): עד ' . $np['no_permanent_max_pct'] . '% בלי נכות; 3: אחוז פחות לכל שנה מעל גיל ' . $np['age_from'] . '; 4: ' . $np['death_pct'] . '% במוות.' ),
+		$checked = justice_tools_he_date( $t['checked_on'] ?? $c['checked_on'] );
+		$out     = array(
+			array( 'name' => $c['law_he'], 'url' => $c['law_url'], 'text' => 'סעיף 2(א) ו-2(ג): אחריות מוחלטת; 3(א)-(ב): כמה כלי רכב; 4(א): פקודת הנזיקין חלה; 4(א)(1): תקרת הכנסה פי ' . $c['earnings']['ceiling_multiple'] . ' מהשכר הממוצע, מופחתת בהפסד חלקי; 4(א)(2): ניכוי מס עד ' . $c['earnings']['tax_cap_pct'] . '%; 4(א)(3) ו-4(ב): הסכום המקסימלי, צמוד למדד; 5 עד 5ה: תשלומים תכופים, 60 ימים, בית משפט השלום, ריבית 12%, עד שנתיים; 6, 6א, 6ב: תשלומים עיתיים, מומחה, נכות לפי דין אחר; 7 עד 8: מי לא זכאי, ייחוד העילה; 12 ו-15א1: קרנית ואיתור מבטח; 16(א): שכר הטרחה; 23(א): תחילה 25.9.1976. נוסח עדכני ל-' . justice_tools_he_date( $c['law_current_to'] ) . ', נבדק ' . $checked . '.' ),
+			array( 'name' => $c['regs_he'], 'url' => $c['regs_url'], 'text' => 'תקנה 2(א)(1): ' . $np['hospital_permille'] . ' פרומיל לכל יום אשפוז; 2(א)(2): אחוז לכל אחוז נכות, לפי המבחנים שבתוספת לתקנות הביטוח הלאומי (קביעת דרגות נכות לנפגעי עבודה), 1956; 2(ב): עד ' . $np['no_permanent_max_pct'] . '% בלי נכות; 3: אחוז פחות לכל שנה מעל גיל ' . $np['age_from'] . '; 4: ' . $np['death_pct'] . '% במוות.' ),
 			array( 'name' => $c['fees']['rules_he'], 'url' => $c['fees']['rules_url'], 'text' => 'כלל 2: ' . $c['fees']['stages']['judgment']['pct'] . '% מפסק דין; כלל 3: ' . $c['fees']['stages']['settle']['pct'] . '% בפשרה אחרי תביעה; כלל 4: ' . $c['fees']['stages']['none']['pct'] . '% בלי תביעה; כלל 5: מע"מ בנוסף.' ),
 			array( 'name' => $nii['source_he'], 'url' => $nii['url'], 'text' => number_format( (float) $nii['s1'] ) . ' ₪ (סעיף 1) ו-' . number_format( (float) $nii['s2'] ) . ' ₪ (סעיף 2). נבדק ' . $checked . '.' ),
-			array( 'name' => $c['limitation']['he'], 'url' => $c['limitation']['url'], 'text' => 'סעיף 5(1): ' . $c['limitation']['years'] . ' שנים; סעיף 10: הזמן עד גיל 18 לא נספר; סעיף 15א: 7.10.2023 עד 6.4.2024 לא נספרים.' ),
-			array( 'name' => $c['nii_law_he'], 'url' => $c['nii_law_url'], 'text' => 'ניכוי גמלאות הביטוח הלאומי מהפיצויים.' ),
+			array( 'name' => $c['limitation']['he'], 'url' => $c['limitation']['url'], 'text' => 'סעיף 5(1): ' . $c['limitation']['years'] . ' שנים; סעיף 10: הזמן עד גיל 18 לא נספר; סעיף 15א(א): 7.10.2023 עד 6.4.2024 לא נספרים; 15א(ג)-(ד): תקופה שהסתיימה בחלון נחשבת כאילו לא הסתיימה, ובית המשפט רשאי לקבוע אחרת.' ),
+			array( 'name' => $c['nii_law_he'], 'url' => $c['nii_law_url'], 'text' => 'סעיף 328א(ב)(1)-(2): מ-1.1.2023 הביטוח הלאומי לא תובע את מבטח הרכב, והגמלה שהמוסד חייב לשלם בשל אותו מקרה מופחתת מהפיצויים.' ),
 		);
+		if ( $t ) {
+			$out[] = array( 'name' => $t['expert']['regs_he'], 'url' => $t['expert']['url'], 'text' => 'תקנה 2: בקשה למינוי מומחה עם כתב התביעה; 6(א): לא לפני ' . $t['expert']['hearing_days'] . ' ימים מכתב ההגנה; 8(א): מסמכים למומחה תוך ' . $t['expert']['docs_days'] . ' ימים מההודעה על המינוי, בלי חוות דעת; 15(א): חוות דעת תוך ' . $t['expert']['opinion_days'] . ' ימים; 15(ב): שאלות הבהרה תוך ' . $t['expert']['questions_days'] . ' ימים; 15(ג): זימון לחקירה ' . $t['expert']['summon_days'] . ' ימים לפני שמיעת הראיות; 21: תקנות סדר הדין האזרחי חלות.' );
+			$out[] = array( 'name' => $t['future']['periodic_he'], 'url' => $t['future']['periodic_url'], 'text' => 'תקנה 1: תשלומים עיתיים צמודים כשההפסד ' . $t['future']['periodic_threshold_pct'] . '% או יותר מכושר ההשתכרות, כשהפיצויים מקור מחיה עיקרי, או לתלויים; תקנה 2(א): הגדלה אחרי ' . $t['future']['periodic_increase_months'] . ' חודשים כשהמצב החמיר.' );
+			$out[] = array( 'name' => $t['ordinance']['he'], 'url' => $t['ordinance']['url'], 'text' => 'חלה לפי סעיף 4(א) לחוק בסעיפים ' . $t['ordinance']['applied_he'] . '. סעיף 76(2): פירוט נזק ממון בכתב התביעה; סעיף 78: התלויים; סעיף 86: ביטוח פרטי לא מנוכה; סעיף 89(2): נזק שהתגלה מאוחר, עד ' . $t['ordinance']['discovery_years'] . ' שנים. נוסח עדכני ל-' . justice_tools_he_date( $t['ordinance']['current_to'] ) . '.' );
+			$out[] = array( 'name' => 'המוסד לביטוח לאומי: השכר הממוצע לפי השנים', 'url' => $t['earnings']['avg_wage_url'], 'text' => implode( '; ', array_map( function ( $w ) { return 'מ-' . justice_tools_he_date( $w['from'] ) . ': ' . number_format( (float) $w['s1'] ) . ' ₪ ו-' . number_format( (float) $w['s2'] ) . ' ₪'; }, $t['earnings']['avg_wage_rows'] ) ) . ' (עמודות הקצבאות). נבדק ' . $checked . '.' );
+			$out[] = array( 'name' => 'קרנית, הקרן לפיצוי נפגעי תאונות דרכים', 'url' => $t['who']['karnit_suit_url'], 'text' => 'הגשת תביעה: טופס, ערכת מסמכים וויתור על סודיות רפואית; איתור מבטח לרכב לפי מספר רישוי: ' . $t['who']['insurer_lookup_url'] . '. קרנית לא מפרסמת את הסכום המקסימלי לכאב וסבל בשקלים. נבדק ' . $checked . '.' );
+			$out[] = array( 'name' => 'צו מס ערך מוסף (שיעור המס על עסקה ועל יבוא טובין), התשס"ה-2005', 'url' => $t['vat']['url'], 'text' => $t['vat']['prev_pct'] . '% מ-' . justice_tools_he_date( $t['vat']['prev_from'] ) . ' (' . $t['vat']['prev_gazette_he'] . '); ' . $c['fees']['vat_pct'] . '% מ-' . justice_tools_he_date( $t['vat']['from'] ) . ' (' . $t['vat']['gazette_he'] . ').' );
+			$out[] = array( 'name' => 'חוק מטבע השקל החדש, התשמ"ה-1985 (בנק ישראל)', 'url' => $t['max']['currency_url'], 'text' => 'סעיף 2(ג): סכום שנאמר בלירות או בשקלים נחשב לסכום שווה ערך בשקלים חדשים. ההצמדה למדד: מחשבון ההצמדה של הלמ"ס, ' . $t['max']['cbs_calculator_url'] . '.' );
+			$out[] = array( 'name' => 'לקראת אסדרת המשטר הנזיקי והביטוחי לשימוש ב"רכב עצמאי" (gov.il)', 'url' => $t['max']['report_url'], 'text' => 'צוות בראשות משרד המשפטים ורשות שוק ההון כתב שהתקרה לכאב וסבל "עומדת כיום על 180,000 ₪" (קובץ מ-' . justice_tools_he_date( $t['max']['report_file_date'] ) . '): סכום מעוגל של אותה עת, ולא פרסום רשמי של הסכום העדכני.' );
+		}
+		return $out;
 	}
 	if ( 'hetel-hashbacha' === $name ) {
 		$b       = $reg['betterment'];
@@ -1686,6 +1733,9 @@ function justice_tools_numbers_html( string $name ): string {
 	if ( in_array( $name, justice_tools_labor_names(), true ) ) {
 		return justice_tools_labor_numbers_html( $name );
 	}
+	if ( in_array( $name, justice_tools_injury_names(), true ) ) {
+		return justice_tools_injury_numbers_html( $name );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_numbers_html( $name );
 	}
@@ -1767,7 +1817,7 @@ function justice_tools_numbers_html( string $name ): string {
 
 /** Comparison table (page standard A6). */
 function justice_tools_compare_html( string $name ): string {
-	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin', 'luach-shahut', 'maakav-mezonot', 'mapat-gerushin' ), true ) || in_array( $name, justice_tools_inheritance_names(), true ) || in_array( $name, justice_tools_rights_names(), true ) || in_array( $name, justice_tools_fl_names(), true ) || in_array( $name, justice_tools_labor_names(), true ) ) {
+	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin', 'luach-shahut', 'maakav-mezonot', 'mapat-gerushin' ), true ) || in_array( $name, justice_tools_inheritance_names(), true ) || in_array( $name, justice_tools_rights_names(), true ) || in_array( $name, justice_tools_fl_names(), true ) || in_array( $name, justice_tools_labor_names(), true ) || in_array( $name, justice_tools_injury_names(), true ) ) {
 		$snap = justice_tools_snapshot( $name );
 		return '<div class="jtool-page">' . ( $snap['compare_table'] ?? '' ) . '</div>';
 	}
@@ -1894,7 +1944,8 @@ add_shortcode( 'justice_tools_index', 'justice_tools_index_shortcode' );
  */
 function justice_tools_content_leads_with_tool( string $content ): bool {
 	$head = preg_replace( '/^(?:\s|&nbsp;|\x{00A0}|<!--.*?-->|<p>(?:\s|&nbsp;|\x{00A0})*<\/p>)+/su', '', $content );
-	if ( ! is_string( $head ) || ! preg_match( '/^(?:<p>\s*)?\[justice_tool\s[^\]]*\bname=["\']?([a-z-]+)/u', $head, $m ) ) {
+	// The result-first card ([justice_tool_lead], HAD-578 onwards) opens a page the same way the instrument does (HAD-591).
+	if ( ! is_string( $head ) || ! preg_match( '/^(?:<p>\s*)?\[justice_tool(?:_lead)?\s[^\]]*\bname=["\']?([a-z-]+)/u', $head, $m ) ) {
 		return false;
 	}
 	return isset( justice_tools_catalog()[ $m[1] ] );
@@ -1934,3 +1985,5 @@ require_once __DIR__ . '/justice-tools-rights.php';
 require_once __DIR__ . '/justice-tools-family-land.php';
 // The labor wave (22.10.2026): notice, annual leave, overtime and the final settlement (the severance upgrade is above).
 require_once __DIR__ . '/justice-tools-labor.php';
+// The road-accident and personal-injury wave (22.10.2026, HAD-591): work injury, the disability degree, the injured person's clock.
+require_once __DIR__ . '/justice-tools-injury.php';

@@ -321,13 +321,14 @@ check( false !== strpos( $c4t, 'מגיל 18' ) && false !== strpos( $c4t, 'סע�
 check( false !== strpos( $c4t, 'jt10-bar' ) && false !== strpos( $c4t, '10.3.2032' ) && false !== strpos( $c4t, '135,840' ), 'car example in the server HTML: the formula bar, the limitation date, the net after the fee' );
 check( false !== strpos( $c4t, '<strong data-jtool-sticky-figure><bdi>19%</bdi></strong>' ), 'car sticky bar shows a share of the maximum, not shekels' );
 check( false !== strpos( $c4t, 'jtool-btn--primary" href="https://jus-tice.com/#/simulation' ) && false !== strpos( $c4t, 'purpose=witness_prep' ), 'car: the witness and expert rehearsal is the primary next step' );
+// The injury wave (HAD-591): the road-accident island also carries injury_teuna (3 keys: version, car_accident, injury_teuna).
 foreach ( array( 'tzavaa' => $w4t, 'teunat-drachim' => $c4t ) as $nm => $html ) {
 	check( 1 === substr_count( $html, '"@type":"WebApplication"' ) && false === strpos( $html, 'FAQPage' ) && false === stripos( $html, 'aggregateRating' ), $nm . ': one WebApplication, no FAQPage, no rating' );
 	$card = substr( $html, (int) strpos( $html, '<section class="jtool"' ) );
 	check( false === stripos( substr( $card, 0, (int) strpos( $card, '</section>' ) ), '<h2' ), $nm . ': no <h2> inside the tool card (HAD-487)' );
 	check( false === stripos( $html, 'noindex' ) && false === stripos( $html, 'maya' ) && false === strpos( $html, 'רוטנברג' ) && false === strpos( $html, '<form' ), $nm . ': no noindex, no Maya card, no form gate' );
 	check( isset( $jt_enqueued[ 'justice-tool-' . $nm ] ), $nm . ': bundle enqueued' );
-	check( 1 === preg_match( '#<script type="application/json" id="jtool-' . preg_quote( $nm, '#' ) . '-data">(.*?)</script>#s', $html, $mm ) && count( json_decode( $mm[1], true ) ) === 2, $nm . ': the data island carries only its own dataset' );
+	check( 1 === preg_match( '#<script type="application/json" id="jtool-' . preg_quote( $nm, '#' ) . '-data">(.*?)</script>#s', $html, $mm ) && count( json_decode( $mm[1], true ) ) === ( 'teunat-drachim' === $nm ? 3 : 2 ), $nm . ': the data island carries only its own dataset' );
 	check( false !== strpos( $html, '"dateModified":"2026-10-14"' ) && false !== strpos( $html, 'נבדקו ב-14.10.2026' ), $nm . ': schema and sources carry its own check date' );
 }
 $nt = $sec( array( 'name' => 'tzavaa', 'part' => 'numbers' ) );

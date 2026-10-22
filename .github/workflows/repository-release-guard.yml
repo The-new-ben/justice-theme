@@ -137,6 +137,16 @@ jobs:
           php tests/test-labor-tools.php
           python3 -m py_compile tools/justice_tools_labor.py tools/justice_tools_labor_hodaa.py tools/justice_tools_labor_chufsha.py tools/justice_tools_labor_nosafot.py tools/justice_tools_labor_pitzuyim.py tools/justice_tools_labor_gmar.py
 
+      - name: Test the road-accident and personal-injury wave (22.10.2026, HAD-591)
+        run: |
+          set -euo pipefail
+          node tests/js/test-injury-teuna.mjs
+          node tests/js/test-injury-avoda.mjs
+          node tests/js/test-injury-shiklul.mjs
+          node tests/js/test-injury-sheon.mjs
+          php tests/test-injury-tools.php
+          python3 -m py_compile tools/justice_tools_injury.py tools/justice_tools_injury_teuna.py tools/justice_tools_injury_avoda.py tools/justice_tools_injury_shiklul.py tools/justice_tools_injury_sheon.py
+
       - name: Enforce append-only release ZIPs
         run: |
           set -euo pipefail

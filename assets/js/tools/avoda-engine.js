@@ -185,7 +185,21 @@ export function compute(reg, input) {
 	const allowance = daily ? avR2(daily.daily * pd.paid) : null;
 	const partUse = Math.min(partDays, A.max_days);
 	const partHoursUse = Math.min(partHours, A.partial_hours);
-	const partial = partDays > 0 ? { days: partDays, used: partUse, hours: partHours, hoursUsed: partHoursUse, perDay: daily ? avR2(daily.daily / A.partial_hours * partHoursUse) : null, amount: daily ? avR2(daily.daily / A.partial_hours * partHoursUse * partUse) : null } : null;
+	// s.102 pays the reduced allowance "notwithstanding s.92" with its own 13 weeks (s.102(ג)); it does not say whether the
+	// unpaid days of s.93(ב) (the 2 days after the injury when the incapacity is under 12 days) and of s.94(ב)(2) (a
+	// self-employed person's first 12 entitled days) fall on reduced days too. When the full-incapacity days have not used
+	// them up, the reduced allowance is shown as a range: `low` if those days are unpaid, `amount` if they are paid
+	// (PR 170 review). Never one number the law does not state.
+	let partial = null;
+	if (partDays > 0) {
+		const waitAll = days + partUse < A.waiting_unless_days ? A.waiting_days : 0;
+		const waitLeft = Math.max(0, waitAll - pd.waiting);
+		const selfLeft = kind === 'self' ? Math.max(0, A.first_period_days - pd.selfFirst) : 0;
+		const unclear = Math.min(partUse, waitLeft + selfLeft);
+		const perDay = daily ? avR2(daily.daily / A.partial_hours * partHoursUse) : null;
+		partial = { days: partDays, used: partUse, hours: partHours, hoursUsed: partHoursUse, perDay, amount: perDay !== null ? avR2(perDay * partUse) : null,
+			unclear, waitLeft, selfLeft, low: perDay !== null ? avR2(perDay * (partUse - unclear)) : null };
+	}
 	const allowanceEnd = injury ? addDays(injury, pd.within) : null;
 	if (kind === 'employee') { add('info', 'injury_day', `${A.injury_day_he} (${A.injury_day_section}).`, A.injury_day_section, av.pages.ia_period); }
 	if (days > 0 && days < A.waiting_unless_days) { add('info', 'waiting', `${days} ימי אי-כושר, פחות מ-${A.waiting_unless_days}: בעד ${pd.waiting === 1 ? 'היום הראשון' : 'שני הימים הראשונים'} שאחרי יום הפגיעה לא משולמים דמי פגיעה (${A.waiting_section}). ${A.waiting_btl_he}.`, A.waiting_section, av.pages.ia_period); }
@@ -196,6 +210,10 @@ export function compute(reg, input) {
 	if (daily && daily.capped) { add('info', 'capped', `${A.pct}% מהשכר הרגיל (${daily.raw.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪ ליום) גבוה מהמקסימום: דמי הפגיעה הם ${A.max_daily.toLocaleString('en-US', { minimumFractionDigits: 2 })} ₪ ליום (${A.section}, מ-${A.max_daily_from.split('-').reverse().map(Number).join('.')}).`, A.section, A.max_daily_url); }
 	if (partial && partHours > A.partial_hours) { add('info', 'partial_hours', `דמי פגיעה מופחתים משולמים עד ${A.partial_hours} שעות ביום (${A.partial_section}): חושבו ${A.partial_hours} שעות.`, A.partial_section, av.pages.ia_rate); }
 	if (partial && partDays > A.max_days) { add('info', 'partial_days', `דמי פגיעה מופחתים: לא יותר מ-${A.partial_max_weeks} שבועות בשל פגיעה אחת (${A.partial_section}(ג)): חושבו ${A.max_days} ימים.`, A.partial_section, av.law.url); }
+	if (partial && partial.unclear > 0) {
+		const which = [partial.waitLeft ? `${partial.waitLeft === 1 ? 'יום ההמתנה' : `${partial.waitLeft} ימי ההמתנה`} של ${A.waiting_section} (אי-הכושר כולו קצר מ-${A.waiting_unless_days} ימים)` : '', partial.selfLeft ? `${partial.selfLeft} הימים שנותרו מ-${A.first_period_days} הימים הראשונים של עצמאי (${A.self_first_section})` : ''].filter(Boolean).join(' ועוד ');
+		add('warn', 'partial_waiting', `דמי פגיעה מופחתים: ${A.partial_section} משלם אותם "על אף הוראות סעיף 92", ואינו אומר אם ${which} חלים גם עליהם. לכן מוצג טווח: ${partial.low !== null ? `${avMoney(partial.low)} ₪ אם ${partial.unclear} הימים הראשונים של אי-הכושר החלקי לא משולמים, ועד ${avMoney(partial.amount)} ₪ אם כן` : `${partial.unclear} מהימים אולי לא משולמים`}. את הסכום קובע פקיד התביעות.`, A.partial_section, av.law.url);
+	}
 	if (injury && injury < A.max_daily_from) { add('warn', 'old_year', `הפגיעה לפני ${A.max_daily_from.split('-').reverse().map(Number).join('.')}: הסכומים כאן לפי המקסימום והשכר הממוצע של 2026. בפגיעה קודמת הביטוח הלאומי משתמש בערכים שהיו בתוקף אז, וקצבת הנכות מתעדכנת ב-1 בינואר לפי המדד (${D.index_section}); את הסכום המדויק נותן פקיד התביעות.`, D.index_section, av.law.url); }
 	if (kind === 'employee' && days > av.employer_report.days_over) { add('info', 'employer_report', `${av.employer_report.he}.`, 'פקודת התאונות ומחלות משלח יד (הודעה), 1945', av.employer_report.url); }
 

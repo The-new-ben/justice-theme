@@ -98,7 +98,7 @@ export function ledger(reg, r) {
 	if (pd.selfFirst) { rows.push({ kind: 'self', days: pd.selfFirst, label: `ימים ${pd.waiting + 1} עד ${pd.waiting + pd.selfFirst}`, note: `לא משולמים לעצמאי (${A.self_first_section})`, amount: null }); }
 	if (pd.paid) { rows.push({ kind: 'paid', days: pd.paid, label: pd.paid === 1 ? `יום ${pd.first}` : `ימים ${pd.first} עד ${pd.last}`, note: r.daily ? `${pd.paid} × ${nis(r.daily.daily)} (${A.section})${r.kind === 'employee' && pd.paid >= A.first_period_days ? `; את ${A.first_period_days} הימים הראשונים המעסיק מחזיר לביטוח הלאומי (${A.first_period_section})` : ''}` : `${daysHe(pd.paid)} של דמי פגיעה (${A.section})`, amount: r.allowance }); }
 	if (pd.within < A.max_days) { rows.push({ kind: 'rest', days: A.max_days - pd.within, label: `ימים ${pd.within + 1} עד ${A.max_days}`, note: 'לא נוצלו: דמי פגיעה רק בעד ימי אי-כושר', amount: null }); }
-	if (r.partial) { rows.push({ kind: 'partial', days: r.partial.used, label: 'אי-כושר חלקי', note: r.partial.perDay !== null ? `${r.partial.used} × ${nis(r.partial.perDay)} (${r.partial.hoursUsed} שעות × שמינית, ${A.partial_section})` : `${r.partial.used} ימים (${A.partial_section})`, amount: r.partial.amount }); }
+	if (r.partial) { rows.push({ kind: 'partial', days: r.partial.used, label: 'אי-כושר חלקי', note: r.partial.perDay !== null ? `${r.partial.used} × ${nis(r.partial.perDay)} (${r.partial.hoursUsed} שעות × שמינית, ${A.partial_section})${r.partial.unclear ? `; ${r.partial.unclear} מהימים אולי לא משולמים, ולכן מ-${nis(r.partial.low)}` : ''}` : `${r.partial.used} ימים (${A.partial_section})`, amount: r.partial.amount }); }
 	return rows;
 }
 
@@ -218,7 +218,7 @@ export function renderResult(reg, r, opts = {}) {
 	const rows = [];
 	if (r.daily) { rows.push(`<div><dt>דמי פגיעה ליום</dt><dd>${amt(r.daily.daily)}${r.daily.capped ? ' (התקרה)' : ''}</dd></div>`); }
 	rows.push(`<div><dt>ימים בתשלום</dt><dd><bdi>${r.pd.paid}</bdi> מתוך <bdi>${r.days}</bdi></dd></div>`);
-	if (r.partial && r.partial.amount !== null) { rows.push(`<div><dt>דמי פגיעה מופחתים</dt><dd>${amt(r.partial.amount)}</dd></div>`); }
+	if (r.partial && r.partial.amount !== null) { rows.push(`<div><dt>דמי פגיעה מופחתים</dt><dd>${r.partial.unclear ? `${amt(r.partial.low)} עד ` : ''}${amt(r.partial.amount)}</dd></div>`); }
 	if (r.degree) {
 		rows.push(`<div><dt>דרגת הנכות</dt><dd><bdi>${pctHe(r.degree.final)}</bdi> ${stableHe(r.stable)}</dd></div>`);
 		if (r.benefit === 'grant' && r.grant !== null) { rows.push(`<div><dt>מענק חד-פעמי</dt><dd>${amt(r.grant)}</dd></div>`); }
@@ -284,7 +284,7 @@ function methodList(reg, r) {
 	}
 	items.push(`הימים: ${r.days} ימי אי-כושר; עד ${A.max_days} (${A.max_section})${r.pd.waiting ? `; פחות מ-${A.waiting_unless_days}, ולכן ${r.pd.waiting} הראשונים לא משולמים (${A.waiting_section})` : ''}${r.pd.selfFirst ? `; עצמאי: ${r.pd.selfFirst} הימים הראשונים לא משולמים (${A.self_first_section})` : ''}: ${r.pd.paid} ימים בתשלום`);
 	if (r.allowance !== null) { items.push(`דמי הפגיעה: ${r.pd.paid} × ${nis(r.daily.daily)} = ${nis(r.allowance)} ברוטו; ${A.deductions_he}`); }
-	if (r.partial && r.partial.amount !== null) { items.push(`אי-כושר חלקי: ${r.partial.used} ימים × ${nis(r.daily.daily)} ÷ ${A.partial_hours} × ${r.partial.hoursUsed} שעות = ${nis(r.partial.amount)} (${A.partial_section})`); }
+	if (r.partial && r.partial.amount !== null) { items.push(`אי-כושר חלקי: ${r.partial.used} ימים × ${nis(r.daily.daily)} ÷ ${A.partial_hours} × ${r.partial.hoursUsed} שעות = ${nis(r.partial.amount)} (${A.partial_section})${r.partial.unclear ? `; אם ${r.partial.unclear} הימים הראשונים שלו לא משולמים (${[r.partial.waitLeft ? A.waiting_section : '', r.partial.selfLeft ? A.self_first_section : ''].filter(Boolean).join(', ')}): ${nis(r.partial.low)}` : ''}`); }
 	if (r.degree) {
 		const d = r.degree;
 		if (d.share) { items.push(`תקנה 15: ${d.base}% × (1 + ${d.share}%) = ${d.capped ? `${Math.round(d.base * (1 + d.share / 100) * 100) / 100}%, ובדרגה של פחות מ-${av.regs.reg15.grant_cap_below}% עד ${av.regs.reg15.grant_cap}%: ${d.beforeRound}%` : `${d.beforeRound}%`} (${av.regs.reg15.section})`); }

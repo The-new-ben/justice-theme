@@ -753,6 +753,22 @@ const shHe = (iso) => { const [y, m, d] = String(iso).split('-').map(Number); re
 const shR2 = (n) => Math.round(n * 100) / 100;
 const shRoad = (t) => t === 'road' || t === 'both';
 const shWork = (t) => t === 'work' || t === 'both';
+/**
+ * Accident allowance (דמי תאונה) is paid from age 18 to the retirement age (reg.injury_sheon.nii.accident.who_he). The
+ * clock knows the age, not the sex or the month of birth, so it reads the retirement ages of reg.rights_bituach.retirement:
+ * 'yes' below the lowest women's age in that table for people of working age today, 'check' from there to the men's age
+ * (a woman's age depends on her month of birth), 'no' from the men's age (PR 170 review). Without the table: 'check'.
+ */
+function shAccidentAge(reg, age, minAge) {
+	if (age === null || age < minAge) { return 'no'; }
+	const rt = reg.rights_bituach && reg.rights_bituach.retirement;
+	if (!rt || !Array.isArray(rt.men) || !Array.isArray(rt.women) || !rt.women.length) { return 'check'; }
+	const men = rt.men[0] + (rt.men[1] || 0) / 12;
+	const lows = rt.women.filter((row) => row[0] >= '1947-05').map((row) => row[1] + (row[2] || 0) / 12);
+	const womenLow = lows.length ? Math.min(...lows) : men;
+	if (age >= men) { return 'no'; }
+	return age >= Math.floor(womenLow) ? 'check' : 'yes';
+}
 
 /**
  * A limitation period of `years` from `start`: the road engine's limitation() with the period's own length (the war window
@@ -883,6 +899,10 @@ function shCompute(reg, input) {
 		if (minor) { add('info', 'policy_minor', `ההתיישנות של ${I.limit_section} לחוק חוזה הביטוח נמנית מיום מקרה הביטוח; אם הזמן עד גיל 18 נספר בה, עורך דין בודק. הכלי לא דוחה אותה.`, I.limit_section, I.url); }
 	}
 
+	// Accident allowance: 18 to the retirement age (shAccidentAge; PR 170 review).
+	const accAge = shAccidentAge(reg, age, N.accident.min_age);
+	const retireMen = reg.rights_bituach && reg.rights_bituach.retirement ? reg.rights_bituach.retirement.men[0] : '';
+
 	// 3. Who pays.
 	const pays = [];
 	const pay = (code, role2, he, section, url) => pays.push({ code, role: role2, he, section: section || '', url: url || '' });
@@ -917,7 +937,7 @@ function shCompute(reg, input) {
 			pay('wrongdoer', 'primary', `מי שהתרשל (בעל המקום, העסק, הרשות): ${T.negligence_he} (${T.negligence_section}). הפיצוי לפי מה שמוכח, אין טבלה בחוק.`, T.negligence_section, T.url);
 		}
 		if (sub !== 'student') { pay('liability_insurer', 'also', `מבטח האחריות של מי שגרם לנזק: ${I.third_party_he} (${I.third_party_section}).`, I.third_party_section, I.url); }
-		if (age !== null && age >= N.accident.min_age) { pay('nii_accident', 'also', `הביטוח הלאומי, דמי תאונה: ${N.accident.who_he}. ${N.accident.max_he}.`, '', N.accident.url); }
+		if (accAge !== 'no') { pay('nii_accident', accAge === 'yes' ? 'also' : 'check', `הביטוח הלאומי, דמי תאונה: ${N.accident.who_he}. ${N.accident.max_he}.${accAge === 'check' ? ` בגיל ${age}: לגבר עד גיל ${retireMen}; לאישה לפי גיל הפרישה שלה, שתלוי בחודש הלידה.` : ''}`, '', N.accident.url); }
 	}
 	if (policy !== 'none' && !(type === 'other' && sub === 'student')) { pay('own_policy', 'also', `הפוליסה הפרטית שלכם (${policy === 'health' ? I.limit_long_he : 'ביטוח תאונות אישיות'}): ${I.notice_he} (${I.notice_section}); ${I.pay_he} (${I.pay_section}).`, I.notice_section, I.url); }
 
@@ -926,7 +946,7 @@ function shCompute(reg, input) {
 	// A step's `due` is either the day to start (the injury day) or a deadline the text sets (`deadline: true`).
 	const step = (code, kind, he, due, dueHe, section, url) => steps.push({ code, kind, he, due: due || null, dueHe: dueHe || '', section: section || '', url: url || '', deadline: Boolean(due && due !== injury) });
 	step('treat', 'advice', 'לקבל טיפול רפואי, ולשמור מהיום הראשון כל מסמך: דוח מד"א, חדר מיון, מכתב שחרור, סיכומי ביקור והפניות', injury, 'מיד', '', '');
-	if (type === 'other' && sub !== 'student' && age !== null && age >= N.accident.min_age) {
+	if (type === 'other' && sub !== 'student' && accAge !== 'no') {
 		step('exam72', 'condition', `בדיקה רפואית בתוך ${N.accident.exam_hours} שעות משעת התאונה: תנאי לדמי תאונה בביטוח הלאומי (${N.accident.exam_he})`, addDays(injury, N.accident.exam_hours / 24), `עד ${N.accident.exam_hours} שעות`, '', N.accident.conditions_url);
 	}
 	if (shRoad(type) && role === 'driver') { step('driver', 'law', `נוהג שמעורב בתאונה עם נפגע: ${sh.traffic.stop_he}; ${sh.traffic.police_he}`, injury, 'מיד ככל האפשר', sh.traffic.police_section, sh.traffic.url); }
@@ -940,7 +960,7 @@ function shCompute(reg, input) {
 		step('employer', 'procedure', `לדווח למעסיק ולבקש הפניה לטיפול רפואי: ${N.work.forms_he}`, injury, 'מיד', '', N.work.page_url);
 		step('nii_claim', 'law', `תביעה לדמי פגיעה בביטוח הלאומי (טופס ${N.work.form_claim}): ${N.claim_he} (${N.claim_section}); ${N.work.days_he}`, offRestDays(addMonths(injury, N.claim_months), ca.independence_days), `עד ${N.claim_months} חודשים`, N.claim_section, N.claim_url);
 	}
-	if (type === 'other' && sub !== 'student' && age !== null && age >= N.accident.min_age) {
+	if (type === 'other' && sub !== 'student' && accAge !== 'no') {
 		step('accident_claim', 'procedure', `תביעה לדמי תאונה בביטוח הלאומי: ${N.accident.claim_he}. ${N.accident.not_with_he}`, addDays(injury, N.accident.claim_days), `עד ${N.accident.claim_days} ימים`, '', N.accident.claim_url);
 	}
 	if (type === 'other' && sub === 'student') { step('student', 'procedure', `${sh.students.he}: ${sh.students.claim_he}. ${sh.students.excluded_he}`, injury, 'מיד', '', sh.students.url); }
@@ -969,7 +989,7 @@ function shCompute(reg, input) {
 	const events = [];
 	const ev = (key, d, kind, he, section, url) => { if (d) { events.push({ key, date: d, kind, he, section: section || '', url: url || '' }); } };
 	ev('injury', injury, 'start', 'יום הפגיעה', '', '');
-	if (type === 'other' && sub !== 'student' && age !== null && age >= N.accident.min_age) {
+	if (type === 'other' && sub !== 'student' && accAge !== 'no') {
 		ev('exam72', addDays(injury, N.accident.exam_hours / 24), 'condition', `דמי תאונה: הבדיקה הרפואית בתוך ${N.accident.exam_hours} שעות משעת התאונה (לכל המאוחר באותה שעה ביום הזה)`, '', N.accident.conditions_url);
 		ev('accident_claim', addDays(injury, N.accident.claim_days), 'deadline', `דמי תאונה: התביעה בתוך ${N.accident.claim_days} ימים מיום התאונה`, '', N.accident.claim_url);
 	}
@@ -1028,6 +1048,7 @@ function shCompute(reg, input) {
 	if (type === 'both') { add('warn', 'binding', `${R.binding_he} (${R.binding_section}). לכן הוועדה הרפואית של הביטוח הלאומי חשובה גם לתביעה נגד מבטח הרכב.`, R.binding_section, R.url); }
 	if (type === 'work' && job === 'self') { add('info', 'self', `עצמאי: ההפניה לטיפול בטופס ${N.work.form_self}; דמי הפגיעה והמועדים כמו לשכיר.`, '', N.work.page_url); }
 	if (type === 'other' && sub !== 'student' && age !== null && age < N.accident.min_age) { add('info', 'accident_age', `דמי תאונה בביטוח הלאומי משולמים מגיל ${N.accident.min_age} עד גיל הפרישה; לקטין אין דמי תאונה.`, '', N.accident.conditions_url); }
+	if (type === 'other' && sub !== 'student' && age !== null && age >= N.accident.min_age && accAge === 'no') { add('info', 'accident_retired', `דמי תאונה בביטוח הלאומי משולמים עד גיל הפרישה; בגיל ${age} הם לא משולמים, ולכן הכלי לא מציג את המועדים שלהם (${retireMen} הוא גיל הפרישה של גבר, ולאישה הוא נמוך יותר).`, '', N.accident.conditions_url); }
 	if (type === 'other' && sub !== 'student' && job === 'none') { add('info', 'accident_nonworker', `מי שאינו עובד מקבל דמי תאונה מהיום ה-${N.accident.nonworker_from_day} שאחרי התאונה, ורק אם מאושפז או מרותק לבית; שכיר ועצמאי מהיום ה-${N.accident.worker_from_day}.`, '', N.accident.days_url); }
 	if (pol && !pol.fromRight && policy !== 'none') { add('info', 'policy_disability', `${I.limit_disability_he} (${I.limit_section}). אם יש לכם תאריך כזה, הזינו אותו.`, I.limit_section, I.url); }
 

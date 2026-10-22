@@ -101,7 +101,7 @@ function justice_tools_injury_catalog(): array {
 			'question'  => 'עד מתי אפשר להגיש תביעת נזיקין על נזק גוף, ומה עושים עכשיו?',
 			'page'      => '/tort-lawyer/',
 			'category'  => 'LegalApplication',
-			'data'      => array( 'registry_version', 'car_accident', 'small_claims', 'injury_sheon' ),
+			'data'      => array( 'registry_version', 'car_accident', 'small_claims', 'injury_sheon', 'rights_bituach' ),
 			'dataset'   => 'injury_sheon',
 			'next_text' => 'הצעד הבא: להכניס ליומן את המועדים, לשמור את המסמכים מהימים הראשונים, ולתרגל את הדיון הראשון לפני שמגישים',
 			'primary'   => array( 'label' => 'לתרגל את הדיון הראשון', 'rehearse' => true ),

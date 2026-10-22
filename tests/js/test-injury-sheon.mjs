@@ -181,6 +181,15 @@ for (const r of [ex, m12, mNoBirth, w16, late, fall, student, work, med, clerk, 
 }
 const malHtml = U.renderResult(reg, mal) + U.leadCard(reg, mal);
 check(malHtml.includes('רשלנות רפואית') && !bad(malHtml) && !malHtml.includes('href="/medical'), 'malpractice renders its own line, links nothing to the malpractice pages');
+/* ---------- PR 170 review: accident allowance only up to the retirement age ---------- */
+const old80 = run({ type: 'other', sub: 'fall', policy: 'none', age: 80 });
+check(!has(old80.pays, 'nii_accident') && !ev(old80, 'exam72') && !ev(old80, 'accident_claim') && old80.flags.some((f) => f.code === 'accident_retired'), 'a fall at 80: no accident allowance, no 72-hour or 90-day events, a note on the retirement age');
+const age64 = run({ type: 'other', sub: 'fall', policy: 'none', age: 64 });
+check(age64.pays.find((p) => p.code === 'nii_accident').role === 'check' && age64.pays.find((p) => p.code === 'nii_accident').he.includes('67') && ev(age64, 'accident_claim'), 'a fall at 64: accident allowance to check (the retirement age of a woman depends on her month of birth; a man to 67)');
+const age40 = run({ type: 'other', sub: 'fall', policy: 'none', age: 40 });
+check(age40.pays.find((p) => p.code === 'nii_accident').role === 'also' && ev(age40, 'exam72'), 'a fall at 40: accident allowance offered, with the 72-hour examination');
+check(E.shAccidentAge(reg, 17, 18) === 'no' && E.shAccidentAge(reg, 61, 18) === 'yes' && E.shAccidentAge(reg, 62, 18) === 'check' && E.shAccidentAge(reg, 66, 18) === 'check' && E.shAccidentAge(reg, 67, 18) === 'no' && E.shAccidentAge({}, 50, 18) === 'check', 'shAccidentAge: under 18 no; 18-61 yes; 62-66 check (women 62-65 by month of birth); 67 no; without the table: check');
+
 const errHtml = U.renderResult(reg, run({ injury: '' })) + U.leadCard(reg, run({ injury: '' }));
 check(errHtml.includes('צריך לתקן') && !bad(errHtml), 'an input error renders the message, never a raw value');
 

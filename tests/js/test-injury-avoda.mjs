@@ -173,6 +173,16 @@ for (const r of [short, self45, long, high, part, young, way, dev, r14, rTemp, t
 	const html = U.renderResult(reg, r) + U.renderDetails(reg, r) + U.leadCard(reg, r) + U.aiBrief(reg, r);
 	check(!bad(html) && !/<h2/i.test(html), `render: no undefined/NaN/null, no <h2> (${E.avBand(r)})`);
 }
+/* ---------- PR 170 review: reduced days and the unpaid days of ss.93(ב) and 94(ב)(2) ---------- */
+const ponly = run({ days: 0, partDays: 10, partHours: 8 });
+check(ponly.partial.amount === 3000 && ponly.partial.unclear === 2 && ponly.partial.waitLeft === 2 && ponly.partial.low === 2400 && fl(ponly, 'partial_waiting'), 'employee, only 10 reduced days of 8 hours: 300 × 10 = 3,000, or 2,400 if the 2 waiting days of s.93(ב) fall on them (10 < 12): shown as a range with the note');
+const pself = run({ kind: 'self', days: 0, partDays: 10, partHours: 8 });
+check(pself.partial.unclear === 10 && pself.partial.selfLeft === 12 && pself.partial.low === 0 && pself.partial.amount === 3000 && fl(pself, 'partial_waiting').he.includes('על אף הוראות סעיף 92'), 'self-employed, only 10 reduced days: the 12 first days of s.94(ב)(2) may cover all of them: 0 to 3,000, never 3,000 alone');
+const pafter = run({ days: 20, partDays: 10, partHours: 4 });
+check(pafter.partial.unclear === 0 && pafter.partial.low === pafter.partial.amount && !fl(pafter, 'partial_waiting'), 'employee with 20 full days then 10 reduced: the waiting days do not apply (20 >= 12), one figure, no range');
+const prange = U.renderResult(reg, ponly);
+check(prange.includes('2,400') && prange.includes('3,000') && !bad(prange), 'the result shows the reduced-allowance range 2,400 to 3,000');
+
 const errHtml = U.renderResult(reg, run({ injury: '' })) + U.leadCard(reg, run({ injury: '' }));
 check(errHtml.includes('צריך לתקן') && !bad(errHtml) && E.avBand(run({ injury: '' })) === 'error', 'an input error renders the message, never a raw value');
 

@@ -2,7 +2,8 @@
 /**
  * Build the co.il tools (HAD-485 wave 1, HAD-490 wave 2, HAD-498 wave 3, HAD-502 wave 4, HAD-504 wave 5, HAD-506 family
  * law, the inheritance wave, the rights waves HAD-574, HAD-578 and HAD-585, the family + land wave HAD-579, the labor
- * wave, the road-accident and personal-injury wave HAD-591, the consumer-law wave HAD-593) from their ES-module sources.
+ * wave, the road-accident and personal-injury wave HAD-591, the consumer-law wave HAD-593, the medical-malpractice wave
+ * HAD-594) from their ES-module sources.
  *
  *   node tools/build-justice-tools.mjs          write the bundles and the server snapshots
  *   node tools/build-justice-tools.mjs --check  fail when a committed file is out of date (CI)
@@ -104,6 +105,12 @@ const TOOLS = {
 	'bitul-iska': ['instrument.js', 'sim-handoff.js', 'dates.js', 'bitul-engine.js', 'bitul-ui.js'],
 	'pitzui-tisa': ['instrument.js', 'sim-handoff.js', 'dates.js', 'teuna-engine.js as TE', 'tviot-engine.js as TV', 'tisa-engine.js', 'tisa-ui.js'],
 	'pitzui-tzarchan': ['instrument.js', 'sim-handoff.js', 'dates.js', 'hatzmada-engine.js as HZ', 'pitzui-engine.js', 'pitzui-ui.js'],
+	// The medical-malpractice wave (22.10.2026, HAD-594): the case check and the clock read the road engine's limitation()
+	// in its own scope, as TE; the records request writes its letter through word-document.js.
+	'tik-rashlanut': ['instrument.js', 'sim-handoff.js', 'dates.js', 'teuna-engine.js as TE', 'tik-engine.js', 'tik-ui.js'],
+	'bakashat-reshuma': ['instrument.js', 'sim-handoff.js', 'dates.js', 'word-document.js', 'reshuma-engine.js', 'reshuma-ui.js'],
+	'shaon-refui': ['instrument.js', 'sim-handoff.js', 'dates.js', 'teuna-engine.js as TE', 'hityashnut-engine.js', 'hityashnut-ui.js'],
+	'alut-tviaa-refuit': ['instrument.js', 'sim-handoff.js', 'dates.js', 'mechir-engine.js', 'mechir-ui.js'],
 };
 
 function strip(code) {
@@ -197,6 +204,10 @@ const ijN = await import(pathToFileURL(join(SRC, 'shaon-ui.js')).href);
 const csB = await import(pathToFileURL(join(SRC, 'bitul-ui.js')).href);
 const csT = await import(pathToFileURL(join(SRC, 'tisa-ui.js')).href);
 const csP = await import(pathToFileURL(join(SRC, 'pitzui-ui.js')).href);
+const mpT = await import(pathToFileURL(join(SRC, 'tik-ui.js')).href);
+const mpR = await import(pathToFileURL(join(SRC, 'reshuma-ui.js')).href);
+const mpH = await import(pathToFileURL(join(SRC, 'hityashnut-ui.js')).href);
+const mpM = await import(pathToFileURL(join(SRC, 'mechir-ui.js')).href);
 const snapshots = {
 	registry_version: registry.registry_version,
 	hatzmada: t04.snapshot(registry),
@@ -252,6 +263,10 @@ const snapshots = {
 	'bitul-iska': csB.snapshot(registry),
 	'pitzui-tisa': csT.snapshot(registry),
 	'pitzui-tzarchan': csP.snapshot(registry),
+	'tik-rashlanut': mpT.snapshot(registry),
+	'bakashat-reshuma': mpR.snapshot(registry),
+	'shaon-refui': mpH.snapshot(registry),
+	'alut-tviaa-refuit': mpM.snapshot(registry),
 };
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 

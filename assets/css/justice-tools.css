@@ -3725,3 +3725,389 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jtool .jt67-desk { break-inside: avoid; }
 	.jtool .jt67-slip { box-shadow: none; }
 }
+
+/* ===== The medical-malpractice wave (22.10.2026, HAD-594): jt68, the case check (tik-rashlanut) =====
+   The picture is a patient's chart: a case file whose top edge carries five file tabs (duty, breach, causation, damage,
+   informed consent), each tab coloured by what the reader's facts show (deep green filled = the facts point to it; navy
+   outline = to prove; grey hatching = missing), and under the tabs the five sections of the file, each with the evidence
+   pinned to it like slips clipped to a chart. The burden notes read like a ward's handover sheet; the evidence list like a
+   records request with "have" / "to gather" stamps. Mobile first (390 px), light, the instrument's navy / deep-green variables
+   only; no cream, gold, brown, terracotta, purple gradient, Inter or emoji. */
+.jtool .jt68-presets { gap: var(--jtool-space-2); }
+.jtool .jt68-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; text-align: start; }
+.jtool .jt68-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt68-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt68-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt68-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt68-checks { margin-top: var(--jtool-space-1); }
+.jtool .jt68-pat [hidden] { display: none !important; }
+.jtool .jt68-more > .jtool-field { margin-top: var(--jtool-space-3); }
+
+/* The chart: a case file with five file tabs on its top edge. */
+.jtool .jt68-chart { margin: var(--jtool-space-4) 0 0; padding: 0; border: 1.5px solid var(--jtool-verdict-deep); border-radius: 4px 4px 12px 12px; background: #fff; overflow: hidden; }
+.jtool .jt68-chart__h { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; margin: 0; padding: 10px 12px 8px; background: var(--jtool-verdict-deep); color: #fff; font: 800 0.98rem/1.35 var(--jtool-font); }
+.jtool .jt68-chart__count { font: 600 0.8rem/1.3 var(--jtool-font); color: #fff; opacity: 0.92; font-variant-numeric: tabular-nums; }
+.jtool .jt68-strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px; margin: 0 !important; padding: 8px 8px 0 !important; list-style: none !important; background: var(--jtool-surface); border-bottom: 2px solid var(--jtool-verdict-deep); }
+.jtool .jt68-ft { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 52px; margin: 0 !important; padding: 5px 2px 6px; border: 1.5px solid var(--jtool-verdict); border-bottom: 0; border-radius: 8px 8px 0 0; background: #fff; color: var(--jtool-verdict-deep); text-align: center; list-style: none !important; }
+.jtool .jt68-ft b { font: 800 0.9rem/1 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt68-ft span { margin-top: 3px; font: 700 0.68rem/1.15 var(--jtool-font); }
+.jtool .jt68-ft--facts { border-color: var(--jtool-ok); background: var(--jtool-ok); color: #fff; }
+.jtool .jt68-ft--missing { border-color: var(--jtool-field-border); color: var(--jtool-muted); background: repeating-linear-gradient(135deg, var(--jtool-surface-2) 0 5px, #fff 5px 10px); }
+.jtool .jt68-tabs { margin: 0 !important; padding: 0 !important; list-style: none !important; counter-reset: none; }
+.jtool .jt68-tab { margin: 0 !important; padding: 12px 12px 12px; border-bottom: 1px solid var(--jtool-border); border-inline-start: 6px solid var(--jtool-verdict); list-style: none !important; background: #fff; }
+.jtool .jt68-tab:last-child { border-bottom: 0; }
+.jtool .jt68-tab--facts { border-inline-start-color: var(--jtool-ok); }
+.jtool .jt68-tab--missing { border-inline-start-color: var(--jtool-field-border); background: var(--jtool-surface); }
+.jtool .jt68-tab__head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.jtool .jt68-tab__n { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--jtool-verdict-deep); color: #fff; font: 800 0.85rem/1 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt68-tab__name { font: 800 1.02rem/1.3 var(--jtool-font); color: var(--jtool-ink); }
+.jtool .jt68-st { display: inline-block; padding: 3px 10px; border-radius: 999px; font: 800 0.78rem/1.3 var(--jtool-font); }
+.jtool .jt68-st--facts { background: var(--jtool-ok-bg); color: var(--jtool-ok); border: 1px solid var(--jtool-ok); }
+.jtool .jt68-st--prove { background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); border: 1px solid var(--jtool-verdict); }
+.jtool .jt68-st--missing { background: #fff; color: var(--jtool-muted); border: 1px dashed var(--jtool-field-border); }
+.jtool .jt68-tab__why { margin: 8px 0 6px !important; font-size: 0.95rem !important; line-height: 1.6 !important; color: var(--jtool-ink) !important; }
+.jtool .jt68-pins { display: flex; flex-direction: column; gap: 5px; margin: 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt68-pins li { position: relative; margin: 0 !important; padding: 7px 12px 7px 10px; padding-inline-start: 26px; border: 1px solid var(--jtool-border); border-top: 2px dashed var(--jtool-field-border); border-radius: 3px; background: var(--jtool-surface); font-size: 0.9rem !important; line-height: 1.5 !important; list-style: none !important; }
+.jtool .jt68-pins li::before { content: ""; position: absolute; top: 11px; inset-inline-start: 9px; width: 9px; height: 9px; border-radius: 50%; background: var(--jtool-verdict-deep); box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--jtool-verdict-deep); }
+.jtool .jt68-tab--facts .jt68-pins li::before { background: var(--jtool-ok); box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--jtool-ok); }
+.jtool .jt68-notes { margin: 8px 0 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt68-notes li { margin: 0 0 4px !important; font-size: 0.86rem !important; line-height: 1.5 !important; color: var(--jtool-muted) !important; }
+
+/* Flags, boxes, the burden handover sheet, the evidence list, the tracks, the dates. */
+.jtool .jt68-flags { margin: var(--jtool-space-3) 0 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt68-flag { margin: 0 0 6px !important; padding: 9px 12px; border-radius: 8px; border-inline-start: 5px solid var(--jtool-verdict); background: var(--jtool-verdict-tint); font-size: 0.92rem !important; line-height: 1.55 !important; list-style: none !important; }
+.jtool .jt68-flag--warn { border-inline-start-color: var(--jtool-warn); background: var(--jtool-warn-bg); }
+.jtool .jt68-flag--danger { border-inline-start-color: var(--jtool-danger); background: var(--jtool-danger-bg); }
+.jtool .jt68-box { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface); }
+.jtool .jt68-h { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.35 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt68-p { margin: 0 0 8px !important; font-size: 0.93rem !important; line-height: 1.6 !important; }
+.jtool .jt68-burden, .jtool .jt68-tracks, .jtool .jt68-evid { margin: 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt68-b { margin: 0 0 6px !important; padding: 9px 12px; border: 1px solid var(--jtool-border); border-inline-start: 5px solid var(--jtool-verdict); border-radius: 6px; background: #fff; font-size: 0.92rem !important; line-height: 1.55 !important; list-style: none !important; }
+.jtool .jt68-b--ok { border-inline-start-color: var(--jtool-ok); }
+.jtool .jt68-b--warn { border-inline-start-color: var(--jtool-warn); }
+.jtool .jt68-ev { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; align-items: start; margin: 0 0 6px !important; padding: 8px 10px; border: 1px solid var(--jtool-border); border-radius: 6px; background: #fff; list-style: none !important; }
+.jtool .jt68-ev__mark { grid-row: span 2; align-self: start; min-width: 48px; padding: 3px 6px; border: 1.5px solid var(--jtool-verdict); border-radius: 4px; color: var(--jtool-verdict-deep); font: 800 0.75rem/1.2 var(--jtool-font); text-align: center; transform: rotate(-3deg); }
+.jtool .jt68-ev--have .jt68-ev__mark { border-color: var(--jtool-ok); background: var(--jtool-ok); color: #fff; }
+.jtool .jt68-ev strong { font-size: 0.93rem; line-height: 1.4; }
+.jtool .jt68-ev__from { font-size: 0.85rem; line-height: 1.5; color: var(--jtool-muted); }
+.jtool .jt68-tracks li { margin: 0 0 6px !important; padding: 8px 10px; border: 1px solid var(--jtool-border); border-radius: 6px; background: #fff; list-style: none !important; }
+.jtool .jt68-tracks li p { margin: 0 !important; font-size: 0.9rem !important; line-height: 1.55 !important; }
+.jtool .jt68-dates ul { margin: 0 0 8px !important; padding-inline-start: 18px !important; }
+.jtool .jt68-dates li { margin: 0 0 4px !important; font-size: 0.95rem !important; line-height: 1.55 !important; font-variant-numeric: tabular-nums; }
+.jtool .jt68-brief { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3); border: 1.5px solid var(--jtool-verdict); border-radius: 12px; background: var(--jtool-verdict-tint); }
+.jtool .jt68-brief h4, .jtool .jt68-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 0.98rem/1.35 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt68-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; }
+.jtool .jt68-next { margin: var(--jtool-space-4) 0 0; }
+.jtool .jt68-next ul { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt68-next li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt68-method { margin: 0 !important; padding-inline-start: 20px !important; }
+.jtool .jt68-method li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt68-wrap td { white-space: normal !important; }
+.jtool .jt68-print { display: none; }
+@media (min-width: 720px) {
+	.jtool .jt68-ft span { font-size: 0.8rem; }
+	.jtool .jt68-tab { padding: 14px 16px; }
+}
+@media print {
+	.jtool[data-jtool="tik-rashlanut"] .jtool__head, .jtool[data-jtool="tik-rashlanut"] .jtool-form, .jtool[data-jtool="tik-rashlanut"] .jt68-screen,
+	.jtool[data-jtool="tik-rashlanut"] .jtool-next, .jtool[data-jtool="tik-rashlanut"] .jtool-sources, .jtool[data-jtool="tik-rashlanut"] .jtool-foot,
+	.jtool[data-jtool="tik-rashlanut"] .jt68-brief, .jtool[data-jtool="tik-rashlanut"] .jt68-next, .jtool[data-jtool="tik-rashlanut"] .jtool-actions,
+	.jtool[data-jtool="tik-rashlanut"] .jtool-sticky, .jtool[data-jtool="tik-rashlanut"] .jt68-box, .jtool[data-jtool="tik-rashlanut"] .jt68-flags,
+	.jtool[data-jtool="tik-rashlanut"] .jt68-chart { display: none !important; }
+	.jtool[data-jtool="tik-rashlanut"] .jtool__body { display: block !important; }
+	/* The chart is replaced in print by the summary's element list (the same five statuses, in text), to keep one or two pages. */
+	.jtool .jt68-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt68-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt68-print p, .jtool .jt68-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt68-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}
+
+/* ===== The medical-malpractice wave (22.10.2026, HAD-594): jt69, the medical-records request generator (bakashat-reshuma) =====
+   The picture is the paper a records department works from: a routing slip that travels with the request (a perforated
+   top edge, seven numbered boxes: from, to, what, the legal basis, the cost, the answer time, kept until; each box carries
+   its section in a ruled stamp), and beside it the request letter itself as a white sheet, with the fields the reader fills
+   on the side. Mobile first (390 px), light, the instrument's navy / deep-green variables only; no cream, gold, brown,
+   terracotta, purple gradient, Inter or emoji. */
+.jtool .jt69-presets { gap: var(--jtool-space-2); }
+.jtool .jt69-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; text-align: start; }
+.jtool .jt69-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt69-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt69-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt69-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt69-docs .jtool-chip { min-height: 44px; }
+.jtool .jt69-more > .jtool-row, .jtool .jt69-more > .jtool-field { margin-top: var(--jtool-space-3); }
+
+/* The routing slip. */
+.jtool .jt69-slip { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-4) var(--jtool-space-3) var(--jtool-space-3); border: 1px solid var(--jtool-field-border); border-top: 0; border-radius: 0 0 12px 12px; background: #fff; position: relative; }
+.jtool .jt69-slip::before { content: ""; position: absolute; top: 0; inset-inline: 0; height: 10px; background: radial-gradient(circle at 6px 0, #fff 5px, var(--jtool-field-border) 5.5px, transparent 6px) 0 0 / 12px 10px repeat-x; }
+.jtool .jt69-slip__h { margin: 6px 0 var(--jtool-space-3); padding-bottom: 6px; border-bottom: 2px solid var(--jtool-verdict-deep); font: 800 0.95rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); letter-spacing: 0.01em; }
+.jtool .jt69-slip__rows { margin: 0 !important; padding: 0 !important; list-style: none !important; display: grid; gap: 0; }
+.jtool .jt69-slip__row { display: grid; grid-template-columns: 28px 64px 1fr; grid-template-areas: "n k v" ". . s"; align-items: baseline; gap: 2px 8px; margin: 0 !important; padding: 9px 0 !important; border-bottom: 1px dashed var(--jtool-border); list-style: none !important; }
+.jtool .jt69-slip__row:last-child { border-bottom: 0; }
+.jtool .jt69-slip__n { grid-area: n; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1.5px solid var(--jtool-verdict); border-radius: 4px; color: var(--jtool-verdict); font: 800 0.8rem/1 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt69-slip__k { grid-area: k; font: 800 0.85rem/1.3 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt69-slip__v { grid-area: v; font: 700 0.98rem/1.45 var(--jtool-font); color: var(--jtool-ink); }
+.jtool .jt69-stamp { grid-area: s; justify-self: start; display: inline-block; margin-top: 2px; padding: 1px 8px; border: 1.5px solid var(--jtool-ok); border-radius: 3px; box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 3px var(--jtool-ok); color: var(--jtool-ok); font: 800 0.75rem/1.6 var(--jtool-font); }
+.jtool .jt69-stamp .jtool-cite { margin: 0; padding: 0; border: 0; background: none; color: var(--jtool-ok); font: inherit; text-decoration: underline; }
+.jtool .jt69-slip--mini { margin: var(--jtool-space-4) 0 0; }
+.jtool .jt69-slip--mini .jt69-slip__v { font-size: 0.9rem; }
+
+/* Flags, boxes, cost, brief, next steps. */
+.jtool .jt69-flags { margin-top: var(--jtool-space-4) !important; }
+.jtool .jt69-flags li.jt69-flag { border: 1px solid var(--jtool-border); border-inline-start-width: 5px; background: var(--jtool-surface-2); color: var(--jtool-ink); }
+.jtool .jt69-flags li.jt69-flag--danger { border-color: #E9B9AE; border-inline-start-color: var(--jtool-danger); background: var(--jtool-danger-bg); color: var(--jtool-danger); }
+.jtool .jt69-flags li.jt69-flag--warn { border-inline-start-color: var(--jtool-verdict); background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); }
+.jtool .jt69-flags li.jt69-flag--ok { border-inline-start-color: var(--jtool-ok); background: var(--jtool-ok-bg); color: var(--jtool-ok); }
+.jtool .jt69-flags li.jt69-flag--info { border-inline-start-color: var(--jtool-field-border); }
+.jtool .jt69-box, .jtool .jt69-brief, .jtool .jt69-next { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface-2); }
+.jtool .jt69-h, .jtool .jt69-brief h4, .jtool .jt69-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.35 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt69-attach, .jtool .jt69-steps, .jtool .jt69-method { margin: 0 !important; padding-inline-start: 22px !important; }
+.jtool .jt69-attach li, .jtool .jt69-steps li, .jtool .jt69-method li { margin: 0 0 6px !important; line-height: 1.55 !important; }
+.jtool .jt69-basis, .jtool .jt69-free, .jtool .jt69-docs-cost, .jtool .jt69-where { margin: var(--jtool-space-2) 0 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt69-basis li, .jtool .jt69-free li, .jtool .jt69-where li { margin: 0 0 6px !important; padding-inline-start: 14px; position: relative; line-height: 1.5 !important; list-style: none !important; }
+.jtool .jt69-basis li::before, .jtool .jt69-free li::before, .jtool .jt69-where li::before { content: ""; position: absolute; inset-inline-start: 0; top: 0.6em; width: 6px; height: 6px; background: var(--jtool-verdict); }
+.jtool .jt69-docs-cost li { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; margin: 0 0 6px !important; list-style: none !important; }
+.jtool .jt69-kind { display: inline-block; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--jtool-field-border); background: #fff; font: 700 0.78rem/1.6 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt69-doc--free_once .jt69-kind, .jtool .jt69-doc--free_if_out .jt69-kind { border-color: var(--jtool-ok); color: var(--jtool-ok); background: var(--jtool-ok-bg); }
+.jtool .jt69-sub { margin: var(--jtool-space-3) 0 0 !important; font: 800 0.9rem/1.4 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt69-note { margin: var(--jtool-space-2) 0 !important; font-size: 0.9rem !important; color: var(--jtool-muted) !important; line-height: 1.5 !important; }
+.jtool .jt69-brief p { margin: 0 0 var(--jtool-space-3) !important; line-height: 1.6 !important; }
+.jtool .jt69-next ul { margin: 0 !important; padding-inline-start: 20px !important; }
+.jtool .jt69-next li { margin: 0 0 6px !important; line-height: 1.5 !important; }
+.jtool .jt69-wrap td, .jtool .jt69-wrap th { vertical-align: top; }
+.jtool .jt69-ret td:first-child strong { color: var(--jtool-verdict-deep); }
+
+/* The letter: the fields on one side, the sheet on the other (stacked on a phone). */
+.jtool .jt69-letter__grid { display: grid; gap: var(--jtool-space-4); padding: 0 var(--jtool-space-3) var(--jtool-space-3); }
+.jtool .jt69-letter__grid > * { min-width: 0; }
+.jtool .jt69-letter > .jt69-note { padding: 0 var(--jtool-space-3); }
+.jtool .jt69-lf { display: grid; gap: var(--jtool-space-2); }
+.jtool .jt69-lf .jtool-field { margin: 0; }
+.jtool .jt69-letter__doc { overflow-wrap: anywhere; padding: var(--jtool-space-5) var(--jtool-space-4); border: 1px solid var(--jtool-field-border); border-top: 6px solid var(--jtool-verdict-deep); border-radius: 4px; background: #fff; color: #111; font: 400 0.98rem/1.7 var(--jtool-font); }
+.jtool .jt69-letter__doc p { margin: 0 0 10px !important; }
+.jtool .jt69-letter__doc ol { margin: 0 0 10px !important; padding-inline-start: 22px !important; }
+.jtool .jt69-letter__doc li { margin: 0 0 4px !important; }
+.jtool .jt69-letter__title { font: 800 1.15rem/1.4 var(--jtool-font) !important; text-align: center; color: #000 !important; }
+.jtool .jt69-letter__annex { margin-top: var(--jtool-space-5) !important; padding-top: var(--jtool-space-3); border-top: 1px dashed var(--jtool-field-border); }
+.jtool .jt69-letter__subject { font-weight: 800 !important; text-decoration: underline; }
+.jtool .jt69-letter__sig { margin-top: var(--jtool-space-4) !important; }
+@media (min-width: 900px) {
+	.jtool .jt69-letter__grid { grid-template-columns: minmax(240px, 300px) 1fr; align-items: start; }
+	.jtool .jt69-slip:not(.jt69-slip--mini) .jt69-slip__row { grid-template-columns: 28px 72px 1fr auto; grid-template-areas: "n k v s"; }
+	.jtool .jt69-slip:not(.jt69-slip--mini) .jt69-stamp { margin-top: 0; }
+}
+
+/* Print: the summary (data-act="print") or the letter alone (data-act="print-letter" sets body.jt69-pl while printing). */
+.jtool .jt69-print { display: none; }
+@media print {
+	.jtool[data-jtool="bakashat-reshuma"] .jtool__head, .jtool[data-jtool="bakashat-reshuma"] .jtool-form, .jtool[data-jtool="bakashat-reshuma"] .jt69-screen,
+	.jtool[data-jtool="bakashat-reshuma"] .jtool-next, .jtool[data-jtool="bakashat-reshuma"] .jtool-sources, .jtool[data-jtool="bakashat-reshuma"] .jtool-foot,
+	.jtool[data-jtool="bakashat-reshuma"] .jt69-brief, .jtool[data-jtool="bakashat-reshuma"] .jt69-next, .jtool[data-jtool="bakashat-reshuma"] .jtool-actions,
+	.jtool[data-jtool="bakashat-reshuma"] .jtool-sticky, .jtool[data-jtool="bakashat-reshuma"] .jtool-stages { display: none !important; }
+	.jtool[data-jtool="bakashat-reshuma"] .jtool__body { display: block !important; }
+	.jtool .jt69-slip, .jtool .jt69-box { break-inside: avoid; border-color: #000; }
+	.jtool .jt69-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt69-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt69-print p, .jtool .jt69-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt69-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+	body.jt69-pl * { visibility: hidden !important; }
+	body.jt69-pl .jt69-print, body.jt69-pl .jt69-print * { visibility: visible !important; }
+	body.jt69-pl .jt69-print { position: absolute; top: 0; inset-inline: 0; }
+	body.jt69-pl .jt69-letter__doc { border: 0 !important; padding: 0 !important; font-size: 12pt !important; }
+}
+
+/* ===== The medical-malpractice wave (22.10.2026, HAD-594): jt70, the malpractice limitation clock (shaon-refui) =====
+   The picture is a limitation register drawn as a clock ribbon: one time axis from the treatment day with the year ticks of a
+   court register, the war window of s.15A as a hatched band (the days that are not counted), today as a thick deep-green rule;
+   under it one lane per reading of the law, each bar ending at its last day: the safe day a solid deep-green bar, a reading
+   that rests on a fact to prove a solid navy bar, an open question a navy outline, the time the clock waits (a minor until 18)
+   a dotted run, the 10-year cap of s.89(2) a dashed stop line. The readings table, the Ministry tracks and the rulings read
+   like a docket. Mobile first (390 px), light, the instrument's navy / deep-green variables only; no cream, gold, brown,
+   terracotta, purple gradient, Inter or emoji. */
+.jtool .jt70-presets { gap: var(--jtool-space-2); }
+.jtool .jt70-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; text-align: start; }
+.jtool .jt70-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt70-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt70-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt70-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt70-checks { margin: var(--jtool-space-2) 0; }
+.jtool .jt70-more > .jtool-row, .jtool .jt70-more > .jtool-chips { margin-top: var(--jtool-space-3); }
+
+/* The ribbon: the axis, then one lane per reading. */
+.jtool .jt70-rib { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface); }
+.jtool .jt70-rib__h { margin: 0 0 var(--jtool-space-3); font: 800 0.95rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt70-axis { position: relative; height: 34px; margin: 0 14px 26px; border-bottom: 2px solid var(--jtool-verdict-deep); }
+.jtool .jt70-tick { position: absolute; bottom: -2px; height: 10px; border-inline-start: 1px solid var(--jtool-verdict-deep); transform: translateX(50%); }
+.jtool .jt70-tick bdi { position: absolute; bottom: 12px; inset-inline-start: 0; transform: translateX(50%); font: 700 0.7rem/1 var(--jtool-font); color: var(--jtool-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jtool .jt70-tick--0 { border-inline-start-width: 2px; }
+.jtool .jt70-pin { position: absolute; top: calc(100% + 4px); transform: translateX(50%); min-width: 18px; height: 18px; padding: 0 3px; border-radius: 4px; background: var(--jtool-verdict); color: #fff; font: 800 0.66rem/18px var(--jtool-font); text-align: center; }
+.jtool .jt70-pin--filed { background: var(--jtool-ok); }
+.jtool .jt70-lanes { margin: 0 !important; padding: 0 !important; list-style: none !important; display: flex; flex-direction: column; gap: 10px; }
+.jtool .jt70-lane { margin: 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt70-lane__h { margin: 0 0 4px !important; font-size: 0.88rem !important; line-height: 1.45 !important; color: var(--jtool-ink) !important; }
+.jtool .jt70-lane__d { font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jtool .jt70-lane--lead .jt70-lane__d { color: var(--jtool-ok); }
+.jtool .jt70-lane--gone .jt70-lane__h { color: var(--jtool-muted) !important; }
+.jtool .jt70-track { position: relative; height: 16px; margin: 0 14px; border-radius: 3px; background: var(--jtool-surface-2); box-shadow: inset 0 0 0 1px var(--jtool-border); }
+.jtool .jt70-war { position: absolute; top: 0; bottom: 0; background: repeating-linear-gradient(135deg, rgba(14, 46, 79, 0.18) 0 3px, transparent 3px 6px); }
+.jtool .jt70-pause { position: absolute; top: 7px; height: 0; border-top: 2px dotted var(--jtool-field-border); }
+.jtool .jt70-bar { position: absolute; top: 3px; height: 10px; border-radius: 2px; background: var(--jtool-verdict); }
+.jtool .jt70-lane--lead .jt70-bar { background: var(--jtool-ok); }
+.jtool .jt70-lane--open .jt70-bar { background: #fff; box-shadow: inset 0 0 0 2px var(--jtool-verdict); }
+.jtool .jt70-lane--policy .jt70-bar { background: var(--jtool-field-border); }
+.jtool .jt70-lane--gone .jt70-bar { opacity: 0.45; }
+.jtool .jt70-end { position: absolute; top: -3px; width: 3px; height: 22px; transform: translateX(50%); background: var(--jtool-verdict-deep); }
+.jtool .jt70-lane--lead .jt70-end { background: var(--jtool-ok); width: 4px; }
+.jtool .jt70-cap { position: absolute; top: -4px; height: 24px; border-inline-start: 2px dashed var(--jtool-danger); transform: translateX(50%); }
+.jtool .jt70-now { position: absolute; top: -4px; width: 0; height: 24px; border-inline-start: 3px solid var(--jtool-ok); transform: translateX(50%); z-index: 2; }
+.jtool .jt70-keys { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: var(--jtool-space-3) 0 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt70-keys li { display: inline-flex; align-items: center; gap: 6px; margin: 0 !important; font-size: 0.78rem !important; color: var(--jtool-muted); list-style: none !important; }
+.jtool .jt70-k { display: inline-block; width: 18px; height: 10px; border-radius: 2px; }
+.jtool .jt70-k--lead { background: var(--jtool-ok); }
+.jtool .jt70-k--alt { background: var(--jtool-verdict); }
+.jtool .jt70-k--open { background: #fff; box-shadow: inset 0 0 0 2px var(--jtool-verdict); }
+.jtool .jt70-k--pause { height: 0; border-top: 2px dotted var(--jtool-field-border); }
+.jtool .jt70-k--war { background: repeating-linear-gradient(135deg, rgba(14, 46, 79, 0.3) 0 3px, transparent 3px 6px); box-shadow: inset 0 0 0 1px var(--jtool-border); }
+.jtool .jt70-k--now { width: 0; height: 14px; border-inline-start: 3px solid var(--jtool-ok); }
+.jtool .jt70-k--cap { width: 0; height: 14px; border-inline-start: 2px dashed var(--jtool-danger); }
+
+/* Tags, flags, the docket boxes, brief, next steps, method, tables. */
+.jtool .jt70-tag { display: inline-block; padding: 0 8px; border-radius: 999px; background: var(--jtool-verdict); color: #fff; font: 800 0.72rem/1.6 var(--jtool-font); white-space: nowrap; }
+.jtool .jt70-tag--lead, .jtool .jt70-tag--safe { background: var(--jtool-ok); }
+.jtool .jt70-tag--open { background: #fff; color: var(--jtool-verdict-deep); box-shadow: inset 0 0 0 1.5px var(--jtool-verdict); }
+.jtool .jt70-tag--policy { background: var(--jtool-surface-2); color: var(--jtool-muted); box-shadow: inset 0 0 0 1px var(--jtool-field-border); }
+.jtool .jt70-flags { margin-top: var(--jtool-space-4) !important; }
+.jtool .jt70-flags li.jt70-flag { border: 1px solid var(--jtool-border); border-inline-start-width: 5px; background: var(--jtool-surface-2); color: var(--jtool-ink); }
+.jtool .jt70-flags li.jt70-flag--danger { border-color: #E9B9AE; border-inline-start-color: var(--jtool-danger); background: var(--jtool-danger-bg); color: var(--jtool-danger); }
+.jtool .jt70-flags li.jt70-flag--warn { border-inline-start-color: var(--jtool-verdict); background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); }
+.jtool .jt70-flags li.jt70-flag--info { border-inline-start-color: var(--jtool-field-border); }
+.jtool .jt70-box, .jtool .jt70-brief, .jtool .jt70-next { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface-2); }
+.jtool .jt70-box h3.jt70-h, .jtool .jt70-brief h4, .jtool .jt70-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt70-wrap td { white-space: normal !important; vertical-align: top; }
+.jtool .jt70-wrap tr.jt70-r--lead td { background: var(--jtool-ok-bg); }
+.jtool .jt70-wrap tr.jt70-mine td { background: var(--jtool-verdict-tint); font-weight: 700; }
+.jtool .jt70-cases { margin: 0 !important; padding: 0 !important; list-style: none !important; display: flex; flex-direction: column; gap: 8px; }
+.jtool .jt70-case { margin: 0 !important; padding: 8px 12px; border: 1px solid var(--jtool-border); border-inline-start: 5px solid var(--jtool-ok); border-radius: 8px; background: #fff; font-size: 0.92rem !important; line-height: 1.55 !important; list-style: none !important; }
+.jtool .jt70-case--open { border-inline-start-color: var(--jtool-verdict); border-inline-start-style: dashed; }
+.jtool .jt70-note { margin: var(--jtool-space-2) 0 0 !important; font-size: 0.85rem !important; color: var(--jtool-muted) !important; line-height: 1.5 !important; }
+.jtool .jt70-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; }
+.jtool .jt70-next ul { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt70-next li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt70-method { margin: 0 !important; padding-inline-start: 20px !important; }
+.jtool .jt70-method li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt70-print { display: none; }
+@media (min-width: 700px) {
+	.jtool .jt70-track, .jtool .jt70-axis { margin-inline: 20px; }
+	.jtool .jt70-lane__h { font-size: 0.92rem !important; }
+}
+@media print {
+	.jtool[data-jtool="shaon-refui"] .jtool__head, .jtool[data-jtool="shaon-refui"] .jtool-form, .jtool[data-jtool="shaon-refui"] .jt70-screen,
+	.jtool[data-jtool="shaon-refui"] .jtool-next, .jtool[data-jtool="shaon-refui"] .jtool-sources, .jtool[data-jtool="shaon-refui"] .jtool-foot,
+	.jtool[data-jtool="shaon-refui"] .jt70-brief, .jtool[data-jtool="shaon-refui"] .jt70-next, .jtool[data-jtool="shaon-refui"] .jtool-actions,
+	.jtool[data-jtool="shaon-refui"] .jtool-sticky, .jtool[data-jtool="shaon-refui"] .jt70-keys { display: none !important; }
+	.jtool[data-jtool="shaon-refui"] .jtool__body { display: block !important; }
+	.jtool .jt70-rib, .jtool .jt70-box { break-inside: avoid; border-color: #000; }
+	.jtool .jt70-track { box-shadow: inset 0 0 0 1px #555; }
+	.jtool .jt70-bar, .jtool .jt70-war, .jtool .jt70-now { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+	.jtool .jt70-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt70-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt70-print p, .jtool .jt70-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt70-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}
+
+/* ===== The medical-malpractice wave (22.10.2026, HAD-594): jt71, the cost and fee estimator (alut-tviaa-refuit) =====
+   The picture is an accountant's ledger page and a court cashier's fee slip: the compensation on the top line in navy, each
+   cost on its own ruled line with a minus, its bar measured against the compensation and a small line saying who is paid and
+   when, down to a double rule and the net in deep green; beside it the fee slip's track (filing, the third pre-trial session,
+   the evidence, the judgment) with the reader's station filled, and the table of who pays at each ending. Mobile first
+   (390 px), light, the instrument's navy / deep-green variables only; no cream, gold, brown, terracotta, purple gradient,
+   Inter or emoji. */
+.jtool .jt71-presets { gap: var(--jtool-space-2); }
+.jtool .jt71-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; text-align: start; }
+.jtool .jt71-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt71-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt71-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt71-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt71-more > .jtool-row, .jtool .jt71-more > .jtool-field { margin-top: var(--jtool-space-3); }
+
+/* The ledger: one ruled line a cost. */
+.jtool .jt71-ledger, .jtool .jt71-track { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface); }
+.jtool .jt71-ledger__h { margin: 0 0 var(--jtool-space-2); font: 800 0.95rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt71-rows { margin: 0 !important; padding: 0 !important; list-style: none !important; border-top: 2px solid var(--jtool-verdict-deep); }
+.jtool .jt71-row { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "what amt" "bar bar"; gap: 4px 10px; align-items: baseline; margin: 0 !important; padding: 8px 2px; border-bottom: 1px solid var(--jtool-border); list-style: none !important; }
+.jtool .jt71-row__what { grid-area: what; font: 700 0.95rem/1.4 var(--jtool-font); color: var(--jtool-ink); }
+.jtool .jt71-row__what small { display: block; font: 600 0.8rem/1.35 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt71-row__amt { grid-area: amt; font: 800 1rem/1.3 var(--jtool-font); font-variant-numeric: tabular-nums; color: var(--jtool-ink); white-space: nowrap; }
+.jtool .jt71-row__bar { grid-area: bar; display: block; height: 8px; border-radius: 4px; background: var(--jtool-surface-2); overflow: hidden; }
+.jtool .jt71-row__bar i { display: block; height: 100%; border-radius: 4px; background: var(--jtool-field-border); }
+.jtool .jt71-row--top .jt71-row__bar i { background: var(--jtool-verdict-deep); }
+.jtool .jt71-row--top .jt71-row__amt { color: var(--jtool-verdict-deep); }
+.jtool .jt71-row--fee .jt71-row__bar i, .jtool .jt71-row--vat .jt71-row__bar i { background: var(--jtool-verdict); }
+.jtool .jt71-row--expert .jt71-row__bar i, .jtool .jt71-row--court_expert .jt71-row__bar i { background: #5F7FA3; }
+.jtool .jt71-row--court_fee .jt71-row__bar i { background: var(--jtool-ink); }
+.jtool .jt71-row--net { border-top: 3px double var(--jtool-verdict-deep); border-bottom: 0; padding-top: 10px; }
+.jtool .jt71-row--net .jt71-row__what, .jtool .jt71-row--net .jt71-row__amt { color: var(--jtool-ok); font-weight: 800; }
+.jtool .jt71-row--net .jt71-row__amt { font-size: 1.15rem; }
+.jtool .jt71-row--net .jt71-row__bar i { background: var(--jtool-ok); }
+.jtool .jt71-row--neg .jt71-row__what, .jtool .jt71-row--neg .jt71-row__amt { color: var(--jtool-danger); }
+.jtool .jt71-ledger__note { margin: var(--jtool-space-2) 0 0 !important; font-size: 0.85rem !important; color: var(--jtool-muted) !important; line-height: 1.5 !important; }
+
+/* The fee slip's track. */
+.jtool .jt71-stations { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; margin: 0 0 var(--jtool-space-3) !important; padding: 0 !important; list-style: none !important; counter-reset: jt71st; }
+.jtool .jt71-st { position: relative; margin: 0 !important; padding: 26px 4px 6px; border-top: 4px solid var(--jtool-border); text-align: center; list-style: none !important; counter-increment: jt71st; }
+.jtool .jt71-st::before { content: counter(jt71st); position: absolute; top: -13px; inset-inline-start: 50%; transform: translateX(50%); display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--jtool-field-border); background: #fff; color: var(--jtool-muted); font: 800 0.75rem/1 var(--jtool-font); }
+.jtool .jt71-st b { display: block; font: 800 0.8rem/1.25 var(--jtool-font); color: var(--jtool-ink); }
+.jtool .jt71-st small { display: block; margin-top: 2px; font: 600 0.72rem/1.3 var(--jtool-font); color: var(--jtool-muted); font-variant-numeric: tabular-nums; }
+.jtool .jt71-st--past { border-top-color: var(--jtool-verdict); }
+.jtool .jt71-st--past::before { border-color: var(--jtool-verdict); background: var(--jtool-verdict); color: #fff; }
+.jtool .jt71-st--now { border-top-color: var(--jtool-ok); }
+.jtool .jt71-st--now::before { border-color: var(--jtool-ok); background: var(--jtool-ok); color: #fff; }
+.jtool .jt71-st--now b { color: var(--jtool-ok); }
+.jtool .jt71-wrap td { white-space: normal !important; }
+.jtool .jt71-wrap tr.jt71-mine td { background: var(--jtool-ok-bg); font-weight: 700; }
+
+/* Flags, boxes, the published ranges, brief, next steps, method. */
+.jtool .jt71-flags { margin-top: var(--jtool-space-4) !important; }
+.jtool .jt71-flags li.jt71-flag { border: 1px solid var(--jtool-border); border-inline-start-width: 5px; background: var(--jtool-surface-2); color: var(--jtool-ink); }
+.jtool .jt71-flags li.jt71-flag--danger { border-color: #E9B9AE; border-inline-start-color: var(--jtool-danger); background: var(--jtool-danger-bg); color: var(--jtool-danger); }
+.jtool .jt71-flags li.jt71-flag--warn { border-inline-start-color: var(--jtool-verdict); background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); }
+.jtool .jt71-flags li.jt71-flag--info { border-inline-start-color: var(--jtool-field-border); }
+.jtool .jt71-box, .jtool .jt71-brief, .jtool .jt71-next { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface-2); }
+.jtool .jt71-box--fail { border-inline-start: 5px solid var(--jtool-danger); background: #fff; }
+.jtool .jt71-box h3.jt71-h, .jtool .jt71-brief h4, .jtool .jt71-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt71-box p { margin: 0 !important; font-size: 0.93rem !important; line-height: 1.6 !important; }
+.jtool .jt71-rules { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt71-rules li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt71-ranges { margin-top: var(--jtool-space-3); padding: var(--jtool-space-2) var(--jtool-space-3); border: 1px dashed var(--jtool-field-border); border-radius: 8px; background: #fff; }
+.jtool .jt71-ranges__h { margin: 0 0 6px !important; font-size: 0.9rem !important; color: var(--jtool-ink) !important; }
+.jtool .jt71-ranges ul { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt71-ranges li { margin: 0 0 6px !important; font-size: 0.85rem !important; line-height: 1.5 !important; color: var(--jtool-muted); }
+.jtool .jt71-src { font-weight: 700; color: var(--jtool-ink); }
+.jtool .jt71-url { display: block; font-size: 0.75rem; color: var(--jtool-muted); overflow-wrap: anywhere; word-break: break-all; text-align: start; }
+.jtool .jt71-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; }
+.jtool .jt71-next ul { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt71-next li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt71-method { margin: 0 !important; padding-inline-start: 20px !important; }
+.jtool .jt71-method li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt71-note { margin: var(--jtool-space-2) 0 0 !important; font-size: 0.85rem !important; color: var(--jtool-muted) !important; line-height: 1.5 !important; }
+.jtool .jt71-print { display: none; }
+
+@media (min-width: 720px) {
+	.jtool .jt71-row { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto; grid-template-areas: "what bar amt"; align-items: center; }
+	.jtool .jt71-st b { font-size: 0.9rem; }
+	.jtool .jt71-st small { font-size: 0.8rem; }
+}
+
+@media print {
+	.jtool[data-jtool="alut-tviaa-refuit"] .jtool__head, .jtool[data-jtool="alut-tviaa-refuit"] .jtool-form, .jtool[data-jtool="alut-tviaa-refuit"] .jt71-screen,
+	.jtool[data-jtool="alut-tviaa-refuit"] .jtool-next, .jtool[data-jtool="alut-tviaa-refuit"] .jtool-sources, .jtool[data-jtool="alut-tviaa-refuit"] .jtool-foot,
+	.jtool[data-jtool="alut-tviaa-refuit"] .jt71-brief, .jtool[data-jtool="alut-tviaa-refuit"] .jt71-next, .jtool[data-jtool="alut-tviaa-refuit"] .jtool-actions,
+	.jtool[data-jtool="alut-tviaa-refuit"] .jt71-ranges button, .jtool[data-jtool="alut-tviaa-refuit"] .jtool-sticky, .jtool[data-jtool="alut-tviaa-refuit"] .jtool-stages { display: none !important; }
+	.jtool[data-jtool="alut-tviaa-refuit"] .jtool__body { display: block !important; }
+	.jtool .jt71-ledger, .jtool .jt71-track, .jtool .jt71-box { break-inside: avoid; border-color: #000; }
+	.jtool .jt71-row__bar { border: 1px solid #555; }
+	.jtool .jt71-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt71-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt71-print p, .jtool .jt71-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt71-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}

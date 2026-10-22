@@ -44,6 +44,8 @@ Usage
   tools/justice_tools_injury_<name>.py)
   add --consumer-checked-on <day> the same way for the consumer-law datasets (HAD-593,
   tools/justice_tools_consumer_<name>.py)
+  add --malpractice-checked-on <day> the same way for the medical-malpractice datasets (HAD-594,
+  tools/justice_tools_malpractice_<name>.py)
 
 Every input can be a saved file (so a reviewer can rebuild the exact registry from the files
 attached to the PR) or omitted to fetch live. The script never estimates a missing value: a
@@ -1090,6 +1092,9 @@ def main() -> int:
     parser.add_argument("--consumer-checked-on", help="the day the consumer-law sources were read (HAD-593, "
                                                       "tools/justice_tools_consumer_*.py); when given, those datasets "
                                                       "are built too")
+    parser.add_argument("--malpractice-checked-on", help="the day the medical-malpractice sources were read (HAD-594, "
+                                                         "tools/justice_tools_malpractice_*.py); when given, those "
+                                                         "datasets are built too")
     args = parser.parse_args()
     wave3_day = args.wave3_checked_on or args.checked_on
     wave4_day = args.wave4_checked_on
@@ -1151,6 +1156,11 @@ def main() -> int:
             if key.startswith("consumer_"):
                 registry[key] = base[key]
         add_consumer(registry, args.consumer_checked_on)
+        # The medical-malpractice datasets (HAD-594) are kept the same way unless rebuilt.
+        for key in base:
+            if key.startswith("malpractice_"):
+                registry[key] = base[key]
+        add_malpractice(registry, args.malpractice_checked_on)
         write_registry(registry, args.out)
         return 0
 
@@ -1189,6 +1199,7 @@ def main() -> int:
     add_labor(registry, args.labor_checked_on or args.checked_on)
     add_injury(registry, args.injury_checked_on or args.checked_on)
     add_consumer(registry, args.consumer_checked_on or args.checked_on)
+    add_malpractice(registry, args.malpractice_checked_on or args.checked_on)
     write_registry(registry, args.out)
     return 0
 
@@ -1273,6 +1284,14 @@ def add_consumer(registry: dict, day: str | None) -> None:
         return
     import justice_tools_consumer as consumer  # tools/ is the script's own folder
     consumer.add_consumer(registry, day)
+
+
+def add_malpractice(registry: dict, day: str | None) -> None:
+    """The medical-malpractice wave (HAD-594): the datasets of tools/justice_tools_malpractice_<name>.py."""
+    if not day:
+        return
+    import justice_tools_malpractice as malpractice  # tools/ is the script's own folder
+    malpractice.add_malpractice(registry, day)
 
 
 def write_registry(registry: dict, out: str) -> None:

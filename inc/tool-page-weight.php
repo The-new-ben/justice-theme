@@ -7,7 +7,7 @@
  * - jsPDF 2.5.1 (cdnjs, ~94 KB), signature_pad 4.1.7 and the 1 KB `dwp-js` starter. The starter only acts
  *   when the page holds a `<canvas id="signature">`; no tool prints one.
  * - jQuery UI core + datepicker + its Hebrew locale block. The instruments are plain JavaScript with
- *   native date inputs; only a Gravity Forms date field would need the datepicker.
+ *   native date inputs; only a Gravity Forms date field (shortcode or `gravityforms/form` block) needs it.
  * - Search & Filter Pro (build + chosen, printed in the head, so they block the first paint). It serves a
  *   `[searchandfilter]` form, which no tool page holds.
  * A page keeps a group whenever its own content names what the group serves (a signature canvas, a Gravity
@@ -63,7 +63,7 @@ function justice_theme_tool_page_drops( string $content ): array {
 	};
 	return array(
 		'signature'     => ! $has( array( 'signature', 'jspdf', '[dwp', '[digital' ) ),
-		'datepicker'    => ! $has( array( '[gravityform', '[gravityforms', 'datepicker' ) ),
+		'datepicker'    => ! $has( array( '[gravityform', '[gravityforms', 'wp:gravityforms/', 'datepicker' ) ),
 		'search_filter' => ! $has( array( '[searchandfilter', 'search-filter' ) ),
 	);
 }

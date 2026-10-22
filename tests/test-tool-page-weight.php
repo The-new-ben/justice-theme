@@ -100,6 +100,9 @@ check( gone( $s, $dp ) && gone( $s, $sf ), 'only the needed group stays' );
 [ $s ] = run( "[justice_tool name=\"hodaa-mukdemet\"]\n[gravityform id=\"10\" title=\"false\"]" );
 check( kept( $s, $dp ), 'a Gravity Form keeps the datepicker' );
 check( gone( $s, $sig ), 'the Gravity Form page still drops the signature group' );
+[ $s ] = run( "[justice_tool name=\"sachar-neto\"]
+<!-- wp:gravityforms/form {\"formId\":\"10\"} /-->" );
+check( kept( $s, $dp ), 'a Gravity Forms block keeps the datepicker' );
 [ $s, $st ] = run( '[justice_tool name="sachar-neto"][searchandfilter id="5"]' );
 check( kept( $s, $sf ) && kept( $st, array( 'search-filter-plugin-styles' ) ), 'a search form keeps Search & Filter' );
 

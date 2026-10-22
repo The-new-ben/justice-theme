@@ -1,0 +1,95 @@
+<section> to </section> -->
+<section class="jt-property-tool" data-jt-tool="delayed-handover" data-hj-suppress data-clarity-mask="true" lang="he" dir="rtl" aria-labelledby="jtdh-title">
+
+
+<header class="jt-head">
+<p class="jt-kicker">כלי ארגון ראיות · איחור במסירת דירה</p>
+<h2 class="jt-title" id="jtdh-title">תיק מסמכים לאיחור במסירת דירה</h2>
+<p class="jt-lead">הזינו שלושה מועדים וסמנו אילו מסמכים כבר בידיכם. תקבלו כרונולוגיה להדפסה, רשימת מסמכים עם מה שעוד חסר, וסיכום ניטרלי שאפשר לערוך ולהביא לפגישה עם עורך דין.</p>
+<p class="jt-scope">הכלי מארגן מועדים ומסמכים, ואינו מחשב פיצוי או קובע זכויות. אין להזין שמות, כתובות, מספרי זיהוי או פרטי תיק. הנתונים בכלי אינם נשמרים על ידו לאחר רענון הדף; העתיקו את הסיכום לפני היציאה.</p>
+</header>
+
+<div class="jt-fallback" data-jt-fallback>
+<div class="jt-block">
+<p class="jt-h">רשימת מסמכים כללית (הכלי האינטראקטיבי דורש JavaScript)</p>
+<p>רשמו לעצמכם שלושה מועדים: חתימת החוזה, מועד המסירה שנקבע בחוזה, ומועד המסירה בפועל (אם הדירה נמסרה). מועד חתימת החוזה קובע איזו מסגרת חוקית יש לבדוק - <a href="#compensation-rules">ראו את ההסבר במאמר</a>. מסמכים לאסוף:</p>
+<ol class="jt-list">
+<li><span class="jt-n">01</span><span class="jt-c">חוזה המכר החתום ונספחיו</span></li>
+<li><span class="jt-n">02</span><span class="jt-c">הסעיף בחוזה שקובע את מועד המסירה</span></li>
+<li><span class="jt-n">03</span><span class="jt-c">הודעות על דחייה במסירה והנימוקים שנמסרו</span></li>
+<li><span class="jt-n">04</span><span class="jt-c">שינויים ותוספות שביקש הקונה</span></li>
+<li><span class="jt-n">05</span><span class="jt-c">התכתבות עם החברה</span></li>
+<li><span class="jt-n">06</span><span class="jt-c">פרוטוקול מסירה</span></li>
+<li><span class="jt-n">07</span><span class="jt-c">ראיות לשכר דירה של דירה דומה</span></li>
+<li><span class="jt-n">08</span><span class="jt-c">קבלות על דיור חלופי או אחסון</span></li>
+<li><span class="jt-n">09</span><span class="jt-c">תשלומי פיצוי שכבר התקבלו</span></li>
+<li><span class="jt-n">10</span><span class="jt-c">בקשה לוויתור או מסמך ויתור שהוצג לחתימה</span></li>
+</ol>
+</div>
+</div>
+
+<div data-jt-app hidden>
+<form class="jt-form jt-noprint" novalidate data-jt-form>
+<div class="jt-errsum" data-jt-errsum tabindex="-1" role="alert" hidden></div>
+
+<fieldset class="jt-block">
+<legend class="jt-step"><span class="jt-num">01</span><span>מועדים מהחוזה</span></legend>
+<div class="jt-fields">
+<div class="jt-field">
+<label class="jt-label" for="jtdh-contract">תאריך חתימת החוזה</label>
+<span class="jt-sub" id="jtdh-contract-hint">אם אין לוח שנה, הקלידו יום/חודש/שנה, למשל 31/12/2020</span>
+<input class="jt-input" type="date" id="jtdh-contract" name="contract" required aria-required="true" aria-describedby="jtdh-contract-hint" autocomplete="off">
+<p class="jt-err" id="jtdh-contract-err" hidden></p>
+</div>
+<div class="jt-field">
+<label class="jt-label" for="jtdh-promised">מועד המסירה שנקבע בחוזה</label>
+<span class="jt-sub" id="jtdh-promised-hint">המועד הכתוב בחוזה. תנאים או טווחים אפשר לפרט בסיכום.</span>
+<input class="jt-input" type="date" id="jtdh-promised" name="promised" required aria-required="true" aria-describedby="jtdh-promised-hint" autocomplete="off">
+<p class="jt-err" id="jtdh-promised-err" hidden></p>
+</div>
+</div>
+<p class="jt-framehint">מועד חתימת החוזה קובע איזו מסגרת חוקית ואיזה נוסח של הוראות הפיצוי יש לבדוק. הכלי אינו מכריע בכך.</p>
+</fieldset>
+
+<fieldset class="jt-block" data-jt-status-fs aria-describedby="jtdh-status-hint">
+<legend class="jt-step"><span class="jt-num">02</span><span>מצב המסירה</span></legend>
+<p class="jt-hint" id="jtdh-status-hint">נכון להיום.</p>
+<div class="jt-opts">
+<label class="jt-opt"><input type="radio" name="jtdh-status" value="pending" id="jtdh-status-first"><span><strong>הדירה טרם נמסרה</strong></span></label>
+<label class="jt-opt"><input type="radio" name="jtdh-status" value="delivered"><span><strong>הדירה נמסרה</strong></span></label>
+</div>
+<p class="jt-err" id="jtdh-status-err" hidden></p>
+<div class="jt-field jt-actual" data-jt-actual hidden>
+<label class="jt-label" for="jtdh-actual">תאריך המסירה בפועל</label>
+<span class="jt-sub" id="jtdh-actual-hint">לפי פרוטוקול המסירה או קבלת המפתח.</span>
+<input class="jt-input" type="date" id="jtdh-actual" name="actual" aria-describedby="jtdh-actual-hint" autocomplete="off">
+<p class="jt-err" id="jtdh-actual-err" hidden></p>
+</div>
+</fieldset>
+
+<fieldset class="jt-block">
+<legend class="jt-step"><span class="jt-num">03</span><span>אילו מסמכים בידיכם?</span></legend>
+<p class="jt-hint">שורה שלא סומנה תופיע בתיק כמידע חסר.</p>
+<div class="jt-docs" data-jt-docs></div>
+</fieldset>
+
+<div class="jt-block">
+<div class="jt-actions">
+<button type="submit" class="jt-btn">הכנת התיק</button>
+<button type="button" class="jt-btn jt-btn--sec" data-jt-reset>איפוס</button>
+</div>
+<p class="jt-stale" data-jt-stale hidden>הנתונים השתנו. לחצו על "הכנת התיק" כדי לעדכן. הסיכום ייכתב מחדש.</p>
+</div>
+</form>
+
+<p class="jt-vh" aria-live="polite" data-jt-live></p>
+<div class="jt-result" data-jt-result hidden></div>
+
+<div class="jt-cta jt-noprint">
+<p>רוצים שעורך דין יעבור על התיק איתכם?</p>
+<a class="jt-btn" href="#practice-lead-form">לתיאום שיחה עם עורך דין</a>
+</div>
+</div>
+
+
+</section>

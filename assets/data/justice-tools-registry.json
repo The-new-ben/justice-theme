@@ -5553,6 +5553,1296 @@
    "bl_calculator_url": "https://www.btl.gov.il/Simulators/Pages/BituahCalculator.aspx"
   }
  },
+ "rights_miluim": {
+  "name_he": "תגמולי מילואים, מענקי מילואים והגנה מפיטורים לשנת 2026",
+  "publisher_he": "המוסד לביטוח לאומי, ענף מילואים; משרד הביטחון וצה\"ל; משרד העבודה",
+  "source_name": "המוסד לביטוח לאומי: מילואים (תנאי זכאות, סכום התגמול, תשלום לפי סוגי זכאים, הגשת תביעה); חוק הביטוח הלאומי, פרק י\"ב; חוק החיילים המשוחררים (החזרה לעבודה); צו ההרחבה של 29.4.2026; אתר המילואים של צה\"ל: מדיניות 2026",
+  "source_url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/default.aspx",
+  "checked_on": "2026-10-21",
+  "refresh_every_days": 90,
+  "next_update": "2027-01-01",
+  "from": "2026-01-01",
+  "law_he": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995, פרק י\"ב: תגמולים למשרתים במילואים",
+  "law_url": "https://www.btl.gov.il/Laws1/00_0001_000012.pdf",
+  "claims_law_url": "https://www.btl.gov.il/Laws1/00_0001_000014.pdf",
+  "general_law_url": "https://www.btl.gov.il/Laws1/00_0001_000001.pdf",
+  "pages": {
+   "main": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/default.aspx",
+   "conditions": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%aa%d7%a0%d7%90%d7%99%20%d7%96%d7%9b%d7%90%d7%95%d7%aa.aspx",
+   "amount": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "by_status": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/TagmulZacay.aspx",
+   "claim": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%9e%d7%a7%d7%95%d7%9d%20%d7%95%d7%90%d7%95%d7%a4%d7%9f%20%d7%94%d7%94%d7%92%d7%a9%d7%94.aspx",
+   "deductions": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%a0%d7%99%d7%9b%d7%95%d7%99%d7%99%d7%9d%20%d7%9e%d7%aa%d7%a9%d7%9c%d7%95%d7%9d%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "employer": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%9e%d7%99%d7%93%d7%a2%20%d7%9c%d7%9e%d7%a2%d7%a1%d7%99%d7%a7.aspx",
+   "self_comp": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/hefreshimLeatzmayi.aspx",
+   "change_2025": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/HisovTAGMOLSatHIROM.aspx",
+   "raise": "https://www.btl.gov.il/benefits/Reserve_Service/TosefetTAGMOL/Pages/default.aspx",
+   "other_benefits": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%9c%d7%9e%d7%a7%d7%91%d7%9c%20%d7%a7%d7%a6%d7%91%d7%90%d7%95%d7%aa%20%d7%a0%d7%95%d7%a1%d7%a4%d7%95%d7%aa%20%d7%91%d7%9e%d7%95%d7%a1%d7%93.aspx",
+   "appeal": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/irur.aspx",
+   "calculator": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/Calculator.aspx",
+   "war": "https://www.btl.gov.il/HaravotBarzel1/KizbeotHB/MiloeimHB/Pages/MsrtimMiloeim.aspx",
+   "form_502": "https://www.btl.gov.il/%D7%98%D7%A4%D7%A1%D7%99%D7%9D%20%D7%95%D7%90%D7%99%D7%A9%D7%95%D7%A8%D7%99%D7%9D/forms/Reserve_Service_forms/Pages/502.aspx",
+   "diff_form": "https://forms.btl.gov.il/Form/NkStart/TviaLehefresh"
+  },
+  "pay": {
+   "basic_key": "b3",
+   "max_mult": 5,
+   "min_pct": 95,
+   "divisor_month": 30,
+   "max_month": 51910,
+   "max_daily": 1730.33,
+   "min_month": 9863,
+   "min_daily": 328.76,
+   "from": "2026-01-01",
+   "quarter_months": 3,
+   "quarter_divisor": 90,
+   "long_months": 6,
+   "short_days": 60,
+   "month_floor_pct": 68,
+   "section_max": "סעיף 270 (התגמול המרבי)",
+   "section_min": "סעיף 270 (התגמול המזערי)",
+   "section_rate": "סעיף 272",
+   "section_base": "סעיף 273(א)(1)",
+   "section_floor": "סעיף 273(א)(2)",
+   "section_short": "סעיף 273(ב)",
+   "url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "status_url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/TagmulZacay.aspx",
+   "he": "השכר או ההכנסה ברוטו ב-3 החודשים שקדמו ל-1 בחודש שבו התחיל השירות, חלקי 90, ליום; לא פחות מ-328.76 ש\"ח ולא יותר מ-1,730.33 ש\"ח ליום (מ-1.1.2026)",
+   "includes_he": "בחישוב נכללים גם דמי מחלה, דמי לידה, תמורת חופשה, תגמולי מילואים, דמי אבטלה ודמי פגיעה",
+   "floor_he": "ההכנסה של כל חודש ברבע השנה נחשבת לפחות 68% מהסכום הבסיסי, גם בחודש בלי עבודה",
+   "short_he": "מי שעבד פחות מ-60 ימים ב-3 החודשים: לפי 3 החודשים שבחר מתוך 6 החודשים שקדמו לחודש השירות",
+   "min_he": "סטודנט, מי שלא עובד, ומי ששכרו נמוך מהמינימום: 328.76 ש\"ח ליום",
+   "min_law_he": "התגמול המזערי הוא 95% מהסכום הבסיסי לחודש, חלקי 30 (תיקון 260, מ-1.1.2026; לפני כן 68%, ולמי שנקרא לשירות בין 7.10.2023 ל-31.12.2025: 95% בהוראת שעה)",
+   "bonus_min": 1611,
+   "bonus_months": 12,
+   "bonus_he": "תשלום נוסף (בונוס, ביגוד, הבראה) מעל 1,611 ש\"ח (רבע משכר המינימום) מחלקים ב-12 ומוסיפים לחודש התשלום ול-11 החודשים שלפניו",
+   "bonus_url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/Calculator.aspx"
+  },
+  "addition": {
+   "week": 7,
+   "factor": 1.4,
+   "six": 6,
+   "six_paid": 7,
+   "section": "סעיף 271(א)",
+   "url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "table": [
+    [7, 7],
+    [20, 21],
+    [21, 21],
+    [22, 22.4],
+    [28, 28],
+    [29, 29.4],
+    [33, 35],
+    [42, 42],
+    [44, 44.8],
+    [56, 56],
+    [60, 61.6],
+    [65, 65.8],
+    [70, 70],
+    [75, 77],
+    [80, 81.2],
+    [90, 91],
+    [100, 100.8],
+    [120, 122],
+    [140, 140],
+    [160, 161]
+   ],
+   "he": "מחלקים את ימי השירות ב-7: כל שבוע משולם כ-7 ימים; שארית של 6 ימים משולמת כ-7, ושארית קטנה מ-6 כפול 1.4 (תוספת של 40%)",
+   "war_he": "בתקופת המלחמה: התגמול על ימי השירות משולם בתחילת כל חודש על החודש הקודם, והתוספת חודשיים אחרי סיום השירות",
+   "war_url": "https://www.btl.gov.il/HaravotBarzel1/KizbeotHB/MiloeimHB/Pages/MsrtimMiloeim.aspx",
+   "war_2026_url": "https://www.btl.gov.il/StateOfEmergency/ShaagatHari/KizbeotHB/MiloeimHB/Pages/MsrtimMiloeim.aspx"
+  },
+  "half_day": {
+   "factor": 0.5,
+   "max_hours": 6,
+   "section": "סעיף 271(ב)",
+   "url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "he": "שירות חצי יומי (עד 6 שעות כולל הנסיעות, לפי אישור צבאי): מחצית מהתגמול ליום"
+  },
+  "self": {
+   "comp_pct": 25,
+   "url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/hefreshimLeatzmayi.aspx",
+   "auto_weeks": 3,
+   "claim_url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%9e%d7%a7%d7%95%d7%9d%20%d7%95%d7%90%d7%95%d7%a4%d7%9f%20%d7%94%d7%94%d7%92%d7%a9%d7%94.aspx",
+   "he": "עצמאי שמדווח ומשלם דמי ביטוח כסדרם מקבל פיצוי של 25% מהתגמול המחושב לפי הכנסתו כעצמאי, ולפי התגמול המזערי כשההכנסה נמוכה ממנו; התגמול והפיצוי יחד לא יותר מ-1,730.33 ש\"ח ליום",
+   "basis_he": "בשלב הראשון לפי המקדמות ב-3 החודשים שלפני השירות, חלקי 90; אחרי השומה הסופית החישוב נעשה מחדש: הפרשים משולמים, ותגמול עודף נגבה",
+   "auto_he": "ברוב המקרים התגמול משולם לעצמאי אוטומטית לפי דיווח צה\"ל; מי שלא קיבל אותו בתוך 3 שבועות מסיום השירות מגיש תביעה אישית (טופס 502)",
+   "years_he": "לשירות בשנים 2023 עד 2025 חלה הוראת שעה: התגמול לפי השומה הסופית או לפי ההכנסה שבבסיס המקדמות, הגבוהה"
+  },
+  "stopped": {
+   "days": 60,
+   "section": "סעיף 274(א)",
+   "url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "he": "מי שהפסיק לעבוד ולא חלפו יותר מ-60 ימים עד השירות: כאילו יצא למילואים ביום שהפסיק, לפי 3 החודשים שקדמו להפסקת העבודה"
+  },
+  "drag": {
+   "days": 60,
+   "section": "סעיף 279(א)",
+   "url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "he": "מי שהתחיל שירות בתוך 60 ימים מסיום שירות קודם: אם זה לטובתו, לפי ההכנסה ב-3 החודשים שקדמו לשירות הראשון"
+  },
+  "emergency": {
+   "gap_days": 90,
+   "raise_pct": 20,
+   "raise_months": 3,
+   "from": "2025-05-01",
+   "section": "סעיף 274ב",
+   "drag_section": "סעיף 279(ב)",
+   "url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/HisovTAGMOLSatHIROM.aspx",
+   "diff_url": "https://forms.btl.gov.il/Form/NkStart/TviaLehefresh",
+   "he": "בתקופת חירום (קריאה לפי סעיף 8 לחוק שירות המילואים): שכיר או מי שלא עובד שנקרא לשירות נוסף, וה-1 בחודש השירות חל פחות מ-90 ימים אחרי סיום שירות קודם בתקופת החירום, מקבל תגמול לפי ההכנסה שלפני השירות הראשון בתקופת החירום; עלייה של עד 20% נכנסת לחישוב, ועלייה גבוהה יותר רק אם נמשכה 3 חודשים רצופים לפחות והוכח שהיא מעבודה",
+   "page_he": "אם ההכנסה ירדה: לפי ההכנסה הקודמת; עלתה עד 20%: לפי ההכנסה הנוכחית; עלתה ב-20% ומעלה: לפי ההכנסה הקודמת ועוד 20%, והיתרה בבקשת הפרשים",
+   "self_he": "השינוי חל על שכיר או מי שלא עובד; משרת ששכרו נפגע בגלל שינוי מעמד (עצמאי שהפך לשכיר וכדומה) מתבקש לפנות למוסד לבדיקה אישית"
+  },
+  "payer": {
+   "employer_days": 75,
+   "section": "סעיף 276(א)",
+   "institute_section": "סעיף 276(ב)",
+   "transfer_section": "סעיף 280",
+   "url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/TagmulZacay.aspx",
+   "claim_url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%9e%d7%a7%d7%95%d7%9d%20%d7%95%d7%90%d7%95%d7%a4%d7%9f%20%d7%94%d7%94%d7%92%d7%a9%d7%94.aspx",
+   "employer_url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%9e%d7%99%d7%93%d7%a2%20%d7%9c%d7%9e%d7%a2%d7%a1%d7%99%d7%a7.aspx",
+   "form_502_url": "https://www.btl.gov.il/%D7%98%D7%A4%D7%A1%D7%99%D7%9D%20%D7%95%D7%90%D7%99%D7%A9%D7%95%D7%A8%D7%99%D7%9D/forms/Reserve_Service_forms/Pages/502.aspx",
+   "army_form": "3010",
+   "personal_form": "502",
+   "employer_form": "501",
+   "employer_he": "שכיר בשכר חודשי, או שעבד 75 ימים לפחות ב-3 החודשים אצל מעסיק אחד: המעסיק ממשיך לשלם את השכר במועד הרגיל, והמוסד מעביר לו את התגמול (טופס 501)",
+   "diff_he": "אם התגמול שהמוסד העביר למעסיק גבוה מהשכר ששולם על ימי השירות, המעסיק מעביר את ההפרש לעובד, לכל המאוחר ביום תשלום השכר של החודש שבו קיבל את התגמול",
+   "institute_he": "כל השאר (עובד יומי או שעתי שעבד פחות מ-75 ימים, עצמאי, סטודנט, מי שלא עובד): המוסד משלם ישירות",
+   "personal_he": "תביעה אישית בטופס 502 עם אישור השירות מהצבא (טופס 3010), מקוונת באתר המוסד; סטודנט ומי שלא עובד מקבלים בתקופת המלחמה תשלום אוטומטי בתחילת כל חודש",
+   "count_he": "ב-75 הימים נספרים גם שבתות וחגים, ימי חופשה, ימי מחלה או תאונה וימי אבל",
+   "salary_he": "תגמול שמשולם דרך המעסיק נחשב שכר עבודה, עם הניכויים הרגילים"
+  },
+  "claim": {
+   "deadline_months": 12,
+   "section": "סעיף 296(א)",
+   "late_section": "סעיף 296(ב)(1)",
+   "url": "https://www.btl.gov.il/Laws1/00_0001_000014.pdf",
+   "benefit_section": "סעיף 1 (\"גמלה\")",
+   "benefit_url": "https://www.btl.gov.il/Laws1/00_0001_000001.pdf",
+   "he": "תביעה לגמלת כסף מגישים בתוך 12 חודשים מהיום שבו נוצרה העילה (וגמלה לפי פרק י\"ב היא גמלה לעניין זה); תביעה מאוחרת משולמת רק בעד 12 החודשים שלפני הגשתה",
+   "safe_he": "המחשבון סופר את 12 החודשים מהיום הראשון של השירות, המועד המוקדם והבטוח"
+  },
+  "unemployment": {
+   "section": "סעיף 272(ג)",
+   "url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%9c%d7%9e%d7%a7%d7%91%d7%9c%20%d7%a7%d7%a6%d7%91%d7%90%d7%95%d7%aa%20%d7%a0%d7%95%d7%a1%d7%a4%d7%95%d7%aa%20%d7%91%d7%9e%d7%95%d7%a1%d7%93.aspx",
+   "he": "מי שהיה זכאי לדמי אבטלה סמוך לפני השירות מקבל בימי השירות תגמול בלבד, אבל לא פחות מדמי האבטלה שהיו מגיעים לו"
+  },
+  "deductions": {
+   "url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%a0%d7%99%d7%9b%d7%95%d7%99%d7%99%d7%9d%20%d7%9e%d7%aa%d7%a9%d7%9c%d7%95%d7%9d%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "he": "מהתגמול מנוכים דמי ביטוח לאומי ובריאות (בתביעה אישית של שכיר: ביטוח בריאות בלבד), מס הכנסה לפי לוח הניכוי לעובדים יומיים, והפרשות לפנסיה כאילו המשיך לעבוד"
+  },
+  "protect": {
+   "law_he": "חוק החיילים המשוחררים (החזרה לעבודה), התש\"ט-1949",
+   "law_url": "https://www.nevo.co.il/law_html/law00/71925.htm",
+   "during_section": "סעיף 41א(ב)",
+   "after_days": 30,
+   "after_min_days": 3,
+   "after_section": "סעיף 41א(ב)",
+   "cause_section": "סעיף 41א(א1)",
+   "burden_section": "סעיף 41א(ד)",
+   "notice_section": "סעיף 41א(ג)",
+   "contract_section": "סעיף 41א(ה)",
+   "penalty_section": "סעיף 41א1",
+   "inform_section": "סעיף 41ג",
+   "during_he": "בזמן שירות המילואים אסור לפטר בלי היתר מוועדת התעסוקה",
+   "after_he": "בשירות של יותר מיומיים רצופים: גם 30 ימים אחרי תום השירות אסור לפטר, ואסור לפגוע בהיקף המשרה או בהכנסה, בלי היתר",
+   "cause_he": "פיטורים בשל שירות מילואים, קריאה לשירות או שירות צפוי, גם בשל תדירותו או משכו, אסורים בכל זמן ובטלים",
+   "permit_he": "הוועדה נותנת היתר רק מטעמים מיוחדים שיירשמו, ורק אם המעסיק הוכיח שהפיטורים אינם בשל שירות המילואים",
+   "notice_he": "ימי השירות ו-30 הימים שאחריו לא נספרים בימי ההודעה המוקדמת",
+   "income_he": "פגיעה בהכנסה שחלה במקום העבודה מכוח דין או הסכם קיבוצי, או ברכיב שכר לפי תפוקה שלא בגלל המעסיק, אינה פגיעה לעניין זה",
+   "contract_he": "אי חידוש חוזה לתקופה קצובה של 12 חודשים ומעלה (או חוזה קצר שהאריך העסקה קודמת) הוא פיטורים",
+   "inform_he": "מי שקיבל צו קריאה מודיע למעסיק בתוך זמן סביר",
+   "committee": {
+    "members": 4,
+    "decide_days": 15,
+    "section": "סעיף 20(ג)",
+    "claim_section": "סעיף 21",
+    "url": "https://www.nevo.co.il/law_html/law00/71925.htm",
+    "he": "בוועדת התעסוקה ארבעה חברים: יושב ראש הכשיר לכהן כשופט בית משפט השלום, עובד הלשכה להכוונת חיילים משוחררים במשרד הביטחון, נציג ארגון העובדים ונציג ארגוני המעסיקים; היא דנה ופוסקת ככל האפשר בתוך 15 ימים"
+   },
+   "remedy": {
+    "wage_mult": 5,
+    "avg_mult": 5,
+    "section": "סעיף 21(ג)",
+    "url": "https://www.nevo.co.il/law_html/law00/71925.htm",
+    "he": "צו להחזרה לעבודה (בהסכמת העובד), פיצוי של 5 משכורות חודשיות, או שניהם יחד כשהפיצוי לפי הנזק בפועל; במי שפוטר בניגוד לסעיף 41א: 5 משכורות או 5 פעמים השכר הממוצע במשק (סעיף 1 לחוק הביטוח הלאומי), הגבוה"
+   },
+   "appeal": {
+    "days": 20,
+    "section": "סעיף 23(א)",
+    "url": "https://www.nevo.co.il/law_html/law00/71925.htm",
+    "he": "על החלטת ועדת התעסוקה מערערים לבית הדין האזורי לעבודה בתוך 20 ימים מיום מסירת ההודעה"
+   },
+   "spouse": {
+    "child_age": 14,
+    "after_days": 14,
+    "min_days": 21,
+    "section": "סעיף 41א2(ה)",
+    "url": "https://www.nevo.co.il/law_html/law00/71925.htm",
+    "he": "בן או בת זוג של משרת מילואים, שעימו ילד מתחת לגיל 14: אסור לפטר או להוציא לחל\"ת בזמן השירות ו-14 ימים אחריו בלי היתר, בשירות בצו 8 או בשירות של 21 ימים רצופים לפחות, אם הודיע למעסיק בכתב"
+   },
+   "order": {
+    "he": "צו הרחבה להסכם קיבוצי בעניין משרתי המילואים ובני זוגם וצבירת חופשה שנתית לעובדים מסוימים",
+    "url": "https://www.gov.il/BlobFolder/legalinfo/tak-14498/he/laws_tk-14498.pdf",
+    "published": "2026-04-29",
+    "signed": "2026-04-28",
+    "from": "2026-01-01",
+    "clause_from": "2026-04-29",
+    "min_days": 60,
+    "consecutive": 7,
+    "ext_from_day": 31,
+    "ext_to_day": 60,
+    "gap_days": 5,
+    "committee_days": 14,
+    "section": "סעיף 5 לצו",
+    "unpaid_section": "סעיף 6 לצו",
+    "committee_section": "סעיף 7 לצו",
+    "conditions_section": "סעיף 8 לצו",
+    "days_section": "סעיף 2.4 לצו",
+    "spouse_section": "סעיף 12.1 לצו",
+    "ext_he": "60 ימי מילואים מצטברים או יותר בשנה קלנדרית, ושבעה ימים רצופים לפחות: אסור לפטר גם ב-30 הימים שאחרי 30 הימים שלאחר תום השירות, אלא מטעמים מיוחדים ובלי קשר לשירות; בתוקף מיום פרסום הצו, 29.4.2026, לתקופה בלתי קצובה",
+    "unpaid_he": "אסור להוציא לחופשה ללא תשלום גם ב-30 הימים שאחרי 30 הימים שלאחר תום השירות, אלא מטעמים מיוחדים, בלי קשר לשירות ובהסכמת העובד, או כשהעובד רוצה בכך והשניים הסכימו",
+    "committee_he": "מחלוקת על פיטורים או חל\"ת בימים 31 עד 60 מכריעה ועדת הפיקוח (פנייה בדוא\"ל שמתפרסם באתר משרד העבודה) בתוך 14 ימים, ועד ההכרעה הפיטורים לא נכנסים לתוקף",
+    "conditions_he": "בזמן השירות וב-60 הימים שאחריו אסור לפגוע בתנאי העבודה, לרבות העברה לתפקיד אחר והוספה או גריעה של מטלות",
+    "days_he": "ימי מילואים מצטברים בשנה קלנדרית: הימים של אותה שנה, וגם ימים מהשנה הקודמת כשהשירות נמשך ברצף לתוך השנה (הפסקות של עד 5 ימים בין שירות לשירות לא שוברות את הרצף)",
+    "spouse_days": [
+     [0, 30, 0],
+     [31, 60, 2],
+     [61, 90, 4],
+     [91, 120, 6],
+     [121, null, 8]
+    ],
+    "spouse_he": "בן או בת זוג של משרת המילואים (עם ילד מתחת לגיל 14, ילד חולה, קרוב עם מוגבלות או הורה חולה) זכאים לימי היעדרות בתשלום מעבר לדין, לפי הימים המצטברים של המשרת בשנה, ורק בזמן שירות פעיל שלו",
+    "labor_url": "https://www.gov.il/he/pages/reserve-protection2",
+    "prev": {
+     "url": "https://api.miluim.idf.il/api/v1/Media/ooahuywl/%D7%A6%D7%95-%D7%94%D7%A8%D7%97%D7%91%D7%94-%D7%AA%D7%A2%D7%A1%D7%95%D7%A7%D7%AA%D7%99.pdf",
+     "published": "2024-03-06",
+     "from": "2023-10-07",
+     "to": "2024-12-31",
+     "he": "הצו הקודם (י\"פ 12159, 6.3.2024): 60 ימי מילואים בתקופה 7.10.2023 עד 31.12.2024 הגנו גם בימים 31 עד 60"
+    }
+   },
+   "equal": {
+    "law_he": "חוק שוויון ההזדמנויות בעבודה, התשמ\"ח-1988",
+    "law_url": "https://www.nevo.co.il/law_html/law00/5016.htm",
+    "section": "סעיף 2(א)",
+    "he": "שירות מילואים, של העובד או של בן הזוג, וגם קריאה לשירות או שירות צפוי, הם עילת הפליה אסורה בקבלה לעבודה, בתנאים, בקידום ובפיטורים"
+   },
+   "legal_aid_url": "https://www.miluim.idf.il/articles-list/%D7%99%D7%99%D7%A6%D7%95%D7%92-%D7%9E%D7%A9%D7%A4%D7%98%D7%99/",
+   "legal_aid_he": "משרתי מילואים ששירתו יותר מ-3 ימים רצופים ופוטרו, זומנו לשימוע או הוצאו לחל\"ת בתקופת ההגנה עשויים לקבל ייצוג משפטי במימון משרד הביטחון"
+  },
+  "grants": {
+   "year": 2026,
+   "decision": "2026-01-25",
+   "url": "https://www.miluim.idf.il/articles-list/%D7%9E%D7%93%D7%99%D7%A0%D7%99%D7%95%D7%AA-2026/",
+   "prev_url": "https://www.miluim.idf.il/articles-list/%D7%9E%D7%93%D7%99%D7%A0%D7%99%D7%95%D7%AA-2025/",
+   "rewards_url": "https://www.miluim.idf.il/articles-list/%D7%AA%D7%92%D7%9E%D7%95%D7%9C%D7%99%D7%9D-2025/",
+   "fund_url": "https://www.miluim.idf.il/articles-list/%D7%A7%D7%A8%D7%9F-%D7%94%D7%A1%D7%99%D7%95%D7%A2-%D7%9C%D7%9E%D7%A9%D7%A8%D7%AA%D7%99-%D7%94%D7%9E%D7%99%D7%9C%D7%95%D7%90%D7%99%D7%9D/",
+   "tiers": [
+    "ap",
+    "a",
+    "b",
+    "c",
+    "d",
+    "e"
+   ],
+   "tier_he": {
+    "ap": "א'+",
+    "a": "א'",
+    "b": "ב'",
+    "c": "ג'",
+    "d": "ד'",
+    "e": "ה'"
+   },
+   "tier_examples_he": "לדוגמה בלבד: א'+ גדודים לוחמים, א' חטיבות, ב' אוגדות, ג' הגמ\"ר, ד' יחידות הדרכה ואבטחה, ה' פיקודים ומטות; המדרג נקבע לפי פקודות הצבא (מוקד המילואים 1111, שלוחה 4 ואז 1)",
+   "routine_he": "ב-2026 נספר גם שירות בצו שגרה, לא רק בצו 8",
+   "old8": {
+    "from": "2023-10-07",
+    "to": "2025-12-31",
+    "he": "ימי מילואים בצו 8 מ-7.10.2023 עד 31.12.2025 נספרים במניין 40 ו-60 הימים"
+   },
+   "budget_he": "לפי החלטת הממשלה, ההטבות מותנות באישור חוק התקציב לשנת 2026; לכל מענק מתפרסמת מדיניות ייעודית, והסכום הסופי מופיע באזור האישי באתר המילואים",
+   "special": {
+    "from_day": 61,
+    "counts_old8": true,
+    "paid_on": "2027-05-01",
+    "payer_he": "מופת, לחשבון הבנק המעודכן בצה\"ל",
+    "rates": {
+     "ap": 133,
+     "a": 113,
+     "b": 86,
+     "c": 60,
+     "d": 40,
+     "e": 30
+    },
+    "he": "תגמול מיוחד מהיום ה-61 (כולל) של שירות בכל סוג צו ב-2026, לפי מדרג; משולם ב-1.5.2027; פטור מניכוי מס"
+   },
+   "personal": {
+    "min_days": 40,
+    "from_day": 31,
+    "heading_from_day": 41,
+    "counts_old8": true,
+    "rates": {
+     "ap": 46,
+     "a": 39,
+     "b": 31,
+     "c": 31,
+     "d": 18,
+     "e": 11
+    },
+    "he": "מענק הוצאות אישיות: מי שביצע 40 ימי שירות ומעלה ב-2026; משולם באופן יומי אחרי צבירת 40 ימים, עבור ימי השירות מהיום ה-31; פחות מ-40 ימים: אין מענק, גם לא חלקי",
+    "check_he": "בדף המדיניות כותרת הסכומים אומרת \"מהיום ה-41\", ושתי הפסקאות אומרות \"החל מהיום ה-31\"; המחשבון מראה את שני המספרים"
+   },
+   "family": {
+    "min_days": 40,
+    "from_day": 41,
+    "child_age": 14,
+    "counts_old8": true,
+    "rates": {
+     "ap": 83,
+     "a": 71,
+     "b": 60,
+     "c": 60,
+     "d": 33,
+     "e": 21
+    },
+    "he": "מענק משפחה מוגדל: מי שביצע 40 ימי שירות לפחות ב-2026 ויש לו ילד עד גיל 14; משולם באופן יומי אחרי צבירת 40 ימים, מהיום ה-41"
+   },
+   "household": {
+    "min_days": 45,
+    "amounts": {
+     "ap": 1250,
+     "a": 1065,
+     "b": 815
+    },
+    "paid_he": "בספטמבר 2026, על ידי מופת",
+    "he": "מענק כלכלת הבית מוגדל: מדרגים א'+, א' ו-ב' שביצעו 45 ימי שירות לפחות ב-2026; חד פעמי"
+   },
+   "special_family": {
+    "min_days": 45,
+    "amount": 2000,
+    "he": "מענק משפחה מיוחדת: 2,000 ש\"ח למי ששירת 45 ימים לפחות ב-2026 והוא הורה לתלמיד עם צרכים מיוחדים או לילד שמקבל גמלת ילד נכה; חד פעמי"
+   },
+   "voucher": {
+    "min_days": 45,
+    "to_day": 60,
+    "valid_he": "הזכאות חד פעמית וניתנת עד סוף 2028",
+    "rows": {
+     "ap": {
+      "none": [2630, 58, 3500],
+      "kids": [3375, 75, 4500]
+     },
+     "a": {
+      "none": [2200, 50, 2950],
+      "kids": [2925, 65, 3900]
+     },
+     "b": {
+      "none": [1700, 40, 2300],
+      "kids": [2250, 50, 3000]
+     },
+     "c": {
+      "none": [780, 18, 1050],
+      "kids": [1020, 22, 1350]
+     },
+     "d": {
+      "none": [780, 18, 1050],
+      "kids": [1020, 22, 1350]
+     },
+     "e": {
+      "none": [605, 13, 800],
+      "kids": [760, 16, 1000]
+     }
+    },
+    "he": "שובר נופש: 45 ימי שירות לפחות בכל סוג צו בין 1.1.2026 ל-31.12.2026; תוספת של כ-X ש\"ח לכל יום מהיום ה-46 עד היום ה-60, עד הסכום המרבי"
+   },
+   "wallet": {
+    "min_days": 10,
+    "tiers": {
+     "ap": {
+      "bands": [
+       [1, 30, 45],
+       [31, 45, 120],
+       [46, null, 70]
+      ],
+      "max": 5000
+     },
+     "a": {
+      "bands": [
+       [1, 30, 40],
+       [31, 45, 100],
+       [46, null, 60]
+      ],
+      "max": 4250
+     },
+     "b": {
+      "bands": [
+       [1, 30, 30],
+       [31, 45, 80],
+       [46, null, 45]
+      ],
+      "max": 3250
+     }
+    },
+    "he": "ארנק דיגיטלי (פייטר): מדרגים א'+, א' ו-ב' שביצעו 10 ימי שירות לפחות ב-2026; לתשלום אגרות למדינה, פנאי ורווחה; היישום צפוי בקיץ 2026"
+   },
+   "info": [
+    {
+     "key": "camps",
+     "he": "קייטנות: מדרגים א'+, א' ו-ב', 20 ימי שירות ב-2026 מתוכם 3 בתקופת קייטנה (או 21 ימים בקיץ); 500 ש\"ח לילד ראשון ו-250 לכל ילד נוסף, עד 2,000 (א'+, א') או 1,300 (ב') בשנה"
+    },
+    {
+     "key": "birth",
+     "he": "מענק חופשת לידה: 45 ימי שירות ב-2026, ובן או בת הזוג לא חזרו לעבודה 21 ימים לפחות מעבר לדמי הלידה, בזמן השירות; עד 10,700 ש\"ח לכל לידה ב-2026"
+    },
+    {
+     "key": "moving",
+     "he": "מעבר דירה: מדרגים א'+, א' ו-ב', 45 ימי שירות ב-2026 במועד המעבר; 2,500 ש\"ח, בניכוי סיוע קודם"
+    },
+    {
+     "key": "mental",
+     "he": "סיוע נפשי: מדרגים א'+, א' ו-ב', 50 ימי שירות מ-1.1.2026; 80% מעלות טיפול ועד 240 ש\"ח למפגש, עד תקרה לפי מדרג וילדים"
+    },
+    {
+     "key": "commanders",
+     "he": "מענק שנתי למפקדים במדרגים א'+ וא' (54 ימי שירות בתפקיד פיקודי; סטודנט 40): מג\"ד 20,000, סמג\"ד ומ\"פ 10,000, סמ\"פ ומ\"מ 5,000 ש\"ח"
+    },
+    {
+     "key": "students",
+     "he": "סטודנטים ששירתו 50 ימים מ-23.10.2025 עד 30.9.2026: סיוע בשכר הלימוד של תשפ\"ו, 100% (א'+), 85% (א'), 65% (ב'), 30% (ג', ד'), 22% (ה')"
+    }
+   ],
+   "additional_2025": {
+    "bands": [
+     [
+      10,
+      14.5,
+      1452
+     ],
+     [
+      15,
+      19.5,
+      2904
+     ],
+     [
+      20,
+      36.5,
+      4356
+     ],
+     [37, null, 5808]
+    ],
+    "personal": 266,
+    "personal_days": [5, 9.5],
+    "paid_he": "במאי 2026, על ידי רשות המסים",
+    "url": "https://www.miluim.idf.il/articles-list/%D7%AA%D7%92%D7%9E%D7%95%D7%9C%D7%99%D7%9D-2025/",
+    "he": "התגמול הנוסף של רשות המסים לפי ימי המילואים בשנה (פורסם לשירות ב-2025, שולם במאי 2026): 10 עד 14.5 ימים 1,452, 15 עד 19.5 2,904, 20 עד 36.5 4,356, 37 ומעלה 5,808 ש\"ח; 5 עד 9.5 ימים ברצף: 266 ש\"ח"
+   },
+   "prev2025": {
+    "special": [133, 60, 40],
+    "personal_per10": [466, 310, 266],
+    "family_per10": [833, 600, 500],
+    "household_extra": 1250,
+    "url": "https://www.miluim.idf.il/articles-list/%D7%9E%D7%93%D7%99%D7%A0%D7%99%D7%95%D7%AA-2025/"
+   }
+  },
+  "tax": {
+   "tiers": [
+    "ap",
+    "a",
+    "b"
+   ],
+   "url": "https://www.miluim.idf.il/articles-list/%D7%97%D7%99%D7%99%D7%9C%D7%99-%D7%9E%D7%99%D7%9C%D7%95%D7%90%D7%99%D7%9D-%D7%91%D7%9E%D7%A2%D7%A8%D7%9A-%D7%9E%D7%96%D7%9B%D7%94-%D7%94%D7%98%D7%91%D7%94-%D7%91%D7%9E%D7%A1-%D7%91%D7%93%D7%A8%D7%9A-%D7%90%D7%9C%D7%99%D7%9B%D7%9D/",
+   "path": "/nekudot-zikui/",
+   "he": "נקודות זיכוי במס הכנסה על ימי המילואים של השנה הקודמת, למשרתים במערך מזכה (מדרגים א'+, א' ו-ב'), לפי אישור באזור האישי באתר המילואים; שכירים מגישים אותו למעסיק עם טופס 101"
+  },
+  "history": [
+   {
+    "date": "2026-01-01",
+    "he": "מינימום 328.76 ומקסימום 1,730.33 ש\"ח ליום (9,863 ו-51,910 לחודש); סכום בסיסי 10,382 ש\"ח (ב-2025: 10,139)",
+    "section": "סעיף 270",
+    "url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx"
+   },
+   {
+    "date": "2026-01-01",
+    "he": "התגמול המזערי עוגן כ-95% מהסכום הבסיסי (תיקון 260); קודם 68%, ו-95% בהוראת שעה למי שנקרא בין 7.10.2023 ל-31.12.2025",
+    "section": "סעיף 270",
+    "url": "https://www.btl.gov.il/Laws1/00_0001_000012.pdf"
+   },
+   {
+    "date": "2026-01-25",
+    "he": "החלטת הממשלה לשנת 2026: מענקים לפי מדרג פעילות, גם על שירות בצו שגרה",
+    "section": "מדיניות 2026",
+    "url": "https://www.miluim.idf.il/articles-list/%D7%9E%D7%93%D7%99%D7%A0%D7%99%D7%95%D7%AA-2026/"
+   },
+   {
+    "date": "2026-04-29",
+    "he": "צו ההרחבה: הגנה בימים 31 עד 60 למי שצבר 60 ימים בשנה ו-7 ימים רצופים, לתקופה בלתי קצובה",
+    "section": "סעיף 5 לצו",
+    "url": "https://www.gov.il/BlobFolder/legalinfo/tak-14498/he/laws_tk-14498.pdf"
+   },
+   {
+    "date": "2025-05-01",
+    "he": "שירות נוסף בתקופת חירום בתוך 90 ימים: לפי ההכנסה שלפני השירות הראשון, ועלייה עד 20%",
+    "section": "סעיף 274ב",
+    "url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/HisovTAGMOLSatHIROM.aspx"
+   },
+   {
+    "date": "2023-10-07",
+    "he": "משוחררי קבע: התגמול לפי המשכורת בשירות הקבע (תיקון 255, בתוקף מ-1.6.2025, חל על שירות מ-7.10.2023)",
+    "section": "סעיף 274ג",
+    "url": "https://www.btl.gov.il/Laws1/00_0001_000012.pdf"
+   },
+   {
+    "date": "2024-03-06",
+    "he": "הצו הקודם: הגנה בימים 31 עד 60 למי ששירת 60 ימים בתקופה 7.10.2023 עד 31.12.2024",
+    "section": "צו 2024",
+    "url": "https://api.miluim.idf.il/api/v1/Media/ooahuywl/%D7%A6%D7%95-%D7%94%D7%A8%D7%97%D7%91%D7%94-%D7%AA%D7%A2%D7%A1%D7%95%D7%A7%D7%AA%D7%99.pdf"
+   }
+  ],
+  "calculator_url": "https://www.btl.gov.il/benefits/Reserve_Service/Pages/Calculator.aspx"
+ },
+ "rights_yeladim": {
+  "name_he": "קצבת ילדים ותכנית חיסכון לכל ילד לשנת 2026",
+  "publisher_he": "המוסד לביטוח לאומי, ענף ילדים",
+  "source_name": "המוסד לביטוח לאומי: קצבת ילדים (תנאי זכאות, תקופה, סכום, למי משולמת, תביעה), תכנית חיסכון לכל ילד, מענק לימודים; חוק הביטוח הלאומי, פרק ד'",
+  "source_url": "https://www.btl.gov.il/benefits/children/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+  "checked_on": "2026-10-21",
+  "refresh_every_days": 365,
+  "next_update": "2027-01-01",
+  "from": "2026-01-01",
+  "law_he": "חוק הביטוח הלאומי [נוסח משולב], התשנ\"ה-1995, פרק ד': ביטוח ילדים",
+  "law_url": "https://www.btl.gov.il/Laws1/00_0001_000004.pdf",
+  "law_general_url": "https://www.btl.gov.il/Laws1/00_0001_000001.pdf",
+  "pages": {
+   "main": "https://www.btl.gov.il/benefits/children/Pages/default.aspx",
+   "rates": "https://www.btl.gov.il/benefits/children/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "conditions": "https://www.btl.gov.il/benefits/children/Pages/%d7%aa%d7%a0%d7%90%d7%99%20%d7%96%d7%9b%d7%90%d7%95%d7%aa.aspx",
+   "period": "https://www.btl.gov.il/benefits/children/Pages/%d7%aa%d7%a7%d7%95%d7%a4%d7%aa%20%d7%94%d7%96%d7%9b%d7%90%d7%95%d7%aa.aspx",
+   "whom": "https://www.btl.gov.il/benefits/children/Pages/%d7%9c%d7%9e%d7%99%20%d7%9e%d7%a9%d7%95%d7%9c%d7%9e%d7%aa%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "claim": "https://www.btl.gov.il/benefits/children/Pages/%d7%90%d7%95%d7%a4%d7%9f%20%d7%94%d7%92%d7%a9%d7%aa%20%d7%94%d7%aa%d7%91%d7%99%d7%a2%d7%94.aspx",
+   "abroad": "https://www.btl.gov.il/benefits/children/Pages/%d7%a9%d7%94%d7%95%d7%aa%20%d7%91%d7%97%d7%95%d7%a5%20%d7%9c%d7%90%d7%a8%d7%a5.aspx",
+   "adoption": "https://www.btl.gov.il/benefits/children/Pages/adoption.aspx",
+   "appeal": "https://www.btl.gov.il/benefits/children/Pages/erur.aspx",
+   "calculator": "https://www.btl.gov.il/Simulators/childrenCalc/Pages/default.aspx",
+   "forms": "https://www.btl.gov.il/%D7%98%D7%A4%D7%A1%D7%99%D7%9D%20%D7%95%D7%90%D7%99%D7%A9%D7%95%D7%A8%D7%99%D7%9D/forms/children_forms/Pages/default.aspx",
+   "savings": "https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/default.aspx",
+   "savings_sum": "https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/sum.aspx",
+   "savings_new": "https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/nolad.aspx",
+   "savings_double": "https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/HisahonKupot.aspx",
+   "savings_change": "https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/mavar.aspx",
+   "savings_withdraw": "https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/MeshihaHisahon.aspx",
+   "savings_personal": "https://b2b.btl.gov.il/BTL.ILG.Payments/TochnitChisachonYeledListInfo.aspx",
+   "study": "https://www.btl.gov.il/benefits/children/%d7%9e%d7%a2%d7%a0%d7%a7%20%d7%9c%d7%99%d7%9e%d7%95%d7%93%d7%99%d7%9d/Pages/default.aspx",
+   "study_amount": "https://www.btl.gov.il/benefits/children/%d7%9e%d7%a2%d7%a0%d7%a7%20%d7%9c%d7%99%d7%9e%d7%95%d7%93%d7%99%d7%9d/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%9e%d7%a2%d7%a0%d7%a7.aspx",
+   "study_conditions": "https://www.btl.gov.il/benefits/children/%d7%9e%d7%a2%d7%a0%d7%a7%20%d7%9c%d7%99%d7%9e%d7%95%d7%93%d7%99%d7%9d/Pages/%d7%aa%d7%a0%d7%90%d7%99%20%d7%96%d7%9b%d7%90%d7%95%d7%aa.aspx",
+   "study_claim": "https://www.btl.gov.il/benefits/children/%d7%9e%d7%a2%d7%a0%d7%a7%20%d7%9c%d7%99%d7%9e%d7%95%d7%93%d7%99%d7%9d/Pages/submit.aspx",
+   "basic": "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%d7%94%d7%a1%d7%9b%d7%95%d7%9d%20%d7%94%d7%91%d7%a1%d7%99%d7%a1%d7%99%20%d7%9c%d7%97%d7%99%d7%a9%d7%95%d7%91%20%d7%a7%d7%a6%d7%91%d7%90%d7%95%d7%aa.aspx"
+  },
+  "allowance": {
+   "high_from": 2,
+   "high_to": 4,
+   "section": "סעיף 68(א)",
+   "def_section": "סעיף 1, הגדרת \"הסכום הבסיסי\", פסקה (2)",
+   "url": "https://www.btl.gov.il/benefits/children/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "order_url": "https://www.btl.gov.il/benefits/children/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "order_he": "הסכום לכל ילד לפי המקום שלו במניין הילדים של ההורה: הילד הראשון והחמישי ואילך בסכום אחד, השני עד הרביעי בסכום גבוה יותר",
+   "count_he": "במניין נכנסים רק ילדים שעוד לא מלאו להם 18 ושנמצאים בישראל; כשהבכור יוצא מהמניין, כל אחד מהאחרים עולה מקום אחד",
+   "end_age": 18,
+   "child_section": "סעיף 65",
+   "start_cutoff_day": 15,
+   "start_section": "סעיף 72(א)",
+   "period_url": "https://www.btl.gov.il/benefits/children/Pages/%d7%aa%d7%a7%d7%95%d7%a4%d7%aa%20%d7%94%d7%96%d7%9b%d7%90%d7%95%d7%aa.aspx",
+   "start_he": "ילד שנולד (עלה לארץ או אומץ) עד ה-15 בחודש: הקצבה מה-1 באותו חודש; מה-16 בחודש: מה-1 בחודש שאחריו",
+   "end_he": "הקצבה משולמת עד סוף החודש שבו מלאו לילד 18",
+   "alive_days": 7,
+   "alive_section": "סעיף 72(ב)",
+   "alive_he": "הקצבה משולמת בעד ילד שחי 7 ימים לפחות או שיצא מבית החולים",
+   "death_months": 3,
+   "death_section": "סעיף 72(ג)",
+   "death_he": "נפטר ילד שבעדו שולמה קצבה: התשלום נמשך 3 חודשים מתום החודש שבו נפטר",
+   "pay_day": 20,
+   "pay_url": "https://www.btl.gov.il/benefits/children/Pages/default.aspx",
+   "pay_he": "הקצבה משולמת ב-20 בכל חודש, בלי קשר להכנסות המשפחה, וברוב המקרים אוטומטית כחודש אחרי הלידה",
+   "abroad_months": 3,
+   "abroad_section": "סעיף 65(ב)",
+   "abroad_url": "https://www.btl.gov.il/benefits/children/Pages/%d7%a9%d7%94%d7%95%d7%aa%20%d7%91%d7%97%d7%95%d7%a5%20%d7%9c%d7%90%d7%a8%d7%a5.aspx",
+   "abroad_he": "ילד ששוהה בחוץ לארץ: הקצבה נמשכת 3 חודשים, ומהחודש הרביעי רק בשליחות, שבתון, טיפול רפואי שאין בארץ או לפי אמנה",
+   "tax_section": "סעיף 73",
+   "tax_he": "קצבת הילדים אינה נחשבת הכנסה לעניין מס הכנסה ותשלומי חובה",
+   "debt_he": "הביטוח הלאומי רשאי לנכות מקצבת הילדים חוב של אחד ההורים לביטוח הלאומי",
+   "update_he": "הסכומים מתעדכנים ב-1 בינואר של כל שנה לפי עליית המדד; ב-1.1.2025 לא עודכנו, ונשארו כפי שהיו ב-1.1.2024",
+   "update_section": "סעיף 1, הגדרת \"הסכום הבסיסי\", העדכון בפסקה (3)"
+  },
+  "history": {
+   "url": "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%d7%94%d7%a1%d7%9b%d7%95%d7%9d%20%d7%94%d7%91%d7%a1%d7%99%d7%a1%d7%99%20%d7%9c%d7%97%d7%99%d7%a9%d7%95%d7%91%20%d7%a7%d7%a6%d7%91%d7%90%d7%95%d7%aa.aspx",
+   "rows": [
+    {
+     "from": "2025-01-01",
+     "first_fifth": 169,
+     "second_to_fourth": 214,
+     "income_support": 158,
+     "b3": 10139
+    },
+    {
+     "from": "2024-01-01",
+     "first_fifth": 169,
+     "second_to_fourth": 214,
+     "income_support": 158,
+     "b3": 9806
+    },
+    {
+     "from": "2023-01-01",
+     "first_fifth": 164,
+     "second_to_fourth": 207,
+     "income_support": 153,
+     "b3": 9493
+    },
+    {
+     "from": "2022-01-01",
+     "first_fifth": 156,
+     "second_to_fourth": 197,
+     "income_support": 145,
+     "b3": 9015
+    }
+   ],
+   "he": "סכום בסיסי 2 לפי שנים, מטבלת הסכום הבסיסי של הביטוח הלאומי"
+  },
+  "supplement": {
+   "amount": 113,
+   "pct_of_income_support": 70,
+   "positions": [3, 4],
+   "min_children": 3,
+   "section": "סעיף 68(ג)",
+   "url": "https://www.btl.gov.il/benefits/children/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "benefits": [
+    "hb",
+    "mz",
+    "hh"
+   ],
+   "he": "תוספת לקצבת הילדים להורה שמקבל הבטחת הכנסה, מזונות מהביטוח הלאומי, או קצבת אזרח ותיק או שאירים עם השלמת הכנסה: 113 ש\"ח לילד השלישי ולילד הרביעי במשפחה",
+   "urls": {
+    "hb": "https://www.btl.gov.il/benefits/Income_support/Pages/default.aspx",
+    "mz": "https://www.btl.gov.il/benefits/Alimony/Pages/default.aspx",
+    "hh": "https://www.btl.gov.il/benefits/old_age/hashHachZ/Pages/default.aspx",
+    "hh_survivors": "https://www.btl.gov.il/benefits/Survivors_%20Insurance/t.hvtachat.hachnasa/Pages/default.aspx"
+   }
+  },
+  "study": {
+   "amount": 1204,
+   "pct_of_basic": 11.6,
+   "basic_key": "b3",
+   "school_year_he": "התשפ\"ז (2026-2027)",
+   "born_from": "2009-01-01",
+   "born_to": "2020-12-31",
+   "pay_date": "2026-08-11",
+   "check_months": [
+    "2026-07",
+    "2026-08"
+   ],
+   "min_age": 6,
+   "max_age": 18,
+   "prev": {
+    "amount": 1176,
+    "school_year_he": "התשפ\"ו (2025-2026)",
+    "born_from": "2008-01-01",
+    "born_to": "2019-12-31",
+    "paid_he": "אוגוסט 2025",
+    "b3": 10139
+   },
+   "min_children": 4,
+   "benefits4": [
+    "hb",
+    "mz",
+    "nc",
+    "hh",
+    "old"
+   ],
+   "section": "סעיף 74(ב)",
+   "amount_section": "סעיף 74(ב)(2)",
+   "month_section": "סעיף 74(ב1)",
+   "four_section": "סעיף 74(ב2)",
+   "url": "https://www.btl.gov.il/benefits/children/%d7%9e%d7%a2%d7%a0%d7%a7%20%d7%9c%d7%99%d7%9e%d7%95%d7%93%d7%99%d7%9d/Pages/default.aspx",
+   "amount_url": "https://www.btl.gov.il/benefits/children/%d7%9e%d7%a2%d7%a0%d7%a7%20%d7%9c%d7%99%d7%9e%d7%95%d7%93%d7%99%d7%9d/Pages/%d7%a9%d7%99%d7%a2%d7%95%d7%a8%d7%99%20%d7%94%d7%9e%d7%a2%d7%a0%d7%a7.aspx",
+   "conditions_url": "https://www.btl.gov.il/benefits/children/%d7%9e%d7%a2%d7%a0%d7%a7%20%d7%9c%d7%99%d7%9e%d7%95%d7%93%d7%99%d7%9d/Pages/%d7%aa%d7%a0%d7%90%d7%99%20%d7%96%d7%9b%d7%90%d7%95%d7%aa.aspx",
+   "claim_url": "https://www.btl.gov.il/benefits/children/%d7%9e%d7%a2%d7%a0%d7%a7%20%d7%9c%d7%99%d7%9e%d7%95%d7%93%d7%99%d7%9d/Pages/submit.aspx",
+   "claim_months": 18,
+   "form": "5015",
+   "split_form": "5020",
+   "split_url": "https://govforms.gov.il/mw/forms/T5020@btl.gov.il",
+   "who_he": "הורה עצמאי (משפחה חד-הורית), או משפחה עם 4 ילדים ויותר עד גיל 18 שבה הורה מקבל ביולי או באוגוסט הבטחת הכנסה, מזונות, נכות כללית, אזרח ותיק או שאירים",
+   "auto_he": "רוב הזכאים מקבלים את המענק אוטומטית, לחשבון שאליו משולמת קצבת הילדים, ב-11 באוגוסט 2026",
+   "claim_he": "הורה גרוש (בפעם הראשונה), הורה שחי בנפרד, עגונה, אישה במקלט, רווק או אלמן (בפעם הראשונה) ועולה חדש מגישים תביעה בטופס 5015; גרוש או חי בנפרד גם בקשה לפיצול תיק בטופס 5020",
+   "late_he": "את התביעה מגישים בתוך 18 חודשים; אחרי זה משולם רק בעד 18 החודשים שלפני ההגשה",
+   "grade_he": "ילד שלא נולד בתאריכים האלה ולומד בכיתה א' או י\"ב: ייתכן שזכאי, עם אישור לימודים",
+   "payee_he": "המענק משולם להורה שמקבל את קצבת הילדים, ובגירושים להורה שהילדים אצלו, אלא אם ההורים הסכימו אחרת או שנקבע בפסק דין",
+   "next_he": "את סכום המענק לשנת הלימודים הבאה המוסד מפרסם לפני אוגוסט; הסכום של השנה האחרונה הוא 1,204 ש\"ח"
+  },
+  "savings": {
+   "monthly": 58,
+   "parent_add": 58,
+   "from": "2026-01-01",
+   "pay_day": 20,
+   "base_law": 50,
+   "base_section": "סעיף 74ב(א)(1)",
+   "add_section": "סעיף 74ב(א)(2)",
+   "grant_18": 582,
+   "grant_21": 582,
+   "grant_3": 291,
+   "grant_mitzvah": 291,
+   "grant_3_age": 3,
+   "mitzvah_boy": 13,
+   "mitzvah_girl": 12,
+   "grants_section": "סעיף 74ב(א)(1)(א)-(ב)",
+   "new_from": "2017-01-01",
+   "deposits_from": "2015-05",
+   "withdraw_age": 18,
+   "free_age": 21,
+   "withdraw_section": "סעיף 74ג(ב)",
+   "update_section": "סעיף 74ג(ג)",
+   "choose_months": 6,
+   "default_section": "סעיף 74ב(ד)(1א)",
+   "report_he": "קופת הגמל או הבנק שולחים דוח על סכום החיסכון עד 1 במרץ בכל שנה",
+   "report_section": "סעיף 74ב(ז)",
+   "fees_age": 21,
+   "url": "https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/sum.aspx",
+   "new_url": "https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/nolad.aspx",
+   "double_url": "https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/HisahonKupot.aspx",
+   "change_url": "https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/mavar.aspx",
+   "withdraw_url": "https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/MeshihaHisahon.aspx",
+   "personal_url": "https://b2b.btl.gov.il/BTL.ILG.Payments/TochnitChisachonYeledListInfo.aspx",
+   "main_url": "https://www.btl.gov.il/benefits/children/HisahoLayeled/Pages/default.aspx",
+   "he": "לכל ילד שבעדו משולמת קצבת ילדים, הביטוח הלאומי מפקיד 58 ש\"ח בחודש עד גיל 18, ב-20 לחודש, בחיסכון על שם הילד בקופת גמל או בבנק",
+   "add_he": "ההורים יכולים להוסיף לחיסכון של כל ילד עוד 58 ש\"ח בחודש מקצבת הילדים (116 בסך הכול), מהחודש שאחרי הבחירה, ולבטל בכל שלב",
+   "default_he": "בוחרים קופת גמל או בנק ומסלול בתוך 6 חודשים מהלידה; בלי בחירה: הקופה שנבחרה לילד הקודם, ואם לילד הקודם נבחר בנק או שזה הילד הראשון - קופת גמל להשקעה במסלול סיכון מוגבר",
+   "withdraw_he": "את הכסף אפשר למשוך רק מתום החודש שבו מלאו לילד 18, וכל עוד לא מלאו לו 21 צריך אישור של הורה; מגיל 21 בכל עת ובלי אישור",
+   "grant_old_he": "ילד שנולד עד 31.12.2016: מענק של 582 ש\"ח כשמלאו לו 18",
+   "grant_new_he": "ילד שנולד מ-1.1.2017: מענק של 291 ש\"ח בגיל 3, ועוד 291 ש\"ח בבר או בת מצווה (13 לבן, 12 לבת), ובלי מענק בגיל 18",
+   "grant_21_he": "ילד שלא משך את הכסף עד גיל 21: עוד 582 ש\"ח בגיל 21",
+   "return_he": "הרווחים תלויים בקופה או בבנק ובמסלול שנבחרו; כאן מחושבות ההפקדות בלבד, בלי תשואה",
+   "tax_he": "במשיכה מנוכה מס רווחי הון מהרווחים; מי שמשאיר את הכסף בקופת הגמל עד הפרישה ומקבל אותו כקצבה, בלי מס רווחי הון",
+   "fees_he": "הביטוח הלאומי משלם את דמי הניהול עד גיל 21; אחר כך הם נגבים מהחיסכון",
+   "medical_he": "ילד במצב רפואי שמסכן את חייו: אפשר למשוך לפני 18, באישור רופא של הביטוח הלאומי, לצרכיו הרפואיים",
+   "freeze_he": "ב-1.1.2025 סכום החיסכון הבסיסי לא עודכן, ונשאר כפי שהיה ב-1.1.2024 (סעיף 74ה(4))"
+  },
+  "payee": {
+   "section": "סעיף 69",
+   "url": "https://www.btl.gov.il/benefits/children/Pages/%d7%9c%d7%9e%d7%99%20%d7%9e%d7%a9%d7%95%d7%9c%d7%9e%d7%aa%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "he": "הקצבה משולמת לאם; בגירושים או בפרידה לאם גם במשמורת משותפת, ולאב רק כשהילדים אצלו בלבד",
+   "agree_he": "אפשר לשלם להורה השני בהסכמה בין ההורים או לפי פסק דין, ובתנאי שכל הקצבה משולמת להורה אחד",
+   "split_he": "כשחלק מהילדים אצל האם וחלק אצל האב: כל הורה מקבל בעד הילדים שאצלו, אחרי בקשה לפיצול תיק (טופס 5020)",
+   "same_sex_he": "בני זוג מאותו מין שחיים יחד מקבלים קצבה אחת על כל הילדים המשותפים, ובוחרים למי היא משולמת",
+   "guardian_he": "ילד שאינו אצל הוריו: לאפוטרופוס עם צו מינוי, או למי שהביטוח הלאומי מינה לקבל את הקצבה"
+  },
+  "claim": {
+   "deadline_months": 12,
+   "back_months": 12,
+   "url": "https://www.btl.gov.il/benefits/children/Pages/%d7%90%d7%95%d7%a4%d7%9f%20%d7%94%d7%92%d7%a9%d7%aa%20%d7%94%d7%aa%d7%91%d7%99%d7%a2%d7%94.aspx",
+   "forms_url": "https://www.btl.gov.il/%D7%98%D7%A4%D7%A1%D7%99%D7%9D%20%D7%95%D7%90%D7%99%D7%A9%D7%95%D7%A8%D7%99%D7%9D/forms/children_forms/Pages/default.aspx",
+   "form": "5025",
+   "change_form": "5026",
+   "split_form": "5020",
+   "split_url": "https://govforms.gov.il/mw/forms/T5020@btl.gov.il",
+   "auto_he": "ברוב המקרים הקצבה משולמת אוטומטית לפי נתוני הלידה שבית החולים מעביר; בלידה ראשונה האם מוסרת בבית החולים את פרטי חשבון הבנק שלה (או חשבון משותף)",
+   "claim_he": "לידה בבית, לידה בחוץ לארץ, אימוץ, ילד שעלה בלי הוריו או ילד עם אפוטרופוס: מגישים תביעה לקצבת ילדים (טופס 5025)",
+   "deadline_he": "את התביעה מגישים בתוך 12 חודשים מיום הלידה, העלייה או האימוץ; אחרי זה משולם רק בעד 12 החודשים שלפני ההגשה",
+   "adoption_he": "באימוץ הקצבה מתחילה מיום קבלת הילד למשפחה (או כניסתו לארץ), לפי אותו כלל של ה-15 בחודש, בלי לחכות לצו האימוץ",
+   "appeal_he": "על החלטה אפשר לפנות לוועדת התביעות של הביטוח הלאומי או לבית הדין לעבודה"
+  },
+  "legacy": {
+   "born_before": "2003-06-01",
+   "section": "סעיף 68(ב)",
+   "url": "https://www.btl.gov.il/Laws1/00_0001_000004.pdf",
+   "he": "סכום נפרד לילד רביעי ואילך שנולד לפני 1.6.2003"
+  }
+ },
+ "rights_havtacha": {
+  "name_he": "הבטחת הכנסה לשנת 2026",
+  "publisher_he": "המוסד לביטוח לאומי, ענף הבטחת הכנסה",
+  "source_name": "המוסד לביטוח לאומי: הבטחת הכנסה (תנאי זכאות, סכום הקצבה, חישוב ההכנסות, רכב, התייצבות ופטור, תביעה); חוק הבטחת הכנסה ותקנותיו",
+  "source_url": "https://www.btl.gov.il/benefits/Income_support/Pages/%d7%a1%d7%9b%d7%95%d7%9e%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+  "checked_on": "2026-10-21",
+  "refresh_every_days": 365,
+  "next_update": "2027-01-01",
+  "from": "2026-01-01",
+  "law_he": "חוק הבטחת הכנסה, התשמ\"א-1980",
+  "law_url": "https://www.btl.gov.il/Laws1/00_0002_000000.pdf",
+  "regs_he": "תקנות הבטחת הכנסה, התשמ\"ב-1982",
+  "regs_url": "https://www.btl.gov.il/Laws1/02_0002_111450.pdf",
+  "rehearse_url": "https://jus-tice.com/#/simulation?entry=role&audience=guest&lang=he&purpose=witness_prep",
+  "pages": {
+   "main": "https://www.btl.gov.il/benefits/Income_support/Pages/default.aspx",
+   "eligibility": "https://www.btl.gov.il/benefits/Income_support/Pages/zacautnew.aspx",
+   "types": "https://www.btl.gov.il/benefits/Income_support/Pages/%d7%a1%d7%95%d7%92%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "amounts": "https://www.btl.gov.il/benefits/Income_support/Pages/%d7%a1%d7%9b%d7%95%d7%9e%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "income": "https://www.btl.gov.il/benefits/Income_support/Pages/hishuvincome.aspx",
+   "work": "https://www.btl.gov.il/benefits/Income_support/Pages/zikui%20lhacnasa%20meavoda.aspx",
+   "car": "https://www.btl.gov.il/benefits/Income_support/Pages/carreject.aspx",
+   "employment": "https://www.btl.gov.il/benefits/Income_support/Pages/SerotTAasoka.aspx",
+   "exemption": "https://www.btl.gov.il/benefits/Income_support/Pages/ptor.aspx",
+   "claim": "https://www.btl.gov.il/benefits/Income_support/Pages/%d7%90%d7%95%d7%a4%d7%9f%20%d7%94%d7%92%d7%a9%d7%aa%20%d7%94%d7%aa%d7%91%d7%99%d7%a2%d7%94.aspx",
+   "period": "https://www.btl.gov.il/benefits/Income_support/Pages/%d7%aa%d7%a7%d7%95%d7%a4%d7%aa%20%d7%94%d7%96%d7%9b%d7%90%d7%95%d7%aa%20%d7%94%d7%9e%d7%a8%d7%91%d7%99%d7%aa.aspx",
+   "separate": "https://www.btl.gov.il/benefits/Income_support/Pages/separate.aspx",
+   "study": "https://www.btl.gov.il/benefits/Income_support/Pages/study.aspx",
+   "changes": "https://www.btl.gov.il/benefits/Income_support/Pages/%d7%a9%d7%99%d7%a0%d7%95%d7%99%d7%99%d7%9d.aspx",
+   "hearing": "https://www.btl.gov.il/benefits/Income_support/Pages/shimoa.aspx",
+   "new_resident": "https://www.btl.gov.il/benefits/Income_support/Pages/newtoshav.aspx",
+   "since_2002": "https://www.btl.gov.il/benefits/Income_support/Pages/20020223-3597.aspx",
+   "related": "https://www.btl.gov.il/benefits/Income_support/Pages/kitsbaotNosafot.aspx",
+   "appeal": "https://www.btl.gov.il/benefits/%d7%a2%d7%a8%d7%a2%d7%95%d7%a8%20%d7%a2%d7%9c%20%d7%94%d7%97%d7%9c%d7%98%d7%95%d7%aa%20%d7%94%d7%9e%d7%95%d7%a1%d7%93%20%d7%9c%d7%91%d7%99%d7%98%d7%95%d7%97%20%d7%9c%d7%90%d7%95%d7%9e%d7%99/Pages/%d7%91%d7%aa%d7%99%20%d7%94%d7%93%d7%99%d7%9f%20%d7%94%d7%90%d7%96%d7%95%d7%a8%d7%99%d7%99%d7%9d%20%d7%9c%d7%a2%d7%91%d7%95%d7%93%d7%94.aspx",
+   "pay_dates": "https://www.btl.gov.il/Pages/BenefitsPaymentDates.aspx",
+   "calculator": "https://www.btl.gov.il/Simulators/Pages/IncomeSupportCalc.aspx",
+   "retirement": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/gilMezake/Pages/gilPrisha.aspx",
+   "old_age_supplement": "https://www.btl.gov.il/benefits/old_age/hashHachZ/Pages/default.aspx",
+   "taasuka": "https://www.taasuka.gov.il/applicants/loginform?ReturnUrl=/applicants/bureauregister/"
+  },
+  "residence": {
+   "months": 24,
+   "section": "סעיף 2(ב)",
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/zacautnew.aspx",
+   "new_url": "https://www.btl.gov.il/benefits/Income_support/Pages/newtoshav.aspx",
+   "new_he": "תושב פחות מ-24 חודשים רצופים יכול להיות זכאי: עולה חדש ששהה בארץ 12 חודשים ועדיין לא חלפו 5 שנים מהעלייה, מי שמקבל קצבת אזרח ותיק, שאירים או נכות מעבודה, או מי שבן הזוג שלו עונה על אחד מאלה"
+  },
+  "age": {
+   "min": 20,
+   "special_min": 18,
+   "young_to": 24,
+   "older_from": 55,
+   "men_retirement": 67,
+   "women_retirement": [
+    [
+     "1947-05",
+     "1959-12",
+     62,
+     0
+    ],
+    [
+     "1960-01",
+     "1960-12",
+     62,
+     4
+    ],
+    [
+     "1961-01",
+     "1961-12",
+     62,
+     8
+    ],
+    [
+     "1962-01",
+     "1962-12",
+     63,
+     0
+    ],
+    [
+     "1963-01",
+     "1963-12",
+     63,
+     3
+    ],
+    [
+     "1964-01",
+     "1964-12",
+     63,
+     6
+    ],
+    [
+     "1965-01",
+     "1965-12",
+     63,
+     9
+    ],
+    [
+     "1966-01",
+     "1966-12",
+     64,
+     0
+    ],
+    [
+     "1967-01",
+     "1967-12",
+     64,
+     3
+    ],
+    [
+     "1968-01",
+     "1968-12",
+     64,
+     6
+    ],
+    [
+     "1969-01",
+     "1969-12",
+     64,
+     9
+    ],
+    [
+     "1970-01",
+     null,
+     65,
+     0
+    ]
+   ],
+   "women_retirement_from": 62,
+   "women_retirement_max": 65,
+   "section": "סעיף 2(א) ו-2(ה)",
+   "young_section": "סעיף 5(ה)(3)",
+   "column_section": "סעיף 5(א)(2)",
+   "under20_section": "תקנה 1א לתקנות",
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/zacautnew.aspx",
+   "retirement_url": "https://www.btl.gov.il/benefits/old_age/Conditions_of_eligibility/gilMezake/Pages/gilPrisha.aspx",
+   "special_he": "מתחת לגיל 20 אפשר לקבל קצבה רק בנסיבות מיוחדות: נשואים, הורים לילד, היריון, מחלה, גמילה מסמים או מאלכוהול, לימודים באולפן או תכנית שיקומית מאושרת (מגיל 18)",
+   "retirement_he": "מגיל הפרישה הקצבה היא השלמת הכנסה לקצבת אזרח ותיק, בסכומים של טור א' בתוספת השנייה, בתביעה אחרת",
+   "women_he": "גיל הפרישה לאישה נקבע לפי חודש הלידה: 62 לילידות עד 1959, ועולה בהדרגה עד 65 לילידות 1970 ואילך"
+  },
+  "amounts": {
+   "pct": {
+    "single": {
+     "b": 20.0,
+     "c": 25.0,
+     "less_point": false
+    },
+    "couple": {
+     "b": 27.5,
+     "c": 37.5,
+     "less_point": false
+    },
+    "couple1": {
+     "b": 30.0,
+     "c": 43.5,
+     "less_point": false
+    },
+    "couple2": {
+     "b": 33.5,
+     "c": 49.5,
+     "less_point": false
+    },
+    "parent1": {
+     "b": 33.5,
+     "c": 42.5,
+     "less_point": true
+    },
+    "parent2": {
+     "b": 39.0,
+     "c": 52.5,
+     "less_point": true
+    }
+   },
+   "b": {
+    "single": 2076,
+    "couple": 2855,
+    "couple1": 3115,
+    "couple2": 3478,
+    "parent1": 3478,
+    "parent2": 4049
+   },
+   "c": {
+    "single": 2596,
+    "couple": 3893,
+    "couple1": 4516,
+    "couple2": 5139,
+    "parent1": 4250,
+    "parent2": 5289
+   },
+   "young": {
+    "single": 1661,
+    "couple": 2284,
+    "couple1": 3115,
+    "couple2": 3478,
+    "parent1": 3478,
+    "parent2": 4049
+   },
+   "young_pct": 80,
+   "young_law_min_pct": 50,
+   "young_law_max_pct": 80,
+   "max_work": {
+    "b": {
+     "single": 3654,
+     "couple": 5043,
+     "couple1": 5579,
+     "couple2": 6529,
+     "parent1": 8914,
+     "parent2": 9865
+    },
+    "c": {
+     "single": 5232,
+     "couple": 7504,
+     "couple1": 8330,
+     "couple2": 9318,
+     "parent1": 10774,
+     "parent2": 12506
+    }
+   },
+   "section": "סעיף 5(א) והתוספת השנייה",
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/%d7%a1%d7%9b%d7%95%d7%9e%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "basic_he": "הסכום הבסיסי של חוק הבטחת הכנסה הוא סכום בסיסי 3 של המוסד; \"הסכום הבסיסי לילד\" הוא נקודת הקצבה של סכום בסיסי 2",
+   "couple_he": "לבני זוג משולמת קצבה אחת, לפי הנתונים של בן הזוג שמזכים בסכום הגבוה (סעיף 6)",
+   "child_he": "ילד: עד גיל 18, עד 20 בלימודי תיכון או בגרות או במסגרת קדם-צבאית, עד 21 בהתנדבות שדחתה את השירות, ועד 24 בשירות סדיר, לאומי או עתודה"
+  },
+  "work": {
+   "first": {
+    "b": {
+     "single": 688,
+     "family": 964
+    },
+    "c": {
+     "single": 1790,
+     "family": 2341
+    }
+   },
+   "first_pct": {
+    "b": {
+     "single": 5,
+     "family": 7
+    },
+    "c": {
+     "single": 13,
+     "family": 17
+    }
+   },
+   "counted_pct": {
+    "b": {
+     "single": 70,
+     "couple": 70,
+     "couple1": 67.5,
+     "couple2": 62.5
+    },
+    "c": 60
+   },
+   "parent": {
+    "band_pct": 33.81,
+    "band": 4655,
+    "low_pct": 25,
+    "high_pct": 60
+   },
+   "section_b": "סעיף 12א והתוספת השלישית",
+   "section_c": "סעיף 12",
+   "parent_section": "סעיף 12(א)(2)",
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/zikui%20lhacnasa%20meavoda.aspx",
+   "income_url": "https://www.btl.gov.il/benefits/Income_support/Pages/hishuvincome.aspx",
+   "includes_he": "הכנסה מעבודה כשכיר או כעצמאי, וגם דמי אבטלה, דמי לידה, גמלה לשמירת היריון, דמי פגיעה ותגמולי מילואים: מכולם רק חלק נחשב",
+   "pension_he": "פנסיה מעבודה (לא מהביטוח הלאומי): רק הניכוי הראשון חל עליה, והוא משותף לעבודה ולפנסיה",
+   "example_he": "הדוגמה של המוסד: הורה עצמאי בן 38 שמרוויח 4,800 ש\"ח ברוטו: 25% מ-3,691 (4,655 פחות 964) ועוד 60% מ-145 = 1,010 ש\"ח שמופחתים מהקצבה"
+  },
+  "other_income": {
+   "section": "סעיף 9",
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/hishuvincome.aspx",
+   "he": "הכנסה שלא מעבודה, כמו קצבה אחרת, מזונות שמקבלים, שכר דירה או רווחי הון, מנוכה מהקצבה במלואה",
+   "excluded_he": "לא נחשבות הכנסה: קצבת ילדים, קצבת ילד נכה, שירותים מיוחדים לנכה, גמלת ניידות, גמלת סיעוד, דמי מחיה לאלמנה וליתום ועוד",
+   "alimony_paid_he": "מי שמשלם מזונות לפי פסק דין ואינו גר עם מי שמקבל אותם: המזונות שהוא משלם מנוכים מההכנסה שלו, עד סכום הקצבה"
+  },
+  "determining": {
+   "rules": {
+    "single": {
+     "pct": 33.0,
+     "uplift": 5.0,
+     "points": 11.25,
+     "points_working": 11.25
+    },
+    "couple": {
+     "pct": 47.0,
+     "uplift": 7.5,
+     "points": 16.25,
+     "points_working": 16.25
+    },
+    "couple1": {
+     "pct": 53.0,
+     "uplift": 7.5,
+     "points": 16.25,
+     "points_working": 16.25
+    },
+    "couple2": {
+     "pct": 59.0,
+     "uplift": 7.5,
+     "points": 16.25,
+     "points_working": 21.25
+    }
+   },
+   "points_working_he": "בזוג עם שני ילדים: 21.25 נקודות כשבת הזוג עובדת, 16.25 כשלא",
+   "by_wage": {
+    "single": 5232,
+    "couple": 7504,
+    "couple1": 8330,
+    "couple2": 9156
+   },
+   "points_he": "או מספר נקודות הזיכוי שבתקנה, כפול נקודת הזיכוי החודשית של השנה: הגבוה מהשניים",
+   "section": "סעיף 7; תקנה 9",
+   "url": "https://www.btl.gov.il/Laws1/02_0002_111450.pdf",
+   "published_url": "https://www.btl.gov.il/benefits/Income_support/Pages/%d7%a1%d7%9b%d7%95%d7%9e%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "he": "מגיל 55, ליחיד ולזוג ששניהם מעל 55: הקצבה לא עולה על ההפרש בין \"הסכום הקובע\" לבין ההכנסה כולה; מעל הסכום הקובע אין קצבה",
+   "conflict_he": "בזוג עם שני ילדים מגיל 55, הטבלה של המוסד מראה הכנסה מרבית של 9,318 ש\"ח, ולפי תקנה 9 הסכום הקובע הוא 9,156 ש\"ח: בטווח שביניהם כדאי לבדוק מול פקיד התביעות"
+  },
+  "car": {
+   "limit": 46138,
+   "limit_retirement": 65343,
+   "credit_worker": 19610,
+   "credit_other": 10380,
+   "worker_pct": 25,
+   "worker_from": 3442,
+   "rate_pct": 3,
+   "section": "סעיף 9א; תקנות 10(ג) ו-10ב",
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/carreject.aspx",
+   "income_url": "https://www.btl.gov.il/benefits/Income_support/Pages/hishuvincome.aspx",
+   "value_he": "שווי הרכב נקבע לפי מחירון לוי יצחק ולפי הרישיון (דגם, שנה, בעלים), במחירון ינואר או יולי, ומ-2026 גם לפי הקילומטראז'",
+   "rule_he": "רכב אחד (גם אופנוע) ששוויו עד 46,138 ש\"ח: מהקצבה מנוכים 3% משווי הרכב, אחרי הפחתה של 19,610 ש\"ח למי שמרוויח מעבודה יותר מ-3,442 ש\"ח, או 10,380 ש\"ח לאחרים",
+   "over_he": "רכב ששוויו עולה על 46,138 ש\"ח, או שני רכבים, שוללים את הקצבה, אלא אם מתקיים אחד החריגים",
+   "exceptions_he": [
+    "רכב של מי שזכאי לגמלת ניידות, או מורשה נהיגה של נכה לפי הביטוח הלאומי",
+    "התובע, בן הזוג או ילד נכים ברגליים, לפי רופא הביטוח הלאומי",
+    "משולמת קצבת ילד נכה בעד הילד",
+    "רישיון הרכב הופקד במשרד הרישוי בגלל מחלה שמונעת עבודה",
+    "הסעה קבועה של בן משפחה לטיפולים רפואיים, לפי חוות דעת של רופא הביטוח הלאומי"
+   ],
+   "three_months_he": "רכב לא שולל קצבה עד 3 חודשים כשמחליפים רכב, כשילד הפסיק לקבל קצבת ילד נכה, או לאלמן או אלמנה בלי רישיון אחרי הפטירה",
+   "change_he": "פיטורים, התפטרות או ירידה בשכר לא משנים את ההפחתה משווי הרכב בחודש השינוי ובחודשיים שאחריו, אם הייתה קצבה בשלושת החודשים שלפני"
+  },
+  "assets": {
+   "free_x": {
+    "single": 4,
+    "family": 6
+   },
+   "section": "סעיף 9(ג)",
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/hishuvincome.aspx",
+   "interest_pct": 4.17,
+   "interest_from": "2026-01-01",
+   "interest_section": "תקנה 10(א)",
+   "he": "דירת המגורים לא נחשבת. חיסכון עד פי 4 מהסכום הבסיסי (יחיד) או פי 6 (עם בן זוג או ילד) לא נחשב; מעל זה, ההכנסה מהנכס מחושבת לפי שיעור הריבית שבתקנות ומפחיתה את הקצבה",
+   "realty_he": "נכס מקרקעין נוסף, משק חקלאי או קרקע: ההכנסה נקבעת לפי ייעוד הנכס ושומת שמאי, והזכאות נבדקת בסניף"
+  },
+  "employment": {
+   "section": "סעיף 2(א); סעיף 4",
+   "refuse_section": "סעיף 3א",
+   "refuse_months": 2,
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/SerotTAasoka.aspx",
+   "exemption_url": "https://www.btl.gov.il/benefits/Income_support/Pages/ptor.aspx",
+   "taasuka_url": "https://www.taasuka.gov.il/applicants/loginform?ReturnUrl=/applicants/bureauregister/",
+   "he": "מי שלא עובד, או עובד במשרה חלקית, נרשם ומתייצב בשירות התעסוקה, וכך גם בן הזוג: הקצבה משפחתית",
+   "fulltime_he": "מי שעובד 36 שעות בשבוע פטור מהתייצבות, לפי אישור הביטוח הלאומי",
+   "refuse_he": "מי שסירב לעבודה מתאימה ששירות התעסוקה הציע לא יקבל קצבה בחודש הסירוב ובחודש שאחריו",
+   "missed_he": "מי שלא התייצב באחד הימים שנקבעו לא יקבל קצבה באותו חודש, חוץ ממחלה עם אישור, אבל על קרוב מדרגה ראשונה ומילואים",
+   "groups_he": [
+    "היריון, מהשבוע ה-13",
+    "הורה לילד עד גיל שנתיים (אחד ההורים)",
+    "חולה שאינו מסוגל לעבוד מעל 30 יום (עד 6 חודשים)",
+    "מטפל בבן משפחה חולה, 45 ימים רצופים לפחות",
+    "שיקום מקצועי או אולפן",
+    "שהות במקלט לנשים נפגעות אלימות מעל 30 יום",
+    "דר רחוב שהוכר",
+    "גמילה מסמים או מאלכוהול",
+    "הכשרה מקצועית מטעם שירות התעסוקה",
+    "מי שהגיע לגיל הפרישה"
+   ]
+  },
+  "exclusions": {
+   "section": "סעיף 3",
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/zacautnew.aspx",
+   "study_url": "https://www.btl.gov.il/benefits/Income_support/Pages/study.aspx",
+   "student_he": "מי שלומד במוסד להשכלה גבוהה לא זכאי, חוץ מהכשרה מקצועית של שירות התעסוקה",
+   "parent_study_he": "הורה עצמאי יכול ללמוד (לא לתואר שני או שלישי) ולהמשיך לקבל קצבה עד 36 חודשים, אם קיבל הבטחת הכנסה או דמי מזונות ב-16 מתוך 20 החודשים שלפני תחילת הלימודים",
+   "parent_study": {
+    "months": 16,
+    "of": 20,
+    "max_months": 36
+   },
+   "yeshiva_he": "תלמיד ישיבה אינו זכאי",
+   "kibbutz_he": "חבר קיבוץ או מושב שיתופי אינו זכאי",
+   "army_he": "מי שמשרת, או שבן הזוג משרת, שירות סדיר בצה\"ל אינו זכאי"
+  },
+  "women": {
+   "pct": 7.95,
+   "amount": 825,
+   "from_age": 62,
+   "born_from": 1960,
+   "born_to": 1964,
+   "months": {
+    "1960": 4,
+    "1961": 8,
+    "1962": 12,
+    "1963": 15,
+    "1964": 18
+   },
+   "section": "סעיף 5(ז)",
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/%d7%a1%d7%9b%d7%95%d7%9e%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "he": "אישה שנולדה מ-1.1.1960 עד 31.12.1964 מקבלת תוספת של 825 ש\"ח מהחודש שבו מלאו לה 62 ועד גיל הפרישה"
+  },
+  "deductions": {
+   "health": 123,
+   "spouse_away": 779,
+   "spouse_away_pct": 7.5,
+   "section": "סעיף 6(ד)",
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/%d7%a1%d7%9b%d7%95%d7%9e%d7%99%20%d7%94%d7%a7%d7%a6%d7%91%d7%94.aspx",
+   "health_he": "מי שלא עובד: מהקצבה מנוכים דמי ביטוח בריאות מינימליים, 123 ש\"ח",
+   "spouse_away_he": "בן זוג במוסד על חשבון המדינה או שאינו תושב ישראל: מהקצבה מופחתים 779 ש\"ח"
+  },
+  "min_pay": 6,
+  "min_pay_section": "סעיף 8",
+  "clock": {
+   "from_claim_month": true,
+   "section": "סעיף 14(א)",
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/%d7%aa%d7%a7%d7%95%d7%a4%d7%aa%20%d7%94%d7%96%d7%9b%d7%90%d7%95%d7%aa%20%d7%94%d7%9e%d7%a8%d7%91%d7%99%d7%aa.aspx",
+   "claim_url": "https://www.btl.gov.il/benefits/Income_support/Pages/%d7%90%d7%95%d7%a4%d7%9f%20%d7%94%d7%92%d7%a9%d7%aa%20%d7%94%d7%aa%d7%91%d7%99%d7%a2%d7%94.aspx",
+   "retro_he": "קצבה משולמת מהחודש שבו הוגשה התביעה, בלי תשלום רטרואקטיבי; דורש עבודה שהתייצב, מי שבהכשרה מקצועית ועובד בשכר נמוך יכולים לקבל גם בעד החודש שלפני, אם התקיימו בו כל התנאים",
+   "pay_day": 12,
+   "pay_he": "הקצבה משולמת ב-12 בכל חודש עבור החודש הקודם, חוץ מהתשלום הראשון; בחגים המועד עשוי לזוז",
+   "pay_example": "2026-10-12",
+   "pay_url": "https://www.btl.gov.il/Pages/BenefitsPaymentDates.aspx",
+   "full_month_he": "הקצבה משולמת עבור חודש מלא: מי שהתחיל להתייצב באמצע החודש מקבל עליו רק כשיש סיבה מוצדקת לפטור",
+   "changes_days": 30,
+   "changes_url": "https://www.btl.gov.il/benefits/Income_support/Pages/%d7%a9%d7%99%d7%a0%d7%95%d7%99%d7%99%d7%9d.aspx",
+   "changes_he": "על כל שינוי בהכנסות שלכם או של בן הזוג, במצב המשפחתי או בכתובת מודיעים בתוך 30 יום",
+   "hearing_days": 45,
+   "hearing_url": "https://www.btl.gov.il/benefits/Income_support/Pages/shimoa.aspx",
+   "hearing_he": "לפני הפסקת קצבה בגלל ידוע בציבור או שימוש קבוע ברכב נשלחת הודעה, והקצבה ממשיכה; יש 45 ימים להציג עמדה בכתב או בסניף",
+   "appeal_months": 12,
+   "appeal_alimony_months": 6,
+   "appeal_url": "https://www.btl.gov.il/benefits/%d7%a2%d7%a8%d7%a2%d7%95%d7%a8%20%d7%a2%d7%9c%20%d7%94%d7%97%d7%9c%d7%98%d7%95%d7%aa%20%d7%94%d7%9e%d7%95%d7%a1%d7%93%20%d7%9c%d7%91%d7%99%d7%98%d7%95%d7%97%20%d7%9c%d7%90%d7%95%d7%9e%d7%99/Pages/%d7%91%d7%aa%d7%99%20%d7%94%d7%93%d7%99%d7%9f%20%d7%94%d7%90%d7%96%d7%95%d7%a8%d7%99%d7%99%d7%9d%20%d7%9c%d7%a2%d7%91%d7%95%d7%93%d7%94.aspx",
+   "appeal_he": "על החלטת הביטוח הלאומי מגישים ערעור לבית הדין האזורי לעבודה בתוך 12 חודשים מהיום שבו נמסרה ההחלטה; אפשר לבקש סיוע משפטי חינם"
+  },
+  "claim": {
+   "form": "5619",
+   "form_url": "https://www.btl.gov.il/%D7%98%D7%A4%D7%A1%D7%99%D7%9D%20%D7%95%D7%90%D7%99%D7%A9%D7%95%D7%A8%D7%99%D7%9D/forms/Income_Support_forms/Pages/5619%20-%20%D7%98%D7%95%D7%A4%D7%A1%20%D7%9E%D7%99%D7%9C%D7%95%D7%99%20%D7%A2%D7%A6%D7%9E%D7%99-%D7%AA%D7%91%D7%99%D7%A2%D7%94%20%D7%9C%D7%92%D7%9E%D7%9C%D7%AA%20%D7%94%D7%91%D7%98%D7%97%D7%AA%20%D7%94%D7%9B%D7%A0%D7%A1%D7%94.aspx",
+   "online_url": "https://govforms.gov.il/mw/forms/T5619@btl.gov.il",
+   "pdf_url": "https://www.btl.gov.il/%D7%98%D7%A4%D7%A1%D7%99%D7%9D%20%D7%95%D7%90%D7%99%D7%A9%D7%95%D7%A8%D7%99%D7%9D/Documents/t5619.pdf",
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/%d7%90%d7%95%d7%a4%d7%9f%20%d7%94%d7%92%d7%a9%d7%aa%20%d7%94%d7%aa%d7%91%d7%99%d7%a2%d7%94.aspx",
+   "old_age_form": "430",
+   "docs_he": [
+    "טופס התביעה 5619, מקוון או ידני; אפשר להגיש קודם ולשלוח מסמכים אחר כך, כדי לא לאבד את החודש",
+    "אישור התייצבות משירות התעסוקה (הוא מגיע לביטוח הלאומי ישירות), או המסמך של קבוצת הפטור",
+    "תלושי שכר או אישור מעסיק על היקף המשרה והתשלומים החד-פעמיים, ושל בן הזוג",
+    "אישורים על הכנסות שלא מעבודה: פנסיה, מזונות, שכר דירה, חסכונות",
+    "רישיון הרכב, ואם יש חריג: אישור רפואי או אישור ניידות"
+   ]
+  },
+  "since_2002": {
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/20020223-3597.aspx",
+   "section": "סעיף 30א והתוספת הרביעית",
+   "he": "מי שקיבל קצבה בדצמבר 2002 וממשיך ברציפות (בלי הפסקה של 6 חודשים) מקבל לפי טבלה אחרת"
+  },
+  "related": {
+   "url": "https://www.btl.gov.il/benefits/Income_support/Pages/kitsbaotNosafot.aspx",
+   "he": "משפחה חד-הורית או עם 4 ילדים ומעלה שמקבלת הבטחת הכנסה מקבלת מענק לימודים בתחילת שנת הלימודים, בעד ילדים מגיל 6 עד 18"
+  },
+  "history": [
+   {
+    "from": "2023-01-01",
+    "b3": 9493,
+    "point": 153,
+    "change_pct": 5.3
+   },
+   {
+    "from": "2024-01-01",
+    "b3": 9806,
+    "point": 158,
+    "change_pct": 3.3
+   },
+   {
+    "from": "2025-01-01",
+    "b3": 10139,
+    "point": 158,
+    "change_pct": 3.4
+   }
+  ],
+  "history_url": "https://www.btl.gov.il/Mediniyut/GeneralData/Pages/%d7%94%d7%a1%d7%9b%d7%95%d7%9d%20%d7%94%d7%91%d7%a1%d7%99%d7%a1%d7%99%20%d7%9c%d7%97%d7%99%d7%a9%d7%95%d7%91%20%d7%a7%d7%a6%d7%91%d7%90%d7%95%d7%aa.aspx"
+ },
  "fl_iska": {
   "name_he": "העלות המלאה של קניית דירה או מכירתה",
   "publisher_he": "משרד המשפטים (רישום המקרקעין), רשות המסים ולשכת עורכי הדין",

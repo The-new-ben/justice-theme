@@ -24,8 +24,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /** The tools this file answers for. */
 function justice_tools_rights_names(): array {
-	// Wave 2A (HAD-578): the work grant and the net salary, in inc/justice-tools-rights-2a.php.
-	return array_merge( array( 'dmei-bituach', 'nekudot-zikui', 'hechzer-mas', 'dmei-avtala', 'dmei-leida', 'kitzbat-nechut' ), justice_tools_rights2a_names() );
+	// Wave 2A (HAD-578): the work grant and the net salary, in inc/justice-tools-rights-2a.php. Wave 2B (HAD-585): old age,
+	// reserve duty, children and income support, in inc/justice-tools-rights-2b.php.
+	return array_merge( array( 'dmei-bituach', 'nekudot-zikui', 'hechzer-mas', 'dmei-avtala', 'dmei-leida', 'kitzbat-nechut' ), justice_tools_rights2a_names(), justice_tools_rights2b_names() );
 }
 
 /** The catalog entries, merged into justice_tools_catalog(). */
@@ -166,13 +167,16 @@ function justice_tools_rights_catalog(): array {
 			'lawyer'    => array( 'label' => 'עורך דין לביטוח לאומי', 'path' => '/national-insurance-attorney/' ),
 			'sticky'    => 'לחודש',
 		),
-	), justice_tools_rights2a_catalog() );
+	), justice_tools_rights2a_catalog(), justice_tools_rights2b_catalog() );
 }
 
 /** The answer box (40-70 words): the direct answer, its numbers, their sections and the check date. */
 function justice_tools_rights_answer( string $name, string $mode = '' ): string {
 	if ( in_array( $name, justice_tools_rights2a_names(), true ) ) {
 		return justice_tools_rights2a_answer( $name, $mode );
+	}
+	if ( in_array( $name, justice_tools_rights2b_names(), true ) ) {
+		return justice_tools_rights2b_answer( $name, $mode );
 	}
 	$reg = justice_tools_registry();
 	// dmei-bituach (jt28): the answer box. One paragraph, every figure from rights_bituach; the employee and self-employed
@@ -284,6 +288,9 @@ function justice_tools_rights_stamp( string $name, string $mode = '' ): string {
 	if ( in_array( $name, justice_tools_rights2a_names(), true ) ) {
 		return justice_tools_rights2a_stamp( $name, $mode );
 	}
+	if ( in_array( $name, justice_tools_rights2b_names(), true ) ) {
+		return justice_tools_rights2b_stamp( $name, $mode );
+	}
 	$reg = justice_tools_registry();
 	if ( 'dmei-bituach' === $name ) {
 		$bt = $reg['rights_bituach'] ?? array();
@@ -321,6 +328,9 @@ function justice_tools_rights_stamp( string $name, string $mode = '' ): string {
 function justice_tools_rights_sources( string $name ): array {
 	if ( in_array( $name, justice_tools_rights2a_names(), true ) ) {
 		return justice_tools_rights2a_sources( $name );
+	}
+	if ( in_array( $name, justice_tools_rights2b_names(), true ) ) {
+		return justice_tools_rights2b_sources( $name );
 	}
 	$reg = justice_tools_registry();
 	if ( 'dmei-bituach' === $name ) {
@@ -512,5 +522,6 @@ function justice_tools_rights_numbers_html( string $name ): string {
 	return isset( $snap['compare_table'] ) ? '<div class="jtool-page">' . (string) $snap['compare_table'] . '</div>' : '';
 }
 
-// The rights wave 2A (22.10.2026, HAD-578).
+// The rights wave 2A (22.10.2026, HAD-578) and 2B (22.10.2026, HAD-585).
 require_once __DIR__ . '/justice-tools-rights-2a.php';
+require_once __DIR__ . '/justice-tools-rights-2b.php';

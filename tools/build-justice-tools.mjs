@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Build the co.il tools (HAD-485 wave 1, HAD-490 wave 2, HAD-498 wave 3, HAD-502 wave 4, HAD-504 wave 5, HAD-506 family
- * law, the inheritance wave, the rights waves HAD-574 and HAD-578, the family + land wave HAD-579) from their ES-module sources.
+ * law, the inheritance wave, the rights waves HAD-574, HAD-578 and HAD-585, the family + land wave HAD-579) from their ES-module
+ * sources.
  *
  *   node tools/build-justice-tools.mjs          write the bundles and the server snapshots
  *   node tools/build-justice-tools.mjs --check  fail when a committed file is out of date (CI)
@@ -73,6 +74,11 @@ const TOOLS = {
 	'yeduim-batzibur': ['instrument.js', 'sim-handoff.js', 'dates.js', 'yeduim-engine.js', 'yeduim-ui.js'],
 	'alut-iska': ['instrument.js', 'sim-handoff.js', 'rechisha-engine.js', 'iska-engine.js', 'iska-ui.js'],
 	'dira-mikablan': ['instrument.js', 'sim-handoff.js', 'dates.js', 'kablan-engine.js', 'kablan-ui.js'],
+	// The rights wave 2B (22.10.2026, HAD-585): reserve duty, children, income support (and old age), each with the wave-2A
+	// simulation hand-off.
+	'tagmulei-miluim': ['instrument.js', 'sim-handoff.js', 'dates.js', 'miluim-engine.js', 'miluim-ui.js'],
+	'kitzbat-yeladim': ['instrument.js', 'sim-handoff.js', 'dates.js', 'yeladim-engine.js', 'yeladim-ui.js'],
+	'havtachat-hachnasa': ['instrument.js', 'sim-handoff.js', 'dates.js', 'havtacha-engine.js', 'havtacha-ui.js'],
 };
 
 function strip(code) {
@@ -140,6 +146,9 @@ const fl2 = await import(pathToFileURL(join(SRC, 'sichsuch-fl-ui.js')).href);
 const fl3 = await import(pathToFileURL(join(SRC, 'yeduim-ui.js')).href);
 const fl4 = await import(pathToFileURL(join(SRC, 'iska-ui.js')).href);
 const fl5 = await import(pathToFileURL(join(SRC, 'kablan-ui.js')).href);
+const r2bM = await import(pathToFileURL(join(SRC, 'miluim-ui.js')).href);
+const r2bY = await import(pathToFileURL(join(SRC, 'yeladim-ui.js')).href);
+const r2bH = await import(pathToFileURL(join(SRC, 'havtacha-ui.js')).href);
 const snapshots = {
 	registry_version: registry.registry_version,
 	hatzmada: t04.snapshot(registry),
@@ -181,6 +190,9 @@ const snapshots = {
 	'yeduim-batzibur': fl3.snapshot(registry),
 	'alut-iska': fl4.snapshot(registry),
 	'dira-mikablan': fl5.snapshot(registry),
+	'tagmulei-miluim': r2bM.snapshot(registry),
+	'kitzbat-yeladim': r2bY.snapshot(registry),
+	'havtachat-hachnasa': r2bH.snapshot(registry),
 };
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 

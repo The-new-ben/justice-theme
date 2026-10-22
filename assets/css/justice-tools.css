@@ -2075,3 +2075,309 @@ a.jtool-cite:hover { text-decoration: underline; }
 @media (max-width: 700px) {
 	body:has(.legal-pillar-content .jtool-lead) .legal-pillar-hero__panel { display: none; }
 }
+
+/* Rights guide wave 2B (21.10.2026): tagmulei-miluim, reserve-duty pay, the IDF's 2026 grants and the dismissal protection
+   (jt51). Two pictures from the reservist's own paperwork: the pay slip of the reward (a gauge with the floor and the ceiling
+   lines, then the slip's lines in tabular numbers), and the service calendar (a row per month, a cell per day: the days
+   served in navy, the 30 protected days in deep green, days 31 to 60 hatched in green, the last protected day ringed).
+   Mobile first (390 px), the instrument's own --jtool-* palette only. */
+
+/* The quick profiles: one click loads a whole profile */
+.jt51-profiles { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 10px 12px; border: 1px dashed var(--jtool-field-border); border-radius: var(--jtool-radius-field); background: var(--jtool-surface-2); }
+.jt51-profiles__h { flex: 1 1 100%; font: 700 0.85rem/1.3 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt51-prof { min-height: 40px; padding: 6px 12px; border: 1.5px solid var(--jtool-verdict); border-radius: 8px; background: #fff; color: var(--jtool-verdict-deep); font: 700 0.875rem/1.25 var(--jtool-font); text-align: start; cursor: pointer; }
+.jtool .jt51-prof:hover { background: var(--jtool-verdict-tint); }
+.jtool .jt51-prof[aria-pressed="true"] { background: var(--jtool-verdict-deep); border-color: var(--jtool-verdict-deep); color: #fff; }
+.jt51-six { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--jtool-space-2); margin-top: 8px; }
+
+.jt51-pics { display: flex; flex-direction: column; gap: var(--jtool-space-4); }
+
+/* The pay slip */
+.jt51-slip { padding: 12px 14px 10px; border: 1px solid var(--jtool-border); border-top: 4px solid var(--jtool-verdict-deep); border-radius: 6px; background: #fff; }
+.jtool .jt51-slip__h { margin: 0 0 10px !important; font: 800 0.9rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; letter-spacing: 0.01em; }
+.jt51-gauge { margin: 0 0 12px; }
+.jt51-gauge__track { position: relative; height: 18px; border-radius: 3px; background: repeating-linear-gradient(90deg, #EEF3F8 0 9px, #E2E9F1 9px 10px); border: 1px solid var(--jtool-border); overflow: visible; }
+.jt51-gauge__fill { position: absolute; inset-block: 0; inset-inline-start: 0; background: var(--jtool-verdict); border-start-start-radius: 2px; border-end-start-radius: 2px; }
+.jt51-gauge__line { position: absolute; top: -5px; bottom: -5px; width: 2px; margin-inline-start: -1px; }
+.jt51-gauge__line--min { background: var(--jtool-ok); }
+.jt51-gauge__line--max { background: var(--jtool-danger); }
+.jt51-gauge__raw { position: absolute; top: -7px; width: 0; height: 0; margin-inline-start: -6px; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 7px solid var(--jtool-ink); }
+.jt51-gauge__scale { position: relative; height: 18px; margin-top: 4px; font: 600 0.72rem/1.15 var(--jtool-font); color: var(--jtool-muted); }
+.jt51-gauge__scale span { position: absolute; top: 0; transform: translateX(50%); white-space: nowrap; }
+.jt51-gauge__scale span:first-child { transform: translateX(15%); }
+.jt51-gauge__scale span:last-child { transform: translateX(70%); }
+.jtool dl.jt51-slip__rows { display: flex; flex-direction: column; margin: 0 !important; padding: 0 !important; }
+.jt51-slip__rows > div { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; border-bottom: 1px dotted var(--jtool-border); font-size: 0.92rem; line-height: 1.35; }
+.jt51-slip__rows dt { color: var(--jtool-ink); font-weight: 500; }
+.jt51-slip__rows dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--jtool-verdict-deep); }
+.jt51-slip__rows .jt51-slip__total { border-bottom: 0; border-top: 2px solid var(--jtool-verdict-deep); margin-top: 4px; padding-top: 8px; font-size: 1rem; }
+.jt51-slip__total dt, .jt51-slip__total dd { font-weight: 800; }
+
+/* The service calendar: a row per month, a cell per day */
+.jt51-cal { padding: 12px 14px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt51-cal__h { margin: 0 0 8px !important; font: 700 0.875rem/1.3 var(--jtool-font) !important; color: var(--jtool-muted) !important; }
+.jtool ol.jt51-cal__ms { display: flex; flex-direction: column; gap: 8px; margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt51-cal__ms li::before { content: none; }
+.jtool .jt51-m { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 8px; margin: 0 !important; }
+.jt51-m__n { font: 800 0.8rem/1.2 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jt51-m__k { font: 700 0.72rem/1.2 var(--jtool-font); color: var(--jtool-ok); text-align: end; }
+.jt51-m__days { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(31, minmax(0, 1fr)); gap: 1px; direction: rtl; }
+.jt51-c { display: block; height: 16px; border: 1px solid var(--jtool-border); border-radius: 2px; background: #fff; }
+.jt51-c--svc { background: var(--jtool-verdict); border-color: var(--jtool-verdict); }
+.jt51-c--after { background: var(--jtool-ok); border-color: var(--jtool-ok); }
+.jt51-c--ext { background: repeating-linear-gradient(135deg, var(--jtool-ok) 0 2px, #DDEFE4 2px 4px); border-color: var(--jtool-ok); }
+.jt51-c--free { background: transparent; border-style: dashed; border-color: var(--jtool-field-border); }
+.jt51-c--off { background: transparent; border-color: var(--jtool-surface-2); }
+.jt51-c--first { box-shadow: inset 0 3px 0 #fff; }
+.jt51-c--last { box-shadow: inset 0 -3px 0 #fff; }
+.jt51-c--stop { outline: 2px solid var(--jtool-verdict-deep); outline-offset: 1px; }
+.jtool .jt51-cal__legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 10px 0 0 !important; font-size: 0.8125rem !important; line-height: 1.4; color: var(--jtool-muted) !important; }
+.jt51-cal__legend span { display: inline-flex; align-items: center; gap: 6px; }
+.jt51-cal__legend .jt51-c { flex: none; width: 12px; height: 12px; }
+
+/* The rehearse reason and the next steps */
+.jtool .jt51-why { margin: 0 !important; padding: 10px 14px; border-inline-start: 4px solid var(--jtool-verdict-deep); background: var(--jtool-surface-2); font-size: 0.95rem; line-height: 1.55; }
+.jt51-why a { color: var(--jtool-verdict); font-weight: 700; text-decoration: underline; }
+.jt51-next { padding: 10px 14px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-field); }
+.jtool .jt51-next__h { margin: 0 0 6px !important; font: 800 0.9rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt51-next ol { margin: 0 !important; padding: 0 !important; padding-inline-start: 22px !important; display: flex; flex-direction: column; gap: 4px; }
+.jt51-next a { color: var(--jtool-verdict); text-decoration: underline; font-size: 0.95rem; line-height: 1.5; }
+
+/* The gates, the lists, the notes */
+.jtool ul.jt51-gate, .jtool ul.jt51-info { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 10px 16px 12px !important; list-style: none; }
+.jtool .jt51-gate li::before, .jtool .jt51-info li::before { content: none; }
+.jt51-gate__i { font-size: 0.95rem; line-height: 1.5; }
+.jt51-gate__i--ok strong { color: var(--jtool-ok); }
+.jt51-gate__i--no strong { color: var(--jtool-danger); }
+.jt51-gate__i--check strong { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: var(--jtool-warn-bg); color: var(--jtool-warn); font-size: 0.8rem; }
+.jt51-info li { font-size: 0.9rem; line-height: 1.55; color: var(--jtool-ink); }
+.jtool ol.jt51-list { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 10px 16px 12px !important; padding-inline-start: 34px !important; }
+.jt51-list li { font-size: 0.95rem; line-height: 1.55; }
+.jtool .jt51-note { margin: 0 !important; padding: 10px 16px 12px; font-size: 0.95rem; }
+.jt51-tiers td, .jt51-tiers th { white-space: nowrap; }
+.jt51-or { color: var(--jtool-muted); font-size: 0.85em; }
+
+@media (min-width: 600px) {
+	.jt51-six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+	.jt51-profiles__h { flex: 0 0 auto; }
+	.jt51-c { height: 18px; }
+}
+@media print {
+	.jt51-profiles, .jt51-why a, .jt51-next { display: none !important; }
+	.jt51-slip, .jt51-cal, .jt51-m { break-inside: avoid; }
+	.jt51-c--svc, .jt51-c--after, .jt51-c--ext, .jt51-gauge__fill, .jt51-gauge__line { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+
+/* Rights wave 2B (21.10.2026): kitzbat-yeladim, the child allowance and the savings plan (jt52). Two pictures from the
+   Institute's file: the family ledger (a row per child on one shared calendar: the allowance ribbon in navy from the first
+   month to the month of 18, the savings stripe in deep green under it, the 18-to-21 withdrawal window hatched in green, the
+   grant marks as open diamonds, a "today" line in ink through every row) and the step chart of the family's monthly total
+   as the children leave the count. Mobile first (390 px), the instrument's own --jtool-* navy and deep-green palette only. */
+
+/* One-click families */
+.jt52-quick { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 10px 12px; border: 1px solid var(--jtool-border); border-radius: 10px; background: var(--jtool-surface-2); }
+.jt52-quick__h { font: 700 0.85rem/1.3 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt52-qp { min-height: 40px; padding: 6px 12px; border: 1.5px solid var(--jtool-verdict); border-radius: 999px; background: #fff; color: var(--jtool-verdict-deep); font: 700 0.875rem/1.2 var(--jtool-font); cursor: pointer; }
+.jtool .jt52-qp:hover { background: var(--jtool-verdict-tint); }
+.jtool .jt52-qp:focus-visible, .jtool .jt52-add:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+
+/* The children */
+.jtool ol.jt52-kids { display: flex; flex-direction: column; gap: 8px; margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt52-kids li::before { content: none; }
+.jtool .jt52-kid { margin: 0 !important; padding: 8px 10px 6px; border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-verdict); border-radius: 8px; background: #fff; }
+.jt52-kid__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+.jt52-kid__n { font: 800 0.95rem/1.2 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jt52-kid__row { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 8px; }
+.jt52-arr { margin-top: 4px; }
+.jt52-arr summary { cursor: pointer; font: 600 0.8125rem/1.4 var(--jtool-font); color: var(--jtool-muted); min-height: 32px; display: flex; align-items: center; }
+.jt52-adds { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.jtool .jt52-add { min-height: 40px; padding: 6px 14px; border: 1.5px dashed var(--jtool-verdict); border-radius: 999px; background: #fff; color: var(--jtool-verdict); font: 700 0.9rem/1.2 var(--jtool-font); cursor: pointer; }
+.jtool .jt52-add:hover { background: var(--jtool-verdict-tint); }
+
+/* The family ledger: who | the calendar track | the amount now */
+.jt52-led { margin: 12px 0 0; padding: 12px 12px 10px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt52-led__h, .jtool .jt52-st__h { margin: 0 0 8px; font: 700 0.875rem/1.35 var(--jtool-font); color: var(--jtool-muted); }
+.jtool ol.jt52-led__rows { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt52-led__rows li::before { content: none; }
+.jtool .jt52-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "who amt" "track track"; gap: 2px 8px; align-items: center; margin: 0 !important; padding-bottom: 4px; border-bottom: 1px solid var(--jtool-surface-2); }
+.jt52-axis { display: grid; grid-template-columns: minmax(0, 1fr); margin: 0 !important; }
+.jt52-axis__pad, .jt52-axis__pad2 { display: none; }
+.jt52-row__who { grid-area: who; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 8px; min-width: 0; }
+.jt52-row__track { grid-area: track; }
+.jt52-row__amt { grid-area: amt; }
+.jt52-row__who strong { font: 800 0.85rem/1.2 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jt52-row__who small, .jt52-row__amt small { font: 600 0.7rem/1.25 var(--jtool-font); color: var(--jtool-muted); }
+.jt52-row__amt { display: flex; align-items: baseline; gap: 6px; font: 800 0.85rem/1.2 var(--jtool-font); color: var(--jtool-ink); text-align: end; }
+.jt52-row__track { position: relative; height: 24px; border-radius: 4px; background: repeating-linear-gradient(90deg, var(--jtool-surface-2) 0 1px, transparent 1px 10%); border: 1px solid var(--jtool-border); }
+.jt52-band { position: absolute; display: block; border-radius: 2px; }
+.jt52-band--paid { top: 3px; height: 10px; background: var(--jtool-verdict); }
+.jt52-band--save { top: 15px; height: 5px; background: var(--jtool-ok); }
+.jt52-band--free { top: 15px; height: 5px; background: repeating-linear-gradient(135deg, var(--jtool-ok) 0 2px, var(--jtool-ok-bg) 2px 4px); outline: 1px solid var(--jtool-ok); }
+.jt52-mk { position: absolute; top: 12px; width: 9px; height: 9px; margin-inline-start: -4px; transform: rotate(45deg); background: #fff; border: 2px solid var(--jtool-ok); }
+.jt52-mk--cond { border-style: dashed; }
+.jt52-now { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-inline-start: -1px; background: var(--jtool-ink); }
+.jt52-row--ended .jt52-band--paid { opacity: 0.35; }
+.jt52-row--expected .jt52-band--paid, .jt52-row--expected .jt52-band--save { opacity: 0.55; }
+.jt52-axis { margin-top: 2px !important; }
+.jt52-axis__track { position: relative; height: 16px; }
+.jt52-axis__track span { position: absolute; top: 0; transform: translateX(50%); font: 600 0.68rem/1.4 var(--jtool-font); color: var(--jtool-muted); font-variant-numeric: tabular-nums; }
+.jtool .jt52-led__legend { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 8px 0 0 !important; font-size: 0.78rem !important; line-height: 1.4; color: var(--jtool-muted) !important; }
+.jt52-led__legend span { display: inline-flex; align-items: center; gap: 6px; }
+.jt52-k { display: inline-block; flex: none; width: 14px; height: 8px; border-radius: 2px; }
+.jt52-k--paid { background: var(--jtool-verdict); }
+.jt52-k--save { background: var(--jtool-ok); }
+.jt52-k--free { background: repeating-linear-gradient(135deg, var(--jtool-ok) 0 2px, var(--jtool-ok-bg) 2px 4px); outline: 1px solid var(--jtool-ok); }
+.jt52-k--mk { width: 8px; height: 8px; transform: rotate(45deg); background: #fff; border: 2px solid var(--jtool-ok); border-radius: 0; }
+.jt52-k--now { width: 2px; height: 12px; background: var(--jtool-ink); }
+
+/* The step chart */
+.jt52-st { margin: 12px 0 0; padding: 12px 12px 6px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jt52-st__svg { display: block; width: 100%; height: auto; }
+.jt52-st__bar { fill: var(--jtool-verdict); opacity: 0.55; }
+.jt52-st__bar--now { fill: var(--jtool-verdict-deep); opacity: 1; }
+.jt52-st__base { stroke: var(--jtool-field-border); stroke-width: 1; }
+.jt52-st__tick { stroke: var(--jtool-field-border); stroke-width: 1; }
+.jt52-st__v { font: 800 11px var(--jtool-font); fill: var(--jtool-ink); }
+.jt52-st__t { font: 600 9.5px var(--jtool-font); fill: var(--jtool-muted); }
+
+/* The gates, the notes, the steps */
+.jtool ul.jt52-gate, .jtool ul.jt52-info { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 10px 16px 12px !important; list-style: none; }
+.jtool .jt52-gate li::before, .jtool .jt52-info li::before { content: none; }
+.jt52-gate__i { font-size: 0.95rem; line-height: 1.5; }
+.jt52-gate__i--ok strong { color: var(--jtool-ok); }
+.jt52-gate__i--no strong { color: var(--jtool-danger); }
+.jt52-gate__i--check strong { color: var(--jtool-warn); }
+.jt52-info li { font-size: 0.9rem; line-height: 1.55; color: var(--jtool-ink); }
+.jtool .jt52-note { margin: 0 !important; padding: 10px 16px 4px; font-size: 0.95rem !important; line-height: 1.55 !important; }
+.jtool ol.jt52-list { display: flex; flex-direction: column; gap: 8px; margin: 0 !important; padding: 10px 16px 12px !important; padding-inline-start: 34px !important; }
+.jt52-list li { font-size: 0.95rem; line-height: 1.55; }
+.jt52-list a { font-weight: 700; }
+.jt52-you td { background: var(--jtool-verdict-tint); }
+
+@media (min-width: 600px) {
+	.jtool .jt52-row { grid-template-columns: 124px minmax(0, 1fr) 104px; grid-template-areas: "who track amt"; gap: 8px; padding-bottom: 0; border-bottom: 0; }
+	.jt52-axis { grid-template-columns: 124px minmax(0, 1fr) 104px; gap: 8px; }
+	.jt52-axis__pad, .jt52-axis__pad2 { display: block; }
+	.jt52-row__who { flex-direction: column; align-items: flex-start; }
+	.jt52-row__amt { flex-direction: column; align-items: flex-end; gap: 0; }
+	.jt52-row__track { height: 26px; }
+}
+@media print {
+	.jt52-quick, .jt52-adds, .jt52-arr, .jtool .jt52-kids .jtool-linkbtn, .jt52-p-no { display: none !important; }
+	.jt52-led, .jt52-st, .jt52-row { break-inside: avoid; }
+	.jt52-band, .jt52-k, .jt52-st__bar, .jt52-now, .jt52-you td { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+	.jtool .jt52-led__rows { gap: 3px; }
+	.jt52-led, .jt52-st { margin-top: 6px; padding: 6px 8px; }
+	.jt52-st__svg { width: 42%; max-height: 92px; margin-inline-start: auto; }
+	.jtool .jt52-led__h, .jtool .jt52-st__h { margin-bottom: 4px; font-size: 8.5pt; }
+	.jt52-row__track { height: 18px; }
+	.jt52-p-tight .jtool-table th, .jt52-p-tight .jtool-table td { padding: 2px 6px !important; font-size: 8.5pt !important; line-height: 1.3 !important; }
+	.jt52-p-tight .jtool-table caption, .jt52-p-tight .jtool-cite { font-size: 7.5pt !important; }
+	/* The shell's sources list of this instrument only (eleven official sources), in a smaller face so the summary keeps to two pages. */
+	.jtool[data-jtool="kitzbat-yeladim"] .jtool-sources, .jtool[data-jtool="kitzbat-yeladim"] .jtool-sources li { font-size: 7.5pt !important; line-height: 1.3 !important; margin: 0 !important; }
+	.jtool[data-jtool="kitzbat-yeladim"] .jtool-foot { font-size: 7.5pt !important; }
+}
+
+/* The rights wave 2B (21.10.2026): havtachat-hachnasa, income support (jt53). Two pictures from the claims officer's desk:
+   the gate ladder (one rung per condition of the law between two slate rails: a rung that holds is whole and green, a rung
+   to check is dashed amber, a rung that fails is broken in two and red, the old-age route is dashed navy) and the income
+   staircase (a column per step of work income: the income in pale slate, the benefit in navy on top, the dotted line of the
+   full benefit, the dashed lines where the first disregard ends, where the single parent's band ends, where the
+   determining amount takes over and where the benefit ends, the reader's income in green). Mobile first (390 px), the
+   instrument's own --jtool-* palette only. */
+
+/* The quick profiles: one click loads a whole family */
+.jt53-quick { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: var(--jtool-surface-2); }
+.jtool .jt53-quick__h { margin: 0 !important; font: 700 0.875rem/1.3 var(--jtool-font); color: var(--jtool-muted); }
+.jt53-qchip { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-verdict); border-radius: 999px; background: #fff; color: var(--jtool-verdict-deep); font: 700 0.9rem/1.2 var(--jtool-font); cursor: pointer; text-align: start; }
+.jt53-qchip:hover { background: var(--jtool-verdict-tint); }
+.jt53-qchip:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+
+/* The gate ladder */
+.jtool figure.jt53-lad { margin: 0; padding: 12px 14px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt53-lad__h { margin: 0 0 10px; font: 700 0.875rem/1.35 var(--jtool-font); color: var(--jtool-muted); }
+.jtool ol.jt53-lad__rungs { display: flex; flex-direction: column; gap: 0; margin: 0 !important; padding: 0 !important; list-style: none; }
+.jtool .jt53-lad__rungs li::before { content: none; }
+.jtool .jt53-rung { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; align-items: center; gap: 10px; margin: 0 !important; padding: 6px 0; border-bottom: 1px dashed var(--jtool-border); }
+.jtool .jt53-rung:last-child { border-bottom: 0; }
+.jt53-rung__bar { position: relative; display: flex; align-items: center; justify-content: space-between; height: 28px; padding: 0 2px; border-inline: 4px solid #9FB0C1; }
+.jt53-rung__bar i { display: block; width: 50%; height: 6px; background: var(--jtool-ok); }
+.jt53-rung--check .jt53-rung__bar i { height: 0; border-top: 4px dashed var(--jtool-warn); background: none; }
+.jt53-rung--no .jt53-rung__bar i { width: 38%; background: var(--jtool-danger); }
+.jt53-rung--no .jt53-rung__bar i:first-child { transform: rotate(-14deg); transform-origin: right center; }
+.jt53-rung--no .jt53-rung__bar i:last-child { transform: rotate(14deg); transform-origin: left center; }
+.jt53-rung--route .jt53-rung__bar i { height: 0; border-top: 4px dashed var(--jtool-verdict); background: none; }
+.jt53-rung__t { display: flex; flex-direction: column; min-width: 0; line-height: 1.35; }
+.jt53-rung__t strong { font-size: 0.95rem; color: var(--jtool-verdict-deep); }
+.jt53-rung__t small { font-size: 0.8125rem; color: var(--jtool-muted); overflow-wrap: anywhere; }
+.jt53-rung__s { font: 800 0.8125rem/1.2 var(--jtool-font); white-space: nowrap; }
+.jt53-rung--ok .jt53-rung__s { color: var(--jtool-ok); }
+.jt53-rung--check .jt53-rung__s { color: var(--jtool-warn); }
+.jt53-rung--no .jt53-rung__s { color: var(--jtool-danger); }
+.jt53-rung--route .jt53-rung__s { color: var(--jtool-verdict); }
+.jtool .jt53-rung--no { background: var(--jtool-danger-bg); }
+.jtool .jt53-rung--check { background: var(--jtool-warn-bg); }
+
+/* The income staircase */
+.jtool figure.jt53-ch { margin: 0; padding: 12px 14px 10px; border: 1px solid var(--jtool-border); border-radius: var(--jtool-radius-card); background: #fff; }
+.jt53-ch__svg { display: block; width: 100%; height: auto; direction: ltr; }
+.jt53-ch__w { fill: #C9D3DD; }
+.jt53-ch__p { fill: var(--jtool-verdict); }
+.jt53-ch__p--here { fill: var(--jtool-verdict-deep); }
+.jt53-ch__base { stroke: var(--jtool-field-border); stroke-width: 1; }
+.jt53-ch__full { stroke: var(--jtool-verdict-deep); stroke-width: 1; stroke-dasharray: 1 3; }
+.jt53-ch__l { stroke-width: 1.5; stroke-dasharray: 4 3; }
+.jt53-ch__l--first, .jt53-ch__l--band { stroke: var(--jtool-verdict-deep); }
+.jt53-ch__l--band { stroke-dasharray: 2 2; }
+.jt53-ch__l--cap { stroke: var(--jtool-warn); }
+.jt53-ch__l--end { stroke: var(--jtool-danger); }
+.jt53-ch__you { stroke: var(--jtool-ok); stroke-width: 2.5; }
+.jt53-ch__t { font: 700 11px var(--jtool-font); fill: var(--jtool-muted); }
+.jtool .jt53-ch__cap { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; font-size: 0.8125rem; line-height: 1.4; color: var(--jtool-muted); }
+.jt53-ch__cap span { display: inline-flex; align-items: center; gap: 6px; }
+.jt53-k { display: inline-block; flex: none; width: 16px; height: 10px; border-radius: 2px; }
+.jt53-k--w { background: #C9D3DD; }
+.jt53-k--p { background: var(--jtool-verdict); }
+.jt53-k--full, .jt53-k--first, .jt53-k--band, .jt53-k--cap, .jt53-k--end, .jt53-k--you { height: 0; border-radius: 0; border-top: 2px dashed var(--jtool-verdict-deep); }
+.jt53-k--full { border-top-style: dotted; }
+.jt53-k--cap { border-top-color: var(--jtool-warn); }
+.jt53-k--end { border-top-color: var(--jtool-danger); }
+.jt53-k--you { border-top: 3px solid var(--jtool-ok); }
+.jtool .jt53-note { margin: 0 !important; padding: 10px 16px !important; font-size: 0.9rem; line-height: 1.55; color: var(--jtool-ink); }
+
+/* The next steps and the rehearsal */
+.jt53-next { padding: 12px 14px; border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-verdict); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt53-next__h { margin: 0 0 6px !important; color: var(--jtool-verdict-deep); }
+.jtool ol.jt53-next__list { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 0 !important; padding-inline-start: 22px !important; }
+.jt53-next__list li { font-size: 0.95rem; line-height: 1.5; }
+.jt53-next__list a { color: var(--jtool-verdict); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+.jt53-next__list small { color: var(--jtool-muted); }
+.jtool .jt53-rehearse { margin: 10px 0 0 !important; padding-top: 10px; border-top: 1px dashed var(--jtool-border); font-size: 0.9rem; line-height: 1.55; color: var(--jtool-ink); }
+.jt53-rehearse a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; margin-top: 4px; border-radius: var(--jtool-radius-field); background: var(--jtool-verdict-deep); color: #fff !important; font-weight: 700; text-decoration: none !important; }
+.jt53-rehearse a:hover { background: var(--jtool-verdict); }
+.jt53-rehearse a:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+
+/* The gate list, the ledger table, the dates, the checklist and the notes */
+.jtool ul.jt53-gate, .jtool ul.jt53-info { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 10px 16px 12px !important; list-style: none; }
+.jtool .jt53-gate li::before, .jtool .jt53-info li::before { content: none; }
+.jt53-gate__i { font-size: 0.95rem; line-height: 1.5; }
+.jt53-gate__i--ok strong { color: var(--jtool-ok); }
+.jt53-gate__i--check strong { color: var(--jtool-warn); }
+.jt53-gate__i--no strong { color: var(--jtool-danger); }
+.jt53-gate__i--route strong { color: var(--jtool-verdict); }
+.jtool tr.jt53-you td { background: var(--jtool-verdict-tint); font-weight: 800; }
+.jtool tr.jt53-dl--key td { font-weight: 700; }
+.jt53-info li { font-size: 0.9rem; line-height: 1.55; color: var(--jtool-ink); }
+.jtool ol.jt53-list { display: flex; flex-direction: column; gap: 6px; margin: 0 !important; padding: 10px 16px 12px !important; padding-inline-start: 34px !important; }
+.jt53-list li { font-size: 0.95rem; line-height: 1.55; }
+.jt53-scns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (min-width: 600px) {
+	.jtool .jt53-rung { grid-template-columns: 64px minmax(0, 1fr) auto; }
+	.jt53-scns { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media print {
+	.jt53-quick, .jt53-next, .jt53-noprint { display: none !important; }
+	.jtool figure.jt53-lad, .jtool figure.jt53-ch { break-inside: avoid; }
+	.jt53-ch__p, .jt53-ch__w, .jt53-rung__bar i, .jtool .jt53-rung--no, .jtool .jt53-rung--check { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}

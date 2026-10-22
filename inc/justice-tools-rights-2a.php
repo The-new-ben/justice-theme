@@ -179,6 +179,8 @@ function justice_tools_rights2a_lead_shortcode( $atts ): string {
 	$fl = $fl || ( function_exists( 'justice_tools_injury_names' ) && in_array( $name, array_merge( justice_tools_injury_names(), array( 'teunat-drachim' ) ), true ) );
 	// The consumer-law wave (HAD-593): its three instruments and the upgraded small-claims instrument (full and fee modes).
 	$fl = $fl || 'tviot-ktanot' === $name || ( function_exists( 'justice_tools_consumer_names' ) && in_array( $name, justice_tools_consumer_names(), true ) );
+	// The medical-malpractice wave (HAD-594): its four instruments.
+	$fl = $fl || ( function_exists( 'justice_tools_malpractice_names' ) && in_array( $name, justice_tools_malpractice_names(), true ) );
 	if ( ! $fl && ! $b2 && ! in_array( $name, justice_tools_rights2a_names(), true ) ) {
 		return '';
 	}

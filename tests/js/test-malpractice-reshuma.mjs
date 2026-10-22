@@ -81,6 +81,7 @@ check(adult.ok && adult.adultNow && adult.ageNow === 20 && !adult.capped && has(
 const adultLetter = U.letterText(U.letterParts(reg, adult, {}));
 check(adult.asWho === 'rep' && adult.basis.some((b) => /20/.test(b.section)) && adult.attach.some((a) => /ויתור על סודיות/.test(a)), 'an adult today: the basis is the waiver (s.20), and the signed waiver of the patient is attached');
 check(!/הקטין/.test(adultLetter) && /נספח: כתב ויתור על סודיות רפואית/.test(adultLetter) && /בהסכמתו בכתב/.test(adultLetter), 'an adult today: the letter never calls the patient a minor and carries the waiver annex');
+check(/בהסכמת המטופל/.test(U.verdictSentence(reg, adult)) && !/קטין/.test(U.verdictSentence(reg, adult)) && /בהסכמת המטופל הבגיר/.test(U.slip(reg, adult)) && /בהסכמת המטופל הבגיר/.test(U.aiBrief(reg, adult)), 'an adult today: the verdict, the routing slip and the simulation brief all say the parent asks with the adult patient consent (Codex review)');
 check(has(run({ birth: '2012-01-01', treated: '2025-01-01' }), 'minor_self'), 'the patient is 14 today: a flag says a parent asks for a minor (C.16)');
 
 /* ---------- 4. A deceased patient (reg. 3(d), circular C.12) ---------- */

@@ -803,7 +803,9 @@ const cite = (text, href) => (href ? ` <a class="jtool-cite" href="${esc(href)}"
 const chip = (name, value, label, checked, type = 'radio') => `<label class="jtool-chip"><input type="${type}" name="${P}-${name}" value="${esc(value)}"${checked ? ' checked' : ''}><span>${esc(label)}</span></label>`;
 const rsIsoIn = (text) => { const raw = String(text || '').trim(); return raw ? (parseDate(raw) || raw) : ''; };
 const docHe = (reg, code) => reg.malpractice_reshuma.documents[code].he;
-const situation = (r) => `${WHO_HE[r.who]}, ${WHERE_HE[r.where]}`;
+// A parent of a patient who is an adult today asks with the patient's waiver (r.asWho 'rep'): every summary says so.
+const whoHe = (r) => (r.adultNow ? 'הורה, בהסכמת המטופל הבגיר' : WHO_HE[r.who]);
+const situation = (r) => `${whoHe(r)}, ${WHERE_HE[r.where]}`;
 
 /* ---------------- Pure renderers ---------------- */
 
@@ -837,7 +839,8 @@ function verdictSentence(reg, r) {
 	if (!r.ok) { return ''; }
 	const M = reg.malpractice_reshuma;
 	const parts = [];
-	parts.push(r.who === 'rep' ? `עורך דין או מומחה מקבלים את הרשומה בהסכמת המטופל (${M.law.disclose_section} לחוק זכויות החולה).`
+	parts.push(r.adultNow ? `המטופל בגיר היום: ההורה מקבל את הרשומה רק בהסכמת המטופל, בכתב ויתור על סודיות (${M.law.disclose_section} לחוק זכויות החולה).`
+		: r.who === 'rep' ? `עורך דין או מומחה מקבלים את הרשומה בהסכמת המטופל (${M.law.disclose_section} לחוק זכויות החולה).`
 		: r.who === 'heir' ? `אחרי פטירה, הרשומה נמסרת ליורשים שמציגים צו או תצהיר (${M.circular.sections.deceased} ל${M.circular.short_he}).`
 			: `לפי ${M.law.right_section} לחוק זכויות החולה יש זכות לקבל העתק מהרשומה הרפואית.`);
 	if (r.capped) {
@@ -865,7 +868,7 @@ function slip(reg, r, opts = {}) {
 	const basis = r.basis[0];
 	const basisHe = r.who === 'heir' ? `${M.circular.sections.deceased} ל${M.circular.short_he}` : `${basis.section} לחוק זכויות החולה`;
 	const rows = [
-		['מאת', WHO_HE[r.who], '', ''],
+		['מאת', whoHe(r), '', ''],
 		['אל', `${r.where === 'hospital' ? 'מחלקת רשומות ומידע רפואי, ' : ''}${WHERE_TO[r.where]}`, '', ''],
 		['מה', what, '', ''],
 		['לפי', basisHe, 'נוסח רשמי', basis.url],
@@ -886,7 +889,7 @@ function aiBrief(reg, r) {
 	const at = { hospital: 'בית החולים', hmo: 'קופת החולים', clinic: 'המרפאה', idf: 'חיל הרפואה' }[r.where];
 	const when = `${Number(r.treated.slice(5, 7))}.${r.treated.slice(0, 4)}`;
 	const asked = r.docs.length ? r.docs.map((c) => docHe(reg, c)).join(', ') : r.missing.map((c) => docHe(reg, c)).join(', ');
-	const base = `טיפול ב${at} בחודש ${when}. ${WHO_HE[r.who]} ביקש העתק מהרשומה הרפואית: ${asked}.`;
+	const base = `טיפול ב${at} בחודש ${when}. ${whoHe(r)} ביקש העתק מהרשומה הרפואית: ${asked}.`;
 	if (r.followup) {
 		const gap = docHe(reg, r.missing[0]);
 		return `${base} בהעתק שהתקבל חסר ${r.missing.map((c) => docHe(reg, c)).join(', ')}. לפי ${M.law.record_section} לחוק זכויות החולה המוסד חייב לתעד את מהלך הטיפול ולשמור את הרשומה. השאלה לתרגול: חקירה נגדית של המומחה הרפואי מטעם ${at} על הפער ברשומה: מה היה אמור להיות כתוב ב${gap}, מי היה אחראי לתעד, ואיך המומחה קובע מה קרה בלי המסמך?`;
@@ -1206,7 +1209,7 @@ function methodList(reg, r) {
 	const M = reg.malpractice_reshuma;
 	const R = M.regs;
 	const items = [];
-	items.push(`${WHO_HE[r.who]} מבקש מ${WHERE_TO[r.where]}: ${r.basis.map((b) => b.section).join('; ')}`);
+	items.push(`${whoHe(r)} מבקש מ${WHERE_TO[r.where]}: ${r.basis.map((b) => b.section).join('; ')}`);
 	items.push(`יום הטיפול ${isoToHe(r.treated)}; ${R.years} השנים שלפני הבקשה מתחילות ב-${isoToHe(r.fiveFrom)} (${R.sections.five})${r.regsApply ? '' : `; לפני ${isoToHe(R.applies_from)} התקנות לא חלות (${R.sections.applies})`}`);
 	if (r.capped) {
 		if (r.digitalMax !== null) { items.push(`העתק ממוחשב: עד ${nis(r.digitalMax)} לכל הבקשה (${R.sections.computerised} והתוספת)`); }

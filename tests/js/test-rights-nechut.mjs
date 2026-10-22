@@ -108,8 +108,10 @@ check(m40.eligible && m40.medVia === 'single' && !run({ med: 40, single: 24 }).e
 const low = run({ med: 30, single: 20 });
 check(!low.eligible && low.verdict === 'no' && low.gates.find((g) => g.key === 'medical').state === 'no' && NU.verdictSentence(reg, low).startsWith('אין זכאות לקצבת נכות כללית') && low.monthly === 0 && low.flags.some((f) => f.code === 'medical'), 'medical 30% below the threshold: not eligible, the reason in the sentence, nothing paid');
 check(NE.weightedMedical([20, 10]).total === 28 && NE.weightedMedical([45, 25]).total === 58.75 && NE.weightedMedical([50, 20]).total === 60, 'weighted: 20% + 10% of 80% = 28% (the Institute\'s example); 45% + 25% of 55% = 58.75%; 50% + 20% of 50% = 60%');
+check(NE.weightedMedical([45, 25]).rounded === 59 && NE.weightedMedical([20, 10]).rounded === 28 && NE.weightedMedical([25, 19]).rounded === 40, 'reg. 3(ב) of the 1984 regulations (HAD-591): a fraction is rounded up: 58.75% -> 59%, 28% stays, 25% + 19% of 75% = 39.25% -> 40%');
+check(run({ medMode: 'list', meds: [25, 19] }).med === 40 && run({ medMode: 'list', meds: [25, 19] }).medVia === 'single', 'list mode: 25% and 19% weigh 39.25%, rounded up to 40%, so the 40% + 25% gate is met (it was missed before the rounding)');
 const wl = run({ medMode: 'list', med: '', meds: [45, 25, '', '', '', ''] });
-check(wl.eligible && wl.med === 58.75 && wl.single === 45 && wl.medVia === 'single' && run({ medMode: 'list', meds: [50, 20] }).medVia === 'main', 'list mode: 45% and 25% -> 58.75%, the largest 45% >= 25%: eligible by the 40% rule; 50% and 20% -> 60%');
+check(wl.eligible && wl.med === 59 && wl.single === 45 && wl.medVia === 'single' && run({ medMode: 'list', meds: [50, 20] }).medVia === 'main', 'list mode: 45% and 25% -> 58.75%, rounded up to 59%, the largest 45% >= 25%: eligible by the 40% rule; 50% and 20% -> 60%');
 
 /* ---------- 6. The homemaker ---------- */
 const hm = run({ homemaker: true, med: 50, degree: 100, spouse: 'dep', kids: 2, wage: 5000 });

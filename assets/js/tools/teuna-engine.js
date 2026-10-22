@@ -20,7 +20,7 @@
  *    and not counting 7.10.2023-6.4.2024 for a period still running then; a last day on a rest day moves to the next day
  *    (Interpretation Law s.10(ג)).
  */
-import { addDays, addYears, daysBetween, parseDate, offRestDays, fullYears } from './dates.js';
+import { addDays, addMonths, addYears, daysBetween, parseDate, offRestDays, fullYears } from './dates.js';
 
 const r2 = (n) => Math.round(n * 100) / 100;
 const r4 = (n) => Math.round(n * 10000) / 10000;
@@ -178,3 +178,163 @@ export function compute(registry, input) {
 }
 
 function heDate(iso) { const [y, m, d] = iso.split('-').map(Number); return `${d}.${m}.${y}`; }
+
+/* ---------------- The injury wave (22.10.2026, HAD-591): the claim beyond the formula, additive ----------------
+ * Everything below reads registry.injury_teuna (tools/justice_tools_injury_teuna.py) next to registry.car_accident, and
+ * leaves compute() and every export above exactly as they were. tnCompute() returns compute()'s result with a new field
+ * `tn`:
+ *  - who: who pays, by the injured person's place and the vehicles (ss.2(א), 3(א)-(ב), 12(א)), with the insurer lookup;
+ *  - future: loss of earning capacity a month = the income the ceiling allows x the functional disability entered, the
+ *    ceiling itself reduced by the same share (s.4(א)(1), end), net of tax between 75% and 100% (s.4(א)(2)), and the
+ *    undiscounted total to the retirement age entered. No law or regulation sets the capitalisation rate, so no present
+ *    value is computed; 40% or more opens periodic payments (Periodic Payments Regulations 1978, reg. 1);
+ *  - ledger: the heads of damage with the reader's own amounts and the caps the law draws;
+ *  - events: the dated steps a law sets (interim payments ss.5(ב), 5א, 5ה(ב); the experts regulations 8(א), 15(ב);
+ *    the Ordinance's late-discovery bound s.89(2)), each rolled off a rest day (Interpretation Law s.10(ג));
+ *  - flags: periodic payments, a limitation revived by s.15א(ג) and the court's power in s.15א(ד), the dependants.
+ */
+const tnNum = (v) => (v === '' || v === undefined || v === null ? null : Number(v));
+const tnDate = (v) => (v ? parseDate(v) : null);
+const tnCeil = (ca) => { const n = ca.earnings.nii[ca.earnings.nii.length - 1]; return r2(ca.earnings.ceiling_multiple * Math.min(n.s1, n.s2)); };
+
+/** Whole calendar months from one day to a later one (0 when the second is not later). */
+export function tnMonths(from, to) {
+	if (!from || !to || to <= from) { return 0; }
+	const [y1, m1] = from.split('-').map(Number);
+	const [y2, m2] = to.split('-').map(Number);
+	let n = (y2 - y1) * 12 + (m2 - m1);
+	if (addMonths(from, n) > to) { n -= 1; }
+	return Math.max(0, n);
+}
+
+/** Who pays: the vehicle's compulsory insurer (s.2(א)), the vehicle one rode in (s.3(א)), any of them (s.3(ב)), or Karnit (s.12). */
+export function tnWho(ti, input) {
+	const w = ti.who;
+	const out = { lookup: { he: w.insurer_lookup_he, section: w.insurer_lookup_section, url: w.insurer_lookup_url } };
+	if (input.karnit) { return Object.assign(out, { code: 'karnit', he: `קרנית, הקרן לפיצוי נפגעי תאונות דרכים: ${w.karnit_reasons_he}`, section: w.karnit_section, url: w.karnit_suit_url }); }
+	if (input.role === 'in') { return Object.assign(out, input.multi ? { code: 'inside', he: w.inside_he, section: w.inside_section } : { code: 'vehicle', he: `${w.vehicle_he}: הרכב שבו נסעתם`, section: w.vehicle_section }); }
+	if (input.role === 'out') { return Object.assign(out, input.multi ? { code: 'outside', he: w.outside_he, section: w.outside_section } : { code: 'vehicle', he: `${w.vehicle_he}: הרכב שפגע בכם`, section: w.vehicle_section }); }
+	return Object.assign(out, { code: '', he: '', section: '' });
+}
+
+/** Loss of earning capacity: a month and the undiscounted total to the retirement age entered (s.4(א)(1)-(2)). */
+export function tnFuture(registry, input, base) {
+	const ca = registry.car_accident;
+	const ti = registry.injury_teuna;
+	const income = tnNum(input.income);
+	const f = tnNum(input.functional);
+	if (input.death || !(income > 0) || !(f > 0)) { return null; }
+	const ceil = base.earnings ? base.earnings.ceilingAtLeast : tnCeil(ca);
+	const counted = Math.min(income, ceil);
+	const reducedCap = r2(ceil * f / 100);
+	const gross = r2(counted * f / 100);
+	const low = r2(gross * (100 - ca.earnings.tax_cap_pct) / 100);
+	const high = r2(income * f / 100);
+	const retire = tnNum(input.retire);
+	const today = input.today || ti.checked_on;
+	let end = null;
+	let months = null;
+	let exact = false;
+	if (retire !== null) {
+		// The birth day is known only for a minor (the form asks for it there); otherwise the age on the accident day in
+		// full years gives the latest day the retirement age can fall on.
+		const birth = input.birth && base.lim && base.lim.minor ? input.birth : null;
+		end = birth ? addYears(birth, retire) : addYears(base.accident, retire - Number(input.age));
+		exact = Boolean(birth);
+		months = tnMonths(today, end);
+	}
+	return {
+		income, f, ceil, counted, reducedCap, gross, low, high, capped: income > ceil, retire, end, exact, months,
+		totalLow: months !== null ? r2(low * months) : null, totalHigh: months !== null ? r2(high * months) : null,
+		periodic: f >= ti.future.periodic_threshold_pct, past: retire !== null && months === 0,
+	};
+}
+
+/** The heads of damage with the reader's amounts and the cap the law draws for each (null where it draws none). */
+export function tnLedger(registry, input, base, future) {
+	const ca = registry.car_accident;
+	const ti = registry.injury_teuna;
+	const rows = [];
+	for (const h of ti.heads) {
+		if (base.death && h.code !== 'nonpec') { continue; }
+		const row = { code: h.code, he: h.he, section: h.section, rule: h.rule };
+		if (h.code === 'nonpec') {
+			Object.assign(row, { kind: base.np.pct === null ? 'upto' : 'pct', pct: base.np.pct, upTo: base.np.upTo ?? null, amount: base.npAmount, cap: { pct: 100, he: 'הסכום המקסימלי', section: ca.nonpecuniary.max_section } });
+		} else if (h.code === 'past') {
+			const e = base.earnings;
+			Object.assign(row, { kind: e ? 'month' : 'empty', perMonth: e ? e.income : null, months: e ? e.months : 0, low: e && e.months ? e.low : null, high: e && e.months ? e.high : null, cap: { amount: e ? e.ceilingAtLeast : tnCeil(ca), he: 'ההכנסה המרבית לחודש, לפחות', section: ca.earnings.section } });
+		} else if (h.code === 'future') {
+			Object.assign(row, { kind: future ? 'month' : 'empty', perMonth: future ? future.gross : null, months: future ? future.months : null, low: future ? future.totalLow : null, high: future ? future.totalHigh : null, cap: future ? { amount: future.reducedCap, he: `ההכנסה המרבית × ${future.f}%`, section: ti.earnings.partial_section } : null });
+		} else {
+			const v = tnNum(input[h.code]);
+			Object.assign(row, { kind: v > 0 ? 'amount' : 'empty', amount: v > 0 ? v : null, low: v > 0 ? v : null, high: v > 0 ? v : null, cap: null });
+		}
+		rows.push(row);
+	}
+	const low = r2(rows.reduce((s, x) => s + (x.code === 'nonpec' ? (x.amount || 0) : (x.low || 0)), 0));
+	const high = r2(rows.reduce((s, x) => s + (x.code === 'nonpec' ? (x.amount || 0) : (x.high || 0)), 0));
+	return { rows, low, high, nonpecOpen: base.npAmount === null && base.np.pct !== null ? base.np.pct : null };
+}
+
+/** The dated steps a law sets for this claim, each rolled off a rest day (Interpretation Law s.10(ג)). */
+export function tnEvents(registry, input, base) {
+	const ca = registry.car_accident;
+	const ti = registry.injury_teuna;
+	const off = (d) => offRestDays(d, ca.independence_days);
+	const ev = [];
+	const demand = tnDate(input.demand);
+	if (demand && !base.death) {
+		const due = off(addDays(demand, ca.interim_days));
+		ev.push({ code: 'interim_due', date: due, he: `תשלום תכוף: ${ca.interim_days} ימים מקבלת הדרישה בכתב (${heDate(demand)}); ממועד זה, אם לא שולם, ריבית צמודה של ${ti.interim.late_pct}% לשנה (${ti.interim.late_section})`, section: ca.sections.interim, url: ca.law_url });
+		ev.push({ code: 'interim_court', date: addDays(due, 1), he: 'מהיום הזה, אם לא שולם: בקשה לתשלום תכוף לבית משפט השלום', section: ti.interim.court_section, url: ca.law_url });
+	}
+	if (base.accident && !base.death && (demand || tnNum(input.medical) > 0 || tnNum(input.help) > 0)) {
+		ev.push({ code: 'interim_max', date: addYears(base.accident, ti.interim.max_years), he: 'תום שנתיים מהתאונה: בית המשפט לא פוסק תשלום תכוף לתקופה ארוכה מזו, אלא מטעמים שיירשמו', section: ti.interim.max_section, url: ca.law_url });
+	}
+	const notice = tnDate(input.expertNotice);
+	if (notice) { ev.push({ code: 'expert_docs', date: off(addDays(notice, ti.expert.docs_days)), he: `מומחה בית המשפט: ${ti.expert.docs_days} ימים מההודעה על המינוי (${heDate(notice)}) לשלוח לו ולבעלי הדין את כל המסמכים הרפואיים, בלי חוות דעת`, section: ti.expert.docs_section, url: ti.expert.url }); }
+	const opinion = tnDate(input.opinion);
+	if (opinion) { ev.push({ code: 'expert_questions', date: off(addDays(opinion, ti.expert.questions_days)), he: `שאלות הבהרה בכתב למומחה: ${ti.expert.questions_days} ימים מקבלת חוות הדעת (${heDate(opinion)})`, section: ti.expert.questions_section, url: ti.expert.url }); }
+	if (input.late && base.accident && !base.death) {
+		ev.push({ code: 'discovery', date: off(addYears(base.accident, ti.ordinance.discovery_years)), he: `נזק שהתגלה מאוחר: התביעה מתיישנת אם לא הוגשה תוך ${ti.ordinance.discovery_years} שנים מיום הנזק (חישוב פשוט, בלי הימים שסעיף 15א אולי מוסיף)`, section: `${ti.ordinance.discovery_section} לפקודת הנזיקין`, url: ti.ordinance.url });
+	}
+	return ev.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+}
+
+/** compute() and the claim beyond it; errors of the new fields join compute()'s errors. */
+export function tnCompute(registry, input) {
+	const ca = registry.car_accident;
+	const ti = registry.injury_teuna;
+	const base = compute(registry, input);
+	const errors = [];
+	const alive = !input.death;
+	const f = alive ? tnNum(input.functional) : null;
+	const retire = alive ? tnNum(input.retire) : null;
+	if (f !== null && !(f >= 0 && f <= 100)) { errors.push({ field: 'functional', he: 'נכות תפקודית: 0 עד 100' }); }
+	if (retire !== null && !(Number.isInteger(retire) && retire >= 15 && retire <= 90)) { errors.push({ field: 'retire', he: 'גיל סיום ההפסד: מספר שלם, 15 עד 90' }); } else if (retire !== null && tnNum(input.age) !== null && retire <= Number(input.age)) { errors.push({ field: 'retire', he: 'גיל סיום ההפסד צריך להיות גבוה מהגיל ביום התאונה' }); }
+	for (const k of ['medical', 'help', 'travel']) {
+		const v = alive ? tnNum(input[k]) : null;
+		if (v !== null && !(v >= 0 && v < 1e8)) { errors.push({ field: k, he: 'סכום: מספר חיובי' }); }
+	}
+	const accident = parseDate(input.accident);
+	for (const k of ['demand', 'expertNotice', 'opinion']) {
+		if (!input[k] || (k === 'demand' && !alive)) { continue; }
+		const d = parseDate(input[k]);
+		if (!d) { errors.push({ field: k, he: 'תאריך לא תקין. לדוגמה: 1.6.2025' }); } else if (accident && d < accident) { errors.push({ field: k, he: 'התאריך לפני יום התאונה' }); } else if (input.today && d > input.today) { errors.push({ field: k, he: 'התאריך אחרי היום' }); }
+	}
+	if (!base.ok) { return Object.assign({}, base, { errors: base.errors.concat(errors) }); }
+	if (errors.length) { return { ok: false, errors }; }
+	const clean = Object.assign({}, input, { functional: f, retire, medical: alive ? input.medical : '', help: alive ? input.help : '', travel: alive ? input.travel : '', demand: alive ? input.demand : '' });
+	const who = tnWho(ti, input);
+	const future = tnFuture(registry, clean, base);
+	const ledger = tnLedger(registry, clean, base, future);
+	const events = tnEvents(registry, clean, base);
+	const flags = [];
+	if (future && future.periodic) { flags.push({ code: 'periodic', he: `${ti.future.periodic_rule_he}.`, section: `${ti.future.periodic_section} ל${ti.future.periodic_he}`, url: ti.future.periodic_url }); }
+	if (future && future.past) { flags.push({ code: 'retire_past', he: 'לפי הגיל שהזנתם, גיל סיום ההפסד כבר עבר: אין חודשים עתידיים לחשב.' }); }
+	if (base.lim && base.lim.plain >= ca.limitation.war.from && base.lim.plain <= ca.limitation.war.to) {
+		flags.push({ code: 'war_revive', he: `שבע השנים הסתיימו בתוך חלון המלחמה: ${ti.limitation.revive_he} (${ti.limitation.revive_section}). ${ti.limitation.court_he}.`, section: ti.limitation.court_section, url: ti.limitation.url });
+	}
+	if (base.death) { flags.push({ code: 'dependants', he: 'בנוסף לכאב וסבל לעיזבון, התלויים (בן או בת זוג, הורה, ילד) תובעים את הפסד הממון שלהם בגלל המוות; הכלי לא מחשב אותו.', section: 'סעיף 78 לפקודת הנזיקין', url: ti.ordinance.url }); }
+	return Object.assign({}, base, { tn: { who, future, ledger, events, flags, late: Boolean(input.late), age: alive ? tnNum(input.age) : null, days: alive ? tnNum(input.days) : null, work: Boolean(input.work) } });
+}

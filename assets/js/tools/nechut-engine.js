@@ -44,7 +44,9 @@ export function weightedMedical(list) {
 		rest *= (100 - p) / 100;
 		return { p, from: r2(from), add: r2(add) };
 	});
-	return { total: ps.length ? r2(100 - rest * 100) : 0, largest: ps.length ? ps[0] : 0, steps };
+	const total = ps.length ? r2(100 - rest * 100) : 0;
+	// HAD-591: reg. 3(ב) of the 1984 regulations rounds a cumulative medical percentage with a fraction up to the whole.
+	return { total, rounded: Math.ceil(total - 1e-9), largest: ps.length ? ps[0] : 0, steps };
 }
 
 /** Schedule 8.1 (s.202(ב)(2)): the deduction for a monthly work income, part by part, exact and to the shekel. */
@@ -183,7 +185,7 @@ export function compute(registry, input) {
 		});
 		if (!vals.length && !errors.some((e) => e.field.startsWith('m'))) { errors.push({ field: 'm0', he: 'הזינו לפחות ליקוי אחד, באחוזים' }); }
 		weighted = weightedMedical(vals);
-		med = weighted.total;
+		med = weighted.rounded;
 		single = weighted.largest;
 	} else {
 		med = blank(input.med) ? NaN : Number(input.med);

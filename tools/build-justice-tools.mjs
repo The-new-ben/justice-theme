@@ -2,7 +2,7 @@
 /**
  * Build the co.il tools (HAD-485 wave 1, HAD-490 wave 2, HAD-498 wave 3, HAD-502 wave 4, HAD-504 wave 5, HAD-506 family
  * law, the inheritance wave, the rights waves HAD-574, HAD-578 and HAD-585, the family + land wave HAD-579, the labor
- * wave) from their ES-module sources.
+ * wave, the road-accident and personal-injury wave HAD-591) from their ES-module sources.
  *
  *   node tools/build-justice-tools.mjs          write the bundles and the server snapshots
  *   node tools/build-justice-tools.mjs --check  fail when a committed file is out of date (CI)
@@ -32,7 +32,8 @@ const TOOLS = {
 	'hetel-hashbacha': ['instrument.js', 'hashbacha-engine.js', 'hashbacha-ui.js'],
 	// Wave 4 (HAD-502): dates.js is the calendar shared by the wave-4 engines.
 	tzavaa: ['instrument.js', 'tzavaa-engine.js', 'tzavaa-ui.js'],
-	'teunat-drachim': ['instrument.js', 'dates.js', 'teuna-engine.js', 'teuna-ui.js'],
+	// The injury wave (HAD-591) added the claim ledger, the future loss, the lead card and the window handoff.
+	'teunat-drachim': ['instrument.js', 'sim-handoff.js', 'dates.js', 'teuna-engine.js', 'teuna-ui.js'],
 	gerushin: ['instrument.js', 'dates.js', 'gerushin-engine.js', 'gerushin-ui.js'],
 	// Wave 5 (HAD-504): a rental-contract generator, severance and notice, capital gains on a home.
 	'chozeh-schirut': ['instrument.js', 'dates.js', 'word-document.js', 'schirut-engine.js', 'schirut-ui.js'],
@@ -89,6 +90,11 @@ const TOOLS = {
 	// The final settlement reuses the severance, recuperation (in its own scope: it has its own compute() and date
 	// helpers) and annual-leave engines, so its lines equal what each sibling page computes.
 	'gmar-cheshbon': ['instrument.js', 'sim-handoff.js', 'dates.js', 'pitzuyim-engine.js', 'havraa-engine.js as HV', 'chufsha-engine.js', 'gmar-engine.js', 'gmar-ui.js'],
+	// The road-accident and personal-injury wave (22.10.2026, HAD-591): the work-injury journey stands alone; the disability
+	// degree and the injured person's clock read the road engine (nonPecuniary, limitation) in its own scope, as TE.
+	'teunat-avoda': ['instrument.js', 'sim-handoff.js', 'dates.js', 'avoda-engine.js', 'avoda-ui.js'],
+	'shiklul-nechut': ['instrument.js', 'sim-handoff.js', 'dates.js', 'teuna-engine.js as TE', 'shiklul-engine.js', 'shiklul-ui.js'],
+	'shaon-nezikin': ['instrument.js', 'sim-handoff.js', 'dates.js', 'teuna-engine.js as TE', 'shaon-engine.js', 'shaon-ui.js'],
 };
 
 function strip(code) {
@@ -176,6 +182,9 @@ const lbH = await import(pathToFileURL(join(SRC, 'hodaa-ui.js')).href);
 const lbC = await import(pathToFileURL(join(SRC, 'chufsha-ui.js')).href);
 const lbN = await import(pathToFileURL(join(SRC, 'nosafot-ui.js')).href);
 const lbG = await import(pathToFileURL(join(SRC, 'gmar-ui.js')).href);
+const ijA = await import(pathToFileURL(join(SRC, 'avoda-ui.js')).href);
+const ijS = await import(pathToFileURL(join(SRC, 'shiklul-ui.js')).href);
+const ijN = await import(pathToFileURL(join(SRC, 'shaon-ui.js')).href);
 const snapshots = {
 	registry_version: registry.registry_version,
 	hatzmada: t04.snapshot(registry),
@@ -225,6 +234,9 @@ const snapshots = {
 	'chufsha-shnatit': lbC.snapshot(registry),
 	'shaot-nosafot': lbN.snapshot(registry),
 	'gmar-cheshbon': lbG.snapshot(registry),
+	'teunat-avoda': ijA.snapshot(registry),
+	'shiklul-nechut': ijS.snapshot(registry),
+	'shaon-nezikin': ijN.snapshot(registry),
 };
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 

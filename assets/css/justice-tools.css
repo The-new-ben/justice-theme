@@ -2941,3 +2941,368 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jtool .jt56-pt th, .jtool .jt56-pt td { padding: 2pt 4pt; border: 0.5pt solid #555; text-align: start; vertical-align: top; }
 	.jtool .jt56-pt td:last-child { text-align: end; white-space: nowrap; }
 }
+
+/* ===== The injury wave (22.10.2026, HAD-591): jt60, the road-accident claim ledger (the teunat-drachim upgrade) =====
+   The picture is the ledger a claims clerk keeps for a bodily-injury file: one ruled line per head of damage, the
+   reader's figure as a navy bar, and the ceiling the law sets for that head ruled across it as a deep-green vertical
+   line (the part of an income above the ceiling hatched grey: not counted); heads the law leaves without a ceiling run
+   open. The ledger closes with a double rule and the total, and under it the offer as one bar with the lawyer's maximum
+   at 8 / 11 / 13% plus VAT ticked on it. The wave-4 classes (jt10, jt7, jt11) stay as they are. Mobile first (390 px),
+   light, the instrument's navy / deep-green variables only. */
+.jtool .jt60-pfs { margin-bottom: var(--jtool-space-3); }
+.jtool .jt60-profiles { gap: var(--jtool-space-2); }
+.jtool .jt60-profile { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.92rem/1.25 var(--jtool-font); text-align: start; cursor: pointer; }
+.jtool .jt60-profile[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt60-profile[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt60-profile:hover { border-color: var(--jtool-verdict); }
+.jtool .jt60-profile:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+
+/* The ledger. */
+.jtool .jt60-ledger { margin: 0 0 var(--jtool-space-4); padding: var(--jtool-space-3) var(--jtool-space-4) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-inline-start: 5px solid var(--jtool-verdict-deep); border-radius: var(--jtool-radius-card); background: #fff; }
+.jtool .jt60-ledger__h { margin: 0 0 var(--jtool-space-2); font: 800 0.98rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt60-heads { margin: 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt60-head { margin: 0 !important; padding: 10px 0 8px; border-top: 1px solid var(--jtool-border); list-style: none !important; }
+.jtool .jt60-head:first-child { border-top: 0; }
+.jtool .jt60-head__top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 12px; }
+.jtool .jt60-head__name { font: 700 0.92rem/1.35 var(--jtool-font); color: var(--jtool-ink); }
+.jtool .jt60-head__val { font: 800 0.95rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); font-variant-numeric: tabular-nums; }
+.jtool .jt60-head--empty .jt60-head__val { font-weight: 600; color: var(--jtool-muted); }
+.jtool .jt60-head__rule { margin: 2px 0 0 !important; font: 400 0.82rem/1.5 var(--jtool-font) !important; color: var(--jtool-muted) !important; }
+.jtool .jt60-track { position: relative; height: 16px; margin: 16px 0 4px; border: 1px solid #C9D6E3; border-radius: 4px; background: var(--jtool-surface-2); }
+.jtool .jt60-fill { position: absolute; inset-block: 0; inset-inline-start: 0; border-radius: 3px; background: var(--jtool-verdict); }
+.jtool .jt60-head--nonpec .jt60-fill { background: var(--jtool-verdict-deep); }
+.jtool .jt60-track--upto .jt60-fill { background: repeating-linear-gradient(135deg, var(--jtool-verdict) 0 4px, #CFDCEA 4px 8px); }
+.jtool .jt60-track--free .jt60-fill { background: #5B7A99; }
+.jtool .jt60-over { position: absolute; inset-block: 0; background: repeating-linear-gradient(135deg, #AEBBC8 0 4px, #EEF2F6 4px 8px); }
+.jtool .jt60-cap { position: absolute; inset-block: -6px; width: 0; border-inline-start: 3px solid var(--jtool-ok); }
+.jtool .jt60-cap i { position: absolute; bottom: calc(100% + 1px); inset-inline-start: 3px; font: 700 0.66rem/1 var(--jtool-font); font-style: normal; color: var(--jtool-ok); white-space: nowrap; }
+.jtool .jt60-cap--end i { inset-inline-start: auto; inset-inline-end: 3px; }
+.jtool .jt60-sum { margin: 10px 0 0 !important; padding-top: 10px; border-top: 3px double var(--jtool-verdict-deep); font: 700 0.95rem/1.5 var(--jtool-font) !important; color: var(--jtool-ink) !important; }
+.jtool .jt60-sum strong { color: var(--jtool-verdict-deep); font-variant-numeric: tabular-nums; }
+.jtool .jt60-small { margin: 6px 0 0 !important; font-size: 0.85rem !important; line-height: 1.55 !important; color: var(--jtool-muted) !important; }
+
+/* The fee bar. */
+.jtool .jt60-fee { margin-top: var(--jtool-space-3); padding-top: var(--jtool-space-3); border-top: 1px solid var(--jtool-border); }
+.jtool .jt60-fee__h { margin: 0 !important; font: 800 0.9rem/1.35 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt60-feebar { position: relative; height: 22px; margin: 10px 0 8px; border: 1px solid #A9D3BA; border-radius: 4px; background: var(--jtool-ok-bg); }
+.jtool .jt60-feebar__fee { position: absolute; inset-block: 0; inset-inline-start: 0; border-start-start-radius: 3px; border-end-start-radius: 3px; background: var(--jtool-verdict-deep); }
+.jtool .jt60-tick { position: absolute; inset-block: -5px; width: 0; border-inline-start: 2px solid var(--jtool-field-border); }
+.jtool .jt60-tick--here { border-inline-start: 3px solid var(--jtool-ok); }
+.jtool .jt60-fee__keys { margin: 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt60-fee__keys li { margin: 0 0 3px !important; font-size: 0.85rem !important; line-height: 1.5 !important; color: var(--jtool-muted); list-style: none !important; }
+.jtool .jt60-fee__keys li.jt60-here { color: var(--jtool-verdict-deep); font-weight: 700; }
+
+/* Who pays, the new flags, the scenario, the next steps, the lists. */
+.jtool .jt60-whobox, .jtool .jt60-brief, .jtool .jt60-next { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface-2); }
+.jtool .jt60-whobox { border-inline-start: 5px solid var(--jtool-ok); background: #fff; }
+.jtool .jt60-whobox h4, .jtool .jt60-brief h4, .jtool .jt60-next h4, .jtool .jt60-rules h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt60-whobox p { margin: 0 !important; font-size: 0.93rem !important; line-height: 1.6 !important; }
+.jtool .jt60-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; }
+.jtool .jt60-flags { margin-top: var(--jtool-space-3) !important; }
+.jtool .jt60-flags li { border-inline-start: 5px solid var(--jtool-verdict); background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); }
+.jtool .jt60-next ul, .jtool .jt60-list, .jtool .jt60-method { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt60-next li, .jtool .jt60-list li, .jtool .jt60-method li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt60-rules { margin-top: var(--jtool-space-4); }
+.jtool .jt60-rules h4 { margin-top: var(--jtool-space-4) !important; }
+.jtool .jt60-filled { margin: 0 0 var(--jtool-space-3) !important; padding: 8px 12px; border-inline-start: 4px solid var(--jtool-verdict); background: var(--jtool-verdict-tint); }
+.jtool .jt60-print { display: none; }
+@media (min-width: 720px) {
+	.jtool .jt60-track { height: 18px; }
+	.jtool .jt60-head__name { font-size: 0.95rem; }
+}
+@media print {
+	.jtool[data-jtool="teunat-drachim"] .jtool__head, .jtool[data-jtool="teunat-drachim"] .jtool-form, .jtool[data-jtool="teunat-drachim"] .jt60-screen,
+	.jtool[data-jtool="teunat-drachim"] .jtool-next, .jtool[data-jtool="teunat-drachim"] .jtool-sources, .jtool[data-jtool="teunat-drachim"] .jtool-foot,
+	.jtool[data-jtool="teunat-drachim"] .jt60-brief, .jtool[data-jtool="teunat-drachim"] .jt60-next, .jtool[data-jtool="teunat-drachim"] .jtool-actions,
+	.jtool[data-jtool="teunat-drachim"] .jtool-sticky, .jtool[data-jtool="teunat-drachim"] .jtool-stages, .jtool[data-jtool="teunat-drachim"] .jt60-whobox { display: none !important; }
+	.jtool[data-jtool="teunat-drachim"] .jtool__body { display: block !important; }
+	.jtool .jt60-ledger, .jtool .jt10-formula { break-inside: avoid; }
+	.jtool .jt60-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt60-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt60-print p, .jtool .jt60-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt60-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}
+
+/* ===== The road-accident and personal-injury wave (22.10.2026, HAD-591): jt61, the work-injury journey (teunat-avoda) =====
+   The picture is the benefit ledger the National Insurance Institute keeps, laid on a time axis: the injury day as a solid
+   navy tab (the employer pays it), the days that are not paid hatched like a struck-out ledger line, the paid injury-allowance
+   days as a deep-green band numbered in days, the rest of the 91-day window as a dashed outline, then the medical committee
+   and the grant or the pension as the next entries of the ledger. Under it two gauges, each a bar whose end is the 2026
+   ceiling drawn as a thick deep-green rule (1,314.25 a day, 39,428 a month). Mobile first (390 px), light, the instrument's
+   navy / deep-green variables only. */
+.jtool .jt61-presets { gap: var(--jtool-space-2); }
+.jtool .jt61-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; text-align: start; }
+.jtool .jt61-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt61-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt61-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt61-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt61-more > .jtool-row, .jtool .jt61-more > .jtool-field, .jtool .jt61-after > .jtool-row, .jtool .jt61-after > .jtool-field, .jtool .jt61-dates > .jtool-row { margin-top: var(--jtool-space-3); }
+.jtool .jt61-issues .jtool-chip span { min-height: 40px; padding: 6px 12px; font-size: 0.9rem; }
+
+/* The axis. */
+.jtool .jt61-axis { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface); }
+.jtool .jt61-axis__h { margin: 0 0 var(--jtool-space-2); font: 800 0.95rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt61-track { display: flex; flex-direction: column; gap: var(--jtool-space-2); }
+.jtool .jt61-days { display: flex; gap: 3px; min-height: 58px; }
+.jtool .jt61-seg { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-basis: 0; min-width: 40px; padding: 4px 2px; border: 1px solid var(--jtool-border); border-radius: 6px; background: #fff; color: var(--jtool-ink); text-align: center; overflow: hidden; }
+.jtool .jt61-seg b { font: 800 1rem/1.1 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt61-seg small { margin-top: 2px; font: 600 0.7rem/1.15 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt61-seg--day0 { border-color: var(--jtool-verdict-deep); background: var(--jtool-verdict-deep); color: #fff; }
+.jtool .jt61-seg--day0 small { color: #fff; }
+.jtool .jt61-seg--wait, .jtool .jt61-seg--self { background: repeating-linear-gradient(135deg, var(--jtool-surface-2) 0 6px, #DCE5EE 6px 8px); color: var(--jtool-muted); }
+.jtool .jt61-seg--paid { border-color: var(--jtool-ok); border-width: 1.5px; background: var(--jtool-ok-bg); color: var(--jtool-ok); }
+.jtool .jt61-seg--paid small { color: var(--jtool-ok); }
+.jtool .jt61-seg--rest { border: 1.5px dashed #9FB3C6; background: #fff; }
+.jtool .jt61-steps { display: flex; flex-wrap: wrap; gap: var(--jtool-space-2); margin: 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt61-step { position: relative; display: flex; flex-direction: column; flex: 1 1 140px; min-width: 0; margin: 0 !important; padding: 8px 12px; border: 1px solid #B9CDE0; border-radius: 8px; background: var(--jtool-verdict-tint); list-style: none !important; }
+.jtool .jt61-step b { font: 800 0.98rem/1.3 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt61-step small { font: 600 0.8rem/1.35 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt61-step + .jt61-step::before { content: "←"; position: absolute; inset-inline-start: -14px; top: 50%; transform: translateY(-50%); font-weight: 800; color: var(--jtool-verdict); }
+.jtool .jt61-step--grant, .jtool .jt61-step--pension { border-color: var(--jtool-ok); background: var(--jtool-ok); }
+.jtool .jt61-step--grant b, .jtool .jt61-step--pension b, .jtool .jt61-step--grant small, .jtool .jt61-step--pension small { color: #fff; }
+.jtool .jt61-step--none { background: var(--jtool-surface-2); border-color: var(--jtool-border); }
+.jtool .jt61-step--open { border-style: dashed; background: #fff; }
+.jtool .jt61-gauges { display: grid; gap: var(--jtool-space-3); margin-top: var(--jtool-space-3); }
+.jtool .jt61-gauge__t { margin: 0 0 4px !important; font: 600 0.9rem/1.35 var(--jtool-font) !important; color: var(--jtool-ink) !important; }
+.jtool .jt61-gauge__bar { position: relative; height: 14px; border-radius: 3px; background: var(--jtool-surface-2); border: 1px solid var(--jtool-border); }
+.jtool .jt61-gauge__fill { position: absolute; inset-block: 0; inset-inline-start: 0; border-radius: 2px; background: var(--jtool-verdict); }
+.jtool .jt61-gauge__cap { position: absolute; inset-block: -5px; inset-inline-end: -2px; width: 4px; border-radius: 2px; background: var(--jtool-ok); }
+.jtool .jt61-gauge__cap-l { margin: 3px 0 0 !important; font: 700 0.78rem/1.3 var(--jtool-font) !important; color: var(--jtool-ok) !important; text-align: end; }
+.jtool .jt61-ledger { margin-top: var(--jtool-space-3); }
+.jtool .jt61-ledger tr.jt61-l--paid td { background: var(--jtool-ok-bg); font-weight: 700; }
+.jtool .jt61-ledger tr.jt61-l--wait td, .jtool .jt61-ledger tr.jt61-l--self td { color: var(--jtool-muted); }
+
+/* Flags, the road box, brief, next steps, method, lists, the degree table. */
+.jtool .jt61-flags { margin-top: var(--jtool-space-4) !important; }
+.jtool .jt61-flags li.jt61-flag { border: 1px solid var(--jtool-border); border-inline-start-width: 5px; background: var(--jtool-surface-2); color: var(--jtool-ink); }
+.jtool .jt61-flags li.jt61-flag--danger { border-color: #E9B9AE; border-inline-start-color: var(--jtool-danger); background: var(--jtool-danger-bg); color: var(--jtool-danger); }
+.jtool .jt61-flags li.jt61-flag--warn { border-inline-start-color: var(--jtool-verdict); background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); }
+.jtool .jt61-flags li.jt61-flag--ok { border-inline-start-color: var(--jtool-ok); background: var(--jtool-ok-bg); color: var(--jtool-ok); }
+.jtool .jt61-flags li.jt61-flag--info { border-inline-start-color: var(--jtool-field-border); }
+.jtool .jt61-road, .jtool .jt61-brief, .jtool .jt61-next { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface-2); }
+.jtool .jt61-road { border-inline-start: 5px solid var(--jtool-verdict-deep); }
+.jtool .jt61-road h4, .jtool .jt61-brief h4, .jtool .jt61-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt61-road p, .jtool .jt61-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; }
+.jtool .jt61-next ul, .jtool .jt61-list { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt61-next li, .jtool .jt61-list li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt61-method { margin: 0 !important; padding-inline-start: 20px !important; }
+.jtool .jt61-method li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt61-print { display: none; }
+@media (min-width: 720px) {
+	.jtool .jt61-days { min-height: 64px; }
+	.jtool .jt61-seg b { font-size: 1.1rem; }
+	.jtool .jt61-gauges { grid-template-columns: 1fr 1fr; }
+}
+@media print {
+	.jtool[data-jtool="teunat-avoda"] .jtool__head, .jtool[data-jtool="teunat-avoda"] .jtool-form, .jtool[data-jtool="teunat-avoda"] .jt61-screen,
+	.jtool[data-jtool="teunat-avoda"] .jtool-next, .jtool[data-jtool="teunat-avoda"] .jtool-sources, .jtool[data-jtool="teunat-avoda"] .jtool-foot,
+	.jtool[data-jtool="teunat-avoda"] .jt61-brief, .jtool[data-jtool="teunat-avoda"] .jt61-next, .jtool[data-jtool="teunat-avoda"] .jt61-road,
+	.jtool[data-jtool="teunat-avoda"] .jtool-actions, .jtool[data-jtool="teunat-avoda"] .jtool-sticky, .jtool[data-jtool="teunat-avoda"] .jtool-stages { display: none !important; }
+	.jtool[data-jtool="teunat-avoda"] .jtool__body { display: block !important; }
+	.jtool .jt61-axis { break-inside: avoid; border-color: #000; }
+	.jtool .jt61-seg, .jtool .jt61-step { border-color: #555 !important; }
+	.jtool .jt61-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt61-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt61-print p, .jtool .jt61-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt61-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}
+
+/* ===== The road-accident and personal-injury wave (22.10.2026, HAD-591): jt62, the disability degree (shiklul-nechut) =====
+   The picture is the regulation's own arithmetic drawn as a measuring bar: the whole capacity (100%) as one ruled strip;
+   each impairment, the largest first, cuts its share of what is still uncut, in descending navy shades and the deep green
+   of the instrument; the reg. 15 increase is a hatched deep-green extension; what stays uncut is the "remaining capacity",
+   left white with a dashed rule; under the strip, the lines the law draws (9% grant, 20% pension, 40% / 60% general
+   disability) as ticks on a ruler, the ones the degree passes drawn solid. Item rows read like the lines of a committee
+   protocol (number, item, side, previous condition). Mobile first (390 px), light, the --jtool-* navy / deep-green
+   variables only; the shared amber flag look is overridden to navy / grey / danger red under jt62. */
+.jtool .jt62-presets { gap: var(--jtool-space-2); }
+.jtool .jt62-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.92rem/1.25 var(--jtool-font); cursor: pointer; text-align: start; }
+.jtool .jt62-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt62-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt62-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt62-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+
+/* The item rows: a protocol line each. */
+.jtool .jt62-rows { margin: 0 !important; padding: 0 !important; list-style: none !important; counter-reset: none; }
+.jtool .jt62-row { margin: 0 0 var(--jtool-space-3) !important; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-verdict); border-radius: 10px; background: var(--jtool-surface); list-style: none !important; }
+.jtool .jt62-row__head { display: flex; align-items: flex-end; gap: var(--jtool-space-2); }
+.jtool .jt62-row__n { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; inline-size: 28px; block-size: 28px; margin-bottom: 8px; border-radius: 50%; background: var(--jtool-verdict-deep); color: #fff; font: 800 0.85rem/1 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt62-f { min-width: 0; }
+.jtool .jt62-f--item { flex: 1 1 auto; }
+.jtool .jt62-f select, .jtool .jt62-f input { inline-size: 100%; max-inline-size: 100%; }
+.jtool .jt62-row .jtool-row { margin-top: var(--jtool-space-2); }
+.jtool .jt62-row__tag { margin: 6px 0 0 !important; padding-inline-start: 36px; font: 700 0.88rem/1.4 var(--jtool-font); color: var(--jtool-verdict); font-variant-numeric: tabular-nums; }
+.jtool .jt62-rm { flex: 0 0 auto; min-width: 44px; min-height: 44px; }
+.jtool .jt62-add { margin-top: var(--jtool-space-1); }
+.jtool .jt62-opts { margin-top: var(--jtool-space-3); }
+.jtool .jt62-r15[data-off="1"] .jtool-chips { opacity: 0.55; }
+.jtool .jt62-extra > .jtool-row { margin-top: var(--jtool-space-3); }
+
+/* The measuring bar. */
+.jtool .jt62-cap { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface); }
+.jtool .jt62-cap__h { margin: 0 0 var(--jtool-space-2); font: 800 0.95rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt62-barwrap { position: relative; padding-bottom: 46px; }
+.jtool .jt62-bar { display: flex; align-items: stretch; block-size: 44px; overflow: hidden; border: 1.5px solid var(--jtool-verdict-deep); border-radius: 6px; background: #fff; }
+.jtool .jt62-seg, .jtool .jt62-rest { position: relative; display: flex; align-items: center; justify-content: center; min-inline-size: 0; overflow: hidden; }
+.jtool .jt62-seg b, .jtool .jt62-rest b { font: 800 0.8rem/1 var(--jtool-font); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.jtool .jt62-seg { border-inline-end: 1px solid #fff; color: #fff; }
+.jtool .jt62-seg--0 { background: var(--jtool-verdict-deep); }
+.jtool .jt62-seg--1 { background: var(--jtool-verdict); }
+.jtool .jt62-seg--2 { background: #3D6A97; }
+.jtool .jt62-seg--3 { background: var(--jtool-ok); }
+.jtool .jt62-seg--r15 { background: repeating-linear-gradient(135deg, var(--jtool-ok) 0 5px, #CFE8D9 5px 9px); color: var(--jtool-verdict-deep); }
+.jtool .jt62-seg--r15 b { padding: 2px 4px; border-radius: 3px; background: #fff; }
+.jtool .jt62-rest { flex: 1 1 auto; background: repeating-linear-gradient(90deg, #fff 0 9px, var(--jtool-surface-2) 9px 10px); color: var(--jtool-muted); }
+.jtool .jt62-ticks { position: absolute; inset-inline: 0; top: 46px; block-size: 44px; }
+.jtool .jt62-tick { position: absolute; top: 0; transform: translateX(50%); }
+.jtool .jt62-tick i { display: block; inline-size: 2px; block-size: 10px; margin-inline: auto; background: var(--jtool-field-border); }
+.jtool .jt62-tick small { position: absolute; top: 11px; inset-inline-start: 50%; transform: translateX(50%); font: 700 0.68rem/1.1 var(--jtool-font); color: var(--jtool-muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.jtool .jt62-tick:nth-child(2) small, .jtool .jt62-tick:nth-child(4) small { top: 25px; }
+.jtool .jt62-tick:nth-child(2) i, .jtool .jt62-tick:nth-child(4) i { block-size: 24px; }
+.jtool .jt62-tick--on i { background: var(--jtool-ok); }
+.jtool .jt62-tick--on small { color: var(--jtool-ok); }
+.jtool .jt62-steps { margin: var(--jtool-space-2) 0 0 !important; padding-inline-start: 0 !important; list-style: none !important; }
+.jtool .jt62-steps li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 6px; margin: 0 0 6px !important; font-size: 0.92rem !important; line-height: 1.55 !important; list-style: none !important; }
+.jtool .jt62-key { display: inline-block; flex: 0 0 auto; inline-size: 12px; block-size: 12px; border-radius: 2px; }
+
+/* What it means, flags, brief, next steps, method, tables. */
+.jtool .jt62-mean { margin: var(--jtool-space-4) 0 0; }
+.jtool .jt62-mean h4, .jtool .jt62-brief h4, .jtool .jt62-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt62-meaning td strong { font-weight: 800; color: var(--jtool-verdict-deep); }
+.jtool .jt62-meaning a[data-sk-sibling] { font-weight: 700; }
+.jtool .jt62-flags { margin-top: var(--jtool-space-4) !important; }
+.jtool .jt62-flags li.jt62-flag { border: 1px solid var(--jtool-border); border-inline-start-width: 5px; background: var(--jtool-surface-2); color: var(--jtool-ink); }
+.jtool .jt62-flags li.jt62-flag--danger { border-color: #E9B9AE; border-inline-start-color: var(--jtool-danger); background: var(--jtool-danger-bg); color: var(--jtool-danger); }
+.jtool .jt62-flags li.jt62-flag--warn { border-inline-start-color: var(--jtool-verdict); background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); }
+.jtool .jt62-flags li.jt62-flag--info { border-inline-start-color: var(--jtool-field-border); }
+.jtool .jt62-brief, .jtool .jt62-next { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface-2); }
+.jtool .jt62-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; }
+.jtool .jt62-next ul, .jtool .jt62-list { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt62-next li, .jtool .jt62-list li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt62-method { margin: 0 !important; padding-inline-start: 20px !important; }
+.jtool .jt62-method li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt62-items-t tr.jt62-mine td { background: var(--jtool-verdict-tint); font-weight: 700; }
+.jtool .jt62-tables > .jtool-datawrap { margin-top: var(--jtool-space-3); }
+.jtool .jt62-grid th, .jtool .jt62-grid td { padding: 4px 6px; text-align: center; font-variant-numeric: tabular-nums; font-size: 0.82rem; }
+.jtool .jt62-grid td.jt62-hit { background: var(--jtool-verdict-deep); color: #fff; font-weight: 800; }
+.jtool .jt62-print { display: none; }
+@media (min-width: 720px) {
+	.jtool .jt62-bar { block-size: 52px; }
+	.jtool .jt62-seg b, .jtool .jt62-rest b { font-size: 0.9rem; }
+	.jtool .jt62-row .jtool-row { flex-wrap: nowrap; }
+}
+@media print {
+	.jtool[data-jtool="shiklul-nechut"] .jtool__head, .jtool[data-jtool="shiklul-nechut"] .jtool-form, .jtool[data-jtool="shiklul-nechut"] .jt62-screen,
+	.jtool[data-jtool="shiklul-nechut"] .jtool-next, .jtool[data-jtool="shiklul-nechut"] .jtool-sources, .jtool[data-jtool="shiklul-nechut"] .jtool-foot,
+	.jtool[data-jtool="shiklul-nechut"] .jt62-brief, .jtool[data-jtool="shiklul-nechut"] .jt62-next, .jtool[data-jtool="shiklul-nechut"] .jtool-actions,
+	.jtool[data-jtool="shiklul-nechut"] .jtool-sticky, .jtool[data-jtool="shiklul-nechut"] .jtool-stages, .jtool[data-jtool="shiklul-nechut"] .jt62-flags { display: none !important; }
+	.jtool[data-jtool="shiklul-nechut"] .jtool__body { display: block !important; }
+	.jtool .jt62-cap, .jtool .jt62-mean { break-inside: avoid; }
+	.jtool .jt62-bar { border-color: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+	.jtool .jt62-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt62-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt62-print p, .jtool .jt62-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt62-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}
+
+/* ===== The road-accident and personal-injury wave (22.10.2026, HAD-591): jt63, the injured person's clock (shaon-nezikin) =====
+   The picture is a claims clerk's day sheet and a court diary: the first 30 days as a strip of numbered day cells from the
+   injury (the injury day a solid navy block, the days gone shaded, today closed by a thick deep-green rule, a day that carries
+   a deadline marked with a navy tick), and the long diary line from the injury to the last day to sue, with the year ticks of
+   a limitation register and numbered marks for every date the law sets. The checklist reads like a docket: each step tagged
+   with what it is (a duty of law, a right, a condition of a benefit, a procedure, advice). Mobile first (390 px), light, the
+   instrument's navy / deep-green variables only; no cream, gold, brown, terracotta, purple gradient, Inter or emoji. */
+.jtool .jt63-presets { gap: var(--jtool-space-2); }
+.jtool .jt63-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; text-align: start; }
+.jtool .jt63-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt63-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt63-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt63-preset:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool .jt63-checks { margin-top: var(--jtool-space-2); }
+.jtool .jt63-more > .jtool-row, .jtool .jt63-more > .jtool-field { margin-top: var(--jtool-space-3); }
+
+/* The clock: 30 day cells and the diary line. */
+.jtool .jt63-clock { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface); }
+.jtool .jt63-clock__h { margin: 0 0 var(--jtool-space-2); font: 800 0.95rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt63-clock__sub { margin: var(--jtool-space-3) 0 6px !important; font: 700 0.8rem/1.3 var(--jtool-font) !important; color: var(--jtool-muted) !important; letter-spacing: 0.02em; }
+.jtool .jt63-cells { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 3px; margin: 0 !important; padding: 0 !important; list-style: none !important; }
+.jtool .jt63-c { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 44px; margin: 0 !important; padding: 3px 1px; border: 1px solid var(--jtool-border); border-radius: 5px; background: #fff; color: var(--jtool-ink); text-align: center; list-style: none !important; position: relative; }
+.jtool .jt63-c b { font: 800 0.95rem/1 var(--jtool-font); font-variant-numeric: tabular-nums; }
+.jtool .jt63-c small { margin-top: 3px; font: 600 0.62rem/1.1 var(--jtool-font); color: var(--jtool-muted); font-variant-numeric: tabular-nums; }
+.jtool .jt63-c--inj { border-color: var(--jtool-verdict-deep); background: var(--jtool-verdict-deep); color: #fff; }
+.jtool .jt63-c--inj small { color: #fff; }
+.jtool .jt63-c--past { background: var(--jtool-surface-2); color: var(--jtool-muted); }
+.jtool .jt63-c--mark { border-color: var(--jtool-verdict); }
+.jtool .jt63-c--mark::before { content: ""; position: absolute; top: 2px; inset-inline-end: 3px; width: 6px; height: 6px; border-radius: 50%; background: var(--jtool-verdict); }
+.jtool .jt63-c--mark small { color: var(--jtool-verdict-deep); font-weight: 800; }
+.jtool .jt63-c--today { border: 2px solid var(--jtool-ok); border-inline-end-width: 5px; background: var(--jtool-ok-bg); color: var(--jtool-ink); }
+.jtool .jt63-c--today small { color: var(--jtool-ok); font-weight: 800; }
+.jtool .jt63-bar { position: relative; height: 72px; margin: 6px 14px 0; background: linear-gradient(var(--jtool-border), var(--jtool-border)) center / 100% 4px no-repeat; }
+.jtool .jt63-bar__fill { position: absolute; top: 34px; inset-inline-start: 0; height: 4px; border-radius: 4px; background: var(--jtool-verdict-deep); }
+.jtool .jt63-y { position: absolute; top: 29px; width: 1px; height: 14px; background: var(--jtool-field-border); }
+.jtool .jt63-m { position: absolute; top: 25px; transform: translateX(50%); }
+.jtool .jt63-m--l1 { top: 1px; }
+.jtool .jt63-m--l2 { top: 49px; }
+.jtool .jt63-m i { display: flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; padding: 0 4px; border-radius: 999px; border: 2px solid #fff; background: var(--jtool-verdict); color: #fff; font: 800 0.72rem/1 var(--jtool-font); font-style: normal; box-shadow: 0 0 0 1px var(--jtool-verdict); }
+.jtool .jt63-m--limit i { background: var(--jtool-ok); box-shadow: 0 0 0 1px var(--jtool-ok); }
+.jtool .jt63-m--deadline i { background: var(--jtool-verdict-deep); }
+.jtool .jt63-m--info i { background: #fff; color: var(--jtool-verdict-deep); box-shadow: 0 0 0 1px var(--jtool-field-border); }
+.jtool .jt63-m--today { top: 52px; z-index: 2; }
+.jtool .jt63-m--today i { min-width: 0; height: auto; padding: 1px 6px; border-radius: 4px; background: var(--jtool-ok-bg); color: var(--jtool-ok); box-shadow: 0 0 0 1px var(--jtool-ok); font-size: 0.68rem; }
+.jtool .jt63-legend { margin: var(--jtool-space-3) 0 0 !important; padding: 0 !important; list-style: none !important; display: flex; flex-direction: column; gap: 6px; }
+.jtool .jt63-lg { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 0 !important; font-size: 0.9rem !important; line-height: 1.5 !important; list-style: none !important; }
+.jtool .jt63-lg i { flex: none; display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; border-radius: 999px; background: var(--jtool-verdict); color: #fff; font: 800 0.72rem/1 var(--jtool-font); font-style: normal; }
+.jtool .jt63-lg--limit i { background: var(--jtool-ok); }
+.jtool .jt63-lg--deadline i { background: var(--jtool-verdict-deep); }
+.jtool .jt63-lg--info i { background: #fff; color: var(--jtool-verdict-deep); border: 1px solid var(--jtool-field-border); }
+.jtool .jt63-lg bdi { font-weight: 800; font-variant-numeric: tabular-nums; }
+.jtool .jt63-lg--past { color: var(--jtool-muted); }
+
+/* Flags, the docket of steps, who pays, brief, next steps, method, tables. */
+.jtool .jt63-flags { margin-top: var(--jtool-space-4) !important; }
+.jtool .jt63-flags li.jt63-flag { border: 1px solid var(--jtool-border); border-inline-start-width: 5px; background: var(--jtool-surface-2); color: var(--jtool-ink); }
+.jtool .jt63-flags li.jt63-flag--danger { border-color: #E9B9AE; border-inline-start-color: var(--jtool-danger); background: var(--jtool-danger-bg); color: var(--jtool-danger); }
+.jtool .jt63-flags li.jt63-flag--warn { border-inline-start-color: var(--jtool-verdict); background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); }
+.jtool .jt63-flags li.jt63-flag--info { border-inline-start-color: var(--jtool-field-border); }
+.jtool .jt63-box, .jtool .jt63-brief, .jtool .jt63-next { margin: var(--jtool-space-4) 0 0; padding: var(--jtool-space-3) var(--jtool-space-4); border: 1px solid var(--jtool-border); border-radius: 12px; background: var(--jtool-surface-2); }
+.jtool .jt63-box h3.jt63-h, .jtool .jt63-brief h4, .jtool .jt63-next h4 { margin: 0 0 var(--jtool-space-2) !important; font: 800 1rem/1.3 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt63-steps { margin: 0 !important; padding: 0 !important; list-style: none !important; counter-reset: jt63s; display: flex; flex-direction: column; gap: 8px; }
+.jtool .jt63-step { position: relative; margin: 0 !important; padding: 8px 12px 8px 12px; border: 1px solid var(--jtool-border); border-inline-start: 5px solid var(--jtool-field-border); border-radius: 8px; background: #fff; list-style: none !important; counter-increment: jt63s; }
+.jtool .jt63-step p { margin: 4px 0 0 !important; font-size: 0.93rem !important; line-height: 1.55 !important; color: var(--jtool-ink) !important; }
+.jtool .jt63-step--law { border-inline-start-color: var(--jtool-verdict-deep); }
+.jtool .jt63-step--right { border-inline-start-color: var(--jtool-ok); }
+.jtool .jt63-step--condition { border-inline-start-color: var(--jtool-verdict); }
+.jtool .jt63-step--procedure { border-inline-start-color: #7D97B3; }
+.jtool .jt63-step--advice { border-inline-start-color: var(--jtool-border); }
+.jtool .jt63-step--past { background: var(--jtool-surface-2); }
+.jtool .jt63-kind { display: inline-block; padding: 1px 8px; border-radius: 999px; background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); font: 800 0.75rem/1.5 var(--jtool-font); }
+.jtool .jt63-step--law .jt63-kind { background: var(--jtool-verdict-deep); color: #fff; }
+.jtool .jt63-step--right .jt63-kind { background: var(--jtool-ok-bg); color: var(--jtool-ok); }
+.jtool .jt63-when { margin-inline-start: 8px; font: 700 0.85rem/1.5 var(--jtool-font); color: var(--jtool-muted); font-variant-numeric: tabular-nums; }
+.jtool .jt63-note { margin: var(--jtool-space-2) 0 0 !important; font-size: 0.85rem !important; color: var(--jtool-muted) !important; line-height: 1.5 !important; }
+.jtool .jt63-pays { margin: 0 !important; padding: 0 !important; list-style: none !important; display: flex; flex-direction: column; gap: 6px; }
+.jtool .jt63-pay { margin: 0 !important; padding: 8px 12px; border: 1px solid var(--jtool-border); border-radius: 8px; background: #fff; font-size: 0.93rem !important; line-height: 1.55 !important; list-style: none !important; }
+.jtool .jt63-pay--primary { border-inline-start: 5px solid var(--jtool-verdict-deep); }
+.jtool .jt63-pay--primary .jt63-kind { background: var(--jtool-verdict-deep); color: #fff; }
+.jtool .jt63-pay--check .jt63-kind { background: #fff; border: 1px solid var(--jtool-field-border); color: var(--jtool-muted); }
+.jtool .jt63-brief p { margin: 0 0 var(--jtool-space-3) !important; font-size: 0.95rem !important; line-height: 1.6 !important; }
+.jtool .jt63-next ul { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt63-next li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt63-method { margin: 0 !important; padding-inline-start: 20px !important; }
+.jtool .jt63-method li { margin: 0 0 6px !important; font-size: 0.93rem !important; line-height: 1.55 !important; }
+.jtool .jt63-wrap td { white-space: normal !important; }
+.jtool .jt63-wrap tr.jt63-mine td { background: var(--jtool-verdict-tint); font-weight: 700; }
+.jtool .jt63-print { display: none; }
+@media print {
+	.jtool[data-jtool="shaon-nezikin"] .jtool__head, .jtool[data-jtool="shaon-nezikin"] .jtool-form, .jtool[data-jtool="shaon-nezikin"] .jt63-screen,
+	.jtool[data-jtool="shaon-nezikin"] .jtool-next, .jtool[data-jtool="shaon-nezikin"] .jtool-sources, .jtool[data-jtool="shaon-nezikin"] .jtool-foot,
+	.jtool[data-jtool="shaon-nezikin"] .jt63-brief, .jtool[data-jtool="shaon-nezikin"] .jt63-next, .jtool[data-jtool="shaon-nezikin"] .jtool-actions,
+	.jtool[data-jtool="shaon-nezikin"] .jtool-sticky, .jtool[data-jtool="shaon-nezikin"] .jtool-stages { display: none !important; }
+	.jtool[data-jtool="shaon-nezikin"] .jtool__body { display: block !important; }
+	.jtool .jt63-clock, .jtool .jt63-box { break-inside: avoid; border-color: #000; }
+	.jtool .jt63-c, .jtool .jt63-step, .jtool .jt63-pay { border-color: #555 !important; }
+	.jtool .jt63-print { display: block !important; color: #000; font: 400 11pt/1.5 var(--jtool-font); }
+	.jtool .jt63-print h3 { margin: 0 0 8pt !important; font: 800 14pt/1.3 var(--jtool-font) !important; color: #000 !important; }
+	.jtool .jt63-print p, .jtool .jt63-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
+	.jtool .jt63-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
+}

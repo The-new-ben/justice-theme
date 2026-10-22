@@ -257,7 +257,7 @@ export function renderDetails(reg, r) {
 	// 3. The gate.
 	out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-gate-h">תנאי הזכאות</h3></div><ul class="${P}-gate">`
 		+ r.gates.map((g) => `<li class="${P}-gate__i ${P}-gate__i--${g.state}"><strong aria-hidden="true">${g.state === 'ok' ? '✓' : g.state === 'check' ? '!' : '✕'}</strong> ${esc(g.he)}${g.section ? cite(g.section, g.url) : cite('המוסד לביטוח לאומי', g.url)}</li>`).join('')
-		+ `</ul>${r.weighted && r.weighted.steps.length ? `<p class="${P}-wsteps">החישוב המשוקלל: ${r.weighted.steps.map((s) => `<bdi>${pctTxt(s.p)} מתוך ${pctTxt(s.from)} = ${pctTxt(s.add)}</bdi>`).join(' + ')} = <bdi>${pctTxt(r.weighted.total)}</bdi>${cite('קביעת אחוז הנכות הרפואית', pg.medical)}</p>` : ''}</div>`;
+		+ `</ul>${r.weighted && r.weighted.steps.length ? `<p class="${P}-wsteps">החישוב המשוקלל: ${r.weighted.steps.map((s) => `<bdi>${pctTxt(s.p)} מתוך ${pctTxt(s.from)} = ${pctTxt(s.add)}</bdi>`).join(' + ')} = <bdi>${pctTxt(r.weighted.total)}</bdi>${cite('קביעת אחוז הנכות הרפואית', pg.medical)}${r.weighted.rounded !== r.weighted.total && nc.medical.round_section ? `, ${esc(nc.medical.round_he)}: <bdi>${pctTxt(r.weighted.rounded)}</bdi>${cite(nc.medical.round_section, nc.medical.round_url)}` : ''}</p>` : ''}</div>`;
 	// 4. The ledger in text: wage, pension, total, and what stays of the next 100 shekels.
 	if (r.ledger.length) {
 		out += `<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-led-h">שכר וקצבה: כמה נשאר מכל שקל</h3></div>`

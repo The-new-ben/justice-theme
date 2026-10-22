@@ -129,6 +129,9 @@ check( justice_tools_content_leads_with_tool( "<!-- wp:shortcode -->\n[justice_t
 check( justice_tools_content_leads_with_tool( "\n&nbsp;\n<p> </p>\n[justice_tool name=\"gerushin\" answer=\"0\"]" ), 'whitespace, &nbsp; and an empty paragraph before the tool do not count' );
 check( ! justice_tools_content_leads_with_tool( "<p>פתיח קצר.</p>\n[justice_tool name=\"teunat-drachim\"]" ), 'a paragraph before the tool means the article does not open with it' );
 check( ! justice_tools_content_leads_with_tool( '[justice_tool_section name="teunat-drachim" part="method"]' ), 'a tool section is not the instrument' );
+// HAD-591: the result-first card opens the page the way the instrument does; an unknown name still does not.
+check( justice_tools_content_leads_with_tool( "[justice_tool_lead name=\"teunat-drachim\"]\n\n<p>פתיח.</p>\n[justice_tool name=\"teunat-drachim\" answer=\"0\"]" ), 'the result-first card counts as opening with the tool' );
+check( ! justice_tools_content_leads_with_tool( '[justice_tool_lead name="no-such-tool"]' ), 'a card for an unknown tool does not' );
 check( ! justice_tools_content_leads_with_tool( '[justice_tool name="no-such-tool"]' ), 'an unknown tool prints nothing, so it does not count' );
 
 check( opens_with_tool_for( 'articles', $raw_live, false ), 'an article that opens with a tool gets the compact layout' );
@@ -156,7 +159,7 @@ check( false !== strpos( $top, 'נערך על ידי' ) && false !== strpos( $to
 check( false !== strpos( $top, 'https://jus-tice.co.il/tort-lawyer/' ) && false !== strpos( $top, '>נזיקין<' ), 'the practice-area link stays in the header' );
 check( false !== strpos( $top, 'datetime="2019-12-31T20:16:39+02:00"' ) && false !== strpos( $top, 'עודכן: 2026-10-14' ), 'the published and updated dates stay in the header' );
 $box = answer_box( $tool_first );
-check( '' !== $box && false === strpos( $box, '<h2' ) && false !== strpos( $box, '<p><strong>פיצוי על כאב וסבל בתאונת דרכים</strong>' ), 'the answer box stays one short paragraph, its bold lead is not promoted to a heading' );
+check( '' !== $box && false === strpos( $box, '<h2' ) && false !== strpos( $box, '<p><strong>חוק פיצויים לנפגעי תאונות דרכים</strong>' ), 'the answer box stays one short paragraph, its bold lead is not promoted to a heading' );
 check( $box === answer_box( $tool_html ), 'the answer box is printed exactly as the tool made it' );
 check( false !== strpos( $tool_first, '<h2 class="jt-restored-heading">מי זכאי לפיצוי בסעיף 1</h2>' ), 'the rest of the article still gets its heading spine' );
 check( false !== strpos( $tool_first, 'class="jtool__title" role="heading" aria-level="2"' ) && ! preg_match( '/<section class="jtool"[^>]*>.*?<h2/su', substr( $tool_first, 0, (int) strpos( $tool_first, '</section>' ) ) ), 'the tool title stays a heading by role, with no <h2> inside the tool' );
@@ -171,7 +174,7 @@ check( false === strpos( $normal, 'single-article--tool-first' ), 'an article th
 check( false !== strpos( $normal, '<figure class="single-article__image"' ), 'it keeps the featured image above the content' );
 check( false !== strpos( $ntop, '<header class="single-article__header glass-panel" style="max-width: 900px; margin: 40px auto 3rem;' ), 'it keeps the original header panel' );
 check( false !== strpos( $ntop, '<a class="single-article__term"' ) && false !== strpos( $ntop, '5 דקות קריאה' ) && false !== strpos( $ntop, '&#9878;' ), 'it keeps the term pill, the reading time and the byline mark' );
-check( false !== strpos( answer_box( $normal ), '<h2 class="jt-restored-heading">פיצוי על כאב וסבל בתאונת דרכים</h2>' ), 'the heading-spine filter behaves as before on it' );
+check( false !== strpos( answer_box( $normal ), '<h2 class="jt-restored-heading">חוק פיצויים לנפגעי תאונות דרכים</h2>' ), 'the heading-spine filter behaves as before on it' );
 
 /* ---------- Maya Rotenberg's reviewed-by articles are never switched ---------- */
 $maya = render_article( 'articles', $raw_live, true, $body );

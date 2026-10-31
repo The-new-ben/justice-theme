@@ -4111,3 +4111,116 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jtool .jt71-print p, .jtool .jt71-print li { margin: 0 0 4pt !important; font-size: 10.5pt !important; color: #000 !important; }
 	.jtool .jt71-print ol { margin: 0 0 6pt !important; padding-inline-start: 18pt !important; }
 }
+
+/* The divorce calculator and price list (HAD-616, 31.10.2026; machshevon-gerushin, prefix jt72) on /divorce-lawyer/.
+   The picture is an official fee schedule, not a card: one ruled band carries the low, expected and high figures; the bill
+   is ruled rows in schedule order, each marked "רשמי" (a regulation's amount, solid navy), "שוק" (what offices publish,
+   slate outline) or "שלכם" (the reader's quote, green outline); the routes sit side by side like a court list. Palette:
+   the house navy (#0E2E4F, #14477D), slate (#4E5D6C) and the house green (#1B6E42) only; Assistant with tabular figures.
+   Not the default look: no cream, gold, rust or gradient; every form here is taken from the fee schedule itself. */
+.jtool .jt72-presets { gap: var(--jtool-space-2); }
+.jtool .jt72-preset { min-height: 44px; padding: 8px 14px; border: 1.5px solid var(--jtool-field-border); border-radius: 999px; background: #fff; color: var(--jtool-ink); font: 700 0.95rem/1.2 var(--jtool-font); cursor: pointer; text-align: start; }
+.jtool .jt72-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
+.jtool .jt72-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
+.jtool .jt72-preset:hover { border-color: var(--jtool-verdict); }
+.jtool .jt72-seg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.jtool .jt72-seg .jtool-chip { display: flex; }
+.jtool .jt72-seg .jtool-chip span { width: 100%; justify-content: center; border-radius: var(--jtool-radius-field); text-align: center; }
+.jtool .jt72-tick span small { margin-inline-start: 4px; font-weight: 400; opacity: 0.85; }
+.jtool .jt72-band { margin: 14px 0 10px; }
+.jtool .jt72-band__rule { position: relative; height: 14px; margin: 0 6px; border-top: 2px solid var(--jtool-verdict-deep); }
+.jtool .jt72-band__rule::before, .jtool .jt72-band__rule::after { content: ""; position: absolute; top: -8px; width: 2px; height: 14px; background: var(--jtool-verdict-deep); }
+.jtool .jt72-band__rule::before { inset-inline-start: 0; }
+.jtool .jt72-band__rule::after { inset-inline-end: 0; }
+.jtool .jt72-band__rule i { position: absolute; top: -9px; width: 16px; height: 16px; margin-inline-start: -8px; border-radius: 50%; background: var(--jtool-verdict); box-shadow: 0 0 0 3px #fff; }
+.jtool .jt72-band__dl { display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: 8px; margin: 0; }
+.jtool .jt72-band__dl > div { margin: 0; text-align: center; }
+.jtool .jt72-band__dl > div:first-child { text-align: start; }
+.jtool .jt72-band__dl > div:last-child { text-align: end; }
+.jtool .jt72-band__dl dt { font: 700 0.8rem/1.3 var(--jtool-font); letter-spacing: 0.02em; color: var(--jtool-muted); }
+.jtool .jt72-band__dl dd { margin: 2px 0 0; font: 700 1.05rem/1.25 var(--jtool-font); color: var(--jtool-ink); font-variant-numeric: tabular-nums; }
+.jtool .jt72-band__mid dd { font: 800 2rem/1.1 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt72-sides { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0 0; }
+.jtool .jt72-side { margin: 0; padding: 10px 12px; border: 1px solid var(--jtool-border); border-inline-start: 4px solid var(--jtool-verdict); border-radius: 8px; background: #fff; }
+.jtool .jt72-side dt { font: 700 0.85rem/1.3 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt72-side dd { margin: 2px 0 0; display: flex; flex-direction: column; font-variant-numeric: tabular-nums; }
+.jtool .jt72-side dd strong { font: 800 1.25rem/1.25 var(--jtool-font); color: var(--jtool-verdict-deep); }
+.jtool .jt72-side dd small { color: var(--jtool-muted); font-size: 0.8rem; }
+.jtool .jt72-sec { margin: 18px 0 0; }
+.jtool .jt72-h { margin: 0 0 8px !important; font: 800 1.05rem/1.35 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt72-bill td small, .jtool .jt72-scen td small { display: block; color: var(--jtool-muted); font-size: 0.78rem; }
+.jtool .jt72-bill td, .jtool .jt72-scen td { white-space: normal; vertical-align: top; }
+.jtool .jt72-bill tfoot th, .jtool .jt72-bill tfoot td { padding: 10px; border-top: 2px solid var(--jtool-verdict-deep); background: var(--jtool-verdict-tint); color: var(--jtool-verdict-deep); font-weight: 800; position: static; text-align: start; }
+.jtool .jt72-kind, .jtool-page .jt72-kind { display: inline-block; padding: 1px 8px; border-radius: 4px; font: 800 0.75rem/1.5 var(--jtool-font); letter-spacing: 0.02em; white-space: nowrap; }
+.jtool .jt72-kind--official, .jtool-page .jt72-kind--official { background: var(--jtool-verdict-deep); color: #fff; }
+.jtool .jt72-kind--market, .jtool-page .jt72-kind--market { border: 1.5px solid var(--jtool-muted); color: var(--jtool-muted); }
+.jtool .jt72-kind--own { border: 1.5px solid var(--jtool-ok); color: var(--jtool-ok); }
+.jtool .jt72-scen tr.jt72-now th, .jtool .jt72-scen tr.jt72-now td { background: var(--jtool-verdict-tint); font-weight: 800; }
+.jtool .jt72-scen tbody th { position: static; background: transparent; color: var(--jtool-ink); padding: 8px 10px; border-bottom: 1px solid var(--jtool-border); white-space: normal; }
+.jtool .jt72-scen tr.jt72-now th { border-inline-start: 4px solid var(--jtool-verdict); }
+.jtool .jt72-levers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0 0; }
+.jtool .jt72-lever { padding: 10px 14px; border: 1px solid var(--jtool-border); border-radius: 10px; background: #fff; }
+.jtool .jt72-lever--up { border-top: 4px solid var(--jtool-ink); }
+.jtool .jt72-lever--down { border-top: 4px solid var(--jtool-ok); }
+.jtool .jt72-lever h4, .jtool .jt72-time h4, .jtool .jt72-next h4 { margin: 0 0 6px !important; font: 800 0.95rem/1.35 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt72-lever ol, .jtool .jt72-time ul, .jtool .jt72-next ul { margin: 0 !important; padding-inline-start: 18px !important; }
+.jtool .jt72-lever li, .jtool .jt72-time li, .jtool .jt72-next li { margin: 0 0 4px; font-size: 0.92rem; line-height: 1.5; }
+.jtool .jt72-time, .jtool .jt72-next { margin: 14px 0 0; padding: 10px 14px; border: 1px solid var(--jtool-border); border-radius: 10px; background: var(--jtool-surface-2); }
+.jtool .jt72-reviewed, .jtool-page .jt72-reviewed { margin: 8px 0 0 !important; font: 700 0.82rem/1.5 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
+.jtool .jt72-flags li { font-size: 0.9rem; }
+.jtool .jt72-print { display: none; }
+.jtool-page .jt72-pricelist { direction: rtl; font-family: var(--jtool-font); }
+.jtool-page .jt72-pl__lede { margin: 0 0 6px !important; color: var(--jtool-ink); }
+.jtool-page .jt72-pl { margin: 0 0 6px; }
+.jtool-page .jt72-price caption { font-size: 0.95rem; color: var(--jtool-verdict-deep) !important; }
+.jtool-page .jt72-price td small { display: block; margin-top: 2px; color: var(--jtool-muted); font-size: 0.8rem; }
+.jtool-page .jt72-price td { font-variant-numeric: tabular-nums; }
+.jtool-page .jt72-price tr:target td { background: var(--jtool-verdict-tint); }
+.jtool-page .jt72-srcs { margin: 0 !important; padding-inline-start: 16px !important; font-size: 0.82rem; line-height: 1.5; }
+.jtool-page .jt72-srcs li { margin: 0 0 2px; }
+.jtool-page .jt72-srcs span[dir="ltr"] { color: var(--jtool-muted); }
+.jtool-page .jt72-unchecked { color: var(--jtool-muted); font-weight: 800; }
+.jtool-page .jt72-group { margin: 0 0 8px; border: 1px solid var(--jtool-border); border-radius: 10px; background: #fff; }
+.jtool-page .jt72-group > summary { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-height: 48px; padding: 8px 14px; cursor: pointer; font: 800 1rem/1.35 var(--jtool-font); color: var(--jtool-verdict-deep); list-style: none; }
+.jtool-page .jt72-group > summary::-webkit-details-marker { display: none; }
+.jtool-page .jt72-group > summary::after { content: "+"; margin-inline-start: auto; font-size: 1.25rem; color: var(--jtool-verdict); }
+.jtool-page .jt72-group[open] > summary::after { content: "−"; }
+.jtool-page .jt72-group > summary small { font-weight: 400; color: var(--jtool-muted); }
+.jtool-page .jt72-group > summary:focus-visible { outline: 3px solid var(--jtool-focus); outline-offset: 2px; }
+.jtool-page .jt72-group .jtool-datatable { margin: 0; }
+.jtool-page .jt72-srcbox > summary { cursor: pointer; color: var(--jtool-verdict); text-decoration: underline; text-underline-offset: 2px; font-weight: 700; }
+.jtool-page .jt72-srcbox[open] > summary { margin-bottom: 4px; }
+/* The teaser near the top of /divorce-lawyer/ (page content): one small link, not a banner. */
+.entry-content .jt72-teaser { margin: 10px 0 18px !important; }
+.entry-content .jt72-teaser a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 6px 16px; border: 1.5px solid #14477D; border-radius: 999px; background: #FFFFFF; color: #0E2E4F !important; font: 800 0.95rem/1.3 'Assistant', 'Heebo', system-ui, sans-serif; text-decoration: none !important; }
+.entry-content .jt72-teaser a:hover { background: #E8F0F8; }
+.entry-content .jt72-teaser a:focus-visible { outline: 3px solid #1866B4; outline-offset: 2px; }
+@media (max-width: 600px) {
+	.jtool .jt72-seg { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.jtool .jt72-band__mid dd { font-size: 1.6rem; }
+	.jtool .jt72-band__dl dd { font-size: 0.95rem; }
+	.jtool .jt72-levers { grid-template-columns: minmax(0, 1fr); }
+	.jtool .jt72-scen tbody th { display: block; width: 100%; padding: 6px 0 2px; border: 0; }
+	.jtool .jt72-bill tfoot, .jtool .jt72-bill tfoot tr, .jtool .jt72-bill tfoot th, .jtool .jt72-bill tfoot td { display: block; width: 100%; }
+	.jtool-page .jt72-srcs { padding-inline-start: 14px !important; }
+	/* The base page-table cell padding comes later in this file than the stacked-card rule, so on phones a card was 22 px
+	   wider than the screen: the price list keeps its cards inside the column. */
+	.jtool-page .jt72-price tr, .jtool-page .jt72-price td { box-sizing: border-box; }
+	.jtool-page .jt72-price td { padding: 2px 0; }
+	/* Phones: two lines a row. The item first; then the amount, VAT, the source and the date in one wrapped line. */
+	.jtool-page .jt72-price tr, .jtool .jt72-bill tbody tr { display: flex !important; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; padding: 8px 2px; }
+	.jtool-page .jt72-price td, .jtool .jt72-bill tbody td { display: inline-block !important; width: auto !important; padding: 0 !important; }
+	.jtool-page .jt72-price td::before, .jtool .jt72-bill tbody td::before { content: none !important; }
+	.jtool-page .jt72-price .jt72-c-item, .jtool .jt72-bill .jt72-c-item, .jtool-page .jt72-price td[data-th="המסלול"] { flex: 1 1 100%; font-weight: 800; color: var(--jtool-verdict-deep); }
+	.jtool-page .jt72-price .jt72-c-amt, .jtool .jt72-bill .jt72-c-amt { font-weight: 800; }
+	.jtool-page .jt72-price .jt72-c-vat, .jtool-page .jt72-price .jt72-c-date, .jtool .jt72-bill .jt72-c-who { font-size: 0.8rem; color: var(--jtool-muted); }
+	.jtool-page .jt72-price .jt72-c-date::before { content: "נבדק " !important; }
+	.jtool .jt72-bill .jt72-c-who::before { content: "משלם: " !important; }
+	.jtool-page .jt72-price .jt72-c-src { flex: 1 1 100%; font-size: 0.8rem; }
+	.jtool .jt72-bill .jt72-c-src { font-size: 0.8rem; }
+}
+@media print {
+	.jtool .jt72-screen { display: none !important; }
+	.jtool .jt72-print { display: block !important; }
+	.jtool .jt72-levers, .jtool .jt72-sec, .jtool .jt72-next { break-inside: avoid; }
+}

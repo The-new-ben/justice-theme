@@ -111,7 +111,7 @@ check( isset( $jt_enqueued['justice-tools'] ), 'the answer box enqueues the styl
 
 /* ---------- The practice landing: her card after the first section, the reviewed-chapters line ---------- */
 $cfg = justice_theme_get_practice_landing_config( 'divorce-lawyer' );
-check( is_array( $cfg ) && 1 === $cfg['midfold_after_sections'] && 'advocate-maya-rotenberg' === $cfg['featured_lawyer'] && 'עו"ד מאיה רוטנברג' === $cfg['reviewed_by'], 'config: the premium card after the first section; Maya stays the featured lawyer and the reviewer' );
+check( is_array( $cfg ) && 4 === $cfg['midfold_after_sections'] && 'advocate-maya-rotenberg' === $cfg['featured_lawyer'] && 'עו"ד מאיה רוטנברג' === $cfg['reviewed_by'], 'config: the premium card after the fourth section, a bit above the middle (HAD-616); Maya stays the featured lawyer and the reviewer' );
 check( 0 === strpos( $cfg['summary'], 'עורך דין גירושין:' ) && false === strpos( $cfg['summary'], 'מומלץ' ) && str_word_count( preg_replace( '/[^\p{Hebrew}\s]/u', '', $cfg['summary'] ) ) <= 45, 'hero line: the head phrase first, no "מומלץ", short enough for the hero' );
 check( array( 'המחשבון והתשובה שמעליו', 'השאלות הנפוצות' ) === justice_theme_practice_landing_team_parts( '[justice_tool name="gerushin" mode="lawyer"]<section class="jt-team-block jt-head-faq">' ), 'team parts: the HAD-532 wording is unchanged for a page without guide blocks' );
 check( array( 'המחשבונים, האפליקציות והתשובות שמעליהם', 'מדריכי הכלים וההשוואה לעמודים המדורגים', 'השאלות הנפוצות' ) === justice_theme_practice_landing_team_parts( '[justice_tool name="x"]<div class="jt-team-guide"><section class="jt-team-block">' ), 'team parts: tools, guides and the FAQ, in page order' );

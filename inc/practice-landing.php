@@ -33,8 +33,10 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 			// and /divorce-costs-2025/, and split the head term with them.
 			// HAD-539: the page is the divorce world: the lawyer, the costs, and every divorce tool and app in one place.
 			'summary'        => 'עורך דין גירושין: איך בוחרים ייצוג, כמה זה עולה, וכל כלי הגירושין בעמוד אחד: מחשבון מזונות, איזון משאבים, מחולל הסכם גירושין, לוח זמני שהות, מעקב תשלומים ומפת הדרכים, לצד תרגול הגישור.',
-			// HAD-539: Adv. Maya Rotenberg's premium card sits after the first section, under the answer box, not after the second.
-			'midfold_after_sections' => 1,
+			// HAD-539: Adv. Maya Rotenberg's premium card sat after the first section. HAD-616 (Ben, 31.10.2026: "clear, not
+			// overdone, a good place, a bit above the middle"): after the fourth section, right after the eight-tool command
+			// center and before "גירושין בישראל", at about 46% of the page with the calculator and the price list in.
+			'midfold_after_sections' => 4,
 			'hide_signals'   => true,
 			'show_map'       => true,
 			'quick_path'     => array(

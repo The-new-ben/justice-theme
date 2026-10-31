@@ -167,6 +167,13 @@ jobs:
           php tests/test-malpractice-tools.php
           python3 -m py_compile tools/justice_tools_malpractice.py tools/justice_tools_malpractice_tik.py tools/justice_tools_malpractice_reshuma.py tools/justice_tools_malpractice_hityashnut.py tools/justice_tools_malpractice_mechir.py
 
+      - name: Test the divorce calculator and price list (31.10.2026, HAD-616)
+        run: |
+          set -euo pipefail
+          node tests/js/test-divorce-calc.mjs
+          php tests/test-divorce-calc.php
+          python3 -m py_compile tools/justice_tools_fl_mechiron.py
+
       - name: Enforce append-only release ZIPs
         run: |
           set -euo pipefail

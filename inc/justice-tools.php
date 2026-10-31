@@ -43,6 +43,8 @@
  *                                                      three instruments; it also upgrades tviot-ktanot above
  *   [justice_tool name="tik-rashlanut"]                the medical-malpractice wave (22.10.2026, HAD-594): see
  *                                                      inc/justice-tools-malpractice.php for its four instruments
+ *   [justice_tool name="machshevon-gerushin"]          the divorce calculator and price list (31.10.2026, HAD-616): see
+ *                                                      inc/justice-tools-divorce-calc.php
  *
  * Claude Design boards: https://claude.ai/artifact/JHKhphmy9L1QbYYUk2KX4e (wave 1),
  * https://claude.ai/artifact/759KGxB7GDSy5NHaajW8sJ (wave 2), wave 3 (HAD-498): see the PR.
@@ -517,7 +519,8 @@ function justice_tools_catalog(): array {
 	// The road-accident and personal-injury wave (HAD-591): three instruments, in inc/justice-tools-injury.php.
 	// The consumer-law wave (HAD-593): three instruments, in inc/justice-tools-consumer.php.
 	// The medical-malpractice wave (HAD-594): four instruments, in inc/justice-tools-malpractice.php.
-	return array_merge( $catalog, justice_tools_inheritance_catalog(), justice_tools_rights_catalog(), justice_tools_fl_catalog(), justice_tools_labor_catalog(), justice_tools_injury_catalog(), justice_tools_consumer_catalog(), justice_tools_malpractice_catalog() );
+	// The divorce calculator and price list (HAD-616): one instrument, in inc/justice-tools-divorce-calc.php.
+	return array_merge( $catalog, justice_tools_inheritance_catalog(), justice_tools_rights_catalog(), justice_tools_fl_catalog(), justice_tools_labor_catalog(), justice_tools_injury_catalog(), justice_tools_consumer_catalog(), justice_tools_malpractice_catalog(), justice_tools_divcalc_catalog() );
 }
 
 /** The day a tool's own sources were checked: the wave-3 tools carry it in their dataset. */
@@ -802,6 +805,9 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 	if ( in_array( $name, justice_tools_malpractice_names(), true ) ) {
 		return justice_tools_malpractice_answer( $name, $mode );
 	}
+	if ( in_array( $name, justice_tools_divcalc_names(), true ) ) {
+		return justice_tools_divcalc_answer( $name, $mode );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_answer( $name, $mode );
 	}
@@ -916,6 +922,9 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 	if ( in_array( $name, justice_tools_malpractice_names(), true ) ) {
 		return justice_tools_malpractice_stamp( $name, $mode );
 	}
+	if ( in_array( $name, justice_tools_divcalc_names(), true ) ) {
+		return justice_tools_divcalc_stamp( $name, $mode );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_stamp( $name, $mode );
 	}
@@ -996,6 +1005,9 @@ function justice_tools_sources( string $name ): array {
 	}
 	if ( in_array( $name, justice_tools_malpractice_names(), true ) ) {
 		return justice_tools_malpractice_sources( $name );
+	}
+	if ( in_array( $name, justice_tools_divcalc_names(), true ) ) {
+		return justice_tools_divcalc_sources( $name );
 	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_sources( $name );
@@ -1783,6 +1795,9 @@ function justice_tools_numbers_html( string $name ): string {
 	if ( in_array( $name, justice_tools_malpractice_names(), true ) ) {
 		return justice_tools_malpractice_numbers_html( $name );
 	}
+	if ( in_array( $name, justice_tools_divcalc_names(), true ) ) {
+		return justice_tools_divcalc_numbers_html( $name );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_numbers_html( $name );
 	}
@@ -1864,7 +1879,7 @@ function justice_tools_numbers_html( string $name ): string {
 
 /** Comparison table (page standard A6). */
 function justice_tools_compare_html( string $name ): string {
-	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin', 'luach-shahut', 'maakav-mezonot', 'mapat-gerushin' ), true ) || in_array( $name, justice_tools_inheritance_names(), true ) || in_array( $name, justice_tools_rights_names(), true ) || in_array( $name, justice_tools_fl_names(), true ) || in_array( $name, justice_tools_labor_names(), true ) || in_array( $name, justice_tools_injury_names(), true ) || in_array( $name, justice_tools_consumer_names(), true ) || in_array( $name, justice_tools_malpractice_names(), true ) ) {
+	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin', 'luach-shahut', 'maakav-mezonot', 'mapat-gerushin' ), true ) || in_array( $name, justice_tools_inheritance_names(), true ) || in_array( $name, justice_tools_rights_names(), true ) || in_array( $name, justice_tools_fl_names(), true ) || in_array( $name, justice_tools_labor_names(), true ) || in_array( $name, justice_tools_injury_names(), true ) || in_array( $name, justice_tools_consumer_names(), true ) || in_array( $name, justice_tools_malpractice_names(), true ) || in_array( $name, justice_tools_divcalc_names(), true ) ) {
 		$snap = justice_tools_snapshot( $name );
 		return '<div class="jtool-page">' . ( $snap['compare_table'] ?? '' ) . '</div>';
 	}
@@ -2037,3 +2052,5 @@ require_once __DIR__ . '/justice-tools-injury.php';
 require_once __DIR__ . '/justice-tools-consumer.php';
 // The medical-malpractice wave (22.10.2026, HAD-594): the case check, the records request, the limitation clock, the cost.
 require_once __DIR__ . '/justice-tools-malpractice.php';
+// The divorce calculator and price list (31.10.2026, HAD-616): "מחשבון גירושין" and "מחירון גירושין" on /divorce-lawyer/.
+require_once __DIR__ . '/justice-tools-divorce-calc.php';

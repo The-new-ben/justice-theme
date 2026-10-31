@@ -6,7 +6,7 @@
  * Pick a stage and the sentence above the table answers for it, with or without VAT. Every figure is in
  * reg.fl_plili_sachar (tools/justice_tools_fl_plili_sachar.py); illustrations, not a price quote.
  */
-import { esc, ils, isoToHe, encodeState, decodeState, track, copyText, toast, shareUrl, whatsappUrl, stickyBar } from './instrument.js';
+import { esc, ils, isoToHe, encodeState, decodeState, track, copyText, toast, shareUrl, whatsappUrl, store, stickyBar } from './instrument.js';
 
 export const TOOL_ID = 'sachar-orech-din-plili';
 export const PAGE = '/criminal-defense-attorney/';
@@ -155,6 +155,7 @@ export function mount(root, reg) {
 	const t = reg.fl_plili_sachar;
 	let own = false;
 	let started = false;
+	const saveKey = `jtool-${TOOL_ID}`;
 	track('tool_view', { tool_id: TOOL_ID });
 	const run = (input, opts = {}) => {
 		const r = scCompute(reg, input);
@@ -175,6 +176,7 @@ export function mount(root, reg) {
 		const note = root.querySelector('[data-jtool-shared]');
 		if (note) { note.hidden = false; }
 	}
+	if (store.get(saveKey) && !parsed) { const n = root.querySelector('[data-jtool-saved]'); if (n) { n.hidden = false; } }
 	form.addEventListener('change', () => {
 		own = true;
 		if (!started) { started = true; track('tool_start', { tool_id: TOOL_ID }); }
@@ -201,6 +203,15 @@ export function mount(root, reg) {
 			const ok = await copyText(printText(reg, r, t.checked_on));
 			toast(root, ok ? 'השורה הועתקה.' : 'לא הצלחנו להעתיק.');
 			track('tool_share', { tool_id: TOOL_ID, channel: 'copy' });
+		} else if (act === 'save') {
+			store.set(saveKey, stateOf(reg, input));
+			toast(root, 'נשמר במכשיר הזה בלבד. אפשר למחוק בכל רגע.');
+		} else if (act === 'restore') {
+			const saved = inputOf(reg, decodeState(store.get(saveKey) || '', KEYS));
+			if (saved) { apply(saved); }
+		} else if (act === 'clear') {
+			store.clear(saveKey);
+			toast(root, 'נמחק מהמכשיר.');
 		}
 	});
 	stickyBar(root);

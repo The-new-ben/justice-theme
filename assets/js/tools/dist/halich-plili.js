@@ -312,6 +312,7 @@ function mount(root, reg) {
 	const h = reg.fl_plili_halich;
 	let own = false;
 	let started = false;
+	const saveKey = `jtool-${TOOL_ID}`;
 	track('tool_view', { tool_id: TOOL_ID });
 	const run = (input, opts = {}) => {
 		const r = hlCompute(reg, input);
@@ -332,6 +333,7 @@ function mount(root, reg) {
 		const note = root.querySelector('[data-jtool-shared]');
 		if (note) { note.hidden = false; }
 	}
+	if (store.get(saveKey) && !parsed) { const n = root.querySelector('[data-jtool-saved]'); if (n) { n.hidden = false; } }
 	form.addEventListener('change', () => {
 		own = true;
 		if (!started) { started = true; track('tool_start', { tool_id: TOOL_ID }); }
@@ -359,6 +361,15 @@ function mount(root, reg) {
 			const ok = await copyText(printText(reg, r, h.checked_on));
 			toast(root, ok ? 'השלב והעובדות הועתקו.' : 'לא הצלחנו להעתיק.');
 			track('tool_share', { tool_id: TOOL_ID, channel: 'copy' });
+		} else if (act === 'save') {
+			store.set(saveKey, stateOf(reg, input));
+			toast(root, 'נשמר במכשיר הזה בלבד. אפשר למחוק בכל רגע.');
+		} else if (act === 'restore') {
+			const saved = inputOf(reg, decodeState(store.get(saveKey) || '', KEYS));
+			if (saved) { apply(saved); }
+		} else if (act === 'clear') {
+			store.clear(saveKey);
+			toast(root, 'נמחק מהמכשיר.');
 		}
 	});
 	stickyBar(root);

@@ -4123,7 +4123,8 @@ a.jtool-cite:hover { text-decoration: underline; }
 .jtool .jt72-preset[aria-pressed="true"] { background: var(--jtool-verdict); border-color: var(--jtool-verdict); color: #fff; }
 .jtool .jt72-preset[aria-pressed="true"]::before { content: "✓"; margin-inline-end: 6px; }
 .jtool .jt72-preset:hover { border-color: var(--jtool-verdict); }
-.jtool .jt72-seg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+/* Segmented chips fit their column: four across when there is room, two by two in the form column on a desktop. */
+.jtool .jt72-seg { display: grid; grid-template-columns: repeat(auto-fit, minmax(124px, 1fr)); gap: 6px; }
 .jtool .jt72-seg .jtool-chip { display: flex; }
 .jtool .jt72-seg .jtool-chip span { width: 100%; justify-content: center; border-radius: var(--jtool-radius-field); text-align: center; }
 .jtool .jt72-tick span small { margin-inline-start: 4px; font-weight: 400; opacity: 0.85; }
@@ -4174,6 +4175,8 @@ a.jtool-cite:hover { text-decoration: underline; }
 /* The live theme sets nowrap on table captions: the bill's and the scenarios' captions wrap inside the card. */
 .jtool .jt72-bill caption, .jtool .jt72-scen caption { white-space: normal !important; overflow-wrap: anywhere; }
 .jtool .jt72-print { display: none; }
+.jtool .jt72-screen > .jt72-sec:first-child { margin-top: 0; }
+.jtool .jt72-reviewed a { color: var(--jtool-verdict) !important; text-decoration: underline; }
 .jtool-page .jt72-pricelist { direction: rtl; font-family: var(--jtool-font); }
 .jtool-page .jt72-pl__lede { margin: 0 0 6px !important; color: var(--jtool-ink); }
 .jtool-page .jt72-pl { margin: 0 0 6px; }

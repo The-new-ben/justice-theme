@@ -4296,3 +4296,76 @@ a.jtool-cite:hover { text-decoration: underline; }
 .jtool .jt75-print { display: none; }
 @media print { .jtool .jt75-print { display: block; } }
 @media (max-width: 560px) { .jtool .jt75-chart svg { height: 150px; } .jtool .jt75-row { grid-template-columns: minmax(80px, 34%) minmax(0, 1fr) 48px; gap: 8px; } }
+
+/* HAD-651: the criminal hub. Choosing a criminal lawyer (bchirat-orech-din-plili, jt76) and the fee table by stage
+   (sachar-orech-din-plili, jt77). The same house navy and registry hairlines as the divorce chooser; the arrest clock in
+   the danger tone, because under arrest the law's hours run before any comparison of lawyers. */
+.jtool .jt76-urgent { margin: 0 0 12px; padding: 12px 14px; border: 1px solid var(--jtool-danger); border-radius: 10px; background: var(--jtool-danger-bg); color: var(--jtool-ink); line-height: 1.55; }
+.jtool .jt76-urgent a { color: var(--jtool-danger) !important; font-weight: 700; text-decoration: underline; }
+.jtool .jt76-law { font-size: 0.875rem; color: var(--jtool-muted); }
+.jtool .jt76-need { padding: 14px 16px; border-radius: 10px; background: var(--jtool-verdict-tint); }
+.jtool .jt76-kicker { display: block; font-size: 0.8125rem; font-weight: 700; color: var(--jtool-verdict); }
+.jtool .jt76-profile { margin: 4px 0 0; font-size: 1.0625rem; font-weight: 700; line-height: 1.6; color: var(--jtool-ink); }
+.jtool .jt76-focus { margin: 6px 0 0; font-size: 0.95rem; color: var(--jtool-ink); }
+.jtool .jt76-guides { margin: 12px 0 0; line-height: 1.7; }
+.jtool .jt76-guides a, .jtool .jt76-dir, .jtool .jt76-more a { font-weight: 700; color: var(--jtool-verdict) !important; text-decoration: underline; text-underline-offset: 3px; }
+.jtool .jt76-feebox { margin: 14px 0 0; padding: 2px 14px 12px; border: 1px solid var(--jtool-border); border-radius: 10px; background: var(--jtool-surface); }
+.jtool .jt76-fees { margin: 0; padding-inline-start: 20px; line-height: 1.7; }
+.jtool .jt76-budget { margin: 10px 0 0; line-height: 1.55; }
+.jtool .jt76-ask h4, .jtool .jt76-flags h4, .jtool .jt76-feebox h4, .jtool .jt76-lawyers h4 { margin: 14px 0 6px; font-size: 1rem; font-weight: 800; color: var(--jtool-ink); }
+.jtool .jt76-ask ol, .jtool .jt76-flags ul { margin: 0; padding-inline-start: 20px; line-height: 1.6; }
+.jtool .jt76-ask li, .jtool .jt76-flags li { margin: 0 0 4px; }
+.jtool .jt76-reviewed { margin: 12px 0 0; font-size: 0.8125rem; color: var(--jtool-muted); }
+.jtool .jt76-screen { display: flex; flex-direction: column; gap: 14px; }
+.jtool .jt76-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.jtool .jt76-flags { padding: 2px 14px 14px; border: 1px solid var(--jtool-border); border-radius: 10px; background: var(--jtool-surface); }
+.jtool .jt76-lawyers { display: flex; flex-direction: column; gap: 8px; }
+.jtool .jt76-court, .jtool .jt76-more { margin: 0; line-height: 1.55; }
+.jtool .jt76-print, .jtool .jt77-print { display: none; }
+@media print { .jtool .jt76-print, .jtool .jt77-print { display: block; } }
+.jtool .jt77-sentence { margin: 0; font-size: 1.0625rem; font-weight: 700; line-height: 1.6; color: var(--jtool-ink); }
+.jtool .jt77-mid, .jtool .jt77-includes { margin: 8px 0 0; line-height: 1.6; }
+.jtool .jt77-reviewed { margin: 12px 0 0; font-size: 0.8125rem; color: var(--jtool-muted); }
+.jtool .jt77-table td, .jtool .jt77-table th { vertical-align: top; }
+.jtool .jt77-table tr.is-on > * { background: var(--jtool-verdict-tint); }
+.jtool .jt77-table a { color: var(--jtool-verdict) !important; text-decoration: underline; text-underline-offset: 2px; }
+.jtool .jt77-pd > * { border-top: 2px solid var(--jtool-border); }
+.jtool .jt76-menus { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 14px; }
+@media (max-width: 560px) { .jtool .jt76-menus { grid-template-columns: minmax(0, 1fr); } }
+/* HAD-651: offences and penalties (jt78), the process timeline (jt79), the rights card (jt80). Statute citations small
+   and muted in the house face (the site loads no mono face); the timeline is one numbered column on every width; the 24-hour right is the only item in the danger tone. */
+.jtool .jt78-sentence, .jtool .jt79-sentence, .jtool .jt80-sentence { margin: 0; font-size: 1.0625rem; font-weight: 700; line-height: 1.6; color: var(--jtool-ink); }
+.jtool .jt78-court, .jtool .jt78-guide, .jtool .jt79-guide { margin: 8px 0 0; line-height: 1.6; }
+.jtool .jt78-guide a, .jtool .jt79-guide a, .jtool .jt79-title a, .jtool .jt80-more a { font-weight: 700; color: var(--jtool-verdict) !important; text-decoration: underline; text-underline-offset: 3px; }
+.jtool .jt78-reviewed, .jtool .jt79-reviewed, .jtool .jt80-reviewed { margin: 12px 0 0; font-size: 0.8125rem; color: var(--jtool-muted); }
+.jtool .jt78-cite, .jtool .jt79-cite, .jtool .jt80-cite { font-family: var(--jtool-font); font-size: 0.8125rem; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--jtool-muted) !important; overflow-wrap: anywhere; }
+.jtool .jt78-cite { white-space: nowrap; }
+.jtool .jt78-table td, .jtool .jt78-table th { vertical-align: top; }
+.jtool .jt78-table a { color: var(--jtool-verdict) !important; text-decoration: underline; text-underline-offset: 2px; }
+.jtool .jt79-facts { margin: 8px 0 0; padding-inline-start: 20px; line-height: 1.65; }
+.jtool .jt79-facts li { margin: 0 0 6px; }
+.jtool .jt79-facts .jt79-cite { display: inline-block; margin-inline-start: 4px; text-decoration: none; }
+.jtool .jt79-line { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.jtool .jt79-step { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; }
+.jtool .jt79-n { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--jtool-field-border); display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--jtool-muted); }
+.jtool .jt79-step.is-done .jt79-n { border-color: var(--jtool-verdict); color: var(--jtool-verdict); }
+.jtool .jt79-step.is-now .jt79-n { border-color: var(--jtool-verdict); background: var(--jtool-verdict); color: #fff; }
+.jtool .jt79-step.is-now .jt79-body { padding: 10px 12px; border-radius: 10px; background: var(--jtool-verdict-tint); }
+.jtool .jt79-body { padding-bottom: 12px; border-bottom: 1px solid var(--jtool-border); min-width: 0; }
+.jtool .jt79-title { margin: 4px 0 0; font-size: 1.0625rem; font-weight: 800; }
+.jtool .jt79-state { margin-inline-start: 8px; font-size: 0.8125rem; font-weight: 700; color: var(--jtool-muted); }
+.jtool .jt79-step.is-now .jt79-state { color: var(--jtool-verdict); }
+.jtool .jt80-card { margin: 12px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+.jtool .jt80-right { display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border: 1px solid var(--jtool-border); border-radius: 10px; background: var(--jtool-surface); }
+.jtool .jt80-right.is-urgent { border-color: var(--jtool-danger); background: var(--jtool-danger-bg); }
+.jtool .jt80-title { font-size: 1rem; font-weight: 800; color: var(--jtool-ink); }
+.jtool .jt80-text { line-height: 1.6; }
+.jtool .jt80-free { font-size: 0.8125rem; font-weight: 700; color: var(--jtool-muted); }
+.jtool .jt80-more { margin: 0; line-height: 1.6; }
+.jtool .jt78-print, .jtool .jt79-print, .jtool .jt80-print { display: none; }
+@media print { .jtool .jt78-print, .jtool .jt79-print, .jtool .jt80-print { display: block; } .jtool .jt80-card { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 599px) {
+	.jtool .jt77-table th[scope="row"], .jtool .jt78-table th[scope="row"] { display: block; padding: 4px 0; font-size: 1rem; }
+}
+/* The live theme gives table captions nowrap; these captions are sentences. */
+.jtool .jt77-table caption, .jtool .jt78-table caption { white-space: normal; text-align: start; }

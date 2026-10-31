@@ -116,6 +116,11 @@ const TOOLS = {
 	'machshevon-gerushin': ['instrument.js', 'machshevon-engine.js', 'machshevon-ui.js'],
 	'bchirat-orech-din': ['instrument.js', 'bchira-ui.js'],
 	'netunei-gerushin': ['instrument.js', 'netunim-ui.js'],
+	'bchirat-orech-din-plili': ['instrument.js', 'plili-ui.js'],
+	'sachar-orech-din-plili': ['instrument.js', 'sachar-plili-ui.js'],
+	'onshei-averot': ['instrument.js', 'onashim-ui.js'],
+	'halich-plili': ['instrument.js', 'halich-ui.js'],
+	'zchuyot-chashud': ['instrument.js', 'zchuyot-ui.js'],
 };
 
 function strip(code) {
@@ -216,6 +221,11 @@ const mpM = await import(pathToFileURL(join(SRC, 'mechir-ui.js')).href);
 const dvC = await import(pathToFileURL(join(SRC, 'machshevon-ui.js')).href);
 const dvB = await import(pathToFileURL(join(SRC, 'bchira-ui.js')).href);
 const dvN = await import(pathToFileURL(join(SRC, 'netunim-ui.js')).href);
+const crS = await import(pathToFileURL(join(SRC, 'plili-ui.js')).href);
+const crF = await import(pathToFileURL(join(SRC, 'sachar-plili-ui.js')).href);
+const crO = await import(pathToFileURL(join(SRC, 'onashim-ui.js')).href);
+const crH = await import(pathToFileURL(join(SRC, 'halich-ui.js')).href);
+const crZ = await import(pathToFileURL(join(SRC, 'zchuyot-ui.js')).href);
 const snapshots = {
 	registry_version: registry.registry_version,
 	hatzmada: t04.snapshot(registry),
@@ -278,6 +288,11 @@ const snapshots = {
 	'machshevon-gerushin': dvC.snapshot(registry),
 	'bchirat-orech-din': dvB.snapshot(registry),
 	'netunei-gerushin': dvN.snapshot(registry),
+	'bchirat-orech-din-plili': crS.snapshot(registry),
+	'sachar-orech-din-plili': crF.snapshot(registry),
+	'onshei-averot': crO.snapshot(registry),
+	'halich-plili': crH.snapshot(registry),
+	'zchuyot-chashud': crZ.snapshot(registry),
 };
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 

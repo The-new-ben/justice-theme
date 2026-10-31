@@ -1,0 +1,531 @@
+{
+ "checked_on": "2026-10-31",
+ "rows": {
+  "consult": {
+   "low": 1500,
+   "high": 5000,
+   "mid": 2500,
+   "high_open": false,
+   "sources": [
+    {
+     "publisher": "כמהעולה.co.il",
+     "url": "https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 1500,
+     "high": 5000,
+     "vat": "usually excluded: 'בדרך כלל אינם כוללים מע״מ'",
+     "date": "'עודכן לאחרונה: 29.07.2026'",
+     "quote": "ייעוץ והכנה לפני חקירת משטרה הבנת החשדות, זכויות והיערכות 1,500–5,000 ₪"
+    },
+    {
+     "publisher": "sbd-law.co.il",
+     "url": "https://sbd-law.co.il/%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F/",
+     "low": 1500,
+     "high": 3500,
+     "vat": "not stated",
+     "date": "modified 2026-09-06 (published 2025-06-18), page meta tags",
+     "quote": "ייעוץ לפני חקירה במשטרה 1,500 ₪ – 3,500 ₪ (תלוי בשעות ובדחיפות)"
+    },
+    {
+     "publisher": "ask-lawyer.co.il",
+     "url": "https://www.ask-lawyer.co.il/lawyer-cost/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99",
+     "low": 1500,
+     "high": 3500,
+     "vat": "excluded: 'שכר הטרחה אינו כולל מע\"מ'",
+     "date": "'עודכן לאחרונה: 3.10.2026' (published 2026-09-28)",
+     "quote": "ייעוץ דחוף לפני חקירה תחת אזהרה 1,500–3,500 ₪"
+    }
+   ],
+   "floor": {
+    "amount": 637,
+    "vat_included": false,
+    "item_he": "התייעצות רגילה בלי בדיקת מסמכים",
+    "ref": "תוספת 11(4)(א)"
+   }
+  },
+  "interrogation": {
+   "low": 2000,
+   "high": 20000,
+   "mid": 4375,
+   "high_open": false,
+   "sources": [
+    {
+     "publisher": "כמהעולה.co.il",
+     "url": "https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 2500,
+     "high": 8000,
+     "vat": "usually excluded: 'בדרך כלל אינם כוללים מע״מ'",
+     "date": "'עודכן לאחרונה: 29.07.2026'",
+     "quote": "הגעה דחופה לתחנה או ליווי סביב חקירה ... 2,500–8,000 ₪"
+    },
+    {
+     "publisher": "din.co.il",
+     "url": "https://www.din.co.il/forum40/502813/",
+     "low": 2000,
+     "high": 5000,
+     "vat": "not stated",
+     "date": "question and answer dated 14/6/2021",
+     "quote": "עלות הייעוץ בתחנה תתחיל, לרוב, מכ-2,000₪ ותסתיים בכ-4,000-5,000₪"
+    },
+    {
+     "publisher": "ask-lawyer.co.il",
+     "url": "https://www.ask-lawyer.co.il/lawyer-cost/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99",
+     "low": 2000,
+     "high": 5000,
+     "vat": "excluded: 'שכר הטרחה אינו כולל מע\"מ'",
+     "date": "'עודכן לאחרונה: 3.10.2026' (published 2026-09-28)",
+     "quote": "ליווי לחקירה ומעצר עולה בדרך כלל 2,000–5,000 ₪ לחקירה בתחנת המשטרה"
+    },
+    {
+     "publisher": "lawbuzz.co.il",
+     "url": "https://lawbuzz.co.il/lawnews/162096",
+     "low": 5000,
+     "high": 20000,
+     "vat": "included: page says 'המחירים כוללים מע\"מ כשלא צוין אחרת'",
+     "date": "2026-02-14, page meta tags",
+     "quote": "ייצוג בחקירה משטרתית: 5,000-20,000 שקל"
+    }
+   ]
+  },
+  "arrest": {
+   "low": 2000,
+   "high": 8000,
+   "mid": 4750,
+   "high_open": false,
+   "sources": [
+    {
+     "publisher": "alonerez.co.il",
+     "url": "https://www.alonerez.co.il/%D7%A2%D7%9C%D7%95%D7%AA-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%92%D7%95%D7%A8%D7%9E%D7%99%D7%9D-%D7%9E%D7%A9%D7%AA%D7%A0%D7%99%D7%9D-%D7%95%D7%99%D7%AA%D7%A8/",
+     "low": 2000,
+     "high": 5000,
+     "vat": "not stated",
+     "date": "modified 2026-10-20 (published 2023-09-13), page meta tags",
+     "quote": "ייצוג בדיון הארכת מעצר 2,000₪ – 5,000₪"
+    },
+    {
+     "publisher": "כמהעולה.co.il",
+     "url": "https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 3000,
+     "high": 8000,
+     "vat": "usually excluded: 'בדרך כלל אינם כוללים מע״מ'",
+     "date": "'עודכן לאחרונה: 29.07.2026'",
+     "quote": "דיון ראשון במעצר ימים לימוד ראשוני והופעה בבית המשפט 3,000–8,000 ₪"
+    },
+    {
+     "publisher": "container.org.il",
+     "url": "https://www.container.org.il/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 2500,
+     "high": 7000,
+     "vat": "not stated",
+     "date": "modified 2026-02-23 (published 2025-09-10); table titled 'ב-2026'",
+     "quote": "ייצוג בדיון מעצר אחד 2,500 – 7,000"
+    },
+    {
+     "publisher": "sbd-law.co.il",
+     "url": "https://sbd-law.co.il/%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F/",
+     "low": 2500,
+     "high": 5000,
+     "vat": "not stated",
+     "date": "modified 2026-09-06 (published 2025-06-18), page meta tags",
+     "quote": "ייצוג בדיון שחרור ממעצר ימים 2,500 ₪ – 5,000 ₪ (לדיון בודד)"
+    },
+    {
+     "publisher": "ask-lawyer.co.il",
+     "url": "https://www.ask-lawyer.co.il/lawyer-cost/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99",
+     "low": 3000,
+     "high": 7000,
+     "vat": "excluded: 'שכר הטרחה אינו כולל מע\"מ'",
+     "date": "'עודכן לאחרונה: 3.10.2026' (published 2026-09-28)",
+     "quote": "ייצוג בדיון הארכת מעצר (מעצר ימים) 3,000–7,000 ₪"
+    }
+   ],
+   "floor": {
+    "amount": 741,
+    "vat_included": false,
+    "item_he": "בית משפט השלום: שחרור בערבות",
+    "ref": "תוספת 3.ב(5)"
+   }
+  },
+  "arrest_full": {
+   "low": 5000,
+   "high": 25000,
+   "mid": 12500,
+   "high_open": true,
+   "sources": [
+    {
+     "publisher": "כמהעולה.co.il",
+     "url": "https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 7500,
+     "high": 25000,
+     "vat": "usually excluded: 'בדרך כלל אינם כוללים מע״מ'",
+     "date": "'עודכן לאחרונה: 29.07.2026'",
+     "quote": "הליך מעצר עד תום ההליכים בקשה, חומר ראיות, חלופה ודיונים 7,500–25,000 ₪ ומעלה"
+    },
+    {
+     "publisher": "ask-lawyer.co.il",
+     "url": "https://www.ask-lawyer.co.il/lawyer-cost/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99",
+     "low": 6000,
+     "high": 16000,
+     "vat": "excluded: 'שכר הטרחה אינו כולל מע\"מ'",
+     "date": "'עודכן לאחרונה: 3.10.2026' (published 2026-09-28)",
+     "quote": "ייצוג בדיון מעצר עד תום ההליכים 6,000–16,000 ₪"
+    },
+    {
+     "publisher": "lawyersivan.co.il",
+     "url": "https://www.lawyersivan.co.il/remand-custody-alternatives",
+     "low": 5000,
+     "high": 20000,
+     "vat": "not stated",
+     "date": "modified 2026-08-18 (published 2026-05-31)",
+     "quote": "ייצוג בדיוני מעצר עד תום ההליכים: 5,000-20,000 ש\"ח לדיון"
+    }
+   ]
+  },
+  "shimua": {
+   "low": 5000,
+   "high": 25000,
+   "mid": 13500,
+   "high_open": true,
+   "sources": [
+    {
+     "publisher": "alonerez.co.il",
+     "url": "https://www.alonerez.co.il/%D7%A2%D7%9C%D7%95%D7%AA-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%92%D7%95%D7%A8%D7%9E%D7%99%D7%9D-%D7%9E%D7%A9%D7%AA%D7%A0%D7%99%D7%9D-%D7%95%D7%99%D7%AA%D7%A8/",
+     "low": 7000,
+     "high": 20000,
+     "vat": "not stated",
+     "date": "modified 2026-10-20 (published 2023-09-13), page meta tags",
+     "quote": "ניהול הליך שימוע לפני כתב אישום 7,000₪ – 20,000₪"
+    },
+    {
+     "publisher": "כמהעולה.co.il",
+     "url": "https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 7500,
+     "high": 25000,
+     "vat": "usually excluded: 'בדרך כלל אינם כוללים מע״מ'",
+     "date": "'עודכן לאחרונה: 29.07.2026'",
+     "quote": "שימוע לפני הגשת כתב אישום לימוד חומר, טיעון בכתב או פגישה 7,500–25,000 ₪ ומעלה"
+    },
+    {
+     "publisher": "container.org.il",
+     "url": "https://www.container.org.il/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 5000,
+     "high": 15000,
+     "vat": "not stated",
+     "date": "modified 2026-02-23 (published 2025-09-10); table titled 'ב-2026'",
+     "quote": "ייצוג בהליך שימוע (לפני הגשת כתב אישום) 5,000 – 15,000"
+    },
+    {
+     "publisher": "sbd-law.co.il",
+     "url": "https://sbd-law.co.il/%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F/",
+     "low": 10000,
+     "high": 20000,
+     "vat": "not stated",
+     "date": "modified 2026-09-06 (published 2025-06-18), page meta tags",
+     "quote": "שימוע פלילי (לפני כתב אישום) 10,000 ₪ – 20,000 ₪ ומעלה"
+    },
+    {
+     "publisher": "ask-lawyer.co.il",
+     "url": "https://www.ask-lawyer.co.il/lawyer-cost/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99",
+     "low": 6000,
+     "high": 15000,
+     "vat": "excluded: 'שכר הטרחה אינו כולל מע\"מ'",
+     "date": "'עודכן לאחרונה: 3.10.2026' (published 2026-09-28)",
+     "quote": "שימוע פלילי לפי סעיף 60א (עבירות פשע) 6,000–15,000 ₪"
+    }
+   ]
+  },
+  "trial_shalom": {
+   "low": 5000,
+   "high": 50000,
+   "mid": 20000,
+   "high_open": true,
+   "sources": [
+    {
+     "publisher": "alonerez.co.il",
+     "url": "https://www.alonerez.co.il/%D7%A2%D7%9C%D7%95%D7%AA-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%92%D7%95%D7%A8%D7%9E%D7%99%D7%9D-%D7%9E%D7%A9%D7%AA%D7%A0%D7%99%D7%9D-%D7%95%D7%99%D7%AA%D7%A8/",
+     "low": 5000,
+     "high": 15000,
+     "vat": "not stated",
+     "date": "modified 2026-10-20 (published 2023-09-13), page meta tags",
+     "quote": "ייצוג במשפט פלילי קל 5,000₪ – 15,000₪"
+    },
+    {
+     "publisher": "כמהעולה.co.il",
+     "url": "https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 10000,
+     "high": 35000,
+     "vat": "usually excluded: 'בדרך כלל אינם כוללים מע״מ'",
+     "date": "'עודכן לאחרונה: 29.07.2026'",
+     "quote": "ייצוג מלא בתיק קל עד בינוני בשלום ... 10,000–35,000 ₪"
+    },
+    {
+     "publisher": "container.org.il",
+     "url": "https://www.container.org.il/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 10000,
+     "high": 30000,
+     "vat": "not stated",
+     "date": "modified 2026-02-23 (published 2025-09-10); table titled 'ב-2026'",
+     "quote": "ייצוג בתיק פלילי פשוט (כתב אישום יחיד, ללא עדים רבים) 10,000 – 30,000"
+    },
+    {
+     "publisher": "ask-lawyer.co.il",
+     "url": "https://www.ask-lawyer.co.il/lawyer-cost/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99",
+     "low": 15000,
+     "high": 40000,
+     "vat": "excluded: 'שכר הטרחה אינו כולל מע\"מ'",
+     "date": "'עודכן לאחרונה: 3.10.2026' (published 2026-09-28)",
+     "quote": "ניהול תיק פלילי מלא בבית משפט השלום 15,000–40,000 ₪"
+    },
+    {
+     "publisher": "lawbuzz.co.il",
+     "url": "https://lawbuzz.co.il/lawnews/162096",
+     "low": 15000,
+     "high": 50000,
+     "vat": "included: page says 'המחירים כוללים מע\"מ כשלא צוין אחרת'",
+     "date": "2026-02-14, page meta tags",
+     "quote": "ייצוג בתיק פלילי בבית משפט שלום: 15,000-50,000+ שקל"
+    },
+    {
+     "publisher": "solberg-law.co.il",
+     "url": "https://solberg-law.co.il/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 5000,
+     "high": 10000,
+     "vat": "not stated",
+     "date": "2025-03-18, page meta tags",
+     "quote": "עבירה קלה כמו גניבה קטנה ... עלות משוערת: 5,000-10,000 ש\"ח"
+    },
+    {
+     "publisher": "balas-law.co.il",
+     "url": "https://www.balas-law.co.il/guides/legal-fees-israel",
+     "low": 8000,
+     "high": 20000,
+     "vat": "not stated",
+     "date": "2025-06-18, page meta tags",
+     "quote": "עבירות סמים קלות / אלימות קלה 8,000 ₪ – 20,000 ₪"
+    }
+   ],
+   "floor": {
+    "amount": 1883,
+    "vat_included": false,
+    "item_he": "בית משפט השלום: אישום בעוון או בעבירה אחרת",
+    "ref": "תוספת 3.ב(2)"
+   }
+  },
+  "trial_district": {
+   "low": 20000,
+   "high": 300000,
+   "mid": 80000,
+   "high_open": true,
+   "sources": [
+    {
+     "publisher": "alonerez.co.il",
+     "url": "https://www.alonerez.co.il/%D7%A2%D7%9C%D7%95%D7%AA-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%92%D7%95%D7%A8%D7%9E%D7%99%D7%9D-%D7%9E%D7%A9%D7%AA%D7%A0%D7%99%D7%9D-%D7%95%D7%99%D7%AA%D7%A8/",
+     "low": 20000,
+     "high": 50000,
+     "vat": "not stated",
+     "date": "modified 2026-10-20 (published 2023-09-13), page meta tags",
+     "quote": "ייצוג במשפט פלילי מורכב 20,000₪ – 50,000₪+"
+    },
+    {
+     "publisher": "כמהעולה.co.il",
+     "url": "https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 50000,
+     "high": 250000,
+     "vat": "usually excluded: 'בדרך כלל אינם כוללים מע״מ'",
+     "date": "'עודכן לאחרונה: 29.07.2026'",
+     "quote": "תיק חמור בבית המשפט המחוזי עבירות חמורות או הליך ממושך 50,000–250,000 ₪ ומעלה"
+    },
+    {
+     "publisher": "container.org.il",
+     "url": "https://www.container.org.il/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 40000,
+     "high": 120000,
+     "vat": "not stated",
+     "date": "modified 2026-02-23 (published 2025-09-10); table titled 'ב-2026'",
+     "quote": "ייצוג בתיק פלילי מורכב (מספר אישומים, עדים, צורך במומחים) 40,000 – 120,000"
+    },
+    {
+     "publisher": "sbd-law.co.il",
+     "url": "https://sbd-law.co.il/%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F/",
+     "low": 35000,
+     "high": null,
+     "vat": "not stated",
+     "date": "modified 2026-09-06 (published 2025-06-18), page meta tags",
+     "quote": "ניהול תיק פלילי מרכזי (כולל הוכחות) החל מ-35,000 ₪ (לתיקים מורכבים במיוחד – גם מעל 100,000 ₪)"
+    },
+    {
+     "publisher": "ask-lawyer.co.il",
+     "url": "https://www.ask-lawyer.co.il/lawyer-cost/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99",
+     "low": 40000,
+     "high": 120000,
+     "vat": "excluded: 'שכר הטרחה אינו כולל מע\"מ'",
+     "date": "'עודכן לאחרונה: 3.10.2026' (published 2026-09-28)",
+     "quote": "ניהול תיק פשע חמור בבית המשפט המחוזי 40,000–120,000+ ₪"
+    },
+    {
+     "publisher": "solberg-law.co.il",
+     "url": "https://solberg-law.co.il/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 30000,
+     "high": 100000,
+     "vat": "not stated",
+     "date": "2025-03-18, page meta tags",
+     "quote": "עבירה חמורה כמו אונס או רצח ... עלות משוערת: 30,000-100,000 ש\"ח"
+    },
+    {
+     "publisher": "balas-law.co.il",
+     "url": "https://www.balas-law.co.il/guides/legal-fees-israel",
+     "low": 50000,
+     "high": 300000,
+     "vat": "not stated",
+     "date": "2025-06-18, page meta tags",
+     "quote": "פלילים כלכליים / רצח / עבירות חמורות 50,000 ₪ – 300,000 ₪+"
+    }
+   ],
+   "floor": {
+    "amount": 3740,
+    "vat_included": false,
+    "item_he": "בית המשפט המחוזי: משפטים פליליים",
+    "ref": "תוספת 4.ב(1)"
+   }
+  },
+  "appeal": {
+   "low": 10000,
+   "high": 80000,
+   "mid": 32500,
+   "high_open": true,
+   "sources": [
+    {
+     "publisher": "alonerez.co.il",
+     "url": "https://www.alonerez.co.il/%D7%A2%D7%9C%D7%95%D7%AA-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%92%D7%95%D7%A8%D7%9E%D7%99%D7%9D-%D7%9E%D7%A9%D7%AA%D7%A0%D7%99%D7%9D-%D7%95%D7%99%D7%AA%D7%A8/",
+     "low": 10000,
+     "high": 30000,
+     "vat": "not stated",
+     "date": "modified 2026-10-20 (published 2023-09-13), page meta tags",
+     "quote": "ייצוג בערעור פלילי 10,000₪ – 30,000₪"
+    },
+    {
+     "publisher": "כמהעולה.co.il",
+     "url": "https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 15000,
+     "high": 80000,
+     "vat": "usually excluded: 'בדרך כלל אינם כוללים מע״מ'",
+     "date": "'עודכן לאחרונה: 29.07.2026'",
+     "quote": "ערעור פלילי לימוד ההליך הקודם, כתיבה והופעה 15,000–80,000 ₪ ומעלה"
+    },
+    {
+     "publisher": "container.org.il",
+     "url": "https://www.container.org.il/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 15000,
+     "high": 50000,
+     "vat": "not stated",
+     "date": "modified 2026-02-23 (published 2025-09-10); table titled 'ב-2026'",
+     "quote": "ערעור פלילי לבית המשפט המחוזי/עליון 15,000 – 50,000"
+    },
+    {
+     "publisher": "solberg-law.co.il",
+     "url": "https://solberg-law.co.il/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/",
+     "low": 15000,
+     "high": 50000,
+     "vat": "not stated",
+     "date": "2025-03-18, page meta tags",
+     "quote": "ייצוג בהליך ערעור ... עלות משוערת: 15,000-50,000 ש\"ח"
+    }
+   ],
+   "floor": {
+    "amount": 1967,
+    "vat_included": false,
+    "item_he": "בית המשפט המחוזי: ערעור פלילי – ערעור על פסק הדין",
+    "ref": "תוספת 4.ב(2)(א)"
+   }
+  },
+  "record": {
+   "low": 2000,
+   "high": 10000,
+   "mid": 5500,
+   "high_open": false,
+   "sources": [
+    {
+     "publisher": "alonerez.co.il",
+     "url": "https://www.alonerez.co.il/%D7%A2%D7%9C%D7%95%D7%AA-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%92%D7%95%D7%A8%D7%9E%D7%99%D7%9D-%D7%9E%D7%A9%D7%AA%D7%A0%D7%99%D7%9D-%D7%95%D7%99%D7%AA%D7%A8/",
+     "low": 3000,
+     "high": 8000,
+     "vat": "not stated",
+     "date": "modified 2026-10-20 (published 2023-09-13), page meta tags",
+     "quote": "מחיקת רישום פלילי 3,000₪ – 8,000₪"
+    },
+    {
+     "publisher": "sbd-law.co.il",
+     "url": "https://sbd-law.co.il/%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F/",
+     "low": 3000,
+     "high": 8000,
+     "vat": "not stated",
+     "date": "modified 2026-09-06 (published 2025-06-18), page meta tags",
+     "quote": "בקשה לסגירת תיק / מחיקת רישום פלילי 3,000 ₪ – 8,000 ₪ (בהתאם לתיק ולעילה)"
+    },
+    {
+     "publisher": "ask-lawyer.co.il",
+     "url": "https://www.ask-lawyer.co.il/lawyer-cost/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99",
+     "low": 2500,
+     "high": 6000,
+     "vat": "excluded: 'שכר הטרחה אינו כולל מע\"מ'",
+     "date": "'עודכן לאחרונה: 3.10.2026' (published 2026-09-28)",
+     "quote": "מחיקת רישום משטרתי / פנייה לחנינה לנשיא המדינה 2,500–6,000 ₪"
+    },
+    {
+     "publisher": "ese.co.il",
+     "url": "https://www.ese.co.il/criminal-record-expungement/",
+     "low": 3500,
+     "high": 10000,
+     "vat": "not stated",
+     "date": "modified 2026-04-26 (published 2024-08-12)",
+     "quote": "בקשה ל ביטול רישום משטרתי נעה בין 3,500 ש\"ח ל- 10,000 ש\"ח בתיקים גדולים"
+    },
+    {
+     "publisher": "entezam.org",
+     "url": "https://entezam.org/%D7%9E%D7%97%D7%99%D7%A8-%D7%9E%D7%97%D7%99%D7%A7%D7%AA-%D7%A8%D7%99%D7%A9%D7%95%D7%9D-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%9B%D7%9E%D7%94-%D7%96%D7%94-%D7%91%D7%90%D7%9E%D7%AA-%D7%A2%D7%95%D7%9C%D7%94/",
+     "low": 2000,
+     "high": 10000,
+     "vat": "not stated",
+     "date": "published 2024-06-24",
+     "quote": "העלות יכולה לנוע בין 2,000 ל-10,000 ש\"ח, תלוי במורכבות המקרה ובניסיון של עורך הדין"
+    }
+   ]
+  }
+ },
+ "bar": {
+  "short_he": "תעריף לשכת עורכי הדין",
+  "name_he": "כללי לשכת עורכי הדין (התעריף המינימלי המומלץ), התש\"ס-2000",
+  "url": "https://www.nevo.co.il/law_html/law00/4425.htm",
+  "note_he": "נוסח מעודכן ל-5.1.2026, אחרי ההצמדה של 1.1.2026; המלצה שאינה מחייבת, לפני מע\"מ."
+ },
+ "public_defender": {
+  "he": "סנגוריה ציבורית",
+  "text_he": "זכאים בין היתר: עצור מחוסר אמצעים, מי שהוגשה נגדו בקשה למעצר עד תום ההליכים, נאשם במחוזי בעבירה שעונשה עשר שנים או יותר, ונאשם מחוסר אמצעים בעבירה שעונשה חמש שנים ומעלה. סף ההכנסה ב-2026: 9,225 ₪ לחודש למשק בית של עד שלוש נפשות. תשלום השתתפות: 537 ₪ בבית משפט השלום ו-1,474 ₪ במחוזי; בהליכי מעצר אין תשלום.",
+  "path": "/eligibility-public-defender-income/",
+  "link_he": "זכאות לסנגוריה ציבורית",
+  "url": "https://www.gov.il/BlobFolder/guide/public_defender_public_information/he/Eligibility-for-public-defense-2026.pdf",
+  "source_he": "הסנגוריה הציבורית, טבלת הזכאות 2026"
+ },
+ "vat_he": "רוב המשרדים לא מציינים אם הטווח כולל מע\"מ (18%). המינימום של הלשכה הוא לפני מע\"מ.",
+ "sources": [
+  {
+   "name_he": "כללי לשכת עורכי הדין (התעריף המינימלי המומלץ), התש\"ס-2000",
+   "url": "https://www.nevo.co.il/law_html/law00/4425.htm",
+   "text_he": "התוספות 3, 4, 5 ו-11: הסכומים לשנת 2026, לפני מע\"מ, כהמלצה שאינה מחייבת."
+  },
+  {
+   "name_he": "חוק הסניגוריה הציבורית, התשנ\"ו-1995",
+   "url": "https://www.nevo.co.il/law_html/law01/p170k2_001.htm",
+   "text_he": "סעיף 18: מי זכאי לייצוג; סעיפים 22א ו-23: חובת התשלום."
+  },
+  {
+   "name_he": "הסנגוריה הציבורית: טבלת הזכאות הכלכלית 2026",
+   "url": "https://www.gov.il/BlobFolder/guide/public_defender_public_information/he/Eligibility-for-public-defense-2026.pdf",
+   "text_he": "ספי ההכנסה והרכוש לשנת 2026."
+  },
+  {
+   "name_he": "הסנגוריה הציבורית: מדריך לציבור, תשלום השתתפות",
+   "url": "https://www.gov.il/he/departments/guides/public_defender_public_information?chapterIndex=6",
+   "text_he": "סכומי ההשתתפות לפי בית המשפט; אין תשלום בהליכי מעצר."
+  }
+ ]
+}

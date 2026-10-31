@@ -47,9 +47,13 @@ function wp_json_encode( $data, $flags = 0 ) { return json_encode( $data, $flags
 function wp_enqueue_style( $h, $src = '', $deps = array(), $ver = false ) {}
 function wp_enqueue_script( $h, $src = '', $deps = array(), $ver = false, $footer = false ) {}
 function is_singular( $t = '' ) { return false; }
+function wp_get_attachment_image( $id, $size = '', $icon = false, $attr = array() ) { return ''; }
+function get_the_post_thumbnail( $p = null, $size = '', $attr = array() ) { return '<img class="jt-premium-card__photo" src="https://jus-tice.co.il/maya.jpg" alt="">'; }
+function wp_trim_words( $t, $n = 55, $more = null ) { return implode( ' ', array_slice( preg_split( '/\s+/u', trim( (string) $t ) ), 0, $n ) ); }
 
 require_once dirname( __DIR__ ) . '/inc/justice-tools.php';
 require_once dirname( __DIR__ ) . '/inc/lawyer-office.php';
+require_once dirname( __DIR__ ) . '/inc/lawyer-band.php';
 
 $failures = 0;
 $passed   = 0;
@@ -71,16 +75,16 @@ $reg     = justice_tools_registry();
 $name = 'bchirat-orech-din';
 $c    = $catalog[ $name ] ?? array();
 check( isset( $catalog[ $name ] ) && 'fl_bchira' === $c['dataset'] && array( 'registry_version', 'fl_bchira' ) === $c['data'] && '/divorce-lawyer/' === $c['page'], 'chooser: catalog, dataset and page' );
-check( false !== mb_strpos( $c['name'], 'עורך דין גירושין' ) && false !== mb_strpos( $c['promise'], 'לא מדרג' ), 'chooser: the phrase in the name; the promise says it ranks no one' );
+check( false !== mb_strpos( $c['name'], 'עורך דין גירושין' ) && false !== mb_strpos( $c['promise'], 'לפי עיר' ) && false === mb_strpos( $c['promise'], 'לא מדרג' ), 'chooser: the phrase in the name; the promise says what it does, not what it does not' );
 justice_tools_printed( '', true );
 $html = $tool( array( 'name' => $name ) );
 check( false !== strpos( $html, 'id="jtool-bchirat-orech-din"' ) && false !== strpos( $html, 'name="jt74-stage" value="dispute"' ) && false !== strpos( $html, 'id="jt74-city"' ), 'chooser: server HTML with the questions and the city' );
 check( false !== mb_strpos( $html, 'מה אתם צריכים' ) && false !== mb_strpos( $html, 'שאלות לפגישה הראשונה' ) && false !== mb_strpos( $html, 'דגלים אדומים' ), 'chooser: the profile, the questions and the warnings in the server HTML' );
-check( false !== strpos( $html, '/lawyers/advocate-maya-rotenberg/' ) && false === mb_strpos( $html, 'המומלצת' ) && false !== mb_strpos( $html, 'בודקת את הפרקים המסומנים' ), 'chooser: the featured lawyer by fact, no superlative' );
+check( false !== strpos( $html, '/lawyers/advocate-maya-rotenberg/' ) && false !== mb_strpos( $html, 'עורכת דין גירושין ודיני משפחה' ) && false === mb_strpos( $html, 'המומלצת' ) && false === mb_strpos( $html, 'בודקת את הפרקים' ) && false === mb_strpos( $html, 'מופיעה כאן' ), 'chooser: the house lawyer by name and role, no superlative, no explanation (HAD-648)' );
 check( false !== strpos( $html, 'data-preset="kids"' ) && false !== strpos( $html, 'href="#jtool-machshevon-gerushin"' ), 'chooser: the bridge to the divorce calculator' );
 check( 1 === preg_match( '#<script type="application/ld\+json">(\{"@context":"https://schema.org","@type":"WebApplication".*?)</script>#s', $html, $ld ) && 'בחירת עורך דין גירושין' === json_decode( $ld[1], true )['name'], 'chooser: WebApplication schema' );
 $answer = justice_tools_answer( $name );
-check( false !== mb_strpos( $answer, 'בחירת עורך דין גירושין' ) && false !== mb_strpos( $answer, 'לא מדרג' ) && false !== mb_strpos( $answer, 'נבדק 31.10.2026' ), 'chooser: the answer box' );
+check( false !== mb_strpos( $answer, 'בחירת עורך דין גירושין' ) && false !== mb_strpos( $answer, 'דגלים אדומים' ) && false === mb_strpos( $answer, 'לא מדרג' ) && false !== mb_strpos( $answer, 'נבדק 31.10.2026' ), 'chooser: the answer box' );
 
 // 2. The divorce statistics.
 $name = 'netunei-gerushin';
@@ -114,6 +118,16 @@ check( ! isset( $sch['aggregateRating'] ) && ! isset( $sch['review'] ) && false 
 check( false !== strpos( justice_theme_lawyer_office_script(), 'data-jt-office-map' ), 'office: the click-to-load script' );
 $plan = (string) file_get_contents( dirname( __DIR__ ) . '/assets/images/maps/rotenberg-office.svg' );
 check( strlen( $plan ) < 40000 && false !== strpos( $plan, 'preserveAspectRatio="xMidYMid slice"' ) && false === strpos( $plan, '<script' ) && false === strpos( $plan, 'http' . '://' ) || false !== strpos( $plan, 'xmlns="http://www.w3.org/2000/svg"' ), 'office: the plan is a small, script-free SVG that crops around the pin' );
+
+// 4. The shared premium card (HAD-648): the band's card and the plugin's in-article card for the house lawyer.
+$band = justice_theme_premium_card( $maya );
+check( false !== strpos( $band['html'], 'jt-premium-card--office' ) && false !== strpos( $band['html'], 'https://wa.me/972544705733' ) && false === strpos( $band['html'], 'data-procard-click' ) && 'Attorney' === $band['schema']['@type'], 'card: the band card, the lawyer own WhatsApp, the Attorney node, no beacon marks' );
+check( true === ( $GLOBALS['justice_theme_office_cards'][19130] ?? null ), 'card: an office card marks the lawyer as printed, so the guide grids do not repeat it' );
+$art = justice_theme_premium_card( $maya, array( 'wa_href' => 'https://wa.me/972525101555?text=x', 'track' => true ) );
+check( false !== strpos( $art['html'], 'href="https://wa.me/972525101555?text=x" target="_blank" rel="noopener nofollow" data-whatsapp-surface="procard" data-procard-click="wa"' ) && 3 === substr_count( $art['html'], 'data-procard-click="profile"' ), 'card in an article: the article WhatsApp routing, nofollow, the beacon marks on WhatsApp and the three profile links' );
+check( false === mb_strpos( $art['html'], 'ממומן' ) && false === mb_strpos( $art['html'], 'מקודם' ) && false === mb_strpos( $art['html'], 'בודקת' ), 'card in an article: no label of any kind (Ben 31.10.2026: "write nothing")' );
+$other_card = justice_theme_premium_card( $other );
+check( false === strpos( $other_card['html'], 'jt-premium-card--office' ) && null === $other_card['schema'], 'card: a lawyer without a plan gets the plain card and no schema' );
 
 echo "divorce guide: {$passed} passed, {$failures} failed\n";
 exit( $failures ? 1 : 0 );

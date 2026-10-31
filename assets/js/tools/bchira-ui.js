@@ -3,8 +3,7 @@
  * "בחירת עורך דין גירושין" (bchirat-orech-din, prefix jt74) on /divorce-lawyer/, in the chapter "איך בוחרים עורך דין
  * גירושין". Six answers become the profile of the lawyer the reader needs, the urgent step first when there is one, the
  * questions for the first meeting, the warning signs, the route to price in the divorce calculator, and the family-law
- * lawyers of the site's directory in the reader's city, with the site's featured lawyer named as such. It ranks no one and
- * holds no number: every text is in reg.fl_bchira (tools/justice_tools_fl_bchira.py).
+ * lawyers of the site's directory in the reader's city, the site's own family lawyer first. It holds no number: every text is in reg.fl_bchira (tools/justice_tools_fl_bchira.py).
  */
 import { esc, isoToHe, encodeState, decodeState, track, copyText, toast, shareUrl, whatsappUrl, store, stickyBar } from './instrument.js';
 
@@ -104,8 +103,7 @@ export function renderDetails(reg, r, opts = {}) {
 		+ `<div class="${P}-calc"><h4>כמה זה יעלה</h4><p>מחשבון הגירושין שבעמוד מחשב את המסלול הזה: אגרות, שכר טרחה ומומחים, לכל צד.</p><a class="jtool-btn" href="#jtool-machshevon-gerushin" data-act="calc" data-preset="${esc(r.preset)}">למחשבון הגירושין, עם המצב שלכם</a></div></div>`
 		+ `<div class="${P}-lawyers"><h4>עורכי דין לדיני משפחה במדריך</h4>`
 		+ `<a class="${P}-featured" href="${esc(f.path)}" data-act="featured"><span class="${P}-featured__name">${esc(f.name_he)} · ${esc(f.city_he)}</span><span class="${P}-featured__label">${esc(f.label_he)}</span></a>`
-		+ `<a class="${P}-dir" href="${esc(r.dir)}" data-act="lawyer">כל עורכי הדין לדיני משפחה${r.city.slug ? ` ב${esc(r.city.he)}` : ''}</a>`
-		+ `<p class="${P}-disclosure">${esc(b.disclosure_he)}</p></div>`
+		+ `<a class="${P}-dir" href="${esc(r.dir)}" data-act="lawyer">כל עורכי הדין לדיני משפחה${r.city.slug ? ` ב${esc(r.city.he)}` : ''}</a></div>`
 		+ `<div class="jtool-tablewrap ${P}-method"><div class="jtool-tablewrap__head"><h3 id="${P}-m-h">איך הכלי בוחר</h3></div>${methodList(reg)}</div></div>`
 		+ `<div class="${P}-print">${esc(printSummary(reg, r, opts.printedOn || b.checked_on))}</div>`;
 }

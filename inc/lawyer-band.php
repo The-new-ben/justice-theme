@@ -130,6 +130,73 @@ function justice_theme_get_practice_firms( string $term_slug, int $limit = 6, bo
 }
 
 /**
+ * One premium lawyer card. A lawyer with an office plan gets it beside the text (HAD-616, inc/lawyer-office.php).
+ *
+ * The plugin's in-article card reuses this card for the house lawyer (HAD-641, Ben 31.10.2026: "the new card on all
+ * the family pages"). It passes the article's own WhatsApp link in 'wa_href', and 'track' marks the WhatsApp and
+ * profile links for the click beacon of justice-ops/card-analytics.php.
+ *
+ * @param WP_Post              $firm The justice_lawyer post.
+ * @param array<string, mixed> $args 'wa_href' (string) and 'track' (bool), both optional.
+ * @return array{html: string, schema: array<string, mixed>|null}
+ */
+function justice_theme_premium_card( WP_Post $firm, array $args = array() ): array {
+	$office = function_exists( 'justice_theme_lawyer_office' ) ? justice_theme_lawyer_office( $firm ) : null;
+	$track  = ! empty( $args['track'] );
+	// Prefer the dedicated portrait (owner: the face looks at you from
+	// the screen) over the featured banner/collage.
+	$portrait_id = (int) get_post_meta( $firm->ID, 'profile_portrait_id', true );
+	$photo       = $portrait_id
+		? wp_get_attachment_image( $portrait_id, 'medium', false, array( 'class' => 'jt-premium-card__photo', 'loading' => 'lazy' ) )
+		: get_the_post_thumbnail( $firm, 'medium', array( 'class' => 'jt-premium-card__photo', 'loading' => 'lazy' ) );
+	$firm_name = wp_strip_all_tags( (string) get_post_meta( $firm->ID, 'firm_name', true ) );
+	$firm_name = trim( str_replace( array( "\xE2\x80\x94", ' - ' ), array( ',', ', ' ), $firm_name ) );
+	$city      = wp_strip_all_tags( (string) get_post_meta( $firm->ID, 'office_city', true ) );
+	$bio       = wp_strip_all_tags( (string) get_post_meta( $firm->ID, 'bio_short', true ) );
+	$phone     = preg_replace( '/[^0-9]/', '', (string) get_post_meta( $firm->ID, 'phone', true ) );
+	$wa        = ! empty( $args['wa_href'] ) ? (string) $args['wa_href'] : ( $phone ? 'https://wa.me/972' . ltrim( $phone, '0' ) : '' );
+	$profile   = esc_url( get_permalink( $firm ) );
+	$click     = static function ( string $kind ) use ( $track ): string {
+		return $track ? ' data-procard-click="' . $kind . '"' : '';
+	};
+	$html = '<div class="jt-premium-card' . ( $office ? ' jt-premium-card--office' : '' ) . '">';
+	if ( $office ) {
+		$html .= '<div class="jt-premium-card__main">';
+	}
+	if ( $photo ) {
+		$html .= '<a class="jt-premium-card__photo-link" href="' . $profile . '"' . $click( 'profile' ) . '>' . $photo . '</a>';
+	}
+	$html .= '<div class="jt-premium-card__body">';
+	$html .= '<a class="jt-premium-card__name" href="' . $profile . '"' . $click( 'profile' ) . '>' . esc_html( $firm->post_title ) . '</a>';
+	$meta_line = implode( ' · ', array_filter( array( $firm_name, $city ) ) );
+	if ( $meta_line ) {
+		$html .= '<span class="jt-premium-card__meta">' . esc_html( $meta_line ) . '</span>';
+	}
+	if ( $bio ) {
+		$html .= '<p class="jt-premium-card__bio">' . esc_html( wp_trim_words( $bio, 22, '' ) ) . '</p>';
+	}
+	$html .= '<span class="jt-premium-card__actions">';
+	if ( $wa ) {
+		$html .= '<a class="button button--gold jt-premium-card__wa" href="' . esc_url( $wa ) . '" target="_blank" rel="noopener' . ( $track ? ' nofollow" data-whatsapp-surface="procard"' : '"' ) . $click( 'wa' ) . '>וואטסאפ</a>';
+	}
+	if ( $phone ) {
+		$html .= '<a class="button button--primary" href="tel:' . esc_attr( $phone ) . '">התקשרו</a>';
+	}
+	$html .= '<a class="button button--ghost" href="' . $profile . '"' . $click( 'profile' ) . '>לפרופיל המלא</a>';
+	$html .= '</span></div>';
+	if ( $office ) {
+		$html .= '</div>' . justice_theme_lawyer_office_html( $firm, $office );
+		// One office card per page: the guide grids skip a lawyer whose office card already printed (lawyer-card.php).
+		$GLOBALS['justice_theme_office_cards'][ $firm->ID ] = true;
+	}
+	$html .= '</div>';
+	return array(
+		'html'   => $html,
+		'schema' => $office ? justice_theme_lawyer_office_schema( $firm, $office ) : null,
+	);
+}
+
+/**
  * The registered-tier mid-fold band: registered cards when they exist, an
  * honest recruitment card addressed to lawyers when the slot is open.
  *
@@ -143,50 +210,11 @@ function justice_theme_registered_band_html( string $term_slug, string $practice
 	$schemas = array();
 	if ( ! empty( $firms ) ) {
 		foreach ( $firms as $firm ) {
-			// HAD-616: a card whose lawyer has an office plan carries it beside the text (inc/lawyer-office.php).
-			$office = function_exists( 'justice_theme_lawyer_office' ) ? justice_theme_lawyer_office( $firm ) : null;
-			// Prefer the dedicated portrait (owner: the face looks at you from
-			// the screen) over the featured banner/collage.
-			$portrait_id = (int) get_post_meta( $firm->ID, 'profile_portrait_id', true );
-			$photo       = $portrait_id
-				? wp_get_attachment_image( $portrait_id, 'medium', false, array( 'class' => 'jt-premium-card__photo', 'loading' => 'lazy' ) )
-				: get_the_post_thumbnail( $firm, 'medium', array( 'class' => 'jt-premium-card__photo', 'loading' => 'lazy' ) );
-			$firm_name = wp_strip_all_tags( (string) get_post_meta( $firm->ID, 'firm_name', true ) );
-			$firm_name = trim( str_replace( array( "\xE2\x80\x94", ' - ' ), array( ',', ', ' ), $firm_name ) );
-			$city  = wp_strip_all_tags( (string) get_post_meta( $firm->ID, 'office_city', true ) );
-			$bio   = wp_strip_all_tags( (string) get_post_meta( $firm->ID, 'bio_short', true ) );
-			$phone = preg_replace( '/[^0-9]/', '', (string) get_post_meta( $firm->ID, 'phone', true ) );
-			$wa    = $phone ? 'https://wa.me/972' . ltrim( $phone, '0' ) : '';
-			$html .= '<div class="jt-premium-card' . ( $office ? ' jt-premium-card--office' : '' ) . '">';
-			if ( $office ) {
-				$html .= '<div class="jt-premium-card__main">';
+			$card  = justice_theme_premium_card( $firm );
+			$html .= $card['html'];
+			if ( $card['schema'] ) {
+				$schemas[] = $card['schema'];
 			}
-			if ( $photo ) {
-				$html .= '<a class="jt-premium-card__photo-link" href="' . esc_url( get_permalink( $firm ) ) . '">' . $photo . '</a>';
-			}
-			$html .= '<div class="jt-premium-card__body">';
-			$html .= '<a class="jt-premium-card__name" href="' . esc_url( get_permalink( $firm ) ) . '">' . esc_html( $firm->post_title ) . '</a>';
-			$meta_line = implode( ' · ', array_filter( array( $firm_name, $city ) ) );
-			if ( $meta_line ) {
-				$html .= '<span class="jt-premium-card__meta">' . esc_html( $meta_line ) . '</span>';
-			}
-			if ( $bio ) {
-				$html .= '<p class="jt-premium-card__bio">' . esc_html( wp_trim_words( $bio, 22, '' ) ) . '</p>';
-			}
-			$html .= '<span class="jt-premium-card__actions">';
-			if ( $wa ) {
-				$html .= '<a class="button button--gold jt-premium-card__wa" href="' . esc_url( $wa ) . '" target="_blank" rel="noopener">וואטסאפ</a>';
-			}
-			if ( $phone ) {
-				$html .= '<a class="button button--primary" href="tel:' . esc_attr( $phone ) . '">התקשרו</a>';
-			}
-			$html .= '<a class="button button--ghost" href="' . esc_url( get_permalink( $firm ) ) . '">לפרופיל המלא</a>';
-			$html .= '</span></div>';
-			if ( $office ) {
-				$html     .= '</div>' . justice_theme_lawyer_office_html( $firm, $office );
-				$schemas[] = justice_theme_lawyer_office_schema( $firm, $office );
-			}
-			$html .= '</div>';
 		}
 	} else {
 		$html .= '<div class="jt-registered-band__recruit">';

@@ -150,7 +150,7 @@ while ( have_posts() ) :
 					</div>
 					<div class="lawyers-grid">
 						<?php while ( $lawyers->have_posts() ) : $lawyers->the_post(); ?>
-							<?php get_template_part( 'template-parts/cards/lawyer-card' ); ?>
+							<?php get_template_part( 'template-parts/cards/lawyer-card', null, array( 'office_card' => true ) ); ?>
 						<?php endwhile; ?>
 					</div>
 				</div>

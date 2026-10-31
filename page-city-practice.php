@@ -78,7 +78,7 @@ $practice_name = $practice_term && ! is_wp_error( $practice_term ) ? $practice_t
 			<?php if ( $lawyers && $lawyers->have_posts() ) : ?>
 				<div class="lawyers-grid">
 					<?php while ( $lawyers->have_posts() ) : $lawyers->the_post(); ?>
-						<?php get_template_part( 'template-parts/cards/lawyer-card' ); ?>
+						<?php get_template_part( 'template-parts/cards/lawyer-card', null, array( 'office_card' => true ) ); ?>
 					<?php endwhile; wp_reset_postdata(); ?>
 				</div>
 			<?php else : ?>

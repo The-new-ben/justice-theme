@@ -695,6 +695,21 @@ function justice_cards_render( WP_Post $lawyer ): string {
 		$tagline = mb_substr( $tagline, 0, 190 );
 		$label   = 'עו״ד בודקת התוכן המשפטי באתר';
 	}
+	// HAD-648 (Ben 31.10.2026, "put the new card on all the family pages, write nothing"): the house lawyer gets the
+	// theme's card with the office plan, the same card as /divorce-lawyer/, with no ribbon or label. The article keeps
+	// its own WhatsApp routing, and the beacon still counts impressions and clicks (data-l, data-procard-click).
+	if ( $house && function_exists( 'justice_theme_premium_card' ) ) {
+		$card = justice_theme_premium_card( $lawyer, array( 'wa_href' => $wa_href, 'track' => true ) );
+		if ( false !== strpos( $card['html'], 'jt-premium-card--office' ) ) {
+			$tail = '';
+			if ( $card['schema'] ) {
+				$tail = '<script type="application/ld+json">' . wp_json_encode( $card['schema'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>'
+					. justice_theme_lawyer_office_script();
+			}
+			return '<aside class="jt-procard jt-procard--office" role="complementary" aria-label="' . esc_attr( wp_strip_all_tags( $name ) ) . '" data-card-surface="incontent" data-l="' . (int) $pid . '">'
+				. $card['html'] . $tail . '</aside>';
+		}
+	}
 	$name_parts = preg_split( '/\s+/u', trim( wp_strip_all_tags( $name ) ) ) ?: array();
 	$short_name = $name_parts ? end( $name_parts ) : $name;
 	$avatar_inline = $house
@@ -813,6 +828,10 @@ function justice_cards_css(): string {
 		. '.jt-procard .jt-procard__actions .jt-procard__wa,.jt-procard .jt-procard__actions .jt-procard__wa:hover,.jt-procard .jt-procard__actions .jt-procard__wa:focus{color:#fff!important}'
 		. '.jt-procard--house .jt-procard__actions .jt-procard__wa,.jt-procard--house .jt-procard__actions .jt-procard__wa:hover,.jt-procard--house .jt-procard__actions .jt-procard__wa:focus{color:#fffefa!important;text-decoration:none!important}'
 		. '.jt-procard .jt-procard__actions .jt-procard__profile{text-decoration:none!important}'
+		// HAD-648: the office card brings its own frame (theme premium-pass-3.css); the plugin frame steps back.
+		. '.jt-procard--office{background:none;border:0;border-radius:0;box-shadow:none;overflow:visible;font-size:inherit}'
+		. '.jt-procard--office::before{display:none}'
+		. '@media(hover:hover){.jt-procard--office:hover{transform:none;box-shadow:none}}'
 		. '</style>';
 }
 

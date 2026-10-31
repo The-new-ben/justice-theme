@@ -269,7 +269,7 @@ if ( post_type_exists( 'articles' ) ) {
 					foreach ( $area_lawyer_posts as $area_lawyer_post ) :
 						$GLOBALS['post'] = $area_lawyer_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 						setup_postdata( $area_lawyer_post );
-						get_template_part( 'template-parts/cards/lawyer-card' );
+						get_template_part( 'template-parts/cards/lawyer-card', null, array( 'office_card' => true ) );
 					endforeach;
 					wp_reset_postdata();
 					?>
@@ -290,7 +290,7 @@ if ( post_type_exists( 'articles' ) ) {
 					<?php
 					$GLOBALS['post'] = $featured_lawyer; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 					setup_postdata( $featured_lawyer );
-					get_template_part( 'template-parts/cards/lawyer-card' );
+					get_template_part( 'template-parts/cards/lawyer-card', null, array( 'office_card' => true ) );
 					wp_reset_postdata();
 					?>
 				</div>

@@ -54,7 +54,26 @@ if ( ! function_exists( 'justice_theme_lawyer_card_public_city_label' ) ) {
 }
 
 $lawyer_id       = get_the_ID();
+
+// HAD-648 (Ben 31.10.2026, "the new card on all the family pages"): on the guide grids that opt in, a lawyer with an
+// office plan (inc/lawyer-office.php) gets the premium card with the plan, once per page. The directory keeps this card.
+if (
+	! empty( $args['office_card'] )
+	&& function_exists( 'justice_theme_premium_card' )
+	&& empty( $GLOBALS['justice_theme_office_cards'][ $lawyer_id ] )
+	&& justice_theme_lawyer_office( get_post( $lawyer_id ) )
+) {
+	$office_card = justice_theme_premium_card( get_post( $lawyer_id ) );
+	echo $office_card['html']; // phpcs:ignore WordPress.Security.EscapeOutput -- built from escaped parts.
+	if ( $office_card['schema'] ) {
+		echo '<script type="application/ld+json">' . wp_json_encode( $office_card['schema'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>'; // phpcs:ignore WordPress.Security.EscapeOutput
+		echo justice_theme_lawyer_office_script(); // phpcs:ignore WordPress.Security.EscapeOutput
+	}
+	return;
+}
+
 $lawyer_url      = justice_theme_public_permalink( $lawyer_id );
+$is_house_card   = function_exists( 'justice_lawyer_owner_is_maya_profile' ) && justice_lawyer_owner_is_maya_profile( $lawyer_id );
 
 // Inactive-card gate (owner order 2026-07-27): a card whose owner never
 // consented and never paid shows the name only. No link, no contact details,
@@ -250,7 +269,9 @@ $inquiry_url     = add_query_arg( 'lawyer_id', $lawyer_id, home_url( '/contact/'
 					<?php the_title(); ?>
 				<?php endif; ?>
 			</h3>
-			<?php if ( ! $card_active ) : ?>
+			<?php if ( $is_house_card ) : ?>
+				<?php // HAD-648: the site's own family lawyer carries no status label (Ben 31.10.2026: "write nothing"). ?>
+			<?php elseif ( ! $card_active ) : ?>
 				<span class="lawyer-card__status lawyer-card__status--inactive"><?php esc_html_e( 'כרטיס לא פעיל', 'justice-theme' ); ?></span>
 			<?php elseif ( $has_public_sponsor && $show_profile_claims ) : ?>
 				<span class="lawyer-card__status lawyer-card__status--sponsored"><?php esc_html_e( 'כרטיס רשום', 'justice-theme' ); ?></span>

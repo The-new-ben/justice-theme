@@ -184,7 +184,7 @@ function justice_tools_command_shortcode( $atts = array() ): string {
 		return '';
 	}
 	justice_tools_command_enqueue();
-	return '<div class="jt-cmd" data-jt-cmd><div class="jt-cmd__bar" role="tablist" aria-label="מרכז הפיקוד של הגירושין: ' . $n . ' כלים">' . $tabs . '</div>' . $panels . '</div>';
+	return '<div class="jt-cmd" data-jt-cmd><div class="jt-cmd__bar" role="tablist" aria-label="מחשבוני גירושין: ' . $n . ' כלים">' . $tabs . '</div>' . $panels . '</div>';
 }
 if ( function_exists( 'add_shortcode' ) ) {
 	add_shortcode( 'justice_tools_command', 'justice_tools_command_shortcode' );

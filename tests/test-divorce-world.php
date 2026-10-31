@@ -209,7 +209,7 @@ justice_tools_new_render_pass( '' );
 $cmd = $jt_shortcodes['justice_tools_command']( array() );
 $set = justice_tools_command_divorce_set();
 check( 8 === count( $set ) && array( 'gerushin', 'mezonot', 'izun', 'heskem-gerushin', 'heskem-mamon', 'mapat-gerushin', 'luach-shahut', 'maakav-mezonot' ) === array_column( $set, 'name' ), 'the set: the eight instruments in search order, cost first' );
-check( 0 === strpos( $cmd, '<div class="jt-cmd" data-jt-cmd><div class="jt-cmd__bar" role="tablist" aria-label="מרכז הפיקוד של הגירושין: 8 כלים">' ), 'one block, one tablist with a name' );
+check( 0 === strpos( $cmd, '<div class="jt-cmd" data-jt-cmd><div class="jt-cmd__bar" role="tablist" aria-label="מחשבוני גירושין: 8 כלים">' ), 'one block, one tablist with a name' );
 check( 8 === substr_count( $cmd, 'role="tab"' ) && 8 === substr_count( $cmd, 'role="tabpanel"' ) && 1 === substr_count( $cmd, 'aria-selected="true"' ) && 7 === substr_count( $cmd, 'aria-selected="false"' ), 'eight tabs, eight panels, one selected' );
 check( 7 === preg_match_all( '#<div class="jt-cmd__panel" role="tabpanel"[^>]*\shidden>#', $cmd ) && false !== strpos( $cmd, 'id="jt-cmd-panel-gerushin" aria-labelledby="jt-cmd-tab-gerushin" data-jt-cmd-panel="gerushin">' ), 'the first panel is open in the HTML and the other seven are hidden (no layout shift)' );
 check( 1 === preg_match_all( '#role="tab"[^>]*tabindex="0"#', $cmd ) && 7 === preg_match_all( '#role="tab"[^>]*tabindex="-1"#', $cmd ), 'roving tabindex: only the open tab is in the tab order' );

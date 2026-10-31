@@ -124,6 +124,7 @@ check(snap.total === 27148 && !bad(snap.form) && !bad(snap.result) && !bad(snap.
 check((snap.compare_table.match(/<details class="jt72-group"/g) || []).length === m.price_groups.length + 1 && (snap.compare_table.match(/<details class="jt72-group" open>/g) || []).length === 4 && (snap.compare_table.match(/לא נבדק/g) || []).length >= 2, 'price list: every group a collapsible table (court fees, lawyers and time open), the unchecked rows say so');
 const hrefs = [...snap.compare_table.matchAll(/href="([^"]+)"/g)].map((x) => x[1]);
 check(hrefs.length > 0 && hrefs.every((h) => /^https:\/\/(www\.nevo\.co\.il|www\.gov\.il|data\.gov\.il|rotenberglaw\.co\.il|www\.idi\.org\.il|fs\.knesset\.gov\.il)\//.test(h)), `price list: ${hrefs.length} links, all official or Adv. Maya Rotenberg's office`);
+check(snap.result.includes('שבועיים עד 6 חודשים') && !snap.result.includes('0.5 עד'), 'time: half a month reads "שבועיים", as the source says');
 check(snap.answer.agree_n === 11 && snap.answer.agree_low === 4000 && snap.answer.contested_high === 250000 && snap.answer.rb_agreement === 536, 'snapshot: the answer box figures come from the engine');
 check(/מחשבון גירושין/.test(U.printSummary(reg, ex, '2026-10-31')) && /נבדק על ידי הצוות המשפטי של Justice/.test(snap.result), 'print summary and the review line');
 for (const k of Object.keys(U.PRESETS)) {

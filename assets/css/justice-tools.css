@@ -4168,6 +4168,11 @@ a.jtool-cite:hover { text-decoration: underline; }
 .jtool .jt72-time, .jtool .jt72-next { margin: 14px 0 0; padding: 10px 14px; border: 1px solid var(--jtool-border); border-radius: 10px; background: var(--jtool-surface-2); }
 .jtool .jt72-reviewed, .jtool-page .jt72-reviewed { margin: 8px 0 0 !important; font: 700 0.82rem/1.5 var(--jtool-font) !important; color: var(--jtool-verdict-deep) !important; }
 .jtool .jt72-flags li { font-size: 0.9rem; }
+/* The notes of this tool are information, not warnings: the house navy tint, not the shared amber box. */
+.jtool .jtool-flags.jt72-flags { background: var(--jtool-verdict-tint) !important; border-color: var(--jtool-border) !important; border-inline-start: 4px solid var(--jtool-verdict) !important; color: var(--jtool-ink) !important; }
+.jtool .jtool-flags.jt72-flags li { color: var(--jtool-ink) !important; }
+/* The live theme sets nowrap on table captions: the bill's and the scenarios' captions wrap inside the card. */
+.jtool .jt72-bill caption, .jtool .jt72-scen caption { white-space: normal !important; overflow-wrap: anywhere; }
 .jtool .jt72-print { display: none; }
 .jtool-page .jt72-pricelist { direction: rtl; font-family: var(--jtool-font); }
 .jtool-page .jt72-pl__lede { margin: 0 0 6px !important; color: var(--jtool-ink); }

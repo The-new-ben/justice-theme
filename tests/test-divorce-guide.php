@@ -122,6 +122,7 @@ check( strlen( $plan ) < 40000 && false !== strpos( $plan, 'preserveAspectRatio=
 // 4. The shared premium card (HAD-648): the band's card and the plugin's in-article card for the house lawyer.
 $band = justice_theme_premium_card( $maya );
 check( false !== strpos( $band['html'], 'jt-premium-card--office' ) && false !== strpos( $band['html'], 'https://wa.me/972544705733' ) && false === strpos( $band['html'], 'data-procard-click' ) && 'Attorney' === $band['schema']['@type'], 'card: the band card, the lawyer own WhatsApp, the Attorney node, no beacon marks' );
+check( true === ( $GLOBALS['justice_theme_office_cards'][19130] ?? null ), 'card: an office card marks the lawyer as printed, so the guide grids do not repeat it' );
 $art = justice_theme_premium_card( $maya, array( 'wa_href' => 'https://wa.me/972525101555?text=x', 'track' => true ) );
 check( false !== strpos( $art['html'], 'href="https://wa.me/972525101555?text=x" target="_blank" rel="noopener nofollow" data-whatsapp-surface="procard" data-procard-click="wa"' ) && 3 === substr_count( $art['html'], 'data-procard-click="profile"' ), 'card in an article: the article WhatsApp routing, nofollow, the beacon marks on WhatsApp and the three profile links' );
 check( false === mb_strpos( $art['html'], 'ממומן' ) && false === mb_strpos( $art['html'], 'מקודם' ) && false === mb_strpos( $art['html'], 'בודקת' ), 'card in an article: no label of any kind (Ben 31.10.2026: "write nothing")' );

@@ -5186,6 +5186,8 @@ body .jt-procard--office .jt-premium-card--office { grid-template-columns: minma
 body .jt-procard--office .jt-office { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 14px; align-items: center; }
 body .jt-procard--office .jt-office__map { grid-column: 1 / -1; aspect-ratio: 16 / 6; }
 body .jt-procard--office .jt-office__map.is-live { aspect-ratio: 4 / 3; }
+/* In a guide's lawyers grid (pillar, city and practice pages) the office card spans the whole row. */
+.lawyers-grid > .jt-premium-card--office { grid-column: 1 / -1; }
 @media (max-width: 760px) {
   body .jt-premium-card--office { grid-template-columns: minmax(0, 1fr); padding: 16px; gap: 14px; }
   body .jt-premium-card--office .jt-premium-card__main { flex-direction: row; align-items: flex-start; text-align: start; gap: 12px; }

@@ -186,6 +186,8 @@ function justice_theme_premium_card( WP_Post $firm, array $args = array() ): arr
 	$html .= '</span></div>';
 	if ( $office ) {
 		$html .= '</div>' . justice_theme_lawyer_office_html( $firm, $office );
+		// One office card per page: the guide grids skip a lawyer whose office card already printed (lawyer-card.php).
+		$GLOBALS['justice_theme_office_cards'][ $firm->ID ] = true;
 	}
 	$html .= '</div>';
 	return array(

@@ -4232,3 +4232,68 @@ a.jtool-cite:hover { text-decoration: underline; }
 	.jtool .jt72-print { display: block !important; }
 	.jtool .jt72-levers, .jtool .jt72-sec, .jtool .jt72-next { break-inside: avoid; }
 }
+
+/* HAD-616: choosing a divorce lawyer (bchirat-orech-din, jt74). The house navy and registry hairlines; the urgent step in
+   the tools' danger tint, never a gold or amber call to action. */
+.jtool .jt74-urgent { margin: 0 0 12px; padding: 12px 14px; border: 1px solid var(--jtool-danger); border-radius: 10px; background: var(--jtool-danger-bg); color: var(--jtool-ink); line-height: 1.55; }
+.jtool .jt74-urgent a { color: var(--jtool-danger) !important; font-weight: 700; text-decoration: underline; }
+.jtool .jt74-need { padding: 14px 16px; border-radius: 10px; background: var(--jtool-verdict-tint); }
+.jtool .jt74-kicker { display: block; font-size: 0.8125rem; font-weight: 700; color: var(--jtool-verdict); }
+.jtool .jt74-profile { margin: 4px 0 0; font-size: 1.0625rem; font-weight: 700; line-height: 1.6; color: var(--jtool-ink); }
+.jtool .jt74-focus { margin: 6px 0 0; font-size: 0.95rem; color: var(--jtool-ink); }
+.jtool .jt74-ask h4, .jtool .jt74-flags h4, .jtool .jt74-calc h4, .jtool .jt74-lawyers h4 { margin: 14px 0 6px; font-size: 1rem; font-weight: 800; color: var(--jtool-ink); }
+.jtool .jt74-ask ol, .jtool .jt74-flags ul { margin: 0; padding-inline-start: 20px; line-height: 1.6; }
+.jtool .jt74-ask li, .jtool .jt74-flags li { margin: 0 0 4px; }
+.jtool .jt74-reviewed { margin: 12px 0 0; font-size: 0.8125rem; color: var(--jtool-muted); }
+.jtool .jt74-screen { display: flex; flex-direction: column; gap: 14px; }
+.jtool .jt74-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.jtool .jt74-flags, .jtool .jt74-calc { padding: 2px 14px 14px; border: 1px solid var(--jtool-border); border-radius: 10px; background: var(--jtool-surface); }
+.jtool .jt74-calc p { margin: 0 0 10px; line-height: 1.55; }
+.jtool .jt74-lawyers { display: flex; flex-direction: column; gap: 8px; }
+.jtool .jt74-featured { display: flex; flex-direction: column; gap: 2px; padding: 10px 14px; border: 1px solid var(--jtool-border); border-top: 3px solid var(--jtool-verdict); border-radius: 10px; background: var(--jtool-surface); text-decoration: none; }
+.jtool .jt74-featured__name { font-weight: 800; color: var(--jtool-ink); }
+.jtool .jt74-featured__label { font-size: 0.875rem; color: var(--jtool-muted); }
+.jtool .jt74-dir { font-weight: 700; color: var(--jtool-verdict) !important; text-decoration: underline; text-underline-offset: 3px; }
+.jtool .jt74-disclosure { margin: 0; font-size: 0.8125rem; line-height: 1.5; color: var(--jtool-muted); }
+.jtool .jt74-print { display: none; }
+@media print { .jtool .jt74-print { display: block; } }
+
+/* HAD-616: divorce statistics (netunei-gerushin, jt75). Bars in the ruling navy (the chosen year) and the tools' teal (the
+   year compared), the rest in a pale navy; the breakdown as plain horizontal bars with the share printed, never a pie. */
+.jtool .jt75-sentence { margin: 0 0 12px; padding: 12px 14px; border-radius: 10px; background: var(--jtool-verdict-tint); font-size: 1.0625rem; font-weight: 700; line-height: 1.55; color: var(--jtool-ink); }
+.jtool .jt75-live { margin: 0 0 18px; }
+.jtool .jt75-h { margin: 0 0 6px; font-size: 1.0625rem; font-weight: 800; color: var(--jtool-ink); }
+.jtool .jt75-chart { position: relative; padding: 22px 0 24px; }
+.jtool .jt75-chart svg { display: block; width: 100%; height: 190px; }
+.jtool .jt75-peak, .jtool .jt75-axis span { position: absolute; transform: translateX(-50%); white-space: nowrap; font: 600 0.8125rem/1.2 var(--jtool-font); color: var(--jtool-muted); }
+.jtool .jt75-peak { top: 0; }
+.jtool .jt75-axis { position: absolute; inset: auto 0 0 0; height: 20px; border-top: 1px solid var(--jtool-field-border); }
+.jtool .jt75-axis span { top: 4px; }
+.jtool .jt75-peak.is-end, .jtool .jt75-axis span.is-end { transform: translateX(-100%); }
+.jtool .jt75-peak.is-start, .jtool .jt75-axis span.is-start { transform: none; }
+.jtool .jt75-axis span.is-year { color: var(--jtool-verdict); font-weight: 800; }
+.jtool .jt75-axis span.is-vs { color: #0B6470; font-weight: 800; }
+.jtool .jt75-note { margin: 0 0 8px; font-size: 0.875rem; color: var(--jtool-muted); line-height: 1.5; }
+.jtool .jt75-bar { fill: #B9CCE0; }
+.jtool .jt75-bar.is-year { fill: var(--jtool-verdict); }
+.jtool .jt75-bar.is-vs { fill: #0B6470; }
+.jtool .jt75-axis { font: 600 12px var(--jtool-font); fill: var(--jtool-muted); }
+.jtool .jt75-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 6px 0 12px; font-size: 0.8125rem; color: var(--jtool-muted); }
+.jtool .jt75-key { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-inline-start: 6px; }
+.jtool .jt75-key.is-year { background: var(--jtool-verdict); }
+.jtool .jt75-key.is-vs { background: #0B6470; }
+.jtool .jt75-cut { margin: 8px 0 0; }
+.jtool .jt75-cut__head { margin: 0 0 8px; font-weight: 800; color: var(--jtool-ink); }
+.jtool .jt75-rows { display: flex; flex-direction: column; gap: 6px; }
+.jtool .jt75-row { display: grid; grid-template-columns: minmax(90px, 30%) minmax(0, 1fr) 52px; gap: 10px; align-items: center; font-size: 0.9rem; }
+.jtool .jt75-row__bar { height: 14px; border-radius: 3px; background: #EEF3F8; overflow: hidden; }
+.jtool .jt75-row__bar span { display: block; height: 100%; background: #2F5F9E; border-radius: 3px; }
+.jtool .jt75-row.is-you .jt75-row__bar span { background: var(--jtool-verdict); }
+.jtool .jt75-row.is-you .jt75-row__label { font-weight: 800; }
+.jtool .jt75-row__val { text-align: end; font-variant-numeric: tabular-nums; }
+.jtool .jt75-you { margin: 12px 0 0; padding: 10px 12px; border: 1px solid var(--jtool-border); border-radius: 10px; line-height: 1.55; }
+.jtool .jt75-reviewed { margin: 12px 0 0; font-size: 0.8125rem; color: var(--jtool-muted); line-height: 1.5; }
+.jtool .jt75-table th[scope="row"] { font-variant-numeric: tabular-nums; }
+.jtool .jt75-print { display: none; }
+@media print { .jtool .jt75-print { display: block; } }
+@media (max-width: 560px) { .jtool .jt75-chart svg { height: 150px; } .jtool .jt75-row { grid-template-columns: minmax(80px, 34%) minmax(0, 1fr) 48px; gap: 8px; } }

@@ -5134,3 +5134,66 @@ a.jt-ai-fab {
     text-align: center;
   }
 }
+
+/* HAD-616 (Ben 31.10.2026, "a map with Maya's card, gently, lift it a tiny bit"): a card with an office plan.
+   Registry paper and the ruling-stamp navy of the tools (ink #1E2A36, navy #14477D, hairline #D9E3EC) replace the
+   cream ground, the gold border and the gold button; the plan is a street drawing, not a third-party widget. */
+body .jt-premium-card--office {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 248px;
+  gap: 20px 22px;
+  align-items: start;
+  background: #FFFFFF;
+  border: 1px solid #D9E3EC;
+  border-top: 3px solid #14477D;
+  border-radius: 14px;
+  padding: 20px 22px;
+  box-shadow: none;
+  text-align: start;
+}
+body .jt-premium-card--office .jt-premium-card__main { display: flex; gap: 16px; align-items: flex-start; min-width: 0; }
+body .jt-premium-card--office .jt-premium-card__photo-link { flex: 0 0 84px; }
+body .jt-premium-card--office .jt-premium-card__photo { width: 84px; height: 84px; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #D9E3EC; }
+body .jt-premium-card--office .jt-premium-card__body { min-width: 0; }
+body .jt-premium-card--office .jt-premium-card__name { color: #1E2A36 !important; font-size: 1.3rem; line-height: 1.25; text-decoration: none !important; }
+/* The band around a single office card steps back: one frame, not a card in a box. */
+body .jt-registered-band:has(> .jt-premium-card--office) { background: none; border: 0; padding: 0; }
+body .jt-premium-card--office .jt-premium-card__meta { color: #4E5D6C; font-size: 0.95rem; }
+body .jt-premium-card--office .jt-premium-card__bio { color: #1E2A36; font-size: 1rem; line-height: 1.6; }
+body .jt-premium-card--office .jt-premium-card__actions { gap: 8px; align-items: center; }
+/* The site's button rules carry !important (the house green, the old gold); the card's own colours must too, scoped here. */
+body .jt-premium-card--office .jt-premium-card__actions .button { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; padding: 0 18px !important; border-radius: 8px !important; font-size: 0.95rem; font-weight: 700; box-shadow: none !important; text-decoration: none; }
+body .jt-premium-card--office .jt-premium-card__actions .button--gold { background: #14477D !important; border: 1.5px solid #14477D !important; color: #FFFFFF !important; }
+body .jt-premium-card--office .jt-premium-card__actions .button--gold:hover { background: #0E2E4F !important; border-color: #0E2E4F !important; color: #FFFFFF !important; }
+body .jt-premium-card--office .jt-premium-card__actions .button--primary { background: #FFFFFF !important; border: 1.5px solid #14477D !important; color: #14477D !important; }
+body .jt-premium-card--office .jt-premium-card__actions .button--primary:hover { background: #E8F0F8 !important; color: #0E2E4F !important; }
+body .jt-premium-card--office .jt-premium-card__actions .button--ghost { background: none !important; border: 0 !important; color: #14477D !important; padding: 0 6px !important; min-height: 44px; text-decoration: underline; text-underline-offset: 3px; }
+.jt-office { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.jt-office__map { position: relative; aspect-ratio: 640 / 376; border-radius: 10px; overflow: hidden; border: 1px solid #D9E3EC; background: #EEF3F8; }
+.jt-office__plan { display: block; width: 100%; height: 100%; object-fit: cover; }
+.jt-office__map.is-live { aspect-ratio: 4 / 3; }
+.jt-office__map iframe { display: block; width: 100%; height: 100%; border: 0; }
+.jt-office__credit { position: absolute; inset-inline-end: 6px; bottom: 5px; font-size: 10px; line-height: 1.4; color: #4E5D6C; background: rgba(255, 255, 255, 0.85); padding: 0 4px; border-radius: 3px; }
+.jt-office__address { margin: 0 !important; font-size: 0.95rem; font-weight: 700; line-height: 1.45; color: #1E2A36; }
+.jt-office__links { margin: 0 !important; display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: center; font-size: 0.9rem; }
+.jt-office__links a, .jt-office__live { color: #14477D !important; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; min-height: 32px; display: inline-flex; align-items: center; }
+.jt-office__live { background: none; border: 0; padding: 0; font: inherit; font-weight: 700; cursor: pointer; }
+.jt-office__links a:focus-visible, .jt-office__live:focus-visible { outline: 2px solid #1866B4; outline-offset: 2px; border-radius: 3px; }
+@media (max-width: 760px) {
+  body .jt-premium-card--office { grid-template-columns: minmax(0, 1fr); padding: 16px; gap: 14px; }
+  body .jt-premium-card--office .jt-premium-card__main { flex-direction: row; align-items: flex-start; text-align: start; gap: 12px; }
+  body .jt-premium-card--office .jt-premium-card__photo-link { flex-basis: 64px; }
+  body .jt-premium-card--office .jt-premium-card__photo { width: 64px; height: 64px; }
+  body .jt-premium-card--office .jt-premium-card__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body .jt-premium-card--office .jt-premium-card__actions .button--ghost { grid-column: 1 / -1; justify-content: flex-start; }
+  .jt-office__map { aspect-ratio: 16 / 7; }
+}
+@media (max-width: 420px) {
+  body .jt-premium-card--office .jt-premium-card__main { display: grid; grid-template-columns: 64px minmax(0, 1fr); }
+  body .jt-premium-card--office .jt-premium-card__body { display: contents; }
+  body .jt-premium-card--office .jt-premium-card__name { grid-column: 2; align-self: end; }
+  body .jt-premium-card--office .jt-premium-card__meta { grid-column: 2; margin: 0; }
+  body .jt-premium-card--office .jt-premium-card__photo-link { grid-row: 1 / span 2; }
+  body .jt-premium-card--office .jt-premium-card__bio,
+  body .jt-premium-card--office .jt-premium-card__actions { grid-column: 1 / -1; }
+}

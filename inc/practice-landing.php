@@ -36,7 +36,9 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 			// HAD-539: Adv. Maya Rotenberg's premium card sat after the first section. HAD-616 (Ben, 31.10.2026: "clear, not
 			// overdone, a good place, a bit above the middle"): after the fourth section, right after the eight-tool command
 			// center and before "גירושין בישראל", at about 46% of the page with the calculator and the price list in.
-			'midfold_after_sections' => 4,
+			// HAD-616 b (Ben 31.10.2026 evening): the chapter "מה זה גירושין" now opens before the prices, one H2 more above
+			// the card, so the card keeps its place (after the command center: about 48% on desktop, 46% on a phone).
+			'midfold_after_sections' => 5,
 			'hide_signals'   => true,
 			'show_map'       => true,
 			'quick_path'     => array(

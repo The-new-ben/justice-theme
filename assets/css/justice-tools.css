@@ -4254,7 +4254,6 @@ a.jtool-cite:hover { text-decoration: underline; }
 .jtool .jt74-featured__name { font-weight: 800; color: var(--jtool-ink); }
 .jtool .jt74-featured__label { font-size: 0.875rem; color: var(--jtool-muted); }
 .jtool .jt74-dir { font-weight: 700; color: var(--jtool-verdict) !important; text-decoration: underline; text-underline-offset: 3px; }
-.jtool .jt74-disclosure { margin: 0; font-size: 0.8125rem; line-height: 1.5; color: var(--jtool-muted); }
 .jtool .jt74-print { display: none; }
 @media print { .jtool .jt74-print { display: block; } }
 

@@ -5,10 +5,10 @@ Ben, 31.10.2026: "a tool that, as it were, searches a divorce lawyer for you". I
 to search the market: it turns six answers into the profile of the lawyer the reader needs (the forum, the subjects, the
 urgent step), the questions to ask at the first meeting, the warning signs, the route to price in the divorce calculator,
 and the family-law lawyers in the site's directory for the reader's city. The site's featured family lawyer (Adv. Maya
-Rotenberg) is shown as such, in plain words, never as a search result. The rules follow the page's own table "איזה עורך דין
-מתאים למקרה שלכם" (the chapter the tool sits in), so the tool and the text never disagree. No superlative ("המומלצת",
-"הטובה ביותר"): the Bar's advertising rules (rule 2א) and its ethics committee bar self-praise in a lawyer's advertising, so
-the label states the fact (she reviews the marked chapters).
+Rotenberg) is shown by name and role, with no label or explanation (Ben 31.10.2026 night, HAD-648: "write nothing, she is
+part of the office"), never as a search result. The rules follow the page's own table "איזה עורך דין מתאים למקרה שלכם"
+(the chapter the tool sits in), so the tool and the text never disagree. No superlative ("המומלצת", "הטובה ביותר"): the
+Bar's advertising rules (rule 2א) bar self-praise in a lawyer's advertising.
 """
 from __future__ import annotations
 
@@ -130,11 +130,10 @@ FEATURED = {
     "name_he": "עו\"ד מאיה רוטנברג",
     "city_he": "תל אביב",
     "path": "/lawyers/advocate-maya-rotenberg/",
-    "label_he": "עורכת דין לדיני משפחה, בודקת את הפרקים המסומנים בעמוד הזה",
+    "label_he": "עורכת דין גירושין ודיני משפחה",
 }
 
 TEXTS = {
-    "disclosure_he": "הכלי לא מדרג עורכי דין ולא בודק זמינות. מאיה רוטנברג מופיעה כאן כי היא בודקת את פרקי דיני המשפחה בעמוד; כל עורכי הדין בתחום מופיעים במדריך.",
     "method_he": [
         "הכלי עונה על שאלה אחת: איזה עורך דין מתאים למצב שלכם. הוא בונה פרופיל מתוך שש התשובות, לפי הטבלה \"איזה עורך דין מתאים למקרה שלכם\" שבעמוד: שלב ההליך, הערכאה, הנושאים הפתוחים והדחיפות.",
         "השאלות לפגישה נבחרות לפי התשובות: שלוש לכל מצב, ועוד אחת לכל נושא פתוח, עד שבע.",

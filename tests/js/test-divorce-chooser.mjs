@@ -27,7 +27,7 @@ check(b && b.checked_on === '2026-10-31' && b.questions.length === 5 && b.cities
 check(b.questions.every((q) => q.options.length >= 3 && q.options.every((o) => o.v && o.he)), 'dataset: every question has its options');
 check(!/\d{3,}/.test(JSON.stringify(b.profile) + JSON.stringify(b.ask) + JSON.stringify(b.red_flags)), 'dataset: no price or count in the rules (the cost lives in the calculator)');
 check(Object.values(b.calc_preset).every((k) => C.PRESETS[k]) && C.PRESETS.plain && C.PRESETS.mediate, 'dataset: every preset exists in the divorce calculator');
-check(!/המומלצ|הטוב ביותר|הטובה ביותר|מוביל/.test(b.featured.label_he + b.disclosure_he) && b.featured.label_he.includes('בודקת') && b.disclosure_he.includes('לא מדרג'), 'dataset: no superlative (Bar advertising rule 2א); the featured lawyer is labelled by fact, and the tool says it ranks no one');
+check(!/המומלצ|הטוב ביותר|הטובה ביותר|מוביל|בודקת|ממומן|מקודם/.test(b.featured.label_he) && b.featured.label_he.includes('דיני משפחה') && !('disclosure_he' in b), 'dataset: the house lawyer by name and role only: no superlative (Bar rule 2א), no placement label or explanation (HAD-648)');
 check(b.sources.length >= 2 && b.sources.every((s) => /^https:\/\//.test(s.url)), 'dataset: sources with links');
 
 /* ---------- 2. The profile ---------- */
@@ -53,7 +53,7 @@ check(ex.flags.length === 4 && ex.flags.some((f) => f.includes('ניגוד ענ�
 /* ---------- 4. City and the directory ---------- */
 check(run({ city: 'haifa' }).dir === '/lawyers/?area=family-law&city=haifa' && run({ city: 'nowhere' }).dir === '/lawyers/?area=family-law', 'directory: by city, an unknown city falls back to the whole country');
 const details = U.renderDetails(reg, run({ city: 'jerusalem' }));
-check(details.includes('בירושלים') && details.includes('data-preset="kids"') && details.includes(b.featured.path) && details.includes(b.disclosure_he), 'details: the city, the calculator preset, the featured profile and the disclosure');
+check(details.includes('בירושלים') && details.includes('data-preset="kids"') && details.includes(b.featured.path) && !details.includes('disclosure') && !details.includes('מופיעה כאן'), 'details: the city, the calculator preset and the featured profile, with no disclosure line');
 
 /* ---------- 5. Validation and rendering ---------- */
 const badStage = U.bcCompute(reg, Object.assign(U.bcDefaults(reg), { stage: 'x' }));

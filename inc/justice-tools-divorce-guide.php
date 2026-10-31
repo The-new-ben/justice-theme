@@ -30,7 +30,7 @@ function justice_tools_dguide_catalog(): array {
 		'bchirat-orech-din' => array(
 			'name'      => 'בחירת עורך דין גירושין',
 			'title'     => 'איזה עורך דין גירושין מתאים לכם: שש שאלות, פרופיל אחד',
-			'promise'   => 'איפה זה עומד, מה פתוח ביניכם, מה דחוף ובאיזו ערכאה: הכלי מתאר את עורך הדין שאתם צריכים, נותן את השאלות לפגישה הראשונה ואת הדגלים האדומים, מחבר למחשבון הגירושין ומציג את עורכי הדין לדיני משפחה במדריך לפי עיר. הוא לא מדרג עורכי דין.',
+			'promise'   => 'איפה זה עומד, מה פתוח ביניכם, מה דחוף ובאיזו ערכאה: הכלי מתאר את עורך הדין שאתם צריכים, נותן את השאלות לפגישה הראשונה ואת הדגלים האדומים, מחבר למחשבון הגירושין ומציג את עורכי הדין לדיני משפחה במדריך לפי עיר.',
 			'question'  => 'איזה עורך דין גירושין מתאים למצב שלי?',
 			'page'      => '/divorce-lawyer/',
 			'category'  => 'UtilitiesApplication',
@@ -77,7 +77,7 @@ function justice_tools_dguide_answer( string $name, string $mode = '' ): string 
 	if ( 'bchirat-orech-din' === $name && ! empty( $reg['fl_bchira'] ) && ! empty( $snap['answer'] ) ) {
 		$a = $snap['answer'];
 		return '<div class="jtool-answer"><p><strong>בחירת עורך דין גירושין</strong> מתחילה במצב שלכם, לא בשם של משרד. לדוגמה, כשמסכימים על רוב הדברים ויש ילדים ודירה: '
-			. esc_html( $a['profile'] ) . ' הכלי נותן ' . (int) $a['ask_n'] . ' שאלות לפגישה הראשונה ו-' . (int) $a['flags_n'] . ' דגלים אדומים, ולא מדרג עורכי דין. '
+			. esc_html( $a['profile'] ) . ' הכלי נותן ' . (int) $a['ask_n'] . ' שאלות לפגישה הראשונה ו-' . (int) $a['flags_n'] . ' דגלים אדומים. '
 			. 'נבדק ' . esc_html( justice_tools_he_date( $reg['fl_bchira']['checked_on'] ) ) . ' על ידי הצוות המשפטי של Justice.</p></div>';
 	}
 	if ( 'netunei-gerushin' === $name && ! empty( $reg['fl_netunim'] ) && ! empty( $snap['answer'] ) ) {

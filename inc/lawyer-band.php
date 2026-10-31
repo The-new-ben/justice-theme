@@ -138,10 +138,13 @@ function justice_theme_get_practice_firms( string $term_slug, int $limit = 6, bo
  * @return string HTML.
  */
 function justice_theme_registered_band_html( string $term_slug, string $practice_label ): string {
-	$firms = justice_theme_get_practice_firms( $term_slug, 3, true );
-	$html  = '<div class="jt-registered-band">';
+	$firms   = justice_theme_get_practice_firms( $term_slug, 3, true );
+	$html    = '<div class="jt-registered-band">';
+	$schemas = array();
 	if ( ! empty( $firms ) ) {
 		foreach ( $firms as $firm ) {
+			// HAD-616: a card whose lawyer has an office plan carries it beside the text (inc/lawyer-office.php).
+			$office = function_exists( 'justice_theme_lawyer_office' ) ? justice_theme_lawyer_office( $firm ) : null;
 			// Prefer the dedicated portrait (owner: the face looks at you from
 			// the screen) over the featured banner/collage.
 			$portrait_id = (int) get_post_meta( $firm->ID, 'profile_portrait_id', true );
@@ -154,7 +157,10 @@ function justice_theme_registered_band_html( string $term_slug, string $practice
 			$bio   = wp_strip_all_tags( (string) get_post_meta( $firm->ID, 'bio_short', true ) );
 			$phone = preg_replace( '/[^0-9]/', '', (string) get_post_meta( $firm->ID, 'phone', true ) );
 			$wa    = $phone ? 'https://wa.me/972' . ltrim( $phone, '0' ) : '';
-			$html .= '<div class="jt-premium-card">';
+			$html .= '<div class="jt-premium-card' . ( $office ? ' jt-premium-card--office' : '' ) . '">';
+			if ( $office ) {
+				$html .= '<div class="jt-premium-card__main">';
+			}
 			if ( $photo ) {
 				$html .= '<a class="jt-premium-card__photo-link" href="' . esc_url( get_permalink( $firm ) ) . '">' . $photo . '</a>';
 			}
@@ -175,7 +181,12 @@ function justice_theme_registered_band_html( string $term_slug, string $practice
 				$html .= '<a class="button button--primary" href="tel:' . esc_attr( $phone ) . '">התקשרו</a>';
 			}
 			$html .= '<a class="button button--ghost" href="' . esc_url( get_permalink( $firm ) ) . '">לפרופיל המלא</a>';
-			$html .= '</span></div></div>';
+			$html .= '</span></div>';
+			if ( $office ) {
+				$html     .= '</div>' . justice_theme_lawyer_office_html( $firm, $office );
+				$schemas[] = justice_theme_lawyer_office_schema( $firm, $office );
+			}
+			$html .= '</div>';
 		}
 	} else {
 		$html .= '<div class="jt-registered-band__recruit">';
@@ -185,6 +196,12 @@ function justice_theme_registered_band_html( string $term_slug, string $practice
 		$html .= '</div>';
 	}
 	$html .= '</div>';
+	if ( $schemas ) {
+		foreach ( $schemas as $schema ) {
+			$html .= '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>';
+		}
+		$html .= justice_theme_lawyer_office_script();
+	}
 	return $html;
 }
 

@@ -3,7 +3,7 @@
  * Build the co.il tools (HAD-485 wave 1, HAD-490 wave 2, HAD-498 wave 3, HAD-502 wave 4, HAD-504 wave 5, HAD-506 family
  * law, the inheritance wave, the rights waves HAD-574, HAD-578 and HAD-585, the family + land wave HAD-579, the labor
  * wave, the road-accident and personal-injury wave HAD-591, the consumer-law wave HAD-593, the medical-malpractice wave
- * HAD-594, the divorce calculator HAD-616) from their ES-module sources.
+ * HAD-594, the divorce calculator, the lawyer chooser and the divorce statistics HAD-616) from their ES-module sources.
  *
  *   node tools/build-justice-tools.mjs          write the bundles and the server snapshots
  *   node tools/build-justice-tools.mjs --check  fail when a committed file is out of date (CI)
@@ -114,6 +114,8 @@ const TOOLS = {
 	// The divorce calculator and price list (31.10.2026, HAD-616): one engine over reg.fl_mechiron (official amounts stored
 	// with their registry paths, market ranges with their sources) and reg.divorce_cost (VAT, the clock, the scope).
 	'machshevon-gerushin': ['instrument.js', 'machshevon-engine.js', 'machshevon-ui.js'],
+	'bchirat-orech-din': ['instrument.js', 'bchira-ui.js'],
+	'netunei-gerushin': ['instrument.js', 'netunim-ui.js'],
 };
 
 function strip(code) {
@@ -212,6 +214,8 @@ const mpR = await import(pathToFileURL(join(SRC, 'reshuma-ui.js')).href);
 const mpH = await import(pathToFileURL(join(SRC, 'hityashnut-ui.js')).href);
 const mpM = await import(pathToFileURL(join(SRC, 'mechir-ui.js')).href);
 const dvC = await import(pathToFileURL(join(SRC, 'machshevon-ui.js')).href);
+const dvB = await import(pathToFileURL(join(SRC, 'bchira-ui.js')).href);
+const dvN = await import(pathToFileURL(join(SRC, 'netunim-ui.js')).href);
 const snapshots = {
 	registry_version: registry.registry_version,
 	hatzmada: t04.snapshot(registry),
@@ -272,6 +276,8 @@ const snapshots = {
 	'shaon-refui': mpH.snapshot(registry),
 	'alut-tviaa-refuit': mpM.snapshot(registry),
 	'machshevon-gerushin': dvC.snapshot(registry),
+	'bchirat-orech-din': dvB.snapshot(registry),
+	'netunei-gerushin': dvN.snapshot(registry),
 };
 outputs['assets/data/justice-tools-snapshots.json'] = `${JSON.stringify(snapshots, null, 1)}\n`;
 

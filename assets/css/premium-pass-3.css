@@ -5194,7 +5194,7 @@ body .jt-procard--office .jt-office__map.is-live { aspect-ratio: 4 / 3; }
   body .jt-premium-card--office .jt-premium-card__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   body .jt-premium-card--office .jt-premium-card__actions .button--ghost { grid-column: 1 / -1; justify-content: flex-start; }
   .jt-office__map { aspect-ratio: 16 / 7; }
-  body .jt-procard--office .jt-office { display: flex; }
+  body .jt-procard--office .jt-office { display: flex; align-items: stretch; }
   body .jt-procard--office .jt-office__map { aspect-ratio: 16 / 7; }
 }
 @media (max-width: 420px) {

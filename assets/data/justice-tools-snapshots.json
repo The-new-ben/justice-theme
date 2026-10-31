@@ -2420,5 +2420,346 @@
     "source": "idi_2024"
    }
   }
+ },
+ "bchirat-orech-din-plili": {
+  "tool": "bchirat-orech-din-plili",
+  "registry_version": "2026-10-31",
+  "input": {
+   "district": "",
+   "stage": "before",
+   "offence": "violence",
+   "urgency": "week",
+   "budget": "mid"
+  },
+  "total": 0,
+  "sticky": "<bdi>זומנתי לחקירה</bdi>",
+  "form": "<fieldset class=\"jtool-field\"><legend>1. איפה אתם עכשיו</legend><div class=\"jtool-chips\"><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt76-stage\" value=\"before\" checked><span>זומנתי לחקירה</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt76-stage\" value=\"arrest\"><span>נעצרתי, או שבן משפחה עצור</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt76-stage\" value=\"indict\"><span>כתב אישום או מכתב לשימוע</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt76-stage\" value=\"convict\"><span>הורשעתי, או שיש גזר דין</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt76-stage\" value=\"record\"><span>רישום פלילי ישן</span></label></div><p class=\"jtool-error\" id=\"jt76-stage-e\" role=\"alert\"></p></fieldset><div class=\"jt76-menus\"><div class=\"jtool-field\"><label class=\"jtool-label\" for=\"jt76-offence\">2. במה החשד</label><select id=\"jt76-offence\" class=\"jtool-select\"><option value=\"drugs\">סמים</option><option value=\"violence\" selected>אלימות או איומים</option><option value=\"sex\">עבירת מין</option><option value=\"white\">הונאה, מס או הלבנת הון</option><option value=\"traffic\">תעבורה או נהיגה בשכרות</option><option value=\"other\">משהו אחר</option></select><p class=\"jtool-error\" id=\"jt76-offence-e\" role=\"alert\"></p></div><div class=\"jtool-field\"><label class=\"jtool-label\" for=\"jt76-district\">3. מחוז בית המשפט</label><select id=\"jt76-district\" class=\"jtool-select\"><option value=\"\" selected>לא יודע</option><option value=\"north\">צפון</option><option value=\"haifa\">חיפה</option><option value=\"center\">מרכז</option><option value=\"tlv\">תל אביב</option><option value=\"jerusalem\">ירושלים</option><option value=\"south\">דרום</option></select><p class=\"jtool-hint\">לפי מקום האירוע או התחנה שבה נפתח התיק.</p><p class=\"jtool-error\" id=\"jt76-district-e\" role=\"alert\"></p></div><div class=\"jtool-field\"><label class=\"jtool-label\" for=\"jt76-urgency\">4. כמה זה דחוף</label><select id=\"jt76-urgency\" class=\"jtool-select\"><option value=\"now\">היום או מחר</option><option value=\"week\" selected>השבוע</option><option value=\"plan\">יש זמן לבדוק</option></select><p class=\"jtool-error\" id=\"jt76-urgency-e\" role=\"alert\"></p></div><div class=\"jtool-field\"><label class=\"jtool-label\" for=\"jt76-budget\">5. מה התקציב</label><select id=\"jt76-budget\" class=\"jtool-select\"><option value=\"pd\">אין לי אפשרות לשלם</option><option value=\"low\">עד 5,000 ₪</option><option value=\"mid\" selected>5,000 עד 20,000 ₪</option><option value=\"high\">מעל 20,000 ₪</option></select><p class=\"jtool-error\" id=\"jt76-budget-e\" role=\"alert\"></p></div></div>",
+  "result": "<div class=\"jtool-verdict jt76-verdict\" aria-live=\"polite\"><p class=\"jtool-example\">דוגמה: זימון לחקירה בחשד לאלימות. שנו את התשובות והפרופיל יתעדכן.</p><div class=\"jt76-need\"><span class=\"jt76-kicker\">מה אתם צריכים</span><p class=\"jt76-profile\">עורך דין פלילי לייעוץ לפני החקירה: מה אומרים, מתי שותקים ומה מביאים, עם ניסיון בעבירות אלימות ואיומים.</p><p class=\"jt76-focus\">פגישה השבוע, לפני המועד הבא.</p></div><p class=\"jt76-guides\">להמשך: <a href=\"/police-investigation-rights/\" data-act=\"guide\">זכויות חשוד בחקירה במשטרה</a> · <a href=\"/assault-charges-lawyer/\" data-act=\"guide\">עבירת תקיפה</a></p><div class=\"jt76-feebox\"><h4>כמה זה עולה בשלב הזה</h4><ul class=\"jt76-fees\"><li><strong>ייעוץ לפני חקירה:</strong> <span class=\"jtool-amt\"><bdi>1,500</bdi> ₪</span> עד <span class=\"jtool-amt\"><bdi>5,000</bdi> ₪</span> · מינימום לפי תעריף הלשכה: <span class=\"jtool-amt\"><bdi>637</bdi> ₪</span> לפני מע\"מ</li><li><strong>ליווי לחקירה במשטרה:</strong> <span class=\"jtool-amt\"><bdi>2,000</bdi> ₪</span> עד <span class=\"jtool-amt\"><bdi>20,000</bdi> ₪</span></li></ul><p class=\"jtool-hint\">רוב המשרדים לא מציינים אם הטווח כולל מע&quot;מ (18%). המינימום של הלשכה הוא לפני מע&quot;מ. <a href=\"#jtool-sachar-orech-din-plili\">לטבלת שכר הטרחה המלאה</a></p></div><div class=\"jt76-ask\"><h4>שאלות לפגישה הראשונה</h4><ol><li>כמה תיקים בעבירות כמו שלי ניהלת בשנה האחרונה, ובאיזה בית משפט?</li><li>מי יופיע בדיונים בפועל, ומי זמין אם יהיה מעצר בלילה או בסוף שבוע?</li><li>מה שכר הטרחה לכל שלב, ומה לא כלול בו (חוות דעת, ערר, ערעור)?</li><li>מה אומרים ומה לא אומרים בחקירה באזהרה, ומתי עדיף לשתוק?</li><li>האם להביא לחקירה מסמכים, או למסור גרסה מאוחר יותר?</li><li>האם יש צו הרחקה או תנאים מגבילים, ואיך מבקשים לשנות אותם?</li></ol></div><p class=\"jt76-reviewed\">נבדק על ידי הצוות המשפטי של Justice · עודכן 31.10.2026</p></div>",
+  "details": "<div class=\"jt76-screen\"><div class=\"jt76-grid\"><div class=\"jt76-flags\"><h4>דגלים אדומים בפגישה</h4><ul><li>מבטיח תוצאה, זיכוי או &quot;סגירת תיק&quot;. אף עורך דין לא יכול להבטיח מה יחליטו המשטרה, הפרקליטות או השופט.</li><li>מספר על &quot;קשרים&quot; במשטרה, בפרקליטות או בבית המשפט. זה לא שירות משפטי, וזה עלול לסבך אתכם.</li><li>דורש את כל שכר הטרחה מראש, בלי הסכם בכתב שמפרט מה כלול בכל שלב.</li><li>מציע לייצג גם אדם נוסף מאותו תיק, כמו שותף לחשד או מתלונן. זה ניגוד עניינים.</li></ul></div><div class=\"jt76-lawyers\"><h4>עורכי דין פליליים במדריך</h4><a class=\"jt76-dir\" href=\"/lawyers/?area=criminal-law\" data-act=\"lawyer\">עורכי הדין למשפט פלילי בכל הארץ</a><p class=\"jt76-more\"><a href=\"/how-to-choose-criminal-defense-attorney/\">איך בוחרים עורך דין פלילי</a> · <a href=\"/criminal-lawyers-rating/\">דירוג עורכי דין פליליים</a></p></div></div><div class=\"jtool-tablewrap jt76-method\"><div class=\"jtool-tablewrap__head\"><h3 id=\"jt76-m-h\">איך הכלי בוחר</h3></div><ol class=\"jtool-method-list\"><li>הכלי בונה פרופיל מתוך חמש התשובות: השלב, העבירה, המחוז, הדחיפות והתקציב. כל שלב מוביל למדריך שלו באתר, וכל עבירה למדריך העבירה.</li><li>השאלות לפגישה נבחרות לפי התשובות: שלוש לכל מצב, ועוד אחת לכל שלב, עבירה ודחיפות, עד שבע.</li><li>טווח שכר הטרחה מגיע מטבלת שכר הטרחה שבעמוד, עם המקור והתאריך של כל שורה.</li><li>התשובות לא נשמרות אצלנו. קישור השיתוף מכיל רק את הבחירות.</li></ol></div></div><div class=\"jt76-print\">בחירת עורך דין פלילי (jus-tice.co.il, 31.10.2026). מה אתם צריכים: עורך דין פלילי לייעוץ לפני החקירה: מה אומרים, מתי שותקים ומה מביאים, עם ניסיון בעבירות אלימות ואיומים. פגישה השבוע, לפני המועד הבא. שאלות לפגישה: כמה תיקים בעבירות כמו שלי ניהלת בשנה האחרונה, ובאיזה בית משפט? מי יופיע בדיונים בפועל, ומי זמין אם יהיה מעצר בלילה או בסוף שבוע? מה שכר הטרחה לכל שלב, ומה לא כלול בו (חוות דעת, ערר, ערעור)? מה אומרים ומה לא אומרים בחקירה באזהרה, ומתי עדיף לשתוק? האם להביא לחקירה מסמכים, או למסור גרסה מאוחר יותר? האם יש צו הרחקה או תנאים מגבילים, ואיך מבקשים לשנות אותם?</div>",
+  "method": "<ol class=\"jtool-method-list\"><li>הכלי בונה פרופיל מתוך חמש התשובות: השלב, העבירה, המחוז, הדחיפות והתקציב. כל שלב מוביל למדריך שלו באתר, וכל עבירה למדריך העבירה.</li><li>השאלות לפגישה נבחרות לפי התשובות: שלוש לכל מצב, ועוד אחת לכל שלב, עבירה ודחיפות, עד שבע.</li><li>טווח שכר הטרחה מגיע מטבלת שכר הטרחה שבעמוד, עם המקור והתאריך של כל שורה.</li><li>התשובות לא נשמרות אצלנו. קישור השיתוף מכיל רק את הבחירות.</li></ol>",
+  "sentence": "מה אתם צריכים: עורך דין פלילי לייעוץ לפני החקירה: מה אומרים, מתי שותקים ומה מביאים, עם ניסיון בעבירות אלימות ואיומים.",
+  "answer": {
+   "profile": "עורך דין פלילי לייעוץ לפני החקירה: מה אומרים, מתי שותקים ומה מביאים, עם ניסיון בעבירות אלימות ואיומים.",
+   "ask_n": 6,
+   "flags_n": 4,
+   "fees": [
+    {
+     "he": "ייעוץ לפני חקירה",
+     "low": 1500,
+     "high": 5000
+    },
+    {
+     "he": "ליווי לחקירה במשטרה",
+     "low": 2000,
+     "high": 20000
+    }
+   ]
+  }
+ },
+ "sachar-orech-din-plili": {
+  "tool": "sachar-orech-din-plili",
+  "registry_version": "2026-10-31",
+  "input": {
+   "stage": "consult",
+   "vat": true
+  },
+  "total": 2500,
+  "sticky": "<bdi>1,500 ₪–5,000 ₪</bdi>",
+  "form": "<fieldset class=\"jtool-field\"><legend>1. באיזה שלב</legend><div class=\"jtool-chips\"><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt77-stage\" value=\"consult\" checked><span>ייעוץ</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt77-stage\" value=\"interrogation\"><span>ליווי לחקירה</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt77-stage\" value=\"arrest\"><span>הארכת מעצר</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt77-stage\" value=\"arrest_full\"><span>מעצר עד תום ההליכים</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt77-stage\" value=\"shimua\"><span>שימוע</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt77-stage\" value=\"trial_shalom\"><span>משפט בשלום</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt77-stage\" value=\"trial_district\"><span>תיק במחוזי</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt77-stage\" value=\"appeal\"><span>ערעור</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt77-stage\" value=\"record\"><span>מחיקת רישום</span></label></div><p class=\"jtool-error\" id=\"jt77-stage-e\" role=\"alert\"></p></fieldset><div class=\"jtool-field\"><label class=\"jtool-check\"><input type=\"checkbox\" id=\"jt77-vat\" checked> <span>המינימום של הלשכה כולל מע\"מ (18%)</span></label></div>",
+  "result": "<div class=\"jtool-verdict jt77-verdict\" aria-live=\"polite\"><p class=\"jtool-example\">דוגמה: ייעוץ לפני חקירה. בחרו שלב אחר והשורה תתעדכן.</p><p class=\"jt77-sentence\">ייעוץ לפני חקירה: בדרך כלל <span class=\"jtool-amt\"><bdi>1,500</bdi> ₪</span> עד <span class=\"jtool-amt\"><bdi>5,000</bdi> ₪</span>; המינימום המומלץ בתעריף הלשכה: <span class=\"jtool-amt\"><bdi>752</bdi> ₪</span> כולל מע\"מ.</p><p class=\"jt77-mid\">אמצע הטווחים שמתפרסמים: <span class=\"jtool-amt\"><bdi>2,500</bdi> ₪</span>, לפי 3 מקורות.</p><p class=\"jt77-includes\"><strong>מה כלול:</strong> פגישה לפני החקירה: מה החשד, מה הזכויות, מה אומרים ומה מביאים.</p><p class=\"jtool-hint\">הטווחים להמחשה ואינם הצעת מחיר. בקשו הצעה בכתב לפי שלבים.</p><p class=\"jt77-reviewed\">נבדק על ידי הצוות המשפטי של Justice · נבדק 31.10.2026</p></div>",
+  "details": "<div class=\"jtool-tablewrap jt77-tablewrap\"><table class=\"jtool-table jtool-datatable jt77-table\"><caption>שכר טרחה של עורך דין פלילי לפי שלב: הטווח שמתפרסם, המינימום בתעריף הלשכה, המקורות ותאריך הבדיקה</caption><thead><tr><th scope=\"col\">שלב</th><th scope=\"col\">טווח אופייני</th><th scope=\"col\">מינימום לפי תעריף הלשכה</th><th scope=\"col\">מקור</th><th scope=\"col\">נבדק</th></tr></thead><tbody><tr class=\"is-on\"><th scope=\"row\" data-th=\"שלב\">ייעוץ לפני חקירה</th><td data-th=\"טווח אופייני\"><span class=\"jtool-amt\"><bdi>1,500</bdi> ₪</span> עד <span class=\"jtool-amt\"><bdi>5,000</bdi> ₪</span></td><td data-th=\"מינימום לפי תעריף הלשכה\"><span class=\"jtool-amt\"><bdi>637</bdi> ₪</span> + מע\"מ</td><td data-th=\"מקור\"><a href=\"https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>כמהעולה.co.il</bdi></a>, <a href=\"https://sbd-law.co.il/%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>sbd-law.co.il</bdi></a>, <a href=\"https://www.ask-lawyer.co.il/lawyer-cost/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>ask-lawyer.co.il</bdi></a>; <a href=\"https://www.nevo.co.il/law_html/law00/4425.htm\" target=\"_blank\" rel=\"noopener\">תעריף לשכת עורכי הדין</a></td><td data-th=\"נבדק\">31.10.2026</td></tr><tr><th scope=\"row\" data-th=\"שלב\">ליווי לחקירה במשטרה</th><td data-th=\"טווח אופייני\"><span class=\"jtool-amt\"><bdi>2,000</bdi> ₪</span> עד <span class=\"jtool-amt\"><bdi>20,000</bdi> ₪</span></td><td data-th=\"מינימום לפי תעריף הלשכה\">—</td><td data-th=\"מקור\"><a href=\"https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>כמהעולה.co.il</bdi></a>, <a href=\"https://www.din.co.il/forum40/502813/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>din.co.il</bdi></a>, <a href=\"https://www.ask-lawyer.co.il/lawyer-cost/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>ask-lawyer.co.il</bdi></a> ועוד 1</td><td data-th=\"נבדק\">31.10.2026</td></tr><tr><th scope=\"row\" data-th=\"שלב\">דיון בהארכת מעצר</th><td data-th=\"טווח אופייני\"><span class=\"jtool-amt\"><bdi>2,000</bdi> ₪</span> עד <span class=\"jtool-amt\"><bdi>8,000</bdi> ₪</span></td><td data-th=\"מינימום לפי תעריף הלשכה\"><span class=\"jtool-amt\"><bdi>741</bdi> ₪</span> + מע\"מ</td><td data-th=\"מקור\"><a href=\"https://www.alonerez.co.il/%D7%A2%D7%9C%D7%95%D7%AA-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%92%D7%95%D7%A8%D7%9E%D7%99%D7%9D-%D7%9E%D7%A9%D7%AA%D7%A0%D7%99%D7%9D-%D7%95%D7%99%D7%AA%D7%A8/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>alonerez.co.il</bdi></a>, <a href=\"https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>כמהעולה.co.il</bdi></a>, <a href=\"https://www.container.org.il/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>container.org.il</bdi></a> ועוד 2; <a href=\"https://www.nevo.co.il/law_html/law00/4425.htm\" target=\"_blank\" rel=\"noopener\">תעריף לשכת עורכי הדין</a></td><td data-th=\"נבדק\">31.10.2026</td></tr><tr><th scope=\"row\" data-th=\"שלב\">מעצר עד תום ההליכים</th><td data-th=\"טווח אופייני\"><span class=\"jtool-amt\"><bdi>5,000</bdi> ₪</span> עד <span class=\"jtool-amt\"><bdi>25,000</bdi> ₪</span> ומעלה</td><td data-th=\"מינימום לפי תעריף הלשכה\">—</td><td data-th=\"מקור\"><a href=\"https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>כמהעולה.co.il</bdi></a>, <a href=\"https://www.ask-lawyer.co.il/lawyer-cost/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>ask-lawyer.co.il</bdi></a>, <a href=\"https://www.lawyersivan.co.il/remand-custody-alternatives\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>lawyersivan.co.il</bdi></a></td><td data-th=\"נבדק\">31.10.2026</td></tr><tr><th scope=\"row\" data-th=\"שלב\">שימוע לפני כתב אישום</th><td data-th=\"טווח אופייני\"><span class=\"jtool-amt\"><bdi>5,000</bdi> ₪</span> עד <span class=\"jtool-amt\"><bdi>25,000</bdi> ₪</span> ומעלה</td><td data-th=\"מינימום לפי תעריף הלשכה\">—</td><td data-th=\"מקור\"><a href=\"https://www.alonerez.co.il/%D7%A2%D7%9C%D7%95%D7%AA-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%92%D7%95%D7%A8%D7%9E%D7%99%D7%9D-%D7%9E%D7%A9%D7%AA%D7%A0%D7%99%D7%9D-%D7%95%D7%99%D7%AA%D7%A8/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>alonerez.co.il</bdi></a>, <a href=\"https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>כמהעולה.co.il</bdi></a>, <a href=\"https://www.container.org.il/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>container.org.il</bdi></a> ועוד 2</td><td data-th=\"נבדק\">31.10.2026</td></tr><tr><th scope=\"row\" data-th=\"שלב\">משפט בבית משפט השלום</th><td data-th=\"טווח אופייני\"><span class=\"jtool-amt\"><bdi>5,000</bdi> ₪</span> עד <span class=\"jtool-amt\"><bdi>50,000</bdi> ₪</span> ומעלה</td><td data-th=\"מינימום לפי תעריף הלשכה\"><span class=\"jtool-amt\"><bdi>1,883</bdi> ₪</span> + מע\"מ</td><td data-th=\"מקור\"><a href=\"https://www.alonerez.co.il/%D7%A2%D7%9C%D7%95%D7%AA-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%92%D7%95%D7%A8%D7%9E%D7%99%D7%9D-%D7%9E%D7%A9%D7%AA%D7%A0%D7%99%D7%9D-%D7%95%D7%99%D7%AA%D7%A8/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>alonerez.co.il</bdi></a>, <a href=\"https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>כמהעולה.co.il</bdi></a>, <a href=\"https://www.container.org.il/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>container.org.il</bdi></a> ועוד 4; <a href=\"https://www.nevo.co.il/law_html/law00/4425.htm\" target=\"_blank\" rel=\"noopener\">תעריף לשכת עורכי הדין</a></td><td data-th=\"נבדק\">31.10.2026</td></tr><tr><th scope=\"row\" data-th=\"שלב\">תיק חמור בבית המשפט המחוזי</th><td data-th=\"טווח אופייני\"><span class=\"jtool-amt\"><bdi>20,000</bdi> ₪</span> עד <span class=\"jtool-amt\"><bdi>300,000</bdi> ₪</span> ומעלה</td><td data-th=\"מינימום לפי תעריף הלשכה\"><span class=\"jtool-amt\"><bdi>3,740</bdi> ₪</span> + מע\"מ</td><td data-th=\"מקור\"><a href=\"https://www.alonerez.co.il/%D7%A2%D7%9C%D7%95%D7%AA-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%92%D7%95%D7%A8%D7%9E%D7%99%D7%9D-%D7%9E%D7%A9%D7%AA%D7%A0%D7%99%D7%9D-%D7%95%D7%99%D7%AA%D7%A8/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>alonerez.co.il</bdi></a>, <a href=\"https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>כמהעולה.co.il</bdi></a>, <a href=\"https://www.container.org.il/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>container.org.il</bdi></a> ועוד 4; <a href=\"https://www.nevo.co.il/law_html/law00/4425.htm\" target=\"_blank\" rel=\"noopener\">תעריף לשכת עורכי הדין</a></td><td data-th=\"נבדק\">31.10.2026</td></tr><tr><th scope=\"row\" data-th=\"שלב\">ערעור פלילי</th><td data-th=\"טווח אופייני\"><span class=\"jtool-amt\"><bdi>10,000</bdi> ₪</span> עד <span class=\"jtool-amt\"><bdi>80,000</bdi> ₪</span> ומעלה</td><td data-th=\"מינימום לפי תעריף הלשכה\"><span class=\"jtool-amt\"><bdi>1,967</bdi> ₪</span> + מע\"מ</td><td data-th=\"מקור\"><a href=\"https://www.alonerez.co.il/%D7%A2%D7%9C%D7%95%D7%AA-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%92%D7%95%D7%A8%D7%9E%D7%99%D7%9D-%D7%9E%D7%A9%D7%AA%D7%A0%D7%99%D7%9D-%D7%95%D7%99%D7%AA%D7%A8/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>alonerez.co.il</bdi></a>, <a href=\"https://xn--8dbacwhj3a.co.il/%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>כמהעולה.co.il</bdi></a>, <a href=\"https://www.container.org.il/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>container.org.il</bdi></a> ועוד 1; <a href=\"https://www.nevo.co.il/law_html/law00/4425.htm\" target=\"_blank\" rel=\"noopener\">תעריף לשכת עורכי הדין</a></td><td data-th=\"נבדק\">31.10.2026</td></tr><tr><th scope=\"row\" data-th=\"שלב\">מחיקת רישום פלילי</th><td data-th=\"טווח אופייני\"><span class=\"jtool-amt\"><bdi>2,000</bdi> ₪</span> עד <span class=\"jtool-amt\"><bdi>10,000</bdi> ₪</span></td><td data-th=\"מינימום לפי תעריף הלשכה\">—</td><td data-th=\"מקור\"><a href=\"https://www.alonerez.co.il/%D7%A2%D7%9C%D7%95%D7%AA-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%92%D7%95%D7%A8%D7%9E%D7%99%D7%9D-%D7%9E%D7%A9%D7%AA%D7%A0%D7%99%D7%9D-%D7%95%D7%99%D7%AA%D7%A8/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>alonerez.co.il</bdi></a>, <a href=\"https://sbd-law.co.il/%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%9E%D7%97%D7%99%D7%A8%D7%95%D7%9F/\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>sbd-law.co.il</bdi></a>, <a href=\"https://www.ask-lawyer.co.il/lawyer-cost/%D7%9B%D7%9E%D7%94-%D7%A2%D7%95%D7%9C%D7%94-%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99\" target=\"_blank\" rel=\"noopener nofollow\"><bdi>ask-lawyer.co.il</bdi></a> ועוד 2</td><td data-th=\"נבדק\">31.10.2026</td></tr><tr class=\"jt77-pd\"><th scope=\"row\" data-th=\"שלב\">סנגוריה ציבורית</th><td data-th=\"מי זכאי\" colspan=\"2\">זכאים בין היתר: עצור מחוסר אמצעים, מי שהוגשה נגדו בקשה למעצר עד תום ההליכים, נאשם במחוזי בעבירה שעונשה עשר שנים או יותר, ונאשם מחוסר אמצעים בעבירה שעונשה חמש שנים ומעלה. סף ההכנסה ב-2026: 9,225 ₪ לחודש למשק בית של עד שלוש נפשות. תשלום השתתפות: 537 ₪ בבית משפט השלום ו-1,474 ₪ במחוזי; בהליכי מעצר אין תשלום. <a href=\"/eligibility-public-defender-income/\">זכאות לסנגוריה ציבורית</a></td><td data-th=\"מקור\"><a href=\"https://www.gov.il/BlobFolder/guide/public_defender_public_information/he/Eligibility-for-public-defense-2026.pdf\" target=\"_blank\" rel=\"noopener\">הסנגוריה הציבורית, טבלת הזכאות 2026</a></td><td data-th=\"נבדק\">31.10.2026</td></tr></tbody></table></div><p class=\"jtool-hint\">רוב המשרדים לא מציינים אם הטווח כולל מע&quot;מ (18%). המינימום של הלשכה הוא לפני מע&quot;מ. <a href=\"/lawyer-fees-tariff/\">תעריף לשכת עורכי הדין</a></p><div class=\"jtool-tablewrap jt77-method\"><div class=\"jtool-tablewrap__head\"><h3 id=\"jt77-m-h\">איך נבנתה הטבלה</h3></div><ol class=\"jtool-method-list\"><li>הטווח בכל שורה בנוי מהטווחים שמשרדי עורכי דין ואתרים משפטיים מפרסמים: הנמוך ביותר שפורסם עד הגבוה ביותר שפורסם, ואמצע הטווחים הוא החציון של נקודות האמצע. כל מקור מופיע בשורה עם קישור.</li><li>שלב שיש לו פחות משני טווחים מפורסמים מופיע בלי טווח, ולא מוערך.</li><li>המינימום הוא התעריף המינימלי המומלץ של לשכת עורכי הדין, לפני מע&quot;מ, רק כשהתעריף נוקב בשירות. זו המלצה ולא חובה, והמחיר בפועל נקבע בהסכם עם המשרד.</li><li>הטווחים להמחשה ואינם הצעת מחיר. הם מתעדכנים כל רבעון.</li></ol></div><div class=\"jt77-print\">שכר טרחה של עורך דין פלילי (jus-tice.co.il, 31.10.2026). ייעוץ לפני חקירה: בדרך כלל 1,500 ₪ עד 5,000 ₪; המינימום המומלץ בתעריף הלשכה: 752 ₪ כולל מע&quot;מ.</div>",
+  "method": "<ol class=\"jtool-method-list\"><li>הטווח בכל שורה בנוי מהטווחים שמשרדי עורכי דין ואתרים משפטיים מפרסמים: הנמוך ביותר שפורסם עד הגבוה ביותר שפורסם, ואמצע הטווחים הוא החציון של נקודות האמצע. כל מקור מופיע בשורה עם קישור.</li><li>שלב שיש לו פחות משני טווחים מפורסמים מופיע בלי טווח, ולא מוערך.</li><li>המינימום הוא התעריף המינימלי המומלץ של לשכת עורכי הדין, לפני מע&quot;מ, רק כשהתעריף נוקב בשירות. זו המלצה ולא חובה, והמחיר בפועל נקבע בהסכם עם המשרד.</li><li>הטווחים להמחשה ואינם הצעת מחיר. הם מתעדכנים כל רבעון.</li></ol>",
+  "sentence": "ייעוץ לפני חקירה: בדרך כלל 1,500 ₪ עד 5,000 ₪; המינימום המומלץ בתעריף הלשכה: 752 ₪ כולל מע\"מ.",
+  "answer": {
+   "rows": [
+    {
+     "id": "consult",
+     "he": "ייעוץ לפני חקירה",
+     "low": 1500,
+     "high": 5000,
+     "mid": 2500,
+     "n": 3,
+     "floor": 637
+    },
+    {
+     "id": "interrogation",
+     "he": "ליווי לחקירה במשטרה",
+     "low": 2000,
+     "high": 20000,
+     "mid": 4375,
+     "n": 4,
+     "floor": null
+    },
+    {
+     "id": "arrest",
+     "he": "דיון בהארכת מעצר",
+     "low": 2000,
+     "high": 8000,
+     "mid": 4750,
+     "n": 5,
+     "floor": 741
+    },
+    {
+     "id": "arrest_full",
+     "he": "מעצר עד תום ההליכים",
+     "low": 5000,
+     "high": 25000,
+     "mid": 12500,
+     "n": 3,
+     "floor": null
+    },
+    {
+     "id": "shimua",
+     "he": "שימוע לפני כתב אישום",
+     "low": 5000,
+     "high": 25000,
+     "mid": 13500,
+     "n": 5,
+     "floor": null
+    },
+    {
+     "id": "trial_shalom",
+     "he": "משפט בבית משפט השלום",
+     "low": 5000,
+     "high": 50000,
+     "mid": 20000,
+     "n": 7,
+     "floor": 1883
+    },
+    {
+     "id": "trial_district",
+     "he": "תיק חמור בבית המשפט המחוזי",
+     "low": 20000,
+     "high": 300000,
+     "mid": 80000,
+     "n": 7,
+     "floor": 3740
+    },
+    {
+     "id": "appeal",
+     "he": "ערעור פלילי",
+     "low": 10000,
+     "high": 80000,
+     "mid": 32500,
+     "n": 4,
+     "floor": 1967
+    },
+    {
+     "id": "record",
+     "he": "מחיקת רישום פלילי",
+     "low": 2000,
+     "high": 10000,
+     "mid": 5500,
+     "n": 5,
+     "floor": null
+    }
+   ]
+  }
+ },
+ "onshei-averot": {
+  "tool": "onshei-averot",
+  "registry_version": "2026-10-31",
+  "input": {
+   "family": "all"
+  },
+  "total": 15,
+  "sticky": "<bdi>15 עבירות</bdi>",
+  "form": "<fieldset class=\"jtool-field\"><legend>1. איזו עבירה</legend><div class=\"jtool-chips\"><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt78-family\" value=\"all\" checked><span>הכול</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt78-family\" value=\"drugs\"><span>סמים</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt78-family\" value=\"violence\"><span>אלימות ואיומים</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt78-family\" value=\"sex\"><span>עבירות מין</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt78-family\" value=\"white\"><span>מרמה והלבנת הון</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt78-family\" value=\"tax\"><span>מס</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt78-family\" value=\"traffic\"><span>תעבורה</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt78-family\" value=\"cyber\"><span>מחשבים</span></label></div><p class=\"jtool-error\" id=\"jt78-family-e\" role=\"alert\"></p></fieldset>",
+  "result": "<div class=\"jtool-verdict jt78-verdict\" aria-live=\"polite\"><p class=\"jtool-example\">כל העבירות בטבלה. בחרו סוג עבירה כדי לצמצם.</p><p class=\"jt78-sentence\">15 עבירות נפוצות בטבלה; העונש המרבי החמור ביותר: 20 שנים מאסר, בסחר, יבוא, יצוא או הספקה של סם מסוכן.</p><p class=\"jt78-court\">3 מהן נדונות בבית המשפט המחוזי, השאר בבית משפט השלום.</p><p class=\"jtool-hint\">העונש בטבלה הוא המרבי שבחוק. העונש בפועל נקבע לפי הנסיבות, ולרוב הוא נמוך בהרבה.</p><p class=\"jt78-reviewed\">נבדק על ידי הצוות המשפטי של Justice · נבדק 31.10.2026</p></div>",
+  "details": "<div class=\"jtool-tablewrap jt78-tablewrap\"><table class=\"jtool-table jtool-datatable jt78-table\"><caption>עבירות נפוצות: הסעיף, העונש המרבי שבחוק ובית המשפט, לפי נוסח החוק ב-31.10.2026</caption><thead><tr><th scope=\"col\">העבירה</th><th scope=\"col\">הסעיף</th><th scope=\"col\">עונש מרבי</th><th scope=\"col\">בית משפט</th><th scope=\"col\">המדריך</th><th scope=\"col\">נוסח החוק</th></tr></thead><tbody><tr><th scope=\"row\" data-th=\"העבירה\">החזקת סם מסוכן או שימוש בו לצריכה עצמית</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">פקודת הסמים המסוכנים ס' 7(ג) סיפה</span></td><td data-th=\"עונש מרבי\">3 שנים מאסר</td><td data-th=\"בית משפט\">שלום</td><td data-th=\"המדריך\"><a href=\"/drug-related-crime/\">עבירות סמים</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/פקודת_הסמים_המסוכנים#סעיף_7\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr><tr><th scope=\"row\" data-th=\"העבירה\">סחר, יבוא, יצוא או הספקה של סם מסוכן</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">פקודת הסמים המסוכנים ס' 13 ו-19א</span></td><td data-th=\"עונש מרבי\">20 שנים מאסר</td><td data-th=\"בית משפט\">מחוזי</td><td data-th=\"המדריך\"><a href=\"/drug-related-crime/\">עבירות סמים</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/פקודת_הסמים_המסוכנים#סעיף_19א\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr><tr><th scope=\"row\" data-th=\"העבירה\">תקיפה סתם (ללא חבלה ממשית)</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">חוק העונשין ס' 379</span></td><td data-th=\"עונש מרבי\">שנתיים מאסר</td><td data-th=\"בית משפט\">שלום</td><td data-th=\"המדריך\"><a href=\"/assault-charges-lawyer/\">עבירת תקיפה</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/חוק_העונשין#סעיף_379\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr><tr><th scope=\"row\" data-th=\"העבירה\">תקיפה הגורמת חבלה של ממש</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">חוק העונשין ס' 380</span></td><td data-th=\"עונש מרבי\">3 שנים מאסר</td><td data-th=\"בית משפט\">שלום</td><td data-th=\"המדריך\"><a href=\"/assault-charges-lawyer/\">עבירת תקיפה</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/חוק_העונשין#סעיף_380\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr><tr><th scope=\"row\" data-th=\"העבירה\">תקיפת בן זוג או בן משפחה</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">חוק העונשין ס' 382(ב)</span></td><td data-th=\"עונש מרבי\">4 שנים מאסר</td><td data-th=\"בית משפט\">שלום</td><td data-th=\"המדריך\"><a href=\"/assault-charges-lawyer/\">עבירת תקיפה</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/חוק_העונשין#סעיף_382\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr><tr><th scope=\"row\" data-th=\"העבירה\">איום על אדם בפגיעה שלא כדין</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">חוק העונשין ס' 192</span></td><td data-th=\"עונש מרבי\">3 שנים מאסר</td><td data-th=\"בית משפט\">שלום</td><td data-th=\"המדריך\"><a href=\"/assault-charges-lawyer/\">עבירת תקיפה</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/חוק_העונשין#סעיף_192\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr><tr><th scope=\"row\" data-th=\"העבירה\">אינוס: חדירה לגוף שלא בהסכמה חופשית</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">חוק העונשין ס' 345(א)</span></td><td data-th=\"עונש מרבי\">16 שנים מאסר (20 שנים בנסיבות מחמירות)</td><td data-th=\"בית משפט\">מחוזי</td><td data-th=\"המדריך\"><a href=\"/sexual-offenses/\">עבירות מין</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/חוק_העונשין#סעיף_345\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr><tr><th scope=\"row\" data-th=\"העבירה\">מעשה מגונה באדם בלא הסכמתו</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">חוק העונשין ס' 348(ג)</span></td><td data-th=\"עונש מרבי\">3 שנים מאסר (7 שנים בנסיבות מחמירות)</td><td data-th=\"בית משפט\">שלום</td><td data-th=\"המדריך\"><a href=\"/sexual-offenses/\">עבירות מין</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/חוק_העונשין#סעיף_348\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr><tr><th scope=\"row\" data-th=\"העבירה\">קבלת דבר במרמה</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">חוק העונשין ס' 415</span></td><td data-th=\"עונש מרבי\">3 שנים מאסר (5 שנים בנסיבות מחמירות)</td><td data-th=\"בית משפט\">שלום</td><td data-th=\"המדריך\"><a href=\"/white-collar-crime-israel/\">עבירות צווארון לבן</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/חוק_העונשין#סעיף_415\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr><tr><th scope=\"row\" data-th=\"העבירה\">פעולה ברכוש אסור כדי להסתיר את מקורו</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">חוק איסור הלבנת הון ס' 3(א)</span></td><td data-th=\"עונש מרבי\">10 שנים מאסר</td><td data-th=\"בית משפט\">מחוזי</td><td data-th=\"המדריך\"><a href=\"/white-collar-crime-israel/\">עבירות צווארון לבן</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/חוק_איסור_הלבנת_הון#סעיף_3\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr><tr><th scope=\"row\" data-th=\"העבירה\">מרמה במזיד בכוונה להתחמק ממס</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">פקודת מס הכנסה ס' 220</span></td><td data-th=\"עונש מרבי\">7 שנים מאסר</td><td data-th=\"בית משפט\">שלום</td><td data-th=\"המדריך\"><a href=\"/tax-investigation-guide/\">חקירת מס</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/פקודת_מס_הכנסה#סעיף_220\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr><tr><th scope=\"row\" data-th=\"העבירה\">נהיגה בשכרות</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">פקודת התעבורה ס' 62(3)</span></td><td data-th=\"עונש מרבי\">שנתיים מאסר</td><td data-th=\"בית משפט\">שלום</td><td data-th=\"המדריך\"><a href=\"/driving-under-influence/\">נהיגה בשכרות</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/פקודת_התעבורה#סעיף_62\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr><tr><th scope=\"row\" data-th=\"העבירה\">פסילת רישיון חובה בנהיגה בשכרות</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">פקודת התעבורה ס' 39א</span></td><td data-th=\"עונש מרבי\">פסילת רישיון לשנתיים לפחות</td><td data-th=\"בית משפט\">—</td><td data-th=\"המדריך\"><a href=\"/driving-under-influence/\">נהיגה בשכרות</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/פקודת_התעבורה#סעיף_39א\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr><tr><th scope=\"row\" data-th=\"העבירה\">חדירה שלא כדין לחומר מחשב</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">חוק המחשבים ס' 4</span></td><td data-th=\"עונש מרבי\">3 שנים מאסר</td><td data-th=\"בית משפט\">שלום</td><td data-th=\"המדריך\"><a href=\"/criminal-offenses-lawyer-criminal-sentencing-process-arrest/\">סוגי עבירות פליליות ועונשיהן</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/חוק_המחשבים#סעיף_4\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr><tr><th scope=\"row\" data-th=\"העבירה\">חדירה למחשב כדי לבצע עבירה אחרת</th><td data-th=\"הסעיף\"><span class=\"jt78-cite\">חוק המחשבים ס' 5</span></td><td data-th=\"עונש מרבי\">5 שנים מאסר</td><td data-th=\"בית משפט\">שלום</td><td data-th=\"המדריך\"><a href=\"/criminal-offenses-lawyer-criminal-sentencing-process-arrest/\">סוגי עבירות פליליות ועונשיהן</a></td><td data-th=\"נוסח החוק\"><a href=\"https://he.wikisource.org/wiki/חוק_המחשבים#סעיף_5\" target=\"_blank\" rel=\"noopener\">לנוסח</a></td></tr></tbody></table></div><p class=\"jtool-hint\">בית משפט השלום דן בעבירות שעונשן עד שבע שנות מאסר; חמורות מזה נדונות בבית המשפט המחוזי. יש חריגים. <a href=\"https://he.wikisource.org/wiki/חוק_בתי_המשפט#סעיף_51\" target=\"_blank\" rel=\"noopener\">חוק בתי המשפט, סעיפים 40 ו-51</a></p><div class=\"jtool-tablewrap jt78-method\"><div class=\"jtool-tablewrap__head\"><h3 id=\"jt78-m-h\">איך נבנתה הטבלה</h3></div><ol class=\"jtool-method-list\"><li>כל שורה נבדקה בנוסח המשולב של החוק, עם הסעיף והמילים המדויקות, ב-31.10.2026. שורה שלא אומתה לא מופיעה.</li><li>העונש בטבלה הוא העונש המרבי שבחוק. העונש בפועל נקבע לפי הנסיבות, העבר הפלילי והטיעונים, ולרוב הוא נמוך בהרבה.</li><li>בית המשפט נקבע לפי כלל חוק בתי המשפט: עבירה שעונשה עד שבע שנות מאסר נדונה בבית משפט השלום, וחמורה ממנה במחוזי. יש חריגים, למשל עבירות כלכליות מסוימות והחלטות של הפרקליטות.</li></ol></div><div class=\"jt78-print\">עבירות פליליות ועונשן המרבי (jus-tice.co.il, 31.10.2026). החזקת סם מסוכן או שימוש בו לצריכה עצמית: פקודת הסמים המסוכנים ס&#39; 7(ג) סיפה, 3 שנים מאסר. סחר, יבוא, יצוא או הספקה של סם מסוכן: פקודת הסמים המסוכנים ס&#39; 13 ו-19א, 20 שנים מאסר. תקיפה סתם (ללא חבלה ממשית): חוק העונשין ס&#39; 379, שנתיים מאסר. תקיפה הגורמת חבלה של ממש: חוק העונשין ס&#39; 380, 3 שנים מאסר. תקיפת בן זוג או בן משפחה: חוק העונשין ס&#39; 382(ב), 4 שנים מאסר. איום על אדם בפגיעה שלא כדין: חוק העונשין ס&#39; 192, 3 שנים מאסר. אינוס: חדירה לגוף שלא בהסכמה חופשית: חוק העונשין ס&#39; 345(א), 16 שנים מאסר (20 שנים בנסיבות מחמירות). מעשה מגונה באדם בלא הסכמתו: חוק העונשין ס&#39; 348(ג), 3 שנים מאסר (7 שנים בנסיבות מחמירות). קבלת דבר במרמה: חוק העונשין ס&#39; 415, 3 שנים מאסר (5 שנים בנסיבות מחמירות). פעולה ברכוש אסור כדי להסתיר את מקורו: חוק איסור הלבנת הון ס&#39; 3(א), 10 שנים מאסר. מרמה במזיד בכוונה להתחמק ממס: פקודת מס הכנסה ס&#39; 220, 7 שנים מאסר. נהיגה בשכרות: פקודת התעבורה ס&#39; 62(3), שנתיים מאסר. פסילת רישיון חובה בנהיגה בשכרות: פקודת התעבורה ס&#39; 39א, פסילת רישיון לשנתיים לפחות. חדירה שלא כדין לחומר מחשב: חוק המחשבים ס&#39; 4, 3 שנים מאסר. חדירה למחשב כדי לבצע עבירה אחרת: חוק המחשבים ס&#39; 5, 5 שנים מאסר.</div>",
+  "method": "<ol class=\"jtool-method-list\"><li>כל שורה נבדקה בנוסח המשולב של החוק, עם הסעיף והמילים המדויקות, ב-31.10.2026. שורה שלא אומתה לא מופיעה.</li><li>העונש בטבלה הוא העונש המרבי שבחוק. העונש בפועל נקבע לפי הנסיבות, העבר הפלילי והטיעונים, ולרוב הוא נמוך בהרבה.</li><li>בית המשפט נקבע לפי כלל חוק בתי המשפט: עבירה שעונשה עד שבע שנות מאסר נדונה בבית משפט השלום, וחמורה ממנה במחוזי. יש חריגים, למשל עבירות כלכליות מסוימות והחלטות של הפרקליטות.</li></ol>",
+  "sentence": "15 עבירות נפוצות בטבלה; העונש המרבי החמור ביותר: 20 שנים מאסר, בסחר, יבוא, יצוא או הספקה של סם מסוכן.",
+  "answer": {
+   "n": 15,
+   "top": {
+    "offence": "סחר, יבוא, יצוא או הספקה של סם מסוכן",
+    "max": "20 שנים מאסר"
+   },
+   "rows": [
+    {
+     "offence": "החזקת סם מסוכן או שימוש בו לצריכה עצמית",
+     "law": "פקודת הסמים המסוכנים",
+     "section": "7(ג) סיפה",
+     "max": "3 שנים מאסר",
+     "court": "שלום"
+    },
+    {
+     "offence": "סחר, יבוא, יצוא או הספקה של סם מסוכן",
+     "law": "פקודת הסמים המסוכנים",
+     "section": "13 ו-19א",
+     "max": "20 שנים מאסר",
+     "court": "מחוזי"
+    },
+    {
+     "offence": "תקיפה סתם (ללא חבלה ממשית)",
+     "law": "חוק העונשין",
+     "section": "379",
+     "max": "שנתיים מאסר",
+     "court": "שלום"
+    },
+    {
+     "offence": "תקיפה הגורמת חבלה של ממש",
+     "law": "חוק העונשין",
+     "section": "380",
+     "max": "3 שנים מאסר",
+     "court": "שלום"
+    },
+    {
+     "offence": "תקיפת בן זוג או בן משפחה",
+     "law": "חוק העונשין",
+     "section": "382(ב)",
+     "max": "4 שנים מאסר",
+     "court": "שלום"
+    },
+    {
+     "offence": "איום על אדם בפגיעה שלא כדין",
+     "law": "חוק העונשין",
+     "section": "192",
+     "max": "3 שנים מאסר",
+     "court": "שלום"
+    },
+    {
+     "offence": "אינוס: חדירה לגוף שלא בהסכמה חופשית",
+     "law": "חוק העונשין",
+     "section": "345(א)",
+     "max": "16 שנים מאסר (20 שנים בנסיבות מחמירות)",
+     "court": "מחוזי"
+    },
+    {
+     "offence": "מעשה מגונה באדם בלא הסכמתו",
+     "law": "חוק העונשין",
+     "section": "348(ג)",
+     "max": "3 שנים מאסר (7 שנים בנסיבות מחמירות)",
+     "court": "שלום"
+    },
+    {
+     "offence": "קבלת דבר במרמה",
+     "law": "חוק העונשין",
+     "section": "415",
+     "max": "3 שנים מאסר (5 שנים בנסיבות מחמירות)",
+     "court": "שלום"
+    },
+    {
+     "offence": "פעולה ברכוש אסור כדי להסתיר את מקורו",
+     "law": "חוק איסור הלבנת הון",
+     "section": "3(א)",
+     "max": "10 שנים מאסר",
+     "court": "מחוזי"
+    },
+    {
+     "offence": "מרמה במזיד בכוונה להתחמק ממס",
+     "law": "פקודת מס הכנסה",
+     "section": "220",
+     "max": "7 שנים מאסר",
+     "court": "שלום"
+    },
+    {
+     "offence": "נהיגה בשכרות",
+     "law": "פקודת התעבורה",
+     "section": "62(3)",
+     "max": "שנתיים מאסר",
+     "court": "שלום"
+    },
+    {
+     "offence": "פסילת רישיון חובה בנהיגה בשכרות",
+     "law": "פקודת התעבורה",
+     "section": "39א",
+     "max": "פסילת רישיון לשנתיים לפחות",
+     "court": ""
+    },
+    {
+     "offence": "חדירה שלא כדין לחומר מחשב",
+     "law": "חוק המחשבים",
+     "section": "4",
+     "max": "3 שנים מאסר",
+     "court": "שלום"
+    },
+    {
+     "offence": "חדירה למחשב כדי לבצע עבירה אחרת",
+     "law": "חוק המחשבים",
+     "section": "5",
+     "max": "5 שנים מאסר",
+     "court": "שלום"
+    }
+   ]
+  }
+ },
+ "halich-plili": {
+  "tool": "halich-plili",
+  "registry_version": "2026-10-31",
+  "input": {
+   "step": "arrest"
+  },
+  "total": 7,
+  "sticky": "<bdi>מעצר ודיון בהארכה</bdi>",
+  "form": "<fieldset class=\"jtool-field\"><legend>1. איפה אתם עכשיו</legend><div class=\"jtool-chips\"><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt79-step\" value=\"interrogation\"><span>זימון וחקירה באזהרה</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt79-step\" value=\"arrest\" checked><span>מעצר ודיון בהארכה</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt79-step\" value=\"shimua\"><span>שימוע לפני כתב אישום</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt79-step\" value=\"indictment\"><span>כתב אישום ומעצר עד תום ההליכים</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt79-step\" value=\"trial\"><span>משפט, הסדר טיעון או הכרעה</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt79-step\" value=\"appeal\"><span>ערעור פלילי</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt79-step\" value=\"record\"><span>מחיקת רישום פלילי</span></label></div><p class=\"jtool-error\" id=\"jt79-step-e\" role=\"alert\"></p></fieldset>",
+  "result": "<div class=\"jtool-verdict jt79-verdict\" aria-live=\"polite\"><p class=\"jtool-example\">דוגמה: מעצר ודיון בהארכה. בחרו את השלב שלכם.</p><p class=\"jt79-sentence\">אתם בשלב 2 מתוך 7: מעצר ודיון בהארכה. הבא: שימוע לפני כתב אישום.</p><ul class=\"jt79-facts\"><li>מי שנעצר מובא בפני שופט בהקדם האפשרי, ולא יאוחר מ-24 שעות. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%A1%D7%93%D7%A8_%D7%94%D7%93%D7%99%D7%9F_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99_(%D7%A1%D7%9E%D7%9B%D7%95%D7%99%D7%95%D7%AA_%D7%90%D7%9B%D7%99%D7%A4%D7%94_%E2%80%93_%D7%9E%D7%A2%D7%A6%D7%A8%D7%99%D7%9D)\" target=\"_blank\" rel=\"noopener\">חוק המעצרים ס' 29(א)</a></li><li>שופט מאריך מעצר לפני כתב אישום ב-15 ימים לכל היותר בכל פעם. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%A1%D7%93%D7%A8_%D7%94%D7%93%D7%99%D7%9F_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99_(%D7%A1%D7%9E%D7%9B%D7%95%D7%99%D7%95%D7%AA_%D7%90%D7%9B%D7%99%D7%A4%D7%94_%E2%80%93_%D7%9E%D7%A2%D7%A6%D7%A8%D7%99%D7%9D)\" target=\"_blank\" rel=\"noopener\">חוק המעצרים ס' 17(א)</a></li><li>לפני כתב אישום, לא יותר מ-30 ימי מעצר ברצף על אותו אירוע, אלא באישור היועץ המשפטי לממשלה. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%A1%D7%93%D7%A8_%D7%94%D7%93%D7%99%D7%9F_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99_(%D7%A1%D7%9E%D7%9B%D7%95%D7%99%D7%95%D7%AA_%D7%90%D7%9B%D7%99%D7%A4%D7%94_%E2%80%93_%D7%9E%D7%A2%D7%A6%D7%A8%D7%99%D7%9D)\" target=\"_blank\" rel=\"noopener\">חוק המעצרים ס' 17(ב)</a></li></ul><p class=\"jt79-guide\">המדריך לשלב: <a href=\"/arrest-detention-lawyer-israel/\" data-act=\"guide\">עורך דין מעצרים</a></p><p class=\"jt79-reviewed\">נבדק על ידי הצוות המשפטי של Justice · נבדק 31.10.2026</p></div>",
+  "details": "<ol class=\"jt79-line\"><li class=\"jt79-step is-done\"><span class=\"jt79-n\" aria-hidden=\"true\">1</span><div class=\"jt79-body\"><p class=\"jt79-title\"><a href=\"/police-investigation-rights/\">זימון וחקירה באזהרה</a> <span class=\"jt79-state\">עבר</span></p><ul class=\"jt79-facts\"><li>חייבים להשיב אמת, חוץ משאלות שהתשובה עליהן עלולה להפליל אתכם. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/%D7%A4%D7%A7%D7%95%D7%93%D7%AA_%D7%94%D7%A4%D7%A8%D7%95%D7%A6%D7%93%D7%95%D7%A8%D7%94_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99%D7%AA_(%D7%A2%D7%93%D7%95%D7%AA)\" target=\"_blank\" rel=\"noopener\">פקודת הפרוצדורה הפלילית (עדות) ס' 2(2)</a></li><li>החקירה מתנהלת בשפה שאתם מבינים ודוברים, כולל שפת סימנים. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%A1%D7%93%D7%A8_%D7%94%D7%93%D7%99%D7%9F_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99_(%D7%97%D7%A7%D7%99%D7%A8%D7%AA_%D7%97%D7%A9%D7%95%D7%93%D7%99%D7%9D)\" target=\"_blank\" rel=\"noopener\">חוק חקירת חשודים ס' 2</a></li><li>חקירה בעבירה שעונשה עשר שנות מאסר או יותר מתועדת בווידאו, למעט עבירות ביטחון והחריגים שבחוק. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%A1%D7%93%D7%A8_%D7%94%D7%93%D7%99%D7%9F_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99_(%D7%97%D7%A7%D7%99%D7%A8%D7%AA_%D7%97%D7%A9%D7%95%D7%93%D7%99%D7%9D)\" target=\"_blank\" rel=\"noopener\">חוק חקירת חשודים ס' 7, 17</a></li></ul></div></li><li class=\"jt79-step is-now\" aria-current=\"step\"><span class=\"jt79-n\" aria-hidden=\"true\">2</span><div class=\"jt79-body\"><p class=\"jt79-title\"><a href=\"/arrest-detention-lawyer-israel/\">מעצר ודיון בהארכה</a> <span class=\"jt79-state\">אתם כאן</span></p><ul class=\"jt79-facts\"><li>מי שנעצר מובא בפני שופט בהקדם האפשרי, ולא יאוחר מ-24 שעות. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%A1%D7%93%D7%A8_%D7%94%D7%93%D7%99%D7%9F_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99_(%D7%A1%D7%9E%D7%9B%D7%95%D7%99%D7%95%D7%AA_%D7%90%D7%9B%D7%99%D7%A4%D7%94_%E2%80%93_%D7%9E%D7%A2%D7%A6%D7%A8%D7%99%D7%9D)\" target=\"_blank\" rel=\"noopener\">חוק המעצרים ס' 29(א)</a></li><li>שופט מאריך מעצר לפני כתב אישום ב-15 ימים לכל היותר בכל פעם. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%A1%D7%93%D7%A8_%D7%94%D7%93%D7%99%D7%9F_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99_(%D7%A1%D7%9E%D7%9B%D7%95%D7%99%D7%95%D7%AA_%D7%90%D7%9B%D7%99%D7%A4%D7%94_%E2%80%93_%D7%9E%D7%A2%D7%A6%D7%A8%D7%99%D7%9D)\" target=\"_blank\" rel=\"noopener\">חוק המעצרים ס' 17(א)</a></li><li>לפני כתב אישום, לא יותר מ-30 ימי מעצר ברצף על אותו אירוע, אלא באישור היועץ המשפטי לממשלה. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%A1%D7%93%D7%A8_%D7%94%D7%93%D7%99%D7%9F_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99_(%D7%A1%D7%9E%D7%9B%D7%95%D7%99%D7%95%D7%AA_%D7%90%D7%9B%D7%99%D7%A4%D7%94_%E2%80%93_%D7%9E%D7%A2%D7%A6%D7%A8%D7%99%D7%9D)\" target=\"_blank\" rel=\"noopener\">חוק המעצרים ס' 17(ב)</a></li></ul></div></li><li class=\"jt79-step is-next\"><span class=\"jt79-n\" aria-hidden=\"true\">3</span><div class=\"jt79-body\"><p class=\"jt79-title\"><a href=\"/pre-indictment-hearing/\">שימוע לפני כתב אישום</a> <span class=\"jt79-state\">בהמשך</span></p><ul class=\"jt79-facts\"><li>בעבירת פשע, רשות התביעה שקיבלה את חומר החקירה שולחת לחשוד הודעה על כך, אלא אם פרקליט מחוז או ראש יחידת התביעות החליט שיש מניעה. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_סדר_הדין_הפלילי#סעיף_60א\" target=\"_blank\" rel=\"noopener\">חוק סדר הדין הפלילי ס' 60א(א)</a></li><li>תוך 30 יום מקבלת ההודעה החשוד רשאי לפנות בכתב לתביעה, בבקשה מנומקת, שלא יוגש נגדו כתב אישום או שלא יואשם בעבירה מסוימת. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_סדר_הדין_הפלילי#סעיף_60א\" target=\"_blank\" rel=\"noopener\">חוק סדר הדין הפלילי ס' 60א(ד)</a></li><li>חובת ההודעה אינה חלה על מי שהיה עצור כשחומר החקירה הועבר לתביעה, וכתב האישום הוגש בזמן מעצרו. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_סדר_הדין_הפלילי#סעיף_60א\" target=\"_blank\" rel=\"noopener\">חוק סדר הדין הפלילי ס' 60א(ז)</a></li></ul></div></li><li class=\"jt79-step is-next\"><span class=\"jt79-n\" aria-hidden=\"true\">4</span><div class=\"jt79-body\"><p class=\"jt79-title\"><a href=\"/criminal-indictment/\">כתב אישום ומעצר עד תום ההליכים</a> <span class=\"jt79-state\">בהמשך</span></p><ul class=\"jt79-facts\"><li>אחרי הגשת כתב אישום בפשע או בעוון, הנאשם וסניגורו רשאים לעיין בחומר החקירה וברשימת כל החומר שנאסף, ולהעתיקו. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_סדר_הדין_הפלילי#סעיף_74\" target=\"_blank\" rel=\"noopener\">חוק סדר הדין הפלילי ס' 74(א)(1)</a></li><li>מעצר עד תום ההליכים מחייב ראיות לכאורה, ובעילות החשש גם שאי אפשר להשיג את מטרת המעצר בשחרור בערובה ובתנאים. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_סדר_הדין_הפלילי_(סמכויות_אכיפה_–_מעצרים)#סעיף_21\" target=\"_blank\" rel=\"noopener\">חוק המעצרים ס' 21(ב)</a></li><li>נאשם שהיה עצור בסך הכול תשעה חודשים אחרי כתב האישום, ומשפטו בערכאה הראשונה לא הסתיים בהכרעת דין, ישוחרר, בערובה או בלעדיה. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_סדר_הדין_הפלילי_(סמכויות_אכיפה_–_מעצרים)#סעיף_61\" target=\"_blank\" rel=\"noopener\">חוק המעצרים ס' 61(א)</a></li></ul></div></li><li class=\"jt79-step is-next\"><span class=\"jt79-n\" aria-hidden=\"true\">5</span><div class=\"jt79-body\"><p class=\"jt79-title\"><a href=\"/plea-bargain/\">משפט, הסדר טיעון או הכרעה</a> <span class=\"jt79-state\">בהמשך</span></p><ul class=\"jt79-facts\"><li>בית המשפט שואל את הנאשם מה תשובתו לאישום; הוא רשאי לא להשיב, להודות בעובדות כולן או מקצתן, או לכפור בהן. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_סדר_הדין_הפלילי#סעיף_152\" target=\"_blank\" rel=\"noopener\">חוק סדר הדין הפלילי ס' 152(א)</a></li><li>גם כשיש ראיות מספיקות, תובע רשאי שלא להעמיד חשוד לדין ולהציע לו הסדר לסגירת התיק, אם הנסיבות מתאימות לכך. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_סדר_הדין_הפלילי#סעיף_67א\" target=\"_blank\" rel=\"noopener\">חוק סדר הדין הפלילי ס' 67א(ב)</a></li><li>נפגע עבירת מין או אלימות חמורה זכאי להביע את עמדתו לפני התובע על הסדר טיעון מתגבש, לפני שמתקבלת החלטה. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_זכויות_נפגעי_עבירה#סעיף_17\" target=\"_blank\" rel=\"noopener\">חוק זכויות נפגעי עבירה ס' 17(א)</a></li></ul></div></li><li class=\"jt79-step is-next\"><span class=\"jt79-n\" aria-hidden=\"true\">6</span><div class=\"jt79-body\"><p class=\"jt79-title\"><a href=\"/criminal-appeal/\">ערעור פלילי</a> <span class=\"jt79-state\">בהמשך</span></p><ul class=\"jt79-facts\"><li>ערעור מגישים תוך 45 יום ממתן פסק הדין; אם הכרעת הדין ניתנה בלי נימוקים, המניין מתחיל ממתן הנימוקים. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_סדר_הדין_הפלילי#סעיף_199\" target=\"_blank\" rel=\"noopener\">חוק סדר הדין הפלילי ס' 199</a></li><li>אם פסק הדין או נימוקיו ניתנו שלא בפני הנאשם, המועד לערעור נספר מהיום שהומצאו לו. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_סדר_הדין_הפלילי#סעיף_200\" target=\"_blank\" rel=\"noopener\">חוק סדר הדין הפלילי ס' 200</a></li><li>בית המשפט רשאי, לבקשת המערער, להתיר הגשת ערעור או בקשת רשות ערעור גם אחרי שחלף המועד. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_סדר_הדין_הפלילי#סעיף_201\" target=\"_blank\" rel=\"noopener\">חוק סדר הדין הפלילי ס' 201</a></li></ul></div></li><li class=\"jt79-step is-next\"><span class=\"jt79-n\" aria-hidden=\"true\">7</span><div class=\"jt79-body\"><p class=\"jt79-title\"><a href=\"/criminal-record-deletion/\">מחיקת רישום פלילי</a> <span class=\"jt79-state\">בהמשך</span></p><ul class=\"jt79-facts\"><li>בגיר שהורשע בלי מאסר ובלי רישום נוסף: ההרשעה מתיישנת כעבור ארבע שנים, ובעבירות מין, אלימות או סמים חמש; עם רישום נוסף שבע. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_המידע_הפלילי_ותקנת_השבים#סעיף_19\" target=\"_blank\" rel=\"noopener\">חוק המידע הפלילי ותקנת השבים ס' 19(א)(1)-(2)</a></li><li>אחרי ההתיישנות נספרת תקופת מחיקה: ארבע שנים בלי מאסר ובלי רישום נוסף, שבע במאסר עד חמש שנים, עשר במאסר ארוך יותר. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_המידע_הפלילי_ותקנת_השבים#סעיף_22\" target=\"_blank\" rel=\"noopener\">חוק המידע הפלילי ותקנת השבים ס' 22(1),(3),(4)</a></li><li>נשיא המדינה רשאי לקצר או לבטל את תקופת ההתיישנות ואת תקופת המחיקה של רישום פלילי של אדם. <a class=\"jt79-cite\" href=\"https://he.wikisource.org/wiki/חוק_המידע_הפלילי_ותקנת_השבים#סעיף_25\" target=\"_blank\" rel=\"noopener\">חוק המידע הפלילי ותקנת השבים ס' 25(1)</a></li></ul></div></li></ol><div class=\"jtool-tablewrap jt79-method\"><div class=\"jtool-tablewrap__head\"><h3 id=\"jt79-m-h\">מקורות הציר</h3></div><ol class=\"jtool-method-list\"><li>כל עובדה נבדקה בנוסח המשולב של החוק ב-31.10.2026, עם הסעיף שלה. עובדה שלא אומתה לא מופיעה.</li><li>ציטוט מהחוק מופיע במרכאות; השאר בניסוח חופשי של הסעיף.</li><li>חוק המרשם הפלילי משנת 1981 בוטל ב-12.7.2022; ההתיישנות והמחיקה הן לפי חוק המידע הפלילי ותקנת השבים.</li></ol></div><div class=\"jt79-print\">ההליך הפלילי (jus-tice.co.il, 31.10.2026). אתם בשלב 2 מתוך 7: מעצר ודיון בהארכה. הבא: שימוע לפני כתב אישום. מי שנעצר מובא בפני שופט בהקדם האפשרי, ולא יאוחר מ-24 שעות. (חוק המעצרים ס&#39; 29(א)) שופט מאריך מעצר לפני כתב אישום ב-15 ימים לכל היותר בכל פעם. (חוק המעצרים ס&#39; 17(א)) לפני כתב אישום, לא יותר מ-30 ימי מעצר ברצף על אותו אירוע, אלא באישור היועץ המשפטי לממשלה. (חוק המעצרים ס&#39; 17(ב))</div>",
+  "method": "<ol class=\"jtool-method-list\"><li>כל עובדה נבדקה בנוסח המשולב של החוק ב-31.10.2026, עם הסעיף שלה. עובדה שלא אומתה לא מופיעה.</li><li>ציטוט מהחוק מופיע במרכאות; השאר בניסוח חופשי של הסעיף.</li><li>חוק המרשם הפלילי משנת 1981 בוטל ב-12.7.2022; ההתיישנות והמחיקה הן לפי חוק המידע הפלילי ותקנת השבים.</li></ol>",
+  "sentence": "אתם בשלב 2 מתוך 7: מעצר ודיון בהארכה. הבא: שימוע לפני כתב אישום.",
+  "answer": {
+   "steps": [
+    "זימון וחקירה באזהרה",
+    "מעצר ודיון בהארכה",
+    "שימוע לפני כתב אישום",
+    "כתב אישום ומעצר עד תום ההליכים",
+    "משפט, הסדר טיעון או הכרעה",
+    "ערעור פלילי",
+    "מחיקת רישום פלילי"
+   ]
+  }
+ },
+ "zchuyot-chashud": {
+  "tool": "zchuyot-chashud",
+  "registry_version": "2026-10-31",
+  "input": {
+   "mode": "arrest"
+  },
+  "total": 7,
+  "sticky": "<bdi>7 זכויות</bdi>",
+  "form": "<fieldset class=\"jtool-field\"><legend>1. מה המצב</legend><div class=\"jtool-chips\"><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt80-mode\" value=\"interrogation\"><span>זומנתי לחקירה באזהרה</span></label><label class=\"jtool-chip\"><input type=\"radio\" name=\"jt80-mode\" value=\"arrest\" checked><span>נעצרתי</span></label></div><p class=\"jtool-error\" id=\"jt80-mode-e\" role=\"alert\"></p></fieldset>",
+  "result": "<div class=\"jtool-verdict jt80-verdict\" aria-live=\"polite\"><p class=\"jtool-example\">דוגמה: מי שנעצר. אפשר לעבור לחקירה באזהרה.</p><p class=\"jt80-sentence\">נעצרתי: 7 זכויות, כל אחת עם הסעיף שלה.</p><ol class=\"jt80-card\"><li class=\"jt80-right\"><strong class=\"jt80-title\">לדעת למה עוצרים אתכם</strong><span class=\"jt80-text\">\"יבהיר לו מיד את דבר המעצר ואת סיבת המעצר בלשון המובנת לו\"</span><a class=\"jt80-cite\" href=\"https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%A1%D7%93%D7%A8_%D7%94%D7%93%D7%99%D7%9F_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99_(%D7%A1%D7%9E%D7%9B%D7%95%D7%99%D7%95%D7%AA_%D7%90%D7%9B%D7%99%D7%A4%D7%94_%E2%80%93_%D7%9E%D7%A2%D7%A6%D7%A8%D7%99%D7%9D)\" target=\"_blank\" rel=\"noopener\">חוק המעצרים, ס' 32</a></li><li class=\"jt80-right\"><strong class=\"jt80-title\">לא לומר דבר שמפליל אתכם</strong><span class=\"jt80-text\"><span class=\"jt80-free\">בניסוח חופשי:</span> חייבים להשיב אמת, חוץ משאלות שהתשובה עליהן עלולה להפליל אתכם, ומזהירים אתכם על כך לפני החלטה על מעצר.</span><a class=\"jt80-cite\" href=\"https://he.wikisource.org/wiki/%D7%A4%D7%A7%D7%95%D7%93%D7%AA_%D7%94%D7%A4%D7%A8%D7%95%D7%A6%D7%93%D7%95%D7%A8%D7%94_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99%D7%AA_(%D7%A2%D7%93%D7%95%D7%AA)\" target=\"_blank\" rel=\"noopener\">פקודת הפרוצדורה הפלילית (עדות); חוק המעצרים, ס' 2(2); 28(א)</a></li><li class=\"jt80-right\"><strong class=\"jt80-title\">להתייעץ עם עורך דין</strong><span class=\"jt80-text\">\"עצור זכאי להיפגש עם עורך דין ולהיוועץ בו.\"</span><a class=\"jt80-cite\" href=\"https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%A1%D7%93%D7%A8_%D7%94%D7%93%D7%99%D7%9F_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99_(%D7%A1%D7%9E%D7%9B%D7%95%D7%99%D7%95%D7%AA_%D7%90%D7%9B%D7%99%D7%A4%D7%94_%E2%80%93_%D7%9E%D7%A2%D7%A6%D7%A8%D7%99%D7%9D)\" target=\"_blank\" rel=\"noopener\">חוק המעצרים, ס' 34(א)</a></li><li class=\"jt80-right\"><strong class=\"jt80-title\">שיודיעו לקרוב משפחה ולעורך דין</strong><span class=\"jt80-text\"><span class=\"jt80-free\">בניסוח חופשי:</span> הודעה על המעצר ועל המקום נמסרת בלי דיחוי לאדם קרוב שבחרתם, ולבקשתכם גם לעורך הדין שלכם.</span><a class=\"jt80-cite\" href=\"https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%A1%D7%93%D7%A8_%D7%94%D7%93%D7%99%D7%9F_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99_(%D7%A1%D7%9E%D7%9B%D7%95%D7%99%D7%95%D7%AA_%D7%90%D7%9B%D7%99%D7%A4%D7%94_%E2%80%93_%D7%9E%D7%A2%D7%A6%D7%A8%D7%99%D7%9D)\" target=\"_blank\" rel=\"noopener\">חוק המעצרים, ס' 33(א)-(ב)</a></li><li class=\"jt80-right is-urgent\"><strong class=\"jt80-title\">שופט בתוך 24 שעות</strong><span class=\"jt80-text\">\"יובא בהקדם האפשרי, ולא יאוחר מ־24 שעות, בפני שופט.\"</span><a class=\"jt80-cite\" href=\"https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%A1%D7%93%D7%A8_%D7%94%D7%93%D7%99%D7%9F_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99_(%D7%A1%D7%9E%D7%9B%D7%95%D7%99%D7%95%D7%AA_%D7%90%D7%9B%D7%99%D7%A4%D7%94_%E2%80%93_%D7%9E%D7%A2%D7%A6%D7%A8%D7%99%D7%9D)\" target=\"_blank\" rel=\"noopener\">חוק המעצרים, ס' 29(א)</a></li><li class=\"jt80-right\"><strong class=\"jt80-title\">חקירה בשפה שאתם מבינים</strong><span class=\"jt80-text\">\"חקירת חשוד תתנהל בשפתו או בשפה שהחשוד מבין ודובר אותה, לרבות שפת סימנים.\"</span><a class=\"jt80-cite\" href=\"https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%A1%D7%93%D7%A8_%D7%94%D7%93%D7%99%D7%9F_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99_(%D7%97%D7%A7%D7%99%D7%A8%D7%AA_%D7%97%D7%A9%D7%95%D7%93%D7%99%D7%9D)\" target=\"_blank\" rel=\"noopener\">חוק חקירת חשודים, ס' 2</a></li><li class=\"jt80-right\"><strong class=\"jt80-title\">תיעוד חזותי של החקירה בעבירות חמורות</strong><span class=\"jt80-text\"><span class=\"jt80-free\">בניסוח חופשי:</span> חקירה בעבירה שעונשה עשר שנות מאסר או יותר מתועדת בווידאו, למעט עבירות ביטחון והחריגים שבחוק.</span><a class=\"jt80-cite\" href=\"https://he.wikisource.org/wiki/%D7%97%D7%95%D7%A7_%D7%A1%D7%93%D7%A8_%D7%94%D7%93%D7%99%D7%9F_%D7%94%D7%A4%D7%9C%D7%99%D7%9C%D7%99_(%D7%97%D7%A7%D7%99%D7%A8%D7%AA_%D7%97%D7%A9%D7%95%D7%93%D7%99%D7%9D)\" target=\"_blank\" rel=\"noopener\">חוק חקירת חשודים, ס' 7, התוספת, 17</a></li></ol><p class=\"jtool-hint\">ציטוט מהחוק מופיע במרכאות; השאר בניסוח חופשי של הסעיף. אפשר להדפיס את הכרטיס ולשמור אותו.</p><p class=\"jt80-reviewed\">נבדק על ידי הצוות המשפטי של Justice · נבדק 31.10.2026</p></div>",
+  "details": "<p class=\"jt80-more\"><a href=\"/police-investigation-rights/\">זכויות חשוד בחקירה במשטרה</a> · <a href=\"/arrest-detention-lawyer-israel/\">עורך דין מעצרים</a></p><div class=\"jt80-print\">הזכויות שלכם (jus-tice.co.il, 31.10.2026). נעצרתי: לדעת למה עוצרים אתכם (חוק המעצרים ס&#39; 32); לא לומר דבר שמפליל אתכם (פקודת הפרוצדורה הפלילית (עדות); חוק המעצרים ס&#39; 2(2); 28(א)); להתייעץ עם עורך דין (חוק המעצרים ס&#39; 34(א)); שיודיעו לקרוב משפחה ולעורך דין (חוק המעצרים ס&#39; 33(א)-(ב)); שופט בתוך 24 שעות (חוק המעצרים ס&#39; 29(א)); חקירה בשפה שאתם מבינים (חוק חקירת חשודים ס&#39; 2); תיעוד חזותי של החקירה בעבירות חמורות (חוק חקירת חשודים ס&#39; 7, התוספת, 17).</div>",
+  "method": "<ol class=\"jtool-method-list\"><li>כל עובדה נבדקה בנוסח המשולב של החוק ב-31.10.2026, עם הסעיף שלה. עובדה שלא אומתה לא מופיעה.</li><li>ציטוט מהחוק מופיע במרכאות; השאר בניסוח חופשי של הסעיף.</li><li>חוק המרשם הפלילי משנת 1981 בוטל ב-12.7.2022; ההתיישנות והמחיקה הן לפי חוק המידע הפלילי ותקנת השבים.</li></ol>",
+  "sentence": "נעצרתי: 7 זכויות, כל אחת עם הסעיף שלה.",
+  "answer": {
+   "rights": [
+    {
+     "he": "לדעת למה עוצרים אתכם",
+     "law": "חוק המעצרים",
+     "section": "32"
+    },
+    {
+     "he": "לא לומר דבר שמפליל אתכם",
+     "law": "פקודת הפרוצדורה הפלילית (עדות); חוק המעצרים",
+     "section": "2(2); 28(א)"
+    },
+    {
+     "he": "להתייעץ עם עורך דין",
+     "law": "חוק המעצרים",
+     "section": "34(א)"
+    },
+    {
+     "he": "שיודיעו לקרוב משפחה ולעורך דין",
+     "law": "חוק המעצרים",
+     "section": "33(א)-(ב)"
+    },
+    {
+     "he": "שופט בתוך 24 שעות",
+     "law": "חוק המעצרים",
+     "section": "29(א)"
+    },
+    {
+     "he": "חקירה בשפה שאתם מבינים",
+     "law": "חוק חקירת חשודים",
+     "section": "2"
+    },
+    {
+     "he": "תיעוד חזותי של החקירה בעבירות חמורות",
+     "law": "חוק חקירת חשודים",
+     "section": "7, התוספת, 17"
+    }
+   ]
+  }
  }
 }

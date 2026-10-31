@@ -47,6 +47,8 @@
  *                                                      inc/justice-tools-divorce-calc.php;
  *                                                      the lawyer chooser and the statistics:
  *                                                      inc/justice-tools-divorce-guide.php
+ *   [justice_tool name="bchirat-orech-din-plili"]     the criminal hub (31.10.2026, HAD-651): the lawyer selector and the fee table
+ *                                                      by stage, see inc/justice-tools-criminal.php
  *
  * Claude Design boards: https://claude.ai/artifact/JHKhphmy9L1QbYYUk2KX4e (wave 1),
  * https://claude.ai/artifact/759KGxB7GDSy5NHaajW8sJ (wave 2), wave 3 (HAD-498): see the PR.
@@ -522,7 +524,7 @@ function justice_tools_catalog(): array {
 	// The consumer-law wave (HAD-593): three instruments, in inc/justice-tools-consumer.php.
 	// The medical-malpractice wave (HAD-594): four instruments, in inc/justice-tools-malpractice.php.
 	// The divorce calculator and price list (HAD-616): one instrument, in inc/justice-tools-divorce-calc.php.
-	return array_merge( $catalog, justice_tools_inheritance_catalog(), justice_tools_rights_catalog(), justice_tools_fl_catalog(), justice_tools_labor_catalog(), justice_tools_injury_catalog(), justice_tools_consumer_catalog(), justice_tools_malpractice_catalog(), justice_tools_divcalc_catalog(), justice_tools_dguide_catalog() );
+	return array_merge( $catalog, justice_tools_inheritance_catalog(), justice_tools_rights_catalog(), justice_tools_fl_catalog(), justice_tools_labor_catalog(), justice_tools_injury_catalog(), justice_tools_consumer_catalog(), justice_tools_malpractice_catalog(), justice_tools_divcalc_catalog(), justice_tools_dguide_catalog(), justice_tools_crim_catalog() );
 }
 
 /** The day a tool's own sources were checked: the wave-3 tools carry it in their dataset. */
@@ -813,6 +815,9 @@ function justice_tools_answer( string $name, string $mode = '' ): string {
 	if ( in_array( $name, justice_tools_dguide_names(), true ) ) {
 		return justice_tools_dguide_answer( $name, $mode );
 	}
+	if ( in_array( $name, justice_tools_crim_names(), true ) ) {
+		return justice_tools_crim_answer( $name, $mode );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_answer( $name, $mode );
 	}
@@ -933,6 +938,9 @@ function justice_tools_stamp( string $name, string $mode = '' ): string {
 	if ( in_array( $name, justice_tools_dguide_names(), true ) ) {
 		return justice_tools_dguide_stamp( $name, $mode );
 	}
+	if ( in_array( $name, justice_tools_crim_names(), true ) ) {
+		return justice_tools_crim_stamp( $name, $mode );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_stamp( $name, $mode );
 	}
@@ -1019,6 +1027,9 @@ function justice_tools_sources( string $name ): array {
 	}
 	if ( in_array( $name, justice_tools_dguide_names(), true ) ) {
 		return justice_tools_dguide_sources( $name );
+	}
+	if ( in_array( $name, justice_tools_crim_names(), true ) ) {
+		return justice_tools_crim_sources( $name );
 	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_sources( $name );
@@ -1812,6 +1823,9 @@ function justice_tools_numbers_html( string $name ): string {
 	if ( in_array( $name, justice_tools_dguide_names(), true ) ) {
 		return justice_tools_dguide_numbers_html( $name );
 	}
+	if ( in_array( $name, justice_tools_crim_names(), true ) ) {
+		return justice_tools_crim_numbers_html( $name );
+	}
 	if ( in_array( $name, array( 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin' ), true ) ) {
 		return justice_tools_family_numbers_html( $name );
 	}
@@ -1893,7 +1907,7 @@ function justice_tools_numbers_html( string $name ): string {
 
 /** Comparison table (page standard A6). */
 function justice_tools_compare_html( string $name ): string {
-	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin', 'luach-shahut', 'maakav-mezonot', 'mapat-gerushin' ), true ) || in_array( $name, justice_tools_inheritance_names(), true ) || in_array( $name, justice_tools_rights_names(), true ) || in_array( $name, justice_tools_fl_names(), true ) || in_array( $name, justice_tools_labor_names(), true ) || in_array( $name, justice_tools_injury_names(), true ) || in_array( $name, justice_tools_consumer_names(), true ) || in_array( $name, justice_tools_malpractice_names(), true ) || in_array( $name, justice_tools_divcalc_names(), true ) || in_array( $name, justice_tools_dguide_names(), true ) ) {
+	if ( in_array( $name, array( 'yerusha', 'mas-rechisha', 'hetel-hashbacha', 'tzavaa', 'teunat-drachim', 'gerushin', 'chozeh-schirut', 'pitzuyim', 'mas-shevach', 'mezonot', 'izun', 'heskem-mamon', 'heskem-gerushin', 'luach-shahut', 'maakav-mezonot', 'mapat-gerushin' ), true ) || in_array( $name, justice_tools_inheritance_names(), true ) || in_array( $name, justice_tools_rights_names(), true ) || in_array( $name, justice_tools_fl_names(), true ) || in_array( $name, justice_tools_labor_names(), true ) || in_array( $name, justice_tools_injury_names(), true ) || in_array( $name, justice_tools_consumer_names(), true ) || in_array( $name, justice_tools_malpractice_names(), true ) || in_array( $name, justice_tools_divcalc_names(), true ) || in_array( $name, justice_tools_dguide_names(), true ) || in_array( $name, justice_tools_crim_names(), true ) ) {
 		$snap = justice_tools_snapshot( $name );
 		return '<div class="jtool-page">' . ( $snap['compare_table'] ?? '' ) . '</div>';
 	}
@@ -2070,3 +2084,5 @@ require_once __DIR__ . '/justice-tools-malpractice.php';
 require_once __DIR__ . '/justice-tools-divorce-calc.php';
 // The lawyer chooser and the divorce statistics (HAD-616): inc/justice-tools-divorce-guide.php.
 require_once __DIR__ . '/justice-tools-divorce-guide.php';
+// The criminal lawyer selector and the criminal fee table (HAD-651): inc/justice-tools-criminal.php.
+require_once __DIR__ . '/justice-tools-criminal.php';

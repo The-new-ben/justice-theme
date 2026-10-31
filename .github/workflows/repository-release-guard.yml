@@ -180,6 +180,11 @@ jobs:
           node tests/js/test-divorce-chooser.mjs
           node tests/js/test-divorce-stats.mjs
           php tests/test-divorce-guide.php
+      - name: Test the criminal lawyer selector and the criminal fee table (31.10.2026, HAD-651)
+        run: |
+          set -euo pipefail
+          node tests/js/test-criminal-tools.mjs
+          php tests/test-criminal-tools.php
           python3 -m py_compile tools/justice_tools_fl_bchira.py tools/justice_tools_fl_netunim.py tools/build-office-map.py
 
       - name: Enforce append-only release ZIPs

@@ -24,6 +24,8 @@ import json
 from pathlib import Path
 
 KEY = "fl_mechiron"
+# Built after every other dataset, from the registry being assembled (tools/justice_tools_fl.py add_fl_dependents()).
+READS_REGISTRY = True
 REGISTRY = Path(__file__).resolve().parent.parent / "assets" / "data" / "justice-tools-registry.json"
 LINKED = ("rotenberglaw.co.il", "gov.il", "nevo.co.il", "idi.org.il", "knesset.gov.il")
 
@@ -1309,10 +1311,11 @@ def _market() -> list:
     return out
 
 
-def build(checked_on: str) -> dict:
+def build(checked_on: str, registry: dict | None = None) -> dict:
     """The divorce calculator and price list: official rows resolved from the registry, market rows with their sources,
-    the published durations, and the texts the instrument and the page print."""
-    reg = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    the published durations, and the texts the instrument and the page print. `registry` is the registry being assembled
+    (so a refresh of the fee datasets flows in on the same run); without it, the committed registry is read."""
+    reg = registry if registry is not None else json.loads(REGISTRY.read_text(encoding="utf-8"))
     return {
         "name_he": "מחשבון גירושין ומחירון גירושין",
         "publisher_he": "תקנות הדיינים (אגרות), תקנות בית המשפט לעניני משפחה (אגרות), תקנות בתי המשפט (אגרות), כללי לשכת עורכי הדין, "

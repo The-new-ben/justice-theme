@@ -79,6 +79,8 @@ check(line(joint, 'actuary').payer === 'split' && war.totals.mid.gross - joint.t
 const half = run('half');
 check(line(half, 'rep_a').mid === Math.min(3 * mk('lawyer_claim').mid, co.mid) && line(half, 'rep_a').high === co.high, 'compromise: a claim per open subject, never more than the full proceeding');
 check(half.flags.some((f) => f.code === 'refund'), 'compromise: the refund of the fee on an early settlement is named');
+const halfOne = run('half', { rep: 'one' });
+check(line(halfOne, 'rep_one').high === co.high && line(halfOne, 'rep_one').mid === line(half, 'rep_a').mid, 'compromise with one lawyer: the same cap (review, PR 173)');
 const med = run('mediate');
 check(line(med, 'mediator').payer === 'split' && line(med, 'rep_a').mid === mk('lawyer_consult').mid && med.dur.low === null, 'mediation: the mediator shared; each side checks the agreement in one consultation; no published duration (לא נבדק)');
 

@@ -23,6 +23,26 @@ def add_fl(registry: dict, day: str | None) -> list:
     keys = []
     for name in fl_modules():
         module = importlib.import_module(name)
+        if getattr(module, "READS_REGISTRY", False):
+            continue  # built by add_fl_dependents(), after every other dataset
         registry[module.KEY] = module.build(day)
+        keys.append(module.KEY)
+    return keys
+
+
+def add_fl_dependents(registry: dict, day: str | None) -> list:
+    """The datasets that resolve their amounts from other datasets (READS_REGISTRY, the divorce price list of HAD-616):
+    built last, from the registry being assembled, so a fee refreshed on this run reaches them on this run. Without a day,
+    each keeps the checked_on it already has, and is rebuilt only when it is already in the registry."""
+    keys = []
+    for name in fl_modules():
+        module = importlib.import_module(name)
+        if not getattr(module, "READS_REGISTRY", False):
+            continue
+        when = day or (registry.get(module.KEY) or {}).get("checked_on")
+        if not when:
+            continue
+        registry["registry_version"] = max(registry["registry_version"], when)
+        registry[module.KEY] = module.build(when, registry)
         keys.append(module.KEY)
     return keys

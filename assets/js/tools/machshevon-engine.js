@@ -161,6 +161,13 @@ export function mgCompute(reg, input) {
 	const times = route === 'compromise' ? Math.max(1, subjects.length) : 1;
 	const lawyerHe = { agree: 'עורך דין: עריכת הסכם הגירושין', mediate: 'עורך דין: פגישת ייעוץ לבדיקת הסכם הגישור', compromise: `עורך דין: ${times === 1 ? 'תביעה אחת' : `${times} תביעות`} עד הפשרה`, contested: 'עורך דין: הליך מלא במחלוקת' }[route];
 	const pleader = input.pleader && rb;
+	// A compromise: a claim per open subject, never more than the whole contested proceeding (each bound on its own).
+	const compromiseFee = () => {
+		const c = mgMarket(reg, 'lawyer_claim');
+		const full = mgMarket(reg, 'lawyer_contested');
+		if (!c || c.low === null || !full || full.low === null) { return null; }
+		return { low: Math.min(c.low * times, full.low), mid: Math.min(c.mid * times, full.mid), high: Math.min(c.high * times, full.high), n: c.n };
+	};
 	const lawyerSide = (side) => {
 		if (pleader) { market(`rep_${side}`, disputed ? 'pleader' : 'pleader_agreement', `טוען רבני: ${disputed ? 'ליווי התיק' : 'הסכם הגירושין'}, ${side === 'a' ? 'צד א' : 'צד ב'}`, side); return; }
 		if (side === 'a' && quote !== null) {
@@ -175,11 +182,9 @@ export function mgCompute(reg, input) {
 			return;
 		}
 		if (route === 'compromise') {
-			// A claim per open subject, never more than the whole contested proceeding (each bound on its own).
-			const c = mgMarket(reg, 'lawyer_claim');
-			const full = mgMarket(reg, 'lawyer_contested');
-			if (!c || c.low === null || !full || full.low === null) { missing.push('lawyer_claim'); return; }
-			add(`rep_${side}`, 'pro', `${lawyerHe}, ${side === 'a' ? 'צד א' : 'צד ב'}`, Math.min(c.low * times, full.low), Math.min(c.mid * times, full.mid), Math.min(c.high * times, full.high), side, { kind: 'market', id: 'lawyer_claim', n: c.n, times });
+			const c = compromiseFee();
+			if (!c) { missing.push('lawyer_claim'); return; }
+			add(`rep_${side}`, 'pro', `${lawyerHe}, ${side === 'a' ? 'צד א' : 'צד ב'}`, c.low, c.mid, c.high, side, { kind: 'market', id: 'lawyer_claim', n: c.n, times });
 			return;
 		}
 		market(`rep_${side}`, lawyerId, `${lawyerHe}, ${side === 'a' ? 'צד א' : 'צד ב'}`, side, times);
@@ -192,6 +197,9 @@ export function mgCompute(reg, input) {
 		if (quote !== null) {
 			const v = input.quoteVat === 'incl' ? quote * 100 / (100 + vatPct) : quote;
 			add('rep_one', 'pro', `${lawyerHe}, עורך דין אחד לשניכם (ההצעה שלכם)`, v, v, v, 'split', { kind: 'own' });
+		} else if (route === 'compromise') {
+			const c = compromiseFee();
+			if (c) { add('rep_one', 'pro', `${lawyerHe}, עורך דין אחד לשניכם`, c.low, c.mid, c.high, 'split', { kind: 'market', id: 'lawyer_claim', n: c.n, times }); } else { missing.push('lawyer_claim'); }
 		} else {
 			market('rep_one', lawyerId, `${lawyerHe}, עורך דין אחד לשניכם`, 'split', times);
 		}

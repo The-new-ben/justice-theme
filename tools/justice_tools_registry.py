@@ -1161,6 +1161,8 @@ def main() -> int:
             if key.startswith("malpractice_"):
                 registry[key] = base[key]
         add_malpractice(registry, args.malpractice_checked_on)
+        # The datasets that read others (the divorce price list, HAD-616) are rebuilt last, from this registry.
+        add_fl_dependents(registry, args.fl_checked_on)
         write_registry(registry, args.out)
         return 0
 
@@ -1200,6 +1202,7 @@ def main() -> int:
     add_injury(registry, args.injury_checked_on or args.checked_on)
     add_consumer(registry, args.consumer_checked_on or args.checked_on)
     add_malpractice(registry, args.malpractice_checked_on or args.checked_on)
+    add_fl_dependents(registry, args.fl_checked_on or args.checked_on)
     write_registry(registry, args.out)
     return 0
 
@@ -1284,6 +1287,12 @@ def add_consumer(registry: dict, day: str | None) -> None:
         return
     import justice_tools_consumer as consumer  # tools/ is the script's own folder
     consumer.add_consumer(registry, day)
+
+
+def add_fl_dependents(registry: dict, day: str | None) -> None:
+    """HAD-616: the family + land datasets that resolve amounts from other datasets, built after all of them."""
+    import justice_tools_fl as fl  # tools/ is the script's own folder
+    fl.add_fl_dependents(registry, day)
 
 
 def add_malpractice(registry: dict, day: str | None) -> None:

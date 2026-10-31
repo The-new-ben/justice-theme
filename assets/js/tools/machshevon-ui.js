@@ -175,13 +175,19 @@ export function renderResult(reg, r, opts = {}) {
 		+ band(r)
 		+ `<p class="jtool-verdict__sentence">${esc(verdictSentence(reg, r))}</p>`
 		+ sidesBox(r) + '</div>'
-		+ `<div class="${P}-sec"><h3 class="${P}-h">החשבון המפורט</h3>${bill(reg, r)}</div>`
-		+ `<div class="${P}-sec"><h3 class="${P}-h">השוואה בין תרחישים</h3>${scenarioTable(reg, opts.input || {}, r)}</div>`
-		+ leversBox(reg, opts.input || {}, r)
-		+ timeBox(reg, r)
 		+ (flags.length ? `<ul class="jtool-flags ${P}-flags">${flags.map((x) => `<li>${esc(x.he)}</li>`).join('')}</ul>` : '')
 		+ (miss ? `<p class="jtool-hint">${esc(miss.he)}</p>` : '')
-		+ `<div class="${P}-next"><h4>הצעד הבא</h4><ul>${nextLinks(reg, r).map((x) => `<li><a href="${esc(x.href)}">${esc(x.he)}</a></li>`).join('')}</ul><p class="${P}-reviewed">${esc(m.reviewed_he)} · עודכן ${isoToHe(m.checked_on)}</p></div>`;
+		+ `<p class="${P}-reviewed">${esc(m.reviewed_he)} · עודכן ${isoToHe(m.checked_on)} · <a href="#${P}-bill-h">החשבון המפורט וההשוואה</a></p>`;
+}
+
+/** The full-width part under the form and the result: the bill, the four routes, the levers, the time, the next steps. */
+export function analysis(reg, r, input) {
+	if (!r.ok) { return ''; }
+	return `<div class="${P}-sec"><h3 class="${P}-h" id="${P}-bill-h">החשבון המפורט</h3>${bill(reg, r)}</div>`
+		+ `<div class="${P}-sec"><h3 class="${P}-h">השוואה בין תרחישים</h3>${scenarioTable(reg, input || {}, r)}</div>`
+		+ leversBox(reg, input || {}, r)
+		+ timeBox(reg, r)
+		+ `<div class="${P}-next"><h4>הצעד הבא</h4><ul>${nextLinks(reg, r).map((x) => `<li><a href="${esc(x.href)}">${esc(x.he)}</a></li>`).join('')}</ul></div>`;
 }
 
 /* ---------------- The price list (the page table) ---------------- */
@@ -246,7 +252,7 @@ export function printSummary(reg, r, printedOn) {
 
 export function renderDetails(reg, r, opts = {}) {
 	if (!r.ok) { return ''; }
-	return `<div class="${P}-screen"><div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-m-h">איך חישבנו</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="print">הדפסת סיכום</button></div></div>${methodList(reg)}</div></div>`
+	return `<div class="${P}-screen">${analysis(reg, r, opts.input)}<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-m-h">איך חישבנו</h3><div class="jtool-actions"><button class="jtool-btn" type="button" data-act="print">הדפסת סיכום</button></div></div>${methodList(reg)}</div></div>`
 		+ `<div class="${P}-print">${printSummary(reg, r, opts.printedOn || reg.fl_mechiron.checked_on)}</div>`;
 }
 
@@ -290,7 +296,7 @@ export function snapshot(reg) {
 		sticky: shk(r.totals.mid.gross),
 		form: renderForm(reg, EXAMPLE),
 		result: renderResult(reg, r, { example: true, input: EXAMPLE }),
-		details: renderDetails(reg, r, { printedOn: reg.fl_mechiron.checked_on }),
+		details: renderDetails(reg, r, { printedOn: reg.fl_mechiron.checked_on, input: EXAMPLE }),
 		method: methodList(reg),
 		compare_table: priceTable(reg),
 		sentence: verdictSentence(reg, r),
@@ -359,7 +365,7 @@ export function mount(root, reg) {
 		const r = mgCompute(reg, input);
 		showErrors(r);
 		result.innerHTML = renderResult(reg, r, { input });
-		details.innerHTML = renderDetails(reg, r, { printedOn: today });
+		details.innerHTML = renderDetails(reg, r, { printedOn: today, input });
 		if (sticky) { sticky.innerHTML = r.ok ? shk(r.totals.mid.gross) : '—'; }
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: mgBandOf(r) }); }
 		return r;

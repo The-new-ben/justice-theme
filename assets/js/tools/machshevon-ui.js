@@ -58,7 +58,9 @@ const mgUrl = (u) => { try { return decodeURI(u); } catch (e) { return u; } };
 const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } };
 /** A source's name: a link for official pages and Adv. Maya Rotenberg's office, the name and the site for other offices. */
 const srcName = (s) => (s.link ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name_he)}</a>` : `${esc(s.name_he)} <span dir="ltr">${esc(host(s.url))}</span>`);
-const months = (d) => (d && d.low !== null ? (d.low === d.high ? `${d.low} חודשים` : `${d.low} עד ${d.high} חודשים`) : 'לא נבדק');
+/** Months as people say them: half a month is "שבועיים" (the source's own word), the rest in months. */
+const mo = (n) => (n === 0.5 ? 'שבועיים' : `${n} חודשים`);
+const months = (d) => (d && d.low !== null ? (d.low === d.high ? mo(d.low) : `${d.low === 0.5 ? 'שבועיים' : d.low} עד ${mo(d.high)}`) : 'לא נבדק');
 
 /* ---------------- Pure renderers ---------------- */
 

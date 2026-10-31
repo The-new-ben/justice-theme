@@ -76,6 +76,11 @@ const details = U.renderDetails(reg, ex);
 check(details.includes('jt75-live') && details.includes('<th scope="row" data-th="שנה">1955</th>') && details.includes('11,093') && details.includes('חיוב גט') && !bad(details), 'details: the full table from 1955, the rabbinical tables');
 check((details.match(/<tr>/g) || []).length > 100, 'details: every year and the rabbinical rows in the server HTML');
 
+const other = U.ntCompute(reg, { metric: 'married', group: 'jews', year: '2010' });
+check(U.printText(reg, other, '2026-11-01') === `${other.sentence} (נתוני גירושין בישראל, jus-tice.co.il, 1.11.2026)` && U.printText(reg, other, '2026-11-01') !== U.printText(reg, ex, '2026-11-01'), 'print: the line follows the current choice, not the server example (PR 176 review)');
+const clash = U.ntCompute(reg, { year: '2014', vs: '2014' });
+check(clash.input.year === '2014' && clash.input.vs === '2004', 'a year against itself: the engine moves the comparison ten years back, and mount() writes it into the menu (PR 176 review)');
+
 /* ---------- 5. Share link ---------- */
 const input = { metric: 'married', group: 'muslims', year: '2010', vs: '2020', cut: 'city', age: '41' };
 const back = U.inputOf(reg, decodeState(U.stateOf(reg, input), U.KEYS));

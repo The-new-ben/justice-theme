@@ -6,7 +6,7 @@
  * against the table", and the rabbinical courts' own counts by year. Every number is in reg.fl_netunim
  * (tools/justice_tools_fl_netunim.py) with its table and publication; a year a source did not publish is missing.
  */
-import { esc, money, isoToHe, encodeState, decodeState, track, copyText, toast, shareUrl, whatsappUrl, store, stickyBar } from './instrument.js';
+import { esc, money, isoToHe, encodeState, decodeState, track, copyText, toast, shareUrl, whatsappUrl, store, stickyBar, ilToday } from './instrument.js';
 
 export const TOOL_ID = 'netunei-gerushin';
 export const PAGE = '/divorce-lawyer/';
@@ -204,9 +204,14 @@ export function methodList(reg) {
 	return `<ol class="jtool-method-list">${reg.fl_netunim.method_he.map((t) => `<li>${esc(t)}</li>`).join('')}</ol>`;
 }
 
+/** The line the print stylesheet shows: the current sentence, never the server's example (PR 176 review). */
+export function printText(reg, r, printedOn) {
+	return r.ok ? `${r.sentence} (נתוני גירושין בישראל, jus-tice.co.il, ${isoToHe(printedOn || reg.fl_netunim.checked_on)})` : '';
+}
+
 export function renderDetails(reg, r, opts = {}) {
 	return `<div class="${P}-screen">${liveBlock(reg, r)}${yearTable(reg)}${rabbinicalTables(reg)}<div class="jtool-tablewrap"><div class="jtool-tablewrap__head"><h3 id="${P}-m-h">איך קוראים את הנתונים</h3></div>${methodList(reg)}</div></div>`
-		+ `<div class="${P}-print">${esc(r.ok ? `${r.sentence} (נתוני גירושין בישראל, jus-tice.co.il, ${isoToHe(opts.printedOn || reg.fl_netunim.checked_on)})` : '')}</div>`;
+		+ `<div class="${P}-print">${esc(printText(reg, r, opts.printedOn))}</div>`;
 }
 
 export const KEYS = ['m', 'g', 'y', 'v', 'c', 'a'];
@@ -282,6 +287,15 @@ export function mount(root, reg) {
 		result.innerHTML = renderResult(reg, r);
 		const live = root.querySelector(`.${P}-live`);
 		if (live) { live.outerHTML = liveBlock(reg, r); }
+		const print = root.querySelector(`.${P}-print`);
+		if (print) { print.textContent = printText(reg, r, ilToday()); }
+		// The engine may move the comparison year (a year against itself): the menus show what was computed (PR 176 review).
+		if (r.ok) {
+			const y = root.querySelector(`#${P}-year`);
+			const v = root.querySelector(`#${P}-vs`);
+			if (y && y.value !== r.input.year) { y.value = r.input.year; }
+			if (v && v.value !== r.input.vs) { v.value = r.input.vs; }
+		}
 		if (sticky && r.ok) { sticky.innerHTML = `<bdi>${fmt(r.metric.kind, r.value)}</bdi>`; }
 		if (r.ok && !opts.silent) { track('tool_result', { tool_id: TOOL_ID, band: `${r.input.metric}-${r.input.group}-${r.input.cut}` }); }
 		return r;
